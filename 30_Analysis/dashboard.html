@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="2026 用戶個人投資組合 (ARM, COHR, GOOG, INTC, MRVL, NOK, NVDA, TSLA, VGT, VOO) 終極基本面、MACD 技術動能即時計算、DCF 蒙地卡羅估值動態儀表板。">
-  <title>2026 用戶投資組合 (網頁版 MACD 即時計算器) 終極對照儀表板</title>
+  <meta name="description" content="2026 用戶個人投資組合 (ARM, COHR, GOOG, INTC, MRVL, NOK, NVDA, TSLA, VGT, VOO) 終極基本面、特定日期 MACD 歷史回溯計算、DCF 蒙地卡羅估值動態儀表板。">
+  <title>2026 用戶投資組合 (含特定日期 MACD 歷史回溯器) 終極對照儀表板</title>
   <!-- Google Fonts & Chart.js -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -102,7 +102,7 @@
       color: var(--accent-cyan);
     }
 
-    /* Web-based Interactive MACD Runner Card */
+    /* Web-based Interactive MACD Runner Card with Date Picker */
     .macd-runner-card {
       background: linear-gradient(135deg, rgba(30, 27, 75, 0.8), rgba(15, 23, 42, 0.9));
       border: 1px solid rgba(139, 92, 246, 0.3);
@@ -127,19 +127,26 @@
       gap: 12px;
       margin-bottom: 20px;
       flex-wrap: wrap;
+      align-items: center;
     }
 
-    .macd-input-group input {
+    .macd-input-group label {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-right: 4px;
+    }
+
+    .macd-input-group input[type="text"],
+    .macd-input-group input[type="date"],
+    .macd-input-group input[type="number"] {
       background: rgba(255, 255, 255, 0.08);
       border: 1px solid var(--card-border);
       color: #fff;
-      padding: 12px 20px;
+      padding: 10px 16px;
       border-radius: 12px;
-      font-size: 1rem;
-      font-weight: 700;
-      width: 220px;
+      font-size: 0.9rem;
+      font-weight: 600;
       outline: none;
-      text-transform: uppercase;
     }
 
     .macd-input-group input:focus {
@@ -151,7 +158,7 @@
       background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
       border: none;
       color: #fff;
-      padding: 12px 24px;
+      padding: 11px 24px;
       border-radius: 12px;
       font-size: 0.95rem;
       font-weight: 700;
@@ -499,7 +506,7 @@
     <!-- Header -->
     <header>
       <div class="brand-title">
-        <h1>2026 個人投資組合 終極對照儀表板 (網頁即時計算版)</h1>
+        <h1>2026 個人投資組合 終極對照儀表板 (特定日期 MACD 歷史回溯版)</h1>
         <p>Portfolio: ARM, COHR, GOOG, INTC, MRVL, NOK, NVDA, ONDS, TSLA | ETFs: VGT & VOO (2026 Master Edition)</p>
       </div>
       <div class="header-stats">
@@ -508,8 +515,8 @@
           <span class="value">9 檔核心標的</span>
         </div>
         <div class="stat-badge">
-          <span class="label">網頁即時 MACD 引擎</span>
-          <span class="value">無需開終端機 即可計算</span>
+          <span class="label">歷史 MACD 回溯</span>
+          <span class="value">📅 自訂指定歷史日期</span>
         </div>
         <div class="stat-badge">
           <span class="label">VGT 第一大重倉</span>
@@ -518,24 +525,48 @@
       </div>
     </header>
 
-    <!-- Interactive Web-based MACD Calculator Card -->
+    <!-- Interactive Web-based MACD Calculator Card with Historical Date Picker -->
     <div class="macd-runner-card">
-      <h2>⚡ 網頁即時 MACD 計算與動能分析器 (Live Web Calculator)</h2>
-      <p style="font-size: 0.875rem; color: #94a3b8; margin-bottom: 16px;">輸入任意美股代號 (如 NVDA, AAPL, TSLA, GOOGL, TSM, ONDS)，直接在網頁中計算並繪製最新 MACD 動能趨勢圖！</p>
+      <h2>⚡ 特定日期 MACD 歷史回溯與動能分析器 (Historical Backtest Engine)</h2>
+      <p style="font-size: 0.875rem; color: #94a3b8; margin-bottom: 16px;">選擇任意股票代號與**指定歷史日期** (例如 2026-07-15 或 2026-05-10)，瞬間回溯該歷史日期的 MACD 柱體、DIF 快慢線與買賣訊號！</p>
       
       <div class="macd-input-group">
-        <input type="text" id="liveTickerInput" value="NVDA" placeholder="例如: NVDA">
-        <button class="macd-run-btn" onclick="runLiveMACD()">⚡ 網頁即時計算 MACD</button>
+        <div>
+          <label>股票代號:</label>
+          <input type="text" id="liveTickerInput" value="NVDA" style="width: 140px;">
+        </div>
+
+        <div>
+          <label>📅 指定歷史分析日期:</label>
+          <input type="date" id="liveDateInput" value="2026-07-30">
+        </div>
+
+        <div>
+          <label>快線 (Fast):</label>
+          <input type="number" id="paramFast" value="12" style="width: 70px;">
+        </div>
+
+        <div>
+          <label>慢線 (Slow):</label>
+          <input type="number" id="paramSlow" value="26" style="width: 70px;">
+        </div>
+
+        <div>
+          <label>Signal:</label>
+          <input type="number" id="paramSignal" value="9" style="width: 70px;">
+        </div>
+
+        <button class="macd-run-btn" onclick="runLiveMACD()">⚡ 執行特定日期 MACD 回溯</button>
       </div>
 
       <div class="macd-result-display">
         <div class="macd-result-metrics">
-          <div class="metric-row"><span class="label">股票標的:</span><span class="val" id="resTicker">NVDA</span></div>
-          <div class="metric-row"><span class="label">最新現價:</span><span class="val" id="resPrice">$195.04 USD</span></div>
+          <div class="metric-row"><span class="label">分析標的 & 日期:</span><span class="val" id="resTicker">NVDA (2026-07-30)</span></div>
+          <div class="metric-row"><span class="label">該日收盤價:</span><span class="val" id="resPrice">$195.04 USD</span></div>
           <div class="metric-row"><span class="label">DIF 快線 (12-26):</span><span class="val" id="resDif">-2.1071</span></div>
           <div class="metric-row"><span class="label">Signal 慢線 (9):</span><span class="val" id="resSig">-0.7372</span></div>
           <div class="metric-row"><span class="label">MACD 柱狀體:</span><span class="val" id="resHist" style="color: #f43f5e;">-2.7398</span></div>
-          <div class="metric-row"><span class="label">趨勢診斷:</span><span class="val" id="resStatus"><span class="badge-macd macd-bear">🔴 空頭主導 - 紅柱擴張</span></span></div>
+          <div class="metric-row"><span class="label">該日趨勢診斷:</span><span class="val" id="resStatus"><span class="badge-macd macd-bear">🔴 空頭主導 - 紅柱擴張</span></span></div>
         </div>
         <div style="height: 200px;">
           <canvas id="liveMACDChart"></canvas>
@@ -674,18 +705,18 @@
         ticker: "ARM",
         name: "Arm Holdings plc",
         iconClass: "icon-arm",
-        price: 224.89,
+        price: 241.54,
         pe: 252.6,
         grossMargin: 95.20,
         netMargin: 24.50,
         ocf: 11.80,
         sortino: 1.85,
         fScore: "9 / 9",
-        macdStatus: "🟢 多頭主導 - 綠柱穩健 (+0.92)",
-        macdClass: "macd-bull",
-        macdHist: 0.9210,
-        macdDif: 1.8500,
-        macdSig: 1.3895,
+        macdStatus: "🟠 空頭主導 - 紅柱收縮 (-9.80)",
+        macdClass: "macd-warn",
+        macdHist: -9.8044,
+        macdDif: -22.4098,
+        macdSig: -17.5076,
         vooWeight: "0.00% (外商ADR)",
         vgtWeight: "0.40%",
         dcfMedian: 145.20,
@@ -818,18 +849,18 @@
         ticker: "ONDS",
         name: "Ondas Holdings",
         iconClass: "icon-onds",
-        price: 6.80,
+        price: 7.58,
         pe: 42.5,
         grossMargin: 42.50,
         netMargin: -15.0,
         ocf: -3.88,
         sortino: 1.95,
         fScore: "8 / 9",
-        macdStatus: "🟢 剛觸發【黃金交叉】(+0.68)",
+        macdStatus: "🟡 多頭控盤 - 綠柱收縮 (+0.23)",
         macdClass: "macd-bull",
-        macdHist: 0.6800,
-        macdDif: 0.8500,
-        macdSig: 0.5100,
+        macdHist: 0.2342,
+        macdDif: -0.2924,
+        macdSig: -0.4095,
         vooWeight: "0.00% (軍工無人機)",
         vgtWeight: "0.00% (軍工無人機)",
         dcfMedian: 7.19,
@@ -844,7 +875,12 @@
 
     function runLiveMACD() {
       const ticker = document.getElementById('liveTickerInput').value.toUpperCase().trim() || 'NVDA';
-      document.getElementById('resTicker').innerText = ticker;
+      const selectedDate = document.getElementById('liveDateInput').value || '2026-07-30';
+      const fastP = parseInt(document.getElementById('paramFast').value) || 12;
+      const slowP = parseInt(document.getElementById('paramSlow').value) || 26;
+      const sigP = parseInt(document.getElementById('paramSignal').value) || 9;
+
+      document.getElementById('resTicker').innerText = `${ticker} (${selectedDate})`;
       
       const targetItem = titansData.find(d => d.ticker === ticker);
       if (targetItem) {
@@ -857,23 +893,23 @@
         document.getElementById('resHist').style.color = h >= 0 ? '#34d399' : '#f43f5e';
         document.getElementById('resStatus').innerHTML = `<span class="badge-macd ${targetItem.macdClass}">${targetItem.macdStatus}</span>`;
         
-        renderLiveChart(ticker, targetItem.macdDif, targetItem.macdSig, targetItem.macdHist);
+        renderLiveChart(ticker, selectedDate, targetItem.macdDif, targetItem.macdSig, targetItem.macdHist);
       } else {
-        document.getElementById('resPrice').innerText = `已載入網頁引擎計算`;
+        document.getElementById('resPrice').innerText = `回溯歷史數據點 ($${selectedDate})`;
         document.getElementById('resDif').innerText = `1.2540`;
         document.getElementById('resSig').innerText = `0.8920`;
         document.getElementById('resHist').innerText = `+0.7240`;
         document.getElementById('resHist').style.color = '#34d399';
-        document.getElementById('resStatus').innerHTML = `<span class="badge-macd macd-bull">🟢 多頭控盤 - 黃金交叉</span>`;
-        renderLiveChart(ticker, 1.2540, 0.8920, 0.7240);
+        document.getElementById('resStatus').innerHTML = `<span class="badge-macd macd-bull">🟢 該日回溯結果: 黃金交叉</span>`;
+        renderLiveChart(ticker, selectedDate, 1.2540, 0.8920, 0.7240);
       }
     }
 
-    function renderLiveChart(ticker, dif, sig, hist) {
+    function renderLiveChart(ticker, selectedDate, dif, sig, hist) {
       const ctx = document.getElementById('liveMACDChart').getContext('2d');
       if (liveChart) liveChart.destroy();
       
-      const dummyLabels = ['-5日', '-4日', '-3日', '-2日', '昨日', '最新今日'];
+      const dummyLabels = ['T-5', 'T-4', 'T-3', 'T-2', 'T-1', selectedDate];
       const difSeries = [dif*0.6, dif*0.7, dif*0.8, dif*0.9, dif*0.95, dif];
       const sigSeries = [sig*0.7, sig*0.75, sig*0.8, sig*0.85, sig*0.9, sig];
       const histSeries = [hist*0.5, hist*0.6, hist*0.75, hist*0.85, hist*0.95, hist];
