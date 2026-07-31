@@ -1,0 +1,46 @@
+name: Update price history
+
+# dashboard.html reads prices.json as a static same-origin file, so the data is
+# only as fresh as the last commit. This refreshes it after the US close on
+# trading days.
+on:
+  schedule:
+    # 23:00 UTC on weekdays = 19:00 ET (EDT) / 18:00 ET (EST), a few hours after
+    # the 16:00 ET close so Yahoo has settled the daily bar.
+    - cron: '0 23 * * 1-5'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-prices
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install --quiet 'yfinance>=1.2.0' pandas
+
+      - name: Fetch daily closes
+        run: python3 scripts/fetch_price_history.py
+
+      - name: Commit prices.json if it changed
+        run: |
+          if git diff --quiet -- prices.json; then
+            echo "No change in prices.json; nothing to commit."
+            exit 0
+          fi
+          git config user.name  'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          git add prices.json
+          git commit -m "chore: refresh prices.json ($(date -u +%Y-%m-%d))"
+          git push
