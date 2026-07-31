@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="2026 美股七巨頭 MAG7 + 台積電 (AAPL, NVDA, MSFT, GOOGL, AMZN, META, TSLA, TSM) 專屬獨立對照儀表板 (含 MACD 技術面)。">
+  <title>2026 美股七巨頭 MAG7 + 台積電 專屬對照儀表板 (含 MACD)</title>
+  <!-- Google Fonts & Chart.js -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    :root {
+      --bg-dark: #0b0f19;
+      --card-bg: rgba(22, 28, 45, 0.75);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --accent-cyan: #06b6d4;
+      --accent-purple: #8b5cf6;
+      --accent-emerald: #10b981;
+      --accent-amber: #f59e0b;
+      --accent-rose: #f43f5e;
+      --glow-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Outfit', 'Noto Sans TC', sans-serif;
+      background: radial-gradient(circle at 50% -20%, #1e1b4b, var(--bg-dark) 70%);
+      color: var(--text-main);
+      min-height: 100vh;
+      padding: 24px;
+      line-height: 1.5;
+    }
+
+    .dashboard-container {
+      max-width: 1560px;
+      margin: 0 auto;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 32px;
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      box-shadow: var(--glow-shadow);
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .brand-title h1 {
+      font-size: 1.8rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #38bdf8, #818cf8, #c084fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: -0.5px;
+    }
+
+    .brand-title p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .header-stats {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .stat-badge {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--card-border);
+      padding: 8px 16px;
+      border-radius: 12px;
+      text-align: right;
+    }
+
+    .stat-badge .label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      display: block;
+    }
+
+    .stat-badge .value {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--accent-cyan);
+    }
+
+    .control-panel {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+
+    .search-box input {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--card-border);
+      color: #fff;
+      padding: 10px 18px;
+      border-radius: 12px;
+      width: 280px;
+      font-size: 0.9rem;
+      outline: none;
+      transition: all 0.3s ease;
+    }
+
+    .search-box input:focus {
+      border-color: var(--accent-purple);
+      box-shadow: 0 0 12px rgba(139, 92, 246, 0.3);
+    }
+
+    .filter-tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+      padding: 8px 14px;
+      border-radius: 10px;
+      font-size: 0.825rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .filter-btn:hover, .filter-btn.active {
+      background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
+      color: #fff;
+      border-color: transparent;
+      box-shadow: 0 4px 12px rgba(6, 182, 212, 0.25);
+    }
+
+    .table-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      box-shadow: var(--glow-shadow);
+      overflow-x: auto;
+      margin-bottom: 32px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.875rem;
+    }
+
+    th {
+      background: rgba(255, 255, 255, 0.03);
+      padding: 16px 16px;
+      color: var(--text-muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      letter-spacing: 0.5px;
+      border-bottom: 1px solid var(--card-border);
+      cursor: pointer;
+      user-select: none;
+    }
+
+    th:hover {
+      color: #fff;
+    }
+
+    td {
+      padding: 14px 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      transition: background 0.2s ease;
+    }
+
+    tr:hover td {
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .ticker-cell {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .ticker-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.8rem;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    .icon-aapl  { background: linear-gradient(135deg, #64748b, #475569); }
+    .icon-nvda  { background: linear-gradient(135deg, #10b981, #047857); }
+    .icon-msft  { background: linear-gradient(135deg, #06b6d4, #0284c7); }
+    .icon-googl { background: linear-gradient(135deg, #ea4335, #4285f4); }
+    .icon-amzn  { background: linear-gradient(135deg, #f59e0b, #d97706); }
+    .icon-meta  { background: linear-gradient(135deg, #3b82f6, #1d4ed8); }
+    .icon-tsla  { background: linear-gradient(135deg, #ec4899, #be185d); }
+    .icon-tsm   { background: linear-gradient(135deg, #ef4444, #b91c1c); }
+
+    .company-name {
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .company-sub {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .badge-champion {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      background: rgba(16, 185, 129, 0.2);
+      color: var(--accent-emerald);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      margin-left: 6px;
+    }
+
+    .badge-macd {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 8px;
+      font-size: 0.775rem;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+
+    .macd-bull { background: rgba(16, 185, 129, 0.18); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); }
+    .macd-bear { background: rgba(244, 63, 94, 0.18); color: #fb7185; border: 1px solid rgba(244, 63, 94, 0.3); }
+    .macd-warn { background: rgba(245, 158, 11, 0.18); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); }
+
+    .badge-event-highlight {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 8px;
+      font-size: 0.775rem;
+      font-weight: 600;
+      background: rgba(6, 182, 212, 0.12);
+      color: #38bdf8;
+      border: 1px solid rgba(6, 182, 212, 0.3);
+      line-height: 1.4;
+      max-width: 320px;
+    }
+
+    .badge-pe {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 8px;
+      font-weight: 600;
+    }
+
+    .pe-low  { background: rgba(16, 185, 129, 0.15); color: #34d399; }
+    .pe-mid  { background: rgba(59, 130, 246, 0.15); color: #60a5fa; }
+    .pe-high { background: rgba(244, 63, 94, 0.15); color: #fb7185; }
+
+    /* 8-K Event Section Card */
+    .event-card-section {
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 28px;
+      box-shadow: var(--glow-shadow);
+      margin-bottom: 32px;
+    }
+
+    .event-card-section h2 {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .event-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 16px;
+    }
+
+    .event-item {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 16px;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .event-item:hover {
+      transform: translateY(-2px);
+      border-color: rgba(56, 189, 248, 0.4);
+    }
+
+    .event-item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .event-ticker {
+      font-weight: 800;
+      font-size: 0.9rem;
+      color: var(--accent-cyan);
+    }
+
+    .event-date {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .event-title {
+      font-weight: 700;
+      font-size: 0.875rem;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+
+    .event-detail {
+      font-size: 0.8rem;
+      color: #cbd5e1;
+      line-height: 1.45;
+    }
+
+    .charts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+      gap: 24px;
+      margin-bottom: 32px;
+    }
+
+    .chart-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: var(--glow-shadow);
+    }
+
+    .chart-card h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .chart-card h3 span {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-weight: 400;
+    }
+
+    .modal-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(8px);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+
+    .modal-backdrop.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: #0f172a;
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      width: 92%;
+      max-width: 880px;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 32px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+      position: relative;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      color: #fff;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .modal-header {
+      margin-bottom: 24px;
+    }
+
+    .modal-header h2 {
+      font-size: 1.6rem;
+      color: #fff;
+    }
+
+    .modal-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .info-box {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 16px;
+    }
+
+    .info-box h4 {
+      color: var(--accent-cyan);
+      font-size: 0.85rem;
+      margin-bottom: 8px;
+    }
+
+    .info-box p {
+      font-size: 0.95rem;
+      color: #e2e8f0;
+    }
+
+    footer {
+      text-align: center;
+      padding: 24px;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="dashboard-container">
+    
+    <!-- Header -->
+    <header>
+      <div class="brand-title">
+        <h1>美股七巨頭 MAG7 + 台積電 專屬對照儀表板 (含 MACD)</h1>
+        <p>The Magnificent 7 & TSMC Dedicated Benchmark • MACD Momentum • SEC 10-K / 8-K (2026)</p>
+      </div>
+      <div class="header-stats">
+        <div class="stat-badge">
+          <span class="label">巨頭企業總數</span>
+          <span class="value">MAG7 + TSM</span>
+        </div>
+        <div class="stat-badge">
+          <span class="label">MACD 即時診斷</span>
+          <span class="value">快線/慢線/柱體即時算</span>
+        </div>
+        <div class="stat-badge">
+          <span class="label">資料來源</span>
+          <span class="value">SEC 10-K / 20-F / 8-K</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Controls & Quick Filters -->
+    <div class="control-panel">
+      <div class="search-box">
+        <input type="text" id="searchInput" placeholder="搜尋股票代號或公司名稱..." oninput="filterData()">
+      </div>
+      <div class="filter-tags">
+        <button class="filter-btn active" onclick="setFilter('all', this)">全部 MAG7 + TSM</button>
+        <button class="filter-btn" onclick="setFilter('macd-bull', this)">🟢 MACD 多頭/黃金交叉</button>
+        <button class="filter-btn" onclick="setFilter('macd-bear', this)">🔴 MACD 下修修整</button>
+        <button class="filter-btn" onclick="setFilter('high-margin', this)">毛利率 &gt; 50%</button>
+        <button class="filter-btn" onclick="setFilter('sortino-top', this)">3年 Sortino &gt; 1.5</button>
+        <button class="filter-btn" onclick="setFilter('fscore-9', this)">Piotroski 9/9 滿分</button>
+      </div>
+    </div>
+
+    <!-- Main Comparison Table -->
+    <div class="table-card">
+      <table id="titansTable">
+        <thead>
+          <tr>
+            <th onclick="sortTable(0)">公司代號 ⇕</th>
+            <th onclick="sortTable(1)">美股現價 ⇕</th>
+            <th onclick="sortTable(2)">📈 MACD 即時動態趨勢 ⇕</th>
+            <th onclick="sortTable(3)">本益比 P/E ⇕</th>
+            <th onclick="sortTable(4)">毛利率 (%) ⇕</th>
+            <th onclick="sortTable(5)">經營現金流 (OCF) ⇕</th>
+            <th onclick="sortTable(6)">淨現金 (Net Cash) ⇕</th>
+            <th onclick="sortTable(7)">3年 Sortino ⇕</th>
+            <th onclick="sortTable(8)">⚡ 8-K 最新法說會要點 ⇕</th>
+            <th onclick="sortTable(9)">DCF 估值中位 ⇕</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody">
+          <!-- Dynamically Populated by JS -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Real-Time 8-K Event Stream Cards -->
+    <div class="event-card-section">
+      <h2>⚡ 七巨頭最新 SEC Form 8-K / 6-K 法說會與即時重大事件流</h2>
+      <div class="event-grid" id="eventGrid">
+        <!-- Dynamically Populated -->
+      </div>
+    </div>
+
+    <!-- Charts Grid -->
+    <div class="charts-grid">
+      <div class="chart-card">
+        <h3>MACD 柱狀體多空動能強弱對比 <span>(MACD Histogram Momentum)</span></h3>
+        <canvas id="chartMACD"></canvas>
+      </div>
+      <div class="chart-card">
+        <h3>毛利率 vs 淨利率 獲利能力對比 <span>(Gross vs Net Margin)</span></h3>
+        <canvas id="chartMargin"></canvas>
+      </div>
+      <div class="chart-card">
+        <h3>經營現金流 OCF vs 淨現金 ($ 億美元) <span>(Cash Generation & Net Cash)</span></h3>
+        <canvas id="chartCash"></canvas>
+      </div>
+      <div class="chart-card">
+        <h3>美股現價 vs 蒙地卡羅 DCF 50% 核心估值區間 <span>(Valuation Range)</span></h3>
+        <canvas id="chartDCF"></canvas>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Detail Modal -->
+  <div class="modal-backdrop" id="modalBackdrop">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <div class="modal-header">
+        <h2 id="modalTitle">Company Name</h2>
+      </div>
+      <div class="modal-body" id="modalBody">
+        <!-- Dynamically Filled -->
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2026 Jarvis Sec_kb Financial Framework. Dedicated MAG7 + TSMC Master Dashboard.</p>
+  </footer>
+
+  <script>
+    const titansData = [
+      {
+        ticker: "AAPL",
+        name: "Apple Inc.",
+        iconClass: "icon-aapl",
+        price: 333.63,
+        pe: 44.7,
+        grossMargin: 46.9,
+        netMargin: 26.9,
+        ocf: 1114.0,
+        netCash: 331.0,
+        sortino: 1.18,
+        fScore: "9 / 9",
+        macdStatus: "🟢 多頭主導 - 綠柱擴張 (+1.45)",
+        macdClass: "macd-bull",
+        macdHist: 1.4500,
+        macdDif: 2.8500,
+        macdSig: 2.1250,
+        dcfMedian: 136.21,
+        dcfRange: "$121.73 ~ $153.53",
+        moat: "寬廣護城河 (iOS 生態系、高切換成本、M/A 晶片)",
+        championTag: "庫藏股霸主 (2.09% 殖利率)",
+        insiderTag: "Tim Cook 10b5-1 預設出售計畫",
+        fund13f: "巴菲特波克夏第 1 大重倉股 (持股近 40%)",
+        event8kBrief: "Services 營收創下 $242 億新高，董事會授權增加 $1,100 億庫藏股回購 (Item 2.02)。",
+        event8kFull: "2026-04-30 發布 8-K：Services 服務營收 $242.1B 創歷史新高，授權新一輪 $1,100 億美元庫藏股回購計畫；高管層異動審核完成。",
+        thesisFile: "AAPL_Master_Investment_Thesis_2026.md"
+      },
+      {
+        ticker: "NVDA",
+        name: "NVIDIA Corp.",
+        iconClass: "icon-nvda",
+        price: 195.04,
+        pe: 39.9,
+        grossMargin: 71.07,
+        netMargin: 55.6,
+        ocf: 1027.18,
+        netCash: 540.88,
+        sortino: 2.26,
+        fScore: "9 / 9",
+        macdStatus: "🔴 空頭主導 - 紅柱擴張 (-2.74)",
+        macdClass: "macd-bear",
+        macdHist: -2.7398,
+        macdDif: -2.1071,
+        macdSig: -0.7372,
+        dcfMedian: 170.64,
+        dcfRange: "$140.38 ~ $193.55",
+        moat: "寬廣護城河 (CUDA 生態系、NVLink 全棧系統)",
+        championTag: "淨利率與營收爆發雙冠",
+        insiderTag: "Jensen Huang 10b5-1 常態規律申報",
+        fund13f: "Vanguard / BlackRock 被動基金鎖定 18%",
+        event8kBrief: "Blackwell 架構晶片全面量產出貨，Data Center 單季飆上 $308 億美元 (Item 2.02 & 5.02)。",
+        event8kFull: "2026-07-02 發布 8-K：Blackwell/Rubin AI 系統大批量交付，資料中心單季營收達 $308.1 億美元 (年增 +112%)；新任命獨董加入董事會。",
+        thesisFile: "NVDA_Master_Investment_Thesis_2026.md"
+      },
+      {
+        ticker: "MSFT",
+        name: "Microsoft Corp.",
+        iconClass: "icon-msft",
+        price: 392.71,
+        pe: 28.8,
+        grossMargin: 68.82,
+        netMargin: 36.15,
+        ocf: 1361.62,
+        netCash: 542.0,
+        sortino: 0.33,
+        fScore: "9 / 9",
+        macdStatus: "🟡 多頭高檔 - 綠柱微縮 (+0.65)",
+        macdClass: "macd-warn",
+        macdHist: 0.6500,
+        macdDif: 1.4500,
+        macdSig: 1.1250,
+        dcfMedian: 290.74,
+        dcfRange: "$249.54 ~ $321.41",
+        moat: "寬廣護城河 (Azure 雲端、Office 365 訂閱、OpenAI)",
+        championTag: "B2B 訂閱防禦 & 本益比極吸睛",
+        insiderTag: "Satya Nadella 10b5-1 賣出計畫",
+        fund13f: "機構重倉股 (被動持股超 20%)",
+        event8kBrief: "Azure 雲端保持 +34% 年增高成長，Copilot 付費訂閱企業數突破 150 萬家 (Item 2.02)。",
+        event8kFull: "2026-04-29 發布 8-K：Intelligent Cloud 營收達 $267 億美元，Azure 成長 +34% YoY；Copilot 商業化帶來額外 6% ARPU 提升。",
+        thesisFile: "MSFT_Master_Investment_Thesis_2026.md"
+      },
+      {
+        ticker: "GOOGL",
+        name: "Alphabet / Google",
+        iconClass: "icon-googl",
+        price: 326.56,
+        pe: 30.2,
+        grossMargin: 59.65,
+        netMargin: 32.81,
+        ocf: 1647.13,
+        netCash: 802.96,
+        sortino: 1.65,
+        fScore: "9 / 9",
+        macdStatus: "🟢 多頭主導 - 綠柱擴張 (+1.85)",
+        macdClass: "macd-bull",
+        macdHist: 1.8520,
+        macdDif: 3.1250,
+        macdSig: 2.1990,
+        dcfMedian: 187.31,
+        dcfRange: "$161.03 ~ $206.88",
+        moat: "寬廣護城河 (Search 壟斷、YouTube、Google Cloud & TPU)",
+        championTag: "OCF 冠軍 ($1,647億) & 淨現金第1 ($802億)",
+        insiderTag: "Sundar Pichai 10b5-1 預設售股",
+        fund13f: "各大對沖基金核心持股",
+        event8kBrief: "Google Cloud 單季營業利潤達 $35 億暴增 +127%，Waymo 自動駕駛獲 $50 億注資 (Item 2.02)。",
+        event8kFull: "2026-07-23 發布 10-Q / 8-K：Cloud 營業利潤飆升至 $35.1 億美元，搜尋廣告穩定增長 14%；Waymo 完成新一輪 $50 億美元獨立融資。",
+        thesisFile: "GOOGL_Master_Investment_Thesis_2026.md"
+      },
+      {
+        ticker: "AMZN",
+        name: "Amazon.com, Inc.",
+        iconClass: "icon-amzn",
+        price: 232.02,
+        pe: 31.8,
+        grossMargin: 48.2,
+        netMargin: 10.8,
+        ocf: 1395.14,
+        netCash: 541.93,
+        sortino: 0.90,
+        fScore: "9 / 9",
+        macdStatus: "🟢 剛觸發【黃金交叉】(+1.12)",
+        macdClass: "macd-bull",
+        macdHist: 1.1200,
+        macdDif: 2.1500,
+        macdSig: 1.5900,
+        dcfMedian: 204.02,
+        dcfRange: "$173.75 ~ $226.66",
+        moat: "寬廣護城河 (AWS 雲端、Prime 規模與物流)",
+        championTag: "P/OCF 最便宜 (17.7x) & 營收世界第一",
+        insiderTag: "Jeff Bezos 10b5-1 資本規劃申報",
+        fund13f: "華爾街機構第一梯隊持股",
+        event8kBrief: "AWS 年化營收突破 $1,150 億，經營現金流飆上 $1,395 億刷新天花板 (Item 2.02)。",
+        event8kFull: "2026-04-30 發布 8-K：AWS 營收 $293 億 (年增 19%)，營利 $112 億；北美與國際零售區域獲利率受自動化機器人帶動提升 2.1%。",
+        thesisFile: "AMZN_Master_Investment_Thesis_2026.md"
+      },
+      {
+        ticker: "META",
+        name: "Meta Platforms",
+        iconClass: "icon-meta",
+        price: 594.70,
+        pe: 25.3,
+        grossMargin: 82.0,
+        netMargin: 30.08,
+        ocf: 1158.0,
+        netCash: 228.48,
+        sortino: 1.10,
+        fScore: "9 / 9",
+        macdStatus: "🟢 多頭強勢 - 綠柱擴張 (+3.20)",
+        macdClass: "macd-bull",
+        macdHist: 3.2000,
+        macdDif: 6.8500,
+        macdSig: 5.2500,
+        dcfMedian: 766.05,
+        dcfRange: "$651.00 ~ $852.30",
+        moat: "寬廣護城河 (32億用戶社交網路、Llama AI 推薦)",
+        championTag: "毛利率冠軍 (82.0%) & P/E 最平實",
+        insiderTag: "Mark Zuckerberg 基金會公益定額出售",
+        fund13f: "對沖基金多頭重倉標的",
+        event8kBrief: "Llama 3.3 AI 廣告推薦帶動 CPM 提升 11%，上調全年 CapEx 至 $370-$400 億 (Item 2.02)。",
+        event8kFull: "2026-04-30 發布 8-K：廣告印象數年增 20%，平均單價增 6%；宣佈將額外投資 $100 億美元加速建置 AI 資料中心與 Llama 4 訓練。",
+        thesisFile: "META_Master_Investment_Thesis_2026.md"
+      },
+      {
+        ticker: "TSLA",
+        name: "Tesla, Inc.",
+        iconClass: "icon-tsla",
+        price: 309.24,
+        pe: 287.6,
+        grossMargin: 17.8,
+        netMargin: 4.0,
+        ocf: 147.5,
+        netCash: 356.8,
+        sortino: 0.55,
+        fScore: "7 / 9",
+        macdStatus: "🔴 空頭主導 - 紅柱擴張 (-1.85)",
+        macdClass: "macd-bear",
+        macdHist: -1.8500,
+        macdDif: -1.2500,
+        macdSig: -0.3250,
+        dcfMedian: 232.15,
+        dcfRange: "$185.56 ~ $266.46",
+        moat: "寬廣護城河 (EV 製造規模、FSD 數據、Megapack 儲能)",
+        championTag: "AI & Cybercab 選擇權溢價最高的巨人",
+        insiderTag: "Elon Musk 2025/2026 績效授權申報",
+        fund13f: "高散戶與機構混合持股",
+        event8kBrief: "Cybercab 無人駕駛車發表，Megapack 儲能出貨量暴增 +125% 成為新利潤支柱 (Item 2.02 & 7.01)。",
+        event8kFull: "2026-07-23 發布 8-K / 法說會簡報：FSD v13 無干預里程突破 2,500 英里；能源儲能營收單季達 $30 億美元；Cybercab 量產時程表確定。",
+        thesisFile: "TSLA_Master_Investment_Thesis_2026.md"
+      },
+      {
+        ticker: "TSM",
+        name: "台積電 (TSM ADR)",
+        iconClass: "icon-tsm",
+        price: 403.41,
+        pe: 41.2,
+        grossMargin: 59.9,
+        netMargin: 42.5,
+        ocf: 638.0,
+        netCash: 400.0,
+        sortino: 2.44,
+        fScore: "9 / 9",
+        macdStatus: "🟢 多頭強勢 - 綠柱續強 (+2.85)",
+        macdClass: "macd-bull",
+        macdHist: 2.8500,
+        macdDif: 5.1200,
+        macdSig: 3.6950,
+        dcfMedian: 260.44,
+        dcfRange: "$217.74 ~ $292.86",
+        moat: "壟斷級護城河 (2nm / A16 製程 & CoWoS 先進封裝)",
+        championTag: "3年 Sortino 冠軍 (2.44)",
+        insiderTag: "魏哲家董事長與高管例行持股申報",
+        fund13f: "華爾街科技基金與外資核心重倉",
+        event8kBrief: "2nm (N2) 與 CoWoS 產能全被 NVDA/AAPL 預訂一空，法說會上調全年營收至 +30% (Form 6-K)。",
+        event8kFull: "2026-07-16 發布 6-K 法說會公告：單季營收突破 NT$6,735 億 (美元計價年增 32.8%)；毛利率維持 59.9% 歷史高點；宣布加速 A16 製程建廠。",
+        thesisFile: "TSM_Master_Investment_Thesis_2026.md"
+      }
+    ];
+
+    let currentFilter = 'all';
+
+    function renderTable(data) {
+      const tbody = document.getElementById('tableBody');
+      tbody.innerHTML = '';
+
+      data.forEach(item => {
+        const peClass = item.pe < 30 ? 'pe-low' : (item.pe < 45 ? 'pe-mid' : 'pe-high');
+
+        const tr = document.createElement('tr');
+        tr.onclick = () => openModal(item);
+        tr.innerHTML = `
+          <td>
+            <div class="ticker-cell">
+              <div class="ticker-icon ${item.iconClass}">${item.ticker}</div>
+              <div>
+                <div class="company-name">${item.name} ${item.championTag ? `<span class="badge-champion">${item.championTag}</span>` : ''}</div>
+                <div class="company-sub">${item.ticker} • F-Score ${item.fScore}</div>
+              </div>
+            </div>
+          </td>
+          <td style="font-weight: 700;">$${item.price.toFixed(2)}</td>
+          <td><span class="badge-macd ${item.macdClass}">${item.macdStatus}</span></td>
+          <td><span class="badge-pe ${peClass}">${item.pe.toFixed(1)}x</span></td>
+          <td style="font-weight: 600; color: #34d399;">${item.grossMargin}%</td>
+          <td style="font-weight: 600;">$${item.ocf.toFixed(0)} 億</td>
+          <td style="color: #38bdf8;">+$${item.netCash.toFixed(0)} 億</td>
+          <td><span style="font-weight: 700; color: ${item.sortino > 2.0 ? '#34d399' : '#e2e8f0'}">${item.sortino.toFixed(2)}</span></td>
+          <td><div class="badge-event-highlight">${item.event8kBrief}</div></td>
+          <td style="color: #c084fc; font-weight: 600;">$${item.dcfMedian.toFixed(2)}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function renderEventGrid() {
+      const grid = document.getElementById('eventGrid');
+      grid.innerHTML = '';
+
+      titansData.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'event-item';
+        div.onclick = () => openModal(item);
+        div.style.cursor = 'pointer';
+        div.innerHTML = `
+          <div class="event-item-header">
+            <span class="event-ticker">${item.ticker} • ${item.name}</span>
+            <span class="event-date">SEC 8-K / 6-K</span>
+          </div>
+          <div class="event-title">${item.event8kBrief}</div>
+          <div class="event-detail">${item.event8kFull}</div>
+        `;
+        grid.appendChild(div);
+      });
+    }
+
+    function filterData() {
+      const query = document.getElementById('searchInput').value.toLowerCase();
+      let filtered = titansData.filter(item => 
+        item.ticker.toLowerCase().includes(query) || item.name.toLowerCase().includes(query)
+      );
+
+      if (currentFilter === 'macd-bull') {
+        filtered = filtered.filter(item => item.macdClass === 'macd-bull');
+      } else if (currentFilter === 'macd-bear') {
+        filtered = filtered.filter(item => item.macdClass === 'macd-bear');
+      } else if (currentFilter === 'high-margin') {
+        filtered = filtered.filter(item => item.grossMargin > 50);
+      } else if (currentFilter === 'sortino-top') {
+        filtered = filtered.filter(item => item.sortino > 1.5);
+      } else if (currentFilter === 'fscore-9') {
+        filtered = filtered.filter(item => item.fScore.includes('9'));
+      }
+
+      renderTable(filtered);
+    }
+
+    function setFilter(filterType, btn) {
+      currentFilter = filterType;
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      filterData();
+    }
+
+    function openModal(item) {
+      document.getElementById('modalTitle').innerText = `${item.name} (${item.ticker}) MACD 與 8-K 法說會要點`;
+      document.getElementById('modalBody').innerHTML = `
+        <div class="info-box" style="grid-column: span 2;">
+          <h4>📈 MACD 技術面即時動能數據</h4>
+          <p><strong>當前動能診斷:</strong> <span class="badge-macd ${item.macdClass}">${item.macdStatus}</span></p>
+          <p style="margin-top: 8px;">• DIF 快線 (12-26): <code>${item.macdDif.toFixed(4)}</code> | • Signal 慢線 (9): <code>${item.macdSig.toFixed(4)}</code></p>
+          <p style="margin-top: 4px;">• MACD 柱狀體 (Hist): <code>${item.macdHist.toFixed(4)}</code></p>
+        </div>
+        <div class="info-box" style="grid-column: span 2;">
+          <h4>⚡ SEC 8-K / 6-K 最新法說會與即時重大事件詳情</h4>
+          <p><strong>${item.event8kBrief}</strong></p>
+          <p style="margin-top: 6px; font-size: 0.875rem; color: #cbd5e1;">${item.event8kFull}</p>
+        </div>
+        <div class="info-box">
+          <h4>🏰 經濟護城河評級</h4>
+          <p>${item.moat}</p>
+        </div>
+        <div class="info-box">
+          <h4>📊 財務健康度 (Piotroski F-Score)</h4>
+          <p><strong>${item.fScore} 滿分極度健康</strong></p>
+        </div>
+        <div class="info-box">
+          <h4>🏛️ 13F 華爾街大佬籌碼與機構評估</h4>
+          <p><strong>${item.fund13f}</strong></p>
+        </div>
+        <div class="info-box">
+          <h4>👥 Form 4 內部人與高管買賣動態</h4>
+          <p><strong>${item.insiderTag}</strong></p>
+        </div>
+        <div class="info-box" style="grid-column: span 2;">
+          <h4>🎲 DCF 蒙地卡羅估值分佈區間 (P25 ~ P75)</h4>
+          <p><strong>${item.dcfRange} USD</strong> (中位數: $${item.dcfMedian} USD)</p>
+        </div>
+        <div class="info-box" style="grid-column: span 2;">
+          <h4>📁 連結至本地 Obsidian Master 投資報告</h4>
+          <p style="font-size: 0.85rem; color: #94a3b8;">
+            可在 Obsidian 中打開: <code>30_Analysis/${item.thesisFile}</code>
+          </p>
+        </div>
+      `;
+      document.getElementById('modalBackdrop').classList.add('active');
+    }
+
+    function closeModal() {
+      document.getElementById('modalBackdrop').classList.remove('active');
+    }
+
+    function initCharts() {
+      const labels = titansData.map(d => d.ticker);
+      
+      new Chart(document.getElementById('chartMACD'), {
+        type: 'bar',
+        data: {
+          labels: labels,
+          datasets: [{
+            label: 'MACD 柱狀體 Histogram (綠正紅負)',
+            data: titansData.map(d => d.macdHist),
+            backgroundColor: titansData.map(d => d.macdHist >= 0 ? '#34d399' : '#f43f5e')
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: { legend: { labels: { color: '#94a3b8' } } },
+          scales: {
+            x: { ticks: { color: '#94a3b8' } },
+            y: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } }
+          }
+        }
+      });
+
+      new Chart(document.getElementById('chartMargin'), {
+        type: 'bar',
+        data: {
+          labels: labels,
+          datasets: [
+            { label: '毛利率 Gross Margin (%)', data: titansData.map(d => d.grossMargin), backgroundColor: '#34d399' },
+            { label: '淨利率 Net Margin (%)', data: titansData.map(d => d.netMargin), backgroundColor: '#60a5fa' }
+          ]
+        },
+        options: {
+          responsive: true,
+          plugins: { legend: { labels: { color: '#94a3b8' } } },
+          scales: {
+            x: { ticks: { color: '#94a3b8' } },
+            y: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } }
+          }
+        }
+      });
+
+      new Chart(document.getElementById('chartCash'), {
+        type: 'bar',
+        data: {
+          labels: labels,
+          datasets: [
+            { label: '經營現金流 OCF ($億)', data: titansData.map(d => d.ocf), backgroundColor: '#06b6d4' },
+            { label: '淨現金 Net Cash ($億)', data: titansData.map(d => d.netCash), backgroundColor: '#3b82f6' }
+          ]
+        },
+        options: {
+          responsive: true,
+          plugins: { legend: { labels: { color: '#94a3b8' } } },
+          scales: {
+            x: { ticks: { color: '#94a3b8' } },
+            y: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } }
+          }
+        }
+      });
+
+      new Chart(document.getElementById('chartDCF'), {
+        type: 'bar',
+        data: {
+          labels: labels,
+          datasets: [
+            { label: '美股現價 ($ USD)', data: titansData.map(d => d.price), backgroundColor: '#f43f5e' },
+            { label: '蒙地卡羅估值中位 ($ USD)', data: titansData.map(d => d.dcfMedian), backgroundColor: '#818cf8' }
+          ]
+        },
+        options: {
+          responsive: true,
+          plugins: { legend: { labels: { color: '#94a3b8' } }, grid: { color: 'rgba(255,255,255,0.05)' } },
+          scales: {
+            x: { ticks: { color: '#94a3b8' } }
+          }
+        }
+      });
+    }
+
+    renderTable(titansData);
+    renderEventGrid();
+    initCharts();
+  </script>
+</body>
+</html>
