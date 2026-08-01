@@ -108,7 +108,30 @@ financials_verified: true
 
 ---
 
+## ⚠️ 六、 核心風險因素與利弊分析 (SEC Form 10-K Item 1A & Pros/Cons Matrix)
+
+### 1. 三大核心風險因素 (Item 1A Risk Factors)
+- **⚖️ 美國司法部 (DOJ) 反壟斷訴訟與拆分風險 (Antitrust Litigation)**：美國 DOJ 與歐盟監管機構針對 Google Search 預設搜尋引擎協議（如每年支付 Apple 百億美元）及 AdTech 廣告技術進行反壟斷訴訟，面臨潛在的法律天價罰款或業務強制拆分風險。
+- **🤖 生成式 AI 顛覆傳統搜尋廣告 (AI Search Cannibalization)**：用戶若轉向 ChatGPT、Perplexity 等對話式 AI 尋找答案，可能減少傳統網頁點擊與藍色連結廣告曝光。Google 必須靠 AI Overviews 轉型，但短線可能稀釋廣告點擊率 (CTR)。
+- **💸 天價 AI 資料中心 CapEx 資本支出暴增 ($914.5 億美元)**：為了搶佔 Gemini AI 與 Cloud 算力基礎設施，FY2025 CapEx 飆升至 $914.5 億美元，短期壓抑了自由現金流 (FCF) 的淨轉換率。
+
+### 2. 投資利弊與優劣勢矩陣 (Pros & Cons Matrix)
+- **🟢 多頭優勢 (Pros / Bull Case)**：
+  - **全美股第 1 大 OCF 現金流巨獸**：每年產生 **$1,647 億美元經營現金流**，資金池無與倫比。
+  - **Google Search 90%+ 壟斷護城河**：廣告現金牛持續提供研發與資本支出的穩定燃料。
+  - **Google Cloud 獲利爆發 (+127.6%)**：營業利潤飆升至 $139 億美元，成為強大第二成長引擎。
+  - **自研 TPU (v5p/Trillium) 晶片成本優勢**：有效降低對外部 GPU 依賴，提升 AI 運算毛利。
+  - **強大股東資本回饋**：每年買回超 **$457 億美元庫藏股** 並開始發放現金股利。
+- **🔴 空頭隱憂 (Cons / Bear Case)**：
+  - **DOJ 反壟斷訴訟拆分陰影**：美歐監管機構拆分壓力可能增加長線股價波動。
+  - **生成式 AI 搜尋流量侵蝕風險**：若用戶行為轉向對話 AI，搜尋廣告點擊流量面臨結構性衝擊。
+  - **CapEx 資本支出飆升壓抑 FCF**：建置 AI 資料中心投入近 $915 億美元，折舊壓力增加。
+  - **本益比 (P/E 33.0x) 已包含 AI 溢價**：高於 DCF 蒙地卡羅保守模型中位數 ($243.88)。
+
+---
+
 ## 🔗 關聯筆記
+- 🌐 **[開啟 Alphabet / Google 獨立網頁版投資報告 (goog_report.html)](file:///Volumes/Crucial%20X8/Jarvis%20Obsidian/Sec_kb/goog_report.html)**
 - [[GOOGL_Company_Profile|Alphabet / Google 公司主頁]]
 - [[MSFT_Master_Investment_Thesis_2026|微軟 主報告對比]]
 - [[AMZN_Master_Investment_Thesis_2026|Amazon 主報告對比]]
