@@ -102,6 +102,14 @@
       color: var(--accent-cyan);
     }
 
+    .stat-badge .sub {
+      display: block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
     /* Top Navigation Tabs */
     .nav-tabs-container {
       display: flex;
@@ -713,6 +721,11 @@
           <span class="label">VGT 第一大重倉</span>
           <span class="value">NVDA (16.10%)</span>
         </div>
+        <div class="stat-badge">
+          <span class="label">股價資料更新時間 (美東)</span>
+          <span class="value" id="dataFreshness">載入中…</span>
+          <span class="sub" id="dataSession"></span>
+        </div>
       </div>
     </header>
 
@@ -1319,10 +1332,53 @@
             if (!res.ok) throw new Error(`HTTP ${res.status}`);
             return res.json();
           })
-          .then(json => { priceDB = json; return json; })
-          .catch(err => { priceDBPromise = null; throw err; });
+          .then(json => { priceDB = json; renderDataFreshness(); return json; })
+          .catch(err => {
+            priceDBPromise = null;
+            const el = document.getElementById('dataFreshness');
+            if (el) { el.innerText = '⚠️ 無法載入'; el.style.color = '#fb7185'; }
+            throw err;
+          });
       }
       return priceDBPromise;
+    }
+
+    // prices.json 的 generated_at 是 UTC，換算成美東交易時區顯示。
+    // 用 America/New_York 而非固定位移，夏令時間 (EDT) 與冬令 (EST) 會自動切換。
+    function formatEasternTime(isoString) {
+      const d = new Date(isoString);
+      if (isNaN(d)) return null;
+      const parts = new Intl.DateTimeFormat('en-CA', {
+        timeZone: 'America/New_York',
+        year: 'numeric', month: '2-digit', day: '2-digit',
+        hour: '2-digit', minute: '2-digit', hour12: false,
+        timeZoneName: 'short'
+      }).formatToParts(d).reduce((acc, p) => (acc[p.type] = p.value, acc), {});
+      return `${parts.year}-${parts.month}-${parts.day} ${parts.hour}:${parts.minute} ${parts.timeZoneName}`;
+    }
+
+    // 資料涵蓋到哪一個交易日（取各標的最後一筆日線中最新的那天）
+    function latestCoveredSession() {
+      if (!priceDB) return null;
+      let latest = null;
+      Object.values(priceDB.series).forEach(s => {
+        const d = s.dates[s.dates.length - 1];
+        if (d && (!latest || d > latest)) latest = d;
+      });
+      return latest;
+    }
+
+    function renderDataFreshness() {
+      const el = document.getElementById('dataFreshness');
+      if (!el || !priceDB) return;
+      const fetchedET = formatEasternTime(priceDB.generated_at);
+      const session = latestCoveredSession();
+      el.innerText = fetchedET || '時間格式異常';
+      el.title = `擷取時間 (美東)：${fetchedET}\n` +
+                 `原始 UTC 時間戳：${priceDB.generated_at}\n` +
+                 `資料涵蓋至：${session} 收盤`;
+      const sessionEl = document.getElementById('dataSession');
+      if (sessionEl && session) sessionEl.innerText = `資料涵蓋至 ${session} 收盤`;
     }
 
     function setBanner(state, html) {
@@ -1368,10 +1424,10 @@
         return { fullDates: [], fullPrices: [], valid: false };
       }
 
-      const generated = (db.generated_at || '').slice(0, 10);
+      const generated = formatEasternTime(db.generated_at) || (db.generated_at || '').slice(0, 10);
       setBanner('ok', `🟢 真實日線資料：<strong>${symbol}</strong> 取自 ${db.source}，` +
         `${entry.dates[0]} ~ ${entry.dates[entry.dates.length - 1]} 共 ${entry.dates.length} 筆` +
-        `（資料擷取日 ${generated}），MACD 已用 ${fullPrices.length} 筆完整歷史預熱。`);
+        `（資料擷取時間 ${generated}），MACD 已用 ${fullPrices.length} 筆完整歷史預熱。`);
       return { fullDates, fullPrices, valid: true };
     }
 
