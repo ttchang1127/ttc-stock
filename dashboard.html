@@ -841,7 +841,7 @@
       <!-- Charts Grid -->
       <div class="charts-grid">
         <div class="chart-card">
-          <h3>MACD 柱狀體多空動能強弱對比 <span>(MACD Histogram Momentum)</span></h3>
+          <h3>MACD 柱狀體多空動能強弱對比 <span>(柱體 ÷ 股價，正規化為 % 以便跨股票比較)</span></h3>
           <canvas id="chartMACD"></canvas>
         </div>
         <div class="chart-card">
@@ -1544,6 +1544,9 @@
         item.price = snap.price;
         item.macdHist = snap.hist;
         item.macdHistPrev = snap.prevHist;
+        // 柱體是價差（美元），跨股票直接比會被高價股壓死。除以股價換成「佔股價百分比」
+        // 才有可比性。前值用同一個除數，所以正負與擴張/收縮的判定完全不受影響。
+        item.macdHistPct = snap.price ? (snap.hist / snap.price) * 100 : 0;
         item.macdDif = snap.dif;
         item.macdSig = snap.sig;
         item.macdStatus = statusText;
@@ -1661,9 +1664,15 @@
       filterData();
     }
 
+    function summaryHistPct() {
+      return titansData.map(d => d.macdHistPct !== undefined
+        ? d.macdHistPct
+        : (d.price ? (d.macdHist / d.price) * 100 : 0));
+    }
+
     function updateSummaryChart() {
       if (macdSummaryChart) {
-        macdSummaryChart.data.datasets[0].data = titansData.map(d => d.macdHist);
+        macdSummaryChart.data.datasets[0].data = summaryHistPct();
         macdSummaryChart.data.datasets[0].backgroundColor = getSummary4Colors();
         macdSummaryChart.update();
       }
@@ -1720,17 +1729,39 @@
         data: {
           labels: labels,
           datasets: [{
-            label: 'MACD 柱狀體 Histogram (4色：亮綠/暗綠/亮紅/暗粉)',
-            data: titansData.map(d => d.macdHist),
+            label: 'MACD 柱狀體 / 股價 (%)　4色：亮綠/暗綠/亮紅/暗粉',
+            data: summaryHistPct(),
             backgroundColor: getSummary4Colors()
           }]
         },
         options: {
           responsive: true,
-          plugins: { legend: { labels: { color: '#94a3b8' } } },
+          plugins: {
+            legend: { labels: { color: '#94a3b8' } },
+            tooltip: {
+              callbacks: {
+                // 正規化後的百分比適合跨股票比較，但原始美元值仍需查得到
+                label: (c) => {
+                  const item = titansData[c.dataIndex];
+                  const pct = c.parsed.y;
+                  return `${pct >= 0 ? '+' : ''}${pct.toFixed(3)}% 股價` +
+                         `　(原始柱體 ${item.macdHist >= 0 ? '+' : ''}${item.macdHist.toFixed(3)} USD` +
+                         `　股價 $${item.price.toFixed(2)})`;
+                },
+                afterLabel: (c) => titansData[c.dataIndex].macdStatus
+              }
+            }
+          },
           scales: {
             x: { ticks: { color: '#94a3b8' } },
-            y: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } }
+            y: {
+              title: { display: true, text: '柱體占股價百分比 (%)', color: '#94a3b8' },
+              ticks: { color: '#94a3b8', callback: (v) => `${v}%` },
+              grid: {
+                color: (c) => c.tick.value === 0 ? 'rgba(255,255,255,0.35)' : 'rgba(255,255,255,0.05)',
+                lineWidth: (c) => c.tick.value === 0 ? 1.5 : 1
+              }
+            }
           }
         }
       });
