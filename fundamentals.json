@@ -1,0 +1,886 @@
+{
+ "generated_at": "2026-08-01T02:21:12+00:00",
+ "financials_generated_at": "2026-08-01T02:21:12+00:00",
+ "source": "Derived from SEC XBRL Company Facts; prices from prices.json",
+ "companies": {
+  "AAPL": {
+   "cik": "0000320193",
+   "entity_name": "Apple Inc.",
+   "taxonomy": "us-gaap",
+   "fiscal_year_end": "2025-09-27",
+   "prior_fiscal_year_end": "2024-09-28",
+   "currency": "USD",
+   "source_form": "10-K",
+   "source_accession": "0000320193-25-000079",
+   "source_filed": "2025-10-31",
+   "revenue": 416161000000,
+   "net_income": 112010000000,
+   "operating_cash_flow": 111482000000,
+   "capex": 12715000000,
+   "free_cash_flow": 98767000000,
+   "assets": 359241000000,
+   "liabilities": 285508000000,
+   "equity": 73733000000,
+   "diluted_shares": 15004697000,
+   "shares_outstanding": 14594180000,
+   "shares_basis_for_market_cap": "dei_outstanding",
+   "share_count_warning": null,
+   "price_used": 308.91,
+   "price_date": "2026-07-31",
+   "market_cap": 4508288143800.0,
+   "gross_margin": 0.4691,
+   "piotroski": {
+    "criteria": {
+     "1_roa_positive": true,
+     "2_ocf_positive": true,
+     "3_roa_improved": true,
+     "4_accruals_ocf_gt_ni": false,
+     "5_leverage_decreased": true,
+     "6_current_ratio_up": true,
+     "7_no_share_dilution": true,
+     "8_gross_margin_up": true,
+     "9_asset_turnover_up": true
+    },
+    "score": 8,
+    "max_evaluated": 9,
+    "unavailable": []
+   },
+   "altman_z": {
+    "z_score": 11.74,
+    "zone": "safe",
+    "market_cap_dominated": true,
+    "caveat": "X4 (市值/總負債) 占 Z 值 81%，此分數主要反映高市值與低負債，而非償債能力；Altman Z 對輕資產公司不適用",
+    "components": {
+     "X1": -0.0492,
+     "X2": -0.0397,
+     "X3": 0.3704,
+     "X4": 15.7904,
+     "X5": 1.1584
+    }
+   },
+   "dupont": {
+    "net_margin": 0.2692,
+    "asset_turnover": 1.1584,
+    "equity_multiplier": 4.8722,
+    "roe": 1.5191,
+    "roe_direct_check": 1.5191
+   }
+  },
+  "AMZN": {
+   "cik": "0001018724",
+   "entity_name": "AMAZON COM INC",
+   "taxonomy": "us-gaap",
+   "fiscal_year_end": "2025-12-31",
+   "prior_fiscal_year_end": "2024-12-31",
+   "currency": "USD",
+   "source_form": "10-K",
+   "source_accession": "0001018724-26-000004",
+   "source_filed": "2026-02-06",
+   "revenue": 716924000000,
+   "net_income": 77670000000,
+   "operating_cash_flow": 139514000000,
+   "capex": null,
+   "free_cash_flow": null,
+   "assets": 818042000000,
+   "liabilities": null,
+   "equity": 411065000000,
+   "diluted_shares": 10827000000,
+   "shares_outstanding": 10786313572,
+   "shares_basis_for_market_cap": "dei_outstanding",
+   "share_count_warning": null,
+   "price_used": null,
+   "price_date": null,
+   "market_cap": null,
+   "gross_margin": null,
+   "piotroski": {
+    "criteria": {
+     "1_roa_positive": true,
+     "2_ocf_positive": true,
+     "3_roa_improved": true,
+     "4_accruals_ocf_gt_ni": true,
+     "5_leverage_decreased": true,
+     "6_current_ratio_up": false,
+     "7_no_share_dilution": false,
+     "8_gross_margin_up": null,
+     "9_asset_turnover_up": false
+    },
+    "score": 5,
+    "max_evaluated": 8,
+    "unavailable": [
+     "8_gross_margin_up"
+    ]
+   },
+   "altman_z": {
+    "z_score": null,
+    "missing": [
+     "X4"
+    ]
+   },
+   "dupont": {
+    "net_margin": 0.1083,
+    "asset_turnover": 0.8764,
+    "equity_multiplier": 1.9901,
+    "roe": 0.1889,
+    "roe_direct_check": 0.1889
+   }
+  },
+  "ARM": {
+   "cik": "0001973239",
+   "entity_name": "ARM HOLDINGS PLC /UK",
+   "taxonomy": "us-gaap",
+   "fiscal_year_end": "2026-03-31",
+   "prior_fiscal_year_end": "2025-03-31",
+   "currency": "USD",
+   "source_form": "20-F",
+   "source_accession": "0001973239-26-000097",
+   "source_filed": "2026-05-26",
+   "revenue": 4920000000,
+   "net_income": 904000000,
+   "operating_cash_flow": 1524000000,
+   "capex": 545000000,
+   "free_cash_flow": 979000000,
+   "assets": 10703000000,
+   "liabilities": 2417000000,
+   "equity": 8286000000,
+   "diluted_shares": 1068000000,
+   "shares_outstanding": 1064055252,
+   "shares_basis_for_market_cap": "dei_outstanding",
+   "share_count_warning": null,
+   "price_used": 239.69,
+   "price_date": "2026-07-31",
+   "market_cap": 255043403351.88,
+   "gross_margin": 0.9754,
+   "piotroski": {
+    "criteria": {
+     "1_roa_positive": true,
+     "2_ocf_positive": true,
+     "3_roa_improved": false,
+     "4_accruals_ocf_gt_ni": true,
+     "5_leverage_decreased": null,
+     "6_current_ratio_up": true,
+     "7_no_share_dilution": false,
+     "8_gross_margin_up": true,
+     "9_asset_turnover_up": true
+    },
+    "score": 6,
+    "max_evaluated": 8,
+    "unavailable": [
+     "5_leverage_decreased"
+    ]
+   },
+   "altman_z": {
+    "z_score": 65.21,
+    "zone": "safe",
+    "market_cap_dominated": true,
+    "caveat": "X4 (市值/總負債) 占 Z 值 97%，此分數主要反映高市值與低負債，而非償債能力；Altman Z 對輕資產公司不適用",
+    "components": {
+     "X1": 0.4855,
+     "X2": 0.4155,
+     "X3": 0.0841,
+     "X4": 105.5206,
+     "X5": 0.4597
+    }
+   },
+   "dupont": {
+    "net_margin": 0.1837,
+    "asset_turnover": 0.4597,
+    "equity_multiplier": 1.2917,
+    "roe": 0.1091,
+    "roe_direct_check": 0.1091
+   }
+  },
+  "COHR": {
+   "cik": "0000820318",
+   "entity_name": "COHERENT CORP.",
+   "taxonomy": "us-gaap",
+   "fiscal_year_end": "2025-06-30",
+   "prior_fiscal_year_end": "2024-06-30",
+   "currency": "USD",
+   "source_form": "10-K",
+   "source_accession": "0000820318-25-000014",
+   "source_filed": "2025-08-15",
+   "revenue": 5810115000,
+   "net_income": 49364000,
+   "operating_cash_flow": 633600000,
+   "capex": 440836000,
+   "free_cash_flow": 192764000,
+   "assets": 14910936000,
+   "liabilities": 6429653000,
+   "equity": 5998022000,
+   "diluted_shares": 154755000,
+   "shares_outstanding": 195639321,
+   "shares_basis_for_market_cap": "dei_outstanding",
+   "share_count_warning": null,
+   "price_used": 262.89,
+   "price_date": "2026-07-31",
+   "market_cap": 51431621097.689995,
+   "gross_margin": null,
+   "piotroski": {
+    "criteria": {
+     "1_roa_positive": true,
+     "2_ocf_positive": true,
+     "3_roa_improved": true,
+     "4_accruals_ocf_gt_ni": true,
+     "5_leverage_decreased": true,
+     "6_current_ratio_up": false,
+     "7_no_share_dilution": false,
+     "8_gross_margin_up": null,
+     "9_asset_turnover_up": true
+    },
+    "score": 6,
+    "max_evaluated": 8,
+    "unavailable": [
+     "8_gross_margin_up"
+    ]
+   },
+   "altman_z": {
+    "z_score": null,
+    "missing": [
+     "X3"
+    ]
+   },
+   "dupont": {
+    "net_margin": 0.0085,
+    "asset_turnover": 0.3897,
+    "equity_multiplier": 2.486,
+    "roe": 0.0082,
+    "roe_direct_check": 0.0082
+   }
+  },
+  "GOOGL": {
+   "cik": "0001652044",
+   "entity_name": "Alphabet Inc.",
+   "taxonomy": "us-gaap",
+   "fiscal_year_end": "2025-12-31",
+   "prior_fiscal_year_end": "2024-12-31",
+   "currency": "USD",
+   "source_form": "10-K",
+   "source_accession": "0001652044-26-000018",
+   "source_filed": "2026-02-05",
+   "revenue": 402836000000,
+   "net_income": 132170000000,
+   "operating_cash_flow": 164713000000,
+   "capex": 91447000000,
+   "free_cash_flow": 73266000000,
+   "assets": 595281000000,
+   "liabilities": 180016000000,
+   "equity": 415265000000,
+   "diluted_shares": 12230000000,
+   "shares_outstanding": null,
+   "shares_basis_for_market_cap": "diluted",
+   "share_count_warning": null,
+   "price_used": 356.65,
+   "price_date": "2026-07-31",
+   "market_cap": 4361829499999.9995,
+   "gross_margin": null,
+   "piotroski": {
+    "criteria": {
+     "1_roa_positive": true,
+     "2_ocf_positive": true,
+     "3_roa_improved": false,
+     "4_accruals_ocf_gt_ni": true,
+     "5_leverage_decreased": false,
+     "6_current_ratio_up": true,
+     "7_no_share_dilution": true,
+     "8_gross_margin_up": null,
+     "9_asset_turnover_up": false
+    },
+    "score": 5,
+    "max_evaluated": 8,
+    "unavailable": [
+     "8_gross_margin_up"
+    ]
+   },
+   "altman_z": {
+    "z_score": 16.9,
+    "zone": "safe",
+    "market_cap_dominated": true,
+    "caveat": "X4 (市值/總負債) 占 Z 值 86%，此分數主要反映高市值與低負債，而非償債能力；Altman Z 對輕資產公司不適用",
+    "components": {
+     "X1": 0.1735,
+     "X2": 0.5444,
+     "X3": 0.2168,
+     "X4": 24.2302,
+     "X5": 0.6767
+    }
+   },
+   "dupont": {
+    "net_margin": 0.3281,
+    "asset_turnover": 0.6767,
+    "equity_multiplier": 1.4335,
+    "roe": 0.3183,
+    "roe_direct_check": 0.3183
+   }
+  },
+  "INTC": {
+   "cik": "0000050863",
+   "entity_name": "INTEL CORP",
+   "taxonomy": "us-gaap",
+   "fiscal_year_end": "2025-12-27",
+   "prior_fiscal_year_end": "2024-12-28",
+   "currency": "USD",
+   "source_form": "10-K",
+   "source_accession": "0000050863-26-000011",
+   "source_filed": "2026-01-23",
+   "revenue": 52853000000,
+   "net_income": -267000000,
+   "operating_cash_flow": 9697000000,
+   "capex": 14646000000,
+   "free_cash_flow": -4949000000,
+   "assets": 211429000000,
+   "liabilities": null,
+   "equity": 126360000000,
+   "diluted_shares": 4530000000,
+   "shares_outstanding": 5044000000,
+   "shares_basis_for_market_cap": "dei_outstanding",
+   "share_count_warning": null,
+   "price_used": 90.2,
+   "price_date": "2026-07-31",
+   "market_cap": 454968800000.0,
+   "gross_margin": 0.3477,
+   "piotroski": {
+    "criteria": {
+     "1_roa_positive": false,
+     "2_ocf_positive": true,
+     "3_roa_improved": true,
+     "4_accruals_ocf_gt_ni": true,
+     "5_leverage_decreased": true,
+     "6_current_ratio_up": true,
+     "7_no_share_dilution": false,
+     "8_gross_margin_up": true,
+     "9_asset_turnover_up": false
+    },
+    "score": 6,
+    "max_evaluated": 9,
+    "unavailable": []
+   },
+   "altman_z": {
+    "z_score": null,
+    "missing": [
+     "X4"
+    ]
+   },
+   "dupont": {
+    "net_margin": -0.0051,
+    "asset_turnover": 0.25,
+    "equity_multiplier": 1.6732,
+    "roe": -0.0021,
+    "roe_direct_check": -0.0021
+   }
+  },
+  "META": {
+   "cik": "0001326801",
+   "entity_name": "Meta Platforms, Inc.",
+   "taxonomy": "us-gaap",
+   "fiscal_year_end": "2025-12-31",
+   "prior_fiscal_year_end": "2024-12-31",
+   "currency": "USD",
+   "source_form": "10-K",
+   "source_accession": "0001628280-26-003942",
+   "source_filed": "2026-01-29",
+   "revenue": 200966000000,
+   "net_income": 60458000000,
+   "operating_cash_flow": 115800000000,
+   "capex": 69691000000,
+   "free_cash_flow": 46109000000,
+   "assets": 366021000000,
+   "liabilities": 148778000000,
+   "equity": 217243000000,
+   "diluted_shares": 2574000000,
+   "shares_outstanding": null,
+   "shares_basis_for_market_cap": "diluted",
+   "share_count_warning": null,
+   "price_used": 556.71,
+   "price_date": "2026-07-31",
+   "market_cap": 1432971540000.0,
+   "gross_margin": null,
+   "piotroski": {
+    "criteria": {
+     "1_roa_positive": true,
+     "2_ocf_positive": true,
+     "3_roa_improved": false,
+     "4_accruals_ocf_gt_ni": true,
+     "5_leverage_decreased": false,
+     "6_current_ratio_up": false,
+     "7_no_share_dilution": true,
+     "8_gross_margin_up": null,
+     "9_asset_turnover_up": false
+    },
+    "score": 4,
+    "max_evaluated": 8,
+    "unavailable": [
+     "8_gross_margin_up"
+    ]
+   },
+   "altman_z": {
+    "z_score": 7.76,
+    "zone": "safe",
+    "market_cap_dominated": true,
+    "caveat": "X4 (市值/總負債) 占 Z 值 74%，此分數主要反映高市值與低負債，而非償債能力；Altman Z 對輕資產公司不適用",
+    "components": {
+     "X1": 0.1827,
+     "X2": 0.3311,
+     "X3": 0.2275,
+     "X4": 9.6316,
+     "X5": 0.5491
+    }
+   },
+   "dupont": {
+    "net_margin": 0.3008,
+    "asset_turnover": 0.5491,
+    "equity_multiplier": 1.6848,
+    "roe": 0.2783,
+    "roe_direct_check": 0.2783
+   }
+  },
+  "MRVL": {
+   "cik": "0001835632",
+   "entity_name": "Marvell Technology, Inc.",
+   "taxonomy": "us-gaap",
+   "fiscal_year_end": "2026-01-31",
+   "prior_fiscal_year_end": "2025-02-01",
+   "currency": "USD",
+   "source_form": "10-K",
+   "source_accession": "0001835632-26-000011",
+   "source_filed": "2026-03-11",
+   "revenue": 8194600000,
+   "net_income": 2670100000,
+   "operating_cash_flow": 1750500000,
+   "capex": 354100000,
+   "free_cash_flow": 1396400000,
+   "assets": 22285300000,
+   "liabilities": 7976900000,
+   "equity": 14308400000,
+   "diluted_shares": 869700000,
+   "shares_outstanding": 874800000,
+   "shares_basis_for_market_cap": "dei_outstanding",
+   "share_count_warning": null,
+   "price_used": 187.56,
+   "price_date": "2026-07-31",
+   "market_cap": 164077488000.0,
+   "gross_margin": 0.5102,
+   "piotroski": {
+    "criteria": {
+     "1_roa_positive": true,
+     "2_ocf_positive": true,
+     "3_roa_improved": true,
+     "4_accruals_ocf_gt_ni": false,
+     "5_leverage_decreased": true,
+     "6_current_ratio_up": true,
+     "7_no_share_dilution": false,
+     "8_gross_margin_up": true,
+     "9_asset_turnover_up": true
+    },
+    "score": 7,
+    "max_evaluated": 9,
+    "unavailable": []
+   },
+   "altman_z": {
+    "z_score": 13.16,
+    "zone": "safe",
+    "market_cap_dominated": true,
+    "caveat": "X4 (市值/總負債) 占 Z 值 94%，此分數主要反映高市值與低負債，而非償債能力；Altman Z 對輕資產公司不適用",
+    "components": {
+     "X1": 0.1454,
+     "X2": 0.0608,
+     "X3": 0.0594,
+     "X4": 20.5691,
+     "X5": 0.3677
+    }
+   },
+   "dupont": {
+    "net_margin": 0.3258,
+    "asset_turnover": 0.3677,
+    "equity_multiplier": 1.5575,
+    "roe": 0.1866,
+    "roe_direct_check": 0.1866
+   }
+  },
+  "MSFT": {
+   "cik": "0000789019",
+   "entity_name": "MICROSOFT CORPORATION",
+   "taxonomy": "us-gaap",
+   "fiscal_year_end": "2026-06-30",
+   "prior_fiscal_year_end": "2025-06-30",
+   "currency": "USD",
+   "source_form": "10-K",
+   "source_accession": "0001193125-26-323660",
+   "source_filed": "2026-07-29",
+   "revenue": 331839000000,
+   "net_income": 133749000000,
+   "operating_cash_flow": 182935000000,
+   "capex": 115948000000,
+   "free_cash_flow": 66987000000,
+   "assets": 758376000000,
+   "liabilities": 315989000000,
+   "equity": 442387000000,
+   "diluted_shares": 7453000000,
+   "shares_outstanding": 7425545491,
+   "shares_basis_for_market_cap": "dei_outstanding",
+   "share_count_warning": null,
+   "price_used": 464.72,
+   "price_date": "2026-07-31",
+   "market_cap": 3450799500577.52,
+   "gross_margin": 0.6794,
+   "piotroski": {
+    "criteria": {
+     "1_roa_positive": true,
+     "2_ocf_positive": true,
+     "3_roa_improved": true,
+     "4_accruals_ocf_gt_ni": true,
+     "5_leverage_decreased": true,
+     "6_current_ratio_up": false,
+     "7_no_share_dilution": true,
+     "8_gross_margin_up": false,
+     "9_asset_turnover_up": false
+    },
+    "score": 6,
+    "max_evaluated": 9,
+    "unavailable": []
+   },
+   "altman_z": {
+    "z_score": 8.33,
+    "zone": "safe",
+    "market_cap_dominated": true,
+    "caveat": "X4 (市值/總負債) 占 Z 值 79%，此分數主要反映高市值與低負債，而非償債能力；Altman Z 對輕資產公司不適用",
+    "components": {
+     "X1": 0.0513,
+     "X2": 0.4329,
+     "X3": 0.2047,
+     "X4": 10.9206,
+     "X5": 0.4376
+    }
+   },
+   "dupont": {
+    "net_margin": 0.4031,
+    "asset_turnover": 0.4376,
+    "equity_multiplier": 1.7143,
+    "roe": 0.3023,
+    "roe_direct_check": 0.3023
+   }
+  },
+  "NOK": {
+   "cik": "0000924613",
+   "entity_name": "Nokia Corporation",
+   "taxonomy": "ifrs-full",
+   "fiscal_year_end": "2025-12-31",
+   "prior_fiscal_year_end": "2024-12-31",
+   "currency": "EUR",
+   "source_form": "20-F",
+   "source_accession": "0001628280-26-015034",
+   "source_filed": "2026-03-05",
+   "revenue": 19889000000,
+   "net_income": 660000000,
+   "operating_cash_flow": 2071000000,
+   "capex": null,
+   "free_cash_flow": null,
+   "assets": 37597000000,
+   "liabilities": 16539000000,
+   "equity": 20967000000,
+   "diluted_shares": null,
+   "shares_outstanding": 5742239696,
+   "shares_basis_for_market_cap": "dei_outstanding",
+   "share_count_warning": null,
+   "price_used": 9.14,
+   "price_date": "2026-07-31",
+   "market_cap": 52484070821.44,
+   "gross_margin": 0.4354,
+   "piotroski": {
+    "criteria": {
+     "1_roa_positive": true,
+     "2_ocf_positive": true,
+     "3_roa_improved": false,
+     "4_accruals_ocf_gt_ni": true,
+     "5_leverage_decreased": null,
+     "6_current_ratio_up": false,
+     "7_no_share_dilution": null,
+     "8_gross_margin_up": false,
+     "9_asset_turnover_up": true
+    },
+    "score": 4,
+    "max_evaluated": 7,
+    "unavailable": [
+     "5_leverage_decreased",
+     "7_no_share_dilution"
+    ]
+   },
+   "altman_z": {
+    "z_score": 2.76,
+    "zone": "grey",
+    "market_cap_dominated": false,
+    "caveat": null,
+    "components": {
+     "X1": 0.1539,
+     "X2": 0.0494,
+     "X3": 0.0235,
+     "X4": 3.1734,
+     "X5": 0.529
+    }
+   },
+   "dupont": {
+    "net_margin": 0.0332,
+    "asset_turnover": 0.529,
+    "equity_multiplier": 1.7932,
+    "roe": 0.0315,
+    "roe_direct_check": 0.0315
+   }
+  },
+  "NVDA": {
+   "cik": "0001045810",
+   "entity_name": "NVIDIA CORP",
+   "taxonomy": "us-gaap",
+   "fiscal_year_end": "2026-01-25",
+   "prior_fiscal_year_end": "2025-01-26",
+   "currency": "USD",
+   "source_form": "10-K",
+   "source_accession": "0001045810-26-000021",
+   "source_filed": "2026-02-25",
+   "revenue": 215938000000,
+   "net_income": 120067000000,
+   "operating_cash_flow": 102718000000,
+   "capex": null,
+   "free_cash_flow": null,
+   "assets": 206803000000,
+   "liabilities": 49510000000,
+   "equity": 157293000000,
+   "diluted_shares": 24514000000,
+   "shares_outstanding": 24200000000,
+   "shares_basis_for_market_cap": "dei_outstanding",
+   "share_count_warning": null,
+   "price_used": 200.75,
+   "price_date": "2026-07-31",
+   "market_cap": 4858150000000.0,
+   "gross_margin": 0.7107,
+   "piotroski": {
+    "criteria": {
+     "1_roa_positive": true,
+     "2_ocf_positive": true,
+     "3_roa_improved": false,
+     "4_accruals_ocf_gt_ni": false,
+     "5_leverage_decreased": true,
+     "6_current_ratio_up": false,
+     "7_no_share_dilution": true,
+     "8_gross_margin_up": false,
+     "9_asset_turnover_up": false
+    },
+    "score": 4,
+    "max_evaluated": 9,
+    "unavailable": []
+   },
+   "altman_z": {
+    "z_score": 63.54,
+    "zone": "safe",
+    "market_cap_dominated": true,
+    "caveat": "X4 (市值/總負債) 占 Z 值 93%，此分數主要反映高市值與低負債，而非償債能力；Altman Z 對輕資產公司不適用",
+    "components": {
+     "X1": 0.4518,
+     "X2": 0.7107,
+     "X3": 0.6305,
+     "X4": 98.1246,
+     "X5": 1.0442
+    }
+   },
+   "dupont": {
+    "net_margin": 0.556,
+    "asset_turnover": 1.0442,
+    "equity_multiplier": 1.3148,
+    "roe": 0.7633,
+    "roe_direct_check": 0.7633
+   }
+  },
+  "ONDS": {
+   "cik": "0001646188",
+   "entity_name": "Ondas Inc.",
+   "taxonomy": "us-gaap",
+   "fiscal_year_end": "2025-12-31",
+   "prior_fiscal_year_end": "2024-12-31",
+   "currency": "USD",
+   "source_form": "10-K",
+   "source_accession": "0001213900-26-035981",
+   "source_filed": "2026-03-30",
+   "revenue": 50731000,
+   "net_income": -132235000,
+   "operating_cash_flow": -38746000,
+   "capex": 2034000,
+   "free_cash_flow": -40780000,
+   "assets": 1132841000,
+   "liabilities": 661226000,
+   "equity": 441819000,
+   "diluted_shares": 221769,
+   "shares_outstanding": 495762650,
+   "shares_basis_for_market_cap": "dei_outstanding",
+   "share_count_warning": "diluted=221,769 與 dei 流通股數=495,762,650 相差 2235 倍，已改用 dei 計算市值",
+   "price_used": 7.49,
+   "price_date": "2026-07-31",
+   "market_cap": 3713262248.5,
+   "gross_margin": 0.3973,
+   "piotroski": {
+    "criteria": {
+     "1_roa_positive": false,
+     "2_ocf_positive": false,
+     "3_roa_improved": true,
+     "4_accruals_ocf_gt_ni": true,
+     "5_leverage_decreased": null,
+     "6_current_ratio_up": true,
+     "7_no_share_dilution": false,
+     "8_gross_margin_up": true,
+     "9_asset_turnover_up": false
+    },
+    "score": 4,
+    "max_evaluated": 8,
+    "unavailable": [
+     "5_leverage_decreased"
+    ]
+   },
+   "altman_z": {
+    "z_score": 3.37,
+    "zone": "safe",
+    "market_cap_dominated": true,
+    "caveat": "X4 (市值/總負債) 占 Z 值 100%，此分數主要反映高市值與低負債，而非償債能力；Altman Z 對輕資產公司不適用",
+    "components": {
+     "X1": 0.4803,
+     "X2": -0.3252,
+     "X3": -0.0515,
+     "X4": 5.6157,
+     "X5": 0.0448
+    }
+   },
+   "dupont": {
+    "net_margin": -2.6066,
+    "asset_turnover": 0.0448,
+    "equity_multiplier": 2.564,
+    "roe": -0.2993,
+    "roe_direct_check": -0.2993
+   }
+  },
+  "TSLA": {
+   "cik": "0001318605",
+   "entity_name": "Tesla, Inc.",
+   "taxonomy": "us-gaap",
+   "fiscal_year_end": "2025-12-31",
+   "prior_fiscal_year_end": "2024-12-31",
+   "currency": "USD",
+   "source_form": "10-K",
+   "source_accession": "0001628280-26-003952",
+   "source_filed": "2026-01-29",
+   "revenue": 94827000000,
+   "net_income": 3794000000,
+   "operating_cash_flow": 14747000000,
+   "capex": 8527000000,
+   "free_cash_flow": 6220000000,
+   "assets": 137806000000,
+   "liabilities": 54941000000,
+   "equity": 82807000000,
+   "diluted_shares": 3528000000,
+   "shares_outstanding": 3949547394,
+   "shares_basis_for_market_cap": "dei_outstanding",
+   "share_count_warning": null,
+   "price_used": 311.21,
+   "price_date": "2026-07-31",
+   "market_cap": 1229138644486.74,
+   "gross_margin": 0.1803,
+   "piotroski": {
+    "criteria": {
+     "1_roa_positive": true,
+     "2_ocf_positive": true,
+     "3_roa_improved": false,
+     "4_accruals_ocf_gt_ni": true,
+     "5_leverage_decreased": false,
+     "6_current_ratio_up": true,
+     "7_no_share_dilution": false,
+     "8_gross_margin_up": true,
+     "9_asset_turnover_up": false
+    },
+    "score": 5,
+    "max_evaluated": 9,
+    "unavailable": []
+   },
+   "altman_z": {
+    "z_score": 14.93,
+    "zone": "safe",
+    "market_cap_dominated": true,
+    "caveat": "X4 (市值/總負債) 占 Z 值 90%，此分數主要反映高市值與低負債，而非償債能力；Altman Z 對輕資產公司不適用",
+    "components": {
+     "X1": 0.268,
+     "X2": 0.283,
+     "X3": 0.0316,
+     "X4": 22.372,
+     "X5": 0.6881
+    }
+   },
+   "dupont": {
+    "net_margin": 0.04,
+    "asset_turnover": 0.6881,
+    "equity_multiplier": 1.6642,
+    "roe": 0.0458,
+    "roe_direct_check": 0.0458
+   }
+  },
+  "TSM": {
+   "cik": "0001046179",
+   "entity_name": "Taiwan Semiconductor Manufacturing Company Limited",
+   "taxonomy": "ifrs-full",
+   "fiscal_year_end": "2024-12-31",
+   "prior_fiscal_year_end": "2023-12-31",
+   "currency": "USD",
+   "source_form": "20-F",
+   "source_accession": "0001193125-25-083423",
+   "source_filed": "2025-04-17",
+   "revenue": 88268000000,
+   "net_income": 35301100000,
+   "operating_cash_flow": 55693100000,
+   "capex": null,
+   "free_cash_flow": null,
+   "assets": 204079400000,
+   "liabilities": 73574000000,
+   "equity": 129437800000,
+   "diluted_shares": null,
+   "shares_outstanding": 25932524521,
+   "shares_basis_for_market_cap": "dei_outstanding",
+   "share_count_warning": null,
+   "price_used": 404.25,
+   "price_date": "2026-07-31",
+   "market_cap": 10483223037614.25,
+   "gross_margin": 0.5612,
+   "piotroski": {
+    "criteria": {
+     "1_roa_positive": true,
+     "2_ocf_positive": true,
+     "3_roa_improved": true,
+     "4_accruals_ocf_gt_ni": true,
+     "5_leverage_decreased": null,
+     "6_current_ratio_up": true,
+     "7_no_share_dilution": null,
+     "8_gross_margin_up": true,
+     "9_asset_turnover_up": true
+    },
+    "score": 7,
+    "max_evaluated": 7,
+    "unavailable": [
+     "5_leverage_decreased",
+     "7_no_share_dilution"
+    ]
+   },
+   "altman_z": {
+    "z_score": 87.71,
+    "zone": "safe",
+    "market_cap_dominated": true,
+    "caveat": "X4 (市值/總負債) 占 Z 值 97%，此分數主要反映高市值與低負債，而非償債能力；Altman Z 對輕資產公司不適用",
+    "components": {
+     "X1": 0.266,
+     "X2": 0.5788,
+     "X3": 0.1976,
+     "X4": 142.4854,
+     "X5": 0.4325
+    }
+   },
+   "dupont": {
+    "net_margin": 0.3999,
+    "asset_turnover": 0.4325,
+    "equity_multiplier": 1.5767,
+    "roe": 0.2727,
+    "roe_direct_check": 0.2727
+   }
+  }
+ }
+}
