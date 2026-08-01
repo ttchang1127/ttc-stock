@@ -276,6 +276,18 @@
       background: rgba(6, 182, 212, 0.12);
     }
 
+    /* The short-term presets are tinted amber so they read as a separate group
+       from the swing/long settings, not as more of the same. */
+    .preset-btn.preset-fast {
+      color: #fbbf24;
+      border-color: rgba(245, 158, 11, 0.35);
+    }
+
+    .preset-btn.preset-fast:hover {
+      border-color: #f59e0b;
+      background: rgba(245, 158, 11, 0.12);
+    }
+
     /* The preset matching the three inputs is highlighted, so the controls and
        the buttons can never appear to disagree. */
     .preset-btn.active {
@@ -865,7 +877,19 @@
             19 / 39 / 9<small>長線、過濾雜訊</small></button>
           <button class="preset-btn" data-preset="5,35,5"   onclick="applyPreset(this, 5, 35, 5)">
             5 / 35 / 5<small>週線圖用</small></button>
-          <span class="preset-hint">參數由來與取捨見 → 第二分頁「快線 12、慢線 26、Signal 9 是怎麼來的？」</span>
+
+          <span class="preset-label" style="margin-left: 6px;">短線 ⚡</span>
+          <button class="preset-btn preset-fast" data-preset="5,13,6" onclick="applyPreset(this, 5, 13, 6)">
+            5 / 13 / 6<small>短線常用</small></button>
+          <button class="preset-btn preset-fast" data-preset="3,10,16" onclick="applyPreset(this, 3, 10, 16)">
+            3 / 10 / 16<small>Raschke 型</small></button>
+
+          <span class="preset-hint">
+            ⚠️ <strong>本站只有日線資料</strong>。短線那兩組原本是給 5 分鐘／15 分鐘 K 線用的，
+            套在日線上只會得到「反應較快的日線 MACD」，<strong>不等於當沖訊號</strong>。
+            另外 Raschke 原始的 3/10/16 用的是 <strong>SMA</strong>，本站一律用 EMA，數值不會與她的版本相同。
+            參數由來見 → 第二分頁「快線 12、慢線 26、Signal 9 是怎麼來的？」
+          </span>
         </div>
 
         <div id="statusBanner" class="status-banner loading">
@@ -1057,6 +1081,8 @@
               上方回溯器的三個欄位可以直接改，改完全頁面即時重算。常見組合：
             </div>
             <div class="formula-box">
+              5 / 13 / 6　　短線常用，訊號密集<br>
+              3 / 10 / 16　　Linda Raschke 型，最靈敏<br>
               5 / 35 / 5　　週線圖用，Appel 自己也提過<br>
               8 / 17 / 9　　較靈敏，訊號早但假訊號多<br>
               12 / 26 / 9　　業界預設<br>
@@ -1065,6 +1091,27 @@
             <div class="term-desc">
               <strong>原則：分母越小越靈敏</strong> —— 訊號來得早，但假訊號也多；放大則相反。
               沒有哪一組「比較準」，只有適不適合你的持有週期。
+            </div>
+          </div>
+
+          <div class="term-item">
+            <div class="term-title" style="color: #fbbf24;">⚡ 關於「當沖組」的兩個必要澄清</div>
+            <div class="term-desc">
+              <strong>① 本站只有日線資料。</strong>
+              5/13/6 與 3/10/16 原本是設計給 <strong>5 分鐘／15 分鐘 K 線</strong>的。
+              把它們套在日線上，得到的是「反應較快的日線 MACD」——
+              訊號會變密、假訊號也變多，但<strong>那不是當沖訊號</strong>。
+              真正要當沖，需要的是分鐘級 K 線資料，本站的 <code>prices.json</code> 只有每日收盤價。
+            </div>
+            <div class="term-desc" style="margin-top: 8px;">
+              <strong>② 3/10/16 的原始版本用 SMA，不是 EMA。</strong>
+              Linda Raschke 的 3/10 振盪器以<strong>簡單移動平均 (SMA)</strong> 計算，
+              而本站（與絕大多數看盤軟體的 MACD）一律使用 <strong>指數移動平均 (EMA)</strong>。
+              所以本站的 3/10/16 數值<strong>不會等於她的版本</strong>，只是借用同一組週期。
+            </div>
+            <div class="term-desc" style="margin-top: 8px;">
+              換句話說：這兩顆按鈕的用途是「<strong>看看更靈敏的參數會讓柱體長什麼樣</strong>」，
+              而不是「切換成當沖模式」。
             </div>
           </div>
 
