@@ -848,9 +848,10 @@
               <th onclick="sortTable(4)">毛利率 (%) ⇕</th>
               <th onclick="sortTable(5)">經營現金流 (OCF) ⇕</th>
               <th onclick="sortTable(6)">3年 Sortino ⇕</th>
-              <th onclick="sortTable(7)">VOO 持股權重 (%) ⇕</th>
-              <th onclick="sortTable(8)">VGT 持股權重 (%) ⇕</th>
-              <th onclick="sortTable(9)">DCF 估值中位 ⇕</th>
+              <th onclick="sortTable(7)">12月 Sortino ⇕</th>
+              <th onclick="sortTable(8)">VOO 持股權重 (%) ⇕</th>
+              <th onclick="sortTable(9)">VGT 持股權重 (%) ⇕</th>
+              <th onclick="sortTable(10)">DCF 估值中位 ⇕</th>
             </tr>
           </thead>
           <tbody id="tableBody">
@@ -914,14 +915,112 @@
 
           <div class="term-item">
             <div class="term-title">📊 MACD 柱狀體 (Histogram)</div>
-            <div class="term-desc">快線 (DIF) 與慢線 (Signal) 的差值乘以 2。正值為綠柱（多頭控盤），負值為紅柱（空頭控盤）。</div>
-            <div class="formula-box">Histogram = (DIF - Signal) * 2</div>
+            <div class="term-desc">快線 (DIF) 與慢線 (Signal) 的差值。正值為綠柱（多頭控盤），負值為紅柱（空頭控盤）。</div>
+            <div class="formula-box">Histogram = DIF - Signal</div>
+            <div class="term-desc" style="margin-top: 8px;">
+              ⚠️ <strong>台股看盤軟體常見的是 <code>(DIF - Signal) × 2</code></strong>（通達信慣例），
+              柱體會是本站的兩倍高。本站採 MACD 原始定義不乘 2，因為柱體與 DIF／Signal 兩條線畫在同一 Y 軸上，
+              放大兩倍會把線壓扁蓋住。<strong>比較不同軟體的柱體高度前，先確認它用哪個慣例。</strong>
+            </div>
           </div>
         </div>
 
-        <!-- Card 2: 四大買賣訊號與專有名詞 -->
+        <!-- Card: 12 / 26 / 9 參數的由來 -->
         <div class="guide-card">
-          <h3>🚦 2. 四大買賣訊號與專有名詞解釋</h3>
+          <h3>🔢 2. 快線 12、慢線 26、Signal 9 是怎麼來的？</h3>
+
+          <div class="term-item">
+            <div class="term-title">📜 出處：1970 年代末，Gerald Appel</div>
+            <div class="term-desc">
+              MACD 由美國分析師 <strong>Gerald Appel</strong> 於 1970 年代末期提出。
+              12／26／9 這組數字**不是最佳化跑出來的結果**，而是當年觀察市場後選定的週期，
+              之後被各家看盤軟體沿用成預設值。
+            </div>
+          </div>
+
+          <div class="term-item">
+            <div class="term-title">📅 為什麼是 12、26、9？—— 六天交易週的遺產</div>
+            <div class="term-desc">
+              關鍵在於：<strong>Appel 那個年代，美股一週交易六天</strong>（週六有半日盤）。
+              以一週 6 個交易日換算：
+            </div>
+            <div class="formula-box">12 日 ≒ 2 週　│　26 日 ≒ 1 個月　│　9 日 ≒ 1.5 週</div>
+            <div class="term-desc">
+              所以原始設計的意思是「<strong>兩週均線 vs 一個月均線</strong>，再用一週半平滑」。
+              這是有商業週期意義的，不是隨便挑的數字。
+            </div>
+          </div>
+
+          <div class="term-item">
+            <div class="term-title" style="color: #fbbf24;">⚠️ 但現在一週只交易五天</div>
+            <div class="term-desc">
+              週六盤早已取消。以現行一週 5 個交易日換算，「兩週／一個月」對應的其實是
+              <strong>10 日與 21～22 日</strong>，而不是 12 與 26。
+              換句話說，<strong>12/26/9 原本的時間意義在今天已經不成立了</strong>。
+            </div>
+            <div class="term-desc" style="margin-top: 8px;">
+              它之所以還是預設值，主要原因是<strong>使用者太多而形成的自我實現</strong> ——
+              全世界的交易者都在看同一組線，交叉點就真的會有人進出場。
+              這是「大家都在看」的價值，不是「這組參數比較準」。
+            </div>
+          </div>
+
+          <div class="term-item">
+            <div class="term-title" style="color: #fb7185;">🔍 冷知識：Appel 本人並不是建議 12/26/9</div>
+            <div class="term-desc">
+              常被誤傳成「發明者的建議值」，但實際上 Appel 對日線圖建議的是<strong>買賣分開用兩組參數</strong>：
+            </div>
+            <div class="formula-box">買進訊號：8 / 17 / 9　　賣出訊號：12 / 25 / 9</div>
+            <div class="term-desc">
+              他的理由是：<strong>抓買點要靈敏（參數短），抓賣點要遲鈍（參數長）</strong>，
+              避免多頭行情中被雜訊洗出場。今天通用的 12/26/9 比較接近他的「賣出組」，
+              是後來軟體商統一預設值的結果，並非原始推薦。
+            </div>
+          </div>
+
+          <div class="term-item">
+            <div class="term-title" style="color: #38bdf8;">🎛️ 常見的替代參數</div>
+            <div class="term-desc">
+              上方回溯器的三個欄位可以直接改，改完全頁面即時重算。常見組合：
+            </div>
+            <div class="formula-box">
+              5 / 35 / 5　　週線圖用，Appel 自己也提過<br>
+              8 / 17 / 9　　較靈敏，訊號早但假訊號多<br>
+              12 / 26 / 9　　業界預設<br>
+              19 / 39 / 9　　較遲鈍，過濾雜訊，適合長線
+            </div>
+            <div class="term-desc">
+              <strong>原則：分母越小越靈敏</strong> —— 訊號來得早，但假訊號也多；放大則相反。
+              沒有哪一組「比較準」，只有適不適合你的持有週期。
+            </div>
+          </div>
+
+          <div class="term-item">
+            <div class="term-title" style="color: #f59e0b;">🚨 參數最佳化的陷阱（Overfitting）</div>
+            <div class="term-desc">
+              很容易掉進一個坑：把參數一組一組試過去，挑出「回測報酬最高」的那組。
+              但在幾百種組合裡挑冠軍，挑到的通常是<strong>剛好符合這段歷史雜訊</strong>的那組，
+              換一段期間就失效。
+            </div>
+            <div class="term-desc" style="margin-top: 8px;">
+              比較穩健的做法是：<strong>先決定持有週期，再選對應的參數，然後不要再動它</strong>。
+              若真的要調，至少要在<strong>沒有參與最佳化的另一段期間</strong>驗證一次。
+            </div>
+          </div>
+
+          <div class="term-item">
+            <div class="term-title">📌 本站採用的設定</div>
+            <div class="term-desc">
+              預設 <strong>12 / 26 / 9</strong>，EMA 以 <code>prices.json</code> 的完整歷史（約 1,500 個交易日）
+              預熱後才裁切出顯示區間，因此區間起點的數值不會因為「從頭開始算」而失真。
+              柱狀體採 <code>DIF − Signal</code>（不乘 2）。
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3: 四大買賣訊號與專有名詞 -->
+        <div class="guide-card">
+          <h3>🚦 3. 四大買賣訊號與專有名詞解釋</h3>
 
           <div class="term-item">
             <div class="term-title" style="color: #34d399;">🟢 1. 黃金交叉 (Golden Cross)</div>
@@ -949,7 +1048,7 @@
 
         <!-- Card 3: 高階實戰分析方法論 -->
         <div class="guide-card">
-          <h3>🦅 3. 高階實戰分析方法論 (背離與特定區間回測)</h3>
+          <h3>🦅 4. 高階實戰分析方法論 (背離與特定區間回測)</h3>
 
           <div class="term-item">
             <div class="term-title" style="color: #c084fc;">🦅 頂背離 (Bearish Divergence) —— 高檔警戒</div>
@@ -1006,7 +1105,7 @@
         grossMargin: 71.07,
         netMargin: 55.6,
         ocf: 1027.18,
-        sortino: 2.26,
+        sortino: null,   // 由 fundamentals.json 填入
         fScore: "9 / 9",
         macdStatus: "🔴 空頭主導 - 紅柱擴張 (-2.74)",
         macdClass: "macd-bear",
@@ -1030,7 +1129,7 @@
         grossMargin: 59.65,
         netMargin: 32.81,
         ocf: 1647.13,
-        sortino: 1.65,
+        sortino: null,   // 由 fundamentals.json 填入
         fScore: "9 / 9",
         macdStatus: "🟢 多頭主導 - 綠柱擴張 (+1.85)",
         macdClass: "macd-bull",
@@ -1054,7 +1153,7 @@
         grossMargin: 95.20,
         netMargin: 24.50,
         ocf: 11.80,
-        sortino: 1.85,
+        sortino: null,   // 由 fundamentals.json 填入
         fScore: "9 / 9",
         macdStatus: "🟠 空頭主導 - 紅柱收縮 (-9.80)",
         macdClass: "macd-warn",
@@ -1078,7 +1177,7 @@
         grossMargin: 61.50,
         netMargin: 12.80,
         ocf: 17.20,
-        sortino: 1.42,
+        sortino: null,   // 由 fundamentals.json 填入
         fScore: "9 / 9",
         macdStatus: "🟡 多頭高檔 - 綠柱收縮 (+0.45)",
         macdClass: "macd-warn",
@@ -1102,7 +1201,7 @@
         grossMargin: 36.80,
         netMargin: 7.20,
         ocf: 7.50,
-        sortino: 1.55,
+        sortino: null,   // 由 fundamentals.json 填入
         fScore: "8 / 9",
         macdStatus: "🟢 剛觸發【黃金交叉】(+1.25)",
         macdClass: "macd-bull",
@@ -1126,7 +1225,7 @@
         grossMargin: 17.80,
         netMargin: 4.00,
         ocf: 147.50,
-        sortino: 0.55,
+        sortino: null,   // 由 fundamentals.json 填入
         fScore: "7 / 9",
         macdStatus: "🔴 空頭主導 - 紅柱擴張 (-1.85)",
         macdClass: "macd-bear",
@@ -1150,7 +1249,7 @@
         grossMargin: 38.50,
         netMargin: -1.20,
         ocf: 115.00,
-        sortino: 0.25,
+        sortino: null,   // 由 fundamentals.json 填入
         fScore: "6 / 9",
         macdStatus: "🟠 空頭主導 - 紅柱收縮 (-0.45)",
         macdClass: "macd-warn",
@@ -1174,7 +1273,7 @@
         grossMargin: 44.20,
         netMargin: 8.50,
         ocf: 28.50,
-        sortino: 0.88,
+        sortino: null,   // 由 fundamentals.json 填入
         fScore: "8 / 9",
         macdStatus: "🟢 多頭微張 (+0.12)",
         macdClass: "macd-bull",
@@ -1198,7 +1297,7 @@
         grossMargin: 42.50,
         netMargin: -15.0,
         ocf: -3.88,
-        sortino: 1.95,
+        sortino: null,   // 由 fundamentals.json 填入
         fScore: "8 / 9",
         macdStatus: "🟡 多頭控盤 - 綠柱收縮 (+0.23)",
         macdClass: "macd-bull",
@@ -1222,7 +1321,7 @@
         grossMargin: 59.90,
         netMargin: 42.50,
         ocf: 638.00,
-        sortino: 2.44,
+        sortino: null,   // 由 fundamentals.json 填入
         fScore: "9 / 9",
         macdStatus: "🟠 空頭主導 - 紅柱收縮 (-6.62)",
         macdClass: "macd-warn",
@@ -1246,7 +1345,7 @@
         grossMargin: 46.90,
         netMargin: 26.90,
         ocf: 1114.00,
-        sortino: 1.18,
+        sortino: null,   // 由 fundamentals.json 填入
         fScore: "9 / 9",
         macdStatus: "🟢 多頭主導 (+1.45)",
         macdClass: "macd-bull",
@@ -1270,7 +1369,7 @@
         grossMargin: 68.82,
         netMargin: 36.15,
         ocf: 1361.62,
-        sortino: 0.33,
+        sortino: null,   // 由 fundamentals.json 填入
         fScore: "9 / 9",
         macdStatus: "🟡 多頭高檔 (+0.65)",
         macdClass: "macd-warn",
@@ -1294,7 +1393,7 @@
         grossMargin: 82.00,
         netMargin: 30.08,
         ocf: 1158.00,
-        sortino: 1.10,
+        sortino: null,   // 由 fundamentals.json 填入
         fScore: "9 / 9",
         macdStatus: "🟢 多頭強勢 (+3.20)",
         macdClass: "macd-bull",
@@ -1313,6 +1412,7 @@
 
     let liveChart = null;
     let macdSummaryChart = null;
+    let sortinoChart = null;
 
     function selectQuickTicker(sym) {
       document.getElementById('liveTickerInput').value = sym;
@@ -1379,6 +1479,46 @@
                  `資料涵蓋至：${session} 收盤`;
       const sessionEl = document.getElementById('dataSession');
       if (sessionEl && session) sessionEl.innerText = `資料涵蓋至 ${session} 收盤`;
+    }
+
+    // Sortino comes from fundamentals.json rather than being recomputed here.
+    // compute_fundamentals.py already implements it against prices.json, and a
+    // second implementation in JS would be free to drift from the notes.
+    // titansData uses GOOG where the filings tree uses GOOGL.
+    const FUNDAMENTALS_ALIASES = { 'GOOG': 'GOOGL' };
+
+    function fmtSortino(v) {
+      return (v === null || v === undefined) ? '—' : v.toFixed(2);
+    }
+
+    function sortinoColor(v) {
+      if (v === null || v === undefined) return '#64748b';
+      if (v < 0) return '#fb7185';
+      return v > 1.5 ? '#34d399' : '#e2e8f0';
+    }
+
+    async function loadFundamentals() {
+      try {
+        const res = await fetch('fundamentals.json', { cache: 'no-cache' });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const db = await res.json();
+        titansData.forEach(item => {
+          const key = FUNDAMENTALS_ALIASES[item.ticker] || item.ticker;
+          const s = ((db.companies[key] || {}).sortino) || {};
+          // null rather than a stale placeholder when the window has no data --
+          // ARM listed in 2023 and has no 5-year history, for instance.
+          item.sortino = (s['3y'] || {}).value;
+          item.sortino12m = (s['12m_daily'] || {}).value;
+          item.sortinoWindow3y = (s['3y'] || {}).window_start || null;
+          item.sortino12mVsRf = (s['12m_daily'] || {}).value_vs_riskfree;
+        });
+        filterData();
+        updateSortinoChart();
+      } catch (err) {
+        console.warn('fundamentals.json 載入失敗，Sortino 欄位將顯示 —', err);
+        titansData.forEach(item => { item.sortino = null; item.sortino12m = null; });
+        filterData();
+      }
     }
 
     function setBanner(state, html) {
@@ -1691,7 +1831,8 @@
           <td><span class="badge-pe ${peClass}">${item.pe.toFixed(1)}x</span></td>
           <td style="font-weight: 600; color: #34d399;">${item.grossMargin}%</td>
           <td style="font-weight: 600;">$${item.ocf.toFixed(0)} 億</td>
-          <td><span style="font-weight: 700; color: ${item.sortino > 1.5 ? '#34d399' : '#e2e8f0'}">${item.sortino.toFixed(2)}</span></td>
+          <td><span style="font-weight: 700; color: ${item.sortino > 1.5 ? '#34d399' : '#e2e8f0'}">${fmtSortino(item.sortino)}</span></td>
+          <td><span style="font-weight: 700; color: ${sortinoColor(item.sortino12m)}">${fmtSortino(item.sortino12m)}</span></td>
           <td><span class="badge-etf">${item.vooWeight}</span></td>
           <td><span class="badge-etf">${item.vgtWeight}</span></td>
           <td style="color: #c084fc; font-weight: 600;">$${item.dcfMedian.toFixed(2)}</td>
@@ -1713,12 +1854,51 @@
       } else if (currentFilter === 'high-margin') {
         filtered = filtered.filter(item => item.grossMargin > 50);
       } else if (currentFilter === 'sortino-top') {
-        filtered = filtered.filter(item => item.sortino > 1.5);
+        filtered = filtered.filter(item => item.sortino !== null && item.sortino !== undefined && item.sortino > 1.5);
       } else if (currentFilter === 'fscore-9') {
         filtered = filtered.filter(item => item.fScore.includes('9'));
       }
 
       renderTable(filtered);
+    }
+
+    // Every column header advertises "⇕" and calls sortTable, but the function
+    // was never defined -- clicking any header threw a ReferenceError.
+    const SORT_FIELDS = [
+      'ticker', 'price', 'macdHist', 'pe', 'grossMargin', 'ocf',
+      'sortino', 'sortino12m', 'vooWeight', 'vgtWeight', 'dcfMedian',
+    ];
+    let sortState = { column: null, ascending: false };
+
+    function sortTable(colIndex) {
+      const field = SORT_FIELDS[colIndex];
+      if (!field) return;
+      sortState = {
+        column: colIndex,
+        ascending: sortState.column === colIndex ? !sortState.ascending : false,
+      };
+      const dir = sortState.ascending ? 1 : -1;
+      titansData.sort((a, b) => {
+        const x = a[field], y = b[field];
+        // Rows with no value sort last whichever way the column is pointing,
+        // so a missing Sortino never reads as the worst performer.
+        const xMissing = x === null || x === undefined;
+        const yMissing = y === null || y === undefined;
+        if (xMissing && yMissing) return 0;
+        if (xMissing) return 1;
+        if (yMissing) return -1;
+        if (typeof x === 'string') return x.localeCompare(y) * dir;
+        return (x - y) * dir;
+      });
+      filterData();
+    }
+
+    function updateSortinoChart() {
+      if (!sortinoChart) return;
+      sortinoChart.data.labels = titansData.map(d => d.ticker);
+      sortinoChart.data.datasets[0].data = titansData.map(d => d.sortino ?? null);
+      sortinoChart.data.datasets[1].data = titansData.map(d => d.sortino12m ?? null);
+      sortinoChart.update();
     }
 
     function setFilter(filterType, btn) {
@@ -1850,20 +2030,29 @@
         }
       });
 
-      new Chart(document.getElementById('chartSortino'), {
+      sortinoChart = new Chart(document.getElementById('chartSortino'), {
         type: 'line',
         data: {
           labels: labels,
-          datasets: [{
-            label: '3年期 Sortino Ratio',
-            data: titansData.map(d => d.sortino),
-            borderColor: '#c084fc',
-            backgroundColor: 'rgba(192, 132, 252, 0.15)',
-            fill: true,
-            tension: 0.4,
-            pointRadius: 6,
-            pointBackgroundColor: '#c084fc'
-          }]
+          datasets: [
+            {
+              label: '3 年期 Sortino（週資料，MAR=0）',
+              data: titansData.map(d => d.sortino ?? null),
+              borderColor: '#c084fc',
+              backgroundColor: 'rgba(192, 132, 252, 0.15)',
+              fill: true, tension: 0.4, pointRadius: 6,
+              pointBackgroundColor: '#c084fc'
+            },
+            {
+              label: '近 12 個月 Sortino（日資料，MAR=0）',
+              data: titansData.map(d => d.sortino12m ?? null),
+              borderColor: '#38bdf8',
+              backgroundColor: 'rgba(56, 189, 248, 0.10)',
+              fill: false, tension: 0.4, pointRadius: 5,
+              pointBackgroundColor: '#38bdf8',
+              borderDash: [5, 4]
+            }
+          ]
         },
         options: {
           responsive: true,
@@ -1896,6 +2085,7 @@
 
     renderTable(titansData);
     initCharts();
+    loadFundamentals();
     runLiveMACDRange();
   </script>
 </body>
