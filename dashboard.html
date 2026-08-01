@@ -807,6 +807,9 @@
       <button class="tab-btn" onclick="switchTab('tab-guide', this)">
         📖 MACD 技術分析教學、專有名詞與方法論大全
       </button>
+      <button class="tab-btn" onclick="switchTab('tab-portfolio', this); renderPortfolioTab();">
+        💼 目前持股部位明細與未實現損益 (USD / TWD 實時匯率)
+      </button>
     </div>
 
     <!-- TAB 1: Dashboard & Calculator -->
@@ -1190,6 +1193,87 @@
             <div class="term-desc">純技術面易受莊家洗盤騙線。最穩健的方法是：選取 <strong>Piotroski F-Score ≥ 8 且 DCF 具安全邊際</strong> 的好公司（如 NVDA, GOOGL, TSM），在其 MACD 發生黃金交叉或紅柱收縮時進場，勝率最高！</div>
           </div>
 
+        </div>
+
+      </div>
+    </div>
+
+    <!-- TAB 3: User Portfolio Holdings & USD/TWD P/L Tracker -->
+    <div id="tab-portfolio" class="tab-content">
+      <div style="background: var(--card-bg); backdrop-filter: blur(16px); border: 1px solid var(--card-border); border-radius: 22px; padding: 28px; box-shadow: var(--glow-shadow); margin-bottom: 24px;">
+        
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--card-border); padding-bottom: 16px; margin-bottom: 20px; flex-wrap: wrap; gap: 14px;">
+          <div>
+            <h2 style="font-size: 1.4rem; font-weight: 800; color: #fff; display: flex; align-items: center; gap: 10px;">
+              💼 目前個人持股部位明細與未實現損益算數器
+            </h2>
+            <p style="font-size: 0.85rem; color: #94a3b8; margin-top: 4px;">
+              實時連動美股最新收盤價與台灣中央銀行 / 華爾街美金兌台幣 (USD/TWD) 匯率
+            </p>
+          </div>
+          
+          <div style="display: flex; align-items: center; gap: 12px; background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.3); padding: 8px 16px; border-radius: 14px;">
+            <span style="font-size: 0.85rem; color: #38bdf8; font-weight: 700;">💱 美金兌台幣 (USD/TWD) 匯率:</span>
+            <input type="number" id="usdTwdRateInput" value="32.295" step="0.005" style="width: 90px; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.2); color: #fff; font-weight: 800; padding: 4px 8px; border-radius: 8px; text-align: center;" oninput="renderPortfolioTab()">
+            <span style="font-size: 0.75rem; color: #34d399; font-weight:700;" id="fxStatusBadge">連動中</span>
+          </div>
+        </div>
+
+        <!-- Portfolio Summary KPI Cards -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 24px;">
+          <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid var(--card-border); padding: 18px; border-radius: 16px;">
+            <div style="font-size: 0.75rem; color: var(--text-muted);">總投資成本 (USD / TWD)</div>
+            <div style="font-size: 1.3rem; font-weight: 800; color: #fff; margin-top: 4px;" id="kpiTotalCostUsd">$0.00</div>
+            <div style="font-size: 0.8rem; color: #38bdf8; margin-top: 2px;" id="kpiTotalCostTwd">NT$ 0</div>
+          </div>
+          <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid var(--card-border); padding: 18px; border-radius: 16px;">
+            <div style="font-size: 0.75rem; color: var(--text-muted);">當前總市值 (USD / TWD)</div>
+            <div style="font-size: 1.3rem; font-weight: 800; color: #38bdf8; margin-top: 4px;" id="kpiTotalValueUsd">$0.00</div>
+            <div style="font-size: 0.8rem; color: #38bdf8; margin-top: 2px;" id="kpiTotalValueTwd">NT$ 0</div>
+          </div>
+          <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid var(--card-border); padding: 18px; border-radius: 16px;">
+            <div style="font-size: 0.75rem; color: var(--text-muted);">未實現總損益 (USD / TWD)</div>
+            <div style="font-size: 1.3rem; font-weight: 800; color: #34d399; margin-top: 4px;" id="kpiTotalPnlUsd">+$0.00</div>
+            <div style="font-size: 0.8rem; color: #34d399; margin-top: 2px;" id="kpiTotalPnlTwd">+NT$ 0</div>
+          </div>
+          <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid var(--card-border); padding: 18px; border-radius: 16px;">
+            <div style="font-size: 0.75rem; color: var(--text-muted);">總投資報酬率 (%)</div>
+            <div style="font-size: 1.3rem; font-weight: 800; color: #34d399; margin-top: 4px;" id="kpiTotalReturnPct">+0.00%</div>
+            <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 2px;">全持股部位綜合權重</div>
+          </div>
+        </div>
+
+        <!-- Portfolio Table & Allocation Chart -->
+        <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 24px; align-items: start;">
+          <!-- Table -->
+          <div style="overflow-x: auto;">
+            <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.85rem;">
+              <thead>
+                <tr style="background: rgba(15, 23, 42, 0.8); border-bottom: 1px solid var(--card-border); color: #94a3b8;">
+                  <th style="padding: 12px;">標的</th>
+                  <th style="padding: 12px;">持有股數</th>
+                  <th style="padding: 12px;">成本價 ($)</th>
+                  <th style="padding: 12px;">現價 ($)</th>
+                  <th style="padding: 12px;">市值 (USD)</th>
+                  <th style="padding: 12px;">未實現損益 (USD)</th>
+                  <th style="padding: 12px;">未實現損益 (TWD)</th>
+                  <th style="padding: 12px;">報酬率 (%)</th>
+                  <th style="padding: 12px;">比重 (%)</th>
+                </tr>
+              </thead>
+              <tbody id="portfolioTableBody">
+                <!-- Dynamically Filled -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Pie Chart -->
+          <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid var(--card-border); border-radius: 18px; padding: 20px;">
+            <h3 style="font-size: 1rem; color: #fff; font-weight: 700; margin-bottom: 12px;">🍰 資產配置比重分佈</h3>
+            <div style="position: relative; height: 280px; width: 100%;">
+              <canvas id="chartPortfolioPie"></canvas>
+            </div>
+          </div>
         </div>
 
       </div>
@@ -2227,10 +2311,135 @@
       });
     }
 
+    const userHoldings = [
+      { ticker: "ARM", shares: 10, cost: 212.70 },
+      { ticker: "COHR", shares: 5, cost: 352.062 },
+      { ticker: "GOOG", shares: 20, cost: 266.492 },
+      { ticker: "INTC", shares: 25, cost: 70.164 },
+      { ticker: "MRVL", shares: 25, cost: 157.392 },
+      { ticker: "NOK", shares: 200, cost: 15.1311 },
+      { ticker: "NVDA", shares: 15, cost: 212.995333 },
+      { ticker: "TSLA", shares: 7.29815, cost: 225.820242 },
+      { ticker: "VGT", shares: 248, cost: 90.276935 },
+      { ticker: "VOO", shares: 45.76647, cost: 570.406675 }
+    ];
+
+    let portfolioPieChart = null;
+
+    function renderPortfolioTab() {
+      const rate = parseFloat(document.getElementById('usdTwdRateInput').value) || 32.295;
+      
+      let totCostUsd = 0;
+      let totValUsd = 0;
+
+      const items = userHoldings.map(h => {
+        let currPrice = h.cost;
+        if (priceDB && priceDB.series && priceDB.series[h.ticker]) {
+          const closes = priceDB.series[h.ticker].closes;
+          currPrice = closes[closes.length - 1];
+        } else {
+          const found = titansData.find(t => t.ticker === h.ticker);
+          if (found) currPrice = found.price;
+        }
+
+        const costUsd = h.shares * h.cost;
+        const valUsd = h.shares * currPrice;
+        const pnlUsd = valUsd - costUsd;
+        const returnPct = (pnlUsd / costUsd) * 100;
+
+        totCostUsd += costUsd;
+        totValUsd += valUsd;
+
+        return {
+          ...h,
+          currPrice,
+          costUsd,
+          valUsd,
+          pnlUsd,
+          pnlTwd: pnlUsd * rate,
+          returnPct
+        };
+      });
+
+      const totPnlUsd = totValUsd - totCostUsd;
+      const totPnlTwd = totPnlUsd * rate;
+      const totReturnPct = (totPnlUsd / totCostUsd) * 100;
+
+      document.getElementById('kpiTotalCostUsd').innerText = `$${totCostUsd.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+      document.getElementById('kpiTotalCostTwd').innerText = `NT$ ${Math.round(totCostUsd * rate).toLocaleString('en-US')}`;
+      
+      document.getElementById('kpiTotalValueUsd').innerText = `$${totValUsd.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+      document.getElementById('kpiTotalValueTwd').innerText = `NT$ ${Math.round(totValUsd * rate).toLocaleString('en-US')}`;
+      
+      const pnlElUsd = document.getElementById('kpiTotalPnlUsd');
+      pnlElUsd.innerText = `${totPnlUsd >= 0 ? '+' : ''}$${totPnlUsd.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+      pnlElUsd.style.color = totPnlUsd >= 0 ? '#34d399' : '#f43f5e';
+      
+      const pnlElTwd = document.getElementById('kpiTotalPnlTwd');
+      pnlElTwd.innerText = `${totPnlTwd >= 0 ? '+NT$ ' : '-NT$ '}${Math.abs(Math.round(totPnlTwd)).toLocaleString('en-US')}`;
+      pnlElTwd.style.color = totPnlTwd >= 0 ? '#34d399' : '#f43f5e';
+
+      const retEl = document.getElementById('kpiTotalReturnPct');
+      retEl.innerText = `${totReturnPct >= 0 ? '+' : ''}${totReturnPct.toFixed(2)}%`;
+      retEl.style.color = totReturnPct >= 0 ? '#34d399' : '#f43f5e';
+
+      const tbody = document.getElementById('portfolioTableBody');
+      tbody.innerHTML = items.map(item => {
+        const weightPct = ((item.valUsd / totValUsd) * 100).toFixed(2);
+        const pnlColor = item.pnlUsd >= 0 ? '#34d399' : '#f43f5e';
+        return `
+          <tr style="border-bottom: 1px solid rgba(255,255,255,0.05); transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.03)'" onmouseout="this.style.background='transparent'">
+            <td style="padding: 12px; font-weight: 800; color: #fff;">${item.ticker}</td>
+            <td style="padding: 12px; color: #cbd5e1;">${item.shares.toLocaleString('en-US', {maximumFractionDigits: 4})}</td>
+            <td style="padding: 12px; color: #cbd5e1;">$${item.cost.toFixed(3)}</td>
+            <td style="padding: 12px; font-weight: 700; color: #38bdf8;">$${item.currPrice.toFixed(2)}</td>
+            <td style="padding: 12px; font-weight: 700; color: #fff;">$${item.valUsd.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</td>
+            <td style="padding: 12px; font-weight: 700; color: ${pnlColor};">${item.pnlUsd >= 0 ? '+' : ''}$${item.pnlUsd.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</td>
+            <td style="padding: 12px; font-weight: 700; color: ${pnlColor};">${item.pnlTwd >= 0 ? '+NT$ ' : '-NT$ '}${Math.abs(Math.round(item.pnlTwd)).toLocaleString('en-US')}</td>
+            <td style="padding: 12px; font-weight: 800; color: ${pnlColor};">${item.returnPct >= 0 ? '+' : ''}${item.returnPct.toFixed(2)}%</td>
+            <td style="padding: 12px; font-weight: 700; color: #c084fc;">${weightPct}%</td>
+          </tr>
+        `;
+      }).join('');
+
+      const ctxPie = document.getElementById('chartPortfolioPie').getContext('2d');
+      if (portfolioPieChart) portfolioPieChart.destroy();
+      
+      const pieColors = ['#38bdf8', '#c084fc', '#34d399', '#f59e0b', '#f43f5e', '#818cf8', '#fb7185', '#a7f3d0', '#60a5fa', '#a855f7'];
+
+      portfolioPieChart = new Chart(ctxPie, {
+        type: 'doughnut',
+        data: {
+          labels: items.map(i => i.ticker),
+          datasets: [{
+            data: items.map(i => i.valUsd),
+            backgroundColor: pieColors
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { position: 'bottom', labels: { color: '#94a3b8', font: { size: 10 } } },
+            tooltip: {
+              callbacks: {
+                label: (ctx) => {
+                  const val = ctx.parsed;
+                  const pct = ((val / totValUsd) * 100).toFixed(1);
+                  return ` ${ctx.label}: $${val.toLocaleString()} (${pct}%)`;
+                }
+              }
+            }
+          }
+        }
+      });
+    }
+
     renderTable(titansData);
     initCharts();
     loadFundamentals();
     runLiveMACDRange();
+    renderPortfolioTab();
   </script>
 </body>
 </html>
