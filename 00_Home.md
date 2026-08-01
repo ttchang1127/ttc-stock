@@ -15,8 +15,9 @@ tags:
 
 1. 🌐 **[開啟 美股七巨頭 MAG7 + 台積電 專屬獨立對照儀表板 (MAG7 Dedicated Dashboard)](file:///Volumes/Crucial%20X8/Jarvis%20Obsidian/Sec_kb/dashboard_mag7.html)**
 2. 💼 **[開啟 個人投資組合與 ETF (VGT / VOO) 權重重疊度對照儀表板 (Portfolio Dashboard)](file:///Volumes/Crucial%20X8/Jarvis%20Obsidian/Sec_kb/dashboard.html)**
-3. 📈 **[開啟 MACD (平滑異同移動平均線) 技術分析指南與雙重驗證戰略](file:///Volumes/Crucial%20X8/Jarvis%20Obsidian/Sec_kb/30_Analysis/MACD_Technical_Analysis_Guide_2026.md)**
-4. 📄 **[開啟 用戶持股組合與 ETF 權重重疊度 Master 分析報告](file:///Volumes/Crucial%20X8/Jarvis%20Obsidian/Sec_kb/30_Analysis/User_Portfolio_Master_Analysis_2026.md)**
+3. 🇹🇼 **[開啟 台積電 (TSM ADR) 2026 獨立專屬網頁投資報告 (TSM Web Thesis)](file:///Volumes/Crucial%20X8/Jarvis%20Obsidian/Sec_kb/tsm_report.html)**
+4. 📈 **[開啟 MACD (平滑異同移動平均線) 技術分析指南與雙重驗證戰略](file:///Volumes/Crucial%20X8/Jarvis%20Obsidian/Sec_kb/30_Analysis/MACD_Technical_Analysis_Guide_2026.md)**
+5. 📄 **[開啟 用戶持股組合與 ETF 權重重疊度 Master 分析報告](file:///Volumes/Crucial%20X8/Jarvis%20Obsidian/Sec_kb/30_Analysis/User_Portfolio_Master_Analysis_2026.md)**
 
 ---
 
