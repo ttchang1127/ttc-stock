@@ -1466,7 +1466,9 @@
 
       const lastClose = prices[prices.length - 1];
       const lastHist = hist[hist.length - 1];
-      const prevHist = hist.length > 1 ? hist[hist.length - 2] : lastHist;
+      // 擴張/收縮要跟真正的前一個交易日比，區間只有一根時往預熱段借
+      const lastFullIdx = fullHist.length - 1;
+      const prevHist = lastFullIdx > 0 ? fullHist[lastFullIdx - 1] : lastHist;
       const lastDif = dif[dif.length - 1];
       const lastSig = signal[signal.length - 1];
       const maxHist = Math.max(...hist);
@@ -1478,50 +1480,90 @@
       document.getElementById('resDeath').innerText = `${deathDates.length} 次 ${deathDates.length > 0 ? '(' + deathDates.join(', ') + ')' : ''}`;
       document.getElementById('resMaxHist').innerText = `+${maxHist.toFixed(2)} / ${minHist.toFixed(2)}`;
 
-      // 狀態文字與 badge 顏色共用同一組判定，避免表格顏色與敘述不一致
-      let statusClass, statusText;
-      if (lastHist >= 0) {
-        if (lastHist >= prevHist) {
-          statusClass = 'macd-bull'; statusText = `🟢 多頭強勢 - 亮綠柱擴張 (+${lastHist.toFixed(2)})`;
-        } else {
-          statusClass = 'macd-warn'; statusText = `🟡 多頭力竭 - 暗綠柱收縮 (+${lastHist.toFixed(2)})`;
-        }
-      } else {
-        if (lastHist <= prevHist) {
-          statusClass = 'macd-bear'; statusText = `🔴 空頭殺盤 - 亮紅柱擴張 (${lastHist.toFixed(2)})`;
-        } else {
-          statusClass = 'macd-warn'; statusText = `🟠 空頭止跌 - 暗粉柱收縮 (${lastHist.toFixed(2)})`;
-        }
-      }
-      const statusHtml = `<span class="badge-macd ${statusClass}">${statusText}</span>`;
-      document.getElementById('resStatus').innerHTML = statusHtml;
+      const { statusClass, statusText } = classifyMomentum(lastHist, prevHist);
+      document.getElementById('resStatus').innerHTML =
+        `<span class="badge-macd ${statusClass}">${statusText}</span>`;
 
-      // 同步更新全頁面持股表格中該股票的 MACD 數據
-      const tableItem = titansData.find(d => d.ticker === ticker);
-      if (tableItem) {
-        tableItem.price = lastClose;
-        tableItem.macdHist = lastHist;
-        tableItem.macdDif = lastDif;
-        tableItem.macdSig = lastSig;
-        tableItem.macdStatus = statusText;
-        tableItem.macdClass = statusClass;
-        filterData();
-        updateSummaryChart();
-      }
+      // 用同一組參數把全部持股重算一次，讓表格與總覽圖跟著區間/參數連動
+      syncAllTickersFromDB(startDateStr, endDateStr, fastP, slowP, signalP);
 
       renderLiveFullDailyChart(dates, dif, signal, hist);
     }
 
-    // 4 色專業 MACD 柱狀體顏色配對邏輯
-    function getHist4Colors(hist) {
-      return hist.map((v, i) => {
-        const prev = i > 0 ? hist[i - 1] : v;
-        if (v >= 0) {
-          return v >= prev ? '#10b981' : '#059669'; // 亮綠 (擴張) vs 暗綠 (收縮)
-        } else {
-          return v <= prev ? '#ef4444' : '#f43f5e'; // 亮紅 (擴張) vs 暗粉 (止跌收縮)
-        }
+    // 4 色動能判定：柱體正負決定多空，與前一根比較決定擴張或收縮。
+    // 狀態文字、badge 顏色、柱體顏色全部由這裡衍生，避免三者說法不一致。
+    function classifyMomentum(hist, prevHist) {
+      if (hist >= 0) {
+        return hist >= prevHist
+          ? { statusClass: 'macd-bull', color: '#10b981', statusText: `🟢 多頭強勢 - 亮綠柱擴張 (+${hist.toFixed(2)})` }
+          : { statusClass: 'macd-warn', color: '#059669', statusText: `🟡 多頭力竭 - 暗綠柱收縮 (+${hist.toFixed(2)})` };
+      }
+      return hist <= prevHist
+        ? { statusClass: 'macd-bear', color: '#ef4444', statusText: `🔴 空頭殺盤 - 亮紅柱擴張 (${hist.toFixed(2)})` }
+        : { statusClass: 'macd-warn', color: '#f43f5e', statusText: `🟠 空頭止跌 - 暗粉柱收縮 (${hist.toFixed(2)})` };
+    }
+
+    // 取出單一標的在指定區間結束日的動能快照（含前一根柱體，用來判定擴張/收縮）
+    function tickerMomentumSnapshot(symbol, startDateStr, endDateStr, fastP, slowP, signalP) {
+      if (!priceDB) return null;
+      const entry = priceDB.series[symbol] || (symbol === 'GOOGL' ? priceDB.series['GOOG'] : null);
+      if (!entry) return null;
+
+      const closes = [];
+      const dates = [];
+      for (let i = 0; i < entry.dates.length; i++) {
+        if (entry.dates[i] <= endDateStr) { dates.push(entry.dates[i]); closes.push(entry.closes[i]); }
+      }
+      if (closes.length === 0) return null;
+
+      const { dif, signal, hist } = calculateMACDSeries(closes, fastP, slowP, signalP);
+
+      // 只保留使用者選定區間，區間內若不足兩根就往前借一根當比較基準
+      let from = dates.findIndex(d => d >= startDateStr);
+      if (from === -1) return null;
+      const last = hist.length - 1;
+      if (last < from) return null;
+      const prevIdx = last > 0 ? last - 1 : last;
+
+      return {
+        price: closes[last],
+        hist: hist[last],
+        prevHist: hist[prevIdx],
+        dif: dif[last],
+        sig: signal[last]
+      };
+    }
+
+    // 依同一組區間與參數重算全部持股，供表格與總覽圖使用
+    function syncAllTickersFromDB(startDateStr, endDateStr, fastP, slowP, signalP) {
+      if (!priceDB) return;
+      titansData.forEach(item => {
+        const snap = tickerMomentumSnapshot(item.ticker, startDateStr, endDateStr, fastP, slowP, signalP);
+        if (!snap) return;
+        const { statusClass, statusText } = classifyMomentum(snap.hist, snap.prevHist);
+        item.price = snap.price;
+        item.macdHist = snap.hist;
+        item.macdHistPrev = snap.prevHist;
+        item.macdDif = snap.dif;
+        item.macdSig = snap.sig;
+        item.macdStatus = statusText;
+        item.macdClass = statusClass;
       });
+      filterData();
+      updateSummaryChart();
+    }
+
+    // 日線圖：與序列中的前一根柱體比較
+    function getHist4Colors(hist) {
+      return hist.map((v, i) => classifyMomentum(v, i > 0 ? hist[i - 1] : v).color);
+    }
+
+    // 總覽圖：每根柱子是不同標的，必須跟「該檔自己的前一日」比，不能跟隔壁那檔比
+    function getSummary4Colors() {
+      return titansData.map(d => classifyMomentum(
+        d.macdHist,
+        d.macdHistPrev !== undefined ? d.macdHistPrev : d.macdHist
+      ).color);
     }
 
     function renderLiveFullDailyChart(dates, dif, signal, hist) {
@@ -1622,7 +1664,7 @@
     function updateSummaryChart() {
       if (macdSummaryChart) {
         macdSummaryChart.data.datasets[0].data = titansData.map(d => d.macdHist);
-        macdSummaryChart.data.datasets[0].backgroundColor = titansData.map(d => d.macdHist >= 0 ? '#34d399' : '#f43f5e');
+        macdSummaryChart.data.datasets[0].backgroundColor = getSummary4Colors();
         macdSummaryChart.update();
       }
     }
@@ -1678,9 +1720,9 @@
         data: {
           labels: labels,
           datasets: [{
-            label: 'MACD 柱狀體 Histogram (綠正紅負)',
+            label: 'MACD 柱狀體 Histogram (4色：亮綠/暗綠/亮紅/暗粉)',
             data: titansData.map(d => d.macdHist),
-            backgroundColor: titansData.map(d => d.macdHist >= 0 ? '#34d399' : '#f43f5e')
+            backgroundColor: getSummary4Colors()
           }]
         },
         options: {
