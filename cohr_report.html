@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Coherent Corp. (COHR) 2026 終極個股研究與估值投資報告 - 基於 SEC 近 10 年 10-K 財報與二級市場數據。">
+  <title>Coherent Corp. (COHR) 2026 終極投資與估值報告 | SEC 10-K 驗證</title>
+  <!-- Google Fonts & Chart.js -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    :root {
+      --bg-dark: #070a12;
+      --card-bg: rgba(17, 24, 39, 0.75);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --accent-cohr: #f59e0b;
+      --accent-cyan: #38bdf8;
+      --accent-purple: #a855f7;
+      --accent-emerald: #10b981;
+      --accent-rose: #f43f5e;
+      --accent-amber: #fbbf24;
+      --glow-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.45);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Outfit', 'Noto Sans TC', sans-serif;
+      background: radial-gradient(circle at 50% -10%, #78350f, var(--bg-dark) 75%);
+      color: var(--text-main);
+      min-height: 100vh;
+      padding: 24px;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    /* Top Navigation Bar */
+    .top-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 28px;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--card-border);
+      border-radius: 18px;
+      margin-bottom: 24px;
+    }
+
+    .nav-brand {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 16px;
+    }
+
+    .nav-btn {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 600;
+      padding: 8px 16px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--card-border);
+      transition: all 0.2s ease;
+    }
+
+    .nav-btn:hover {
+      color: #fff;
+      background: var(--accent-cohr);
+      border-color: transparent;
+    }
+
+    /* Hero Header */
+    .hero-card {
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(120, 53, 15, 0.8));
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      border-radius: 24px;
+      padding: 36px;
+      box-shadow: var(--glow-shadow);
+      margin-bottom: 32px;
+      display: grid;
+      grid-template-columns: 1.8fr 1.2fr;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .hero-title h1 {
+      font-size: 2.3rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #f59e0b, #fbbf24, #f43f5e);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+    }
+
+    .hero-subtitle {
+      font-size: 1.05rem;
+      color: #cbd5e1;
+      margin-bottom: 18px;
+    }
+
+    .badge-sec {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      color: #34d399;
+      padding: 6px 14px;
+      border-radius: 12px;
+      font-size: 0.825rem;
+      font-weight: 700;
+    }
+
+    .hero-kpis {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    .kpi-box {
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 16px;
+    }
+
+    .kpi-label { font-size: 0.775rem; color: var(--text-muted); }
+    .kpi-val { font-size: 1.4rem; font-weight: 800; color: #fff; margin-top: 4px; }
+    .kpi-sub { font-size: 0.75rem; color: var(--accent-cohr); margin-top: 2px; }
+
+    /* Section Cards Grid */
+    .section-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(640px, 1fr));
+      gap: 28px;
+      margin-bottom: 32px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--card-border);
+      border-radius: 22px;
+      padding: 28px;
+      box-shadow: var(--glow-shadow);
+    }
+
+    .card-full {
+      grid-column: 1 / -1;
+    }
+
+    .card h2 {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 1px solid var(--card-border);
+      padding-bottom: 12px;
+    }
+
+    /* Moat List */
+    .moat-item {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 14px;
+      padding: 16px;
+      margin-bottom: 14px;
+    }
+
+    .moat-item:last-child { margin-bottom: 0; }
+
+    .moat-header {
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: #f59e0b;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .moat-desc {
+      font-size: 0.9rem;
+      color: #cbd5e1;
+    }
+
+    /* Metric Rows */
+    .metric-group {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .metric-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 14px;
+    }
+
+    .metric-card .title { font-size: 0.75rem; color: var(--text-muted); }
+    .metric-card .value { font-size: 1.2rem; font-weight: 700; color: #fff; margin-top: 2px; }
+
+    /* Chart Containers */
+    .chart-container {
+      position: relative;
+      height: 280px;
+      width: 100%;
+      margin-top: 16px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 32px 0;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--card-border);
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- Top Nav -->
+    <nav class="top-nav">
+      <div class="nav-brand">
+        <span style="font-size: 1.4rem;">👁️</span> Coherent Corp. (COHR) 2026 Master 投資報告網頁版
+      </div>
+      <div class="nav-links">
+        <a href="dashboard.html" class="nav-btn">📊 返回持股儀表板</a>
+        <a href="mrvl_report.html" class="nav-btn">⚡ Marvell 報告</a>
+        <a href="arm_report.html" class="nav-btn">🦾 Arm 報告</a>
+        <a href="goog_report.html" class="nav-btn">🔍 Google 報告</a>
+        <a href="nvda_report.html" class="nav-btn">🟩 NVIDIA 報告</a>
+        <a href="tsm_report.html" class="nav-btn">🇹🇼 台積電報告</a>
+        <a href="https://github.com/ttchang1127/ttc-stock" target="_blank" class="nav-btn">🐙 GitHub Repo</a>
+      </div>
+    </nav>
+
+    <!-- Hero Header -->
+    <div class="hero-card">
+      <div class="hero-title">
+        <h1>Coherent Corp. (COHR)</h1>
+        <div class="hero-subtitle">2026 終極個股研究與估值投資報告 (Master Thesis)</div>
+        <div class="badge-sec">
+          🛡️ SEC Form 10-K 官方權威核驗 (Accession: 0000820318-25-000014)
+        </div>
+      </div>
+      <div class="hero-kpis">
+        <div class="kpi-box">
+          <div class="kpi-label">美股現價 (Price / P/E)</div>
+          <div class="kpi-val" style="color: #f59e0b;">$262.89 USD</div>
+          <div class="kpi-sub">本益比 P/E: 824.2x (轉型初期)</div>
+        </div>
+        <div class="kpi-box">
+          <div class="kpi-label">年度總營收 (Revenue)</div>
+          <div class="kpi-val" style="color: #34d399;">$5,810M USD</div>
+          <div class="kpi-sub">光通訊與雷射領域世界冠軍 👑</div>
+        </div>
+        <div class="kpi-box">
+          <div class="kpi-label">12M 日線 Sortino Ratio</div>
+          <div class="kpi-val" style="color: #38bdf8;">2.26</div>
+          <div class="kpi-sub">極強算力連動下行回報</div>
+        </div>
+        <div class="kpi-box">
+          <div class="kpi-label">經營現金流 (OCF) / FCF</div>
+          <div class="kpi-val" style="color: #c084fc;">$634M / $193M</div>
+          <div class="kpi-sub">營運現金流健康穩定</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content Sections -->
+    <div class="section-grid">
+
+      <!-- Section 1: Moat -->
+      <div class="card">
+        <h2>🏰 一、 寬廣經濟護城河 (Wide Economic Moat)</h2>
+        
+        <div class="moat-item">
+          <div class="moat-header">📡 1. 800G / 1.6T 光收發模組絕對霸主 (Optical Transceiver Monopoly)</div>
+          <div class="moat-desc">
+            掌控全球 AI 資料中心 800G / 1.6T 高速光收發模組 (Optical Transceivers) 最核心產能。AI 伺服器光學互聯極度依賴 Coherent 的光通訊模組。
+          </div>
+        </div>
+
+        <div class="moat-item">
+          <div class="moat-header">🔬 2. InP 雷射晶片與 VCSEL 雷射材料垂直整合 (Laser Vertical Integration)</div>
+          <div class="moat-desc">
+            全球少數具備垂直整合能力的光學巨頭，擁有自研 InP (磷化銦) 雷射晶片、EML 與 VCSEL 光學元件，掌控全球光通訊材料供應鏈命脈。
+          </div>
+        </div>
+
+        <div class="moat-item">
+          <div class="moat-header">⚡ 3. SiC 碳化矽基板與精密工業雷射 (Silicon Carbide & Precision Optics)</div>
+          <div class="moat-desc">
+            提供電動車 (EV) 與高壓電力電子必備的 6 吋/8 吋 SiC 碳化矽基板材料；工業與半導體設備精密雷射市佔率全球前二。
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 2: Revenue & Cash Flow Chart -->
+      <div class="card">
+        <h2>📊 財報財務數據與現金流結構 (FY2025 10-K)</h2>
+        <p style="font-size: 0.85rem; color: var(--text-muted);">年度總營收達 $58.10 億美元，經營現金流 OCF 達到 $6.34 億美元</p>
+        <div class="chart-container">
+          <canvas id="chartFinancials"></canvas>
+        </div>
+      </div>
+
+      <!-- Section 3: Financial Health & Quantitative Models -->
+      <div class="card card-full">
+        <h2>📊 二、 財報體檢與四大基本面量化模型 (FY2025 10-K 官方驗證)</h2>
+
+        <div class="metric-group">
+          <div class="metric-card">
+            <div class="title">年度總營收 (Revenue)</div>
+            <div class="value" style="color: #f59e0b;">$5,810M USD</div>
+          </div>
+          <div class="metric-card">
+            <div class="title">淨利潤 (Net Income)</div>
+            <div class="value" style="color: #34d399;">$49M USD</div>
+          </div>
+          <div class="metric-card">
+            <div class="title">經營現金流 (OCF)</div>
+            <div class="value" style="color: #34d399;">$634M USD</div>
+          </div>
+          <div class="metric-card">
+            <div class="title">自由現金流 (FCF)</div>
+            <div class="value" style="color: #38bdf8;">$193M USD</div>
+          </div>
+          <div class="metric-card">
+            <div class="title">資本支出 (CapEx)</div>
+            <div class="value" style="color: #fbbf24;">$441M USD</div>
+          </div>
+          <div class="metric-card">
+            <div class="title">股東權益 (Equity)</div>
+            <div class="value" style="color: #c084fc;">$5,645M USD</div>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 14px;">
+          <!-- DuPont & Financials -->
+          <div style="background: rgba(0,0,0,0.25); padding: 18px; border-radius: 16px; border: 1px solid var(--card-border);">
+            <h4 style="color: var(--accent-cyan); font-size: 0.95rem; margin-bottom: 10px;">🧬 DuPont 杜邦三因子拆解分析</h4>
+            <p style="font-size: 1.1rem; font-weight: 800; color: #fff;">DuPont ROE: 0.87%</p>
+            <p style="font-size: 0.85rem; color: #cbd5e1; margin-top: 6px;">
+              • 淨利率 (Net Profit Margin): <strong>0.85%</strong><br>
+              • 資產週轉率 (Asset Turnover): <strong>0.390x</strong><br>
+              • 權益乘數 (Financial Leverage): <strong>2.642x</strong>
+            </p>
+            <div class="chart-container" style="height: 180px;">
+              <canvas id="chartDupont"></canvas>
+            </div>
+          </div>
+
+          <!-- Piotroski & Sortino -->
+          <div style="background: rgba(0,0,0,0.25); padding: 18px; border-radius: 16px; border: 1px solid var(--card-border);">
+            <h4 style="color: var(--accent-cohr); font-size: 0.95rem; margin-bottom: 10px;">📋 Piotroski F-Score & Sortino Ratio</h4>
+            <p style="font-size: 0.85rem; color: #cbd5e1;">
+              • Piotroski F-Score: <strong style="color: #34d399; font-size: 1.1rem;">6 / 8 (會計品質健康)</strong><br>
+              • 近 12 個月 Sortino Ratio: <strong style="color: #38bdf8;">2.26 (極強算力連動)</strong><br>
+              • 近 3 年 Sortino Ratio: <strong style="color: #c084fc;">1.93 (優異長線抗跌)</strong>
+            </p>
+            <div class="chart-container" style="height: 180px;">
+              <canvas id="chartDcf"></canvas>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Section 4: Sortino & Risk Analysis -->
+      <div class="card">
+        <h2>📈 三、 下行風險與 Sortino Ratio 分析 (二級市場波動)</h2>
+        <p style="font-size: 0.875rem; color: #cbd5e1;">
+          Sortino Ratio 只將低於 0 的下行風險波動納入計算，真實衡量 Coherent 在二級市場拉回時的風險收益回報能力。
+        </p>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px;">
+          <div style="background: rgba(168, 85, 247, 0.1); border: 1px solid rgba(168, 85, 247, 0.3); padding: 20px; border-radius: 16px; text-align: center;">
+            <div style="font-size: 0.8rem; color: var(--text-muted);">近 3 年 Sortino Ratio (156 週)</div>
+            <div style="font-size: 2.2rem; font-weight: 800; color: #c084fc; margin-top: 4px;">1.93</div>
+            <div style="font-size: 0.75rem; color: #34d399; margin-top: 4px;">AI 光通訊漲幅帶動</div>
+          </div>
+          <div style="background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.3); padding: 20px; border-radius: 16px; text-align: center;">
+            <div style="font-size: 0.8rem; color: var(--text-muted);">近 12 個月 Sortino (日資料, MAR=0)</div>
+            <div style="font-size: 2.2rem; font-weight: 800; color: #38bdf8; margin-top: 4px;">2.26</div>
+            <div style="font-size: 0.75rem; color: #34d399; margin-top: 4px;">優異的二級市場下行防禦</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 5: Shareholder Yield -->
+      <div class="card">
+        <h2>💵 四、 籌碼面與乘數估值 (Multiples Analysis)</h2>
+        
+        <div class="metric-group" style="grid-template-columns: 1fr 1fr;">
+          <div class="metric-card">
+            <div class="title">稀釋每股盈餘 (EPS)</div>
+            <div class="value" style="color: #f59e0b;">$0.32 USD</div>
+          </div>
+          <div class="metric-card">
+            <div class="title">本益比 (P/E Multiple)</div>
+            <div class="value" style="color: #f43f5e;">824.2x (轉型初期)</div>
+          </div>
+          <div class="metric-card">
+            <div class="title">現金與短期投資</div>
+            <div class="value" style="color: #34d399;">$909M USD</div>
+          </div>
+          <div class="metric-card">
+            <div class="title">總金融債務 (長期+短期)</div>
+            <div class="value" style="color: #38bdf8;">$3,687M USD</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 6: Risk Factors & Pros/Cons Analysis -->
+      <div class="card card-full">
+        <h2>⚠️ 五、 核心風險因素與利弊分析 (SEC Form 10-K Item 1A & Pros/Cons Matrix)</h2>
+        
+        <p style="font-size: 0.9rem; color: #cbd5e1; margin-bottom: 20px;">
+          依據 SEC Form 10-K 官方申報文件 (Item 1A Risk Factors 及 Item 7 MD&A)，本節深度剖析 Coherent Corp. 在投資層面的三大核心風險與多空利弊矩陣。
+        </p>
+
+        <!-- 3 Core Risk Cards -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin-bottom: 24px;">
+          <div style="background: rgba(244, 63, 94, 0.08); border: 1px solid rgba(244, 63, 94, 0.25); border-radius: 16px; padding: 18px;">
+            <div style="font-weight: 700; font-size: 1rem; color: #fb7185; margin-bottom: 6px; display: flex; align-items: center; gap: 8px;">
+              💸 1. P/E 824.2x 高估值與收購 (II-VI) 發債利息負擔 (High Leverage Friction)
+            </div>
+            <div style="font-size: 0.85rem; color: #cbd5e1;">
+              先前併購 II-VI 累積了 $36.87 億美元金融債務 (淨現金為 $-27.78 億美元)。目前帳面 GAAP 淨利僅 $4,900 萬美元，尚處於利息支出與折舊攤銷消化期。
+            </div>
+          </div>
+
+          <div style="background: rgba(245, 158, 11, 0.08); border: 1px solid rgba(245, 158, 11, 0.25); border-radius: 16px; padding: 18px;">
+            <div style="font-weight: 700; font-size: 1rem; color: #fbbf24; margin-bottom: 6px; display: flex; align-items: center; gap: 8px;">
+              ⚡ 2. CPO (Co-Packaged Optics) 共封裝光學對傳統可插拔光模組的替代風險
+            </div>
+            <div style="font-size: 0.85rem; color: #cbd5e1;">
+              若未來 2~3 年 AI 伺服器加速採納 CPO (共封裝光學) 或 LPO (線性驅動光模組)，可能改變傳統可插拔光收發模組 (Pluggable Transceiver) 的產業架構與價值分佈。
+            </div>
+          </div>
+
+          <div style="background: rgba(56, 189, 248, 0.08); border: 1px solid rgba(56, 189, 248, 0.25); border-radius: 16px; padding: 18px;">
+            <div style="font-weight: 700; font-size: 1rem; color: #38bdf8; margin-bottom: 6px; display: flex; align-items: center; gap: 8px;">
+              🚗 3. 碳化矽 (SiC) 車用材料過剩與工業雷射景氣修正 (SiC Oversupply)
+            </div>
+            <div style="font-size: 0.85rem; color: #cbd5e1;">
+              全球碳化矽 (SiC) 基板產能逐步開出，競爭者增多可能導致價格修正；此外，全球工業加工雷射需求隨總體經濟呈現一定程度週期波動。
+            </div>
+          </div>
+        </div>
+
+        <!-- Pros vs Cons Matrix -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+          <!-- Pros / Bull Case -->
+          <div style="background: rgba(245, 158, 11, 0.08); border: 1px solid rgba(245, 158, 11, 0.3); border-radius: 18px; padding: 20px;">
+            <h3 style="color: #f59e0b; font-size: 1.1rem; font-weight: 800; margin-bottom: 14px; display: flex; align-items: center; gap: 8px;">
+              🟢 投資優勢與利多分析 (Pros / Bull Case)
+            </h3>
+            <ul style="font-size: 0.875rem; color: #cbd5e1; padding-left: 20px; line-height: 1.8;">
+              <li><strong>800G/1.6T 光收發模組龍頭霸主</strong>：直接受惠全球 AI 資料中心算力傳輸規格升級。</li>
+              <li><strong>InP / VCSEL 雷射晶片垂直整合</strong>：具備全產業鏈材料與組裝能力，技術壁壘極高。</li>
+              <li><strong>經營現金流 OCF ($6.34 億美元) 穩定強勁</strong>：本業現金創造能力顯著高於帳面淨利。</li>
+              <li><strong>12M 日線 Sortino Ratio 2.26</strong>：AI 算力鏈強勢連動，波段下行防禦能力出色。</li>
+              <li><strong>重組與新 CEO 聚焦高毛利 AI 光學</strong>：積極剝離非核心資產改善資產負債表。</li>
+            </ul>
+          </div>
+
+          <!-- Cons / Bear Case -->
+          <div style="background: rgba(244, 63, 94, 0.06); border: 1px solid rgba(244, 63, 94, 0.25); border-radius: 18px; padding: 20px;">
+            <h3 style="color: #fb7185; font-size: 1.1rem; font-weight: 800; margin-bottom: 14px; display: flex; align-items: center; gap: 8px;">
+              🔴 投資劣勢與潛在弊端 (Cons / Bear Case)
+            </h3>
+            <ul style="font-size: 0.875rem; color: #cbd5e1; padding-left: 20px; line-height: 1.8;">
+              <li><strong>本益比 P/E 824.2x 處於高位</strong>：帳面淨利受利息與折舊侵蝕，目前主要靠現金流與遠景支撐。</li>
+              <li><strong>淨債務高達 $-27.78 億美元</strong>：發債併購負擔較沉重，防禦力低於純淨現金企業。</li>
+              <li><strong>CPO / LPO 新架構變革挑戰</strong>：光學封裝技術演進可能分流傳統光模組價值。</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <footer>
+      <p>© 2026 Sec_kb Financial Knowledge Framework. SEC Form 10-K Verified Accession: 0000820318-25-000014.</p>
+    </footer>
+
+  </div>
+
+  <script>
+    // Financials Breakdown Chart
+    new Chart(document.getElementById('chartFinancials'), {
+      type: 'bar',
+      data: {
+        labels: ['總營收 ($M)', '經營現金流 OCF', '資本支出 CapEx', '自由現金流 FCF'],
+        datasets: [{
+          label: 'FY2025 財務數據 (USD)',
+          data: [5810, 634, 441, 193],
+          backgroundColor: ['#f59e0b', '#34d399', '#fbbf24', '#38bdf8']
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: {
+          x: { ticks: { color: '#94a3b8', font: { size: 11 } } },
+          y: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } }
+        }
+      }
+    });
+
+    // DuPont Chart
+    new Chart(document.getElementById('chartDupont'), {
+      type: 'bar',
+      data: {
+        labels: ['淨利率 (%)', '資產週轉率 (x100)', '權益乘數 (x100)'],
+        datasets: [{
+          label: 'DuPont 三因子拆解',
+          data: [0.85, 39.00, 264.20],
+          backgroundColor: ['#f59e0b', '#38bdf8', '#c084fc']
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: {
+          x: { ticks: { color: '#94a3b8', font: { size: 10 } } },
+          y: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } }
+        }
+      }
+    });
+
+    // Sortino & F-Score Chart
+    new Chart(document.getElementById('chartDcf'), {
+      type: 'bar',
+      data: {
+        labels: ['Piotroski F-Score (滿分8)', '12M Sortino Ratio (x10)'],
+        datasets: [{
+          label: '基本面與風險指標',
+          data: [6, 22.60],
+          backgroundColor: ['#34d399', '#38bdf8']
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: {
+          x: { ticks: { color: '#94a3b8', font: { size: 10 } } },
+          y: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } }
+        }
+      }
+    });
+  </script>
+</body>
+</html>
