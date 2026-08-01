@@ -2183,10 +2183,12 @@
           <p><strong>${item.dcfRange} USD</strong> (中位數: $${item.dcfMedian} USD)</p>
         </div>
         <div class="info-box" style="grid-column: span 2;">
-          <h4>📁 本地 Obsidian Master 投資報告</h4>
+          <h4>📁 投資研究報告連結</h4>
           <p style="font-size: 0.85rem; color: #94a3b8;">
-            可在 Obsidian 中開啟: <code>30_Analysis/${item.thesisFile}</code>
-            ${item.ticker === 'TSM' ? `<br><a href="tsm_report.html" style="display:inline-block; margin-top:8px; padding:6px 14px; background:linear-gradient(135deg, #ef4444, #818cf8); color:#fff; text-decoration:none; border-radius:8px; font-weight:700; font-size:0.85rem;">🌐 開啟 台積電 (TSM ADR) 獨立網頁報告</a>` : ''}
+            可在 Obsidian 中開啟: <code>30_Analysis/${item.thesisFile}</code><br>
+            ${item.ticker === 'NVDA' ? `<a href="nvda_report.html" target="_blank" style="display:inline-block; margin-top:8px; padding:8px 16px; background:linear-gradient(135deg, #76b900, #10b981); color:#fff; text-decoration:none; border-radius:10px; font-weight:700; font-size:0.85rem; box-shadow: 0 4px 14px rgba(118, 185, 0, 0.3);">🌐 開啟 NVIDIA (NVDA) 2026 獨立網頁報告 (nvda_report.html)</a>` : ''}
+            ${item.ticker === 'TSM' ? `<a href="tsm_report.html" target="_blank" style="display:inline-block; margin-top:8px; padding:8px 16px; background:linear-gradient(135deg, #ef4444, #818cf8); color:#fff; text-decoration:none; border-radius:10px; font-weight:700; font-size:0.85rem; box-shadow: 0 4px 14px rgba(239, 68, 68, 0.3);">🌐 開啟 台積電 (TSM ADR) 2026 獨立網頁報告 (tsm_report.html)</a>` : ''}
+            <a href="https://github.com/ttchang1127/ttc-stock/blob/main/30_Analysis/${item.thesisFile}" target="_blank" style="display:inline-block; margin-top:8px; margin-left: ${item.ticker==='NVDA'||item.ticker==='TSM' ? '8px' : '0px'}; padding:6px 14px; background:rgba(56, 189, 248, 0.15); border:1px solid rgba(56, 189, 248, 0.3); color:#38bdf8; text-decoration:none; border-radius:8px; font-weight:700; font-size:0.85rem;">📄 在 GitHub 查看 ${item.ticker} Master 報告 Markdown</a>
           </p>
         </div>
       `;
