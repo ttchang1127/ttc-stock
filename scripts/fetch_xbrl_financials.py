@@ -58,8 +58,12 @@ CONCEPTS = {
                                         ["ProfitLossFromOperatingActivities"]),
     "operating_cash_flow": ("duration", ["NetCashProvidedByUsedInOperatingActivities"],
                                         ["CashFlowsFromUsedInOperatingActivities"]),
-    "capex":               ("duration", ["PaymentsToAcquirePropertyPlantAndEquipment"],
-                                        ["PurchaseOfPropertyPlantAndEquipment"]),
+    # NVIDIA books capex under PaymentsToAcquireProductiveAssets, not the more
+    # common PropertyPlantAndEquipment tag.
+    "capex":               ("duration", ["PaymentsToAcquirePropertyPlantAndEquipment",
+                                         "PaymentsToAcquireProductiveAssets"],
+                                        ["PurchaseOfPropertyPlantAndEquipment",
+                                         "AcquisitionOfPropertyPlantAndEquipment"]),
     "diluted_shares":      ("duration", ["WeightedAverageNumberOfDilutedSharesOutstanding"],
                                         ["WeightedAverageNumberOfDilutedSharesOutstanding"]),
 }
