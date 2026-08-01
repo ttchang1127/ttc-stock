@@ -83,6 +83,22 @@ def main():
     if not series:
         raise SystemExit("No tickers fetched; refusing to overwrite prices.json")
 
+    # generated_at changes on every run, so rewriting unconditionally would make
+    # the file differ even when the market data is identical -- the nightly job
+    # would then commit on weekends and holidays too. Leave the file untouched
+    # unless the quotes themselves moved.
+    if OUTPUT_PATH.exists():
+        try:
+            previous = json.loads(OUTPUT_PATH.read_text())
+        except (json.JSONDecodeError, OSError):
+            previous = None
+        if previous is not None and previous.get("series") == series:
+            print(f"\nNo new quotes; leaving {OUTPUT_PATH.relative_to(REPO_ROOT)} "
+                  f"unchanged (fetched {previous.get('generated_at', 'unknown')}).")
+            if failed:
+                print(f"Missing: {', '.join(failed)}")
+            return
+
     payload = {
         "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "source": "Yahoo Finance via yfinance (daily close, auto_adjust=False)",
