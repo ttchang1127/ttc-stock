@@ -29,9 +29,12 @@ Sec_kb/
 
 ## 🤖 給維護本庫的 AI 助理
 
-處理 `dashboard.html` / `prices.json` / 股價更新相關工作前，**必須先讀**：
+動手處理本庫任何資料前，**必須先讀對應的 SOP**：
 
-> [[ttc-stock_Dashboard_維運SOP]] — 機械化操作手冊，照步驟執行即可，內含絕對禁止事項。
+> - [[Sec_kb_資料維護SOP]] — **財報資料與分析筆記**的維護（SEC XBRL 管線、F-Score、thesis 更新）
+> - [[ttc-stock_Dashboard_維運SOP]] — **儀表板網頁**的維護（prices.json、MACD 圖表）
+>
+> 兩份都是機械化操作手冊，照步驟執行即可，開頭都有絕對禁止事項。
 
 ---
 
