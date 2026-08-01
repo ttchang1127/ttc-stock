@@ -95,7 +95,28 @@ financials_verified: true
 
 ---
 
+## ⚠️ 六、 核心風險因素與利弊分析 (SEC Form 10-K Item 1A & Pros/Cons Matrix)
+
+### 1. 三大核心風險因素 (Item 1A Risk Factors)
+- **🏭 Intel Foundry 18A / 14A 晶圓代工良率與產能開出風險 (Yield & Execution Risk)**：IFS 晶圓代工業務每年虧損數十億美元。18A 製程良率 (Yield) 與客戶外部下單 (如微軟/AWS) 進度若不如預期，天價 CapEx 建廠投資將造成巨大攤銷負擔。
+- **💸 自由現金流負數 ($-49.5 億美元) 與沉重債務拖累 (FCF Negative & Debt)**：每年投入 $146.5 億美元 CapEx 導致自由現金流為負數；加上 $465.9 億美元金融債務 (淨負債 $-227.8 億美元)，利息支出與現金消耗壓抑分紅能力。
+- **💻 x86 伺服器與 PC 市佔持續遭 AMD 與 Arm 陣營瓜分 (Market Share Erosion)**：在傳統伺服器 CPU 領域面臨 AMD EPYC 強勢侵蝕；在 AI 高效能算力市場遠落後 NVIDIA GPU；在行動與輕薄 PC 端則遭遇 Arm 陣營競爭。
+
+### 2. 投資利弊與優劣勢矩陣 (Pros & Cons Matrix)
+- **🟢 多頭優勢 (Pros / Bull Case)**：
+  - **美國晶片法案與本土戰略製造國防背書**：獲美政府數百億美元直接支持。
+  - **18A / RibbonFET 次世代製程反超契機**：技術成功研發將帶動晶圓代工評級重估。
+  - **近 12M Sortino 達 4.15 (全庫冠軍 👑)**：谷底反彈時波段下行收益極強。
+  - **本業經營現金流 OCF 高達 $96.97 億美元**：本業獲利現金池依然穩固。
+- **🔴 空頭隱憂 (Cons / Bear Case)**：
+  - **自由現金流 FCF 為負 ($-49.5 億美元)**：天價建廠支出吞噬現金。
+  - **淨負債高達 $-227.8 億美元**：債務負擔沉重，資本結構防禦力弱。
+  - **晶圓代工 IFS 虧損持續擴大**：需要數年時間證明代工產能利用率。
+
+---
+
 ## 🔗 關聯筆記
+- 🌐 **[開啟 Intel Corporation 獨立網頁版投資報告 (intc_report.html)](file:///Volumes/Crucial%20X8/Jarvis%20Obsidian/Sec_kb/intc_report.html)**
 - [[INTC_Company_Profile|Intel Corporation 公司主頁]]
 - [[NVDA_Master_Investment_Thesis_2026|NVIDIA 主報告對比]]
 - [[GOOGL_Master_Investment_Thesis_2026|Alphabet / Google 主報告對比]]
