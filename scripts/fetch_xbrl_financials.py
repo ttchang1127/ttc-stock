@@ -66,6 +66,22 @@ CONCEPTS = {
                                          "AcquisitionOfPropertyPlantAndEquipment"]),
     "diluted_shares":      ("duration", ["WeightedAverageNumberOfDilutedSharesOutstanding"],
                                         ["WeightedAverageNumberOfDilutedSharesOutstanding"]),
+    # Net cash and shareholder yield for the valuation section.
+    "cash":                ("instant",  ["CashAndCashEquivalentsAtCarryingValue"],
+                                        ["CashAndCashEquivalents"]),
+    # NVIDIA reports no ShortTermInvestments line; its current securities sit in
+    # the maturity-bucketed AvailableForSale tag, which is the last resort here
+    # because it is a narrower concept than the first two.
+    "short_term_investments": ("instant", ["ShortTermInvestments", "MarketableSecuritiesCurrent",
+                                           "AvailableForSaleSecuritiesDebtMaturitiesWithinOneYearFairValue"],
+                                          ["CurrentFinancialAssetsAtFairValueThroughProfitOrLoss"]),
+    "debt_current":        ("instant",  ["LongTermDebtCurrent", "DebtCurrent"],
+                                        ["CurrentBorrowings", "ShorttermBorrowings"]),
+    "buybacks":            ("duration", ["PaymentsForRepurchaseOfCommonStock"],
+                                        ["PaymentsToAcquireOrRedeemEntitysShares"]),
+    "dividends_paid":      ("duration", ["PaymentsOfDividendsCommonStock", "PaymentsOfDividends"],
+                                        ["DividendsPaidClassifiedAsFinancingActivities",
+                                         "DividendsPaid"]),
 }
 
 ANNUAL_FORMS = {"10-K", "20-F"}
@@ -117,13 +133,18 @@ def annual_values(facts, tags, kind):
                     if not 300 <= span <= 400:  # a full year, not a quarter
                         continue
                 prev = picked.get(r["end"])
-                # Never trade a USD figure for a local-currency one; otherwise
-                # later amendments restate the period, so keep the newest filing.
+                # Never trade a USD figure for a local-currency one. Otherwise a
+                # strictly newer filing wins, so restatements supersede; on an
+                # equal filing date the earlier candidate tag holds, which makes
+                # the tag list a priority order. That matters where candidates
+                # are alternative concepts rather than a renamed one -- short-term
+                # investments falls back to a maturity-bucketed tag that must not
+                # displace a company's primary one.
                 if prev is not None:
                     if prev["unit"] == "USD" and unit != "USD":
                         continue
                     if not (unit == "USD" and prev["unit"] != "USD") \
-                       and r.get("filed", "") < prev["filed"]:
+                       and r.get("filed", "") <= prev["filed"]:
                         continue
                 picked[r["end"]] = {"val": r["val"], "filed": r.get("filed", ""),
                                     "form": r["form"], "accn": r.get("accn", ""),

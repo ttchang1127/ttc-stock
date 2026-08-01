@@ -38,20 +38,24 @@ SEC XBRL Company Facts API          Yahoo Finance (yfinance)
    financials.json                      prices.json
         ↓ compute_fundamentals.py  ←──────────┘（市值需要股價）
    fundamentals.json
+        ↓ compute_valuation.py  ←── dcf_assumptions.json（人類維護）
+   valuation.json
         ↓ update_thesis_financials.py
-   30_Analysis/*_Master_Investment_Thesis_2026.md 的第二、三章
+   30_Analysis/*_Master_Investment_Thesis_2026.md 的第二 ~ 五章
 ```
 
-這四支腳本必須**照這個順序**執行，後面的依賴前面的產出。
+這五支腳本必須**照這個順序**執行，後面的依賴前面的產出。
 
 | 檔案 | 由誰產生 | 你可以改嗎 |
 |---|---|---|
 | `financials.json` | `fetch_xbrl_financials.py` | ❌ |
 | `fundamentals.json` | `compute_fundamentals.py` | ❌ |
+| `valuation.json` | `compute_valuation.py` | ❌ |
+| **`dcf_assumptions.json`** | **人類維護** | ✅ **這是唯一允許手填數字的檔案** |
 | `prices.json` | `fetch_price_history.py`（預設 6 年，5 年 Sortino 需要） | ❌ |
 | `20_Filings/**` | `fetch_sec.py` | ❌ |
-| thesis 第二、三章 | `update_thesis_financials.py` | ❌ |
-| thesis 第一、四、五章 | 人類撰寫的敘述 | ⚠️ 只在使用者明確要求時 |
+| thesis 第二 ~ 五章 | `update_thesis_financials.py` | ❌ |
+| thesis 第一章（及 AAPL 第六章） | 人類撰寫的敘述 | ⚠️ 只在使用者明確要求時 |
 
 ---
 
@@ -76,24 +80,30 @@ python3 scripts/compute_fundamentals.py
 ```
 預期：一張表格，最後 `Wrote fundamentals.json (14 companies)`
 
-**A-4. 更新 thesis 第二、三章**
+**A-4. 計算估值**
+```bash
+python3 scripts/compute_valuation.py
+```
+預期：一張表格，最後 `Wrote valuation.json (14 companies)`
+
+**A-5. 更新 thesis 第二 ~ 五章**
 ```bash
 python3 scripts/update_thesis_financials.py
 ```
 預期：`已更新 14 份 thesis`
 
-**A-5. 確認只有該動的檔案被動到**
+**A-6. 確認只有該動的檔案被動到**
 ```bash
 git status --short
 ```
 
-允許出現的檔案**只有**：`financials.json`、`fundamentals.json`、`30_Analysis/*_Master_Investment_Thesis_2026.md`
+允許出現的檔案**只有**：`financials.json`、`fundamentals.json`、`valuation.json`、`30_Analysis/*_Master_Investment_Thesis_2026.md`
 
 出現任何其他檔案 → **停止並回報**。
 
-**A-6. 送出**
+**A-7. 送出**
 ```bash
-git add financials.json fundamentals.json 30_Analysis/ && git commit -m "chore: refresh SEC financials" && git push origin main
+git add financials.json fundamentals.json valuation.json 30_Analysis/ && git commit -m "chore: refresh SEC financials" && git push origin main
 ```
 
 ### 輸出對照表
@@ -124,9 +134,11 @@ python3 scripts/fetch_sec.py AMD --years 5 --download-raw
 
 ⚠️ 只改清單那幾行，不要動其他程式碼。
 
-**B-3. 重跑任務 A 的 A-2 ~ A-6**
+**B-3. 在 `dcf_assumptions.json` 的 companies 加入該代號（growth / wacc 可先填 null）**
 
-**B-4.** 若使用者要求也加進儀表板表格，回覆：
+**B-4. 重跑任務 A 的 A-2 ~ A-7**
+
+**B-5.** 若使用者要求也加進儀表板表格，回覆：
 > 儀表板的 `titansData` 需要基本面敘述（護城河、championTag 等），這些不在 SEC 結構化資料裡。請提供內容，或確認要留空。
 
 **不准自己編造這些欄位。**
@@ -191,13 +203,18 @@ grep -h "Sortino Ratio（週資料）" 30_Analysis/*_Master_Investment_Thesis_20
 
 ## 6. 尚未驗證的區塊（重要）
 
-thesis 的**第四、五章**（估值倍數、DCF 蒙地卡羅）目前**仍是舊版數字，未經來源驗證**。每份 thesis 第二章結尾都有警語標示這件事。
+第二 ~ 五章**全部由腳本產生**，來源可追溯。但要分清楚兩種數字的性質：
 
-（第三章 Sortino 已於 2026-08-01 改為由 `prices.json` 實際股價計算，屬已驗證。）
+| 章節 | 性質 |
+|---|---|
+| 二、三、四 | **事實** —— 由 SEC 財報與實際股價算出，可驗證 |
+| 五（DCF） | **在特定假設下的推估** —— 依賴 `dcf_assumptions.json` 的 g 與 WACC |
 
-- **不准**把這些數字當成已驗證資料引用
-- **不准**自行「修正」它們
-- 使用者若問起，據實回答：尚未驗證
+DCF 不是事實。使用者若問「這檔值多少錢」，正確回答是：
+> 在 `dcf_assumptions.json` 目前設定的 g=X%、WACC=Y% 之下，中位數為 $Z。改變假設會改變結論。
+
+目前 **AAPL、ARM、COHR、INTC、MRVL、NOK 六家的假設為 null**，其第五章顯示「假設未設定」。
+這是正確狀態，**不准自行填入數字讓它「看起來完整」** —— 要填必須由使用者決定並說明依據。
 
 ---
 
@@ -223,7 +240,8 @@ thesis 的**第四、五章**（估值倍數、DCF 蒙地卡羅）目前**仍是
 | `fetch_sec.py` | 下載 10-K / 20-F 原文並產生筆記 |
 | `fetch_xbrl_financials.py` | 抓 SEC XBRL 結構化財報 → `financials.json` |
 | `compute_fundamentals.py` | 算 F-Score / Altman Z / DuPont → `fundamentals.json` |
-| `update_thesis_financials.py` | 更新 thesis 第二、三章 |
+| `compute_valuation.py` | 算本益比 / 淨現金 / DCF 蒙地卡羅 → `valuation.json` |
+| `update_thesis_financials.py` | 更新 thesis 第二 ~ 五章 |
 | `fetch_price_history.py` | 抓日線收盤價（預設 6 年）→ `prices.json` |
 | `macd_analyzer.py` | MACD 計算（獨立工具） |
 | `fetch_form8k_events.py` / `fetch_insider_institutional.py` | 8-K 事件與 13F/Form 4（獨立工具） |

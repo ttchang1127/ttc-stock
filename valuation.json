@@ -1,0 +1,516 @@
+{
+ "generated_at": "2026-08-01T02:40:33+00:00",
+ "assumptions_source": "dcf_assumptions.json (human-maintained)",
+ "defaults": {
+  "projection_years": 10,
+  "terminal_growth": 0.025,
+  "simulations": 10000,
+  "growth_relative_sigma": 0.2,
+  "wacc_relative_sigma": 0.1,
+  "random_seed": 20260801
+ },
+ "companies": {
+  "AAPL": {
+   "currency": "USD",
+   "fiscal_year_end": "2025-09-27",
+   "price_date": "2026-07-31",
+   "multiples": {
+    "price": 308.91,
+    "shares_used": 14594180000,
+    "eps_diluted": 7.465,
+    "pe_ratio": 41.4,
+    "pe_note": null,
+    "cash_and_st_investments": 54697000000,
+    "total_debt": 90678000000,
+    "net_cash": -35981000000,
+    "buybacks": 90711000000,
+    "dividends_paid": 15421000000,
+    "buyback_yield": 0.02012,
+    "dividend_yield": 0.00342,
+    "shareholder_yield": 0.02354
+   },
+   "assumptions": {
+    "growth": null,
+    "wacc": null,
+    "terminal_growth": 0.025,
+    "projection_years": 10,
+    "simulations": 10000,
+    "note": "先前 thesis 未宣告假設，待填"
+   },
+   "dcf": null,
+   "dcf_status": "假設未設定",
+   "base_fcf": 98767000000,
+   "base_fcf_caveat": null
+  },
+  "AMZN": {
+   "currency": "USD",
+   "fiscal_year_end": "2025-12-31",
+   "price_date": "2026-07-31",
+   "multiples": {
+    "price": 271.58,
+    "shares_used": 10786313572,
+    "eps_diluted": 7.1737,
+    "pe_ratio": 37.9,
+    "pe_note": null,
+    "cash_and_st_investments": 123029000000,
+    "total_debt": 68396000000,
+    "net_cash": 54633000000,
+    "buybacks": null,
+    "dividends_paid": null,
+    "buyback_yield": null,
+    "dividend_yield": null,
+    "shareholder_yield": null
+   },
+   "assumptions": {
+    "growth": 0.12,
+    "wacc": 0.085,
+    "terminal_growth": 0.025,
+    "projection_years": 10,
+    "simulations": 10000,
+    "note": "沿用先前 thesis 標題：常態化 FCF g=12%, WACC=8.5%"
+   },
+   "dcf": {
+    "simulations_run": 10000,
+    "simulations_rejected": 0,
+    "mean": 31.46,
+    "p5": 22.28,
+    "p25": 26.63,
+    "p50": 30.49,
+    "p75": 35.17,
+    "p95": 43.94
+   },
+   "dcf_status": "已計算",
+   "base_fcf": 7695000000,
+   "base_fcf_caveat": "基期 FCF 僅為營運現金流的 6%（資本支出年度異常偏高），以單一年度 FCF 外推會低估價值，建議改用常態化 FCF"
+  },
+  "ARM": {
+   "currency": "USD",
+   "fiscal_year_end": "2026-03-31",
+   "price_date": "2026-07-31",
+   "multiples": {
+    "price": 239.69,
+    "shares_used": 1064055252,
+    "eps_diluted": 0.8464,
+    "pe_ratio": 283.2,
+    "pe_note": null,
+    "cash_and_st_investments": 3601000000,
+    "total_debt": 0,
+    "net_cash": 3601000000,
+    "buybacks": null,
+    "dividends_paid": null,
+    "buyback_yield": null,
+    "dividend_yield": null,
+    "shareholder_yield": null
+   },
+   "assumptions": {
+    "growth": null,
+    "wacc": null,
+    "terminal_growth": 0.025,
+    "projection_years": 10,
+    "simulations": 10000,
+    "note": "先前 thesis 未宣告假設，待填"
+   },
+   "dcf": null,
+   "dcf_status": "假設未設定",
+   "base_fcf": 979000000,
+   "base_fcf_caveat": null
+  },
+  "COHR": {
+   "currency": "USD",
+   "fiscal_year_end": "2025-06-30",
+   "price_date": "2026-07-31",
+   "multiples": {
+    "price": 262.89,
+    "shares_used": 195639321,
+    "eps_diluted": 0.319,
+    "pe_ratio": 824.2,
+    "pe_note": null,
+    "cash_and_st_investments": 909200000,
+    "total_debt": 3686921000,
+    "net_cash": -2777721000,
+    "buybacks": null,
+    "dividends_paid": null,
+    "buyback_yield": null,
+    "dividend_yield": null,
+    "shareholder_yield": null
+   },
+   "assumptions": {
+    "growth": null,
+    "wacc": null,
+    "terminal_growth": 0.025,
+    "projection_years": 10,
+    "simulations": 10000,
+    "note": "先前 thesis 未宣告假設，待填"
+   },
+   "dcf": null,
+   "dcf_status": "假設未設定",
+   "base_fcf": 192764000,
+   "base_fcf_caveat": null
+  },
+  "GOOGL": {
+   "currency": "USD",
+   "fiscal_year_end": "2025-12-31",
+   "price_date": "2026-07-31",
+   "multiples": {
+    "price": 356.65,
+    "shares_used": 12230000000,
+    "eps_diluted": 10.807,
+    "pe_ratio": 33.0,
+    "pe_note": null,
+    "cash_and_st_investments": 126843000000,
+    "total_debt": 48543000000,
+    "net_cash": 78300000000,
+    "buybacks": 45709000000,
+    "dividends_paid": 10049000000,
+    "buyback_yield": 0.01048,
+    "dividend_yield": 0.0023,
+    "shareholder_yield": 0.01278
+   },
+   "assumptions": {
+    "growth": 0.135,
+    "wacc": 0.085,
+    "terminal_growth": 0.025,
+    "projection_years": 10,
+    "simulations": 10000,
+    "note": "沿用先前 thesis 標題：Cloud/Gemini g=13.5%, WACC=8.5%"
+   },
+   "dcf": {
+    "simulations_run": 10000,
+    "simulations_rejected": 0,
+    "mean": 254.02,
+    "p5": 164.16,
+    "p25": 206.99,
+    "p50": 243.88,
+    "p75": 290.06,
+    "p95": 376.82
+   },
+   "dcf_status": "已計算",
+   "base_fcf": 73266000000,
+   "base_fcf_caveat": null
+  },
+  "INTC": {
+   "currency": "USD",
+   "fiscal_year_end": "2025-12-27",
+   "price_date": "2026-07-31",
+   "multiples": {
+    "price": 90.2,
+    "shares_used": 5044000000,
+    "eps_diluted": -0.0589,
+    "pe_ratio": null,
+    "pe_note": "EPS 為負，本益比無意義",
+    "cash_and_st_investments": 23808000000,
+    "total_debt": 46585000000,
+    "net_cash": -22777000000,
+    "buybacks": null,
+    "dividends_paid": 0,
+    "buyback_yield": null,
+    "dividend_yield": 0.0,
+    "shareholder_yield": 0
+   },
+   "assumptions": {
+    "growth": null,
+    "wacc": null,
+    "terminal_growth": 0.025,
+    "projection_years": 10,
+    "simulations": 10000,
+    "note": "先前 thesis 未宣告假設，待填"
+   },
+   "dcf": null,
+   "dcf_status": "假設未設定",
+   "base_fcf": -4949000000,
+   "base_fcf_caveat": "基期自由現金流為負（資本支出超過營運現金流），單一年度 FCF 無法作為 DCF 外推基礎，需改用常態化 FCF"
+  },
+  "META": {
+   "currency": "USD",
+   "fiscal_year_end": "2025-12-31",
+   "price_date": "2026-07-31",
+   "multiples": {
+    "price": 556.71,
+    "shares_used": 2574000000,
+    "eps_diluted": 23.488,
+    "pe_ratio": 23.7,
+    "pe_note": null,
+    "cash_and_st_investments": 81592000000,
+    "total_debt": 58744000000,
+    "net_cash": 22848000000,
+    "buybacks": 26248000000,
+    "dividends_paid": 5324000000,
+    "buyback_yield": 0.01832,
+    "dividend_yield": 0.00372,
+    "shareholder_yield": 0.02203
+   },
+   "assumptions": {
+    "growth": 0.13,
+    "wacc": 0.085,
+    "terminal_growth": 0.025,
+    "projection_years": 10,
+    "simulations": 10000,
+    "note": "沿用先前 thesis 標題：常態化 FCF g=13%, WACC=8.5%"
+   },
+   "dcf": {
+    "simulations_run": 10000,
+    "simulations_rejected": 0,
+    "mean": 726.09,
+    "p5": 467.56,
+    "p25": 590.27,
+    "p50": 698.74,
+    "p75": 830.5,
+    "p95": 1083.15
+   },
+   "dcf_status": "已計算",
+   "base_fcf": 46109000000,
+   "base_fcf_caveat": null
+  },
+  "MRVL": {
+   "currency": "USD",
+   "fiscal_year_end": "2026-01-31",
+   "price_date": "2026-07-31",
+   "multiples": {
+    "price": 187.56,
+    "shares_used": 874800000,
+    "eps_diluted": 3.0701,
+    "pe_ratio": 61.1,
+    "pe_note": null,
+    "cash_and_st_investments": 2638800000,
+    "total_debt": 3970800000,
+    "net_cash": -1332000000,
+    "buybacks": 2040100000,
+    "dividends_paid": 205100000,
+    "buyback_yield": 0.01243,
+    "dividend_yield": 0.00125,
+    "shareholder_yield": 0.01368
+   },
+   "assumptions": {
+    "growth": null,
+    "wacc": null,
+    "terminal_growth": 0.025,
+    "projection_years": 10,
+    "simulations": 10000,
+    "note": "先前 thesis 未宣告假設，待填"
+   },
+   "dcf": null,
+   "dcf_status": "假設未設定",
+   "base_fcf": 1396400000,
+   "base_fcf_caveat": null
+  },
+  "MSFT": {
+   "currency": "USD",
+   "fiscal_year_end": "2026-06-30",
+   "price_date": "2026-07-31",
+   "multiples": {
+    "price": 464.72,
+    "shares_used": 7425545491,
+    "eps_diluted": 17.9457,
+    "pe_ratio": 25.9,
+    "pe_note": null,
+    "cash_and_st_investments": 76843000000,
+    "total_debt": 40294000000,
+    "net_cash": 36549000000,
+    "buybacks": 22271000000,
+    "dividends_paid": 26445000000,
+    "buyback_yield": 0.00645,
+    "dividend_yield": 0.00766,
+    "shareholder_yield": 0.01412
+   },
+   "assumptions": {
+    "growth": 0.13,
+    "wacc": 0.085,
+    "terminal_growth": 0.025,
+    "projection_years": 10,
+    "simulations": 10000,
+    "note": "沿用先前 thesis 標題：Azure/AI g=13%, WACC=8.5%"
+   },
+   "dcf": {
+    "simulations_run": 10000,
+    "simulations_rejected": 0,
+    "mean": 366.03,
+    "p5": 234.54,
+    "p25": 296.15,
+    "p50": 351.04,
+    "p75": 419.7,
+    "p95": 547.42
+   },
+   "dcf_status": "已計算",
+   "base_fcf": 66987000000,
+   "base_fcf_caveat": null
+  },
+  "NOK": {
+   "currency": "EUR",
+   "fiscal_year_end": "2025-12-31",
+   "price_date": "2026-07-31",
+   "multiples": {
+    "price": 9.14,
+    "shares_used": 5742239696,
+    "eps_diluted": null,
+    "pe_ratio": null,
+    "pe_note": null,
+    "cash_and_st_investments": 5462000000,
+    "total_debt": 0,
+    "net_cash": 5462000000,
+    "buybacks": 624000000,
+    "dividends_paid": 759000000,
+    "buyback_yield": 0.01189,
+    "dividend_yield": 0.01446,
+    "shareholder_yield": 0.02635
+   },
+   "assumptions": {
+    "growth": null,
+    "wacc": null,
+    "terminal_growth": 0.025,
+    "projection_years": 10,
+    "simulations": 10000,
+    "note": "先前 thesis 未宣告假設，待填"
+   },
+   "dcf": null,
+   "dcf_status": "假設未設定",
+   "base_fcf": null,
+   "base_fcf_caveat": null
+  },
+  "NVDA": {
+   "currency": "USD",
+   "fiscal_year_end": "2026-01-25",
+   "price_date": "2026-07-31",
+   "multiples": {
+    "price": 200.75,
+    "shares_used": 24200000000,
+    "eps_diluted": 4.8979,
+    "pe_ratio": 41.0,
+    "pe_note": null,
+    "cash_and_st_investments": 31032000000,
+    "total_debt": 8468000000,
+    "net_cash": 22564000000,
+    "buybacks": 40086000000,
+    "dividends_paid": 974000000,
+    "buyback_yield": 0.00825,
+    "dividend_yield": 0.0002,
+    "shareholder_yield": 0.00845
+   },
+   "assumptions": {
+    "growth": 0.25,
+    "wacc": 0.095,
+    "terminal_growth": 0.025,
+    "projection_years": 10,
+    "simulations": 10000,
+    "note": "沿用先前 thesis 標題：AI 複合成長 g=25%, WACC=9.5%"
+   },
+   "dcf": {
+    "simulations_run": 10000,
+    "simulations_rejected": 0,
+    "mean": 339.16,
+    "p5": 161.6,
+    "p25": 237.84,
+    "p50": 313.44,
+    "p75": 409.68,
+    "p95": 608.93
+   },
+   "dcf_status": "已計算",
+   "base_fcf": 96676000000,
+   "base_fcf_caveat": null
+  },
+  "ONDS": {
+   "currency": "USD",
+   "fiscal_year_end": "2025-12-31",
+   "price_date": "2026-07-31",
+   "multiples": {
+    "price": 7.49,
+    "shares_used": 495762650,
+    "eps_diluted": -596.2736,
+    "pe_ratio": null,
+    "pe_note": "EPS 為負，本益比無意義",
+    "cash_and_st_investments": 550744000,
+    "total_debt": 0,
+    "net_cash": 550744000,
+    "buybacks": null,
+    "dividends_paid": null,
+    "buyback_yield": null,
+    "dividend_yield": null,
+    "shareholder_yield": null
+   },
+   "assumptions": {
+    "growth": 0.38,
+    "wacc": 0.105,
+    "terminal_growth": 0.025,
+    "projection_years": 10,
+    "simulations": 10000,
+    "note": "沿用先前 thesis 標題：營收成長 g=38%, WACC=10.5%"
+   },
+   "dcf": null,
+   "dcf_status": "FCF 為負，DCF 不適用",
+   "base_fcf": -40780000,
+   "base_fcf_caveat": null
+  },
+  "TSLA": {
+   "currency": "USD",
+   "fiscal_year_end": "2025-12-31",
+   "price_date": "2026-07-31",
+   "multiples": {
+    "price": 311.21,
+    "shares_used": 3949547394,
+    "eps_diluted": 1.0754,
+    "pe_ratio": 289.4,
+    "pe_note": null,
+    "cash_and_st_investments": 44059000000,
+    "total_debt": 8153000000,
+    "net_cash": 35906000000,
+    "buybacks": null,
+    "dividends_paid": null,
+    "buyback_yield": null,
+    "dividend_yield": null,
+    "shareholder_yield": null
+   },
+   "assumptions": {
+    "growth": 0.22,
+    "wacc": 0.09,
+    "terminal_growth": 0.025,
+    "projection_years": 10,
+    "simulations": 10000,
+    "note": "沿用先前 thesis 標題：含 AI/Robotaxi 選項價值 g=22%, WACC=9.0%"
+   },
+   "dcf": {
+    "simulations_run": 10000,
+    "simulations_rejected": 0,
+    "mean": 125.12,
+    "p5": 67.48,
+    "p25": 93.22,
+    "p50": 116.76,
+    "p75": 147.8,
+    "p95": 210.37
+   },
+   "dcf_status": "已計算",
+   "base_fcf": 6220000000,
+   "base_fcf_caveat": null
+  },
+  "TSM": {
+   "currency": "USD",
+   "fiscal_year_end": "2024-12-31",
+   "price_date": "2026-07-31",
+   "multiples": {
+    "price": 404.25,
+    "shares_used": 25932524521,
+    "eps_diluted": null,
+    "pe_ratio": null,
+    "pe_note": null,
+    "cash_and_st_investments": 64892800000,
+    "total_debt": 0,
+    "net_cash": 64892800000,
+    "buybacks": null,
+    "dividends_paid": 11072100000,
+    "buyback_yield": null,
+    "dividend_yield": 0.00106,
+    "shareholder_yield": 0.00106
+   },
+   "assumptions": {
+    "growth": 0.2,
+    "wacc": 0.085,
+    "terminal_growth": 0.025,
+    "projection_years": 10,
+    "simulations": 10000,
+    "note": "沿用先前 thesis 標題：HPC/AI 複合成長 g=20%, WACC=8.5%"
+   },
+   "dcf": null,
+   "dcf_status": "缺 FCF",
+   "base_fcf": null,
+   "base_fcf_caveat": null
+  }
+ }
+}

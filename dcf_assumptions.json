@@ -1,0 +1,39 @@
+{
+ "_README": [
+  "這是 DCF 估值的『假設』設定檔，是本庫唯一允許由人類填寫數字的地方。",
+  "成長率 (growth) 與折現率 (wacc) 是判斷，不是可從 SEC 推導的事實，",
+  "所以它們必須寫在這裡、由人負責，而不是散落在腳本裡。",
+  "",
+  "growth / wacc 為 null 的公司，estimate 會回報『假設未設定』並跳過估值，",
+  "腳本不會自行代入任何預設值。要啟用該公司的 DCF，請自行填入數字並在 note 說明依據。",
+  "",
+  "已填入的 8 家：數值沿用先前 thesis 標題所宣告的假設，僅為保留原作者判斷，",
+  "並未經過獨立推導或驗證。若不同意，直接改這個檔案再重跑腳本即可。",
+  "",
+  "修改後執行： python3 scripts/compute_valuation.py && python3 scripts/update_thesis_financials.py"
+ ],
+ "defaults": {
+  "projection_years": 10,
+  "terminal_growth": 0.025,
+  "simulations": 10000,
+  "growth_relative_sigma": 0.20,
+  "wacc_relative_sigma": 0.10,
+  "random_seed": 20260801
+ },
+ "companies": {
+  "AAPL":  { "growth": null,   "wacc": null,   "note": "先前 thesis 未宣告假設，待填" },
+  "AMZN":  { "growth": 0.12,   "wacc": 0.085,  "note": "沿用先前 thesis 標題：常態化 FCF g=12%, WACC=8.5%" },
+  "ARM":   { "growth": null,   "wacc": null,   "note": "先前 thesis 未宣告假設，待填" },
+  "COHR":  { "growth": null,   "wacc": null,   "note": "先前 thesis 未宣告假設，待填" },
+  "GOOGL": { "growth": 0.135,  "wacc": 0.085,  "note": "沿用先前 thesis 標題：Cloud/Gemini g=13.5%, WACC=8.5%" },
+  "INTC":  { "growth": null,   "wacc": null,   "note": "先前 thesis 未宣告假設，待填" },
+  "META":  { "growth": 0.13,   "wacc": 0.085,  "note": "沿用先前 thesis 標題：常態化 FCF g=13%, WACC=8.5%" },
+  "MRVL":  { "growth": null,   "wacc": null,   "note": "先前 thesis 未宣告假設，待填" },
+  "MSFT":  { "growth": 0.13,   "wacc": 0.085,  "note": "沿用先前 thesis 標題：Azure/AI g=13%, WACC=8.5%" },
+  "NOK":   { "growth": null,   "wacc": null,   "note": "先前 thesis 未宣告假設，待填" },
+  "NVDA":  { "growth": 0.25,   "wacc": 0.095,  "note": "沿用先前 thesis 標題：AI 複合成長 g=25%, WACC=9.5%" },
+  "ONDS":  { "growth": 0.38,   "wacc": 0.105,  "note": "沿用先前 thesis 標題：營收成長 g=38%, WACC=10.5%" },
+  "TSLA":  { "growth": 0.22,   "wacc": 0.09,   "note": "沿用先前 thesis 標題：含 AI/Robotaxi 選項價值 g=22%, WACC=9.0%" },
+  "TSM":   { "growth": 0.20,   "wacc": 0.085,  "note": "沿用先前 thesis 標題：HPC/AI 複合成長 g=20%, WACC=8.5%" }
+ }
+}

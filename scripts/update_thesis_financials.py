@@ -1,16 +1,22 @@
-"""Rewrite the financial-data section of each Master Investment Thesis.
+"""Regenerate the quantitative sections of each Master Investment Thesis.
 
-Only section 二 (the financial figures and the four quantitative models) is
-replaced, with values taken from fundamentals.json. Sections 一, 三, 四 and 五
--- moat analysis, Sortino, valuation multiples, DCF -- are narrative and are
-left byte-for-byte untouched.
+Sections 二 to 五 are rebuilt from the pipeline outputs:
 
-Figures that cannot be derived from SEC XBRL are printed as "資料不足" rather
-than carried over from the previous text, so a gap never masquerades as a
-verified number.
+    二  財報體檢與四大模型   fundamentals.json  (SEC XBRL)
+    三  Sortino              fundamentals.json  (prices.json returns)
+    四  估值倍數與籌碼面      valuation.json     (SEC XBRL + prices.json)
+    五  DCF 蒙地卡羅          valuation.json     (+ dcf_assumptions.json)
+
+Section 一 -- the moat and business narrative -- is never touched, nor is any
+section beyond 五 (Apple carries a 六). Those are human judgement and no
+script should be rewriting them.
+
+Figures the sources cannot supply print 資料不足, and a DCF whose assumptions
+are unset prints 假設未設定, so a gap never passes for a verified number.
 
     python3 scripts/fetch_xbrl_financials.py
     python3 scripts/compute_fundamentals.py
+    python3 scripts/compute_valuation.py
     python3 scripts/update_thesis_financials.py [--dry-run]
 """
 
@@ -23,8 +29,12 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 ANALYSIS_DIR = REPO_ROOT / "30_Analysis"
 FUNDAMENTALS_PATH = REPO_ROOT / "fundamentals.json"
 
-SECTION_START = re.compile(r"^## 📊 二、.*$", re.MULTILINE)
-SORTINO_START = re.compile(r"^## 📈 三、.*$", re.MULTILINE)
+# The section emoji is not consistent across the notes -- Apple heads its
+# valuation section with 📐 where the others use 🎲 -- so match on the numeral.
+SECTION_START = re.compile(r"^## \S* ?二、.*$", re.MULTILINE)
+SORTINO_START = re.compile(r"^## \S* ?三、.*$", re.MULTILINE)
+MULTIPLES_START = re.compile(r"^## \S* ?四、.*$", re.MULTILINE)
+DCF_START = re.compile(r"^## \S* ?五、.*$", re.MULTILINE)
 NEXT_SECTION = re.compile(r"^## ", re.MULTILINE)
 
 CRITERION_LABELS = {
@@ -110,9 +120,6 @@ def build_section(heading, ticker, data):
 
     lines += [
         "",
-        "> ⚠️ 第四、五章（估值倍數、DCF 模擬）之數字**尚未經來源資料驗證**，"
-        "沿用先前版本，僅供參考。",
-        "",
         "---",     # the separator the original layout put before each heading
         "",
         "",
@@ -147,6 +154,102 @@ def build_sortino_section(heading, data, prices_meta):
     ])
 
 
+def build_multiples_section(heading, val_data, unit):
+    m = val_data["multiples"]
+    sym = {"USD": "$", "EUR": "€", "TWD": "NT$"}.get(unit, unit + " ")
+
+    def cash(v):
+        return "資料不足" if v is None else f"**{sym}{v/1e6:,.0f} 百萬**"
+
+    def yld(v):
+        return "資料不足" if v is None else f"**{v*100:.2f}%**"
+
+    pe = "資料不足" if m["pe_ratio"] is None else f"**{m['pe_ratio']:.1f}x**"
+    if m.get("pe_note"):
+        pe += f"（{m['pe_note']}）"
+
+    return "\n".join([
+        heading, "",
+        f"> 📌 本節全部由 SEC 財報數字與 `prices.json` 收盤價計算，"
+        f"股價為 {val_data.get('price_date')} 之 {sym}{m['price']:,.2f}。", "",
+        f"- **稀釋每股盈餘 (EPS)**: "
+        + ("資料不足" if m["eps_diluted"] is None else f"**{sym}{m['eps_diluted']:,.2f}**"),
+        f"- **本益比 (P/E)**: {pe}",
+        f"- **現金與短期投資**: {cash(m['cash_and_st_investments'])}",
+        f"- **總債務（長期＋一年內到期）**: {cash(m['total_debt'])}",
+        f"- **淨現金 (Net Cash)**: {cash(m['net_cash'])}",
+        f"- **庫藏股回購**: {cash(m['buybacks'])}　→ 回購殖利率 {yld(m['buyback_yield'])}",
+        f"- **現金股利**: {cash(m['dividends_paid'])}　→ 股利殖利率 {yld(m['dividend_yield'])}",
+        f"- **股東總殖利率 (Shareholder Yield)**: {yld(m['shareholder_yield'])}",
+        "", "---", "", "",
+    ])
+
+
+def build_dcf_section(heading_text, val_data, unit):
+    a = val_data["assumptions"]
+    d = val_data.get("dcf")
+    sym = {"USD": "$", "EUR": "€", "TWD": "NT$"}.get(unit, unit + " ")
+    status = val_data.get("dcf_status")
+
+    # Rewrite the heading so the assumptions it advertises match what was run.
+    if a["growth"] is not None and a["wacc"] is not None:
+        heading = (f"## 🎲 五、 DCF 蒙地卡羅 {a['simulations']:,} 次估值模擬 "
+                   f"(g={a['growth']*100:.1f}%, WACC={a['wacc']*100:.1f}%, "
+                   f"終端成長={a['terminal_growth']*100:.1f}%)")
+    else:
+        heading = "## 🎲 五、 DCF 蒙地卡羅估值模擬（假設未設定）"
+
+    lines = [heading, ""]
+
+    if not d or "p50" not in d:
+        lines += [
+            f"> ⚠️ **本節未計算**：{status}。",
+            "",
+            "DCF 需要成長率 (g) 與折現率 (WACC)，兩者皆為判斷而非可從 SEC 推導的事實，"
+            "因此必須由人填入 `dcf_assumptions.json`。"
+            if status == "假設未設定" else
+            f"原因：{status}。腳本不會以假設值代替缺漏資料。",
+        ]
+        if val_data.get("base_fcf_caveat"):
+            lines += ["", f"> ⚠️ {val_data['base_fcf_caveat']}"]
+        lines += ["", "---", "", ""]
+        return "\n".join(lines)
+
+    lines += [
+        f"> 📌 假設來源：`dcf_assumptions.json`（{a.get('note') or '無說明'}）。"
+        f"基期自由現金流 {sym}{val_data['base_fcf']/1e6:,.0f} 百萬，"
+        f"預測 {a['projection_years']} 年後接終端價值，"
+        f"共 {d['simulations_run']:,} 次有效模擬"
+        + (f"（{d['simulations_rejected']:,} 次因 WACC ≤ 終端成長率而剔除）"
+           if d["simulations_rejected"] else "") + "。",
+        "",
+        "| 分位 | P5 | P25 | P50 (中位數) | P75 | P95 |",
+        "|---|---|---|---|---|---|",
+        f"| 每股內在價值 | {sym}{d['p5']:,.2f} | {sym}{d['p25']:,.2f} | "
+        f"**{sym}{d['p50']:,.2f}** | {sym}{d['p75']:,.2f} | {sym}{d['p95']:,.2f} |",
+        "",
+        f"- **平均內在價值**: **{sym}{d['mean']:,.2f}**",
+        f"- **50% 主流估值區間 (P25 ~ P75)**: **{sym}{d['p25']:,.2f} ~ {sym}{d['p75']:,.2f}**",
+    ]
+
+    price = val_data["multiples"]["price"]
+    if price and d["p50"]:
+        gap = (price / d["p50"] - 1) * 100
+        where = "高於" if gap > 0 else "低於"
+        lines.append(f"- **現價 {sym}{price:,.2f} 相對中位數**: {where}中位數 **{abs(gap):.1f}%**")
+
+    if val_data.get("base_fcf_caveat"):
+        lines += ["", f"> ⚠️ {val_data['base_fcf_caveat']}"]
+
+    lines += [
+        "",
+        "> ⚠️ DCF 結果完全取決於上述假設。改變 g 或 WACC 會顯著改變結論，"
+        "此處數值僅代表「在該組假設下」的推估，不構成投資建議。",
+        "", "---", "", "",
+    ]
+    return "\n".join(lines)
+
+
 def upsert_frontmatter(text, data):
     """Record provenance in the YAML frontmatter without disturbing other keys."""
     if not text.startswith("---\n"):
@@ -175,6 +278,8 @@ def main():
     companies = json.loads(FUNDAMENTALS_PATH.read_text())["companies"]
     prices_path = REPO_ROOT / "prices.json"
     prices_meta = json.loads(prices_path.read_text()) if prices_path.exists() else {}
+    val_path = REPO_ROOT / "valuation.json"
+    valuations = json.loads(val_path.read_text())["companies"] if val_path.exists() else {}
 
     changed, skipped = 0, []
     for path in sorted(ANALYSIS_DIR.glob("*_Master_Investment_Thesis_2026.md")):
@@ -194,7 +299,28 @@ def main():
 
         new_text = text[:start.start()] + build_section(start.group(0), ticker, data) + text[end:]
 
-        # Section 三 (Sortino) is now derived from prices.json as well.
+        # Sections 三, 四 and 五 are regenerated too. Replace them last-first so
+        # earlier offsets stay valid while later sections are being rewritten.
+        vdata = valuations.get(ticker)
+        unit = data.get("currency") or "USD"
+
+        if vdata:
+            d_start = DCF_START.search(new_text)
+            if d_start:
+                d_next = NEXT_SECTION.search(new_text, d_start.end())
+                d_end = d_next.start() if d_next else len(new_text)
+                new_text = (new_text[:d_start.start()]
+                            + build_dcf_section(d_start.group(0), vdata, unit)
+                            + new_text[d_end:])
+
+            m_start = MULTIPLES_START.search(new_text)
+            if m_start:
+                m_next = NEXT_SECTION.search(new_text, m_start.end())
+                m_end = m_next.start() if m_next else len(new_text)
+                new_text = (new_text[:m_start.start()]
+                            + build_multiples_section(m_start.group(0), vdata, unit)
+                            + new_text[m_end:])
+
         s_start = SORTINO_START.search(new_text)
         if s_start:
             s_next = NEXT_SECTION.search(new_text, s_start.end())
