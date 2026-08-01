@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Apple Inc. (AAPL) 2026 終極個股研究與估值投資報告 - 基於 SEC 近 10 年 10-K 財報與二級市場數據。">
+  <title>Apple (AAPL) 2026 終極投資與估值報告 | SEC 10-K 驗證</title>
+  <!-- Google Fonts & Chart.js -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    :root {
+      --bg-dark: #070a12;
+      --card-bg: rgba(17, 24, 39, 0.75);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --accent-aapl: #a855f7;
+      --accent-cyan: #38bdf8;
+      --accent-purple: #a855f7;
+      --accent-emerald: #10b981;
+      --accent-rose: #f43f5e;
+      --accent-amber: #fbbc05;
+      --glow-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.45);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Outfit', 'Noto Sans TC', sans-serif;
+      background: radial-gradient(circle at 50% -10%, #581c87, var(--bg-dark) 75%);
+      color: var(--text-main);
+      min-height: 100vh;
+      padding: 24px;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    /* Top Navigation Bar */
+    .top-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 28px;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--card-border);
+      border-radius: 18px;
+      margin-bottom: 24px;
+    }
+
+    .nav-brand {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 16px;
+    }
+
+    .nav-btn {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 600;
+      padding: 8px 16px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--card-border);
+      transition: all 0.2s ease;
+    }
+
+    .nav-btn:hover {
+      color: #fff;
+      background: var(--accent-aapl);
+      border-color: transparent;
+    }
+
+    /* Hero Header */
+    .hero-card {
+      background: linear-gradient(135deg, rgba(168, 85, 247, 0.2), rgba(88, 28, 135, 0.8));
+      border: 1px solid rgba(168, 85, 247, 0.35);
+      border-radius: 24px;
+      padding: 36px;
+      box-shadow: var(--glow-shadow);
+      margin-bottom: 32px;
+      display: grid;
+      grid-template-columns: 1.8fr 1.2fr;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .hero-title h1 {
+      font-size: 2.3rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #a855f7, #c084fc, #38bdf8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+    }
+
+    .hero-subtitle {
+      font-size: 1.05rem;
+      color: #cbd5e1;
+      margin-bottom: 18px;
+    }
+
+    .badge-sec {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      color: #34d399;
+      padding: 6px 14px;
+      border-radius: 12px;
+      font-size: 0.825rem;
+      font-weight: 700;
+    }
+
+    .hero-kpis {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    .kpi-box {
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 16px;
+    }
+
+    .kpi-label { font-size: 0.775rem; color: var(--text-muted); }
+    .kpi-val { font-size: 1.4rem; font-weight: 800; color: #fff; margin-top: 4px; }
+    .kpi-sub { font-size: 0.75rem; color: var(--accent-aapl); margin-top: 2px; }
+
+    /* Section Cards Grid */
+    .section-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(640px, 1fr));
+      gap: 28px;
+      margin-bottom: 32px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--card-border);
+      border-radius: 22px;
+      padding: 28px;
+      box-shadow: var(--glow-shadow);
+    }
+
+    .card-full {
+      grid-column: 1 / -1;
+    }
+
+    .card h2 {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 1px solid var(--card-border);
+      padding-bottom: 12px;
+    }
+
+    /* Moat List */
+    .moat-item {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 14px;
+      padding: 16px;
+      margin-bottom: 14px;
+    }
+
+    .moat-item:last-child { margin-bottom: 0; }
+
+    .moat-header {
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: #c084fc;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .moat-desc {
+      font-size: 0.9rem;
+      color: #cbd5e1;
+    }
+
+    /* Metric Rows */
+    .metric-group {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .metric-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 14px;
+    }
+
+    .metric-card .title { font-size: 0.75rem; color: var(--text-muted); }
+    .metric-card .value { font-size: 1.2rem; font-weight: 700; color: #fff; margin-top: 2px; }
+
+    /* Chart Containers */
+    .chart-container {
+      position: relative;
+      height: 280px;
+      width: 100%;
+      margin-top: 16px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 32px 0;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--card-border);
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- Top Nav -->
+    <nav class="top-nav">
+      <div class="nav-brand">
+        <span style="font-size: 1.4rem;">🍎</span> Apple Inc. (AAPL) 2026 Master 投資報告網頁版
+      </div>
+      <div class="nav-links">
+        <a href="dashboard.html" class="nav-btn">📊 返回持股儀表板</a>
+        <a href="onds_report.html" class="nav-btn">🛸 Ondas 報告</a>
+        <a href="nok_report.html" class="nav-btn">📶 Nokia 報告</a>
+        <a href="intc_report.html" class="nav-btn">🔷 Intel 報告</a>
+        <a href="tsla_report.html" class="nav-btn">⚡ Tesla 報告</a>
+        <a href="goog_report.html" class="nav-btn">🔍 Google 報告</a>
+        <a href="nvda_report.html" class="nav-btn">🟩 NVIDIA 報告</a>
+        <a href="tsm_report.html" class="nav-btn">🇹🇼 台積電報告</a>
+        <a href="https://github.com/ttchang1127/ttc-stock" target="_blank" class="nav-btn">🐙 GitHub Repo</a>
+      </div>
+    </nav>
+
+    <!-- Hero Header -->
+    <div class="hero-card">
+      <div class="hero-title">
+        <h1>Apple Inc. (AAPL)</h1>
+        <div class="hero-subtitle">2026 終極個股研究與估值投資報告 (Master Thesis)</div>
+        <div class="badge-sec">
+          🛡️ SEC Form 10-K 官方權威核驗 (Accession: 0000320193-25-000079)
+        </div>
+      </div>
+      <div class="hero-kpis">
+        <div class="kpi-box">
+          <div class="kpi-label">美股現價 (Price / P/E)</div>
+          <div class="kpi-val" style="color: #c084fc;">$308.91 USD</div>
+          <div class="kpi-sub">本益比 P/E: 41.4x</div>
+        </div>
+        <div class="kpi-box">
+          <div class="kpi-label">年度總營收 (Revenue)</div>
+          <div class="kpi-val" style="color: #34d399;">$416,161M USD</div>
+          <div class="kpi-sub">淨利潤 $1,120.1 億美元</div>
+        </div>
+        <div class="kpi-box">
+          <div class="kpi-label">經營現金流 (OCF) / FCF</div>
+          <div class="kpi-val" style="color: #38bdf8;">$1,114.8億 / $987.7億</div>
+          <div class="kpi-sub">全美股第 2 大現金流巨獸 👑</div>
+        </div>
+        <div class="kpi-box">
+          <div class="kpi-label">庫藏股買回 (Buyback)</div>
+          <div class="kpi-val" style="color: #fbbf24;">$907.1 億美元</div>
+          <div class="kpi-sub">股東總殖利率 2.35%</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content Sections -->
+    <div class="section-grid">
+
+      <!-- Section 1: Moat -->
+      <div class="card">
+        <h2>🏰 一、 寬廣經濟護城河 (Wide Economic Moat)</h2>
+        
+        <div class="moat-item">
+          <div class="moat-header">🔒 1. iOS + 裝置極致轉換成本 (High Switching Costs)</div>
+          <div class="moat-desc">
+            iOS、iCloud、iMessage 與生態硬體（iPhone, Mac, iPad, Apple Watch, AirPods）高度黏著，創造全球最高的品牌用戶留存率與轉移壁壘。
+          </div>
+        </div>
+
+        <div class="moat-item">
+          <div class="moat-header">📱 2. App Store 雙邊網路效應 (App Store Network Effect)</div>
+          <div class="moat-desc">
+            掌控全球 200 萬開發者與 10 億活躍付費用戶生態；Services 服務業務毛利率高達 <strong>75.4%</strong>，帶來強勁高毛利現金流。
+          </div>
+        </div>
+
+        <div class="moat-item">
+          <div class="moat-header">💎 3. 自研 A/M 晶片定價權與供應鏈極致控制</div>
+          <div class="moat-desc">
+            全系硬體採用自研晶片架構，對台積電 (TSM) 與鴻海等頂級供應鏈具備極致產能優先權與採購成本議價力。
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 2: Revenue & Cash Flow Chart -->
+      <div class="card">
+        <h2>📊 財報財務數據與現金流結構 (FY2025 10-K)</h2>
+        <p style="font-size: 0.85rem; color: var(--text-muted);">年度營收達到 $4,161.6 億美元，自由現金流 (FCF) 高達 $987.7 億美元</p>
+        <div class="chart-container">
+          <canvas id="chartFinancials"></canvas>
+        </div>
+      </div>
+
+      <!-- Section 3: Financial Health & Quantitative Models -->
+      <div class="card card-full">
+        <h2>📊 二、 財報體檢與四大基本面量化模型 (FY2025 10-K 官方驗證)</h2>
+
+        <div class="metric-group">
+          <div class="metric-card">
+            <div class="title">年度總營收 (Revenue)</div>
+            <div class="value" style="color: #c084fc;">$416,161M USD</div>
+          </div>
+          <div class="metric-card">
+            <div class="title">淨利潤 (Net Income)</div>
+            <div class="value" style="color: #34d399;">$112,010M USD</div>
+          </div>
+          <div class="metric-card">
+            <div class="title">經營現金流 (OCF)</div>
+            <div class="value" style="color: #34d399;">$111,482M USD 👑</div>
+          </div>
+          <div class="metric-card">
+            <div class="title">自由現金流 (FCF)</div>
+            <div class="value" style="color: #38bdf8;">$98,767M USD</div>
+          </div>
+          <div class="metric-card">
+            <div class="title">庫藏股買回 (Buyback)</div>
+            <div class="value" style="color: #fbbf24;">$90,711M USD (2.01%)</div>
+          </div>
+          <div class="metric-card">
+            <div class="title">Piotroski F-Score</div>
+            <div class="value" style="color: #34d399;">8 / 9 滿分級別 👑</div>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 14px;">
+          <!-- DuPont & Financials -->
+          <div style="background: rgba(0,0,0,0.25); padding: 18px; border-radius: 16px; border: 1px solid var(--card-border);">
+            <h4 style="color: var(--accent-cyan); font-size: 0.95rem; margin-bottom: 10px;">🧬 DuPont 杜邦三因子拆解分析</h4>
+            <p style="font-size: 1.1rem; font-weight: 800; color: #fff;">DuPont ROE: 151.91% 👑</p>
+            <p style="font-size: 0.85rem; color: #cbd5e1; margin-top: 6px;">
+              • 淨利率 (Net Profit Margin): <strong>26.92%</strong><br>
+              • 資產週轉率 (Asset Turnover): <strong>1.158x</strong><br>
+              • 權益乘數 (Financial Leverage): <strong>4.872x</strong>
+            </p>
+            <div class="chart-container" style="height: 180px;">
+              <canvas id="chartDupont"></canvas>
+            </div>
+          </div>
+
+          <!-- DCF & Sortino -->
+          <div style="background: rgba(0,0,0,0.25); padding: 18px; border-radius: 16px; border: 1px solid var(--card-border);">
+            <h4 style="color: var(--accent-aapl); font-size: 0.95rem; margin-bottom: 10px;">🎲 DCF 蒙地卡羅估值與 Sortino 比率</h4>
+            <p style="font-size: 0.85rem; color: #cbd5e1;">
+              • Piotroski F-Score: <strong style="color: #34d399; font-size: 1.1rem;">8 / 9 滿分級別</strong><br>
+              • 近 12 個月 Sortino Ratio: <strong style="color: #38bdf8;">2.55 (防禦與下行回報強大)</strong><br>
+              • DCF 估值中位數 (P50): <strong>$164.60 USD</strong>
+            </p>
+            <div class="chart-container" style="height: 180px;">
+              <canvas id="chartDcf"></canvas>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Section 4: Sortino & Risk Analysis -->
+      <div class="card">
+        <h2>📈 三、 下行風險與 Sortino Ratio 分析 (二級市場波動)</h2>
+        <p style="font-size: 0.875rem; color: #cbd5e1;">
+          Sortino Ratio 只將低於 0 的下行風險波動納入計算，真實衡量 Apple 在二級市場拉回時的風險收益回報能力。
+        </p>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px;">
+          <div style="background: rgba(168, 85, 247, 0.1); border: 1px solid rgba(168, 85, 247, 0.3); padding: 20px; border-radius: 16px; text-align: center;">
+            <div style="font-size: 0.8rem; color: var(--text-muted);">近 3 年 Sortino Ratio (156 週)</div>
+            <div style="font-size: 2.2rem; font-weight: 800; color: #c084fc; margin-top: 4px;">1.18</div>
+            <div style="font-size: 0.75rem; color: #34d399; margin-top: 4px;">穩定大盤防禦避風港</div>
+          </div>
+          <div style="background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.3); padding: 20px; border-radius: 16px; text-align: center;">
+            <div style="font-size: 0.8rem; color: var(--text-muted);">近 12 個月 Sortino (日資料, MAR=0)</div>
+            <div style="font-size: 2.2rem; font-weight: 800; color: #38bdf8; margin-top: 4px;">2.55</div>
+            <div style="font-size: 0.75rem; color: #34d399; margin-top: 4px;">優異的二級市場下行防禦</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 5: Shareholder Yield -->
+      <div class="card">
+        <h2>💵 四、 籌碼面與股東資本回饋 (Shareholder Yield)</h2>
+        
+        <div class="metric-group" style="grid-template-columns: 1fr 1fr;">
+          <div class="metric-card">
+            <div class="title">稀釋每股盈餘 (EPS)</div>
+            <div class="value" style="color: #c084fc;">$7.46 USD</div>
+          </div>
+          <div class="metric-card">
+            <div class="title">庫藏股買回 (Buyback)</div>
+            <div class="value" style="color: #34d399;">$90,711M USD (2.01%)</div>
+          </div>
+          <div class="metric-card">
+            <div class="title">現金股利發放 (Dividend)</div>
+            <div class="value" style="color: #fbbf24;">$15,421M USD (0.34%)</div>
+          </div>
+          <div class="metric-card">
+            <div class="title">股東總殖利率 (Shareholder Yield)</div>
+            <div class="value" style="color: #c084fc;">2.35% (全美股買回之王)</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 6: Risk Factors & Pros/Cons Analysis -->
+      <div class="card card-full">
+        <h2>⚠️ 五、 核心風險因素與利弊分析 (SEC Form 10-K Item 1A & Pros/Cons Matrix)</h2>
+        
+        <p style="font-size: 0.9rem; color: #cbd5e1; margin-bottom: 20px;">
+          依據 SEC Form 10-K 官方申報文件 (Item 1A Risk Factors 及 Item 7 MD&A)，本節深度剖析 Apple 在投資層面的三大核心風險與多空利弊矩陣。
+        </p>
+
+        <!-- 3 Core Risk Cards -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin-bottom: 24px;">
+          <div style="background: rgba(244, 63, 94, 0.08); border: 1px solid rgba(244, 63, 94, 0.25); border-radius: 16px; padding: 18px;">
+            <div style="font-weight: 700; font-size: 1rem; color: #fb7185; margin-bottom: 6px; display: flex; align-items: center; gap: 8px;">
+              ⚖️ 1. 歐盟 DMA 法案與全球 App Store 反壟斷拆帳衝擊
+            </div>
+            <div style="font-size: 0.85rem; color: #cbd5e1;">
+              歐盟《數位市場法》(DMA) 強制開放第三方應用商店與側載 (Side-loading)，可能對高毛利的 Services App Store 30% 抽成模式產生長線侵蝕風險。
+            </div>
+          </div>
+
+          <div style="background: rgba(245, 158, 11, 0.08); border: 1px solid rgba(245, 158, 11, 0.25); border-radius: 16px; padding: 18px;">
+            <div style="font-weight: 700; font-size: 1rem; color: #fbbf24; margin-bottom: 6px; display: flex; align-items: center; gap: 8px;">
+              🌏 2. 地緣政治與全球供應鏈關稅轉移摩擦 (Tariff & Supply Chain Friction)
+            </div>
+            <div style="font-size: 0.85rem; color: #cbd5e1;">
+              關稅政策與供應鏈轉移至印度、越南之初期學習曲線，可能短線增加組裝營運成本。
+            </div>
+          </div>
+
+          <div style="background: rgba(56, 189, 248, 0.08); border: 1px solid rgba(56, 189, 248, 0.25); border-radius: 16px; padding: 18px;">
+            <div style="font-weight: 700; font-size: 1rem; color: #38bdf8; margin-bottom: 6px; display: flex; align-items: center; gap: 8px;">
+              🤖 3. Apple Intelligence 生成式 AI 功能商業化變現速度
+            </div>
+            <div style="font-size: 0.85rem; color: #cbd5e1;">
+              Apple Intelligence 裝置端 AI 換機潮若不如二級市場熱烈預期，可能影響 iPhone 銷量增速。
+            </div>
+          </div>
+        </div>
+
+        <!-- Pros vs Cons Matrix -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+          <!-- Pros / Bull Case -->
+          <div style="background: rgba(168, 85, 247, 0.08); border: 1px solid rgba(168, 85, 247, 0.3); border-radius: 18px; padding: 20px;">
+            <h3 style="color: #c084fc; font-size: 1.1rem; font-weight: 800; margin-bottom: 14px; display: flex; align-items: center; gap: 8px;">
+              🟢 投資優勢與利多分析 (Pros / Bull Case)
+            </h3>
+            <ul style="font-size: 0.875rem; color: #cbd5e1; padding-left: 20px; line-height: 1.8;">
+              <li><strong>全美股買回之王 (每年超 $900 億美元)</strong>：龐大庫藏股買回持續註銷股數提升 EPS。</li>
+              <li><strong>iOS 生態系轉換成本極高</strong>：擁有全球最高黏著度的 10 億+ 付費用戶。</li>
+              <li><strong>Services 服務營收高毛利 (75.4%)</strong>：提供穩定的高利潤現金流。</li>
+              <li><strong>Piotroski F-Score 8/9 滿分級品質</strong>：財務會計品質極致健全。</li>
+            </ul>
+          </div>
+
+          <!-- Cons / Bear Case -->
+          <div style="background: rgba(244, 63, 94, 0.06); border: 1px solid rgba(244, 63, 94, 0.25); border-radius: 18px; padding: 20px;">
+            <h3 style="color: #fb7185; font-size: 1.1rem; font-weight: 800; margin-bottom: 14px; display: flex; align-items: center; gap: 8px;">
+              🔴 投資劣勢與潛在弊端 (Cons / Bear Case)
+            </h3>
+            <ul style="font-size: 0.875rem; color: #cbd5e1; padding-left: 20px; line-height: 1.8;">
+              <li><strong>本益比 (P/E 41.4x) 高於歷史均值</strong>：包含較高市場預期。</li>
+              <li><strong>歐盟反壟斷拆帳監管壓力</strong>：App Store 抽成模式面臨法規挑戰。</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <footer>
+      <p>© 2026 Sec_kb Financial Knowledge Framework. SEC Form 10-K Verified Accession: 0000320193-25-000079.</p>
+    </footer>
+
+  </div>
+
+  <script>
+    // Financials Breakdown Chart
+    new Chart(document.getElementById('chartFinancials'), {
+      type: 'bar',
+      data: {
+        labels: ['總營收 ($M)', '淨利潤 ($M)', '經營現金流 OCF', '自由現金流 FCF'],
+        datasets: [{
+          label: 'FY2025 財務數據 (USD)',
+          data: [416161, 112010, 111482, 98767],
+          backgroundColor: ['#a855f7', '#34d399', '#38bdf8', '#c084fc']
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: {
+          x: { ticks: { color: '#94a3b8', font: { size: 11 } } },
+          y: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } }
+        }
+      }
+    });
+
+    // DuPont Chart
+    new Chart(document.getElementById('chartDupont'), {
+      type: 'bar',
+      data: {
+        labels: ['淨利率 (%)', '資產週轉率 (x100)', '權益乘數 (x100)'],
+        datasets: [{
+          label: 'DuPont 三因子拆解',
+          data: [26.92, 115.80, 487.20],
+          backgroundColor: ['#a855f7', '#38bdf8', '#c084fc']
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: {
+          x: { ticks: { color: '#94a3b8', font: { size: 10 } } },
+          y: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } }
+        }
+      }
+    });
+
+    // DCF Chart
+    new Chart(document.getElementById('chartDcf'), {
+      type: 'bar',
+      data: {
+        labels: ['P25 估值', 'P50 中位數', 'P75 估值', '目前美股現價'],
+        datasets: [{
+          label: '每股估值 ($ USD)',
+          data: [143.66, 164.60, 189.40, 308.91],
+          backgroundColor: ['#818cf8', '#38bdf8', '#34d399', '#a855f7']
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: {
+          x: { ticks: { color: '#94a3b8', font: { size: 10 } } },
+          y: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } }
+        }
+      }
+    });
+  </script>
+</body>
+</html>

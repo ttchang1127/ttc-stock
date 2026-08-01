@@ -106,7 +106,27 @@ financials_verified: true
 
 ---
 
+## ⚠️ 六、 核心風險因素與利弊分析 (SEC Form 10-K Item 1A & Pros/Cons Matrix)
+
+### 1. 三大核心風險因素 (Item 1A Risk Factors)
+- **💸 AI 伺服器建置天價 CapEx 支出飆升 ($696.9 億美元 CapEx)**：為了訓練 Llama 4/5 與建置全網最大的 GPU 資料中心，FY2025 CapEx 飆升至 $696.9 億美元，折舊與資本支出短線壓抑自由現金流 (FCF)。
+- **🥽 Reality Labs 元宇宙部門持續鉅額營業虧損**：Reality Labs (Quest VR / Ray-Ban AR 眼鏡) 部門每年虧損約 $160億~$180億美元，尚需數年時間證明硬體生態系的盈利變現。
+- **⚖️ 青少年隱私與歐洲跨國數據法規反壟斷監管 (Privacy Regulation)**：美國各州政府針對青少年社群隱私訴訟及歐盟 GDPR 跨國數據傳輸規範，可能面臨潛在天價罰款或合規限制。
+
+### 2. 投資利弊與優劣勢矩陣 (Pros & Cons Matrix)
+- **🟢 多頭優勢 (Pros / Bull Case)**：
+  - **全美股七巨頭 MAG7 最低本益比 (P/E 23.7x)**：估值安全邊際極高。
+  - **32 億每日活躍用戶 (DAP) 網路效應**：廣告現金牛持續提供充沛資金。
+  - **全美股第 3 大 OCF 現金流巨獸 ($1,158 億)**：現金創造力極致強悍。
+  - **估值折價 20.3% (DCF P50 $698.74)**：二級市場價格具極佳吸引力。
+- **🔴 空頭隱憂 (Cons / Bear Case)**：
+  - **CapEx 建置投入近 $700 億美元**：壓抑近季自由現金流表現。
+  - **Reality Labs 部門長期虧損**：硬體與元宇宙投資侵蝕整體淨利率。
+
+---
+
 ## 🔗 關聯筆記
+- 🌐 **[開啟 Meta Platforms 獨立網頁版投資報告 (meta_report.html)](file:///Volumes/Crucial%20X8/Jarvis%20Obsidian/Sec_kb/meta_report.html)**
 - [[META_Company_Profile|Meta 公司主頁]]
 - [[MSFT_Master_Investment_Thesis_2026|微軟 主報告對比]]
 - [[AMZN_Master_Investment_Thesis_2026|Amazon 主報告對比]]

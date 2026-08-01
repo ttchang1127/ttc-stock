@@ -105,10 +105,27 @@ financials_verified: true
 
 ---
 
-## ⚠️ 六、 核心風險與投資結論
+## ⚠️ 六、 核心風險因素與利弊分析 (SEC Form 10-K Item 1A & Pros/Cons Matrix)
 
-1. **核心風險**：
-   - 2025 年起實施的新關稅 (U.S. Tariffs) 推升進口與供應鏈轉移成本。
-   - 歐盟 DMA 法案等反壟斷監管對 Services 拆帳模式的衝擊。
-2. **總結評估**：
-   Apple 擁有世界上最強大的資本回饋機制與生態系護城河，資產負債表極度健全 ($Net\ Cash = +\$331 \text{ 億}$)，自由現金流創歷史新高，屬於兼具高防禦性與成長性的頂級資產。
+### 1. 三大核心風險因素 (Item 1A Risk Factors)
+- **⚖️ 歐盟 DMA 法案與全球 App Store 反壟斷拆帳衝擊**：歐盟《數位市場法》(DMA) 強制開放第三方應用商店與側載 (Side-loading)，可能對高毛利的 Services App Store 30% 抽成模式產生長線侵蝕風險。
+- **🌏 地緣政治與全球供應鏈關稅轉移摩擦 (Tariff & Supply Chain Friction)**：關稅政策與供應鏈轉移至印度、越南之初期學習曲線，可能短線增加組裝營運成本。
+- **🤖 Apple Intelligence 生成式 AI 功能商業化變現速度**：Apple Intelligence 裝置端 AI 換機潮若不如二級市場熱烈預期，可能影響 iPhone 銷量增速。
+
+### 2. 投資利弊與優劣勢矩陣 (Pros & Cons Matrix)
+- **🟢 多頭優勢 (Pros / Bull Case)**：
+  - **全美股買回之王 (每年超 $900 億美元)**：龐大庫藏股買回持續註銷股數提升 EPS。
+  - **iOS 生態系轉換成本極高**：擁有全球最高黏著度的 10 億+ 付費用戶。
+  - **Services 服務營收高毛利 (75.4%)**：提供穩定的高利潤現金流。
+  - **Piotroski F-Score 8/9 滿分級品質**：財務會計品質極致健全。
+- **🔴 空頭隱憂 (Cons / Bear Case)**：
+  - **本益比 (P/E 41.4x) 高於歷史均值**：包含較高市場預期。
+  - **歐盟反壟斷拆帳監管壓力**：App Store 抽成模式面臨法規挑戰。
+
+---
+
+## 🔗 關聯筆記
+- 🌐 **[開啟 Apple Inc. 獨立網頁版投資報告 (aapl_report.html)](file:///Volumes/Crucial%20X8/Jarvis%20Obsidian/Sec_kb/aapl_report.html)**
+- [[AAPL_Company_Profile|Apple 公司主頁]]
+- [[NVDA_Master_Investment_Thesis_2026|NVIDIA 主報告對比]]
+- [[MSFT_Master_Investment_Thesis_2026|Microsoft 主報告對比]]

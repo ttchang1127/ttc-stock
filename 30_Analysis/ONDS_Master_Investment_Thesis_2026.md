@@ -101,6 +101,26 @@ financials_verified: true
 
 ---
 
+## ⚠️ 六、 核心風險因素與利弊分析 (SEC Form 10-K Item 1A & Pros/Cons Matrix)
+
+### 1. 三大核心風險因素 (Item 1A Risk Factors)
+- **💸 營運現金流與淨利尚未轉正風險 (Commercial Burning Risk)**：公司仍處於商業規模擴張與研發高投入期，目前 FCF 為負 ($ -4,100 萬美元)，尚需時間證明整體盈利能力。
+- **📜 FAA 與國防法規商業採購審批時程 (Government Contracting Friction)**：無人機 BVLOS 法規放行速度與政府國防部採購招標節奏影響季度營收波動。
+- **📊 小市值小型股 (Small-Cap) 高 Beta 波動**：屬小型防禦與無人機科技股，二級市場成交量與股價受市場氣氛影響波動較大。
+
+### 2. 投資利弊與優劣勢矩陣 (Pros & Cons Matrix)
+- **🟢 多頭優勢 (Pros / Bull Case)**：
+  - **FAA BVLOS 認證極少數玩家**：無人機機巢獲得商業法規認證壁壘。
+  - **Iron Drone 反無人機國防商機**：受惠全球國防防空升級需求。
+  - **美鐵 Class I 專利標準**：無線專網深耕北美鐵路龍頭。
+  - **資產負債無金融債務**：持有 $5.51 億美元純淨現金。
+- **🔴 空頭隱憂 (Cons / Bear Case)**：
+  - **自由現金流 FCF 為負數**：商業階段仍處擴張階段。
+  - **小型股波動度較大**：適合進行波段配置。
+
+---
+
 ## 🔗 關聯筆記
+- 🌐 **[開啟 Ondas Holdings 獨立網頁版投資報告 (onds_report.html)](file:///Volumes/Crucial%20X8/Jarvis%20Obsidian/Sec_kb/onds_report.html)**
 - [[ONDS_Company_Profile|Ondas Holdings 公司主頁]]
 - [[User_Portfolio_Master_Analysis_2026|個人投資組合主報告]]

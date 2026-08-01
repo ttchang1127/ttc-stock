@@ -11,14 +11,25 @@ tags:
 
 ---
 
-## 🚀 雙動態 Web 儀表板 (Interactive Dashboards)
+## 🚀 雙動態 Web 儀表板與獨立網頁版投資報告 (Web Dashboards & Reports)
 
-1. 🌐 **[開啟 美股七巨頭 MAG7 + 台積電 專屬獨立對照儀表板 (MAG7 Dedicated Dashboard)](file:///Volumes/Crucial%20X8/Jarvis%20Obsidian/Sec_kb/dashboard_mag7.html)**
-2. 💼 **[開啟 個人投資組合與 ETF (VGT / VOO) 權重重疊度對照儀表板 (Portfolio Dashboard)](file:///Volumes/Crucial%20X8/Jarvis%20Obsidian/Sec_kb/dashboard.html)**
-3. 🇹🇼 **[開啟 台積電 (TSM ADR) 2026 獨立專屬網頁投資報告 (TSM Web Thesis)](file:///Volumes/Crucial%20X8/Jarvis%20Obsidian/Sec_kb/tsm_report.html)**
-4. 🟩 **[開啟 NVIDIA (NVDA) 2026 獨立專屬網頁投資報告 (NVDA Web Thesis)](file:///Volumes/Crucial%20X8/Jarvis%20Obsidian/Sec_kb/nvda_report.html)**
-5. 📈 **[開啟 MACD (平滑異同移動平均線) 技術分析指南與雙重驗證戰略](file:///Volumes/Crucial%20X8/Jarvis%20Obsidian/Sec_kb/30_Analysis/MACD_Technical_Analysis_Guide_2026.md)**
-6. 📄 **[開啟 用戶持股組合與 ETF 權重重疊度 Master 分析報告](file:///Volumes/Crucial%20X8/Jarvis%20Obsidian/Sec_kb/30_Analysis/User_Portfolio_Master_Analysis_2026.md)**
+1. 🌐 **[開啟 美股七巨頭 MAG7 + 台積電 專屬獨立對照儀表板 (dashboard_mag7.html)](file:///Volumes/Crucial%20X8/Jarvis%20Obsidian/Sec_kb/dashboard_mag7.html)**
+2. 💼 **[開啟 個人投資組合與 ETF 權重重疊度對照儀表板 (dashboard.html)](file:///Volumes/Crucial%20X8/Jarvis%20Obsidian/Sec_kb/dashboard.html)**
+3. 🇹🇼 **[開啟 台積電 (TSM ADR) 網頁報告 (tsm_report.html)](file:///Volumes/Crucial%20X8/Jarvis%20Obsidian/Sec_kb/tsm_report.html)**
+4. 🟩 **[開啟 NVIDIA (NVDA) 網頁報告 (nvda_report.html)](file:///Volumes/Crucial%20X8/Jarvis%20Obsidian/Sec_kb/nvda_report.html)**
+5. 🔍 **[開啟 Alphabet / Google (GOOG) 網頁報告 (goog_report.html)](file:///Volumes/Crucial%20X8/Jarvis%20Obsidian/Sec_kb/goog_report.html)**
+6. 🦾 **[開啟 Arm Holdings (ARM) 網頁報告 (arm_report.html)](file:///Volumes/Crucial%20X8/Jarvis%20Obsidian/Sec_kb/arm_report.html)**
+7. ⚡ **[開啟 Marvell (MRVL) 網頁報告 (mrvl_report.html)](file:///Volumes/Crucial%20X8/Jarvis%20Obsidian/Sec_kb/mrvl_report.html)**
+8. 👁️ **[開啟 Coherent (COHR) 網頁報告 (cohr_report.html)](file:///Volumes/Crucial%20X8/Jarvis%20Obsidian/Sec_kb/cohr_report.html)**
+9. ⚡ **[開啟 Tesla (TSLA) 網頁報告 (tsla_report.html)](file:///Volumes/Crucial%20X8/Jarvis%20Obsidian/Sec_kb/tsla_report.html)**
+10. 🔷 **[開啟 Intel (INTC) 網頁報告 (intc_report.html)](file:///Volumes/Crucial%20X8/Jarvis%20Obsidian/Sec_kb/intc_report.html)**
+11. 📶 **[開啟 Nokia (NOK) 網頁報告 (nok_report.html)](file:///Volumes/Crucial%20X8/Jarvis%20Obsidian/Sec_kb/nok_report.html)**
+12. 🛸 **[開啟 Ondas (ONDS) 網頁報告 (onds_report.html)](file:///Volumes/Crucial%20X8/Jarvis%20Obsidian/Sec_kb/onds_report.html)**
+13. 🍎 **[開啟 Apple (AAPL) 網頁報告 (aapl_report.html)](file:///Volumes/Crucial%20X8/Jarvis%20Obsidian/Sec_kb/aapl_report.html)**
+14. 🪟 **[開啟 Microsoft (MSFT) 網頁報告 (msft_report.html)](file:///Volumes/Crucial%20X8/Jarvis%20Obsidian/Sec_kb/msft_report.html)**
+15. ♾️ **[開啟 Meta Platforms (META) 網頁報告 (meta_report.html)](file:///Volumes/Crucial%20X8/Jarvis%20Obsidian/Sec_kb/meta_report.html)**
+16. 📈 **[開啟 MACD (平滑異同移動平均線) 技術分析指南與雙重驗證戰略](file:///Volumes/Crucial%20X8/Jarvis%20Obsidian/Sec_kb/30_Analysis/MACD_Technical_Analysis_Guide_2026.md)**
+17. 📄 **[開啟 用戶持股組合與 ETF 權重重疊度 Master 分析報告](file:///Volumes/Crucial%20X8/Jarvis%20Obsidian/Sec_kb/30_Analysis/User_Portfolio_Master_Analysis_2026.md)**
 
 ---
 

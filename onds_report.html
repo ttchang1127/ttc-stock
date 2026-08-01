@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Ondas Holdings Inc. (ONDS) 2026 終極個股研究與估值投資報告 - 基於 SEC 近 10 年 10-K 財報與二級市場數據。">
+  <title>Ondas Holdings (ONDS) 2026 終極投資與估值報告 | SEC 10-K 驗證</title>
+  <!-- Google Fonts & Chart.js -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    :root {
+      --bg-dark: #070a12;
+      --card-bg: rgba(17, 24, 39, 0.75);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --accent-onds: #0ea5e9;
+      --accent-cyan: #38bdf8;
+      --accent-purple: #a855f7;
+      --accent-emerald: #10b981;
+      --accent-rose: #f43f5e;
+      --accent-amber: #fbbc05;
+      --glow-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.45);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Outfit', 'Noto Sans TC', sans-serif;
+      background: radial-gradient(circle at 50% -10%, #0369a1, var(--bg-dark) 75%);
+      color: var(--text-main);
+      min-height: 100vh;
+      padding: 24px;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    /* Top Navigation Bar */
+    .top-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 28px;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--card-border);
+      border-radius: 18px;
+      margin-bottom: 24px;
+    }
+
+    .nav-brand {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 16px;
+    }
+
+    .nav-btn {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 600;
+      padding: 8px 16px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--card-border);
+      transition: all 0.2s ease;
+    }
+
+    .nav-btn:hover {
+      color: #fff;
+      background: var(--accent-onds);
+      border-color: transparent;
+    }
+
+    /* Hero Header */
+    .hero-card {
+      background: linear-gradient(135deg, rgba(14, 165, 233, 0.2), rgba(3, 105, 161, 0.8));
+      border: 1px solid rgba(14, 165, 233, 0.35);
+      border-radius: 24px;
+      padding: 36px;
+      box-shadow: var(--glow-shadow);
+      margin-bottom: 32px;
+      display: grid;
+      grid-template-columns: 1.8fr 1.2fr;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .hero-title h1 {
+      font-size: 2.3rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #0ea5e9, #38bdf8, #a7f3d0);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+    }
+
+    .hero-subtitle {
+      font-size: 1.05rem;
+      color: #cbd5e1;
+      margin-bottom: 18px;
+    }
+
+    .badge-sec {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      color: #34d399;
+      padding: 6px 14px;
+      border-radius: 12px;
+      font-size: 0.825rem;
+      font-weight: 700;
+    }
+
+    .hero-kpis {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    .kpi-box {
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 16px;
+    }
+
+    .kpi-label { font-size: 0.775rem; color: var(--text-muted); }
+    .kpi-val { font-size: 1.4rem; font-weight: 800; color: #fff; margin-top: 4px; }
+    .kpi-sub { font-size: 0.75rem; color: var(--accent-onds); margin-top: 2px; }
+
+    /* Section Cards Grid */
+    .section-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(640px, 1fr));
+      gap: 28px;
+      margin-bottom: 32px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--card-border);
+      border-radius: 22px;
+      padding: 28px;
+      box-shadow: var(--glow-shadow);
+    }
+
+    .card-full {
+      grid-column: 1 / -1;
+    }
+
+    .card h2 {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 1px solid var(--card-border);
+      padding-bottom: 12px;
+    }
+
+    /* Moat List */
+    .moat-item {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 14px;
+      padding: 16px;
+      margin-bottom: 14px;
+    }
+
+    .moat-item:last-child { margin-bottom: 0; }
+
+    .moat-header {
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: #0ea5e9;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .moat-desc {
+      font-size: 0.9rem;
+      color: #cbd5e1;
+    }
+
+    /* Metric Rows */
+    .metric-group {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .metric-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 14px;
+    }
+
+    .metric-card .title { font-size: 0.75rem; color: var(--text-muted); }
+    .metric-card .value { font-size: 1.2rem; font-weight: 700; color: #fff; margin-top: 2px; }
+
+    /* Chart Containers */
+    .chart-container {
+      position: relative;
+      height: 280px;
+      width: 100%;
+      margin-top: 16px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 32px 0;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--card-border);
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- Top Nav -->
+    <nav class="top-nav">
+      <div class="nav-brand">
+        <span style="font-size: 1.4rem;">🛸</span> Ondas Holdings Inc. (ONDS) 2026 Master 投資報告網頁版
+      </div>
+      <div class="nav-links">
+        <a href="dashboard.html" class="nav-btn">📊 返回持股儀表板</a>
+        <a href="nok_report.html" class="nav-btn">📶 Nokia 報告</a>
+        <a href="intc_report.html" class="nav-btn">🔷 Intel 報告</a>
+        <a href="tsla_report.html" class="nav-btn">⚡ Tesla 報告</a>
+        <a href="goog_report.html" class="nav-btn">🔍 Google 報告</a>
+        <a href="nvda_report.html" class="nav-btn">🟩 NVIDIA 報告</a>
+        <a href="tsm_report.html" class="nav-btn">🇹🇼 台積電報告</a>
+        <a href="https://github.com/ttchang1127/ttc-stock" target="_blank" class="nav-btn">🐙 GitHub Repo</a>
+      </div>
+    </nav>
+
+    <!-- Hero Header -->
+    <div class="hero-card">
+      <div class="hero-title">
+        <h1>Ondas Holdings (ONDS)</h1>
+        <div class="hero-subtitle">2026 終極個股研究與估值投資報告 (Master Thesis)</div>
+        <div class="badge-sec">
+          🛡️ SEC Form 10-K 官方權威核驗 (Accession: 0001213900-26-035981)
+        </div>
+      </div>
+      <div class="hero-kpis">
+        <div class="kpi-box">
+          <div class="kpi-label">美股現價 (Price)</div>
+          <div class="kpi-val" style="color: #0ea5e9;">$7.49 USD</div>
+          <div class="kpi-sub">無人機與國防科技轉型標的</div>
+        </div>
+        <div class="kpi-box">
+          <div class="kpi-label">年度總營收 / 毛利率</div>
+          <div class="kpi-val" style="color: #34d399;">$51.0M / 39.73%</div>
+          <div class="kpi-sub">毛利率提升顯著</div>
+        </div>
+        <div class="kpi-box">
+          <div class="kpi-label">12M 日線 Sortino Ratio</div>
+          <div class="kpi-val" style="color: #38bdf8;">2.79</div>
+          <div class="kpi-sub">軍工反彈波動回報極高 👑</div>
+        </div>
+        <div class="kpi-box">
+          <div class="kpi-label">純淨現金資產 (Net Cash)</div>
+          <div class="kpi-val" style="color: #c084fc;">$551.0M USD</div>
+          <div class="kpi-sub">無金融債務負擔</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content Sections -->
+    <div class="section-grid">
+
+      <!-- Section 1: Moat -->
+      <div class="card">
+        <h2>🏰 一、 經濟護城河與軍工無人機科技 (Moat Analysis)</h2>
+        
+        <div class="moat-item">
+          <div class="moat-header">🛸 1. Airobotics / American Robotics 自主無人機機巢 (Drone-in-a-Box)</div>
+          <div class="moat-desc">
+            全球極少數獲得 <strong>FAA 視距外商業飛行 (BVLOS - Beyond Visual Line of Sight)</strong> 認證的無人機機巢平台，應用於智慧城市與關鍵基礎設施維安。
+          </div>
+        </div>
+
+        <div class="moat-item">
+          <div class="moat-header">🛡️ 2. Iron Drone & Counter-UAS 反無人機國防防空系統</div>
+          <div class="moat-desc">
+            擁有軍事與國防等級的全自主反無人機攔截網與 AI 識別防空系統，直接對接政府國防部與執法單位商業採購。
+          </div>
+        </div>
+
+        <div class="moat-item">
+          <div class="moat-header">📶 3. FullMax 900MHz 私有無線專網 (Class I Railroad Standard)</div>
+          <div class="moat-desc">
+            美國 Class I 鐵路龍頭 (如 Union Pacific, CSX) 指定採用其軟體定義無線電 (SDR) 專利協定，提供鐵路自動化通訊。
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 2: Revenue & Cash Flow Chart -->
+      <div class="card">
+        <h2>📊 財報財務數據與現金流結構 (FY2025 10-K)</h2>
+        <p style="font-size: 0.85rem; color: var(--text-muted);">年度營收達到 $5,100 萬美元，現金儲備達到 $5.51 億美元</p>
+        <div class="chart-container">
+          <canvas id="chartFinancials"></canvas>
+        </div>
+      </div>
+
+      <!-- Section 3: Financial Health & Quantitative Models -->
+      <div class="card card-full">
+        <h2>📊 二、 財報體檢與四大基本面量化模型 (FY2025 10-K 官方驗證)</h2>
+
+        <div class="metric-group">
+          <div class="metric-card">
+            <div class="title">年度總營收 (Revenue)</div>
+            <div class="value" style="color: #0ea5e9;">$51.0M USD</div>
+          </div>
+          <div class="metric-card">
+            <div class="title">經營現金流 (OCF)</div>
+            <div class="value" style="color: #f43f5e;">$-39.0M USD</div>
+          </div>
+          <div class="metric-card">
+            <div class="title">毛利率 (Gross Margin)</div>
+            <div class="value" style="color: #34d399;">39.73%</div>
+          </div>
+          <div class="metric-card">
+            <div class="title">純淨現金資產 (Net Cash)</div>
+            <div class="value" style="color: #c084fc;">$551.0M USD</div>
+          </div>
+          <div class="metric-card">
+            <div class="title">股東權益 (Equity)</div>
+            <div class="value" style="color: #38bdf8;">$438.0M USD</div>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 14px;">
+          <!-- DuPont & Financials -->
+          <div style="background: rgba(0,0,0,0.25); padding: 18px; border-radius: 16px; border: 1px solid var(--card-border);">
+            <h4 style="color: var(--accent-cyan); font-size: 0.95rem; margin-bottom: 10px;">🧬 DuPont 杜邦三因子拆解分析</h4>
+            <p style="font-size: 1.1rem; font-weight: 800; color: #fff;">DuPont ROE: -30.20% (研發擴展期)</p>
+            <p style="font-size: 0.85rem; color: #cbd5e1; margin-top: 6px;">
+              • 淨利率 (Net Profit Margin): <strong>-260.66%</strong><br>
+              • 資產週轉率 (Asset Turnover): <strong>0.045x</strong><br>
+              • 權益乘數 (Financial Leverage): <strong>2.587x</strong>
+            </p>
+            <div class="chart-container" style="height: 180px;">
+              <canvas id="chartDupont"></canvas>
+            </div>
+          </div>
+
+          <!-- Piotroski & Sortino -->
+          <div style="background: rgba(0,0,0,0.25); padding: 18px; border-radius: 16px; border: 1px solid var(--card-border);">
+            <h4 style="color: var(--accent-onds); font-size: 0.95rem; margin-bottom: 10px;">📋 Piotroski F-Score & Sortino Ratio</h4>
+            <p style="font-size: 0.85rem; color: #cbd5e1;">
+              • Piotroski F-Score: <strong style="color: #34d399; font-size: 1.1rem;">4 / 8 (毛利率向上改善)</strong><br>
+              • 近 12 個月 Sortino Ratio: <strong style="color: #38bdf8; font-size: 1.1rem;">2.79 👑 (波段反彈收益極強)</strong><br>
+              • 零金融債務 ($0 借款)，財務結構安全。
+            </p>
+            <div class="chart-container" style="height: 180px;">
+              <canvas id="chartDcf"></canvas>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Section 4: Sortino & Risk Analysis -->
+      <div class="card">
+        <h2>📈 三、 下行風險與 Sortino Ratio 分析 (二級市場波動)</h2>
+        <p style="font-size: 0.875rem; color: #cbd5e1;">
+          Sortino Ratio 只將低於 0 的下行風險波動納入計算，真實衡量 Ondas 在二級市場拉回時的風險收益回報能力。
+        </p>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px;">
+          <div style="background: rgba(168, 85, 247, 0.1); border: 1px solid rgba(168, 85, 247, 0.3); padding: 20px; border-radius: 16px; text-align: center;">
+            <div style="font-size: 0.8rem; color: var(--text-muted);">近 3 年 Sortino Ratio (156 週)</div>
+            <div style="font-size: 2.2rem; font-weight: 800; color: #c084fc; margin-top: 4px;">2.08</div>
+            <div style="font-size: 0.75rem; color: #34d399; margin-top: 4px;">國防題材帶動強勁</div>
+          </div>
+          <div style="background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.3); padding: 20px; border-radius: 16px; text-align: center;">
+            <div style="font-size: 0.8rem; color: var(--text-muted);">近 12 個月 Sortino (日資料, MAR=0)</div>
+            <div style="font-size: 2.2rem; font-weight: 800; color: #38bdf8; margin-top: 4px;">2.79 👑</div>
+            <div style="font-size: 0.75rem; color: #34d399; margin-top: 4px;">全庫二級市場下行回報前列</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 5: Shareholder Yield -->
+      <div class="card">
+        <h2>💵 四、 籌碼面與資產負債表 (Balance Sheet)</h2>
+        
+        <div class="metric-group" style="grid-template-columns: 1fr 1fr;">
+          <div class="metric-card">
+            <div class="title">現金與短期投資</div>
+            <div class="value" style="color: #34d399;">$551.0M USD</div>
+          </div>
+          <div class="metric-card">
+            <div class="title">總金融債務 (長期+短期)</div>
+            <div class="value" style="color: #38bdf8;">$0 百萬美元 (無負債)</div>
+          </div>
+          <div class="metric-card">
+            <div class="title">毛利率 (Gross Margin)</div>
+            <div class="value" style="color: #fbbf24;">39.73%</div>
+          </div>
+          <div class="metric-card">
+            <div class="title">純淨現金資產 (Net Cash)</div>
+            <div class="value" style="color: #c084fc;">$551.0M USD</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 6: Risk Factors & Pros/Cons Analysis -->
+      <div class="card card-full">
+        <h2>⚠️ 五、 核心風險因素與利弊分析 (SEC Form 10-K Item 1A & Pros/Cons Matrix)</h2>
+        
+        <p style="font-size: 0.9rem; color: #cbd5e1; margin-bottom: 20px;">
+          依據 SEC Form 10-K 官方申報文件 (Item 1A Risk Factors 及 Item 7 MD&A)，本節深度剖析 Ondas Holdings 在投資層面的三大核心風險與多空利弊矩陣。
+        </p>
+
+        <!-- 3 Core Risk Cards -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin-bottom: 24px;">
+          <div style="background: rgba(244, 63, 94, 0.08); border: 1px solid rgba(244, 63, 94, 0.25); border-radius: 16px; padding: 18px;">
+            <div style="font-weight: 700; font-size: 1rem; color: #fb7185; margin-bottom: 6px; display: flex; align-items: center; gap: 8px;">
+              💸 1. 營運現金流與淨利尚未轉正風險 (Commercial Burning Risk)
+            </div>
+            <div style="font-size: 0.85rem; color: #cbd5e1;">
+              公司仍處於商業規模擴張與研發高投入期，目前 FCF 為負 ($ -4,100 萬美元)，尚需時間證明整體盈利能力。
+            </div>
+          </div>
+
+          <div style="background: rgba(245, 158, 11, 0.08); border: 1px solid rgba(245, 158, 11, 0.25); border-radius: 16px; padding: 18px;">
+            <div style="font-weight: 700; font-size: 1rem; color: #fbbf24; margin-bottom: 6px; display: flex; align-items: center; gap: 8px;">
+              📜 2. FAA 與國防法規商業採購審批時程 (Government Contracting Friction)
+            </div>
+            <div style="font-size: 0.85rem; color: #cbd5e1;">
+              無人機 BVLOS 法規放行速度與政府國防部採購招標節奏影響季度營收波動。
+            </div>
+          </div>
+
+          <div style="background: rgba(56, 189, 248, 0.08); border: 1px solid rgba(56, 189, 248, 0.25); border-radius: 16px; padding: 18px;">
+            <div style="font-weight: 700; font-size: 1rem; color: #38bdf8; margin-bottom: 6px; display: flex; align-items: center; gap: 8px;">
+              📊 3. 小市值小型股 (Small-Cap) 高 Beta 波動
+            </div>
+            <div style="font-size: 0.85rem; color: #cbd5e1;">
+              屬小型防禦與無人機科技股，二級市場成交量與股價受市場氣氛影響波動較大。
+            </div>
+          </div>
+        </div>
+
+        <!-- Pros vs Cons Matrix -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+          <!-- Pros / Bull Case -->
+          <div style="background: rgba(14, 165, 233, 0.08); border: 1px solid rgba(14, 165, 233, 0.3); border-radius: 18px; padding: 20px;">
+            <h3 style="color: #0ea5e9; font-size: 1.1rem; font-weight: 800; margin-bottom: 14px; display: flex; align-items: center; gap: 8px;">
+              🟢 投資優勢與利多分析 (Pros / Bull Case)
+            </h3>
+            <ul style="font-size: 0.875rem; color: #cbd5e1; padding-left: 20px; line-height: 1.8;">
+              <li><strong>FAA BVLOS 認證極少數玩家</strong>：無人機機巢獲得商業法規認證壁壘。</li>
+              <li><strong>Iron Drone 反無人機國防商機</strong>：受惠全球國防防空升級需求。</li>
+              <li><strong>美鐵 Class I 專利標準</strong>：無線專網深耕北美鐵路龍頭。</li>
+              <li><strong>資產負債無金融債務</strong>：持有 $5.51 億美元純淨現金。</li>
+            </ul>
+          </div>
+
+          <!-- Cons / Bear Case -->
+          <div style="background: rgba(244, 63, 94, 0.06); border: 1px solid rgba(244, 63, 94, 0.25); border-radius: 18px; padding: 20px;">
+            <h3 style="color: #fb7185; font-size: 1.1rem; font-weight: 800; margin-bottom: 14px; display: flex; align-items: center; gap: 8px;">
+              🔴 投資劣勢與潛在弊端 (Cons / Bear Case)
+            </h3>
+            <ul style="font-size: 0.875rem; color: #cbd5e1; padding-left: 20px; line-height: 1.8;">
+              <li><strong>自由現金流 FCF 為負數</strong>：商業階段仍處擴張階段。</li>
+              <li><strong>小型股波動度較大</strong>：適合進行波段配置。</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <footer>
+      <p>© 2026 Sec_kb Financial Knowledge Framework. SEC Form 10-K Verified Accession: 0001213900-26-035981.</p>
+    </footer>
+
+  </div>
+
+  <script>
+    // Financials Breakdown Chart
+    new Chart(document.getElementById('chartFinancials'), {
+      type: 'bar',
+      data: {
+        labels: ['總營收 ($M)', '經營現金流 OCF', '現金儲備 ($M)'],
+        datasets: [{
+          label: 'FY2025 財務數據 (USD)',
+          data: [51, -39, 551],
+          backgroundColor: ['#0ea5e9', '#f43f5e', '#c084fc']
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: {
+          x: { ticks: { color: '#94a3b8', font: { size: 11 } } },
+          y: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } }
+        }
+      }
+    });
+
+    // DuPont Chart
+    new Chart(document.getElementById('chartDupont'), {
+      type: 'bar',
+      data: {
+        labels: ['毛利率 (%)', '資產週轉率 (x100)', '權益乘數 (x100)'],
+        datasets: [{
+          label: '基本面拆解',
+          data: [39.73, 4.50, 258.70],
+          backgroundColor: ['#34d399', '#38bdf8', '#c084fc']
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: {
+          x: { ticks: { color: '#94a3b8', font: { size: 10 } } },
+          y: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } }
+        }
+      }
+    });
+
+    // Sortino Chart
+    new Chart(document.getElementById('chartDcf'), {
+      type: 'bar',
+      data: {
+        labels: ['Piotroski F-Score (滿分8)', '12M Sortino Ratio (x10)'],
+        datasets: [{
+          label: '基本面與風險指標',
+          data: [4, 27.90],
+          backgroundColor: ['#34d399', '#38bdf8']
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: {
+          x: { ticks: { color: '#94a3b8', font: { size: 10 } } },
+          y: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } }
+        }
+      }
+    });
+  </script>
+</body>
+</html>
