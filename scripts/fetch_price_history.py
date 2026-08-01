@@ -26,6 +26,8 @@ OUTPUT_PATH = REPO_ROOT / "prices.json"
 DEFAULT_TICKERS = [
     "NVDA", "GOOG", "GOOGL", "AMZN", "ARM", "MRVL", "COHR", "TSLA",
     "INTC", "NOK", "ONDS", "TSM", "AAPL", "MSFT", "META",
+    # Market proxy, needed to regress beta for a CAPM cost of equity.
+    "SPY",
 ]
 
 

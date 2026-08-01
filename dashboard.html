@@ -234,6 +234,64 @@
       color: #fff;
     }
 
+    .param-presets {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      margin: 14px 0 4px;
+    }
+
+    .param-presets .preset-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .preset-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--card-border);
+      color: #38bdf8;
+      padding: 6px 12px;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      line-height: 1.25;
+    }
+
+    .preset-btn small {
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .preset-btn:hover {
+      border-color: var(--accent-cyan);
+      background: rgba(6, 182, 212, 0.12);
+    }
+
+    /* The preset matching the three inputs is highlighted, so the controls and
+       the buttons can never appear to disagree. */
+    .preset-btn.active {
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+      color: #fff;
+      border-color: transparent;
+    }
+
+    .preset-btn.active small { color: rgba(255, 255, 255, 0.85); }
+
+    .param-presets .preset-hint {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      flex-basis: 100%;
+    }
+
     .macd-run-btn {
       background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
       border: none;
@@ -793,6 +851,21 @@
           </div>
 
           <button class="macd-run-btn" onclick="runLiveMACDRange()">⚡ 執行指定時間區間 MACD 回溯</button>
+        </div>
+
+        <div class="param-presets">
+          <span class="preset-label">參數快速套用：</span>
+          <button class="preset-btn" data-preset="12,26,9"  onclick="applyPreset(this, 12, 26, 9)">
+            12 / 26 / 9<small>業界預設</small></button>
+          <button class="preset-btn" data-preset="8,17,9"   onclick="applyPreset(this, 8, 17, 9)">
+            8 / 17 / 9<small>Appel 買進組</small></button>
+          <button class="preset-btn" data-preset="12,25,9"  onclick="applyPreset(this, 12, 25, 9)">
+            12 / 25 / 9<small>Appel 賣出組</small></button>
+          <button class="preset-btn" data-preset="19,39,9"  onclick="applyPreset(this, 19, 39, 9)">
+            19 / 39 / 9<small>長線、過濾雜訊</small></button>
+          <button class="preset-btn" data-preset="5,35,5"   onclick="applyPreset(this, 5, 35, 5)">
+            5 / 35 / 5<small>週線圖用</small></button>
+          <span class="preset-hint">參數由來與取捨見 → 第二分頁「快線 12、慢線 26、Signal 9 是怎麼來的？」</span>
         </div>
 
         <div id="statusBanner" class="status-banner loading">
@@ -1419,6 +1492,28 @@
       runLiveMACDRange();
     }
 
+    function applyPreset(btn, fast, slow, signal) {
+      document.getElementById('paramFast').value = fast;
+      document.getElementById('paramSlow').value = slow;
+      document.getElementById('paramSignal').value = signal;
+      syncPresetHighlight();
+      runLiveMACDRange();
+    }
+
+    // Highlight whichever preset matches the inputs. Typing values by hand that
+    // happen to equal a preset lights it up too, and any other combination
+    // leaves them all unlit rather than showing a stale selection.
+    function syncPresetHighlight() {
+      const current = [
+        document.getElementById('paramFast').value,
+        document.getElementById('paramSlow').value,
+        document.getElementById('paramSignal').value,
+      ].join(',');
+      document.querySelectorAll('.preset-btn').forEach(b => {
+        b.classList.toggle('active', b.dataset.preset === current);
+      });
+    }
+
     // 真實日線資料庫 (build-time 由 scripts/fetch_price_history.py 以 yfinance 產生)
     // GitHub Pages 為純靜態站台，且 Yahoo chart API 不回傳 CORS 標頭，
     // 瀏覽器端無法直連；因此改為載入與本頁同源的 prices.json。
@@ -1611,6 +1706,8 @@
       const fastP = parseInt(document.getElementById('paramFast').value) || 12;
       const slowP = parseInt(document.getElementById('paramSlow').value) || 26;
       const signalP = parseInt(document.getElementById('paramSignal').value) || 9;
+
+      syncPresetHighlight();
 
       const { fullDates, fullPrices, valid } = await fetchPriceSeriesWithWarmup(ticker, startDateStr, endDateStr);
       if (myToken !== liveRunToken) return;

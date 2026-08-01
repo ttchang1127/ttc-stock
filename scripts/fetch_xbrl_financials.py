@@ -82,6 +82,17 @@ CONCEPTS = {
     "dividends_paid":      ("duration", ["PaymentsOfDividendsCommonStock", "PaymentsOfDividends"],
                                         ["DividendsPaidClassifiedAsFinancingActivities",
                                          "DividendsPaid"]),
+    # Cost of debt and the effective tax rate, for a CAPM/WACC estimate.
+    "interest_expense":    ("duration", ["InterestExpense", "InterestExpenseDebt",
+                                         "InterestExpenseNonoperating",
+                                         "InterestIncomeExpenseNet"],
+                                        ["InterestExpense", "FinanceCosts"]),
+    "income_tax_expense":  ("duration", ["IncomeTaxExpenseBenefit"],
+                                        ["IncomeTaxExpenseContinuingOperations"]),
+    "pretax_income":       ("duration",
+                            ["IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest",
+                             "IncomeLossFromContinuingOperationsBeforeIncomeTaxesMinorityInterestAndIncomeLossFromEquityMethodInvestments"],
+                            ["ProfitLossBeforeTax"]),
 }
 
 ANNUAL_FORMS = {"10-K", "20-F"}
@@ -187,7 +198,8 @@ def build_ticker(ticker, cik):
         year_ends = sorted(collected.get("net_income", {}).get("by_fiscal_year_end", {}), reverse=True)
 
     periods = []
-    for end in year_ends[:2]:                    # latest FY plus prior FY for F-Score
+    for end in year_ends[:6]:                    # latest FY, prior FY for F-Score,
+                                                 # and enough history for a CAGR
         row = {"fiscal_year_end": end}
         for concept, payload in collected.items():
             hit = payload["by_fiscal_year_end"].get(end)

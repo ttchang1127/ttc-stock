@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-08-01T03:16:56+00:00",
+ "generated_at": "2026-08-01T09:41:27+00:00",
  "assumptions_source": "dcf_assumptions.json (human-maintained)",
  "defaults": {
   "projection_years": 10,
@@ -30,15 +30,24 @@
     "shareholder_yield": 0.02354
    },
    "assumptions": {
-    "growth": null,
-    "wacc": null,
+    "growth": 0.0867,
+    "wacc": 0.0913,
     "terminal_growth": 0.025,
     "projection_years": 10,
     "simulations": 10000,
-    "note": "先前 thesis 未宣告假設，待填"
+    "note": "CAPM 推導：beta 1.09（3年週報酬對 SPY）× ERP 5.0% + Rf 3.71%；成長率＝營收 CAGR 8.67%。未取得利息費用標籤，WACC 視同全股權，略為高估"
    },
-   "dcf": null,
-   "dcf_status": "假設未設定",
+   "dcf": {
+    "simulations_run": 10000,
+    "simulations_rejected": 0,
+    "mean": 169.57,
+    "p5": 120.18,
+    "p25": 143.66,
+    "p50": 164.6,
+    "p75": 189.4,
+    "p95": 234.97
+   },
+   "dcf_status": "已計算",
    "base_fcf": 98767000000,
    "base_fcf_caveat": null
   },
@@ -103,15 +112,24 @@
     "shareholder_yield": null
    },
    "assumptions": {
-    "growth": null,
-    "wacc": null,
+    "growth": 0.1615,
+    "wacc": 0.1773,
     "terminal_growth": 0.025,
     "projection_years": 10,
     "simulations": 10000,
-    "note": "先前 thesis 未宣告假設，待填"
+    "note": "CAPM 推導：beta 2.80 × ERP 5.0% + Rf 3.71%；成長率＝營收 CAGR 16.15%。高 beta 反映 2023 年 IPO 後的高波動"
    },
-   "dcf": null,
-   "dcf_status": "假設未設定",
+   "dcf": {
+    "simulations_run": 10000,
+    "simulations_rejected": 0,
+    "mean": 17.98,
+    "p5": 12.88,
+    "p25": 15.25,
+    "p50": 17.36,
+    "p75": 20.01,
+    "p95": 25.07
+   },
+   "dcf_status": "已計算",
    "base_fcf": 979000000,
    "base_fcf_caveat": null
   },
@@ -135,15 +153,24 @@
     "shareholder_yield": null
    },
    "assumptions": {
-    "growth": null,
-    "wacc": null,
+    "growth": 0.1954,
+    "wacc": 0.169,
     "terminal_growth": 0.025,
     "projection_years": 10,
     "simulations": 10000,
-    "note": "先前 thesis 未宣告假設，待填"
+    "note": "CAPM 推導：beta 2.64 × ERP 5.0% + Rf 3.71%；成長率＝營收 CAGR 19.54%"
    },
-   "dcf": null,
-   "dcf_status": "假設未設定",
+   "dcf": {
+    "simulations_run": 10000,
+    "simulations_rejected": 0,
+    "mean": 6.76,
+    "p5": -1.73,
+    "p25": 2.17,
+    "p50": 5.63,
+    "p75": 10.12,
+    "p95": 19.18
+   },
+   "dcf_status": "已計算",
    "base_fcf": 192764000,
    "base_fcf_caveat": null
   },
@@ -208,15 +235,15 @@
     "shareholder_yield": 0
    },
    "assumptions": {
-    "growth": null,
-    "wacc": null,
+    "growth": 0.02,
+    "wacc": 0.1237,
     "terminal_growth": 0.025,
     "projection_years": 10,
     "simulations": 10000,
-    "note": "先前 thesis 未宣告假設，待填"
+    "note": "CAPM 推導：beta 1.96 × ERP 5.0% + Rf 3.71%，稅後 Kd 1.52% 加權；營收 CAGR 為 -7.45%，已套用 2% 下限（DCF 無法處理永久負成長）"
    },
    "dcf": null,
-   "dcf_status": "假設未設定",
+   "dcf_status": "FCF 為負，DCF 不適用",
    "base_fcf": -4949000000,
    "base_fcf_caveat": "基期自由現金流為負（資本支出超過營運現金流），單一年度 FCF 無法作為 DCF 外推基礎，需改用常態化 FCF"
   },
@@ -281,15 +308,24 @@
     "shareholder_yield": 0.01368
    },
    "assumptions": {
-    "growth": null,
-    "wacc": null,
+    "growth": 0.225,
+    "wacc": 0.1425,
     "terminal_growth": 0.025,
     "projection_years": 10,
     "simulations": 10000,
-    "note": "先前 thesis 未宣告假設，待填"
+    "note": "CAPM 推導：beta 2.16 × ERP 5.0% + Rf 3.71%，稅後 Kd 4.13% 加權；營收 CAGR 22.50%"
    },
-   "dcf": null,
-   "dcf_status": "假設未設定",
+   "dcf": {
+    "simulations_run": 10000,
+    "simulations_rejected": 0,
+    "mean": 53.95,
+    "p5": 28.53,
+    "p25": 39.69,
+    "p50": 50.57,
+    "p75": 64.28,
+    "p95": 90.84
+   },
+   "dcf_status": "已計算",
    "base_fcf": 1396400000,
    "base_fcf_caveat": null
   },
@@ -354,15 +390,15 @@
     "shareholder_yield": 0.02635
    },
    "assumptions": {
-    "growth": null,
-    "wacc": null,
+    "growth": 0.02,
+    "wacc": 0.0697,
     "terminal_growth": 0.025,
     "projection_years": 10,
     "simulations": 10000,
-    "note": "先前 thesis 未宣告假設，待填"
+    "note": "CAPM 推導：beta 0.65 × ERP 5.0% + Rf 3.71%；營收 CAGR 為 -1.87%，已套用 2% 下限"
    },
    "dcf": null,
-   "dcf_status": "假設未設定",
+   "dcf_status": "缺 FCF",
    "base_fcf": null,
    "base_fcf_caveat": null
   },
