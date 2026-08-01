@@ -52,7 +52,7 @@ SEC XBRL Company Facts API          Yahoo Finance (yfinance)
 | `fundamentals.json` | `compute_fundamentals.py` | ❌ |
 | `valuation.json` | `compute_valuation.py` | ❌ |
 | **`dcf_assumptions.json`** | **人類維護** | ✅ **這是唯一允許手填數字的檔案** |
-| `prices.json` | `fetch_price_history.py`（預設 6 年，5 年 Sortino 需要） | ❌ |
+| `prices.json` | `fetch_price_history.py`（預設 6 年；含 `^IRX` 無風險利率） | ❌ |
 | `20_Filings/**` | `fetch_sec.py` | ❌ |
 | thesis 第二 ~ 五章 | `update_thesis_financials.py` | ❌ |
 | thesis 第一章（及 AAPL 第六章） | 人類撰寫的敘述 | ⚠️ 只在使用者明確要求時 |
@@ -197,6 +197,8 @@ grep -h "Sortino Ratio（週資料）" 30_Analysis/*_Master_Investment_Thesis_20
 | NOK 幣別是 EUR | Nokia 只用歐元 tag，未提供美元。**不准自己換匯** |
 | AMZN / GOOGL / META / COHR 毛利率是「資料不足」 | 這些公司不 tag `GrossProfit` |
 | Altman Z 高達 60~90 且標「市值主導」 | Altman Z 是為高負債製造業設計的，對輕資產科技股不適用。**這個警語必須保留** |
+| 三個 Sortino 數值差很多 | **正常**。頻率（週/日）、期間（3年/5年/1年）、MAR 都不同，衡量的是不同的東西，**不准「統一」它們** |
+| 12 個月那組用 MAR=0 而非無風險利率 | 實測對照 PortfoliosLab 公布值決定的（NVDA 0.76→0.75、TSLA 0.36→0.36）。改成無風險利率就對不上公開網站 |
 | 各公司科目數 11~14 不等 | 每家 tag 的科目本來就不同 |
 
 ---

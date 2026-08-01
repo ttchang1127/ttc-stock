@@ -179,6 +179,71 @@ def sortino(prices, ticker, years, mar=0.0):
             "mar": mar, "basis": "weekly returns, annualised"}
 
 
+def risk_free_annual(prices, since_date):
+    """Mean 13-week T-bill yield over the window, as a decimal (0.037 = 3.7%)."""
+    rf = (prices or {}).get("risk_free")
+    if not rf:
+        return None
+    vals = [v for d, v in zip(rf["dates"], rf["values"]) if d >= since_date]
+    if not vals:
+        return None
+    return sum(vals) / len(vals) / 100.0
+
+
+def sortino_daily_12m(prices, ticker):
+    """Sortino on 12 months of daily returns, for comparison with public screeners.
+
+    The headline value uses MAR = 0. That was determined empirically, not
+    assumed: PortfoliosLab's own documentation describes a risk-free MAR, but
+    its published figures only reproduce at MAR = 0 -- NVDA 0.76 against 0.75
+    computed, TSLA 0.36 against 0.36. Using the risk-free rate instead gives
+    0.60 and 0.24, which match nothing they publish.
+
+    The risk-free variant is reported alongside as value_vs_riskfree, since it
+    is the textbook definition and the more conservative reading.
+
+    This is a different measurement from the 3/5-year weekly figures, not a
+    correction of them: frequency, window and MAR all differ.
+    """
+    sym = PRICE_ALIASES.get(ticker, ticker)
+    series = (prices or {}).get("series", {}).get(sym)
+    if not series:
+        return {"value": None, "reason": "無股價資料"}
+
+    last = datetime.fromisoformat(series["dates"][-1])
+    cutoff = last.replace(year=last.year - 1).isoformat()[:10]
+    window = [(d, c) for d, c in zip(series["dates"], series["closes"]) if d >= cutoff]
+    if len(window) < 200:                    # a trading year is ~252 sessions
+        return {"value": None,
+                "reason": "股價歷史不足 12 個月，僅 {} 個交易日".format(len(window))}
+
+    rets = [window[i][1] / window[i - 1][1] - 1 for i in range(1, len(window))]
+
+    def annualised(mar_daily):
+        dd = (sum(min(r - mar_daily, 0.0) ** 2 for r in rets) / len(rets)) ** 0.5
+        if dd == 0:
+            return None
+        mean_excess = sum(r - mar_daily for r in rets) / len(rets)
+        return (mean_excess * 252) / (dd * (252 ** 0.5))
+
+    headline = annualised(0.0)
+    if headline is None:
+        return {"value": None, "reason": "下行波動為零"}
+
+    rf_annual = risk_free_annual(prices, cutoff)
+    vs_rf = None
+    if rf_annual is not None:
+        vs_rf = annualised((1 + rf_annual) ** (1 / 252) - 1)
+
+    return {"value": round(headline, 2), "sessions": len(rets),
+            "window_start": window[0][0], "window_end": window[-1][0],
+            "mar": 0.0, "mar_note": "MAR=0，與 PortfoliosLab 等公開篩選器一致",
+            "value_vs_riskfree": None if vs_rf is None else round(vs_rf, 2),
+            "risk_free_annual": None if rf_annual is None else round(rf_annual, 5),
+            "risk_free_source": "^IRX 13週美國國庫券，期間平均",
+            "basis": "daily returns, annualised"}
+
+
 def latest_price(prices, ticker):
     sym = PRICE_ALIASES.get(ticker, ticker)
     series = prices.get("companies", prices.get("series", {})).get(sym) if prices else None
@@ -259,7 +324,8 @@ def main():
             "altman_z": z,
             "dupont": du,
             "sortino": {"3y": sortino(prices, ticker, 3),
-                        "5y": sortino(prices, ticker, 5)},
+                        "5y": sortino(prices, ticker, 5),
+                        "12m_daily": sortino_daily_12m(prices, ticker)},
         }
 
         zs = z.get("z_score")

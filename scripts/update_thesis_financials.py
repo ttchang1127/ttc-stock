@@ -137,16 +137,36 @@ def build_sortino_section(heading, data, prices_meta):
         return (f"- **{label} Sortino Ratio（週資料）**: **{entry['value']:.2f}**"
                 f"　（{entry['window_start']} ~ {entry['window_end']}，{entry['weeks']} 週報酬）")
 
+    d12 = s.get("12m_daily") or {}
+    if d12.get("value") is not None:
+        d12_line = (f"- **近 12 個月 Sortino Ratio（日資料，MAR=0）**: **{d12['value']:.2f}**"
+                    f"　（{d12['window_start']} ~ {d12['window_end']}，{d12['sessions']} 個交易日）")
+        if d12.get("value_vs_riskfree") is not None:
+            d12_line += (f"\n  - 若改以無風險利率為門檻（{d12['risk_free_annual']*100:.2f}%，"
+                         f"{d12['risk_free_source']}）則為 **{d12['value_vs_riskfree']:.2f}**")
+    else:
+        d12_line = ("- **近 12 個月 Sortino Ratio（日資料）**: 資料不足"
+                    f"（{d12.get('reason', '無資料')}）")
+
     return "\n".join([
         heading,
         "",
-        "> 📌 由 `prices.json` 的實際日線收盤價計算：先取每週最後收盤算週報酬，"
-        "下行標準差只計入低於門檻報酬率 (MAR = 0) 的週次，"
-        "再以 `平均週報酬 × 52 ÷ (下行標準差 × √52)` 年化。"
+        "> 📌 由 `prices.json` 的實際收盤價計算。下行標準差只計入低於門檻報酬率 (MAR) 的期別，"
+        "再年化為 `平均超額報酬 × N ÷ (下行標準差 × √N)`。"
         f"股價資料擷取於 {(prices_meta or {}).get('generated_at', '未知')[:10]}。",
+        "",
+        "**長期（週資料，MAR = 0）**",
         "",
         row("近 3 年", s.get("3y")),
         row("近 5 年", s.get("5y")),
+        "",
+        "**對照公開篩選器（日資料）**",
+        "",
+        d12_line,
+        "",
+        "> ℹ️ 三個數字衡量的是不同的東西，不能互相驗證：頻率（週／日）、期間（3年／5年／1年）"
+        "與門檻報酬率都不同。12 個月日資料那組採 MAR=0，是為了與 PortfoliosLab 等公開網站"
+        "的公布值可比對（實測 NVDA、TSLA 皆吻合）。",
         "",
         "---",
         "",

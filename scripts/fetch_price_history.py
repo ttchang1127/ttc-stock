@@ -87,6 +87,23 @@ def main():
     if not series:
         raise SystemExit("No tickers fetched; refusing to overwrite prices.json")
 
+    # 13-week T-bill yield, the conventional risk-free proxy. Needed as the MAR
+    # for a Sortino comparable to what public screeners publish; without it the
+    # only alternative is to invent a rate. Fetched before the unchanged check
+    # below, which compares it.
+    risk_free = None
+    rf = fetch_series("^IRX", start, end)
+    if rf:
+        risk_free = {
+            "symbol": "^IRX",
+            "description": "13-week US Treasury bill discount rate, percent per annum",
+            "dates": rf["dates"],
+            "values": rf["closes"],
+        }
+        print(f"  {'^IRX':6s} {len(rf['dates']):4d} bars  latest {rf['closes'][-1]:.3f}%")
+    else:
+        print("  ^IRX   FAILED - Sortino against a risk-free MAR will be unavailable")
+
     # generated_at changes on every run, so rewriting unconditionally would make
     # the file differ even when the market data is identical -- the nightly job
     # would then commit on weekends and holidays too. Leave the file untouched
@@ -96,7 +113,8 @@ def main():
             previous = json.loads(OUTPUT_PATH.read_text())
         except (json.JSONDecodeError, OSError):
             previous = None
-        if previous is not None and previous.get("series") == series:
+        if (previous is not None and previous.get("series") == series
+                and previous.get("risk_free") == risk_free):
             print(f"\nNo new quotes; leaving {OUTPUT_PATH.relative_to(REPO_ROOT)} "
                   f"unchanged (fetched {previous.get('generated_at', 'unknown')}).")
             if failed:
@@ -107,6 +125,7 @@ def main():
         "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "source": "Yahoo Finance via yfinance (daily close, auto_adjust=False)",
         "range": {"start": start.isoformat(), "end": end.isoformat()},
+        "risk_free": risk_free,
         "series": series,
     }
     OUTPUT_PATH.write_text(json.dumps(payload, separators=(",", ":")) + "\n")
