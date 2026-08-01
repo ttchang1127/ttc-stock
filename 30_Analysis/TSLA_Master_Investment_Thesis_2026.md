@@ -108,7 +108,30 @@ financials_verified: true
 
 ---
 
+## ⚠️ 六、 核心風險因素與利弊分析 (SEC Form 10-K Item 1A & Pros/Cons Matrix)
+
+### 1. 三大核心風險因素 (Item 1A Risk Factors)
+- **🚘 全球 EV 價格戰與汽車毛利率侵蝕 (EV Price War & Margin Compression)**：中國電動車製造商（比亞迪等）與傳統車廠削價競爭，導致 Tesla 汽車整體毛利率由高峰期的 30% 降至 18.03%，短線車輛降價壓力直接侵蝕汽車獲利天花板。
+- **🤖 FSD 自動駕駛法規審批與 Cybercab 商業化時程延遲 (Regulatory Friction)**：FSD 無人駕駛監督與 Cybercab 全無人 Robotaxi 上路面臨各州交通法規嚴格審查，商業化落地時程存在潛在推遲風險。
+- **👤 伊隆·馬斯克 (Elon Musk) Key-Person 依賴與高本益比波動 (Key-Person Risk)**：公司高度依賴 Elon Musk 的願景與領導；目前 P/E 289.4x 主要反映市場對未來 Robotaxi 與 Optimus 遠景的期待，若推動稍緩易引發股價大幅修正。
+
+### 2. 投資利弊與優劣勢矩陣 (Pros & Cons Matrix)
+- **🟢 多頭優勢 (Pros / Bull Case)**：
+  - **FSD 端到端神經網路數據壁壘**：全球數百萬車隊實時採集，競品無法追趕。
+  - **Cybercab Robotaxi 生態選擇權**：潛在高毛利軟體訂閱與無人派遣營收。
+  - **Megapack 儲能業務爆發成長**：營收突破 $125 億美元，成為強大第二成長曲線。
+  - **一體化壓鑄 (Gigacasting) 成本優勢**：製造效率高於傳統車廠。
+  - **極度堅固的資產負債表**：擁有 **$359.1 億美元純淨現金**（無淨債務）。
+- **🔴 空頭隱憂 (Cons / Bear Case)**：
+  - **本益比 (P/E 289.4x) 包含極高 AI 遠景溢價**：高於傳統汽車與純 DCF 內在價值。
+  - **全球 EV 價格戰壓抑汽車毛利率**：毛利率自 30% 降至 18.03%。
+  - **DuPont ROE (4.62%) 處於循環低點**：汽車銷量增長放緩影響短線淨利率。
+  - **FSD & Robotaxi 監管政策法規變數**：商業化進程受各地法規審查影響。
+
+---
+
 ## 🔗 關聯筆記
+- 🌐 **[開啟 Tesla 獨立網頁版投資報告 (tsla_report.html)](file:///Volumes/Crucial%20X8/Jarvis%20Obsidian/Sec_kb/tsla_report.html)**
 - [[TSLA_Company_Profile|Tesla 公司主頁]]
 - [[NVDA_Master_Investment_Thesis_2026|NVIDIA 主報告對比]]
 - [[AAPL_Master_Investment_Thesis_2026|Apple 主報告對比]]
