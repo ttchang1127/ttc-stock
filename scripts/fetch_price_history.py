@@ -28,6 +28,8 @@ DEFAULT_TICKERS = [
     "INTC", "NOK", "ONDS", "TSM", "AAPL", "MSFT", "META",
     # Market proxy, needed to regress beta for a CAPM cost of equity.
     "SPY",
+    # ETFs in user portfolio
+    "VGT", "VOO",
 ]
 
 
