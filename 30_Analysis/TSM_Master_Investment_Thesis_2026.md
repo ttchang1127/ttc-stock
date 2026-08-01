@@ -90,15 +90,28 @@ financials_verified: true
 
 ---
 
-## 🎲 五、 DCF 蒙地卡羅 10,000 次估值模擬 (g=20.0%, WACC=8.5%, 終端成長=2.5%)
+## ⚠️ 六、 核心風險因素與利弊分析 (SEC Form 20-F Item 3 & Pros/Cons Matrix)
 
-> ⚠️ **本節未計算**：缺 FCF。
+### 1. 三大核心風險因素 (Item 3 Risk Factors)
+- **🌏 地緣政治與海外擴廠摩擦 (Global Fab Friction)**：台灣海峽兩岸地緣政治緊張情勢；美國亞利桑那、日本熊本、德國德勒斯登海外建廠，學習曲線、工會文化差異與當地營運成本顯著高於台灣本土晶圓廠。
+- **💸 極高資本支出 (CapEx) 與折舊壓力 (Fixed Cost Friction)**：每年需投入 300 億至 380 億美元的天價 CapEx 用於 High-NA EUV 採購及 2nm/A16 研發。一旦半導體景氣劇烈修正，高固定成本與折舊壓力將侵蝕淨利率。
+- **⚡ 客戶高度集中與水電天然災害 (Infrastructure Dependencies)**：前兩大頂級客戶（Apple 與 NVIDIA）貢獻晶圓營收高達 35%+；此外，地震、極端氣候水資源與台灣電力穩定度皆為實體生產風險。
 
-原因：缺 FCF。腳本不會以假設值代替缺漏資料。
+### 2. 投資利弊與優劣勢矩陣 (Pros & Cons Matrix)
+- **🟢 多頭優勢 (Pros / Bull Case)**：
+  - **2nm / A16 製程技術絕對獨霸**：掌控全球近 90% 最先進 AI 晶片代工產能 (Apple, NVIDIA, AMD, Qualcomm)。
+  - **CoWoS / SoIC 先進封裝生態系壁壘**：晶圓代工與 3D Fabric 緊密結合，競爭對手難以複製。
+  - **頂級財務獲利品質**：毛利率 **59.90%**、淨利率 **42.46%**，展現極高定價權。
+  - **資產負債表極度健全**：擁有 **$648.9 億美元淨現金**，零金融淨負債，F-Score **7/7 滿分**。
+- **🔴 空頭隱憂 (Cons / Bear Case)**：
+  - **現金股利殖利率偏低 (0.11% ~ 1.5%)**：天價 CapEx 資本支出吞噬大部分現金流，現金回饋低於防禦型股票。
+  - **地緣政治與美國晶片法案夾心**：受制於地緣政治與美國出口管制規範，經營彈性受限。
+  - **自由現金流 (FCF) 受天價 CapEx 壓抑**：每年數百億美元建廠與光刻機投入。
 
 ---
 
 ## 🔗 關聯筆記
+- 🌐 **[開啟 台積電 獨立網頁版投資報告 (tsm_report.html)](file:///Volumes/Crucial%20X8/Jarvis%20Obsidian/Sec_kb/tsm_report.html)**
 - [[TSM_Company_Profile|台積電 公司主頁]]
 - [[NVDA_Master_Investment_Thesis_2026|NVIDIA 主報告對比]]
 - [[AAPL_Master_Investment_Thesis_2026|Apple 主報告對比]]
