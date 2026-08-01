@@ -24,6 +24,7 @@ ANALYSIS_DIR = REPO_ROOT / "30_Analysis"
 FUNDAMENTALS_PATH = REPO_ROOT / "fundamentals.json"
 
 SECTION_START = re.compile(r"^## 📊 二、.*$", re.MULTILINE)
+SORTINO_START = re.compile(r"^## 📈 三、.*$", re.MULTILINE)
 NEXT_SECTION = re.compile(r"^## ", re.MULTILINE)
 
 CRITERION_LABELS = {
@@ -109,7 +110,7 @@ def build_section(heading, ticker, data):
 
     lines += [
         "",
-        "> ⚠️ 本節以下各章（Sortino、估值倍數、DCF 模擬）之數字**尚未經 SEC 資料驗證**，"
+        "> ⚠️ 第四、五章（估值倍數、DCF 模擬）之數字**尚未經來源資料驗證**，"
         "沿用先前版本，僅供參考。",
         "",
         "---",     # the separator the original layout put before each heading
@@ -117,6 +118,33 @@ def build_section(heading, ticker, data):
         "",
     ]
     return "\n".join(lines)
+
+
+def build_sortino_section(heading, data, prices_meta):
+    s = data.get("sortino") or {}
+
+    def row(label, entry):
+        if not entry or entry.get("value") is None:
+            reason = (entry or {}).get("reason", "無資料")
+            return f"- **{label} Sortino Ratio（週資料）**: 資料不足（{reason}）"
+        return (f"- **{label} Sortino Ratio（週資料）**: **{entry['value']:.2f}**"
+                f"　（{entry['window_start']} ~ {entry['window_end']}，{entry['weeks']} 週報酬）")
+
+    return "\n".join([
+        heading,
+        "",
+        "> 📌 由 `prices.json` 的實際日線收盤價計算：先取每週最後收盤算週報酬，"
+        "下行標準差只計入低於門檻報酬率 (MAR = 0) 的週次，"
+        "再以 `平均週報酬 × 52 ÷ (下行標準差 × √52)` 年化。"
+        f"股價資料擷取於 {(prices_meta or {}).get('generated_at', '未知')[:10]}。",
+        "",
+        row("近 3 年", s.get("3y")),
+        row("近 5 年", s.get("5y")),
+        "",
+        "---",
+        "",
+        "",
+    ])
 
 
 def upsert_frontmatter(text, data):
@@ -145,6 +173,8 @@ def main():
     if not FUNDAMENTALS_PATH.exists():
         raise SystemExit("fundamentals.json missing; run scripts/compute_fundamentals.py first")
     companies = json.loads(FUNDAMENTALS_PATH.read_text())["companies"]
+    prices_path = REPO_ROOT / "prices.json"
+    prices_meta = json.loads(prices_path.read_text()) if prices_path.exists() else {}
 
     changed, skipped = 0, []
     for path in sorted(ANALYSIS_DIR.glob("*_Master_Investment_Thesis_2026.md")):
@@ -163,6 +193,16 @@ def main():
         end = nxt.start() if nxt else len(text)
 
         new_text = text[:start.start()] + build_section(start.group(0), ticker, data) + text[end:]
+
+        # Section 三 (Sortino) is now derived from prices.json as well.
+        s_start = SORTINO_START.search(new_text)
+        if s_start:
+            s_next = NEXT_SECTION.search(new_text, s_start.end())
+            s_end = s_next.start() if s_next else len(new_text)
+            new_text = (new_text[:s_start.start()]
+                        + build_sortino_section(s_start.group(0), data, prices_meta)
+                        + new_text[s_end:])
+
         # The literal tab in "$\times$" survived as "$<TAB>imes$" in seven files.
         new_text = new_text.replace("$\times$", "×").replace("$\\times$", "×")
         new_text = upsert_frontmatter(new_text, data)

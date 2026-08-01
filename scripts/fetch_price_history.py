@@ -20,10 +20,12 @@ import yfinance as yf
 REPO_ROOT = Path(__file__).resolve().parent.parent
 OUTPUT_PATH = REPO_ROOT / "prices.json"
 
-# Must stay in sync with titansData in dashboard.html plus the quick-select chips.
+# Covers titansData in dashboard.html plus the quick-select chips. GOOGL and
+# AMZN are here for the Sortino window in the thesis notes; the dashboard uses
+# GOOG and does not track AMZN.
 DEFAULT_TICKERS = [
-    "NVDA", "GOOG", "ARM", "MRVL", "COHR", "TSLA", "INTC",
-    "NOK", "ONDS", "TSM", "AAPL", "MSFT", "META",
+    "NVDA", "GOOG", "GOOGL", "AMZN", "ARM", "MRVL", "COHR", "TSLA",
+    "INTC", "NOK", "ONDS", "TSM", "AAPL", "MSFT", "META",
 ]
 
 
@@ -59,8 +61,10 @@ def main():
     parser.add_argument(
         "--years",
         type=int,
-        default=3,
-        help="How far back to fetch. Extra history is EMA warmup for MACD.",
+        default=6,
+        help="How far back to fetch. MACD needs only a few months of warmup, "
+             "but the 5-year Sortino window in the thesis notes needs 5 full "
+             "years plus margin.",
     )
     args = parser.parse_args()
 

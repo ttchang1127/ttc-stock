@@ -24,7 +24,7 @@
 | 6 | 把 `dashboard.html` 複製到其他目錄 | `30_Analysis/` 曾有一份舊版，內含假資料產生器，誤導了很久 |
 | 7 | `git push --force` 或 `git reset --hard` | 會毀掉遠端歷史 |
 | 8 | commit `.obsidian/`、`*/raw/*.html` | 前者是視窗狀態，後者是 394MB 原始財報，已在 `.gitignore` |
-| 9 | **執行任何 `scripts/run_*.py`** | 這 11 支是**已停用的舊腳本**，財務數字全部寫死且九項 F-Score 手動賦值。執行它們會重新產生假數據 |
+| 9 | **重建任何 `scripts/run_*.py`** | 那 11 支寫死數字的舊腳本已於 2026-08-01 刪除。不要從 git 歷史還原它們 |
 
 **判斷原則**：如果一個數字你說不出它來自哪一份 filing 的哪一個 XBRL 標籤，**就不准寫進筆記**。
 
@@ -39,19 +39,19 @@ SEC XBRL Company Facts API          Yahoo Finance (yfinance)
         ↓ compute_fundamentals.py  ←──────────┘（市值需要股價）
    fundamentals.json
         ↓ update_thesis_financials.py
-   30_Analysis/*_Master_Investment_Thesis_2026.md 的第二章
+   30_Analysis/*_Master_Investment_Thesis_2026.md 的第二、三章
 ```
 
-四支腳本必須**照這個順序**執行，後面的依賴前面的產出。
+這四支腳本必須**照這個順序**執行，後面的依賴前面的產出。
 
 | 檔案 | 由誰產生 | 你可以改嗎 |
 |---|---|---|
 | `financials.json` | `fetch_xbrl_financials.py` | ❌ |
 | `fundamentals.json` | `compute_fundamentals.py` | ❌ |
-| `prices.json` | `fetch_price_history.py` | ❌ |
+| `prices.json` | `fetch_price_history.py`（預設 6 年，5 年 Sortino 需要） | ❌ |
 | `20_Filings/**` | `fetch_sec.py` | ❌ |
-| thesis 第二章 | `update_thesis_financials.py` | ❌ |
-| thesis 第一、三、四、五章 | 人類撰寫的敘述 | ⚠️ 只在使用者明確要求時 |
+| thesis 第二、三章 | `update_thesis_financials.py` | ❌ |
+| thesis 第一、四、五章 | 人類撰寫的敘述 | ⚠️ 只在使用者明確要求時 |
 
 ---
 
@@ -76,7 +76,7 @@ python3 scripts/compute_fundamentals.py
 ```
 預期：一張表格，最後 `Wrote fundamentals.json (14 companies)`
 
-**A-4. 更新 thesis 第二章**
+**A-4. 更新 thesis 第二、三章**
 ```bash
 python3 scripts/update_thesis_financials.py
 ```
@@ -149,8 +149,7 @@ grep -nE "^\s*(f[1-9]|total_assets|net_income|revenue)_?[a-z0-9]* *= *[0-9]" \
 ```
 預期：**無輸出**。有輸出代表有人又把數字寫死了 → 停止回報。
 
-> ⚠️ 這裡**刻意只檢查四支現役腳本**。`scripts/run_*.py` 那 11 支舊腳本本來就滿是寫死的數字，
-> 是已知狀態（見紅線第 9 條），**不要去「修」它們，也不要執行它們**。
+> ⚠️ 寫死數字的 11 支 `run_*.py` 舊腳本已刪除，現在全庫都該通過這項檢查。
 
 **C-3. 每份 thesis 都有可追溯來源**
 ```bash
@@ -170,6 +169,12 @@ print('來源    ', f['source_form'], f['source_accession'])
 ```
 把輸出跟 `30_Analysis/NVDA_Master_Investment_Thesis_2026.md` 第二章比對，**必須一致**。
 
+**C-5. Sortino 有實際計算窗口**
+```bash
+grep -h "Sortino Ratio（週資料）" 30_Analysis/*_Master_Investment_Thesis_2026.md | head -4
+```
+預期：每行不是帶「週報酬」窗口的數值，就是「資料不足」。出現沒有窗口說明的裸數字 → 停止回報。
+
 ---
 
 ## 5. 已知限制（不是 bug，不要「修」）
@@ -186,7 +191,9 @@ print('來源    ', f['source_form'], f['source_accession'])
 
 ## 6. 尚未驗證的區塊（重要）
 
-thesis 的**第三、四、五章**（Sortino、估值倍數、DCF 蒙地卡羅）目前**仍是舊版數字，未經 SEC 驗證**。每份 thesis 第二章結尾都有警語標示這件事。
+thesis 的**第四、五章**（估值倍數、DCF 蒙地卡羅）目前**仍是舊版數字，未經來源驗證**。每份 thesis 第二章結尾都有警語標示這件事。
+
+（第三章 Sortino 已於 2026-08-01 改為由 `prices.json` 實際股價計算，屬已驗證。）
 
 - **不准**把這些數字當成已驗證資料引用
 - **不准**自行「修正」它們
@@ -216,6 +223,7 @@ thesis 的**第三、四、五章**（Sortino、估值倍數、DCF 蒙地卡羅�
 | `fetch_sec.py` | 下載 10-K / 20-F 原文並產生筆記 |
 | `fetch_xbrl_financials.py` | 抓 SEC XBRL 結構化財報 → `financials.json` |
 | `compute_fundamentals.py` | 算 F-Score / Altman Z / DuPont → `fundamentals.json` |
-| `update_thesis_financials.py` | 更新 thesis 第二章 |
-| `fetch_price_history.py` | 抓日線收盤價 → `prices.json` |
+| `update_thesis_financials.py` | 更新 thesis 第二、三章 |
+| `fetch_price_history.py` | 抓日線收盤價（預設 6 年）→ `prices.json` |
 | `macd_analyzer.py` | MACD 計算（獨立工具） |
+| `fetch_form8k_events.py` / `fetch_insider_institutional.py` | 8-K 事件與 13F/Form 4（獨立工具） |

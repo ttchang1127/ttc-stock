@@ -25,6 +25,7 @@ OUTPUT_PATH = REPO_ROOT / "fundamentals.json"
 
 # Vault notes use GOOG on the dashboard but GOOGL in the filings tree.
 PRICE_ALIASES = {"GOOGL": "GOOG"}
+PRICE_ALIASES_REVERSE = {}
 
 
 def val(period, concept):
@@ -130,6 +131,54 @@ def dupont(cur):
     }
 
 
+def weekly_closes(dates, closes):
+    """Last close of each ISO week, paired with that week's date."""
+    weeks = {}
+    for d, c in zip(dates, closes):
+        y, w, _ = datetime.fromisoformat(d).isocalendar()
+        weeks[(y, w)] = (d, c)          # later rows overwrite, leaving week-end
+    return [weeks[k] for k in sorted(weeks)]
+
+
+def sortino(prices, ticker, years, mar=0.0):
+    """Annualised Sortino on weekly returns, measured against MAR (default 0).
+
+    Sortino = (mean weekly return x 52) / (downside deviation x sqrt(52)),
+    where downside deviation counts only returns below MAR. Returns None when
+    the price history does not cover the window -- ARM listed in Sept 2023, so
+    its 5-year figure cannot exist.
+    """
+    sym = PRICE_ALIASES_REVERSE.get(ticker, ticker)
+    series = (prices or {}).get("series", {}).get(sym) or (prices or {}).get("series", {}).get(
+        PRICE_ALIASES.get(ticker, ticker))
+    if not series:
+        return {"value": None, "reason": "無股價資料"}
+
+    weekly = weekly_closes(series["dates"], series["closes"])
+    if len(weekly) < 2:
+        return {"value": None, "reason": "資料點不足"}
+
+    last_date = datetime.fromisoformat(weekly[-1][0])
+    cutoff = last_date.replace(year=last_date.year - years)
+    window = [(d, c) for d, c in weekly if datetime.fromisoformat(d) >= cutoff]
+    needed = int(52 * years * 0.9)      # allow for holidays and thin weeks
+    if len(window) < needed:
+        return {"value": None,
+                "reason": "股價歷史不足 {} 年，僅 {} 週，起始 {}".format(
+                    years, len(window), weekly[0][0])}
+
+    rets = [window[i][1] / window[i - 1][1] - 1 for i in range(1, len(window))]
+    downside = [min(r - mar, 0.0) ** 2 for r in rets]
+    dd = (sum(downside) / len(downside)) ** 0.5
+    if dd == 0:
+        return {"value": None, "reason": "下行波動為零"}
+    mean_excess = sum(r - mar for r in rets) / len(rets)
+    value = (mean_excess * 52) / (dd * (52 ** 0.5))
+    return {"value": round(value, 2), "weeks": len(rets),
+            "window_start": window[0][0], "window_end": window[-1][0],
+            "mar": mar, "basis": "weekly returns, annualised"}
+
+
 def latest_price(prices, ticker):
     sym = PRICE_ALIASES.get(ticker, ticker)
     series = prices.get("companies", prices.get("series", {})).get(sym) if prices else None
@@ -209,6 +258,8 @@ def main():
             "piotroski": f,
             "altman_z": z,
             "dupont": du,
+            "sortino": {"3y": sortino(prices, ticker, 3),
+                        "5y": sortino(prices, ticker, 5)},
         }
 
         zs = z.get("z_score")
