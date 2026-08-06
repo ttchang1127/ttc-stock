@@ -108,6 +108,23 @@ def main():
     else:
         print("  ^IRX   FAILED - Sortino against a risk-free MAR will be unavailable")
 
+    # USD/TWD, for tab 3's portfolio P/L in NT$. The rate input there used to
+    # default to a number typed by hand with no way to tell how stale it was;
+    # fetching it here gives the dashboard a real quote and a real quote date
+    # instead of a value someone has to remember to update manually.
+    fx_usdtwd = None
+    fx = fetch_series("TWD=X", start, end)
+    if fx:
+        fx_usdtwd = {
+            "symbol": "TWD=X",
+            "description": "USD/TWD, Yahoo Finance daily close",
+            "dates": fx["dates"],
+            "values": fx["closes"],
+        }
+        print(f"  {'TWD=X':6s} {len(fx['dates']):4d} bars  latest {fx['closes'][-1]:.3f}")
+    else:
+        print("  TWD=X  FAILED - the portfolio tab's FX rate will fall back to manual entry")
+
     # generated_at changes on every run, so rewriting unconditionally would make
     # the file differ even when the market data is identical -- the nightly job
     # would then commit on weekends and holidays too. Leave the file untouched
@@ -118,7 +135,8 @@ def main():
         except (json.JSONDecodeError, OSError):
             previous = None
         if (previous is not None and previous.get("series") == series
-                and previous.get("risk_free") == risk_free):
+                and previous.get("risk_free") == risk_free
+                and previous.get("fx_usdtwd") == fx_usdtwd):
             print(f"\nNo new quotes; leaving {OUTPUT_PATH.relative_to(REPO_ROOT)} "
                   f"unchanged (fetched {previous.get('generated_at', 'unknown')}).")
             if failed:
@@ -130,6 +148,7 @@ def main():
         "source": "Yahoo Finance via yfinance (daily close, auto_adjust=False)",
         "range": {"start": start.isoformat(), "end": end.isoformat()},
         "risk_free": risk_free,
+        "fx_usdtwd": fx_usdtwd,
         "series": series,
     }
     OUTPUT_PATH.write_text(json.dumps(payload, separators=(",", ":")) + "\n")

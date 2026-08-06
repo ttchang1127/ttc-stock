@@ -572,13 +572,6 @@
     .pe-mid  { background: rgba(59, 130, 246, 0.15); color: #60a5fa; }
     .pe-high { background: rgba(244, 63, 94, 0.15); color: #fb7185; }
 
-    .charts-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
-      gap: 24px;
-      margin-bottom: 32px;
-    }
-
     .chart-card {
       background: var(--card-bg);
       backdrop-filter: blur(16px);
@@ -602,6 +595,54 @@
       font-size: 0.8rem;
       color: var(--text-muted);
       font-weight: 400;
+    }
+
+    /* Tab 4: one chart at a time, large, via an inner pager -- Chart.js sizes
+       a canvas from its container at creation time, so a chart built while its
+       page is hidden (display:none) ends up 0x0 and never self-corrects. Every
+       page switch (and the outer tab switch into tab-charts) must call
+       chart.resize() on whichever chart just became visible. */
+    .chart-pager-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .chart-page-btn {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+      padding: 10px 18px;
+      border-radius: 12px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .chart-page-btn:hover, .chart-page-btn.active {
+      background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
+      color: #fff;
+      border-color: transparent;
+    }
+
+    .chart-page {
+      display: none;
+    }
+
+    .chart-page.active {
+      display: block;
+    }
+
+    .chart-card-large {
+      padding: 32px;
+    }
+
+    .chart-canvas-wrap {
+      position: relative;
+      height: 62vh;
+      min-height: 420px;
     }
 
     /* Guide Tab Documentation Styles */
@@ -798,6 +839,9 @@
       <button class="tab-btn" onclick="switchTab('tab-portfolio', this); renderPortfolioTab();">
         💼 目前持股部位明細與未實現損益 (USD / TWD 實時匯率)
       </button>
+      <button class="tab-btn" onclick="switchTab('tab-charts', this);">
+        📊 全持股圖表總覽 (MACD / 獲利 / Sortino / DCF)
+      </button>
     </div>
 
     <!-- TAB 1: Dashboard & Calculator -->
@@ -941,26 +985,6 @@
             <!-- Dynamically Populated by JS -->
           </tbody>
         </table>
-      </div>
-
-      <!-- Charts Grid -->
-      <div class="charts-grid">
-        <div class="chart-card">
-          <h3>MACD 柱狀體多空動能強弱對比 <span>(柱體 ÷ 股價，正規化為 % 以便跨股票比較)</span></h3>
-          <canvas id="chartMACD"></canvas>
-        </div>
-        <div class="chart-card">
-          <h3>毛利率 vs 淨利率 獲利能力對比 <span>(Gross vs Net Margin)</span></h3>
-          <canvas id="chartMargin"></canvas>
-        </div>
-        <div class="chart-card">
-          <h3>3 年期 Sortino Ratio 下行風險收益比 <span>(Risk-Adjusted Performance)</span></h3>
-          <canvas id="chartSortino"></canvas>
-        </div>
-        <div class="chart-card">
-          <h3>美股現價 vs 蒙地卡羅 DCF 50% 核心估值區間 <span>(Valuation Range)</span></h3>
-          <canvas id="chartDCF"></canvas>
-        </div>
       </div>
 
     </div>
@@ -1172,13 +1196,16 @@
             </p>
           </div>
           
-          <div style="display: flex; align-items: center; gap: 12px; background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.3); padding: 8px 16px; border-radius: 14px;">
-            <span style="font-size: 0.85rem; color: #38bdf8; font-weight: 700;">💱 美金兌台幣 (USD/TWD) 匯率:</span>
-            <input type="number" id="usdTwdRateInput" value="32.295" step="0.005" style="width: 90px; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.2); color: #fff; font-weight: 800; padding: 4px 8px; border-radius: 8px; text-align: center;" oninput="renderPortfolioTab()">
-            <span style="font-size: 0.75rem; color: #34d399; font-weight:700;" id="fxStatusBadge">連動中</span>
-            <a href="https://finance.yahoo.com/quote/USDTWD=X/" target="_blank" style="font-size: 0.75rem; color: #38bdf8; text-decoration: none; background: rgba(56, 189, 248, 0.15); border: 1px solid rgba(56, 189, 248, 0.3); padding: 3px 8px; border-radius: 6px; font-weight: 600; display: inline-flex; align-items: center; gap: 4px; transition: all 0.2s ease;" onmouseover="this.style.background='#38bdf8'; this.style.color='#000';" onmouseout="this.style.background='rgba(56, 189, 248, 0.15)'; this.style.color='#38bdf8';">
-              🔗 查看 Yahoo 即時匯率
-            </a>
+          <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 4px;">
+            <div style="display: flex; align-items: center; gap: 12px; background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.3); padding: 8px 16px; border-radius: 14px;">
+              <span style="font-size: 0.85rem; color: #38bdf8; font-weight: 700;">💱 美金兌台幣 (USD/TWD) 匯率:</span>
+              <input type="number" id="usdTwdRateInput" value="32.295" step="0.005" style="width: 90px; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.2); color: #fff; font-weight: 800; padding: 4px 8px; border-radius: 8px; text-align: center;" oninput="fxManuallyEdited = true; renderPortfolioTab();">
+              <span style="font-size: 0.75rem; color: #34d399; font-weight:700;" id="fxStatusBadge">載入中…</span>
+              <a href="https://finance.yahoo.com/quote/USDTWD=X/" target="_blank" style="font-size: 0.75rem; color: #38bdf8; text-decoration: none; background: rgba(56, 189, 248, 0.15); border: 1px solid rgba(56, 189, 248, 0.3); padding: 3px 8px; border-radius: 6px; font-weight: 600; display: inline-flex; align-items: center; gap: 4px; transition: all 0.2s ease;" onmouseover="this.style.background='#38bdf8'; this.style.color='#000';" onmouseout="this.style.background='rgba(56, 189, 248, 0.15)'; this.style.color='#38bdf8';">
+                🔗 查看 Yahoo 即時匯率
+              </a>
+            </div>
+            <span style="font-size: 0.72rem; color: var(--text-muted);" id="fxQuoteTime">正在讀取 prices.json...</span>
           </div>
         </div>
 
@@ -1239,6 +1266,44 @@
           </div>
         </div>
 
+      </div>
+    </div>
+
+    <!-- TAB 4: Chart overview, one large chart at a time via an inner pager -->
+    <div id="tab-charts" class="tab-content">
+      <div class="chart-pager-tabs">
+        <button class="chart-page-btn active" onclick="switchChartPage('page-macd', this)">📊 MACD 動能對比</button>
+        <button class="chart-page-btn" onclick="switchChartPage('page-margin', this)">💰 毛利率 vs 淨利率</button>
+        <button class="chart-page-btn" onclick="switchChartPage('page-sortino', this)">📉 Sortino Ratio</button>
+        <button class="chart-page-btn" onclick="switchChartPage('page-dcf', this)">🎲 DCF 估值區間</button>
+      </div>
+
+      <div id="page-macd" class="chart-page active">
+        <div class="chart-card chart-card-large">
+          <h3>MACD 柱狀體多空動能強弱對比 <span>(柱體 ÷ 股價，正規化為 % 以便跨股票比較)</span></h3>
+          <div class="chart-canvas-wrap"><canvas id="chartMACD"></canvas></div>
+        </div>
+      </div>
+
+      <div id="page-margin" class="chart-page">
+        <div class="chart-card chart-card-large">
+          <h3>毛利率 vs 淨利率 獲利能力對比 <span>(Gross vs Net Margin)</span></h3>
+          <div class="chart-canvas-wrap"><canvas id="chartMargin"></canvas></div>
+        </div>
+      </div>
+
+      <div id="page-sortino" class="chart-page">
+        <div class="chart-card chart-card-large">
+          <h3>3 年期 Sortino Ratio 下行風險收益比 <span>(Risk-Adjusted Performance)</span></h3>
+          <div class="chart-canvas-wrap"><canvas id="chartSortino"></canvas></div>
+        </div>
+      </div>
+
+      <div id="page-dcf" class="chart-page">
+        <div class="chart-card chart-card-large">
+          <h3>美股現價 vs 蒙地卡羅 DCF 50% 核心估值區間 <span>(Valuation Range)</span></h3>
+          <div class="chart-canvas-wrap"><canvas id="chartDCF"></canvas></div>
+        </div>
       </div>
     </div>
 
@@ -1579,6 +1644,7 @@
 
     let liveChart = null;
     let macdSummaryChart = null;
+    let marginChart = null;
     let sortinoChart = null;
     let dcfChart = null;
 
@@ -1819,6 +1885,41 @@
       document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
       document.getElementById(tabId).classList.add('active');
       btn.classList.add('active');
+
+      // Whichever inner chart-page is already marked active needs its chart
+      // built now (first ever visit) or resized (revisiting after the browser
+      // window changed size while this tab was hidden).
+      if (tabId === 'tab-charts') {
+        const activePage = document.querySelector('#tab-charts .chart-page.active');
+        if (activePage) revealChartPage(activePage.id);
+      }
+    }
+
+    // pageId -> the Chart.js instance living on that page, once built.
+    function chartForPage(pageId) {
+      return { 'page-macd': macdSummaryChart, 'page-margin': marginChart,
+               'page-sortino': sortinoChart, 'page-dcf': dcfChart }[pageId];
+    }
+
+    // Called whenever a chart-page becomes visible. First visit: build the
+    // chart now, while its container has real layout, so Chart.js measures it
+    // correctly from the start (see createMacdSummaryChart() and friends for
+    // why resize() cannot fix this after the fact). Later visits: the chart
+    // already exists, so just resize it in case the window changed size while
+    // this tab was hidden -- an ordinary, well-supported resize on an already
+    // correctly-sized chart, unlike the 0x0 case a fresh build avoids.
+    function revealChartPage(pageId) {
+      const before = chartForPage(pageId);
+      if (before) { before.resize(); return; }
+      ensureChartCreated(pageId);
+    }
+
+    function switchChartPage(pageId, btn) {
+      document.querySelectorAll('.chart-page').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.chart-page-btn').forEach(el => el.classList.remove('active'));
+      document.getElementById(pageId).classList.add('active');
+      btn.classList.add('active');
+      revealChartPage(pageId);
     }
 
     // 逐字輸入會連續觸發，用序號確保只有最後一次請求可以更新畫面
@@ -2218,9 +2319,18 @@
       document.getElementById('modalBackdrop').classList.remove('active');
     }
 
-    function initCharts() {
+    // Tab 4's four charts are built lazily, one per inner page, the first time
+    // that page is actually shown -- not eagerly at load like the rest of the
+    // page's charts. Chart.js measures its canvas from the container at
+    // construction time; a chart built while tab-charts (or its inner page)
+    // sits under display:none gets built at 0x0, and testing showed
+    // chart.resize() -- with or without explicit width/height -- cannot undo
+    // that afterwards: Chart.js pins the canvas's inline style to
+    // "width:0px;height:0px" and later resize calls silently no-op against it.
+    // Building the chart only once its container has real layout sidesteps
+    // the problem instead of fighting Chart.js's resize behaviour.
+    function createMacdSummaryChart() {
       const labels = titansData.map(d => d.ticker);
-      
       macdSummaryChart = new Chart(document.getElementById('chartMACD'), {
         type: 'bar',
         data: {
@@ -2233,6 +2343,7 @@
         },
         options: {
           responsive: true,
+          maintainAspectRatio: false,
           plugins: {
             legend: { labels: { color: '#94a3b8' } },
             tooltip: {
@@ -2262,8 +2373,11 @@
           }
         }
       });
+    }
 
-      new Chart(document.getElementById('chartMargin'), {
+    function createMarginChart() {
+      const labels = titansData.map(d => d.ticker);
+      marginChart = new Chart(document.getElementById('chartMargin'), {
         type: 'bar',
         data: {
           labels: labels,
@@ -2274,6 +2388,7 @@
         },
         options: {
           responsive: true,
+          maintainAspectRatio: false,
           plugins: { legend: { labels: { color: '#94a3b8' } } },
           scales: {
             x: { ticks: { color: '#94a3b8' } },
@@ -2281,7 +2396,10 @@
           }
         }
       });
+    }
 
+    function createSortinoChart() {
+      const labels = titansData.map(d => d.ticker);
       sortinoChart = new Chart(document.getElementById('chartSortino'), {
         type: 'line',
         data: {
@@ -2308,6 +2426,7 @@
         },
         options: {
           responsive: true,
+          maintainAspectRatio: false,
           plugins: { legend: { labels: { color: '#94a3b8' } } },
           scales: {
             x: { ticks: { color: '#94a3b8' } },
@@ -2315,27 +2434,44 @@
           }
         }
       });
+    }
 
+    function createDcfChart() {
+      const labels = titansData.map(d => d.ticker);
       dcfChart = new Chart(document.getElementById('chartDCF'), {
         type: 'bar',
         data: {
           labels: labels,
           datasets: [
             { label: '美股現價 ($ USD)', data: titansData.map(d => d.price), backgroundColor: '#f43f5e' },
-            // dcfMedian is null until valuation.json loads (initCharts runs before
-            // loadFundamentals resolves); Chart.js renders null points as gaps, and
-            // updateValuationChart() fills them in once the data arrives.
+            // dcfMedian may still be null if valuation.json hasn't resolved yet;
+            // Chart.js renders null points as gaps, and updateValuationChart()
+            // fills them in once the data arrives.
             { label: '蒙地卡羅估值中位 ($ USD)', data: titansData.map(d => d.dcfMedian), backgroundColor: '#818cf8' }
           ]
         },
         options: {
           responsive: true,
+          maintainAspectRatio: false,
           plugins: { legend: { labels: { color: '#94a3b8' } }, grid: { color: 'rgba(255,255,255,0.05)' } },
           scales: {
             x: { ticks: { color: '#94a3b8' } }
           }
         }
       });
+    }
+
+    const chartPageCreators = {
+      'page-macd': createMacdSummaryChart,
+      'page-margin': createMarginChart,
+      'page-sortino': createSortinoChart,
+      'page-dcf': createDcfChart,
+    };
+
+    function ensureChartCreated(pageId) {
+      if (chartForPage(pageId)) return;   // already built
+      const create = chartPageCreators[pageId];
+      if (create) create();
     }
 
     const userHoldings = [
@@ -2353,9 +2489,59 @@
 
     let portfolioPieChart = null;
 
+    // Set to true only by a real keystroke in the rate field (the inline
+    // oninput handler), never by our own prefill -- programmatic .value
+    // assignment does not fire an input event, so this stays false until the
+    // user actually types something.
+    let fxManuallyEdited = false;
+
+    // Pulls the latest real USD/TWD close from prices.json once it loads and
+    // prefills the rate field with it, replacing the static placeholder that
+    // used to sit there indefinitely with no way to tell how stale it was.
+    function initFxRate() {
+      loadPriceDB().then(db => {
+        const fx = db.fx_usdtwd;
+        if (fx && fx.values.length && !fxManuallyEdited) {
+          document.getElementById('usdTwdRateInput').value = fx.values[fx.values.length - 1].toFixed(3);
+        }
+        renderPortfolioTab();
+      }).catch(() => renderPortfolioTab());
+    }
+
+    // The badge and quote-time line must always describe the value actually
+    // being used below, not a fixed claim of "連動中" regardless of what's in
+    // the field -- so this is derived fresh from priceDB and the current
+    // input value every render, rather than set once at load.
+    function updateFxStatusDisplay(currentRate) {
+      const badge = document.getElementById('fxStatusBadge');
+      const quoteEl = document.getElementById('fxQuoteTime');
+      const fx = priceDB && priceDB.fx_usdtwd;
+
+      if (!fx || !fx.values.length) {
+        if (badge) { badge.innerText = '⚠️ 無即時匯率'; badge.style.color = '#fb7185'; }
+        if (quoteEl) quoteEl.innerText = '無法取得 Yahoo Finance TWD=X 報價，以下為手動輸入值';
+        return;
+      }
+
+      const autoRate = fx.values[fx.values.length - 1];
+      const quoteDate = fx.dates[fx.dates.length - 1];
+      const isAuto = !fxManuallyEdited && Math.abs(currentRate - autoRate) < 0.0005;
+
+      if (badge) {
+        badge.innerText = isAuto ? '🟢 自動連動' : '🟡 手動輸入';
+        badge.style.color = isAuto ? '#34d399' : '#fbbf24';
+      }
+      if (quoteEl) {
+        quoteEl.innerText = isAuto
+          ? `報價時間：${quoteDate}（Yahoo Finance TWD=X 收盤價）`
+          : `使用者自訂匯率，非即時報價（最近一次真實報價 ${quoteDate}：${autoRate.toFixed(3)}）`;
+      }
+    }
+
     function renderPortfolioTab() {
       const rate = parseFloat(document.getElementById('usdTwdRateInput').value) || 32.295;
-      
+      updateFxStatusDisplay(rate);
+
       let totCostUsd = 0;
       let totValUsd = 0;
 
@@ -2467,10 +2653,13 @@
     document.getElementById('liveEndDate').value = todayET();
 
     renderTable(titansData);
-    initCharts();
+    // Tab 4's four charts are not built here -- they're created lazily on
+    // first visibility (see revealChartPage / ensureChartCreated), since
+    // tab-charts starts hidden and Chart.js cannot recover a canvas it first
+    // measured at 0x0.
     loadFundamentals();
     runLiveMACDRange();
-    renderPortfolioTab();
+    initFxRate();
   </script>
 </body>
 </html>
