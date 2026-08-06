@@ -851,7 +851,7 @@
 
           <div>
             <label>📅 結束日期 (End):</label>
-            <input type="date" id="liveEndDate" value="2026-07-31" onchange="runLiveMACDRange()">
+            <input type="date" id="liveEndDate" onchange="runLiveMACDRange()">
           </div>
 
           <div>
@@ -936,7 +936,7 @@
           <button class="filter-btn" onclick="setFilter('macd-bear', this)">🔴 MACD 下修修整</button>
           <button class="filter-btn" onclick="setFilter('high-margin', this)">毛利率 &gt; 50%</button>
           <button class="filter-btn" onclick="setFilter('sortino-top', this)">3年 Sortino &gt; 1.5</button>
-          <button class="filter-btn" onclick="setFilter('fscore-9', this)">Piotroski 9/9 滿分</button>
+          <button class="filter-btn" onclick="setFilter('fscore-9', this)">Piotroski 滿分</button>
         </div>
       </div>
 
@@ -1317,7 +1317,7 @@
         netMargin: 55.6,
         ocf: 1027.18,
         sortino: null,   // 由 fundamentals.json 填入
-        fScore: "9 / 9",
+        fScore: null,   // 由 fundamentals.json 填入
         macdStatus: "🔴 空頭主導 - 紅柱擴張 (-2.74)",
         macdClass: "macd-bear",
         macdHist: -2.7398,
@@ -1325,8 +1325,8 @@
         macdSig: -0.7372,
         vooWeight: "7.40%",
         vgtWeight: "16.10% (第1大)",
-        dcfMedian: 170.64,
-        dcfRange: "$140.38 ~ $193.55",
+        dcfMedian: null,   // 由 valuation.json 填入
+        dcfRange: null,   // 由 valuation.json 填入
         moat: "寬廣護城河 (CUDA 生態系、NVLink 全棧系統)",
         championTag: "VGT 第一大重倉 (16.1%)",
         thesisFile: "NVDA_Master_Investment_Thesis_2026.md"
@@ -1341,7 +1341,7 @@
         netMargin: 32.81,
         ocf: 1647.13,
         sortino: null,   // 由 fundamentals.json 填入
-        fScore: "9 / 9",
+        fScore: null,   // 由 fundamentals.json 填入
         macdStatus: "🟢 多頭主導 - 綠柱擴張 (+1.85)",
         macdClass: "macd-bull",
         macdHist: 1.8520,
@@ -1349,8 +1349,8 @@
         macdSig: 2.1990,
         vooWeight: "5.57%",
         vgtWeight: "未納入 (通訊XLC)",
-        dcfMedian: 187.31,
-        dcfRange: "$161.03 ~ $206.88",
+        dcfMedian: null,   // 由 valuation.json 填入
+        dcfRange: null,   // 由 valuation.json 填入
         moat: "寬廣護城河 (Search 壟斷、YouTube、Google Cloud & TPU)",
         championTag: "全美股 OCF 現金流冠軍",
         thesisFile: "GOOGL_Master_Investment_Thesis_2026.md"
@@ -1365,7 +1365,7 @@
         netMargin: 24.50,
         ocf: 11.80,
         sortino: null,   // 由 fundamentals.json 填入
-        fScore: "9 / 9",
+        fScore: null,   // 由 fundamentals.json 填入
         macdStatus: "🟠 空頭主導 - 紅柱收縮 (-9.80)",
         macdClass: "macd-warn",
         macdHist: -9.8044,
@@ -1373,8 +1373,8 @@
         macdSig: -17.5076,
         vooWeight: "0.00% (外商ADR)",
         vgtWeight: "0.40%",
-        dcfMedian: 145.20,
-        dcfRange: "$120.50 ~ $168.40",
+        dcfMedian: null,   // 由 valuation.json 填入
+        dcfRange: null,   // 由 valuation.json 填入
         moat: "壟斷級護城河 (99% 手機 CPU IP 壟斷、v9 & CSS 升級)",
         championTag: "IP 毛利率冠軍 (95.2%)",
         thesisFile: "ARM_Master_Investment_Thesis_2026.md"
@@ -1389,7 +1389,7 @@
         netMargin: 12.80,
         ocf: 17.20,
         sortino: null,   // 由 fundamentals.json 填入
-        fScore: "9 / 9",
+        fScore: null,   // 由 fundamentals.json 填入
         macdStatus: "🟡 多頭高檔 - 綠柱收縮 (+0.45)",
         macdClass: "macd-warn",
         macdHist: 0.4500,
@@ -1397,8 +1397,8 @@
         macdSig: 0.8950,
         vooWeight: "0.18%",
         vgtWeight: "0.75%",
-        dcfMedian: 120.50,
-        dcfRange: "$98.40 ~ $142.10",
+        dcfMedian: null,   // 由 valuation.json 填入
+        dcfRange: null,   // 由 valuation.json 填入
         moat: "寬廣護城河 (客製化 AI ASIC 晶片、PAM4 800G 光電 DSP)",
         championTag: "Custom AI ASIC 雙雄",
         thesisFile: "MRVL_Master_Investment_Thesis_2026.md"
@@ -1413,7 +1413,7 @@
         netMargin: 7.20,
         ocf: 7.50,
         sortino: null,   // 由 fundamentals.json 填入
-        fScore: "8 / 9",
+        fScore: null,   // 由 fundamentals.json 填入
         macdStatus: "🟢 剛觸發【黃金交叉】(+1.25)",
         macdClass: "macd-bull",
         macdHist: 1.2500,
@@ -1421,8 +1421,8 @@
         macdSig: 1.7150,
         vooWeight: "0.03%",
         vgtWeight: "0.22%",
-        dcfMedian: 165.80,
-        dcfRange: "$138.20 ~ $192.50",
+        dcfMedian: null,   // 由 valuation.json 填入
+        dcfRange: null,   // 由 valuation.json 填入
         moat: "寬廣護城河 (800G/1.6T 光收發模組龍頭、SiC 碳化矽)",
         championTag: "AI 光收發模組龍頭",
         thesisFile: "COHR_Master_Investment_Thesis_2026.md"
@@ -1437,7 +1437,7 @@
         netMargin: 4.00,
         ocf: 147.50,
         sortino: null,   // 由 fundamentals.json 填入
-        fScore: "7 / 9",
+        fScore: null,   // 由 fundamentals.json 填入
         macdStatus: "🔴 空頭主導 - 紅柱擴張 (-1.85)",
         macdClass: "macd-bear",
         macdHist: -1.8500,
@@ -1445,8 +1445,8 @@
         macdSig: -0.3250,
         vooWeight: "1.45%",
         vgtWeight: "未納入 (消費XLY)",
-        dcfMedian: 232.15,
-        dcfRange: "$185.56 ~ $266.46",
+        dcfMedian: null,   // 由 valuation.json 填入
+        dcfRange: null,   // 由 valuation.json 填入
         moat: "寬廣護城河 (EV 製造規模、FSD 數據、Megapack 儲能)",
         championTag: "Cybercab & FSD 期權",
         thesisFile: "TSLA_Master_Investment_Thesis_2026.md"
@@ -1461,7 +1461,7 @@
         netMargin: -1.20,
         ocf: 115.00,
         sortino: null,   // 由 fundamentals.json 填入
-        fScore: "6 / 9",
+        fScore: null,   // 由 fundamentals.json 填入
         macdStatus: "🟠 空頭主導 - 紅柱收縮 (-0.45)",
         macdClass: "macd-warn",
         macdHist: -0.4500,
@@ -1469,8 +1469,8 @@
         macdSig: -0.6250,
         vooWeight: "0.32%",
         vgtWeight: "2.41%",
-        dcfMedian: 62.40,
-        dcfRange: "$48.50 ~ $76.20",
+        dcfMedian: null,   // 由 valuation.json 填入
+        dcfRange: null,   // 由 valuation.json 填入
         moat: "窄護城河 (x86 晶片架構霸主、18A 晶圓代工轉型期)",
         championTag: "x86 CPU & 晶圓轉型股",
         thesisFile: "INTC_Master_Investment_Thesis_2026.md"
@@ -1485,7 +1485,7 @@
         netMargin: 8.50,
         ocf: 28.50,
         sortino: null,   // 由 fundamentals.json 填入
-        fScore: "8 / 9",
+        fScore: null,   // 由 fundamentals.json 填入
         macdStatus: "🟢 多頭微張 (+0.12)",
         macdClass: "macd-bull",
         macdHist: 0.1200,
@@ -1493,8 +1493,8 @@
         macdSig: 0.1800,
         vooWeight: "0.00% (芬蘭ADR)",
         vgtWeight: "未納入 (芬蘭ADR)",
-        dcfMedian: 9.85,
-        dcfRange: "$8.10 ~ $11.60",
+        dcfMedian: null,   // 由 valuation.json 填入
+        dcfRange: null,   // 由 valuation.json 填入
         moat: "寬廣護城河 (5G/6G 電信網絡基礎設施、專利權收費)",
         championTag: "低 P/E (24x) 防禦股",
         thesisFile: "NOK_Master_Investment_Thesis_2026.md"
@@ -1509,7 +1509,7 @@
         netMargin: -15.0,
         ocf: -3.88,
         sortino: null,   // 由 fundamentals.json 填入
-        fScore: "8 / 9",
+        fScore: null,   // 由 fundamentals.json 填入
         macdStatus: "🟡 多頭控盤 - 綠柱收縮 (+0.23)",
         macdClass: "macd-bull",
         macdHist: 0.2342,
@@ -1517,8 +1517,8 @@
         macdSig: -0.4095,
         vooWeight: "0.00% (軍工無人機)",
         vgtWeight: "0.00% (軍工無人機)",
-        dcfMedian: 7.19,
-        dcfRange: "$6.37 ~ $7.78",
+        dcfMedian: null,   // 由 valuation.json 填入
+        dcfRange: null,   // 由 valuation.json 填入
         moat: "寬廣護城河 (FAA 認證無人機機巢、反無人機與鐵路私有網)",
         championTag: "無人機 + 反無人機軍工爆發",
         thesisFile: "ONDS_Master_Investment_Thesis_2026.md"
@@ -1533,7 +1533,7 @@
         netMargin: 42.50,
         ocf: 638.00,
         sortino: null,   // 由 fundamentals.json 填入
-        fScore: "9 / 9",
+        fScore: null,   // 由 fundamentals.json 填入
         macdStatus: "🟠 空頭主導 - 紅柱收縮 (-6.62)",
         macdClass: "macd-warn",
         macdHist: -6.6208,
@@ -1541,8 +1541,8 @@
         macdSig: -6.4723,
         vooWeight: "0.00% (台灣ADR)",
         vgtWeight: "未納入 (外商ADR)",
-        dcfMedian: 260.44,
-        dcfRange: "$217.74 ~ $292.86",
+        dcfMedian: null,   // 由 valuation.json 填入
+        dcfRange: null,   // 由 valuation.json 填入
         moat: "壟斷級護城河 (2nm / A16 製程 & CoWoS 先進封裝)",
         championTag: "3年 Sortino 冠軍 (2.44)",
         thesisFile: "TSM_Master_Investment_Thesis_2026.md"
@@ -1557,7 +1557,7 @@
         netMargin: 26.90,
         ocf: 1114.00,
         sortino: null,   // 由 fundamentals.json 填入
-        fScore: "9 / 9",
+        fScore: null,   // 由 fundamentals.json 填入
         macdStatus: "🟢 多頭主導 (+1.45)",
         macdClass: "macd-bull",
         macdHist: 1.4500,
@@ -1565,8 +1565,8 @@
         macdSig: 2.1250,
         vooWeight: "6.80%",
         vgtWeight: "14.20%",
-        dcfMedian: 136.21,
-        dcfRange: "$121.73 ~ $153.53",
+        dcfMedian: null,   // 由 valuation.json 填入
+        dcfRange: null,   // 由 valuation.json 填入
         moat: "寬廣護城河 (iOS 生態系)",
         championTag: "庫藏股霸主",
         thesisFile: "AAPL_Master_Investment_Thesis_2026.md"
@@ -1581,7 +1581,7 @@
         netMargin: 36.15,
         ocf: 1361.62,
         sortino: null,   // 由 fundamentals.json 填入
-        fScore: "9 / 9",
+        fScore: null,   // 由 fundamentals.json 填入
         macdStatus: "🟡 多頭高檔 (+0.65)",
         macdClass: "macd-warn",
         macdHist: 0.6500,
@@ -1589,8 +1589,8 @@
         macdSig: 1.1250,
         vooWeight: "5.80%",
         vgtWeight: "11.50%",
-        dcfMedian: 290.74,
-        dcfRange: "$249.54 ~ $321.41",
+        dcfMedian: null,   // 由 valuation.json 填入
+        dcfRange: null,   // 由 valuation.json 填入
         moat: "寬廣護城河 (Azure, Office 365)",
         championTag: "B2B 訂閱防禦",
         thesisFile: "MSFT_Master_Investment_Thesis_2026.md"
@@ -1605,7 +1605,7 @@
         netMargin: 30.08,
         ocf: 1158.00,
         sortino: null,   // 由 fundamentals.json 填入
-        fScore: "9 / 9",
+        fScore: null,   // 由 fundamentals.json 填入
         macdStatus: "🟢 多頭強勢 (+3.20)",
         macdClass: "macd-bull",
         macdHist: 3.2000,
@@ -1613,8 +1613,8 @@
         macdSig: 5.2500,
         vooWeight: "2.40%",
         vgtWeight: "未納入 (通訊XLC)",
-        dcfMedian: 766.05,
-        dcfRange: "$651.00 ~ $852.30",
+        dcfMedian: null,   // 由 valuation.json 填入
+        dcfRange: null,   // 由 valuation.json 填入
         moat: "寬廣護城河 (32億用戶社交網路)",
         championTag: "毛利率冠軍 (82.0%)",
         thesisFile: "META_Master_Investment_Thesis_2026.md"
@@ -1624,6 +1624,7 @@
     let liveChart = null;
     let macdSummaryChart = null;
     let sortinoChart = null;
+    let dcfChart = null;
 
     function selectQuickTicker(sym) {
       document.getElementById('liveTickerInput').value = sym;
@@ -1678,6 +1679,12 @@
 
     // prices.json 的 generated_at 是 UTC，換算成美東交易時區顯示。
     // 用 America/New_York 而非固定位移，夏令時間 (EDT) 與冬令 (EST) 會自動切換。
+    // Today's date in US Eastern, matching the timezone every other freshness
+    // label on the page already uses. en-CA formats as YYYY-MM-DD directly.
+    function todayET() {
+      return new Intl.DateTimeFormat('en-CA', { timeZone: 'America/New_York' }).format(new Date());
+    }
+
     function formatEasternTime(isoString) {
       const d = new Date(isoString);
       if (isNaN(d)) return null;
@@ -1730,28 +1737,53 @@
       return v > 1.5 ? '#34d399' : '#e2e8f0';
     }
 
+    function fmtUSD(v) {
+      return (v === null || v === undefined) ? '—' : `$${v.toFixed(2)}`;
+    }
+
     async function loadFundamentals() {
-      try {
-        const res = await fetch('fundamentals.json', { cache: 'no-cache' });
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        const db = await res.json();
-        titansData.forEach(item => {
-          const key = FUNDAMENTALS_ALIASES[item.ticker] || item.ticker;
-          const s = ((db.companies[key] || {}).sortino) || {};
-          // null rather than a stale placeholder when the window has no data --
-          // ARM listed in 2023 and has no 5-year history, for instance.
-          item.sortino = (s['3y'] || {}).value;
-          item.sortino12m = (s['12m_daily'] || {}).value;
-          item.sortinoWindow3y = (s['3y'] || {}).window_start || null;
-          item.sortino12mVsRf = (s['12m_daily'] || {}).value_vs_riskfree;
-        });
-        filterData();
-        updateSortinoChart();
-      } catch (err) {
-        console.warn('fundamentals.json 載入失敗，Sortino 欄位將顯示 —', err);
-        titansData.forEach(item => { item.sortino = null; item.sortino12m = null; });
-        filterData();
-      }
+      // fundamentals.json (F-Score) and valuation.json (DCF) are independent
+      // pipeline outputs; a missing one should not block the other from loading.
+      const [fundRes, valRes] = await Promise.allSettled([
+        fetch('fundamentals.json', { cache: 'no-cache' }).then(r => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); }),
+        fetch('valuation.json', { cache: 'no-cache' }).then(r => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); }),
+      ]);
+
+      const fundDb = fundRes.status === 'fulfilled' ? fundRes.value : null;
+      const valDb = valRes.status === 'fulfilled' ? valRes.value : null;
+      if (fundRes.status === 'rejected') console.warn('fundamentals.json 載入失敗，Sortino / F-Score 欄位將顯示 —', fundRes.reason);
+      if (valRes.status === 'rejected') console.warn('valuation.json 載入失敗，DCF 欄位將顯示 —', valRes.reason);
+
+      titansData.forEach(item => {
+        const key = FUNDAMENTALS_ALIASES[item.ticker] || item.ticker;
+
+        const f = fundDb ? fundDb.companies[key] : null;
+        const s = (f || {}).sortino || {};
+        // null rather than a stale placeholder when the window has no data --
+        // ARM listed in 2023 and has no 5-year history, for instance.
+        item.sortino = (s['3y'] || {}).value;
+        item.sortino12m = (s['12m_daily'] || {}).value;
+        item.sortinoWindow3y = (s['3y'] || {}).window_start || null;
+        item.sortino12mVsRf = (s['12m_daily'] || {}).value_vs_riskfree;
+
+        const p = (f || {}).piotroski;
+        item.fScore = p ? `${p.score} / ${p.max_evaluated}` : '—';
+        item.fScoreValue = p ? p.score : null;
+        item.fScoreMax = p ? p.max_evaluated : null;
+        item.fScoreUnavailable = p ? p.unavailable.length : 0;
+
+        const v = valDb ? valDb.companies[key] : null;
+        const dcf = (v || {}).dcf;
+        item.dcfMedian = dcf ? dcf.p50 : null;
+        item.dcfRange = dcf ? `$${dcf.p25.toFixed(2)} ~ $${dcf.p75.toFixed(2)}` : null;
+        // Why there's no number matters as much as the number itself -- 假設未設定
+        // (nobody has set g/WACC yet) reads very differently from 缺 FCF (SEC gap).
+        item.dcfStatus = v ? v.dcf_status : '資料未載入';
+      });
+
+      filterData();
+      updateSortinoChart();
+      updateValuationChart();
     }
 
     function setBanner(state, html) {
@@ -1840,7 +1872,7 @@
       const myToken = ++liveRunToken;
       const ticker = document.getElementById('liveTickerInput').value.toUpperCase().trim() || 'NVDA';
       const startDateStr = document.getElementById('liveStartDate').value || '2026-05-01';
-      const endDateStr = document.getElementById('liveEndDate').value || '2026-07-31';
+      const endDateStr = document.getElementById('liveEndDate').value || todayET();
       const fastP = parseInt(document.getElementById('paramFast').value) || 12;
       const slowP = parseInt(document.getElementById('paramSlow').value) || 26;
       const signalP = parseInt(document.getElementById('paramSignal').value) || 9;
@@ -1993,6 +2025,7 @@
       });
       filterData();
       updateSummaryChart();
+      updateValuationChart();   // price bars must stay in sync with the table
     }
 
     // 日線圖：與序列中的前一根柱體比較
@@ -2057,7 +2090,7 @@
               <div class="ticker-icon ${item.iconClass}">${item.ticker}</div>
               <div>
                 <div class="company-name">${item.name} ${item.championTag ? `<span class="badge-champion">${item.championTag}</span>` : ''}</div>
-                <div class="company-sub">${item.ticker} • F-Score ${item.fScore}</div>
+                <div class="company-sub">${item.ticker} • F-Score ${item.fScore || '—'}</div>
               </div>
             </div>
           </td>
@@ -2070,7 +2103,7 @@
           <td><span style="font-weight: 700; color: ${sortinoColor(item.sortino12m)}">${fmtSortino(item.sortino12m)}</span></td>
           <td><span class="badge-etf">${item.vooWeight}</span></td>
           <td><span class="badge-etf">${item.vgtWeight}</span></td>
-          <td style="color: #c084fc; font-weight: 600;">$${item.dcfMedian.toFixed(2)}</td>
+          <td style="color: #c084fc; font-weight: 600;" ${item.dcfMedian === null ? `title="${item.dcfStatus || ''}"` : ''}>${fmtUSD(item.dcfMedian)}</td>
         `;
         tbody.appendChild(tr);
       });
@@ -2091,7 +2124,12 @@
       } else if (currentFilter === 'sortino-top') {
         filtered = filtered.filter(item => item.sortino !== null && item.sortino !== undefined && item.sortino > 1.5);
       } else if (currentFilter === 'fscore-9') {
-        filtered = filtered.filter(item => item.fScore.includes('9'));
+        // Was item.fScore.includes('9'), which also matched a denominator of 9
+        // (e.g. "4 / 9") -- any company scoring out of 9 criteria passed the
+        // "perfect score" filter regardless of its actual score. A perfect
+        // score means numerator equals denominator, whatever that happens to be.
+        filtered = filtered.filter(item =>
+          item.fScoreValue !== null && item.fScoreValue === item.fScoreMax);
       }
 
       renderTable(filtered);
@@ -2136,6 +2174,14 @@
       sortinoChart.update();
     }
 
+    function updateValuationChart() {
+      if (!dcfChart) return;
+      dcfChart.data.labels = titansData.map(d => d.ticker);
+      dcfChart.data.datasets[0].data = titansData.map(d => d.price);
+      dcfChart.data.datasets[1].data = titansData.map(d => d.dcfMedian ?? null);
+      dcfChart.update();
+    }
+
     function setFilter(filterType, btn) {
       currentFilter = filterType;
       document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
@@ -2172,7 +2218,7 @@
         </div>
         <div class="info-box">
           <h4>📊 財務健康度 (Piotroski F-Score)</h4>
-          <p><strong>${item.fScore}</strong></p>
+          <p><strong>${item.fScore || '—'}</strong>${item.fScoreUnavailable ? `<br><span style="font-size: 0.78rem; color: #94a3b8;">${item.fScoreUnavailable} 項因資料不足未計入</span>` : ''}</p>
         </div>
         <div class="info-box">
           <h4>📈 VOO (S&P 500 ETF) 持股比例</h4>
@@ -2184,7 +2230,9 @@
         </div>
         <div class="info-box" style="grid-column: span 2;">
           <h4>🎲 DCF 蒙地卡羅估值分佈區間 (P25 ~ P75)</h4>
-          <p><strong>${item.dcfRange} USD</strong> (中位數: $${item.dcfMedian} USD)</p>
+          <p>${item.dcfMedian !== null
+            ? `<strong>${item.dcfRange} USD</strong> (中位數: ${fmtUSD(item.dcfMedian)} USD)`
+            : `<strong style="color: #94a3b8;">未計算</strong> — ${item.dcfStatus || '原因不明'}`}</p>
         </div>
         <div class="info-box" style="grid-column: span 2;">
           <h4>📁 投資研究報告連結</h4>
@@ -2312,12 +2360,15 @@
         }
       });
 
-      new Chart(document.getElementById('chartDCF'), {
+      dcfChart = new Chart(document.getElementById('chartDCF'), {
         type: 'bar',
         data: {
           labels: labels,
           datasets: [
             { label: '美股現價 ($ USD)', data: titansData.map(d => d.price), backgroundColor: '#f43f5e' },
+            // dcfMedian is null until valuation.json loads (initCharts runs before
+            // loadFundamentals resolves); Chart.js renders null points as gaps, and
+            // updateValuationChart() fills them in once the data arrives.
             { label: '蒙地卡羅估值中位 ($ USD)', data: titansData.map(d => d.dcfMedian), backgroundColor: '#818cf8' }
           ]
         },
@@ -2454,6 +2505,10 @@
         }
       });
     }
+
+    // 結束日期預設固定為「今天」而非寫死的日期，這樣網頁不會隨時間過去而顯示過期區間。
+    // 必須在第一次 runLiveMACDRange() 之前設定，該函式才會讀到正確的預設值。
+    document.getElementById('liveEndDate').value = todayET();
 
     renderTable(titansData);
     initCharts();
