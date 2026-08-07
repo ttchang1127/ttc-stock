@@ -1,0 +1,1482 @@
+{
+ "generated_at": "2026-08-07T13:38:34+00:00",
+ "financials_generated_at": "2026-08-01T09:41:02+00:00",
+ "source": "Derived from SEC XBRL Company Facts; WACC from dcf_assumptions.json",
+ "thresholds": {
+  "current_ratio_min": 1.0,
+  "liabilities_to_assets_max": 0.6,
+  "interest_coverage_min": 3.0,
+  "accrual_ratio_max": 0.1,
+  "altman_z2_safe": 2.6,
+  "altman_z2_distress": 1.1
+ },
+ "companies": {
+  "AAPL": {
+   "entity_name": "Apple Inc.",
+   "taxonomy": "us-gaap",
+   "fiscal_year_end": "2025-09-27",
+   "prior_fiscal_year_end": "2024-09-28",
+   "currency": "USD",
+   "source_form": "10-K",
+   "source_accession": "0000320193-25-000079",
+   "source_filed": "2025-10-31",
+   "liquidity": {
+    "current_ratio": 0.89,
+    "cash_ratio": 0.33,
+    "working_capital": -17674000000,
+    "working_capital_to_assets": -0.0492,
+    "quick_ratio": null,
+    "quick_ratio_reason": "未擷取存貨科目 (InventoryNet)，速動比率無法計算"
+   },
+   "solvency": {
+    "total_debt": 90678000000,
+    "total_debt_note": null,
+    "total_liabilities": 285508000000,
+    "liabilities_basis": "tag",
+    "liabilities_note": null,
+    "net_debt": 35981000000,
+    "debt_to_equity": 1.23,
+    "liabilities_to_assets": 0.7948,
+    "equity_to_assets": 0.2052,
+    "interest_coverage": null,
+    "interest_coverage_note": "未取得利息費用標籤，無法計算利息保障倍數",
+    "interest_expense_tag": null,
+    "net_debt_to_ebit": 0.27,
+    "net_debt_to_ebit_note": "以 EBIT 為分母（未擷取折舊攤銷，無法計算 EBITDA）"
+   },
+   "profitability": {
+    "gross_margin": 0.4691,
+    "operating_margin": 0.3197,
+    "net_margin": 0.2692,
+    "roa": 0.3118,
+    "roe": 1.5191,
+    "effective_tax_rate": 0.1561,
+    "effective_tax_rate_note": null,
+    "nopat": 112280891893,
+    "invested_capital": 151263000000,
+    "invested_capital_basis": "營運側：總資產 − 流動負債 + 一年內到期負債 − 現金與短期投資",
+    "invested_capital_financing_side": 109714000000,
+    "roic": 0.7423,
+    "roic_note": null,
+    "wacc": 0.0913,
+    "wacc_source": "dcf_assumptions.json",
+    "roic_minus_wacc": 0.651,
+    "value_creation": "創造價值"
+   },
+   "cash_flow_quality": {
+    "free_cash_flow": 98767000000,
+    "fcf_margin": 0.2373,
+    "ocf_to_net_income": 0.995,
+    "ocf_to_net_income_note": null,
+    "accrual_ratio": 0.0015,
+    "accrual_ratio_basis": "(淨利 − 營運現金流) ÷ 平均總資產，Sloan (1996)",
+    "capex_to_ocf": 0.114,
+    "capex_intensity": 0.0306
+   },
+   "altman_z2": {
+    "z2_score": 2.31,
+    "zone": "grey",
+    "formula": "6.56*X1 + 3.26*X2 + 6.72*X3 + 1.05*X4",
+    "thresholds": {
+     "safe": 2.6,
+     "distress": 1.1
+    },
+    "components": {
+     "X1_working_capital_to_assets": -0.0492,
+     "X2_retained_earnings_to_assets": -0.0397,
+     "X3_ebit_to_assets": 0.3704,
+     "X4_book_equity_to_liabilities": 0.2583
+    },
+    "liabilities_basis": "tag",
+    "liabilities_note": null
+   },
+   "piotroski": {
+    "score": 8,
+    "max_evaluated": 9,
+    "unavailable": [],
+    "normalised_9": 8.0,
+    "comparable": true,
+    "note": null
+   },
+   "flags": [
+    {
+     "dimension": "流動性",
+     "severity": "warn",
+     "detail": "流動比率 0.89 低於 1.0，流動負債大於流動資產"
+    },
+    {
+     "dimension": "償債能力",
+     "severity": "warn",
+     "detail": "負債佔資產 79%，高於 60%"
+    },
+    {
+     "dimension": "破產風險",
+     "severity": "warn",
+     "detail": "Altman Z'' 2.31 落在 1.1~2.6 灰色區"
+    }
+   ],
+   "flag_count": 3,
+   "coverage": {
+    "computed": 9,
+    "total": 10,
+    "unavailable": [
+     "利息保障倍數"
+    ],
+    "sufficient": true,
+    "note": null
+   }
+  },
+  "AMZN": {
+   "entity_name": "AMAZON COM INC",
+   "taxonomy": "us-gaap",
+   "fiscal_year_end": "2025-12-31",
+   "prior_fiscal_year_end": "2024-12-31",
+   "currency": "USD",
+   "source_form": "10-K",
+   "source_accession": "0001018724-26-000004",
+   "source_filed": "2026-02-06",
+   "liquidity": {
+    "current_ratio": 1.05,
+    "cash_ratio": 0.56,
+    "working_capital": 11078000000,
+    "working_capital_to_assets": 0.0135,
+    "quick_ratio": null,
+    "quick_ratio_reason": "未擷取存貨科目 (InventoryNet)，速動比率無法計算"
+   },
+   "solvency": {
+    "total_debt": 68396000000,
+    "total_debt_note": null,
+    "total_liabilities": 406977000000,
+    "liabilities_basis": "assets_minus_equity",
+    "liabilities_note": "filer 未標記 Liabilities，改以 Assets − Equity 推導；若存在非控制權益會被計入負債側，數值略為高估",
+    "net_debt": -54633000000,
+    "debt_to_equity": 0.166,
+    "liabilities_to_assets": 0.4975,
+    "equity_to_assets": 0.5025,
+    "interest_coverage": 35.2,
+    "interest_coverage_note": null,
+    "interest_expense_tag": "InterestExpenseNonoperating",
+    "net_debt_to_ebit": -0.68,
+    "net_debt_to_ebit_note": "以 EBIT 為分母（未擷取折舊攤銷，無法計算 EBITDA）"
+   },
+   "profitability": {
+    "gross_margin": null,
+    "operating_margin": 0.1116,
+    "net_margin": 0.1083,
+    "roa": 0.0949,
+    "roe": 0.1889,
+    "effective_tax_rate": 0.1961,
+    "effective_tax_rate_note": null,
+    "nopat": 64288357945,
+    "invested_capital": 479756000000,
+    "invested_capital_basis": "營運側：總資產 − 流動負債 + 一年內到期負債 − 現金與短期投資",
+    "invested_capital_financing_side": 356432000000,
+    "roic": 0.134,
+    "roic_note": null,
+    "wacc": 0.085,
+    "wacc_source": "dcf_assumptions.json",
+    "roic_minus_wacc": 0.049,
+    "value_creation": "創造價值"
+   },
+   "cash_flow_quality": {
+    "free_cash_flow": 7695000000,
+    "fcf_margin": 0.0107,
+    "ocf_to_net_income": 1.796,
+    "ocf_to_net_income_note": null,
+    "accrual_ratio": -0.0857,
+    "accrual_ratio_basis": "(淨利 − 營運現金流) ÷ 平均總資產，Sloan (1996)",
+    "capex_to_ocf": 0.945,
+    "capex_intensity": 0.1839
+   },
+   "altman_z2": {
+    "z2_score": 2.8,
+    "zone": "safe",
+    "formula": "6.56*X1 + 3.26*X2 + 6.72*X3 + 1.05*X4",
+    "thresholds": {
+     "safe": 2.6,
+     "distress": 1.1
+    },
+    "components": {
+     "X1_working_capital_to_assets": 0.0135,
+     "X2_retained_earnings_to_assets": 0.3063,
+     "X3_ebit_to_assets": 0.0978,
+     "X4_book_equity_to_liabilities": 1.01
+    },
+    "liabilities_basis": "assets_minus_equity",
+    "liabilities_note": "filer 未標記 Liabilities，改以 Assets − Equity 推導；若存在非控制權益會被計入負債側，數值略為高估"
+   },
+   "piotroski": {
+    "score": 5,
+    "max_evaluated": 8,
+    "unavailable": [
+     "8_gross_margin_up"
+    ],
+    "normalised_9": 5.6,
+    "comparable": false,
+    "note": "1 項因資料不足未納入評分，原始分數與 9 項全評的公司不可直接比較"
+   },
+   "flags": [],
+   "flag_count": 0,
+   "coverage": {
+    "computed": 10,
+    "total": 10,
+    "unavailable": [],
+    "sufficient": true,
+    "note": null
+   }
+  },
+  "ARM": {
+   "entity_name": "ARM HOLDINGS PLC /UK",
+   "taxonomy": "us-gaap",
+   "fiscal_year_end": "2026-03-31",
+   "prior_fiscal_year_end": "2025-03-31",
+   "currency": "USD",
+   "source_form": "20-F",
+   "source_accession": "0001973239-26-000097",
+   "source_filed": "2026-05-26",
+   "liquidity": {
+    "current_ratio": 6.0,
+    "cash_ratio": 3.46,
+    "working_capital": 5196000000,
+    "working_capital_to_assets": 0.4855,
+    "quick_ratio": null,
+    "quick_ratio_reason": "未擷取存貨科目 (InventoryNet)，速動比率無法計算"
+   },
+   "solvency": {
+    "total_debt": null,
+    "total_debt_note": "未取得 LongTermDebt / DebtCurrent 標籤，無法計算有息負債",
+    "total_liabilities": 2417000000,
+    "liabilities_basis": "tag",
+    "liabilities_note": null,
+    "net_debt": null,
+    "debt_to_equity": null,
+    "liabilities_to_assets": 0.2258,
+    "equity_to_assets": 0.7742,
+    "interest_coverage": null,
+    "interest_coverage_note": "未取得利息費用標籤，無法計算利息保障倍數",
+    "interest_expense_tag": null,
+    "net_debt_to_ebit": null,
+    "net_debt_to_ebit_note": "以 EBIT 為分母（未擷取折舊攤銷，無法計算 EBITDA）"
+   },
+   "profitability": {
+    "gross_margin": 0.9754,
+    "operating_margin": 0.1829,
+    "net_margin": 0.1837,
+    "roa": 0.0845,
+    "roe": 0.1091,
+    "effective_tax_rate": 0.2187,
+    "effective_tax_rate_note": null,
+    "nopat": 703197926,
+    "invested_capital": 6062000000,
+    "invested_capital_basis": "營運側：總資產 − 流動負債 + 一年內到期負債 − 現金與短期投資",
+    "invested_capital_financing_side": null,
+    "roic": 0.116,
+    "roic_note": "缺一年內到期負債標籤，短期有息負債未加回投入資本，分母略為低估、ROIC 絕對值略為放大",
+    "wacc": 0.1773,
+    "wacc_source": "dcf_assumptions.json",
+    "roic_minus_wacc": -0.0613,
+    "value_creation": "毀滅價值"
+   },
+   "cash_flow_quality": {
+    "free_cash_flow": 979000000,
+    "fcf_margin": 0.199,
+    "ocf_to_net_income": 1.686,
+    "ocf_to_net_income_note": null,
+    "accrual_ratio": -0.0632,
+    "accrual_ratio_basis": "(淨利 − 營運現金流) ÷ 平均總資產，Sloan (1996)",
+    "capex_to_ocf": 0.358,
+    "capex_intensity": 0.1108
+   },
+   "altman_z2": {
+    "z2_score": 8.7,
+    "zone": "safe",
+    "formula": "6.56*X1 + 3.26*X2 + 6.72*X3 + 1.05*X4",
+    "thresholds": {
+     "safe": 2.6,
+     "distress": 1.1
+    },
+    "components": {
+     "X1_working_capital_to_assets": 0.4855,
+     "X2_retained_earnings_to_assets": 0.4155,
+     "X3_ebit_to_assets": 0.0841,
+     "X4_book_equity_to_liabilities": 3.4282
+    },
+    "liabilities_basis": "tag",
+    "liabilities_note": null
+   },
+   "piotroski": {
+    "score": 6,
+    "max_evaluated": 8,
+    "unavailable": [
+     "5_leverage_decreased"
+    ],
+    "normalised_9": 6.8,
+    "comparable": false,
+    "note": "1 項因資料不足未納入評分，原始分數與 9 項全評的公司不可直接比較"
+   },
+   "flags": [
+    {
+     "dimension": "資本效率",
+     "severity": "warn",
+     "detail": "ROIC 11.6% 低於 WACC 17.73%，價差 -6.1pp，投入資本未賺回其成本"
+    }
+   ],
+   "flag_count": 1,
+   "coverage": {
+    "computed": 8,
+    "total": 10,
+    "unavailable": [
+     "利息保障倍數",
+     "有息負債/淨值"
+    ],
+    "sufficient": true,
+    "note": null
+   }
+  },
+  "COHR": {
+   "entity_name": "COHERENT CORP.",
+   "taxonomy": "us-gaap",
+   "fiscal_year_end": "2025-06-30",
+   "prior_fiscal_year_end": "2024-06-30",
+   "currency": "USD",
+   "source_form": "10-K",
+   "source_accession": "0000820318-25-000014",
+   "source_filed": "2025-08-15",
+   "liquidity": {
+    "current_ratio": 2.19,
+    "cash_ratio": 0.51,
+    "working_capital": 2132313000,
+    "working_capital_to_assets": 0.143,
+    "quick_ratio": null,
+    "quick_ratio_reason": "未擷取存貨科目 (InventoryNet)，速動比率無法計算"
+   },
+   "solvency": {
+    "total_debt": 3686921000,
+    "total_debt_note": null,
+    "total_liabilities": 6429653000,
+    "liabilities_basis": "tag",
+    "liabilities_note": null,
+    "net_debt": 2777721000,
+    "debt_to_equity": 0.653,
+    "liabilities_to_assets": 0.4312,
+    "equity_to_assets": 0.3785,
+    "interest_coverage": null,
+    "interest_coverage_note": "未取得利息費用標籤，無法計算利息保障倍數",
+    "interest_expense_tag": null,
+    "net_debt_to_ebit": null,
+    "net_debt_to_ebit_note": "以 EBIT 為分母（未擷取折舊攤銷，無法計算 EBITDA）"
+   },
+   "profitability": {
+    "gross_margin": null,
+    "operating_margin": null,
+    "net_margin": 0.0085,
+    "roa": 0.0033,
+    "roe": 0.0087,
+    "effective_tax_rate": 0.5,
+    "effective_tax_rate_note": "有效稅率 68.1% 落在合理區間外（通常來自稅務優惠、遞延稅資產認列或稅前虧損），已夾在 0%~50% 以計算 NOPAT",
+    "nopat": null,
+    "invested_capital": 12395201000,
+    "invested_capital_basis": "營運側：總資產 − 流動負債 + 一年內到期負債 − 現金與短期投資",
+    "invested_capital_financing_side": 8422235000,
+    "roic": null,
+    "roic_note": null,
+    "wacc": 0.169,
+    "wacc_source": "dcf_assumptions.json",
+    "roic_minus_wacc": null,
+    "value_creation": null
+   },
+   "cash_flow_quality": {
+    "free_cash_flow": 192764000,
+    "fcf_margin": 0.0332,
+    "ocf_to_net_income": 12.835,
+    "ocf_to_net_income_note": null,
+    "accrual_ratio": -0.0397,
+    "accrual_ratio_basis": "(淨利 − 營運現金流) ÷ 平均總資產，Sloan (1996)",
+    "capex_to_ocf": 0.696,
+    "capex_intensity": 0.0759
+   },
+   "altman_z2": {
+    "z2_score": null,
+    "missing": [
+     "X3"
+    ],
+    "formula": "6.56*X1 + 3.26*X2 + 6.72*X3 + 1.05*X4"
+   },
+   "piotroski": {
+    "score": 6,
+    "max_evaluated": 8,
+    "unavailable": [
+     "8_gross_margin_up"
+    ],
+    "normalised_9": 6.8,
+    "comparable": false,
+    "note": "1 項因資料不足未納入評分，原始分數與 9 項全評的公司不可直接比較"
+   },
+   "flags": [],
+   "flag_count": 0,
+   "coverage": {
+    "computed": 6,
+    "total": 10,
+    "unavailable": [
+     "利息保障倍數",
+     "ROIC",
+     "ROIC−WACC",
+     "Altman Z''"
+    ],
+    "sufficient": false,
+    "note": "4 / 10 項指標因缺少 XBRL 標籤無法計算，未觸發警示不等於財務健全"
+   }
+  },
+  "GOOGL": {
+   "entity_name": "Alphabet Inc.",
+   "taxonomy": "us-gaap",
+   "fiscal_year_end": "2025-12-31",
+   "prior_fiscal_year_end": "2024-12-31",
+   "currency": "USD",
+   "source_form": "10-K",
+   "source_accession": "0001652044-26-000018",
+   "source_filed": "2026-02-05",
+   "liquidity": {
+    "current_ratio": 2.01,
+    "cash_ratio": 1.23,
+    "working_capital": 103293000000,
+    "working_capital_to_assets": 0.1735,
+    "quick_ratio": null,
+    "quick_ratio_reason": "未擷取存貨科目 (InventoryNet)，速動比率無法計算"
+   },
+   "solvency": {
+    "total_debt": 48543000000,
+    "total_debt_note": null,
+    "total_liabilities": 180016000000,
+    "liabilities_basis": "tag",
+    "liabilities_note": null,
+    "net_debt": -78300000000,
+    "debt_to_equity": 0.117,
+    "liabilities_to_assets": 0.3024,
+    "equity_to_assets": 0.6976,
+    "interest_coverage": 175.3,
+    "interest_coverage_note": null,
+    "interest_expense_tag": "InterestExpenseNonoperating",
+    "net_debt_to_ebit": -0.61,
+    "net_debt_to_ebit_note": "以 EBIT 為分母（未擷取折舊攤銷，無法計算 EBITDA）"
+   },
+   "profitability": {
+    "gross_margin": null,
+    "operating_margin": 0.3203,
+    "net_margin": 0.3281,
+    "roa": 0.222,
+    "roe": 0.3183,
+    "effective_tax_rate": 0.1678,
+    "effective_tax_rate_note": null,
+    "nopat": 107382195799,
+    "invested_capital": 367689000000,
+    "invested_capital_basis": "營運側：總資產 − 流動負債 + 一年內到期負債 − 現金與短期投資",
+    "invested_capital_financing_side": 336965000000,
+    "roic": 0.292,
+    "roic_note": null,
+    "wacc": 0.085,
+    "wacc_source": "dcf_assumptions.json",
+    "roic_minus_wacc": 0.207,
+    "value_creation": "創造價值"
+   },
+   "cash_flow_quality": {
+    "free_cash_flow": 73266000000,
+    "fcf_margin": 0.1819,
+    "ocf_to_net_income": 1.246,
+    "ocf_to_net_income_note": null,
+    "accrual_ratio": -0.0623,
+    "accrual_ratio_basis": "(淨利 − 營運現金流) ÷ 平均總資產，Sloan (1996)",
+    "capex_to_ocf": 0.555,
+    "capex_intensity": 0.227
+   },
+   "altman_z2": {
+    "z2_score": 6.79,
+    "zone": "safe",
+    "formula": "6.56*X1 + 3.26*X2 + 6.72*X3 + 1.05*X4",
+    "thresholds": {
+     "safe": 2.6,
+     "distress": 1.1
+    },
+    "components": {
+     "X1_working_capital_to_assets": 0.1735,
+     "X2_retained_earnings_to_assets": 0.5444,
+     "X3_ebit_to_assets": 0.2168,
+     "X4_book_equity_to_liabilities": 2.3068
+    },
+    "liabilities_basis": "tag",
+    "liabilities_note": null
+   },
+   "piotroski": {
+    "score": 5,
+    "max_evaluated": 8,
+    "unavailable": [
+     "8_gross_margin_up"
+    ],
+    "normalised_9": 5.6,
+    "comparable": false,
+    "note": "1 項因資料不足未納入評分，原始分數與 9 項全評的公司不可直接比較"
+   },
+   "flags": [],
+   "flag_count": 0,
+   "coverage": {
+    "computed": 10,
+    "total": 10,
+    "unavailable": [],
+    "sufficient": true,
+    "note": null
+   }
+  },
+  "INTC": {
+   "entity_name": "INTEL CORP",
+   "taxonomy": "us-gaap",
+   "fiscal_year_end": "2025-12-27",
+   "prior_fiscal_year_end": "2024-12-28",
+   "currency": "USD",
+   "source_form": "10-K",
+   "source_accession": "0000050863-26-000011",
+   "source_filed": "2026-01-23",
+   "liquidity": {
+    "current_ratio": 2.02,
+    "cash_ratio": 0.75,
+    "working_capital": 32113000000,
+    "working_capital_to_assets": 0.1519,
+    "quick_ratio": null,
+    "quick_ratio_reason": "未擷取存貨科目 (InventoryNet)，速動比率無法計算"
+   },
+   "solvency": {
+    "total_debt": 46585000000,
+    "total_debt_note": null,
+    "total_liabilities": 97148000000,
+    "liabilities_basis": "assets_minus_equity",
+    "liabilities_note": "filer 未標記 Liabilities，改以 Assets − Equity 推導；若存在非控制權益會被計入負債側，數值略為高估",
+    "net_debt": 22777000000,
+    "debt_to_equity": 0.408,
+    "liabilities_to_assets": 0.4595,
+    "equity_to_assets": 0.5405,
+    "interest_coverage": -2.0,
+    "interest_coverage_note": "營業利益為負，倍數僅表示虧損相對利息的規模，不代表償付能力",
+    "interest_expense_tag": "InterestExpenseNonoperating",
+    "net_debt_to_ebit": null,
+    "net_debt_to_ebit_note": "以 EBIT 為分母（未擷取折舊攤銷，無法計算 EBITDA）"
+   },
+   "profitability": {
+    "gross_margin": 0.3477,
+    "operating_margin": -0.0419,
+    "net_margin": -0.0051,
+    "roa": -0.0013,
+    "roe": -0.0023,
+    "effective_tax_rate": 0.5,
+    "effective_tax_rate_note": "有效稅率 98.3% 落在合理區間外（通常來自稅務優惠、遞延稅資產認列或稅前虧損），已夾在 0%~50% 以計算 NOPAT",
+    "nopat": -1107000000,
+    "invested_capital": 158545000000,
+    "invested_capital_basis": "營運側：總資產 − 流動負債 + 一年內到期負債 − 現金與短期投資",
+    "invested_capital_financing_side": 137058000000,
+    "roic": -0.007,
+    "roic_note": null,
+    "wacc": 0.1237,
+    "wacc_source": "dcf_assumptions.json",
+    "roic_minus_wacc": -0.1307,
+    "value_creation": "毀滅價值"
+   },
+   "cash_flow_quality": {
+    "free_cash_flow": -4949000000,
+    "fcf_margin": -0.0936,
+    "ocf_to_net_income": null,
+    "ocf_to_net_income_note": "淨利為負或缺漏，比率無意義",
+    "accrual_ratio": -0.0489,
+    "accrual_ratio_basis": "(淨利 − 營運現金流) ÷ 平均總資產，Sloan (1996)",
+    "capex_to_ocf": 1.51,
+    "capex_intensity": 0.2771
+   },
+   "altman_z2": {
+    "z2_score": 2.92,
+    "zone": "safe",
+    "formula": "6.56*X1 + 3.26*X2 + 6.72*X3 + 1.05*X4",
+    "thresholds": {
+     "safe": 2.6,
+     "distress": 1.1
+    },
+    "components": {
+     "X1_working_capital_to_assets": 0.1519,
+     "X2_retained_earnings_to_assets": 0.2317,
+     "X3_ebit_to_assets": -0.0105,
+     "X4_book_equity_to_liabilities": 1.1764
+    },
+    "liabilities_basis": "assets_minus_equity",
+    "liabilities_note": "filer 未標記 Liabilities，改以 Assets − Equity 推導；若存在非控制權益會被計入負債側，數值略為高估"
+   },
+   "piotroski": {
+    "score": 6,
+    "max_evaluated": 9,
+    "unavailable": [],
+    "normalised_9": 6.0,
+    "comparable": true,
+    "note": null
+   },
+   "flags": [
+    {
+     "dimension": "償債能力",
+     "severity": "warn",
+     "detail": "利息保障倍數 -2.0x 低於 3x（營業利益為負）"
+    },
+    {
+     "dimension": "資本效率",
+     "severity": "warn",
+     "detail": "ROIC -0.7% 低於 WACC 12.37%，價差 -13.1pp，投入資本未賺回其成本"
+    },
+    {
+     "dimension": "現金流品質",
+     "severity": "warn",
+     "detail": "自由現金流為負，FCF 利潤率 -9.4%"
+    }
+   ],
+   "flag_count": 3,
+   "coverage": {
+    "computed": 10,
+    "total": 10,
+    "unavailable": [],
+    "sufficient": true,
+    "note": null
+   }
+  },
+  "META": {
+   "entity_name": "Meta Platforms, Inc.",
+   "taxonomy": "us-gaap",
+   "fiscal_year_end": "2025-12-31",
+   "prior_fiscal_year_end": "2024-12-31",
+   "currency": "USD",
+   "source_form": "10-K",
+   "source_accession": "0001628280-26-003942",
+   "source_filed": "2026-01-29",
+   "liquidity": {
+    "current_ratio": 2.6,
+    "cash_ratio": 1.95,
+    "working_capital": 66886000000,
+    "working_capital_to_assets": 0.1827,
+    "quick_ratio": null,
+    "quick_ratio_reason": "未擷取存貨科目 (InventoryNet)，速動比率無法計算"
+   },
+   "solvency": {
+    "total_debt": 58744000000,
+    "total_debt_note": "缺 一年內到期負債 標籤，有息負債僅為部分加總",
+    "total_liabilities": 148778000000,
+    "liabilities_basis": "tag",
+    "liabilities_note": null,
+    "net_debt": -22848000000,
+    "debt_to_equity": 0.27,
+    "liabilities_to_assets": 0.4065,
+    "equity_to_assets": 0.5935,
+    "interest_coverage": 76.4,
+    "interest_coverage_note": null,
+    "interest_expense_tag": "InterestExpenseDebt",
+    "net_debt_to_ebit": -0.27,
+    "net_debt_to_ebit_note": "以 EBIT 為分母（未擷取折舊攤銷，無法計算 EBITDA）"
+   },
+   "profitability": {
+    "gross_margin": null,
+    "operating_margin": 0.4144,
+    "net_margin": 0.3008,
+    "roa": 0.1652,
+    "roe": 0.2783,
+    "effective_tax_rate": 0.2964,
+    "effective_tax_rate_note": null,
+    "nopat": 58589354466,
+    "invested_capital": 242593000000,
+    "invested_capital_basis": "營運側：總資產 − 流動負債 + 一年內到期負債 − 現金與短期投資",
+    "invested_capital_financing_side": 194395000000,
+    "roic": 0.2415,
+    "roic_note": "缺一年內到期負債標籤，短期有息負債未加回投入資本，分母略為低估、ROIC 絕對值略為放大",
+    "wacc": 0.085,
+    "wacc_source": "dcf_assumptions.json",
+    "roic_minus_wacc": 0.1565,
+    "value_creation": "創造價值"
+   },
+   "cash_flow_quality": {
+    "free_cash_flow": 46109000000,
+    "fcf_margin": 0.2294,
+    "ocf_to_net_income": 1.915,
+    "ocf_to_net_income_note": null,
+    "accrual_ratio": -0.1724,
+    "accrual_ratio_basis": "(淨利 − 營運現金流) ÷ 平均總資產，Sloan (1996)",
+    "capex_to_ocf": 0.602,
+    "capex_intensity": 0.3468
+   },
+   "altman_z2": {
+    "z2_score": 5.34,
+    "zone": "safe",
+    "formula": "6.56*X1 + 3.26*X2 + 6.72*X3 + 1.05*X4",
+    "thresholds": {
+     "safe": 2.6,
+     "distress": 1.1
+    },
+    "components": {
+     "X1_working_capital_to_assets": 0.1827,
+     "X2_retained_earnings_to_assets": 0.3311,
+     "X3_ebit_to_assets": 0.2275,
+     "X4_book_equity_to_liabilities": 1.4602
+    },
+    "liabilities_basis": "tag",
+    "liabilities_note": null
+   },
+   "piotroski": {
+    "score": 4,
+    "max_evaluated": 8,
+    "unavailable": [
+     "8_gross_margin_up"
+    ],
+    "normalised_9": 4.5,
+    "comparable": false,
+    "note": "1 項因資料不足未納入評分，原始分數與 9 項全評的公司不可直接比較"
+   },
+   "flags": [],
+   "flag_count": 0,
+   "coverage": {
+    "computed": 10,
+    "total": 10,
+    "unavailable": [],
+    "sufficient": true,
+    "note": null
+   }
+  },
+  "MRVL": {
+   "entity_name": "Marvell Technology, Inc.",
+   "taxonomy": "us-gaap",
+   "fiscal_year_end": "2026-01-31",
+   "prior_fiscal_year_end": "2025-02-01",
+   "currency": "USD",
+   "source_form": "10-K",
+   "source_accession": "0001835632-26-000011",
+   "source_filed": "2026-03-11",
+   "liquidity": {
+    "current_ratio": 2.01,
+    "cash_ratio": 0.82,
+    "working_capital": 3240100000,
+    "working_capital_to_assets": 0.1454,
+    "quick_ratio": null,
+    "quick_ratio_reason": "未擷取存貨科目 (InventoryNet)，速動比率無法計算"
+   },
+   "solvency": {
+    "total_debt": 3970800000,
+    "total_debt_note": "缺 一年內到期負債 標籤，有息負債僅為部分加總",
+    "total_liabilities": 7976900000,
+    "liabilities_basis": "tag",
+    "liabilities_note": null,
+    "net_debt": 1332000000,
+    "debt_to_equity": 0.278,
+    "liabilities_to_assets": 0.3579,
+    "equity_to_assets": 0.6421,
+    "interest_coverage": 7.1,
+    "interest_coverage_note": null,
+    "interest_expense_tag": "InterestExpenseDebt",
+    "net_debt_to_ebit": 1.01,
+    "net_debt_to_ebit_note": "以 EBIT 為分母（未擷取折舊攤銷，無法計算 EBITDA）"
+   },
+   "profitability": {
+    "gross_margin": 0.5102,
+    "operating_margin": 0.1614,
+    "net_margin": 0.3258,
+    "roa": 0.1198,
+    "roe": 0.1866,
+    "effective_tax_rate": 0.1236,
+    "effective_tax_rate_note": null,
+    "nopat": 1159415509,
+    "invested_capital": 16426000000,
+    "invested_capital_basis": "營運側：總資產 − 流動負債 + 一年內到期負債 − 現金與短期投資",
+    "invested_capital_financing_side": 15640400000,
+    "roic": 0.0706,
+    "roic_note": "缺一年內到期負債標籤，短期有息負債未加回投入資本，分母略為低估、ROIC 絕對值略為放大",
+    "wacc": 0.1425,
+    "wacc_source": "dcf_assumptions.json",
+    "roic_minus_wacc": -0.0719,
+    "value_creation": "毀滅價值"
+   },
+   "cash_flow_quality": {
+    "free_cash_flow": 1396400000,
+    "fcf_margin": 0.1704,
+    "ocf_to_net_income": 0.656,
+    "ocf_to_net_income_note": null,
+    "accrual_ratio": 0.0433,
+    "accrual_ratio_basis": "(淨利 − 營運現金流) ÷ 平均總資產，Sloan (1996)",
+    "capex_to_ocf": 0.202,
+    "capex_intensity": 0.0432
+   },
+   "altman_z2": {
+    "z2_score": 3.43,
+    "zone": "safe",
+    "formula": "6.56*X1 + 3.26*X2 + 6.72*X3 + 1.05*X4",
+    "thresholds": {
+     "safe": 2.6,
+     "distress": 1.1
+    },
+    "components": {
+     "X1_working_capital_to_assets": 0.1454,
+     "X2_retained_earnings_to_assets": 0.0608,
+     "X3_ebit_to_assets": 0.0594,
+     "X4_book_equity_to_liabilities": 1.7937
+    },
+    "liabilities_basis": "tag",
+    "liabilities_note": null
+   },
+   "piotroski": {
+    "score": 7,
+    "max_evaluated": 9,
+    "unavailable": [],
+    "normalised_9": 7.0,
+    "comparable": true,
+    "note": null
+   },
+   "flags": [
+    {
+     "dimension": "資本效率",
+     "severity": "warn",
+     "detail": "ROIC 7.1% 低於 WACC 14.25%，價差 -7.2pp，投入資本未賺回其成本"
+    }
+   ],
+   "flag_count": 1,
+   "coverage": {
+    "computed": 10,
+    "total": 10,
+    "unavailable": [],
+    "sufficient": true,
+    "note": null
+   }
+  },
+  "MSFT": {
+   "entity_name": "MICROSOFT CORPORATION",
+   "taxonomy": "us-gaap",
+   "fiscal_year_end": "2026-06-30",
+   "prior_fiscal_year_end": "2025-06-30",
+   "currency": "USD",
+   "source_form": "10-K",
+   "source_accession": "0001193125-26-323660",
+   "source_filed": "2026-07-29",
+   "liquidity": {
+    "current_ratio": 1.23,
+    "cash_ratio": 0.46,
+    "working_capital": 38885000000,
+    "working_capital_to_assets": 0.0513,
+    "quick_ratio": null,
+    "quick_ratio_reason": "未擷取存貨科目 (InventoryNet)，速動比率無法計算"
+   },
+   "solvency": {
+    "total_debt": 40294000000,
+    "total_debt_note": null,
+    "total_liabilities": 315989000000,
+    "liabilities_basis": "tag",
+    "liabilities_note": null,
+    "net_debt": -36549000000,
+    "debt_to_equity": 0.091,
+    "liabilities_to_assets": 0.4167,
+    "equity_to_assets": 0.5833,
+    "interest_coverage": 50.9,
+    "interest_coverage_note": null,
+    "interest_expense_tag": "InterestExpenseNonoperating",
+    "net_debt_to_ebit": -0.24,
+    "net_debt_to_ebit_note": "以 EBIT 為分母（未擷取折舊攤銷，無法計算 EBITDA）"
+   },
+   "profitability": {
+    "gross_margin": 0.6794,
+    "operating_margin": 0.4678,
+    "net_margin": 0.4031,
+    "roa": 0.1764,
+    "roe": 0.3023,
+    "effective_tax_rate": 0.194,
+    "effective_tax_rate_note": null,
+    "nopat": 125126818572,
+    "invested_capital": 521935000000,
+    "invested_capital_basis": "營運側：總資產 − 流動負債 + 一年內到期負債 − 現金與短期投資",
+    "invested_capital_financing_side": 405838000000,
+    "roic": 0.2397,
+    "roic_note": null,
+    "wacc": 0.085,
+    "wacc_source": "dcf_assumptions.json",
+    "roic_minus_wacc": 0.1547,
+    "value_creation": "創造價值"
+   },
+   "cash_flow_quality": {
+    "free_cash_flow": 66987000000,
+    "fcf_margin": 0.2019,
+    "ocf_to_net_income": 1.368,
+    "ocf_to_net_income_note": null,
+    "accrual_ratio": -0.0714,
+    "accrual_ratio_basis": "(淨利 − 營運現金流) ÷ 平均總資產，Sloan (1996)",
+    "capex_to_ocf": 0.634,
+    "capex_intensity": 0.3494
+   },
+   "altman_z2": {
+    "z2_score": 4.59,
+    "zone": "safe",
+    "formula": "6.56*X1 + 3.26*X2 + 6.72*X3 + 1.05*X4",
+    "thresholds": {
+     "safe": 2.6,
+     "distress": 1.1
+    },
+    "components": {
+     "X1_working_capital_to_assets": 0.0513,
+     "X2_retained_earnings_to_assets": 0.4329,
+     "X3_ebit_to_assets": 0.2047,
+     "X4_book_equity_to_liabilities": 1.4
+    },
+    "liabilities_basis": "tag",
+    "liabilities_note": null
+   },
+   "piotroski": {
+    "score": 6,
+    "max_evaluated": 9,
+    "unavailable": [],
+    "normalised_9": 6.0,
+    "comparable": true,
+    "note": null
+   },
+   "flags": [],
+   "flag_count": 0,
+   "coverage": {
+    "computed": 10,
+    "total": 10,
+    "unavailable": [],
+    "sufficient": true,
+    "note": null
+   }
+  },
+  "NOK": {
+   "entity_name": "Nokia Corporation",
+   "taxonomy": "ifrs-full",
+   "fiscal_year_end": "2025-12-31",
+   "prior_fiscal_year_end": "2024-12-31",
+   "currency": "EUR",
+   "source_form": "20-F",
+   "source_accession": "0001628280-26-015034",
+   "source_filed": "2026-03-05",
+   "liquidity": {
+    "current_ratio": 1.58,
+    "cash_ratio": 0.55,
+    "working_capital": 5788000000,
+    "working_capital_to_assets": 0.1539,
+    "quick_ratio": null,
+    "quick_ratio_reason": "未擷取存貨科目 (InventoryNet)，速動比率無法計算"
+   },
+   "solvency": {
+    "total_debt": null,
+    "total_debt_note": "未取得 LongTermDebt / DebtCurrent 標籤，無法計算有息負債",
+    "total_liabilities": 16539000000,
+    "liabilities_basis": "tag",
+    "liabilities_note": null,
+    "net_debt": null,
+    "debt_to_equity": null,
+    "liabilities_to_assets": 0.4399,
+    "equity_to_assets": 0.5601,
+    "interest_coverage": 3.6,
+    "interest_coverage_note": null,
+    "interest_expense_tag": "FinanceCosts",
+    "net_debt_to_ebit": null,
+    "net_debt_to_ebit_note": "以 EBIT 為分母（未擷取折舊攤銷，無法計算 EBITDA）"
+   },
+   "profitability": {
+    "gross_margin": 0.4354,
+    "operating_margin": 0.0445,
+    "net_margin": 0.0332,
+    "roa": 0.0176,
+    "roe": 0.0313,
+    "effective_tax_rate": 0.3027,
+    "effective_tax_rate_note": null,
+    "nopat": 617081967,
+    "invested_capital": 22131000000,
+    "invested_capital_basis": "營運側：總資產 − 流動負債 + 一年內到期負債 − 現金與短期投資",
+    "invested_capital_financing_side": null,
+    "roic": 0.0279,
+    "roic_note": "缺一年內到期負債標籤，短期有息負債未加回投入資本，分母略為低估、ROIC 絕對值略為放大",
+    "wacc": 0.0697,
+    "wacc_source": "dcf_assumptions.json",
+    "roic_minus_wacc": -0.0418,
+    "value_creation": "毀滅價值"
+   },
+   "cash_flow_quality": {
+    "free_cash_flow": null,
+    "fcf_margin": null,
+    "ocf_to_net_income": 3.138,
+    "ocf_to_net_income_note": null,
+    "accrual_ratio": -0.0368,
+    "accrual_ratio_basis": "(淨利 − 營運現金流) ÷ 平均總資產，Sloan (1996)",
+    "capex_to_ocf": null,
+    "capex_intensity": null
+   },
+   "altman_z2": {
+    "z2_score": 2.67,
+    "zone": "safe",
+    "formula": "6.56*X1 + 3.26*X2 + 6.72*X3 + 1.05*X4",
+    "thresholds": {
+     "safe": 2.6,
+     "distress": 1.1
+    },
+    "components": {
+     "X1_working_capital_to_assets": 0.1539,
+     "X2_retained_earnings_to_assets": 0.0494,
+     "X3_ebit_to_assets": 0.0235,
+     "X4_book_equity_to_liabilities": 1.2732
+    },
+    "liabilities_basis": "tag",
+    "liabilities_note": null
+   },
+   "piotroski": {
+    "score": 4,
+    "max_evaluated": 7,
+    "unavailable": [
+     "5_leverage_decreased",
+     "7_no_share_dilution"
+    ],
+    "normalised_9": 5.1,
+    "comparable": false,
+    "note": "2 項因資料不足未納入評分，原始分數與 9 項全評的公司不可直接比較"
+   },
+   "flags": [
+    {
+     "dimension": "資本效率",
+     "severity": "warn",
+     "detail": "ROIC 2.8% 低於 WACC 6.97%，價差 -4.2pp，投入資本未賺回其成本"
+    }
+   ],
+   "flag_count": 1,
+   "coverage": {
+    "computed": 8,
+    "total": 10,
+    "unavailable": [
+     "有息負債/淨值",
+     "FCF 利潤率"
+    ],
+    "sufficient": true,
+    "note": null
+   }
+  },
+  "NVDA": {
+   "entity_name": "NVIDIA CORP",
+   "taxonomy": "us-gaap",
+   "fiscal_year_end": "2026-01-25",
+   "prior_fiscal_year_end": "2025-01-26",
+   "currency": "USD",
+   "source_form": "10-K",
+   "source_accession": "0001045810-26-000021",
+   "source_filed": "2026-02-25",
+   "liquidity": {
+    "current_ratio": 3.91,
+    "cash_ratio": 0.96,
+    "working_capital": 93442000000,
+    "working_capital_to_assets": 0.4518,
+    "quick_ratio": null,
+    "quick_ratio_reason": "未擷取存貨科目 (InventoryNet)，速動比率無法計算"
+   },
+   "solvency": {
+    "total_debt": 8468000000,
+    "total_debt_note": null,
+    "total_liabilities": 49510000000,
+    "liabilities_basis": "tag",
+    "liabilities_note": null,
+    "net_debt": -22564000000,
+    "debt_to_equity": 0.054,
+    "liabilities_to_assets": 0.2394,
+    "equity_to_assets": 0.7606,
+    "interest_coverage": 503.4,
+    "interest_coverage_note": null,
+    "interest_expense_tag": "InterestExpenseNonoperating",
+    "net_debt_to_ebit": -0.17,
+    "net_debt_to_ebit_note": "以 EBIT 為分母（未擷取折舊攤銷，無法計算 EBITDA）"
+   },
+   "profitability": {
+    "gross_margin": 0.7107,
+    "operating_margin": 0.6038,
+    "net_margin": 0.556,
+    "roa": 0.5806,
+    "roe": 0.7633,
+    "effective_tax_rate": 0.1512,
+    "effective_tax_rate_note": null,
+    "nopat": 110676393984,
+    "invested_capital": 144607000000,
+    "invested_capital_basis": "營運側：總資產 − 流動負債 + 一年內到期負債 − 現金與短期投資",
+    "invested_capital_financing_side": 134729000000,
+    "roic": 0.7654,
+    "roic_note": null,
+    "wacc": 0.095,
+    "wacc_source": "dcf_assumptions.json",
+    "roic_minus_wacc": 0.6704,
+    "value_creation": "創造價值"
+   },
+   "cash_flow_quality": {
+    "free_cash_flow": 96676000000,
+    "fcf_margin": 0.4477,
+    "ocf_to_net_income": 0.856,
+    "ocf_to_net_income_note": null,
+    "accrual_ratio": 0.109,
+    "accrual_ratio_basis": "(淨利 − 營運現金流) ÷ 平均總資產，Sloan (1996)",
+    "capex_to_ocf": 0.059,
+    "capex_intensity": 0.028
+   },
+   "altman_z2": {
+    "z2_score": 12.85,
+    "zone": "safe",
+    "formula": "6.56*X1 + 3.26*X2 + 6.72*X3 + 1.05*X4",
+    "thresholds": {
+     "safe": 2.6,
+     "distress": 1.1
+    },
+    "components": {
+     "X1_working_capital_to_assets": 0.4518,
+     "X2_retained_earnings_to_assets": 0.7107,
+     "X3_ebit_to_assets": 0.6305,
+     "X4_book_equity_to_liabilities": 3.177
+    },
+    "liabilities_basis": "tag",
+    "liabilities_note": null
+   },
+   "piotroski": {
+    "score": 4,
+    "max_evaluated": 9,
+    "unavailable": [],
+    "normalised_9": 4.0,
+    "comparable": true,
+    "note": null
+   },
+   "flags": [
+    {
+     "dimension": "現金流品質",
+     "severity": "warn",
+     "detail": "應計比率 +10.9% 高於 10%，淨利明顯超前營運現金流"
+    }
+   ],
+   "flag_count": 1,
+   "coverage": {
+    "computed": 10,
+    "total": 10,
+    "unavailable": [],
+    "sufficient": true,
+    "note": null
+   }
+  },
+  "ONDS": {
+   "entity_name": "Ondas Inc.",
+   "taxonomy": "us-gaap",
+   "fiscal_year_end": "2025-12-31",
+   "prior_fiscal_year_end": "2024-12-31",
+   "currency": "USD",
+   "source_form": "10-K",
+   "source_accession": "0001213900-26-035981",
+   "source_filed": "2026-03-30",
+   "liquidity": {
+    "current_ratio": 4.84,
+    "cash_ratio": 3.88,
+    "working_capital": 544080000,
+    "working_capital_to_assets": 0.4803,
+    "quick_ratio": null,
+    "quick_ratio_reason": "未擷取存貨科目 (InventoryNet)，速動比率無法計算"
+   },
+   "solvency": {
+    "total_debt": null,
+    "total_debt_note": "未取得 LongTermDebt / DebtCurrent 標籤，無法計算有息負債",
+    "total_liabilities": 661226000,
+    "liabilities_basis": "tag",
+    "liabilities_note": null,
+    "net_debt": null,
+    "debt_to_equity": null,
+    "liabilities_to_assets": 0.5837,
+    "equity_to_assets": 0.3865,
+    "interest_coverage": -8.9,
+    "interest_coverage_note": "營業利益為負，倍數僅表示虧損相對利息的規模，不代表償付能力",
+    "interest_expense_tag": "InterestExpenseNonoperating",
+    "net_debt_to_ebit": null,
+    "net_debt_to_ebit_note": "以 EBIT 為分母（未擷取折舊攤銷，無法計算 EBITDA）"
+   },
+   "profitability": {
+    "gross_margin": 0.3973,
+    "operating_margin": -1.1509,
+    "net_margin": -2.6066,
+    "roa": -0.1167,
+    "roe": -0.302,
+    "effective_tax_rate": 0.0,
+    "effective_tax_rate_note": null,
+    "nopat": -58384000,
+    "invested_capital": 440276000,
+    "invested_capital_basis": "營運側：總資產 − 流動負債 + 一年內到期負債 − 現金與短期投資",
+    "invested_capital_financing_side": null,
+    "roic": -0.1326,
+    "roic_note": "缺一年內到期負債標籤，短期有息負債未加回投入資本，分母略為低估、ROIC 絕對值略為放大",
+    "wacc": 0.105,
+    "wacc_source": "dcf_assumptions.json",
+    "roic_minus_wacc": -0.2376,
+    "value_creation": "毀滅價值"
+   },
+   "cash_flow_quality": {
+    "free_cash_flow": -40780000,
+    "fcf_margin": -0.8038,
+    "ocf_to_net_income": null,
+    "ocf_to_net_income_note": "淨利為負或缺漏，比率無意義",
+    "accrual_ratio": -0.1505,
+    "accrual_ratio_basis": "(淨利 − 營運現金流) ÷ 平均總資產，Sloan (1996)",
+    "capex_to_ocf": null,
+    "capex_intensity": 0.0401
+   },
+   "altman_z2": {
+    "z2_score": 2.44,
+    "zone": "grey",
+    "formula": "6.56*X1 + 3.26*X2 + 6.72*X3 + 1.05*X4",
+    "thresholds": {
+     "safe": 2.6,
+     "distress": 1.1
+    },
+    "components": {
+     "X1_working_capital_to_assets": 0.4803,
+     "X2_retained_earnings_to_assets": -0.3252,
+     "X3_ebit_to_assets": -0.0515,
+     "X4_book_equity_to_liabilities": 0.6621
+    },
+    "liabilities_basis": "tag",
+    "liabilities_note": null
+   },
+   "piotroski": {
+    "score": 4,
+    "max_evaluated": 8,
+    "unavailable": [
+     "5_leverage_decreased"
+    ],
+    "normalised_9": 4.5,
+    "comparable": false,
+    "note": "1 項因資料不足未納入評分，原始分數與 9 項全評的公司不可直接比較"
+   },
+   "flags": [
+    {
+     "dimension": "償債能力",
+     "severity": "warn",
+     "detail": "利息保障倍數 -8.9x 低於 3x（營業利益為負）"
+    },
+    {
+     "dimension": "資本效率",
+     "severity": "warn",
+     "detail": "ROIC -13.3% 低於 WACC 10.50%，價差 -23.8pp，投入資本未賺回其成本"
+    },
+    {
+     "dimension": "現金流品質",
+     "severity": "warn",
+     "detail": "自由現金流為負，FCF 利潤率 -80.4%"
+    },
+    {
+     "dimension": "破產風險",
+     "severity": "warn",
+     "detail": "Altman Z'' 2.44 落在 1.1~2.6 灰色區"
+    }
+   ],
+   "flag_count": 4,
+   "coverage": {
+    "computed": 9,
+    "total": 10,
+    "unavailable": [
+     "有息負債/淨值"
+    ],
+    "sufficient": true,
+    "note": null
+   }
+  },
+  "TSLA": {
+   "entity_name": "Tesla, Inc.",
+   "taxonomy": "us-gaap",
+   "fiscal_year_end": "2025-12-31",
+   "prior_fiscal_year_end": "2024-12-31",
+   "currency": "USD",
+   "source_form": "10-K",
+   "source_accession": "0001628280-26-003952",
+   "source_filed": "2026-01-29",
+   "liquidity": {
+    "current_ratio": 2.16,
+    "cash_ratio": 1.39,
+    "working_capital": 36928000000,
+    "working_capital_to_assets": 0.268,
+    "quick_ratio": null,
+    "quick_ratio_reason": "未擷取存貨科目 (InventoryNet)，速動比率無法計算"
+   },
+   "solvency": {
+    "total_debt": 8153000000,
+    "total_debt_note": null,
+    "total_liabilities": 54941000000,
+    "liabilities_basis": "tag",
+    "liabilities_note": null,
+    "net_debt": -35906000000,
+    "debt_to_equity": 0.099,
+    "liabilities_to_assets": 0.3987,
+    "equity_to_assets": 0.596,
+    "interest_coverage": 12.9,
+    "interest_coverage_note": null,
+    "interest_expense_tag": "InterestExpenseNonoperating",
+    "net_debt_to_ebit": -8.24,
+    "net_debt_to_ebit_note": "以 EBIT 為分母（未擷取折舊攤銷，無法計算 EBITDA）"
+   },
+   "profitability": {
+    "gross_margin": 0.1803,
+    "operating_margin": 0.0459,
+    "net_margin": 0.04,
+    "roa": 0.0275,
+    "roe": 0.0462,
+    "effective_tax_rate": 0.2696,
+    "effective_tax_rate_note": null,
+    "nopat": 3180849754,
+    "invested_capital": 63602000000,
+    "invested_capital_basis": "營運側：總資產 − 流動負債 + 一年內到期負債 − 現金與短期投資",
+    "invested_capital_financing_side": 46231000000,
+    "roic": 0.05,
+    "roic_note": null,
+    "wacc": 0.09,
+    "wacc_source": "dcf_assumptions.json",
+    "roic_minus_wacc": -0.04,
+    "value_creation": "毀滅價值"
+   },
+   "cash_flow_quality": {
+    "free_cash_flow": 6220000000,
+    "fcf_margin": 0.0656,
+    "ocf_to_net_income": 3.887,
+    "ocf_to_net_income_note": null,
+    "accrual_ratio": -0.0843,
+    "accrual_ratio_basis": "(淨利 − 營運現金流) ÷ 平均總資產，Sloan (1996)",
+    "capex_to_ocf": 0.578,
+    "capex_intensity": 0.0899
+   },
+   "altman_z2": {
+    "z2_score": 4.46,
+    "zone": "safe",
+    "formula": "6.56*X1 + 3.26*X2 + 6.72*X3 + 1.05*X4",
+    "thresholds": {
+     "safe": 2.6,
+     "distress": 1.1
+    },
+    "components": {
+     "X1_working_capital_to_assets": 0.268,
+     "X2_retained_earnings_to_assets": 0.283,
+     "X3_ebit_to_assets": 0.0316,
+     "X4_book_equity_to_liabilities": 1.495
+    },
+    "liabilities_basis": "tag",
+    "liabilities_note": null
+   },
+   "piotroski": {
+    "score": 5,
+    "max_evaluated": 9,
+    "unavailable": [],
+    "normalised_9": 5.0,
+    "comparable": true,
+    "note": null
+   },
+   "flags": [
+    {
+     "dimension": "資本效率",
+     "severity": "warn",
+     "detail": "ROIC 5.0% 低於 WACC 9.00%，價差 -4.0pp，投入資本未賺回其成本"
+    }
+   ],
+   "flag_count": 1,
+   "coverage": {
+    "computed": 10,
+    "total": 10,
+    "unavailable": [],
+    "sufficient": true,
+    "note": null
+   }
+  },
+  "TSM": {
+   "entity_name": "Taiwan Semiconductor Manufacturing Company Limited",
+   "taxonomy": "ifrs-full",
+   "fiscal_year_end": "2024-12-31",
+   "prior_fiscal_year_end": "2023-12-31",
+   "currency": "USD",
+   "source_form": "20-F",
+   "source_accession": "0001193125-25-083423",
+   "source_filed": "2025-04-17",
+   "liquidity": {
+    "current_ratio": 2.36,
+    "cash_ratio": 1.63,
+    "working_capital": 54275600000,
+    "working_capital_to_assets": 0.266,
+    "quick_ratio": null,
+    "quick_ratio_reason": "未擷取存貨科目 (InventoryNet)，速動比率無法計算"
+   },
+   "solvency": {
+    "total_debt": null,
+    "total_debt_note": "未取得 LongTermDebt / DebtCurrent 標籤，無法計算有息負債",
+    "total_liabilities": 73574000000,
+    "liabilities_basis": "tag",
+    "liabilities_note": null,
+    "net_debt": null,
+    "debt_to_equity": null,
+    "liabilities_to_assets": 0.3605,
+    "equity_to_assets": 0.6395,
+    "interest_coverage": 126.0,
+    "interest_coverage_note": null,
+    "interest_expense_tag": "FinanceCosts",
+    "net_debt_to_ebit": null,
+    "net_debt_to_ebit_note": "以 EBIT 為分母（未擷取折舊攤銷，無法計算 EBITDA）"
+   },
+   "profitability": {
+    "gross_margin": 0.5612,
+    "operating_margin": 0.4568,
+    "net_margin": 0.3999,
+    "roa": 0.173,
+    "roe": 0.2705,
+    "effective_tax_rate": 0.1766,
+    "effective_tax_rate_note": null,
+    "nopat": 33197228873,
+    "invested_capital": 99276400000,
+    "invested_capital_basis": "營運側：總資產 − 流動負債 + 一年內到期負債 − 現金與短期投資",
+    "invested_capital_financing_side": null,
+    "roic": 0.3344,
+    "roic_note": "缺一年內到期負債標籤，短期有息負債未加回投入資本，分母略為低估、ROIC 絕對值略為放大",
+    "wacc": 0.085,
+    "wacc_source": "dcf_assumptions.json",
+    "roic_minus_wacc": 0.2494,
+    "value_creation": "創造價值"
+   },
+   "cash_flow_quality": {
+    "free_cash_flow": null,
+    "fcf_margin": null,
+    "ocf_to_net_income": 1.578,
+    "ocf_to_net_income_note": null,
+    "accrual_ratio": -0.106,
+    "accrual_ratio_basis": "(淨利 − 營運現金流) ÷ 平均總資產，Sloan (1996)",
+    "capex_to_ocf": null,
+    "capex_intensity": null
+   },
+   "altman_z2": {
+    "z2_score": 6.82,
+    "zone": "safe",
+    "formula": "6.56*X1 + 3.26*X2 + 6.72*X3 + 1.05*X4",
+    "thresholds": {
+     "safe": 2.6,
+     "distress": 1.1
+    },
+    "components": {
+     "X1_working_capital_to_assets": 0.266,
+     "X2_retained_earnings_to_assets": 0.5788,
+     "X3_ebit_to_assets": 0.1976,
+     "X4_book_equity_to_liabilities": 1.7738
+    },
+    "liabilities_basis": "tag",
+    "liabilities_note": null
+   },
+   "piotroski": {
+    "score": 7,
+    "max_evaluated": 7,
+    "unavailable": [
+     "5_leverage_decreased",
+     "7_no_share_dilution"
+    ],
+    "normalised_9": 9.0,
+    "comparable": false,
+    "note": "2 項因資料不足未納入評分，原始分數與 9 項全評的公司不可直接比較"
+   },
+   "flags": [],
+   "flag_count": 0,
+   "coverage": {
+    "computed": 8,
+    "total": 10,
+    "unavailable": [
+     "有息負債/淨值",
+     "FCF 利潤率"
+    ],
+    "sufficient": true,
+    "note": null
+   }
+  }
+ }
+}

@@ -6,7 +6,7 @@
 >
 > 儀表板網頁的維護請看 [[ttc-stock_Dashboard_維運SOP]]，那是另一條線。
 
-最後更新：2026-08-01
+最後更新：2026-08-07
 
 ---
 
@@ -38,18 +38,23 @@ SEC XBRL Company Facts API          Yahoo Finance (yfinance)
    financials.json                      prices.json
         ↓ compute_fundamentals.py  ←──────────┘（市值需要股價）
    fundamentals.json
+        ├─ compute_financial_health.py ←── dcf_assumptions.json（取 WACC）
+        │    financial_health.json
         ↓ compute_valuation.py  ←── dcf_assumptions.json（人類維護）
    valuation.json
         ↓ update_thesis_financials.py
    30_Analysis/*_Master_Investment_Thesis_2026.md 的第二 ~ 五章
 ```
 
-這五支腳本必須**照這個順序**執行，後面的依賴前面的產出。
+這六支腳本必須**照這個順序**執行，後面的依賴前面的產出。
+`compute_financial_health.py` 和 `compute_valuation.py` 都只依賴 `fundamentals.json`，
+彼此不相依，先跑哪個都可以。
 
 | 檔案 | 由誰產生 | 你可以改嗎 |
 |---|---|---|
 | `financials.json` | `fetch_xbrl_financials.py` | ❌ |
 | `fundamentals.json` | `compute_fundamentals.py` | ❌ |
+| `financial_health.json` | `compute_financial_health.py` | ❌ |
 | `valuation.json` | `compute_valuation.py` | ❌ |
 | **`dcf_assumptions.json`** | **人類維護** | ✅ **這是唯一允許手填數字的檔案** |
 | `prices.json` | `fetch_price_history.py`（預設 6 年；含 `^IRX` 無風險利率） | ❌ |
@@ -80,30 +85,39 @@ python3 scripts/compute_fundamentals.py
 ```
 預期：一張表格，最後 `Wrote fundamentals.json (14 companies)`
 
-**A-4. 計算估值**
+**A-4. 計算財務健全度**
+```bash
+python3 scripts/compute_financial_health.py
+```
+預期：一張表格，最後 `Wrote financial_health.json (14 companies)`
+
+最右欄是警示數。`—` 代表沒有指標超過門檻；`資料不足 n/10` 代表**檢查本身沒跑完**，
+不等於健全，兩者不可混為一談。
+
+**A-5. 計算估值**
 ```bash
 python3 scripts/compute_valuation.py
 ```
 預期：一張表格，最後 `Wrote valuation.json (14 companies)`
 
-**A-5. 更新 thesis 第二 ~ 五章**
+**A-6. 更新 thesis 第二 ~ 五章**
 ```bash
 python3 scripts/update_thesis_financials.py
 ```
 預期：`已更新 14 份 thesis`
 
-**A-6. 確認只有該動的檔案被動到**
+**A-7. 確認只有該動的檔案被動到**
 ```bash
 git status --short
 ```
 
-允許出現的檔案**只有**：`financials.json`、`fundamentals.json`、`valuation.json`、`30_Analysis/*_Master_Investment_Thesis_2026.md`
+允許出現的檔案**只有**：`financials.json`、`fundamentals.json`、`financial_health.json`、`valuation.json`、`30_Analysis/*_Master_Investment_Thesis_2026.md`
 
 出現任何其他檔案 → **停止並回報**。
 
-**A-7. 送出**
+**A-8. 送出**
 ```bash
-git add financials.json fundamentals.json valuation.json 30_Analysis/ && git commit -m "chore: refresh SEC financials" && git push origin main
+git add financials.json fundamentals.json financial_health.json valuation.json 30_Analysis/ && git commit -m "chore: refresh SEC financials" && git push origin main
 ```
 
 ### 輸出對照表
@@ -187,6 +201,20 @@ grep -h "Sortino Ratio（週資料）" 30_Analysis/*_Master_Investment_Thesis_20
 ```
 預期：每行不是帶「週報酬」窗口的數值，就是「資料不足」。出現沒有窗口說明的裸數字 → 停止回報。
 
+**C-6. 財務健全度沒有把「資料不足」講成「健全」**
+```bash
+python3 -c "
+import json
+d=json.load(open('financial_health.json'))['companies']
+for t in sorted(d):
+    c=d[t]['coverage']
+    if not d[t]['flags'] and not c['sufficient']:
+        print(t, '無警示但只算出', c['computed'], '/', c['total'], '→ 必須標示資料不足')
+"
+```
+預期：COHR 那一行會出現，這是**正確**的（它缺 ROIC / Z'' / 利息保障倍數）。
+若某家公司在報告或對話中被描述成「財務健全」而它其實落在這份清單裡 → **停止並更正**。
+
 ---
 
 ## 5. 已知限制（不是 bug，不要「修」）
@@ -196,7 +224,9 @@ grep -h "Sortino Ratio（週資料）" 30_Analysis/*_Master_Investment_Thesis_20
 | TSM 停在 FY2024 | SEC companyfacts 尚未收錄其 FY2025 20-F。等 SEC 更新，不要手動填 |
 | NOK 幣別是 EUR | Nokia 只用歐元 tag，未提供美元。**不准自己換匯** |
 | AMZN / GOOGL / META / COHR 毛利率是「資料不足」 | 這些公司不 tag `GrossProfit` |
-| Altman Z 高達 60~90 且標「市值主導」 | Altman Z 是為高負債製造業設計的，對輕資產科技股不適用。**這個警語必須保留** |
+| `fundamentals.json` 的 Altman Z 高達 60~90 且標「市值主導」 | 原始 Altman Z 是為高負債製造業設計的，對輕資產科技股不適用。**這個警語必須保留**。改看 `financial_health.json` 的 **Z''**，那才是適用非製造業的版本（門檻 >2.6 安全 / <1.1 危險） |
+| Z'' 把 AAPL 從「安全」改判為灰色區 | **不是 bug**。AAPL 流動比率 0.89、負債佔資產 79%、保留盈餘為負（長年回購超過累積保留），原始 Z 用市值當分子把這些蓋掉了 |
+| ARM / NOK / ONDS / TSM 的「有息負債/淨值」是 null | 這四家沒有 tag `LongTermDebt` 也沒有 `DebtCurrent`。**不准當成 0** —— 顯示 0.00 會讓有可轉債的公司看起來零負債 |
 | 三個 Sortino 數值差很多 | **正常**。頻率（週/日）、期間（3年/5年/1年）、MAR 都不同，衡量的是不同的東西，**不准「統一」它們** |
 | 12 個月那組用 MAR=0 而非無風險利率 | 實測對照 PortfoliosLab 公布值決定的（NVDA 0.76→0.75、TSLA 0.36→0.36）。改成無風險利率就對不上公開網站 |
 | 各公司科目數 11~14 不等 | 每家 tag 的科目本來就不同 |
@@ -242,6 +272,7 @@ DCF 不是事實。使用者若問「這檔值多少錢」，正確回答是：
 | `fetch_sec.py` | 下載 10-K / 20-F 原文並產生筆記 |
 | `fetch_xbrl_financials.py` | 抓 SEC XBRL 結構化財報 → `financials.json` |
 | `compute_fundamentals.py` | 算 F-Score / Altman Z / DuPont → `fundamentals.json` |
+| `compute_financial_health.py` | 算流動性 / 償債 / ROIC−WACC / Altman Z'' → `financial_health.json` |
 | `compute_valuation.py` | 算本益比 / 淨現金 / DCF 蒙地卡羅 → `valuation.json` |
 | `update_thesis_financials.py` | 更新 thesis 第二 ~ 五章 |
 | `fetch_price_history.py` | 抓日線收盤價（預設 6 年）→ `prices.json` |
