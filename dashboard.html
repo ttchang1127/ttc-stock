@@ -113,6 +113,7 @@
     /* Top Navigation Tabs */
     .nav-tabs-container {
       display: flex;
+      flex-wrap: wrap;
       gap: 12px;
       margin-bottom: 24px;
       border-bottom: 1px solid var(--card-border);
@@ -132,6 +133,11 @@
       display: flex;
       align-items: center;
       gap: 8px;
+      /* Long titles used to wrap onto a second line inside the button itself.
+         Keeping each label to one line and letting whole buttons wrap to a new
+         row (via flex-wrap above) if the viewport is too narrow looks far
+         better than text breaking mid-title. */
+      white-space: nowrap;
     }
 
     .tab-btn:hover, .tab-btn.active {
@@ -831,16 +837,16 @@
     <!-- Navigation Tabs -->
     <div class="nav-tabs-container">
       <button class="tab-btn active" onclick="switchTab('tab-dashboard', this)">
-        📊 投資組合對照與 MACD 歷史區間回溯器
+        📊 投組對照與 MACD 回溯
       </button>
       <button class="tab-btn" onclick="switchTab('tab-guide', this)">
-        📖 MACD 技術分析教學、專有名詞與方法論大全
+        📖 MACD 教學
       </button>
       <button class="tab-btn" onclick="switchTab('tab-portfolio', this); renderPortfolioTab();">
-        💼 目前持股部位明細與未實現損益 (USD / TWD 實時匯率)
+        💼 持股損益 (USD/TWD)
       </button>
       <button class="tab-btn" onclick="switchTab('tab-charts', this);">
-        📊 全持股圖表總覽 (MACD / 獲利 / Sortino / DCF)
+        📊 圖表總覽
       </button>
     </div>
 
