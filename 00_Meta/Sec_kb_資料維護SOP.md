@@ -215,18 +215,39 @@ for t in sorted(d):
 預期：COHR 那一行會出現，這是**正確**的（它缺 ROIC / Z'' / 利息保障倍數）。
 若某家公司在報告或對話中被描述成「財務健全」而它其實落在這份清單裡 → **停止並更正**。
 
+**C-7. 兩個檔案的有息負債定義一致**
+```bash
+python3 -c "
+import json
+v=json.load(open('valuation.json'))['companies']
+h=json.load(open('financial_health.json'))['companies']
+bad=[t for t in v if h[t]['solvency']['total_debt'] is not None
+     and v[t]['multiples']['total_debt']!=h[t]['solvency']['total_debt']]
+print('不一致:', bad or '無')
+"
+```
+預期：`不一致: 無`。
+
+`compute_valuation.py` 直接 import `compute_financial_health.total_debt`，兩邊必然相同。
+若這裡出現公司名單，代表有人把其中一支改成自己算負債了 → **停止並回報**。
+（歷史：這兩支曾經各算各的，TSM 的淨現金因此虛報 $29B，並直接餵進 DCF。）
+
 ---
 
 ## 5. 已知限制（不是 bug，不要「修」）
 
 | 現象 | 原因 |
 |---|---|
-| TSM 停在 FY2024 | SEC companyfacts 尚未收錄其 FY2025 20-F。等 SEC 更新，不要手動填 |
+| TSM 停在 FY2024 | TSM 已於 2026-04-16 申報 FY2025 20-F，但該份在 SEC companyfacts 裡**只有封面股數一個標籤，零財務科目**。不是抓取程式的問題，等 SEC 更新，不要手動填。`financial_health.json` 會自動掛上「資料新鮮度」警示（門檻 15 個月） |
 | NOK 幣別是 EUR | Nokia 只用歐元 tag，未提供美元。**不准自己換匯** |
-| AMZN / GOOGL / META / COHR 毛利率是「資料不足」 | 這些公司不 tag `GrossProfit` |
+| AMZN / GOOGL / META / COHR 有毛利率，但 `gross_margin_basis` 是 `revenue_less_cogs` | 這四家不 tag `GrossProfit`，改以「營收 − 銷貨成本」推導。**這是計算，不是估算**，兩個科目都來自同一份財報 |
 | `fundamentals.json` 的 Altman Z 高達 60~90 且標「市值主導」 | 原始 Altman Z 是為高負債製造業設計的，對輕資產科技股不適用。**這個警語必須保留**。改看 `financial_health.json` 的 **Z''**，那才是適用非製造業的版本（門檻 >2.6 安全 / <1.1 危險） |
 | Z'' 把 AAPL 從「安全」改判為灰色區 | **不是 bug**。AAPL 流動比率 0.89、負債佔資產 79%、保留盈餘為負（長年回購超過累積保留），原始 Z 用市值當分子把這些蓋掉了 |
-| ARM / NOK / ONDS / TSM 的「有息負債/淨值」是 null | 這四家沒有 tag `LongTermDebt` 也沒有 `DebtCurrent`。**不准當成 0** —— 顯示 0.00 會讓有可轉債的公司看起來零負債 |
+| 有息負債是 8 個科目**加總**，不是取其中一個 | TSM 的長期公司債 $28.3B 和長期借款 $1.0B 分開列，只取一個會差一個數量級。組成明細在 `solvency.debt_components` |
+| TSM 的有息負債註記說「TWD 部分未計入」 | TSM 的一年內到期公司債只有 TWD 標籤，其餘資產負債表是 USD。**不准自己換匯併進去**，低估約 $1.8B 已在註記中揭露 |
+| 某家公司的有息負債是 null | 代表該公司**一個債務標籤都沒有**。**不准當成 0** —— 顯示 0.00 會讓有可轉債的公司看起來零負債 |
+| Beneish M-Score 把 NVDA / MRVL / ONDS 標記出來 | **這不是舞弊指控**。M-Score 是 1990 年代以財報型態擬合的篩選模型，高速成長本身就會推高分數（ONDS 營收年增 605%）。`growth_caveat` 欄位會說明。要下任何結論必須人工查證原始財報 |
+| TSM 沒有 M-Score | 缺 SGAI（IFRS 下 TSM 未 tag 銷管費用）。**不准用 1.0 代入補齊** —— 那等於宣稱「與去年持平」，但根本沒量到 |
 | 三個 Sortino 數值差很多 | **正常**。頻率（週/日）、期間（3年/5年/1年）、MAR 都不同，衡量的是不同的東西，**不准「統一」它們** |
 | 12 個月那組用 MAR=0 而非無風險利率 | 實測對照 PortfoliosLab 公布值決定的（NVDA 0.76→0.75、TSLA 0.36→0.36）。改成無風險利率就對不上公開網站 |
 | 各公司科目數 11~14 不等 | 每家 tag 的科目本來就不同 |

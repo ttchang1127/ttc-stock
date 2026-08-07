@@ -46,6 +46,23 @@ def gt(a, b):
     return a > b
 
 
+def gross_profit(period):
+    """GrossProfit where tagged, otherwise revenue less cost of sales.
+
+    Amazon, Alphabet, Meta and Coherent never tag GrossProfit, so their gross
+    margin read 資料不足 and Piotroski criterion 8 went unscored -- shrinking
+    their F-Score denominators for a figure their income statements do contain,
+    just as two separate lines.
+    """
+    gp = val(period, "gross_profit")
+    if gp is not None:
+        return gp, "tag"
+    rev, cogs = val(period, "revenue"), val(period, "cogs")
+    if rev is None or cogs is None:
+        return None, None
+    return rev - cogs, "revenue_less_cogs"
+
+
 def piotroski(cur, prev):
     """The nine Piotroski criteria, each computed or explicitly unavailable."""
     roa_cur = div(val(cur, "net_income"), val(cur, "assets"))
@@ -54,8 +71,8 @@ def piotroski(cur, prev):
     lev_prev = div(val(prev, "long_term_debt"), val(prev, "assets"))
     cr_cur = div(val(cur, "current_assets"), val(cur, "current_liabilities"))
     cr_prev = div(val(prev, "current_assets"), val(prev, "current_liabilities"))
-    gm_cur = div(val(cur, "gross_profit"), val(cur, "revenue"))
-    gm_prev = div(val(prev, "gross_profit"), val(prev, "revenue"))
+    gm_cur = div(gross_profit(cur)[0], val(cur, "revenue"))
+    gm_prev = div(gross_profit(prev)[0], val(prev, "revenue"))
     at_cur = div(val(cur, "revenue"), val(cur, "assets"))
     at_prev = div(val(prev, "revenue"), val(prev, "assets"))
 
@@ -291,7 +308,8 @@ def main():
         f = piotroski(cur, prev)
         z = altman_z(cur, market_cap)
         du = dupont(cur)
-        gm = div(val(cur, "gross_profit"), val(cur, "revenue"))
+        gp, gp_basis = gross_profit(cur)
+        gm = div(gp, val(cur, "revenue"))
 
         results[ticker] = {
             "cik": company["cik"],
@@ -319,7 +337,9 @@ def main():
             "price_used": price,
             "price_date": price_date,
             "market_cap": market_cap,
+            "gross_profit": gp,
             "gross_margin": None if gm is None else round(gm, 4),
+            "gross_margin_basis": gp_basis,
             "piotroski": f,
             "altman_z": z,
             "dupont": du,

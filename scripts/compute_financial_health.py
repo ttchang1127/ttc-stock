@@ -31,7 +31,7 @@ reader can disagree with a threshold without the whole number becoming opaque.
 
 import argparse
 import json
-from datetime import datetime, timezone
+from datetime import date, datetime, timezone
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -60,6 +60,11 @@ def val(period, concept):
 def tag(period, concept):
     entry = (period or {}).get(concept)
     return entry["tag"] if entry else None
+
+
+def unit(period, concept):
+    entry = (period or {}).get(concept)
+    return entry["unit"] if entry else None
 
 
 def div(a, b):
@@ -91,25 +96,60 @@ def total_liabilities(cur):
             "若存在非控制權益會被計入負債側，數值略為高估")
 
 
-def total_debt(cur):
-    """Interest-bearing debt, or None when the filer tags neither component.
+DEBT_COMPONENTS = [
+    ("long_term_debt", "長期借款"),
+    ("debt_current", "一年內到期借款"),
+    ("bonds_noncurrent", "長期公司債"),
+    ("bonds_current", "一年內到期公司債"),
+    ("finance_lease_noncurrent", "長期融資租賃"),
+    ("finance_lease_current", "一年內到期融資租賃"),
+    ("convertible_debt_noncurrent", "長期可轉換公司債"),
+    ("convertible_debt_current", "一年內到期可轉換公司債"),
+]
 
-    Returning 0 here would be the more convenient answer and the wrong one:
-    ARM, Nokia, Ondas and TSMC tag neither LongTermDebt nor DebtCurrent under
-    the concept lists in fetch_xbrl_financials.py, and a debt-to-equity of 0.00
-    for a company with convertible notes outstanding reads as a clean balance
-    sheet rather than as absent data.
+
+def total_debt(cur):
+    """Interest-bearing debt, summed across the components the filer tags.
+
+    Summing rather than picking one is what TSMC requires: it reports $28.3bn of
+    noncurrent bonds beside $1.0bn of noncurrent borrowings, so either figure
+    alone is wrong by an order of magnitude. The components are non-overlapping
+    concepts by construction -- fetch_xbrl_financials.py deliberately takes the
+    ConvertibleDebt roll-up rather than the narrower instrument tags nested
+    inside it -- so nothing here is double-counted.
+
+    Components are only summed when they share the filing's reporting currency.
+    TSMC tags its current bonds in TWD only while the rest of its balance sheet
+    resolves to USD, and adding those together would produce a number in no
+    currency at all.
+
+    Returning 0 when nothing is tagged would be the convenient answer and the
+    wrong one: a debt-to-equity of 0.00 for a company with convertible notes
+    outstanding reads as a clean balance sheet rather than as absent data.
     """
-    ltd, sd = val(cur, "long_term_debt"), val(cur, "debt_current")
-    if ltd is None and sd is None:
-        return None, "未取得 LongTermDebt / DebtCurrent 標籤，無法計算有息負債"
-    parts = []
-    if ltd is None:
-        parts.append("長期負債")
-    if sd is None:
-        parts.append("一年內到期負債")
-    note = None if not parts else "缺 {} 標籤，有息負債僅為部分加總".format("、".join(parts))
-    return (ltd or 0) + (sd or 0), note
+    base_unit = unit(cur, "assets") or unit(cur, "revenue")
+    included, skipped = [], []
+    for concept, label in DEBT_COMPONENTS:
+        v = val(cur, concept)
+        if v is None:
+            continue
+        u = unit(cur, concept)
+        if base_unit and u != base_unit:
+            skipped.append("{}（{} {:,.0f}）".format(label, u, v))
+            continue
+        included.append((label, v))
+
+    if not included:
+        if skipped:
+            return None, "僅取得非 {} 幣別的債務標籤（{}），無法併入".format(
+                base_unit, "、".join(skipped)), []
+        return None, "未取得任何有息負債標籤，無法計算", []
+
+    note = None
+    if skipped:
+        note = ("以下組成因幣別為 {} 而未計入（本表以 {} 為準）：{}。有息負債因此低估"
+                .format(skipped[0].split("（")[1].split()[0], base_unit, "、".join(skipped)))
+    return sum(v for _, v in included), note, included
 
 
 def liquidity(cur):
@@ -131,7 +171,7 @@ def liquidity(cur):
 
 
 def solvency(cur):
-    debt, debt_note = total_debt(cur)
+    debt, debt_note, debt_parts = total_debt(cur)
     liab, liab_basis, liab_note = total_liabilities(cur)
     assets, equity = val(cur, "assets"), val(cur, "equity")
     cash, sti = val(cur, "cash"), val(cur, "short_term_investments")
@@ -154,6 +194,7 @@ def solvency(cur):
     return {
         "total_debt": debt,
         "total_debt_note": debt_note,
+        "debt_components": {label: value for label, value in debt_parts},
         "total_liabilities": liab,
         "liabilities_basis": liab_basis,
         "liabilities_note": liab_note,
@@ -178,7 +219,7 @@ def profitability(cur, wacc):
     tax, pretax = val(cur, "income_tax_expense"), val(cur, "pretax_income")
     cash, sti = val(cur, "cash"), val(cur, "short_term_investments")
     cl = val(cur, "current_liabilities")
-    debt, _ = total_debt(cur)
+    debt, _, _ = total_debt(cur)
 
     etr = div(tax, pretax)
     etr_note = None
@@ -356,7 +397,7 @@ def piotroski_normalised(fund):
     }
 
 
-def raise_flags(liq, sol, prof, cfq, z2):
+def raise_flags(liq, sol, prof, cfq, z2, mscore, fresh):
     """Named threshold breaches. No weighting, no composite number."""
     flags = []
     t = THRESHOLDS
@@ -408,10 +449,154 @@ def raise_flags(liq, sol, prof, cfq, z2):
                       "detail": "Altman Z'' {:.2f} 落在 {:.1f}~{:.1f} 灰色區"
                                 .format(z, t["altman_z2_distress"], t["altman_z2_safe"])})
 
+    if mscore.get("flagged"):
+        flags.append({"dimension": "盈餘品質", "severity": "warn",
+                      "detail": "Beneish M-Score {:.2f} 高於 -1.78，"
+                                "會計型態符合模型的操縱樣本特徵，需人工查證"
+                                .format(mscore["m_score"])
+                                + ("。" + mscore["growth_caveat"]
+                                   if mscore.get("growth_caveat") else "")})
+
+    if fresh.get("stale"):
+        flags.append({"dimension": "資料新鮮度", "severity": "warn",
+                      "detail": fresh["note"]})
+
     return flags
 
 
-def coverage(liq, sol, prof, cfq, z2, fscore):
+def freshness(cur, today):
+    """How old the fiscal year behind every figure here actually is.
+
+    TSMC's latest structured filing covers FY2024 while NVIDIA's covers FY2026,
+    and the notes print both without remark, so an F-Score comparison between
+    them silently spans a year and a half. SEC's companyfacts has no financial
+    tags at all from TSMC's FY2025 20-F, so this cannot be fixed by fetching
+    harder -- it can only be disclosed.
+
+    15 months is the threshold: an annual filer is expected to have published a
+    new fiscal year plus a filing lag by then, so anything older means a filing
+    exists that the structured data has not caught up with.
+    """
+    fye = cur.get("fiscal_year_end")
+    if not fye:
+        return {"fiscal_year_end": None, "months_old": None, "stale": None}
+    end = datetime.fromisoformat(fye).date()
+    months = (today.year - end.year) * 12 + (today.month - end.month)
+    stale = months > 15
+    return {
+        "fiscal_year_end": fye,
+        "as_of": today.isoformat(),
+        "months_old": months,
+        "stale": stale,
+        "threshold_months": 15,
+        "note": None if not stale else
+                "此財年結束於 {}，距今 {} 個月。與其他公司並列比較時期別並不對齊"
+                .format(fye, months),
+    }
+
+
+def beneish_m(cur, prev):
+    """Beneish M-Score: eight indices comparing this year against last.
+
+    M = -4.84 + 0.920*DSRI + 0.528*GMI + 0.404*AQI + 0.892*SGI
+             + 0.115*DEPI - 0.172*SGAI + 4.679*TATA - 0.327*LVGI
+
+    Above -1.78 the model classifies a filer as a likely earnings manipulator.
+    That is a screening signal on accounting patterns, not a finding of fraud:
+    the model was fitted on 1980s manipulators and flags plenty of honest
+    companies that are simply growing fast, which is why the output carries the
+    index values rather than only the verdict.
+
+    Any missing index returns None for the whole score. Substituting 1.0 for an
+    unavailable index -- the common shortcut -- is not neutral: it silently
+    asserts "no year-on-year change" for something that was never measured.
+    """
+    def pair(concept):
+        return val(cur, concept), val(prev, concept)
+
+    rev_c, rev_p = pair("revenue")
+    rec_c, rec_p = pair("receivables")
+    ca_c, ca_p = pair("current_assets")
+    ppe_c, ppe_p = pair("ppe_net")
+    sec_c, sec_p = pair("lt_investments")
+    ta_c, ta_p = pair("assets")
+    dep_c, dep_p = pair("depreciation")
+    sga_c, sga_p = pair("sga")
+    cl_c, cl_p = pair("current_liabilities")
+    ltd_c, ltd_p = pair("long_term_debt")
+    ni_c = val(cur, "net_income")
+    ocf_c = val(cur, "operating_cash_flow")
+
+    def gross_profit(period):
+        gp = val(period, "gross_profit")
+        if gp is not None:
+            return gp
+        rev, cogs = val(period, "revenue"), val(period, "cogs")
+        return None if rev is None or cogs is None else rev - cogs
+
+    gp_c, gp_p = gross_profit(cur), gross_profit(prev)
+
+    idx = {}
+    # Receivables growing faster than sales.
+    idx["DSRI"] = div(div(rec_c, rev_c), div(rec_p, rev_p))
+    # Gross margin deteriorating -- a motive to manipulate, in Beneish's framing.
+    idx["GMI"] = div(div(gp_p, rev_p), div(gp_c, rev_c))
+    # Soft assets: whatever is neither current, PP&E, nor securities. Securities
+    # are treated as zero where the filer tags none, which is what "no long-term
+    # investments on the balance sheet" means.
+    aqi_c = None if None in (ca_c, ppe_c, ta_c) else 1 - (ca_c + ppe_c + (sec_c or 0)) / ta_c
+    aqi_p = None if None in (ca_p, ppe_p, ta_p) else 1 - (ca_p + ppe_p + (sec_p or 0)) / ta_p
+    idx["AQI"] = div(aqi_c, aqi_p)
+    idx["SGI"] = div(rev_c, rev_p)
+    # Depreciating more slowly, which flatters earnings.
+    dep_rate_c = div(dep_c, (dep_c + ppe_c) if None not in (dep_c, ppe_c) else None)
+    dep_rate_p = div(dep_p, (dep_p + ppe_p) if None not in (dep_p, ppe_p) else None)
+    idx["DEPI"] = div(dep_rate_p, dep_rate_c)
+    idx["SGAI"] = div(div(sga_c, rev_c), div(sga_p, rev_p))
+    lvg_c = None if None in (cl_c, ta_c) else (cl_c + (ltd_c or 0)) / ta_c
+    lvg_p = None if None in (cl_p, ta_p) else (cl_p + (ltd_p or 0)) / ta_p
+    idx["LVGI"] = div(lvg_c, lvg_p)
+    # Accruals: earnings not backed by operating cash.
+    idx["TATA"] = div(None if None in (ni_c, ocf_c) else ni_c - ocf_c, ta_c)
+
+    missing = sorted(k for k, v in idx.items() if v is None)
+    rounded = {k: rnd(v, 4) for k, v in idx.items()}
+    source = {"depreciation_tag": tag(cur, "depreciation"),
+              "ppe_tag": tag(cur, "ppe_net"),
+              "gross_profit_basis": "GrossProfit 標籤" if val(cur, "gross_profit") is not None
+                                    else "營收 − 銷貨成本"}
+    if missing:
+        return {"m_score": None, "indices": rounded, "unavailable": missing,
+                "sources": source,
+                "reason": "缺 {} 無法計算，未以 1.0 代入".format("、".join(missing))}
+
+    m = (-4.84 + 0.920 * idx["DSRI"] + 0.528 * idx["GMI"] + 0.404 * idx["AQI"]
+         + 0.892 * idx["SGI"] + 0.115 * idx["DEPI"] - 0.172 * idx["SGAI"]
+         + 4.679 * idx["TATA"] - 0.327 * idx["LVGI"])
+    # SGI enters with the second-largest positive weight, so a company whose
+    # revenue merely doubled is pushed most of the way to the threshold on
+    # growth alone. This is the model's best-known false positive: it was fitted
+    # on manipulators, and rapid honest growth resembles them on these axes.
+    growth_caveat = None
+    if idx["SGI"] > 1.5:
+        growth_caveat = ("營收年增 {:.0%}（SGI={:.2f}）。SGI 在模型中權重高，高速成長"
+                         "本身就會把分數推向門檻，這是本模型已知的偽陽性來源"
+                         .format(idx["SGI"] - 1, idx["SGI"]))
+
+    return {
+        "m_score": round(m, 3),
+        "threshold": -1.78,
+        "flagged": m > -1.78,
+        "indices": rounded,
+        "unavailable": [],
+        "sources": source,
+        "growth_caveat": growth_caveat,
+        "interpretation": "高於 -1.78，會計型態符合模型的操縱樣本特徵，需人工查證"
+                          if m > -1.78 else "低於 -1.78，未觸發模型門檻",
+    }
+
+
+def coverage(liq, sol, prof, cfq, z2, fscore, mscore):
     """How much of the scorecard could actually be computed.
 
     Without this, a company whose inputs are half missing looks identical to a
@@ -430,6 +615,7 @@ def coverage(liq, sol, prof, cfq, z2, fscore):
         "應計比率": cfq["accrual_ratio"],
         "Altman Z''": z2.get("z2_score"),
         "F-Score": fscore["normalised_9"],
+        "Beneish M-Score": mscore.get("m_score"),
     }
     missing = [k for k, v in checks.items() if v is None]
     return {
@@ -457,10 +643,12 @@ def main():
     assumptions = json.loads(ASSUMPTIONS_PATH.read_text())["companies"]
 
     tickers = args.tickers or sorted(fin["companies"])
+    today = date.today()
     results = {}
 
-    header = ("{:6s}{:>7s}{:>8s}{:>8s}{:>9s}{:>9s}{:>8s}{:>8s}{:>7s}  {}".format(
-        "ticker", "流動比", "負債率", "利息x", "ROIC", "價差", "應計率", "Z''", "F(9)", "警示"))
+    header = ("{:6s}{:>7s}{:>8s}{:>8s}{:>9s}{:>9s}{:>8s}{:>8s}{:>7s}{:>8s}  {}".format(
+        "ticker", "流動比", "負債率", "利息x", "ROIC", "價差", "應計率", "Z''", "F(9)",
+        "M-Score", "警示"))
     print(header)
     print("-" * (len(header) + 8))
 
@@ -479,8 +667,10 @@ def main():
         cfq = cash_flow_quality(cur, prev)
         z2 = altman_z2(cur)
         fscore = piotroski_normalised(fundamentals.get(ticker))
-        flags = raise_flags(liq, sol, prof, cfq, z2)
-        cov = coverage(liq, sol, prof, cfq, z2, fscore)
+        mscore = beneish_m(cur, prev)
+        fresh = freshness(cur, today)
+        flags = raise_flags(liq, sol, prof, cfq, z2, mscore, fresh)
+        cov = coverage(liq, sol, prof, cfq, z2, fscore, mscore)
 
         results[ticker] = {
             "entity_name": company["entity_name"],
@@ -496,7 +686,9 @@ def main():
             "profitability": prof,
             "cash_flow_quality": cfq,
             "altman_z2": z2,
+            "beneish_m": mscore,
             "piotroski": fscore,
+            "freshness": fresh,
             "flags": flags,
             "flag_count": len(flags),
             "coverage": cov,
@@ -505,7 +697,7 @@ def main():
         def cell(x, fmt, scale=1):
             return "n/a" if x is None else fmt.format(x * scale)
 
-        print("{:6s}{:>7s}{:>8s}{:>8s}{:>9s}{:>9s}{:>8s}{:>8s}{:>7s}  {}".format(
+        print("{:6s}{:>7s}{:>8s}{:>8s}{:>9s}{:>9s}{:>8s}{:>8s}{:>7s}{:>8s}  {}".format(
             ticker,
             cell(liq["current_ratio"], "{:.2f}"),
             cell(sol["liabilities_to_assets"], "{:.0f}%", 100),
@@ -515,6 +707,7 @@ def main():
             cell(cfq["accrual_ratio"], "{:+.1f}%", 100),
             cell(z2.get("z2_score"), "{:.2f}"),
             cell(fscore["normalised_9"], "{:.1f}"),
+            cell(mscore.get("m_score"), "{:.2f}"),
             "⚠️ {}".format(len(flags)) if flags
             else ("—" if cov["sufficient"] else "資料不足 {}/{}".format(
                 cov["computed"], cov["total"]))))

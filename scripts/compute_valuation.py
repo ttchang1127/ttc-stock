@@ -24,6 +24,12 @@ import random
 from datetime import datetime, timezone
 from pathlib import Path
 
+# Net cash here and net debt in the health scorecard must be the same number.
+# They were not: this file summed only long_term_debt and debt_current, which
+# for TSMC picks up $2.8bn of borrowings and misses $28.3bn of bonds, so its
+# "net cash" was overstated by that much and fed straight into the DCF.
+from compute_financial_health import total_debt
+
 REPO_ROOT = Path(__file__).resolve().parent.parent
 FUNDAMENTALS_PATH = REPO_ROOT / "fundamentals.json"
 FINANCIALS_PATH = REPO_ROOT / "financials.json"
@@ -57,10 +63,9 @@ def multiples(fund, period):
 
     cash = val(period, "cash") or 0
     sti = val(period, "short_term_investments") or 0
-    debt_nc = val(period, "long_term_debt") or 0
-    debt_c = val(period, "debt_current") or 0
+    debt, debt_note, _ = total_debt(period)
     has_cash = val(period, "cash") is not None
-    net_cash = (cash + sti - debt_nc - debt_c) if has_cash else None
+    net_cash = (cash + sti - (debt or 0)) if has_cash else None
 
     buybacks = val(period, "buybacks")
     dividends = val(period, "dividends_paid")
@@ -77,7 +82,8 @@ def multiples(fund, period):
         "pe_ratio": None if pe is None else round(pe, 1),
         "pe_note": None if eps is None or eps > 0 else "EPS 為負，本益比無意義",
         "cash_and_st_investments": (cash + sti) if has_cash else None,
-        "total_debt": debt_nc + debt_c,
+        "total_debt": debt,
+        "total_debt_note": debt_note,
         "net_cash": net_cash,
         "buybacks": buybacks, "dividends_paid": dividends,
         "buyback_yield": None if by is None else round(by, 5),

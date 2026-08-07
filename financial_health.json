@@ -1,6 +1,6 @@
 {
- "generated_at": "2026-08-07T13:38:34+00:00",
- "financials_generated_at": "2026-08-01T09:41:02+00:00",
+ "generated_at": "2026-08-07T13:48:31+00:00",
+ "financials_generated_at": "2026-08-07T13:47:33+00:00",
  "source": "Derived from SEC XBRL Company Facts; WACC from dcf_assumptions.json",
  "thresholds": {
   "current_ratio_min": 1.0,
@@ -29,19 +29,25 @@
     "quick_ratio_reason": "未擷取存貨科目 (InventoryNet)，速動比率無法計算"
    },
    "solvency": {
-    "total_debt": 90678000000,
+    "total_debt": 91908000000,
     "total_debt_note": null,
+    "debt_components": {
+     "長期借款": 78328000000,
+     "一年內到期借款": 12350000000,
+     "長期融資租賃": 692000000,
+     "一年內到期融資租賃": 538000000
+    },
     "total_liabilities": 285508000000,
     "liabilities_basis": "tag",
     "liabilities_note": null,
-    "net_debt": 35981000000,
-    "debt_to_equity": 1.23,
+    "net_debt": 37211000000,
+    "debt_to_equity": 1.246,
     "liabilities_to_assets": 0.7948,
     "equity_to_assets": 0.2052,
     "interest_coverage": null,
     "interest_coverage_note": "未取得利息費用標籤，無法計算利息保障倍數",
     "interest_expense_tag": null,
-    "net_debt_to_ebit": 0.27,
+    "net_debt_to_ebit": 0.28,
     "net_debt_to_ebit_note": "以 EBIT 為分母（未擷取折舊攤銷，無法計算 EBITDA）"
    },
    "profitability": {
@@ -55,7 +61,7 @@
     "nopat": 112280891893,
     "invested_capital": 151263000000,
     "invested_capital_basis": "營運側：總資產 − 流動負債 + 一年內到期負債 − 現金與短期投資",
-    "invested_capital_financing_side": 109714000000,
+    "invested_capital_financing_side": 110944000000,
     "roic": 0.7423,
     "roic_note": null,
     "wacc": 0.0913,
@@ -90,12 +96,43 @@
     "liabilities_basis": "tag",
     "liabilities_note": null
    },
+   "beneish_m": {
+    "m_score": -2.229,
+    "threshold": -1.78,
+    "flagged": false,
+    "indices": {
+     "DSRI": 1.1187,
+     "GMI": 0.9851,
+     "AQI": 1.1367,
+     "SGI": 1.0643,
+     "DEPI": 1.1002,
+     "SGAI": 0.9938,
+     "LVGI": 0.9455,
+     "TATA": 0.0015
+    },
+    "unavailable": [],
+    "sources": {
+     "depreciation_tag": "Depreciation",
+     "ppe_tag": "PropertyPlantAndEquipmentNet",
+     "gross_profit_basis": "GrossProfit 標籤"
+    },
+    "growth_caveat": null,
+    "interpretation": "低於 -1.78，未觸發模型門檻"
+   },
    "piotroski": {
     "score": 8,
     "max_evaluated": 9,
     "unavailable": [],
     "normalised_9": 8.0,
     "comparable": true,
+    "note": null
+   },
+   "freshness": {
+    "fiscal_year_end": "2025-09-27",
+    "as_of": "2026-08-07",
+    "months_old": 11,
+    "stale": false,
+    "threshold_months": 15,
     "note": null
    },
    "flags": [
@@ -117,8 +154,8 @@
    ],
    "flag_count": 3,
    "coverage": {
-    "computed": 9,
-    "total": 10,
+    "computed": 10,
+    "total": 11,
     "unavailable": [
      "利息保障倍數"
     ],
@@ -144,19 +181,25 @@
     "quick_ratio_reason": "未擷取存貨科目 (InventoryNet)，速動比率無法計算"
    },
    "solvency": {
-    "total_debt": 68396000000,
+    "total_debt": 80682000000,
     "total_debt_note": null,
+    "debt_components": {
+     "長期借款": 65648000000,
+     "一年內到期借款": 2748000000,
+     "長期融資租賃": 10742000000,
+     "一年內到期融資租賃": 1544000000
+    },
     "total_liabilities": 406977000000,
     "liabilities_basis": "assets_minus_equity",
     "liabilities_note": "filer 未標記 Liabilities，改以 Assets − Equity 推導；若存在非控制權益會被計入負債側，數值略為高估",
-    "net_debt": -54633000000,
-    "debt_to_equity": 0.166,
+    "net_debt": -42347000000,
+    "debt_to_equity": 0.196,
     "liabilities_to_assets": 0.4975,
     "equity_to_assets": 0.5025,
     "interest_coverage": 35.2,
     "interest_coverage_note": null,
     "interest_expense_tag": "InterestExpenseNonoperating",
-    "net_debt_to_ebit": -0.68,
+    "net_debt_to_ebit": -0.53,
     "net_debt_to_ebit_note": "以 EBIT 為分母（未擷取折舊攤銷，無法計算 EBITDA）"
    },
    "profitability": {
@@ -170,7 +213,7 @@
     "nopat": 64288357945,
     "invested_capital": 479756000000,
     "invested_capital_basis": "營運側：總資產 − 流動負債 + 一年內到期負債 − 現金與短期投資",
-    "invested_capital_financing_side": 356432000000,
+    "invested_capital_financing_side": 368718000000,
     "roic": 0.134,
     "roic_note": null,
     "wacc": 0.085,
@@ -205,21 +248,50 @@
     "liabilities_basis": "assets_minus_equity",
     "liabilities_note": "filer 未標記 Liabilities，改以 Assets − Equity 推導；若存在非控制權益會被計入負債側，數值略為高估"
    },
+   "beneish_m": {
+    "m_score": -2.616,
+    "threshold": -1.78,
+    "flagged": false,
+    "indices": {
+     "DSRI": 1.0869,
+     "GMI": 0.9715,
+     "AQI": 0.9769,
+     "SGI": 1.1238,
+     "DEPI": 1.0732,
+     "SGAI": 0.8752,
+     "LVGI": 0.9337,
+     "TATA": -0.0756
+    },
+    "unavailable": [],
+    "sources": {
+     "depreciation_tag": "Depreciation",
+     "ppe_tag": "PropertyPlantAndEquipmentNet",
+     "gross_profit_basis": "營收 − 銷貨成本"
+    },
+    "growth_caveat": null,
+    "interpretation": "低於 -1.78，未觸發模型門檻"
+   },
    "piotroski": {
-    "score": 5,
-    "max_evaluated": 8,
-    "unavailable": [
-     "8_gross_margin_up"
-    ],
-    "normalised_9": 5.6,
-    "comparable": false,
-    "note": "1 項因資料不足未納入評分，原始分數與 9 項全評的公司不可直接比較"
+    "score": 6,
+    "max_evaluated": 9,
+    "unavailable": [],
+    "normalised_9": 6.0,
+    "comparable": true,
+    "note": null
+   },
+   "freshness": {
+    "fiscal_year_end": "2025-12-31",
+    "as_of": "2026-08-07",
+    "months_old": 8,
+    "stale": false,
+    "threshold_months": 15,
+    "note": null
    },
    "flags": [],
    "flag_count": 0,
    "coverage": {
-    "computed": 10,
-    "total": 10,
+    "computed": 11,
+    "total": 11,
     "unavailable": [],
     "sufficient": true,
     "note": null
@@ -243,19 +315,23 @@
     "quick_ratio_reason": "未擷取存貨科目 (InventoryNet)，速動比率無法計算"
    },
    "solvency": {
-    "total_debt": null,
-    "total_debt_note": "未取得 LongTermDebt / DebtCurrent 標籤，無法計算有息負債",
+    "total_debt": 59000000,
+    "total_debt_note": null,
+    "debt_components": {
+     "長期融資租賃": 34000000,
+     "一年內到期融資租賃": 25000000
+    },
     "total_liabilities": 2417000000,
     "liabilities_basis": "tag",
     "liabilities_note": null,
-    "net_debt": null,
-    "debt_to_equity": null,
+    "net_debt": -3542000000,
+    "debt_to_equity": 0.007,
     "liabilities_to_assets": 0.2258,
     "equity_to_assets": 0.7742,
     "interest_coverage": null,
     "interest_coverage_note": "未取得利息費用標籤，無法計算利息保障倍數",
     "interest_expense_tag": null,
-    "net_debt_to_ebit": null,
+    "net_debt_to_ebit": -3.94,
     "net_debt_to_ebit_note": "以 EBIT 為分母（未擷取折舊攤銷，無法計算 EBITDA）"
    },
    "profitability": {
@@ -269,7 +345,7 @@
     "nopat": 703197926,
     "invested_capital": 6062000000,
     "invested_capital_basis": "營運側：總資產 − 流動負債 + 一年內到期負債 − 現金與短期投資",
-    "invested_capital_financing_side": null,
+    "invested_capital_financing_side": 4744000000,
     "roic": 0.116,
     "roic_note": "缺一年內到期負債標籤，短期有息負債未加回投入資本，分母略為低估、ROIC 絕對值略為放大",
     "wacc": 0.1773,
@@ -304,6 +380,29 @@
     "liabilities_basis": "tag",
     "liabilities_note": null
    },
+   "beneish_m": {
+    "m_score": -2.565,
+    "threshold": -1.78,
+    "flagged": false,
+    "indices": {
+     "DSRI": 0.9564,
+     "GMI": 0.9943,
+     "AQI": 0.8673,
+     "SGI": 1.2279,
+     "DEPI": 1.39,
+     "SGAI": 0.9229,
+     "LVGI": 0.9342,
+     "TATA": -0.0579
+    },
+    "unavailable": [],
+    "sources": {
+     "depreciation_tag": "Depreciation",
+     "ppe_tag": "PropertyPlantAndEquipmentNet",
+     "gross_profit_basis": "GrossProfit 標籤"
+    },
+    "growth_caveat": null,
+    "interpretation": "低於 -1.78，未觸發模型門檻"
+   },
    "piotroski": {
     "score": 6,
     "max_evaluated": 8,
@@ -314,6 +413,14 @@
     "comparable": false,
     "note": "1 項因資料不足未納入評分，原始分數與 9 項全評的公司不可直接比較"
    },
+   "freshness": {
+    "fiscal_year_end": "2026-03-31",
+    "as_of": "2026-08-07",
+    "months_old": 5,
+    "stale": false,
+    "threshold_months": 15,
+    "note": null
+   },
    "flags": [
     {
      "dimension": "資本效率",
@@ -323,11 +430,10 @@
    ],
    "flag_count": 1,
    "coverage": {
-    "computed": 8,
-    "total": 10,
+    "computed": 10,
+    "total": 11,
     "unavailable": [
-     "利息保障倍數",
-     "有息負債/淨值"
+     "利息保障倍數"
     ],
     "sufficient": true,
     "note": null
@@ -353,6 +459,10 @@
    "solvency": {
     "total_debt": 3686921000,
     "total_debt_note": null,
+    "debt_components": {
+     "長期借款": 3498615000,
+     "一年內到期借款": 188306000
+    },
     "total_liabilities": 6429653000,
     "liabilities_basis": "tag",
     "liabilities_note": null,
@@ -402,21 +512,50 @@
     ],
     "formula": "6.56*X1 + 3.26*X2 + 6.72*X3 + 1.05*X4"
    },
+   "beneish_m": {
+    "m_score": -2.552,
+    "threshold": -1.78,
+    "flagged": false,
+    "indices": {
+     "DSRI": 0.9206,
+     "GMI": 0.8794,
+     "AQI": 0.9819,
+     "SGI": 1.2342,
+     "DEPI": 1.1034,
+     "SGAI": 0.879,
+     "LVGI": 0.9578,
+     "TATA": -0.0392
+    },
+    "unavailable": [],
+    "sources": {
+     "depreciation_tag": "Depreciation",
+     "ppe_tag": "PropertyPlantAndEquipmentAndFinanceLeaseRightOfUseAssetAfterAccumulatedDepreciationAndAmortization",
+     "gross_profit_basis": "營收 − 銷貨成本"
+    },
+    "growth_caveat": null,
+    "interpretation": "低於 -1.78，未觸發模型門檻"
+   },
    "piotroski": {
-    "score": 6,
-    "max_evaluated": 8,
-    "unavailable": [
-     "8_gross_margin_up"
-    ],
-    "normalised_9": 6.8,
-    "comparable": false,
-    "note": "1 項因資料不足未納入評分，原始分數與 9 項全評的公司不可直接比較"
+    "score": 7,
+    "max_evaluated": 9,
+    "unavailable": [],
+    "normalised_9": 7.0,
+    "comparable": true,
+    "note": null
+   },
+   "freshness": {
+    "fiscal_year_end": "2025-06-30",
+    "as_of": "2026-08-07",
+    "months_old": 14,
+    "stale": false,
+    "threshold_months": 15,
+    "note": null
    },
    "flags": [],
    "flag_count": 0,
    "coverage": {
-    "computed": 6,
-    "total": 10,
+    "computed": 7,
+    "total": 11,
     "unavailable": [
      "利息保障倍數",
      "ROIC",
@@ -424,7 +563,7 @@
      "Altman Z''"
     ],
     "sufficient": false,
-    "note": "4 / 10 項指標因缺少 XBRL 標籤無法計算，未觸發警示不等於財務健全"
+    "note": "4 / 11 項指標因缺少 XBRL 標籤無法計算，未觸發警示不等於財務健全"
    }
   },
   "GOOGL": {
@@ -445,19 +584,25 @@
     "quick_ratio_reason": "未擷取存貨科目 (InventoryNet)，速動比率無法計算"
    },
    "solvency": {
-    "total_debt": 48543000000,
+    "total_debt": 51043000000,
     "total_debt_note": null,
+    "debt_components": {
+     "長期借款": 46547000000,
+     "一年內到期借款": 1996000000,
+     "長期融資租賃": 2059000000,
+     "一年內到期融資租賃": 441000000
+    },
     "total_liabilities": 180016000000,
     "liabilities_basis": "tag",
     "liabilities_note": null,
-    "net_debt": -78300000000,
-    "debt_to_equity": 0.117,
+    "net_debt": -75800000000,
+    "debt_to_equity": 0.123,
     "liabilities_to_assets": 0.3024,
     "equity_to_assets": 0.6976,
     "interest_coverage": 175.3,
     "interest_coverage_note": null,
     "interest_expense_tag": "InterestExpenseNonoperating",
-    "net_debt_to_ebit": -0.61,
+    "net_debt_to_ebit": -0.59,
     "net_debt_to_ebit_note": "以 EBIT 為分母（未擷取折舊攤銷，無法計算 EBITDA）"
    },
    "profitability": {
@@ -471,7 +616,7 @@
     "nopat": 107382195799,
     "invested_capital": 367689000000,
     "invested_capital_basis": "營運側：總資產 − 流動負債 + 一年內到期負債 − 現金與短期投資",
-    "invested_capital_financing_side": 336965000000,
+    "invested_capital_financing_side": 339465000000,
     "roic": 0.292,
     "roic_note": null,
     "wacc": 0.085,
@@ -506,21 +651,50 @@
     "liabilities_basis": "tag",
     "liabilities_note": null
    },
+   "beneish_m": {
+    "m_score": -2.691,
+    "threshold": -1.78,
+    "flagged": false,
+    "indices": {
+     "DSRI": 1.044,
+     "GMI": 0.9757,
+     "AQI": 0.9362,
+     "SGI": 1.1509,
+     "DEPI": 1.0408,
+     "SGAI": 1.3156,
+     "LVGI": 1.1292,
+     "TATA": -0.0547
+    },
+    "unavailable": [],
+    "sources": {
+     "depreciation_tag": "Depreciation",
+     "ppe_tag": "PropertyPlantAndEquipmentAndFinanceLeaseRightOfUseAssetAfterAccumulatedDepreciationAndAmortization",
+     "gross_profit_basis": "營收 − 銷貨成本"
+    },
+    "growth_caveat": null,
+    "interpretation": "低於 -1.78，未觸發模型門檻"
+   },
    "piotroski": {
-    "score": 5,
-    "max_evaluated": 8,
-    "unavailable": [
-     "8_gross_margin_up"
-    ],
-    "normalised_9": 5.6,
-    "comparable": false,
-    "note": "1 項因資料不足未納入評分，原始分數與 9 項全評的公司不可直接比較"
+    "score": 6,
+    "max_evaluated": 9,
+    "unavailable": [],
+    "normalised_9": 6.0,
+    "comparable": true,
+    "note": null
+   },
+   "freshness": {
+    "fiscal_year_end": "2025-12-31",
+    "as_of": "2026-08-07",
+    "months_old": 8,
+    "stale": false,
+    "threshold_months": 15,
+    "note": null
    },
    "flags": [],
    "flag_count": 0,
    "coverage": {
-    "computed": 10,
-    "total": 10,
+    "computed": 11,
+    "total": 11,
     "unavailable": [],
     "sufficient": true,
     "note": null
@@ -546,6 +720,10 @@
    "solvency": {
     "total_debt": 46585000000,
     "total_debt_note": null,
+    "debt_components": {
+     "長期借款": 44086000000,
+     "一年內到期借款": 2499000000
+    },
     "total_liabilities": 97148000000,
     "liabilities_basis": "assets_minus_equity",
     "liabilities_note": "filer 未標記 Liabilities，改以 Assets − Equity 推導；若存在非控制權益會被計入負債側，數值略為高估",
@@ -605,12 +783,43 @@
     "liabilities_basis": "assets_minus_equity",
     "liabilities_note": "filer 未標記 Liabilities，改以 Assets − Equity 推導；若存在非控制權益會被計入負債側，數值略為高估"
    },
+   "beneish_m": {
+    "m_score": -2.592,
+    "threshold": -1.78,
+    "flagged": false,
+    "indices": {
+     "DSRI": 1.109,
+     "GMI": 0.9395,
+     "AQI": 0.9538,
+     "SGI": 0.9953,
+     "DEPI": 0.9117,
+     "SGAI": 0.8436,
+     "LVGI": 0.858,
+     "TATA": -0.0471
+    },
+    "unavailable": [],
+    "sources": {
+     "depreciation_tag": "Depreciation",
+     "ppe_tag": "PropertyPlantAndEquipmentAndFinanceLeaseRightOfUseAssetAfterAccumulatedDepreciationAndAmortization",
+     "gross_profit_basis": "GrossProfit 標籤"
+    },
+    "growth_caveat": null,
+    "interpretation": "低於 -1.78，未觸發模型門檻"
+   },
    "piotroski": {
     "score": 6,
     "max_evaluated": 9,
     "unavailable": [],
     "normalised_9": 6.0,
     "comparable": true,
+    "note": null
+   },
+   "freshness": {
+    "fiscal_year_end": "2025-12-27",
+    "as_of": "2026-08-07",
+    "months_old": 8,
+    "stale": false,
+    "threshold_months": 15,
     "note": null
    },
    "flags": [
@@ -632,8 +841,8 @@
    ],
    "flag_count": 3,
    "coverage": {
-    "computed": 10,
-    "total": 10,
+    "computed": 11,
+    "total": 11,
     "unavailable": [],
     "sufficient": true,
     "note": null
@@ -657,19 +866,24 @@
     "quick_ratio_reason": "未擷取存貨科目 (InventoryNet)，速動比率無法計算"
    },
    "solvency": {
-    "total_debt": 58744000000,
-    "total_debt_note": "缺 一年內到期負債 標籤，有息負債僅為部分加總",
+    "total_debt": 59928000000,
+    "total_debt_note": null,
+    "debt_components": {
+     "長期借款": 58744000000,
+     "長期融資租賃": 876000000,
+     "一年內到期融資租賃": 308000000
+    },
     "total_liabilities": 148778000000,
     "liabilities_basis": "tag",
     "liabilities_note": null,
-    "net_debt": -22848000000,
-    "debt_to_equity": 0.27,
+    "net_debt": -21664000000,
+    "debt_to_equity": 0.276,
     "liabilities_to_assets": 0.4065,
     "equity_to_assets": 0.5935,
     "interest_coverage": 76.4,
     "interest_coverage_note": null,
     "interest_expense_tag": "InterestExpenseDebt",
-    "net_debt_to_ebit": -0.27,
+    "net_debt_to_ebit": -0.26,
     "net_debt_to_ebit_note": "以 EBIT 為分母（未擷取折舊攤銷，無法計算 EBITDA）"
    },
    "profitability": {
@@ -683,7 +897,7 @@
     "nopat": 58589354466,
     "invested_capital": 242593000000,
     "invested_capital_basis": "營運側：總資產 − 流動負債 + 一年內到期負債 − 現金與短期投資",
-    "invested_capital_financing_side": 194395000000,
+    "invested_capital_financing_side": 195579000000,
     "roic": 0.2415,
     "roic_note": "缺一年內到期負債標籤，短期有息負債未加回投入資本，分母略為低估、ROIC 絕對值略為放大",
     "wacc": 0.085,
@@ -718,21 +932,50 @@
     "liabilities_basis": "tag",
     "liabilities_note": null
    },
+   "beneish_m": {
+    "m_score": -3.039,
+    "threshold": -1.78,
+    "flagged": false,
+    "indices": {
+     "DSRI": 0.9522,
+     "GMI": 0.9959,
+     "AQI": 1.1162,
+     "SGI": 1.2217,
+     "DEPI": 1.2086,
+     "SGAI": 1.0213,
+     "LVGI": 1.2152,
+     "TATA": -0.1512
+    },
+    "unavailable": [],
+    "sources": {
+     "depreciation_tag": "Depreciation",
+     "ppe_tag": "PropertyPlantAndEquipmentAndFinanceLeaseRightOfUseAssetAfterAccumulatedDepreciationAndAmortization",
+     "gross_profit_basis": "營收 − 銷貨成本"
+    },
+    "growth_caveat": null,
+    "interpretation": "低於 -1.78，未觸發模型門檻"
+   },
    "piotroski": {
-    "score": 4,
-    "max_evaluated": 8,
-    "unavailable": [
-     "8_gross_margin_up"
-    ],
-    "normalised_9": 4.5,
-    "comparable": false,
-    "note": "1 項因資料不足未納入評分，原始分數與 9 項全評的公司不可直接比較"
+    "score": 5,
+    "max_evaluated": 9,
+    "unavailable": [],
+    "normalised_9": 5.0,
+    "comparable": true,
+    "note": null
+   },
+   "freshness": {
+    "fiscal_year_end": "2025-12-31",
+    "as_of": "2026-08-07",
+    "months_old": 8,
+    "stale": false,
+    "threshold_months": 15,
+    "note": null
    },
    "flags": [],
    "flag_count": 0,
    "coverage": {
-    "computed": 10,
-    "total": 10,
+    "computed": 11,
+    "total": 11,
     "unavailable": [],
     "sufficient": true,
     "note": null
@@ -757,7 +1000,10 @@
    },
    "solvency": {
     "total_debt": 3970800000,
-    "total_debt_note": "缺 一年內到期負債 標籤，有息負債僅為部分加總",
+    "total_debt_note": null,
+    "debt_components": {
+     "長期借款": 3970800000
+    },
     "total_liabilities": 7976900000,
     "liabilities_basis": "tag",
     "liabilities_note": null,
@@ -817,6 +1063,29 @@
     "liabilities_basis": "tag",
     "liabilities_note": null
    },
+   "beneish_m": {
+    "m_score": -1.605,
+    "threshold": -1.78,
+    "flagged": true,
+    "indices": {
+     "DSRI": 1.4964,
+     "GMI": 0.8096,
+     "AQI": 0.8285,
+     "SGI": 1.4209,
+     "DEPI": 0.9545,
+     "SGAI": 0.6764,
+     "LVGI": 1.0937,
+     "TATA": 0.0413
+    },
+    "unavailable": [],
+    "sources": {
+     "depreciation_tag": "Depreciation",
+     "ppe_tag": "PropertyPlantAndEquipmentNet",
+     "gross_profit_basis": "GrossProfit 標籤"
+    },
+    "growth_caveat": null,
+    "interpretation": "高於 -1.78，會計型態符合模型的操縱樣本特徵，需人工查證"
+   },
    "piotroski": {
     "score": 7,
     "max_evaluated": 9,
@@ -825,17 +1094,30 @@
     "comparable": true,
     "note": null
    },
+   "freshness": {
+    "fiscal_year_end": "2026-01-31",
+    "as_of": "2026-08-07",
+    "months_old": 7,
+    "stale": false,
+    "threshold_months": 15,
+    "note": null
+   },
    "flags": [
     {
      "dimension": "資本效率",
      "severity": "warn",
      "detail": "ROIC 7.1% 低於 WACC 14.25%，價差 -7.2pp，投入資本未賺回其成本"
+    },
+    {
+     "dimension": "盈餘品質",
+     "severity": "warn",
+     "detail": "Beneish M-Score -1.60 高於 -1.78，會計型態符合模型的操縱樣本特徵，需人工查證"
     }
    ],
-   "flag_count": 1,
+   "flag_count": 2,
    "coverage": {
-    "computed": 10,
-    "total": 10,
+    "computed": 11,
+    "total": 11,
     "unavailable": [],
     "sufficient": true,
     "note": null
@@ -861,6 +1143,10 @@
    "solvency": {
     "total_debt": 40294000000,
     "total_debt_note": null,
+    "debt_components": {
+     "長期借款": 31067000000,
+     "一年內到期借款": 9227000000
+    },
     "total_liabilities": 315989000000,
     "liabilities_basis": "tag",
     "liabilities_note": null,
@@ -920,6 +1206,29 @@
     "liabilities_basis": "tag",
     "liabilities_note": null
    },
+   "beneish_m": {
+    "m_score": -2.677,
+    "threshold": -1.78,
+    "flagged": false,
+    "indices": {
+     "DSRI": 0.9822,
+     "GMI": 1.0129,
+     "AQI": 0.7916,
+     "SGI": 1.1779,
+     "DEPI": 0.9817,
+     "SGAI": 0.9351,
+     "LVGI": 0.8996,
+     "TATA": -0.0649
+    },
+    "unavailable": [],
+    "sources": {
+     "depreciation_tag": "Depreciation",
+     "ppe_tag": "PropertyPlantAndEquipmentNet",
+     "gross_profit_basis": "GrossProfit 標籤"
+    },
+    "growth_caveat": null,
+    "interpretation": "低於 -1.78，未觸發模型門檻"
+   },
    "piotroski": {
     "score": 6,
     "max_evaluated": 9,
@@ -928,11 +1237,19 @@
     "comparable": true,
     "note": null
    },
+   "freshness": {
+    "fiscal_year_end": "2026-06-30",
+    "as_of": "2026-08-07",
+    "months_old": 2,
+    "stale": false,
+    "threshold_months": 15,
+    "note": null
+   },
    "flags": [],
    "flag_count": 0,
    "coverage": {
-    "computed": 10,
-    "total": 10,
+    "computed": 11,
+    "total": 11,
     "unavailable": [],
     "sufficient": true,
     "note": null
@@ -956,19 +1273,25 @@
     "quick_ratio_reason": "未擷取存貨科目 (InventoryNet)，速動比率無法計算"
    },
    "solvency": {
-    "total_debt": null,
-    "total_debt_note": "未取得 LongTermDebt / DebtCurrent 標籤，無法計算有息負債",
+    "total_debt": 4413000000,
+    "total_debt_note": null,
+    "debt_components": {
+     "長期借款": 2329000000,
+     "一年內到期借款": 1084000000,
+     "長期融資租賃": 797000000,
+     "一年內到期融資租賃": 203000000
+    },
     "total_liabilities": 16539000000,
     "liabilities_basis": "tag",
     "liabilities_note": null,
-    "net_debt": null,
-    "debt_to_equity": null,
+    "net_debt": -1049000000,
+    "debt_to_equity": 0.21,
     "liabilities_to_assets": 0.4399,
     "equity_to_assets": 0.5601,
     "interest_coverage": 3.6,
     "interest_coverage_note": null,
     "interest_expense_tag": "FinanceCosts",
-    "net_debt_to_ebit": null,
+    "net_debt_to_ebit": -1.19,
     "net_debt_to_ebit_note": "以 EBIT 為分母（未擷取折舊攤銷，無法計算 EBITDA）"
    },
    "profitability": {
@@ -980,14 +1303,14 @@
     "effective_tax_rate": 0.3027,
     "effective_tax_rate_note": null,
     "nopat": 617081967,
-    "invested_capital": 22131000000,
+    "invested_capital": 23215000000,
     "invested_capital_basis": "營運側：總資產 − 流動負債 + 一年內到期負債 − 現金與短期投資",
-    "invested_capital_financing_side": null,
-    "roic": 0.0279,
-    "roic_note": "缺一年內到期負債標籤，短期有息負債未加回投入資本，分母略為低估、ROIC 絕對值略為放大",
+    "invested_capital_financing_side": 20009000000,
+    "roic": 0.0266,
+    "roic_note": null,
     "wacc": 0.0697,
     "wacc_source": "dcf_assumptions.json",
-    "roic_minus_wacc": -0.0418,
+    "roic_minus_wacc": -0.0431,
     "value_creation": "毀滅價值"
    },
    "cash_flow_quality": {
@@ -1017,30 +1340,59 @@
     "liabilities_basis": "tag",
     "liabilities_note": null
    },
+   "beneish_m": {
+    "m_score": -2.614,
+    "threshold": -1.78,
+    "flagged": false,
+    "indices": {
+     "DSRI": 0.9161,
+     "GMI": 1.0593,
+     "AQI": 1.0718,
+     "SGI": 1.0348,
+     "DEPI": 1.0014,
+     "SGAI": 1.034,
+     "LVGI": 0.8973,
+     "TATA": -0.0375
+    },
+    "unavailable": [],
+    "sources": {
+     "depreciation_tag": "DepreciationAndAmortisationExpense",
+     "ppe_tag": "PropertyPlantAndEquipment",
+     "gross_profit_basis": "GrossProfit 標籤"
+    },
+    "growth_caveat": null,
+    "interpretation": "低於 -1.78，未觸發模型門檻"
+   },
    "piotroski": {
-    "score": 4,
-    "max_evaluated": 7,
+    "score": 5,
+    "max_evaluated": 8,
     "unavailable": [
-     "5_leverage_decreased",
      "7_no_share_dilution"
     ],
-    "normalised_9": 5.1,
+    "normalised_9": 5.6,
     "comparable": false,
-    "note": "2 項因資料不足未納入評分，原始分數與 9 項全評的公司不可直接比較"
+    "note": "1 項因資料不足未納入評分，原始分數與 9 項全評的公司不可直接比較"
+   },
+   "freshness": {
+    "fiscal_year_end": "2025-12-31",
+    "as_of": "2026-08-07",
+    "months_old": 8,
+    "stale": false,
+    "threshold_months": 15,
+    "note": null
    },
    "flags": [
     {
      "dimension": "資本效率",
      "severity": "warn",
-     "detail": "ROIC 2.8% 低於 WACC 6.97%，價差 -4.2pp，投入資本未賺回其成本"
+     "detail": "ROIC 2.7% 低於 WACC 6.97%，價差 -4.3pp，投入資本未賺回其成本"
     }
    ],
    "flag_count": 1,
    "coverage": {
-    "computed": 8,
-    "total": 10,
+    "computed": 10,
+    "total": 11,
     "unavailable": [
-     "有息負債/淨值",
      "FCF 利潤率"
     ],
     "sufficient": true,
@@ -1067,6 +1419,10 @@
    "solvency": {
     "total_debt": 8468000000,
     "total_debt_note": null,
+    "debt_components": {
+     "長期借款": 7469000000,
+     "一年內到期借款": 999000000
+    },
     "total_liabilities": 49510000000,
     "liabilities_basis": "tag",
     "liabilities_note": null,
@@ -1126,6 +1482,29 @@
     "liabilities_basis": "tag",
     "liabilities_note": null
    },
+   "beneish_m": {
+    "m_score": -1.169,
+    "threshold": -1.78,
+    "flagged": true,
+    "indices": {
+     "DSRI": 1.0078,
+     "GMI": 1.0552,
+     "AQI": 1.517,
+     "SGI": 1.6547,
+     "DEPI": 0.9131,
+     "SGAI": 0.7927,
+     "LVGI": 0.8068,
+     "TATA": 0.0839
+    },
+    "unavailable": [],
+    "sources": {
+     "depreciation_tag": "Depreciation",
+     "ppe_tag": "PropertyPlantAndEquipmentNet",
+     "gross_profit_basis": "GrossProfit 標籤"
+    },
+    "growth_caveat": "營收年增 65%（SGI=1.65）。SGI 在模型中權重高，高速成長本身就會把分數推向門檻，這是本模型已知的偽陽性來源",
+    "interpretation": "高於 -1.78，會計型態符合模型的操縱樣本特徵，需人工查證"
+   },
    "piotroski": {
     "score": 4,
     "max_evaluated": 9,
@@ -1134,17 +1513,30 @@
     "comparable": true,
     "note": null
    },
+   "freshness": {
+    "fiscal_year_end": "2026-01-25",
+    "as_of": "2026-08-07",
+    "months_old": 7,
+    "stale": false,
+    "threshold_months": 15,
+    "note": null
+   },
    "flags": [
     {
      "dimension": "現金流品質",
      "severity": "warn",
      "detail": "應計比率 +10.9% 高於 10%，淨利明顯超前營運現金流"
+    },
+    {
+     "dimension": "盈餘品質",
+     "severity": "warn",
+     "detail": "Beneish M-Score -1.17 高於 -1.78，會計型態符合模型的操縱樣本特徵，需人工查證。營收年增 65%（SGI=1.65）。SGI 在模型中權重高，高速成長本身就會把分數推向門檻，這是本模型已知的偽陽性來源"
     }
    ],
-   "flag_count": 1,
+   "flag_count": 2,
    "coverage": {
-    "computed": 10,
-    "total": 10,
+    "computed": 11,
+    "total": 11,
     "unavailable": [],
     "sufficient": true,
     "note": null
@@ -1168,13 +1560,18 @@
     "quick_ratio_reason": "未擷取存貨科目 (InventoryNet)，速動比率無法計算"
    },
    "solvency": {
-    "total_debt": null,
-    "total_debt_note": "未取得 LongTermDebt / DebtCurrent 標籤，無法計算有息負債",
+    "total_debt": 8284000,
+    "total_debt_note": null,
+    "debt_components": {
+     "一年內到期借款": 1500000,
+     "長期可轉換公司債": 3834000,
+     "一年內到期可轉換公司債": 2950000
+    },
     "total_liabilities": 661226000,
     "liabilities_basis": "tag",
     "liabilities_note": null,
-    "net_debt": null,
-    "debt_to_equity": null,
+    "net_debt": -542460000,
+    "debt_to_equity": 0.019,
     "liabilities_to_assets": 0.5837,
     "equity_to_assets": 0.3865,
     "interest_coverage": -8.9,
@@ -1192,14 +1589,14 @@
     "effective_tax_rate": 0.0,
     "effective_tax_rate_note": null,
     "nopat": -58384000,
-    "invested_capital": 440276000,
+    "invested_capital": 441776000,
     "invested_capital_basis": "營運側：總資產 − 流動負債 + 一年內到期負債 − 現金與短期投資",
-    "invested_capital_financing_side": null,
-    "roic": -0.1326,
-    "roic_note": "缺一年內到期負債標籤，短期有息負債未加回投入資本，分母略為低估、ROIC 絕對值略為放大",
+    "invested_capital_financing_side": -104652000,
+    "roic": -0.1322,
+    "roic_note": null,
     "wacc": 0.105,
     "wacc_source": "dcf_assumptions.json",
-    "roic_minus_wacc": -0.2376,
+    "roic_minus_wacc": -0.2372,
     "value_creation": "毀滅價值"
    },
    "cash_flow_quality": {
@@ -1229,6 +1626,29 @@
     "liabilities_basis": "tag",
     "liabilities_note": null
    },
+   "beneish_m": {
+    "m_score": 2.055,
+    "threshold": -1.78,
+    "flagged": true,
+    "indices": {
+     "DSRI": 0.6069,
+     "GMI": 0.1207,
+     "AQI": 0.6522,
+     "SGI": 7.0528,
+     "DEPI": 2.2276,
+     "SGAI": 0.3679,
+     "LVGI": 0.2697,
+     "TATA": -0.0825
+    },
+    "unavailable": [],
+    "sources": {
+     "depreciation_tag": "Depreciation",
+     "ppe_tag": "PropertyPlantAndEquipmentNet",
+     "gross_profit_basis": "GrossProfit 標籤"
+    },
+    "growth_caveat": "營收年增 605%（SGI=7.05）。SGI 在模型中權重高，高速成長本身就會把分數推向門檻，這是本模型已知的偽陽性來源",
+    "interpretation": "高於 -1.78，會計型態符合模型的操縱樣本特徵，需人工查證"
+   },
    "piotroski": {
     "score": 4,
     "max_evaluated": 8,
@@ -1239,6 +1659,14 @@
     "comparable": false,
     "note": "1 項因資料不足未納入評分，原始分數與 9 項全評的公司不可直接比較"
    },
+   "freshness": {
+    "fiscal_year_end": "2025-12-31",
+    "as_of": "2026-08-07",
+    "months_old": 8,
+    "stale": false,
+    "threshold_months": 15,
+    "note": null
+   },
    "flags": [
     {
      "dimension": "償債能力",
@@ -1248,7 +1676,7 @@
     {
      "dimension": "資本效率",
      "severity": "warn",
-     "detail": "ROIC -13.3% 低於 WACC 10.50%，價差 -23.8pp，投入資本未賺回其成本"
+     "detail": "ROIC -13.2% 低於 WACC 10.50%，價差 -23.7pp，投入資本未賺回其成本"
     },
     {
      "dimension": "現金流品質",
@@ -1259,15 +1687,18 @@
      "dimension": "破產風險",
      "severity": "warn",
      "detail": "Altman Z'' 2.44 落在 1.1~2.6 灰色區"
+    },
+    {
+     "dimension": "盈餘品質",
+     "severity": "warn",
+     "detail": "Beneish M-Score 2.06 高於 -1.78，會計型態符合模型的操縱樣本特徵，需人工查證。營收年增 605%（SGI=7.05）。SGI 在模型中權重高，高速成長本身就會把分數推向門檻，這是本模型已知的偽陽性來源"
     }
    ],
-   "flag_count": 4,
+   "flag_count": 5,
    "coverage": {
-    "computed": 9,
-    "total": 10,
-    "unavailable": [
-     "有息負債/淨值"
-    ],
+    "computed": 11,
+    "total": 11,
+    "unavailable": [],
     "sufficient": true,
     "note": null
    }
@@ -1290,19 +1721,25 @@
     "quick_ratio_reason": "未擷取存貨科目 (InventoryNet)，速動比率無法計算"
    },
    "solvency": {
-    "total_debt": 8153000000,
+    "total_debt": 8376000000,
     "total_debt_note": null,
+    "debt_components": {
+     "長期借款": 6584000000,
+     "一年內到期借款": 1569000000,
+     "長期融資租賃": 152000000,
+     "一年內到期融資租賃": 71000000
+    },
     "total_liabilities": 54941000000,
     "liabilities_basis": "tag",
     "liabilities_note": null,
-    "net_debt": -35906000000,
-    "debt_to_equity": 0.099,
+    "net_debt": -35683000000,
+    "debt_to_equity": 0.102,
     "liabilities_to_assets": 0.3987,
     "equity_to_assets": 0.596,
     "interest_coverage": 12.9,
     "interest_coverage_note": null,
     "interest_expense_tag": "InterestExpenseNonoperating",
-    "net_debt_to_ebit": -8.24,
+    "net_debt_to_ebit": -8.19,
     "net_debt_to_ebit_note": "以 EBIT 為分母（未擷取折舊攤銷，無法計算 EBITDA）"
    },
    "profitability": {
@@ -1316,7 +1753,7 @@
     "nopat": 3180849754,
     "invested_capital": 63602000000,
     "invested_capital_basis": "營運側：總資產 − 流動負債 + 一年內到期負債 − 現金與短期投資",
-    "invested_capital_financing_side": 46231000000,
+    "invested_capital_financing_side": 46454000000,
     "roic": 0.05,
     "roic_note": null,
     "wacc": 0.09,
@@ -1351,12 +1788,43 @@
     "liabilities_basis": "tag",
     "liabilities_note": null
    },
+   "beneish_m": {
+    "m_score": -2.891,
+    "threshold": -1.78,
+    "flagged": false,
+    "indices": {
+     "DSRI": 1.067,
+     "GMI": 0.9909,
+     "AQI": 0.9064,
+     "SGI": 0.9707,
+     "DEPI": 0.9363,
+     "SGAI": 1.167,
+     "LVGI": 0.9874,
+     "TATA": -0.0795
+    },
+    "unavailable": [],
+    "sources": {
+     "depreciation_tag": "Depreciation",
+     "ppe_tag": "PropertyPlantAndEquipmentAndFinanceLeaseRightOfUseAssetAfterAccumulatedDepreciationAndAmortization",
+     "gross_profit_basis": "GrossProfit 標籤"
+    },
+    "growth_caveat": null,
+    "interpretation": "低於 -1.78，未觸發模型門檻"
+   },
    "piotroski": {
     "score": 5,
     "max_evaluated": 9,
     "unavailable": [],
     "normalised_9": 5.0,
     "comparable": true,
+    "note": null
+   },
+   "freshness": {
+    "fiscal_year_end": "2025-12-31",
+    "as_of": "2026-08-07",
+    "months_old": 8,
+    "stale": false,
+    "threshold_months": 15,
     "note": null
    },
    "flags": [
@@ -1368,8 +1836,8 @@
    ],
    "flag_count": 1,
    "coverage": {
-    "computed": 10,
-    "total": 10,
+    "computed": 11,
+    "total": 11,
     "unavailable": [],
     "sufficient": true,
     "note": null
@@ -1393,19 +1861,25 @@
     "quick_ratio_reason": "未擷取存貨科目 (InventoryNet)，速動比率無法計算"
    },
    "solvency": {
-    "total_debt": null,
-    "total_debt_note": "未取得 LongTermDebt / DebtCurrent 標籤，無法計算有息負債",
+    "total_debt": 31931700000,
+    "total_debt_note": "以下組成因幣別為 TWD 而未計入（本表以 USD 為準）：一年內到期公司債（TWD 57,148,000,000）、一年內到期融資租賃（TWD 3,049,000,000）。有息負債因此低估",
+    "debt_components": {
+     "長期借款": 970500000,
+     "一年內到期借款": 1825500000,
+     "長期公司債": 28258700000,
+     "長期融資租賃": 877000000
+    },
     "total_liabilities": 73574000000,
     "liabilities_basis": "tag",
     "liabilities_note": null,
-    "net_debt": null,
-    "debt_to_equity": null,
+    "net_debt": -32961100000,
+    "debt_to_equity": 0.245,
     "liabilities_to_assets": 0.3605,
     "equity_to_assets": 0.6395,
     "interest_coverage": 126.0,
     "interest_coverage_note": null,
     "interest_expense_tag": "FinanceCosts",
-    "net_debt_to_ebit": null,
+    "net_debt_to_ebit": -0.82,
     "net_debt_to_ebit_note": "以 EBIT 為分母（未擷取折舊攤銷，無法計算 EBITDA）"
    },
    "profitability": {
@@ -1417,14 +1891,14 @@
     "effective_tax_rate": 0.1766,
     "effective_tax_rate_note": null,
     "nopat": 33197228873,
-    "invested_capital": 99276400000,
+    "invested_capital": 101101900000,
     "invested_capital_basis": "營運側：總資產 − 流動負債 + 一年內到期負債 − 現金與短期投資",
-    "invested_capital_financing_side": null,
-    "roic": 0.3344,
-    "roic_note": "缺一年內到期負債標籤，短期有息負債未加回投入資本，分母略為低估、ROIC 絕對值略為放大",
+    "invested_capital_financing_side": 97544300000,
+    "roic": 0.3284,
+    "roic_note": null,
     "wacc": 0.085,
     "wacc_source": "dcf_assumptions.json",
-    "roic_minus_wacc": 0.2494,
+    "roic_minus_wacc": 0.2434,
     "value_creation": "創造價值"
    },
    "cash_flow_quality": {
@@ -1454,25 +1928,60 @@
     "liabilities_basis": "tag",
     "liabilities_note": null
    },
+   "beneish_m": {
+    "m_score": null,
+    "indices": {
+     "DSRI": 1.0043,
+     "GMI": 0.9686,
+     "AQI": 1.1129,
+     "SGI": 1.2503,
+     "DEPI": 0.8672,
+     "SGAI": null,
+     "LVGI": 1.17,
+     "TATA": -0.0999
+    },
+    "unavailable": [
+     "SGAI"
+    ],
+    "sources": {
+     "depreciation_tag": "DepreciationExpense",
+     "ppe_tag": "PropertyPlantAndEquipment",
+     "gross_profit_basis": "GrossProfit 標籤"
+    },
+    "reason": "缺 SGAI 無法計算，未以 1.0 代入"
+   },
    "piotroski": {
     "score": 7,
-    "max_evaluated": 7,
+    "max_evaluated": 8,
     "unavailable": [
-     "5_leverage_decreased",
      "7_no_share_dilution"
     ],
-    "normalised_9": 9.0,
+    "normalised_9": 7.9,
     "comparable": false,
-    "note": "2 項因資料不足未納入評分，原始分數與 9 項全評的公司不可直接比較"
+    "note": "1 項因資料不足未納入評分，原始分數與 9 項全評的公司不可直接比較"
    },
-   "flags": [],
-   "flag_count": 0,
+   "freshness": {
+    "fiscal_year_end": "2024-12-31",
+    "as_of": "2026-08-07",
+    "months_old": 20,
+    "stale": true,
+    "threshold_months": 15,
+    "note": "此財年結束於 2024-12-31，距今 20 個月。與其他公司並列比較時期別並不對齊"
+   },
+   "flags": [
+    {
+     "dimension": "資料新鮮度",
+     "severity": "warn",
+     "detail": "此財年結束於 2024-12-31，距今 20 個月。與其他公司並列比較時期別並不對齊"
+    }
+   ],
+   "flag_count": 1,
    "coverage": {
-    "computed": 8,
-    "total": 10,
+    "computed": 9,
+    "total": 11,
     "unavailable": [
-     "有息負債/淨值",
-     "FCF 利潤率"
+     "FCF 利潤率",
+     "Beneish M-Score"
     ],
     "sufficient": true,
     "note": null

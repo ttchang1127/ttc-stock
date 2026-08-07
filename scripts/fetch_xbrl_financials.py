@@ -44,8 +44,32 @@ CONCEPTS = {
                                         ["Equity", "EquityAttributableToOwnersOfParent"]),
     "current_assets":      ("instant",  ["AssetsCurrent"], ["CurrentAssets"]),
     "current_liabilities": ("instant",  ["LiabilitiesCurrent"], ["CurrentLiabilities"]),
+    # Borrowings. The IFRS list needs LongtermBorrowings for Nokia and TSMC,
+    # neither of which uses the two tags originally listed here -- both were
+    # coming back with no debt at all.
     "long_term_debt":      ("instant",  ["LongTermDebtNoncurrent", "LongTermDebt"],
-                                        ["NoncurrentPortionOfNoncurrentBorrowings", "NoncurrentBorrowings"]),
+                                        ["NoncurrentPortionOfNoncurrentBorrowings", "NoncurrentBorrowings",
+                                         "LongtermBorrowings"]),
+    # Bonds are a separate line under IFRS and are summed with borrowings
+    # downstream, never substituted for them: TSMC carries $28.3bn of noncurrent
+    # bonds against $1.0bn of noncurrent borrowings, so taking either one alone
+    # is wrong by an order of magnitude. US filers fold bonds into LongTermDebt,
+    # hence no us-gaap candidates.
+    "bonds_noncurrent":    ("instant",  [], ["NoncurrentPortionOfNoncurrentBondsIssued"]),
+    "bonds_current":       ("instant",  [], ["CurrentBondsIssuedAndCurrentPortionOfNoncurrentBondsIssued"]),
+    # Finance leases are debt under both ASC 842 and IFRS 16. Arm has no
+    # borrowings whatsoever -- its only debt-like obligations are leases -- so
+    # without these its balance sheet is indistinguishable from one where the
+    # tags are simply absent.
+    "finance_lease_current":    ("instant", ["FinanceLeaseLiabilityCurrent"],
+                                            ["CurrentLeaseLiabilities"]),
+    "finance_lease_noncurrent": ("instant", ["FinanceLeaseLiabilityNoncurrent"],
+                                            ["NoncurrentLeaseLiabilities"]),
+    # Ondas reports its borrowings only as convertible debt. ConvertibleDebt* is
+    # the roll-up concept; the narrower ConvertibleNotesPayableCurrent it also
+    # tags is a component of it and would double-count if both were summed.
+    "convertible_debt_current":    ("instant", ["ConvertibleDebtCurrent"], []),
+    "convertible_debt_noncurrent": ("instant", ["ConvertibleDebtNoncurrent"], []),
     "revenue":             ("duration", ["Revenues",
                                          "RevenueFromContractWithCustomerExcludingAssessedTax"],
                                         ["Revenue", "RevenueFromContractsWithCustomers"]),
@@ -75,8 +99,10 @@ CONCEPTS = {
     "short_term_investments": ("instant", ["ShortTermInvestments", "MarketableSecuritiesCurrent",
                                            "AvailableForSaleSecuritiesDebtMaturitiesWithinOneYearFairValue"],
                                           ["CurrentFinancialAssetsAtFairValueThroughProfitOrLoss"]),
-    "debt_current":        ("instant",  ["LongTermDebtCurrent", "DebtCurrent"],
-                                        ["CurrentBorrowings", "ShorttermBorrowings"]),
+    "debt_current":        ("instant",  ["LongTermDebtCurrent", "DebtCurrent", "NotesPayableCurrent"],
+                                        ["CurrentBorrowings", "ShorttermBorrowings",
+                                         "CurrentBorrowingsAndCurrentPortionOfNoncurrentBorrowings",
+                                         "CurrentPortionOfLongtermBorrowings"]),
     "buybacks":            ("duration", ["PaymentsForRepurchaseOfCommonStock"],
                                         ["PaymentsToAcquireOrRedeemEntitysShares"]),
     "dividends_paid":      ("duration", ["PaymentsOfDividendsCommonStock", "PaymentsOfDividends"],
@@ -89,6 +115,43 @@ CONCEPTS = {
                                         ["InterestExpense", "FinanceCosts"]),
     "income_tax_expense":  ("duration", ["IncomeTaxExpenseBenefit"],
                                         ["IncomeTaxExpenseContinuingOperations"]),
+    # Beneish M-Score inputs. Each index compares the current year against the
+    # prior one, so every one of these needs two periods to be of any use.
+    "receivables":         ("instant",  ["AccountsReceivableNetCurrent", "ReceivablesNetCurrent"],
+                                        ["TradeAndOtherCurrentReceivables", "CurrentTradeReceivables"]),
+    # Most filers here have migrated off PropertyPlantAndEquipmentNet to the
+    # ASC 842 tag that folds finance-lease right-of-use assets in. Alphabet,
+    # Meta, Tesla, Intel and Coherent tag only the newer one for their latest
+    # year, so without it the asset quality index has no current period. Note
+    # the "After" prefix: the sibling ...AccumulatedDepreciationAndAmortization
+    # tag is the contra-account, not net book value.
+    "ppe_net":             ("instant",  ["PropertyPlantAndEquipmentNet",
+                                         "PropertyPlantAndEquipmentAndFinanceLeaseRightOfUseAssetAfterAccumulatedDepreciationAndAmortization"],
+                                        ["PropertyPlantAndEquipment"]),
+    "lt_investments":      ("instant",  ["LongTermInvestments", "MarketableSecuritiesNoncurrent",
+                                         "AvailableForSaleSecuritiesDebtSecuritiesNoncurrent"],
+                                        ["NoncurrentFinancialAssets", "OtherNoncurrentFinancialAssets"]),
+    # Beneish's depreciation index is defined on depreciation excluding
+    # amortisation, so the narrow `Depreciation` tag is preferred where a filer
+    # provides it; the combined D&A tags are the fallback for those that do not.
+    # Which one was used is recorded per company in financial_health.json,
+    # because the two are not interchangeable across companies.
+    "depreciation":        ("duration", ["Depreciation",
+                                         "DepreciationDepletionAndAmortization",
+                                         "DepreciationAmortizationAndAccretionNet",
+                                         "DepreciationAndAmortization"],
+                                        ["DepreciationExpense",
+                                         "DepreciationAndAmortisationExpense"]),
+    "sga":                 ("duration", ["SellingGeneralAndAdministrativeExpense",
+                                         "GeneralAndAdministrativeExpense"],
+                                        ["SellingGeneralAndAdministrativeExpense",
+                                         "AdministrativeExpense"]),
+    # Cost of sales. Beneish's gross margin index needs it, and it also lets the
+    # four filers that never tag GrossProfit (Amazon, Alphabet, Meta, Coherent)
+    # have a gross margin at all, by subtraction.
+    "cogs":                ("duration", ["CostOfRevenue", "CostOfGoodsAndServicesSold",
+                                         "CostOfGoodsSold"],
+                                        ["CostOfSales"]),
     "pretax_income":       ("duration",
                             ["IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest",
                              "IncomeLossFromContinuingOperationsBeforeIncomeTaxesMinorityInterestAndIncomeLossFromEquityMethodInvestments"],
