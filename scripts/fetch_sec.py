@@ -119,6 +119,41 @@ SECTION_SPECS = {
 # thousands of characters.
 MIN_SECTION_CHARS = 4000
 
+# Two filers write an annual report that the item-heading rules cannot bound,
+# each for its own reason. Loosening those rules until they happened to cover
+# these two would weaken them for the twelve they already handle, so the
+# vocabulary these two actually use is named here instead, per section.
+#
+# Each entry is (anchor, start, end). The anchor, where present, is a marker the
+# real heading follows; matching resumes after it.
+#
+#   Intel reorganises its 10-K around its own section names and carries no Item
+#   headings in the body at all -- Item 1B and Item 2 appear only in an index at
+#   the very end. Its risk chapter is headed plainly "Risk Factors" and is
+#   closed by "Other Key Information".
+#
+#   Nokia files its annual report with a 20-F cross-reference table in front, so
+#   there are no item numbers anywhere. Worse, the contents sidebar is reprinted
+#   on every page, which puts "Significant subsequent events" at the start of a
+#   line 48 times over. The only thing that distinguishes a boundary is the
+#   bullet marking which section the current page belongs to, so the section is
+#   anchored on "• Risk factors" and closed when the bullet moves on.
+#
+# Only the risk chapter is listed. Intel's MD&A can be located this way too, but
+# the result runs to a quarter of a million characters and starts in the
+# contents table for six of its seven filings, so it is left to fail instead.
+LAYOUT_OVERRIDES = {
+    "INTC": {
+        "Item_1A_Risk_Factors": (
+            None, r'risk factors(?=\n)', r'other key information(?=\n)'),
+    },
+    "NOK": {
+        "Item_3D_Risk_Factors": (
+            r'•\s*risk factors(?=\n)', r'risk factors(?=\n)',
+            r'•\s*significant subsequent events(?=\n)'),
+    },
+}
+
 # A span that swallowed the rest of the filing is caught structurally rather
 # than by length: Arm's risk factors legitimately run to 265,000 characters,
 # and Intel's over-long span is 335,000, so no cap separates them. What does
@@ -158,7 +193,7 @@ def heading_positions(text, pattern):
     return out
 
 
-def extract_section(text, start_pattern, end_pattern, forbidden=()):
+def extract_section(text, start_pattern, end_pattern, forbidden=(), anchor=None):
     """Text between a section's heading and the following section's heading.
 
     Returns None rather than a guess when either heading is missing, when the
@@ -167,7 +202,13 @@ def extract_section(text, start_pattern, end_pattern, forbidden=()):
     reported, not filled in with whatever happened to lie between two
     unrelated offsets.
     """
-    starts = heading_positions(text, start_pattern)
+    base = 0
+    if anchor:
+        found = heading_positions(text, anchor)
+        if not found:
+            return None
+        base = found[0]
+    starts = [s for s in heading_positions(text, start_pattern) if s >= base]
     ends = heading_positions(text, end_pattern)
     if not starts:
         return None
@@ -191,9 +232,16 @@ def write_sections(sections_dir, ticker, name, year, form_type, note_name,
     text = clean_html_to_text(html_content)
     written = []
     specs = SECTION_SPECS.get(form_type, [])
+    overrides = LAYOUT_OVERRIDES.get(ticker, {})
     for slug, title, start_pat, end_pat in specs:
         others = [sp for sl, _, sp, _ in specs if sl != slug]
         body = extract_section(text, start_pat, end_pat, forbidden=others)
+        if body is None and slug in overrides:
+            anchor, start_pat_o, end_pat_o = overrides[slug]
+            body = extract_section(text, start_pat_o, end_pat_o,
+                                   forbidden=others, anchor=anchor)
+            if body:
+                print(f"    [i] {slug}: 套用 {ticker} 專屬版面規則")
         if not body:
             print(f"    [!] {slug}: 找不到符合的章節範圍，略過（不寫入空檔）")
             continue

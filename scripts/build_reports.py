@@ -190,10 +190,16 @@ def risk_source(ticker):
         m = re.search(rf"^{name}:\s*\"?([^\"\n]+)\"?\s*$", text, re.M)
         return m.group(1).strip() if m else None
     url = re.search(r"\[SEC 線上檢視器\]\(([^)]+)\)", text)
+    # 10-K filers carry risk factors under Item 1A, 20-F filers under Item 3.D.
+    # Naming the wrong item would misdescribe the very thing this block exists
+    # to make checkable, so take it from the extract rather than assuming.
+    slug = field("section") or ""
+    item = "Item 3.D" if "3D" in slug else "Item 1A"
     return {
         "path": str(latest.relative_to(REPO_ROOT)),
         "year": field("year"),
         "form": field("form_type"),
+        "item": item,
         "characters": int(field("characters") or 0),
         "sec_url": url.group(1) if url else None,
     }
@@ -206,11 +212,12 @@ def risk_provenance_html(ticker):
                 '格式非標準），因此以下敘述目前無法對照原文。</p>')
     link = (f'<a href="{html.escape(src["sec_url"])}" target="_blank" rel="noopener">'
             f'SEC 官方原文</a>') if src["sec_url"] else "SEC 官方原文"
-    return ('<p class="note">📄 本節為分析者從 <strong>{form} Item 1A 風險因素</strong>'
+    return ('<p class="note">📄 本節為分析者從 <strong>{form} {item} 風險因素</strong>'
             '（{year} 年度，原文 {chars:,} 字元）中挑選並改寫的三項重點，'
             '<strong>不是原文摘要，也不是全部風險</strong>。原文拆解存於 <code>{path}</code>，'
             '完整內容請看 {link}。</p>'
-            .format(form=html.escape(src["form"] or ""), year=html.escape(src["year"] or ""),
+            .format(form=html.escape(src["form"] or ""), item=src["item"],
+                    year=html.escape(src["year"] or ""),
                     chars=src["characters"], path=html.escape(src["path"]), link=link))
 
 
