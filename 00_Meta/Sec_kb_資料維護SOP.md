@@ -236,7 +236,7 @@ for t in sorted(d):
 預期：COHR 那一行會出現，這是**正確**的（它缺 ROIC / Z'' / 利息保障倍數）。
 若某家公司在報告或對話中被描述成「財務健全」而它其實落在這份清單裡 → **停止並更正**。
 
-**C-7. 兩個檔案的有息負債定義一致**
+**C-7a. 兩個檔案的有息負債定義一致**
 ```bash
 python3 -c "
 import json
@@ -249,9 +249,38 @@ print('不一致:', bad or '無')
 ```
 預期：`不一致: 無`。
 
-`compute_valuation.py` 直接 import `compute_financial_health.total_debt`，兩邊必然相同。
-若這裡出現公司名單，代表有人把其中一支改成自己算負債了 → **停止並回報**。
-（歷史：這兩支曾經各算各的，TSM 的淨現金因此虛報 $29B，並直接餵進 DCF。）
+**C-7b. 沒有第四支腳本自己算負債**
+```bash
+python3 -c "
+import re, pathlib
+# 只有這三支可以直接指名債務科目，各有不可取代的理由。
+ALLOWED = {
+ 'fetch_xbrl_financials.py': 'XBRL 科目對照表，本來就要列出標籤名',
+ 'compute_financial_health.py': 'total_debt 的實作處；另有 Beneish LVGI 與投入資本需要個別組成',
+ 'compute_fundamentals.py': 'Piotroski 第 5 項用的是長期負債比，與有息負債總額是不同的指標',
+}
+CONCEPTS = re.compile(r'[\'\"](long_term_debt|debt_current|bonds_(?:non)?current|finance_lease_\w+|convertible_debt_\w+)[\'\"]')
+bad = []
+for f in sorted(pathlib.Path('scripts').glob('*.py')):
+    src = f.read_text()
+    if not CONCEPTS.search(src) or f.name in ALLOWED:
+        continue
+    bad.append(f.name)
+print('自行組裝負債的腳本:', bad or '無')
+"
+```
+預期：`自行組裝負債的腳本: 無`。
+
+出現任何檔名，代表那支腳本在自己加總債務科目，而不是 import
+`compute_financial_health.total_debt` → **停止並回報**。
+
+`compute_valuation.py` 與 `estimate_dcf_inputs.py` 都直接 import 共用函式，因此必然一致。
+
+> 🔁 **這個 bug 出現過三次**，每次都是同一個型態：某支腳本自己寫
+> `long_term_debt + debt_current`，漏掉公司債與融資租賃。
+> 第一次讓 TSM 的淨現金虛報 **$29B** 並直接餵進 DCF；
+> 第二次讓 TSM 的資金成本算成 **9.4%（真值 0.8%）**、ONDS 算成 **438%**，兩者都進了 WACC 權重。
+> C-7a 只能抓到「有寫檔的兩支」，C-7b 才擋得住第四支。
 
 **C-8. 每個算不出來的指標都有說明**
 ```bash
