@@ -78,6 +78,14 @@ jobs:
           python3 scripts/update_thesis_financials.py
           python3 scripts/build_reports.py
 
+      # The checks that caught TSMC's $29bn net-cash error, NVIDIA's stale
+      # ROIC-WACC and TSMC's $10.9tn market cap. They existed only as snippets
+      # in the SOP, so nothing ran them and all three shipped. Running them here
+      # means data that fails is never pushed.
+      - name: Verify data integrity
+        if: steps.gate.outputs.changed == 'true'
+        run: python3 scripts/check_integrity.py
+
       - name: Fail if anything unexpected changed
         if: steps.gate.outputs.changed == 'true'
         run: |

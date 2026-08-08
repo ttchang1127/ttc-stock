@@ -193,6 +193,18 @@ python3 scripts/fetch_sec.py AMD --years 5 --split-sections
 
 ## 4. 任務 C：驗證資料誠信（每次改動後必跑）
 
+> 🤖 **這 13 項現在有一支腳本一次跑完，排程也會跑。**
+> ```bash
+> python3 scripts/check_integrity.py
+> ```
+> 預期最後一行 `✅ 13 項檢查全部通過`，離開碼 0。任一項失敗離開碼為 1。
+>
+> 排程在 commit **之前**執行它，不通過就讓整個 job 失敗，資料不會被推上去。
+>
+> 下面逐項的說明保留，是為了讓你知道每一項在防什麼、失敗時該怎麼判讀。
+> **不要因為某項擋路就把它從腳本裡拿掉** —— C-7a／C-10／C-11 各自對應一個已經
+> commit、甚至已經上線的真實錯誤。
+
 **C-1. 假資料產生器沒有復活**
 ```bash
 grep -rc "Math.sin\|Math.random\|seedMap" dashboard.html
