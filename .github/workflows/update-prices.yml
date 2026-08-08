@@ -1,12 +1,29 @@
-name: Update price history
+name: Refresh market and filing data
 
-# dashboard.html reads prices.json as a static same-origin file, so the data is
-# only as fresh as the last commit. This refreshes it after the US close on
-# trading days.
+# The file is still called update-prices.yml on purpose: GitHub keys a
+# workflow's schedule to its path, and renaming it would retire this cron and
+# register a new one. The job outgrew the name; the schedule is worth more.
+
+# The dashboard reads prices.json directly, so a price refresh alone kept that
+# page current -- but every other figure on the site is derived and stored:
+# market cap and Altman Z in fundamentals.json, the price and DCF in
+# valuation.json, and the price, Sortino and DCF printed into all fourteen
+# theses and report pages. This job used to commit prices.json and nothing
+# else, so those sat at whatever a human last computed. On 2026-08-04 and
+# 08-05 the bot pushed new prices and the reports kept showing older ones.
+#
+# It also never fetched SEC financials at all, so a newly filed 10-K only
+# arrived when someone ran the pipeline by hand.
+#
+# Both fetchers leave their file untouched when nothing moved, so the gate
+# below is what stops this committing every weekday regardless.
+
 on:
   schedule:
     # 23:00 UTC on weekdays = 19:00 ET (EDT) / 18:00 ET (EST), a few hours after
-    # the 16:00 ET close so Yahoo has settled the daily bar.
+    # the 16:00 ET close so Yahoo has settled the daily bar. The SEC fetch rides
+    # along daily rather than weekly: it is fourteen rate-limited requests, and
+    # a filing that lands on a Tuesday should not wait until the following week.
     - cron: '0 23 * * 1-5'
   workflow_dispatch:
 
@@ -14,11 +31,11 @@ permissions:
   contents: write
 
 concurrency:
-  group: update-prices
+  group: refresh-data
   cancel-in-progress: false
 
 jobs:
-  update:
+  refresh:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -33,14 +50,51 @@ jobs:
       - name: Fetch daily closes
         run: python3 scripts/fetch_price_history.py
 
-      - name: Commit prices.json if it changed
+      # Refuses to write on a partial fetch, so a transient SEC error cannot
+      # delete a filer's history and take every derived file with it.
+      - name: Fetch SEC financials
+        run: python3 scripts/fetch_xbrl_financials.py
+
+      - name: Stop unless source data actually moved
+        id: gate
         run: |
-          if git diff --quiet -- prices.json; then
-            echo "No change in prices.json; nothing to commit."
-            exit 0
+          if git diff --quiet -- prices.json financials.json; then
+            echo "No new quotes or filings; nothing downstream to recompute."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            git diff --stat -- prices.json financials.json
+            echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
+
+      # dcf_assumptions.json is deliberately absent from this chain. Its growth
+      # and WACC values are derived, but deciding to re-derive them is a
+      # judgement, so estimate_dcf_inputs.py is never run here.
+      - name: Recompute everything derived
+        if: steps.gate.outputs.changed == 'true'
+        run: |
+          python3 scripts/compute_fundamentals.py
+          python3 scripts/compute_financial_health.py
+          python3 scripts/compute_valuation.py
+          python3 scripts/update_thesis_financials.py
+          python3 scripts/build_reports.py
+
+      - name: Fail if anything unexpected changed
+        if: steps.gate.outputs.changed == 'true'
+        run: |
+          unexpected=$(git status --porcelain | awk '{print $2}' | grep -Ev \
+            '^(prices|financials|fundamentals|financial_health|valuation)\.json$|^[a-z]+_report\.html$|^30_Analysis/.*_Master_Investment_Thesis_2026\.md$' \
+            || true)
+          if [ -n "$unexpected" ]; then
+            echo "Unexpected files changed; refusing to commit:"
+            echo "$unexpected"
+            exit 1
+          fi
+
+      - name: Commit
+        if: steps.gate.outputs.changed == 'true'
+        run: |
           git config user.name  'github-actions[bot]'
           git config user.email 'github-actions[bot]@users.noreply.github.com'
-          git add prices.json
-          git commit -m "chore: refresh prices.json ($(date -u +%Y-%m-%d))"
+          git add -A
+          git commit -m "chore: refresh market and filing data ($(date -u +%Y-%m-%d))"
           git push

@@ -319,6 +319,42 @@ def main():
     if not companies:
         raise SystemExit("No companies fetched; refusing to overwrite financials.json")
 
+    previous = None
+    if OUTPUT_PATH.exists():
+        try:
+            previous = json.loads(OUTPUT_PATH.read_text())
+        except (json.JSONDecodeError, OSError):
+            previous = None
+
+    if previous and args.tickers:
+        # An explicit subset means "refresh these", not "these are all there is".
+        # Merge so that `--tickers NVDA` updates NVDA and leaves the rest alone.
+        merged = dict(previous.get("companies", {}))
+        merged.update(companies)
+        companies = merged
+
+    if previous:
+        # Losing a company to a transient SEC error would delete a filer's whole
+        # financial history on the next run, and every derived file would follow.
+        # This matters now that a scheduled job runs it unattended: refuse the
+        # write rather than persist a partial fetch.
+        lost = sorted(set(previous.get("companies", {})) - set(companies))
+        if lost:
+            raise SystemExit(
+                "Refusing to overwrite financials.json: {} present in the existing "
+                "file but missing from this fetch ({}). Re-run; if it persists, the "
+                "filer or the API has changed and needs looking at."
+                .format(", ".join(lost), ", ".join(failed) or "no error reported"))
+
+        # generated_at moves on every run, so writing unconditionally would make
+        # the scheduled job commit daily even when no filer has reported since.
+        if previous.get("companies") == companies:
+            print(f"\nNo new filings; leaving {OUTPUT_PATH.relative_to(REPO_ROOT)} "
+                  f"unchanged (fetched {previous.get('generated_at', 'unknown')}).")
+            if failed:
+                print(f"Missing: {', '.join(failed)}")
+            return
+
     payload = {
         "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "source": "SEC XBRL Company Facts API (data.sec.gov/api/xbrl/companyfacts)",

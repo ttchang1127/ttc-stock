@@ -67,7 +67,18 @@ SEC XBRL Company Facts API          Yahoo Finance (yfinance)
 
 ---
 
-## 2. 任務 A：更新全部財務數據（最常用）
+## 2. 任務 A：更新全部財務數據
+
+> 🤖 **這件事現在每個交易日自動執行。**
+> `.github/workflows/update-prices.yml` 會抓股價與 SEC 財報，
+> **只有在 `prices.json` 或 `financials.json` 真的變動時**才重算下游並 commit。
+>
+> 所以平常你不需要跑任務 A。需要手動跑的情況只有三種：
+> 1. 改了任何 `scripts/*.py` 的計算邏輯
+> 2. 改了 `dcf_assumptions.json`（機器人不碰這個檔案）
+> 3. 排程失敗，要人工補跑
+>
+> 手動跑的步驟與機器人完全相同，如下。
 
 ### 步驟
 
@@ -340,6 +351,10 @@ python3 scripts/build_reports.py && git status --short -- '*_report.html'
 | `dcf_assumptions.json` 的值不會自動更新 | **這是刻意的**。股價與財報變動後要不要重新推導是人的決定。要更新就跑 `estimate_dcf_inputs.py` 看數字，確認後才改檔案，並更新 note 裡的推導日期 |
 | 換成推導值後 NVDA 的 DCF 從 +39% 變 −32% | **不是 bug**。原本手填的 WACC 9.5% 對 beta 2.14 的公司過低；推導值 14.4% 把估值砍半。先前 8 家手填 WACC 全部落在 8.5%~10.5%，**無一例外低於 CAPM 值** |
 | META 的 DCF 高於現價 62% | 成長率用該公司自己的營收 CAGR 18.5%，而市場隱含只有 11.8%。這是模型與市場的真實分歧，已由 ±50% 門檻標記。**不准為了讓它落在區間內而回頭調整 g 或 WACC** |
+| 機器人的 commit 現在有 20 幾個檔案 | **這是修好的行為**。它以前只 commit `prices.json`，導致所有衍生資料（市值、Altman Z、DCF、Sortino、報告股價）停在人類上次手動跑管線的時間。2026-08-04 與 08-05 都發生過股價更新但報告顯示舊值 |
+| 機器人不更新 `dcf_assumptions.json` | **刻意的**。g 與 WACC 雖然是推導值，但要不要重新推導是判斷。workflow 的檔案守門會在它出現時**直接讓 job 失敗** |
+| 週末與假日沒有機器人 commit | 正常。兩支抓取程式在資料沒動時都不寫檔，gate 就會擋下整個下游 |
+| workflow 檔名還叫 `update-prices.yml` | GitHub 用**路徑**綁定排程，改檔名會讓這條 cron 退休、重新註冊一條新的。名字過時了，但排程比較值錢 |
 | 三個 Sortino 數值差很多 | **正常**。頻率（週/日）、期間（3年/5年/1年）、MAR 都不同，衡量的是不同的東西，**不准「統一」它們** |
 | 12 個月那組用 MAR=0 而非無風險利率 | 實測對照 PortfoliosLab 公布值決定的（NVDA 0.76→0.75、TSLA 0.36→0.36）。改成無風險利率就對不上公開網站 |
 | 各公司科目數 11~14 不等 | 每家 tag 的科目本來就不同 |
