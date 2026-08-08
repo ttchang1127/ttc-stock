@@ -321,6 +321,28 @@ python3 scripts/build_reports.py && git status --short -- '*_report.html'
 有輸出代表committed 的報告內容和生成器產生的不一致 —— 也就是有人直接編輯了 `*_report.html`。
 **那些編輯下次執行就會消失**，必須改到來源（JSON 由管線產生，質化敘述在 `30_Analysis/` 的 thesis）。
 
+**C-10. 三個檔案的 WACC 一致**
+```bash
+python3 -c "
+import json
+a=json.load(open('dcf_assumptions.json'))['companies']
+h=json.load(open('financial_health.json'))['companies']
+v=json.load(open('valuation.json'))['companies']
+bad=[t for t in a if a[t]['wacc'] is not None
+     and not (a[t]['wacc']==h[t]['profitability']['wacc']==v[t]['assumptions']['wacc'])]
+print('WACC 不一致:', bad or '無')
+"
+```
+預期：`WACC 不一致: 無`。
+
+`dcf_assumptions.json` 被**兩支**腳本讀取：`compute_financial_health.py` 拿它算 ROIC−WACC，
+`compute_valuation.py` 拿它做折現。改了假設檔卻只重跑其中一支，兩邊就會各說各話。
+
+> 🔁 **這件事發生過**：2026-08-08 把 8 家的假設換成推導值後只重跑了 valuation，
+> 漏跑 `compute_financial_health.py`，導致報告上的 ROIC−WACC 用舊 WACC 算 ——
+> NVDA 顯示 +67.0pp（真值 +62.2pp）、AMZN 顯示 +4.9pp（真值 +2.5pp），並已上線。
+> **改 `dcf_assumptions.json` 後必須重跑任務 A 的 A-3 ~ A-7 全部，不能只挑一支。**
+
 ---
 
 ## 5. 已知限制（不是 bug，不要「修」）
