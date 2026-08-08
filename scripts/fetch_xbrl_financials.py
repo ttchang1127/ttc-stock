@@ -19,6 +19,7 @@ Usage:
 
 import argparse
 import json
+import re
 import time
 import urllib.request
 from datetime import datetime, timezone
@@ -177,6 +178,181 @@ CONCEPTS = {
 
 ANNUAL_FORMS = {"10-K", "20-F"}
 
+# ---------------------------------------------------------------------------
+# Fallback: read a filing's own XBRL when companyfacts has not ingested it.
+#
+# TSMC filed its FY2025 20-F on 2026-04-16, fully tagged -- SEC renders 169
+# statements from it -- yet companyfacts carries exactly two facts from that
+# accession, the cover-page share count and one buyback tag. The frames API
+# returns 404 for the same period. So the vault sat on FY2024 for twenty
+# months and reported a company 37% smaller than it is, and the note in the
+# SOP said this could only be disclosed. That was wrong: the numbers are in
+# the filing, and SEC's own rendered reports carry the element name beside
+# every figure, so reading them is not layout guesswork.
+#
+# This runs only when companyfacts is behind the newest annual filing, and
+# only after the parse agrees with companyfacts on the comparative years the
+# filing restates -- thirteen of thirteen for TSMC. A parse that disagrees is
+# refused rather than merged.
+
+MONTH_NUMBER = {m: i + 1 for i, m in enumerate(
+    ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+     "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"])}
+
+# Only the primary statements. The note-level reports that follow them tag the
+# same concepts under dimensions -- by segment, by equity component, by
+# instrument -- and this parser reads values, not contexts, so a note table
+# would attribute a component to the consolidated concept. Left unfiltered,
+# 22 of TSMC's comparative figures disagreed with companyfacts for exactly
+# that reason. The statement of changes in equity is excluded on the same
+# grounds: every one of its columns is a dimension.
+# Anchored at the start: a primary statement is titled "CONSOLIDATED STATEMENTS
+# OF ..."; a note carries a topic prefix, as in "INCOME TAX - Analysis of
+# Deferred Income Tax Assets ... in Consolidated Statements ...". Matching
+# anywhere in the title pulled three of TSMC's notes in, and one of them
+# overwrote the balance sheet's deferred tax assets with a dimensional
+# component.
+PRIMARY_STATEMENT = re.compile(
+    r"^\s*(consolidated\s+|condensed\s+)*(statements?\s+of\s+"
+    r"(financial position|profit or loss|income|operations|comprehensive|"
+    r"cash flows)|balance sheets?)", re.I)
+
+
+def http_text(url):
+    req = urllib.request.Request(url, headers=SEC_HEADERS)
+    with urllib.request.urlopen(req) as resp:
+        return resp.read().decode("utf-8", "ignore")
+
+
+def parse_rendered_report(html):
+    """{(taxonomy, tag): {(period_end, unit): value}} from one R#.htm."""
+    scale = 1e6 if re.search(r"in Millions", html, re.I) else (
+            1e3 if re.search(r"in Thousands", html, re.I) else 1)
+    columns, facts = None, {}
+
+    for row in re.findall(r"<tr[^>]*>.*?</tr>", html, re.S):
+        headers = re.findall(r'<th class="th"[^>]*>(.*?)</th>', row, re.S)
+        if columns is None and len(headers) > 1:
+            parsed = []
+            for th in headers:
+                divs = [re.sub(r"\s+", " ", re.sub(r"<[^>]+>", "", d)).strip()
+                        for d in re.findall(r"<div>(.*?)</div>", th, re.S)]
+                m = re.match(r"([A-Z][a-z]{2})\.?\s+(\d{1,2}),\s*(\d{4})",
+                             divs[0]) if divs else None
+                if not m:
+                    parsed.append(None)
+                    continue
+                end = "{}-{:02d}-{:02d}".format(
+                    m.group(3), MONTH_NUMBER[m.group(1)], int(m.group(2)))
+                unit = next((re.match(r"([A-Z]{3})", d).group(1) for d in divs[1:]
+                             if re.match(r"[A-Z]{3}\b", d)), None)
+                parsed.append((end, unit))
+            if any(parsed):
+                columns = parsed
+            continue
+
+        ref = re.search(r"defref_([A-Za-z0-9\-]+)_([A-Za-z0-9_]+)", row)
+        if not ref or columns is None:
+            continue
+        key = (ref.group(1), ref.group(2))
+        for i, cell in enumerate(re.findall(r'<td class="num[p]?"[^>]*>(.*?)</td>',
+                                            row, re.S)):
+            if i >= len(columns) or columns[i] is None:
+                continue
+            txt = re.sub(r"<[^>]+>", "", cell).replace(",", "").replace("$", "").strip()
+            negative = txt.startswith("(") and txt.endswith(")")
+            txt = txt.strip("()").strip()
+            if not re.fullmatch(r"-?\d+(\.\d+)?", txt or "x"):
+                continue
+            facts.setdefault(key, {})[columns[i]] = (
+                float(txt) * scale * (-1 if negative else 1))
+    return facts
+
+
+def filing_facts(cik, accession):
+    """Every statement-level fact in one filing, from SEC's rendered reports."""
+    base = "https://www.sec.gov/Archives/edgar/data/{}/{}/".format(
+        int(cik), accession.replace("-", ""))
+    summary = http_text(base + "FilingSummary.xml")
+    wanted = [re.search(r"<HtmlFileName>(R\d+\.htm)</HtmlFileName>", rep)
+              for rep in re.findall(r"<Report[^>]*>.*?</Report>", summary, re.S)
+              if PRIMARY_STATEMENT.search(
+                  (re.search(r"<ShortName>([^<]*)</ShortName>", rep) or
+                   re.search(r"()", "")).group(1))]
+    facts = {}
+    for name in [m.group(1) for m in wanted if m]:
+        try:
+            page = http_text(base + name)
+        except Exception:                      # noqa: BLE001 - one bad report
+            continue                           # should not lose the others
+        for key, values in parse_rendered_report(page).items():
+            # First statement to report a concept for a period wins. Reports are
+            # ordered statements-first, so this is a second guard against a note
+            # restating a consolidated figure with one of its components.
+            slot = facts.setdefault(key, {})
+            for period, value in values.items():
+                slot.setdefault(period, value)
+        time.sleep(0.12)
+    return facts
+
+
+def agrees_with_companyfacts(parsed, raw_facts, taxonomy, exclude_end, tags_used):
+    """Check the parse against the years companyfacts already covers.
+
+    The filing restates its prior years, and those are values already held from
+    a source we trust. If the two disagree the parse is misreading the table --
+    a wrong column, a wrong scale -- and merging it would put invented figures
+    into the vault under a real accession number.
+
+    The comparison goes against raw companyfacts rather than the picked values,
+    because the two disagree about *currency*, not about the numbers: TSMC's
+    filing presents comparative years in TWD only while companyfacts resolves
+    to USD. Matching on the filing's own unit is what makes the check possible
+    at all -- against the picked values it finds nothing to compare.
+    """
+    compared, mismatched, signs = 0, [], {}
+    for (tax, tag), values in parsed.items():
+        # Only the concepts this vault actually reads. Validating all 170 tags
+        # a filing renders drags in items whose statement context differs from
+        # the one companyfacts resolved -- translation differences appear in
+        # both profit or loss and other comprehensive income under the same
+        # element name -- and none of them is a figure we would merge.
+        if tax != taxonomy or tag not in tags_used:
+            continue
+        rows_by_unit = (raw_facts.get(tag) or {}).get("units", {})
+        for (end, unit), value in values.items():
+            if end == exclude_end or unit not in rows_by_unit:
+                continue
+            rows = [r for r in rows_by_unit[unit]
+                    if r.get("end") == end and r.get("form") in ANNUAL_FORMS]
+            if not rows:
+                continue
+            known = max(rows, key=lambda r: r.get("filed", ""))["val"]
+            if known == 0:
+                continue
+            # The rendered report shows what the presentation linkbase displays,
+            # and a negated label flips the sign of an expense: finance costs
+            # render as (10,495.4) where the underlying fact is +10,495.4. The
+            # comparative years therefore do more than confirm the parse -- they
+            # establish the sign convention for each element, which is then
+            # applied to the year being merged.
+            compared += 1
+            if abs(value - known) / abs(known) <= 0.001:
+                signs.setdefault(tag, set()).add(1)
+            elif abs(-value - known) / abs(known) <= 0.001:
+                signs.setdefault(tag, set()).add(-1)
+            else:
+                mismatched.append((tag, end, unit, value, known))
+
+    # A tag whose comparatives disagree about their own sign was not read
+    # consistently, so it cannot be trusted for the new year either.
+    for tag, seen in signs.items():
+        if len(seen) > 1:
+            mismatched.append((tag, "sign", "", sorted(seen), "不一致"))
+    return compared, mismatched, {tag: seen.pop() for tag, seen in signs.items()
+                                  if len(seen) == 1}
+
+
 
 def http_json(url):
     req = urllib.request.Request(url, headers=SEC_HEADERS)
@@ -246,6 +422,76 @@ def annual_values(facts, tags, kind):
     return picked[latest]["tag"], picked[latest]["unit"], picked
 
 
+
+def latest_annual_filing(cik):
+    """The newest 10-K or 20-F in EDGAR, whether or not companyfacts has it."""
+    doc = http_json(f"https://data.sec.gov/submissions/CIK{cik}.json")
+    recent = doc.get("filings", {}).get("recent", {})
+    for i, form in enumerate(recent.get("form", [])):
+        if form in ANNUAL_FORMS:
+            return {"form": form,
+                    "accession": recent["accessionNumber"][i],
+                    "filed": recent["filingDate"][i],
+                    "report_date": recent["reportDate"][i]}
+    return None
+
+
+def merge_filing_facts(collected, raw_facts, taxonomy, cik, latest, newest_known):
+    """Add the missing fiscal year from the filing's own rendered reports.
+
+    Only the period companyfacts lacks is merged; everything it already holds
+    stays as it was, so this can never quietly restate an existing figure.
+    """
+    end = latest["report_date"]
+    print(f"    companyfacts 最新為 FY{newest_known}，EDGAR 已有 FY{end} 的 "
+          f"{latest['form']}；改由該申報的 XBRL 補齊")
+    try:
+        facts = filing_facts(cik, latest["accession"])
+    except Exception as exc:                    # noqa: BLE001 - report, do not merge
+        print(f"    [!] 讀取申報 XBRL 失敗：{type(exc).__name__}: {exc}")
+        return {"status": "failed", "reason": f"{type(exc).__name__}: {exc}"}
+
+    # Every candidate, not only the tag companyfacts happened to resolve: TSMC's
+    # companyfacts data uses `Revenue` while its FY2025 filing uses
+    # `RevenueFromContractsWithCustomers`, and matching on the resolved tag
+    # alone silently left revenue -- and therefore the whole fiscal year -- out.
+    idx = 1 if taxonomy == "us-gaap" else 2
+    candidates = {concept: spec[idx] for concept, spec in CONCEPTS.items()}
+    tags_used = {tag for tags in candidates.values() for tag in tags}
+    compared, mismatched, signs = agrees_with_companyfacts(
+        facts, raw_facts, taxonomy, end, tags_used)
+    if mismatched:
+        print(f"    [!] 解析結果與 companyfacts 的比較年度不符 {len(mismatched)} 項，"
+              f"拒絕合併：{mismatched[:2]}")
+        return {"status": "rejected", "compared": compared,
+                "mismatched": len(mismatched)}
+    if compared < 5:
+        print(f"    [!] 只有 {compared} 項可交叉驗證，不足以確認解析正確，拒絕合併")
+        return {"status": "rejected", "compared": compared,
+                "reason": "可交叉驗證的項目不足"}
+
+    added = []
+    for concept, payload in collected.items():
+        for tag in candidates.get(concept, []):
+            values = facts.get((taxonomy, tag)) or {}
+            unit = next((u for u in ("USD", payload["unit"]) if (end, u) in values), None)
+            if unit is None:
+                continue
+            payload["by_fiscal_year_end"][end] = {
+                "val": values[(end, unit)] * signs.get(tag, 1), "unit": unit,
+                "tag": tag, "form": latest["form"],
+                "accn": latest["accession"], "filed": latest["filed"]}
+            added.append(concept)
+            break
+
+    print(f"    已補齊 FY{end}：{len(added)} 個科目"
+          f"（{compared} 項比較年度交叉驗證相符）")
+    return {"status": "merged", "fiscal_year_end": end,
+            "accession": latest["accession"], "form": latest["form"],
+            "concepts_added": sorted(added), "cross_checked": compared,
+            "source": "SEC 申報自身的 XBRL 渲染報表（companyfacts 尚未收錄）"}
+
+
 def build_ticker(ticker, cik):
     facts_doc = http_json(f"https://data.sec.gov/api/xbrl/companyfacts/CIK{cik}.json")
     taxonomies = facts_doc["facts"]
@@ -272,6 +518,16 @@ def build_ticker(ticker, cik):
             shares_outstanding = {"value": newest["val"], "as_of": newest["end"],
                                   "tag": "dei:EntityCommonStockSharesOutstanding"}
 
+    for payload in collected.values():
+        payload["taxonomy"] = taxonomy
+
+    newest_known = max(collected.get("revenue", {}).get("by_fiscal_year_end", {}) or [""])
+    fallback_note = None
+    latest = latest_annual_filing(cik)
+    if latest and latest["report_date"] > newest_known:
+        fallback_note = merge_filing_facts(collected, facts, taxonomy, cik,
+                                           latest, newest_known)
+
     # The fiscal years we can actually report on: those with a revenue figure.
     year_ends = sorted(collected.get("revenue", {}).get("by_fiscal_year_end", {}), reverse=True)
     if not year_ends:
@@ -291,7 +547,7 @@ def build_ticker(ticker, cik):
 
     return {"cik": cik, "entity_name": facts_doc.get("entityName", ticker),
             "taxonomy": taxonomy, "shares_outstanding": shares_outstanding,
-            "periods": periods}
+            "filing_fallback": fallback_note, "periods": periods}
 
 
 def main():

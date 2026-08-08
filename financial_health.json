@@ -1,6 +1,6 @@
 {
- "generated_at": "2026-08-08T12:41:45+00:00",
- "financials_generated_at": "2026-08-08T12:39:31+00:00",
+ "generated_at": "2026-08-08T13:28:09+00:00",
+ "financials_generated_at": "2026-08-08T13:27:25+00:00",
  "source": "Derived from SEC XBRL Company Facts; WACC from dcf_assumptions.json",
  "thresholds": {
   "current_ratio_min": 1.0,
@@ -1842,73 +1842,73 @@
   "TSM": {
    "entity_name": "Taiwan Semiconductor Manufacturing Company Limited",
    "taxonomy": "ifrs-full",
-   "fiscal_year_end": "2024-12-31",
-   "prior_fiscal_year_end": "2023-12-31",
+   "fiscal_year_end": "2025-12-31",
+   "prior_fiscal_year_end": "2024-12-31",
    "currency": "USD",
    "source_form": "20-F",
-   "source_accession": "0001193125-25-083423",
-   "source_filed": "2025-04-17",
+   "source_accession": "0001628280-26-025362",
+   "source_filed": "2026-04-16",
    "liquidity": {
-    "current_ratio": 2.36,
-    "cash_ratio": 1.63,
-    "working_capital": 54275600000,
-    "working_capital_to_assets": 0.266,
+    "current_ratio": 2.51,
+    "cash_ratio": 1.82,
+    "working_capital": 73150000000.0,
+    "working_capital_to_assets": 0.2893,
     "quick_ratio": null,
     "quick_ratio_reason": "未擷取存貨科目 (InventoryNet)，速動比率無法計算"
    },
    "solvency": {
-    "total_debt": 31931700000,
-    "total_debt_note": "以下組成因幣別為 TWD 而未計入（本表以 USD 為準）：一年內到期公司債（TWD 57,148,000,000）、一年內到期融資租賃（TWD 3,049,000,000）。有息負債因此低估",
+    "total_debt": 33936400000.0,
+    "total_debt_note": null,
     "debt_components": {
-     "長期借款": 970500000,
-     "一年內到期借款": 1825500000,
-     "長期公司債": 28258700000,
-     "長期融資租賃": 877000000
+     "長期借款": 1269800000.0,
+     "一年內到期借款": 4364900000.0,
+     "長期公司債": 27294500000.0,
+     "長期融資租賃": 1007200000.0
     },
-    "total_liabilities": 73574000000,
+    "total_liabilities": 80861400000.0,
     "liabilities_basis": "tag",
     "liabilities_note": null,
-    "net_debt": -32961100000,
-    "debt_to_equity": 0.245,
-    "liabilities_to_assets": 0.3605,
-    "equity_to_assets": 0.6395,
-    "interest_coverage": 126.0,
+    "net_debt": -54299400000.0,
+    "debt_to_equity": 0.197,
+    "liabilities_to_assets": 0.3198,
+    "equity_to_assets": 0.6802,
+    "interest_coverage": 156.5,
     "interest_coverage_note": null,
     "interest_expense_tag": "FinanceCosts",
-    "net_debt_to_ebit": -0.82,
+    "net_debt_to_ebit": -0.88,
     "net_debt_to_ebit_note": "以 EBIT 為分母（未擷取折舊攤銷，無法計算 EBITDA）"
    },
    "profitability": {
-    "gross_margin": 0.5612,
-    "operating_margin": 0.4568,
-    "net_margin": 0.3999,
-    "roa": 0.173,
-    "roe": 0.2705,
-    "effective_tax_rate": 0.1766,
+    "gross_margin": 0.5989,
+    "operating_margin": 0.5083,
+    "net_margin": 0.445,
+    "roa": 0.2137,
+    "roe": 0.3141,
+    "effective_tax_rate": 0.1697,
     "effective_tax_rate_note": null,
-    "nopat": 33197228873,
-    "invested_capital": 101101900000,
+    "nopat": 51242556479,
+    "invested_capital": 120478100000,
     "invested_capital_basis": "營運側：總資產 − 流動負債 + 一年內到期負債 − 現金與短期投資",
-    "invested_capital_financing_side": 97544300000,
-    "roic": 0.3284,
+    "invested_capital_financing_side": 117719100000,
+    "roic": 0.4253,
     "roic_note": null,
-    "wacc": 0.1135,
+    "wacc": 0.1134,
     "wacc_source": "dcf_assumptions.json",
-    "roic_minus_wacc": 0.2149,
+    "roic_minus_wacc": 0.3119,
     "value_creation": "創造價值"
    },
    "cash_flow_quality": {
-    "free_cash_flow": 26537700000,
-    "fcf_margin": 0.3006,
-    "ocf_to_net_income": 1.578,
+    "free_cash_flow": 31959300000.0,
+    "fcf_margin": 0.2632,
+    "ocf_to_net_income": 1.342,
     "ocf_to_net_income_note": null,
-    "accrual_ratio": -0.106,
+    "accrual_ratio": -0.0809,
     "accrual_ratio_basis": "(淨利 − 營運現金流) ÷ 平均總資產，Sloan (1996)",
-    "capex_to_ocf": 0.524,
-    "capex_intensity": 0.3303
+    "capex_to_ocf": 0.559,
+    "capex_intensity": 0.334
    },
    "altman_z2": {
-    "z2_score": 6.82,
+    "z2_score": 7.84,
     "zone": "safe",
     "formula": "6.56*X1 + 3.26*X2 + 6.72*X3 + 1.05*X4",
     "thresholds": {
@@ -1916,10 +1916,10 @@
      "distress": 1.1
     },
     "components": {
-     "X1_working_capital_to_assets": 0.266,
-     "X2_retained_earnings_to_assets": 0.5788,
-     "X3_ebit_to_assets": 0.1976,
-     "X4_book_equity_to_liabilities": 1.7738
+     "X1_working_capital_to_assets": 0.2893,
+     "X2_retained_earnings_to_assets": 0.6352,
+     "X3_ebit_to_assets": 0.2441,
+     "X4_book_equity_to_liabilities": 2.1273
     },
     "liabilities_basis": "tag",
     "liabilities_note": null
@@ -1927,24 +1927,25 @@
    "beneish_m": {
     "m_score": null,
     "indices": {
-     "DSRI": 1.0043,
-     "GMI": 0.9686,
-     "AQI": 1.1129,
-     "SGI": 1.2503,
-     "DEPI": 0.8672,
+     "DSRI": 0.7833,
+     "GMI": 0.9371,
+     "AQI": 0.9705,
+     "SGI": 1.3756,
+     "DEPI": null,
      "SGAI": null,
-     "LVGI": 1.17,
-     "TATA": -0.0999
+     "LVGI": 0.9831,
+     "TATA": -0.0731
     },
     "unavailable": [
+     "DEPI",
      "SGAI"
     ],
     "sources": {
-     "depreciation_tag": "DepreciationExpense",
+     "depreciation_tag": null,
      "ppe_tag": "PropertyPlantAndEquipment",
      "gross_profit_basis": "GrossProfit 標籤"
     },
-    "reason": "缺 SGAI 無法計算，未以 1.0 代入"
+    "reason": "缺 DEPI、SGAI 無法計算，未以 1.0 代入"
    },
    "piotroski": {
     "score": 7,
@@ -1957,21 +1958,15 @@
     "note": "1 項因資料不足未納入評分，原始分數與 9 項全評的公司不可直接比較"
    },
    "freshness": {
-    "fiscal_year_end": "2024-12-31",
+    "fiscal_year_end": "2025-12-31",
     "as_of": "2026-08-08",
-    "months_old": 20,
-    "stale": true,
+    "months_old": 8,
+    "stale": false,
     "threshold_months": 15,
-    "note": "此財年結束於 2024-12-31，距今 20 個月。與其他公司並列比較時期別並不對齊"
+    "note": null
    },
-   "flags": [
-    {
-     "dimension": "資料新鮮度",
-     "severity": "warn",
-     "detail": "此財年結束於 2024-12-31，距今 20 個月。與其他公司並列比較時期別並不對齊"
-    }
-   ],
-   "flag_count": 1,
+   "flags": [],
+   "flag_count": 0,
    "coverage": {
     "computed": 10,
     "total": 11,
