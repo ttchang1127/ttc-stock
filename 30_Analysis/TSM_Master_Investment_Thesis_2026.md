@@ -25,7 +25,7 @@ financials_verified: true
    - 2nm (N2) 與 A16 (1.6nm) 奈米製程進度全球領先，掌控全球近 **90% 的最先進 AI 晶片代工產能** (包含 Apple M/A 系列、NVIDIA Blackwell/Hopper、AMD Instinct、Qualcomm、MediaTek)。
 2. **CoWoS 先進封裝生態系與產能壁壘 (CoWoS Advanced Packaging)** 📦：
    - AI 高頻寬記憶體 (HBM) 與 GPU 必須依賴 CoWoS 先進封裝。台積電憑藉完整的 3D Fabric 技術形成難以跨越的技術壁壘。
-3. **無可匹敵的晶圓代工利潤率 (Foundry Margin Leadership)** 💎：
+3. **晶圓代工中領先的利潤率 (Foundry Margin Leadership)** 💎：
    - 毛利率高達 **59.9%**，淨利率高達 **42.46%**，在資本極度密集半導體製造業中展現頂級定價權。
 
 ---

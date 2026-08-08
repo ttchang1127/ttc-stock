@@ -1,584 +1,249 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="台積電 (TSMC / TSM ADR) 2026 終極個股研究與估值投資報告 - 基於 SEC Form 20-F 財報與二級市場數據。">
-  <title>台積電 (TSM ADR) 2026 終極投資與估值報告 | SEC 20-F 驗證</title>
-  <!-- Google Fonts & Chart.js -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-  <style>
-    :root {
-      --bg-dark: #070a12;
-      --card-bg: rgba(17, 24, 39, 0.75);
-      --card-border: rgba(255, 255, 255, 0.08);
-      --text-main: #f3f4f6;
-      --text-muted: #9ca3af;
-      --accent-cyan: #38bdf8;
-      --accent-purple: #a855f7;
-      --accent-emerald: #10b981;
-      --accent-rose: #f43f5e;
-      --accent-amber: #f59e0b;
-      --glow-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.45);
-    }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: 'Outfit', 'Noto Sans TC', sans-serif;
-      background: radial-gradient(circle at 50% -10%, #1e1b4b, var(--bg-dark) 75%);
-      color: var(--text-main);
-      min-height: 100vh;
-      padding: 24px;
-      line-height: 1.6;
-    }
-
-    .container {
-      max-width: 1400px;
-      margin: 0 auto;
-    }
-
-    /* Top Navigation Bar */
-    .top-nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 16px 28px;
-      background: rgba(15, 23, 42, 0.85);
-      backdrop-filter: blur(16px);
-      border: 1px solid var(--card-border);
-      border-radius: 18px;
-      margin-bottom: 24px;
-    }
-
-    .nav-brand {
-      font-size: 1.1rem;
-      font-weight: 800;
-      color: #fff;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 16px;
-    }
-
-    .nav-btn {
-      color: var(--text-muted);
-      text-decoration: none;
-      font-size: 0.875rem;
-      font-weight: 600;
-      padding: 8px 16px;
-      border-radius: 10px;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid var(--card-border);
-      transition: all 0.2s ease;
-    }
-
-    .nav-btn:hover {
-      color: #fff;
-      background: var(--accent-purple);
-      border-color: transparent;
-    }
-
-    /* Hero Header */
-    .hero-card {
-      background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(30, 27, 75, 0.8));
-      border: 1px solid rgba(239, 68, 68, 0.3);
-      border-radius: 24px;
-      padding: 36px;
-      box-shadow: var(--glow-shadow);
-      margin-bottom: 32px;
-      display: grid;
-      grid-template-columns: 1.8fr 1.2fr;
-      gap: 28px;
-      align-items: center;
-    }
-
-    .hero-title h1 {
-      font-size: 2.3rem;
-      font-weight: 800;
-      background: linear-gradient(135deg, #ef4444, #38bdf8, #c084fc);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      letter-spacing: -0.5px;
-      margin-bottom: 8px;
-    }
-
-    .hero-subtitle {
-      font-size: 1.05rem;
-      color: #cbd5e1;
-      margin-bottom: 18px;
-    }
-
-    .badge-sec {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(16, 185, 129, 0.15);
-      border: 1px solid rgba(16, 185, 129, 0.3);
-      color: #34d399;
-      padding: 6px 14px;
-      border-radius: 12px;
-      font-size: 0.825rem;
-      font-weight: 700;
-    }
-
-    .hero-kpis {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 14px;
-    }
-
-    .kpi-box {
-      background: rgba(0, 0, 0, 0.3);
-      border: 1px solid var(--card-border);
-      border-radius: 16px;
-      padding: 16px;
-    }
-
-    .kpi-label { font-size: 0.775rem; color: var(--text-muted); }
-    .kpi-val { font-size: 1.4rem; font-weight: 800; color: #fff; margin-top: 4px; }
-    .kpi-sub { font-size: 0.75rem; color: var(--accent-cyan); margin-top: 2px; }
-
-    /* Section Cards Grid */
-    .section-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(640px, 1fr));
-      gap: 28px;
-      margin-bottom: 32px;
-    }
-
-    .card {
-      background: var(--card-bg);
-      backdrop-filter: blur(16px);
-      border: 1px solid var(--card-border);
-      border-radius: 22px;
-      padding: 28px;
-      box-shadow: var(--glow-shadow);
-    }
-
-    .card-full {
-      grid-column: 1 / -1;
-    }
-
-    .card h2 {
-      font-size: 1.4rem;
-      font-weight: 800;
-      color: #fff;
-      margin-bottom: 18px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      border-bottom: 1px solid var(--card-border);
-      padding-bottom: 12px;
-    }
-
-    /* Moat List */
-    .moat-item {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      border-radius: 14px;
-      padding: 16px;
-      margin-bottom: 14px;
-    }
-
-    .moat-item:last-child { margin-bottom: 0; }
-
-    .moat-header {
-      font-weight: 700;
-      font-size: 1.05rem;
-      color: #38bdf8;
-      margin-bottom: 6px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .moat-desc {
-      font-size: 0.9rem;
-      color: #cbd5e1;
-    }
-
-    /* Metric Rows */
-    .metric-group {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 12px;
-      margin-bottom: 20px;
-    }
-
-    .metric-card {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid var(--card-border);
-      border-radius: 14px;
-      padding: 14px;
-    }
-
-    .metric-card .title { font-size: 0.75rem; color: var(--text-muted); }
-    .metric-card .value { font-size: 1.2rem; font-weight: 700; color: #fff; margin-top: 2px; }
-
-    /* Piotroski Checklist */
-    .fscore-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 10px;
-      margin-top: 14px;
-    }
-
-    .fscore-item {
-      background: rgba(16, 185, 129, 0.08);
-      border: 1px solid rgba(16, 185, 129, 0.2);
-      color: #34d399;
-      padding: 10px 14px;
-      border-radius: 10px;
-      font-size: 0.825rem;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    /* Chart Containers */
-    .chart-container {
-      position: relative;
-      height: 280px;
-      width: 100%;
-      margin-top: 16px;
-    }
-
-    footer {
-      text-align: center;
-      padding: 32px 0;
-      color: var(--text-muted);
-      font-size: 0.85rem;
-      border-top: 1px solid var(--card-border);
-      margin-top: 40px;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Taiwan Semiconductor Manufacturing Company Limited（TSM）財務健全度與估值報告，數據由 SEC XBRL 產生。">
+<title>Taiwan Semiconductor Manufacturing Company Limited（TSM）財務健全度與估值報告</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+:root{--bg-dark:#070a12;--card-bg:rgba(17,24,39,.75);--card-border:rgba(255,255,255,.08);
+--text-main:#f3f4f6;--text-muted:#9ca3af;--accent:#38bdf8;--accent-2:#a855f7;
+--ok:#10b981;--warn:#fbbf24;--glow:0 12px 40px 0 rgba(0,0,0,.45)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Outfit','Noto Sans TC',sans-serif;
+background:radial-gradient(circle at 50% -10%,#1e3a8a,var(--bg-dark) 75%);
+color:var(--text-main);min-height:100vh;padding:24px;line-height:1.6}
+.container{max-width:1400px;margin:0 auto}
+.top-nav{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;
+padding:16px 28px;background:rgba(15,23,42,.85);backdrop-filter:blur(16px);
+border:1px solid var(--card-border);border-radius:18px;margin-bottom:24px}
+.nav-brand{font-size:1.1rem;font-weight:800;color:#fff}
+.nav-links{display:flex;gap:10px;flex-wrap:wrap}
+.nav-btn{color:var(--text-muted);text-decoration:none;font-size:.875rem;font-weight:600;
+padding:8px 16px;border-radius:10px;background:rgba(255,255,255,.04);
+border:1px solid var(--card-border);transition:all .2s}
+.nav-btn:hover{color:#fff;background:var(--accent);border-color:transparent}
+.hero-card{background:linear-gradient(135deg,rgba(56,189,248,.18),rgba(30,58,138,.8));
+border:1px solid rgba(56,189,248,.35);border-radius:24px;padding:36px;box-shadow:var(--glow);
+margin-bottom:28px;display:grid;grid-template-columns:1.6fr 1.4fr;gap:28px;align-items:center}
+@media(max-width:900px){.hero-card{grid-template-columns:1fr}}
+.hero-title h1{font-size:2.1rem;font-weight:800;letter-spacing:-.5px;margin-bottom:8px}
+.hero-subtitle{font-size:1rem;color:#cbd5e1;margin-bottom:16px}
+.badge-sec{display:inline-flex;align-items:center;gap:8px;background:rgba(16,185,129,.15);
+border:1px solid rgba(16,185,129,.3);color:#34d399;padding:6px 14px;border-radius:12px;
+font-size:.8rem;font-weight:700}
+.hero-kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.kpi-box{background:rgba(0,0,0,.3);border:1px solid var(--card-border);border-radius:16px;padding:16px}
+.kpi-label{font-size:.775rem;color:var(--text-muted)}
+.kpi-val{font-size:1.35rem;font-weight:800;color:#fff;margin-top:4px}
+.kpi-sub{font-size:.75rem;color:var(--accent);margin-top:2px}
+.section-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(620px,1fr));gap:26px;margin-bottom:28px}
+@media(max-width:700px){.section-grid{grid-template-columns:1fr}}
+.card{background:var(--card-bg);backdrop-filter:blur(12px);border:1px solid var(--card-border);
+border-radius:20px;padding:28px;box-shadow:var(--glow)}
+.card-full{grid-column:1/-1}
+.card h2{font-size:1.25rem;font-weight:800;margin-bottom:18px;color:#fff}
+.card h3{font-size:1.05rem;font-weight:700;margin:18px 0 10px;color:#e5e7eb}
+.sub-heading{font-size:.95rem;font-weight:700;margin:18px 0 8px;color:var(--accent)}
+.card ul,.card ol{padding-left:1.25rem;margin:6px 0}
+.card li{margin:6px 0;color:#d1d5db;font-size:.925rem}
+.card p{color:#d1d5db;font-size:.925rem;margin:8px 0}
+.note{font-size:.85rem;color:var(--text-muted);border-left:3px solid var(--accent);
+padding-left:12px;margin:12px 0}
+code{background:rgba(255,255,255,.08);padding:1px 6px;border-radius:5px;font-size:.85em}
+.metric-group{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px}
+.metric-card{background:rgba(0,0,0,.28);border:1px solid var(--card-border);
+border-radius:14px;padding:14px 16px}
+.metric-card.warn{border-color:rgba(251,191,36,.45);background:rgba(251,191,36,.08)}
+.metric-card .title{font-size:.775rem;color:var(--text-muted)}
+.metric-card .value{font-size:1.2rem;font-weight:800;color:#fff;margin-top:4px}
+.rank-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
+.rank-card{background:rgba(0,0,0,.28);border:1px solid var(--card-border);
+border-radius:14px;padding:12px 14px}
+.rank-label{font-size:.75rem;color:var(--text-muted)}
+.rank-pos{font-size:1.05rem;font-weight:800;color:var(--accent);margin-top:2px}
+.rank-val{font-size:.85rem;color:#e5e7eb}
+.flag-box{margin-top:18px;background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.35);
+border-radius:14px;padding:16px 18px}
+.flag-box.ok{background:rgba(16,185,129,.08);border-color:rgba(16,185,129,.35)}
+.flag-box h4{font-size:.95rem;margin-bottom:8px;color:#fff}
+.prov-table{width:100%;border-collapse:collapse;font-size:.875rem}
+.prov-table th{text-align:left;color:var(--text-muted);font-weight:600;padding:7px 12px 7px 0;
+white-space:nowrap;vertical-align:top;width:130px}
+.prov-table td{padding:7px 0;color:#e5e7eb}
+.chart-container{position:relative;height:320px;margin-top:8px}
+footer{text-align:center;color:var(--text-muted);font-size:.8rem;padding:28px 0}
+</style>
 </head>
 <body>
+<div class="container">
 
-  <div class="container">
-
-    <!-- Top Nav -->
-    <nav class="top-nav">
-      <div class="nav-brand">
-        <span style="font-size: 1.4rem;">🇹🇼</span> 台積電 (TSM ADR) 2026 Master 投資報告網頁版
-      </div>
-      <div class="nav-links">
-        <a href="dashboard.html" class="nav-btn">📊 返回持股儀表板</a>
-        <a href="https://github.com/ttchang1127/ttc-stock" target="_blank" class="nav-btn">🐙 GitHub Repo</a>
-      </div>
-    </nav>
-
-    <!-- Hero Header -->
-    <div class="hero-card">
-      <div class="hero-title">
-        <h1>台積電 (TSMC / TSM ADR)</h1>
-        <div class="hero-subtitle">2026 終極個股研究與估值投資報告 (Master Thesis)</div>
-        <div class="badge-sec">
-          🛡️ SEC Form 20-F 官方權威核驗 (Accession: 0001193125-25-083423)
-        </div>
-      </div>
-      <div class="hero-kpis">
-        <div class="kpi-box">
-          <div class="kpi-label">美股現價 (ADR)</div>
-          <div class="kpi-val" style="color: #ef4444;">$404.25 USD</div>
-          <div class="kpi-sub">市值: $1,048,000M+ USD</div>
-        </div>
-        <div class="kpi-box">
-          <div class="kpi-label">毛利率 (Gross Margin)</div>
-          <div class="kpi-val" style="color: #34d399;">59.90%</div>
-          <div class="kpi-sub">淨利率 42.46% (行業冠軍)</div>
-        </div>
-        <div class="kpi-box">
-          <div class="kpi-label">Piotroski F-Score</div>
-          <div class="kpi-val" style="color: #38bdf8;">7 / 7 滿分</div>
-          <div class="kpi-sub">9項評估項 (2項缺標)</div>
-        </div>
-        <div class="kpi-box">
-          <div class="kpi-label">3年 Sortino 下行風險比</div>
-          <div class="kpi-val" style="color: #c084fc;">2.60</div>
-          <div class="kpi-sub">全持股組合風險收益冠軍</div>
-        </div>
-      </div>
+  <nav class="top-nav">
+    <div class="nav-brand">🔍 Taiwan Semiconductor Manufacturing Company Limited（TSM）投資報告</div>
+    <div class="nav-links">
+      <a class="nav-btn" href="dashboard.html">📊 返回儀表板</a>
+      <a class="nav-btn" href="nvda_report.html">NVDA</a><a class="nav-btn" href="goog_report.html">GOOGL</a><a class="nav-btn" href="msft_report.html">MSFT</a>
+      <a class="nav-btn" href="https://github.com/ttchang1127/ttc-stock">🐙 GitHub</a>
     </div>
+  </nav>
 
-    <!-- Main Content Sections -->
-    <div class="section-grid">
-
-      <!-- Section 1: Moat -->
-      <div class="card">
-        <h2>🏰 一、 壟斷級經濟護城河 (Unassailable Economic Moat)</h2>
-        
-        <div class="moat-item">
-          <div class="moat-header">⚡ 1. 先進製程技術絕對獨霸 (Technology Leadership)</div>
-          <div class="moat-desc">
-            2nm (N2) 與 A16 (1.6nm) 製程按進度順利推進，掌握全球近 <strong>90% 的最先進 AI 晶片晶圓代工產能</strong>（涵蓋 Apple M/A 系列、NVIDIA Blackwell/Hopper/Rubin、AMD Instinct、Qualcomm 及 MediaTek）。
-          </div>
-        </div>
-
-        <div class="moat-item">
-          <div class="moat-header">📦 2. CoWoS 先進封裝生態系與產能壁壘 (Advanced Packaging)</div>
-          <div class="moat-desc">
-            AI 高頻寬記憶體 (HBM) 與 GPU 封裝極度依賴 CoWoS/SoIC。台積電憑藉完整的 3D Fabric 生態系，築起後進者難以跨越的實體工程障礙。
-          </div>
-        </div>
-
-        <div class="moat-item">
-          <div class="moat-header">💎 3. 無可匹敵的晶圓代工利潤率 (Foundry Margin Leadership)</div>
-          <div class="moat-desc">
-            毛利率高達 <strong>59.90%</strong>，淨利率高達 <strong>42.46%</strong>，在資本極度密集的晶圓代工產業展現頂級強悍的定價權與營運效率。
-          </div>
-        </div>
-      </div>
-
-      <!-- Section 2: Node Distribution Chart -->
-      <div class="card">
-        <h2>📊 製程節點營收分佈與產能結構 (Form 20-F)</h2>
-        <p style="font-size: 0.85rem; color: var(--text-muted);">最先進技術 (3nm + 5nm + 7nm) 貢獻高達 70%+ 的晶圓銷售收入</p>
-        <div class="chart-container">
-          <canvas id="chartNodeRevenue"></canvas>
-        </div>
-      </div>
-
-      <!-- Section 3: Financial Health & Quantitative Models -->
-      <div class="card card-full">
-        <h2>📊 二、 財報體檢與四大基本面量化模型 (Form 20-F 官方驗證)</h2>
-
-        <div class="metric-group">
-          <div class="metric-card">
-            <div class="title">年度總營收 (Revenue)</div>
-            <div class="value" style="color: #38bdf8;">$88,268M USD</div>
-          </div>
-          <div class="metric-card">
-            <div class="title">淨利潤 (Net Income)</div>
-            <div class="value" style="color: #34d399;">$35,301M USD</div>
-          </div>
-          <div class="metric-card">
-            <div class="title">經營現金流 (OCF)</div>
-            <div class="value" style="color: #34d399;">$55,693M USD</div>
-          </div>
-          <div class="metric-card">
-            <div class="title">淨現金 (Net Cash)</div>
-            <div class="value" style="color: #c084fc;">$64,893M USD</div>
-          </div>
-          <div class="metric-card">
-            <div class="title">總資產 (Total Assets)</div>
-            <div class="value">$204,079M USD</div>
-          </div>
-          <div class="metric-card">
-            <div class="title">股東權益 (Equity)</div>
-            <div class="value">$130,505M USD</div>
-          </div>
-        </div>
-
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 14px;">
-          <!-- DuPont & Altman -->
-          <div style="background: rgba(0,0,0,0.25); padding: 18px; border-radius: 16px; border: 1px solid var(--card-border);">
-            <h4 style="color: var(--accent-cyan); font-size: 0.95rem; margin-bottom: 10px;">🧬 DuPont 杜邦三因子拆解分析</h4>
-            <p style="font-size: 1.1rem; font-weight: 800; color: #fff;">DuPont ROE: 27.05%</p>
-            <p style="font-size: 0.85rem; color: #cbd5e1; margin-top: 6px;">
-              • 淨利率 (Net Profit Margin): <strong>39.99%</strong><br>
-              • 資產週轉率 (Asset Turnover): <strong>0.432x</strong><br>
-              • 權益乘數 (Financial Leverage): <strong>1.564x</strong>
-            </p>
-            <div class="chart-container" style="height: 180px;">
-              <canvas id="chartDupont"></canvas>
-            </div>
-          </div>
-
-          <!-- Piotroski F-Score -->
-          <div style="background: rgba(0,0,0,0.25); padding: 18px; border-radius: 16px; border: 1px solid var(--card-border);">
-            <h4 style="color: var(--accent-emerald); font-size: 0.95rem; margin-bottom: 10px;">📋 Piotroski F-Score (7/7 滿分評核項)</h4>
-            <div class="fscore-grid">
-              <div class="fscore-item">✅ ROA > 0 (資產報酬率正向)</div>
-              <div class="fscore-item">✅ OCF > 0 (經營現金流充沛)</div>
-              <div class="fscore-item">✅ ROA 較前一年提升</div>
-              <div class="fscore-item">✅ OCF > 淨利 (應計品質優優良)</div>
-              <div class="fscore-item">✅ 流動比率提升</div>
-              <div class="fscore-item">✅ 毛利率持續擴張提升</div>
-              <div class="fscore-item">✅ 資產週轉率效率提升</div>
-            </div>
-            <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 12px;">
-              • Altman Z-Score: <strong>87.71 (極度安全區 Safe Zone)</strong>
-            </p>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- Section 4: Sortino & Risk Analysis -->
-      <div class="card">
-        <h2>📈 三、 下行風險與 Sortino Ratio 分析 (週資料計算)</h2>
-        <p style="font-size: 0.875rem; color: #cbd5e1;">
-          Sortino Ratio 只將低於 0 的下行風險波動納入計算，真實衡量台積電承受波段回檔時的風險收益回報能力。
-        </p>
-
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px;">
-          <div style="background: rgba(168, 85, 247, 0.1); border: 1px solid rgba(168, 85, 247, 0.3); padding: 20px; border-radius: 16px; text-align: center;">
-            <div style="font-size: 0.8rem; color: var(--text-muted);">近 3 年 Sortino Ratio (156 週)</div>
-            <div style="font-size: 2.2rem; font-weight: 800; color: #c084fc; margin-top: 4px;">2.60</div>
-            <div style="font-size: 0.75rem; color: #34d399; margin-top: 4px;">全持股投資組合冠軍</div>
-          </div>
-          <div style="background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.3); padding: 20px; border-radius: 16px; text-align: center;">
-            <div style="font-size: 0.8rem; color: var(--text-muted);">近 5 年 Sortino Ratio (260 週)</div>
-            <div style="font-size: 2.2rem; font-weight: 800; color: #38bdf8; margin-top: 4px;">1.43</div>
-            <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 4px;">跨牛熊長期穩定下行控險</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Section 5: Shareholder Yield -->
-      <div class="card">
-        <h2>💵 四、 籌碼面與股東資本回饋 (Shareholder Yield)</h2>
-        
-        <div class="metric-group" style="grid-template-columns: 1fr 1fr;">
-          <div class="metric-card">
-            <div class="title">現金與短期投資</div>
-            <div class="value" style="color: #34d399;">$64,893M USD</div>
-          </div>
-          <div class="metric-card">
-            <div class="title">總金融債務 (長期+短期)</div>
-            <div class="value" style="color: #38bdf8;">$0 百萬美元</div>
-          </div>
-          <div class="metric-card">
-            <div class="title">年度現金股利發放</div>
-            <div class="value" style="color: #fbbf24;">$11,072M USD</div>
-          </div>
-          <div class="metric-card">
-            <div class="title">淨現金資產 (Net Cash)</div>
-            <div class="value" style="color: #c084fc;">$64,893M USD</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Section 6: Risk Factors & Pros/Cons Analysis -->
-      <div class="card card-full">
-        <h2>⚠️ 五、 核心風險因素與利弊分析 (SEC Form 20-F Item 3 & Pros/Cons Matrix)</h2>
-        
-        <p style="font-size: 0.9rem; color: #cbd5e1; margin-bottom: 20px;">
-          依據 SEC Form 20-F 官方申報文件 (Item 3 Risk Factors 及 Item 5 MD&A)，本節深度剖析台積電在投資層面的三大核心風險與多空利弊矩陣。
-        </p>
-
-        <!-- 3 Core Risk Cards -->
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin-bottom: 24px;">
-          <div style="background: rgba(244, 63, 94, 0.08); border: 1px solid rgba(244, 63, 94, 0.25); border-radius: 16px; padding: 18px;">
-            <div style="font-weight: 700; font-size: 1rem; color: #fb7185; margin-bottom: 6px; display: flex; align-items: center; gap: 8px;">
-              🌏 1. 地緣政治風險與海外擴廠摩擦 (Global Fab Friction)
-            </div>
-            <div style="font-size: 0.85rem; color: #cbd5e1;">
-              台灣海峽兩岸地緣政治緊張情勢；台積電於美國亞利桑那、日本熊本、德國德勒斯登海外建廠，學習曲線、工會文化差異與當地營運成本顯著高於台灣本土晶圓廠，壓抑長期毛利率回歸。
-            </div>
-          </div>
-
-          <div style="background: rgba(245, 158, 11, 0.08); border: 1px solid rgba(245, 158, 11, 0.25); border-radius: 16px; padding: 18px;">
-            <div style="font-weight: 700; font-size: 1rem; color: #fbbf24; margin-bottom: 6px; display: flex; align-items: center; gap: 8px;">
-              💸 2. 極高資本支出 (CapEx) 與折舊壓力 (Fixed Cost Friction)
-            </div>
-            <div style="font-size: 0.85rem; color: #cbd5e1;">
-              每年需投入 300 億至 380 億美元的天價 CapEx 用於 High-NA EUV 光刻機採購及 2nm/A16 研發。一旦半導體景氣循環劇烈修正或 AI 需求短暫回檔，高固定成本與折舊壓力將瞬間侵蝕淨利率。
-            </div>
-          </div>
-
-          <div style="background: rgba(56, 189, 248, 0.08); border: 1px solid rgba(56, 189, 248, 0.25); border-radius: 16px; padding: 18px;">
-            <div style="font-weight: 700; font-size: 1rem; color: #38bdf8; margin-bottom: 6px; display: flex; align-items: center; gap: 8px;">
-              ⚡ 3. 客戶高度集中與水電天然災害 (Infrastructure Dependencies)
-            </div>
-            <div style="font-size: 0.85rem; color: #cbd5e1;">
-              前兩大頂級客戶（Apple 與 NVIDIA）貢獻晶圓營收高達 35%+，客戶過度集中；此外，地震、極端氣候導致的水資源供應與台灣電力穩定度，皆為實體生產風險。
-            </div>
-          </div>
-        </div>
-
-        <!-- Pros vs Cons Matrix -->
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-          <!-- Pros / Bull Case -->
-          <div style="background: rgba(16, 185, 129, 0.06); border: 1px solid rgba(16, 185, 129, 0.25); border-radius: 18px; padding: 20px;">
-            <h3 style="color: #34d399; font-size: 1.1rem; font-weight: 800; margin-bottom: 14px; display: flex; align-items: center; gap: 8px;">
-              🟢 投資優勢與利多分析 (Pros / Bull Case)
-            </h3>
-            <ul style="font-size: 0.875rem; color: #cbd5e1; padding-left: 20px; line-height: 1.8;">
-              <li><strong>2nm / A16 製程技術絕對獨霸</strong>：掌控全球近 90% 最先進 AI 晶片代工產能（Apple, NVIDIA, AMD, Qualcomm）。</li>
-              <li><strong>CoWoS / SoIC 先進封裝生態系壁壘</strong>：晶圓代工與 3D Fabric 緊密結合，競爭對手難以複製。</li>
-              <li><strong>頂級財務獲利品質</strong>：毛利率 <strong>59.90%</strong>、淨利率 <strong>42.46%</strong>，展現極高定價權。</li>
-              <li><strong>資產負債表極度健全</strong>：擁有 <strong>$648.9 億美元淨現金</strong>，財務結構極度防禦。</li>
-              <li><strong>Piotroski F-Score 7/7 滿分</strong>：會計營運品質與資產效率皆處於頂級水平。</li>
-            </ul>
-          </div>
-
-          <!-- Cons / Bear Case -->
-          <div style="background: rgba(244, 63, 94, 0.06); border: 1px solid rgba(244, 63, 94, 0.25); border-radius: 18px; padding: 20px;">
-            <h3 style="color: #fb7185; font-size: 1.1rem; font-weight: 800; margin-bottom: 14px; display: flex; align-items: center; gap: 8px;">
-              🔴 投資劣勢與潛在弊端 (Cons / Bear Case)
-            </h3>
-            <ul style="font-size: 0.875rem; color: #cbd5e1; padding-left: 20px; line-height: 1.8;">
-              <li><strong>現金股利殖利率偏低 (0.11% ~ 1.5%)</strong>：天價 CapEx 資本支出吞噬大部分現金流，現金回饋低於防禦型股票。</li>
-              <li><strong>地緣政治與美國晶片法案夾心</strong>：受制於地緣政治與美國出口管制規範，經營彈性受限。</li>
-              <li><strong>自由現金流 (FCF) 波動大</strong>：每年數百億美元建廠與光刻機投入，自由現金流易受壓抑。</li>
-              <li><strong>海外建廠壓抑毛利率</strong>：美國與歐洲建廠成本顯著高於台灣，拉低長期整體毛利率天花板。</li>
-            </ul>
-          </div>
-        </div>
-
-      </div>
-
+  <div class="hero-card">
+    <div class="hero-title">
+      <h1>Taiwan Semiconductor Manufacturing Company Limited（TSM）</h1>
+      <div class="hero-subtitle">財務健全度、估值與下行風險 — 全部數據由 SEC XBRL 與實際收盤價產生</div>
+      <div class="badge-sec">🛡️ 20-F · accession 0001193125-25-083423 · FY2024-12-31</div>
     </div>
-
-    <footer>
-      <p>© 2026 Sec_kb Financial Knowledge Framework. SEC Form 20-F Verified Accession: 0001193125-25-083423.</p>
-    </footer>
-
+    <div class="hero-kpis"><div class="kpi-box"><div class="kpi-label">現價 / 本益比</div><div class="kpi-val">$420.04</div><div class="kpi-sub"></div></div><div class="kpi-box"><div class="kpi-label">ROIC − WACC</div><div class="kpi-val">+24.3pp</div><div class="kpi-sub">創造價值</div></div><div class="kpi-box"><div class="kpi-label">Altman Z&#x27;&#x27;</div><div class="kpi-val">6.82</div><div class="kpi-sub">safe 區（&gt;2.6 安全）</div></div><div class="kpi-box"><div class="kpi-label">健全度警示</div><div class="kpi-val">1 項</div><div class="kpi-sub">9/11 項可計算</div></div></div>
   </div>
 
-  <script>
-    // Node Revenue Chart
-    new Chart(document.getElementById('chartNodeRevenue'), {
-      type: 'doughnut',
-      data: {
-        labels: ['3nm 製程', '5nm 製程', '7nm 製程', '成熟製程 (16nm及以上)'],
-        datasets: [{
-          data: [20, 32, 17, 31],
-          backgroundColor: ['#38bdf8', '#818cf8', '#c084fc', '#475569']
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: { position: 'right', labels: { color: '#94a3b8', font: { size: 11 } } }
-        }
-      }
-    });
+  <div class="section-grid">
+    <div class="card">
+      <h2>🏛️ 一、經濟護城河</h2>
+      <ol><li><strong>先進製程技術絕對獨霸 (Technology Leadership)</strong> ⚡：
+<ul><li>2nm (N2) 與 A16 (1.6nm) 奈米製程進度全球領先，掌控全球近 <strong>90% 的最先進 AI 晶片代工產能</strong> (包含 Apple M/A 系列、NVIDIA Blackwell/Hopper、AMD Instinct、Qualcomm、MediaTek)。
+</li>
+</ul>
+</li><li><strong>CoWoS 先進封裝生態系與產能壁壘 (CoWoS Advanced Packaging)</strong> 📦：
+<ul><li>AI 高頻寬記憶體 (HBM) 與 GPU 必須依賴 CoWoS 先進封裝。台積電憑藉完整的 3D Fabric 技術形成難以跨越的技術壁壘。
+</li>
+</ul>
+</li><li><strong>晶圓代工中領先的利潤率 (Foundry Margin Leadership)</strong> 💎：
+<ul><li>毛利率高達 <strong>59.9%</strong>，淨利率高達 <strong>42.46%</strong>，在資本極度密集半導體製造業中展現頂級定價權。
+</li>
+</ul>
+</li>
+</ol>
+      <p class="note">本節為人工撰寫的質化分析，來源為 30_Analysis 的 Master Thesis，非由財報數字產生。</p>
+    </div>
 
-    // DuPont Chart
-    new Chart(document.getElementById('chartDupont'), {
-      type: 'bar',
-      data: {
-        labels: ['淨利率 (%)', '資產週轉率 (x100)', '權益乘數 (x100)'],
-        datasets: [{
-          label: 'DuPont 三因子拆解',
-          data: [39.99, 43.20, 156.40],
-          backgroundColor: ['#34d399', '#38bdf8', '#c084fc']
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: { legend: { display: false } },
-        scales: {
-          x: { ticks: { color: '#94a3b8', font: { size: 10 } } },
-          y: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } }
-        }
-      }
-    });
-  </script>
+    <div class="card">
+      <h2>📈 六年營收與自由現金流趨勢</h2>
+      <div class="chart-container"><canvas id="trendChart"></canvas></div>
+    </div>
+
+    <div class="card card-full">
+      <h2>🩺 財務健全度總覽</h2>
+      <div class="metric-group"><div class="metric-card"><div class="title">流動比率</div><div class="value">2.36</div></div><div class="metric-card"><div class="title">現金比率</div><div class="value">1.63</div></div><div class="metric-card"><div class="title">負債佔資產</div><div class="value">36.0%</div></div><div class="metric-card"><div class="title">有息負債／淨值</div><div class="value">0.24</div></div><div class="metric-card"><div class="title">利息保障倍數</div><div class="value">126.0x</div></div><div class="metric-card"><div class="title">ROIC</div><div class="value">32.8%</div></div><div class="metric-card"><div class="title">ROIC − WACC</div><div class="value">+24.3pp</div></div><div class="metric-card"><div class="title">FCF 利潤率</div><div class="value">資料不足</div></div><div class="metric-card"><div class="title">應計比率</div><div class="value">-10.6%</div></div><div class="metric-card"><div class="title">Altman Z&#x27;&#x27;</div><div class="value">6.82（safe）</div></div><div class="metric-card"><div class="title">Piotroski（標準化 /9）</div><div class="value">7.9</div></div><div class="metric-card"><div class="title">Beneish M-Score</div><div class="value">資料不足</div></div></div><div class="flag-box"><h4>⚠️ 觸發 1 項門檻</h4><ul><li><strong>資料新鮮度</strong>：此財年結束於 2024-12-31，距今 20 個月。與其他公司並列比較時期別並不對齊</li></ul></div>
+    </div>
+
+    <div class="card card-full">
+      <h2>🏅 本組合相對排名（14 家）</h2>
+      <div class="rank-strip"><div class="rank-card"><div class="rank-label">營運現金流</div><div class="rank-pos"> 第 7 / 14</div><div class="rank-val">$55,693M</div></div>
+<div class="rank-card"><div class="rank-label">毛利率</div><div class="rank-pos"> 第 6 / 14</div><div class="rank-val">56.1%</div></div>
+<div class="rank-card"><div class="rank-label">ROIC</div><div class="rank-pos">🥉 第 3 / 13</div><div class="rank-val">32.8%</div></div>
+<div class="rank-card"><div class="rank-label">ROIC−WACC 價差</div><div class="rank-pos">🥉 第 3 / 13</div><div class="rank-val">24.3%</div></div>
+<div class="rank-card"><div class="rank-label">12 個月 Sortino</div><div class="rank-pos"> 第 7 / 14</div><div class="rank-val">2.43</div></div>
+<div class="rank-card"><div class="rank-label">F-Score（標準化）</div><div class="rank-pos">🥈 第 2 / 14</div><div class="rank-val">7.90</div></div>
+<div class="rank-card"><div class="rank-label">Altman Z&#x27;&#x27;</div><div class="rank-pos">🥉 第 3 / 13</div><div class="rank-val">6.82</div></div></div>
+      <p class="note">排名僅涵蓋本知識庫追蹤的 14 家公司，每次產生時重新計算。不代表全市場排名。</p>
+    </div>
+
+    <div class="card">
+      <h2>📊 損益、現金流與資產負債</h2>
+      <div class="metric-group"><div class="metric-card"><div class="title">營收</div><div class="value">$88,268M</div></div><div class="metric-card"><div class="title">淨利</div><div class="value">$35,301M</div></div><div class="metric-card"><div class="title">毛利率</div><div class="value">56.12%</div></div><div class="metric-card"><div class="title">營運現金流</div><div class="value">$55,693M</div></div><div class="metric-card"><div class="title">資本支出</div><div class="value">資料不足</div></div><div class="metric-card"><div class="title">自由現金流</div><div class="value">資料不足</div></div><div class="metric-card"><div class="title">總資產</div><div class="value">$204,079M</div></div><div class="metric-card"><div class="title">總負債</div><div class="value">$73,574M</div></div><div class="metric-card"><div class="title">股東權益</div><div class="value">$130,505M</div></div></div>
+      <h3>DuPont 三因子拆解</h3>
+      <div class="chart-container"><canvas id="dupontChart"></canvas></div>
+    </div>
+
+    <div class="card">
+      <h2>🎲 蒙地卡羅 DCF 估值分佈</h2>
+      <p class="note">DCF 狀態：缺 FCF。本節不呈現估值數字。</p>
+      <div class="chart-container"><canvas id="dcfChart"></canvas></div>
+    </div>
+
+    <div class="card">
+      <h2>📉 下行風險（Sortino Ratio）</h2>
+      <div class="metric-group"><div class="metric-card"><div class="title">近 3 年（週資料）</div><div class="value">2.75</div></div><div class="metric-card"><div class="title">近 5 年（週資料）</div><div class="value">1.49</div></div><div class="metric-card"><div class="title">近 12 個月（日資料 MAR=0）</div><div class="value">2.43</div></div><div class="metric-card"><div class="title">同期無風險門檻版本</div><div class="value">2.28</div></div></div>
+      <p class="note">三個數字的頻率、期間與門檻報酬率都不同，衡量的是不同的東西，不能互相驗證。</p>
+    </div>
+
+    <div class="card">
+      <h2>💵 籌碼面與股東資本回饋</h2>
+      <div class="metric-group"><div class="metric-card"><div class="title">稀釋每股盈餘</div><div class="value">資料不足</div></div><div class="metric-card"><div class="title">現金與短期投資</div><div class="value">$64,893M</div></div><div class="metric-card"><div class="title">有息負債總額</div><div class="value">$31,932M</div></div><div class="metric-card"><div class="title">淨現金</div><div class="value">$32,961M</div></div><div class="metric-card"><div class="title">庫藏股回購</div><div class="value">資料不足</div></div><div class="metric-card"><div class="title">現金股利</div><div class="value">$11,072M</div></div><div class="metric-card"><div class="title">股東總殖利率</div><div class="value">0.10%</div></div></div>
+    </div>
+
+    <div class="card card-full">
+      <h2>⚠️ 核心風險因素</h2>
+      <h4 class="sub-heading">1. 三大核心風險因素 (Item 3 Risk Factors)</h4>
+<ul><li><strong>🌏 地緣政治與海外擴廠摩擦 (Global Fab Friction)</strong>：台灣海峽兩岸地緣政治緊張情勢；美國亞利桑那、日本熊本、德國德勒斯登海外建廠，學習曲線、工會文化差異與當地營運成本顯著高於台灣本土晶圓廠。
+</li><li><strong>💸 極高資本支出 (CapEx) 與折舊壓力 (Fixed Cost Friction)</strong>：每年需投入 300 億至 380 億美元的天價 CapEx 用於 High-NA EUV 採購及 2nm/A16 研發。一旦半導體景氣劇烈修正，高固定成本與折舊壓力將侵蝕淨利率。
+</li><li><strong>⚡ 客戶高度集中與水電天然災害 (Infrastructure Dependencies)</strong>：前兩大頂級客戶（Apple 與 NVIDIA）貢獻晶圓營收高達 35%+；此外，地震、極端氣候水資源與台灣電力穩定度皆為實體生產風險。
+</li>
+</ul>
+<h4 class="sub-heading">2. 投資利弊與優劣勢矩陣 (Pros &amp; Cons Matrix)</h4>
+<ul><li><strong>🟢 多頭優勢 (Pros / Bull Case)</strong>：
+<ul><li><strong>2nm / A16 製程技術絕對獨霸</strong>：掌控全球近 90% 最先進 AI 晶片代工產能 (Apple, NVIDIA, AMD, Qualcomm)。
+</li><li><strong>CoWoS / SoIC 先進封裝生態系壁壘</strong>：晶圓代工與 3D Fabric 緊密結合，競爭對手難以複製。
+</li><li><strong>頂級財務獲利品質</strong>：毛利率 <strong>59.90%</strong>、淨利率 <strong>42.46%</strong>，展現極高定價權。
+</li><li><strong>資產負債表極度健全</strong>：擁有 <strong>$648.9 億美元淨現金</strong>，零金融淨負債，F-Score <strong>7/7 滿分</strong>。
+</li>
+</ul>
+</li><li><strong>🔴 空頭隱憂 (Cons / Bear Case)</strong>：
+<ul><li><strong>現金股利殖利率偏低 (0.11% ~ 1.5%)</strong>：天價 CapEx 資本支出吞噬大部分現金流，現金回饋低於防禦型股票。
+</li><li><strong>地緣政治與美國晶片法案夾心</strong>：受制於地緣政治與美國出口管制規範，經營彈性受限。
+</li><li><strong>自由現金流 (FCF) 受天價 CapEx 壓抑</strong>：每年數百億美元建廠與光刻機投入。
+</li>
+</ul>
+</li>
+</ul>
+      <p class="note">本節為人工撰寫的質化分析，來源為 30_Analysis 的 Master Thesis，非由財報數字產生。</p>
+    </div>
+
+    <div class="card card-full">
+      <h2>🔎 資料來源與限制</h2>
+      <table class="prov-table"><tr><th>財報來源</th><td>20-F，accession <code>0001193125-25-083423</code>，申報日 2025-04-17</td></tr><tr><th>會計年度結束</th><td>2024-12-31（距今 20 個月）</td></tr><tr><th>幣別</th><td>USD</td></tr><tr><th>股價</th><td>2026-08-07 收盤 $420.04</td></tr><tr><th>指標覆蓋</th><td>9 / 11</td></tr></table><h4 class="sub-heading">資料限制</h4><ul><li>此財年結束於 2024-12-31，距今 20 個月。與其他公司並列比較時期別並不對齊</li><li>有息負債：以下組成因幣別為 TWD 而未計入（本表以 USD 為準）：一年內到期公司債（TWD 57,148,000,000）、一年內到期融資租賃（TWD 3,049,000,000）。有息負債因此低估</li><li>Beneish M-Score：缺 SGAI 無法計算，未以 1.0 代入</li></ul>
+    </div>
+  </div>
+
+  <footer>
+    由 <code>scripts/build_reports.py</code> 於 2026-08-08 10:51 UTC 產生。<br>
+    本頁不含任何手動輸入的財務數字；質化章節除外，且已標示。<br>
+    DCF 為特定假設下的推估，非事實，不構成投資建議。
+  </footer>
+</div>
+
+<script>
+Chart.defaults.color = '#9ca3af';
+Chart.defaults.borderColor = 'rgba(255,255,255,.07)';
+const noLegend = { plugins: { legend: { labels: { color: '#d1d5db' } } },
+                   maintainAspectRatio: false, responsive: true };
+
+new Chart(document.getElementById('trendChart'), {
+  type: 'bar',
+  data: {
+    labels: ["2019", "2020", "2021", "2022", "2023", "2024"],
+    datasets: [
+      { label: '營收', data: [35774, 47694, 57225, 73670, 70599, 88268], backgroundColor: 'rgba(56,189,248,.55)' },
+      { label: '自由現金流', data: [null, null, null, null, null, null], type: 'line',
+         borderColor: '#a855f7', backgroundColor: '#a855f7', tension: .3 }
+    ]
+  },
+  options: { ...noLegend, scales: { y: { ticks: { callback: v => v + 'M' } } } }
+});
+
+new Chart(document.getElementById('dupontChart'), {
+  type: 'bar',
+  data: {
+    labels: ['淨利率 (%)', '資產週轉率 (x)', '權益乘數 (x)'],
+    datasets: [{ label: 'DuPont 三因子', data: [39.99, 0.4325, 1.5638],
+                 backgroundColor: ['#38bdf8', '#10b981', '#fbbf24'] }]
+  },
+  options: noLegend
+});
+
+new Chart(document.getElementById('dcfChart'), {
+  type: 'bar',
+  data: {
+    labels: ["\u73fe\u50f9"],
+    datasets: [{ label: '每股價值 (USD)', data: [420.04],
+                 backgroundColor: ["#10b981"] }]
+  },
+  options: noLegend
+});
+</script>
 </body>
 </html>

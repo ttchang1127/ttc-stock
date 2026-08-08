@@ -1,590 +1,248 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Microsoft Corporation (MSFT) 2026 終極個股研究與估值投資報告 - 基於 SEC 近 10 年 10-K 財報與二級市場數據。">
-  <title>Microsoft (MSFT) 2026 終極投資與估值報告 | SEC 10-K 驗證</title>
-  <!-- Google Fonts & Chart.js -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-  <style>
-    :root {
-      --bg-dark: #070a12;
-      --card-bg: rgba(17, 24, 39, 0.75);
-      --card-border: rgba(255, 255, 255, 0.08);
-      --text-main: #f3f4f6;
-      --text-muted: #9ca3af;
-      --accent-msft: #00a4ef;
-      --accent-cyan: #38bdf8;
-      --accent-purple: #a855f7;
-      --accent-emerald: #10b981;
-      --accent-rose: #f43f5e;
-      --accent-amber: #fbbc05;
-      --glow-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.45);
-    }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: 'Outfit', 'Noto Sans TC', sans-serif;
-      background: radial-gradient(circle at 50% -10%, #0284c7, var(--bg-dark) 75%);
-      color: var(--text-main);
-      min-height: 100vh;
-      padding: 24px;
-      line-height: 1.6;
-    }
-
-    .container {
-      max-width: 1400px;
-      margin: 0 auto;
-    }
-
-    /* Top Navigation Bar */
-    .top-nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 16px 28px;
-      background: rgba(15, 23, 42, 0.85);
-      backdrop-filter: blur(16px);
-      border: 1px solid var(--card-border);
-      border-radius: 18px;
-      margin-bottom: 24px;
-    }
-
-    .nav-brand {
-      font-size: 1.1rem;
-      font-weight: 800;
-      color: #fff;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 16px;
-    }
-
-    .nav-btn {
-      color: var(--text-muted);
-      text-decoration: none;
-      font-size: 0.875rem;
-      font-weight: 600;
-      padding: 8px 16px;
-      border-radius: 10px;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid var(--card-border);
-      transition: all 0.2s ease;
-    }
-
-    .nav-btn:hover {
-      color: #fff;
-      background: var(--accent-msft);
-      border-color: transparent;
-    }
-
-    /* Hero Header */
-    .hero-card {
-      background: linear-gradient(135deg, rgba(0, 164, 239, 0.2), rgba(2, 132, 199, 0.8));
-      border: 1px solid rgba(0, 164, 239, 0.35);
-      border-radius: 24px;
-      padding: 36px;
-      box-shadow: var(--glow-shadow);
-      margin-bottom: 32px;
-      display: grid;
-      grid-template-columns: 1.8fr 1.2fr;
-      gap: 28px;
-      align-items: center;
-    }
-
-    .hero-title h1 {
-      font-size: 2.3rem;
-      font-weight: 800;
-      background: linear-gradient(135deg, #00a4ef, #38bdf8, #a7f3d0);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      letter-spacing: -0.5px;
-      margin-bottom: 8px;
-    }
-
-    .hero-subtitle {
-      font-size: 1.05rem;
-      color: #cbd5e1;
-      margin-bottom: 18px;
-    }
-
-    .badge-sec {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(16, 185, 129, 0.15);
-      border: 1px solid rgba(16, 185, 129, 0.3);
-      color: #34d399;
-      padding: 6px 14px;
-      border-radius: 12px;
-      font-size: 0.825rem;
-      font-weight: 700;
-    }
-
-    .hero-kpis {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 14px;
-    }
-
-    .kpi-box {
-      background: rgba(0, 0, 0, 0.3);
-      border: 1px solid var(--card-border);
-      border-radius: 16px;
-      padding: 16px;
-    }
-
-    .kpi-label { font-size: 0.775rem; color: var(--text-muted); }
-    .kpi-val { font-size: 1.4rem; font-weight: 800; color: #fff; margin-top: 4px; }
-    .kpi-sub { font-size: 0.75rem; color: var(--accent-cyan); margin-top: 2px; }
-
-    /* Section Cards Grid */
-    .section-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(640px, 1fr));
-      gap: 28px;
-      margin-bottom: 32px;
-    }
-
-    .card {
-      background: var(--card-bg);
-      backdrop-filter: blur(16px);
-      border: 1px solid var(--card-border);
-      border-radius: 22px;
-      padding: 28px;
-      box-shadow: var(--glow-shadow);
-    }
-
-    .card-full {
-      grid-column: 1 / -1;
-    }
-
-    .card h2 {
-      font-size: 1.4rem;
-      font-weight: 800;
-      color: #fff;
-      margin-bottom: 18px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      border-bottom: 1px solid var(--card-border);
-      padding-bottom: 12px;
-    }
-
-    /* Moat List */
-    .moat-item {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      border-radius: 14px;
-      padding: 16px;
-      margin-bottom: 14px;
-    }
-
-    .moat-item:last-child { margin-bottom: 0; }
-
-    .moat-header {
-      font-weight: 700;
-      font-size: 1.05rem;
-      color: #38bdf8;
-      margin-bottom: 6px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .moat-desc {
-      font-size: 0.9rem;
-      color: #cbd5e1;
-    }
-
-    /* Metric Rows */
-    .metric-group {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 12px;
-      margin-bottom: 20px;
-    }
-
-    .metric-card {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid var(--card-border);
-      border-radius: 14px;
-      padding: 14px;
-    }
-
-    .metric-card .title { font-size: 0.75rem; color: var(--text-muted); }
-    .metric-card .value { font-size: 1.2rem; font-weight: 700; color: #fff; margin-top: 2px; }
-
-    /* Chart Containers */
-    .chart-container {
-      position: relative;
-      height: 280px;
-      width: 100%;
-      margin-top: 16px;
-    }
-
-    footer {
-      text-align: center;
-      padding: 32px 0;
-      color: var(--text-muted);
-      font-size: 0.85rem;
-      border-top: 1px solid var(--card-border);
-      margin-top: 40px;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="MICROSOFT CORPORATION（MSFT）財務健全度與估值報告，數據由 SEC XBRL 產生。">
+<title>MICROSOFT CORPORATION（MSFT）財務健全度與估值報告</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+:root{--bg-dark:#070a12;--card-bg:rgba(17,24,39,.75);--card-border:rgba(255,255,255,.08);
+--text-main:#f3f4f6;--text-muted:#9ca3af;--accent:#38bdf8;--accent-2:#a855f7;
+--ok:#10b981;--warn:#fbbf24;--glow:0 12px 40px 0 rgba(0,0,0,.45)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Outfit','Noto Sans TC',sans-serif;
+background:radial-gradient(circle at 50% -10%,#1e3a8a,var(--bg-dark) 75%);
+color:var(--text-main);min-height:100vh;padding:24px;line-height:1.6}
+.container{max-width:1400px;margin:0 auto}
+.top-nav{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;
+padding:16px 28px;background:rgba(15,23,42,.85);backdrop-filter:blur(16px);
+border:1px solid var(--card-border);border-radius:18px;margin-bottom:24px}
+.nav-brand{font-size:1.1rem;font-weight:800;color:#fff}
+.nav-links{display:flex;gap:10px;flex-wrap:wrap}
+.nav-btn{color:var(--text-muted);text-decoration:none;font-size:.875rem;font-weight:600;
+padding:8px 16px;border-radius:10px;background:rgba(255,255,255,.04);
+border:1px solid var(--card-border);transition:all .2s}
+.nav-btn:hover{color:#fff;background:var(--accent);border-color:transparent}
+.hero-card{background:linear-gradient(135deg,rgba(56,189,248,.18),rgba(30,58,138,.8));
+border:1px solid rgba(56,189,248,.35);border-radius:24px;padding:36px;box-shadow:var(--glow);
+margin-bottom:28px;display:grid;grid-template-columns:1.6fr 1.4fr;gap:28px;align-items:center}
+@media(max-width:900px){.hero-card{grid-template-columns:1fr}}
+.hero-title h1{font-size:2.1rem;font-weight:800;letter-spacing:-.5px;margin-bottom:8px}
+.hero-subtitle{font-size:1rem;color:#cbd5e1;margin-bottom:16px}
+.badge-sec{display:inline-flex;align-items:center;gap:8px;background:rgba(16,185,129,.15);
+border:1px solid rgba(16,185,129,.3);color:#34d399;padding:6px 14px;border-radius:12px;
+font-size:.8rem;font-weight:700}
+.hero-kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.kpi-box{background:rgba(0,0,0,.3);border:1px solid var(--card-border);border-radius:16px;padding:16px}
+.kpi-label{font-size:.775rem;color:var(--text-muted)}
+.kpi-val{font-size:1.35rem;font-weight:800;color:#fff;margin-top:4px}
+.kpi-sub{font-size:.75rem;color:var(--accent);margin-top:2px}
+.section-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(620px,1fr));gap:26px;margin-bottom:28px}
+@media(max-width:700px){.section-grid{grid-template-columns:1fr}}
+.card{background:var(--card-bg);backdrop-filter:blur(12px);border:1px solid var(--card-border);
+border-radius:20px;padding:28px;box-shadow:var(--glow)}
+.card-full{grid-column:1/-1}
+.card h2{font-size:1.25rem;font-weight:800;margin-bottom:18px;color:#fff}
+.card h3{font-size:1.05rem;font-weight:700;margin:18px 0 10px;color:#e5e7eb}
+.sub-heading{font-size:.95rem;font-weight:700;margin:18px 0 8px;color:var(--accent)}
+.card ul,.card ol{padding-left:1.25rem;margin:6px 0}
+.card li{margin:6px 0;color:#d1d5db;font-size:.925rem}
+.card p{color:#d1d5db;font-size:.925rem;margin:8px 0}
+.note{font-size:.85rem;color:var(--text-muted);border-left:3px solid var(--accent);
+padding-left:12px;margin:12px 0}
+code{background:rgba(255,255,255,.08);padding:1px 6px;border-radius:5px;font-size:.85em}
+.metric-group{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px}
+.metric-card{background:rgba(0,0,0,.28);border:1px solid var(--card-border);
+border-radius:14px;padding:14px 16px}
+.metric-card.warn{border-color:rgba(251,191,36,.45);background:rgba(251,191,36,.08)}
+.metric-card .title{font-size:.775rem;color:var(--text-muted)}
+.metric-card .value{font-size:1.2rem;font-weight:800;color:#fff;margin-top:4px}
+.rank-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
+.rank-card{background:rgba(0,0,0,.28);border:1px solid var(--card-border);
+border-radius:14px;padding:12px 14px}
+.rank-label{font-size:.75rem;color:var(--text-muted)}
+.rank-pos{font-size:1.05rem;font-weight:800;color:var(--accent);margin-top:2px}
+.rank-val{font-size:.85rem;color:#e5e7eb}
+.flag-box{margin-top:18px;background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.35);
+border-radius:14px;padding:16px 18px}
+.flag-box.ok{background:rgba(16,185,129,.08);border-color:rgba(16,185,129,.35)}
+.flag-box h4{font-size:.95rem;margin-bottom:8px;color:#fff}
+.prov-table{width:100%;border-collapse:collapse;font-size:.875rem}
+.prov-table th{text-align:left;color:var(--text-muted);font-weight:600;padding:7px 12px 7px 0;
+white-space:nowrap;vertical-align:top;width:130px}
+.prov-table td{padding:7px 0;color:#e5e7eb}
+.chart-container{position:relative;height:320px;margin-top:8px}
+footer{text-align:center;color:var(--text-muted);font-size:.8rem;padding:28px 0}
+</style>
 </head>
 <body>
+<div class="container">
 
-  <div class="container">
-
-    <!-- Top Nav -->
-    <nav class="top-nav">
-      <div class="nav-brand">
-        <span style="font-size: 1.4rem;">🪟</span> Microsoft Corporation (MSFT) 2026 Master 投資報告網頁版
-      </div>
-      <div class="nav-links">
-        <a href="dashboard.html" class="nav-btn">📊 返回持股儀表板</a>
-        <a href="aapl_report.html" class="nav-btn">🍎 Apple 報告</a>
-        <a href="onds_report.html" class="nav-btn">🛸 Ondas 報告</a>
-        <a href="nok_report.html" class="nav-btn">📶 Nokia 報告</a>
-        <a href="intc_report.html" class="nav-btn">🔷 Intel 報告</a>
-        <a href="tsla_report.html" class="nav-btn">⚡ Tesla 報告</a>
-        <a href="goog_report.html" class="nav-btn">🔍 Google 報告</a>
-        <a href="nvda_report.html" class="nav-btn">🟩 NVIDIA 報告</a>
-        <a href="tsm_report.html" class="nav-btn">🇹🇼 台積電報告</a>
-        <a href="https://github.com/ttchang1127/ttc-stock" target="_blank" class="nav-btn">🐙 GitHub Repo</a>
-      </div>
-    </nav>
-
-    <!-- Hero Header -->
-    <div class="hero-card">
-      <div class="hero-title">
-        <h1>Microsoft Corporation (MSFT)</h1>
-        <div class="hero-subtitle">2026 終極個股研究與估值投資報告 (Master Thesis)</div>
-        <div class="badge-sec">
-          🛡️ SEC Form 10-K 官方權威核驗 (Accession: 0001193125-26-323660)
-        </div>
-      </div>
-      <div class="hero-kpis">
-        <div class="kpi-box">
-          <div class="kpi-label">美股現價 (Price / P/E)</div>
-          <div class="kpi-val" style="color: #38bdf8;">$464.72 USD</div>
-          <div class="kpi-sub">本益比 P/E: 25.9x (防禦估值)</div>
-        </div>
-        <div class="kpi-box">
-          <div class="kpi-label">經營現金流 (OCF)</div>
-          <div class="kpi-val" style="color: #34d399;">$1,829.4 億美元</div>
-          <div class="kpi-sub">全美股第 1 大 OCF 巨獸 👑</div>
-        </div>
-        <div class="kpi-box">
-          <div class="kpi-label">年度總營收 (Revenue)</div>
-          <div class="kpi-val" style="color: #34d399;">$331,839M USD</div>
-          <div class="kpi-sub">淨利潤 $1,337.5 億美元</div>
-        </div>
-        <div class="kpi-box">
-          <div class="kpi-label">DuPont ROE / 淨現金</div>
-          <div class="kpi-val" style="color: #c084fc;">30.23% / $365億</div>
-          <div class="kpi-sub">極致健康的資產負債表</div>
-        </div>
-      </div>
+  <nav class="top-nav">
+    <div class="nav-brand">🔍 MICROSOFT CORPORATION（MSFT）投資報告</div>
+    <div class="nav-links">
+      <a class="nav-btn" href="dashboard.html">📊 返回儀表板</a>
+      <a class="nav-btn" href="nvda_report.html">NVDA</a><a class="nav-btn" href="tsm_report.html">TSM</a><a class="nav-btn" href="goog_report.html">GOOGL</a>
+      <a class="nav-btn" href="https://github.com/ttchang1127/ttc-stock">🐙 GitHub</a>
     </div>
+  </nav>
 
-    <!-- Main Content Sections -->
-    <div class="section-grid">
-
-      <!-- Section 1: Moat -->
-      <div class="card">
-        <h2>🏰 一、 三大寬廣經濟護城河 (Wide Economic Moat)</h2>
-        
-        <div class="moat-item">
-          <div class="moat-header">⚡ 1. Azure 雲端與 OpenAI GPT-4 Copilot 壟斷 (Azure & AI Cloud)</div>
-          <div class="moat-desc">
-            包含 Azure 雲端、OpenAI GPT-4/Copilot API 深度整合。Microsoft Cloud 營收飆升至 <strong>$1,689 億美元</strong> (年增 23%)，Azure 單項年增高達 <strong>+34%</strong>！
-          </div>
-        </div>
-
-        <div class="moat-item">
-          <div class="moat-header">🔒 2. Office 365 企業生產力極高切換成本 (Productivity Ecosystem)</div>
-          <div class="moat-desc">
-            全球企業辦公軟體絕對霸主。Microsoft 365 Commercial 商業訂閱續約率逼近 100%，具備強大定價權與高毛利。
-          </div>
-        </div>
-
-        <div class="moat-item">
-          <div class="moat-header">🎮 3. Windows 桌面霸主與 Xbox / 動視暴雪遊戲帝國</div>
-          <div class="moat-desc">
-            Windows 掌控全球 PC 作業系統市場，成功並購動視暴雪 (Activision Blizzard) 後，強勢擴張 Xbox Game Pass 訂閱生態。
-          </div>
-        </div>
-      </div>
-
-      <!-- Section 2: Revenue & Cash Flow Chart -->
-      <div class="card">
-        <h2>📊 財報財務數據與現金流爆發力 (FY2026 10-K)</h2>
-        <p style="font-size: 0.85rem; color: var(--text-muted);">年度營收突破 $3,318.4 億美元，經營現金流 (OCF) 高達 $1,829.4 億美元</p>
-        <div class="chart-container">
-          <canvas id="chartFinancials"></canvas>
-        </div>
-      </div>
-
-      <!-- Section 3: Financial Health & Quantitative Models -->
-      <div class="card card-full">
-        <h2>📊 二、 財報體檢與四大基本面量化模型 (FY2026 10-K 官方驗證)</h2>
-
-        <div class="metric-group">
-          <div class="metric-card">
-            <div class="title">年度總營收 (Revenue)</div>
-            <div class="value" style="color: #38bdf8;">$331,839M USD</div>
-          </div>
-          <div class="metric-card">
-            <div class="title">淨利潤 (Net Income)</div>
-            <div class="value" style="color: #34d399;">$133,749M USD</div>
-          </div>
-          <div class="metric-card">
-            <div class="title">經營現金流 (OCF)</div>
-            <div class="value" style="color: #34d399;">$182,935M USD 👑</div>
-          </div>
-          <div class="metric-card">
-            <div class="title">自由現金流 (FCF)</div>
-            <div class="value" style="color: #38bdf8;">$66,987M USD</div>
-          </div>
-          <div class="metric-card">
-            <div class="title">股東總回饋 (Yield)</div>
-            <div class="value" style="color: #fbbf24;">$48,716M USD (1.41%)</div>
-          </div>
-          <div class="metric-card">
-            <div class="title">淨現金資產 (Net Cash)</div>
-            <div class="value" style="color: #c084fc;">$36,549M USD</div>
-          </div>
-        </div>
-
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 14px;">
-          <!-- DuPont & Financials -->
-          <div style="background: rgba(0,0,0,0.25); padding: 18px; border-radius: 16px; border: 1px solid var(--card-border);">
-            <h4 style="color: var(--accent-cyan); font-size: 0.95rem; margin-bottom: 10px;">🧬 DuPont 杜邦三因子拆解分析</h4>
-            <p style="font-size: 1.1rem; font-weight: 800; color: #fff;">DuPont ROE: 30.23%</p>
-            <p style="font-size: 0.85rem; color: #cbd5e1; margin-top: 6px;">
-              • 淨利率 (Net Profit Margin): <strong>40.31%</strong><br>
-              • 資產週轉率 (Asset Turnover): <strong>0.438x</strong><br>
-              • 權益乘數 (Financial Leverage): <strong>1.714x</strong>
-            </p>
-            <div class="chart-container" style="height: 180px;">
-              <canvas id="chartDupont"></canvas>
-            </div>
-          </div>
-
-          <!-- DCF Valuation Range -->
-          <div style="background: rgba(0,0,0,0.25); padding: 18px; border-radius: 16px; border: 1px solid var(--card-border);">
-            <h4 style="color: var(--accent-msft); font-size: 0.95rem; margin-bottom: 10px;">🎲 DCF 蒙地卡羅 10,000 次估值分佈</h4>
-            <p style="font-size: 0.85rem; color: #cbd5e1;">
-              • 50% 主流估值區間 (P25 ~ P75): <strong>$296.15 ~ $419.70 USD</strong><br>
-              • 估值中位數 (P50 Median): <strong style="color: #38bdf8; font-size: 1.1rem;">$351.04 USD</strong><br>
-              • 現價 $464.72 包含 Azure AI 與 OpenAI 的溢價
-            </p>
-            <div class="chart-container" style="height: 180px;">
-              <canvas id="chartDcf"></canvas>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- Section 4: Sortino & Risk Analysis -->
-      <div class="card">
-        <h2>📈 三、 下行風險與 Sortino Ratio 分析 (二級市場波動)</h2>
-        <p style="font-size: 0.875rem; color: #cbd5e1;">
-          Sortino Ratio 只將低於 0 的下行風險波動納入計算，真實衡量 Microsoft 在二級市場拉回時的風險收益回報能力。
-        </p>
-
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px;">
-          <div style="background: rgba(168, 85, 247, 0.1); border: 1px solid rgba(168, 85, 247, 0.3); padding: 20px; border-radius: 16px; text-align: center;">
-            <div style="font-size: 0.8rem; color: var(--text-muted);">近 3 年 Sortino Ratio (156 週)</div>
-            <div style="font-size: 2.2rem; font-weight: 800; color: #c084fc; margin-top: 4px;">0.97</div>
-            <div style="font-size: 0.75rem; color: #34d399; margin-top: 4px;">穩健大盤藍籌屬性</div>
-          </div>
-          <div style="background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.3); padding: 20px; border-radius: 16px; text-align: center;">
-            <div style="font-size: 0.8rem; color: var(--text-muted);">近 5 年 Sortino Ratio (260 週)</div>
-            <div style="font-size: 2.2rem; font-weight: 800; color: #38bdf8; margin-top: 4px;">0.80</div>
-            <div style="font-size: 0.75rem; color: #34d399; margin-top: 4px;">長期複利增長防禦</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Section 5: Shareholder Yield -->
-      <div class="card">
-        <h2>💵 四、 籌碼面與股東資本回饋 (Shareholder Yield)</h2>
-        
-        <div class="metric-group" style="grid-template-columns: 1fr 1fr;">
-          <div class="metric-card">
-            <div class="title">稀釋每股盈餘 (EPS)</div>
-            <div class="value" style="color: #38bdf8;">$17.95 USD</div>
-          </div>
-          <div class="metric-card">
-            <div class="title">庫藏股買回 (Buyback)</div>
-            <div class="value" style="color: #34d399;">$22,271M USD (0.65%)</div>
-          </div>
-          <div class="metric-card">
-            <div class="title">現金股利發放 (Dividend)</div>
-            <div class="value" style="color: #fbbf24;">$26,445M USD (0.77%)</div>
-          </div>
-          <div class="metric-card">
-            <div class="title">股東總殖利率 (Shareholder Yield)</div>
-            <div class="value" style="color: #c084fc;">1.41%</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Section 6: Risk Factors & Pros/Cons Analysis -->
-      <div class="card card-full">
-        <h2>⚠️ 五、 核心風險因素與利弊分析 (SEC Form 10-K Item 1A & Pros/Cons Matrix)</h2>
-        
-        <p style="font-size: 0.9rem; color: #cbd5e1; margin-bottom: 20px;">
-          依據 SEC Form 10-K 官方申報文件 (Item 1A Risk Factors 及 Item 7 MD&A)，本節深度剖析 Microsoft 在投資層面的三大核心風險與多空利弊矩陣。
-        </p>
-
-        <!-- 3 Core Risk Cards -->
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin-bottom: 24px;">
-          <div style="background: rgba(244, 63, 94, 0.08); border: 1px solid rgba(244, 63, 94, 0.25); border-radius: 16px; padding: 18px;">
-            <div style="font-weight: 700; font-size: 1rem; color: #fb7185; margin-bottom: 6px; display: flex; align-items: center; gap: 8px;">
-              💸 1. 天價 AI 資料中心與 GPU 資本支出飆升 ($1,159.5 億美元 CapEx)
-            </div>
-            <div style="font-size: 0.85rem; color: #cbd5e1;">
-              建置 AI 超級資料中心與採購 NVIDIA GPU 的 CapEx 飆升至 $1,159.5 億美元，短期吞噬了部分自由現金流 (FCF) 的換算率。
-            </div>
-          </div>
-
-          <div style="background: rgba(245, 158, 11, 0.08); border: 1px solid rgba(245, 158, 11, 0.25); border-radius: 16px; padding: 18px;">
-            <div style="font-weight: 700; font-size: 1rem; color: #fbbf24; margin-bottom: 6px; display: flex; align-items: center; gap: 8px;">
-              🤝 2. OpenAI 獨家夥伴關係與監管審查風險 (OpenAI Dependence)
-            </div>
-            <div style="font-size: 0.85rem; color: #cbd5e1;">
-              投資 OpenAI 的巨額承諾與獨家授權協議面臨 FTC、歐盟反壟斷調查，若 OpenAI 股權或架構變動可能影響 Copilot 整合進度。
-            </div>
-          </div>
-
-          <div style="background: rgba(56, 189, 248, 0.08); border: 1px solid rgba(56, 189, 248, 0.25); border-radius: 16px; padding: 18px;">
-            <div style="font-weight: 700; font-size: 1rem; color: #38bdf8; margin-bottom: 6px; display: flex; align-items: center; gap: 8px;">
-              ☁️ 3. Amazon AWS 與 Google Cloud 在雲端基礎設施的激烈競爭
-            </div>
-            <div style="font-size: 0.85rem; color: #cbd5e1;">
-              在企業級雲端與 AI 晶片層面面臨 AWS 與 Google Cloud (TPU) 的強大競爭。
-            </div>
-          </div>
-        </div>
-
-        <!-- Pros vs Cons Matrix -->
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-          <!-- Pros / Bull Case -->
-          <div style="background: rgba(0, 164, 239, 0.08); border: 1px solid rgba(0, 164, 239, 0.3); border-radius: 18px; padding: 20px;">
-            <h3 style="color: #38bdf8; font-size: 1.1rem; font-weight: 800; margin-bottom: 14px; display: flex; align-items: center; gap: 8px;">
-              🟢 投資優勢與利多分析 (Pros / Bull Case)
-            </h3>
-            <ul style="font-size: 0.875rem; color: #cbd5e1; padding-left: 20px; line-height: 1.8;">
-              <li><strong>全美股第 1 大 OCF 現金流巨獸 ($1,829 億)</strong>：極致的本業現金創造能力。</li>
-              <li><strong>Azure 雲端與 Copilot 生態系領先</strong>：企業級 AI 商業化最快變現的龍頭。</li>
-              <li><strong>Office 365 轉換成本極高</strong>：擁有全球企業辦公軟體的訂閱壟斷。</li>
-              <li><strong>資產負債表零淨債務 ($365 億淨現金)</strong>：極高的防禦抗風險能力。</li>
-            </ul>
-          </div>
-
-          <!-- Cons / Bear Case -->
-          <div style="background: rgba(244, 63, 94, 0.06); border: 1px solid rgba(244, 63, 94, 0.25); border-radius: 18px; padding: 20px;">
-            <h3 style="color: #fb7185; font-size: 1.1rem; font-weight: 800; margin-bottom: 14px; display: flex; align-items: center; gap: 8px;">
-              🔴 投資劣勢與潛在弊端 (Cons / Bear Case)
-            </h3>
-            <ul style="font-size: 0.875rem; color: #cbd5e1; padding-left: 20px; line-height: 1.8;">
-              <li><strong>CapEx 資本支出飆升壓抑近季 FCF</strong>：建置 AI 資料中心投入 $1,159 億。</li>
-              <li><strong>本益比 (P/E 25.9x) 高於 DCF 保守中位數</strong>：市場已賦予 AI 溢價。</li>
-            </ul>
-          </div>
-        </div>
-
-      </div>
-
+  <div class="hero-card">
+    <div class="hero-title">
+      <h1>MICROSOFT CORPORATION（MSFT）</h1>
+      <div class="hero-subtitle">財務健全度、估值與下行風險 — 全部數據由 SEC XBRL 與實際收盤價產生</div>
+      <div class="badge-sec">🛡️ 10-K · accession 0001193125-26-323660 · FY2026-06-30</div>
     </div>
-
-    <footer>
-      <p>© 2026 Sec_kb Financial Knowledge Framework. SEC Form 10-K Verified Accession: 0001193125-26-323660.</p>
-    </footer>
-
+    <div class="hero-kpis"><div class="kpi-box"><div class="kpi-label">現價 / 本益比</div><div class="kpi-val">$499.99</div><div class="kpi-sub">P/E 27.9x</div></div><div class="kpi-box"><div class="kpi-label">ROIC − WACC</div><div class="kpi-val">+15.5pp</div><div class="kpi-sub">創造價值</div></div><div class="kpi-box"><div class="kpi-label">Altman Z&#x27;&#x27;</div><div class="kpi-val">4.59</div><div class="kpi-sub">safe 區（&gt;2.6 安全）</div></div><div class="kpi-box"><div class="kpi-label">健全度警示</div><div class="kpi-val">0 項</div><div class="kpi-sub">未觸發門檻</div></div></div>
   </div>
 
-  <script>
-    // Financials Breakdown Chart
-    new Chart(document.getElementById('chartFinancials'), {
-      type: 'bar',
-      data: {
-        labels: ['總營收 ($M)', '淨利潤 ($M)', '經營現金流 OCF', '自由現金流 FCF'],
-        datasets: [{
-          label: 'FY2026 財務數據 (USD)',
-          data: [331839, 133749, 182935, 66987],
-          backgroundColor: ['#00a4ef', '#34d399', '#38bdf8', '#c084fc']
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: { legend: { display: false } },
-        scales: {
-          x: { ticks: { color: '#94a3b8', font: { size: 11 } } },
-          y: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } }
-        }
-      }
-    });
+  <div class="section-grid">
+    <div class="card">
+      <h2>🏛️ 一、經濟護城河</h2>
+      <ol><li><strong>Azure 企業級 AI 與雲端平台 (Azure &amp; Intelligent Cloud)</strong> ⚡：
+<ul><li>包含 Azure 雲端、OpenAI GPT-4/Copilot API 整合。FY2025 包含 Azure 在內的 <strong>Microsoft Cloud 營收高達 $1,689.0 億美元</strong> (年增 23%)，Azure 單項增速高達 <strong>+34%</strong>！
+</li>
+</ul>
+</li><li><strong>Office 365 與企業生產力極高切換成本 (Productivity &amp; Office 365)</strong> 🔒：
+<ul><li>全球企業商業辦公軟體絕對龍頭，Microsoft 365 Commercial 商業訂閱續約率逼近 100%，具備極強的定價權與高毛利。
+</li>
+</ul>
+</li><li><strong>Windows 桌面生態系與 Gaming 帝國 (Windows OS &amp; Xbox/Activision)</strong> 🎮：
+<ul><li>Windows 掌控全球個人電腦 OS 市場，並成功收購動視暴雪 (Activision Blizzard)，強勢擴張 Xbox 訂閱內容。
+</li>
+</ul>
+</li>
+</ol>
+      <p class="note">本節為人工撰寫的質化分析，來源為 30_Analysis 的 Master Thesis，非由財報數字產生。</p>
+    </div>
 
-    // DuPont Chart
-    new Chart(document.getElementById('chartDupont'), {
-      type: 'bar',
-      data: {
-        labels: ['淨利率 (%)', '資產週轉率 (x100)', '權益乘數 (x100)'],
-        datasets: [{
-          label: 'DuPont 三因子拆解',
-          data: [40.31, 43.80, 171.40],
-          backgroundColor: ['#00a4ef', '#38bdf8', '#c084fc']
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: { legend: { display: false } },
-        scales: {
-          x: { ticks: { color: '#94a3b8', font: { size: 10 } } },
-          y: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } }
-        }
-      }
-    });
+    <div class="card">
+      <h2>📈 六年營收與自由現金流趨勢</h2>
+      <div class="chart-container"><canvas id="trendChart"></canvas></div>
+    </div>
 
-    // DCF Chart
-    new Chart(document.getElementById('chartDcf'), {
-      type: 'bar',
-      data: {
-        labels: ['P25 估值', 'P50 中位數', 'P75 估值', '目前美股現價'],
-        datasets: [{
-          label: '每股估值 ($ USD)',
-          data: [296.15, 351.04, 419.70, 464.72],
-          backgroundColor: ['#818cf8', '#38bdf8', '#34d399', '#00a4ef']
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: { legend: { display: false } },
-        scales: {
-          x: { ticks: { color: '#94a3b8', font: { size: 10 } } },
-          y: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } }
-        }
-      }
-    });
-  </script>
+    <div class="card card-full">
+      <h2>🩺 財務健全度總覽</h2>
+      <div class="metric-group"><div class="metric-card"><div class="title">流動比率</div><div class="value">1.23</div></div><div class="metric-card"><div class="title">現金比率</div><div class="value">0.46</div></div><div class="metric-card"><div class="title">負債佔資產</div><div class="value">41.7%</div></div><div class="metric-card"><div class="title">有息負債／淨值</div><div class="value">0.09</div></div><div class="metric-card"><div class="title">利息保障倍數</div><div class="value">50.9x</div></div><div class="metric-card"><div class="title">ROIC</div><div class="value">24.0%</div></div><div class="metric-card"><div class="title">ROIC − WACC</div><div class="value">+15.5pp</div></div><div class="metric-card"><div class="title">FCF 利潤率</div><div class="value">20.2%</div></div><div class="metric-card"><div class="title">應計比率</div><div class="value">-7.1%</div></div><div class="metric-card"><div class="title">Altman Z&#x27;&#x27;</div><div class="value">4.59（safe）</div></div><div class="metric-card"><div class="title">Piotroski（標準化 /9）</div><div class="value">6.0</div></div><div class="metric-card"><div class="title">Beneish M-Score</div><div class="value">-2.68</div></div></div><div class="flag-box ok"><h4>✅ 未觸發任何門檻</h4><p>11 / 11 項指標均已計算。</p></div>
+    </div>
+
+    <div class="card card-full">
+      <h2>🏅 本組合相對排名（14 家）</h2>
+      <div class="rank-strip"><div class="rank-card"><div class="rank-label">營運現金流</div><div class="rank-pos">🥇 第 1 / 14</div><div class="rank-val">$182,935M</div></div>
+<div class="rank-card"><div class="rank-label">毛利率</div><div class="rank-pos"> 第 4 / 14</div><div class="rank-val">67.9%</div></div>
+<div class="rank-card"><div class="rank-label">ROIC</div><div class="rank-pos"> 第 6 / 13</div><div class="rank-val">24.0%</div></div>
+<div class="rank-card"><div class="rank-label">ROIC−WACC 價差</div><div class="rank-pos"> 第 6 / 13</div><div class="rank-val">15.5%</div></div>
+<div class="rank-card"><div class="rank-label">12 個月 Sortino</div><div class="rank-pos"> 第 13 / 14</div><div class="rank-val">0.05</div></div>
+<div class="rank-card"><div class="rank-label">F-Score（標準化）</div><div class="rank-pos"> 第 9 / 14</div><div class="rank-val">6.00</div></div>
+<div class="rank-card"><div class="rank-label">Altman Z&#x27;&#x27;</div><div class="rank-pos"> 第 6 / 13</div><div class="rank-val">4.59</div></div></div>
+      <p class="note">排名僅涵蓋本知識庫追蹤的 14 家公司，每次產生時重新計算。不代表全市場排名。</p>
+    </div>
+
+    <div class="card">
+      <h2>📊 損益、現金流與資產負債</h2>
+      <div class="metric-group"><div class="metric-card"><div class="title">營收</div><div class="value">$331,839M</div></div><div class="metric-card"><div class="title">淨利</div><div class="value">$133,749M</div></div><div class="metric-card"><div class="title">毛利率</div><div class="value">67.94%</div></div><div class="metric-card"><div class="title">營運現金流</div><div class="value">$182,935M</div></div><div class="metric-card"><div class="title">資本支出</div><div class="value">$115,948M</div></div><div class="metric-card"><div class="title">自由現金流</div><div class="value">$66,987M</div></div><div class="metric-card"><div class="title">總資產</div><div class="value">$758,376M</div></div><div class="metric-card"><div class="title">總負債</div><div class="value">$315,989M</div></div><div class="metric-card"><div class="title">股東權益</div><div class="value">$442,387M</div></div></div>
+      <h3>DuPont 三因子拆解</h3>
+      <div class="chart-container"><canvas id="dupontChart"></canvas></div>
+    </div>
+
+    <div class="card">
+      <h2>🎲 蒙地卡羅 DCF 估值分佈</h2>
+      <div class="metric-group"><div class="metric-card"><div class="title">P25 ~ P75 主流區間</div><div class="value">$296.15 ~ $419.70</div></div><div class="metric-card"><div class="title">中位數 P50</div><div class="value">$351.04</div></div><div class="metric-card"><div class="title">相對現價</div><div class="value">-30%</div></div></div><p class="note">假設：g=13.00%、WACC=8.50%、終端成長=2.5%、10,000 次模擬。沿用先前 thesis 標題：Azure/AI g=13%, WACC=8.5%</p>
+      <div class="chart-container"><canvas id="dcfChart"></canvas></div>
+    </div>
+
+    <div class="card">
+      <h2>📉 下行風險（Sortino Ratio）</h2>
+      <div class="metric-group"><div class="metric-card"><div class="title">近 3 年（週資料）</div><div class="value">1.18</div></div><div class="metric-card"><div class="title">近 5 年（週資料）</div><div class="value">0.88</div></div><div class="metric-card"><div class="title">近 12 個月（日資料 MAR=0）</div><div class="value">0.05</div></div><div class="metric-card"><div class="title">同期無風險門檻版本</div><div class="value">-0.13</div></div></div>
+      <p class="note">三個數字的頻率、期間與門檻報酬率都不同，衡量的是不同的東西，不能互相驗證。</p>
+    </div>
+
+    <div class="card">
+      <h2>💵 籌碼面與股東資本回饋</h2>
+      <div class="metric-group"><div class="metric-card"><div class="title">稀釋每股盈餘</div><div class="value">$17.95</div></div><div class="metric-card"><div class="title">現金與短期投資</div><div class="value">$76,843M</div></div><div class="metric-card"><div class="title">有息負債總額</div><div class="value">$40,294M</div></div><div class="metric-card"><div class="title">淨現金</div><div class="value">$36,549M</div></div><div class="metric-card"><div class="title">庫藏股回購</div><div class="value">$22,271M</div></div><div class="metric-card"><div class="title">現金股利</div><div class="value">$26,445M</div></div><div class="metric-card"><div class="title">股東總殖利率</div><div class="value">1.31%</div></div></div>
+    </div>
+
+    <div class="card card-full">
+      <h2>⚠️ 核心風險因素</h2>
+      <h4 class="sub-heading">1. 三大核心風險因素 (Item 1A Risk Factors)</h4>
+<ul><li><strong>💸 天價 AI 資料中心與 GPU 資本支出飆升 ($1,159.5 億美元 CapEx)</strong>：建置 AI 超級資料中心與採購 NVIDIA GPU 的 CapEx 飆升至 $1,159.5 億美元，短期吞噬了部分自由現金流 (FCF) 的換算率。
+</li><li><strong>🤝 OpenAI 獨家夥伴關係與監管審查風險 (OpenAI Dependence)</strong>：投資 OpenAI 的巨額承諾與獨家授權協議面臨 FTC、歐盟反壟斷調查，若 OpenAI 股權或架構變動可能影響 Copilot 整合進度。
+</li><li><strong>☁️ Amazon AWS 與 Google Cloud 在雲端基礎設施的激烈競爭</strong>：在企業級雲端與 AI 晶片層面面臨 AWS 與 Google Cloud (TPU) 的強大競爭。
+</li>
+</ul>
+<h4 class="sub-heading">2. 投資利弊與優劣勢矩陣 (Pros &amp; Cons Matrix)</h4>
+<ul><li><strong>🟢 多頭優勢 (Pros / Bull Case)</strong>：
+<ul><li><strong>本組合第 1 大 OCF（14 家中，$1,829 億）</strong>：本業現金創造能力居本知識庫追蹤名單之首。
+</li><li><strong>Azure 雲端與 Copilot 生態系領先</strong>：企業級 AI 商業化最快變現的龍頭。
+</li><li><strong>Office 365 轉換成本極高</strong>：擁有全球企業辦公軟體的訂閱壟斷。
+</li><li><strong>資產負債表零淨債務 ($365 億淨現金)</strong>：極高的防禦抗風險能力。
+</li>
+</ul>
+</li><li><strong>🔴 空頭隱憂 (Cons / Bear Case)</strong>：
+<ul><li><strong>CapEx 資本支出飆升壓抑近季 FCF</strong>：建置 AI 資料中心投入 $1,159 億。
+</li><li><strong>本益比 (P/E 25.9x) 高於 DCF 保守中位數</strong>：市場已賦予 AI 溢價。
+</li>
+</ul>
+</li>
+</ul>
+      <p class="note">本節為人工撰寫的質化分析，來源為 30_Analysis 的 Master Thesis，非由財報數字產生。</p>
+    </div>
+
+    <div class="card card-full">
+      <h2>🔎 資料來源與限制</h2>
+      <table class="prov-table"><tr><th>財報來源</th><td>10-K，accession <code>0001193125-26-323660</code>，申報日 2026-07-29</td></tr><tr><th>會計年度結束</th><td>2026-06-30（距今 2 個月）</td></tr><tr><th>幣別</th><td>USD</td></tr><tr><th>股價</th><td>2026-08-07 收盤 $499.99</td></tr><tr><th>指標覆蓋</th><td>11 / 11</td></tr></table>
+    </div>
+  </div>
+
+  <footer>
+    由 <code>scripts/build_reports.py</code> 於 2026-08-08 10:51 UTC 產生。<br>
+    本頁不含任何手動輸入的財務數字；質化章節除外，且已標示。<br>
+    DCF 為特定假設下的推估，非事實，不構成投資建議。
+  </footer>
+</div>
+
+<script>
+Chart.defaults.color = '#9ca3af';
+Chart.defaults.borderColor = 'rgba(255,255,255,.07)';
+const noLegend = { plugins: { legend: { labels: { color: '#d1d5db' } } },
+                   maintainAspectRatio: false, responsive: true };
+
+new Chart(document.getElementById('trendChart'), {
+  type: 'bar',
+  data: {
+    labels: ["2021", "2022", "2023", "2024", "2025", "2026"],
+    datasets: [
+      { label: '營收', data: [168088, 198270, 211915, 245122, 281724, 331839], backgroundColor: 'rgba(56,189,248,.55)' },
+      { label: '自由現金流', data: [56118, 65149, 59475, 74071, 71611, 66987], type: 'line',
+         borderColor: '#a855f7', backgroundColor: '#a855f7', tension: .3 }
+    ]
+  },
+  options: { ...noLegend, scales: { y: { ticks: { callback: v => v + 'M' } } } }
+});
+
+new Chart(document.getElementById('dupontChart'), {
+  type: 'bar',
+  data: {
+    labels: ['淨利率 (%)', '資產週轉率 (x)', '權益乘數 (x)'],
+    datasets: [{ label: 'DuPont 三因子', data: [40.31, 0.4376, 1.7143],
+                 backgroundColor: ['#38bdf8', '#10b981', '#fbbf24'] }]
+  },
+  options: noLegend
+});
+
+new Chart(document.getElementById('dcfChart'), {
+  type: 'bar',
+  data: {
+    labels: ["P5", "P25", "P50", "P75", "P95", "\u73fe\u50f9"],
+    datasets: [{ label: '每股價值 (USD)', data: [234.54, 296.15, 351.04, 419.7, 547.42, 499.99],
+                 backgroundColor: ["#334155", "#38bdf8", "#a855f7", "#38bdf8", "#334155", "#10b981"] }]
+  },
+  options: noLegend
+});
+</script>
 </body>
 </html>

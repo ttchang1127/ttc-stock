@@ -6,7 +6,7 @@
 >
 > 儀表板網頁的維護請看 [[ttc-stock_Dashboard_維運SOP]]，那是另一條線。
 
-最後更新：2026-08-07
+最後更新：2026-08-08
 
 ---
 
@@ -44,9 +44,11 @@ SEC XBRL Company Facts API          Yahoo Finance (yfinance)
    valuation.json
         ↓ update_thesis_financials.py
    30_Analysis/*_Master_Investment_Thesis_2026.md 的第二 ~ 五章
+        ↓ build_reports.py  ←── thesis 第一/六章（人工撰寫的質化敘述）
+   *_report.html（14 份獨立網頁報告）
 ```
 
-這六支腳本必須**照這個順序**執行，後面的依賴前面的產出。
+這七支腳本必須**照這個順序**執行，後面的依賴前面的產出。
 `compute_financial_health.py` 和 `compute_valuation.py` 都只依賴 `fundamentals.json`，
 彼此不相依，先跑哪個都可以。
 
@@ -56,6 +58,7 @@ SEC XBRL Company Facts API          Yahoo Finance (yfinance)
 | `fundamentals.json` | `compute_fundamentals.py` | ❌ |
 | `financial_health.json` | `compute_financial_health.py` | ❌ |
 | `valuation.json` | `compute_valuation.py` | ❌ |
+| `*_report.html` | `build_reports.py` | ❌ **不准手改**，改了下次產生就被蓋掉 |
 | **`dcf_assumptions.json`** | **人類維護** | ✅ **這是唯一允許手填數字的檔案** |
 | `prices.json` | `fetch_price_history.py`（預設 6 年；含 `^IRX` 無風險利率） | ❌ |
 | `20_Filings/**` | `fetch_sec.py` | ❌ |
@@ -91,7 +94,7 @@ python3 scripts/compute_financial_health.py
 ```
 預期：一張表格，最後 `Wrote financial_health.json (14 companies)`
 
-最右欄是警示數。`—` 代表沒有指標超過門檻；`資料不足 n/10` 代表**檢查本身沒跑完**，
+最右欄是警示數。`—` 代表沒有指標超過門檻；`資料不足 n/11` 代表**檢查本身沒跑完**，
 不等於健全，兩者不可混為一談。
 
 **A-5. 計算估值**
@@ -106,18 +109,28 @@ python3 scripts/update_thesis_financials.py
 ```
 預期：`已更新 14 份 thesis`
 
-**A-7. 確認只有該動的檔案被動到**
+**A-7. 產生 14 份網頁報告**
+```bash
+python3 scripts/build_reports.py
+```
+預期：14 行，最後 `N / 14 份報告有變更並已寫入`。**沒有數字變動時 N 會是 0，這是正常的。**
+
+若印出「⚠️ N 處無法驗證的宣稱」，代表 thesis 的第一或第六章寫了本庫資料無法佐證的說法
+（如「全美股第 1」）。報告會**原樣呈現**，請到 `30_Analysis/` 對應的 thesis 修正措辭，
+不要改 `*_report.html`。
+
+**A-8. 確認只有該動的檔案被動到**
 ```bash
 git status --short
 ```
 
-允許出現的檔案**只有**：`financials.json`、`fundamentals.json`、`financial_health.json`、`valuation.json`、`30_Analysis/*_Master_Investment_Thesis_2026.md`
+允許出現的檔案**只有**：`financials.json`、`fundamentals.json`、`financial_health.json`、`valuation.json`、`*_report.html`、`30_Analysis/*_Master_Investment_Thesis_2026.md`
 
 出現任何其他檔案 → **停止並回報**。
 
-**A-8. 送出**
+**A-9. 送出**
 ```bash
-git add financials.json fundamentals.json financial_health.json valuation.json 30_Analysis/ && git commit -m "chore: refresh SEC financials" && git push origin main
+git add financials.json fundamentals.json financial_health.json valuation.json *_report.html 30_Analysis/ && git commit -m "chore: refresh SEC financials" && git push origin main
 ```
 
 ### 輸出對照表
@@ -251,6 +264,15 @@ print('缺說明:', bad or '無')
 本庫的規則是「缺就是缺」，但**光是 null 還不夠** —— 讀者必須看得出是「這家公司沒有這件事」
 還是「SEC 沒有這個標籤」。這兩者的處理方式完全不同。
 
+**C-9. 網頁報告是產生出來的，不是手改的**
+```bash
+python3 scripts/build_reports.py && git status --short -- '*_report.html'
+```
+預期：**無輸出**（剛跑完管線的情況下會有輸出，那是正常的；這項檢查是在 commit 之後再跑一次）。
+
+有輸出代表committed 的報告內容和生成器產生的不一致 —— 也就是有人直接編輯了 `*_report.html`。
+**那些編輯下次執行就會消失**，必須改到來源（JSON 由管線產生，質化敘述在 `30_Analysis/` 的 thesis）。
+
 ---
 
 ## 5. 已知限制（不是 bug，不要「修」）
@@ -270,6 +292,8 @@ print('缺說明:', bad or '無')
 | AAPL 沒有利息保障倍數 | Apple **FY2024 起不再單獨 tag 利息費用**，併入「Other income/(expense), net」。它有 $91.9B 有息負債，這個比率本應適用，屬於真實缺口。**不准用其他科目湊** |
 | ARM 利息保障倍數 300x | ARM **沒有任何借款**，唯一利息來自融資租賃（$3M）。倍數高是因為沒有債務，不是償債能力特別強，註記已說明。**不准改用 `InterestIncomeExpenseNonoperatingNet`** —— 那是淨利息**收入** |
 | COHR 沒有 ROIC / Z'' / 利息保障倍數 | Coherent **FY2025 起不再 tag `OperatingIncomeLoss`**。已實測「營收 − CostsAndExpenses」不可替代：FY2024 該差額為 **−148M**，而真正的營業利益是 **+96M**（`CostsAndExpenses` 已含利息與業外項目，差額等於稅前淨利）。**這個推導已測試並否決，不要再引入** |
+| 報告的護城河／風險章節沒有 SEC 出處 | 這兩章是**人工撰寫的質化分析**，頁面上已標示。`20_Filings/*/sections/` 有 10-K 原文拆解，但目前只有 AAPL 與 NVDA 有，且尚未接上生成器 |
+| 報告出現「本組合第 N / 14」 | 這是**每次產生時重算**的排名，只涵蓋本庫 14 家。**不准改寫成「全美股第 1」之類無法驗證的說法** |
 | 三個 Sortino 數值差很多 | **正常**。頻率（週/日）、期間（3年/5年/1年）、MAR 都不同，衡量的是不同的東西，**不准「統一」它們** |
 | 12 個月那組用 MAR=0 而非無風險利率 | 實測對照 PortfoliosLab 公布值決定的（NVDA 0.76→0.75、TSLA 0.36→0.36）。改成無風險利率就對不上公開網站 |
 | 各公司科目數 11~14 不等 | 每家 tag 的科目本來就不同 |
@@ -317,6 +341,7 @@ DCF 不是事實。使用者若問「這檔值多少錢」，正確回答是：
 | `compute_fundamentals.py` | 算 F-Score / Altman Z / DuPont → `fundamentals.json` |
 | `compute_financial_health.py` | 算流動性 / 償債 / ROIC−WACC / Altman Z'' → `financial_health.json` |
 | `compute_valuation.py` | 算本益比 / 淨現金 / DCF 蒙地卡羅 → `valuation.json` |
+| `build_reports.py` | 由 JSON ＋ thesis 質化章節產生 14 份 `*_report.html` |
 | `update_thesis_financials.py` | 更新 thesis 第二 ~ 五章 |
 | `fetch_price_history.py` | 抓日線收盤價（預設 6 年）→ `prices.json` |
 | `macd_analyzer.py` | MACD 計算（獨立工具） |

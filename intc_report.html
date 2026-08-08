@@ -1,590 +1,241 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Intel Corporation (INTC) 2026 終極個股研究與估值投資報告 - 基於 SEC 近 10 年 10-K 財報與二級市場數據。">
-  <title>Intel (INTC) 2026 終極投資與估值報告 | SEC 10-K 驗證</title>
-  <!-- Google Fonts & Chart.js -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-  <style>
-    :root {
-      --bg-dark: #070a12;
-      --card-bg: rgba(17, 24, 39, 0.75);
-      --card-border: rgba(255, 255, 255, 0.08);
-      --text-main: #f3f4f6;
-      --text-muted: #9ca3af;
-      --accent-intc: #0068b5;
-      --accent-cyan: #38bdf8;
-      --accent-purple: #a855f7;
-      --accent-emerald: #10b981;
-      --accent-rose: #f43f5e;
-      --accent-amber: #fbbc05;
-      --glow-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.45);
-    }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: 'Outfit', 'Noto Sans TC', sans-serif;
-      background: radial-gradient(circle at 50% -10%, #0369a1, var(--bg-dark) 75%);
-      color: var(--text-main);
-      min-height: 100vh;
-      padding: 24px;
-      line-height: 1.6;
-    }
-
-    .container {
-      max-width: 1400px;
-      margin: 0 auto;
-    }
-
-    /* Top Navigation Bar */
-    .top-nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 16px 28px;
-      background: rgba(15, 23, 42, 0.85);
-      backdrop-filter: blur(16px);
-      border: 1px solid var(--card-border);
-      border-radius: 18px;
-      margin-bottom: 24px;
-    }
-
-    .nav-brand {
-      font-size: 1.1rem;
-      font-weight: 800;
-      color: #fff;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 16px;
-    }
-
-    .nav-btn {
-      color: var(--text-muted);
-      text-decoration: none;
-      font-size: 0.875rem;
-      font-weight: 600;
-      padding: 8px 16px;
-      border-radius: 10px;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid var(--card-border);
-      transition: all 0.2s ease;
-    }
-
-    .nav-btn:hover {
-      color: #fff;
-      background: var(--accent-intc);
-      border-color: transparent;
-    }
-
-    /* Hero Header */
-    .hero-card {
-      background: linear-gradient(135deg, rgba(0, 104, 181, 0.2), rgba(3, 105, 161, 0.8));
-      border: 1px solid rgba(0, 104, 181, 0.35);
-      border-radius: 24px;
-      padding: 36px;
-      box-shadow: var(--glow-shadow);
-      margin-bottom: 32px;
-      display: grid;
-      grid-template-columns: 1.8fr 1.2fr;
-      gap: 28px;
-      align-items: center;
-    }
-
-    .hero-title h1 {
-      font-size: 2.3rem;
-      font-weight: 800;
-      background: linear-gradient(135deg, #0068b5, #38bdf8, #a7f3d0);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      letter-spacing: -0.5px;
-      margin-bottom: 8px;
-    }
-
-    .hero-subtitle {
-      font-size: 1.05rem;
-      color: #cbd5e1;
-      margin-bottom: 18px;
-    }
-
-    .badge-sec {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(16, 185, 129, 0.15);
-      border: 1px solid rgba(16, 185, 129, 0.3);
-      color: #34d399;
-      padding: 6px 14px;
-      border-radius: 12px;
-      font-size: 0.825rem;
-      font-weight: 700;
-    }
-
-    .hero-kpis {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 14px;
-    }
-
-    .kpi-box {
-      background: rgba(0, 0, 0, 0.3);
-      border: 1px solid var(--card-border);
-      border-radius: 16px;
-      padding: 16px;
-    }
-
-    .kpi-label { font-size: 0.775rem; color: var(--text-muted); }
-    .kpi-val { font-size: 1.4rem; font-weight: 800; color: #fff; margin-top: 4px; }
-    .kpi-sub { font-size: 0.75rem; color: var(--accent-cyan); margin-top: 2px; }
-
-    /* Section Cards Grid */
-    .section-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(640px, 1fr));
-      gap: 28px;
-      margin-bottom: 32px;
-    }
-
-    .card {
-      background: var(--card-bg);
-      backdrop-filter: blur(16px);
-      border: 1px solid var(--card-border);
-      border-radius: 22px;
-      padding: 28px;
-      box-shadow: var(--glow-shadow);
-    }
-
-    .card-full {
-      grid-column: 1 / -1;
-    }
-
-    .card h2 {
-      font-size: 1.4rem;
-      font-weight: 800;
-      color: #fff;
-      margin-bottom: 18px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      border-bottom: 1px solid var(--card-border);
-      padding-bottom: 12px;
-    }
-
-    /* Moat List */
-    .moat-item {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      border-radius: 14px;
-      padding: 16px;
-      margin-bottom: 14px;
-    }
-
-    .moat-item:last-child { margin-bottom: 0; }
-
-    .moat-header {
-      font-weight: 700;
-      font-size: 1.05rem;
-      color: #38bdf8;
-      margin-bottom: 6px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .moat-desc {
-      font-size: 0.9rem;
-      color: #cbd5e1;
-    }
-
-    /* Metric Rows */
-    .metric-group {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 12px;
-      margin-bottom: 20px;
-    }
-
-    .metric-card {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid var(--card-border);
-      border-radius: 14px;
-      padding: 14px;
-    }
-
-    .metric-card .title { font-size: 0.75rem; color: var(--text-muted); }
-    .metric-card .value { font-size: 1.2rem; font-weight: 700; color: #fff; margin-top: 2px; }
-
-    /* Chart Containers */
-    .chart-container {
-      position: relative;
-      height: 280px;
-      width: 100%;
-      margin-top: 16px;
-    }
-
-    footer {
-      text-align: center;
-      padding: 32px 0;
-      color: var(--text-muted);
-      font-size: 0.85rem;
-      border-top: 1px solid var(--card-border);
-      margin-top: 40px;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="INTEL CORP（INTC）財務健全度與估值報告，數據由 SEC XBRL 產生。">
+<title>INTEL CORP（INTC）財務健全度與估值報告</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+:root{--bg-dark:#070a12;--card-bg:rgba(17,24,39,.75);--card-border:rgba(255,255,255,.08);
+--text-main:#f3f4f6;--text-muted:#9ca3af;--accent:#38bdf8;--accent-2:#a855f7;
+--ok:#10b981;--warn:#fbbf24;--glow:0 12px 40px 0 rgba(0,0,0,.45)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Outfit','Noto Sans TC',sans-serif;
+background:radial-gradient(circle at 50% -10%,#1e3a8a,var(--bg-dark) 75%);
+color:var(--text-main);min-height:100vh;padding:24px;line-height:1.6}
+.container{max-width:1400px;margin:0 auto}
+.top-nav{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;
+padding:16px 28px;background:rgba(15,23,42,.85);backdrop-filter:blur(16px);
+border:1px solid var(--card-border);border-radius:18px;margin-bottom:24px}
+.nav-brand{font-size:1.1rem;font-weight:800;color:#fff}
+.nav-links{display:flex;gap:10px;flex-wrap:wrap}
+.nav-btn{color:var(--text-muted);text-decoration:none;font-size:.875rem;font-weight:600;
+padding:8px 16px;border-radius:10px;background:rgba(255,255,255,.04);
+border:1px solid var(--card-border);transition:all .2s}
+.nav-btn:hover{color:#fff;background:var(--accent);border-color:transparent}
+.hero-card{background:linear-gradient(135deg,rgba(56,189,248,.18),rgba(30,58,138,.8));
+border:1px solid rgba(56,189,248,.35);border-radius:24px;padding:36px;box-shadow:var(--glow);
+margin-bottom:28px;display:grid;grid-template-columns:1.6fr 1.4fr;gap:28px;align-items:center}
+@media(max-width:900px){.hero-card{grid-template-columns:1fr}}
+.hero-title h1{font-size:2.1rem;font-weight:800;letter-spacing:-.5px;margin-bottom:8px}
+.hero-subtitle{font-size:1rem;color:#cbd5e1;margin-bottom:16px}
+.badge-sec{display:inline-flex;align-items:center;gap:8px;background:rgba(16,185,129,.15);
+border:1px solid rgba(16,185,129,.3);color:#34d399;padding:6px 14px;border-radius:12px;
+font-size:.8rem;font-weight:700}
+.hero-kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.kpi-box{background:rgba(0,0,0,.3);border:1px solid var(--card-border);border-radius:16px;padding:16px}
+.kpi-label{font-size:.775rem;color:var(--text-muted)}
+.kpi-val{font-size:1.35rem;font-weight:800;color:#fff;margin-top:4px}
+.kpi-sub{font-size:.75rem;color:var(--accent);margin-top:2px}
+.section-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(620px,1fr));gap:26px;margin-bottom:28px}
+@media(max-width:700px){.section-grid{grid-template-columns:1fr}}
+.card{background:var(--card-bg);backdrop-filter:blur(12px);border:1px solid var(--card-border);
+border-radius:20px;padding:28px;box-shadow:var(--glow)}
+.card-full{grid-column:1/-1}
+.card h2{font-size:1.25rem;font-weight:800;margin-bottom:18px;color:#fff}
+.card h3{font-size:1.05rem;font-weight:700;margin:18px 0 10px;color:#e5e7eb}
+.sub-heading{font-size:.95rem;font-weight:700;margin:18px 0 8px;color:var(--accent)}
+.card ul,.card ol{padding-left:1.25rem;margin:6px 0}
+.card li{margin:6px 0;color:#d1d5db;font-size:.925rem}
+.card p{color:#d1d5db;font-size:.925rem;margin:8px 0}
+.note{font-size:.85rem;color:var(--text-muted);border-left:3px solid var(--accent);
+padding-left:12px;margin:12px 0}
+code{background:rgba(255,255,255,.08);padding:1px 6px;border-radius:5px;font-size:.85em}
+.metric-group{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px}
+.metric-card{background:rgba(0,0,0,.28);border:1px solid var(--card-border);
+border-radius:14px;padding:14px 16px}
+.metric-card.warn{border-color:rgba(251,191,36,.45);background:rgba(251,191,36,.08)}
+.metric-card .title{font-size:.775rem;color:var(--text-muted)}
+.metric-card .value{font-size:1.2rem;font-weight:800;color:#fff;margin-top:4px}
+.rank-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
+.rank-card{background:rgba(0,0,0,.28);border:1px solid var(--card-border);
+border-radius:14px;padding:12px 14px}
+.rank-label{font-size:.75rem;color:var(--text-muted)}
+.rank-pos{font-size:1.05rem;font-weight:800;color:var(--accent);margin-top:2px}
+.rank-val{font-size:.85rem;color:#e5e7eb}
+.flag-box{margin-top:18px;background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.35);
+border-radius:14px;padding:16px 18px}
+.flag-box.ok{background:rgba(16,185,129,.08);border-color:rgba(16,185,129,.35)}
+.flag-box h4{font-size:.95rem;margin-bottom:8px;color:#fff}
+.prov-table{width:100%;border-collapse:collapse;font-size:.875rem}
+.prov-table th{text-align:left;color:var(--text-muted);font-weight:600;padding:7px 12px 7px 0;
+white-space:nowrap;vertical-align:top;width:130px}
+.prov-table td{padding:7px 0;color:#e5e7eb}
+.chart-container{position:relative;height:320px;margin-top:8px}
+footer{text-align:center;color:var(--text-muted);font-size:.8rem;padding:28px 0}
+</style>
 </head>
 <body>
+<div class="container">
 
-  <div class="container">
-
-    <!-- Top Nav -->
-    <nav class="top-nav">
-      <div class="nav-brand">
-        <span style="font-size: 1.4rem;">🔷</span> Intel Corporation (INTC) 2026 Master 投資報告網頁版
-      </div>
-      <div class="nav-links">
-        <a href="dashboard.html" class="nav-btn">📊 返回持股儀表板</a>
-        <a href="tsla_report.html" class="nav-btn">⚡ Tesla 報告</a>
-        <a href="cohr_report.html" class="nav-btn">👁️ Coherent 報告</a>
-        <a href="mrvl_report.html" class="nav-btn">⚡ Marvell 報告</a>
-        <a href="arm_report.html" class="nav-btn">🦾 Arm 報告</a>
-        <a href="goog_report.html" class="nav-btn">🔍 Google 報告</a>
-        <a href="nvda_report.html" class="nav-btn">🟩 NVIDIA 報告</a>
-        <a href="tsm_report.html" class="nav-btn">🇹🇼 台積電報告</a>
-        <a href="https://github.com/ttchang1127/ttc-stock" target="_blank" class="nav-btn">🐙 GitHub Repo</a>
-      </div>
-    </nav>
-
-    <!-- Hero Header -->
-    <div class="hero-card">
-      <div class="hero-title">
-        <h1>Intel Corporation (INTC)</h1>
-        <div class="hero-subtitle">2026 終極個股研究與估值投資報告 (Master Thesis)</div>
-        <div class="badge-sec">
-          🛡️ SEC Form 10-K 官方權威核驗 (Accession: 0000050863-26-000011)
-        </div>
-      </div>
-      <div class="hero-kpis">
-        <div class="kpi-box">
-          <div class="kpi-label">美股現價 (Price)</div>
-          <div class="kpi-val" style="color: #38bdf8;">$90.20 USD</div>
-          <div class="kpi-sub">EPS: $-0.06 (轉型期)</div>
-        </div>
-        <div class="kpi-box">
-          <div class="kpi-label">年度總營收 (Revenue)</div>
-          <div class="kpi-val" style="color: #34d399;">$52,853M USD</div>
-          <div class="kpi-sub">經營現金流 OCF $96.97 億美元</div>
-        </div>
-        <div class="kpi-box">
-          <div class="kpi-label">12M 日線 Sortino Ratio</div>
-          <div class="kpi-val" style="color: #34d399;">4.15 👑</div>
-          <div class="kpi-sub">轉型波段反彈極致回報</div>
-        </div>
-        <div class="kpi-box">
-          <div class="kpi-label">資本支出 (CapEx)</div>
-          <div class="kpi-val" style="color: #fbbf24;">$146.5 億美元</div>
-          <div class="kpi-sub">天價 18A / 14A 晶圓代工擴產</div>
-        </div>
-      </div>
+  <nav class="top-nav">
+    <div class="nav-brand">🔍 INTEL CORP（INTC）投資報告</div>
+    <div class="nav-links">
+      <a class="nav-btn" href="dashboard.html">📊 返回儀表板</a>
+      <a class="nav-btn" href="nvda_report.html">NVDA</a><a class="nav-btn" href="tsm_report.html">TSM</a><a class="nav-btn" href="goog_report.html">GOOGL</a>
+      <a class="nav-btn" href="https://github.com/ttchang1127/ttc-stock">🐙 GitHub</a>
     </div>
+  </nav>
 
-    <!-- Main Content Sections -->
-    <div class="section-grid">
-
-      <!-- Section 1: Moat -->
-      <div class="card">
-        <h2>🏰 一、 經濟護城河與轉型契機 (Economic Moat & IDM 2.0)</h2>
-        
-        <div class="moat-item">
-          <div class="moat-header">💻 1. x86 指令集架構專利與生態系霸主 (x86 Architecture Patent)</div>
-          <div class="moat-desc">
-            與 AMD 共享全網際網路 PC 與伺服器 x86 指令集專利壁壘。全球數億台企業與個人電腦仍依賴 x86 軟體架構，擁有極深厚的傳統相容性護城河。
-          </div>
-        </div>
-
-        <div class="moat-item">
-          <div class="moat-header">🏭 2. 美國晶片法案 (CHIPS Act) 與美國本土製造背書</div>
-          <div class="moat-desc">
-            獲得美國政府數百億美元晶片法案直接補貼與軍工國防專用晶片訂單，為全美唯一兼具晶片設計與高階晶圓代工 (IDM 2.0) 的本土企業。
-          </div>
-        </div>
-
-        <div class="moat-item">
-          <div class="moat-header">🔬 3. Intel Foundry 18A / 14A 與 RibbonFET 晶體管重塑</div>
-          <div class="moat-desc">
-            押注 18A (1.8nm) 與 14A 製程，引進全環繞柵極 (GAA / RibbonFET) 晶體管與背面供電 (PowerVia) 技術，力求在晶圓代工技術端縮短與台積電的距離。
-          </div>
-        </div>
-      </div>
-
-      <!-- Section 2: Revenue & Cash Flow Chart -->
-      <div class="card">
-        <h2>📊 財報財務數據與現金流結構 (FY2025 10-K)</h2>
-        <p style="font-size: 0.85rem; color: var(--text-muted);">營運現金流 OCF 達 $96.97 億美元，資本支出 CapEx 高達 $146.46 億美元</p>
-        <div class="chart-container">
-          <canvas id="chartFinancials"></canvas>
-        </div>
-      </div>
-
-      <!-- Section 3: Financial Health & Quantitative Models -->
-      <div class="card card-full">
-        <h2>📊 二、 財報體檢與四大基本面量化模型 (FY2025 10-K 官方驗證)</h2>
-
-        <div class="metric-group">
-          <div class="metric-card">
-            <div class="title">年度總營收 (Revenue)</div>
-            <div class="value" style="color: #38bdf8;">$52,853M USD</div>
-          </div>
-          <div class="metric-card">
-            <div class="title">經營現金流 (OCF)</div>
-            <div class="value" style="color: #34d399;">$9,697M USD</div>
-          </div>
-          <div class="metric-card">
-            <div class="title">資本支出 (CapEx)</div>
-            <div class="value" style="color: #fbbf24;">$14,646M USD</div>
-          </div>
-          <div class="metric-card">
-            <div class="title">自由現金流 (FCF)</div>
-            <div class="value" style="color: #f43f5e;">$-4,949M USD</div>
-          </div>
-          <div class="metric-card">
-            <div class="title">現金與短期投資</div>
-            <div class="value" style="color: #34d399;">$23,808M USD</div>
-          </div>
-          <div class="metric-card">
-            <div class="title">股東權益 (Equity)</div>
-            <div class="value" style="color: #c084fc;">$114,281M USD</div>
-          </div>
-        </div>
-
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 14px;">
-          <!-- DuPont & Financials -->
-          <div style="background: rgba(0,0,0,0.25); padding: 18px; border-radius: 16px; border: 1px solid var(--card-border);">
-            <h4 style="color: var(--accent-cyan); font-size: 0.95rem; margin-bottom: 10px;">🧬 DuPont 杜邦三因子拆解分析</h4>
-            <p style="font-size: 1.1rem; font-weight: 800; color: #fff;">DuPont ROE: -0.23%</p>
-            <p style="font-size: 0.85rem; color: #cbd5e1; margin-top: 6px;">
-              • 淨利率 (Net Profit Margin): <strong>-0.51%</strong><br>
-              • 資產週轉率 (Asset Turnover): <strong>0.250x</strong><br>
-              • 權益乘數 (Financial Leverage): <strong>1.850x</strong>
-            </p>
-            <div class="chart-container" style="height: 180px;">
-              <canvas id="chartDupont"></canvas>
-            </div>
-          </div>
-
-          <!-- Piotroski & Sortino -->
-          <div style="background: rgba(0,0,0,0.25); padding: 18px; border-radius: 16px; border: 1px solid var(--card-border);">
-            <h4 style="color: var(--accent-intc); font-size: 0.95rem; margin-bottom: 10px;">📋 Piotroski F-Score & Sortino Ratio</h4>
-            <p style="font-size: 0.85rem; color: #cbd5e1;">
-              • Piotroski F-Score: <strong style="color: #34d399; font-size: 1.1rem;">6 / 9 (會計營運現金流品質佳)</strong><br>
-              • 近 12 個月 Sortino Ratio: <strong style="color: #34d399; font-size: 1.1rem;">4.15 👑 (反彈彈性冠絕全庫)</strong><br>
-              • 本業經營現金流達 $96.97 億美元，仍具備充沛本業現金創造力。
-            </p>
-            <div class="chart-container" style="height: 180px;">
-              <canvas id="chartDcf"></canvas>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- Section 4: Sortino & Risk Analysis -->
-      <div class="card">
-        <h2>📈 三、 下行風險與 Sortino Ratio 分析 (二級市場波動)</h2>
-        <p style="font-size: 0.875rem; color: #cbd5e1;">
-          Sortino Ratio 只將低於 0 的下行風險波動納入計算，真實衡量 Intel 在二級市場谷底反彈時的風險收益回報能力。
-        </p>
-
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px;">
-          <div style="background: rgba(168, 85, 247, 0.1); border: 1px solid rgba(168, 85, 247, 0.3); padding: 20px; border-radius: 16px; text-align: center;">
-            <div style="font-size: 0.8rem; color: var(--text-muted);">近 3 年 Sortino Ratio (156 週)</div>
-            <div style="font-size: 2.2rem; font-weight: 800; color: #c084fc; margin-top: 4px;">1.39</div>
-            <div style="font-size: 0.75rem; color: #34d399; margin-top: 4px;">長線轉型期修復</div>
-          </div>
-          <div style="background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.3); padding: 20px; border-radius: 16px; text-align: center;">
-            <div style="font-size: 0.8rem; color: var(--text-muted);">近 12 個月 Sortino (日資料, MAR=0)</div>
-            <div style="font-size: 2.2rem; font-weight: 800; color: #38bdf8; margin-top: 4px;">4.15 👑</div>
-            <div style="font-size: 0.75rem; color: #34d399; margin-top: 4px;">全庫日線風險收益回報冠軍</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Section 5: Shareholder Yield -->
-      <div class="card">
-        <h2>💵 四、 籌碼面與資產負債表 (Balance Sheet & Multiples)</h2>
-        
-        <div class="metric-group" style="grid-template-columns: 1fr 1fr;">
-          <div class="metric-card">
-            <div class="title">稀釋每股盈餘 (EPS)</div>
-            <div class="value" style="color: #f43f5e;">$-0.06 USD</div>
-          </div>
-          <div class="metric-card">
-            <div class="title">總金融債務 (長期+短期)</div>
-            <div class="value" style="color: #fbbf24;">$46,585M USD</div>
-          </div>
-          <div class="metric-card">
-            <div class="title">現金與短期投資</div>
-            <div class="value" style="color: #34d399;">$23,808M USD</div>
-          </div>
-          <div class="metric-card">
-            <div class="title">淨現金資產 (Net Cash)</div>
-            <div class="value" style="color: #f43f5e;">$-22,777M USD</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Section 6: Risk Factors & Pros/Cons Analysis -->
-      <div class="card card-full">
-        <h2>⚠️ 五、 核心風險因素與利弊分析 (SEC Form 10-K Item 1A & Pros/Cons Matrix)</h2>
-        
-        <p style="font-size: 0.9rem; color: #cbd5e1; margin-bottom: 20px;">
-          依據 SEC Form 10-K 官方申報文件 (Item 1A Risk Factors 及 Item 7 MD&A)，本節深度剖析 Intel 在投資層面的三大核心風險與多空利弊矩陣。
-        </p>
-
-        <!-- 3 Core Risk Cards -->
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin-bottom: 24px;">
-          <div style="background: rgba(244, 63, 94, 0.08); border: 1px solid rgba(244, 63, 94, 0.25); border-radius: 16px; padding: 18px;">
-            <div style="font-weight: 700; font-size: 1rem; color: #fb7185; margin-bottom: 6px; display: flex; align-items: center; gap: 8px;">
-              🏭 1. Intel Foundry 18A / 14A 晶圓代工良率與產能開出風險 (Yield & Execution Risk)
-            </div>
-            <div style="font-size: 0.85rem; color: #cbd5e1;">
-              IFS 晶圓代工業務每年虧損數十億美元。18A 製程良率 (Yield) 與客戶外部下單 (如微軟/AWS) 進度若不如預期，天價 CapEx 建廠投資將造成巨大攤銷負擔。
-            </div>
-          </div>
-
-          <div style="background: rgba(245, 158, 11, 0.08); border: 1px solid rgba(245, 158, 11, 0.25); border-radius: 16px; padding: 18px;">
-            <div style="font-weight: 700; font-size: 1rem; color: #fbbf24; margin-bottom: 6px; display: flex; align-items: center; gap: 8px;">
-              💸 2. 自由現金流負數 ($-49.5 億美元) 與沉重債務拖累 (FCF Negative & Debt)
-            </div>
-            <div style="font-size: 0.85rem; color: #cbd5e1;">
-              每年投入 $146.5 億美元 CapEx 導致自由現金流為負數；加上 $465.9 億美元金融債務 (淨負債 $-227.8 億美元)，利息支出與現金消耗壓抑分紅能力。
-            </div>
-          </div>
-
-          <div style="background: rgba(56, 189, 248, 0.08); border: 1px solid rgba(56, 189, 248, 0.25); border-radius: 16px; padding: 18px;">
-            <div style="font-weight: 700; font-size: 1rem; color: #38bdf8; margin-bottom: 6px; display: flex; align-items: center; gap: 8px;">
-              💻 3. x86 伺服器與 PC 市佔持續遭 AMD 與 Arm 陣營瓜分 (Market Share Erosion)
-            </div>
-            <div style="font-size: 0.85rem; color: #cbd5e1;">
-              在傳統伺服器 CPU 領域面臨 AMD EPYC 強勢侵蝕；在 AI 高效能算力市場遠落後 NVIDIA GPU；在行動與輕薄 PC 端則遭遇 Arm 陣營競爭。
-            </div>
-          </div>
-        </div>
-
-        <!-- Pros vs Cons Matrix -->
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-          <!-- Pros / Bull Case -->
-          <div style="background: rgba(0, 104, 181, 0.08); border: 1px solid rgba(0, 104, 181, 0.3); border-radius: 18px; padding: 20px;">
-            <h3 style="color: #38bdf8; font-size: 1.1rem; font-weight: 800; margin-bottom: 14px; display: flex; align-items: center; gap: 8px;">
-              🟢 投資優勢與利多分析 (Pros / Bull Case)
-            </h3>
-            <ul style="font-size: 0.875rem; color: #cbd5e1; padding-left: 20px; line-height: 1.8;">
-              <li><strong>美國晶片法案與本土戰略製造國防背書</strong>：獲美政府數百億美元直接支持。</li>
-              <li><strong>18A / RibbonFET 次世代製程反超契機</strong>：技術成功研發將帶動晶圓代工評級重估。</li>
-              <li><strong>近 12M Sortino 達 4.15 (全庫冠軍 👑)</strong>：谷底反彈時波段下行收益極強。</li>
-              <li><strong>本業經營現金流 OCF 高達 $96.97 億美元</strong>：本業獲利現金池依然穩固。</li>
-            </ul>
-          </div>
-
-          <!-- Cons / Bear Case -->
-          <div style="background: rgba(244, 63, 94, 0.06); border: 1px solid rgba(244, 63, 94, 0.25); border-radius: 18px; padding: 20px;">
-            <h3 style="color: #fb7185; font-size: 1.1rem; font-weight: 800; margin-bottom: 14px; display: flex; align-items: center; gap: 8px;">
-              🔴 投資劣勢與潛在弊端 (Cons / Bear Case)
-            </h3>
-            <ul style="font-size: 0.875rem; color: #cbd5e1; padding-left: 20px; line-height: 1.8;">
-              <li><strong>自由現金流 FCF 為負 ($-49.5 億美元)</strong>：天價建廠支出吞噬現金。</li>
-              <li><strong>淨負債高達 $-227.8 億美元</strong>：債務負擔沉重，資本結構防禦力弱。</li>
-              <li><strong>晶圓代工 IFS 虧損持續擴大</strong>：需要數年時間證明代工產能利用率。</li>
-            </ul>
-          </div>
-        </div>
-
-      </div>
-
+  <div class="hero-card">
+    <div class="hero-title">
+      <h1>INTEL CORP（INTC）</h1>
+      <div class="hero-subtitle">財務健全度、估值與下行風險 — 全部數據由 SEC XBRL 與實際收盤價產生</div>
+      <div class="badge-sec">🛡️ 10-K · accession 0000050863-26-000011 · FY2025-12-27</div>
     </div>
-
-    <footer>
-      <p>© 2026 Sec_kb Financial Knowledge Framework. SEC Form 10-K Verified Accession: 0000050863-26-000011.</p>
-    </footer>
-
+    <div class="hero-kpis"><div class="kpi-box"><div class="kpi-label">現價 / 本益比</div><div class="kpi-val">$101.65</div><div class="kpi-sub">EPS 為負，本益比無意義</div></div><div class="kpi-box"><div class="kpi-label">ROIC − WACC</div><div class="kpi-val">-13.1pp</div><div class="kpi-sub">毀滅價值</div></div><div class="kpi-box"><div class="kpi-label">Altman Z&#x27;&#x27;</div><div class="kpi-val">2.92</div><div class="kpi-sub">safe 區（&gt;2.6 安全）</div></div><div class="kpi-box"><div class="kpi-label">健全度警示</div><div class="kpi-val">3 項</div><div class="kpi-sub">11/11 項可計算</div></div></div>
   </div>
 
-  <script>
-    // Financials Breakdown Chart
-    new Chart(document.getElementById('chartFinancials'), {
-      type: 'bar',
-      data: {
-        labels: ['總營收 ($M)', '經營現金流 OCF', '資本支出 CapEx', '自由現金流 FCF'],
-        datasets: [{
-          label: 'FY2025 財務數據 (USD)',
-          data: [52853, 9697, 14646, -4949],
-          backgroundColor: ['#0068b5', '#34d399', '#fbbf24', '#f43f5e']
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: { legend: { display: false } },
-        scales: {
-          x: { ticks: { color: '#94a3b8', font: { size: 11 } } },
-          y: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } }
-        }
-      }
-    });
+  <div class="section-grid">
+    <div class="card">
+      <h2>🏛️ 一、經濟護城河</h2>
+      <ul><li><strong>核心業務與產業地位</strong>: 窄護城河 (x86 架構專利霸主、美國本土晶片法案 18A / 14A 晶圓代工自研轉型期)
+</li><li><strong>標籤與投資亮點</strong>: <code>x86 CPU &amp; 晶體管轉型股</code>
+</li>
+</ul>
+      <p class="note">本節為人工撰寫的質化分析，來源為 30_Analysis 的 Master Thesis，非由財報數字產生。</p>
+    </div>
 
-    // DuPont Chart
-    new Chart(document.getElementById('chartDupont'), {
-      type: 'bar',
-      data: {
-        labels: ['淨利率 (%)', '資產週轉率 (x100)', '權益乘數 (x100)'],
-        datasets: [{
-          label: 'DuPont 三因子拆解',
-          data: [-0.51, 25.00, 185.00],
-          backgroundColor: ['#f43f5e', '#38bdf8', '#c084fc']
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: { legend: { display: false } },
-        scales: {
-          x: { ticks: { color: '#94a3b8', font: { size: 10 } } },
-          y: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } }
-        }
-      }
-    });
+    <div class="card">
+      <h2>📈 六年營收與自由現金流趨勢</h2>
+      <div class="chart-container"><canvas id="trendChart"></canvas></div>
+    </div>
 
-    // Sortino & Piotroski Chart
-    new Chart(document.getElementById('chartDcf'), {
-      type: 'bar',
-      data: {
-        labels: ['Piotroski F-Score (滿分9)', '12M Sortino Ratio (x10)'],
-        datasets: [{
-          label: '基本面與風險指標',
-          data: [6, 41.50],
-          backgroundColor: ['#34d399', '#38bdf8']
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: { legend: { display: false } },
-        scales: {
-          x: { ticks: { color: '#94a3b8', font: { size: 10 } } },
-          y: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } }
-        }
-      }
-    });
-  </script>
+    <div class="card card-full">
+      <h2>🩺 財務健全度總覽</h2>
+      <div class="metric-group"><div class="metric-card"><div class="title">流動比率</div><div class="value">2.02</div></div><div class="metric-card"><div class="title">現金比率</div><div class="value">0.75</div></div><div class="metric-card"><div class="title">負債佔資產</div><div class="value">46.0%</div></div><div class="metric-card"><div class="title">有息負債／淨值</div><div class="value">0.41</div></div><div class="metric-card warn"><div class="title">利息保障倍數</div><div class="value">-2.0x</div></div><div class="metric-card"><div class="title">ROIC</div><div class="value">-0.7%</div></div><div class="metric-card warn"><div class="title">ROIC − WACC</div><div class="value">-13.1pp</div></div><div class="metric-card warn"><div class="title">FCF 利潤率</div><div class="value">-9.4%</div></div><div class="metric-card"><div class="title">應計比率</div><div class="value">-4.9%</div></div><div class="metric-card"><div class="title">Altman Z&#x27;&#x27;</div><div class="value">2.92（safe）</div></div><div class="metric-card"><div class="title">Piotroski（標準化 /9）</div><div class="value">6.0</div></div><div class="metric-card"><div class="title">Beneish M-Score</div><div class="value">-2.59</div></div></div><div class="flag-box"><h4>⚠️ 觸發 3 項門檻</h4><ul><li><strong>償債能力</strong>：利息保障倍數 -2.0x 低於 3x（營業利益為負）</li>
+<li><strong>資本效率</strong>：ROIC -0.7% 低於 WACC 12.37%，價差 -13.1pp，投入資本未賺回其成本</li>
+<li><strong>現金流品質</strong>：自由現金流為負，FCF 利潤率 -9.4%</li></ul></div>
+    </div>
+
+    <div class="card card-full">
+      <h2>🏅 本組合相對排名（14 家）</h2>
+      <div class="rank-strip"><div class="rank-card"><div class="rank-label">營運現金流</div><div class="rank-pos"> 第 9 / 14</div><div class="rank-val">$9,697M</div></div>
+<div class="rank-card"><div class="rank-label">毛利率</div><div class="rank-pos"> 第 13 / 14</div><div class="rank-val">34.8%</div></div>
+<div class="rank-card"><div class="rank-label">ROIC</div><div class="rank-pos"> 第 12 / 13</div><div class="rank-val">-0.7%</div></div>
+<div class="rank-card"><div class="rank-label">ROIC−WACC 價差</div><div class="rank-pos"> 第 12 / 13</div><div class="rank-val">-13.1%</div></div>
+<div class="rank-card"><div class="rank-label">12 個月 Sortino</div><div class="rank-pos">🥇 第 1 / 14</div><div class="rank-val">4.45</div></div>
+<div class="rank-card"><div class="rank-label">F-Score（標準化）</div><div class="rank-pos"> 第 8 / 14</div><div class="rank-val">6.00</div></div>
+<div class="rank-card"><div class="rank-label">Altman Z&#x27;&#x27;</div><div class="rank-pos"> 第 9 / 13</div><div class="rank-val">2.92</div></div></div>
+      <p class="note">排名僅涵蓋本知識庫追蹤的 14 家公司，每次產生時重新計算。不代表全市場排名。</p>
+    </div>
+
+    <div class="card">
+      <h2>📊 損益、現金流與資產負債</h2>
+      <div class="metric-group"><div class="metric-card"><div class="title">營收</div><div class="value">$52,853M</div></div><div class="metric-card"><div class="title">淨利</div><div class="value">$-267M</div></div><div class="metric-card"><div class="title">毛利率</div><div class="value">34.77%</div></div><div class="metric-card"><div class="title">營運現金流</div><div class="value">$9,697M</div></div><div class="metric-card"><div class="title">資本支出</div><div class="value">$14,646M</div></div><div class="metric-card"><div class="title">自由現金流</div><div class="value">$-4,949M</div></div><div class="metric-card"><div class="title">總資產</div><div class="value">$211,429M</div></div><div class="metric-card"><div class="title">總負債</div><div class="value">$97,148M</div></div><div class="metric-card"><div class="title">股東權益</div><div class="value">$114,281M</div></div></div>
+      <h3>DuPont 三因子拆解</h3>
+      <div class="chart-container"><canvas id="dupontChart"></canvas></div>
+    </div>
+
+    <div class="card">
+      <h2>🎲 蒙地卡羅 DCF 估值分佈</h2>
+      <p class="note">DCF 狀態：FCF 為負，DCF 不適用。本節不呈現估值數字。</p>
+      <div class="chart-container"><canvas id="dcfChart"></canvas></div>
+    </div>
+
+    <div class="card">
+      <h2>📉 下行風險（Sortino Ratio）</h2>
+      <div class="metric-group"><div class="metric-card"><div class="title">近 3 年（週資料）</div><div class="value">1.52</div></div><div class="metric-card"><div class="title">近 5 年（週資料）</div><div class="value">0.84</div></div><div class="metric-card"><div class="title">近 12 個月（日資料 MAR=0）</div><div class="value">4.45</div></div><div class="metric-card"><div class="title">同期無風險門檻版本</div><div class="value">4.36</div></div></div>
+      <p class="note">三個數字的頻率、期間與門檻報酬率都不同，衡量的是不同的東西，不能互相驗證。</p>
+    </div>
+
+    <div class="card">
+      <h2>💵 籌碼面與股東資本回饋</h2>
+      <div class="metric-group"><div class="metric-card"><div class="title">稀釋每股盈餘</div><div class="value">$-0.06</div></div><div class="metric-card"><div class="title">現金與短期投資</div><div class="value">$23,808M</div></div><div class="metric-card"><div class="title">有息負債總額</div><div class="value">$46,585M</div></div><div class="metric-card"><div class="title">淨現金</div><div class="value">$-22,777M</div></div><div class="metric-card"><div class="title">庫藏股回購</div><div class="value">資料不足</div></div><div class="metric-card"><div class="title">現金股利</div><div class="value">$0M</div></div><div class="metric-card"><div class="title">股東總殖利率</div><div class="value">0.00%</div></div></div>
+    </div>
+
+    <div class="card card-full">
+      <h2>⚠️ 核心風險因素</h2>
+      <h4 class="sub-heading">1. 三大核心風險因素 (Item 1A Risk Factors)</h4>
+<ul><li><strong>🏭 Intel Foundry 18A / 14A 晶圓代工良率與產能開出風險 (Yield &amp; Execution Risk)</strong>：IFS 晶圓代工業務每年虧損數十億美元。18A 製程良率 (Yield) 與客戶外部下單 (如微軟/AWS) 進度若不如預期，天價 CapEx 建廠投資將造成巨大攤銷負擔。
+</li><li><strong>💸 自由現金流負數 ($-49.5 億美元) 與沉重債務拖累 (FCF Negative &amp; Debt)</strong>：每年投入 $146.5 億美元 CapEx 導致自由現金流為負數；加上 $465.9 億美元金融債務 (淨負債 $-227.8 億美元)，利息支出與現金消耗壓抑分紅能力。
+</li><li><strong>💻 x86 伺服器與 PC 市佔持續遭 AMD 與 Arm 陣營瓜分 (Market Share Erosion)</strong>：在傳統伺服器 CPU 領域面臨 AMD EPYC 強勢侵蝕；在 AI 高效能算力市場遠落後 NVIDIA GPU；在行動與輕薄 PC 端則遭遇 Arm 陣營競爭。
+</li>
+</ul>
+<h4 class="sub-heading">2. 投資利弊與優劣勢矩陣 (Pros &amp; Cons Matrix)</h4>
+<ul><li><strong>🟢 多頭優勢 (Pros / Bull Case)</strong>：
+<ul><li><strong>美國晶片法案與本土戰略製造國防背書</strong>：獲美政府數百億美元直接支持。
+</li><li><strong>18A / RibbonFET 次世代製程反超契機</strong>：技術成功研發將帶動晶圓代工評級重估。
+</li><li><strong>近 12M Sortino 達 4.15 (全庫冠軍 👑)</strong>：谷底反彈時波段下行收益極強。
+</li><li><strong>本業經營現金流 OCF 高達 $96.97 億美元</strong>：本業獲利現金池依然穩固。
+</li>
+</ul>
+</li><li><strong>🔴 空頭隱憂 (Cons / Bear Case)</strong>：
+<ul><li><strong>自由現金流 FCF 為負 ($-49.5 億美元)</strong>：天價建廠支出吞噬現金。
+</li><li><strong>淨負債高達 $-227.8 億美元</strong>：債務負擔沉重，資本結構防禦力弱。
+</li><li><strong>晶圓代工 IFS 虧損持續擴大</strong>：需要數年時間證明代工產能利用率。
+</li>
+</ul>
+</li>
+</ul>
+      <p class="note">本節為人工撰寫的質化分析，來源為 30_Analysis 的 Master Thesis，非由財報數字產生。</p>
+    </div>
+
+    <div class="card card-full">
+      <h2>🔎 資料來源與限制</h2>
+      <table class="prov-table"><tr><th>財報來源</th><td>10-K，accession <code>0000050863-26-000011</code>，申報日 2026-01-23</td></tr><tr><th>會計年度結束</th><td>2025-12-27（距今 8 個月）</td></tr><tr><th>幣別</th><td>USD</td></tr><tr><th>股價</th><td>2026-08-07 收盤 $101.65</td></tr><tr><th>指標覆蓋</th><td>11 / 11</td></tr></table><h4 class="sub-heading">資料限制</h4><ul><li>利息保障倍數：營業利益為負，倍數僅表示虧損相對利息的規模，不代表償付能力</li><li>DCF 基期：基期自由現金流為負（資本支出超過營運現金流），單一年度 FCF 無法作為 DCF 外推基礎，需改用常態化 FCF</li></ul>
+    </div>
+  </div>
+
+  <footer>
+    由 <code>scripts/build_reports.py</code> 於 2026-08-08 10:51 UTC 產生。<br>
+    本頁不含任何手動輸入的財務數字；質化章節除外，且已標示。<br>
+    DCF 為特定假設下的推估，非事實，不構成投資建議。
+  </footer>
+</div>
+
+<script>
+Chart.defaults.color = '#9ca3af';
+Chart.defaults.borderColor = 'rgba(255,255,255,.07)';
+const noLegend = { plugins: { legend: { labels: { color: '#d1d5db' } } },
+                   maintainAspectRatio: false, responsive: true };
+
+new Chart(document.getElementById('trendChart'), {
+  type: 'bar',
+  data: {
+    labels: ["2020", "2021", "2022", "2023", "2024", "2025"],
+    datasets: [
+      { label: '營收', data: [77867, 79024, 63054, 54228, 53101, 52853], backgroundColor: 'rgba(56,189,248,.55)' },
+      { label: '自由現金流', data: [21605, 10723, -9411, -14279, -15656, -4949], type: 'line',
+         borderColor: '#a855f7', backgroundColor: '#a855f7', tension: .3 }
+    ]
+  },
+  options: { ...noLegend, scales: { y: { ticks: { callback: v => v + 'M' } } } }
+});
+
+new Chart(document.getElementById('dupontChart'), {
+  type: 'bar',
+  data: {
+    labels: ['淨利率 (%)', '資產週轉率 (x)', '權益乘數 (x)'],
+    datasets: [{ label: 'DuPont 三因子', data: [-0.51, 0.25, 1.8501],
+                 backgroundColor: ['#38bdf8', '#10b981', '#fbbf24'] }]
+  },
+  options: noLegend
+});
+
+new Chart(document.getElementById('dcfChart'), {
+  type: 'bar',
+  data: {
+    labels: ["\u73fe\u50f9"],
+    datasets: [{ label: '每股價值 (USD)', data: [101.65],
+                 backgroundColor: ["#10b981"] }]
+  },
+  options: noLegend
+});
+</script>
 </body>
 </html>

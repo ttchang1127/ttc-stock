@@ -108,6 +108,7 @@ financials_verified: true
 ---
 
 ## 🔗 關聯筆記
+- 🌐 **[開啟 Amazon 獨立網頁版投資報告 (amzn_report.html)](file:///Volumes/Crucial%20X8/Jarvis%20Obsidian/Sec_kb/amzn_report.html)**
 - [[AMZN_Company_Profile|Amazon 公司主頁]]
 - [[AAPL_Master_Investment_Thesis_2026|Apple 主報告對比]]
 - [[NVDA_Master_Investment_Thesis_2026|NVIDIA 主報告對比]]

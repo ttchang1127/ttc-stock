@@ -24,7 +24,7 @@ financials_verified: true
 1. **軟硬體生態系鎖定 (CUDA Software Ecosystem)** 🔒：
    - CUDA 是全球 AI 工程師與研究員的業界標準。AI 模型與微調工具皆圍繞 CUDA 進行優化，移轉至其他晶片平台的切換成本極高。
 2. **全棧式 AI 解決方案 (Full-Stack AI Architecture)** ⚡：
-   - NVDA 不僅提供 GPU (Blackwell / Hopper)，更整合 NVLink 高速互聯網路、Quantum InfiniBand 交換機與 DGX SuperPOD 架構，形成無可匹敵的系統級護城河。
+   - NVDA 不僅提供 GPU (Blackwell / Hopper)，更整合 NVLink 高速互聯網路、Quantum InfiniBand 交換機與 DGX SuperPOD 架構，形成競爭者難以複製的系統級護城河。
 3. **無可替代的定價權與毛利率 (Pricing Power & Margin)** 💎：
    - FY2026 毛利率高達 **71.07%**，淨利率達 **55.6%**，創下半導體產業歷史級別的盈利紀錄。
 

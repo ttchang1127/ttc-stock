@@ -22,7 +22,7 @@ financials_verified: true
 ## 🏛️ 一、 公司概況與三大寬廣經濟護城河 (Wide Economic Moat)
 
 1. **不可替代的全球社群網路效應 (Network Effect - Family of Apps)** 🌐：
-   - 包含 Facebook, Instagram, WhatsApp, Messenger, Threads。全球每日活躍用戶 (DAP) 超過 **32 億人**，擁有全人類網際網路史上最強大的社交與網路效應。
+   - 包含 Facebook, Instagram, WhatsApp, Messenger, Threads。全球每日活躍用戶 (DAP) 超過 **32 億人**，在主要社群平台中具備規模最大的跨應用網路效應。
 2. **AI 驅動的精準廣告推薦演算法 (AI Ad Targeting & Llama Ecosystem)** ⚡：
    - 開源 Llama AI 模型賦予 Meta 極強的廣告精準比對能力，全家族應用程式廣告曝光量 (Ad Impressions) 年增 12%，Family of Apps 營業利潤率高達 **51.5%** ($1,024.69 億美元)!
 3. **極高廣告主切換成本與數據壁壘 (Data Moat & Pricing Power)** 💰：
