@@ -982,9 +982,12 @@
               <th onclick="sortTable(5)">經營現金流 (OCF) ⇕</th>
               <th onclick="sortTable(6)">3年 Sortino ⇕</th>
               <th onclick="sortTable(7)">12月 Sortino ⇕</th>
-              <th onclick="sortTable(8)">VOO 持股權重 (%) ⇕</th>
-              <th onclick="sortTable(9)">VGT 持股權重 (%) ⇕</th>
-              <th onclick="sortTable(10)">DCF 估值中位 ⇕</th>
+              <th onclick="sortTable(8)">ROIC − WACC ⇕</th>
+              <th onclick="sortTable(9)">Altman Z″ ⇕</th>
+              <th onclick="sortTable(10)">健全度警示 ⇕</th>
+              <th onclick="sortTable(11)">VOO 持股權重 (%) ⇕</th>
+              <th onclick="sortTable(12)">VGT 持股權重 (%) ⇕</th>
+              <th onclick="sortTable(13)">DCF 估值中位 ⇕</th>
             </tr>
           </thead>
           <tbody id="tableBody">
@@ -1770,17 +1773,21 @@
     }
 
     async function loadFundamentals() {
-      // fundamentals.json (F-Score) and valuation.json (DCF) are independent
-      // pipeline outputs; a missing one should not block the other from loading.
-      const [fundRes, valRes] = await Promise.allSettled([
+      // fundamentals.json (F-Score), valuation.json (DCF) and
+      // financial_health.json are independent pipeline outputs; a missing one
+      // should not block the others from loading.
+      const [fundRes, valRes, healthRes] = await Promise.allSettled([
         fetch('fundamentals.json', { cache: 'no-cache' }).then(r => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); }),
         fetch('valuation.json', { cache: 'no-cache' }).then(r => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); }),
+        fetch('financial_health.json', { cache: 'no-cache' }).then(r => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); }),
       ]);
 
       const fundDb = fundRes.status === 'fulfilled' ? fundRes.value : null;
       const valDb = valRes.status === 'fulfilled' ? valRes.value : null;
+      const healthDb = healthRes.status === 'fulfilled' ? healthRes.value : null;
       if (fundRes.status === 'rejected') console.warn('fundamentals.json 載入失敗，Sortino / F-Score 欄位將顯示 —', fundRes.reason);
       if (valRes.status === 'rejected') console.warn('valuation.json 載入失敗，DCF 欄位將顯示 —', valRes.reason);
+      if (healthRes.status === 'rejected') console.warn('financial_health.json 載入失敗，健全度欄位將顯示 —', healthRes.reason);
 
       titansData.forEach(item => {
         const key = FUNDAMENTALS_ALIASES[item.ticker] || item.ticker;
@@ -1807,6 +1814,38 @@
         // Why there's no number matters as much as the number itself -- 假設未設定
         // (nobody has set g/WACC yet) reads very differently from 缺 FCF (SEC gap).
         item.dcfStatus = v ? v.dcf_status : '資料未載入';
+        // A median far from the quote is the assumptions talking, not a
+        // mispricing. The reports say so beside the number; without carrying it
+        // here the landing page kept publishing Coherent's $9.50 and Arm's
+        // $17.09 bare, which is the misleading form the reports were fixed for.
+        item.dcfWarning = v ? v.credibility_warning : null;
+        item.impliedGrowth = ((v || {}).implied_growth || {}).value ?? null;
+        item.baseFcfBasis = v ? v.base_fcf_basis : null;
+
+        const h = healthDb ? healthDb.companies[key] : null;
+        const prof = (h || {}).profitability || {};
+        const sol = (h || {}).solvency || {};
+        const liq = (h || {}).liquidity || {};
+        const cfq = (h || {}).cash_flow_quality || {};
+        item.roic = prof.roic ?? null;
+        item.roicSpread = prof.roic_minus_wacc ?? null;
+        item.valueCreation = prof.value_creation || null;
+        item.z2 = ((h || {}).altman_z2 || {}).z2_score ?? null;
+        item.z2Zone = ((h || {}).altman_z2 || {}).zone || null;
+        item.beneish = ((h || {}).beneish_m || {}).m_score ?? null;
+        item.beneishFlagged = ((h || {}).beneish_m || {}).flagged || false;
+        item.currentRatio = liq.current_ratio ?? null;
+        item.interestCoverage = sol.interest_coverage ?? null;
+        item.liabilitiesToAssets = sol.liabilities_to_assets ?? null;
+        item.accrualRatio = cfq.accrual_ratio ?? null;
+        item.fcfMargin = cfq.fcf_margin ?? null;
+        item.healthFlags = h ? h.flags : null;
+        item.healthFlagCount = h ? h.flag_count : null;
+        // "No flags" and "the checks could not run" look identical unless the
+        // coverage is carried across too.
+        item.healthSufficient = h ? h.coverage.sufficient : null;
+        item.healthCoverage = h ? `${h.coverage.computed}/${h.coverage.total}` : null;
+        item.fiscalYearEnd = h ? h.fiscal_year_end : null;
       });
 
       filterData();
@@ -2138,6 +2177,36 @@
 
     let currentFilter = 'all';
 
+    // A blank cell and a breached threshold must not look the same, and neither
+    // must "healthy" and "the checks could not run" -- Coherent raises no flags
+    // only because 4 of its 11 metrics are unavailable.
+    function fmtSpread(v) {
+      // == null catches undefined too: renderTable runs once before
+      // loadFundamentals resolves, when every health field is still unset.
+      return v == null ? '—' : `${(v * 100 >= 0 ? '+' : '')}${(v * 100).toFixed(1)}pp`;
+    }
+    function spreadColor(v) {
+      if (v == null) return '#94a3b8';
+      return v < 0 ? '#f87171' : (v > 0.02 ? '#34d399' : '#e2e8f0');
+    }
+    function z2Color(zone) {
+      return zone === 'safe' ? '#34d399' : (zone === 'distress' ? '#f87171'
+             : (zone === 'grey' ? '#fbbf24' : '#94a3b8'));
+    }
+    function healthBadge(item) {
+      if (item.healthFlagCount == null) return '<span style="color:#94a3b8;">—</span>';
+      if (!item.healthSufficient) {
+        return `<span class="badge-etf" style="background: rgba(148,163,184,.15); color:#94a3b8;"
+                      title="只有 ${item.healthCoverage} 項指標可計算，未觸發門檻不等於財務健全">資料不足 ${item.healthCoverage}</span>`;
+      }
+      if (item.healthFlagCount === 0) {
+        return '<span class="badge-etf" style="background: rgba(16,185,129,.15); color:#34d399;" title="11 項指標皆未超過門檻">✅ 無</span>';
+      }
+      const detail = (item.healthFlags || []).map(f => `${f.dimension}：${f.detail}`).join('&#10;');
+      return `<span class="badge-etf" style="background: rgba(251,191,36,.15); color:#fbbf24;"
+                    title="${detail}">⚠️ ${item.healthFlagCount} 項</span>`;
+    }
+
     function renderTable(data) {
       const tbody = document.getElementById('tableBody');
       tbody.innerHTML = '';
@@ -2164,9 +2233,15 @@
           <td style="font-weight: 600;">$${item.ocf.toFixed(0)} 億</td>
           <td><span style="font-weight: 700; color: ${item.sortino > 1.5 ? '#34d399' : '#e2e8f0'}">${fmtSortino(item.sortino)}</span></td>
           <td><span style="font-weight: 700; color: ${sortinoColor(item.sortino12m)}">${fmtSortino(item.sortino12m)}</span></td>
+          <td><span style="font-weight: 700; color: ${spreadColor(item.roicSpread)}"
+                    title="${item.valueCreation || ''}">${fmtSpread(item.roicSpread)}</span></td>
+          <td><span style="font-weight: 700; color: ${z2Color(item.z2Zone)}"
+                    title="${item.z2Zone ? `${item.z2Zone} 區（>2.6 安全 / <1.1 危險）` : ''}">${item.z2 == null ? '—' : item.z2.toFixed(2)}</span></td>
+          <td>${healthBadge(item)}</td>
           <td><span class="badge-etf">${item.vooWeight}</span></td>
           <td><span class="badge-etf">${item.vgtWeight}</span></td>
-          <td style="color: #c084fc; font-weight: 600;" ${item.dcfMedian === null ? `title="${item.dcfStatus || ''}"` : ''}>${fmtUSD(item.dcfMedian)}</td>
+          <td style="color: ${item.dcfWarning ? '#fbbf24' : '#c084fc'}; font-weight: 600;"
+              title="${item.dcfMedian === null ? (item.dcfStatus || '') : (item.dcfWarning || '')}">${fmtUSD(item.dcfMedian)}${item.dcfWarning ? ' 🚨' : ''}</td>
         `;
         tbody.appendChild(tr);
       });
@@ -2202,7 +2277,8 @@
     // was never defined -- clicking any header threw a ReferenceError.
     const SORT_FIELDS = [
       'ticker', 'price', 'macdHist', 'pe', 'grossMargin', 'ocf',
-      'sortino', 'sortino12m', 'vooWeight', 'vgtWeight', 'dcfMedian',
+      'sortino', 'sortino12m', 'roicSpread', 'z2', 'healthFlagCount',
+      'vooWeight', 'vgtWeight', 'dcfMedian',
     ];
     let sortState = { column: null, ascending: false };
 
@@ -2292,10 +2368,38 @@
           <p><strong>${item.vgtWeight}</strong></p>
         </div>
         <div class="info-box" style="grid-column: span 2;">
+          <h4>🩺 財務健全度${item.fiscalYearEnd ? `（FY${item.fiscalYearEnd}）` : ''}</h4>
+          ${item.healthFlagCount == null
+            ? '<p style="color:#94a3b8;">financial_health.json 未載入</p>'
+            : `<p style="display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:8px; font-size:0.85rem;">
+                 <span>流動比率 <strong>${item.currentRatio ?? '—'}</strong></span>
+                 <span>負債佔資產 <strong>${item.liabilitiesToAssets == null ? '—' : (item.liabilitiesToAssets * 100).toFixed(1) + '%'}</strong></span>
+                 <span>利息保障 <strong>${item.interestCoverage == null ? '—' : item.interestCoverage.toFixed(1) + 'x'}</strong></span>
+                 <span>ROIC <strong>${item.roic == null ? '—' : (item.roic * 100).toFixed(1) + '%'}</strong></span>
+                 <span>ROIC−WACC <strong style="color:${spreadColor(item.roicSpread)}">${fmtSpread(item.roicSpread)}</strong></span>
+                 <span>FCF 利潤率 <strong>${item.fcfMargin == null ? '—' : (item.fcfMargin * 100).toFixed(1) + '%'}</strong></span>
+                 <span>應計比率 <strong>${item.accrualRatio == null ? '—' : (item.accrualRatio * 100 >= 0 ? '+' : '') + (item.accrualRatio * 100).toFixed(1) + '%'}</strong></span>
+                 <span>Altman Z″ <strong style="color:${z2Color(item.z2Zone)}">${item.z2 == null ? '—' : item.z2.toFixed(2)}</strong></span>
+                 <span>Beneish M <strong style="color:${item.beneishFlagged ? '#fbbf24' : '#e2e8f0'}">${item.beneish == null ? '—' : item.beneish.toFixed(2)}</strong></span>
+               </p>
+               ${!item.healthSufficient
+                 ? `<p style="color:#94a3b8; font-size:0.82rem;">⚠️ 只有 ${item.healthCoverage} 項指標可計算，未觸發門檻<strong>不等於</strong>財務健全。</p>`
+                 : (item.healthFlagCount === 0
+                    ? '<p style="color:#34d399; font-size:0.82rem;">✅ 11 項指標皆未超過門檻。</p>'
+                    : `<ul style="margin:8px 0 0 1rem; font-size:0.82rem; color:#fbbf24;">${
+                        (item.healthFlags || []).map(f => `<li><strong>${f.dimension}</strong>：${f.detail}</li>`).join('')}</ul>`)}`}
+        </div>
+        <div class="info-box" style="grid-column: span 2;">
           <h4>🎲 DCF 蒙地卡羅估值分佈區間 (P25 ~ P75)</h4>
           <p>${item.dcfMedian !== null
             ? `<strong>${item.dcfRange} USD</strong> (中位數: ${fmtUSD(item.dcfMedian)} USD)`
             : `<strong style="color: #94a3b8;">未計算</strong> — ${item.dcfStatus || '原因不明'}`}</p>
+          ${item.impliedGrowth != null
+            ? `<p style="font-size:0.85rem; color:#94a3b8;">現價隱含的 FCF 年成長率：<strong style="color:#e2e8f0;">${(item.impliedGrowth * 100).toFixed(1)}%</strong>${item.baseFcfBasis ? ` ｜ 基期＝${item.baseFcfBasis}` : ''}</p>`
+            : ''}
+          ${item.dcfWarning
+            ? `<p style="margin-top:8px; padding:10px 12px; border-radius:10px; background:rgba(251,191,36,.1); border:1px solid rgba(251,191,36,.35); color:#fbbf24; font-size:0.82rem;">🚨 <strong>中位數不宜當作目標價</strong><br>${item.dcfWarning}</p>`
+            : ''}
         </div>
         <div class="info-box" style="grid-column: span 2;">
           <h4>📁 投資研究報告連結</h4>
