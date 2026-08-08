@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-08-08T08:15:10+00:00",
+ "generated_at": "2026-08-08T11:01:03+00:00",
  "assumptions_source": "dcf_assumptions.json (human-maintained)",
  "defaults": {
   "projection_years": 10,
@@ -41,16 +41,26 @@
    "dcf": {
     "simulations_run": 10000,
     "simulations_rejected": 0,
-    "mean": 169.48,
-    "p5": 120.09,
-    "p25": 143.57,
-    "p50": 164.51,
-    "p75": 189.31,
-    "p95": 234.88
+    "mean": 188.48,
+    "p5": 133.64,
+    "p25": 159.71,
+    "p50": 182.96,
+    "p75": 210.5,
+    "p95": 261.1
    },
    "dcf_status": "已計算",
-   "base_fcf": 98767000000,
-   "base_fcf_caveat": null
+   "base_fcf": 109673043847.61961,
+   "base_fcf_basis": "常態化自由現金流（歷年 FCF 利潤率中位數 × 當期營收）",
+   "base_fcf_reported": 98767000000,
+   "base_fcf_normalised": 109673043847.61961,
+   "fcf_margin_median": 0.2635,
+   "base_fcf_caveat": null,
+   "implied_growth": {
+    "value": 0.158
+   },
+   "divergence_vs_price": -0.4161,
+   "divergence_limit": 0.5,
+   "credibility_warning": null
   },
   "AMZN": {
    "currency": "USD",
@@ -83,16 +93,26 @@
    "dcf": {
     "simulations_run": 10000,
     "simulations_rejected": 0,
-    "mean": 30.32,
-    "p5": 21.14,
-    "p25": 25.49,
-    "p50": 29.35,
-    "p75": 34.03,
-    "p95": 42.8
+    "mean": 80.48,
+    "p5": 53.85,
+    "p25": 66.47,
+    "p50": 77.67,
+    "p75": 91.25,
+    "p95": 116.69
    },
    "dcf_status": "已計算",
-   "base_fcf": 7695000000,
-   "base_fcf_caveat": "基期 FCF 僅為營運現金流的 6%（資本支出年度異常偏高），以單一年度 FCF 外推會低估價值，建議改用常態化 FCF"
+   "base_fcf": 22321279092.386814,
+   "base_fcf_basis": "常態化自由現金流（歷年 FCF 利潤率中位數 × 當期營收）",
+   "base_fcf_reported": 7695000000,
+   "base_fcf_normalised": 22321279092.386814,
+   "fcf_margin_median": 0.0311,
+   "base_fcf_caveat": "當期 FCF 7,695M 為常態化基準 22,321M 的 34%（歷年 FCF 利潤率中位數 3.1%）。基期採常態化值，以免單一年度的資本支出高峰被外推十年",
+   "implied_growth": {
+    "value": 0.2955
+   },
+   "divergence_vs_price": -0.717,
+   "divergence_limit": 0.5,
+   "credibility_warning": "中位數 $77.67 與現價 $274.48 相差 -72%，超過 ±50% 門檻。這個幅度通常反映假設不適用，而非市場錯價 —— 請以下方的隱含成長率判讀，不要把中位數當成目標價"
   },
   "ARM": {
    "currency": "USD",
@@ -133,8 +153,18 @@
     "p95": 25.01
    },
    "dcf_status": "已計算",
-   "base_fcf": 979000000,
-   "base_fcf_caveat": null
+   "base_fcf": 979000000.0,
+   "base_fcf_basis": "常態化自由現金流（歷年 FCF 利潤率中位數 × 當期營收）",
+   "base_fcf_reported": 979000000,
+   "base_fcf_normalised": 979000000.0,
+   "fcf_margin_median": 0.199,
+   "base_fcf_caveat": null,
+   "implied_growth": {
+    "value": 0.6548
+   },
+   "divergence_vs_price": -0.9387,
+   "divergence_limit": 0.5,
+   "credibility_warning": "中位數 $17.31 與現價 $282.57 相差 -94%，超過 ±50% 門檻。這個幅度通常反映假設不適用，而非市場錯價 —— 請以下方的隱含成長率判讀，不要把中位數當成目標價"
   },
   "COHR": {
    "currency": "USD",
@@ -167,16 +197,26 @@
    "dcf": {
     "simulations_run": 10000,
     "simulations_rejected": 0,
-    "mean": 6.76,
-    "p5": -1.73,
-    "p25": 2.17,
-    "p50": 5.63,
-    "p75": 10.12,
-    "p95": 19.18
+    "mean": 11.26,
+    "p5": 0.95,
+    "p25": 5.69,
+    "p50": 9.89,
+    "p75": 15.35,
+    "p95": 26.36
    },
    "dcf_status": "已計算",
-   "base_fcf": 192764000,
-   "base_fcf_caveat": null
+   "base_fcf": 234199319.8762907,
+   "base_fcf_basis": "常態化自由現金流（歷年 FCF 利潤率中位數 × 當期營收）",
+   "base_fcf_reported": 192764000,
+   "base_fcf_normalised": 234199319.8762907,
+   "fcf_margin_median": 0.0403,
+   "base_fcf_caveat": "當期 FCF 193M 為常態化基準 234M 的 82%（歷年 FCF 利潤率中位數 4.0%）。基期採常態化值，以免單一年度的資本支出高峰被外推十年",
+   "implied_growth": {
+    "value": 0.6505
+   },
+   "divergence_vs_price": -0.9739,
+   "divergence_limit": 0.5,
+   "credibility_warning": "中位數 $9.89 與現價 $379.13 相差 -97%，超過 ±50% 門檻。這個幅度通常反映假設不適用，而非市場錯價 —— 請以下方的隱含成長率判讀，不要把中位數當成目標價"
   },
   "GOOGL": {
    "currency": "USD",
@@ -209,16 +249,26 @@
    "dcf": {
     "simulations_run": 10000,
     "simulations_rejected": 0,
-    "mean": 253.81,
-    "p5": 163.96,
-    "p25": 206.79,
-    "p50": 243.68,
-    "p75": 289.85,
-    "p95": 376.61
+    "mean": 304.53,
+    "p5": 196.27,
+    "p25": 247.87,
+    "p50": 292.32,
+    "p75": 347.95,
+    "p95": 452.48
    },
    "dcf_status": "已計算",
-   "base_fcf": 73266000000,
-   "base_fcf_caveat": null
+   "base_fcf": 88271510520.05916,
+   "base_fcf_basis": "常態化自由現金流（歷年 FCF 利潤率中位數 × 當期營收）",
+   "base_fcf_reported": 73266000000,
+   "base_fcf_normalised": 88271510520.05916,
+   "fcf_margin_median": 0.2191,
+   "base_fcf_caveat": "當期 FCF 73,266M 為常態化基準 88,272M 的 83%（歷年 FCF 利潤率中位數 21.9%）。基期採常態化值，以免單一年度的資本支出高峰被外推十年",
+   "implied_growth": {
+    "value": 0.1602
+   },
+   "divergence_vs_price": -0.173,
+   "divergence_limit": 0.5,
+   "credibility_warning": null
   },
   "INTC": {
    "currency": "USD",
@@ -251,7 +301,15 @@
    "dcf": null,
    "dcf_status": "FCF 為負，DCF 不適用",
    "base_fcf": -4949000000,
-   "base_fcf_caveat": "基期自由現金流為負（資本支出超過營運現金流），單一年度 FCF 無法作為 DCF 外推基礎，需改用常態化 FCF"
+   "base_fcf_basis": "當期自由現金流",
+   "base_fcf_reported": -4949000000,
+   "base_fcf_normalised": null,
+   "fcf_margin_median": -0.1214,
+   "base_fcf_caveat": null,
+   "implied_growth": null,
+   "divergence_vs_price": null,
+   "divergence_limit": 0.5,
+   "credibility_warning": null
   },
   "META": {
    "currency": "USD",
@@ -284,16 +342,26 @@
    "dcf": {
     "simulations_run": 10000,
     "simulations_rejected": 0,
-    "mean": 725.63,
-    "p5": 467.1,
-    "p25": 589.81,
-    "p50": 698.28,
-    "p75": 830.04,
-    "p95": 1082.69
+    "mean": 947.79,
+    "p5": 609.17,
+    "p25": 769.9,
+    "p50": 911.97,
+    "p75": 1084.54,
+    "p95": 1415.45
    },
    "dcf_status": "已計算",
-   "base_fcf": 46109000000,
-   "base_fcf_caveat": null
+   "base_fcf": 60391385836.766716,
+   "base_fcf_basis": "常態化自由現金流（歷年 FCF 利潤率中位數 × 當期營收）",
+   "base_fcf_reported": 46109000000,
+   "base_fcf_normalised": 60391385836.766716,
+   "fcf_margin_median": 0.3005,
+   "base_fcf_caveat": "當期 FCF 46,109M 為常態化基準 60,391M 的 76%（歷年 FCF 利潤率中位數 30.1%）。基期採常態化值，以免單一年度的資本支出高峰被外推十年",
+   "implied_growth": {
+    "value": 0.0739
+   },
+   "divergence_vs_price": 0.5402,
+   "divergence_limit": 0.5,
+   "credibility_warning": "中位數 $911.97 與現價 $592.10 相差 +54%，超過 ±50% 門檻。這個幅度通常反映假設不適用，而非市場錯價 —— 請以下方的隱含成長率判讀，不要把中位數當成目標價"
   },
   "MRVL": {
    "currency": "USD",
@@ -326,16 +394,26 @@
    "dcf": {
     "simulations_run": 10000,
     "simulations_rejected": 0,
-    "mean": 53.95,
-    "p5": 28.53,
-    "p25": 39.69,
-    "p50": 50.57,
-    "p75": 64.28,
-    "p95": 90.84
+    "mean": 58.81,
+    "p5": 31.16,
+    "p25": 43.3,
+    "p50": 55.13,
+    "p75": 70.04,
+    "p95": 98.92
    },
    "dcf_status": "已計算",
-   "base_fcf": 1396400000,
-   "base_fcf_caveat": null
+   "base_fcf": 1518694808.4426455,
+   "base_fcf_basis": "常態化自由現金流（歷年 FCF 利潤率中位數 × 當期營收）",
+   "base_fcf_reported": 1396400000,
+   "base_fcf_normalised": 1518694808.4426455,
+   "fcf_margin_median": 0.1853,
+   "base_fcf_caveat": null,
+   "implied_growth": {
+    "value": 0.4333
+   },
+   "divergence_vs_price": -0.7479,
+   "divergence_limit": 0.5,
+   "credibility_warning": "中位數 $55.13 與現價 $218.72 相差 -75%，超過 ±50% 門檻。這個幅度通常反映假設不適用，而非市場錯價 —— 請以下方的隱含成長率判讀，不要把中位數當成目標價"
   },
   "MSFT": {
    "currency": "USD",
@@ -368,16 +446,26 @@
    "dcf": {
     "simulations_run": 10000,
     "simulations_rejected": 0,
-    "mean": 366.03,
-    "p5": 234.54,
-    "p25": 296.15,
-    "p50": 351.04,
-    "p75": 419.7,
-    "p95": 547.42
+    "mean": 526.22,
+    "p5": 336.4,
+    "p25": 425.35,
+    "p50": 504.58,
+    "p75": 603.7,
+    "p95": 788.09
    },
    "dcf_status": "已計算",
-   "base_fcf": 66987000000,
-   "base_fcf_caveat": null
+   "base_fcf": 96703711437.40657,
+   "base_fcf_basis": "常態化自由現金流（歷年 FCF 利潤率中位數 × 當期營收）",
+   "base_fcf_reported": 66987000000,
+   "base_fcf_normalised": 96703711437.40657,
+   "fcf_margin_median": 0.2914,
+   "base_fcf_caveat": "當期 FCF 66,987M 為常態化基準 96,704M 的 69%（歷年 FCF 利潤率中位數 29.1%）。基期採常態化值，以免單一年度的資本支出高峰被外推十年",
+   "implied_growth": {
+    "value": 0.1292
+   },
+   "divergence_vs_price": 0.0092,
+   "divergence_limit": 0.5,
+   "credibility_warning": null
   },
   "NOK": {
    "currency": "EUR",
@@ -410,7 +498,15 @@
    "dcf": null,
    "dcf_status": "缺 FCF",
    "base_fcf": null,
-   "base_fcf_caveat": null
+   "base_fcf_basis": "當期自由現金流",
+   "base_fcf_reported": null,
+   "base_fcf_normalised": null,
+   "fcf_margin_median": null,
+   "base_fcf_caveat": null,
+   "implied_growth": null,
+   "divergence_vs_price": null,
+   "divergence_limit": 0.5,
+   "credibility_warning": null
   },
   "NVDA": {
    "currency": "USD",
@@ -443,16 +539,26 @@
    "dcf": {
     "simulations_run": 10000,
     "simulations_rejected": 0,
-    "mean": 339.16,
-    "p5": 161.6,
-    "p25": 237.84,
-    "p50": 313.44,
-    "p75": 409.68,
-    "p95": 608.93
+    "mean": 336.01,
+    "p5": 160.11,
+    "p25": 235.63,
+    "p50": 310.53,
+    "p75": 405.88,
+    "p95": 603.27
    },
    "dcf_status": "已計算",
-   "base_fcf": 96676000000,
-   "base_fcf_caveat": null
+   "base_fcf": 95775921637.5037,
+   "base_fcf_basis": "常態化自由現金流（歷年 FCF 利潤率中位數 × 當期營收）",
+   "base_fcf_reported": 96676000000,
+   "base_fcf_normalised": 95775921637.5037,
+   "fcf_margin_median": 0.4435,
+   "base_fcf_caveat": null,
+   "implied_growth": {
+    "value": 0.2066
+   },
+   "divergence_vs_price": 0.3865,
+   "divergence_limit": 0.5,
+   "credibility_warning": null
   },
   "ONDS": {
    "currency": "USD",
@@ -485,7 +591,15 @@
    "dcf": null,
    "dcf_status": "FCF 為負，DCF 不適用",
    "base_fcf": -40780000,
-   "base_fcf_caveat": null
+   "base_fcf_basis": "當期自由現金流",
+   "base_fcf_reported": -40780000,
+   "base_fcf_normalised": null,
+   "fcf_margin_median": -4.1832,
+   "base_fcf_caveat": null,
+   "implied_growth": null,
+   "divergence_vs_price": null,
+   "divergence_limit": 0.5,
+   "credibility_warning": null
   },
   "TSLA": {
    "currency": "USD",
@@ -518,16 +632,26 @@
    "dcf": {
     "simulations_run": 10000,
     "simulations_rejected": 0,
-    "mean": 125.06,
-    "p5": 67.42,
-    "p25": 93.16,
-    "p50": 116.7,
-    "p75": 147.75,
-    "p95": 210.32
+    "mean": 145.18,
+    "p5": 77.55,
+    "p25": 107.75,
+    "p50": 135.37,
+    "p75": 171.8,
+    "p95": 245.22
    },
    "dcf_status": "已計算",
-   "base_fcf": 6220000000,
-   "base_fcf_caveat": null
+   "base_fcf": 7298673611.111111,
+   "base_fcf_basis": "常態化自由現金流（歷年 FCF 利潤率中位數 × 當期營收）",
+   "base_fcf_reported": 6220000000,
+   "base_fcf_normalised": 7298673611.111111,
+   "fcf_margin_median": 0.077,
+   "base_fcf_caveat": null,
+   "implied_growth": {
+    "value": 0.3501
+   },
+   "divergence_vs_price": -0.588,
+   "divergence_limit": 0.5,
+   "credibility_warning": "中位數 $135.37 與現價 $328.58 相差 -59%，超過 ±50% 門檻。這個幅度通常反映假設不適用，而非市場錯價 —— 請以下方的隱含成長率判讀，不要把中位數當成目標價"
   },
   "TSM": {
    "currency": "USD",
@@ -560,7 +684,15 @@
    "dcf": null,
    "dcf_status": "缺 FCF",
    "base_fcf": null,
-   "base_fcf_caveat": null
+   "base_fcf_basis": "當期自由現金流",
+   "base_fcf_reported": null,
+   "base_fcf_normalised": null,
+   "fcf_margin_median": null,
+   "base_fcf_caveat": null,
+   "implied_growth": null,
+   "divergence_vs_price": null,
+   "divergence_limit": 0.5,
+   "credibility_warning": null
   }
  }
 }

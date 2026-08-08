@@ -258,8 +258,23 @@ def build_dcf_section(heading_text, val_data, unit):
         where = "高於" if gap > 0 else "低於"
         lines.append(f"- **現價 {sym}{price:,.2f} 相對中位數**: {where}中位數 **{abs(gap):.1f}%**")
 
+    implied = (val_data.get("implied_growth") or {}).get("value")
+    if implied is not None:
+        lines.append(
+            f"- **現價隱含的 FCF 年成長率**: **{implied:.1%}**"
+            f"（在 WACC {a['wacc']:.2%} 與同組終端假設下，讓模型值等於現價所需的成長率）")
+    elif (val_data.get("implied_growth") or {}).get("reason"):
+        lines.append(f"- **現價隱含的 FCF 年成長率**: 無解 —— "
+                     f"{val_data['implied_growth']['reason']}")
+
     if val_data.get("base_fcf_caveat"):
         lines += ["", f"> ⚠️ {val_data['base_fcf_caveat']}"]
+
+    # A median far from the quote is nearly always the assumptions talking, not
+    # a mispricing. Say so beside the number rather than letting the percentile
+    # table read as a price target.
+    if val_data.get("credibility_warning"):
+        lines += ["", f"> 🚨 **{val_data['credibility_warning']}**"]
 
     lines += [
         "",

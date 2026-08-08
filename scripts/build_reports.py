@@ -607,15 +607,26 @@ def build_context(ticker, data, ranks, peers):
         band = "${:,.2f} ~ ${:,.2f}".format(dcf["p25"], dcf["p75"])
         median = "${:,.2f}".format(dcf["p50"])
         rel = "資料不足" if gap is None else "{:+.0f}%".format(gap)
+        implied = (v.get("implied_growth") or {}).get("value")
+        implied_txt = ("{:.1%}".format(implied) if implied is not None
+                       else "無解")
+        warn = v.get("credibility_warning")
         dcf_html = (
             '<div class="metric-group">'
             + metric("P25 ~ P75 主流區間", band)
-            + metric("中位數 P50", median)
-            + metric("相對現價", rel)
-            + '</div>'
-            + '<p class="note">假設：g={:.2%}、WACC={:.2%}、終端成長={:.1%}、{:,} 次模擬。{}</p>'
-              .format(a["growth"], a["wacc"], a["terminal_growth"], a["simulations"],
-                      html.escape(a.get("note") or "")))
+            + metric("中位數 P50", median, "warn" if warn else "")
+            + metric("相對現價", rel, "warn" if warn else "")
+            + metric("現價隱含 FCF 年成長率", implied_txt)
+            + '</div>')
+        if warn:
+            dcf_html += ('<div class="flag-box"><h4>🚨 中位數不宜當作目標價</h4>'
+                         '<p>{}</p></div>'.format(html.escape(warn)))
+        dcf_html += (
+            '<p class="note">假設：g={:.2%}、WACC={:.2%}、終端成長={:.1%}、{:,} 次模擬。'
+            '基期＝{}。{}</p>'
+            .format(a["growth"], a["wacc"], a["terminal_growth"], a["simulations"],
+                    html.escape(v.get("base_fcf_basis") or ""),
+                    html.escape(a.get("note") or "")))
         labels = ["P5", "P25", "P50", "P75", "P95", "現價"]
         vals = [dcf["p5"], dcf["p25"], dcf["p50"], dcf["p75"], dcf["p95"], m["price"]]
         colors = ["#334155", "#38bdf8", "#a855f7", "#38bdf8", "#334155", "#10b981"]

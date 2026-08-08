@@ -91,8 +91,6 @@ financials_verified: true
 
 原因：FCF 為負，DCF 不適用。腳本不會以假設值代替缺漏資料。
 
-> ⚠️ 基期自由現金流為負（資本支出超過營運現金流），單一年度 FCF 無法作為 DCF 外推基礎，需改用常態化 FCF
-
 ---
 
 ## ⚠️ 六、 核心風險因素與利弊分析 (SEC Form 10-K Item 1A & Pros/Cons Matrix)

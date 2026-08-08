@@ -294,6 +294,9 @@ python3 scripts/build_reports.py && git status --short -- '*_report.html'
 | COHR 沒有 ROIC / Z'' / 利息保障倍數 | Coherent **FY2025 起不再 tag `OperatingIncomeLoss`**。已實測「營收 − CostsAndExpenses」不可替代：FY2024 該差額為 **−148M**，而真正的營業利益是 **+96M**（`CostsAndExpenses` 已含利息與業外項目，差額等於稅前淨利）。**這個推導已測試並否決，不要再引入** |
 | 報告的護城河／風險章節沒有 SEC 出處 | 這兩章是**人工撰寫的質化分析**，頁面上已標示。`20_Filings/*/sections/` 有 10-K 原文拆解，但目前只有 AAPL 與 NVDA 有，且尚未接上生成器 |
 | 報告出現「本組合第 N / 14」 | 這是**每次產生時重算**的排名，只涵蓋本庫 14 家。**不准改寫成「全美股第 1」之類無法驗證的說法** |
+| DCF 中位數與現價差很多（COHR −97%、ARM −94%） | **不是買賣訊號**。超過 ±50% 會自動掛「🚨 中位數不宜當作目標價」，請改看**現價隱含的 FCF 年成長率** —— 那才是可以判斷的陳述（COHR 隱含 65%／十年）。**不准把中位數寫成目標價或「折價 N%」** |
+| 基期 FCF 不等於當期 FCF | 預設採**常態化**值（歷年 FCF 利潤率中位數 × 當期營收），以免資本支出高峰年被外推十年。AMZN 當期 $7.7B、常態化 $22.3B。差距超過 15% 時 thesis 會加註 |
+| META 的 DCF 中位數高於現價 54% 也被標記 | 門檻是**雙向**的 ±50%。模型高於市價一樣是假設在說話 |
 | 三個 Sortino 數值差很多 | **正常**。頻率（週/日）、期間（3年/5年/1年）、MAR 都不同，衡量的是不同的東西，**不准「統一」它們** |
 | 12 個月那組用 MAR=0 而非無風險利率 | 實測對照 PortfoliosLab 公布值決定的（NVDA 0.76→0.75、TSLA 0.36→0.36）。改成無風險利率就對不上公開網站 |
 | 各公司科目數 11~14 不等 | 每家 tag 的科目本來就不同 |
@@ -340,7 +343,7 @@ DCF 不是事實。使用者若問「這檔值多少錢」，正確回答是：
 | `fetch_xbrl_financials.py` | 抓 SEC XBRL 結構化財報 → `financials.json` |
 | `compute_fundamentals.py` | 算 F-Score / Altman Z / DuPont → `fundamentals.json` |
 | `compute_financial_health.py` | 算流動性 / 償債 / ROIC−WACC / Altman Z'' → `financial_health.json` |
-| `compute_valuation.py` | 算本益比 / 淨現金 / DCF 蒙地卡羅 → `valuation.json` |
+| `compute_valuation.py` | 算本益比 / 淨現金 / DCF 蒙地卡羅 / 隱含成長率 → `valuation.json` |
 | `build_reports.py` | 由 JSON ＋ thesis 質化章節產生 14 份 `*_report.html` |
 | `update_thesis_financials.py` | 更新 thesis 第二 ~ 五章 |
 | `fetch_price_history.py` | 抓日線收盤價（預設 6 年）→ `prices.json` |

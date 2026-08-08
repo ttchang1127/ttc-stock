@@ -142,7 +142,7 @@ footer{text-align:center;color:var(--text-muted);font-size:.8rem;padding:28px 0}
 
     <div class="card">
       <h2>🎲 蒙地卡羅 DCF 估值分佈</h2>
-      <div class="metric-group"><div class="metric-card"><div class="title">P25 ~ P75 主流區間</div><div class="value">$39.69 ~ $64.28</div></div><div class="metric-card"><div class="title">中位數 P50</div><div class="value">$50.57</div></div><div class="metric-card"><div class="title">相對現價</div><div class="value">-77%</div></div></div><p class="note">假設：g=22.50%、WACC=14.25%、終端成長=2.5%、10,000 次模擬。CAPM 推導：beta 2.16 × ERP 5.0% + Rf 3.71%，稅後 Kd 4.13% 加權；營收 CAGR 22.50%</p>
+      <div class="metric-group"><div class="metric-card"><div class="title">P25 ~ P75 主流區間</div><div class="value">$43.30 ~ $70.04</div></div><div class="metric-card warn"><div class="title">中位數 P50</div><div class="value">$55.13</div></div><div class="metric-card warn"><div class="title">相對現價</div><div class="value">-75%</div></div><div class="metric-card"><div class="title">現價隱含 FCF 年成長率</div><div class="value">43.3%</div></div></div><div class="flag-box"><h4>🚨 中位數不宜當作目標價</h4><p>中位數 $55.13 與現價 $218.72 相差 -75%，超過 ±50% 門檻。這個幅度通常反映假設不適用，而非市場錯價 —— 請以下方的隱含成長率判讀，不要把中位數當成目標價</p></div><p class="note">假設：g=22.50%、WACC=14.25%、終端成長=2.5%、10,000 次模擬。基期＝常態化自由現金流（歷年 FCF 利潤率中位數 × 當期營收）。CAPM 推導：beta 2.16 × ERP 5.0% + Rf 3.71%，稅後 Kd 4.13% 加權；營收 CAGR 22.50%</p>
       <div class="chart-container"><canvas id="dcfChart"></canvas></div>
     </div>
 
@@ -193,7 +193,7 @@ footer{text-align:center;color:var(--text-muted);font-size:.8rem;padding:28px 0}
   </div>
 
   <footer>
-    由 <code>scripts/build_reports.py</code> 於 2026-08-08 10:51 UTC 產生。<br>
+    由 <code>scripts/build_reports.py</code> 於 2026-08-08 11:01 UTC 產生。<br>
     本頁不含任何手動輸入的財務數字；質化章節除外，且已標示。<br>
     DCF 為特定假設下的推估，非事實，不構成投資建議。
   </footer>
@@ -232,7 +232,7 @@ new Chart(document.getElementById('dcfChart'), {
   type: 'bar',
   data: {
     labels: ["P5", "P25", "P50", "P75", "P95", "\u73fe\u50f9"],
-    datasets: [{ label: '每股價值 (USD)', data: [28.53, 39.69, 50.57, 64.28, 90.84, 218.72],
+    datasets: [{ label: '每股價值 (USD)', data: [31.16, 43.3, 55.13, 70.04, 98.92, 218.72],
                  backgroundColor: ["#334155", "#38bdf8", "#a855f7", "#38bdf8", "#334155", "#10b981"] }]
   },
   options: noLegend

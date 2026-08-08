@@ -151,7 +151,7 @@ footer{text-align:center;color:var(--text-muted);font-size:.8rem;padding:28px 0}
 
     <div class="card">
       <h2>🎲 蒙地卡羅 DCF 估值分佈</h2>
-      <div class="metric-group"><div class="metric-card"><div class="title">P25 ~ P75 主流區間</div><div class="value">$296.15 ~ $419.70</div></div><div class="metric-card"><div class="title">中位數 P50</div><div class="value">$351.04</div></div><div class="metric-card"><div class="title">相對現價</div><div class="value">-30%</div></div></div><p class="note">假設：g=13.00%、WACC=8.50%、終端成長=2.5%、10,000 次模擬。沿用先前 thesis 標題：Azure/AI g=13%, WACC=8.5%</p>
+      <div class="metric-group"><div class="metric-card"><div class="title">P25 ~ P75 主流區間</div><div class="value">$425.35 ~ $603.70</div></div><div class="metric-card"><div class="title">中位數 P50</div><div class="value">$504.58</div></div><div class="metric-card"><div class="title">相對現價</div><div class="value">+1%</div></div><div class="metric-card"><div class="title">現價隱含 FCF 年成長率</div><div class="value">12.9%</div></div></div><p class="note">假設：g=13.00%、WACC=8.50%、終端成長=2.5%、10,000 次模擬。基期＝常態化自由現金流（歷年 FCF 利潤率中位數 × 當期營收）。沿用先前 thesis 標題：Azure/AI g=13%, WACC=8.5%</p>
       <div class="chart-container"><canvas id="dcfChart"></canvas></div>
     </div>
 
@@ -194,12 +194,12 @@ footer{text-align:center;color:var(--text-muted);font-size:.8rem;padding:28px 0}
 
     <div class="card card-full">
       <h2>🔎 資料來源與限制</h2>
-      <table class="prov-table"><tr><th>財報來源</th><td>10-K，accession <code>0001193125-26-323660</code>，申報日 2026-07-29</td></tr><tr><th>會計年度結束</th><td>2026-06-30（距今 2 個月）</td></tr><tr><th>幣別</th><td>USD</td></tr><tr><th>股價</th><td>2026-08-07 收盤 $499.99</td></tr><tr><th>指標覆蓋</th><td>11 / 11</td></tr></table>
+      <table class="prov-table"><tr><th>財報來源</th><td>10-K，accession <code>0001193125-26-323660</code>，申報日 2026-07-29</td></tr><tr><th>會計年度結束</th><td>2026-06-30（距今 2 個月）</td></tr><tr><th>幣別</th><td>USD</td></tr><tr><th>股價</th><td>2026-08-07 收盤 $499.99</td></tr><tr><th>指標覆蓋</th><td>11 / 11</td></tr></table><h4 class="sub-heading">資料限制</h4><ul><li>DCF 基期：當期 FCF 66,987M 為常態化基準 96,704M 的 69%（歷年 FCF 利潤率中位數 29.1%）。基期採常態化值，以免單一年度的資本支出高峰被外推十年</li></ul>
     </div>
   </div>
 
   <footer>
-    由 <code>scripts/build_reports.py</code> 於 2026-08-08 10:51 UTC 產生。<br>
+    由 <code>scripts/build_reports.py</code> 於 2026-08-08 11:01 UTC 產生。<br>
     本頁不含任何手動輸入的財務數字；質化章節除外，且已標示。<br>
     DCF 為特定假設下的推估，非事實，不構成投資建議。
   </footer>
@@ -238,7 +238,7 @@ new Chart(document.getElementById('dcfChart'), {
   type: 'bar',
   data: {
     labels: ["P5", "P25", "P50", "P75", "P95", "\u73fe\u50f9"],
-    datasets: [{ label: '每股價值 (USD)', data: [234.54, 296.15, 351.04, 419.7, 547.42, 499.99],
+    datasets: [{ label: '每股價值 (USD)', data: [336.4, 425.35, 504.58, 603.7, 788.09, 499.99],
                  backgroundColor: ["#334155", "#38bdf8", "#a855f7", "#38bdf8", "#334155", "#10b981"] }]
   },
   options: noLegend
