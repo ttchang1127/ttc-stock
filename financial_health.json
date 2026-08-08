@@ -1,6 +1,6 @@
 {
- "generated_at": "2026-08-07T13:48:31+00:00",
- "financials_generated_at": "2026-08-07T13:47:33+00:00",
+ "generated_at": "2026-08-08T08:14:06+00:00",
+ "financials_generated_at": "2026-08-08T08:13:38+00:00",
  "source": "Derived from SEC XBRL Company Facts; WACC from dcf_assumptions.json",
  "thresholds": {
   "current_ratio_min": 1.0,
@@ -45,7 +45,7 @@
     "liabilities_to_assets": 0.7948,
     "equity_to_assets": 0.2052,
     "interest_coverage": null,
-    "interest_coverage_note": "未取得利息費用標籤，無法計算利息保障倍數",
+    "interest_coverage_note": "未取得利息費用標籤（有息負債 91,908,000,000，此比率本應適用）。無法由其他科目推導",
     "interest_expense_tag": null,
     "net_debt_to_ebit": 0.28,
     "net_debt_to_ebit_note": "以 EBIT 為分母（未擷取折舊攤銷，無法計算 EBITDA）"
@@ -129,7 +129,7 @@
    },
    "freshness": {
     "fiscal_year_end": "2025-09-27",
-    "as_of": "2026-08-07",
+    "as_of": "2026-08-08",
     "months_old": 11,
     "stale": false,
     "threshold_months": 15,
@@ -281,7 +281,7 @@
    },
    "freshness": {
     "fiscal_year_end": "2025-12-31",
-    "as_of": "2026-08-07",
+    "as_of": "2026-08-08",
     "months_old": 8,
     "stale": false,
     "threshold_months": 15,
@@ -328,9 +328,9 @@
     "debt_to_equity": 0.007,
     "liabilities_to_assets": 0.2258,
     "equity_to_assets": 0.7742,
-    "interest_coverage": null,
-    "interest_coverage_note": "未取得利息費用標籤，無法計算利息保障倍數",
-    "interest_expense_tag": null,
+    "interest_coverage": 300.0,
+    "interest_coverage_note": "利息費用僅為融資租賃利息（本公司無借款），倍數偏高反映的是沒有債務，而非償付能力特別強",
+    "interest_expense_tag": "FinanceLeaseInterestExpense",
     "net_debt_to_ebit": -3.94,
     "net_debt_to_ebit_note": "以 EBIT 為分母（未擷取折舊攤銷，無法計算 EBITDA）"
    },
@@ -415,7 +415,7 @@
    },
    "freshness": {
     "fiscal_year_end": "2026-03-31",
-    "as_of": "2026-08-07",
+    "as_of": "2026-08-08",
     "months_old": 5,
     "stale": false,
     "threshold_months": 15,
@@ -430,11 +430,9 @@
    ],
    "flag_count": 1,
    "coverage": {
-    "computed": 10,
+    "computed": 11,
     "total": 11,
-    "unavailable": [
-     "利息保障倍數"
-    ],
+    "unavailable": [],
     "sufficient": true,
     "note": null
    }
@@ -471,8 +469,8 @@
     "liabilities_to_assets": 0.4312,
     "equity_to_assets": 0.3785,
     "interest_coverage": null,
-    "interest_coverage_note": "未取得利息費用標籤，無法計算利息保障倍數",
-    "interest_expense_tag": null,
+    "interest_coverage_note": "已取得利息費用 243,251,000，但未取得營業利益標籤，分子缺漏故無法計算",
+    "interest_expense_tag": "InterestExpenseOperating",
     "net_debt_to_ebit": null,
     "net_debt_to_ebit_note": "以 EBIT 為分母（未擷取折舊攤銷，無法計算 EBITDA）"
    },
@@ -489,7 +487,7 @@
     "invested_capital_basis": "營運側：總資產 − 流動負債 + 一年內到期負債 − 現金與短期投資",
     "invested_capital_financing_side": 8422235000,
     "roic": null,
-    "roic_note": null,
+    "roic_note": "未取得營業利益標籤，NOPAT 與 ROIC 無法計算。「營收 − 總成本費用」不可用作替代：該差額等於稅前淨利而非營業利益",
     "wacc": 0.169,
     "wacc_source": "dcf_assumptions.json",
     "roic_minus_wacc": null,
@@ -545,7 +543,7 @@
    },
    "freshness": {
     "fiscal_year_end": "2025-06-30",
-    "as_of": "2026-08-07",
+    "as_of": "2026-08-08",
     "months_old": 14,
     "stale": false,
     "threshold_months": 15,
@@ -684,7 +682,7 @@
    },
    "freshness": {
     "fiscal_year_end": "2025-12-31",
-    "as_of": "2026-08-07",
+    "as_of": "2026-08-08",
     "months_old": 8,
     "stale": false,
     "threshold_months": 15,
@@ -816,7 +814,7 @@
    },
    "freshness": {
     "fiscal_year_end": "2025-12-27",
-    "as_of": "2026-08-07",
+    "as_of": "2026-08-08",
     "months_old": 8,
     "stale": false,
     "threshold_months": 15,
@@ -965,7 +963,7 @@
    },
    "freshness": {
     "fiscal_year_end": "2025-12-31",
-    "as_of": "2026-08-07",
+    "as_of": "2026-08-08",
     "months_old": 8,
     "stale": false,
     "threshold_months": 15,
@@ -1096,7 +1094,7 @@
    },
    "freshness": {
     "fiscal_year_end": "2026-01-31",
-    "as_of": "2026-08-07",
+    "as_of": "2026-08-08",
     "months_old": 7,
     "stale": false,
     "threshold_months": 15,
@@ -1239,7 +1237,7 @@
    },
    "freshness": {
     "fiscal_year_end": "2026-06-30",
-    "as_of": "2026-08-07",
+    "as_of": "2026-08-08",
     "months_old": 2,
     "stale": false,
     "threshold_months": 15,
@@ -1375,7 +1373,7 @@
    },
    "freshness": {
     "fiscal_year_end": "2025-12-31",
-    "as_of": "2026-08-07",
+    "as_of": "2026-08-08",
     "months_old": 8,
     "stale": false,
     "threshold_months": 15,
@@ -1515,7 +1513,7 @@
    },
    "freshness": {
     "fiscal_year_end": "2026-01-25",
-    "as_of": "2026-08-07",
+    "as_of": "2026-08-08",
     "months_old": 7,
     "stale": false,
     "threshold_months": 15,
@@ -1661,7 +1659,7 @@
    },
    "freshness": {
     "fiscal_year_end": "2025-12-31",
-    "as_of": "2026-08-07",
+    "as_of": "2026-08-08",
     "months_old": 8,
     "stale": false,
     "threshold_months": 15,
@@ -1821,7 +1819,7 @@
    },
    "freshness": {
     "fiscal_year_end": "2025-12-31",
-    "as_of": "2026-08-07",
+    "as_of": "2026-08-08",
     "months_old": 8,
     "stale": false,
     "threshold_months": 15,
@@ -1962,7 +1960,7 @@
    },
    "freshness": {
     "fiscal_year_end": "2024-12-31",
-    "as_of": "2026-08-07",
+    "as_of": "2026-08-08",
     "months_old": 20,
     "stale": true,
     "threshold_months": 15,

@@ -232,6 +232,25 @@ print('不一致:', bad or '無')
 若這裡出現公司名單，代表有人把其中一支改成自己算負債了 → **停止並回報**。
 （歷史：這兩支曾經各算各的，TSM 的淨現金因此虛報 $29B，並直接餵進 DCF。）
 
+**C-8. 每個算不出來的指標都有說明**
+```bash
+python3 -c "
+import json
+d=json.load(open('financial_health.json'))['companies']
+bad=[]
+for t,v in d.items():
+    s=v['solvency']
+    if s['interest_coverage'] is None and not s['interest_coverage_note']: bad.append((t,'利息保障倍數'))
+    if s['total_debt'] is None and not s['total_debt_note']: bad.append((t,'有息負債'))
+    if v['profitability']['roic'] is None and not v['profitability']['roic_note']: bad.append((t,'ROIC'))
+print('缺說明:', bad or '無')
+"
+```
+預期：`缺說明: 無`。出現任何項目代表有 null 沒有交代原因 → **停止並回報**。
+
+本庫的規則是「缺就是缺」，但**光是 null 還不夠** —— 讀者必須看得出是「這家公司沒有這件事」
+還是「SEC 沒有這個標籤」。這兩者的處理方式完全不同。
+
 ---
 
 ## 5. 已知限制（不是 bug，不要「修」）
@@ -248,6 +267,9 @@ print('不一致:', bad or '無')
 | 某家公司的有息負債是 null | 代表該公司**一個債務標籤都沒有**。**不准當成 0** —— 顯示 0.00 會讓有可轉債的公司看起來零負債 |
 | Beneish M-Score 把 NVDA / MRVL / ONDS 標記出來 | **這不是舞弊指控**。M-Score 是 1990 年代以財報型態擬合的篩選模型，高速成長本身就會推高分數（ONDS 營收年增 605%）。`growth_caveat` 欄位會說明。要下任何結論必須人工查證原始財報 |
 | TSM 沒有 M-Score | 缺 SGAI（IFRS 下 TSM 未 tag 銷管費用）。**不准用 1.0 代入補齊** —— 那等於宣稱「與去年持平」，但根本沒量到 |
+| AAPL 沒有利息保障倍數 | Apple **FY2024 起不再單獨 tag 利息費用**，併入「Other income/(expense), net」。它有 $91.9B 有息負債，這個比率本應適用，屬於真實缺口。**不准用其他科目湊** |
+| ARM 利息保障倍數 300x | ARM **沒有任何借款**，唯一利息來自融資租賃（$3M）。倍數高是因為沒有債務，不是償債能力特別強，註記已說明。**不准改用 `InterestIncomeExpenseNonoperatingNet`** —— 那是淨利息**收入** |
+| COHR 沒有 ROIC / Z'' / 利息保障倍數 | Coherent **FY2025 起不再 tag `OperatingIncomeLoss`**。已實測「營收 − CostsAndExpenses」不可替代：FY2024 該差額為 **−148M**，而真正的營業利益是 **+96M**（`CostsAndExpenses` 已含利息與業外項目，差額等於稅前淨利）。**這個推導已測試並否決，不要再引入** |
 | 三個 Sortino 數值差很多 | **正常**。頻率（週/日）、期間（3年/5年/1年）、MAR 都不同，衡量的是不同的東西，**不准「統一」它們** |
 | 12 個月那組用 MAR=0 而非無風險利率 | 實測對照 PortfoliosLab 公布值決定的（NVDA 0.76→0.75、TSLA 0.36→0.36）。改成無風險利率就對不上公開網站 |
 | 各公司科目數 11~14 不等 | 每家 tag 的科目本來就不同 |

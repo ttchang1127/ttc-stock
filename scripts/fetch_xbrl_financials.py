@@ -109,9 +109,17 @@ CONCEPTS = {
                                         ["DividendsPaidClassifiedAsFinancingActivities",
                                          "DividendsPaid"]),
     # Cost of debt and the effective tax rate, for a CAPM/WACC estimate.
+    # Coherent moved from InterestExpense to InterestExpenseOperating after
+    # FY2023. FinanceLeaseInterestExpense is deliberately last: it is only a
+    # component, but for Arm it is the whole of the interest bill, since Arm has
+    # no borrowings at all. Arm's InterestIncomeExpenseNonoperatingNet is not a
+    # candidate -- it is net interest *income*, and treating it as an expense
+    # would manufacture a coverage ratio out of money the company receives.
     "interest_expense":    ("duration", ["InterestExpense", "InterestExpenseDebt",
+                                         "InterestExpenseOperating",
                                          "InterestExpenseNonoperating",
-                                         "InterestIncomeExpenseNet"],
+                                         "InterestIncomeExpenseNet",
+                                         "FinanceLeaseInterestExpense"],
                                         ["InterestExpense", "FinanceCosts"]),
     "income_tax_expense":  ("duration", ["IncomeTaxExpenseBenefit"],
                                         ["IncomeTaxExpenseContinuingOperations"]),

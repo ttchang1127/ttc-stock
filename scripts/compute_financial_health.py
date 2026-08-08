@@ -188,8 +188,25 @@ def solvency(cur):
         coverage = ebit / abs(interest)
         if ebit < 0:
             coverage_note = "營業利益為負，倍數僅表示虧損相對利息的規模，不代表償付能力"
+        elif tag(cur, "interest_expense") == "FinanceLeaseInterestExpense":
+            coverage_note = ("利息費用僅為融資租賃利息（本公司無借款），"
+                             "倍數偏高反映的是沒有債務，而非償付能力特別強")
     elif interest is None:
-        coverage_note = "未取得利息費用標籤，無法計算利息保障倍數"
+        # Apple has $91.9bn of debt and stopped tagging interest expense after
+        # FY2023 -- it now sits inside "Other income/(expense), net" with no
+        # separate tag. That is a genuine gap in a ratio that matters for it,
+        # not a company with nothing to cover, so say which of the two it is.
+        if debt:
+            coverage_note = ("未取得利息費用標籤（有息負債 {:,.0f}，此比率本應適用）。"
+                             "無法由其他科目推導".format(debt))
+        else:
+            coverage_note = "無有息負債，且未取得利息費用標籤，本比率不適用"
+    elif ebit is None:
+        # Coherent lands here: interest expense is available, operating income
+        # is not. Without this branch the ratio would come back null with no
+        # explanation at all.
+        coverage_note = ("已取得利息費用 {:,.0f}，但未取得營業利益標籤，"
+                         "分子缺漏故無法計算".format(interest))
 
     return {
         "total_debt": debt,
@@ -268,6 +285,15 @@ def profitability(cur, wacc):
 
     roic = div(nopat, invested) if (invested or 0) > 0 else None
     roic_note = invested_note
+    if ebit is None:
+        # Coherent stopped tagging OperatingIncomeLoss after FY2024, and the
+        # obvious substitute does not work: revenue less CostsAndExpenses gives
+        # -148M for FY2024 against a tagged operating income of +96M, because
+        # CostsAndExpenses already absorbs interest and other non-operating
+        # items. It reproduces pre-tax income, not EBIT. Tested and rejected --
+        # do not reintroduce it.
+        roic_note = ("未取得營業利益標籤，NOPAT 與 ROIC 無法計算。"
+                     "「營收 − 總成本費用」不可用作替代：該差額等於稅前淨利而非營業利益")
     if roic is not None and rev and invested / rev < 0.20:
         roic_note = ("投入資本僅為營收的 {:.0%}，分母極小使 ROIC 對單一年度的"
                      "營業利益波動高度敏感".format(invested / rev))
