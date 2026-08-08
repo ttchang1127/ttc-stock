@@ -1626,6 +1626,35 @@
         thesisFile: "MSFT_Master_Investment_Thesis_2026.md"
       },
       {
+        ticker: "AMZN",
+        name: "Amazon.com, Inc.",
+        iconClass: "icon-amzn",
+        // 財務欄位一律由 JSON 填入，不在此手填。舊有條目的字面值是歷史遺留，
+        // 已由 loadFundamentals() 覆蓋。
+        price: null,
+        pe: null,
+        grossMargin: null,
+        netMargin: null,
+        ocf: null,
+        sortino: null,   // 由 fundamentals.json 填入
+        fScore: null,   // 由 fundamentals.json 填入
+        macdStatus: "⏳ 待計算",
+        macdClass: "macd-warn",   // 既有 class；實際值由 syncAllTickersFromDB 覆蓋
+        macdHist: null,
+        macdDif: null,
+        macdSig: null,
+        // 這兩個是人工維護的 ETF 權重，本庫沒有對應資料來源。
+        // 依 SOP 不得編造，取得前維持「資料未提供」。
+        vooWeight: "資料未提供",
+        vgtWeight: "資料未提供",
+        dcfMedian: null,   // 由 valuation.json 填入
+        dcfRange: null,   // 由 valuation.json 填入
+        // 取自 30_Analysis/AMZN_Master_Investment_Thesis_2026.md 第一章，非自行撰寫
+        moat: "寬廣護城河 (AWS 雲端、Prime 物流網路、零售媒體廣告)",
+        championTag: null,
+        thesisFile: "AMZN_Master_Investment_Thesis_2026.md"
+      },
+      {
         ticker: "META",
         name: "Meta Platforms",
         iconClass: "icon-meta",
@@ -1801,6 +1830,20 @@
         item.sortinoWindow3y = (s['3y'] || {}).window_start || null;
         item.sortino12mVsRf = (s['12m_daily'] || {}).value_vs_riskfree;
 
+        // P/E, gross margin, net margin and OCF were literals in titansData and
+        // nothing ever updated them. They had drifted badly -- Marvell showed a
+        // P/E of 170.2 against a real 71.2 and a gross margin of 61.5% against
+        // 51.0%, and Intel and Ondas showed a P/E at all despite negative EPS.
+        // Hand-typed financials on the landing page is the failure this vault
+        // exists to have stopped making.
+        if (f) {
+          item.grossMargin = f.gross_margin === null ? null : +(f.gross_margin * 100).toFixed(2);
+          item.netMargin = (f.dupont || {}).net_margin === null || !(f.dupont)
+            ? null : +((f.dupont.net_margin) * 100).toFixed(2);
+          item.ocf = f.operating_cash_flow === null || f.operating_cash_flow === undefined
+            ? null : f.operating_cash_flow / 1e8;   // 表格以「億美元」顯示
+        }
+
         const p = (f || {}).piotroski;
         item.fScore = p ? `${p.score} / ${p.max_evaluated}` : '—';
         item.fScoreValue = p ? p.score : null;
@@ -1814,6 +1857,12 @@
         // Why there's no number matters as much as the number itself -- 假設未設定
         // (nobody has set g/WACC yet) reads very differently from 缺 FCF (SEC gap).
         item.dcfStatus = v ? v.dcf_status : '資料未載入';
+        // null where EPS is negative, which is what pe_note says; showing a
+        // multiple of negative earnings is worse than showing nothing.
+        if (v) {
+          item.pe = v.multiples.pe_ratio;
+          item.peNote = v.multiples.pe_note;
+        }
         // A median far from the quote is the assumptions talking, not a
         // mispricing. The reports say so beside the number; without carrying it
         // here the landing page kept publishing Coherent's $9.50 and Arm's
@@ -2212,7 +2261,8 @@
       tbody.innerHTML = '';
 
       data.forEach(item => {
-        const peClass = item.pe < 35 ? 'pe-low' : (item.pe < 90 ? 'pe-mid' : 'pe-high');
+        const peClass = item.pe == null ? 'pe-mid'
+          : (item.pe < 35 ? 'pe-low' : (item.pe < 90 ? 'pe-mid' : 'pe-high'));
 
         const tr = document.createElement('tr');
         tr.onclick = () => openModal(item);
@@ -2226,11 +2276,11 @@
               </div>
             </div>
           </td>
-          <td style="font-weight: 700;">$${item.price.toFixed(2)}</td>
+          <td style="font-weight: 700;">${item.price == null ? '—' : '$' + item.price.toFixed(2)}</td>
           <td><span class="badge-macd ${item.macdClass}">${item.macdStatus}</span></td>
-          <td><span class="badge-pe ${peClass}">${item.pe.toFixed(1)}x</span></td>
-          <td style="font-weight: 600; color: #34d399;">${item.grossMargin}%</td>
-          <td style="font-weight: 600;">$${item.ocf.toFixed(0)} 億</td>
+          <td><span class="badge-pe ${peClass}" title="${item.peNote || ''}">${item.pe == null ? '—' : item.pe.toFixed(1) + 'x'}</span></td>
+          <td style="font-weight: 600; color: #34d399;">${item.grossMargin == null ? '—' : item.grossMargin + '%'}</td>
+          <td style="font-weight: 600;">${item.ocf == null ? '—' : '$' + item.ocf.toFixed(0) + ' 億'}</td>
           <td><span style="font-weight: 700; color: ${item.sortino > 1.5 ? '#34d399' : '#e2e8f0'}">${fmtSortino(item.sortino)}</span></td>
           <td><span style="font-weight: 700; color: ${sortinoColor(item.sortino12m)}">${fmtSortino(item.sortino12m)}</span></td>
           <td><span style="font-weight: 700; color: ${spreadColor(item.roicSpread)}"
@@ -2258,7 +2308,7 @@
       } else if (currentFilter === 'macd-bear') {
         filtered = filtered.filter(item => item.macdClass === 'macd-bear');
       } else if (currentFilter === 'high-margin') {
-        filtered = filtered.filter(item => item.grossMargin > 50);
+        filtered = filtered.filter(item => item.grossMargin != null && item.grossMargin > 50);
       } else if (currentFilter === 'sortino-top') {
         filtered = filtered.filter(item => item.sortino !== null && item.sortino !== undefined && item.sortino > 1.5);
       } else if (currentFilter === 'fscore-9') {
@@ -2348,8 +2398,8 @@
         <div class="info-box" style="grid-column: span 2;">
           <h4>📈 MACD 技術面即時動態數據</h4>
           <p><strong>當前動能診斷:</strong> <span class="badge-macd ${item.macdClass}">${item.macdStatus}</span></p>
-          <p style="margin-top: 8px;">• DIF 快線 (12-26): <code>${item.macdDif.toFixed(4)}</code> | • Signal 慢線 (9): <code>${item.macdSig.toFixed(4)}</code></p>
-          <p style="margin-top: 4px;">• MACD 柱狀體 (Hist): <code>${item.macdHist.toFixed(4)}</code></p>
+          <p style="margin-top: 8px;">• DIF 快線 (12-26): <code>${item.macdDif == null ? '—' : item.macdDif.toFixed(4)}</code> | • Signal 慢線 (9): <code>${item.macdSig == null ? '—' : item.macdSig.toFixed(4)}</code></p>
+          <p style="margin-top: 4px;">• MACD 柱狀體 (Hist): <code>${item.macdHist == null ? '—' : item.macdHist.toFixed(4)}</code></p>
         </div>
         <div class="info-box">
           <h4>🏰 經濟護城河評級</h4>
@@ -2411,6 +2461,7 @@
             ${item.ticker === 'ARM' ? `<a href="arm_report.html" target="_blank" style="display:inline-block; margin-top:8px; padding:8px 16px; background:linear-gradient(135deg, #00c4b3, #38bdf8); color:#fff; text-decoration:none; border-radius:10px; font-weight:700; font-size:0.85rem; box-shadow: 0 4px 14px rgba(0, 196, 179, 0.3);">🌐 開啟 Arm Holdings (ARM) 2026 獨立網頁報告 (arm_report.html)</a>` : ''}
             ${item.ticker === 'MRVL' ? `<a href="mrvl_report.html" target="_blank" style="display:inline-block; margin-top:8px; padding:8px 16px; background:linear-gradient(135deg, #818cf8, #6366f1); color:#fff; text-decoration:none; border-radius:10px; font-weight:700; font-size:0.85rem; box-shadow: 0 4px 14px rgba(129, 140, 248, 0.3);">🌐 開啟 Marvell Technology (MRVL) 2026 獨立網頁報告 (mrvl_report.html)</a>` : ''}
             ${item.ticker === 'COHR' ? `<a href="cohr_report.html" target="_blank" style="display:inline-block; margin-top:8px; padding:8px 16px; background:linear-gradient(135deg, #f59e0b, #f43f5e); color:#fff; text-decoration:none; border-radius:10px; font-weight:700; font-size:0.85rem; box-shadow: 0 4px 14px rgba(245, 158, 11, 0.3);">🌐 開啟 Coherent Corp. (COHR) 2026 獨立網頁報告 (cohr_report.html)</a>` : ''}
+            ${item.ticker === 'AMZN' ? `<a href="amzn_report.html" target="_blank" style="display:inline-block; margin-top:8px; padding:8px 16px; background:linear-gradient(135deg, #ff9900, #f59e0b); color:#fff; text-decoration:none; border-radius:10px; font-weight:700; font-size:0.85rem; box-shadow: 0 4px 14px rgba(255, 153, 0, 0.3);">🌐 開啟 Amazon.com (AMZN) 2026 獨立網頁報告 (amzn_report.html)</a>` : ''}
             ${item.ticker === 'TSLA' ? `<a href="tsla_report.html" target="_blank" style="display:inline-block; margin-top:8px; padding:8px 16px; background:linear-gradient(135deg, #e82127, #f43f5e); color:#fff; text-decoration:none; border-radius:10px; font-weight:700; font-size:0.85rem; box-shadow: 0 4px 14px rgba(232, 33, 39, 0.3);">🌐 開啟 Tesla, Inc. (TSLA) 2026 獨立網頁報告 (tsla_report.html)</a>` : ''}
             ${item.ticker === 'INTC' ? `<a href="intc_report.html" target="_blank" style="display:inline-block; margin-top:8px; padding:8px 16px; background:linear-gradient(135deg, #0068b5, #38bdf8); color:#fff; text-decoration:none; border-radius:10px; font-weight:700; font-size:0.85rem; box-shadow: 0 4px 14px rgba(0, 104, 181, 0.3);">🌐 開啟 Intel Corp. (INTC) 2026 獨立網頁報告 (intc_report.html)</a>` : ''}
             ${item.ticker === 'NOK' ? `<a href="nok_report.html" target="_blank" style="display:inline-block; margin-top:8px; padding:8px 16px; background:linear-gradient(135deg, #124191, #38bdf8); color:#fff; text-decoration:none; border-radius:10px; font-weight:700; font-size:0.85rem; box-shadow: 0 4px 14px rgba(18, 65, 145, 0.3);">🌐 開啟 Nokia (NOK) 2026 獨立網頁報告 (nok_report.html)</a>` : ''}
@@ -2463,8 +2514,8 @@
                   const item = titansData[c.dataIndex];
                   const pct = c.parsed.y;
                   return `${pct >= 0 ? '+' : ''}${pct.toFixed(3)}% 股價` +
-                         `　(原始柱體 ${item.macdHist >= 0 ? '+' : ''}${item.macdHist.toFixed(3)} USD` +
-                         `　股價 $${item.price.toFixed(2)})`;
+                         `　(原始柱體 ${item.macdHist == null ? '—' : (item.macdHist >= 0 ? '+' : '') + item.macdHist.toFixed(3)} USD` +
+                         `　股價 ${item.price == null ? '—' : '$' + item.price.toFixed(2)})`;
                 },
                 afterLabel: (c) => titansData[c.dataIndex].macdStatus
               }
