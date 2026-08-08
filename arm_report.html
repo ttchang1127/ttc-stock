@@ -141,7 +141,7 @@ footer{text-align:center;color:var(--text-muted);font-size:.8rem;padding:28px 0}
 
     <div class="card">
       <h2>🎲 蒙地卡羅 DCF 估值分佈</h2>
-      <div class="metric-group"><div class="metric-card"><div class="title">P25 ~ P75 主流區間</div><div class="value">$15.20 ~ $19.95</div></div><div class="metric-card warn"><div class="title">中位數 P50</div><div class="value">$17.31</div></div><div class="metric-card warn"><div class="title">相對現價</div><div class="value">-94%</div></div><div class="metric-card"><div class="title">現價隱含 FCF 年成長率</div><div class="value">65.5%</div></div></div><div class="flag-box"><h4>🚨 中位數不宜當作目標價</h4><p>中位數 $17.31 與現價 $282.57 相差 -94%，超過 ±50% 門檻。這個幅度通常反映假設不適用，而非市場錯價 —— 請以下方的隱含成長率判讀，不要把中位數當成目標價</p></div><p class="note">假設：g=16.15%、WACC=17.73%、終端成長=2.5%、10,000 次模擬。基期＝常態化自由現金流（歷年 FCF 利潤率中位數 × 當期營收）。CAPM 推導：beta 2.80 × ERP 5.0% + Rf 3.71%；成長率＝營收 CAGR 16.15%。高 beta 反映 2023 年 IPO 後的高波動</p>
+      <div class="metric-group"><div class="metric-card"><div class="title">P25 ~ P75 主流區間</div><div class="value">$15.02 ~ $19.69</div></div><div class="metric-card warn"><div class="title">中位數 P50</div><div class="value">$17.09</div></div><div class="metric-card warn"><div class="title">相對現價</div><div class="value">-94%</div></div><div class="metric-card"><div class="title">現價隱含 FCF 年成長率</div><div class="value">65.9%</div></div></div><div class="flag-box"><h4>🚨 中位數不宜當作目標價</h4><p>中位數 $17.09 與現價 $282.57 相差 -94%，超過 ±50% 門檻。這個幅度通常反映假設不適用，而非市場錯價 —— 請以下方的隱含成長率判讀，不要把中位數當成目標價</p></div><p class="note">假設：g=16.15%、WACC=17.91%、終端成長=2.5%、10,000 次模擬。基期＝常態化自由現金流（歷年 FCF 利潤率中位數 × 當期營收）。CAPM 推導（2026-08-08）：beta 2.84（3 年週報酬對 SPY）× ERP 5.0% + Rf 3.70%，Ke 17.91%；稅後 Kd 3.97% 按市值／負債加權；成長率＝營收 CAGR 16.15%</p>
       <div class="chart-container"><canvas id="dcfChart"></canvas></div>
     </div>
 
@@ -192,7 +192,7 @@ footer{text-align:center;color:var(--text-muted);font-size:.8rem;padding:28px 0}
   </div>
 
   <footer>
-    由 <code>scripts/build_reports.py</code> 於 2026-08-08 11:12 UTC 產生。<br>
+    由 <code>scripts/build_reports.py</code> 於 2026-08-08 11:27 UTC 產生。<br>
     本頁不含任何手動輸入的財務數字；質化章節除外，且已標示。<br>
     DCF 為特定假設下的推估，非事實，不構成投資建議。
   </footer>
@@ -231,7 +231,7 @@ new Chart(document.getElementById('dcfChart'), {
   type: 'bar',
   data: {
     labels: ["P5", "P25", "P50", "P75", "P95", "\u73fe\u50f9"],
-    datasets: [{ label: '每股價值 (USD)', data: [12.82, 15.2, 17.31, 19.95, 25.01, 282.57],
+    datasets: [{ label: '每股價值 (USD)', data: [12.69, 15.02, 17.09, 19.69, 24.66, 282.57],
                  backgroundColor: ["#334155", "#38bdf8", "#a855f7", "#38bdf8", "#334155", "#10b981"] }]
   },
   options: noLegend

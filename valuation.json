@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-08-08T11:01:03+00:00",
+ "generated_at": "2026-08-08T11:27:25+00:00",
  "assumptions_source": "dcf_assumptions.json (human-maintained)",
  "defaults": {
   "projection_years": 10,
@@ -32,21 +32,21 @@
    },
    "assumptions": {
     "growth": 0.0867,
-    "wacc": 0.0913,
+    "wacc": 0.0906,
     "terminal_growth": 0.025,
     "projection_years": 10,
     "simulations": 10000,
-    "note": "CAPM 推導：beta 1.09（3年週報酬對 SPY）× ERP 5.0% + Rf 3.71%；成長率＝營收 CAGR 8.67%。未取得利息費用標籤，WACC 視同全股權，略為高估"
+    "note": "CAPM 推導（2026-08-08）：beta 1.07（3 年週報酬對 SPY）× ERP 5.0% + Rf 3.70%，Ke 9.06%；無有息負債或缺利息費用標籤，WACC 視同全股權；成長率＝營收 CAGR 8.67%"
    },
    "dcf": {
     "simulations_run": 10000,
     "simulations_rejected": 0,
-    "mean": 188.48,
-    "p5": 133.64,
-    "p25": 159.71,
-    "p50": 182.96,
-    "p75": 210.5,
-    "p95": 261.1
+    "mean": 190.75,
+    "p5": 135.14,
+    "p25": 161.57,
+    "p50": 185.14,
+    "p75": 213.07,
+    "p95": 264.42
    },
    "dcf_status": "已計算",
    "base_fcf": 109673043847.61961,
@@ -56,9 +56,9 @@
    "fcf_margin_median": 0.2635,
    "base_fcf_caveat": null,
    "implied_growth": {
-    "value": 0.158
+    "value": 0.1563
    },
-   "divergence_vs_price": -0.4161,
+   "divergence_vs_price": -0.4091,
    "divergence_limit": 0.5,
    "credibility_warning": null
   },
@@ -83,22 +83,22 @@
     "shareholder_yield": null
    },
    "assumptions": {
-    "growth": 0.12,
-    "wacc": 0.085,
+    "growth": 0.1318,
+    "wacc": 0.1088,
     "terminal_growth": 0.025,
     "projection_years": 10,
     "simulations": 10000,
-    "note": "沿用先前 thesis 標題：常態化 FCF g=12%, WACC=8.5%"
+    "note": "CAPM 推導（2026-08-08）：beta 1.48（3 年週報酬對 SPY）× ERP 5.0% + Rf 3.70%，Ke 11.11%；稅後 Kd 2.27% 按市值／負債加權；成長率＝營收 CAGR 13.18%"
    },
    "dcf": {
     "simulations_run": 10000,
     "simulations_rejected": 0,
-    "mean": 80.48,
-    "p5": 53.85,
-    "p25": 66.47,
-    "p50": 77.67,
-    "p75": 91.25,
-    "p95": 116.69
+    "mean": 60.55,
+    "p5": 40.87,
+    "p25": 50.17,
+    "p50": 58.51,
+    "p75": 68.53,
+    "p95": 87.24
    },
    "dcf_status": "已計算",
    "base_fcf": 22321279092.386814,
@@ -108,11 +108,11 @@
    "fcf_margin_median": 0.0311,
    "base_fcf_caveat": "當期 FCF 7,695M 為常態化基準 22,321M 的 34%（歷年 FCF 利潤率中位數 3.1%）。基期採常態化值，以免單一年度的資本支出高峰被外推十年",
    "implied_growth": {
-    "value": 0.2955
+    "value": 0.3602
    },
-   "divergence_vs_price": -0.717,
+   "divergence_vs_price": -0.7868,
    "divergence_limit": 0.5,
-   "credibility_warning": "中位數 $77.67 與現價 $274.48 相差 -72%，超過 ±50% 門檻。這個幅度通常反映假設不適用，而非市場錯價 —— 請以下方的隱含成長率判讀，不要把中位數當成目標價"
+   "credibility_warning": "中位數 $58.51 與現價 $274.48 相差 -79%，超過 ±50% 門檻。這個幅度通常反映假設不適用，而非市場錯價 —— 請以下方的隱含成長率判讀，不要把中位數當成目標價"
   },
   "ARM": {
    "currency": "USD",
@@ -136,21 +136,21 @@
    },
    "assumptions": {
     "growth": 0.1615,
-    "wacc": 0.1773,
+    "wacc": 0.1791,
     "terminal_growth": 0.025,
     "projection_years": 10,
     "simulations": 10000,
-    "note": "CAPM 推導：beta 2.80 × ERP 5.0% + Rf 3.71%；成長率＝營收 CAGR 16.15%。高 beta 反映 2023 年 IPO 後的高波動"
+    "note": "CAPM 推導（2026-08-08）：beta 2.84（3 年週報酬對 SPY）× ERP 5.0% + Rf 3.70%，Ke 17.91%；稅後 Kd 3.97% 按市值／負債加權；成長率＝營收 CAGR 16.15%"
    },
    "dcf": {
     "simulations_run": 10000,
     "simulations_rejected": 0,
-    "mean": 17.92,
-    "p5": 12.82,
-    "p25": 15.2,
-    "p50": 17.31,
-    "p75": 19.95,
-    "p95": 25.01
+    "mean": 17.69,
+    "p5": 12.69,
+    "p25": 15.02,
+    "p50": 17.09,
+    "p75": 19.69,
+    "p95": 24.66
    },
    "dcf_status": "已計算",
    "base_fcf": 979000000.0,
@@ -160,11 +160,11 @@
    "fcf_margin_median": 0.199,
    "base_fcf_caveat": null,
    "implied_growth": {
-    "value": 0.6548
+    "value": 0.6588
    },
-   "divergence_vs_price": -0.9387,
+   "divergence_vs_price": -0.9395,
    "divergence_limit": 0.5,
-   "credibility_warning": "中位數 $17.31 與現價 $282.57 相差 -94%，超過 ±50% 門檻。這個幅度通常反映假設不適用，而非市場錯價 —— 請以下方的隱含成長率判讀，不要把中位數當成目標價"
+   "credibility_warning": "中位數 $17.09 與現價 $282.57 相差 -94%，超過 ±50% 門檻。這個幅度通常反映假設不適用，而非市場錯價 —— 請以下方的隱含成長率判讀，不要把中位數當成目標價"
   },
   "COHR": {
    "currency": "USD",
@@ -188,21 +188,21 @@
    },
    "assumptions": {
     "growth": 0.1954,
-    "wacc": 0.169,
+    "wacc": 0.1707,
     "terminal_growth": 0.025,
     "projection_years": 10,
     "simulations": 10000,
-    "note": "CAPM 推導：beta 2.64 × ERP 5.0% + Rf 3.71%；成長率＝營收 CAGR 19.54%"
+    "note": "CAPM 推導（2026-08-08）：beta 2.80（3 年週報酬對 SPY）× ERP 5.0% + Rf 3.70%，Ke 17.70%；稅後 Kd 4.29% 按市值／負債加權；成長率＝營收 CAGR 19.54%"
    },
    "dcf": {
     "simulations_run": 10000,
     "simulations_rejected": 0,
-    "mean": 11.26,
-    "p5": 0.95,
-    "p25": 5.69,
-    "p50": 9.89,
-    "p75": 15.35,
-    "p95": 26.36
+    "mean": 10.85,
+    "p5": 0.74,
+    "p25": 5.38,
+    "p50": 9.5,
+    "p75": 14.87,
+    "p95": 25.67
    },
    "dcf_status": "已計算",
    "base_fcf": 234199319.8762907,
@@ -212,11 +212,11 @@
    "fcf_margin_median": 0.0403,
    "base_fcf_caveat": "當期 FCF 193M 為常態化基準 234M 的 82%（歷年 FCF 利潤率中位數 4.0%）。基期採常態化值，以免單一年度的資本支出高峰被外推十年",
    "implied_growth": {
-    "value": 0.6505
+    "value": 0.6543
    },
-   "divergence_vs_price": -0.9739,
+   "divergence_vs_price": -0.9749,
    "divergence_limit": 0.5,
-   "credibility_warning": "中位數 $9.89 與現價 $379.13 相差 -97%，超過 ±50% 門檻。這個幅度通常反映假設不適用，而非市場錯價 —— 請以下方的隱含成長率判讀，不要把中位數當成目標價"
+   "credibility_warning": "中位數 $9.50 與現價 $379.13 相差 -97%，超過 ±50% 門檻。這個幅度通常反映假設不適用，而非市場錯價 —— 請以下方的隱含成長率判讀，不要把中位數當成目標價"
   },
   "GOOGL": {
    "currency": "USD",
@@ -239,22 +239,22 @@
     "shareholder_yield": 0.0129
    },
    "assumptions": {
-    "growth": 0.135,
-    "wacc": 0.085,
+    "growth": 0.1716,
+    "wacc": 0.0963,
     "terminal_growth": 0.025,
     "projection_years": 10,
     "simulations": 10000,
-    "note": "沿用先前 thesis 標題：Cloud/Gemini g=13.5%, WACC=8.5%"
+    "note": "CAPM 推導（2026-08-08）：beta 1.21（3 年週報酬對 SPY）× ERP 5.0% + Rf 3.70%，Ke 9.73%；稅後 Kd 1.20% 按市值／負債加權；成長率＝營收 CAGR 17.16%"
    },
    "dcf": {
     "simulations_run": 10000,
     "simulations_rejected": 0,
-    "mean": 304.53,
-    "p5": 196.27,
-    "p25": 247.87,
-    "p50": 292.32,
-    "p75": 347.95,
-    "p95": 452.48
+    "mean": 328.99,
+    "p5": 196.68,
+    "p25": 258.66,
+    "p50": 313.06,
+    "p75": 382.24,
+    "p95": 514.69
    },
    "dcf_status": "已計算",
    "base_fcf": 88271510520.05916,
@@ -264,9 +264,9 @@
    "fcf_margin_median": 0.2191,
    "base_fcf_caveat": "當期 FCF 73,266M 為常態化基準 88,272M 的 83%（歷年 FCF 利潤率中位數 21.9%）。基期採常態化值，以免單一年度的資本支出高峰被外推十年",
    "implied_growth": {
-    "value": 0.1602
+    "value": 0.1881
    },
-   "divergence_vs_price": -0.173,
+   "divergence_vs_price": -0.1143,
    "divergence_limit": 0.5,
    "credibility_warning": null
   },
@@ -292,11 +292,11 @@
    },
    "assumptions": {
     "growth": 0.02,
-    "wacc": 0.1237,
+    "wacc": 0.126,
     "terminal_growth": 0.025,
     "projection_years": 10,
     "simulations": 10000,
-    "note": "CAPM 推導：beta 1.96 × ERP 5.0% + Rf 3.71%，稅後 Kd 1.52% 加權；營收 CAGR 為 -7.45%，已套用 2% 下限（DCF 無法處理永久負成長）"
+    "note": "CAPM 推導（2026-08-08）：beta 1.98（3 年週報酬對 SPY）× ERP 5.0% + Rf 3.70%，Ke 13.61%；稅後 Kd 1.52% 按市值／負債加權；營收 CAGR -7.5% 已裁切至 2.0%（上下限 2%~25%）"
    },
    "dcf": null,
    "dcf_status": "FCF 為負，DCF 不適用",
@@ -332,22 +332,22 @@
     "shareholder_yield": 0.02072
    },
    "assumptions": {
-    "growth": 0.13,
-    "wacc": 0.085,
+    "growth": 0.1851,
+    "wacc": 0.1057,
     "terminal_growth": 0.025,
     "projection_years": 10,
     "simulations": 10000,
-    "note": "沿用先前 thesis 標題：常態化 FCF g=13%, WACC=8.5%"
+    "note": "CAPM 推導（2026-08-08）：beta 1.45（3 年週報酬對 SPY）× ERP 5.0% + Rf 3.70%，Ke 10.94%；稅後 Kd 1.28% 按市值／負債加權；成長率＝營收 CAGR 18.51%"
    },
    "dcf": {
     "simulations_run": 10000,
     "simulations_rejected": 0,
-    "mean": 947.79,
-    "p5": 609.17,
-    "p25": 769.9,
-    "p50": 911.97,
-    "p75": 1084.54,
-    "p95": 1415.45
+    "mean": 1014.06,
+    "p5": 582.59,
+    "p25": 781.74,
+    "p50": 961.69,
+    "p75": 1186.08,
+    "p95": 1624.94
    },
    "dcf_status": "已計算",
    "base_fcf": 60391385836.766716,
@@ -357,11 +357,11 @@
    "fcf_margin_median": 0.3005,
    "base_fcf_caveat": "當期 FCF 46,109M 為常態化基準 60,391M 的 76%（歷年 FCF 利潤率中位數 30.1%）。基期採常態化值，以免單一年度的資本支出高峰被外推十年",
    "implied_growth": {
-    "value": 0.0739
+    "value": 0.1183
    },
-   "divergence_vs_price": 0.5402,
+   "divergence_vs_price": 0.6242,
    "divergence_limit": 0.5,
-   "credibility_warning": "中位數 $911.97 與現價 $592.10 相差 +54%，超過 ±50% 門檻。這個幅度通常反映假設不適用，而非市場錯價 —— 請以下方的隱含成長率判讀，不要把中位數當成目標價"
+   "credibility_warning": "中位數 $961.69 與現價 $592.10 相差 +62%，超過 ±50% 門檻。這個幅度通常反映假設不適用，而非市場錯價 —— 請以下方的隱含成長率判讀，不要把中位數當成目標價"
   },
   "MRVL": {
    "currency": "USD",
@@ -385,21 +385,21 @@
    },
    "assumptions": {
     "growth": 0.225,
-    "wacc": 0.1425,
+    "wacc": 0.1445,
     "terminal_growth": 0.025,
     "projection_years": 10,
     "simulations": 10000,
-    "note": "CAPM 推導：beta 2.16 × ERP 5.0% + Rf 3.71%，稅後 Kd 4.13% 加權；營收 CAGR 22.50%"
+    "note": "CAPM 推導（2026-08-08）：beta 2.19（3 年週報酬對 SPY）× ERP 5.0% + Rf 3.70%，Ke 14.66%；稅後 Kd 4.13% 按市值／負債加權；成長率＝營收 CAGR 22.50%"
    },
    "dcf": {
     "simulations_run": 10000,
     "simulations_rejected": 0,
-    "mean": 58.81,
-    "p5": 31.16,
-    "p25": 43.3,
-    "p50": 55.13,
-    "p75": 70.04,
-    "p95": 98.92
+    "mean": 57.4,
+    "p5": 30.47,
+    "p25": 42.29,
+    "p50": 53.82,
+    "p75": 68.32,
+    "p95": 96.49
    },
    "dcf_status": "已計算",
    "base_fcf": 1518694808.4426455,
@@ -409,11 +409,11 @@
    "fcf_margin_median": 0.1853,
    "base_fcf_caveat": null,
    "implied_growth": {
-    "value": 0.4333
+    "value": 0.4375
    },
-   "divergence_vs_price": -0.7479,
+   "divergence_vs_price": -0.7539,
    "divergence_limit": 0.5,
-   "credibility_warning": "中位數 $55.13 與現價 $218.72 相差 -75%，超過 ±50% 門檻。這個幅度通常反映假設不適用，而非市場錯價 —— 請以下方的隱含成長率判讀，不要把中位數當成目標價"
+   "credibility_warning": "中位數 $53.82 與現價 $218.72 相差 -75%，超過 ±50% 門檻。這個幅度通常反映假設不適用，而非市場錯價 —— 請以下方的隱含成長率判讀，不要把中位數當成目標價"
   },
   "MSFT": {
    "currency": "USD",
@@ -436,22 +436,22 @@
     "shareholder_yield": 0.01312
    },
    "assumptions": {
-    "growth": 0.13,
-    "wacc": 0.085,
+    "growth": 0.1457,
+    "wacc": 0.092,
     "terminal_growth": 0.025,
     "projection_years": 10,
     "simulations": 10000,
-    "note": "沿用先前 thesis 標題：Azure/AI g=13%, WACC=8.5%"
+    "note": "CAPM 推導（2026-08-08）：beta 1.11（3 年週報酬對 SPY）× ERP 5.0% + Rf 3.70%，Ke 9.23%；稅後 Kd 6.10% 按市值／負債加權；成長率＝營收 CAGR 14.57%"
    },
    "dcf": {
     "simulations_run": 10000,
     "simulations_rejected": 0,
-    "mean": 526.22,
-    "p5": 336.4,
-    "p25": 425.35,
-    "p50": 504.58,
-    "p75": 603.7,
-    "p95": 788.09
+    "mean": 522.88,
+    "p5": 325.29,
+    "p25": 417.01,
+    "p50": 500.28,
+    "p75": 603.35,
+    "p95": 801.39
    },
    "dcf_status": "已計算",
    "base_fcf": 96703711437.40657,
@@ -461,9 +461,9 @@
    "fcf_margin_median": 0.2914,
    "base_fcf_caveat": "當期 FCF 66,987M 為常態化基準 96,704M 的 69%（歷年 FCF 利潤率中位數 29.1%）。基期採常態化值，以免單一年度的資本支出高峰被外推十年",
    "implied_growth": {
-    "value": 0.1292
+    "value": 0.1462
    },
-   "divergence_vs_price": 0.0092,
+   "divergence_vs_price": 0.0006,
    "divergence_limit": 0.5,
    "credibility_warning": null
   },
@@ -489,11 +489,11 @@
    },
    "assumptions": {
     "growth": 0.02,
-    "wacc": 0.0697,
+    "wacc": 0.0671,
     "terminal_growth": 0.025,
     "projection_years": 10,
     "simulations": 10000,
-    "note": "CAPM 推導：beta 0.65 × ERP 5.0% + Rf 3.71%；營收 CAGR 為 -1.87%，已套用 2% 下限"
+    "note": "CAPM 推導（2026-08-08）：beta 0.65（3 年週報酬對 SPY）× ERP 5.0% + Rf 3.70%，Ke 6.94%；稅後 Kd 3.89% 按市值／負債加權；營收 CAGR -1.9% 已裁切至 2.0%（上下限 2%~25%）"
    },
    "dcf": null,
    "dcf_status": "缺 FCF",
@@ -530,21 +530,21 @@
    },
    "assumptions": {
     "growth": 0.25,
-    "wacc": 0.095,
+    "wacc": 0.1438,
     "terminal_growth": 0.025,
     "projection_years": 10,
     "simulations": 10000,
-    "note": "沿用先前 thesis 標題：AI 複合成長 g=25%, WACC=9.5%"
+    "note": "CAPM 推導（2026-08-08）：beta 2.14（3 年週報酬對 SPY）× ERP 5.0% + Rf 3.70%，Ke 14.39%；稅後 Kd 2.60% 按市值／負債加權；營收 CAGR 67.2% 已裁切至 25.0%（上下限 2%~25%）"
    },
    "dcf": {
     "simulations_run": 10000,
     "simulations_rejected": 0,
-    "mean": 336.01,
-    "p5": 160.11,
-    "p25": 235.63,
-    "p50": 310.53,
-    "p75": 405.88,
-    "p95": 603.27
+    "mean": 163.37,
+    "p5": 82.98,
+    "p25": 117.76,
+    "p50": 151.88,
+    "p75": 195.21,
+    "p95": 284.57
    },
    "dcf_status": "已計算",
    "base_fcf": 95775921637.5037,
@@ -554,9 +554,9 @@
    "fcf_margin_median": 0.4435,
    "base_fcf_caveat": null,
    "implied_growth": {
-    "value": 0.2066
+    "value": 0.3103
    },
-   "divergence_vs_price": 0.3865,
+   "divergence_vs_price": -0.3218,
    "divergence_limit": 0.5,
    "credibility_warning": null
   },
@@ -581,12 +581,12 @@
     "shareholder_yield": null
    },
    "assumptions": {
-    "growth": 0.38,
-    "wacc": 0.105,
+    "growth": 0.25,
+    "wacc": 0.156,
     "terminal_growth": 0.025,
     "projection_years": 10,
     "simulations": 10000,
-    "note": "沿用先前 thesis 標題：營收成長 g=38%, WACC=10.5%"
+    "note": "CAPM 推導（2026-08-08）：beta 2.36（3 年週報酬對 SPY）× ERP 5.0% + Rf 3.70%，Ke 15.48%；稅後 Kd 79.37% 按市值／負債加權；營收 CAGR 88.0% 已裁切至 25.0%（上下限 2%~25%）"
    },
    "dcf": null,
    "dcf_status": "FCF 為負，DCF 不適用",
@@ -622,22 +622,22 @@
     "shareholder_yield": null
    },
    "assumptions": {
-    "growth": 0.22,
-    "wacc": 0.09,
+    "growth": 0.2463,
+    "wacc": 0.1319,
     "terminal_growth": 0.025,
     "projection_years": 10,
     "simulations": 10000,
-    "note": "沿用先前 thesis 標題：含 AI/Robotaxi 選項價值 g=22%, WACC=9.0%"
+    "note": "CAPM 推導（2026-08-08）：beta 1.91（3 年週報酬對 SPY）× ERP 5.0% + Rf 3.70%，Ke 13.25%；稅後 Kd 2.95% 按市值／負債加權；成長率＝營收 CAGR 24.63%"
    },
    "dcf": {
     "simulations_run": 10000,
     "simulations_rejected": 0,
-    "mean": 145.18,
-    "p5": 77.55,
-    "p25": 107.75,
-    "p50": 135.37,
-    "p75": 171.8,
-    "p95": 245.22
+    "mean": 94.59,
+    "p5": 51.52,
+    "p25": 70.42,
+    "p50": 87.97,
+    "p75": 111.47,
+    "p95": 159.56
    },
    "dcf_status": "已計算",
    "base_fcf": 7298673611.111111,
@@ -647,11 +647,11 @@
    "fcf_margin_median": 0.077,
    "base_fcf_caveat": null,
    "implied_growth": {
-    "value": 0.3501
+    "value": 0.4585
    },
-   "divergence_vs_price": -0.588,
+   "divergence_vs_price": -0.7323,
    "divergence_limit": 0.5,
-   "credibility_warning": "中位數 $135.37 與現價 $328.58 相差 -59%，超過 ±50% 門檻。這個幅度通常反映假設不適用，而非市場錯價 —— 請以下方的隱含成長率判讀，不要把中位數當成目標價"
+   "credibility_warning": "中位數 $87.97 與現價 $328.58 相差 -73%，超過 ±50% 門檻。這個幅度通常反映假設不適用，而非市場錯價 —— 請以下方的隱含成長率判讀，不要把中位數當成目標價"
   },
   "TSM": {
    "currency": "USD",
@@ -674,12 +674,12 @@
     "shareholder_yield": 0.00102
    },
    "assumptions": {
-    "growth": 0.2,
-    "wacc": 0.085,
+    "growth": 0.1979,
+    "wacc": 0.1147,
     "terminal_growth": 0.025,
     "projection_years": 10,
     "simulations": 10000,
-    "note": "沿用先前 thesis 標題：HPC/AI 複合成長 g=20%, WACC=8.5%"
+    "note": "CAPM 推導（2026-08-08）：beta 1.56（3 年週報酬對 SPY）× ERP 5.0% + Rf 3.70%，Ke 11.51%；稅後 Kd 0.83% 按市值／負債加權；成長率＝營收 CAGR 19.79%"
    },
    "dcf": null,
    "dcf_status": "缺 FCF",

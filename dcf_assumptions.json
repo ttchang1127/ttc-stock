@@ -3,21 +3,24 @@
   "這是 DCF 估值的『假設』設定檔，是本庫唯一允許由人類填寫數字的地方。",
   "成長率 (growth) 與折現率 (wacc) 是判斷，不是可從 SEC 推導的事實。",
   "",
-  "目前 14 家分成兩種來源，note 欄位會標明是哪一種：",
-  "  『沿用先前 thesis 標題』—— 8 家，保留原作者判斷，未經獨立推導",
-  "  『CAPM 推導』—— 6 家，由 scripts/estimate_dcf_inputs.py 從實際資料算出：",
+  "14 家全部由 scripts/estimate_dcf_inputs.py 於 2026-08-08 推導，note 欄位載明每一項的算法：",
   "      WACC = Ke×(E/V) + Kd(稅後)×(D/V)，Ke = Rf + beta × ERP",
   "      beta 用 3 年週報酬對 SPY 迴歸，Rf 用 ^IRX 近 12 個月平均，",
-  "      Kd 用利息費用 ÷ 總債務，稅率用所得稅費用 ÷ 稅前淨利，",
-  "      成長率錨定該公司自己的營收 CAGR，並裁切在 2%~25% 之間。",
+  "      Kd 用利息費用 ÷ 有息負債（與 financial_health.json 同一定義），",
+  "      稅率用所得稅費用 ÷ 稅前淨利，成長率錨定該公司自己的營收 CAGR，裁切在 2%~25%。",
+  "",
+  "先前有 8 家標記為『沿用先前 thesis 標題』，其 WACC 全部落在 8.5%~10.5%，",
+  "而 CAPM 推導值是 9.2%~15.6% —— 8 家無一例外偏低，等於系統性高估估值。已於上述日期全部改為推導值。",
   "",
   "唯一的判斷輸入是市場風險溢酬 (ERP = 5.0%)，寫在 estimate_dcf_inputs.py 頂端。",
   "所有 Ke 都隨它移動，要改就改那一個常數再重跑。",
   "",
+  "這些值不會自動更新。股價與財報變動後要重新推導是人的決定，不是排程的工作。",
+  "",
   "growth / wacc 為 null 的公司，估值會回報『假設未設定』並跳過，腳本不會自行代入預設值。",
   "",
   "要重新推導： python3 scripts/estimate_dcf_inputs.py",
-  "修改後執行：   python3 scripts/compute_valuation.py && python3 scripts/update_thesis_financials.py"
+  "修改後執行：   python3 scripts/compute_valuation.py && python3 scripts/update_thesis_financials.py                && python3 scripts/build_reports.py"
  ],
  "defaults": {
   "projection_years": 10,
@@ -30,73 +33,73 @@
  "companies": {
   "AAPL": {
    "growth": 0.0867,
-   "wacc": 0.0913,
-   "note": "CAPM 推導：beta 1.09（3年週報酬對 SPY）× ERP 5.0% + Rf 3.71%；成長率＝營收 CAGR 8.67%。未取得利息費用標籤，WACC 視同全股權，略為高估"
+   "wacc": 0.0906,
+   "note": "CAPM 推導（2026-08-08）：beta 1.07（3 年週報酬對 SPY）× ERP 5.0% + Rf 3.70%，Ke 9.06%；無有息負債或缺利息費用標籤，WACC 視同全股權；成長率＝營收 CAGR 8.67%"
   },
   "AMZN": {
-   "growth": 0.12,
-   "wacc": 0.085,
-   "note": "沿用先前 thesis 標題：常態化 FCF g=12%, WACC=8.5%"
+   "growth": 0.1318,
+   "wacc": 0.1088,
+   "note": "CAPM 推導（2026-08-08）：beta 1.48（3 年週報酬對 SPY）× ERP 5.0% + Rf 3.70%，Ke 11.11%；稅後 Kd 2.27% 按市值／負債加權；成長率＝營收 CAGR 13.18%"
   },
   "ARM": {
    "growth": 0.1615,
-   "wacc": 0.1773,
-   "note": "CAPM 推導：beta 2.80 × ERP 5.0% + Rf 3.71%；成長率＝營收 CAGR 16.15%。高 beta 反映 2023 年 IPO 後的高波動"
+   "wacc": 0.1791,
+   "note": "CAPM 推導（2026-08-08）：beta 2.84（3 年週報酬對 SPY）× ERP 5.0% + Rf 3.70%，Ke 17.91%；稅後 Kd 3.97% 按市值／負債加權；成長率＝營收 CAGR 16.15%"
   },
   "COHR": {
    "growth": 0.1954,
-   "wacc": 0.169,
-   "note": "CAPM 推導：beta 2.64 × ERP 5.0% + Rf 3.71%；成長率＝營收 CAGR 19.54%"
+   "wacc": 0.1707,
+   "note": "CAPM 推導（2026-08-08）：beta 2.80（3 年週報酬對 SPY）× ERP 5.0% + Rf 3.70%，Ke 17.70%；稅後 Kd 4.29% 按市值／負債加權；成長率＝營收 CAGR 19.54%"
   },
   "GOOGL": {
-   "growth": 0.135,
-   "wacc": 0.085,
-   "note": "沿用先前 thesis 標題：Cloud/Gemini g=13.5%, WACC=8.5%"
+   "growth": 0.1716,
+   "wacc": 0.0963,
+   "note": "CAPM 推導（2026-08-08）：beta 1.21（3 年週報酬對 SPY）× ERP 5.0% + Rf 3.70%，Ke 9.73%；稅後 Kd 1.20% 按市值／負債加權；成長率＝營收 CAGR 17.16%"
   },
   "INTC": {
    "growth": 0.02,
-   "wacc": 0.1237,
-   "note": "CAPM 推導：beta 1.96 × ERP 5.0% + Rf 3.71%，稅後 Kd 1.52% 加權；營收 CAGR 為 -7.45%，已套用 2% 下限（DCF 無法處理永久負成長）"
+   "wacc": 0.126,
+   "note": "CAPM 推導（2026-08-08）：beta 1.98（3 年週報酬對 SPY）× ERP 5.0% + Rf 3.70%，Ke 13.61%；稅後 Kd 1.52% 按市值／負債加權；營收 CAGR -7.5% 已裁切至 2.0%（上下限 2%~25%）"
   },
   "META": {
-   "growth": 0.13,
-   "wacc": 0.085,
-   "note": "沿用先前 thesis 標題：常態化 FCF g=13%, WACC=8.5%"
+   "growth": 0.1851,
+   "wacc": 0.1057,
+   "note": "CAPM 推導（2026-08-08）：beta 1.45（3 年週報酬對 SPY）× ERP 5.0% + Rf 3.70%，Ke 10.94%；稅後 Kd 1.28% 按市值／負債加權；成長率＝營收 CAGR 18.51%"
   },
   "MRVL": {
    "growth": 0.225,
-   "wacc": 0.1425,
-   "note": "CAPM 推導：beta 2.16 × ERP 5.0% + Rf 3.71%，稅後 Kd 4.13% 加權；營收 CAGR 22.50%"
+   "wacc": 0.1445,
+   "note": "CAPM 推導（2026-08-08）：beta 2.19（3 年週報酬對 SPY）× ERP 5.0% + Rf 3.70%，Ke 14.66%；稅後 Kd 4.13% 按市值／負債加權；成長率＝營收 CAGR 22.50%"
   },
   "MSFT": {
-   "growth": 0.13,
-   "wacc": 0.085,
-   "note": "沿用先前 thesis 標題：Azure/AI g=13%, WACC=8.5%"
+   "growth": 0.1457,
+   "wacc": 0.092,
+   "note": "CAPM 推導（2026-08-08）：beta 1.11（3 年週報酬對 SPY）× ERP 5.0% + Rf 3.70%，Ke 9.23%；稅後 Kd 6.10% 按市值／負債加權；成長率＝營收 CAGR 14.57%"
   },
   "NOK": {
    "growth": 0.02,
-   "wacc": 0.0697,
-   "note": "CAPM 推導：beta 0.65 × ERP 5.0% + Rf 3.71%；營收 CAGR 為 -1.87%，已套用 2% 下限"
+   "wacc": 0.0671,
+   "note": "CAPM 推導（2026-08-08）：beta 0.65（3 年週報酬對 SPY）× ERP 5.0% + Rf 3.70%，Ke 6.94%；稅後 Kd 3.89% 按市值／負債加權；營收 CAGR -1.9% 已裁切至 2.0%（上下限 2%~25%）"
   },
   "NVDA": {
    "growth": 0.25,
-   "wacc": 0.095,
-   "note": "沿用先前 thesis 標題：AI 複合成長 g=25%, WACC=9.5%"
+   "wacc": 0.1438,
+   "note": "CAPM 推導（2026-08-08）：beta 2.14（3 年週報酬對 SPY）× ERP 5.0% + Rf 3.70%，Ke 14.39%；稅後 Kd 2.60% 按市值／負債加權；營收 CAGR 67.2% 已裁切至 25.0%（上下限 2%~25%）"
   },
   "ONDS": {
-   "growth": 0.38,
-   "wacc": 0.105,
-   "note": "沿用先前 thesis 標題：營收成長 g=38%, WACC=10.5%"
+   "growth": 0.25,
+   "wacc": 0.156,
+   "note": "CAPM 推導（2026-08-08）：beta 2.36（3 年週報酬對 SPY）× ERP 5.0% + Rf 3.70%，Ke 15.48%；稅後 Kd 79.37% 按市值／負債加權；營收 CAGR 88.0% 已裁切至 25.0%（上下限 2%~25%）"
   },
   "TSLA": {
-   "growth": 0.22,
-   "wacc": 0.09,
-   "note": "沿用先前 thesis 標題：含 AI/Robotaxi 選項價值 g=22%, WACC=9.0%"
+   "growth": 0.2463,
+   "wacc": 0.1319,
+   "note": "CAPM 推導（2026-08-08）：beta 1.91（3 年週報酬對 SPY）× ERP 5.0% + Rf 3.70%，Ke 13.25%；稅後 Kd 2.95% 按市值／負債加權；成長率＝營收 CAGR 24.63%"
   },
   "TSM": {
-   "growth": 0.2,
-   "wacc": 0.085,
-   "note": "沿用先前 thesis 標題：HPC/AI 複合成長 g=20%, WACC=8.5%"
+   "growth": 0.1979,
+   "wacc": 0.1147,
+   "note": "CAPM 推導（2026-08-08）：beta 1.56（3 年週報酬對 SPY）× ERP 5.0% + Rf 3.70%，Ke 11.51%；稅後 Kd 0.83% 按市值／負債加權；成長率＝營收 CAGR 19.79%"
   }
  }
 }

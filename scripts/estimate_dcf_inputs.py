@@ -26,6 +26,10 @@ import json
 from datetime import datetime
 from pathlib import Path
 
+# Same interest-bearing debt definition as the health scorecard and the
+# valuation script, so all three weight capital the same way.
+from compute_financial_health import total_debt
+
 REPO_ROOT = Path(__file__).resolve().parent.parent
 FINANCIALS_PATH = REPO_ROOT / "financials.json"
 FUNDAMENTALS_PATH = REPO_ROOT / "fundamentals.json"
@@ -130,11 +134,15 @@ def main():
         # Cost of equity via CAPM.
         ke = (rf + b * EQUITY_RISK_PREMIUM) if (rf is not None and b is not None) else None
 
-        # After-tax cost of debt from the filings.
+        # After-tax cost of debt from the filings. Debt comes from the shared
+        # definition, not a local sum of two concepts: TSMC's borrowings alone
+        # are $2.8bn against $31.9bn once its bonds are counted, which put its
+        # implied cost of debt at 9.4% instead of under 1% and then carried
+        # that error into the WACC weights. Ondas came out at 438%.
         def v(k):
             e = cur.get(k)
             return e["value"] if e else None
-        debt = (v("long_term_debt") or 0) + (v("debt_current") or 0)
+        debt, _, _ = total_debt(cur)
         interest = abs(v("interest_expense")) if v("interest_expense") else None
         kd = (interest / debt) if interest and debt else None
         tax = None

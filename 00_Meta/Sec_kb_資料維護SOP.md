@@ -59,7 +59,7 @@ SEC XBRL Company Facts API          Yahoo Finance (yfinance)
 | `financial_health.json` | `compute_financial_health.py` | ❌ |
 | `valuation.json` | `compute_valuation.py` | ❌ |
 | `*_report.html` | `build_reports.py` | ❌ **不准手改**，改了下次產生就被蓋掉 |
-| **`dcf_assumptions.json`** | **人類維護** | ✅ **這是唯一允許手填數字的檔案** |
+| **`dcf_assumptions.json`** | **人類維護**（14 家現皆為 `estimate_dcf_inputs.py` 推導值） | ✅ **這是唯一允許手填數字的檔案**，但目前沒有手填值 |
 | `prices.json` | `fetch_price_history.py`（預設 6 年；含 `^IRX` 無風險利率） | ❌ |
 | `20_Filings/**` | `fetch_sec.py`（`--split-sections` 會拆出 Item 1A/1/7 原文） | ❌ |
 | thesis 第二 ~ 五章 | `update_thesis_financials.py` | ❌ |
@@ -308,6 +308,9 @@ python3 scripts/build_reports.py && git status --short -- '*_report.html'
 | INTC 與 NOK 沒有章節拆解 | 這兩家的申報文件用非標準編排：Intel 把 Item 1B／Item 2 只放在文末索引，Nokia 的 20-F 完全不用 Item 編號。抽取器**寧可失敗也不猜**，報告會顯示「無法對照原文」。**不准手動貼原文進去** |
 | AAPL 章節拆解從 10 年變成 6 年 | 舊版 50 檔是早期腳本產生的，邊界切在交叉引用中間、HTML 實體沒解碼。2016–2019 的舊版式抽不出乾淨邊界，已捨棄。**少而正確優於多而錯誤** |
 | MSFT 拆解檔裡寫著「RIS K FACTORS」 | 那是 SEC 原文就長這樣（Microsoft 的排版在字中插入空格）。**這是原文，不准修飾** |
+| `dcf_assumptions.json` 的值不會自動更新 | **這是刻意的**。股價與財報變動後要不要重新推導是人的決定。要更新就跑 `estimate_dcf_inputs.py` 看數字，確認後才改檔案，並更新 note 裡的推導日期 |
+| 換成推導值後 NVDA 的 DCF 從 +39% 變 −32% | **不是 bug**。原本手填的 WACC 9.5% 對 beta 2.14 的公司過低；推導值 14.4% 把估值砍半。先前 8 家手填 WACC 全部落在 8.5%~10.5%，**無一例外低於 CAPM 值** |
+| META 的 DCF 高於現價 62% | 成長率用該公司自己的營收 CAGR 18.5%，而市場隱含只有 11.8%。這是模型與市場的真實分歧，已由 ±50% 門檻標記。**不准為了讓它落在區間內而回頭調整 g 或 WACC** |
 | 三個 Sortino 數值差很多 | **正常**。頻率（週/日）、期間（3年/5年/1年）、MAR 都不同，衡量的是不同的東西，**不准「統一」它們** |
 | 12 個月那組用 MAR=0 而非無風險利率 | 實測對照 PortfoliosLab 公布值決定的（NVDA 0.76→0.75、TSLA 0.36→0.36）。改成無風險利率就對不上公開網站 |
 | 各公司科目數 11~14 不等 | 每家 tag 的科目本來就不同 |
@@ -354,6 +357,7 @@ DCF 不是事實。使用者若問「這檔值多少錢」，正確回答是：
 | `fetch_xbrl_financials.py` | 抓 SEC XBRL 結構化財報 → `financials.json` |
 | `compute_fundamentals.py` | 算 F-Score / Altman Z / DuPont → `fundamentals.json` |
 | `compute_financial_health.py` | 算流動性 / 償債 / ROIC−WACC / Altman Z'' → `financial_health.json` |
+| `estimate_dcf_inputs.py` | 由 beta／Rf／Kd／營收 CAGR 推導 g 與 WACC（**只印出，不寫檔**） |
 | `compute_valuation.py` | 算本益比 / 淨現金 / DCF 蒙地卡羅 / 隱含成長率 → `valuation.json` |
 | `build_reports.py` | 由 JSON ＋ thesis 質化章節產生 14 份 `*_report.html` |
 | `update_thesis_financials.py` | 更新 thesis 第二 ~ 五章 |
