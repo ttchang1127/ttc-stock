@@ -2,7 +2,7 @@
 ticker: AAPL
 company_name: "Apple Inc."
 cik: "0000320193"
-sector: Technology
+sector: Semiconductors
 tags:
   - company/aapl
   - sec/company
@@ -18,7 +18,7 @@ tags:
 
 ---
 
-## 📑 近年 10-K 報告列表
+## 📑 近年 ['10-K', '20-F'] 報告列表
 - [[AAPL_2025_10K|2025 10-K 報告]] (申報日: 2025-10-31)
 - [[AAPL_2024_10K|2024 10-K 報告]] (申報日: 2024-11-01)
 - [[AAPL_2023_10K|2023 10-K 報告]] (申報日: 2023-11-03)
@@ -29,8 +29,3 @@ tags:
 - [[AAPL_2018_10K|2018 10-K 報告]] (申報日: 2018-11-05)
 - [[AAPL_2017_10K|2017 10-K 報告]] (申報日: 2017-11-03)
 - [[AAPL_2016_10K|2016 10-K 報告]] (申報日: 2016-10-26)
-
----
-
-## 📊 深度分析筆記
-- [[AAPL_3Year_Financial_Trend|AAPL 近三年財務與風險趨勢分析]]

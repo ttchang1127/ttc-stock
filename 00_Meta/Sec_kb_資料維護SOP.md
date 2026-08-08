@@ -61,7 +61,7 @@ SEC XBRL Company Facts API          Yahoo Finance (yfinance)
 | `*_report.html` | `build_reports.py` | ❌ **不准手改**，改了下次產生就被蓋掉 |
 | **`dcf_assumptions.json`** | **人類維護** | ✅ **這是唯一允許手填數字的檔案** |
 | `prices.json` | `fetch_price_history.py`（預設 6 年；含 `^IRX` 無風險利率） | ❌ |
-| `20_Filings/**` | `fetch_sec.py` | ❌ |
+| `20_Filings/**` | `fetch_sec.py`（`--split-sections` 會拆出 Item 1A/1/7 原文） | ❌ |
 | thesis 第二 ~ 五章 | `update_thesis_financials.py` | ❌ |
 | thesis 第一章（及 AAPL 第六章） | 人類撰寫的敘述 | ⚠️ 只在使用者明確要求時 |
 
@@ -169,6 +169,14 @@ python3 scripts/fetch_sec.py AMD --years 5 --download-raw
 > 儀表板的 `titansData` 需要基本面敘述（護城河、championTag 等），這些不在 SEC 結構化資料裡。請提供內容，或確認要留空。
 
 **不准自己編造這些欄位。**
+
+**B-6. 拆解核心章節原文（新增公司時建議一併執行）**
+```bash
+python3 scripts/fetch_sec.py AMD --years 5 --split-sections
+```
+預期：每個年度印出 3 行 `[✓] Item_xxx: N 字元`。
+出現 `[!] ... 找不到符合的章節範圍` 是**正常**的 —— 代表該份申報的標題格式非標準，
+抽取器拒絕輸出可能錯誤的內容。**不要為了讓它「成功」而放寬 `MIN_SECTION_CHARS`。**
 
 ---
 
@@ -297,6 +305,9 @@ python3 scripts/build_reports.py && git status --short -- '*_report.html'
 | DCF 中位數與現價差很多（COHR −97%、ARM −94%） | **不是買賣訊號**。超過 ±50% 會自動掛「🚨 中位數不宜當作目標價」，請改看**現價隱含的 FCF 年成長率** —— 那才是可以判斷的陳述（COHR 隱含 65%／十年）。**不准把中位數寫成目標價或「折價 N%」** |
 | 基期 FCF 不等於當期 FCF | 預設採**常態化**值（歷年 FCF 利潤率中位數 × 當期營收），以免資本支出高峰年被外推十年。AMZN 當期 $7.7B、常態化 $22.3B。差距超過 15% 時 thesis 會加註 |
 | META 的 DCF 中位數高於現價 54% 也被標記 | 門檻是**雙向**的 ±50%。模型高於市價一樣是假設在說話 |
+| INTC 與 NOK 沒有章節拆解 | 這兩家的申報文件用非標準編排：Intel 把 Item 1B／Item 2 只放在文末索引，Nokia 的 20-F 完全不用 Item 編號。抽取器**寧可失敗也不猜**，報告會顯示「無法對照原文」。**不准手動貼原文進去** |
+| AAPL 章節拆解從 10 年變成 6 年 | 舊版 50 檔是早期腳本產生的，邊界切在交叉引用中間、HTML 實體沒解碼。2016–2019 的舊版式抽不出乾淨邊界，已捨棄。**少而正確優於多而錯誤** |
+| MSFT 拆解檔裡寫著「RIS K FACTORS」 | 那是 SEC 原文就長這樣（Microsoft 的排版在字中插入空格）。**這是原文，不准修飾** |
 | 三個 Sortino 數值差很多 | **正常**。頻率（週/日）、期間（3年/5年/1年）、MAR 都不同，衡量的是不同的東西，**不准「統一」它們** |
 | 12 個月那組用 MAR=0 而非無風險利率 | 實測對照 PortfoliosLab 公布值決定的（NVDA 0.76→0.75、TSLA 0.36→0.36）。改成無風險利率就對不上公開網站 |
 | 各公司科目數 11~14 不等 | 每家 tag 的科目本來就不同 |
@@ -339,7 +350,7 @@ DCF 不是事實。使用者若問「這檔值多少錢」，正確回答是：
 
 | 腳本 | 用途 |
 |---|---|
-| `fetch_sec.py` | 下載 10-K / 20-F 原文並產生筆記 |
+| `fetch_sec.py` | 下載 10-K / 20-F 原文、拆解核心章節 → `20_Filings/*/sections/` |
 | `fetch_xbrl_financials.py` | 抓 SEC XBRL 結構化財報 → `financials.json` |
 | `compute_fundamentals.py` | 算 F-Score / Altman Z / DuPont → `fundamentals.json` |
 | `compute_financial_health.py` | 算流動性 / 償債 / ROIC−WACC / Altman Z'' → `financial_health.json` |

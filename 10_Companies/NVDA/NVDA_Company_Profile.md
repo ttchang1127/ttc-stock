@@ -2,7 +2,7 @@
 ticker: NVDA
 company_name: "NVIDIA CORP"
 cik: "0001045810"
-sector: Technology
+sector: Semiconductors
 tags:
   - company/nvda
   - sec/company
@@ -18,14 +18,9 @@ tags:
 
 ---
 
-## 📑 近年 10-K 報告列表
+## 📑 近年 ['10-K', '20-F'] 報告列表
 - [[NVDA_2026_10K|2026 10-K 報告]] (申報日: 2026-02-25)
 - [[NVDA_2025_10K|2025 10-K 報告]] (申報日: 2025-02-26)
 - [[NVDA_2024_10K|2024 10-K 報告]] (申報日: 2024-02-21)
 - [[NVDA_2023_10K|2023 10-K 報告]] (申報日: 2023-02-24)
 - [[NVDA_2022_10K|2022 10-K 報告]] (申報日: 2022-03-18)
-
----
-
-## 📊 深度分析筆記
-- [[NVDA_3Year_Financial_Trend|NVDA 近三年財務與風險趨勢分析]]

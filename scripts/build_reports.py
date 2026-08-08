@@ -169,6 +169,51 @@ def md_to_html(body):
     return "\n".join(out)
 
 
+FILINGS_DIR = REPO_ROOT / "20_Filings"
+
+
+def risk_source(ticker):
+    """The most recent Item 1A / Item 3.D extract on file, if there is one.
+
+    The risk chapter is written by a human and until now cited nothing. The
+    filing text it summarises is in the vault -- fetch_sec.py splits it out --
+    but nothing read it, so the section claiming to follow Item 1A had no way
+    to be checked against Item 1A. This does not replace the narrative; it
+    states which document it is a reading of, and links to SEC's own copy.
+    """
+    candidates = sorted(FILINGS_DIR.glob(f"{ticker}/sections/{ticker}_*_Item_*Risk_Factors.md"))
+    if not candidates:
+        return None
+    latest = candidates[-1]
+    text = latest.read_text()
+    def field(name):
+        m = re.search(rf"^{name}:\s*\"?([^\"\n]+)\"?\s*$", text, re.M)
+        return m.group(1).strip() if m else None
+    url = re.search(r"\[SEC 線上檢視器\]\(([^)]+)\)", text)
+    return {
+        "path": str(latest.relative_to(REPO_ROOT)),
+        "year": field("year"),
+        "form": field("form_type"),
+        "characters": int(field("characters") or 0),
+        "sec_url": url.group(1) if url else None,
+    }
+
+
+def risk_provenance_html(ticker):
+    src = risk_source(ticker)
+    if not src:
+        return ('<p class="note">⚠️ 本公司的 Item 1A 原文尚未成功拆解（申報文件的章節標題'
+                '格式非標準），因此以下敘述目前無法對照原文。</p>')
+    link = (f'<a href="{html.escape(src["sec_url"])}" target="_blank" rel="noopener">'
+            f'SEC 官方原文</a>') if src["sec_url"] else "SEC 官方原文"
+    return ('<p class="note">📄 本節為分析者從 <strong>{form} Item 1A 風險因素</strong>'
+            '（{year} 年度，原文 {chars:,} 字元）中挑選並改寫的三項重點，'
+            '<strong>不是原文摘要，也不是全部風險</strong>。原文拆解存於 <code>{path}</code>，'
+            '完整內容請看 {link}。</p>'
+            .format(form=html.escape(src["form"] or ""), year=html.escape(src["year"] or ""),
+                    chars=src["characters"], path=html.escape(src["path"]), link=link))
+
+
 def check_unverifiable_claims(ticker, sections):
     """Superlatives in the narrative that no data here can support."""
     found = []
@@ -499,7 +544,7 @@ def render(ticker, ctx):
     <div class="card card-full">
       <h2>⚠️ 核心風險因素</h2>
       {ctx['risks']}
-      <p class="note">本節為人工撰寫的質化分析，來源為 30_Analysis 的 Master Thesis，非由財報數字產生。</p>
+      {ctx['risk_provenance']}
     </div>
 
     <div class="card card-full">
@@ -687,6 +732,7 @@ def build_context(ticker, data, ranks, peers):
                 else "<p>本公司尚無質化分析章節。</p>",
         "risks": md_to_html(sections["六"][1]) if "六" in sections
                  else "<p>本公司尚無風險因素章節（Master Thesis 未撰寫此節）。</p>",
+        "risk_provenance": risk_provenance_html(ticker),
         "health": health_section(h),
         "ranks": rank_cards(ticker, ranks),
         "peer_count": len(data["health"]),

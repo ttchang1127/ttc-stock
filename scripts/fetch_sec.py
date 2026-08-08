@@ -15,6 +15,7 @@ import json
 import urllib.request
 import argparse
 import re
+import html as html_lib
 
 SEC_HEADERS = {
     'User-Agent': 'SecKBResearch user@example.com'
@@ -49,13 +50,183 @@ def download_file(url, target_path):
 def clean_html_to_text(html_str):
     c = re.sub(r'<style[^>]*>.*?</style>', '', html_str, flags=re.DOTALL | re.IGNORECASE)
     c = re.sub(r'<script[^>]*>.*?</script>', '', c, flags=re.DOTALL | re.IGNORECASE)
-    c = re.sub(r'</?(div|p|tr|h[1-6]|li|br)[^>]*>', '\n', c, flags=re.IGNORECASE)
-    c = re.sub(r'&#160;', ' ', c)
-    c = re.sub(r'&nbsp;', ' ', c)
-    c = re.sub(r'&amp;', '&', c)
+    c = re.sub(r'</?(div|p|tr|h[1-6]|li|br|table)[^>]*>', '\n', c, flags=re.IGNORECASE)
+    c = re.sub(r'</?(td|th)[^>]*>', ' ', c, flags=re.IGNORECASE)
     c = re.sub(r'<[^>]+>', ' ', c)
-    lines = [line.strip() for line in c.splitlines() if line.strip()]
-    return '\n\n'.join(lines)
+    # Do this after tag removal so an entity that decodes to '<' cannot
+    # reintroduce markup, and use the real table rather than three hand-picked
+    # entities -- the previous version left &#8211; and friends in the output.
+    c = html_lib.unescape(c)
+    # Filings use every space character Unicode offers: TSMC separates ITEM
+    # from its number with a thin space, others use figure and en spaces.
+    c = re.sub(r'[\u00a0\u1680\u2000-\u200a\u202f\u205f\u3000]', ' ', c)
+    c = c.replace('\u200b', '').replace('\ufeff', '')
+    lines = [re.sub(r'[ \t]+', ' ', line).strip() for line in c.splitlines()]
+    return '\n'.join(line for line in lines if line)
+
+
+# Where each core section starts and where the next one begins. 20-F numbers its
+# items differently from 10-K, so foreign private issuers get their own map.
+def loose(phrase):
+    """Regex for a phrase whose letters may be split by stray spaces.
+
+    Microsoft's 10-K renders headings through nested spans that leave spaces
+    inside words -- the text extracts as "ITEM 1A. RIS K FACTORS" and
+    "ITEM 1B. UNRESOLVE D STAFF COMMENTS". Matching letter by letter with an
+    optional space after each reads those correctly. Only spaces and tabs are
+    permitted between letters, never a newline, so a match still cannot span
+    two lines and contents-table entries stay excluded.
+    """
+    out = []
+    for ch in phrase:
+        out.append(r'[ \t]+' if ch == ' ' else re.escape(ch) + r'[ \t]*')
+    return ''.join(out)
+
+
+def ITEM(number):
+    """The "Item 1A." part of a heading, tolerant of spacing and punctuation."""
+    return r'item[ \t]*' + loose(number) + r'[\.\:\-–—]?[ \t]*' 
+SECTION_SPECS = {
+    '10-K': [
+        ('Item_1_Business', 'Item 1. Business 業務概述',
+         ITEM('1') + loose('business') + r'[^\n]*',
+         ITEM('1a') + loose('risk factors') + r'[^\n]*'),
+        # Intel and TSMC head the chapter with a bare "Risk Factors" and no
+        # item number, so that spelling is an accepted alternative.
+        ('Item_1A_Risk_Factors', 'Item 1A. Risk Factors 風險因素',
+         ITEM('1a') + loose('risk factors') + r'[^\n]*|' + loose('risk factors') + r'(?=\n)',
+         ITEM('1b') + r'unresolved[^\n]*|' + ITEM('2') + loose('propert') + r'[^\n]*'),
+        ('Item_7_MD_and_A', "Item 7. MD&A 管理層討論與分析",
+         ITEM('7') + r'management.{0,3}s\s*discussion[^\n]*',
+         ITEM('7a') + r'quantitative[^\n]*|' + ITEM('8') + loose('financial statements') + r'[^\n]*'),
+    ],
+    '20-F': [
+        ('Item_3D_Risk_Factors', 'Item 3.D Risk Factors 風險因素',
+         ITEM('3') + r'd\.?[ \t]*' + loose('risk factors') + r'[^\n]*|'
+         + loose('risk factors') + r'(?=\n)',
+         ITEM('4') + loose('information on the company') + r'[^\n]*'),
+        ('Item_4_Business', 'Item 4. Information on the Company 公司業務',
+         ITEM('4') + loose('information on the company') + r'[^\n]*',
+         ITEM('4a') + r'unresolved[^\n]*|' + ITEM('5') + loose('operating') + r'[^\n]*'),
+        ('Item_5_Operating_Review', 'Item 5. Operating and Financial Review 營運與財務回顧',
+         ITEM('5') + loose('operating and financial') + r'[^\n]*',
+         ITEM('6') + loose('directors') + r'[^\n]*'),
+    ],
+}
+
+# Below this a "section" is a table-of-contents line or a cross-reference, not
+# the section itself. Risk factor chapters in these filings run tens of
+# thousands of characters.
+MIN_SECTION_CHARS = 4000
+
+# A span that swallowed the rest of the filing is caught structurally rather
+# than by length: Arm's risk factors legitimately run to 265,000 characters,
+# and Intel's over-long span is 335,000, so no cap separates them. What does
+# separate them is that Intel's contains the heading of a later section --
+# Intel reorganises its 10-K so Item 1B and Item 2 appear only in an index at
+# the very end, and the span runs straight through Item 7 to reach them.
+
+
+def heading_positions(text, pattern):
+    """Offsets where the pattern appears as a section heading, not a mention.
+
+    A 10-K names each item several times: once in the table of contents, several
+    times in cross-references inside other sections ("see Item 1A Risk Factors
+    of this Annual Report"), and once at the section itself. Two properties
+    separate the real heading from the rest, and together they leave exactly one
+    match per item across every filing here:
+
+      it begins a line -- a cross-reference sits mid-sentence;
+      it contains no newline -- a contents-table entry is split across cells,
+      giving "Item 1A.\\nRisk Factors\\n9".
+
+    Patterns end in [^\\n]* so the whole heading line is consumed, which keeps
+    long headings such as Item 7's from being treated as a partial match.
+    """
+    out = []
+    for m in re.finditer(pattern, text, re.I):
+        if "\n" in m.group(0):
+            continue
+        if text.rfind("\n", 0, m.start()) + 1 != m.start():
+            continue
+        # A contents entry that survived the newline test is followed by its
+        # page number on the next line; a real heading is followed by prose.
+        nxt = text[m.end():].lstrip("\n").split("\n", 1)[0].strip()
+        if re.fullmatch(r"[0-9ivxlIVXL\-–—\.]{1,6}", nxt or "x"):
+            continue
+        out.append(m.start())
+    return out
+
+
+def extract_section(text, start_pattern, end_pattern, forbidden=()):
+    """Text between a section's heading and the following section's heading.
+
+    Returns None rather than a guess when either heading is missing, when the
+    span is too short to be the chapter, or when it contains the heading of a
+    section that should have come after it. A filing this fails on should be
+    reported, not filled in with whatever happened to lie between two
+    unrelated offsets.
+    """
+    starts = heading_positions(text, start_pattern)
+    ends = heading_positions(text, end_pattern)
+    if not starts:
+        return None
+    for s in starts:
+        following = [e for e in ends if e > s]
+        if not following:
+            continue
+        body = text[s:following[0]].strip()
+        if len(body) < MIN_SECTION_CHARS:
+            continue
+        inner = body[MIN_SECTION_CHARS:]          # skip the section's own heading
+        if any(heading_positions(inner, pat) for pat in forbidden):
+            continue
+        return body
+    return None
+
+
+def write_sections(sections_dir, ticker, name, year, form_type, note_name,
+                   interactive_url, html_content):
+    """Split one filing into its core sections. Returns the names written."""
+    text = clean_html_to_text(html_content)
+    written = []
+    specs = SECTION_SPECS.get(form_type, [])
+    for slug, title, start_pat, end_pat in specs:
+        others = [sp for sl, _, sp, _ in specs if sl != slug]
+        body = extract_section(text, start_pat, end_pat, forbidden=others)
+        if not body:
+            print(f"    [!] {slug}: 找不到符合的章節範圍，略過（不寫入空檔）")
+            continue
+        path = os.path.join(sections_dir, f"{ticker}_{year}_{slug}.md")
+        content = f"""---
+ticker: {ticker}
+year: {year}
+section: {slug}
+form_type: "{form_type}"
+source: SEC EDGAR 原文自動拆解
+characters: {len(body)}
+tags:
+  - sec/{form_type.lower().replace('-', '')}_section
+  - company/{ticker.lower()}
+---
+
+# {name} ({ticker}) - {year} {form_type} [{title}] 全文拆解
+
+- **所屬報告**: [[{note_name}|{ticker} {year} {form_type} 主筆記]]
+- **SEC iXBRL 互動視圖**: [SEC 線上檢視器]({interactive_url})
+- **本檔為程式自動拆解的原文**，未經改寫或摘要；如與 SEC 原文不符，以原文為準。
+
+---
+
+## 📄 章節全文內容
+
+{body}
+"""
+        with open(path, 'w', encoding='utf-8') as f:
+            f.write(content)
+        written.append((slug, len(body)))
+        print(f"    [✓] {slug}: {len(body):,} 字元")
+    return written
 
 def generate_obsidian_notes(ticker, cik, name, filings, output_dir, max_years=5, download_raw=True, split_sections=True):
     company_dir = os.path.join(output_dir, "10_Companies", ticker)
@@ -160,6 +331,12 @@ tags:
             with open(filepath, 'w', encoding='utf-8') as f:
                 f.write(content)
             
+            if split_sections and html_content:
+                print(f"[*] 拆解核心章節 ({form_type})...")
+                write_sections(sections_dir, ticker, name, year, form_type,
+                               f"{ticker}_{year}_{form_type.replace('-','')}",
+                               sec_interactive_url, html_content)
+
             filing_notes_info.append({
                 'year': year,
                 'filing_date': filing_date,
