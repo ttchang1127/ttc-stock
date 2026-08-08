@@ -221,6 +221,41 @@ def risk_provenance_html(ticker):
                     chars=src["characters"], path=html.escape(src["path"]), link=link))
 
 
+def risk_change_html(entry):
+    """What the company started and stopped warning about since last year."""
+    if not entry:
+        return ('<p class="note">尚未產生年度比對（risk_changes.json 不存在或未涵蓋本公司）。</p>')
+    if entry.get("status") != "已比較":
+        return ('<p class="note">⚠️ 無法比對：{}。年度比對需要至少兩個年度的原文拆解。</p>'
+                .format(html.escape(entry.get("reason") or "原因不明")))
+
+    def items(paras, sign, colour):
+        if not paras:
+            return f'<li style="color:#94a3b8;">{sign} 無</li>'
+        shown = paras[:5]
+        out = "".join(
+            f'<li style="color:{colour}; margin:6px 0;">{sign} {html.escape(p[:260])}'
+            + ("…" if len(p) > 260 else "") + "</li>" for p in shown)
+        if len(paras) > len(shown):
+            out += (f'<li style="color:#94a3b8;">…另有 {len(paras) - len(shown)} 段，'
+                    f'完整內容見原文拆解檔</li>')
+        return out
+
+    return (
+        '<div class="metric-group">'
+        + metric("上年度段落數", str(entry["paragraphs_previous"]))
+        + metric("本年度段落數", str(entry["paragraphs_latest"]))
+        + metric("新增", str(len(entry["added"])), "warn" if entry["added"] else "")
+        + metric("刪除", str(len(entry["removed"])), "warn" if entry["removed"] else "")
+        + '</div>'
+        + f'<h4 class="sub-heading">＋ 本年度新增（FY{entry["previous_year"]} → FY{entry["latest_year"]}）</h4>'
+        + f'<ul>{items(entry["added"], "＋", "#fbbf24")}</ul>'
+        + '<h4 class="sub-heading">− 本年度不再列出</h4>'
+        + f'<ul>{items(entry["removed"], "−", "#38bdf8")}</ul>'
+        + f'<p class="note">{html.escape(entry["caveat"])} 判定方式：{html.escape(entry["basis"])}。'
+          f'其餘 {entry["unchanged"]} 段沿用、{entry["reworded"]} 段改寫。</p>')
+
+
 def check_unverifiable_claims(ticker, sections):
     """Superlatives in the narrative that no data here can support."""
     found = []
@@ -555,6 +590,11 @@ def render(ticker, ctx):
     </div>
 
     <div class="card card-full">
+      <h2>🔄 風險因素的年度變化</h2>
+      {ctx['risk_changes']}
+    </div>
+
+    <div class="card card-full">
       <h2>🔎 資料來源與限制</h2>
       {ctx['provenance']}
     </div>
@@ -740,6 +780,7 @@ def build_context(ticker, data, ranks, peers):
         "risks": md_to_html(sections["六"][1]) if "六" in sections
                  else "<p>本公司尚無風險因素章節（Master Thesis 未撰寫此節）。</p>",
         "risk_provenance": risk_provenance_html(ticker),
+        "risk_changes": risk_change_html(data["risk_changes"].get(ticker)),
         "health": health_section(h),
         "ranks": rank_cards(ticker, ranks),
         "peer_count": len(data["health"]),
@@ -767,7 +808,13 @@ def main():
     parser.add_argument("--tickers", nargs="+")
     args = parser.parse_args()
 
+    risk_changes = {}
+    path = REPO_ROOT / "risk_changes.json"
+    if path.exists():
+        risk_changes = json.loads(path.read_text())["companies"]
+
     data = {
+        "risk_changes": risk_changes,
         "fundamentals": load("fundamentals.json")["companies"],
         "valuation": load("valuation.json")["companies"],
         "health": load("financial_health.json")["companies"],
