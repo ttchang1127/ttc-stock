@@ -27,6 +27,20 @@ OUTPUT_PATH = REPO_ROOT / "fundamentals.json"
 PRICE_ALIASES = {"GOOGL": "GOOG"}
 PRICE_ALIASES_REVERSE = {}
 
+# Ordinary shares represented by one traded share, where they differ.
+#
+# The cover-page count is in ordinary shares while prices.json holds the quoted
+# ADR price, so multiplying them directly answers a question nobody asked. TSMC
+# came out at a $10.9tn market capitalisation -- 123x its revenue, against 25x
+# for NVIDIA -- and that figure fed Altman Z, the WACC weights and the DCF's
+# per-share value alike.
+#
+# This is a property of the security, not a judgement about the company: one
+# TSMC ADR is five ordinary shares, published in the deposit agreement. Arm and
+# Nokia also file 20-Fs and are also ADRs, but theirs are one-for-one and are
+# left out rather than listed as 1, so the map contains only real exceptions.
+ADR_ORDINARY_PER_SHARE = {"TSM": 5}
+
 
 def val(period, concept):
     entry = period.get(concept)
@@ -296,7 +310,10 @@ def main():
         outstanding = (company.get("shares_outstanding") or {}).get("value")
         # Prefer the cover-page count for market cap; some filers mis-scale the
         # weighted-average diluted tag (Ondas by a factor of ~2,000).
-        shares_for_cap = outstanding or diluted
+        reported_shares = outstanding or diluted
+        adr_ratio = ADR_ORDINARY_PER_SHARE.get(ticker)
+        shares_for_cap = (reported_shares / adr_ratio
+                          if reported_shares and adr_ratio else reported_shares)
         market_cap = price * shares_for_cap if price and shares_for_cap else None
         share_mismatch = None
         if diluted and outstanding:
@@ -333,6 +350,11 @@ def main():
             "diluted_shares": diluted,
             "shares_outstanding": outstanding,
             "shares_basis_for_market_cap": "dei_outstanding" if outstanding else "diluted",
+            "shares_for_market_cap": shares_for_cap,
+            "adr_ordinary_per_share": adr_ratio,
+            "adr_note": None if not adr_ratio else
+                        "申報股數為普通股，股價為 ADR 報價；已除以 {} 換算為 ADR 當量股數"
+                        .format(adr_ratio),
             "share_count_warning": share_mismatch,
             "price_used": price,
             "price_date": price_date,

@@ -84,9 +84,18 @@ CONCEPTS = {
                                         ["CashFlowsFromUsedInOperatingActivities"]),
     # NVIDIA books capex under PaymentsToAcquireProductiveAssets, not the more
     # common PropertyPlantAndEquipment tag.
+    # Neither IFRS filer uses the short tag names: TSMC reports
+    # PurchaseOfPropertyPlantAndEquipmentClassifiedAsInvestingActivities and
+    # Nokia a combined PP&E-and-intangibles tag, so both came back with no
+    # capex at all and therefore no free cash flow -- which also left their DCF
+    # reporting 缺 FCF. Nokia's figure is the broader one: it includes
+    # intangibles other than goodwill, so its FCF is the more conservative of
+    # the two definitions. The tag actually used is recorded per period.
     "capex":               ("duration", ["PaymentsToAcquirePropertyPlantAndEquipment",
                                          "PaymentsToAcquireProductiveAssets"],
                                         ["PurchaseOfPropertyPlantAndEquipment",
+                                         "PurchaseOfPropertyPlantAndEquipmentClassifiedAsInvestingActivities",
+                                         "PurchaseOfPropertyPlantAndEquipmentIntangibleAssetsOtherThanGoodwillInvestmentPropertyAndOtherNoncurrentAssets",
                                          "AcquisitionOfPropertyPlantAndEquipment"]),
     "diluted_shares":      ("duration", ["WeightedAverageNumberOfDilutedSharesOutstanding"],
                                         ["WeightedAverageNumberOfDilutedSharesOutstanding"]),

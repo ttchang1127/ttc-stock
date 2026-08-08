@@ -1,6 +1,6 @@
 {
- "generated_at": "2026-08-08T11:46:12+00:00",
- "financials_generated_at": "2026-08-08T08:13:38+00:00",
+ "generated_at": "2026-08-08T12:41:45+00:00",
+ "financials_generated_at": "2026-08-08T12:39:31+00:00",
  "source": "Derived from SEC XBRL Company Facts; WACC from dcf_assumptions.json",
  "thresholds": {
   "current_ratio_min": 1.0,
@@ -1312,14 +1312,14 @@
     "value_creation": "毀滅價值"
    },
    "cash_flow_quality": {
-    "free_cash_flow": null,
-    "fcf_margin": null,
+    "free_cash_flow": 1465000000,
+    "fcf_margin": 0.0737,
     "ocf_to_net_income": 3.138,
     "ocf_to_net_income_note": null,
     "accrual_ratio": -0.0368,
     "accrual_ratio_basis": "(淨利 − 營運現金流) ÷ 平均總資產，Sloan (1996)",
-    "capex_to_ocf": null,
-    "capex_intensity": null
+    "capex_to_ocf": 0.293,
+    "capex_intensity": 0.0305
    },
    "altman_z2": {
     "z2_score": 2.67,
@@ -1388,11 +1388,9 @@
    ],
    "flag_count": 1,
    "coverage": {
-    "computed": 10,
+    "computed": 11,
     "total": 11,
-    "unavailable": [
-     "FCF 利潤率"
-    ],
+    "unavailable": [],
     "sufficient": true,
     "note": null
    }
@@ -1894,20 +1892,20 @@
     "invested_capital_financing_side": 97544300000,
     "roic": 0.3284,
     "roic_note": null,
-    "wacc": 0.1147,
+    "wacc": 0.1135,
     "wacc_source": "dcf_assumptions.json",
-    "roic_minus_wacc": 0.2137,
+    "roic_minus_wacc": 0.2149,
     "value_creation": "創造價值"
    },
    "cash_flow_quality": {
-    "free_cash_flow": null,
-    "fcf_margin": null,
+    "free_cash_flow": 26537700000,
+    "fcf_margin": 0.3006,
     "ocf_to_net_income": 1.578,
     "ocf_to_net_income_note": null,
     "accrual_ratio": -0.106,
     "accrual_ratio_basis": "(淨利 − 營運現金流) ÷ 平均總資產，Sloan (1996)",
-    "capex_to_ocf": null,
-    "capex_intensity": null
+    "capex_to_ocf": 0.524,
+    "capex_intensity": 0.3303
    },
    "altman_z2": {
     "z2_score": 6.82,
@@ -1975,10 +1973,9 @@
    ],
    "flag_count": 1,
    "coverage": {
-    "computed": 9,
+    "computed": 10,
     "total": 11,
     "unavailable": [
-     "FCF 利潤率",
      "Beneish M-Score"
     ],
     "sufficient": true,

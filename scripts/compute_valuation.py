@@ -59,11 +59,23 @@ def percentile(sorted_values, q):
 def multiples(fund, period):
     """Section 四: everything here is arithmetic on reported figures."""
     price = fund.get("price_used")
-    shares = fund.get("shares_outstanding") or fund.get("diluted_shares")
+    shares = fund.get("shares_for_market_cap")
     ni = fund.get("net_income")
     diluted = fund.get("diluted_shares")
 
-    eps = (ni / diluted) if ni is not None and diluted else None
+    # Weighted-average diluted shares are the right denominator for EPS, but
+    # only when they are usable. Ondas tags 221,769 against a real float of
+    # ~496M, which produced an EPS of -$596.27; market cap already ignored that
+    # tag, and EPS was left still using it. TSMC and Nokia tag no diluted count
+    # at all under IFRS, so they had no EPS or P/E either. Both fall back to the
+    # same share count the market cap uses, and the basis is recorded.
+    if diluted and not fund.get("share_count_warning"):
+        eps_shares, eps_basis = diluted, "weighted_average_diluted"
+    else:
+        eps_shares = fund.get("shares_for_market_cap")
+        eps_basis = ("dei_outstanding（缺稀釋股數標籤）" if not diluted
+                     else "dei_outstanding（稀釋股數標籤與流通股數不符）")
+    eps = (ni / eps_shares) if ni is not None and eps_shares else None
     pe = (price / eps) if price and eps and eps > 0 else None
 
     cash = val(period, "cash") or 0
@@ -84,6 +96,8 @@ def multiples(fund, period):
     return {
         "price": price, "shares_used": shares,
         "eps_diluted": None if eps is None else round(eps, 4),
+        "eps_shares_used": eps_shares,
+        "eps_shares_basis": eps_basis,
         "pe_ratio": None if pe is None else round(pe, 1),
         "pe_note": None if eps is None or eps > 0 else "EPS 為負，本益比無意義",
         "cash_and_st_investments": (cash + sti) if has_cash else None,
@@ -254,7 +268,7 @@ def main():
         assume = assumptions["companies"].get(ticker, {})
         growth, wacc = assume.get("growth"), assume.get("wacc")
         reported_fcf = fund.get("free_cash_flow")
-        shares = fund.get("shares_outstanding") or fund.get("diluted_shares")
+        shares = fund.get("shares_for_market_cap")
         periods = (financials.get(ticker) or {}).get("periods", [])
 
         normalised, median_margin, norm_reason = normalised_base_fcf(periods)

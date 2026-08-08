@@ -343,6 +343,29 @@ print('WACC 不一致:', bad or '無')
 > NVDA 顯示 +67.0pp（真值 +62.2pp）、AMZN 顯示 +4.9pp（真值 +2.5pp），並已上線。
 > **改 `dcf_assumptions.json` 後必須重跑任務 A 的 A-3 ~ A-7 全部，不能只挑一支。**
 
+**C-11. 市值與股數基準合理**
+```bash
+python3 -c "
+import json
+f=json.load(open('fundamentals.json'))['companies']
+bad=[]
+for t,v in f.items():
+    mc, rev = v.get('market_cap'), v.get('revenue')
+    if mc and rev and mc/rev > 40 and t not in ('ARM','ONDS'):
+        bad.append((t, round(mc/rev,1)))
+print('市值/營收 異常:', bad or '無')
+"
+```
+預期：`市值/營收 異常: 無`。ARM（IP 授權，高倍數）與 ONDS（營收極小）已知合理，故排除。
+
+出現其他公司代表**股數基準錯了** —— 通常是把普通股股數乘上 ADR 報價。
+`compute_fundamentals.py` 的 `ADR_ORDINARY_PER_SHARE` 記錄需要換算的公司。
+
+> 🔁 **這件事發生過**：TSM 的封面股數是 259 億**普通股**，而 `prices.json` 存的是 **ADR 報價**
+> （1 ADR = 5 普通股）。兩者相乘得到 **$10.9 兆** 市值 —— 是營收的 123 倍，NVDA 只有 25 倍。
+> 那個數字餵進了 Altman Z、WACC 權重與 DCF 每股價值，TSM 的 DCF 中位數因此低報 5 倍
+> （$28.07，真值 $142.73）。**是因為使用者問「為什麼 TSM 沒有自由現金流」才連帶查出來的。**
+
 ---
 
 ## 5. 已知限制（不是 bug，不要「修」）
@@ -379,6 +402,9 @@ print('WACC 不一致:', bad or '無')
 | 機器人不更新 `dcf_assumptions.json` | **刻意的**。g 與 WACC 雖然是推導值，但要不要重新推導是判斷。workflow 的檔案守門會在它出現時**直接讓 job 失敗** |
 | 週末與假日沒有機器人 commit | 正常。兩支抓取程式在資料沒動時都不寫檔，gate 就會擋下整個下游 |
 | workflow 檔名還叫 `update-prices.yml` | GitHub 用**路徑**綁定排程，改檔名會讓這條 cron 退休、重新註冊一條新的。名字過時了，但排程比較值錢 |
+| TSM 與 NOK 的 EPS 用流通股數而非稀釋股數 | 兩家在 IFRS 下都不 tag 稀釋股數。`eps_shares_basis` 欄位會註明用了哪一種 |
+| ONDS 的 EPS 用流通股數 | 它的稀釋股數標籤是 221,769，真實流通股 4.96 億，差 2,235 倍。市值本來就已改用封面數，EPS 先前漏改，曾顯示 **−$596.27**（真值 −$0.27） |
+| NOK 的資本支出含無形資產 | Nokia 的標籤是 PP&E ＋ 無形資產（不含商譽）＋ 投資性不動產的合計，比純 CapEx 廣，因此其 FCF 是較保守的一種定義 |
 | 三個 Sortino 數值差很多 | **正常**。頻率（週/日）、期間（3年/5年/1年）、MAR 都不同，衡量的是不同的東西，**不准「統一」它們** |
 | 12 個月那組用 MAR=0 而非無風險利率 | 實測對照 PortfoliosLab 公布值決定的（NVDA 0.76→0.75、TSLA 0.36→0.36）。改成無風險利率就對不上公開網站 |
 | 各公司科目數 11~14 不等 | 每家 tag 的科目本來就不同 |
