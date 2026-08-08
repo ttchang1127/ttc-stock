@@ -48,6 +48,13 @@ SEC XBRL Company Facts API          Yahoo Finance (yfinance)
                             ←── risk_changes.json（風險因素年度比對）
    *_report.html（14 份獨立網頁報告）
 
+> ⚠️ **新增一家公司時，thesis 必須有第一章與第六章**，否則報告頁的
+> 「🏛️ 護城河」與「⚠️ 核心風險因素」會印出「本公司尚無…章節」的預設字串。
+> AMZN 就是這樣上線的：儀表板與所有量化章節都正常，只有這兩塊是空的。
+> 這兩章**不會**被 `update_thesis_financials.py` 更新（它只重寫第二 ~ 五章），
+> 所以第六章裡不要抄寫財務數字 —— 資料更新後那些數字會變成沒人會發現的錯值。
+> 需要引用數字時，寫「見第二節」並讓讀者看腳本重算過的那一份。
+
 20_Filings/*/sections/*Risk_Factors.md
         ↓ diff_risk_factors.py
    risk_changes.json
@@ -311,6 +318,24 @@ print('自行組裝負債的腳本:', bad or '無')
 > 第二次讓 TSM 的資金成本算成 **9.4%（真值 0.8%）**、ONDS 算成 **438%**，兩者都進了 WACC 權重。
 > C-7a 只能抓到「有寫檔的兩支」，C-7b 才擋得住第四支。
 
+**C-7c. 兩個檔案的毛利率一致**
+```bash
+python3 -c "
+import json
+f=json.load(open('fundamentals.json'))['companies']
+h=json.load(open('financial_health.json'))['companies']
+bad=[t for t in f if f[t].get('gross_margin')!=h[t]['profitability']['gross_margin']]
+print('不一致:', bad or '無')
+"
+```
+預期：`不一致: 無`。
+
+> 🔁 **和 C-7a 是同一個型態**：同一個指標、兩支腳本、兩個答案。
+> `compute_fundamentals.py` 在 filer 未標記 `GrossProfit` 時會用「營收 − 銷貨成本」補上，
+> `compute_financial_health.py` 卻只在 Beneish 指標內部這樣做。結果 AMZN、GOOGL、META、COHR
+> 在 `fundamentals.json` 有毛利率（50.29% / 59.65% / 82.00% / 35.17%），
+> 在健全度計分卡上卻是**資料不足**。已改為共用同一個 `gross_profit()`。
+
 **C-8. 每個算不出來的指標都有說明**
 ```bash
 python3 -c "
@@ -406,7 +431,7 @@ print('市值/營收 異常:', bad or '無')
 | AAPL 沒有利息保障倍數 | Apple **FY2024 起不再單獨 tag 利息費用**，併入「Other income/(expense), net」。它有 $91.9B 有息負債，這個比率本應適用，屬於真實缺口。**不准用其他科目湊** |
 | ARM 利息保障倍數 300x | ARM **沒有任何借款**，唯一利息來自融資租賃（$3M）。倍數高是因為沒有債務，不是償債能力特別強，註記已說明。**不准改用 `InterestIncomeExpenseNonoperatingNet`** —— 那是淨利息**收入** |
 | COHR 沒有 ROIC / Z'' / 利息保障倍數 | Coherent **FY2025 起不再 tag `OperatingIncomeLoss`**。已實測「營收 − CostsAndExpenses」不可替代：FY2024 該差額為 **−148M**，而真正的營業利益是 **+96M**（`CostsAndExpenses` 已含利息與業外項目，差額等於稅前淨利）。**這個推導已測試並否決，不要再引入** |
-| 報告的護城河／風險章節沒有 SEC 出處 | 這兩章是**人工撰寫的質化分析**，頁面上已標示。`20_Filings/*/sections/` 有 10-K 原文拆解，但目前只有 AAPL 與 NVDA 有，且尚未接上生成器 |
+| 報告的護城河章節沒有 SEC 出處 | 護城河一章是**人工撰寫的質化分析**，頁面上已標示。風險章節已接上出處（14/14 皆指向 `20_Filings/*/sections/` 的原文拆解與 SEC 線上檢視器連結），護城河一章沒有對應的單一原文章節，因此不做這件事 |
 | 報告出現「本組合第 N / 14」 | 這是**每次產生時重算**的排名，只涵蓋本庫 14 家。**不准改寫成「全美股第 1」之類無法驗證的說法** |
 | DCF 中位數與現價差很多（COHR −97%、ARM −94%） | **不是買賣訊號**。超過 ±50% 會自動掛「🚨 中位數不宜當作目標價」，請改看**現價隱含的 FCF 年成長率** —— 那才是可以判斷的陳述（COHR 隱含 65%／十年）。**不准把中位數寫成目標價或「折價 N%」** |
 | 基期 FCF 不等於當期 FCF | 預設採**常態化**值（歷年 FCF 利潤率中位數 × 當期營收），以免資本支出高峰年被外推十年。AMZN 當期 $7.7B、常態化 $22.3B。差距超過 15% 時 thesis 會加註 |

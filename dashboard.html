@@ -1837,10 +1837,12 @@
         // Hand-typed financials on the landing page is the failure this vault
         // exists to have stopped making.
         if (f) {
-          item.grossMargin = f.gross_margin === null ? null : +(f.gross_margin * 100).toFixed(2);
-          item.netMargin = (f.dupont || {}).net_margin === null || !(f.dupont)
-            ? null : +((f.dupont.net_margin) * 100).toFixed(2);
-          item.ocf = f.operating_cash_flow === null || f.operating_cash_flow === undefined
+          // == null, not === null: a field the pipeline never emitted arrives
+          // as undefined, which === null lets through and turns into NaN.
+          const nm = (f.dupont || {}).net_margin;
+          item.grossMargin = f.gross_margin == null ? null : +(f.gross_margin * 100).toFixed(2);
+          item.netMargin = nm == null ? null : +(nm * 100).toFixed(2);
+          item.ocf = f.operating_cash_flow == null
             ? null : f.operating_cash_flow / 1e8;   // 表格以「億美元」顯示
         }
 

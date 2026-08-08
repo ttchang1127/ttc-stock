@@ -147,6 +147,22 @@ def c7b():
     return not bad, f"自行組裝負債：{bad or '無'}"
 
 
+@check("C-7c", "兩個檔案的毛利率一致")
+def c7c():
+    """The same failure mode as C-7a: one metric, two files, two answers.
+
+    compute_fundamentals.py fell back to revenue minus cost of sales when a
+    filer does not tag GrossProfit; compute_financial_health.py did so only
+    inside its Beneish indices. So Amazon, Alphabet, Meta and Coherent read
+    50.29% / 59.65% / 82.00% / 35.17% on one page and 資料不足 on the other.
+    """
+    fund = load("fundamentals.json")["companies"]
+    health = load("financial_health.json")["companies"]
+    bad = [t for t in fund
+           if fund[t].get("gross_margin") != health[t]["profitability"]["gross_margin"]]
+    return not bad, f"不一致：{bad or '無'}"
+
+
 @check("C-8", "每個算不出來的指標都有說明")
 def c8():
     health = load("financial_health.json")["companies"]

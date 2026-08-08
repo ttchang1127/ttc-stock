@@ -229,10 +229,28 @@ def solvency(cur):
     }
 
 
+def gross_profit(period):
+    """GrossProfit where tagged, otherwise revenue less cost of sales.
+
+    Amazon, Alphabet, Meta and Coherent report the two lines separately and
+    never tag GrossProfit. compute_fundamentals.py has always fallen back to
+    the subtraction; this file did so only inside the Beneish indices, so the
+    scorecard published 資料不足 for a margin the same pipeline printed
+    elsewhere -- Amazon's read null here and 50.29% in fundamentals.json.
+    """
+    gp = val(period, "gross_profit")
+    if gp is not None:
+        return gp, "GrossProfit 標籤"
+    rev, cogs = val(period, "revenue"), val(period, "cogs")
+    if rev is None or cogs is None:
+        return None, None
+    return rev - cogs, "營收 − 銷貨成本（filer 未標記 GrossProfit）"
+
+
 def profitability(cur, wacc):
     rev, assets, equity = val(cur, "revenue"), val(cur, "assets"), val(cur, "equity")
     ni, ebit = val(cur, "net_income"), val(cur, "operating_income")
-    gp = val(cur, "gross_profit")
+    gp, gp_basis = gross_profit(cur)
     tax, pretax = val(cur, "income_tax_expense"), val(cur, "pretax_income")
     cash, sti = val(cur, "cash"), val(cur, "short_term_investments")
     cl = val(cur, "current_liabilities")
@@ -310,6 +328,9 @@ def profitability(cur, wacc):
 
     return {
         "gross_margin": rnd(div(gp, rev)),
+        "gross_margin_basis": gp_basis,
+        "gross_margin_note": None if gp is not None else
+                             "未取得 GrossProfit，且營收或銷貨成本缺一，毛利率無法計算",
         "operating_margin": rnd(div(ebit, rev)),
         "net_margin": rnd(div(ni, rev)),
         "roa": rnd(div(ni, assets)),
@@ -553,14 +574,7 @@ def beneish_m(cur, prev):
     ni_c = val(cur, "net_income")
     ocf_c = val(cur, "operating_cash_flow")
 
-    def gross_profit(period):
-        gp = val(period, "gross_profit")
-        if gp is not None:
-            return gp
-        rev, cogs = val(period, "revenue"), val(period, "cogs")
-        return None if rev is None or cogs is None else rev - cogs
-
-    gp_c, gp_p = gross_profit(cur), gross_profit(prev)
+    gp_c, gp_p = gross_profit(cur)[0], gross_profit(prev)[0]
 
     idx = {}
     # Receivables growing faster than sales.
@@ -589,8 +603,7 @@ def beneish_m(cur, prev):
     rounded = {k: rnd(v, 4) for k, v in idx.items()}
     source = {"depreciation_tag": tag(cur, "depreciation"),
               "ppe_tag": tag(cur, "ppe_net"),
-              "gross_profit_basis": "GrossProfit 標籤" if val(cur, "gross_profit") is not None
-                                    else "營收 − 銷貨成本"}
+              "gross_profit_basis": gross_profit(cur)[1]}
     if missing:
         return {"m_score": None, "indices": rounded, "unavailable": missing,
                 "sources": source,
