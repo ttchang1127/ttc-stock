@@ -9,6 +9,8 @@ tags:
 
 歡迎來到 `Sec_kb`！本知識庫專為 **SEC 官方財報解析**、**美股七巨頭 MAG7 專屬分析**、**個人投資組合估值**、**MACD 技術面指標診斷**、**13F/Form 4 籌碼** 與 **DCF 蒙地卡羅 10,000 次估值模擬** 所建立。
 
+> 🔧 維護相關：[[Sec_kb_資料維護SOP|資料維護 SOP]]｜[[ttc-stock_Dashboard_維運SOP|儀表板維運 SOP]]｜[[Sec_kb_待辦事項|待辦事項]]
+
 ---
 
 ## 🚀 雙動態 Web 儀表板與獨立網頁版投資報告 (Web Dashboards & Reports)
