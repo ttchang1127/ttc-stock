@@ -75,6 +75,11 @@ font:400 .86rem/1.55 'Noto Sans TC','Outfit',sans-serif;pointer-events:none}
 .term-guide{margin-top:14px;padding:12px 14px;border-radius:12px;
 background:rgba(56,189,248,.07);border:1px solid rgba(56,189,248,.2)}
 .term-guide p{margin:5px 0 0;font-size:.82rem;color:var(--text-muted)}
+.assumption-age-note{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:12px 0;
+padding:9px 12px;border-radius:10px;background:rgba(56,189,248,.07);
+border:1px solid rgba(56,189,248,.2);font-size:.82rem;color:#cbd5e1}
+.assumption-age{font-weight:700;color:#7dd3fc}
+.assumption-age.stale{color:#fbbf24}
 .rank-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
 .rank-card{background:rgba(0,0,0,.28);border:1px solid var(--card-border);
 border-radius:14px;padding:12px 14px}
@@ -171,6 +176,7 @@ footer{text-align:center;color:var(--text-muted);font-size:.8rem;padding:28px 0}
     <div class="card">
       <h2>🎲 <span class="fin-term" tabindex="0" data-tooltip="在成長率與 WACC 等假設上進行多次隨機模擬的現金流折現法。輸出是特定假設下的分佈，不是必然會達到的目標價。" aria-label="蒙地卡羅 DCF：在成長率與 WACC 等假設上進行多次隨機模擬的現金流折現法。輸出是特定假設下的分佈，不是必然會達到的目標價。">蒙地卡羅 DCF<span class="term-icon" aria-hidden="true">i</span></span> 估值分佈</h2>
       <p class="note">DCF 狀態：FCF 為負，DCF 不適用。本節不呈現估值數字。</p>
+      <p class="assumption-age-note">🕒 DCF 假設年齡：<time class="assumption-age" datetime="2026-08-08" data-derived="2026-08-08" data-stale-after="90">推導於 2026-08-08</time><span>超過 90 天只顯示提醒，不會自動重推。</span></p>
       <div class="chart-container"><canvas id="dcfChart"></canvas></div>
       <div class="term-guide"><strong>延伸估值名詞：<span class="fin-term" tabindex="0" data-tooltip="企業價值（EV）÷ 息稅折舊攤銷前利潤（EBITDA）。EV 約等於市值＋有息負債−現金與短期投資；數值表示企業總價值是當期 EBITDA 的幾倍。較低可能較便宜，也可能反映低成長或高風險；必須與同產業、相似資本密集度的公司比較，且 EBITDA 不等於現金流。" aria-label="EV/EBITDA：企業價值（EV）÷ 息稅折舊攤銷前利潤（EBITDA）。EV 約等於市值＋有息負債−現金與短期投資；數值表示企業總價值是當期 EBITDA 的幾倍。較低可能較便宜，也可能反映低成長或高風險；必須與同產業、相似資本密集度的公司比較，且 EBITDA 不等於現金流。">EV/EBITDA<span class="term-icon" aria-hidden="true">i</span></span></strong>
         <p>目前報告尚未顯示此數值：本庫有公司缺少可一致計算 EBITDA 的 SEC 科目，因此不以不完整資料進行跨公司比較。</p>
@@ -229,7 +235,7 @@ footer{text-align:center;color:var(--text-muted);font-size:.8rem;padding:28px 0}
   </div>
 
   <footer>
-    由 <code>scripts/build_reports.py</code> 於 2026-08-09 01:26 UTC 產生。<br>
+    由 <code>scripts/build_reports.py</code> 於 2026-08-09 02:25 UTC 產生。<br>
     本頁不含任何手動輸入的財務數字；質化章節除外，且已標示。<br>
     DCF 為特定假設下的推估，非事實，不構成投資建議。
   </footer>
@@ -286,6 +292,30 @@ document.addEventListener('keydown', event => {
   if (event.key === 'Escape') hideFinanceTooltip();
 });
 window.addEventListener('scroll', () => hideFinanceTooltip(), { passive: true });
+
+function updateAssumptionAges() {
+  document.querySelectorAll('.assumption-age[data-derived]').forEach(el => {
+    const raw = el.dataset.derived;
+    const staleAfter = Number(el.dataset.staleAfter || 90);
+    const derived = new Date(raw + 'T00:00:00Z');
+    if (Number.isNaN(derived.getTime())) {
+      el.textContent = '推導日期格式異常';
+      el.classList.add('stale');
+      return;
+    }
+    const days = Math.max(0, Math.floor((Date.now() - derived.getTime()) / 86400000));
+    let age = days + ' 天前';
+    if (days >= 365) age = Math.floor(days / 365) + ' 年 '
+      + Math.floor((days % 365) / 30) + ' 個月前';
+    else if (days >= 30) age = Math.floor(days / 30) + ' 個月前';
+    el.textContent = '推導於 ' + raw + '（' + age + '）';
+    el.classList.toggle('stale', days >= staleAfter);
+    el.title = days >= staleAfter
+      ? '已超過 ' + staleAfter + ' 天未重新推導；這是提醒，不會自動改變假設。'
+      : '尚未超過 ' + staleAfter + ' 天提醒門檻。';
+  });
+}
+updateAssumptionAges();
 
 Chart.defaults.color = '#9ca3af';
 Chart.defaults.borderColor = 'rgba(255,255,255,.07)';

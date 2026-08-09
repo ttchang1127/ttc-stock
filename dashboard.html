@@ -603,6 +603,25 @@
       font-weight: 400;
     }
 
+    .dcf-assumption-age {
+      display: inline-flex;
+      align-items: center;
+      margin: -4px 0 14px;
+      padding: 7px 11px;
+      border-radius: 9px;
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      background: rgba(56, 189, 248, 0.08);
+      color: #7dd3fc;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .dcf-assumption-age.stale {
+      color: #fbbf24;
+      border-color: rgba(251, 191, 36, 0.35);
+      background: rgba(251, 191, 36, 0.08);
+    }
+
     /* Tab 4: one chart at a time, large, via an inner pager -- Chart.js sizes
        a canvas from its container at creation time, so a chart built while its
        page is hidden (display:none) ends up 0x0 and never self-corrects. Every
@@ -1311,6 +1330,7 @@
       <div id="page-dcf" class="chart-page">
         <div class="chart-card chart-card-large">
           <h3>美股現價 vs 蒙地卡羅 DCF 50% 核心估值區間 <span>(Valuation Range)</span></h3>
+          <p id="dcfAssumptionAge" class="dcf-assumption-age">🕒 正在載入 DCF 假設日期…</p>
           <div class="chart-canvas-wrap"><canvas id="chartDCF"></canvas></div>
         </div>
       </div>
@@ -1685,6 +1705,8 @@
     let marginChart = null;
     let sortinoChart = null;
     let dcfChart = null;
+    let dcfAssumptionsDerivedAt = null;
+    let dcfAssumptionsStaleAfterDays = 90;
 
     function selectQuickTicker(sym) {
       document.getElementById('liveTickerInput').value = sym;
@@ -1801,22 +1823,66 @@
       return (v === null || v === undefined) ? '—' : `$${v.toFixed(2)}`;
     }
 
+    function dcfAssumptionAgeInfo() {
+      if (!dcfAssumptionsDerivedAt) {
+        return { text: '⚠️ DCF 假設缺少推導日期', stale: true };
+      }
+      const derived = new Date(dcfAssumptionsDerivedAt + 'T00:00:00Z');
+      if (Number.isNaN(derived.getTime())) {
+        return { text: '⚠️ DCF 假設日期格式異常', stale: true };
+      }
+      const days = Math.max(0, Math.floor((Date.now() - derived.getTime()) / 86400000));
+      let age = days + ' 天前';
+      if (days >= 365) age = Math.floor(days / 365) + ' 年 '
+        + Math.floor((days % 365) / 30) + ' 個月前';
+      else if (days >= 30) age = Math.floor(days / 30) + ' 個月前';
+      return {
+        text: '🕒 DCF 假設推導於 ' + dcfAssumptionsDerivedAt + '（' + age + '）'
+          + (days >= dcfAssumptionsStaleAfterDays ? '；建議人工檢視是否重推' : ''),
+        stale: days >= dcfAssumptionsStaleAfterDays,
+      };
+    }
+
+    function renderDcfAssumptionAge() {
+      const el = document.getElementById('dcfAssumptionAge');
+      if (!el) return;
+      const info = dcfAssumptionAgeInfo();
+      el.textContent = info.text;
+      el.classList.toggle('stale', info.stale);
+      el.title = '超過 ' + dcfAssumptionsStaleAfterDays
+        + ' 天只顯示提醒，不會自動重新推導假設。';
+    }
+
+    function dcfAssumptionAgeHtml() {
+      const info = dcfAssumptionAgeInfo();
+      return '<p class="dcf-assumption-age' + (info.stale ? ' stale' : '')
+        + '" style="margin:8px 0 0;">' + info.text + '</p>';
+    }
+
     async function loadFundamentals() {
       // fundamentals.json (F-Score), valuation.json (DCF) and
       // financial_health.json are independent pipeline outputs; a missing one
       // should not block the others from loading.
-      const [fundRes, valRes, healthRes] = await Promise.allSettled([
+      const [fundRes, valRes, healthRes, assumptionRes] = await Promise.allSettled([
         fetch('fundamentals.json', { cache: 'no-cache' }).then(r => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); }),
         fetch('valuation.json', { cache: 'no-cache' }).then(r => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); }),
         fetch('financial_health.json', { cache: 'no-cache' }).then(r => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); }),
+        fetch('dcf_assumptions.json', { cache: 'no-cache' }).then(r => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); }),
       ]);
 
       const fundDb = fundRes.status === 'fulfilled' ? fundRes.value : null;
       const valDb = valRes.status === 'fulfilled' ? valRes.value : null;
       const healthDb = healthRes.status === 'fulfilled' ? healthRes.value : null;
+      const assumptionDb = assumptionRes.status === 'fulfilled' ? assumptionRes.value : null;
       if (fundRes.status === 'rejected') console.warn('fundamentals.json 載入失敗，Sortino / F-Score 欄位將顯示 —', fundRes.reason);
       if (valRes.status === 'rejected') console.warn('valuation.json 載入失敗，DCF 欄位將顯示 —', valRes.reason);
       if (healthRes.status === 'rejected') console.warn('financial_health.json 載入失敗，健全度欄位將顯示 —', healthRes.reason);
+      if (assumptionRes.status === 'rejected') console.warn('dcf_assumptions.json 載入失敗，DCF 假設年齡將顯示未知', assumptionRes.reason);
+
+      dcfAssumptionsDerivedAt = assumptionDb ? assumptionDb.derived_at : null;
+      dcfAssumptionsStaleAfterDays = assumptionDb
+        ? Number(assumptionDb.stale_after_days || 90) : 90;
+      renderDcfAssumptionAge();
 
       titansData.forEach(item => {
         const key = FUNDAMENTALS_ALIASES[item.ticker] || item.ticker;
@@ -2449,6 +2515,7 @@
           ${item.impliedGrowth != null
             ? `<p style="font-size:0.85rem; color:#94a3b8;">現價隱含的 FCF 年成長率：<strong style="color:#e2e8f0;">${(item.impliedGrowth * 100).toFixed(1)}%</strong>${item.baseFcfBasis ? ` ｜ 基期＝${item.baseFcfBasis}` : ''}</p>`
             : ''}
+          ${dcfAssumptionAgeHtml()}
           ${item.dcfWarning
             ? `<p style="margin-top:8px; padding:10px 12px; border-radius:10px; background:rgba(251,191,36,.1); border:1px solid rgba(251,191,36,.35); color:#fbbf24; font-size:0.82rem;">🚨 <strong>中位數不宜當作目標價</strong><br>${item.dcfWarning}</p>`
             : ''}

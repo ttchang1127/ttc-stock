@@ -47,6 +47,11 @@ jobs:
       - name: Install dependencies
         run: pip install --quiet 'yfinance>=1.2.0' pandas
 
+      # Read-only early warning. A new annual filing still requires a person to
+      # run fetch_sec.py --split-sections and review the extracted boundaries.
+      - name: Check for new 10-K or 20-F
+        run: python3 scripts/check_new_annual_filings.py
+
       - name: Fetch daily closes
         run: python3 scripts/fetch_price_history.py
 

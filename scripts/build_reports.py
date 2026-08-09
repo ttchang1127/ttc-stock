@@ -633,6 +633,11 @@ font:400 .86rem/1.55 'Noto Sans TC','Outfit',sans-serif;pointer-events:none}
 .term-guide{margin-top:14px;padding:12px 14px;border-radius:12px;
 background:rgba(56,189,248,.07);border:1px solid rgba(56,189,248,.2)}
 .term-guide p{margin:5px 0 0;font-size:.82rem;color:var(--text-muted)}
+.assumption-age-note{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:12px 0;
+padding:9px 12px;border-radius:10px;background:rgba(56,189,248,.07);
+border:1px solid rgba(56,189,248,.2);font-size:.82rem;color:#cbd5e1}
+.assumption-age{font-weight:700;color:#7dd3fc}
+.assumption-age.stale{color:#fbbf24}
 .rank-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
 .rank-card{background:rgba(0,0,0,.28);border:1px solid var(--card-border);
 border-radius:14px;padding:12px 14px}
@@ -721,6 +726,7 @@ def render(ticker, ctx):
     <div class="card">
       <h2>🎲 {term_label("蒙地卡羅 DCF")} 估值分佈</h2>
       {ctx['dcf']}
+      {ctx['assumption_age']}
       <div class="chart-container"><canvas id="dcfChart"></canvas></div>
       <div class="term-guide"><strong>延伸估值名詞：{term_label("EV/EBITDA")}</strong>
         <p>目前報告尚未顯示此數值：本庫有公司缺少可一致計算 EBITDA 的 SEC 科目，因此不以不完整資料進行跨公司比較。</p>
@@ -813,6 +819,30 @@ document.addEventListener('keydown', event => {{
   if (event.key === 'Escape') hideFinanceTooltip();
 }});
 window.addEventListener('scroll', () => hideFinanceTooltip(), {{ passive: true }});
+
+function updateAssumptionAges() {{
+  document.querySelectorAll('.assumption-age[data-derived]').forEach(el => {{
+    const raw = el.dataset.derived;
+    const staleAfter = Number(el.dataset.staleAfter || 90);
+    const derived = new Date(raw + 'T00:00:00Z');
+    if (Number.isNaN(derived.getTime())) {{
+      el.textContent = '推導日期格式異常';
+      el.classList.add('stale');
+      return;
+    }}
+    const days = Math.max(0, Math.floor((Date.now() - derived.getTime()) / 86400000));
+    let age = days + ' 天前';
+    if (days >= 365) age = Math.floor(days / 365) + ' 年 '
+      + Math.floor((days % 365) / 30) + ' 個月前';
+    else if (days >= 30) age = Math.floor(days / 30) + ' 個月前';
+    el.textContent = '推導於 ' + raw + '（' + age + '）';
+    el.classList.toggle('stale', days >= staleAfter);
+    el.title = days >= staleAfter
+      ? '已超過 ' + staleAfter + ' 天未重新推導；這是提醒，不會自動改變假設。'
+      : '尚未超過 ' + staleAfter + ' 天提醒門檻。';
+  }});
+}}
+updateAssumptionAges();
 
 Chart.defaults.color = '#9ca3af';
 Chart.defaults.borderColor = 'rgba(255,255,255,.07)';
@@ -974,6 +1004,18 @@ def build_context(ticker, data, ranks, peers):
     du = fund["dupont"]
     peer_links = "".join(
         f'<a class="nav-btn" href="{SLUGS[p]}_report.html">{p}</a>' for p in peers)
+    derived_at = data["assumptions"].get("derived_at")
+    stale_after = data["assumptions"].get("stale_after_days", 90)
+    if derived_at:
+        assumption_age = (
+            '<p class="assumption-age-note">🕒 DCF 假設年齡：'
+            f'<time class="assumption-age" datetime="{html.escape(derived_at)}" '
+            f'data-derived="{html.escape(derived_at)}" data-stale-after="{stale_after}">'
+            f'推導於 {html.escape(derived_at)}</time>'
+            f'<span>超過 {stale_after} 天只顯示提醒，不會自動重推。</span></p>')
+    else:
+        assumption_age = (
+            '<p class="assumption-age-note">⚠️ DCF 假設缺少推導日期，無法判斷新鮮度。</p>')
 
     return {
         "name": data["financials"][ticker]["entity_name"],
@@ -992,6 +1034,7 @@ def build_context(ticker, data, ranks, peers):
         "peer_count": len(data["health"]),
         "financials": financials,
         "dcf": dcf_html,
+        "assumption_age": assumption_age,
         "sortino": sortino,
         "yield": yield_html,
         "provenance": provenance_section(ticker, fund, h, v),
@@ -1021,6 +1064,7 @@ def main():
 
     data = {
         "risk_changes": risk_changes,
+        "assumptions": load("dcf_assumptions.json"),
         "fundamentals": load("fundamentals.json")["companies"],
         "valuation": load("valuation.json")["companies"],
         "health": load("financial_health.json")["companies"],

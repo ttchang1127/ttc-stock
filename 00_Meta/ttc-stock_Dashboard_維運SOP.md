@@ -37,8 +37,10 @@
 |---|---|---|
 | `dashboard.html` | 網站主頁（含全部 JS 計算邏輯） | ⚠️ 只在使用者明確要求時 |
 | `prices.json` | 真實日線收盤價資料庫 | ❌ 只能由腳本產生 |
+| `fundamentals.json`／`financial_health.json`／`valuation.json` | 表格、健全度與 DCF 的量化資料 | ❌ 只能由腳本產生 |
+| `dcf_assumptions.json` | DCF 假設與整批推導日期 `derived_at` | ⚠️ 人類審核後維護 |
 | `scripts/fetch_price_history.py` | 抓價腳本 | ⚠️ 只改 `DEFAULT_TICKERS` 那一行 |
-| `.github/workflows/update-prices.yml` | 每日自動更新排程 | ❌ 不要改 |
+| `.github/workflows/update-prices.yml` | 每日自動更新與新年報提示 | ❌ 除非使用者明確要求，不要改 |
 | `dashboard_mag7.html` | 另一個獨立頁面 | ❌ 不在範圍內 |
 
 遠端與網址：
@@ -57,6 +59,14 @@ yfinance (Yahoo Finance)
    prices.json          ← 真實收盤價，跟著 git commit 一起進 repo
         ↓  dashboard.html 用 fetch('prices.json') 讀取
    瀏覽器端計算 MACD 並畫圖
+
+fundamentals.json + financial_health.json + valuation.json
+        ↓ dashboard.html 讀取，不在瀏覽器重算財務指標
+   表格、健全度、Sortino、DCF
+
+dcf_assumptions.json 的 derived_at
+        ↓ 瀏覽器依今天日期計算年齡
+   DCF 圖表與公司詳情顯示假設多久未重推（90 天後提醒）
 ```
 
 **為什麼不讓瀏覽器直接抓 Yahoo？**

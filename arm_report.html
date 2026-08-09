@@ -75,6 +75,11 @@ font:400 .86rem/1.55 'Noto Sans TC','Outfit',sans-serif;pointer-events:none}
 .term-guide{margin-top:14px;padding:12px 14px;border-radius:12px;
 background:rgba(56,189,248,.07);border:1px solid rgba(56,189,248,.2)}
 .term-guide p{margin:5px 0 0;font-size:.82rem;color:var(--text-muted)}
+.assumption-age-note{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:12px 0;
+padding:9px 12px;border-radius:10px;background:rgba(56,189,248,.07);
+border:1px solid rgba(56,189,248,.2);font-size:.82rem;color:#cbd5e1}
+.assumption-age{font-weight:700;color:#7dd3fc}
+.assumption-age.stale{color:#fbbf24}
 .rank-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
 .rank-card{background:rgba(0,0,0,.28);border:1px solid var(--card-border);
 border-radius:14px;padding:12px 14px}
@@ -157,6 +162,7 @@ footer{text-align:center;color:var(--text-muted);font-size:.8rem;padding:28px 0}
     <div class="card">
       <h2>🎲 <span class="fin-term" tabindex="0" data-tooltip="在成長率與 WACC 等假設上進行多次隨機模擬的現金流折現法。輸出是特定假設下的分佈，不是必然會達到的目標價。" aria-label="蒙地卡羅 DCF：在成長率與 WACC 等假設上進行多次隨機模擬的現金流折現法。輸出是特定假設下的分佈，不是必然會達到的目標價。">蒙地卡羅 DCF<span class="term-icon" aria-hidden="true">i</span></span> 估值分佈</h2>
       <div class="metric-group"><div class="metric-card"><div class="title"><span class="fin-term" tabindex="0" data-tooltip="蒙地卡羅結果的第 25 至第 75 百分位，中間 50% 模擬結果落在此區間；它反映假設分佈，不是統計上的置信區間。" aria-label="P25 ~ P75 主流區間：蒙地卡羅結果的第 25 至第 75 百分位，中間 50% 模擬結果落在此區間；它反映假設分佈，不是統計上的置信區間。">P25 ~ P75 主流區間<span class="term-icon" aria-hidden="true">i</span></span></div><div class="value">$15.02 ~ $19.69</div></div><div class="metric-card warn"><div class="title"><span class="fin-term" tabindex="0" data-tooltip="蒙地卡羅結果的第 50 百分位，一半模擬值高於它、一半低於它；不等於目標價。" aria-label="中位數 P50：蒙地卡羅結果的第 50 百分位，一半模擬值高於它、一半低於它；不等於目標價。">中位數 P50<span class="term-icon" aria-hidden="true">i</span></span></div><div class="value">$17.09</div></div><div class="metric-card warn"><div class="title"><span class="fin-term" tabindex="0" data-tooltip="DCF 中位數相對目前股價的差幅。差距過大常表示模型假設與市場預期分歧，不應直接當作漲跌空間。" aria-label="相對現價：DCF 中位數相對目前股價的差幅。差距過大常表示模型假設與市場預期分歧，不應直接當作漲跌空間。">相對現價<span class="term-icon" aria-hidden="true">i</span></span></div><div class="value">-94%</div></div><div class="metric-card"><div class="title"><span class="fin-term" tabindex="0" data-tooltip="在其他 DCF 假設不變時，反推出市場現價所要求的自由現金流年成長率，用來檢驗市場預期是否合理。" aria-label="現價隱含 FCF 年成長率：在其他 DCF 假設不變時，反推出市場現價所要求的自由現金流年成長率，用來檢驗市場預期是否合理。">現價隱含 FCF 年成長率<span class="term-icon" aria-hidden="true">i</span></span></div><div class="value">65.9%</div></div></div><div class="flag-box"><h4>🚨 中位數不宜當作目標價</h4><p>中位數 $17.09 與現價 $282.57 相差 -94%，超過 ±50% 門檻。這個幅度通常反映假設不適用，而非市場錯價 —— 請以下方的隱含成長率判讀，不要把中位數當成目標價</p></div><p class="note">假設：g=16.15%、WACC=17.91%、終端成長=2.5%、10,000 次模擬。基期＝常態化自由現金流（歷年 FCF 利潤率中位數 × 當期營收）。CAPM 推導（2026-08-08）：beta 2.84（3 年週報酬對 SPY）× ERP 5.0% + Rf 3.70%，Ke 17.91%；稅後 Kd 3.97% 按市值／負債加權；成長率＝營收 CAGR 16.15%</p>
+      <p class="assumption-age-note">🕒 DCF 假設年齡：<time class="assumption-age" datetime="2026-08-08" data-derived="2026-08-08" data-stale-after="90">推導於 2026-08-08</time><span>超過 90 天只顯示提醒，不會自動重推。</span></p>
       <div class="chart-container"><canvas id="dcfChart"></canvas></div>
       <div class="term-guide"><strong>延伸估值名詞：<span class="fin-term" tabindex="0" data-tooltip="企業價值（EV）÷ 息稅折舊攤銷前利潤（EBITDA）。EV 約等於市值＋有息負債−現金與短期投資；數值表示企業總價值是當期 EBITDA 的幾倍。較低可能較便宜，也可能反映低成長或高風險；必須與同產業、相似資本密集度的公司比較，且 EBITDA 不等於現金流。" aria-label="EV/EBITDA：企業價值（EV）÷ 息稅折舊攤銷前利潤（EBITDA）。EV 約等於市值＋有息負債−現金與短期投資；數值表示企業總價值是當期 EBITDA 的幾倍。較低可能較便宜，也可能反映低成長或高風險；必須與同產業、相似資本密集度的公司比較，且 EBITDA 不等於現金流。">EV/EBITDA<span class="term-icon" aria-hidden="true">i</span></span></strong>
         <p>目前報告尚未顯示此數值：本庫有公司缺少可一致計算 EBITDA 的 SEC 科目，因此不以不完整資料進行跨公司比較。</p>
@@ -216,7 +222,7 @@ footer{text-align:center;color:var(--text-muted);font-size:.8rem;padding:28px 0}
   </div>
 
   <footer>
-    由 <code>scripts/build_reports.py</code> 於 2026-08-09 01:26 UTC 產生。<br>
+    由 <code>scripts/build_reports.py</code> 於 2026-08-09 02:25 UTC 產生。<br>
     本頁不含任何手動輸入的財務數字；質化章節除外，且已標示。<br>
     DCF 為特定假設下的推估，非事實，不構成投資建議。
   </footer>
@@ -273,6 +279,30 @@ document.addEventListener('keydown', event => {
   if (event.key === 'Escape') hideFinanceTooltip();
 });
 window.addEventListener('scroll', () => hideFinanceTooltip(), { passive: true });
+
+function updateAssumptionAges() {
+  document.querySelectorAll('.assumption-age[data-derived]').forEach(el => {
+    const raw = el.dataset.derived;
+    const staleAfter = Number(el.dataset.staleAfter || 90);
+    const derived = new Date(raw + 'T00:00:00Z');
+    if (Number.isNaN(derived.getTime())) {
+      el.textContent = '推導日期格式異常';
+      el.classList.add('stale');
+      return;
+    }
+    const days = Math.max(0, Math.floor((Date.now() - derived.getTime()) / 86400000));
+    let age = days + ' 天前';
+    if (days >= 365) age = Math.floor(days / 365) + ' 年 '
+      + Math.floor((days % 365) / 30) + ' 個月前';
+    else if (days >= 30) age = Math.floor(days / 30) + ' 個月前';
+    el.textContent = '推導於 ' + raw + '（' + age + '）';
+    el.classList.toggle('stale', days >= staleAfter);
+    el.title = days >= staleAfter
+      ? '已超過 ' + staleAfter + ' 天未重新推導；這是提醒，不會自動改變假設。'
+      : '尚未超過 ' + staleAfter + ' 天提醒門檻。';
+  });
+}
+updateAssumptionAges();
 
 Chart.defaults.color = '#9ca3af';
 Chart.defaults.borderColor = 'rgba(255,255,255,.07)';

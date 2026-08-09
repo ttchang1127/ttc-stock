@@ -29,6 +29,7 @@ import pathlib
 import re
 import subprocess
 import sys
+from datetime import date
 
 REPO_ROOT = pathlib.Path(__file__).resolve().parent.parent
 
@@ -297,6 +298,37 @@ def c12():
              for t, v in health.items() if v["freshness"]["stale"]]
     return not bad, (f"過期但已揭露：{stale or '無'}"
                      + (f"；過期且未揭露：{bad}" if bad else ""))
+
+
+@check("C-14", "DCF 假設日期完整且頁面會顯示年齡")
+def c14():
+    assumptions = load("dcf_assumptions.json")
+    raw = assumptions.get("derived_at")
+    try:
+        derived = date.fromisoformat(raw)
+    except (TypeError, ValueError):
+        return False, f"derived_at 無效：{raw!r}"
+    if derived > date.today():
+        return False, f"derived_at 在未來：{raw}"
+    stale_after = assumptions.get("stale_after_days")
+    if not isinstance(stale_after, int) or stale_after <= 0:
+        return False, f"stale_after_days 無效：{stale_after!r}"
+    notes_without_date = [
+        ticker for ticker, node in assumptions["companies"].items()
+        if raw not in (node.get("note") or "")
+    ]
+    ui_missing = [
+        name for name, marker in (
+            ("build_reports.py", "assumption-age"),
+            ("dashboard.html", "dcfAssumptionAge"),
+        )
+        if marker not in read("scripts/" + name if name.endswith(".py") else name)
+    ]
+    ok = not notes_without_date and not ui_missing
+    return ok, (
+        f"推導日 {raw}；提醒門檻 {stale_after} 天；"
+        f"note 缺日期：{notes_without_date or '無'}；"
+        f"頁面缺年齡標記：{ui_missing or '無'}")
 
 
 def main():

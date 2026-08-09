@@ -187,6 +187,9 @@ def main():
     print("\n貼進 dcf_assumptions.json 的 companies（僅供參考，請自行判斷後再採用）：")
     print(json.dumps({t: {"growth": p["growth"], "wacc": p["wacc"]}
                       for t, p in proposals.items()}, indent=1, ensure_ascii=False))
+    today = datetime.now().date().isoformat()
+    print(f'\n若採用本次結果，請同時把 derived_at 更新為 "{today}"；'
+          "stale_after_days 不需改動。")
 
 
 if __name__ == "__main__":

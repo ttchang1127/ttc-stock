@@ -75,7 +75,7 @@ SEC XBRL Company Facts API          Yahoo Finance (yfinance)
 | `*_report.html` | `build_reports.py` | ❌ **不准手改**，改了下次產生就被蓋掉 |
 | `risk_changes.json` | `diff_risk_factors.py` | ❌ |
 | `risk_zh.json` | **人類維護**（風險變化段落的繁中譯文） | ✅ 只能改 `zh` 欄；鍵是原文雜湊，不要手改 |
-| **`dcf_assumptions.json`** | **人類維護**（14 家現皆為 `estimate_dcf_inputs.py` 推導值） | ✅ **這是唯一允許手填數字的檔案**，但目前沒有手填值 |
+| **`dcf_assumptions.json`** | **人類維護**（14 家現皆為 `estimate_dcf_inputs.py` 推導值） | ✅ **這是唯一允許手填數字的檔案**；`derived_at` 記錄整批假設推導日 |
 | `prices.json` | `fetch_price_history.py`（預設 6 年；含 `^IRX` 無風險利率） | ❌ |
 | `20_Filings/**` | `fetch_sec.py`（`--split-sections` 會拆出 Item 1A/1/7 原文） | ❌ |
 | thesis 第二 ~ 五章 | `update_thesis_financials.py` | ❌ |
@@ -95,6 +95,9 @@ SEC XBRL Company Facts API          Yahoo Finance (yfinance)
 > 3. 排程失敗，要人工補跑
 >
 > 手動跑的步驟與機器人完全相同，如下。
+>
+> 排程另會先執行 `check_new_annual_filings.py`。它只比較 SEC 最新 10-K／20-F
+> 與 `20_Filings/` 已有 accession，發現新申報時在 Actions 顯示警告，**不下載、不改檔**。
 
 ### 步驟
 
@@ -209,11 +212,11 @@ python3 scripts/fetch_sec.py AMD --years 5 --split-sections
 
 ## 4. 任務 C：驗證資料誠信（每次改動後必跑）
 
-> 🤖 **這 13 項現在有一支腳本一次跑完，排程也會跑。**
+> 🤖 **這 16 項現在有一支腳本一次跑完，排程也會跑。**
 > ```bash
 > python3 scripts/check_integrity.py
 > ```
-> 預期最後一行 `✅ 13 項檢查全部通過`，離開碼 0。任一項失敗離開碼為 1。
+> 預期最後一行 `✅ 16 項檢查全部通過`，離開碼 0。任一項失敗離開碼為 1。
 >
 > 排程在 commit **之前**執行它，不通過就讓整個 job 失敗，資料不會被推上去。
 >
@@ -481,7 +484,7 @@ print('市值/營收 異常:', bad or '無')
 | INTC 的 Item 1 Business 與 Item 7 MD&A 仍然失敗 | 刻意的。用同樣手法可以抓到 MD&A，但七份裡有六份起頭落在目錄、長度衝到 25 萬字元。**寧可沒有，也不要掛著正確標題的錯誤內容** |
 | AAPL 章節拆解從 10 年變成 6 年 | 舊版 50 檔是早期腳本產生的，邊界切在交叉引用中間、HTML 實體沒解碼。2016–2019 的舊版式抽不出乾淨邊界，已捨棄。**少而正確優於多而錯誤** |
 | MSFT 拆解檔裡寫著「RIS K FACTORS」 | 那是 SEC 原文就長這樣（Microsoft 的排版在字中插入空格）。**這是原文，不准修飾** |
-| `dcf_assumptions.json` 的值不會自動更新 | **這是刻意的**。股價與財報變動後要不要重新推導是人的決定。要更新就跑 `estimate_dcf_inputs.py` 看數字，確認後才改檔案，並更新 note 裡的推導日期 |
+| `dcf_assumptions.json` 的值不會自動更新 | **這是刻意的**。報告與儀表板會顯示 `derived_at` 距今多久，超過 `stale_after_days`（目前 90 天）轉為提醒，但不會自動重推。要更新就跑 `estimate_dcf_inputs.py`，採用後同步更新 `derived_at` 與 note 日期 |
 | 換成推導值後 NVDA 的 DCF 從 +39% 變 −32% | **不是 bug**。原本手填的 WACC 9.5% 對 beta 2.14 的公司過低；推導值 14.4% 把估值砍半。先前 8 家手填 WACC 全部落在 8.5%~10.5%，**無一例外低於 CAPM 值** |
 | META 的 DCF 高於現價 62% | 成長率用該公司自己的營收 CAGR 18.5%，而市場隱含只有 11.8%。這是模型與市場的真實分歧，已由 ±50% 門檻標記。**不准為了讓它落在區間內而回頭調整 g 或 WACC** |
 | 機器人的 commit 現在有 20 幾個檔案 | **這是修好的行為**。它以前只 commit `prices.json`，導致所有衍生資料（市值、Altman Z、DCF、Sortino、報告股價）停在人類上次手動跑管線的時間。2026-08-04 與 08-05 都發生過股價更新但報告顯示舊值 |
@@ -520,8 +523,8 @@ DCF 不是事實。使用者若問「這檔值多少錢」，正確回答是：
 `INTC` 與 `ONDS` 的 DCF 仍顯示「未計算」，原因是**淨利為負、EPS 與模型不適用**，
 不是假設缺漏。這是正確狀態，**不准自行填入數字讓它「看起來完整」**。
 
-> ⚠️ 假設有值不等於假設是新的。這組值不會自動更新，頁面目前也**沒有顯示它們多久沒重推**
-> —— 見 [[Sec_kb_待辦事項#B-1. 假設的年齡在頁面上看不見|待辦事項 B-1]]。
+> ⚠️ 假設有值不等於假設是新的。這組值不會自動更新；報告與儀表板依
+> `derived_at` 顯示距今多久，超過 90 天只提醒，由人決定是否重新推導。
 
 ---
 
@@ -549,6 +552,7 @@ DCF 不是事實。使用者若問「這檔值多少錢」，正確回答是：
 | `compute_fundamentals.py` | 算 F-Score / Altman Z / DuPont → `fundamentals.json` |
 | `compute_financial_health.py` | 算流動性 / 償債 / ROIC−WACC / Altman Z'' → `financial_health.json` |
 | `estimate_dcf_inputs.py` | 由 beta／Rf／Kd／營收 CAGR 推導 g 與 WACC（**只印出，不寫檔**） |
+| `check_new_annual_filings.py` | 比對 SEC 最新 10-K／20-F 與本地 accession（**只通知，不寫檔**） |
 | `compute_valuation.py` | 算本益比 / 淨現金 / DCF 蒙地卡羅 / 隱含成長率 → `valuation.json` |
 | `diff_risk_factors.py` | 比對風險因素的年度變化 → `risk_changes.json` |
 | `risk_translations.py` | 譯文的摘錄／雜湊／查找（被 `build_reports.py` 引用，不單獨執行） |

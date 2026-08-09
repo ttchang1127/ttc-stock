@@ -16,12 +16,15 @@
   "所有 Ke 都隨它移動，要改就改那一個常數再重跑。",
   "",
   "這些值不會自動更新。股價與財報變動後要重新推導是人的決定，不是排程的工作。",
+  "derived_at 是整批假設的推導日期；頁面依瀏覽當天計算年齡，超過 stale_after_days 只提醒、不自動重推。",
   "",
   "growth / wacc 為 null 的公司，估值會回報『假設未設定』並跳過，腳本不會自行代入預設值。",
   "",
   "要重新推導： python3 scripts/estimate_dcf_inputs.py",
   "修改後執行：   python3 scripts/compute_valuation.py && python3 scripts/update_thesis_financials.py                && python3 scripts/build_reports.py"
  ],
+ "derived_at": "2026-08-08",
+ "stale_after_days": 90,
  "defaults": {
   "projection_years": 10,
   "terminal_growth": 0.025,
