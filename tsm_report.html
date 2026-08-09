@@ -61,6 +61,20 @@ border-radius:14px;padding:14px 16px}
 .metric-card.warn{border-color:rgba(251,191,36,.45);background:rgba(251,191,36,.08)}
 .metric-card .title{font-size:.775rem;color:var(--text-muted)}
 .metric-card .value{font-size:1.2rem;font-weight:800;color:#fff;margin-top:4px}
+.fin-term{display:inline-flex;align-items:center;gap:5px;color:inherit;cursor:help;
+position:relative;border-bottom:1px dotted rgba(148,163,184,.7);outline:none}
+.fin-term:focus-visible{color:#fff;border-bottom-color:var(--accent)}
+.term-icon{display:inline-grid;place-items:center;width:15px;height:15px;border-radius:50%;
+font:700 10px/1 'Outfit',sans-serif;color:var(--accent);border:1px solid rgba(56,189,248,.55);
+background:rgba(56,189,248,.08);flex:0 0 auto}
+.tooltip-hint{font-size:.82rem;color:var(--text-muted);margin:8px 0 14px}
+.finance-tooltip{position:fixed;z-index:9999;width:min(360px,calc(100vw - 32px));
+padding:12px 14px;border-radius:12px;border:1px solid rgba(56,189,248,.45);
+background:rgba(2,6,23,.98);box-shadow:0 14px 38px rgba(0,0,0,.55);color:#e5e7eb;
+font:400 .86rem/1.55 'Noto Sans TC','Outfit',sans-serif;pointer-events:none}
+.term-guide{margin-top:14px;padding:12px 14px;border-radius:12px;
+background:rgba(56,189,248,.07);border:1px solid rgba(56,189,248,.2)}
+.term-guide p{margin:5px 0 0;font-size:.82rem;color:var(--text-muted)}
 .rank-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
 .rank-card{background:rgba(0,0,0,.28);border:1px solid var(--card-border);
 border-radius:14px;padding:12px 14px}
@@ -95,9 +109,10 @@ footer{text-align:center;color:var(--text-muted);font-size:.8rem;padding:28px 0}
     <div class="hero-title">
       <h1>Taiwan Semiconductor Manufacturing Company Limited（TSM）</h1>
       <div class="hero-subtitle">財務健全度、估值與下行風險 — 全部數據由 SEC XBRL 與實際收盤價產生</div>
+      <div class="tooltip-hint">ⓘ 滑鼠移到帶 i 的金融名詞，或用鍵盤聚焦，即可查看定義與判讀方法。</div>
       <div class="badge-sec">🛡️ 20-F · accession 0001628280-26-025362 · FY2025-12-31</div>
     </div>
-    <div class="hero-kpis"><div class="kpi-box"><div class="kpi-label">現價 / 本益比</div><div class="kpi-val">$420.04</div><div class="kpi-sub">P/E 40.3x</div></div><div class="kpi-box"><div class="kpi-label">ROIC − WACC</div><div class="kpi-val">+31.2pp</div><div class="kpi-sub">創造價值</div></div><div class="kpi-box"><div class="kpi-label">Altman Z&#x27;&#x27;</div><div class="kpi-val">7.84</div><div class="kpi-sub">safe 區（&gt;2.6 安全）</div></div><div class="kpi-box"><div class="kpi-label">健全度警示</div><div class="kpi-val">0 項</div><div class="kpi-sub">未觸發門檻</div></div></div>
+    <div class="hero-kpis"><div class="kpi-box"><div class="kpi-label"><span class="fin-term" tabindex="0" data-tooltip="本益比（P/E）＝股價 ÷ 每股盈餘，代表市場願意為每 1 元當期盈餘支付多少倍價格。高倍數通常反映較高成長期待，也可能代表估值容錯率較低；應與同產業及公司自身歷史比較。" aria-label="現價 / 本益比：本益比（P/E）＝股價 ÷ 每股盈餘，代表市場願意為每 1 元當期盈餘支付多少倍價格。高倍數通常反映較高成長期待，也可能代表估值容錯率較低；應與同產業及公司自身歷史比較。">現價 / 本益比<span class="term-icon" aria-hidden="true">i</span></span></div><div class="kpi-val">$420.04</div><div class="kpi-sub">P/E 40.3x</div></div><div class="kpi-box"><div class="kpi-label"><span class="fin-term" tabindex="0" data-tooltip="ROIC 減去加權平均資本成本。正值表示投入資本報酬高於資金成本；負值表示尚未覆蓋。pp 是百分點，例如 12% − 8% = 4pp。" aria-label="ROIC − WACC：ROIC 減去加權平均資本成本。正值表示投入資本報酬高於資金成本；負值表示尚未覆蓋。pp 是百分點，例如 12% − 8% = 4pp。">ROIC − WACC<span class="term-icon" aria-hidden="true">i</span></span></div><div class="kpi-val">+31.2pp</div><div class="kpi-sub">創造價值</div></div><div class="kpi-box"><div class="kpi-label"><span class="fin-term" tabindex="0" data-tooltip="Altman Z-double-prime 是適用於非製造業的財務困境篩選模型。本頁以 &gt;2.6 為安全區、1.1–2.6 為灰色區、&lt;1.1 為危險區；它不是違約機率。" aria-label="Altman Z&#x27;&#x27;：Altman Z-double-prime 是適用於非製造業的財務困境篩選模型。本頁以 &gt;2.6 為安全區、1.1–2.6 為灰色區、&lt;1.1 為危險區；它不是違約機率。">Altman Z&#x27;&#x27;<span class="term-icon" aria-hidden="true">i</span></span></div><div class="kpi-val">7.84</div><div class="kpi-sub">safe 區（&gt;2.6 安全）</div></div><div class="kpi-box"><div class="kpi-label">健全度警示</div><div class="kpi-val">0 項</div><div class="kpi-sub">未觸發門檻</div></div></div>
   </div>
 
   <div class="section-grid">
@@ -127,43 +142,46 @@ footer{text-align:center;color:var(--text-muted);font-size:.8rem;padding:28px 0}
 
     <div class="card card-full">
       <h2>🩺 財務健全度總覽</h2>
-      <div class="metric-group"><div class="metric-card"><div class="title">流動比率</div><div class="value">2.51</div></div><div class="metric-card"><div class="title">現金比率</div><div class="value">1.82</div></div><div class="metric-card"><div class="title">負債佔資產</div><div class="value">32.0%</div></div><div class="metric-card"><div class="title">有息負債／淨值</div><div class="value">0.20</div></div><div class="metric-card"><div class="title">利息保障倍數</div><div class="value">156.5x</div></div><div class="metric-card"><div class="title">ROIC</div><div class="value">42.5%</div></div><div class="metric-card"><div class="title">ROIC − WACC</div><div class="value">+31.2pp</div></div><div class="metric-card"><div class="title">FCF 利潤率</div><div class="value">26.3%</div></div><div class="metric-card"><div class="title">應計比率</div><div class="value">-8.1%</div></div><div class="metric-card"><div class="title">Altman Z&#x27;&#x27;</div><div class="value">7.84（safe）</div></div><div class="metric-card"><div class="title">Piotroski（標準化 /9）</div><div class="value">7.9</div></div><div class="metric-card"><div class="title">Beneish M-Score</div><div class="value">資料不足</div></div></div><div class="flag-box ok"><h4>✅ 未觸發任何門檻</h4><p>10 / 11 項指標均已計算。</p></div>
+      <div class="metric-group"><div class="metric-card"><div class="title"><span class="fin-term" tabindex="0" data-tooltip="流動資產 ÷ 流動負債，衡量一年內資產覆蓋一年內到期債務的能力。1.0 代表兩者相當；本頁低於 1.0 會警示，但仍須考慮產業的現金週轉特性。" aria-label="流動比率：流動資產 ÷ 流動負債，衡量一年內資產覆蓋一年內到期債務的能力。1.0 代表兩者相當；本頁低於 1.0 會警示，但仍須考慮產業的現金週轉特性。">流動比率<span class="term-icon" aria-hidden="true">i</span></span></div><div class="value">2.51</div></div><div class="metric-card"><div class="title"><span class="fin-term" tabindex="0" data-tooltip="現金與短期投資 ÷ 流動負債。只用最接近現金的資產檢視短期償債能力，比流動比率更保守；過高也可能表示資金運用效率偏低。" aria-label="現金比率：現金與短期投資 ÷ 流動負債。只用最接近現金的資產檢視短期償債能力，比流動比率更保守；過高也可能表示資金運用效率偏低。">現金比率<span class="term-icon" aria-hidden="true">i</span></span></div><div class="value">1.82</div></div><div class="metric-card"><div class="title"><span class="fin-term" tabindex="0" data-tooltip="總負債 ÷ 總資產，衡量資產中有多少比例由負債支應。數值越高通常代表槓桿越高；本頁高於 60% 會警示，但仍應與同產業資本結構比較。" aria-label="負債佔資產：總負債 ÷ 總資產，衡量資產中有多少比例由負債支應。數值越高通常代表槓桿越高；本頁高於 60% 會警示，但仍應與同產業資本結構比較。">負債佔資產<span class="term-icon" aria-hidden="true">i</span></span></div><div class="value">32.0%</div></div><div class="metric-card"><div class="title"><span class="fin-term" tabindex="0" data-tooltip="會產生利息的負債 ÷ 股東權益，顯示公司以借款相對於自有資本融資的程度。數值越高，通常對利率與現金流變化越敏感。" aria-label="有息負債／淨值：會產生利息的負債 ÷ 股東權益，顯示公司以借款相對於自有資本融資的程度。數值越高，通常對利率與現金流變化越敏感。">有息負債／淨值<span class="term-icon" aria-hidden="true">i</span></span></div><div class="value">0.20</div></div><div class="metric-card"><div class="title"><span class="fin-term" tabindex="0" data-tooltip="營業利益（EBIT）÷ 利息費用，衡量本業獲利可支付幾倍利息。本頁低於 3 倍會警示；無債或利息極低時可能出現異常高值，需配合註記判讀。" aria-label="利息保障倍數：營業利益（EBIT）÷ 利息費用，衡量本業獲利可支付幾倍利息。本頁低於 3 倍會警示；無債或利息極低時可能出現異常高值，需配合註記判讀。">利息保障倍數<span class="term-icon" aria-hidden="true">i</span></span></div><div class="value">156.5x</div></div><div class="metric-card"><div class="title"><span class="fin-term" tabindex="0" data-tooltip="投入資本報酬率，衡量公司使用營運所需的債務與股東資本創造稅後營業利潤的效率。長期高於 WACC 通常表示公司正在創造經濟價值。" aria-label="ROIC：投入資本報酬率，衡量公司使用營運所需的債務與股東資本創造稅後營業利潤的效率。長期高於 WACC 通常表示公司正在創造經濟價值。">ROIC<span class="term-icon" aria-hidden="true">i</span></span></div><div class="value">42.5%</div></div><div class="metric-card"><div class="title"><span class="fin-term" tabindex="0" data-tooltip="ROIC 減去加權平均資本成本。正值表示投入資本報酬高於資金成本；負值表示尚未覆蓋。pp 是百分點，例如 12% − 8% = 4pp。" aria-label="ROIC − WACC：ROIC 減去加權平均資本成本。正值表示投入資本報酬高於資金成本；負值表示尚未覆蓋。pp 是百分點，例如 12% − 8% = 4pp。">ROIC − WACC<span class="term-icon" aria-hidden="true">i</span></span></div><div class="value">+31.2pp</div></div><div class="metric-card"><div class="title"><span class="fin-term" tabindex="0" data-tooltip="自由現金流 ÷ 營收，衡量每 1 元營收在支付營運與資本支出後還能保留多少現金。負值表示當期自由現金流為負。" aria-label="FCF 利潤率：自由現金流 ÷ 營收，衡量每 1 元營收在支付營運與資本支出後還能保留多少現金。負值表示當期自由現金流為負。">FCF 利潤率<span class="term-icon" aria-hidden="true">i</span></span></div><div class="value">26.3%</div></div><div class="metric-card"><div class="title"><span class="fin-term" tabindex="0" data-tooltip="（淨利 − 營運現金流）÷ 平均總資產。正值過高代表會計利潤明顯超前現金流，需檢查應收款、存貨與一次性項目；本頁高於 10% 會警示。" aria-label="應計比率：（淨利 − 營運現金流）÷ 平均總資產。正值過高代表會計利潤明顯超前現金流，需檢查應收款、存貨與一次性項目；本頁高於 10% 會警示。">應計比率<span class="term-icon" aria-hidden="true">i</span></span></div><div class="value">-8.1%</div></div><div class="metric-card"><div class="title"><span class="fin-term" tabindex="0" data-tooltip="Altman Z-double-prime 是適用於非製造業的財務困境篩選模型。本頁以 &gt;2.6 為安全區、1.1–2.6 為灰色區、&lt;1.1 為危險區；它不是違約機率。" aria-label="Altman Z&#x27;&#x27;：Altman Z-double-prime 是適用於非製造業的財務困境篩選模型。本頁以 &gt;2.6 為安全區、1.1–2.6 為灰色區、&lt;1.1 為危險區；它不是違約機率。">Altman Z&#x27;&#x27;<span class="term-icon" aria-hidden="true">i</span></span></div><div class="value">7.84（safe）</div></div><div class="metric-card"><div class="title"><span class="fin-term" tabindex="0" data-tooltip="Piotroski F-Score 從獲利、槓桿／流動性與營運效率檢查最多 9 項財報訊號。本頁將可計算項目標準化到 9 分；高分不代表股價便宜。" aria-label="Piotroski（標準化 /9）：Piotroski F-Score 從獲利、槓桿／流動性與營運效率檢查最多 9 項財報訊號。本頁將可計算項目標準化到 9 分；高分不代表股價便宜。">Piotroski（標準化 /9）<span class="term-icon" aria-hidden="true">i</span></span></div><div class="value">7.9</div></div><div class="metric-card"><div class="title"><span class="fin-term" tabindex="0" data-tooltip="以八個會計指標篩選盈餘操縱型態的統計模型。高於 -1.78 本頁會警示，但不是舞弊指控；高速成長公司容易出現偽陽性，必須回查原始財報。" aria-label="Beneish M-Score：以八個會計指標篩選盈餘操縱型態的統計模型。高於 -1.78 本頁會警示，但不是舞弊指控；高速成長公司容易出現偽陽性，必須回查原始財報。">Beneish M-Score<span class="term-icon" aria-hidden="true">i</span></span></div><div class="value">資料不足</div></div></div><div class="flag-box ok"><h4>✅ 未觸發任何門檻</h4><p>10 / 11 項指標均已計算。</p></div>
     </div>
 
     <div class="card card-full">
       <h2>🏅 本組合相對排名（14 家）</h2>
-      <div class="rank-strip"><div class="rank-card"><div class="rank-label">營運現金流</div><div class="rank-pos"> 第 7 / 14</div><div class="rank-val">$72,521M</div></div>
-<div class="rank-card"><div class="rank-label">毛利率</div><div class="rank-pos"> 第 5 / 14</div><div class="rank-val">59.9%</div></div>
-<div class="rank-card"><div class="rank-label">ROIC</div><div class="rank-pos">🥉 第 3 / 13</div><div class="rank-val">42.5%</div></div>
-<div class="rank-card"><div class="rank-label">ROIC−WACC 價差</div><div class="rank-pos">🥉 第 3 / 13</div><div class="rank-val">31.2%</div></div>
-<div class="rank-card"><div class="rank-label">12 個月 Sortino</div><div class="rank-pos"> 第 7 / 14</div><div class="rank-val">2.43</div></div>
-<div class="rank-card"><div class="rank-label">F-Score（標準化）</div><div class="rank-pos">🥈 第 2 / 14</div><div class="rank-val">7.90</div></div>
-<div class="rank-card"><div class="rank-label">Altman Z&#x27;&#x27;</div><div class="rank-pos">🥉 第 3 / 13</div><div class="rank-val">7.84</div></div></div>
+      <div class="rank-strip"><div class="rank-card"><div class="rank-label"><span class="fin-term" tabindex="0" data-tooltip="核心營運活動實際流入或流出的現金，可用來對照淨利的現金含量。" aria-label="營運現金流：核心營運活動實際流入或流出的現金，可用來對照淨利的現金含量。">營運現金流<span class="term-icon" aria-hidden="true">i</span></span></div><div class="rank-pos"> 第 7 / 14</div><div class="rank-val">$72,521M</div></div>
+<div class="rank-card"><div class="rank-label"><span class="fin-term" tabindex="0" data-tooltip="（營收 − 銷貨成本）÷ 營收，反映定價、產品組合與直接成本控制能力；應與同產業及公司自身歷史比較。" aria-label="毛利率：（營收 − 銷貨成本）÷ 營收，反映定價、產品組合與直接成本控制能力；應與同產業及公司自身歷史比較。">毛利率<span class="term-icon" aria-hidden="true">i</span></span></div><div class="rank-pos"> 第 5 / 14</div><div class="rank-val">59.9%</div></div>
+<div class="rank-card"><div class="rank-label"><span class="fin-term" tabindex="0" data-tooltip="投入資本報酬率，衡量公司使用營運所需的債務與股東資本創造稅後營業利潤的效率。長期高於 WACC 通常表示公司正在創造經濟價值。" aria-label="ROIC：投入資本報酬率，衡量公司使用營運所需的債務與股東資本創造稅後營業利潤的效率。長期高於 WACC 通常表示公司正在創造經濟價值。">ROIC<span class="term-icon" aria-hidden="true">i</span></span></div><div class="rank-pos">🥉 第 3 / 13</div><div class="rank-val">42.5%</div></div>
+<div class="rank-card"><div class="rank-label"><span class="fin-term" tabindex="0" data-tooltip="ROIC 減去 WACC 的百分點差距。正值越大，代表當期投入資本報酬高於資金成本的幅度越大。" aria-label="ROIC−WACC 價差：ROIC 減去 WACC 的百分點差距。正值越大，代表當期投入資本報酬高於資金成本的幅度越大。">ROIC−WACC 價差<span class="term-icon" aria-hidden="true">i</span></span></div><div class="rank-pos">🥉 第 3 / 13</div><div class="rank-val">31.2%</div></div>
+<div class="rank-card"><div class="rank-label"><span class="fin-term" tabindex="0" data-tooltip="近 12 個月的 Sortino Ratio；本頁以日報酬、MAR=0 計算，衡量每單位下行風險對應的報酬。" aria-label="12 個月 Sortino：近 12 個月的 Sortino Ratio；本頁以日報酬、MAR=0 計算，衡量每單位下行風險對應的報酬。">12 個月 Sortino<span class="term-icon" aria-hidden="true">i</span></span></div><div class="rank-pos"> 第 7 / 14</div><div class="rank-val">2.43</div></div>
+<div class="rank-card"><div class="rank-label"><span class="fin-term" tabindex="0" data-tooltip="Piotroski F-Score 的 9 分標準化結果。資料缺項時是依已計算項目換算，不表示原始 9 項都有資料。" aria-label="F-Score（標準化）：Piotroski F-Score 的 9 分標準化結果。資料缺項時是依已計算項目換算，不表示原始 9 項都有資料。">F-Score（標準化）<span class="term-icon" aria-hidden="true">i</span></span></div><div class="rank-pos">🥈 第 2 / 14</div><div class="rank-val">7.90</div></div>
+<div class="rank-card"><div class="rank-label"><span class="fin-term" tabindex="0" data-tooltip="Altman Z-double-prime 是適用於非製造業的財務困境篩選模型。本頁以 &gt;2.6 為安全區、1.1–2.6 為灰色區、&lt;1.1 為危險區；它不是違約機率。" aria-label="Altman Z&#x27;&#x27;：Altman Z-double-prime 是適用於非製造業的財務困境篩選模型。本頁以 &gt;2.6 為安全區、1.1–2.6 為灰色區、&lt;1.1 為危險區；它不是違約機率。">Altman Z&#x27;&#x27;<span class="term-icon" aria-hidden="true">i</span></span></div><div class="rank-pos">🥉 第 3 / 13</div><div class="rank-val">7.84</div></div></div>
       <p class="note">排名僅涵蓋本知識庫追蹤的 14 家公司，每次產生時重新計算。不代表全市場排名。</p>
     </div>
 
     <div class="card">
       <h2>📊 損益、現金流與資產負債</h2>
-      <div class="metric-group"><div class="metric-card"><div class="title">營收</div><div class="value">$121,424M</div></div><div class="metric-card"><div class="title">淨利</div><div class="value">$54,036M</div></div><div class="metric-card"><div class="title">毛利率</div><div class="value">59.89%</div></div><div class="metric-card"><div class="title">營運現金流</div><div class="value">$72,521M</div></div><div class="metric-card"><div class="title">資本支出</div><div class="value">$40,561M</div></div><div class="metric-card"><div class="title">自由現金流</div><div class="value">$31,959M</div></div><div class="metric-card"><div class="title">總資產</div><div class="value">$252,880M</div></div><div class="metric-card"><div class="title">總負債</div><div class="value">$80,861M</div></div><div class="metric-card"><div class="title">股東權益</div><div class="value">$172,018M</div></div></div>
-      <h3>DuPont 三因子拆解</h3>
+      <div class="metric-group"><div class="metric-card"><div class="title"><span class="fin-term" tabindex="0" data-tooltip="期間內銷售商品或服務所認列的收入，尚未扣除各類成本與費用。" aria-label="營收：期間內銷售商品或服務所認列的收入，尚未扣除各類成本與費用。">營收<span class="term-icon" aria-hidden="true">i</span></span></div><div class="value">$121,424M</div></div><div class="metric-card"><div class="title"><span class="fin-term" tabindex="0" data-tooltip="營收扣除營業成本、業外收支、利息與所得稅後的最終會計利潤。" aria-label="淨利：營收扣除營業成本、業外收支、利息與所得稅後的最終會計利潤。">淨利<span class="term-icon" aria-hidden="true">i</span></span></div><div class="value">$54,036M</div></div><div class="metric-card"><div class="title"><span class="fin-term" tabindex="0" data-tooltip="（營收 − 銷貨成本）÷ 營收，反映定價、產品組合與直接成本控制能力；應與同產業及公司自身歷史比較。" aria-label="毛利率：（營收 − 銷貨成本）÷ 營收，反映定價、產品組合與直接成本控制能力；應與同產業及公司自身歷史比較。">毛利率<span class="term-icon" aria-hidden="true">i</span></span></div><div class="value">59.89%</div></div><div class="metric-card"><div class="title"><span class="fin-term" tabindex="0" data-tooltip="核心營運活動實際流入或流出的現金，可用來對照淨利的現金含量。" aria-label="營運現金流：核心營運活動實際流入或流出的現金，可用來對照淨利的現金含量。">營運現金流<span class="term-icon" aria-hidden="true">i</span></span></div><div class="value">$72,521M</div></div><div class="metric-card"><div class="title"><span class="fin-term" tabindex="0" data-tooltip="購置或建置廠房、設備等長期資產的現金支出，通常用於維持或擴充產能。" aria-label="資本支出：購置或建置廠房、設備等長期資產的現金支出，通常用於維持或擴充產能。">資本支出<span class="term-icon" aria-hidden="true">i</span></span></div><div class="value">$40,561M</div></div><div class="metric-card"><div class="title"><span class="fin-term" tabindex="0" data-tooltip="本頁定義為營運現金流 − 資本支出，代表投資營運後可用於還債、回購、股利或再投資的現金。" aria-label="自由現金流：本頁定義為營運現金流 − 資本支出，代表投資營運後可用於還債、回購、股利或再投資的現金。">自由現金流<span class="term-icon" aria-hidden="true">i</span></span></div><div class="value">$31,959M</div></div><div class="metric-card"><div class="title"><span class="fin-term" tabindex="0" data-tooltip="資產負債表上由公司控制、預期帶來未來經濟效益的資源總額。" aria-label="總資產：資產負債表上由公司控制、預期帶來未來經濟效益的資源總額。">總資產<span class="term-icon" aria-hidden="true">i</span></span></div><div class="value">$252,880M</div></div><div class="metric-card"><div class="title"><span class="fin-term" tabindex="0" data-tooltip="公司對債權人與其他外部相對人的義務總額，不只包含會產生利息的借款。" aria-label="總負債：公司對債權人與其他外部相對人的義務總額，不只包含會產生利息的借款。">總負債<span class="term-icon" aria-hidden="true">i</span></span></div><div class="value">$80,861M</div></div><div class="metric-card"><div class="title"><span class="fin-term" tabindex="0" data-tooltip="總資產減去總負債後歸屬股東的帳面淨值。" aria-label="股東權益：總資產減去總負債後歸屬股東的帳面淨值。">股東權益<span class="term-icon" aria-hidden="true">i</span></span></div><div class="value">$172,018M</div></div></div>
+      <h3><span class="fin-term" tabindex="0" data-tooltip="將 ROE 拆為淨利率 × 資產週轉率 × 權益乘數，用來判斷股東報酬來自獲利、資產效率或槓桿。" aria-label="DuPont 三因子拆解：將 ROE 拆為淨利率 × 資產週轉率 × 權益乘數，用來判斷股東報酬來自獲利、資產效率或槓桿。">DuPont 三因子拆解<span class="term-icon" aria-hidden="true">i</span></span></h3>
       <div class="chart-container"><canvas id="dupontChart"></canvas></div>
     </div>
 
     <div class="card">
-      <h2>🎲 蒙地卡羅 DCF 估值分佈</h2>
-      <div class="metric-group"><div class="metric-card"><div class="title">P25 ~ P75 主流區間</div><div class="value">$193.29 ~ $298.14</div></div><div class="metric-card"><div class="title">中位數 P50</div><div class="value">$239.96</div></div><div class="metric-card"><div class="title">相對現價</div><div class="value">-43%</div></div><div class="metric-card"><div class="title">現價隱含 FCF 年成長率</div><div class="value">28.9%</div></div></div><p class="note">假設：g=20.55%、WACC=11.34%、終端成長=2.5%、10,000 次模擬。基期＝常態化自由現金流（歷年 FCF 利潤率中位數 × 當期營收）。CAPM 推導（2026-08-08）：beta 1.56（3 年週報酬對 SPY）× ERP 5.0% + Rf 3.70%，Ke 11.51%；稅後 Kd 0.96% 按市值／負債加權；成長率＝營收 CAGR 20.55%</p>
+      <h2>🎲 <span class="fin-term" tabindex="0" data-tooltip="在成長率與 WACC 等假設上進行多次隨機模擬的現金流折現法。輸出是特定假設下的分佈，不是必然會達到的目標價。" aria-label="蒙地卡羅 DCF：在成長率與 WACC 等假設上進行多次隨機模擬的現金流折現法。輸出是特定假設下的分佈，不是必然會達到的目標價。">蒙地卡羅 DCF<span class="term-icon" aria-hidden="true">i</span></span> 估值分佈</h2>
+      <div class="metric-group"><div class="metric-card"><div class="title"><span class="fin-term" tabindex="0" data-tooltip="蒙地卡羅結果的第 25 至第 75 百分位，中間 50% 模擬結果落在此區間；它反映假設分佈，不是統計上的置信區間。" aria-label="P25 ~ P75 主流區間：蒙地卡羅結果的第 25 至第 75 百分位，中間 50% 模擬結果落在此區間；它反映假設分佈，不是統計上的置信區間。">P25 ~ P75 主流區間<span class="term-icon" aria-hidden="true">i</span></span></div><div class="value">$193.29 ~ $298.14</div></div><div class="metric-card"><div class="title"><span class="fin-term" tabindex="0" data-tooltip="蒙地卡羅結果的第 50 百分位，一半模擬值高於它、一半低於它；不等於目標價。" aria-label="中位數 P50：蒙地卡羅結果的第 50 百分位，一半模擬值高於它、一半低於它；不等於目標價。">中位數 P50<span class="term-icon" aria-hidden="true">i</span></span></div><div class="value">$239.96</div></div><div class="metric-card"><div class="title"><span class="fin-term" tabindex="0" data-tooltip="DCF 中位數相對目前股價的差幅。差距過大常表示模型假設與市場預期分歧，不應直接當作漲跌空間。" aria-label="相對現價：DCF 中位數相對目前股價的差幅。差距過大常表示模型假設與市場預期分歧，不應直接當作漲跌空間。">相對現價<span class="term-icon" aria-hidden="true">i</span></span></div><div class="value">-43%</div></div><div class="metric-card"><div class="title"><span class="fin-term" tabindex="0" data-tooltip="在其他 DCF 假設不變時，反推出市場現價所要求的自由現金流年成長率，用來檢驗市場預期是否合理。" aria-label="現價隱含 FCF 年成長率：在其他 DCF 假設不變時，反推出市場現價所要求的自由現金流年成長率，用來檢驗市場預期是否合理。">現價隱含 FCF 年成長率<span class="term-icon" aria-hidden="true">i</span></span></div><div class="value">28.9%</div></div></div><p class="note">假設：g=20.55%、WACC=11.34%、終端成長=2.5%、10,000 次模擬。基期＝常態化自由現金流（歷年 FCF 利潤率中位數 × 當期營收）。CAPM 推導（2026-08-08）：beta 1.56（3 年週報酬對 SPY）× ERP 5.0% + Rf 3.70%，Ke 11.51%；稅後 Kd 0.96% 按市值／負債加權；成長率＝營收 CAGR 20.55%</p>
       <div class="chart-container"><canvas id="dcfChart"></canvas></div>
+      <div class="term-guide"><strong>延伸估值名詞：<span class="fin-term" tabindex="0" data-tooltip="企業價值（EV）÷ 息稅折舊攤銷前利潤（EBITDA）。EV 約等於市值＋有息負債−現金與短期投資；數值表示企業總價值是當期 EBITDA 的幾倍。較低可能較便宜，也可能反映低成長或高風險；必須與同產業、相似資本密集度的公司比較，且 EBITDA 不等於現金流。" aria-label="EV/EBITDA：企業價值（EV）÷ 息稅折舊攤銷前利潤（EBITDA）。EV 約等於市值＋有息負債−現金與短期投資；數值表示企業總價值是當期 EBITDA 的幾倍。較低可能較便宜，也可能反映低成長或高風險；必須與同產業、相似資本密集度的公司比較，且 EBITDA 不等於現金流。">EV/EBITDA<span class="term-icon" aria-hidden="true">i</span></span></strong>
+        <p>目前報告尚未顯示此數值：本庫有公司缺少可一致計算 EBITDA 的 SEC 科目，因此不以不完整資料進行跨公司比較。</p>
+      </div>
     </div>
 
     <div class="card">
-      <h2>📉 下行風險（Sortino Ratio）</h2>
-      <div class="metric-group"><div class="metric-card"><div class="title">近 3 年（週資料）</div><div class="value">2.75</div></div><div class="metric-card"><div class="title">近 5 年（週資料）</div><div class="value">1.49</div></div><div class="metric-card"><div class="title">近 12 個月（日資料 MAR=0）</div><div class="value">2.43</div></div><div class="metric-card"><div class="title">同期無風險門檻版本</div><div class="value">2.28</div></div></div>
+      <h2>📉 下行風險（<span class="fin-term" tabindex="0" data-tooltip="超額報酬 ÷ 下行偏差，只將低於門檻報酬的波動視為風險。同期間、同頻率、同門檻下數值越高通常越好；不同口徑不可直接比較。" aria-label="Sortino Ratio：超額報酬 ÷ 下行偏差，只將低於門檻報酬的波動視為風險。同期間、同頻率、同門檻下數值越高通常越好；不同口徑不可直接比較。">Sortino Ratio<span class="term-icon" aria-hidden="true">i</span></span>）</h2>
+      <div class="metric-group"><div class="metric-card"><div class="title"><span class="fin-term" tabindex="0" data-tooltip="以近 3 年週報酬計算的 Sortino Ratio，須與相同期間、頻率與門檻的結果比較。" aria-label="近 3 年（週資料）：以近 3 年週報酬計算的 Sortino Ratio，須與相同期間、頻率與門檻的結果比較。">近 3 年（週資料）<span class="term-icon" aria-hidden="true">i</span></span></div><div class="value">2.75</div></div><div class="metric-card"><div class="title"><span class="fin-term" tabindex="0" data-tooltip="以近 5 年週報酬計算的 Sortino Ratio，涵蓋較多市場循環，但仍受期間選擇影響。" aria-label="近 5 年（週資料）：以近 5 年週報酬計算的 Sortino Ratio，涵蓋較多市場循環，但仍受期間選擇影響。">近 5 年（週資料）<span class="term-icon" aria-hidden="true">i</span></span></div><div class="value">1.49</div></div><div class="metric-card"><div class="title"><span class="fin-term" tabindex="0" data-tooltip="以近 12 個月日報酬、最低可接受報酬 MAR=0 計算的 Sortino Ratio。" aria-label="近 12 個月（日資料 MAR=0）：以近 12 個月日報酬、最低可接受報酬 MAR=0 計算的 Sortino Ratio。">近 12 個月（日資料 MAR=0）<span class="term-icon" aria-hidden="true">i</span></span></div><div class="value">2.43</div></div><div class="metric-card"><div class="title"><span class="fin-term" tabindex="0" data-tooltip="以同期無風險利率作為最低可接受報酬的 Sortino Ratio，與 MAR=0 版本的口徑不同。" aria-label="同期無風險門檻版本：以同期無風險利率作為最低可接受報酬的 Sortino Ratio，與 MAR=0 版本的口徑不同。">同期無風險門檻版本<span class="term-icon" aria-hidden="true">i</span></span></div><div class="value">2.28</div></div></div>
       <p class="note">三個數字的頻率、期間與門檻報酬率都不同，衡量的是不同的東西，不能互相驗證。</p>
     </div>
 
     <div class="card">
       <h2>💵 籌碼面與股東資本回饋</h2>
-      <div class="metric-group"><div class="metric-card"><div class="title">稀釋每股盈餘</div><div class="value">$10.42</div></div><div class="metric-card"><div class="title">現金與短期投資</div><div class="value">$88,236M</div></div><div class="metric-card"><div class="title">有息負債總額</div><div class="value">$33,936M</div></div><div class="metric-card"><div class="title">淨現金</div><div class="value">$54,299M</div></div><div class="metric-card"><div class="title">庫藏股回購</div><div class="value">資料不足</div></div><div class="metric-card"><div class="title">現金股利</div><div class="value">$14,880M</div></div><div class="metric-card"><div class="title">股東總殖利率</div><div class="value">0.68%</div></div></div>
+      <div class="metric-group"><div class="metric-card"><div class="title"><span class="fin-term" tabindex="0" data-tooltip="淨利除以計入選擇權、可轉換證券等潛在稀釋效果後的加權平均股數。" aria-label="稀釋每股盈餘：淨利除以計入選擇權、可轉換證券等潛在稀釋效果後的加權平均股數。">稀釋每股盈餘<span class="term-icon" aria-hidden="true">i</span></span></div><div class="value">$10.42</div></div><div class="metric-card"><div class="title"><span class="fin-term" tabindex="0" data-tooltip="現金、約當現金及流動性高的短期投資合計，是計算淨現金與企業價值的扣除項。" aria-label="現金與短期投資：現金、約當現金及流動性高的短期投資合計，是計算淨現金與企業價值的扣除項。">現金與短期投資<span class="term-icon" aria-hidden="true">i</span></span></div><div class="value">$88,236M</div></div><div class="metric-card"><div class="title"><span class="fin-term" tabindex="0" data-tooltip="借款、公司債、融資租賃等需支付利息的債務總額，不等於資產負債表的總負債。" aria-label="有息負債總額：借款、公司債、融資租賃等需支付利息的債務總額，不等於資產負債表的總負債。">有息負債總額<span class="term-icon" aria-hidden="true">i</span></span></div><div class="value">$33,936M</div></div><div class="metric-card"><div class="title"><span class="fin-term" tabindex="0" data-tooltip="現金與短期投資減去有息負債。正值表示現金超過有息負債；負值則是淨負債。" aria-label="淨現金：現金與短期投資減去有息負債。正值表示現金超過有息負債；負值則是淨負債。">淨現金<span class="term-icon" aria-hidden="true">i</span></span></div><div class="value">$54,299M</div></div><div class="metric-card"><div class="title"><span class="fin-term" tabindex="0" data-tooltip="公司使用現金買回自家股票的金額。回購可減少股數，但是否創造價值仍取決於回購價格。" aria-label="庫藏股回購：公司使用現金買回自家股票的金額。回購可減少股數，但是否創造價值仍取決於回購價格。">庫藏股回購<span class="term-icon" aria-hidden="true">i</span></span></div><div class="value">資料不足</div></div><div class="metric-card"><div class="title"><span class="fin-term" tabindex="0" data-tooltip="公司以現金直接分配給股東的金額。" aria-label="現金股利：公司以現金直接分配給股東的金額。">現金股利<span class="term-icon" aria-hidden="true">i</span></span></div><div class="value">$14,880M</div></div><div class="metric-card"><div class="title"><span class="fin-term" tabindex="0" data-tooltip="（回購金額＋現金股利）÷ 市值，衡量當期透過回購與股利返還股東的比例；不包含股價漲跌。" aria-label="股東總殖利率：（回購金額＋現金股利）÷ 市值，衡量當期透過回購與股利返還股東的比例；不包含股價漲跌。">股東總殖利率<span class="term-icon" aria-hidden="true">i</span></span></div><div class="value">0.68%</div></div></div>
     </div>
 
     <div class="card card-full">
@@ -208,13 +226,64 @@ footer{text-align:center;color:var(--text-muted);font-size:.8rem;padding:28px 0}
   </div>
 
   <footer>
-    由 <code>scripts/build_reports.py</code> 於 2026-08-09 01:18 UTC 產生。<br>
+    由 <code>scripts/build_reports.py</code> 於 2026-08-09 01:26 UTC 產生。<br>
     本頁不含任何手動輸入的財務數字；質化章節除外，且已標示。<br>
     DCF 為特定假設下的推估，非事實，不構成投資建議。
   </footer>
 </div>
 
+<div id="financeTooltip" class="finance-tooltip" role="tooltip" hidden></div>
+
 <script>
+const financeTooltip = document.getElementById('financeTooltip');
+let activeFinanceTerm = null;
+
+function placeFinanceTooltip(event) {
+  if (!activeFinanceTerm || financeTooltip.hidden) return;
+  const pad = 12;
+  const rect = financeTooltip.getBoundingClientRect();
+  const anchor = activeFinanceTerm.getBoundingClientRect();
+  const pointerX = event && Number.isFinite(event.clientX)
+    ? event.clientX : anchor.left + anchor.width / 2;
+  const pointerY = event && Number.isFinite(event.clientY)
+    ? event.clientY : anchor.bottom;
+  let left = pointerX + 14;
+  let top = pointerY + 16;
+  if (left + rect.width > window.innerWidth - pad) left = window.innerWidth - rect.width - pad;
+  if (top + rect.height > window.innerHeight - pad) top = pointerY - rect.height - 14;
+  financeTooltip.style.left = Math.max(pad, left) + 'px';
+  financeTooltip.style.top = Math.max(pad, top) + 'px';
+}
+
+function showFinanceTooltip(term, event) {
+  activeFinanceTerm = term;
+  financeTooltip.textContent = term.dataset.tooltip;
+  financeTooltip.hidden = false;
+  placeFinanceTooltip(event);
+}
+
+function hideFinanceTooltip(term) {
+  if (term && term !== activeFinanceTerm) return;
+  financeTooltip.hidden = true;
+  activeFinanceTerm = null;
+}
+
+document.querySelectorAll('.fin-term').forEach(term => {
+  term.addEventListener('pointerenter', event => showFinanceTooltip(term, event));
+  term.addEventListener('pointermove', placeFinanceTooltip);
+  term.addEventListener('pointerleave', () => hideFinanceTooltip(term));
+  term.addEventListener('focus', event => showFinanceTooltip(term, event));
+  term.addEventListener('blur', () => hideFinanceTooltip(term));
+  term.addEventListener('click', event => {
+    if (activeFinanceTerm === term && !financeTooltip.hidden) hideFinanceTooltip(term);
+    else showFinanceTooltip(term, event);
+  });
+});
+document.addEventListener('keydown', event => {
+  if (event.key === 'Escape') hideFinanceTooltip();
+});
+window.addEventListener('scroll', () => hideFinanceTooltip(), { passive: true });
+
 Chart.defaults.color = '#9ca3af';
 Chart.defaults.borderColor = 'rgba(255,255,255,.07)';
 const noLegend = { plugins: { legend: { labels: { color: '#d1d5db' } } },

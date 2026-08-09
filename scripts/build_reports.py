@@ -59,6 +59,120 @@ SLUGS = {
 UNVERIFIABLE = re.compile(
     r"全美股第 ?1|全球第 ?1|世界冠軍|史上最|無可匹敵|無與倫比|人類.{0,6}最")
 
+# Plain-language definitions shown when a reader hovers, focuses, or taps a
+# financial term. Thresholds describe this report's screening rules, not
+# universal investment conclusions.
+FINANCIAL_TERMS = {
+    "現價 / 本益比": (
+        "本益比（P/E）＝股價 ÷ 每股盈餘，代表市場願意為每 1 元當期盈餘支付多少倍價格。"
+        "高倍數通常反映較高成長期待，也可能代表估值容錯率較低；應與同產業及公司自身歷史比較。"),
+    "流動比率": (
+        "流動資產 ÷ 流動負債，衡量一年內資產覆蓋一年內到期債務的能力。"
+        "1.0 代表兩者相當；本頁低於 1.0 會警示，但仍須考慮產業的現金週轉特性。"),
+    "現金比率": (
+        "現金與短期投資 ÷ 流動負債。只用最接近現金的資產檢視短期償債能力，"
+        "比流動比率更保守；過高也可能表示資金運用效率偏低。"),
+    "負債佔資產": (
+        "總負債 ÷ 總資產，衡量資產中有多少比例由負債支應。"
+        "數值越高通常代表槓桿越高；本頁高於 60% 會警示，但仍應與同產業資本結構比較。"),
+    "有息負債／淨值": (
+        "會產生利息的負債 ÷ 股東權益，顯示公司以借款相對於自有資本融資的程度。"
+        "數值越高，通常對利率與現金流變化越敏感。"),
+    "利息保障倍數": (
+        "營業利益（EBIT）÷ 利息費用，衡量本業獲利可支付幾倍利息。"
+        "本頁低於 3 倍會警示；無債或利息極低時可能出現異常高值，需配合註記判讀。"),
+    "ROIC": (
+        "投入資本報酬率，衡量公司使用營運所需的債務與股東資本創造稅後營業利潤的效率。"
+        "長期高於 WACC 通常表示公司正在創造經濟價值。"),
+    "ROIC − WACC": (
+        "ROIC 減去加權平均資本成本。正值表示投入資本報酬高於資金成本；負值表示尚未覆蓋。"
+        "pp 是百分點，例如 12% − 8% = 4pp。"),
+    "ROIC−WACC 價差": (
+        "ROIC 減去 WACC 的百分點差距。正值越大，代表當期投入資本報酬高於資金成本的幅度越大。"),
+    "FCF 利潤率": (
+        "自由現金流 ÷ 營收，衡量每 1 元營收在支付營運與資本支出後還能保留多少現金。"
+        "負值表示當期自由現金流為負。"),
+    "應計比率": (
+        "（淨利 − 營運現金流）÷ 平均總資產。正值過高代表會計利潤明顯超前現金流，"
+        "需檢查應收款、存貨與一次性項目；本頁高於 10% 會警示。"),
+    "Altman Z''": (
+        "Altman Z-double-prime 是適用於非製造業的財務困境篩選模型。"
+        "本頁以 >2.6 為安全區、1.1–2.6 為灰色區、<1.1 為危險區；它不是違約機率。"),
+    "Piotroski（標準化 /9）": (
+        "Piotroski F-Score 從獲利、槓桿／流動性與營運效率檢查最多 9 項財報訊號。"
+        "本頁將可計算項目標準化到 9 分；高分不代表股價便宜。"),
+    "F-Score（標準化）": (
+        "Piotroski F-Score 的 9 分標準化結果。資料缺項時是依已計算項目換算，"
+        "不表示原始 9 項都有資料。"),
+    "Beneish M-Score": (
+        "以八個會計指標篩選盈餘操縱型態的統計模型。高於 -1.78 本頁會警示，"
+        "但不是舞弊指控；高速成長公司容易出現偽陽性，必須回查原始財報。"),
+    "營收": "期間內銷售商品或服務所認列的收入，尚未扣除各類成本與費用。",
+    "淨利": "營收扣除營業成本、業外收支、利息與所得稅後的最終會計利潤。",
+    "毛利率": (
+        "（營收 − 銷貨成本）÷ 營收，反映定價、產品組合與直接成本控制能力；"
+        "應與同產業及公司自身歷史比較。"),
+    "營運現金流": "核心營運活動實際流入或流出的現金，可用來對照淨利的現金含量。",
+    "資本支出": "購置或建置廠房、設備等長期資產的現金支出，通常用於維持或擴充產能。",
+    "自由現金流": (
+        "本頁定義為營運現金流 − 資本支出，代表投資營運後可用於還債、回購、股利或再投資的現金。"),
+    "總資產": "資產負債表上由公司控制、預期帶來未來經濟效益的資源總額。",
+    "總負債": "公司對債權人與其他外部相對人的義務總額，不只包含會產生利息的借款。",
+    "股東權益": "總資產減去總負債後歸屬股東的帳面淨值。",
+    "DuPont 三因子拆解": (
+        "將 ROE 拆為淨利率 × 資產週轉率 × 權益乘數，用來判斷股東報酬來自獲利、資產效率或槓桿。"),
+    "蒙地卡羅 DCF": (
+        "在成長率與 WACC 等假設上進行多次隨機模擬的現金流折現法。"
+        "輸出是特定假設下的分佈，不是必然會達到的目標價。"),
+    "P25 ~ P75 主流區間": (
+        "蒙地卡羅結果的第 25 至第 75 百分位，中間 50% 模擬結果落在此區間；"
+        "它反映假設分佈，不是統計上的置信區間。"),
+    "中位數 P50": "蒙地卡羅結果的第 50 百分位，一半模擬值高於它、一半低於它；不等於目標價。",
+    "相對現價": (
+        "DCF 中位數相對目前股價的差幅。差距過大常表示模型假設與市場預期分歧，不應直接當作漲跌空間。"),
+    "現價隱含 FCF 年成長率": (
+        "在其他 DCF 假設不變時，反推出市場現價所要求的自由現金流年成長率，用來檢驗市場預期是否合理。"),
+    "Sortino Ratio": (
+        "超額報酬 ÷ 下行偏差，只將低於門檻報酬的波動視為風險。"
+        "同期間、同頻率、同門檻下數值越高通常越好；不同口徑不可直接比較。"),
+    "12 個月 Sortino": (
+        "近 12 個月的 Sortino Ratio；本頁以日報酬、MAR=0 計算，衡量每單位下行風險對應的報酬。"),
+    "近 3 年（週資料）": "以近 3 年週報酬計算的 Sortino Ratio，須與相同期間、頻率與門檻的結果比較。",
+    "近 5 年（週資料）": "以近 5 年週報酬計算的 Sortino Ratio，涵蓋較多市場循環，但仍受期間選擇影響。",
+    "近 12 個月（日資料 MAR=0）": "以近 12 個月日報酬、最低可接受報酬 MAR=0 計算的 Sortino Ratio。",
+    "同期無風險門檻版本": (
+        "以同期無風險利率作為最低可接受報酬的 Sortino Ratio，與 MAR=0 版本的口徑不同。"),
+    "稀釋每股盈餘": (
+        "淨利除以計入選擇權、可轉換證券等潛在稀釋效果後的加權平均股數。"),
+    "現金與短期投資": (
+        "現金、約當現金及流動性高的短期投資合計，是計算淨現金與企業價值的扣除項。"),
+    "有息負債總額": (
+        "借款、公司債、融資租賃等需支付利息的債務總額，不等於資產負債表的總負債。"),
+    "淨現金": "現金與短期投資減去有息負債。正值表示現金超過有息負債；負值則是淨負債。",
+    "庫藏股回購": (
+        "公司使用現金買回自家股票的金額。回購可減少股數，但是否創造價值仍取決於回購價格。"),
+    "現金股利": "公司以現金直接分配給股東的金額。",
+    "股東總殖利率": (
+        "（回購金額＋現金股利）÷ 市值，衡量當期透過回購與股利返還股東的比例；不包含股價漲跌。"),
+    "EV/EBITDA": (
+        "企業價值（EV）÷ 息稅折舊攤銷前利潤（EBITDA）。EV 約等於市值＋有息負債−現金與短期投資；"
+        "數值表示企業總價值是當期 EBITDA 的幾倍。較低可能較便宜，也可能反映低成長或高風險；"
+        "必須與同產業、相似資本密集度的公司比較，且 EBITDA 不等於現金流。"),
+}
+
+
+def term_label(label):
+    """Return an accessible hover/focus/tap target for known finance terms."""
+    shown = html.escape(label)
+    explanation = FINANCIAL_TERMS.get(label)
+    if not explanation:
+        return shown
+    escaped = html.escape(explanation, quote=True)
+    aria = html.escape(f"{label}：{explanation}", quote=True)
+    return (f'<span class="fin-term" tabindex="0" data-tooltip="{escaped}" '
+            f'aria-label="{aria}">{shown}<span class="term-icon" '
+            f'aria-hidden="true">i</span></span>')
+
 
 # --------------------------------------------------------------------------
 # data access
@@ -336,7 +450,7 @@ def rank_cards(ticker, ranks):
             shown = fmt_num(value)
         medal = "🥇" if pos == 1 else "🥈" if pos == 2 else "🥉" if pos == 3 else ""
         cards.append(
-            f'<div class="rank-card"><div class="rank-label">{html.escape(label)}</div>'
+            f'<div class="rank-card"><div class="rank-label">{term_label(label)}</div>'
             f'<div class="rank-pos">{medal} 第 {pos} / {total}</div>'
             f'<div class="rank-val">{shown}</div></div>')
     return "\n".join(cards)
@@ -346,14 +460,14 @@ def rank_cards(ticker, ranks):
 # generated sections
 
 def kpi(label, value, sub=""):
-    return (f'<div class="kpi-box"><div class="kpi-label">{html.escape(label)}</div>'
+    return (f'<div class="kpi-box"><div class="kpi-label">{term_label(label)}</div>'
             f'<div class="kpi-val">{value}</div>'
             f'<div class="kpi-sub">{html.escape(sub)}</div></div>')
 
 
 def metric(label, value, tone=""):
     cls = f"metric-card {tone}".strip()
-    return (f'<div class="{cls}"><div class="title">{html.escape(label)}</div>'
+    return (f'<div class="{cls}"><div class="title">{term_label(label)}</div>'
             f'<div class="value">{value}</div></div>')
 
 
@@ -505,6 +619,20 @@ border-radius:14px;padding:14px 16px}
 .metric-card.warn{border-color:rgba(251,191,36,.45);background:rgba(251,191,36,.08)}
 .metric-card .title{font-size:.775rem;color:var(--text-muted)}
 .metric-card .value{font-size:1.2rem;font-weight:800;color:#fff;margin-top:4px}
+.fin-term{display:inline-flex;align-items:center;gap:5px;color:inherit;cursor:help;
+position:relative;border-bottom:1px dotted rgba(148,163,184,.7);outline:none}
+.fin-term:focus-visible{color:#fff;border-bottom-color:var(--accent)}
+.term-icon{display:inline-grid;place-items:center;width:15px;height:15px;border-radius:50%;
+font:700 10px/1 'Outfit',sans-serif;color:var(--accent);border:1px solid rgba(56,189,248,.55);
+background:rgba(56,189,248,.08);flex:0 0 auto}
+.tooltip-hint{font-size:.82rem;color:var(--text-muted);margin:8px 0 14px}
+.finance-tooltip{position:fixed;z-index:9999;width:min(360px,calc(100vw - 32px));
+padding:12px 14px;border-radius:12px;border:1px solid rgba(56,189,248,.45);
+background:rgba(2,6,23,.98);box-shadow:0 14px 38px rgba(0,0,0,.55);color:#e5e7eb;
+font:400 .86rem/1.55 'Noto Sans TC','Outfit',sans-serif;pointer-events:none}
+.term-guide{margin-top:14px;padding:12px 14px;border-radius:12px;
+background:rgba(56,189,248,.07);border:1px solid rgba(56,189,248,.2)}
+.term-guide p{margin:5px 0 0;font-size:.82rem;color:var(--text-muted)}
 .rank-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
 .rank-card{background:rgba(0,0,0,.28);border:1px solid var(--card-border);
 border-radius:14px;padding:12px 14px}
@@ -554,6 +682,7 @@ def render(ticker, ctx):
     <div class="hero-title">
       <h1>{html.escape(ctx['name'])}（{ticker}）</h1>
       <div class="hero-subtitle">財務健全度、估值與下行風險 — 全部數據由 SEC XBRL 與實際收盤價產生</div>
+      <div class="tooltip-hint">ⓘ 滑鼠移到帶 i 的金融名詞，或用鍵盤聚焦，即可查看定義與判讀方法。</div>
       <div class="badge-sec">🛡️ {ctx['form']} · accession {html.escape(ctx['accession'])} · FY{ctx['fye']}</div>
     </div>
     <div class="hero-kpis">{ctx['hero']}</div>
@@ -585,18 +714,21 @@ def render(ticker, ctx):
     <div class="card">
       <h2>📊 損益、現金流與資產負債</h2>
       <div class="metric-group">{ctx['financials']}</div>
-      <h3>DuPont 三因子拆解</h3>
+      <h3>{term_label("DuPont 三因子拆解")}</h3>
       <div class="chart-container"><canvas id="dupontChart"></canvas></div>
     </div>
 
     <div class="card">
-      <h2>🎲 蒙地卡羅 DCF 估值分佈</h2>
+      <h2>🎲 {term_label("蒙地卡羅 DCF")} 估值分佈</h2>
       {ctx['dcf']}
       <div class="chart-container"><canvas id="dcfChart"></canvas></div>
+      <div class="term-guide"><strong>延伸估值名詞：{term_label("EV/EBITDA")}</strong>
+        <p>目前報告尚未顯示此數值：本庫有公司缺少可一致計算 EBITDA 的 SEC 科目，因此不以不完整資料進行跨公司比較。</p>
+      </div>
     </div>
 
     <div class="card">
-      <h2>📉 下行風險（Sortino Ratio）</h2>
+      <h2>📉 下行風險（{term_label("Sortino Ratio")}）</h2>
       <div class="metric-group">{ctx['sortino']}</div>
       <p class="note">三個數字的頻率、期間與門檻報酬率都不同，衡量的是不同的東西，不能互相驗證。</p>
     </div>
@@ -630,7 +762,58 @@ def render(ticker, ctx):
   </footer>
 </div>
 
+<div id="financeTooltip" class="finance-tooltip" role="tooltip" hidden></div>
+
 <script>
+const financeTooltip = document.getElementById('financeTooltip');
+let activeFinanceTerm = null;
+
+function placeFinanceTooltip(event) {{
+  if (!activeFinanceTerm || financeTooltip.hidden) return;
+  const pad = 12;
+  const rect = financeTooltip.getBoundingClientRect();
+  const anchor = activeFinanceTerm.getBoundingClientRect();
+  const pointerX = event && Number.isFinite(event.clientX)
+    ? event.clientX : anchor.left + anchor.width / 2;
+  const pointerY = event && Number.isFinite(event.clientY)
+    ? event.clientY : anchor.bottom;
+  let left = pointerX + 14;
+  let top = pointerY + 16;
+  if (left + rect.width > window.innerWidth - pad) left = window.innerWidth - rect.width - pad;
+  if (top + rect.height > window.innerHeight - pad) top = pointerY - rect.height - 14;
+  financeTooltip.style.left = Math.max(pad, left) + 'px';
+  financeTooltip.style.top = Math.max(pad, top) + 'px';
+}}
+
+function showFinanceTooltip(term, event) {{
+  activeFinanceTerm = term;
+  financeTooltip.textContent = term.dataset.tooltip;
+  financeTooltip.hidden = false;
+  placeFinanceTooltip(event);
+}}
+
+function hideFinanceTooltip(term) {{
+  if (term && term !== activeFinanceTerm) return;
+  financeTooltip.hidden = true;
+  activeFinanceTerm = null;
+}}
+
+document.querySelectorAll('.fin-term').forEach(term => {{
+  term.addEventListener('pointerenter', event => showFinanceTooltip(term, event));
+  term.addEventListener('pointermove', placeFinanceTooltip);
+  term.addEventListener('pointerleave', () => hideFinanceTooltip(term));
+  term.addEventListener('focus', event => showFinanceTooltip(term, event));
+  term.addEventListener('blur', () => hideFinanceTooltip(term));
+  term.addEventListener('click', event => {{
+    if (activeFinanceTerm === term && !financeTooltip.hidden) hideFinanceTooltip(term);
+    else showFinanceTooltip(term, event);
+  }});
+}});
+document.addEventListener('keydown', event => {{
+  if (event.key === 'Escape') hideFinanceTooltip();
+}});
+window.addEventListener('scroll', () => hideFinanceTooltip(), {{ passive: true }});
+
 Chart.defaults.color = '#9ca3af';
 Chart.defaults.borderColor = 'rgba(255,255,255,.07)';
 const noLegend = {{ plugins: {{ legend: {{ labels: {{ color: '#d1d5db' }} }} }},
