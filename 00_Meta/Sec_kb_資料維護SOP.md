@@ -57,7 +57,7 @@ SEC XBRL Company Facts API          Yahoo Finance (yfinance)
 
 20_Filings/*/sections/*Risk_Factors.md
         ↓ diff_risk_factors.py
-   risk_changes.json
+   risk_changes.json ──→ build_reports.py ←── risk_zh.json（繁中譯文，人類維護）
 ```
 
 這七支腳本必須**照這個順序**執行，後面的依賴前面的產出。
@@ -72,6 +72,7 @@ SEC XBRL Company Facts API          Yahoo Finance (yfinance)
 | `valuation.json` | `compute_valuation.py` | ❌ |
 | `*_report.html` | `build_reports.py` | ❌ **不准手改**，改了下次產生就被蓋掉 |
 | `risk_changes.json` | `diff_risk_factors.py` | ❌ |
+| `risk_zh.json` | **人類維護**（風險變化段落的繁中譯文） | ✅ 只能改 `zh` 欄；鍵是原文雜湊，不要手改 |
 | **`dcf_assumptions.json`** | **人類維護**（14 家現皆為 `estimate_dcf_inputs.py` 推導值） | ✅ **這是唯一允許手填數字的檔案**，但目前沒有手填值 |
 | `prices.json` | `fetch_price_history.py`（預設 6 年；含 `^IRX` 無風險利率） | ❌ |
 | `20_Filings/**` | `fetch_sec.py`（`--split-sections` 會拆出 Item 1A/1/7 原文） | ❌ |
@@ -452,6 +453,8 @@ print('市值/營收 異常:', bad or '無')
 | ONDS 的 EPS 用流通股數 | 它的稀釋股數標籤是 221,769，真實流通股 4.96 億，差 2,235 倍。市值本來就已改用封面數，EPS 先前漏改，曾顯示 **−$596.27**（真值 −$0.27） |
 | NOK 的資本支出含無形資產 | Nokia 的標籤是 PP&E ＋ 無形資產（不含商譽）＋ 投資性不動產的合計，比純 CapEx 廣，因此其 FCF 是較保守的一種定義 |
 | 風險比對只在 `fetch_sec.py` 抓了新申報後才需要重跑 | 排程不跑它 —— 股價變動不會改變風險章節。抓了新年度的原文後執行 `python3 scripts/diff_risk_factors.py` |
+| 抓了新申報後，風險變化會出現「尚未翻譯」 | **這是設計，不是錯誤**。譯文以原文摘錄的雜湊為鍵，新段落自然沒有譯文，頁面顯示原文並標示。執行 `python3 scripts/list_untranslated.py` 取得待翻清單，補進 `risk_zh.json` 後重跑 `build_reports.py`。**不要為了消除標示而改用機器直譯或刪掉該段** |
+| 中文譯文只涵蓋每段開頭（約 320 字元） | 頁面顯示的本來就是段落開頭；每段都附「原文」可展開，且展開的是**完整段落**，不是被截斷的那一段。判讀以原文為準 |
 | INTC／NOK／TSM 顯示「無法比對」 | 它們只有一個年度的原文拆解（其餘年度版面不同、抽取器拒絕輸出）。**不要為了湊出比對而放寬抽取規則** |
 | COHR 的新增／刪除數特別高（39／72） | 它把整個風險章節重編了（段落 145→109）。文字比對在大幅重組時會把改寫判成一增一刪。**這是方法的已知限制，報告上已標明「這是文字比對，不是語意比對」** |
 | 三個 Sortino 數值差很多 | **正常**。頻率（週/日）、期間（3年/5年/1年）、MAR 都不同，衡量的是不同的東西，**不准「統一」它們** |
@@ -503,6 +506,8 @@ DCF 不是事實。使用者若問「這檔值多少錢」，正確回答是：
 | `estimate_dcf_inputs.py` | 由 beta／Rf／Kd／營收 CAGR 推導 g 與 WACC（**只印出，不寫檔**） |
 | `compute_valuation.py` | 算本益比 / 淨現金 / DCF 蒙地卡羅 / 隱含成長率 → `valuation.json` |
 | `diff_risk_factors.py` | 比對風險因素的年度變化 → `risk_changes.json` |
+| `risk_translations.py` | 譯文的摘錄／雜湊／查找（被 `build_reports.py` 引用，不單獨執行） |
+| `list_untranslated.py` | 列出 `risk_zh.json` 還缺哪些段落的譯文 |
 | `build_reports.py` | 由 JSON ＋ thesis 質化章節產生 14 份 `*_report.html` |
 | `update_thesis_financials.py` | 更新 thesis 第二 ~ 五章 |
 | `fetch_price_history.py` | 抓日線收盤價（預設 6 年）→ `prices.json` |

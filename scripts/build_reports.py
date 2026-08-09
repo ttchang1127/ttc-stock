@@ -40,6 +40,8 @@ import re
 from datetime import datetime, timezone
 from pathlib import Path
 
+from risk_translations import load as load_translations, lookup as lookup_translation
+
 REPO_ROOT = Path(__file__).resolve().parent.parent
 THESIS_DIR = REPO_ROOT / "30_Analysis"
 
@@ -229,13 +231,31 @@ def risk_change_html(entry):
         return ('<p class="note">⚠️ 無法比對：{}。年度比對需要至少兩個年度的原文拆解。</p>'
                 .format(html.escape(entry.get("reason") or "原因不明")))
 
+    store = load_translations()
+
+    def entry_html(paragraph, sign, colour):
+        """譯文在前、原文收在 <details> 裡。原文永遠附上，不被譯文取代。"""
+        piece, zh = lookup_translation(store, paragraph)
+        original = html.escape(" ".join(paragraph.split()))
+        if zh:
+            head = html.escape(zh)
+            tail = ('<details style="margin-top:4px;"><summary style="color:#94a3b8; '
+                    'cursor:pointer; font-size:0.85em;">原文</summary>'
+                    f'<div style="color:#94a3b8; font-size:0.88em; margin-top:4px;">'
+                    f'{original}</div></details>')
+        else:
+            # 新申報書一定會帶進沒翻過的段落。顯示原文並說明，不留白，
+            # 也不用機器直譯充數。
+            head = (html.escape(piece)
+                    + ' <span style="color:#94a3b8; font-size:0.85em;">（尚未翻譯）</span>')
+            tail = ""
+        return (f'<li style="color:{colour}; margin:10px 0;">{sign} {head}{tail}</li>')
+
     def items(paras, sign, colour):
         if not paras:
             return f'<li style="color:#94a3b8;">{sign} 無</li>'
         shown = paras[:5]
-        out = "".join(
-            f'<li style="color:{colour}; margin:6px 0;">{sign} {html.escape(p[:260])}'
-            + ("…" if len(p) > 260 else "") + "</li>" for p in shown)
+        out = "".join(entry_html(p, sign, colour) for p in shown)
         if len(paras) > len(shown):
             out += (f'<li style="color:#94a3b8;">…另有 {len(paras) - len(shown)} 段，'
                     f'完整內容見原文拆解檔</li>')
@@ -253,7 +273,10 @@ def risk_change_html(entry):
         + '<h4 class="sub-heading">− 本年度不再列出</h4>'
         + f'<ul>{items(entry["removed"], "−", "#38bdf8")}</ul>'
         + f'<p class="note">{html.escape(entry["caveat"])} 判定方式：{html.escape(entry["basis"])}。'
-          f'其餘 {entry["unchanged"]} 段沿用、{entry["reworded"]} 段改寫。</p>')
+          f'其餘 {entry["unchanged"]} 段沿用、{entry["reworded"]} 段改寫。</p>'
+        + '<p class="note">🈯 中文為申報書原文段落開頭的譯文，收錄於 <code>risk_zh.json</code>，'
+          '<strong>是轉述而非官方翻譯</strong>；每段都附「原文」可展開對照，判讀請以原文為準。'
+          '譯文以原文的雜湊為鍵，申報書一改動，舊譯文即失效並顯示「尚未翻譯」。</p>')
 
 
 def check_unverifiable_claims(ticker, sections):
