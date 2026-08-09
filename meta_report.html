@@ -169,22 +169,24 @@ footer{text-align:center;color:var(--text-muted);font-size:.8rem;padding:28px 0}
     <div class="card card-full">
       <h2>⚠️ 核心風險因素</h2>
       <h4 class="sub-heading">1. 三大核心風險因素 (Item 1A Risk Factors)</h4>
-<ul><li><strong>💸 AI 伺服器建置天價 CapEx 支出飆升 ($696.9 億美元 CapEx)</strong>：為了訓練 Llama 4/5 與建置全網最大的 GPU 資料中心，FY2025 CapEx 飆升至 $696.9 億美元，折舊與資本支出短線壓抑自由現金流 (FCF)。
-</li><li><strong>🥽 Reality Labs 元宇宙部門持續鉅額營業虧損</strong>：Reality Labs (Quest VR / Ray-Ban AR 眼鏡) 部門每年虧損約 $160億~$180億美元，尚需數年時間證明硬體生態系的盈利變現。
+<ul><li><strong>💸 AI 伺服器建置天價 CapEx 支出飆升 (AI CapEx)</strong>：為了訓練 Llama 4/5 與建置大規模 GPU 資料中心，資本支出大幅攀升，折舊與資本支出短線壓抑自由現金流 (FCF)。金額與資本支出強度見第二節。
+</li><li><strong>🥽 Reality Labs 元宇宙部門持續鉅額營業虧損</strong>：Reality Labs (Quest VR / Ray-Ban AR 眼鏡) 部門連年鉅額虧損，尚需數年時間證明硬體生態系能否變現。（分部損益出自 10-K 分部附註，非本庫擷取的 XBRL 合併科目）
 </li><li><strong>⚖️ 青少年隱私與歐洲跨國數據法規反壟斷監管 (Privacy Regulation)</strong>：美國各州政府針對青少年社群隱私訴訟及歐盟 GDPR 跨國數據傳輸規範，可能面臨潛在天價罰款或合規限制。
 </li>
 </ul>
 <h4 class="sub-heading">2. 投資利弊與優劣勢矩陣 (Pros &amp; Cons Matrix)</h4>
+<p class="note">📌 本節不重複財務數字。第二節（財報體檢）、第四節（估值與籌碼面）、第五節（DCF）的數字由腳本自資料檔重算，本章則不會被腳本更新 —— 數字抄在這裡，資料一更新就會變成沒人發現的錯值。</p>
 <ul><li><strong>🟢 多頭優勢 (Pros / Bull Case)</strong>：
-<ul><li><strong>全美股七巨頭 MAG7 最低本益比 (P/E 23.7x)</strong>：估值安全邊際極高。
-</li><li><strong>32 億每日活躍用戶 (DAP) 網路效應</strong>：廣告現金牛持續提供充沛資金。
-</li><li><strong>全美股第 3 大 OCF 現金流巨獸 ($1,158 億)</strong>：現金創造力極致強悍。
-</li><li><strong>估值折價 20.3% (DCF P50 $698.74)</strong>：二級市場價格具極佳吸引力。
+<ul><li><strong>本益比是 MAG7 中最低的一家</strong>：七家（AAPL／MSFT／GOOGL／AMZN／NVDA／META／TSLA）全部都在本庫追蹤名單內，這個比較可以直接查證，倍數見第四節與報告頁的排名卡。
+</li><li><strong>龐大用戶基數帶來的網路效應</strong>：廣告現金牛持續提供充沛資金。（日活躍用戶數為公司揭露，非 XBRL 科目，本庫未收錄）
+</li><li><strong>營運現金流在本組合名列前茅</strong>：金額與排名見第二節。
+</li><li><strong>現價低於 DCF 中位數</strong>：折價幅度見第五節。這一節先前寫著「折價 20.3%」，是把當時的價格與當時的模型值凍住的結果，實際幅度已明顯不同。
 </li>
 </ul>
 </li><li><strong>🔴 空頭隱憂 (Cons / Bear Case)</strong>：
-<ul><li><strong>CapEx 建置投入近 $700 億美元</strong>：壓抑近季自由現金流表現。
-</li><li><strong>Reality Labs 部門長期虧損</strong>：硬體與元宇宙投資侵蝕整體淨利率。
+<ul><li><strong>CapEx 大幅投入壓抑自由現金流</strong>：資本支出佔營運現金流的比重見第二節。
+</li><li><strong>Reality Labs 部門長期虧損</strong>：硬體與元宇宙投資侵蝕整體淨利率。（分部損益為公司揭露，本庫只取合併數，未量化）
+</li><li><strong>12 個月 Sortino 為負</strong>：過去一年的下行風險補償是負的，見第三節 —— 這與「估值便宜」並不衝突，兩者衡量的是不同的事。
 </li>
 </ul>
 </li>
@@ -204,7 +206,7 @@ footer{text-align:center;color:var(--text-muted);font-size:.8rem;padding:28px 0}
   </div>
 
   <footer>
-    由 <code>scripts/build_reports.py</code> 於 2026-08-09 00:54 UTC 產生。<br>
+    由 <code>scripts/build_reports.py</code> 於 2026-08-09 01:18 UTC 產生。<br>
     本頁不含任何手動輸入的財務數字；質化章節除外，且已標示。<br>
     DCF 為特定假設下的推估，非事實，不構成投資建議。
   </footer>

@@ -178,6 +178,55 @@ def c8():
     return not bad, f"null 無說明：{bad or '無'}"
 
 
+@check("C-13", "thesis 第六章沒有抄寫會過期的財務數字")
+def c13():
+    """第六章是人寫的判斷，update_thesis_financials.py 從不改它。
+
+    所以數字一抄進去就凍住了。查核當下 13 家有 9 家的第六章本益比與同一頁
+    第四節不符（COHR 824.2x vs 1188.6x，ARM 283.2x vs 333.8x），其中兩家的
+    結論方向已經相反 —— NVDA 的「多頭優勢」寫著「現價 $200.75 較中位數
+    $313.44 折價 36.0%」，而第五節同時寫著現價高於中位數 47.5%；MSFT 寫著
+    「P/E 25.9x 高於 DCF 保守中位數」，實際已略低於中位數。
+
+    另有三家把「現金與短期投資總額」寫成「淨現金」：NOK 的 €54.6 億實際淨
+    現金只有 €10.5 億（有息負債 €44.1 億），差 5.2 倍。
+
+    因此這裡不比對數值，而是禁止數值出現：要引用就寫「見第二節」，讓讀者
+    看腳本重算過的那一份。年份、製程節點（2nm/18A）、規格（800G/1.6T）等
+    不會隨財報變動的數字不在此列。
+    """
+    patterns = [
+        (r"P/E[  ]?[\d.,]+ ?x|本益比[^。\n]{0,8}[\d.,]+ ?[x倍]", "本益比"),
+        (r"現價[  ]?\$[\d.,]+", "現價"),
+        (r"中位數[^。\n]{0,12}\$[\d.,]+|\$[\d.,]+[^。\n]{0,8}中位數", "DCF 中位數"),
+        (r"(?:折價|溢價|高於中位數|低於中位數)[^。\n]{0,6}[\d.]+ ?%", "與中位數的價差"),
+        (r"(?:毛利率|淨利率|ROE|ROIC|殖利率|Sortino[^。\n]{0,12})[^。\n]{0,10}[\d.]+ ?%",
+         "利潤率／報酬率"),
+        (r"F-Score[^。\n]{0,6}\d ?/ ?\d", "F-Score"),
+        # Sortino 是裸數字而非百分比，上一條的 % 抓不到它。
+        (r"Sortino[^。\n]{0,12}[\d]+\.[\d]+", "Sortino"),
+        (r"(?:淨現金|淨負債|自由現金流|FCF|OCF|營運現金流|CapEx|資本支出|庫藏股|債務)"
+         r"[^。\n]{0,16}[\$€][ ]?-?[\d.,]+[ ]?(?:億|百萬)?", "金額"),
+    ]
+    bad = []
+    for path in sorted((REPO_ROOT / "30_Analysis").glob("*_Master_Investment_Thesis_2026.md")):
+        text = path.read_text()
+        m = re.search(r"^## .*六、.*$", text, re.M)
+        if not m:
+            continue
+        section = text[m.start():].split("\n## ")[0]
+        for line in section.split("\n"):
+            # 說明「這裡先前寫著什麼、為什麼不再寫」的更正句需要引用舊值。
+            if "先前寫" in line or line.lstrip().startswith(">"):
+                continue
+            for pattern, label in patterns:
+                hit = re.search(pattern, line)
+                if hit:
+                    bad.append(f"{path.name.split('_')[0]}/{label}「{hit.group(0)}」")
+                    break
+    return not bad, f"第六章的過期數字：{bad or '無'}"
+
+
 @check("C-9", "報告等於生成器輸出（未被手改、未過期）")
 def c9():
     """Does every page on disk equal what the generator would produce now?

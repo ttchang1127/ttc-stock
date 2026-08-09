@@ -161,24 +161,26 @@ footer{text-align:center;color:var(--text-muted);font-size:.8rem;padding:28px 0}
       <h2>⚠️ 核心風險因素</h2>
       <h4 class="sub-heading">1. 三大核心風險因素 (Item 1A Risk Factors)</h4>
 <ul><li><strong>🥊 Broadcom (博通) 惡性價格競爭與 ASIC 訂單分流 (Broadcom ASIC Rivalry)</strong>：在客製化 AI ASIC 領域與龍頭 Broadcom (AVGO) 進行正面競爭。CSP 雲端巨頭常採用雙供應商策略，若 Broadcom 降價搶單，可能擠壓 Marvell 的客製化晶片毛利。
-</li><li><strong>💸 P/E 61.1x 高估值與 $39.7 億美元債務負擔 (Valuation &amp; Debt Friction)</strong>：目前本益比 61.1x 已反映極高的 AI 成長預期；此外因歷史並購 (Inphi / Innovium) 累積了 $39.7 億美元金融債務 (淨現金為 $-13.3 億美元)，利息支出負擔相對較大。
+</li><li><strong>💸 高估值與併購遺留的債務負擔 (Valuation &amp; Debt Friction)</strong>：本益比已反映極高的 AI 成長預期（見第四節）；此外因歷史併購 (Inphi / Innovium) 累積了可觀的有息負債，扣除現金後為淨負債（見第二節），利息支出負擔相對較大。
 </li><li><strong>📡 傳統企業網路與電信 5G 基礎設施景氣修正 (Legacy Enterprise Slowdown)</strong>：除了資料中心 AI 成長爆發外，傳統企業網路 (Enterprise Networking) 與電信基礎設施 (Carrier Infrastructure) 需求相對平淡，傳統業務復甦腳步可能拖累短期整體營收增速。
 </li>
 </ul>
 <h4 class="sub-heading">2. 投資利弊與優劣勢矩陣 (Pros &amp; Cons Matrix)</h4>
+<p class="note">📌 本節不重複財務數字。第二節（財報體檢）、第四節（估值與籌碼面）、第五節（DCF）的數字由腳本自資料檔重算，本章則不會被腳本更新 —— 數字抄在這裡，資料一更新就會變成沒人發現的錯值。</p>
 <ul><li><strong>🟢 多頭優勢 (Pros / Bull Case)</strong>：
-<ul><li><strong>雲端 Custom AI ASIC 雙雄地位</strong>：卡位四大雲端巨頭客製化晶片趨勢，直接受惠 AI 算力擴產。
-</li><li><strong>PAM4 800G/1.6T 光電轉接 DSP 絕對壟斷</strong>：掌控 AI 資料中心高速傳輸心臟。
-</li><li><strong>Piotroski F-Score 7/9 良好會計品質</strong>：會計獲利與營運現金流品質極度健康。
-</li><li><strong>12M 日線 Sortino Ratio 2.37</strong>：全持股中下行防禦與爆發力兼具的前三強標的。
-</li><li><strong>每年買回超 $20 億美元庫藏股</strong>：持續執行庫藏股回購回饋股東。
+<ul><li><strong>雲端客製化 AI ASIC 的主要供應商之一</strong>：卡位雲端巨頭的自研晶片趨勢，直接受惠 AI 算力擴產。
+</li><li><strong>PAM4 800G/1.6T 光電轉接 DSP 的既有地位</strong>：掌握 AI 資料中心高速傳輸的關鍵環節。
+</li><li><strong>Piotroski F-Score 屬本組合前段</strong>：會計獲利與營運現金流的品質健康，分數見第二節。
+</li><li><strong>12 個月 Sortino 在本組合前段</strong>：下行防禦與波段爆發兼具，見第三節。
+</li><li><strong>持續執行庫藏股買回</strong>：金額與股東報酬率見第四節。
 </li>
 </ul>
 </li><li><strong>🔴 空頭隱憂 (Cons / Bear Case)</strong>：
-<ul><li><strong>本益比 (P/E 61.1x) 處於高位</strong>：顯著高於 DCF 蒙地卡羅保守模型中位數 ($50.57)。
-</li><li><strong>Broadcom 競爭威脅強大</strong>：在 ASIC 與網通晶片領域面臨 Broadcom 價格與技術競爭。
-</li><li><strong>淨現金為負 ($-13.3 億美元)</strong>：負債 $39.7 億美元，資產負債表防禦力低於 NVDA/GOOG。
-</li><li><strong>傳統企業網通業務復甦緩慢</strong>：非 AI 資料中心業務成長動能較為平淡。
+<ul><li><strong>本益比處於高位且顯著高於 DCF 中位數</strong>：倍數與幅度見第四、五節。
+</li><li><strong>Broadcom 競爭威脅強大</strong>：在 ASIC 與網通晶片領域面臨其價格與技術競爭。
+</li><li><strong>為淨負債而非淨現金</strong>：資產負債表的防禦力低於同組的淨現金企業，金額見第二節。
+</li><li><strong>ROIC 低於資金成本</strong>：在本報告採用的 WACC 假設下為負價差，見第二節。
+</li><li><strong>傳統企業網通業務復甦緩慢</strong>：非 AI 資料中心業務的成長動能較為平淡。
 </li>
 </ul>
 </li>
@@ -198,7 +200,7 @@ footer{text-align:center;color:var(--text-muted);font-size:.8rem;padding:28px 0}
   </div>
 
   <footer>
-    由 <code>scripts/build_reports.py</code> 於 2026-08-09 00:54 UTC 產生。<br>
+    由 <code>scripts/build_reports.py</code> 於 2026-08-09 01:18 UTC 產生。<br>
     本頁不含任何手動輸入的財務數字；質化章節除外，且已標示。<br>
     DCF 為特定假設下的推估，非事實，不構成投資建議。
   </footer>

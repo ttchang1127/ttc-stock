@@ -162,22 +162,25 @@ footer{text-align:center;color:var(--text-muted);font-size:.8rem;padding:28px 0}
       <h2>⚠️ 核心風險因素</h2>
       <h4 class="sub-heading">1. 三大核心風險因素 (Item 1A Risk Factors)</h4>
 <ul><li><strong>🏭 Intel Foundry 18A / 14A 晶圓代工良率與產能開出風險 (Yield &amp; Execution Risk)</strong>：IFS 晶圓代工業務每年虧損數十億美元。18A 製程良率 (Yield) 與客戶外部下單 (如微軟/AWS) 進度若不如預期，天價 CapEx 建廠投資將造成巨大攤銷負擔。
-</li><li><strong>💸 自由現金流負數 ($-49.5 億美元) 與沉重債務拖累 (FCF Negative &amp; Debt)</strong>：每年投入 $146.5 億美元 CapEx 導致自由現金流為負數；加上 $465.9 億美元金融債務 (淨負債 $-227.8 億美元)，利息支出與現金消耗壓抑分紅能力。
+</li><li><strong>💸 自由現金流為負與沉重債務拖累 (FCF Negative &amp; Debt)</strong>：龐大的資本支出使自由現金流轉為負數；加上可觀的有息負債（扣除現金後仍為淨負債），利息支出與現金消耗壓抑分紅能力。三項金額皆見第二節。
 </li><li><strong>💻 x86 伺服器與 PC 市佔持續遭 AMD 與 Arm 陣營瓜分 (Market Share Erosion)</strong>：在傳統伺服器 CPU 領域面臨 AMD EPYC 強勢侵蝕；在 AI 高效能算力市場遠落後 NVIDIA GPU；在行動與輕薄 PC 端則遭遇 Arm 陣營競爭。
 </li>
 </ul>
 <h4 class="sub-heading">2. 投資利弊與優劣勢矩陣 (Pros &amp; Cons Matrix)</h4>
+<p class="note">📌 本節不重複財務數字。第二節（財報體檢）、第四節（估值與籌碼面）、第五節（DCF）的數字由腳本自資料檔重算，本章則不會被腳本更新 —— 數字抄在這裡，資料一更新就會變成沒人發現的錯值。</p>
 <ul><li><strong>🟢 多頭優勢 (Pros / Bull Case)</strong>：
-<ul><li><strong>美國晶片法案與本土戰略製造國防背書</strong>：獲美政府數百億美元直接支持。
-</li><li><strong>18A / RibbonFET 次世代製程反超契機</strong>：技術成功研發將帶動晶圓代工評級重估。
-</li><li><strong>近 12M Sortino 達 4.15 (全庫冠軍 👑)</strong>：谷底反彈時波段下行收益極強。
-</li><li><strong>本業經營現金流 OCF 高達 $96.97 億美元</strong>：本業獲利現金池依然穩固。
+<ul><li><strong>美國晶片法案與本土戰略製造的政策支持</strong>：獲美國政府直接補助與貸款支持。
+</li><li><strong>18A / RibbonFET 次世代製程的反超契機</strong>：技術若成功量產將帶動晶圓代工業務的評價重估。
+</li><li><strong>12 個月 Sortino 為本組合最高</strong>：谷底反彈期間的下行風險補償極強，見第三節。
+</li><li><strong>本業營運現金流仍為正</strong>：本業的現金池尚屬穩固，金額見第二節。
 </li>
 </ul>
 </li><li><strong>🔴 空頭隱憂 (Cons / Bear Case)</strong>：
-<ul><li><strong>自由現金流 FCF 為負 ($-49.5 億美元)</strong>：天價建廠支出吞噬現金。
-</li><li><strong>淨負債高達 $-227.8 億美元</strong>：債務負擔沉重，資本結構防禦力弱。
-</li><li><strong>晶圓代工 IFS 虧損持續擴大</strong>：需要數年時間證明代工產能利用率。
+<ul><li><strong>自由現金流為負</strong>：龐大的建廠支出吞噬現金，金額見第二節。
+</li><li><strong>為淨負債且規模可觀</strong>：債務負擔沉重，資本結構的防禦力弱。
+</li><li><strong>淨利為負，本益比與 DCF 皆無法計算</strong>：第四、五節會直接顯示「資料不足」而非給出數字。
+</li><li><strong>ROIC 低於資金成本</strong>：在本報告採用的 WACC 假設下為負價差，見第二節。
+</li><li><strong>晶圓代工 IFS 虧損持續</strong>：需要數年時間證明產能利用率。（分部損益出自 10-K 分部附註，本庫只取合併數）
 </li>
 </ul>
 </li>
@@ -197,7 +200,7 @@ footer{text-align:center;color:var(--text-muted);font-size:.8rem;padding:28px 0}
   </div>
 
   <footer>
-    由 <code>scripts/build_reports.py</code> 於 2026-08-08 14:33 UTC 產生。<br>
+    由 <code>scripts/build_reports.py</code> 於 2026-08-09 01:18 UTC 產生。<br>
     本頁不含任何手動輸入的財務數字；質化章節除外，且已標示。<br>
     DCF 為特定假設下的推估，非事實，不構成投資建議。
   </footer>

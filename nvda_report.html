@@ -176,19 +176,22 @@ footer{text-align:center;color:var(--text-muted);font-size:.8rem;padding:28px 0}
 </li>
 </ul>
 <h4 class="sub-heading">2. 投資利弊與優劣勢矩陣 (Pros &amp; Cons Matrix)</h4>
+<p class="note">📌 本節不重複財務數字。第二節（財報體檢）、第四節（估值與籌碼面）、第五節（DCF）的數字由腳本自資料檔重算，本章則不會被腳本更新 —— 數字抄在這裡，資料一更新就會變成沒人發現的錯值。</p>
 <ul><li><strong>🟢 多頭優勢 (Pros / Bull Case)</strong>：
 <ul><li><strong>CUDA 軟體護城河極度強悍</strong>：全球數百萬 AI 工程師生態系鎖定，切換成本高不可攀。
-</li><li><strong>Full-Stack DGX / NVLink 架構壟斷</strong>：提供晶片+網路+軟體全棧系統，競品無法比擬。
-</li><li><strong>歷史級別盈利能力</strong>：毛利率 <strong>71.07%</strong>、淨利率 <strong>55.60%</strong>，產生每年近千億美元 FCF。
-</li><li><strong>強大股東回饋機制</strong>：每年執行超 <strong>$400 億美元庫藏股買回</strong>，持續註銷股票提升 EPS。
-</li><li><strong>估值具安全邊際</strong>：現價 $200.75 較 DCF 蒙地卡羅估值中位數 ($313.44) 折價 36.0%。
+</li><li><strong>Full-Stack DGX / NVLink 架構壟斷</strong>：提供晶片＋網路＋軟體全棧系統，競品無法比擬。
+</li><li><strong>獲利能力在本組合中名列前茅</strong>：毛利率、淨利率、ROIC 與其對資金成本的價差見第二節，報告頁的排名卡會標出它在 14 家中的位置。
+</li><li><strong>股東回饋規模龐大</strong>：庫藏股買回金額與股東報酬率見第四節。
+</li><li><strong>自由現金流規模龐大</strong>：資本支出佔營運現金流的比重在本組合中屬低檔，絕大部分營運現金流會留下來，見第二節。
 </li>
 </ul>
 </li><li><strong>🔴 空頭隱憂 (Cons / Bear Case)</strong>：
-<ul><li><strong>本益比 (P/E 41.0x) 處於高位</strong>：市場對未來成長預期極高，若財報稍不如預期易引發短期波段修正。
-</li><li><strong>前四大客戶營收集中度高</strong>：微軟、Meta、AWS 等大客戶採購節奏對業績影響巨大。
-</li><li><strong>Piotroski F-Score 為 4/9</strong>：因前一年基期暴增，多項同比成長指標未獲計分（非財務健康問題）。
-</li><li><strong>供應鏈高度依賴台積電 (TSM)</strong>：GPU 與 CoWoS 封裝 100% 依賴台積電代工。
+<ul><li><strong>現價顯著高於 DCF 中位數</strong>：幅度見第五節。這一節先前寫著「折價 36%、具安全邊際」，是把 2026 年初的價格與當時的模型值凍在原地 —— 方向已經相反，<strong>不要把 DCF 中位數當成目標價</strong>。
+</li><li><strong>本益比處於高位</strong>：市場對未來成長預期極高，若財報稍不如預期易引發短期波段修正。倍數見第四節。
+</li><li><strong>前四大客戶營收集中度高</strong>：微軟、Meta、AWS 等大客戶的採購節奏對業績影響巨大。（客戶集中度為 10-K 揭露，本庫未量化）
+</li><li><strong>Piotroski F-Score 偏低</strong>：因前一年基期暴增，多項同比成長指標未獲計分（屬計分方式，非財務健康問題）。分數見第二節。
+</li><li><strong>供應鏈高度依賴台積電 (TSM)</strong>：GPU 與 CoWoS 封裝全數委由台積電代工。
+</li><li><strong>營運現金流低於淨利，應計項目為正且已超過門檻</strong>：這是本組合中少見的組合 —— 獲利成長極快時應收與存貨同步膨脹會造成這個結果，但它確實觸發了本庫的應計比率警示，見第二節「現金流品質」。<strong>這不是舞弊指控，是一個該追蹤的訊號。</strong>
 </li>
 </ul>
 </li>
@@ -208,7 +211,7 @@ footer{text-align:center;color:var(--text-muted);font-size:.8rem;padding:28px 0}
   </div>
 
   <footer>
-    由 <code>scripts/build_reports.py</code> 於 2026-08-09 00:54 UTC 產生。<br>
+    由 <code>scripts/build_reports.py</code> 於 2026-08-09 01:18 UTC 產生。<br>
     本頁不含任何手動輸入的財務數字；質化章節除外，且已標示。<br>
     DCF 為特定假設下的推估，非事實，不構成投資建議。
   </footer>
