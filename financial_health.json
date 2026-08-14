@@ -1,6 +1,6 @@
 {
- "generated_at": "2026-08-13T23:37:10+00:00",
- "financials_generated_at": "2026-08-13T23:37:09+00:00",
+ "generated_at": "2026-08-14T23:18:11+00:00",
+ "financials_generated_at": "2026-08-14T23:18:11+00:00",
  "source": "Derived from SEC XBRL Company Facts; WACC from dcf_assumptions.json",
  "thresholds": {
   "current_ratio_min": 1.0,
@@ -131,7 +131,7 @@
    },
    "freshness": {
     "fiscal_year_end": "2025-09-27",
-    "as_of": "2026-08-13",
+    "as_of": "2026-08-14",
     "months_old": 11,
     "stale": false,
     "threshold_months": 15,
@@ -285,7 +285,7 @@
    },
    "freshness": {
     "fiscal_year_end": "2025-12-31",
-    "as_of": "2026-08-13",
+    "as_of": "2026-08-14",
     "months_old": 8,
     "stale": false,
     "threshold_months": 15,
@@ -421,7 +421,7 @@
    },
    "freshness": {
     "fiscal_year_end": "2026-03-31",
-    "as_of": "2026-08-13",
+    "as_of": "2026-08-14",
     "months_old": 5,
     "stale": false,
     "threshold_months": 15,
@@ -446,54 +446,54 @@
   "COHR": {
    "entity_name": "COHERENT CORP.",
    "taxonomy": "us-gaap",
-   "fiscal_year_end": "2025-06-30",
-   "prior_fiscal_year_end": "2024-06-30",
+   "fiscal_year_end": "2026-06-30",
+   "prior_fiscal_year_end": "2025-06-30",
    "currency": "USD",
    "source_form": "10-K",
-   "source_accession": "0000820318-25-000014",
-   "source_filed": "2025-08-15",
+   "source_accession": "0000820318-26-000020",
+   "source_filed": "2026-08-14",
    "liquidity": {
-    "current_ratio": 2.19,
-    "cash_ratio": 0.51,
-    "working_capital": 2132313000,
-    "working_capital_to_assets": 0.143,
+    "current_ratio": 2.43,
+    "cash_ratio": 0.7,
+    "working_capital": 4071570000,
+    "working_capital_to_assets": 0.2225,
     "quick_ratio": null,
     "quick_ratio_reason": "未擷取存貨科目 (InventoryNet)，速動比率無法計算"
    },
    "solvency": {
-    "total_debt": 3686921000,
+    "total_debt": 3222224000,
     "total_debt_note": null,
     "debt_components": {
-     "長期借款": 3498615000,
-     "一年內到期借款": 188306000
+     "長期借款": 3214308000,
+     "一年內到期借款": 7916000
     },
-    "total_liabilities": 6429653000,
+    "total_liabilities": 7061652000,
     "liabilities_basis": "tag",
     "liabilities_note": null,
-    "net_debt": 2777721000,
-    "debt_to_equity": 0.653,
-    "liabilities_to_assets": 0.4312,
-    "equity_to_assets": 0.3785,
+    "net_debt": 1235206000,
+    "debt_to_equity": 0.296,
+    "liabilities_to_assets": 0.3859,
+    "equity_to_assets": 0.5958,
     "interest_coverage": null,
-    "interest_coverage_note": "已取得利息費用 243,251,000，但未取得營業利益標籤，分子缺漏故無法計算",
+    "interest_coverage_note": "已取得利息費用 190,267,000，但未取得營業利益標籤，分子缺漏故無法計算",
     "interest_expense_tag": "InterestExpenseOperating",
     "net_debt_to_ebit": null,
     "net_debt_to_ebit_note": "以 EBIT 為分母（未擷取折舊攤銷，無法計算 EBITDA）"
    },
    "profitability": {
-    "gross_margin": 0.3517,
+    "gross_margin": 0.375,
     "gross_margin_basis": "營收 − 銷貨成本（filer 未標記 GrossProfit）",
     "gross_margin_note": null,
     "operating_margin": null,
-    "net_margin": 0.0085,
-    "roa": 0.0033,
-    "roe": 0.0087,
-    "effective_tax_rate": 0.5,
-    "effective_tax_rate_note": "有效稅率 68.1% 落在合理區間外（通常來自稅務優惠、遞延稅資產認列或稅前虧損），已夾在 0%~50% 以計算 NOPAT",
+    "net_margin": 0.1131,
+    "roa": 0.044,
+    "roe": 0.0738,
+    "effective_tax_rate": 0.0718,
+    "effective_tax_rate_note": null,
     "nopat": null,
-    "invested_capital": 12395201000,
+    "invested_capital": 13466821000,
     "invested_capital_basis": "營運側：總資產 − 流動負債 + 一年內到期負債 − 現金與短期投資",
-    "invested_capital_financing_side": 8422235000,
+    "invested_capital_financing_side": 12138701000,
     "roic": null,
     "roic_note": "未取得營業利益標籤，NOPAT 與 ROIC 無法計算。「營收 − 總成本費用」不可用作替代：該差額等於稅前淨利而非營業利益",
     "wacc": 0.1707,
@@ -502,14 +502,14 @@
     "value_creation": null
    },
    "cash_flow_quality": {
-    "free_cash_flow": 192764000,
-    "fcf_margin": 0.0332,
-    "ocf_to_net_income": 12.835,
+    "free_cash_flow": -1023395000,
+    "fcf_margin": -0.1438,
+    "ocf_to_net_income": 0.099,
     "ocf_to_net_income_note": null,
-    "accrual_ratio": -0.0397,
+    "accrual_ratio": 0.0437,
     "accrual_ratio_basis": "(淨利 − 營運現金流) ÷ 平均總資產，Sloan (1996)",
-    "capex_to_ocf": 0.696,
-    "capex_intensity": 0.0759
+    "capex_to_ocf": 13.871,
+    "capex_intensity": 0.1549
    },
    "altman_z2": {
     "z2_score": null,
@@ -519,46 +519,52 @@
     "formula": "6.56*X1 + 3.26*X2 + 6.72*X3 + 1.05*X4"
    },
    "beneish_m": {
-    "m_score": -2.552,
+    "m_score": -1.999,
     "threshold": -1.78,
     "flagged": false,
     "indices": {
-     "DSRI": 0.9206,
-     "GMI": 0.8794,
-     "AQI": 0.9819,
-     "SGI": 1.2342,
-     "DEPI": 1.1034,
-     "SGAI": 0.879,
-     "LVGI": 0.9578,
-     "TATA": -0.0392
+     "DSRI": 1.1373,
+     "GMI": 0.9379,
+     "AQI": 0.7494,
+     "SGI": 1.2251,
+     "DEPI": 1.5811,
+     "SGAI": 0.9203,
+     "LVGI": 0.9341,
+     "TATA": 0.0396
     },
     "unavailable": [],
     "sources": {
      "depreciation_tag": "Depreciation",
-     "ppe_tag": "PropertyPlantAndEquipmentAndFinanceLeaseRightOfUseAssetAfterAccumulatedDepreciationAndAmortization",
+     "ppe_tag": "PropertyPlantAndEquipmentNet",
      "gross_profit_basis": "營收 − 銷貨成本（filer 未標記 GrossProfit）"
     },
     "growth_caveat": null,
     "interpretation": "低於 -1.78，未觸發模型門檻"
    },
    "piotroski": {
-    "score": 7,
+    "score": 6,
     "max_evaluated": 9,
     "unavailable": [],
-    "normalised_9": 7.0,
+    "normalised_9": 6.0,
     "comparable": true,
     "note": null
    },
    "freshness": {
-    "fiscal_year_end": "2025-06-30",
-    "as_of": "2026-08-13",
-    "months_old": 14,
+    "fiscal_year_end": "2026-06-30",
+    "as_of": "2026-08-14",
+    "months_old": 2,
     "stale": false,
     "threshold_months": 15,
     "note": null
    },
-   "flags": [],
-   "flag_count": 0,
+   "flags": [
+    {
+     "dimension": "現金流品質",
+     "severity": "warn",
+     "detail": "自由現金流為負，FCF 利潤率 -14.4%"
+    }
+   ],
+   "flag_count": 1,
    "coverage": {
     "computed": 7,
     "total": 11,
@@ -692,7 +698,7 @@
    },
    "freshness": {
     "fiscal_year_end": "2025-12-31",
-    "as_of": "2026-08-13",
+    "as_of": "2026-08-14",
     "months_old": 8,
     "stale": false,
     "threshold_months": 15,
@@ -826,7 +832,7 @@
    },
    "freshness": {
     "fiscal_year_end": "2025-12-27",
-    "as_of": "2026-08-13",
+    "as_of": "2026-08-14",
     "months_old": 8,
     "stale": false,
     "threshold_months": 15,
@@ -977,7 +983,7 @@
    },
    "freshness": {
     "fiscal_year_end": "2025-12-31",
-    "as_of": "2026-08-13",
+    "as_of": "2026-08-14",
     "months_old": 8,
     "stale": false,
     "threshold_months": 15,
@@ -1110,7 +1116,7 @@
    },
    "freshness": {
     "fiscal_year_end": "2026-01-31",
-    "as_of": "2026-08-13",
+    "as_of": "2026-08-14",
     "months_old": 7,
     "stale": false,
     "threshold_months": 15,
@@ -1255,7 +1261,7 @@
    },
    "freshness": {
     "fiscal_year_end": "2026-06-30",
-    "as_of": "2026-08-13",
+    "as_of": "2026-08-14",
     "months_old": 2,
     "stale": false,
     "threshold_months": 15,
@@ -1393,7 +1399,7 @@
    },
    "freshness": {
     "fiscal_year_end": "2025-12-31",
-    "as_of": "2026-08-13",
+    "as_of": "2026-08-14",
     "months_old": 8,
     "stale": false,
     "threshold_months": 15,
@@ -1533,7 +1539,7 @@
    },
    "freshness": {
     "fiscal_year_end": "2026-01-25",
-    "as_of": "2026-08-13",
+    "as_of": "2026-08-14",
     "months_old": 7,
     "stale": false,
     "threshold_months": 15,
@@ -1681,7 +1687,7 @@
    },
    "freshness": {
     "fiscal_year_end": "2025-12-31",
-    "as_of": "2026-08-13",
+    "as_of": "2026-08-14",
     "months_old": 8,
     "stale": false,
     "threshold_months": 15,
@@ -1843,7 +1849,7 @@
    },
    "freshness": {
     "fiscal_year_end": "2025-12-31",
-    "as_of": "2026-08-13",
+    "as_of": "2026-08-14",
     "months_old": 8,
     "stale": false,
     "threshold_months": 15,
@@ -1987,7 +1993,7 @@
    },
    "freshness": {
     "fiscal_year_end": "2025-12-31",
-    "as_of": "2026-08-13",
+    "as_of": "2026-08-14",
     "months_old": 8,
     "stale": false,
     "threshold_months": 15,
