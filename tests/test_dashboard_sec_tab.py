@@ -31,6 +31,10 @@ class DashboardSecTabTests(unittest.TestCase):
         self.assertIn("details.quarterly", self.html)
         self.assertIn('id="secQuarterlyTicker"', self.html)
         self.assertIn('id="secQuarterlyTrendBody"', self.html)
+        self.assertIn('id="secFilingsTicker"', self.html)
+        self.assertIn('id="secTradesTicker"', self.html)
+        self.assertIn('id="secDilutionTicker"', self.html)
+        self.assertIn("function setSecTableTicker(section, ticker)", self.html)
 
     def test_numeric_meanings_are_explained(self):
         required_copy = [
@@ -72,11 +76,20 @@ class DashboardSecTabTests(unittest.TestCase):
         companies = self.quarterly["companies"]
         self.assertEqual(len(companies), 14)
         self.assertGreaterEqual(len(companies["ONDS"]["periods"]), 8)
+        self.assertEqual(companies["ARM"]["status"], "available")
+        self.assertGreaterEqual(len(companies["ARM"]["periods"]), 8)
         self.assertEqual(companies["TSM"]["status"], "foreign_unavailable")
         self.assertEqual(companies["TSM"]["periods"], [])
+        self.assertTrue(companies["TSM"]["official_results_url"].startswith("https://investor.tsmc.com/"))
         q4 = next(period for period in companies["ONDS"]["periods"] if period["q4_derived"])
         self.assertIsNone(q4["values"]["diluted_eps"])
         self.assertIsNone(q4["values"]["diluted_shares"])
+
+    def test_foreign_quarterly_sources_and_compact_warning_are_explained(self):
+        self.assertIn("ARM 的 6-K 有季度 XBRL，已納入", self.html)
+        self.assertIn("開啟官方季度財報", self.html)
+        self.assertIn('class="sec-warning-icon"', self.html)
+        self.assertIn('title="${escapeSec(period.quality_notes.join(\' \'))}"', self.html)
 
     def test_current_personal_holdings_are_embedded(self):
         expected = [

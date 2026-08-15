@@ -1,13 +1,14 @@
 {
  "source": "SEC XBRL Company Facts API (data.sec.gov/api/xbrl/companyfacts)",
  "methodology": {
-  "q4": "10-K 全年流量減同一會計年度前三季累計；EPS 與加權平均稀釋股數不相減。",
+  "q4": "10-K／20-F 全年流量減同一會計年度前三季累計；EPS 與加權平均稀釋股數不相減。",
   "foreign_issuers": "6-K／20-F 無一致 SEC 單季 Company Facts 時保留缺值，不估算。"
  },
  "companies": {
   "AAPL": {
    "status": "available",
    "reason": null,
+   "official_results_url": null,
    "periods": [
     {
      "period_end": "2026-06-27",
@@ -254,35 +255,35 @@
        "unit": "USD",
        "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "gross_profit": {
        "value": 48341000000,
        "unit": "USD",
        "tag": "GrossProfit",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "cogs": {
        "value": 54125000000,
        "unit": "USD",
        "tag": "CostOfGoodsAndServicesSold",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "operating_income": {
        "value": 32427000000,
        "unit": "USD",
        "tag": "OperatingIncomeLoss",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "net_income": {
        "value": 27466000000,
        "unit": "USD",
        "tag": "NetIncomeLoss",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "diluted_eps": null,
       "operating_cash_flow": {
@@ -550,35 +551,35 @@
        "unit": "USD",
        "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "gross_profit": {
        "value": 43879000000,
        "unit": "USD",
        "tag": "GrossProfit",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "cogs": {
        "value": 51051000000,
        "unit": "USD",
        "tag": "CostOfGoodsAndServicesSold",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "operating_income": {
        "value": 29591000000,
        "unit": "USD",
        "tag": "OperatingIncomeLoss",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "net_income": {
        "value": 14736000000,
        "unit": "USD",
        "tag": "NetIncomeLoss",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "diluted_eps": null,
       "operating_cash_flow": {
@@ -846,35 +847,35 @@
        "unit": "USD",
        "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "gross_profit": {
        "value": 40427000000,
        "unit": "USD",
        "tag": "GrossProfit",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "cogs": {
        "value": 49071000000,
        "unit": "USD",
        "tag": "CostOfGoodsAndServicesSold",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "operating_income": {
        "value": 26969000000,
        "unit": "USD",
        "tag": "OperatingIncomeLoss",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "net_income": {
        "value": 22956000000,
        "unit": "USD",
        "tag": "NetIncomeLoss",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "diluted_eps": null,
       "operating_cash_flow": {
@@ -902,6 +903,7 @@
   "AMZN": {
    "status": "available",
    "reason": null,
+   "official_results_url": null,
    "periods": [
     {
      "period_end": "2026-06-30",
@@ -1071,7 +1073,7 @@
        "unit": "USD",
        "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "gross_profit": {
        "value": 103427000000,
@@ -1085,21 +1087,21 @@
        "unit": "USD",
        "tag": "CostOfGoodsAndServicesSold",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "operating_income": {
        "value": 24977000000,
        "unit": "USD",
        "tag": "OperatingIncomeLoss",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "net_income": {
        "value": 21192000000,
        "unit": "USD",
        "tag": "NetIncomeLoss",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "diluted_eps": null,
       "operating_cash_flow": {
@@ -1367,7 +1369,7 @@
        "unit": "USD",
        "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "gross_profit": {
        "value": 88899000000,
@@ -1381,21 +1383,21 @@
        "unit": "USD",
        "tag": "CostOfGoodsAndServicesSold",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "operating_income": {
        "value": 21203000000,
        "unit": "USD",
        "tag": "OperatingIncomeLoss",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "net_income": {
        "value": 20004000000,
        "unit": "USD",
        "tag": "NetIncomeLoss",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "diluted_eps": null,
       "operating_cash_flow": {
@@ -1663,7 +1665,7 @@
        "unit": "USD",
        "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "gross_profit": {
        "value": 77408000000,
@@ -1677,21 +1679,21 @@
        "unit": "USD",
        "tag": "CostOfGoodsAndServicesSold",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "operating_income": {
        "value": 13209000000,
        "unit": "USD",
        "tag": "OperatingIncomeLoss",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "net_income": {
        "value": 10624000000,
        "unit": "USD",
        "tag": "NetIncomeLoss",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "diluted_eps": null,
       "operating_cash_flow": {
@@ -1794,13 +1796,904 @@
    ]
   },
   "ARM": {
-   "status": "foreign_unavailable",
-   "reason": "外國私人發行人的 6-K／20-F 未提供可直接比較的 SEC 單季 Company Facts；不估算。",
-   "periods": []
+   "status": "available",
+   "reason": null,
+   "official_results_url": "https://investors.arm.com/financials/quarterly-annual-results",
+   "periods": [
+    {
+     "period_end": "2026-06-30",
+     "filing_date": "2026-07-29",
+     "form": "6-K",
+     "accession": "0001973239-26-000114",
+     "url": "https://www.sec.gov/Archives/edgar/data/1973239/000197323926000114/0001973239-26-000114-index.html",
+     "q4_derived": false,
+     "quality_notes": [],
+     "values": {
+      "revenue": {
+       "value": 1289000000,
+       "unit": "USD",
+       "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+       "derived": false,
+       "derivation": null
+      },
+      "gross_profit": {
+       "value": 1253000000,
+       "unit": "USD",
+       "tag": "GrossProfit",
+       "derived": false,
+       "derivation": null
+      },
+      "cogs": {
+       "value": 36000000,
+       "unit": "USD",
+       "tag": "CostOfRevenue",
+       "derived": false,
+       "derivation": null
+      },
+      "operating_income": {
+       "value": 91000000,
+       "unit": "USD",
+       "tag": "OperatingIncomeLoss",
+       "derived": false,
+       "derivation": null
+      },
+      "net_income": {
+       "value": 270000000,
+       "unit": "USD",
+       "tag": "NetIncomeLoss",
+       "derived": false,
+       "derivation": null
+      },
+      "diluted_eps": {
+       "value": 0.25,
+       "unit": "USD/shares",
+       "tag": "EarningsPerShareDiluted",
+       "derived": false,
+       "derivation": null
+      },
+      "operating_cash_flow": {
+       "value": 902000000,
+       "unit": "USD",
+       "tag": "NetCashProvidedByUsedInOperatingActivities",
+       "derived": false,
+       "derivation": null
+      },
+      "capex": {
+       "value": 197000000,
+       "unit": "USD",
+       "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+       "derived": false,
+       "derivation": null
+      },
+      "diluted_shares": {
+       "value": 1078000000,
+       "unit": "shares",
+       "tag": "WeightedAverageNumberOfDilutedSharesOutstanding",
+       "derived": false,
+       "derivation": null
+      },
+      "gross_margin": 0.9720713731574864,
+      "operating_margin": 0.07059736229635376,
+      "free_cash_flow": 705000000
+     }
+    },
+    {
+     "period_end": "2026-03-31",
+     "filing_date": "2026-05-26",
+     "form": "20-F",
+     "accession": "0001973239-26-000097",
+     "url": "https://www.sec.gov/Archives/edgar/data/1973239/000197323926000097/0001973239-26-000097-index.html",
+     "q4_derived": true,
+     "quality_notes": [],
+     "values": {
+      "revenue": {
+       "value": 1490000000,
+       "unit": "USD",
+       "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+       "derived": true,
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
+      },
+      "gross_profit": {
+       "value": 1458000000,
+       "unit": "USD",
+       "tag": "GrossProfit",
+       "derived": true,
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
+      },
+      "cogs": {
+       "value": 32000000,
+       "unit": "USD",
+       "tag": "CostOfRevenue",
+       "derived": true,
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
+      },
+      "operating_income": {
+       "value": 438000000,
+       "unit": "USD",
+       "tag": "OperatingIncomeLoss",
+       "derived": true,
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
+      },
+      "net_income": {
+       "value": 313000000,
+       "unit": "USD",
+       "tag": "NetIncomeLoss",
+       "derived": true,
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
+      },
+      "diluted_eps": null,
+      "operating_cash_flow": {
+       "value": 260000000,
+       "unit": "USD",
+       "tag": "NetCashProvidedByUsedInOperatingActivities",
+       "derived": true,
+       "derivation": "本期累計值減前一期累計值"
+      },
+      "capex": {
+       "value": 74000000,
+       "unit": "USD",
+       "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+       "derived": true,
+       "derivation": "本期累計值減前一期累計值"
+      },
+      "diluted_shares": null,
+      "gross_margin": 0.978523489932886,
+      "operating_margin": 0.29395973154362415,
+      "free_cash_flow": 186000000
+     }
+    },
+    {
+     "period_end": "2025-12-31",
+     "filing_date": "2026-02-04",
+     "form": "6-K",
+     "accession": "0001973239-26-000006",
+     "url": "https://www.sec.gov/Archives/edgar/data/1973239/000197323926000006/0001973239-26-000006-index.html",
+     "q4_derived": false,
+     "quality_notes": [],
+     "values": {
+      "revenue": {
+       "value": 1242000000,
+       "unit": "USD",
+       "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+       "derived": false,
+       "derivation": null
+      },
+      "gross_profit": {
+       "value": 1212000000,
+       "unit": "USD",
+       "tag": "GrossProfit",
+       "derived": false,
+       "derivation": null
+      },
+      "cogs": {
+       "value": 30000000,
+       "unit": "USD",
+       "tag": "CostOfRevenue",
+       "derived": false,
+       "derivation": null
+      },
+      "operating_income": {
+       "value": 185000000,
+       "unit": "USD",
+       "tag": "OperatingIncomeLoss",
+       "derived": false,
+       "derivation": null
+      },
+      "net_income": {
+       "value": 223000000,
+       "unit": "USD",
+       "tag": "NetIncomeLoss",
+       "derived": false,
+       "derivation": null
+      },
+      "diluted_eps": {
+       "value": 0.21,
+       "unit": "USD/shares",
+       "tag": "EarningsPerShareDiluted",
+       "derived": false,
+       "derivation": null
+      },
+      "operating_cash_flow": {
+       "value": 365000000,
+       "unit": "USD",
+       "tag": "NetCashProvidedByUsedInOperatingActivities",
+       "derived": true,
+       "derivation": "本期累計值減前一期累計值"
+      },
+      "capex": {
+       "value": 179000000,
+       "unit": "USD",
+       "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+       "derived": true,
+       "derivation": "本期累計值減前一期累計值"
+      },
+      "diluted_shares": {
+       "value": 1069000000,
+       "unit": "shares",
+       "tag": "WeightedAverageNumberOfDilutedSharesOutstanding",
+       "derived": false,
+       "derivation": null
+      },
+      "gross_margin": 0.9758454106280193,
+      "operating_margin": 0.14895330112721417,
+      "free_cash_flow": 186000000
+     }
+    },
+    {
+     "period_end": "2025-09-30",
+     "filing_date": "2025-11-05",
+     "form": "6-K",
+     "accession": "0001973239-25-000043",
+     "url": "https://www.sec.gov/Archives/edgar/data/1973239/000197323925000043/0001973239-25-000043-index.html",
+     "q4_derived": false,
+     "quality_notes": [],
+     "values": {
+      "revenue": {
+       "value": 1135000000,
+       "unit": "USD",
+       "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+       "derived": false,
+       "derivation": null
+      },
+      "gross_profit": {
+       "value": 1106000000,
+       "unit": "USD",
+       "tag": "GrossProfit",
+       "derived": false,
+       "derivation": null
+      },
+      "cogs": {
+       "value": 29000000,
+       "unit": "USD",
+       "tag": "CostOfRevenue",
+       "derived": false,
+       "derivation": null
+      },
+      "operating_income": {
+       "value": 163000000,
+       "unit": "USD",
+       "tag": "OperatingIncomeLoss",
+       "derived": false,
+       "derivation": null
+      },
+      "net_income": {
+       "value": 238000000,
+       "unit": "USD",
+       "tag": "NetIncomeLoss",
+       "derived": false,
+       "derivation": null
+      },
+      "diluted_eps": {
+       "value": 0.22,
+       "unit": "USD/shares",
+       "tag": "EarningsPerShareDiluted",
+       "derived": false,
+       "derivation": null
+      },
+      "operating_cash_flow": {
+       "value": 567000000,
+       "unit": "USD",
+       "tag": "NetCashProvidedByUsedInOperatingActivities",
+       "derived": true,
+       "derivation": "本期累計值減前一期累計值"
+      },
+      "capex": {
+       "value": 138000000,
+       "unit": "USD",
+       "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+       "derived": true,
+       "derivation": "本期累計值減前一期累計值"
+      },
+      "diluted_shares": {
+       "value": 1069000000,
+       "unit": "shares",
+       "tag": "WeightedAverageNumberOfDilutedSharesOutstanding",
+       "derived": false,
+       "derivation": null
+      },
+      "gross_margin": 0.9744493392070485,
+      "operating_margin": 0.1436123348017621,
+      "free_cash_flow": 429000000
+     }
+    },
+    {
+     "period_end": "2025-06-30",
+     "filing_date": "2026-07-29",
+     "form": "6-K",
+     "accession": "0001973239-26-000114",
+     "url": "https://www.sec.gov/Archives/edgar/data/1973239/000197323926000114/0001973239-26-000114-index.html",
+     "q4_derived": false,
+     "quality_notes": [],
+     "values": {
+      "revenue": {
+       "value": 1053000000,
+       "unit": "USD",
+       "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+       "derived": false,
+       "derivation": null
+      },
+      "gross_profit": {
+       "value": 1023000000,
+       "unit": "USD",
+       "tag": "GrossProfit",
+       "derived": false,
+       "derivation": null
+      },
+      "cogs": {
+       "value": 30000000,
+       "unit": "USD",
+       "tag": "CostOfRevenue",
+       "derived": false,
+       "derivation": null
+      },
+      "operating_income": {
+       "value": 114000000,
+       "unit": "USD",
+       "tag": "OperatingIncomeLoss",
+       "derived": false,
+       "derivation": null
+      },
+      "net_income": {
+       "value": 130000000,
+       "unit": "USD",
+       "tag": "NetIncomeLoss",
+       "derived": false,
+       "derivation": null
+      },
+      "diluted_eps": {
+       "value": 0.12,
+       "unit": "USD/shares",
+       "tag": "EarningsPerShareDiluted",
+       "derived": false,
+       "derivation": null
+      },
+      "operating_cash_flow": {
+       "value": 332000000,
+       "unit": "USD",
+       "tag": "NetCashProvidedByUsedInOperatingActivities",
+       "derived": false,
+       "derivation": null
+      },
+      "capex": {
+       "value": 154000000,
+       "unit": "USD",
+       "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+       "derived": false,
+       "derivation": null
+      },
+      "diluted_shares": {
+       "value": 1065000000,
+       "unit": "shares",
+       "tag": "WeightedAverageNumberOfDilutedSharesOutstanding",
+       "derived": false,
+       "derivation": null
+      },
+      "gross_margin": 0.9715099715099715,
+      "operating_margin": 0.10826210826210826,
+      "free_cash_flow": 178000000
+     }
+    },
+    {
+     "period_end": "2025-03-31",
+     "filing_date": "2026-05-26",
+     "form": "20-F",
+     "accession": "0001973239-26-000097",
+     "url": "https://www.sec.gov/Archives/edgar/data/1973239/000197323926000097/0001973239-26-000097-index.html",
+     "q4_derived": true,
+     "quality_notes": [],
+     "values": {
+      "revenue": {
+       "value": 1241000000,
+       "unit": "USD",
+       "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+       "derived": true,
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
+      },
+      "gross_profit": {
+       "value": 1213000000,
+       "unit": "USD",
+       "tag": "GrossProfit",
+       "derived": true,
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
+      },
+      "cogs": {
+       "value": 28000000,
+       "unit": "USD",
+       "tag": "CostOfRevenue",
+       "derived": true,
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
+      },
+      "operating_income": {
+       "value": 410000000,
+       "unit": "USD",
+       "tag": "OperatingIncomeLoss",
+       "derived": true,
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
+      },
+      "net_income": {
+       "value": 210000000,
+       "unit": "USD",
+       "tag": "NetIncomeLoss",
+       "derived": true,
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
+      },
+      "diluted_eps": null,
+      "operating_cash_flow": {
+       "value": 258000000,
+       "unit": "USD",
+       "tag": "NetCashProvidedByUsedInOperatingActivities",
+       "derived": true,
+       "derivation": "本期累計值減前一期累計值"
+      },
+      "capex": {
+       "value": 74000000,
+       "unit": "USD",
+       "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+       "derived": true,
+       "derivation": "本期累計值減前一期累計值"
+      },
+      "diluted_shares": null,
+      "gross_margin": 0.9774375503626108,
+      "operating_margin": 0.330378726833199,
+      "free_cash_flow": 184000000
+     }
+    },
+    {
+     "period_end": "2024-12-31",
+     "filing_date": "2026-02-04",
+     "form": "6-K",
+     "accession": "0001973239-26-000006",
+     "url": "https://www.sec.gov/Archives/edgar/data/1973239/000197323926000006/0001973239-26-000006-index.html",
+     "q4_derived": false,
+     "quality_notes": [],
+     "values": {
+      "revenue": {
+       "value": 983000000,
+       "unit": "USD",
+       "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+       "derived": false,
+       "derivation": null
+      },
+      "gross_profit": {
+       "value": 955000000,
+       "unit": "USD",
+       "tag": "GrossProfit",
+       "derived": false,
+       "derivation": null
+      },
+      "cogs": {
+       "value": 28000000,
+       "unit": "USD",
+       "tag": "CostOfRevenue",
+       "derived": false,
+       "derivation": null
+      },
+      "operating_income": {
+       "value": 175000000,
+       "unit": "USD",
+       "tag": "OperatingIncomeLoss",
+       "derived": false,
+       "derivation": null
+      },
+      "net_income": {
+       "value": 252000000,
+       "unit": "USD",
+       "tag": "NetIncomeLoss",
+       "derived": false,
+       "derivation": null
+      },
+      "diluted_eps": {
+       "value": 0.24,
+       "unit": "USD/shares",
+       "tag": "EarningsPerShareDiluted",
+       "derived": false,
+       "derivation": null
+      },
+      "operating_cash_flow": {
+       "value": 423000000,
+       "unit": "USD",
+       "tag": "NetCashProvidedByUsedInOperatingActivities",
+       "derived": true,
+       "derivation": "本期累計值減前一期累計值"
+      },
+      "capex": {
+       "value": 63000000,
+       "unit": "USD",
+       "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+       "derived": true,
+       "derivation": "本期累計值減前一期累計值"
+      },
+      "diluted_shares": {
+       "value": 1064000000,
+       "unit": "shares",
+       "tag": "WeightedAverageNumberOfDilutedSharesOutstanding",
+       "derived": false,
+       "derivation": null
+      },
+      "gross_margin": 0.9715157680569685,
+      "operating_margin": 0.1780264496439471,
+      "free_cash_flow": 360000000
+     }
+    },
+    {
+     "period_end": "2024-09-30",
+     "filing_date": "2025-11-05",
+     "form": "6-K",
+     "accession": "0001973239-25-000043",
+     "url": "https://www.sec.gov/Archives/edgar/data/1973239/000197323925000043/0001973239-25-000043-index.html",
+     "q4_derived": false,
+     "quality_notes": [],
+     "values": {
+      "revenue": {
+       "value": 844000000,
+       "unit": "USD",
+       "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+       "derived": false,
+       "derivation": null
+      },
+      "gross_profit": {
+       "value": 812000000,
+       "unit": "USD",
+       "tag": "GrossProfit",
+       "derived": false,
+       "derivation": null
+      },
+      "cogs": {
+       "value": 32000000,
+       "unit": "USD",
+       "tag": "CostOfRevenue",
+       "derived": false,
+       "derivation": null
+      },
+      "operating_income": {
+       "value": 64000000,
+       "unit": "USD",
+       "tag": "OperatingIncomeLoss",
+       "derived": false,
+       "derivation": null
+      },
+      "net_income": {
+       "value": 107000000,
+       "unit": "USD",
+       "tag": "NetIncomeLoss",
+       "derived": false,
+       "derivation": null
+      },
+      "diluted_eps": {
+       "value": 0.1,
+       "unit": "USD/shares",
+       "tag": "EarningsPerShareDiluted",
+       "derived": false,
+       "derivation": null
+      },
+      "operating_cash_flow": {
+       "value": 6000000,
+       "unit": "USD",
+       "tag": "NetCashProvidedByUsedInOperatingActivities",
+       "derived": true,
+       "derivation": "本期累計值減前一期累計值"
+      },
+      "capex": {
+       "value": 53000000,
+       "unit": "USD",
+       "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+       "derived": true,
+       "derivation": "本期累計值減前一期累計值"
+      },
+      "diluted_shares": {
+       "value": 1063000000,
+       "unit": "shares",
+       "tag": "WeightedAverageNumberOfDilutedSharesOutstanding",
+       "derived": false,
+       "derivation": null
+      },
+      "gross_margin": 0.9620853080568721,
+      "operating_margin": 0.07582938388625593,
+      "free_cash_flow": -47000000
+     }
+    },
+    {
+     "period_end": "2024-06-30",
+     "filing_date": "2025-07-30",
+     "form": "6-K",
+     "accession": "0001973239-25-000024",
+     "url": "https://www.sec.gov/Archives/edgar/data/1973239/000197323925000024/0001973239-25-000024-index.html",
+     "q4_derived": false,
+     "quality_notes": [],
+     "values": {
+      "revenue": {
+       "value": 939000000,
+       "unit": "USD",
+       "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+       "derived": false,
+       "derivation": null
+      },
+      "gross_profit": {
+       "value": 906000000,
+       "unit": "USD",
+       "tag": "GrossProfit",
+       "derived": false,
+       "derivation": null
+      },
+      "cogs": {
+       "value": 33000000,
+       "unit": "USD",
+       "tag": "CostOfRevenue",
+       "derived": false,
+       "derivation": null
+      },
+      "operating_income": {
+       "value": 182000000,
+       "unit": "USD",
+       "tag": "OperatingIncomeLoss",
+       "derived": false,
+       "derivation": null
+      },
+      "net_income": {
+       "value": 223000000,
+       "unit": "USD",
+       "tag": "NetIncomeLoss",
+       "derived": false,
+       "derivation": null
+      },
+      "diluted_eps": {
+       "value": 0.21,
+       "unit": "USD/shares",
+       "tag": "EarningsPerShareDiluted",
+       "derived": false,
+       "derivation": null
+      },
+      "operating_cash_flow": {
+       "value": -290000000,
+       "unit": "USD",
+       "tag": "NetCashProvidedByUsedInOperatingActivities",
+       "derived": false,
+       "derivation": null
+      },
+      "capex": {
+       "value": 29000000,
+       "unit": "USD",
+       "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+       "derived": false,
+       "derivation": null
+      },
+      "diluted_shares": {
+       "value": 1060000000,
+       "unit": "shares",
+       "tag": "WeightedAverageNumberOfDilutedSharesOutstanding",
+       "derived": false,
+       "derivation": null
+      },
+      "gross_margin": 0.9648562300319489,
+      "operating_margin": 0.19382321618743345,
+      "free_cash_flow": -319000000
+     }
+    },
+    {
+     "period_end": "2024-03-31",
+     "filing_date": "2026-05-26",
+     "form": "20-F",
+     "accession": "0001973239-26-000097",
+     "url": "https://www.sec.gov/Archives/edgar/data/1973239/000197323926000097/0001973239-26-000097-index.html",
+     "q4_derived": true,
+     "quality_notes": [],
+     "values": {
+      "revenue": {
+       "value": 928000000,
+       "unit": "USD",
+       "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+       "derived": true,
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
+      },
+      "gross_profit": {
+       "value": 887000000,
+       "unit": "USD",
+       "tag": "GrossProfit",
+       "derived": true,
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
+      },
+      "cogs": {
+       "value": 41000000,
+       "unit": "USD",
+       "tag": "CostOfRevenue",
+       "derived": true,
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
+      },
+      "operating_income": {
+       "value": 22000000,
+       "unit": "USD",
+       "tag": "OperatingIncomeLoss",
+       "derived": true,
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
+      },
+      "net_income": {
+       "value": 224000000,
+       "unit": "USD",
+       "tag": "NetIncomeLoss",
+       "derived": true,
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
+      },
+      "diluted_eps": null,
+      "operating_cash_flow": {
+       "value": 667000000,
+       "unit": "USD",
+       "tag": "NetCashProvidedByUsedInOperatingActivities",
+       "derived": true,
+       "derivation": "本期累計值減前一期累計值"
+      },
+      "capex": {
+       "value": 11000000,
+       "unit": "USD",
+       "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+       "derived": true,
+       "derivation": "本期累計值減前一期累計值"
+      },
+      "diluted_shares": null,
+      "gross_margin": 0.9558189655172413,
+      "operating_margin": 0.023706896551724137,
+      "free_cash_flow": 656000000
+     }
+    },
+    {
+     "period_end": "2023-12-31",
+     "filing_date": "2025-02-05",
+     "form": "6-K",
+     "accession": "0001973239-25-000007",
+     "url": "https://www.sec.gov/Archives/edgar/data/1973239/000197323925000007/0001973239-25-000007-index.html",
+     "q4_derived": false,
+     "quality_notes": [],
+     "values": {
+      "revenue": {
+       "value": 824000000,
+       "unit": "USD",
+       "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+       "derived": false,
+       "derivation": null
+      },
+      "gross_profit": {
+       "value": 788000000,
+       "unit": "USD",
+       "tag": "GrossProfit",
+       "derived": false,
+       "derivation": null
+      },
+      "cogs": {
+       "value": 36000000,
+       "unit": "USD",
+       "tag": "CostOfRevenue",
+       "derived": false,
+       "derivation": null
+      },
+      "operating_income": {
+       "value": 134000000,
+       "unit": "USD",
+       "tag": "OperatingIncomeLoss",
+       "derived": false,
+       "derivation": null
+      },
+      "net_income": {
+       "value": 87000000,
+       "unit": "USD",
+       "tag": "NetIncomeLoss",
+       "derived": false,
+       "derivation": null
+      },
+      "diluted_eps": {
+       "value": 0.08,
+       "unit": "USD/shares",
+       "tag": "EarningsPerShareDiluted",
+       "derived": false,
+       "derivation": null
+      },
+      "operating_cash_flow": {
+       "value": 310000000,
+       "unit": "USD",
+       "tag": "NetCashProvidedByUsedInOperatingActivities",
+       "derived": true,
+       "derivation": "本期累計值減前一期累計值"
+      },
+      "capex": {
+       "value": 21000000,
+       "unit": "USD",
+       "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+       "derived": true,
+       "derivation": "本期累計值減前一期累計值"
+      },
+      "diluted_shares": {
+       "value": 1049000000,
+       "unit": "shares",
+       "tag": "WeightedAverageNumberOfDilutedSharesOutstanding",
+       "derived": false,
+       "derivation": null
+      },
+      "gross_margin": 0.9563106796116505,
+      "operating_margin": 0.16262135922330098,
+      "free_cash_flow": 289000000
+     }
+    },
+    {
+     "period_end": "2023-09-30",
+     "filing_date": "2024-11-07",
+     "form": "6-K",
+     "accession": "0001973239-24-000040",
+     "url": "https://www.sec.gov/Archives/edgar/data/1973239/000197323924000040/0001973239-24-000040-index.html",
+     "q4_derived": false,
+     "quality_notes": [],
+     "values": {
+      "revenue": {
+       "value": 806000000,
+       "unit": "USD",
+       "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+       "derived": false,
+       "derivation": null
+      },
+      "gross_profit": {
+       "value": 760000000,
+       "unit": "USD",
+       "tag": "GrossProfit",
+       "derived": false,
+       "derivation": null
+      },
+      "cogs": {
+       "value": 46000000,
+       "unit": "USD",
+       "tag": "CostOfRevenue",
+       "derived": false,
+       "derivation": null
+      },
+      "operating_income": {
+       "value": -156000000,
+       "unit": "USD",
+       "tag": "OperatingIncomeLoss",
+       "derived": false,
+       "derivation": null
+      },
+      "net_income": {
+       "value": -110000000,
+       "unit": "USD",
+       "tag": "NetIncomeLoss",
+       "derived": false,
+       "derivation": null
+      },
+      "diluted_eps": {
+       "value": -0.11,
+       "unit": "USD/shares",
+       "tag": "EarningsPerShareDiluted",
+       "derived": false,
+       "derivation": null
+      },
+      "operating_cash_flow": {
+       "value": 227000000,
+       "unit": "USD",
+       "tag": "NetCashProvidedByUsedInOperatingActivities",
+       "derived": true,
+       "derivation": "本期累計值減前一期累計值"
+      },
+      "capex": {
+       "value": 34000000,
+       "unit": "USD",
+       "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+       "derived": true,
+       "derivation": "本期累計值減前一期累計值"
+      },
+      "diluted_shares": {
+       "value": 1025000000,
+       "unit": "shares",
+       "tag": "WeightedAverageNumberOfDilutedSharesOutstanding",
+       "derived": false,
+       "derivation": null
+      },
+      "gross_margin": 0.9429280397022333,
+      "operating_margin": -0.1935483870967742,
+      "free_cash_flow": 193000000
+     }
+    }
+   ]
   },
   "COHR": {
    "status": "available",
    "reason": null,
+   "official_results_url": null,
    "periods": [
     {
      "period_end": "2026-06-30",
@@ -1816,7 +2709,7 @@
        "unit": "USD",
        "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "gross_profit": {
        "value": 787075000,
@@ -1830,7 +2723,7 @@
        "unit": "USD",
        "tag": "CostOfGoodsAndServicesSold",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "operating_income": null,
       "net_income": {
@@ -1838,7 +2731,7 @@
        "unit": "USD",
        "tag": "NetIncomeLoss",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "diluted_eps": null,
       "operating_cash_flow": {
@@ -2088,7 +2981,7 @@
        "unit": "USD",
        "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "gross_profit": {
        "value": 546149000,
@@ -2102,7 +2995,7 @@
        "unit": "USD",
        "tag": "CostOfGoodsAndServicesSold",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "operating_income": null,
       "net_income": {
@@ -2110,7 +3003,7 @@
        "unit": "USD",
        "tag": "NetIncomeLoss",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "diluted_eps": null,
       "operating_cash_flow": {
@@ -2352,7 +3245,7 @@
        "unit": "USD",
        "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "gross_profit": {
        "value": 431941000,
@@ -2366,21 +3259,21 @@
        "unit": "USD",
        "tag": "CostOfGoodsAndServicesSold",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "operating_income": {
        "value": 63239000,
        "unit": "USD",
        "tag": "OperatingIncomeLoss",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "net_income": {
        "value": -48442000,
        "unit": "USD",
        "tag": "NetIncomeLoss",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "diluted_eps": null,
       "operating_cash_flow": {
@@ -2639,6 +3532,7 @@
   "GOOGL": {
    "status": "available",
    "reason": null,
+   "official_results_url": null,
    "periods": [
     {
      "period_end": "2026-06-30",
@@ -2808,7 +3702,7 @@
        "unit": "USD",
        "tag": "Revenues",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "gross_profit": {
        "value": 68062000000,
@@ -2822,21 +3716,21 @@
        "unit": "USD",
        "tag": "CostOfRevenue",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "operating_income": {
        "value": 35934000000,
        "unit": "USD",
        "tag": "OperatingIncomeLoss",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "net_income": {
        "value": 34455000000,
        "unit": "USD",
        "tag": "NetIncomeLoss",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "diluted_eps": null,
       "operating_cash_flow": {
@@ -3104,7 +3998,7 @@
        "unit": "USD",
        "tag": "Revenues",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "gross_profit": {
        "value": 55856000000,
@@ -3118,21 +4012,21 @@
        "unit": "USD",
        "tag": "CostOfRevenue",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "operating_income": {
        "value": 30972000000,
        "unit": "USD",
        "tag": "OperatingIncomeLoss",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "net_income": {
        "value": 26536000000,
        "unit": "USD",
        "tag": "NetIncomeLoss",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "diluted_eps": null,
       "operating_cash_flow": {
@@ -3400,7 +4294,7 @@
        "unit": "USD",
        "tag": "Revenues",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "gross_profit": {
        "value": 48735000000,
@@ -3414,21 +4308,21 @@
        "unit": "USD",
        "tag": "CostOfRevenue",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "operating_income": {
        "value": 23697000000,
        "unit": "USD",
        "tag": "OperatingIncomeLoss",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "net_income": {
        "value": 20687000000,
        "unit": "USD",
        "tag": "NetIncomeLoss",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "diluted_eps": null,
       "operating_cash_flow": {
@@ -3533,6 +4427,7 @@
   "INTC": {
    "status": "available",
    "reason": null,
+   "official_results_url": null,
    "periods": [
     {
      "period_end": "2026-06-27",
@@ -3702,35 +4597,35 @@
        "unit": "USD",
        "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "gross_profit": {
        "value": 4943000000,
        "unit": "USD",
        "tag": "GrossProfit",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "cogs": {
        "value": 8731000000,
        "unit": "USD",
        "tag": "CostOfGoodsAndServicesSold",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "operating_income": {
        "value": 580000000,
        "unit": "USD",
        "tag": "OperatingIncomeLoss",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "net_income": {
        "value": -591000000,
        "unit": "USD",
        "tag": "NetIncomeLoss",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "diluted_eps": null,
       "operating_cash_flow": {
@@ -3998,35 +4893,35 @@
        "unit": "USD",
        "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "gross_profit": {
        "value": 5584000000,
        "unit": "USD",
        "tag": "GrossProfit",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "cogs": {
        "value": 8676000000,
        "unit": "USD",
        "tag": "CostOfGoodsAndServicesSold",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "operating_income": {
        "value": 412000000,
        "unit": "USD",
        "tag": "OperatingIncomeLoss",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "net_income": {
        "value": -126000000,
        "unit": "USD",
        "tag": "NetIncomeLoss",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "diluted_eps": null,
       "operating_cash_flow": {
@@ -4294,35 +5189,35 @@
        "unit": "USD",
        "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "gross_profit": {
        "value": 7047000000,
        "unit": "USD",
        "tag": "GrossProfit",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "cogs": {
        "value": 8359000000,
        "unit": "USD",
        "tag": "CostOfGoodsAndServicesSold",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "operating_income": {
        "value": 2585000000,
        "unit": "USD",
        "tag": "OperatingIncomeLoss",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "net_income": {
        "value": 2669000000,
        "unit": "USD",
        "tag": "NetIncomeLoss",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "diluted_eps": null,
       "operating_cash_flow": {
@@ -4427,6 +5322,7 @@
   "META": {
    "status": "available",
    "reason": null,
+   "official_results_url": null,
    "periods": [
     {
      "period_end": "2026-06-30",
@@ -4596,7 +5492,7 @@
        "unit": "USD",
        "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "gross_profit": {
        "value": 48987000000,
@@ -4610,21 +5506,21 @@
        "unit": "USD",
        "tag": "CostOfRevenue",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "operating_income": {
        "value": 24745000000,
        "unit": "USD",
        "tag": "OperatingIncomeLoss",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "net_income": {
        "value": 22768000000,
        "unit": "USD",
        "tag": "NetIncomeLoss",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "diluted_eps": null,
       "operating_cash_flow": {
@@ -4892,7 +5788,7 @@
        "unit": "USD",
        "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "gross_profit": {
        "value": 39546000000,
@@ -4906,21 +5802,21 @@
        "unit": "USD",
        "tag": "CostOfRevenue",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "operating_income": {
        "value": 23364000000,
        "unit": "USD",
        "tag": "OperatingIncomeLoss",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "net_income": {
        "value": 20838000000,
        "unit": "USD",
        "tag": "NetIncomeLoss",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "diluted_eps": null,
       "operating_cash_flow": {
@@ -5188,7 +6084,7 @@
        "unit": "USD",
        "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "gross_profit": {
        "value": 32416000000,
@@ -5202,21 +6098,21 @@
        "unit": "USD",
        "tag": "CostOfRevenue",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "operating_income": {
        "value": 16384000000,
        "unit": "USD",
        "tag": "OperatingIncomeLoss",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "net_income": {
        "value": 14017000000,
        "unit": "USD",
        "tag": "NetIncomeLoss",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "diluted_eps": null,
       "operating_cash_flow": {
@@ -5321,6 +6217,7 @@
   "MRVL": {
    "status": "available",
    "reason": null,
+   "official_results_url": null,
    "periods": [
     {
      "period_end": "2026-05-02",
@@ -5413,35 +6310,35 @@
        "unit": "USD",
        "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "gross_profit": {
        "value": 1147900000,
        "unit": "USD",
        "tag": "GrossProfit",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "cogs": {
        "value": 1070800000,
        "unit": "USD",
        "tag": "CostOfGoodsAndServicesSold",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "operating_income": {
        "value": 404400000,
        "unit": "USD",
        "tag": "OperatingIncomeLoss",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "net_income": {
        "value": 396100000,
        "unit": "USD",
        "tag": "NetIncomeLoss",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "diluted_eps": null,
       "operating_cash_flow": {
@@ -5709,35 +6606,35 @@
        "unit": "USD",
        "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "gross_profit": {
        "value": 917400000,
        "unit": "USD",
        "tag": "GrossProfit",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "cogs": {
        "value": 900000000,
        "unit": "USD",
        "tag": "CostOfGoodsAndServicesSold",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "operating_income": {
        "value": 235200000,
        "unit": "USD",
        "tag": "OperatingIncomeLoss",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "net_income": {
        "value": 200200000,
        "unit": "USD",
        "tag": "NetIncomeLoss",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "diluted_eps": null,
       "operating_cash_flow": {
@@ -6005,35 +6902,35 @@
        "unit": "USD",
        "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "gross_profit": {
        "value": 664100000,
        "unit": "USD",
        "tag": "GrossProfit",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "cogs": {
        "value": 762400000,
        "unit": "USD",
        "tag": "CostOfGoodsAndServicesSold",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "operating_income": {
        "value": -33300000,
        "unit": "USD",
        "tag": "OperatingIncomeLoss",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "net_income": {
        "value": -392700000,
        "unit": "USD",
        "tag": "NetIncomeLoss",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "diluted_eps": null,
       "operating_cash_flow": {
@@ -6215,6 +7112,7 @@
   "MSFT": {
    "status": "available",
    "reason": null,
+   "official_results_url": null,
    "periods": [
     {
      "period_end": "2026-06-30",
@@ -6230,35 +7128,35 @@
        "unit": "USD",
        "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "gross_profit": {
        "value": 60482000000,
        "unit": "USD",
        "tag": "GrossProfit",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "cogs": {
        "value": 29525000000,
        "unit": "USD",
        "tag": "CostOfGoodsAndServicesSold",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "operating_income": {
        "value": 40603000000,
        "unit": "USD",
        "tag": "OperatingIncomeLoss",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "net_income": {
        "value": 35766000000,
        "unit": "USD",
        "tag": "NetIncomeLoss",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "diluted_eps": null,
       "operating_cash_flow": {
@@ -6526,35 +7424,35 @@
        "unit": "USD",
        "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "gross_profit": {
        "value": 52427000000,
        "unit": "USD",
        "tag": "GrossProfit",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "cogs": {
        "value": 24014000000,
        "unit": "USD",
        "tag": "CostOfGoodsAndServicesSold",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "operating_income": {
        "value": 34323000000,
        "unit": "USD",
        "tag": "OperatingIncomeLoss",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "net_income": {
        "value": 27233000000,
        "unit": "USD",
        "tag": "NetIncomeLoss",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "diluted_eps": null,
       "operating_cash_flow": {
@@ -6822,35 +7720,35 @@
        "unit": "USD",
        "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "gross_profit": {
        "value": 45043000000,
        "unit": "USD",
        "tag": "GrossProfit",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "cogs": {
        "value": 19684000000,
        "unit": "USD",
        "tag": "CostOfGoodsAndServicesSold",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "operating_income": {
        "value": 27925000000,
        "unit": "USD",
        "tag": "OperatingIncomeLoss",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "net_income": {
        "value": 22036000000,
        "unit": "USD",
        "tag": "NetIncomeLoss",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "diluted_eps": null,
       "operating_cash_flow": {
@@ -7108,12 +8006,14 @@
   },
   "NOK": {
    "status": "foreign_unavailable",
-   "reason": "外國私人發行人的 6-K／20-F 未提供可直接比較的 SEC 單季 Company Facts；不估算。",
+   "reason": "公司有發布官方季報，但 SEC Company Facts 未提供一致的單季 XBRL；為避免混用幣別或口徑，目前不估算。",
+   "official_results_url": "https://www.nokia.com/about-us/investors/results-reports/",
    "periods": []
   },
   "NVDA": {
    "status": "available",
    "reason": null,
+   "official_results_url": null,
    "periods": [
     {
      "period_end": "2026-04-26",
@@ -7206,35 +8106,35 @@
        "unit": "USD",
        "tag": "Revenues",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "gross_profit": {
        "value": 51093000000,
        "unit": "USD",
        "tag": "GrossProfit",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "cogs": {
        "value": 17034000000,
        "unit": "USD",
        "tag": "CostOfRevenue",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "operating_income": {
        "value": 44299000000,
        "unit": "USD",
        "tag": "OperatingIncomeLoss",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "net_income": {
        "value": 42960000000,
        "unit": "USD",
        "tag": "NetIncomeLoss",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "diluted_eps": null,
       "operating_cash_flow": {
@@ -7502,35 +8402,35 @@
        "unit": "USD",
        "tag": "Revenues",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "gross_profit": {
        "value": 28723000000,
        "unit": "USD",
        "tag": "GrossProfit",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "cogs": {
        "value": 10608000000,
        "unit": "USD",
        "tag": "CostOfRevenue",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "operating_income": {
        "value": 24034000000,
        "unit": "USD",
        "tag": "OperatingIncomeLoss",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "net_income": {
        "value": 22091000000,
        "unit": "USD",
        "tag": "NetIncomeLoss",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "diluted_eps": null,
       "operating_cash_flow": {
@@ -7798,35 +8698,35 @@
        "unit": "USD",
        "tag": "Revenues",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "gross_profit": {
        "value": 16791000000,
        "unit": "USD",
        "tag": "GrossProfit",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "cogs": {
        "value": 5312000000,
        "unit": "USD",
        "tag": "CostOfRevenue",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "operating_income": {
        "value": 13614000000,
        "unit": "USD",
        "tag": "OperatingIncomeLoss",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "net_income": {
        "value": 12285000000,
        "unit": "USD",
        "tag": "NetIncomeLoss",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "diluted_eps": null,
       "operating_cash_flow": {
@@ -8008,6 +8908,7 @@
   "ONDS": {
    "status": "available",
    "reason": null,
+   "official_results_url": null,
    "periods": [
     {
      "period_end": "2026-06-30",
@@ -8173,35 +9074,35 @@
        "unit": "USD",
        "tag": "Revenues",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "gross_profit": {
        "value": 12730985,
        "unit": "USD",
        "tag": "GrossProfit",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "cogs": {
        "value": 17380135,
        "unit": "USD",
        "tag": "CostOfRevenue",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "operating_income": {
        "value": -23320908,
        "unit": "USD",
        "tag": "OperatingIncomeLoss",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "net_income": {
        "value": -101012644,
        "unit": "USD",
        "tag": "ProfitLoss",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "diluted_eps": null,
       "operating_cash_flow": {
@@ -8465,35 +9366,35 @@
        "unit": "USD",
        "tag": "Revenues",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "gross_profit": {
        "value": 883317,
        "unit": "USD",
        "tag": "GrossProfit",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "cogs": {
        "value": 3246031,
        "unit": "USD",
        "tag": "CostOfRevenue",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "operating_income": {
        "value": -8517500,
        "unit": "USD",
        "tag": "OperatingIncomeLoss",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "net_income": {
        "value": -10334912,
        "unit": "USD",
        "tag": "ProfitLoss",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "diluted_eps": null,
       "operating_cash_flow": {
@@ -8761,35 +9662,35 @@
        "unit": "USD",
        "tag": "Revenues",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "gross_profit": {
        "value": 1727624,
        "unit": "USD",
        "tag": "GrossProfit",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "cogs": {
        "value": 3233661,
        "unit": "USD",
        "tag": "CostOfRevenue",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "operating_income": {
        "value": -12645935,
        "unit": "USD",
        "tag": "OperatingIncomeLoss",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "net_income": {
        "value": -14138774,
        "unit": "USD",
        "tag": "NetIncomeLoss",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "diluted_eps": null,
       "operating_cash_flow": {
@@ -8894,6 +9795,7 @@
   "TSLA": {
    "status": "available",
    "reason": null,
+   "official_results_url": null,
    "periods": [
     {
      "period_end": "2026-06-30",
@@ -9063,35 +9965,35 @@
        "unit": "USD",
        "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "gross_profit": {
        "value": 5009000000,
        "unit": "USD",
        "tag": "GrossProfit",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "cogs": {
        "value": 19892000000,
        "unit": "USD",
        "tag": "CostOfRevenue",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "operating_income": {
        "value": 1409000000,
        "unit": "USD",
        "tag": "OperatingIncomeLoss",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "net_income": {
        "value": 840000000,
        "unit": "USD",
        "tag": "NetIncomeLoss",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "diluted_eps": null,
       "operating_cash_flow": {
@@ -9359,35 +10261,35 @@
        "unit": "USD",
        "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "gross_profit": {
        "value": 4179000000,
        "unit": "USD",
        "tag": "GrossProfit",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "cogs": {
        "value": 21528000000,
        "unit": "USD",
        "tag": "CostOfRevenue",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "operating_income": {
        "value": 1583000000,
        "unit": "USD",
        "tag": "OperatingIncomeLoss",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "net_income": {
        "value": 2128000000,
        "unit": "USD",
        "tag": "NetIncomeLoss",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "diluted_eps": null,
       "operating_cash_flow": {
@@ -9655,35 +10557,35 @@
        "unit": "USD",
        "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "gross_profit": {
        "value": 4438000000,
        "unit": "USD",
        "tag": "GrossProfit",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "cogs": {
        "value": 20729000000,
        "unit": "USD",
        "tag": "CostOfRevenue",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "operating_income": {
        "value": 2064000000,
        "unit": "USD",
        "tag": "OperatingIncomeLoss",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "net_income": {
        "value": 7928000000,
        "unit": "USD",
        "tag": "NetIncomeLoss",
        "derived": true,
-       "derivation": "10-K 全年值減同一會計年度前三季累計值"
+       "derivation": "年度報告全年值減同一會計年度前三季累計值"
       },
       "diluted_eps": null,
       "operating_cash_flow": {
@@ -9787,9 +10689,10 @@
   },
   "TSM": {
    "status": "foreign_unavailable",
-   "reason": "外國私人發行人的 6-K／20-F 未提供可直接比較的 SEC 單季 Company Facts；不估算。",
+   "reason": "公司有發布官方季報，但 SEC Company Facts 未提供一致的單季 XBRL；為避免混用幣別或口徑，目前不估算。",
+   "official_results_url": "https://investor.tsmc.com/english/financial-reports",
    "periods": []
   }
  },
- "generated_at": "2026-08-15T08:14:11+00:00"
+ "generated_at": "2026-08-15T08:39:29+00:00"
 }

@@ -1219,6 +1219,36 @@
       font: inherit;
     }
 
+    .sec-section-filter {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #cbd5e1;
+      font-size: 0.76rem;
+      font-weight: 750;
+    }
+
+    .sec-warning-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 23px;
+      height: 23px;
+      margin-left: 6px;
+      border-radius: 999px;
+      border: 1px solid rgba(245, 158, 11, 0.38);
+      background: rgba(245, 158, 11, 0.13);
+      color: #fbbf24;
+      font-size: 0.72rem;
+      cursor: help;
+      vertical-align: middle;
+    }
+
+    .sec-warning-icon:focus {
+      outline: 2px solid #fbbf24;
+      outline-offset: 2px;
+    }
+
     .sec-period-stack { display: grid; gap: 4px; min-width: 126px; }
     .sec-period-stack small { color: var(--text-muted); }
     .sec-trend-table { min-width: 1500px; }
@@ -1791,7 +1821,7 @@
         <section class="sec-section" aria-labelledby="secQuarterlyTitle">
           <div class="sec-section-heading">
             <h3 id="secQuarterlyTitle">① 最新 4 期季報連續追蹤</h3>
-            <p>固定顯示全部 14 家，不受上方最近 7／14 日篩選影響；Q4 由 10-K 全年數據拆分。</p>
+            <p>固定顯示全部 14 家，不受上方最近 7／14 日篩選影響；Q4 由 10-K／20-F 全年數據拆分。</p>
           </div>
           <div class="sec-table-wrap">
             <table class="sec-table">
@@ -1811,7 +1841,7 @@
             </table>
           </div>
           <p class="sec-footnote"><strong>每個數字代表什麼：</strong>營收是單季銷售；QoQ 是相較上一季、YoY 是相較去年同期。毛利率＝毛利÷營收，營業利益率＝營業利益÷營收；兩者下方的季／年變化用百分點（pp）。稀釋 EPS 是考慮潛在稀釋後每股盈餘。營業現金流（OCF）是本業產生的現金；自由現金流（FCF）＝OCF－資本支出。稀釋股數是該季加權平均股數，增加通常表示每股價值有稀釋壓力。金額以 USD M（百萬美元）、股數以 M（百萬股）顯示。</p>
-          <p class="sec-footnote"><strong>Q4 方法：</strong>美國公司沒有獨立 Q4 10-Q；標示「10-K 拆分」的流量數字＝全年減前三季累計。EPS 與加權平均股數不能用相減法，無可靠單季標籤時顯示「—」。外國私人發行人的 6-K／20-F 若沒有一致的 SEC 單季 XBRL，也保留「—」，不估算。</p>
+          <p class="sec-footnote"><strong>Q4 方法：</strong>美國公司沒有獨立 Q4 10-Q；標示「10-K／20-F 拆分」的流量數字＝全年減前三季累計。EPS 與加權平均股數不能用相減法，無可靠單季標籤時顯示「—」。ARM 的 6-K 有季度 XBRL，已納入；TSM、NOK 的 SEC Company Facts 沒有一致單季標籤，因此提供官方季報入口但不估算。</p>
           <p class="sec-footnote">申報日是文件送交 SEC 的日期；財報期末是數字涵蓋到哪一天，兩者不同。10-Q 通常未經完整年度查核；10-Q/A 代表修正版。</p>
         </section>
 
@@ -1819,6 +1849,7 @@
           <div class="sec-section-heading">
             <h3 id="secFilingsTitle">② 最新重要申報</h3>
             <p>排除已另表整理的 Form 4；每一列等於一份 SEC 文件。</p>
+            <div class="sec-section-filter"><label for="secFilingsTicker">查看公司</label><select id="secFilingsTicker" class="sec-quarterly-select" onchange="setSecTableTicker('filings', this.value)" aria-label="篩選最新重要申報公司"></select></div>
           </div>
           <div class="sec-table-wrap">
             <table class="sec-table">
@@ -1832,6 +1863,7 @@
           <div class="sec-section-heading">
             <h3 id="secTradesTitle">③ Form 4 主動買入／賣出</h3>
             <p>只顯示 P／S；交易金額是該列股數乘每股價格，缺值不以 0 代替。</p>
+            <div class="sec-section-filter"><label for="secTradesTicker">查看公司</label><select id="secTradesTicker" class="sec-quarterly-select" onchange="setSecTableTicker('trades', this.value)" aria-label="篩選 Form 4 公司"></select></div>
           </div>
           <div class="sec-table-wrap">
             <table class="sec-table">
@@ -1846,6 +1878,7 @@
           <div class="sec-section-heading">
             <h3 id="secDilutionTitle">④ 募資與稀釋雷達</h3>
             <p>依文件內文分類；424B 並不一定是新股，可能是一般債券。</p>
+            <div class="sec-section-filter"><label for="secDilutionTicker">查看公司</label><select id="secDilutionTicker" class="sec-quarterly-select" onchange="setSecTableTicker('dilution', this.value)" aria-label="篩選募資與稀釋公司"></select></div>
           </div>
           <div class="sec-table-wrap">
             <table class="sec-table">
@@ -2647,6 +2680,9 @@
     let secDailyData = null;
     let secRangeDays = 14;
     let secQuarterlyTicker = 'ONDS';
+    let secFilingsTicker = 'ALL';
+    let secTradesTicker = 'ALL';
+    let secDilutionTicker = 'ALL';
 
     const SEC_SEVERITY = {
       critical: { label: '🔴 重大', css: 'critical' },
@@ -2666,6 +2702,17 @@
     function safeSecUrl(value) {
       const url = String(value || '');
       return url.startsWith('https://www.sec.gov/') ? escapeSec(url) : '#';
+    }
+
+    function safeOfficialResultsUrl(value) {
+      const url = String(value || '');
+      try {
+        const parsed = new URL(url);
+        const allowed = new Set(['investors.arm.com', 'investor.tsmc.com', 'www.nokia.com']);
+        return parsed.protocol === 'https:' && allowed.has(parsed.hostname) ? escapeSec(url) : '#';
+      } catch (_) {
+        return '#';
+      }
     }
 
     function secCutoff(days) {
@@ -2825,14 +2872,17 @@
 
       const quarterlyBody = document.getElementById('secQuarterlyBody');
       quarterlyBody.innerHTML = quarterlyRows.length ? quarterlyRows.map(row => {
-        const filings = (row.periods || []).slice(0, 4);
+        const data = quarterlyCompanies[row.ticker];
+        const filings = data?.status === 'available'
+          ? (data.periods || []).slice(0, 4)
+          : (row.periods || []).slice(0, 4);
         const cells = Array.from({ length: 4 }, (_, index) => {
           const event = filings[index];
           if (!event) return '<td>—</td>';
-          const q4 = String(event.form || '').startsWith('10-K') ? '（Q4／全年）' : '';
-          return `<td><div class="sec-period-stack"><strong>${escapeSec(event.report_date || '期末未列')}</strong><small>${escapeSec(event.form)}${q4}｜申報 ${escapeSec(event.filing_date)}</small></div></td>`;
+          const periodEnd = event.period_end || event.report_date || '期末未列';
+          const q4 = event.q4_derived ? '（Q4／全年拆分）' : '';
+          return `<td><div class="sec-period-stack"><strong>${escapeSec(periodEnd)}</strong><small>${escapeSec(event.form)}${q4}｜申報 ${escapeSec(event.filing_date)}</small></div></td>`;
         }).join('');
-        const data = quarterlyCompanies[row.ticker];
         let status = '<span class="sec-badge watch">⚠️ 資料不足</span>';
         if (data?.status === 'available') status = '<span class="sec-badge buy">✅ 四季可比</span>';
         if (data?.status === 'foreign_unavailable') status = '<span class="sec-badge medium">🌍 6-K／20-F</span>';
@@ -2846,10 +2896,29 @@
       ).join('');
       if (!quarterlyCompanies[secQuarterlyTicker] && tickers.length) secQuarterlyTicker = tickers[0];
       selector.value = secQuarterlyTicker;
+      const filterConfig = [
+        ['secFilingsTicker', secFilingsTicker, filingRows, row => row.ticker],
+        ['secTradesTicker', secTradesTicker, tradeRows, row => row.event.ticker],
+        ['secDilutionTicker', secDilutionTicker, offeringRows, row => row.event.ticker],
+      ];
+      filterConfig.forEach(([id, selected, rows, tickerOf]) => {
+        const element = document.getElementById(id);
+        const counts = rows.reduce((result, row) => {
+          const ticker = tickerOf(row);
+          result[ticker] = (result[ticker] || 0) + 1;
+          return result;
+        }, {});
+        element.innerHTML = `<option value="ALL">全部公司（${rows.length}）</option>` + tickers.map(ticker =>
+          `<option value="${escapeSec(ticker)}">${escapeSec(ticker)}（${counts[ticker] || 0}）</option>`
+        ).join('');
+        element.value = selected;
+      });
       renderSecQuarterlyTrend();
 
       const filingsBody = document.getElementById('secFilingsBody');
-      filingsBody.innerHTML = filingRows.length ? filingRows.map(event => {
+      const visibleFilingRows = secFilingsTicker === 'ALL'
+        ? filingRows : filingRows.filter(event => event.ticker === secFilingsTicker);
+      filingsBody.innerHTML = visibleFilingRows.length ? visibleFilingRows.map(event => {
         const severity = SEC_SEVERITY[event.severity] || SEC_SEVERITY.medium;
         return `<tr>
           <td>${escapeSec(event.filing_date)}</td>
@@ -2859,10 +2928,12 @@
           <td>${escapeSec(secFormMeaning(event))}</td>
           <td><a class="sec-link" href="${safeSecUrl(event.url)}" target="_blank" rel="noopener">原文 ↗</a></td>
         </tr>`;
-      }).join('') : '<tr><td colspan="6" class="sec-empty">這段期間沒有重大／重要申報。</td></tr>';
+      }).join('') : `<tr><td colspan="6" class="sec-empty">${escapeSec(secFilingsTicker === 'ALL' ? '這段期間沒有重大／重要申報。' : `${secFilingsTicker} 這段期間沒有重大／重要申報。`)}</td></tr>`;
 
       const tradesBody = document.getElementById('secTradesBody');
-      tradesBody.innerHTML = tradeRows.length ? tradeRows.slice(0, 100).map(({ event, tx }) => {
+      const visibleTradeRows = secTradesTicker === 'ALL'
+        ? tradeRows : tradeRows.filter(row => row.event.ticker === secTradesTicker);
+      tradesBody.innerHTML = visibleTradeRows.length ? visibleTradeRows.slice(0, 100).map(({ event, tx }) => {
         const isBuy = tx.code === 'P';
         const plan = tx.rule_10b5_1 === true ? '是' : (tx.rule_10b5_1 === false ? '否／未註明' : '—');
         return `<tr>
@@ -2876,10 +2947,12 @@
           <td>${escapeSec(plan)}</td>
           <td><a class="sec-link" href="${safeSecUrl(event.url)}" target="_blank" rel="noopener">原文 ↗</a></td>
         </tr>`;
-      }).join('') : '<tr><td colspan="9" class="sec-empty">這段期間沒有代碼 P／S 的 Form 4 主動買賣。</td></tr>';
+      }).join('') : `<tr><td colspan="9" class="sec-empty">${escapeSec(secTradesTicker === 'ALL' ? '這段期間沒有代碼 P／S 的 Form 4 主動買賣。' : `${secTradesTicker} 這段期間沒有代碼 P／S 的 Form 4 主動買賣。`)}</td></tr>`;
 
       const dilutionBody = document.getElementById('secDilutionBody');
-      dilutionBody.innerHTML = offeringRows.length ? offeringRows.map(({ event, classification }) => {
+      const visibleOfferingRows = secDilutionTicker === 'ALL'
+        ? offeringRows : offeringRows.filter(row => row.event.ticker === secDilutionTicker);
+      dilutionBody.innerHTML = visibleOfferingRows.length ? visibleOfferingRows.map(({ event, classification }) => {
         const watch = dilutionCategories.has(classification.category);
         return `<tr>
           <td>${escapeSec(event.filing_date)}</td>
@@ -2890,7 +2963,14 @@
           <td>${escapeSec(classification.risk)}</td>
           <td><a class="sec-link" href="${safeSecUrl(event.url)}" target="_blank" rel="noopener">原文 ↗</a></td>
         </tr>`;
-      }).join('') : '<tr><td colspan="7" class="sec-empty">這段期間沒有募資／稀釋文件。</td></tr>';
+      }).join('') : `<tr><td colspan="7" class="sec-empty">${escapeSec(secDilutionTicker === 'ALL' ? '這段期間沒有募資／稀釋文件。' : `${secDilutionTicker} 這段期間沒有募資／稀釋文件。`)}</td></tr>`;
+    }
+
+    function setSecTableTicker(section, ticker) {
+      if (section === 'filings') secFilingsTicker = ticker;
+      if (section === 'trades') secTradesTicker = ticker;
+      if (section === 'dilution') secDilutionTicker = ticker;
+      renderSecDaily();
     }
 
     function setSecQuarterlyTicker(ticker) {
@@ -2904,8 +2984,11 @@
       const body = document.getElementById('secQuarterlyTrendBody');
       const availability = document.getElementById('secQuarterlyAvailability');
       if (!company || !(company.periods || []).length) {
-        availability.textContent = company?.reason || '尚無可比季度資料。';
-        body.innerHTML = `<tr><td colspan="12" class="sec-empty">${escapeSec(company?.reason || '尚無可比季度資料。')}</td></tr>`;
+        const reason = company?.reason || '尚無可比季度資料。';
+        const officialUrl = safeOfficialResultsUrl(company?.official_results_url);
+        const officialLink = officialUrl === '#' ? '' : ` <a class="sec-link" href="${officialUrl}" target="_blank" rel="noopener">開啟官方季度財報 ↗</a>`;
+        availability.innerHTML = `${escapeSec(reason)}${officialLink}`;
+        body.innerHTML = `<tr><td colspan="12" class="sec-empty">${escapeSec(reason)}${officialLink}</td></tr>`;
         return;
       }
       availability.textContent = `資料更新：${formatSecTimestamp(secDailyData.quarterlyFinancials.generated_at)}；顯示最新 4 期，另保留歷史期計算 YoY。`;
@@ -2934,9 +3017,11 @@
         const epsYoy = secDelta(eps, secMetricValue(yearAgo, 'diluted_eps'), 'absolute');
         const shareQoq = secDelta(shares, secMetricValue(previous, 'diluted_shares'));
         const shareYoy = secDelta(shares, secMetricValue(yearAgo, 'diluted_shares'));
-        const source = period.q4_derived ? '10-K 拆分' : period.form;
+        const source = period.q4_derived
+          ? `${String(period.form).startsWith('20-F') ? '20-F' : '10-K'} 拆分`
+          : period.form;
         const warning = (period.quality_notes || []).length
-          ? `<span class="sec-cell-note sec-data-warning">⚠ ${escapeSec(period.quality_notes.join(' '))}</span>` : '';
+          ? `<button type="button" class="sec-warning-icon" title="${escapeSec(period.quality_notes.join(' '))}" aria-label="資料警示：${escapeSec(period.quality_notes.join(' '))}">⚠</button>` : '';
         return `<tr>
           <td><strong>${escapeSec(period.period_end)}</strong>${warning}</td>
           <td><span class="sec-badge ${period.q4_derived ? 'medium' : 'buy'}">${escapeSec(source)}</span></td>

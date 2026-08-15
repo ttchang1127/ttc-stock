@@ -47,6 +47,14 @@ class QuarterlyFinancialTests(unittest.TestCase):
         ]
         self.assertEqual(quarterly.q4_values(rows, allow_derivation=False), {})
 
+    def test_foreign_20f_can_supply_q4_for_tagged_arm_facts(self):
+        rows = [
+            row("2025-04-01", "2025-12-31", 3430, form="6-K"),
+            row("2025-04-01", "2026-03-31", 4920, form="20-F"),
+        ]
+        result = quarterly.q4_values(rows)
+        self.assertEqual(result["2026-03-31"]["val"], 1490)
+
 
 if __name__ == "__main__":
     unittest.main()

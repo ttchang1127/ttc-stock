@@ -6,8 +6,9 @@ metric by metric, as the 10-K full year minus the 10-Q nine-month cumulative
 amount.  Weighted-average shares and diluted EPS are never derived this way;
 those values are left null when the filer did not tag a standalone Q4 value.
 
-Foreign private issuers generally furnish results on 6-K and do not provide a
-consistent quarterly Company Facts series.  They remain in the output with an
+Foreign private issuers generally furnish results on 6-K. Arm's filings carry
+a consistent quarterly Company Facts series and are supported; Nokia and TSMC
+do not, so they remain in the output with an official-results link and an
 explicit unavailable reason rather than an estimated or incomparable value.
 """
 
@@ -23,8 +24,13 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parent.parent
 FINANCIALS_PATH = REPO_ROOT / "financials.json"
 OUTPUT_PATH = REPO_ROOT / "quarterly_financials.json"
-FOREIGN_PRIVATE_ISSUERS = {"ARM", "NOK", "TSM"}
-FORMS = {"10-Q", "10-Q/A", "10-K", "10-K/A"}
+FOREIGN_WITHOUT_QUARTERLY_FACTS = {"NOK", "TSM"}
+FORMS = {"10-Q", "10-Q/A", "10-K", "10-K/A", "6-K", "6-K/A", "20-F", "20-F/A"}
+OFFICIAL_RESULTS_URLS = {
+    "ARM": "https://investors.arm.com/financials/quarterly-annual-results",
+    "NOK": "https://www.nokia.com/about-us/investors/results-reports/",
+    "TSM": "https://investor.tsmc.com/english/financial-reports",
+}
 
 CONCEPTS = {
     "revenue": ["RevenueFromContractWithCustomerExcludingAssessedTax", "Revenues", "SalesRevenueNet"],
@@ -108,7 +114,9 @@ def choose_by_end(rows, minimum, maximum):
 def q4_values(rows, allow_derivation=True):
     if not allow_derivation:
         return {}
-    annuals = choose_by_end((row for row in rows if row["form"].startswith("10-K")), 300, 400)
+    annuals = choose_by_end(
+        (row for row in rows if row["form"].startswith(("10-K", "20-F"))), 300, 400
+    )
     cumulative = list(choose_by_end(rows, 220, 310).values())
     result = {}
     for end, annual in annuals.items():
@@ -120,7 +128,7 @@ def q4_values(rows, allow_derivation=True):
             **annual,
             "val": annual["val"] - nine_month["val"],
             "derived": True,
-            "derivation": "10-K 全年值減同一會計年度前三季累計值",
+            "derivation": "年度報告全年值減同一會計年度前三季累計值",
         }
     return result
 
@@ -132,7 +140,7 @@ def single_quarter_flow(rows):
     for row in rows:
         if not 60 <= row["span"] <= 400:
             continue
-        if row["span"] > 300 and not row["form"].startswith("10-K"):
+        if row["span"] > 300 and not row["form"].startswith(("10-K", "20-F")):
             # Some 10-Q cash-flow tags include a trailing-twelve-month fact.
             # It is not a fiscal-year cumulative amount and must not be
             # subtracted from a three-month fact sharing the same start date.
@@ -258,6 +266,7 @@ def build_company(ticker, cik, document):
     return {
         "status": "available" if len(periods) >= 4 else "limited",
         "reason": None if len(periods) >= 4 else "SEC Company Facts 可比單季資料少於 4 期",
+        "official_results_url": OFFICIAL_RESULTS_URLS.get(ticker),
         "periods": periods,
     }
 
@@ -274,10 +283,11 @@ def main():
     for ticker, company in sorted(annual["companies"].items()):
         if ticker not in requested:
             continue
-        if ticker in FOREIGN_PRIVATE_ISSUERS:
+        if ticker in FOREIGN_WITHOUT_QUARTERLY_FACTS:
             companies[ticker] = {
                 "status": "foreign_unavailable",
-                "reason": "外國私人發行人的 6-K／20-F 未提供可直接比較的 SEC 單季 Company Facts；不估算。",
+                "reason": "公司有發布官方季報，但 SEC Company Facts 未提供一致的單季 XBRL；為避免混用幣別或口徑，目前不估算。",
+                "official_results_url": OFFICIAL_RESULTS_URLS[ticker],
                 "periods": [],
             }
             print(f"  {ticker:6s} foreign issuer — no comparable quarterly Company Facts")
@@ -298,7 +308,7 @@ def main():
     stable = {
         "source": "SEC XBRL Company Facts API (data.sec.gov/api/xbrl/companyfacts)",
         "methodology": {
-            "q4": "10-K 全年流量減同一會計年度前三季累計；EPS 與加權平均稀釋股數不相減。",
+            "q4": "10-K／20-F 全年流量減同一會計年度前三季累計；EPS 與加權平均稀釋股數不相減。",
             "foreign_issuers": "6-K／20-F 無一致 SEC 單季 Company Facts 時保留缺值，不估算。",
         },
         "companies": companies,
