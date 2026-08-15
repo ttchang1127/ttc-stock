@@ -1249,6 +1249,26 @@
       outline-offset: 2px;
     }
 
+    .sec-warning-tooltip {
+      position: fixed;
+      z-index: 10000;
+      width: max-content;
+      max-width: min(360px, calc(100vw - 24px));
+      padding: 10px 12px;
+      border: 1px solid rgba(245, 158, 11, 0.5);
+      border-radius: 10px;
+      background: #111827;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.38);
+      color: #fde68a;
+      font-size: 0.76rem;
+      font-weight: 650;
+      line-height: 1.55;
+      text-align: left;
+      pointer-events: none;
+    }
+
+    .sec-warning-tooltip[hidden] { display: none; }
+
     .sec-period-stack { display: grid; gap: 4px; min-width: 126px; }
     .sec-period-stack small { color: var(--text-muted); }
     .sec-trend-table { min-width: 1500px; }
@@ -1285,6 +1305,8 @@
   </style>
 </head>
 <body>
+
+  <div id="secWarningTooltip" class="sec-warning-tooltip" role="tooltip" hidden></div>
 
   <div class="dashboard-container">
     
@@ -2699,6 +2721,65 @@
         .replaceAll("'", '&#039;');
     }
 
+    let activeSecWarning = null;
+    let secWarningPinned = false;
+
+    function positionSecWarningTooltip(button) {
+      const tooltip = document.getElementById('secWarningTooltip');
+      if (!button || tooltip.hidden) return;
+      const anchor = button.getBoundingClientRect();
+      const gap = 10;
+      const edge = 12;
+      let left = anchor.left + anchor.width / 2 - tooltip.offsetWidth / 2;
+      left = Math.max(edge, Math.min(left, window.innerWidth - tooltip.offsetWidth - edge));
+      let top = anchor.top - tooltip.offsetHeight - gap;
+      if (top < edge) top = anchor.bottom + gap;
+      top = Math.min(top, window.innerHeight - tooltip.offsetHeight - edge);
+      tooltip.style.left = `${Math.round(left)}px`;
+      tooltip.style.top = `${Math.round(top)}px`;
+    }
+
+    function showSecWarningTooltip(button, pin = false) {
+      const message = button?.dataset?.tooltip;
+      if (!message) return;
+      if (activeSecWarning && activeSecWarning !== button) {
+        activeSecWarning.setAttribute('aria-expanded', 'false');
+      }
+      activeSecWarning = button;
+      secWarningPinned = pin;
+      button.setAttribute('aria-expanded', 'true');
+      const tooltip = document.getElementById('secWarningTooltip');
+      tooltip.textContent = message;
+      tooltip.hidden = false;
+      positionSecWarningTooltip(button);
+    }
+
+    function hideSecWarningTooltip(button, force = false) {
+      if (!activeSecWarning || (button && activeSecWarning !== button)) return;
+      if (secWarningPinned && !force) return;
+      activeSecWarning.setAttribute('aria-expanded', 'false');
+      activeSecWarning = null;
+      secWarningPinned = false;
+      document.getElementById('secWarningTooltip').hidden = true;
+    }
+
+    function toggleSecWarningTooltip(event, button) {
+      event.preventDefault();
+      event.stopPropagation();
+      if (activeSecWarning === button && secWarningPinned) {
+        hideSecWarningTooltip(button, true);
+      } else {
+        showSecWarningTooltip(button, true);
+      }
+    }
+
+    document.addEventListener('click', () => hideSecWarningTooltip(null, true));
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape') hideSecWarningTooltip(null, true);
+    });
+    window.addEventListener('resize', () => hideSecWarningTooltip(null, true));
+    window.addEventListener('scroll', () => hideSecWarningTooltip(null, true), true);
+
     function safeSecUrl(value) {
       const url = String(value || '');
       return url.startsWith('https://www.sec.gov/') ? escapeSec(url) : '#';
@@ -3037,7 +3118,7 @@
           ? `${String(period.form).startsWith('20-F') ? '20-F' : '10-K'} 拆分`
           : period.form;
         const warning = (period.quality_notes || []).length
-          ? `<button type="button" class="sec-warning-icon" title="${escapeSec(period.quality_notes.join(' '))}" aria-label="資料警示：${escapeSec(period.quality_notes.join(' '))}">⚠</button>` : '';
+          ? `<button type="button" class="sec-warning-icon" data-tooltip="${escapeSec(period.quality_notes.join(' '))}" aria-label="資料警示：${escapeSec(period.quality_notes.join(' '))}" aria-describedby="secWarningTooltip" aria-expanded="false" onmouseenter="showSecWarningTooltip(this)" onmouseleave="hideSecWarningTooltip(this)" onfocus="showSecWarningTooltip(this)" onblur="hideSecWarningTooltip(this)" onclick="toggleSecWarningTooltip(event, this)">⚠</button>` : '';
         return `<tr>
           <td><strong>${escapeSec(period.period_end)}</strong>${warning}</td>
           <td><span class="sec-badge ${period.q4_derived ? 'medium' : 'buy'}">${escapeSec(source)}</span></td>

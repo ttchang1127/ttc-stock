@@ -95,7 +95,10 @@ class DashboardSecTabTests(unittest.TestCase):
         self.assertIn("TSM 採官方 TIFRS consolidated 新台幣數字", self.html)
         self.assertIn("開啟官方季度財報", self.html)
         self.assertIn('class="sec-warning-icon"', self.html)
-        self.assertIn('title="${escapeSec(period.quality_notes.join(\' \'))}"', self.html)
+        self.assertIn('data-tooltip="${escapeSec(period.quality_notes.join(\' \'))}"', self.html)
+        self.assertIn('id="secWarningTooltip"', self.html)
+        self.assertIn("function showSecWarningTooltip(button, pin = false)", self.html)
+        self.assertIn("function toggleSecWarningTooltip(event, button)", self.html)
 
     def test_native_currency_quarterly_rendering_is_explicit(self):
         self.assertIn('id="secRevenueHeading"', self.html)
