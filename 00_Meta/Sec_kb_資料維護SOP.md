@@ -7,7 +7,7 @@
 > 儀表板網頁的維護請看 [[ttc-stock_Dashboard_維運SOP]]，那是另一條線。
 > 還沒完成的事情列在 [[Sec_kb_待辦事項]]，**已決定不做的**則在本文件第 5 節。
 
-最後更新：2026-08-09
+最後更新：2026-08-15
 
 ---
 
@@ -553,6 +553,8 @@ DCF 不是事實。使用者若問「這檔值多少錢」，正確回答是：
 | `compute_financial_health.py` | 算流動性 / 償債 / ROIC−WACC / Altman Z'' → `financial_health.json` |
 | `estimate_dcf_inputs.py` | 由 beta／Rf／Kd／營收 CAGR 推導 g 與 WACC（**只印出，不寫檔**） |
 | `check_new_annual_filings.py` | 比對 SEC 最新 10-K／20-F 與本地 accession（**只通知，不寫檔**） |
+| `watch_sec_filings.py` | 每 30 分鐘比對 14 家 SEC accession，更新即時雷達並由 GitHub Issue 通知 |
+| `sec_specialized_radars.py` | 產生最新 10-Q 到件表、解析 Form 4 Ownership XML、依募資文件內文判別 ATM／股權／可轉債／一般債券／架上註冊 |
 | `compute_valuation.py` | 算本益比 / 淨現金 / DCF 蒙地卡羅 / 隱含成長率 → `valuation.json` |
 | `diff_risk_factors.py` | 比對風險因素的年度變化 → `risk_changes.json` |
 | `risk_translations.py` | 譯文的摘錄／雜湊／查找（被 `build_reports.py` 引用，不單獨執行） |

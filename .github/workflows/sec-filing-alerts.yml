@@ -1,0 +1,80 @@
+name: SEC filing alerts
+
+on:
+  schedule:
+    # SEC filings are normally accepted on US business days. GitHub schedules
+    # can be delayed, so this is a 30-minute target rather than an SLA.
+    - cron: '*/30 * * * 1-5'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: sec-filing-alerts
+  cancel-in-progress: false
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Verify filing watcher
+        run: python3 -m unittest discover -s tests -v
+
+      - name: Check SEC submissions
+        id: watch
+        env:
+          # Set repository variable SEC_USER_AGENT to a real project contact
+          # (for example "SecKB Name email@example.com") per SEC policy.
+          SEC_USER_AGENT: ${{ vars.SEC_USER_AGENT || 'SecKBResearch user@example.com' }}
+        run: |
+          python3 scripts/watch_sec_filings.py \
+            --alert-markdown "$RUNNER_TEMP/sec-alert.md" \
+            --summary "$GITHUB_STEP_SUMMARY"
+
+      # A deterministic batch ID prevents a retry from creating a duplicate
+      # issue after the notification succeeded but the state push conflicted.
+      - name: Notify with a GitHub Issue
+        if: steps.watch.outputs.notify_count != '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BATCH_ID: ${{ steps.watch.outputs.batch_id }}
+          CRITICAL_COUNT: ${{ steps.watch.outputs.critical_count }}
+        run: |
+          title="SEC Filing Alert [$BATCH_ID]"
+          if [ "$CRITICAL_COUNT" != "0" ]; then
+            title="🔴 $title"
+          else
+            title="🟠 $title"
+          fi
+          existing=$(gh issue list --state all --search "$BATCH_ID in:title" \
+            --json number --jq '.[0].number // empty')
+          if [ -z "$existing" ]; then
+            gh issue create --title "$title" --body-file "$RUNNER_TEMP/sec-alert.md" \
+              --assignee "$GITHUB_REPOSITORY_OWNER"
+          else
+            echo "Issue #$existing already records batch $BATCH_ID; skipping duplicate."
+          fi
+
+      - name: Persist accession state and Obsidian alert log
+        if: steps.watch.outputs.new_count != '0' || steps.watch.outputs.initialized == 'true'
+        run: |
+          git config user.name  'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          git add .github/sec-filing-state.json sec_filing_alerts.json \
+            sec_filing_details.json 60_SEC_Filing_Radar/SEC_Filing_Alerts.md \
+            60_SEC_Filing_Radar/Quarterly_10Q_Radar.md \
+            60_SEC_Filing_Radar/Form4_Insider_Radar.md \
+            60_SEC_Filing_Radar/Dilution_Offering_Radar.md
+          git commit -m "chore: record SEC filing alerts ($(date -u +%Y-%m-%d))"
+          git pull --rebase origin main
+          git push origin HEAD:main

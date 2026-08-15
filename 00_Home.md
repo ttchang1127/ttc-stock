@@ -61,11 +61,14 @@ tags:
 
 ## ⚡ 法說會與即時重大事件追蹤 (Form 8-K / 6-K)
 
+- 🚨 **[[SEC_Filing_Alerts|SEC 即時申報雷達（14 家、30 分鐘輪詢）]]**
+- 📊 **[[Quarterly_10Q_Radar|10-Q 季報到件雷達]]**
+- 💧 **[[Dilution_Offering_Radar|募資與股權稀釋雷達]]**
 - 📰 **[SEC Form 8-K / 6-K 法說會與第一手重大事件總覽報告](file:///Volumes/Crucial%20X8/Jarvis%20Obsidian/Sec_kb/50_Form8K_Corporate_Events/Form8K_Major_Events_Master.md)**
 
 ---
 
 ## 🕵️‍♂️ 華爾街 13F 機構籌碼與 Form 4 高管買賣追蹤
 
-- 👥 **[SEC Form 4 高管與內部人最新股權買賣異動報告](file:///Volumes/Crucial%20X8/Jarvis%20Obsidian/Sec_kb/40_Institutional_Insiders/Form4_Insider_Transactions_Master.md)**
+- 👥 **[[Form4_Insider_Radar|SEC Form 4 內部人交易即時雷達（Ownership XML 解析）]]**
 - 🏛️ **[SEC Form 13F 華爾街頂級機構 (巴菲特/橋水/麥克貝瑞) 籌碼追蹤報告](file:///Volumes/Crucial%20X8/Jarvis%20Obsidian/Sec_kb/40_Institutional_Insiders/Form13F_Institutional_Holdings_Master.md)**

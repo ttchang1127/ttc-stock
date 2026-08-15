@@ -1,6 +1,6 @@
 ---
 title: Sec_kb 待辦事項
-updated: 2026-08-09
+updated: 2026-08-15
 ---
 
 # 📋 Sec_kb 待辦事項
@@ -35,18 +35,9 @@ python3 scripts/build_reports.py
 
 ## B. 等結果，不用動手
 
-### B-1. 排程的完整路徑仍未在 CI 上執行過
-
-`.github/workflows/update-prices.yml` 的 `changed=true` 分支
-（重算 → `check_integrity.py` → 未預期檔案守門 → commit）**到目前為止一次都沒有跑過**。
-唯一一次手動觸發在 `changed=false` 就短路了。
-
-其中 `check_integrity.py` 這一步是後來才加的，**從未在 runner 上執行**。
-
-cron 是 `0 23 * * 1-5`（週末不跑），因此下一次機會是 **2026-08-10（週一）23:00 UTC**。
-
-要看結果：GitHub 的 Actions 頁面，或直接看 `main` 上有沒有出現
-`chore: refresh market and filing data (...)` 這筆 bot commit。
+目前沒有等待驗證的項目。每日資料管線已自 2026-08-10 起連續在 CI 完整執行；
+SEC 即時申報雷達另由 `.github/workflows/sec-filing-alerts.yml` 每 30 分鐘檢查，
+並同步更新 10-Q 到件、Form 4 內部人交易、募資與稀釋三個專項雷達。
 
 ---
 
