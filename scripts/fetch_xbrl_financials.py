@@ -74,7 +74,12 @@ CONCEPTS = {
     "revenue":             ("duration", ["Revenues",
                                          "RevenueFromContractWithCustomerExcludingAssessedTax"],
                                         ["Revenue", "RevenueFromContractsWithCustomers"]),
-    "net_income":          ("duration", ["NetIncomeLoss"], ["ProfitLoss"]),
+    # NetIncomeLoss is normally the parent-company figure used with parent
+    # equity in DuPont. ProfitLoss is also required as a fallback because Ondas
+    # uses a dimensional NetIncomeLoss subtotal in its equity statement while
+    # the primary statement of operations carries the consolidated annual loss
+    # under ProfitLoss. annual_values() resolves that tie by SEC frame status.
+    "net_income":          ("duration", ["NetIncomeLoss", "ProfitLoss"], ["ProfitLoss"]),
     "gross_profit":        ("duration", ["GrossProfit"], ["GrossProfit"]),
     # Altman Z needs retained earnings and EBIT on top of the balance sheet.
     "retained_earnings":   ("instant",  ["RetainedEarningsAccumulatedDeficit"],
@@ -375,7 +380,7 @@ def ranked_units(units):
     return [(n, units[n]) for n in names]
 
 
-def annual_values(facts, tags, kind):
+def annual_values(facts, tags, kind, prefer_framed=False):
     """Return {fiscal_year_end: value} merged across every candidate tag.
 
     Filers migrate between tags over time -- Apple and Microsoft moved from
@@ -401,21 +406,33 @@ def annual_values(facts, tags, kind):
                         continue
                 prev = picked.get(r["end"])
                 # Never trade a USD figure for a local-currency one. Otherwise a
-                # strictly newer filing wins, so restatements supersede; on an
-                # equal filing date the earlier candidate tag holds, which makes
-                # the tag list a priority order. That matters where candidates
-                # are alternative concepts rather than a renamed one -- short-term
-                # investments falls back to a maturity-bucketed tag that must not
-                # displace a company's primary one.
+                # strictly newer filing wins, so restatements supersede. On an
+                # equal filing date, net income's framed annual fact beats an
+                # unframed one:
+                # SEC omits `frame` from dimensional facts. Ondas, for example,
+                # tags a stockholders-equity subtotal as NetIncomeLoss without a
+                # frame while its primary statement of operations reports the
+                # consolidated annual loss as framed ProfitLoss. Treating the
+                # former as company-wide net income understated its FY2025 loss.
+                # If both candidates have the same frame status, the earlier tag
+                # still holds, preserving the declared tag priority order.
                 if prev is not None:
                     if prev["unit"] == "USD" and unit != "USD":
                         continue
-                    if not (unit == "USD" and prev["unit"] != "USD") \
-                       and r.get("filed", "") <= prev["filed"]:
-                        continue
+                    if not (unit == "USD" and prev["unit"] != "USD"):
+                        filed = r.get("filed", "")
+                        if filed < prev["filed"]:
+                            continue
+                        if filed == prev["filed"]:
+                            current_has_frame = bool(r.get("frame"))
+                            previous_has_frame = bool(prev.get("frame"))
+                            if not prefer_framed or previous_has_frame \
+                               or not current_has_frame:
+                                continue
                 picked[r["end"]] = {"val": r["val"], "filed": r.get("filed", ""),
                                     "form": r["form"], "accn": r.get("accn", ""),
-                                    "tag": tag, "unit": unit}
+                                    "tag": tag, "unit": unit,
+                                    "frame": r.get("frame")}
     if not picked:
         return None, None, {}
     latest = max(picked)
@@ -501,7 +518,8 @@ def build_ticker(ticker, cik):
     collected = {}
     for concept, (kind, gaap_tags, ifrs_tags) in CONCEPTS.items():
         tags = gaap_tags if taxonomy == "us-gaap" else ifrs_tags
-        tag, unit, by_year = annual_values(facts, tags, kind)
+        tag, unit, by_year = annual_values(
+            facts, tags, kind, prefer_framed=(concept == "net_income"))
         if by_year:
             collected[concept] = {"tag": tag, "unit": unit, "by_fiscal_year_end": by_year}
 
