@@ -1496,6 +1496,7 @@
       <div id="page-sortino" class="chart-page">
         <div class="chart-card chart-card-large">
           <h3>3 年期 Sortino Ratio 下行風險收益比 <span>(Risk-Adjusted Performance)</span></h3>
+          <p class="dcf-assumption-age">計算口徑：調整後收盤價（含股息與拆股）、MAR=0；未滿完整期間者不列入。</p>
           <div class="chart-canvas-wrap"><canvas id="chartSortino"></canvas></div>
         </div>
       </div>
@@ -1767,7 +1768,7 @@
         dcfMedian: null,   // 由 valuation.json 填入
         dcfRange: null,   // 由 valuation.json 填入
         moat: "壟斷級護城河 (2nm / A16 製程 & CoWoS 先進封裝)",
-        championTag: "3年 Sortino 冠軍 (2.44)",
+        championTag: null,  // 由 fundamentals.json 的最新 Sortino 動態決定
         thesisFile: "TSM_Master_Investment_Thesis_2026.md"
       },
       {
@@ -2137,6 +2138,16 @@
         item.healthCoverage = h ? `${h.coverage.computed}/${h.coverage.total}` : null;
         item.fiscalYearEnd = h ? h.fiscal_year_end : null;
       });
+
+      // Comparative badges must come from the same fresh data as the chart.
+      // A hand-written TSM badge previously stayed at 2.44 while the chart had
+      // already moved to 2.79.
+      const sortinoCandidates = titansData.filter(item => item.sortino != null);
+      if (sortinoCandidates.length) {
+        const champion = sortinoCandidates.reduce((best, item) =>
+          item.sortino > best.sortino ? item : best);
+        champion.championTag = `3年 Sortino 冠軍 (${fmtSortino(champion.sortino)})`;
+      }
 
       filterData();
       updateSortinoChart();
@@ -2934,7 +2945,7 @@
           labels: labels,
           datasets: [
             {
-              label: '3 年期 Sortino（週資料，MAR=0）',
+              label: '3 年期 Sortino（週總報酬，MAR=0）',
               data: titansData.map(d => d.sortino ?? null),
               borderColor: '#c084fc',
               backgroundColor: 'rgba(192, 132, 252, 0.15)',
@@ -2942,7 +2953,7 @@
               pointBackgroundColor: '#c084fc'
             },
             {
-              label: '近 12 個月 Sortino（日資料，MAR=0）',
+              label: '近 12 個月 Sortino（日總報酬，MAR=0）',
               data: titansData.map(d => d.sortino12m ?? null),
               borderColor: '#38bdf8',
               backgroundColor: 'rgba(56, 189, 248, 0.10)',

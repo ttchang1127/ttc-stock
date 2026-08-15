@@ -29,7 +29,7 @@ import pathlib
 import re
 import subprocess
 import sys
-from datetime import date
+from datetime import date, datetime
 
 REPO_ROOT = pathlib.Path(__file__).resolve().parent.parent
 
@@ -100,15 +100,33 @@ def c4():
     return not bad, f"不一致：{bad or '無'}"
 
 
-@check("C-5", "Sortino 有實際計算窗口")
+@check("C-5", "Sortino 使用調整後收盤價且有完整計算窗口")
 def c5():
     bad = []
+    prices = load("prices.json")
+    if prices.get("series_price_field") != "Adj Close":
+        bad.append("prices.json 未標示 Adj Close")
+    fund = load("fundamentals.json")["companies"]
+    for ticker, company in sorted(fund.items()):
+        for key, years in (("3y", 3), ("5y", 5)):
+            entry = (company.get("sortino") or {}).get(key) or {}
+            if entry.get("value") is None:
+                continue
+            history_start = entry.get("history_start")
+            window_end = entry.get("window_end")
+            if not history_start or not window_end:
+                bad.append(f"{ticker}/{key}(缺完整窗口證據)")
+                continue
+            cutoff = datetime.fromisoformat(window_end).replace(
+                year=datetime.fromisoformat(window_end).year - years)
+            if datetime.fromisoformat(history_start) > cutoff:
+                bad.append(f"{ticker}/{key}(歷史未滿 {years} 年)")
     for path in sorted((REPO_ROOT / "30_Analysis").glob("*_Master_Investment_Thesis_2026.md")):
         for line in path.read_text().splitlines():
             if "Sortino Ratio（週資料）" in line and "週報酬" not in line and "資料不足" not in line:
                 bad.append(path.name)
                 break
-    return not bad, f"裸數值（無窗口說明）：{bad or '無'}"
+    return not bad, f"口徑或窗口問題：{bad or '無'}"
 
 
 @check("C-6", "健全度沒有把「資料不足」講成「健全」")

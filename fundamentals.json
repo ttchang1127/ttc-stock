@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-08-15T00:43:49+00:00",
+ "generated_at": "2026-08-15T01:02:28+00:00",
  "financials_generated_at": "2026-08-15T00:43:33+00:00",
  "source": "Derived from SEC XBRL Company Facts; prices from prices.json",
  "companies": {
@@ -72,32 +72,34 @@
    },
    "sortino": {
     "3y": {
-     "value": 1.24,
+     "value": 1.27,
      "weeks": 156,
      "window_start": "2023-08-18",
      "window_end": "2026-08-14",
+     "history_start": "2020-08-21",
      "mar": 0.0,
-     "basis": "weekly returns, annualised"
+     "basis": "weekly adjusted-close total returns, annualised"
     },
     "5y": {
-     "value": 1.0,
+     "value": 1.03,
      "weeks": 260,
      "window_start": "2021-08-20",
      "window_end": "2026-08-14",
+     "history_start": "2020-08-21",
      "mar": 0.0,
-     "basis": "weekly returns, annualised"
+     "basis": "weekly adjusted-close total returns, annualised"
     },
     "12m_daily": {
-     "value": 1.8,
+     "value": 1.82,
      "sessions": 251,
      "window_start": "2025-08-14",
      "window_end": "2026-08-14",
      "mar": 0.0,
      "mar_note": "MAR=0，與 PortfoliosLab 等公開篩選器一致",
-     "value_vs_riskfree": 1.57,
-     "risk_free_annual": 0.03728,
+     "value_vs_riskfree": 1.6,
+     "risk_free_annual": 0.03692,
      "risk_free_source": "^IRX 13週美國國庫券，期間平均",
-     "basis": "daily returns, annualised"
+     "basis": "daily adjusted-close total returns, annualised"
     }
    }
   },
@@ -167,16 +169,18 @@
      "weeks": 156,
      "window_start": "2023-08-18",
      "window_end": "2026-08-14",
+     "history_start": "2020-08-21",
      "mar": 0.0,
-     "basis": "weekly returns, annualised"
+     "basis": "weekly adjusted-close total returns, annualised"
     },
     "5y": {
      "value": 0.69,
      "weeks": 260,
      "window_start": "2021-08-20",
      "window_end": "2026-08-14",
+     "history_start": "2020-08-21",
      "mar": 0.0,
-     "basis": "weekly returns, annualised"
+     "basis": "weekly adjusted-close total returns, annualised"
     },
     "12m_daily": {
      "value": 0.89,
@@ -186,9 +190,9 @@
      "mar": 0.0,
      "mar_note": "MAR=0，與 PortfoliosLab 等公開篩選器一致",
      "value_vs_riskfree": 0.71,
-     "risk_free_annual": 0.03728,
+     "risk_free_annual": 0.03692,
      "risk_free_source": "^IRX 13週美國國庫券，期間平均",
-     "basis": "daily returns, annualised"
+     "basis": "daily adjusted-close total returns, annualised"
     }
    }
   },
@@ -263,16 +267,18 @@
    },
    "sortino": {
     "3y": {
-     "value": 1.87,
-     "weeks": 152,
+     "value": null,
+     "reason": "股價歷史未滿 3 年，僅 152 週報酬，起始 2023-09-15",
+     "available_weeks": 152,
      "window_start": "2023-09-15",
-     "window_end": "2026-08-14",
-     "mar": 0.0,
-     "basis": "weekly returns, annualised"
+     "window_end": "2026-08-14"
     },
     "5y": {
      "value": null,
-     "reason": "股價歷史不足 5 年，僅 153 週，起始 2023-09-15"
+     "reason": "股價歷史未滿 5 年，僅 152 週報酬，起始 2023-09-15",
+     "available_weeks": 152,
+     "window_start": "2023-09-15",
+     "window_end": "2026-08-14"
     },
     "12m_daily": {
      "value": 2.18,
@@ -281,10 +287,10 @@
      "window_end": "2026-08-14",
      "mar": 0.0,
      "mar_note": "MAR=0，與 PortfoliosLab 等公開篩選器一致",
-     "value_vs_riskfree": 2.09,
-     "risk_free_annual": 0.03728,
+     "value_vs_riskfree": 2.1,
+     "risk_free_annual": 0.03692,
      "risk_free_source": "^IRX 13週美國國庫券，期間平均",
-     "basis": "daily returns, annualised"
+     "basis": "daily adjusted-close total returns, annualised"
     }
    }
   },
@@ -354,16 +360,18 @@
      "weeks": 156,
      "window_start": "2023-08-18",
      "window_end": "2026-08-14",
+     "history_start": "2020-08-21",
      "mar": 0.0,
-     "basis": "weekly returns, annualised"
+     "basis": "weekly adjusted-close total returns, annualised"
     },
     "5y": {
      "value": 1.39,
      "weeks": 260,
      "window_start": "2021-08-20",
      "window_end": "2026-08-14",
+     "history_start": "2020-08-21",
      "mar": 0.0,
-     "basis": "weekly returns, annualised"
+     "basis": "weekly adjusted-close total returns, annualised"
     },
     "12m_daily": {
      "value": 3.05,
@@ -373,9 +381,9 @@
      "mar": 0.0,
      "mar_note": "MAR=0，與 PortfoliosLab 等公開篩選器一致",
      "value_vs_riskfree": 2.97,
-     "risk_free_annual": 0.03728,
+     "risk_free_annual": 0.03692,
      "risk_free_source": "^IRX 13週美國國庫券，期間平均",
-     "basis": "daily returns, annualised"
+     "basis": "daily adjusted-close total returns, annualised"
     }
    }
   },
@@ -448,32 +456,34 @@
    },
    "sortino": {
     "3y": {
-     "value": 2.01,
+     "value": 2.03,
      "weeks": 156,
      "window_start": "2023-08-18",
      "window_end": "2026-08-14",
+     "history_start": "2020-08-21",
      "mar": 0.0,
-     "basis": "weekly returns, annualised"
+     "basis": "weekly adjusted-close total returns, annualised"
     },
     "5y": {
-     "value": 1.16,
+     "value": 1.17,
      "weeks": 260,
      "window_start": "2021-08-20",
      "window_end": "2026-08-14",
+     "history_start": "2020-08-21",
      "mar": 0.0,
-     "basis": "weekly returns, annualised"
+     "basis": "weekly adjusted-close total returns, annualised"
     },
     "12m_daily": {
-     "value": 3.08,
+     "value": 3.1,
      "sessions": 251,
      "window_start": "2025-08-14",
      "window_end": "2026-08-14",
      "mar": 0.0,
      "mar_note": "MAR=0，與 PortfoliosLab 等公開篩選器一致",
-     "value_vs_riskfree": 2.87,
-     "risk_free_annual": 0.03728,
+     "value_vs_riskfree": 2.89,
+     "risk_free_annual": 0.03692,
      "risk_free_source": "^IRX 13週美國國庫券，期間平均",
-     "basis": "daily returns, annualised"
+     "basis": "daily adjusted-close total returns, annualised"
     }
    }
   },
@@ -539,20 +549,22 @@
    },
    "sortino": {
     "3y": {
-     "value": 1.59,
+     "value": 1.6,
      "weeks": 156,
      "window_start": "2023-08-18",
      "window_end": "2026-08-14",
+     "history_start": "2020-08-21",
      "mar": 0.0,
-     "basis": "weekly returns, annualised"
+     "basis": "weekly adjusted-close total returns, annualised"
     },
     "5y": {
-     "value": 0.86,
+     "value": 0.91,
      "weeks": 260,
      "window_start": "2021-08-20",
      "window_end": "2026-08-14",
+     "history_start": "2020-08-21",
      "mar": 0.0,
-     "basis": "weekly returns, annualised"
+     "basis": "weekly adjusted-close total returns, annualised"
     },
     "12m_daily": {
      "value": 4.01,
@@ -562,9 +574,9 @@
      "mar": 0.0,
      "mar_note": "MAR=0，與 PortfoliosLab 等公開篩選器一致",
      "value_vs_riskfree": 3.92,
-     "risk_free_annual": 0.03728,
+     "risk_free_annual": 0.03692,
      "risk_free_source": "^IRX 13週美國國庫券，期間平均",
-     "basis": "daily returns, annualised"
+     "basis": "daily adjusted-close total returns, annualised"
     }
    }
   },
@@ -637,32 +649,34 @@
    },
    "sortino": {
     "3y": {
-     "value": 1.37,
+     "value": 1.39,
      "weeks": 156,
      "window_start": "2023-08-18",
      "window_end": "2026-08-14",
+     "history_start": "2020-08-21",
      "mar": 0.0,
-     "basis": "weekly returns, annualised"
+     "basis": "weekly adjusted-close total returns, annualised"
     },
     "5y": {
-     "value": 0.68,
+     "value": 0.69,
      "weeks": 260,
      "window_start": "2021-08-20",
      "window_end": "2026-08-14",
+     "history_start": "2020-08-21",
      "mar": 0.0,
-     "basis": "weekly returns, annualised"
+     "basis": "weekly adjusted-close total returns, annualised"
     },
     "12m_daily": {
-     "value": -0.76,
+     "value": -0.74,
      "sessions": 251,
      "window_start": "2025-08-14",
      "window_end": "2026-08-14",
      "mar": 0.0,
      "mar_note": "MAR=0，與 PortfoliosLab 等公開篩選器一致",
-     "value_vs_riskfree": -0.88,
-     "risk_free_annual": 0.03728,
+     "value_vs_riskfree": -0.87,
+     "risk_free_annual": 0.03692,
      "risk_free_source": "^IRX 13週美國國庫券，期間平均",
-     "basis": "daily returns, annualised"
+     "basis": "daily adjusted-close total returns, annualised"
     }
    }
   },
@@ -735,32 +749,34 @@
    },
    "sortino": {
     "3y": {
-     "value": 1.73,
+     "value": 1.74,
      "weeks": 156,
      "window_start": "2023-08-18",
      "window_end": "2026-08-14",
+     "history_start": "2020-08-21",
      "mar": 0.0,
-     "basis": "weekly returns, annualised"
+     "basis": "weekly adjusted-close total returns, annualised"
     },
     "5y": {
-     "value": 1.22,
+     "value": 1.23,
      "weeks": 260,
      "window_start": "2021-08-20",
      "window_end": "2026-08-14",
+     "history_start": "2020-08-21",
      "mar": 0.0,
-     "basis": "weekly returns, annualised"
+     "basis": "weekly adjusted-close total returns, annualised"
     },
     "12m_daily": {
-     "value": 2.78,
+     "value": 2.79,
      "sessions": 251,
      "window_start": "2025-08-14",
      "window_end": "2026-08-14",
      "mar": 0.0,
      "mar_note": "MAR=0，與 PortfoliosLab 等公開篩選器一致",
-     "value_vs_riskfree": 2.7,
-     "risk_free_annual": 0.03728,
+     "value_vs_riskfree": 2.71,
+     "risk_free_annual": 0.03692,
      "risk_free_source": "^IRX 13週美國國庫券，期間平均",
-     "basis": "daily returns, annualised"
+     "basis": "daily adjusted-close total returns, annualised"
     }
    }
   },
@@ -833,32 +849,34 @@
    },
    "sortino": {
     "3y": {
-     "value": 1.19,
+     "value": 1.24,
      "weeks": 156,
      "window_start": "2023-08-18",
      "window_end": "2026-08-14",
+     "history_start": "2020-08-21",
      "mar": 0.0,
-     "basis": "weekly returns, annualised"
+     "basis": "weekly adjusted-close total returns, annualised"
     },
     "5y": {
-     "value": 0.82,
+     "value": 0.87,
      "weeks": 260,
      "window_start": "2021-08-20",
      "window_end": "2026-08-14",
+     "history_start": "2020-08-21",
      "mar": 0.0,
-     "basis": "weekly returns, annualised"
+     "basis": "weekly adjusted-close total returns, annualised"
     },
     "12m_daily": {
-     "value": -0.01,
+     "value": 0.02,
      "sessions": 251,
      "window_start": "2025-08-14",
      "window_end": "2026-08-14",
      "mar": 0.0,
      "mar_note": "MAR=0，與 PortfoliosLab 等公開篩選器一致",
-     "value_vs_riskfree": -0.19,
-     "risk_free_annual": 0.03728,
+     "value_vs_riskfree": -0.15,
+     "risk_free_annual": 0.03692,
      "risk_free_source": "^IRX 13週美國國庫券，期間平均",
-     "basis": "daily returns, annualised"
+     "basis": "daily adjusted-close total returns, annualised"
     }
    }
   },
@@ -933,20 +951,22 @@
    },
    "sortino": {
     "3y": {
-     "value": 1.81,
+     "value": 1.93,
      "weeks": 156,
      "window_start": "2023-08-18",
      "window_end": "2026-08-14",
+     "history_start": "2020-08-21",
      "mar": 0.0,
-     "basis": "weekly returns, annualised"
+     "basis": "weekly adjusted-close total returns, annualised"
     },
     "5y": {
-     "value": 0.79,
+     "value": 0.89,
      "weeks": 260,
      "window_start": "2021-08-20",
      "window_end": "2026-08-14",
+     "history_start": "2020-08-21",
      "mar": 0.0,
-     "basis": "weekly returns, annualised"
+     "basis": "weekly adjusted-close total returns, annualised"
     },
     "12m_daily": {
      "value": 3.19,
@@ -956,9 +976,9 @@
      "mar": 0.0,
      "mar_note": "MAR=0，與 PortfoliosLab 等公開篩選器一致",
      "value_vs_riskfree": 3.08,
-     "risk_free_annual": 0.03728,
+     "risk_free_annual": 0.03692,
      "risk_free_source": "^IRX 13週美國國庫券，期間平均",
-     "basis": "daily returns, annualised"
+     "basis": "daily adjusted-close total returns, annualised"
     }
    }
   },
@@ -1035,28 +1055,30 @@
      "weeks": 156,
      "window_start": "2023-08-18",
      "window_end": "2026-08-14",
+     "history_start": "2020-08-21",
      "mar": 0.0,
-     "basis": "weekly returns, annualised"
+     "basis": "weekly adjusted-close total returns, annualised"
     },
     "5y": {
      "value": 2.1,
      "weeks": 260,
      "window_start": "2021-08-20",
      "window_end": "2026-08-14",
+     "history_start": "2020-08-21",
      "mar": 0.0,
-     "basis": "weekly returns, annualised"
+     "basis": "weekly adjusted-close total returns, annualised"
     },
     "12m_daily": {
-     "value": 1.12,
+     "value": 1.13,
      "sessions": 251,
      "window_start": "2025-08-14",
      "window_end": "2026-08-14",
      "mar": 0.0,
      "mar_note": "MAR=0，與 PortfoliosLab 等公開篩選器一致",
-     "value_vs_riskfree": 0.97,
-     "risk_free_annual": 0.03728,
+     "value_vs_riskfree": 0.98,
+     "risk_free_annual": 0.03692,
      "risk_free_source": "^IRX 13週美國國庫券，期間平均",
-     "basis": "daily returns, annualised"
+     "basis": "daily adjusted-close total returns, annualised"
     }
    }
   },
@@ -1135,16 +1157,18 @@
      "weeks": 156,
      "window_start": "2023-08-18",
      "window_end": "2026-08-14",
+     "history_start": "2020-12-04",
      "mar": 0.0,
-     "basis": "weekly returns, annualised"
+     "basis": "weekly adjusted-close total returns, annualised"
     },
     "5y": {
      "value": 1.16,
      "weeks": 260,
      "window_start": "2021-08-20",
      "window_end": "2026-08-14",
+     "history_start": "2020-12-04",
      "mar": 0.0,
-     "basis": "weekly returns, annualised"
+     "basis": "weekly adjusted-close total returns, annualised"
     },
     "12m_daily": {
      "value": 2.18,
@@ -1153,10 +1177,10 @@
      "window_end": "2026-08-14",
      "mar": 0.0,
      "mar_note": "MAR=0，與 PortfoliosLab 等公開篩選器一致",
-     "value_vs_riskfree": 2.12,
-     "risk_free_annual": 0.03728,
+     "value_vs_riskfree": 2.13,
+     "risk_free_annual": 0.03692,
      "risk_free_source": "^IRX 13週美國國庫券，期間平均",
-     "basis": "daily returns, annualised"
+     "basis": "daily adjusted-close total returns, annualised"
     }
    }
   },
@@ -1233,16 +1257,18 @@
      "weeks": 156,
      "window_start": "2023-08-18",
      "window_end": "2026-08-14",
+     "history_start": "2020-08-21",
      "mar": 0.0,
-     "basis": "weekly returns, annualised"
+     "basis": "weekly adjusted-close total returns, annualised"
     },
     "5y": {
      "value": 0.67,
      "weeks": 260,
      "window_start": "2021-08-20",
      "window_end": "2026-08-14",
+     "history_start": "2020-08-21",
      "mar": 0.0,
-     "basis": "weekly returns, annualised"
+     "basis": "weekly adjusted-close total returns, annualised"
     },
     "12m_daily": {
      "value": 0.39,
@@ -1252,9 +1278,9 @@
      "mar": 0.0,
      "mar_note": "MAR=0，與 PortfoliosLab 等公開篩選器一致",
      "value_vs_riskfree": 0.28,
-     "risk_free_annual": 0.03728,
+     "risk_free_annual": 0.03692,
      "risk_free_source": "^IRX 13週美國國庫券，期間平均",
-     "basis": "daily returns, annualised"
+     "basis": "daily adjusted-close total returns, annualised"
     }
    }
   },
@@ -1329,32 +1355,34 @@
    },
    "sortino": {
     "3y": {
-     "value": 2.79,
+     "value": 2.86,
      "weeks": 156,
      "window_start": "2023-08-18",
      "window_end": "2026-08-14",
+     "history_start": "2020-08-21",
      "mar": 0.0,
-     "basis": "weekly returns, annualised"
+     "basis": "weekly adjusted-close total returns, annualised"
     },
     "5y": {
-     "value": 1.58,
+     "value": 1.66,
      "weeks": 260,
      "window_start": "2021-08-20",
      "window_end": "2026-08-14",
+     "history_start": "2020-08-21",
      "mar": 0.0,
-     "basis": "weekly returns, annualised"
+     "basis": "weekly adjusted-close total returns, annualised"
     },
     "12m_daily": {
-     "value": 2.52,
+     "value": 2.56,
      "sessions": 251,
      "window_start": "2025-08-14",
      "window_end": "2026-08-14",
      "mar": 0.0,
      "mar_note": "MAR=0，與 PortfoliosLab 等公開篩選器一致",
-     "value_vs_riskfree": 2.37,
-     "risk_free_annual": 0.03728,
+     "value_vs_riskfree": 2.41,
+     "risk_free_annual": 0.03692,
      "risk_free_source": "^IRX 13週美國國庫券，期間平均",
-     "basis": "daily returns, annualised"
+     "basis": "daily adjusted-close total returns, annualised"
     }
    }
   }

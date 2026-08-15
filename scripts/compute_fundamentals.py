@@ -172,12 +172,12 @@ def weekly_closes(dates, closes):
 
 
 def sortino(prices, ticker, years, mar=0.0):
-    """Annualised Sortino on weekly returns, measured against MAR (default 0).
+    """Annualised Sortino on adjusted-close weekly returns and MAR (default 0).
 
     Sortino = (mean weekly return x 52) / (downside deviation x sqrt(52)),
-    where downside deviation counts only returns below MAR. Returns None when
-    the price history does not cover the window -- ARM listed in Sept 2023, so
-    its 5-year figure cannot exist.
+    where downside deviation counts only returns below MAR. Returns None unless
+    the price history reaches the beginning of the requested window -- a
+    nearly-three-year listing must not be labelled as a full three-year ratio.
     """
     sym = PRICE_ALIASES_REVERSE.get(ticker, ticker)
     series = (prices or {}).get("series", {}).get(sym) or (prices or {}).get("series", {}).get(
@@ -191,6 +191,17 @@ def sortino(prices, ticker, years, mar=0.0):
 
     last_date = datetime.fromisoformat(weekly[-1][0])
     cutoff = last_date.replace(year=last_date.year - years)
+    history_start = datetime.fromisoformat(weekly[0][0])
+    if history_start > cutoff:
+        available = len([1 for d, _ in weekly if datetime.fromisoformat(d) >= cutoff]) - 1
+        return {
+            "value": None,
+            "reason": "股價歷史未滿 {} 年，僅 {} 週報酬，起始 {}".format(
+                years, max(available, 0), weekly[0][0]),
+            "available_weeks": max(available, 0),
+            "window_start": weekly[0][0],
+            "window_end": weekly[-1][0],
+        }
     window = [(d, c) for d, c in weekly if datetime.fromisoformat(d) >= cutoff]
     needed = int(52 * years * 0.9)      # allow for holidays and thin weeks
     if len(window) < needed:
@@ -207,7 +218,8 @@ def sortino(prices, ticker, years, mar=0.0):
     value = (mean_excess * 52) / (dd * (52 ** 0.5))
     return {"value": round(value, 2), "weeks": len(rets),
             "window_start": window[0][0], "window_end": window[-1][0],
-            "mar": mar, "basis": "weekly returns, annualised"}
+            "history_start": weekly[0][0], "mar": mar,
+            "basis": "weekly adjusted-close total returns, annualised"}
 
 
 def risk_free_annual(prices, since_date):
@@ -272,7 +284,7 @@ def sortino_daily_12m(prices, ticker):
             "value_vs_riskfree": None if vs_rf is None else round(vs_rf, 2),
             "risk_free_annual": None if rf_annual is None else round(rf_annual, 5),
             "risk_free_source": "^IRX 13週美國國庫券，期間平均",
-            "basis": "daily returns, annualised"}
+            "basis": "daily adjusted-close total returns, annualised"}
 
 
 def latest_price(prices, ticker):

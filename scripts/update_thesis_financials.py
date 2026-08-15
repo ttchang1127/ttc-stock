@@ -151,7 +151,8 @@ def build_sortino_section(heading, data, prices_meta):
     return "\n".join([
         heading,
         "",
-        "> 📌 由 `prices.json` 的實際收盤價計算。下行標準差只計入低於門檻報酬率 (MAR) 的期別，"
+        "> 📌 由 `prices.json` 的含股息與拆股調整後收盤價（Adj Close）計算。"
+        "下行標準差只計入低於門檻報酬率 (MAR) 的期別，"
         "再年化為 `平均超額報酬 × N ÷ (下行標準差 × √N)`。"
         f"股價資料擷取於 {(prices_meta or {}).get('generated_at', '未知')[:10]}。",
         "",

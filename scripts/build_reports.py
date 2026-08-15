@@ -136,10 +136,10 @@ FINANCIAL_TERMS = {
         "超額報酬 ÷ 下行偏差，只將低於門檻報酬的波動視為風險。"
         "同期間、同頻率、同門檻下數值越高通常越好；不同口徑不可直接比較。"),
     "12 個月 Sortino": (
-        "近 12 個月的 Sortino Ratio；本頁以日報酬、MAR=0 計算，衡量每單位下行風險對應的報酬。"),
-    "近 3 年（週資料）": "以近 3 年週報酬計算的 Sortino Ratio，須與相同期間、頻率與門檻的結果比較。",
-    "近 5 年（週資料）": "以近 5 年週報酬計算的 Sortino Ratio，涵蓋較多市場循環，但仍受期間選擇影響。",
-    "近 12 個月（日資料 MAR=0）": "以近 12 個月日報酬、最低可接受報酬 MAR=0 計算的 Sortino Ratio。",
+        "近 12 個月的 Sortino Ratio；本頁以含股息調整後日報酬、MAR=0 計算，衡量每單位下行風險對應的報酬。"),
+    "近 3 年（週資料）": "以近 3 年含股息調整後週報酬計算的 Sortino Ratio，須與相同期間、頻率與門檻的結果比較。",
+    "近 5 年（週資料）": "以近 5 年含股息調整後週報酬計算的 Sortino Ratio，涵蓋較多市場循環，但仍受期間選擇影響。",
+    "近 12 個月（日資料 MAR=0）": "以近 12 個月含股息調整後日報酬、最低可接受報酬 MAR=0 計算的 Sortino Ratio。",
     "同期無風險門檻版本": (
         "以同期無風險利率作為最低可接受報酬的 Sortino Ratio，與 MAR=0 版本的口徑不同。"),
     "稀釋每股盈餘": (
@@ -686,7 +686,7 @@ def render(ticker, ctx):
   <div class="hero-card">
     <div class="hero-title">
       <h1>{html.escape(ctx['name'])}（{ticker}）</h1>
-      <div class="hero-subtitle">財務健全度、估值與下行風險 — 全部數據由 SEC XBRL 與實際收盤價產生</div>
+      <div class="hero-subtitle">財務健全度、估值與下行風險 — 全部數據由 SEC XBRL 與含股息調整後收盤價產生</div>
       <div class="tooltip-hint">ⓘ 滑鼠移到帶 i 的金融名詞，或用鍵盤聚焦，即可查看定義與判讀方法。</div>
       <div class="badge-sec">🛡️ {ctx['form']} · accession {html.escape(ctx['accession'])} · FY{ctx['fye']}</div>
     </div>

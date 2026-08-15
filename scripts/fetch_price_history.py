@@ -1,9 +1,9 @@
 """Build-time price fetcher for dashboard.html.
 
 GitHub Pages is static and Yahoo's chart API sends no CORS headers, so the
-browser can never fetch quotes directly. Instead we pull real daily closes here
-with yfinance and commit the result as prices.json, which dashboard.html loads
-as a same-origin file.
+browser can never fetch quotes directly. Instead we pull dividend- and
+split-adjusted daily closes here with yfinance and commit the result as
+prices.json, which dashboard.html loads as a same-origin file.
 
 Usage:
     python3 scripts/fetch_price_history.py
@@ -33,7 +33,7 @@ DEFAULT_TICKERS = [
 ]
 
 
-def fetch_series(ticker, start, end):
+def fetch_series(ticker, start, end, price_field="Adj Close"):
     frame = yf.download(
         ticker,
         start=start.isoformat(),
@@ -45,7 +45,9 @@ def fetch_series(ticker, start, end):
     if frame.empty:
         return None
 
-    closes = frame["Close"]
+    if price_field not in frame:
+        return None
+    closes = frame[price_field]
     # yfinance returns a MultiIndex column frame for single tickers too.
     if hasattr(closes, "columns"):
         closes = closes[closes.columns[0]]
@@ -96,7 +98,7 @@ def main():
     # only alternative is to invent a rate. Fetched before the unchanged check
     # below, which compares it.
     risk_free = None
-    rf = fetch_series("^IRX", start, end)
+    rf = fetch_series("^IRX", start, end, price_field="Close")
     if rf:
         risk_free = {
             "symbol": "^IRX",
@@ -113,7 +115,7 @@ def main():
     # fetching it here gives the dashboard a real quote and a real quote date
     # instead of a value someone has to remember to update manually.
     fx_usdtwd = None
-    fx = fetch_series("TWD=X", start, end)
+    fx = fetch_series("TWD=X", start, end, price_field="Close")
     if fx:
         fx_usdtwd = {
             "symbol": "TWD=X",
@@ -145,7 +147,9 @@ def main():
 
     payload = {
         "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-        "source": "Yahoo Finance via yfinance (daily close, auto_adjust=False)",
+        "source": ("Yahoo Finance via yfinance (Adj Close total-return series; "
+                   "dividends and splits adjusted, auto_adjust=False)"),
+        "series_price_field": "Adj Close",
         "range": {"start": start.isoformat(), "end": end.isoformat()},
         "risk_free": risk_free,
         "fx_usdtwd": fx_usdtwd,
