@@ -553,7 +553,7 @@ DCF 不是事實。使用者若問「這檔值多少錢」，正確回答是：
 | `compute_financial_health.py` | 算流動性 / 償債 / ROIC−WACC / Altman Z'' → `financial_health.json` |
 | `estimate_dcf_inputs.py` | 由 beta／Rf／Kd／營收 CAGR 推導 g 與 WACC（**只印出，不寫檔**） |
 | `check_new_annual_filings.py` | 比對 SEC 最新 10-K／20-F 與本地 accession（**只通知，不寫檔**） |
-| `watch_sec_filings.py` | 每 30 分鐘比對 14 家 SEC accession，更新即時雷達並由 GitHub Issue 通知 |
+| `watch_sec_filings.py` | 台北時間週二至週六中午比對 14 家 SEC accession，更新每日雷達並由 GitHub Issue 通知 |
 | `sec_specialized_radars.py` | 產生最新 10-Q 到件表、解析 Form 4 Ownership XML、依募資文件內文判別 ATM／股權／可轉債／一般債券／架上註冊 |
 | `compute_valuation.py` | 算本益比 / 淨現金 / DCF 蒙地卡羅 / 隱含成長率 → `valuation.json` |
 | `diff_risk_factors.py` | 比對風險因素的年度變化 → `risk_changes.json` |

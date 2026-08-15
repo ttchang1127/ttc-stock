@@ -214,11 +214,11 @@ def render_alert(events, errors, checked_at):
 def render_note(history, checked_at, company_count):
     events = history.get("events", [])
     lines = [
-        "---", "title: SEC 即時申報雷達", f"updated_at: {checked_at}",
-        "tags:", "  - sec/alerts", "  - filings/realtime", "---", "",
-        "# 🚨 SEC 即時申報雷達", "",
+        "---", "title: SEC 每日申報雷達", f"updated_at: {checked_at}",
+        "tags:", "  - sec/alerts", "  - filings/daily", "---", "",
+        "# 🚨 SEC 每日申報雷達", "",
         f"追蹤 **{company_count} 家公司**；由 SEC submissions API 依 accession number 去重。",
-        "GitHub Actions 每 30 分鐘檢查一次；重大／重要申報會建立 GitHub Issue 通知，"
+        "GitHub Actions 於台北時間週二至週六中午 12:00 檢查；重大／重要申報會建立 GitHub Issue 通知，"
         "Form 4／144 等留意級申報則收進雷達，避免通知轟炸。", "",
         "## 最新申報", "",
     ]

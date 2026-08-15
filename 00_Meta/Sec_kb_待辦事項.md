@@ -36,7 +36,7 @@ python3 scripts/build_reports.py
 ## B. 等結果，不用動手
 
 目前沒有等待驗證的項目。每日資料管線已自 2026-08-10 起連續在 CI 完整執行；
-SEC 即時申報雷達另由 `.github/workflows/sec-filing-alerts.yml` 每 30 分鐘檢查，
+SEC 申報雷達另由 `.github/workflows/sec-filing-alerts.yml` 於台北時間週二至週六中午檢查，
 並同步更新 10-Q 到件、Form 4 內部人交易、募資與稀釋三個專項雷達。
 
 ---

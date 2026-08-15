@@ -1,15 +1,15 @@
 ---
-title: SEC 即時申報雷達
+title: SEC 每日申報雷達
 updated_at: 2026-08-15T06:17:04+00:00
 tags:
   - sec/alerts
-  - filings/realtime
+  - filings/daily
 ---
 
-# 🚨 SEC 即時申報雷達
+# 🚨 SEC 每日申報雷達
 
 追蹤 **14 家公司**；由 SEC submissions API 依 accession number 去重。
-GitHub Actions 每 30 分鐘檢查一次；重大／重要申報會建立 GitHub Issue 通知，Form 4／144 等留意級申報則收進雷達，避免通知轟炸。
+GitHub Actions 於台北時間週二至週六中午 12:00 檢查；重大／重要申報會建立 GitHub Issue 通知，Form 4／144 等留意級申報則收進雷達，避免通知轟炸。
 
 ## 最新申報
 
@@ -111,4 +111,3 @@ GitHub Actions 每 30 分鐘檢查一次；重大／重要申報會建立 GitHub
 10-K／20-F、10-Q、8-K／6-K、Form 3／4／5／144、DEF 14A、S-3／F-3／424B 等募資文件。
 
 > Schedule 13D／13G 是由外部大股東申報，不一定出現在發行公司的 submissions feed，目前不宣稱完整覆蓋。
-

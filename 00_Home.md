@@ -61,7 +61,7 @@ tags:
 
 ## ⚡ 法說會與即時重大事件追蹤 (Form 8-K / 6-K)
 
-- 🚨 **[[SEC_Filing_Alerts|SEC 即時申報雷達（14 家、30 分鐘輪詢）]]**
+- 🚨 **[[SEC_Filing_Alerts|SEC 每日申報雷達（14 家、台北時間中午更新）]]**
 - 📊 **[[Quarterly_10Q_Radar|10-Q 季報到件雷達]]**
 - 💧 **[[Dilution_Offering_Radar|募資與股權稀釋雷達]]**
 - 📰 **[SEC Form 8-K / 6-K 法說會與第一手重大事件總覽報告](file:///Volumes/Crucial%20X8/Jarvis%20Obsidian/Sec_kb/50_Form8K_Corporate_Events/Form8K_Major_Events_Master.md)**
