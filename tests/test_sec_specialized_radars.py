@@ -100,13 +100,39 @@ class OfferingClassificationTests(unittest.TestCase):
 
 
 class QuarterlyTests(unittest.TestCase):
-    def test_selects_latest_10q_and_marks_foreign_issuer(self):
+    def test_selects_four_distinct_reporting_periods_and_marks_foreign_issuer(self):
         old = {"form": "10-Q", "filing_date": "2026-05-01", "accepted_at": "", "ticker": "ONDS"}
         new = {"form": "10-Q", "filing_date": "2026-08-01", "accepted_at": "", "ticker": "ONDS"}
+        annual = {"form": "10-K", "filing_date": "2026-03-01", "accepted_at": "", "ticker": "ONDS"}
         foreign = {"form": "20-F", "filing_date": "2026-03-01", "accepted_at": "", "ticker": "TSM"}
-        rows = radars.latest_quarterly_rows({"ONDS": [old, new], "TSM": [foreign]})
+        rows = radars.latest_quarterly_rows({"ONDS": [old, new, annual], "TSM": [foreign]})
         self.assertEqual(rows[0]["event"], new)
+        self.assertEqual(rows[0]["periods"], [new, old, annual])
         self.assertEqual(rows[1]["status"], "foreign")
+
+    def test_dashboard_snapshot_preserves_latest_event_and_foreign_status(self):
+        event = {
+            "form": "10-Q", "filing_date": "2026-08-01", "accepted_at": "",
+            "ticker": "ONDS", "url": "https://www.sec.gov/example", "report_date": "2026-06-30",
+        }
+        foreign = {"form": "20-F", "filing_date": "2026-03-01", "accepted_at": "", "ticker": "TSM"}
+        snapshot = radars.quarterly_snapshot({"ONDS": [event], "TSM": [foreign]})
+        self.assertEqual(snapshot["ONDS"]["event"], event)
+        self.assertEqual(snapshot["ONDS"]["periods"], [event])
+        self.assertEqual(snapshot["TSM"]["status"], "foreign")
+        self.assertIsNone(snapshot["TSM"]["event"])
+
+    def test_late_annual_amendment_does_not_sort_before_newer_quarter(self):
+        q1 = {
+            "form": "10-Q", "filing_date": "2026-04-23", "accepted_at": "",
+            "ticker": "TSLA", "report_date": "2026-03-31",
+        }
+        amendment = {
+            "form": "10-K/A", "filing_date": "2026-04-30", "accepted_at": "",
+            "ticker": "TSLA", "report_date": "2025-12-31",
+        }
+        rows = radars.latest_quarterly_rows({"TSLA": [q1, amendment]})
+        self.assertEqual(rows[0]["periods"], [q1, amendment])
 
 
 if __name__ == "__main__":

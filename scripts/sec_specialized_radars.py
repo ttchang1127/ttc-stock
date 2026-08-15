@@ -318,47 +318,111 @@ def latest_quarterly_rows(fetched):
     rows = []
     for ticker, events in sorted(fetched.items()):
         quarterly = sorted(
-            (event for event in events if event["form"] in {"10-Q", "10-Q/A"}),
+            (event for event in events if event["form"] in {
+                "10-Q", "10-Q/A", "10-K", "10-K/A",
+            }),
             key=event_sort_key,
             reverse=True,
         )
+        # An amendment and the original describe the same reporting period.
+        # Keep the newest filing for each period so the dashboard shows four
+        # distinct reporting quarters instead of counting amendments twice.
+        distinct = []
+        seen_periods = set()
+        for event in quarterly:
+            period_key = (
+                event.get("report_date")
+                or event.get("accession")
+                or (event.get("filing_date"), event.get("form"))
+            )
+            if period_key in seen_periods:
+                continue
+            seen_periods.add(period_key)
+            distinct.append(event)
+        distinct = sorted(
+            distinct,
+            key=lambda event: (
+                event.get("report_date", ""),
+                event.get("filing_date", ""),
+                event.get("accepted_at", ""),
+            ),
+            reverse=True,
+        )[:4]
         if quarterly:
-            rows.append({"ticker": ticker, "status": "filed", "event": quarterly[0]})
+            latest_10q = next(
+                (event for event in quarterly if event["form"] in {"10-Q", "10-Q/A"}),
+                None,
+            )
+            rows.append({
+                "ticker": ticker,
+                "status": "filed",
+                "event": latest_10q or distinct[0],
+                "periods": distinct,
+            })
         elif ticker in FOREIGN_PRIVATE_ISSUERS or any(
                 event["form"] in {"20-F", "20-F/A"} for event in events):
-            rows.append({"ticker": ticker, "status": "foreign", "event": None})
+            annuals = sorted(
+                (event for event in events if event["form"] in {"20-F", "20-F/A"}),
+                key=event_sort_key,
+                reverse=True,
+            )[:4]
+            rows.append({
+                "ticker": ticker,
+                "status": "foreign",
+                "event": None,
+                "periods": annuals,
+            })
         else:
-            rows.append({"ticker": ticker, "status": "missing", "event": None})
+            rows.append({"ticker": ticker, "status": "missing", "event": None, "periods": []})
     return rows
+
+
+def quarterly_snapshot(fetched):
+    """Return JSON-serializable latest-quarterly status for the dashboard."""
+    return {
+        row["ticker"]: {
+            "status": row["status"],
+            "event": row["event"],
+            "periods": row["periods"],
+        }
+        for row in latest_quarterly_rows(fetched)
+    }
 
 
 def render_quarterly_radar(fetched, checked_at):
     lines = [
-        "---", "title: 10-Q 季報雷達", f"updated_at: {checked_at}", "tags:",
+        "---", "title: 最近 4 期季報雷達", f"updated_at: {checked_at}", "tags:",
         "  - sec/10-q", "  - filings/quarterly", "---", "", "# 📊 10-Q 季報雷達", "",
-        "顯示每家美國申報公司的最新 10-Q；日期與連結直接取自 SEC。",
-        "這裡追蹤的是申報是否到位，不代表已完成財務數字的 QoQ／YoY 分析。", "",
-        "| 公司 | 最新季報 | 申報日 | 報告期末 | 狀態 | SEC 原文 |",
+        "顯示每家公司最近 4 個申報期間；美國公司第四季由 10-K 承接，不會有獨立 Q4 10-Q。",
+        "日期與連結直接取自 SEC；財務數字與 QoQ／YoY 另由季度 XBRL 資料計算。", "",
+        "| 公司 | 第 1 期（最新） | 第 2 期 | 第 3 期 | 第 4 期 | 狀態 |",
         "|---|---|---|---|---|---|",
     ]
     for row in latest_quarterly_rows(fetched):
-        event = row["event"]
         if row["status"] == "filed":
-            lines.append(
-                f"| **{row['ticker']}** | {event['form']} | {pipe(event['filing_date'])} | "
-                f"{pipe(event['report_date'])} | ✅ 已申報 | [原文]({event['url']}) |"
-            )
+            cells = []
+            for event in row["periods"]:
+                q4 = " Q4／全年" if event["form"].startswith("10-K") else ""
+                cells.append(
+                    f"[{pipe(event.get('report_date'))} {event['form']}{q4}]({event['url']})"
+                )
+            cells += ["—"] * (4 - len(cells))
+            lines.append(f"| **{row['ticker']}** | {' | '.join(cells)} | ✅ 已追蹤 |")
         elif row["status"] == "foreign":
+            cells = [f"[{pipe(event.get('report_date'))} {event['form']}]({event['url']})"
+                     for event in row["periods"]]
+            cells += ["—"] * (4 - len(cells))
             lines.append(
-                f"| **{row['ticker']}** | — | — | — | 🌍 外國私人發行人，通常改看 6-K／20-F | — |"
+                f"| **{row['ticker']}** | {' | '.join(cells)} | 🌍 季度看 6-K；表內列 20-F 年報 |"
             )
         else:
-            lines.append(f"| **{row['ticker']}** | — | — | — | ⚠️ 近期清單未找到 10-Q | — |")
+            lines.append(f"| **{row['ticker']}** | — | — | — | — | ⚠️ 未找到可追蹤申報 |")
     lines += [
         "", "## 如何判讀", "",
-        "- 先看「報告期末」確認是哪一季，再用「申報日」判斷資訊新鮮度。",
+        "- 先看報告期末確認是哪一季；連結內的 filing date 才是送交 SEC 的日期。",
         "- `10-Q/A` 是修正版；應搭配原始 10-Q 比較修正內容。",
-        "- ARM、NOK、TSM 為外國私人發行人，通常以 20-F 年報與 6-K 即時資料取代 10-Q。",
+        "- `10-K Q4／全年` 表示第四季申報由年報承接；單季流量需以全年減前三季累計。",
+        "- ARM、NOK、TSM 為外國私人發行人，以 20-F 年報與 6-K 即時資料取代 10-Q。",
         "", f"> 最後檢查：`{checked_at}`", "",
     ]
     return "\n".join(lines)
@@ -444,7 +508,11 @@ def update_radars(fetched, details_path=DEFAULT_DETAILS, radar_dir=DEFAULT_RADAR
     checked_at = checked_at or utc_now()
     details_path = Path(details_path)
     radar_dir = Path(radar_dir)
-    cache = load_json(details_path, {"schema_version": 1, "form4": {}, "offerings": {}})
+    cache = load_json(
+        details_path,
+        {"schema_version": 1, "quarterly": {}, "form4": {}, "offerings": {}},
+    )
+    cache["quarterly"] = quarterly_snapshot(fetched)
     cache.setdefault("form4", {})
     cache.setdefault("offerings", {})
     form4_rows = []

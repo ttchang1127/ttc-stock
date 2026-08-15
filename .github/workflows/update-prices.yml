@@ -60,14 +60,19 @@ jobs:
       - name: Fetch SEC financials
         run: python3 scripts/fetch_xbrl_financials.py
 
+      # Builds true single-quarter trends. Q4 flows come from 10-K FY minus
+      # the matching 9M 10-Q; non-additive EPS/share figures stay blank.
+      - name: Fetch SEC quarterly trends
+        run: python3 scripts/fetch_quarterly_financials.py
+
       - name: Stop unless source data actually moved
         id: gate
         run: |
-          if git diff --quiet -- prices.json financials.json; then
+          if git diff --quiet -- prices.json financials.json quarterly_financials.json; then
             echo "No new quotes or filings; nothing downstream to recompute."
             echo "changed=false" >> "$GITHUB_OUTPUT"
           else
-            git diff --stat -- prices.json financials.json
+            git diff --stat -- prices.json financials.json quarterly_financials.json
             echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
 
@@ -95,7 +100,7 @@ jobs:
         if: steps.gate.outputs.changed == 'true'
         run: |
           unexpected=$(git status --porcelain | awk '{print $2}' | grep -Ev \
-            '^(prices|financials|fundamentals|financial_health|valuation)\.json$|^[a-z]+_report\.html$|^30_Analysis/.*_Master_Investment_Thesis_2026\.md$' \
+            '^(prices|financials|quarterly_financials|fundamentals|financial_health|valuation)\.json$|^[a-z]+_report\.html$|^30_Analysis/.*_Master_Investment_Thesis_2026\.md$' \
             || true)
           if [ -n "$unexpected" ]; then
             echo "Unexpected files changed; refusing to commit:"

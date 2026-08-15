@@ -334,7 +334,7 @@ def main():
         history["source"] = "SEC submissions API; accession-number deduplicated"
         args.events.write_text(json.dumps(history, indent=2, ensure_ascii=False) + "\n")
         args.note.parent.mkdir(parents=True, exist_ok=True)
-        args.note.write_text(render_note(history, checked_at, len(ciks)) + "\n")
+        args.note.write_text(render_note(history, checked_at, len(ciks)))
         from sec_specialized_radars import update_radars
         radar_result = update_radars(
             fetched,
