@@ -622,7 +622,7 @@
       background: rgba(251, 191, 36, 0.08);
     }
 
-    /* Tab 4: one chart at a time, large, via an inner pager -- Chart.js sizes
+    /* Tab 5: one chart at a time, large, via an inner pager -- Chart.js sizes
        a canvas from its container at creation time, so a chart built while its
        page is hidden (display:none) ends up 0x0 and never self-corrects. Every
        page switch (and the outer tab switch into tab-charts) must call
@@ -960,6 +960,263 @@
       color: #e2e8f0;
     }
 
+    /* SEC daily briefing ------------------------------------------------- */
+    .sec-daily-shell {
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--card-border);
+      border-radius: 22px;
+      padding: 28px;
+      box-shadow: var(--glow-shadow);
+    }
+
+    .sec-daily-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+      padding-bottom: 18px;
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .sec-daily-header h2 {
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .sec-daily-header p,
+    .sec-updated {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      margin-top: 5px;
+    }
+
+    .sec-range-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .sec-range-label {
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
+    .sec-range-btn {
+      appearance: none;
+      border: 1px solid var(--card-border);
+      background: rgba(255, 255, 255, 0.05);
+      color: #cbd5e1;
+      border-radius: 10px;
+      padding: 8px 13px;
+      font: inherit;
+      font-size: 0.82rem;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .sec-range-btn:hover,
+    .sec-range-btn.active {
+      color: #fff;
+      border-color: transparent;
+      background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
+    }
+
+    .sec-status {
+      padding: 12px 14px;
+      margin-bottom: 18px;
+      border-radius: 12px;
+      background: rgba(56, 189, 248, 0.08);
+      border: 1px solid rgba(56, 189, 248, 0.22);
+      color: #bae6fd;
+      font-size: 0.85rem;
+    }
+
+    .sec-status.error {
+      background: rgba(244, 63, 94, 0.1);
+      border-color: rgba(244, 63, 94, 0.28);
+      color: #fda4af;
+    }
+
+    .sec-kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+
+    .sec-kpi {
+      min-height: 142px;
+      border-radius: 16px;
+      padding: 17px;
+      border: 1px solid var(--card-border);
+      background: rgba(15, 23, 42, 0.68);
+    }
+
+    .sec-kpi-label {
+      color: #cbd5e1;
+      font-size: 0.78rem;
+      font-weight: 750;
+    }
+
+    .sec-kpi-value {
+      display: block;
+      color: #fff;
+      font-size: 1.75rem;
+      font-weight: 850;
+      line-height: 1.15;
+      margin: 7px 0;
+    }
+
+    .sec-kpi:nth-child(1) .sec-kpi-value { color: #38bdf8; }
+    .sec-kpi:nth-child(2) .sec-kpi-value { color: #fb7185; }
+    .sec-kpi:nth-child(3) .sec-kpi-value { color: #34d399; }
+    .sec-kpi:nth-child(4) .sec-kpi-value { color: #fbbf24; }
+
+    .sec-kpi-help {
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      line-height: 1.45;
+    }
+
+    .sec-reading-guide {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      padding: 16px;
+      margin-bottom: 24px;
+      border: 1px solid rgba(139, 92, 246, 0.28);
+      background: rgba(139, 92, 246, 0.08);
+      border-radius: 16px;
+    }
+
+    .sec-reading-guide h3 {
+      grid-column: 1 / -1;
+      color: #e9d5ff;
+      font-size: 1rem;
+    }
+
+    .sec-guide-item strong {
+      display: block;
+      color: #f3f4f6;
+      font-size: 0.8rem;
+      margin-bottom: 3px;
+    }
+
+    .sec-guide-item span {
+      color: #aeb8c7;
+      font-size: 0.75rem;
+      line-height: 1.45;
+    }
+
+    .sec-section {
+      margin-top: 24px;
+    }
+
+    .sec-section-heading {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+
+    .sec-section-heading h3 {
+      font-size: 1.08rem;
+      color: #fff;
+    }
+
+    .sec-section-heading p {
+      color: var(--text-muted);
+      font-size: 0.76rem;
+    }
+
+    .sec-table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+    }
+
+    .sec-table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 930px;
+      font-size: 0.8rem;
+    }
+
+    .sec-table th {
+      color: #94a3b8;
+      background: rgba(15, 23, 42, 0.9);
+      padding: 11px 12px;
+      text-align: left;
+      white-space: nowrap;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .sec-table td {
+      color: #dbe4f0;
+      padding: 11px 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.055);
+      vertical-align: top;
+    }
+
+    .sec-table tbody tr:last-child td { border-bottom: 0; }
+    .sec-table tbody tr:hover { background: rgba(255, 255, 255, 0.025); }
+    .sec-number { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+    .sec-badge {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      padding: 3px 8px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      white-space: nowrap;
+      border: 1px solid transparent;
+    }
+
+    .sec-badge.critical { color: #fecdd3; background: rgba(244, 63, 94, 0.14); border-color: rgba(244, 63, 94, 0.28); }
+    .sec-badge.high { color: #fed7aa; background: rgba(249, 115, 22, 0.14); border-color: rgba(249, 115, 22, 0.28); }
+    .sec-badge.medium { color: #bae6fd; background: rgba(14, 165, 233, 0.14); border-color: rgba(14, 165, 233, 0.28); }
+    .sec-badge.buy { color: #bbf7d0; background: rgba(16, 185, 129, 0.14); border-color: rgba(16, 185, 129, 0.3); }
+    .sec-badge.sell { color: #fecdd3; background: rgba(244, 63, 94, 0.14); border-color: rgba(244, 63, 94, 0.3); }
+    .sec-badge.watch { color: #fde68a; background: rgba(245, 158, 11, 0.13); border-color: rgba(245, 158, 11, 0.3); }
+
+    .sec-link {
+      color: #38bdf8;
+      font-weight: 750;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .sec-link:hover { text-decoration: underline; }
+    .sec-empty { color: var(--text-muted); text-align: center; padding: 26px !important; }
+
+    .sec-footnote {
+      color: var(--text-muted);
+      font-size: 0.74rem;
+      line-height: 1.55;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 1050px) {
+      .sec-kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .sec-reading-guide { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 620px) {
+      .sec-daily-shell { padding: 18px; }
+      .sec-kpi-grid, .sec-reading-guide { grid-template-columns: 1fr; }
+      .sec-reading-guide h3 { grid-column: auto; }
+      .sec-kpi { min-height: 0; }
+    }
+
     footer {
       text-align: center;
       padding: 24px;
@@ -1009,6 +1266,9 @@
       </button>
       <button class="tab-btn" onclick="switchTab('tab-portfolio', this); renderPortfolioTab();">
         💼 持股損益 (USD/TWD)
+      </button>
+      <button class="tab-btn" onclick="switchTab('tab-sec', this); loadSecDaily();">
+        🚨 4_SEC 每日重點
       </button>
       <button class="tab-btn" onclick="switchTab('tab-charts', this);">
         📊 圖表總覽
@@ -1443,7 +1703,101 @@
       </div>
     </div>
 
-    <!-- TAB 4: Chart overview, one large chart at a time via an inner pager -->
+    <!-- TAB 4: Daily SEC briefing -->
+    <div id="tab-sec" class="tab-content">
+      <section class="sec-daily-shell" aria-labelledby="secDailyTitle">
+        <div class="sec-daily-header">
+          <div>
+            <h2 id="secDailyTitle">🚨 SEC 每日重點</h2>
+            <p>每天集中閱讀 14 家追蹤公司的官方申報；預設最近 14 個日曆日，可切換最近 7 日。</p>
+            <div id="secUpdated" class="sec-updated">正在讀取 SEC 雷達資料…</div>
+          </div>
+          <div class="sec-range-controls" aria-label="SEC 顯示期間">
+            <span class="sec-range-label">顯示期間</span>
+            <button type="button" class="sec-range-btn" data-days="7" onclick="setSecRange(7, this)" aria-pressed="false">最近 7 日</button>
+            <button type="button" class="sec-range-btn active" data-days="14" onclick="setSecRange(14, this)" aria-pressed="true">最近 14 日</button>
+          </div>
+        </div>
+
+        <div id="secStatus" class="sec-status" role="status" aria-live="polite">⏳ 正在載入 SEC 官方申報資料…</div>
+
+        <div class="sec-kpi-grid" aria-label="SEC 每日摘要數字">
+          <article class="sec-kpi">
+            <span class="sec-kpi-label">期間內全部申報</span>
+            <strong id="secKpiAll" class="sec-kpi-value">—</strong>
+            <p class="sec-kpi-help">單位是「份 SEC 文件／accession」，不是公司家數；同一家公司可有多份。</p>
+          </article>
+          <article class="sec-kpi">
+            <span class="sec-kpi-label">重大／重要申報</span>
+            <strong id="secKpiImportant" class="sec-kpi-value">—</strong>
+            <p class="sec-kpi-help">10-K、10-Q、募資文件及重要 8-K／6-K 的份數；代表需優先閱讀，不代表利多或利空。</p>
+          </article>
+          <article class="sec-kpi">
+            <span class="sec-kpi-label">Form 4 主動買／賣</span>
+            <strong id="secKpiTrades" class="sec-kpi-value">—</strong>
+            <p class="sec-kpi-help">只計交易代碼 P 與 S 的交易列數；一份 Form 4 可能包含多列成交。</p>
+          </article>
+          <article class="sec-kpi">
+            <span class="sec-kpi-label">潛在稀釋文件</span>
+            <strong id="secKpiDilution" class="sec-kpi-value">—</strong>
+            <p class="sec-kpi-help">ATM、新股、可轉債或架上註冊文件份數；是風險訊號，不等於股票已全部發行。</p>
+          </article>
+        </div>
+
+        <div class="sec-reading-guide" aria-label="SEC 數字閱讀指南">
+          <h3>📖 數字與代碼怎麼看</h3>
+          <div class="sec-guide-item"><strong>日期與 7／14 日</strong><span>以 SEC 的 filing date（申報日）計算，包含起訖日；不是財報涵蓋期間。</span></div>
+          <div class="sec-guide-item"><strong>重要性 🔴／🟠／🔵</strong><span>依表單和 8-K Item 分級閱讀順序；紅色不等於股價一定下跌。</span></div>
+          <div class="sec-guide-item"><strong>Form 4：P／S</strong><span>P 是公開市場或私下買入；S 是公開市場或私下賣出。A、M、F、G 等薪酬／轉換交易不列入主動買賣表。</span></div>
+          <div class="sec-guide-item"><strong>股數、單價、交易金額</strong><span>股數是該交易列的股票數；單價是每股美元價格；交易金額＝股數 × 單價，不是申報人的剩餘持股價值。</span></div>
+          <div class="sec-guide-item"><strong>10b5-1</strong><span>「是」代表依預先訂立的交易計畫執行，可降低臨時主觀買賣的訊號強度；仍需看規模與持股變化。</span></div>
+          <div class="sec-guide-item"><strong>ATM／可轉債／架上註冊</strong><span>ATM 可分批賣新股；可轉債未來轉股才稀釋；架上註冊只是取得發行彈性，不等於已募資。</span></div>
+        </div>
+
+        <section class="sec-section" aria-labelledby="secFilingsTitle">
+          <div class="sec-section-heading">
+            <h3 id="secFilingsTitle">① 最新重要申報</h3>
+            <p>排除已另表整理的 Form 4；每一列等於一份 SEC 文件。</p>
+          </div>
+          <div class="sec-table-wrap">
+            <table class="sec-table">
+              <thead><tr><th>申報日</th><th>公司</th><th>表單</th><th>重要性</th><th>這份文件代表什麼</th><th>SEC</th></tr></thead>
+              <tbody id="secFilingsBody"><tr><td colspan="6" class="sec-empty">正在載入…</td></tr></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="sec-section" aria-labelledby="secTradesTitle">
+          <div class="sec-section-heading">
+            <h3 id="secTradesTitle">② Form 4 主動買入／賣出</h3>
+            <p>只顯示 P／S；交易金額是該列股數乘每股價格，缺值不以 0 代替。</p>
+          </div>
+          <div class="sec-table-wrap">
+            <table class="sec-table">
+              <thead><tr><th>交易日</th><th>公司</th><th>申報人／身分</th><th>代碼</th><th class="sec-number">股數</th><th class="sec-number">單價 USD</th><th class="sec-number">交易金額 USD</th><th>10b5-1</th><th>SEC</th></tr></thead>
+              <tbody id="secTradesBody"><tr><td colspan="9" class="sec-empty">正在載入…</td></tr></tbody>
+            </table>
+          </div>
+          <p class="sec-footnote">「交易列數」不是申報人數；同一人若以不同價格分批成交，會有多列。P/S 之外的授予、行使、扣稅與贈與不在此表，避免誤當成主動買賣。</p>
+        </section>
+
+        <section class="sec-section" aria-labelledby="secDilutionTitle">
+          <div class="sec-section-heading">
+            <h3 id="secDilutionTitle">③ 募資與稀釋雷達</h3>
+            <p>依文件內文分類；424B 並不一定是新股，可能是一般債券。</p>
+          </div>
+          <div class="sec-table-wrap">
+            <table class="sec-table">
+              <thead><tr><th>申報日</th><th>公司</th><th>表單</th><th>募資分類</th><th>稀釋判斷</th><th>代表意義</th><th>SEC</th></tr></thead>
+              <tbody id="secDilutionBody"><tr><td colspan="7" class="sec-empty">正在載入…</td></tr></tbody>
+            </table>
+          </div>
+          <p class="sec-footnote">這裡顯示的是文件與風險分類，不估算稀釋百分比。只有文件提供且能可靠辨認公司實際新發行股數時，才適合計算稀釋幅度。</p>
+        </section>
+      </section>
+    </div>
+
+    <!-- TAB 5: Chart overview, one large chart at a time via an inner pager -->
     <div id="tab-charts" class="tab-content">
       <div class="chart-pager-tabs">
         <button class="chart-page-btn active" onclick="switchChartPage('page-macd', this)">📊 MACD 動能對比</button>
@@ -2226,6 +2580,192 @@
       return { emaFast, emaSlow, dif, signal, hist };
     }
 
+    // SEC 每日重點：以同源 JSON 為唯一資料來源。瀏覽器不直接呼叫 SEC，
+    // 避免 CORS、限流和不同使用者看到不同快照；GitHub Actions 每日更新 JSON。
+    let secDailyPromise = null;
+    let secDailyData = null;
+    let secRangeDays = 14;
+
+    const SEC_SEVERITY = {
+      critical: { label: '🔴 重大', css: 'critical' },
+      high: { label: '🟠 重要', css: 'high' },
+      medium: { label: '🔵 留意', css: 'medium' },
+    };
+
+    function escapeSec(value) {
+      return String(value ?? '—')
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#039;');
+    }
+
+    function safeSecUrl(value) {
+      const url = String(value || '');
+      return url.startsWith('https://www.sec.gov/') ? escapeSec(url) : '#';
+    }
+
+    function secCutoff(days) {
+      const end = new Date(`${todayET()}T12:00:00Z`);
+      end.setUTCDate(end.getUTCDate() - (days - 1));
+      return end.toISOString().slice(0, 10);
+    }
+
+    function formatSecTimestamp(value) {
+      const date = new Date(value);
+      if (Number.isNaN(date.getTime())) return value || '未知';
+      return new Intl.DateTimeFormat('zh-TW', {
+        timeZone: 'Asia/Taipei', year: 'numeric', month: '2-digit', day: '2-digit',
+        hour: '2-digit', minute: '2-digit', hour12: false,
+      }).format(date);
+    }
+
+    function formatSecNumber(value, decimals = 0) {
+      if (value === null || value === undefined || Number.isNaN(Number(value))) return '—';
+      return Number(value).toLocaleString('en-US', {
+        minimumFractionDigits: decimals,
+        maximumFractionDigits: decimals,
+      });
+    }
+
+    function secFormMeaning(event) {
+      const form = event.form || '';
+      if (form.startsWith('10-K')) return '年度財報：含經查核的全年財務結果、業務、風險與管理層討論。';
+      if (form.startsWith('20-F')) return '外國私人發行人的年度財報，功能近似美國公司的 10-K。';
+      if (form.startsWith('10-Q')) return '季度財報：更新當季營運、財務數字與風險，通常未經完整年度查核。';
+      if (form.startsWith('8-K')) return `美國公司的重大事件即時申報；${event.items_summary || '需開啟原文確認事件內容'}。`;
+      if (form.startsWith('6-K')) return '外國私人發行人的重大資訊或財務更新，功能近似 8-K。';
+      if (form.includes('DEF 14')) return '股東會與代理委託書：包含表決案、董事、高管薪酬等資訊。';
+      if (form.startsWith('S-3') || form.startsWith('F-3')) return '證券註冊文件：取得未來發行股票或債券的彈性，不等於當天已發行。';
+      if (form.startsWith('424B')) return '最終或補充公開說明書；要依內文判斷是股票、可轉債或一般債券。';
+      if (form === 'EFFECT') return 'SEC 註冊生效通知；代表註冊有效，不代表證券已實際售出。';
+      return event.items_summary || event.group || '請開啟 SEC 原文確認申報內容。';
+    }
+
+    function setSecRange(days, button) {
+      secRangeDays = days;
+      document.querySelectorAll('.sec-range-btn').forEach(btn => {
+        const active = btn === button;
+        btn.classList.toggle('active', active);
+        btn.setAttribute('aria-pressed', String(active));
+      });
+      if (secDailyData) renderSecDaily();
+    }
+
+    function loadSecDaily() {
+      if (!secDailyPromise) {
+        const status = document.getElementById('secStatus');
+        status.className = 'sec-status';
+        status.textContent = '⏳ 正在載入 SEC 官方申報資料…';
+        secDailyPromise = Promise.all([
+          fetch('sec_filing_alerts.json', { cache: 'no-cache' })
+            .then(r => { if (!r.ok) throw new Error(`申報清單 HTTP ${r.status}`); return r.json(); }),
+          fetch('sec_filing_details.json', { cache: 'no-cache' })
+            .then(r => { if (!r.ok) throw new Error(`申報明細 HTTP ${r.status}`); return r.json(); }),
+        ]).then(([alerts, details]) => {
+          secDailyData = { alerts, details };
+          renderSecDaily();
+        }).catch(error => {
+          secDailyPromise = null;
+          status.className = 'sec-status error';
+          status.textContent = `⚠️ SEC 雷達資料載入失敗：${error.message}。請稍後重新整理頁面。`;
+        });
+      } else if (secDailyData) {
+        renderSecDaily();
+      }
+      return secDailyPromise;
+    }
+
+    function renderSecDaily() {
+      if (!secDailyData) return;
+      const { alerts, details } = secDailyData;
+      const cutoff = secCutoff(secRangeDays);
+      const endDate = todayET();
+      const events = (alerts.events || [])
+        .filter(event => event.filing_date >= cutoff && event.filing_date <= endDate)
+        .sort((a, b) => `${b.filing_date}${b.accepted_at || ''}`.localeCompare(`${a.filing_date}${a.accepted_at || ''}`));
+      const important = events.filter(event => ['critical', 'high'].includes(event.severity));
+      const filingRows = important.filter(event => event.group !== '內部人持股');
+
+      const tradeRows = [];
+      events.filter(event => ['4', '4/A'].includes(event.form)).forEach(event => {
+        const filing = (details.form4 || {})[event.accession];
+        (filing?.transactions || []).filter(tx => ['P', 'S'].includes(tx.code)).forEach(tx => {
+          tradeRows.push({ event, tx });
+        });
+      });
+      tradeRows.sort((a, b) => `${b.tx.transaction_date || b.event.filing_date}${b.event.accepted_at || ''}`
+        .localeCompare(`${a.tx.transaction_date || a.event.filing_date}${a.event.accepted_at || ''}`));
+
+      const offeringRows = events.filter(event => event.group === '募資／稀釋').map(event => ({
+        event,
+        classification: (details.offerings || {})[event.accession] || {
+          label: '待人工判讀', category: 'review', dilution: '不確定',
+          risk: '明細尚未解析，請開啟 SEC 原文確認。',
+        },
+      }));
+      const dilutionCategories = new Set(['atm_equity', 'equity', 'convertible', 'shelf']);
+      const dilutionCount = offeringRows.filter(row => dilutionCategories.has(row.classification.category)).length;
+
+      document.getElementById('secKpiAll').textContent = `${events.length} 份`;
+      document.getElementById('secKpiImportant').textContent = `${important.length} 份`;
+      document.getElementById('secKpiTrades').textContent = `${tradeRows.length} 列`;
+      document.getElementById('secKpiDilution').textContent = `${dilutionCount} 份`;
+      document.getElementById('secUpdated').textContent =
+        `資料更新：${formatSecTimestamp(alerts.updated_at)}（台北時間）｜範圍：${cutoff} 至 ${endDate}`;
+
+      const status = document.getElementById('secStatus');
+      status.className = 'sec-status';
+      status.textContent = events.length
+        ? `✅ 最近 ${secRangeDays} 日共找到 ${events.length} 份申報；數字以 SEC filing date 與 accession 去重。`
+        : `ℹ️ 最近 ${secRangeDays} 日沒有新申報；上次雷達資料更新於 ${formatSecTimestamp(alerts.updated_at)}。`;
+
+      const filingsBody = document.getElementById('secFilingsBody');
+      filingsBody.innerHTML = filingRows.length ? filingRows.map(event => {
+        const severity = SEC_SEVERITY[event.severity] || SEC_SEVERITY.medium;
+        return `<tr>
+          <td>${escapeSec(event.filing_date)}</td>
+          <td><strong>${escapeSec(event.ticker)}</strong></td>
+          <td>${escapeSec(event.form)}</td>
+          <td><span class="sec-badge ${severity.css}">${severity.label}</span></td>
+          <td>${escapeSec(secFormMeaning(event))}</td>
+          <td><a class="sec-link" href="${safeSecUrl(event.url)}" target="_blank" rel="noopener">原文 ↗</a></td>
+        </tr>`;
+      }).join('') : '<tr><td colspan="6" class="sec-empty">這段期間沒有重大／重要申報。</td></tr>';
+
+      const tradesBody = document.getElementById('secTradesBody');
+      tradesBody.innerHTML = tradeRows.length ? tradeRows.slice(0, 100).map(({ event, tx }) => {
+        const isBuy = tx.code === 'P';
+        const plan = tx.rule_10b5_1 === true ? '是' : (tx.rule_10b5_1 === false ? '否／未註明' : '—');
+        return `<tr>
+          <td>${escapeSec(tx.transaction_date || event.filing_date)}</td>
+          <td><strong>${escapeSec(event.ticker)}</strong></td>
+          <td>${escapeSec(tx.reporter)}<br><span class="sec-kpi-help">${escapeSec(tx.role)}</span></td>
+          <td><span class="sec-badge ${isBuy ? 'buy' : 'sell'}">${escapeSec(tx.code)} ${isBuy ? '買入' : '賣出'}</span></td>
+          <td class="sec-number">${formatSecNumber(tx.shares)}</td>
+          <td class="sec-number">${formatSecNumber(tx.price, 2)}</td>
+          <td class="sec-number">${formatSecNumber(tx.value)}</td>
+          <td>${escapeSec(plan)}</td>
+          <td><a class="sec-link" href="${safeSecUrl(event.url)}" target="_blank" rel="noopener">原文 ↗</a></td>
+        </tr>`;
+      }).join('') : '<tr><td colspan="9" class="sec-empty">這段期間沒有代碼 P／S 的 Form 4 主動買賣。</td></tr>';
+
+      const dilutionBody = document.getElementById('secDilutionBody');
+      dilutionBody.innerHTML = offeringRows.length ? offeringRows.map(({ event, classification }) => {
+        const watch = dilutionCategories.has(classification.category);
+        return `<tr>
+          <td>${escapeSec(event.filing_date)}</td>
+          <td><strong>${escapeSec(event.ticker)}</strong></td>
+          <td>${escapeSec(event.form)}</td>
+          <td><span class="sec-badge ${watch ? 'watch' : 'medium'}">${escapeSec(classification.label)}</span></td>
+          <td>${escapeSec(classification.dilution)}</td>
+          <td>${escapeSec(classification.risk)}</td>
+          <td><a class="sec-link" href="${safeSecUrl(event.url)}" target="_blank" rel="noopener">原文 ↗</a></td>
+        </tr>`;
+      }).join('') : '<tr><td colspan="7" class="sec-empty">這段期間沒有募資／稀釋文件。</td></tr>';
+    }
+
     function switchTab(tabId, btn) {
       document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
       document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
@@ -2854,7 +3394,7 @@
       document.getElementById('modalBackdrop').classList.remove('active');
     }
 
-    // Tab 4's four charts are built lazily, one per inner page, the first time
+    // Tab 5's four charts are built lazily, one per inner page, the first time
     // that page is actually shown -- not eagerly at load like the rest of the
     // page's charts. Chart.js measures its canvas from the container at
     // construction time; a chart built while tab-charts (or its inner page)
@@ -3192,7 +3732,7 @@
     document.getElementById('liveEndDate').value = todayET();
 
     renderTable(titansData);
-    // Tab 4's four charts are not built here -- they're created lazily on
+    // Tab 5's four charts are not built here -- they're created lazily on
     // first visibility (see revealChartPage / ensureChartCreated), since
     // tab-charts starts hidden and Chart.js cannot recover a canvas it first
     // measured at 0x0.
