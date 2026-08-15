@@ -670,6 +670,133 @@
       min-height: 420px;
     }
 
+    .macd-overview-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin: -4px 0 18px;
+      padding: 11px 14px;
+      border: 1px solid rgba(56, 189, 248, 0.24);
+      border-radius: 12px;
+      background: rgba(56, 189, 248, 0.07);
+      color: #cbd5e1;
+      font-size: 0.82rem;
+    }
+
+    .macd-overview-meta strong { color: #7dd3fc; }
+    .macd-overview-meta.stale {
+      border-color: rgba(251, 191, 36, 0.35);
+      background: rgba(251, 191, 36, 0.08);
+    }
+    .macd-overview-meta.stale strong { color: #fbbf24; }
+
+    .macd-summary-chart-wrap {
+      height: 46vh;
+      min-height: 340px;
+    }
+
+    .macd-trend-section {
+      margin-top: 26px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .macd-trend-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .macd-trend-heading h4 { color: #fff; font-size: 1rem; }
+    .macd-trend-heading p { color: var(--text-muted); font-size: 0.78rem; }
+
+    .macd-trend-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(245px, 1fr));
+      gap: 12px;
+    }
+
+    .macd-trend-card {
+      background: rgba(15, 23, 42, 0.74);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      padding: 14px;
+    }
+
+    .macd-trend-card-head,
+    .macd-trend-stats {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .macd-trend-ticker { color: #fff; font-size: 0.95rem; font-weight: 800; }
+    .macd-trend-date { color: var(--text-muted); font-size: 0.7rem; }
+    .macd-trend-phase { margin: 8px 0 6px; font-size: 0.78rem; font-weight: 700; }
+    .macd-trend-phase.bull { color: #34d399; }
+    .macd-trend-phase.bear { color: #fb7185; }
+    .macd-trend-phase.warn { color: #fbbf24; }
+
+    .macd-sparkline {
+      position: relative;
+      display: flex;
+      align-items: stretch;
+      gap: 2px;
+      height: 64px;
+      margin: 8px 0 10px;
+    }
+
+    .macd-sparkline::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 50%;
+      border-top: 1px solid rgba(255, 255, 255, 0.22);
+      pointer-events: none;
+    }
+
+    .macd-spark-bar { position: relative; flex: 1 1 0; min-width: 3px; }
+    .macd-spark-fill {
+      position: absolute;
+      left: 0;
+      right: 0;
+      min-height: 2px;
+      border-radius: 2px;
+    }
+    .macd-spark-fill.positive { bottom: 50%; }
+    .macd-spark-fill.negative { top: 50%; }
+
+    .macd-trend-stats {
+      color: #94a3b8;
+      font-size: 0.72rem;
+    }
+    .macd-trend-stats strong { color: #e2e8f0; }
+    .macd-change-up { color: #34d399 !important; }
+    .macd-change-down { color: #fb7185 !important; }
+
+    .macd-trend-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 14px;
+      color: var(--text-muted);
+      font-size: 0.72rem;
+    }
+
+    @media (max-width: 720px) {
+      .chart-card-large { padding: 20px 14px; }
+      .chart-card h3 { align-items: flex-start; flex-direction: column; gap: 5px; }
+      .macd-summary-chart-wrap { height: 52vh; min-height: 360px; }
+      .macd-trend-grid { grid-template-columns: 1fr; }
+    }
+
     /* Guide Tab Documentation Styles */
     .guide-card-grid {
       display: grid;
@@ -1309,7 +1436,25 @@
       <div id="page-macd" class="chart-page active">
         <div class="chart-card chart-card-large">
           <h3>MACD 柱狀體多空動能強弱對比 <span>(柱體 ÷ 股價，正規化為 % 以便跨股票比較)</span></h3>
-          <div class="chart-canvas-wrap"><canvas id="chartMACD"></canvas></div>
+          <div id="macdSummaryMeta" class="macd-overview-meta">
+            <strong id="macdSummaryAsOf">正在載入實際交易日…</strong>
+            <span id="macdSummaryNote">每根柱為選定結束日前最後一個交易日的快照；由強到弱排序</span>
+          </div>
+          <div class="chart-canvas-wrap macd-summary-chart-wrap"><canvas id="chartMACD"></canvas></div>
+
+          <section class="macd-trend-section" aria-labelledby="macdTrendTitle">
+            <div class="macd-trend-heading">
+              <h4 id="macdTrendTitle">近 20 個交易日動能趨勢</h4>
+              <p>同一檔股票由左至右，最右側為最新交易日；5 日變化單位為百分點</p>
+            </div>
+            <div id="macdTrendGrid" class="macd-trend-grid"></div>
+            <div class="macd-trend-legend" aria-label="MACD 四色圖例">
+              <span>🟢 亮綠：多頭擴張</span>
+              <span>🌲 暗綠：多頭收縮</span>
+              <span>🔴 亮紅：空頭擴張</span>
+              <span>🌸 暗粉：空頭收縮</span>
+            </div>
+          </section>
         </div>
       </div>
 
@@ -2214,13 +2359,27 @@
       const last = hist.length - 1;
       if (last < from) return null;
       const prevIdx = last > 0 ? last - 1 : last;
+      const historyFrom = Math.max(0, last - 19);
+      const history = [];
+      for (let i = historyFrom; i <= last; i++) {
+        const prev = i > 0 ? hist[i - 1] : hist[i];
+        history.push({
+          date: dates[i],
+          price: closes[i],
+          hist: hist[i],
+          prevHist: prev,
+          pct: closes[i] ? (hist[i] / closes[i]) * 100 : 0
+        });
+      }
 
       return {
+        date: dates[last],
         price: closes[last],
         hist: hist[last],
         prevHist: hist[prevIdx],
         dif: dif[last],
-        sig: signal[last]
+        sig: signal[last],
+        history
       };
     }
 
@@ -2239,11 +2398,14 @@
         item.macdHistPct = snap.price ? (snap.hist / snap.price) * 100 : 0;
         item.macdDif = snap.dif;
         item.macdSig = snap.sig;
+        item.macdAsOf = snap.date;
+        item.macdHistory = snap.history;
         item.macdStatus = statusText;
         item.macdClass = statusClass;
       });
       filterData();
       updateSummaryChart();
+      updateMacdTrendOverview();
       updateValuationChart();   // price bars must stay in sync with the table
     }
 
@@ -2253,11 +2415,113 @@
     }
 
     // 總覽圖：每根柱子是不同標的，必須跟「該檔自己的前一日」比，不能跟隔壁那檔比
-    function getSummary4Colors() {
-      return titansData.map(d => classifyMomentum(
+    function getSummary4Colors(items = titansData) {
+      return items.map(d => classifyMomentum(
         d.macdHist,
         d.macdHistPrev !== undefined ? d.macdHistPrev : d.macdHist
       ).color);
+    }
+
+    function momentumPhase(hist, prevHist) {
+      if (hist >= 0) {
+        return hist >= prevHist
+          ? { key: 'bull-expand', label: '🟢 多頭擴張', tone: 'bull', color: '#10b981' }
+          : { key: 'bull-contract', label: '🌲 多頭收縮', tone: 'warn', color: '#059669' };
+      }
+      return hist <= prevHist
+        ? { key: 'bear-expand', label: '🔴 空頭擴張', tone: 'bear', color: '#ef4444' }
+        : { key: 'bear-contract', label: '🌸 空頭收縮', tone: 'warn', color: '#f43f5e' };
+    }
+
+    function momentumTrendStats(item) {
+      const history = item.macdHistory || [];
+      if (!history.length) return null;
+      const latest = history[history.length - 1];
+      const phase = momentumPhase(latest.hist, latest.prevHist);
+      let streak = 1;
+      for (let i = history.length - 2; i >= 0; i--) {
+        const rowPhase = momentumPhase(history[i].hist, history[i].prevHist);
+        if (rowPhase.key !== phase.key) break;
+        streak++;
+      }
+      const fiveDayBase = history[Math.max(0, history.length - 6)];
+      return {
+        latest,
+        phase,
+        streak,
+        change5d: latest.pct - fiveDayBase.pct
+      };
+    }
+
+    function momentumSummaryItems() {
+      return titansData
+        .filter(d => Number.isFinite(d.macdHistPct))
+        .slice()
+        .sort((a, b) => b.macdHistPct - a.macdHistPct);
+    }
+
+    function signedNumber(value, digits = 3) {
+      if (!Number.isFinite(value)) return '—';
+      return `${value >= 0 ? '+' : ''}${value.toFixed(digits)}`;
+    }
+
+    function renderMomentumSparkline(history, ticker) {
+      if (!history || !history.length) return '<div class="macd-sparkline"></div>';
+      const maxAbs = Math.max(...history.map(row => Math.abs(row.pct)), 0.0001);
+      const bars = history.map(row => {
+        const height = Math.max(4, Math.min(48, (Math.abs(row.pct) / maxAbs) * 48));
+        const phase = momentumPhase(row.hist, row.prevHist);
+        const direction = row.pct >= 0 ? 'positive' : 'negative';
+        const title = `${row.date}｜${signedNumber(row.pct)}%｜${phase.label}`;
+        return `<span class="macd-spark-bar" title="${title}">` +
+          `<span class="macd-spark-fill ${direction}" style="height:${height}%;background:${phase.color}"></span>` +
+          `</span>`;
+      }).join('');
+      return `<div class="macd-sparkline" role="img" aria-label="${ticker} 最近 ${history.length} 個交易日 MACD 動能趨勢">${bars}</div>`;
+    }
+
+    function updateMacdTrendOverview() {
+      const grid = document.getElementById('macdTrendGrid');
+      const asOfEl = document.getElementById('macdSummaryAsOf');
+      const noteEl = document.getElementById('macdSummaryNote');
+      const meta = document.getElementById('macdSummaryMeta');
+      if (!grid || !asOfEl || !noteEl || !meta) return;
+
+      const items = momentumSummaryItems();
+      const dates = items.map(d => d.macdAsOf).filter(Boolean).sort();
+      const latestDate = dates[dates.length - 1];
+      const earliestDate = dates[0];
+      const selectedEnd = document.getElementById('liveEndDate').value || todayET();
+      const fastP = parseInt(document.getElementById('paramFast').value) || 12;
+      const slowP = parseInt(document.getElementById('paramSlow').value) || 26;
+      const signalP = parseInt(document.getElementById('paramSignal').value) || 9;
+      const dateText = earliestDate === latestDate
+        ? `資料截至 ${latestDate || '—'} 收盤`
+        : `各標的資料日 ${earliestDate || '—'}～${latestDate || '—'}`;
+      asOfEl.textContent = `${dateText}｜日線 MACD ${fastP}/${slowP}/${signalP}`;
+      const isStale = Boolean(latestDate && selectedEnd > latestDate);
+      meta.classList.toggle('stale', isStale);
+      noteEl.textContent = isStale
+        ? `選定結束日 ${selectedEnd}；目前資料只到 ${latestDate}，以下以最後可用交易日計算`
+        : `每根柱為 ${latestDate || '最新'} 交易日快照；由強到弱排序`;
+      meta.title = isStale
+        ? `選定結束日為 ${selectedEnd}，但資料目前只涵蓋至 ${latestDate} 收盤。`
+        : `選定結束日：${selectedEnd}`;
+
+      grid.innerHTML = items.map(item => {
+        const stats = momentumTrendStats(item);
+        if (!stats) return '';
+        const changeClass = stats.change5d > 0 ? 'macd-change-up' : (stats.change5d < 0 ? 'macd-change-down' : '');
+        return `<article class="macd-trend-card">` +
+          `<div class="macd-trend-card-head"><span class="macd-trend-ticker">${item.ticker}</span>` +
+          `<span class="macd-trend-date">截至 ${stats.latest.date}</span></div>` +
+          `<div class="macd-trend-phase ${stats.phase.tone}">${stats.phase.label}｜連續 ${stats.streak} 日</div>` +
+          renderMomentumSparkline(item.macdHistory, item.ticker) +
+          `<div class="macd-trend-stats">` +
+          `<span>今日 <strong>${signedNumber(stats.latest.pct)}%</strong></span>` +
+          `<span>5 日 <strong class="${changeClass}">${signedNumber(stats.change5d)}pp</strong></span>` +
+          `</div></article>`;
+      }).join('');
     }
 
     function renderLiveFullDailyChart(dates, dif, signal, hist) {
@@ -2447,15 +2711,17 @@
     }
 
     function summaryHistPct() {
-      return titansData.map(d => d.macdHistPct !== undefined
+      return momentumSummaryItems().map(d => d.macdHistPct !== undefined
         ? d.macdHistPct
         : (d.price ? (d.macdHist / d.price) * 100 : 0));
     }
 
     function updateSummaryChart() {
       if (macdSummaryChart) {
+        const items = momentumSummaryItems();
+        macdSummaryChart.data.labels = items.map(d => d.ticker);
         macdSummaryChart.data.datasets[0].data = summaryHistPct();
-        macdSummaryChart.data.datasets[0].backgroundColor = getSummary4Colors();
+        macdSummaryChart.data.datasets[0].backgroundColor = getSummary4Colors(items);
         macdSummaryChart.update();
       }
     }
@@ -2560,7 +2826,8 @@
     // Building the chart only once its container has real layout sidesteps
     // the problem instead of fighting Chart.js's resize behaviour.
     function createMacdSummaryChart() {
-      const labels = titansData.map(d => d.ticker);
+      const items = momentumSummaryItems();
+      const labels = items.map(d => d.ticker);
       macdSummaryChart = new Chart(document.getElementById('chartMACD'), {
         type: 'bar',
         data: {
@@ -2568,7 +2835,7 @@
           datasets: [{
             label: 'MACD 柱狀體 / 股價 (%)　4色：亮綠/暗綠/亮紅/暗粉',
             data: summaryHistPct(),
-            backgroundColor: getSummary4Colors()
+            backgroundColor: getSummary4Colors(items)
           }]
         },
         options: {
@@ -2580,13 +2847,16 @@
               callbacks: {
                 // 正規化後的百分比適合跨股票比較，但原始美元值仍需查得到
                 label: (c) => {
-                  const item = titansData[c.dataIndex];
+                  const item = momentumSummaryItems()[c.dataIndex];
                   const pct = c.parsed.y;
                   return `${pct >= 0 ? '+' : ''}${pct.toFixed(3)}% 股價` +
                          `　(原始柱體 ${item.macdHist == null ? '—' : (item.macdHist >= 0 ? '+' : '') + item.macdHist.toFixed(3)} USD` +
                          `　股價 ${item.price == null ? '—' : '$' + item.price.toFixed(2)})`;
                 },
-                afterLabel: (c) => titansData[c.dataIndex].macdStatus
+                afterLabel: (c) => {
+                  const item = momentumSummaryItems()[c.dataIndex];
+                  return `${item.macdStatus}｜截至 ${item.macdAsOf || '—'}`;
+                }
               }
             }
           },
