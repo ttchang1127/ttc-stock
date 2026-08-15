@@ -72,24 +72,36 @@ class DashboardSecTabTests(unittest.TestCase):
         self.assertEqual(quarterly["ONDS"]["event"]["form"], "10-Q")
         self.assertEqual(quarterly["TSM"]["status"], "foreign")
 
-    def test_four_quarter_financials_are_comparable_without_foreign_estimates(self):
+    def test_four_quarter_financials_include_official_foreign_ir_results(self):
         companies = self.quarterly["companies"]
         self.assertEqual(len(companies), 14)
         self.assertGreaterEqual(len(companies["ONDS"]["periods"]), 8)
         self.assertEqual(companies["ARM"]["status"], "available")
         self.assertGreaterEqual(len(companies["ARM"]["periods"]), 8)
-        self.assertEqual(companies["TSM"]["status"], "foreign_unavailable")
-        self.assertEqual(companies["TSM"]["periods"], [])
+        self.assertEqual(companies["TSM"]["status"], "available")
+        self.assertEqual(companies["TSM"]["currency"], "TWD")
+        self.assertGreaterEqual(len(companies["TSM"]["periods"]), 8)
+        self.assertEqual(companies["NOK"]["status"], "available")
+        self.assertEqual(companies["NOK"]["currency"], "EUR")
+        self.assertGreaterEqual(len(companies["NOK"]["periods"]), 8)
         self.assertTrue(companies["TSM"]["official_results_url"].startswith("https://investor.tsmc.com/"))
         q4 = next(period for period in companies["ONDS"]["periods"] if period["q4_derived"])
         self.assertIsNone(q4["values"]["diluted_eps"])
         self.assertIsNone(q4["values"]["diluted_shares"])
 
     def test_foreign_quarterly_sources_and_compact_warning_are_explained(self):
-        self.assertIn("ARM 的 6-K 有季度 XBRL，已納入", self.html)
+        self.assertIn("ARM 採 SEC 6-K XBRL", self.html)
+        self.assertIn("NOK 採官方 IFRS reported 歐元數字", self.html)
+        self.assertIn("TSM 採官方 TIFRS consolidated 新台幣數字", self.html)
         self.assertIn("開啟官方季度財報", self.html)
         self.assertIn('class="sec-warning-icon"', self.html)
         self.assertIn('title="${escapeSec(period.quality_notes.join(\' \'))}"', self.html)
+
+    def test_native_currency_quarterly_rendering_is_explicit(self):
+        self.assertIn('id="secRevenueHeading"', self.html)
+        self.assertIn("function formatSecAmount(value, currency = 'USD')", self.html)
+        self.assertIn("USD／EUR 以 M（百萬）、TWD 以 B（十億）", self.html)
+        self.assertIn("safeQuarterlySourceUrl(period.url)", self.html)
 
     def test_current_personal_holdings_are_embedded(self):
         expected = [

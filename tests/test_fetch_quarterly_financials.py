@@ -55,6 +55,15 @@ class QuarterlyFinancialTests(unittest.TestCase):
         result = quarterly.q4_values(rows)
         self.assertEqual(result["2026-03-31"]["val"], 1490)
 
+    def test_foreign_ir_source_has_eight_official_periods_in_native_currency(self):
+        companies = quarterly.load_foreign_quarterly()
+        self.assertEqual(companies["NOK"]["currency"], "EUR")
+        self.assertEqual(companies["TSM"]["currency"], "TWD")
+        self.assertGreaterEqual(len(companies["NOK"]["periods"]), 8)
+        self.assertGreaterEqual(len(companies["TSM"]["periods"]), 8)
+        self.assertEqual(companies["NOK"]["periods"][0]["values"]["revenue"], 4_815_000_000)
+        self.assertEqual(companies["TSM"]["periods"][0]["values"]["diluted_eps"], 27.25)
+
 
 if __name__ == "__main__":
     unittest.main()

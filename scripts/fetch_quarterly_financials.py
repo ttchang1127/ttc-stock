@@ -7,9 +7,9 @@ amount.  Weighted-average shares and diluted EPS are never derived this way;
 those values are left null when the filer did not tag a standalone Q4 value.
 
 Foreign private issuers generally furnish results on 6-K. Arm's filings carry
-a consistent quarterly Company Facts series and are supported; Nokia and TSMC
-do not, so they remain in the output with an official-results link and an
-explicit unavailable reason rather than an estimated or incomparable value.
+a consistent quarterly Company Facts series. Nokia and TSMC do not, so their
+official IR quarterly reports are maintained in a separate, auditable source
+file using each issuer's reporting currency and statutory reported basis.
 """
 
 import argparse
@@ -24,7 +24,8 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parent.parent
 FINANCIALS_PATH = REPO_ROOT / "financials.json"
 OUTPUT_PATH = REPO_ROOT / "quarterly_financials.json"
-FOREIGN_WITHOUT_QUARTERLY_FACTS = {"NOK", "TSM"}
+FOREIGN_QUARTERLY_PATH = REPO_ROOT / "foreign_quarterly_financials.json"
+FOREIGN_IR_TICKERS = {"NOK", "TSM"}
 FORMS = {"10-Q", "10-Q/A", "10-K", "10-K/A", "6-K", "6-K/A", "20-F", "20-F/A"}
 OFFICIAL_RESULTS_URLS = {
     "ARM": "https://investors.arm.com/financials/quarterly-annual-results",
@@ -266,9 +267,43 @@ def build_company(ticker, cik, document):
     return {
         "status": "available" if len(periods) >= 4 else "limited",
         "reason": None if len(periods) >= 4 else "SEC Company Facts 可比單季資料少於 4 期",
+        "currency": "USD",
+        "source_basis": "SEC Company Facts；金額為 USD。",
         "official_results_url": OFFICIAL_RESULTS_URLS.get(ticker),
         "periods": periods,
     }
+
+
+def load_foreign_quarterly():
+    """Load and validate official-IR facts that SEC Company Facts cannot supply."""
+    source = json.loads(FOREIGN_QUARTERLY_PATH.read_text())
+    companies = source.get("companies", {})
+    missing = sorted(FOREIGN_IR_TICKERS - set(companies))
+    if missing:
+        raise SystemExit(f"Foreign quarterly source missing: {', '.join(missing)}")
+    for ticker in sorted(FOREIGN_IR_TICKERS):
+        company = companies[ticker]
+        periods = company.get("periods", [])
+        if len(periods) < 8:
+            raise SystemExit(f"{ticker} foreign source needs 8 periods for four-quarter YoY")
+        if company.get("currency") not in {"EUR", "TWD"}:
+            raise SystemExit(f"{ticker} foreign source has invalid reporting currency")
+        if periods != sorted(periods, key=lambda row: row["period_end"], reverse=True):
+            raise SystemExit(f"{ticker} foreign periods are not newest-first")
+        for period in periods:
+            values = period.get("values", {})
+            required = {"revenue", "gross_margin", "operating_margin", "diluted_eps",
+                        "operating_cash_flow", "free_cash_flow"}
+            absent = sorted(required - set(values))
+            if absent:
+                raise SystemExit(
+                    f"{ticker} {period.get('period_end')} missing metrics: {', '.join(absent)}"
+                )
+            url = period.get("url", "")
+            allowed_host = "nokia.com" if ticker == "NOK" else "investor.tsmc.com"
+            if allowed_host not in url:
+                raise SystemExit(f"{ticker} {period.get('period_end')} has non-official URL")
+    return companies
 
 
 def main():
@@ -276,6 +311,7 @@ def main():
     parser.add_argument("--tickers", nargs="*", help="只更新指定代號，其他公司保留")
     args = parser.parse_args()
     annual = json.loads(FINANCIALS_PATH.read_text())
+    foreign_quarterly = load_foreign_quarterly()
     previous = json.loads(OUTPUT_PATH.read_text()) if OUTPUT_PATH.exists() else None
     requested = set(args.tickers or annual["companies"])
     companies = dict(previous.get("companies", {})) if previous and args.tickers else {}
@@ -283,14 +319,9 @@ def main():
     for ticker, company in sorted(annual["companies"].items()):
         if ticker not in requested:
             continue
-        if ticker in FOREIGN_WITHOUT_QUARTERLY_FACTS:
-            companies[ticker] = {
-                "status": "foreign_unavailable",
-                "reason": "公司有發布官方季報，但 SEC Company Facts 未提供一致的單季 XBRL；為避免混用幣別或口徑，目前不估算。",
-                "official_results_url": OFFICIAL_RESULTS_URLS[ticker],
-                "periods": [],
-            }
-            print(f"  {ticker:6s} foreign issuer — no comparable quarterly Company Facts")
+        if ticker in FOREIGN_IR_TICKERS:
+            companies[ticker] = foreign_quarterly[ticker]
+            print(f"  {ticker:6s} {len(companies[ticker]['periods'])} official IR quarters")
             continue
         cik = str(company["cik"]).zfill(10)
         document = sec_json(f"https://data.sec.gov/api/xbrl/companyfacts/CIK{cik}.json")
@@ -306,10 +337,10 @@ def main():
         raise SystemExit(f"Refusing suspicious quarterly output; only {len(comparable)} companies have four periods")
 
     stable = {
-        "source": "SEC XBRL Company Facts API (data.sec.gov/api/xbrl/companyfacts)",
+        "source": "SEC XBRL Company Facts API；Nokia 與 TSMC 官方 IR 季報",
         "methodology": {
             "q4": "10-K／20-F 全年流量減同一會計年度前三季累計；EPS 與加權平均稀釋股數不相減。",
-            "foreign_issuers": "6-K／20-F 無一致 SEC 單季 Company Facts 時保留缺值，不估算。",
+            "foreign_issuers": "6-K／20-F 無一致 SEC 單季 Company Facts 時，採公司官方 IR 的 IFRS／TIFRS reported 數字並保留原幣；不做匯率換算。",
         },
         "companies": companies,
     }

@@ -1804,7 +1804,7 @@
           <article class="sec-kpi">
             <span class="sec-kpi-label">四季數據可比較</span>
             <strong id="secKpiQuarterly" class="sec-kpi-value">—</strong>
-            <p class="sec-kpi-help">分母只計有一致 SEC 季度 XBRL 的美國公司；外國發行人不以估算值補齊。</p>
+            <p class="sec-kpi-help">計算已有 4 期可比數字的公司；美國公司採 SEC XBRL，NOK／TSM 採官方 IR 原幣季報。</p>
           </article>
         </div>
 
@@ -1821,7 +1821,7 @@
         <section class="sec-section" aria-labelledby="secQuarterlyTitle">
           <div class="sec-section-heading">
             <h3 id="secQuarterlyTitle">① 最新 4 期季報連續追蹤</h3>
-            <p>固定顯示全部 14 家，不受上方最近 7／14 日篩選影響；Q4 由 10-K／20-F 全年數據拆分。</p>
+            <p>固定顯示全部 14 家，不受上方最近 7／14 日篩選影響；美國公司的 Q4 由 10-K／20-F 全年數據拆分。</p>
           </div>
           <div class="sec-table-wrap">
             <table class="sec-table">
@@ -1836,12 +1836,12 @@
           </div>
           <div class="sec-table-wrap">
             <table class="sec-table sec-trend-table">
-              <thead><tr><th>財報期末</th><th>來源</th><th class="sec-number">營收 USD</th><th class="sec-number">營收 QoQ</th><th class="sec-number">營收 YoY</th><th class="sec-number">毛利率</th><th class="sec-number">營業利益率</th><th class="sec-number">稀釋 EPS</th><th class="sec-number">營業現金流</th><th class="sec-number">自由現金流</th><th class="sec-number">稀釋股數</th><th>SEC</th></tr></thead>
+              <thead><tr><th>財報期末</th><th>來源</th><th id="secRevenueHeading" class="sec-number">營收（原幣）</th><th class="sec-number">營收 QoQ</th><th class="sec-number">營收 YoY</th><th class="sec-number">毛利率</th><th class="sec-number">營業利益率</th><th class="sec-number">稀釋 EPS</th><th class="sec-number">營業現金流</th><th class="sec-number">自由現金流</th><th class="sec-number">稀釋股數</th><th>原文</th></tr></thead>
               <tbody id="secQuarterlyTrendBody"><tr><td colspan="12" class="sec-empty">正在載入…</td></tr></tbody>
             </table>
           </div>
-          <p class="sec-footnote"><strong>每個數字代表什麼：</strong>營收是單季銷售；QoQ 是相較上一季、YoY 是相較去年同期。毛利率＝毛利÷營收，營業利益率＝營業利益÷營收；兩者下方的季／年變化用百分點（pp）。稀釋 EPS 是考慮潛在稀釋後每股盈餘。營業現金流（OCF）是本業產生的現金；自由現金流（FCF）＝OCF－資本支出。稀釋股數是該季加權平均股數，增加通常表示每股價值有稀釋壓力。金額以 USD M（百萬美元）、股數以 M（百萬股）顯示。</p>
-          <p class="sec-footnote"><strong>Q4 方法：</strong>美國公司沒有獨立 Q4 10-Q；標示「10-K／20-F 拆分」的流量數字＝全年減前三季累計。EPS 與加權平均股數不能用相減法，無可靠單季標籤時顯示「—」。ARM 的 6-K 有季度 XBRL，已納入；TSM、NOK 的 SEC Company Facts 沒有一致單季標籤，因此提供官方季報入口但不估算。</p>
+          <p class="sec-footnote"><strong>每個數字代表什麼：</strong>營收是單季銷售；QoQ 是相較上一季、YoY 是相較去年同期。毛利率＝毛利÷營收，營業利益率＝營業利益÷營收；兩者下方的季／年變化用百分點（pp）。稀釋 EPS 是考慮潛在稀釋後每股盈餘。營業現金流（OCF）是本業產生的現金；自由現金流（FCF）＝OCF－資本支出。稀釋股數是該季加權平均股數，增加通常表示每股價值有稀釋壓力。USD／EUR 以 M（百萬）、TWD 以 B（十億）、股數以 M（百萬股）顯示。</p>
+          <p class="sec-footnote"><strong>資料口徑：</strong>美國公司沒有獨立 Q4 10-Q；標示「10-K／20-F 拆分」的流量數字＝全年減前三季累計。EPS 與加權平均股數不能用相減法，無可靠單季標籤時顯示「—」。ARM 採 SEC 6-K XBRL；NOK 採官方 IFRS reported 歐元數字，TSM 採官方 TIFRS consolidated 新台幣數字。原幣呈現可避免匯率扭曲季度趨勢。</p>
           <p class="sec-footnote">申報日是文件送交 SEC 的日期；財報期末是數字涵蓋到哪一天，兩者不同。10-Q 通常未經完整年度查核；10-Q/A 代表修正版。</p>
         </section>
 
@@ -2715,6 +2715,12 @@
       }
     }
 
+    function safeQuarterlySourceUrl(value) {
+      const secUrl = safeSecUrl(value);
+      if (secUrl !== '#') return secUrl;
+      return safeOfficialResultsUrl(value);
+    }
+
     function secCutoff(days) {
       const end = new Date(`${todayET()}T12:00:00Z`);
       end.setUTCDate(end.getUTCDate() - (days - 1));
@@ -2745,9 +2751,16 @@
       return Number(value);
     }
 
-    function formatSecMillions(value, suffix = 'M') {
+    function secAmountDisplay(currency) {
+      return currency === 'TWD'
+        ? { divisor: 1e9, unit: 'B' }
+        : { divisor: 1e6, unit: 'M' };
+    }
+
+    function formatSecAmount(value, currency = 'USD') {
       if (value === null || value === undefined || Number.isNaN(Number(value))) return '—';
-      return `${formatSecNumber(Number(value) / 1e6, 1)}${suffix}`;
+      const display = secAmountDisplay(currency);
+      return `${formatSecNumber(Number(value) / display.divisor, 1)}${display.unit}`;
     }
 
     function secDelta(current, previous, mode = 'percent') {
@@ -2983,6 +2996,8 @@
       const company = secDailyData.quarterlyFinancials?.companies?.[secQuarterlyTicker];
       const body = document.getElementById('secQuarterlyTrendBody');
       const availability = document.getElementById('secQuarterlyAvailability');
+      const currency = company?.currency || 'USD';
+      document.getElementById('secRevenueHeading').textContent = `營收 ${currency}`;
       if (!company || !(company.periods || []).length) {
         const reason = company?.reason || '尚無可比季度資料。';
         const officialUrl = safeOfficialResultsUrl(company?.official_results_url);
@@ -2991,7 +3006,7 @@
         body.innerHTML = `<tr><td colspan="12" class="sec-empty">${escapeSec(reason)}${officialLink}</td></tr>`;
         return;
       }
-      availability.textContent = `資料更新：${formatSecTimestamp(secDailyData.quarterlyFinancials.generated_at)}；顯示最新 4 期，另保留歷史期計算 YoY。`;
+      availability.textContent = `${company.source_basis || `報表幣別 ${currency}`} 資料更新：${formatSecTimestamp(secDailyData.quarterlyFinancials.generated_at)}；顯示最新 4 期，另保留歷史期計算 YoY。`;
       const periods = company.periods || [];
       body.innerHTML = periods.slice(0, 4).map((period, index) => {
         const previous = periods[index + 1];
@@ -3011,7 +3026,8 @@
         const cashNote = (metric, current) => {
           const qoq = secDelta(current, secMetricValue(previous, metric), 'absolute');
           const yoy = secDelta(current, secMetricValue(yearAgo, metric), 'absolute');
-          return `<span class="sec-cell-note">季 ${formatSecDelta(qoq === null ? null : qoq / 1e6, 'M')}｜年 ${formatSecDelta(yoy === null ? null : yoy / 1e6, 'M')}</span>`;
+          const display = secAmountDisplay(currency);
+          return `<span class="sec-cell-note">季 ${formatSecDelta(qoq === null ? null : qoq / display.divisor, display.unit)}｜年 ${formatSecDelta(yoy === null ? null : yoy / display.divisor, display.unit)}</span>`;
         };
         const epsQoq = secDelta(eps, secMetricValue(previous, 'diluted_eps'), 'absolute');
         const epsYoy = secDelta(eps, secMetricValue(yearAgo, 'diluted_eps'), 'absolute');
@@ -3025,16 +3041,16 @@
         return `<tr>
           <td><strong>${escapeSec(period.period_end)}</strong>${warning}</td>
           <td><span class="sec-badge ${period.q4_derived ? 'medium' : 'buy'}">${escapeSec(source)}</span></td>
-          <td class="sec-number">${formatSecMillions(revenue)}</td>
+          <td class="sec-number">${formatSecAmount(revenue, currency)}</td>
           <td class="sec-number">${formatSecDelta(secDelta(revenue, secMetricValue(previous, 'revenue')))}</td>
           <td class="sec-number">${formatSecDelta(secDelta(revenue, secMetricValue(yearAgo, 'revenue')))}</td>
           <td class="sec-number">${grossMargin === null ? '—' : `${formatSecNumber(grossMargin * 100, 1)}%`}${marginNote('gross_margin', grossMargin)}</td>
           <td class="sec-number">${operatingMargin === null ? '—' : `${formatSecNumber(operatingMargin * 100, 1)}%`}${marginNote('operating_margin', operatingMargin)}</td>
-          <td class="sec-number">${eps === null ? '—' : `$${formatSecNumber(eps, 2)}`}<span class="sec-cell-note">季 ${formatSecDelta(epsQoq, '')}｜年 ${formatSecDelta(epsYoy, '')}</span></td>
-          <td class="sec-number">${formatSecMillions(ocf)}${cashNote('operating_cash_flow', ocf)}</td>
-          <td class="sec-number">${formatSecMillions(fcf)}${cashNote('free_cash_flow', fcf)}</td>
-          <td class="sec-number">${formatSecMillions(shares)}<span class="sec-cell-note">季 ${formatSecDelta(shareQoq, '%', true)}｜年 ${formatSecDelta(shareYoy, '%', true)}</span></td>
-          <td><a class="sec-link" href="${safeSecUrl(period.url)}" target="_blank" rel="noopener">原文 ↗</a></td>
+          <td class="sec-number">${eps === null ? '—' : `${escapeSec(currency)} ${formatSecNumber(eps, 2)}`}<span class="sec-cell-note">季 ${formatSecDelta(epsQoq, '')}｜年 ${formatSecDelta(epsYoy, '')}</span></td>
+          <td class="sec-number">${formatSecAmount(ocf, currency)}${cashNote('operating_cash_flow', ocf)}</td>
+          <td class="sec-number">${formatSecAmount(fcf, currency)}${cashNote('free_cash_flow', fcf)}</td>
+          <td class="sec-number">${shares === null ? '—' : `${formatSecNumber(shares / 1e6, 1)}M`}<span class="sec-cell-note">季 ${formatSecDelta(shareQoq, '%', true)}｜年 ${formatSecDelta(shareYoy, '%', true)}</span></td>
+          <td><a class="sec-link" href="${safeQuarterlySourceUrl(period.url)}" target="_blank" rel="noopener">原文 ↗</a></td>
         </tr>`;
       }).join('');
     }
