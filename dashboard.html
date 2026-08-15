@@ -790,6 +790,25 @@
       font-size: 0.72rem;
     }
 
+    .macd-trend-explainer {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 8px 18px;
+      margin-top: 14px;
+      padding: 14px 16px;
+      border: 1px solid rgba(56, 189, 248, 0.2);
+      border-radius: 12px;
+      background: rgba(56, 189, 248, 0.06);
+      color: #cbd5e1;
+      font-size: 0.76rem;
+      line-height: 1.55;
+    }
+
+    .macd-trend-explainer strong {
+      color: #7dd3fc;
+      grid-column: 1 / -1;
+    }
+
     @media (max-width: 720px) {
       .chart-card-large { padding: 20px 14px; }
       .chart-card h3 { align-items: flex-start; flex-direction: column; gap: 5px; }
@@ -1453,6 +1472,15 @@
               <span>🌲 暗綠：多頭收縮</span>
               <span>🔴 亮紅：空頭擴張</span>
               <span>🌸 暗粉：空頭收縮</span>
+            </div>
+            <div class="macd-trend-explainer" aria-label="MACD 20 日趨勢圖閱讀說明">
+              <strong>📖 圖表閱讀方式</strong>
+              <span>• 每根直柱＝1 個美股交易日；週末與美股休市日不列入。</span>
+              <span>• 全圖共 20 個交易日，由左至右；最右柱就是卡片右上的截止日。</span>
+              <span>• 中間橫線＝零軸；柱在上方代表多頭，下方代表空頭，柱越長表示動能越強。</span>
+              <span>• 「連續 N 日」＝目前同一多空擴張／收縮狀態已延續的交易日數。</span>
+              <span>• 「最新」＝截止日的 MACD 柱體占股價百分比。</span>
+              <span>• 「5 日」＝最新數值減去 5 個交易日前數值；pp 代表百分點。</span>
             </div>
           </section>
         </div>
@@ -2518,7 +2546,7 @@
           `<div class="macd-trend-phase ${stats.phase.tone}">${stats.phase.label}｜連續 ${stats.streak} 日</div>` +
           renderMomentumSparkline(item.macdHistory, item.ticker) +
           `<div class="macd-trend-stats">` +
-          `<span>今日 <strong>${signedNumber(stats.latest.pct)}%</strong></span>` +
+          `<span>最新 <strong>${signedNumber(stats.latest.pct)}%</strong></span>` +
           `<span>5 日 <strong class="${changeClass}">${signedNumber(stats.change5d)}pp</strong></span>` +
           `</div></article>`;
       }).join('');
