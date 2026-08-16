@@ -15,7 +15,7 @@ tags:
 
 ## 🚀 雙動態 Web 儀表板與獨立網頁版投資報告 (Web Dashboards & Reports)
 
-> 每份公司網頁報告現包含：八季營運趨勢、管理層指引達標追蹤、五年悲觀／基準／樂觀情境、反向 DCF、可追蹤風險矩陣，以及有官方來源的分部／營收來源分析。缺資料時會顯示缺口，不以估算值補齊。
+> 每份公司網頁報告現包含：八季營運趨勢、管理層指引達標追蹤、五年悲觀／基準／樂觀情境、反向 DCF、可追蹤風險矩陣、規則化客觀綜合評價，以及有官方來源的分部／營收來源分析。缺資料時會顯示缺口，不以估算值補齊。
 
 1. 🌐 **[開啟 美股七巨頭 MAG7 + 台積電 專屬獨立對照儀表板 (dashboard_mag7.html)](file:///Volumes/Crucial%20X8/Jarvis%20Obsidian/Sec_kb/dashboard_mag7.html)**
 2. 💼 **[開啟 個人投資組合與 ETF 權重重疊度對照儀表板 (dashboard.html)](file:///Volumes/Crucial%20X8/Jarvis%20Obsidian/Sec_kb/dashboard.html)**

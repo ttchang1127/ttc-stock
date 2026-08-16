@@ -107,6 +107,9 @@ font-weight:700;white-space:nowrap}
 border:1px solid rgba(56,189,248,.25);margin-bottom:14px}
 .coverage-box strong{color:#e0f2fe}.coverage-box p{margin:5px 0 0}
 .coverage-box a{color:#7dd3fc}
+.assessment-summary{padding:17px 19px;border-radius:14px;background:linear-gradient(135deg,rgba(56,189,248,.11),rgba(168,85,247,.08));border:1px solid rgba(125,211,252,.24);margin-bottom:16px}
+.assessment-summary strong{color:#e0f2fe;font-size:1.05rem}.assessment-summary p{margin:5px 0 0;color:#cbd5e1}
+.assessment-conclusion{margin-top:16px;padding:15px 17px;border-left:3px solid var(--accent);background:rgba(2,6,23,.38);border-radius:0 12px 12px 0;color:#dbeafe}
 .risk-status{display:inline-block;padding:3px 9px;border-radius:999px;font-size:.75rem;font-weight:800}
 .risk-status.low{color:#6ee7b7;background:rgba(16,185,129,.13)}
 .risk-status.medium{color:#fde68a;background:rgba(251,191,36,.13)}
@@ -133,7 +136,7 @@ footer{text-align:center;color:var(--text-muted);font-size:.8rem;padding:28px 0}
   <div class="hero-card">
     <div class="hero-title">
       <h1>ARM HOLDINGS PLC /UK（ARM）</h1>
-      <div class="hero-subtitle">財務健全度、估值與下行風險 — 全部數據由 SEC XBRL 與含股息調整後收盤價產生</div>
+      <div class="hero-subtitle">財務健全度、估值與下行風險 — 歷史合併數據由 SEC XBRL 產生；指引與分部均附公司官方來源</div>
       <div class="tooltip-hint">ⓘ 滑鼠移到帶 i 的金融名詞，或用鍵盤聚焦，即可查看定義與判讀方法。</div>
       <div class="badge-sec">🛡️ 20-F · accession 0001973239-26-000097 · FY2026-03-31</div>
     </div>
@@ -178,6 +181,11 @@ footer{text-align:center;color:var(--text-muted);font-size:.8rem;padding:28px 0}
     <div class="card card-full">
       <h2>🚦 可追蹤風險矩陣</h2>
       <div class="table-scroll"><table class="analysis-table"><thead><tr><th>風險</th><th>狀態</th><th>目前證據</th><th>觸發規則／下次檢查</th></tr></thead><tbody><tr><td><strong>短期償債／槓桿</strong></td><td><span class="risk-status low">正常</span></td><td>流動比率 6.00；負債佔資產 22.6%</td><td>流動比率 <1 或負債佔資產 >70%</td></tr><tr><td><strong>現金流品質</strong></td><td><span class="risk-status low">正常</span></td><td>FCF 利潤率 19.9%；OCF／淨利 1.69</td><td>FCF 為負，或 OCF／淨利 <0.8</td></tr><tr><td><strong>股權稀釋</strong></td><td><span class="risk-status low">正常</span></td><td>稀釋股數 YoY 1.2%</td><td>年增 >5% 留意；>10% 警戒</td></tr><tr><td><strong>營運動能</strong></td><td><span class="risk-status low">正常</span></td><td>營收 YoY 22.4%；營業利益率年變化 -3.8pp</td><td>營收與營業利益率同時惡化</td></tr><tr><td><strong>估值期待</strong></td><td><span class="risk-status high">警戒</span></td><td>現價隱含成長 65.7%；模型基準 16.2%</td><td>隱含成長高出基準 >5pp 留意；>10pp 警戒</td></tr><tr><td><strong>SEC 風險文字變化</strong></td><td><span class="risk-status medium">留意</span></td><td>新增 29 段；改寫 8 段</td><td>新增段落須回看原文；文字變化不等於機率</td></tr></tbody></table></div><p class="note">狀態只依表內規則分類，不估計主觀違約機率；黃色或紅色都應回到原始申報查證。</p>
+    </div>
+
+    <div class="card card-full">
+      <h2>🧾 客觀綜合評價</h2>
+      <div class="assessment-summary"><strong>目前定位：財務、營運與估值訊號分歧，需依後續財報確認方向</strong><p>公司品質與股價合理性分開判讀；狀態由下列固定規則產生，不是買進／賣出建議。</p></div><div class="table-scroll"><table class="analysis-table assessment-table"><thead><tr><th>面向</th><th>狀態</th><th>目前證據</th><th>判定方式</th></tr></thead><tbody><tr><td><strong>財務體質</strong></td><td><span class="risk-status low">穩健</span></td><td>流動比率 6.00；負債佔資產 22.6%；FCF 利潤率 19.9%；ROIC−WACC -6.3%</td><td>流動性、槓桿、FCF 與資本報酬共 4 項計分</td></tr><tr><td><strong>營運趨勢</strong></td><td><span class="risk-status medium">持平／分歧</span></td><td>八季方向分數 +1；營收 YoY 22.4%；營業利益率年變化 -3.8pp</td><td>分數 ≥+2 改善；≤−2 轉弱；其餘持平／分歧</td></tr><tr><td><strong>指引執行</strong></td><td><span class="risk-status low">優於</span></td><td>高於 1 項；區間內 1 項；低於 0 項</td><td>只比較已有實績的公司正式數字指引</td></tr><tr><td><strong>估值壓力</strong></td><td><span class="risk-status high">高</span></td><td>隱含成長 65.7% vs. 模型基準 16.2%；現價相對 DCF P50 +1535%</td><td>隱含成長高基準 >5pp 或現價高 P50 >10% 起列中等</td></tr><tr><td><strong>風險水位</strong></td><td><span class="risk-status medium">中</span></td><td>警戒 0；留意 1；正常 3；資料不足 0</td><td>償債、現金流、稀釋、SEC 文字任一警戒＝高；否則有留意＝中</td></tr></tbody></table></div><p class="assessment-conclusion"><strong>中長期判讀：</strong>財務體質為「穩健」、八季營運為「持平／分歧」、指引執行為「優於」、估值壓力為「高」、風險水位為「中」。正向情境需由後續營收、利潤率、FCF 與指引持續驗證；若營運轉弱、現金流惡化、稀釋升高或實績持續低於指引，原有長期判斷就需要下修。</p><p class="note">這是財報與估值資料的規則化摘要；競爭優勢、產業週期、法規及管理層執行力仍須搭配護城河與核心風險章節閱讀。</p>
     </div>
 
     <div class="card card-full">
@@ -267,7 +275,7 @@ footer{text-align:center;color:var(--text-muted);font-size:.8rem;padding:28px 0}
   </div>
 
   <footer>
-    由 <code>scripts/build_reports.py</code> 於 2026-08-16 01:26 UTC 產生。<br>
+    由 <code>scripts/build_reports.py</code> 於 2026-08-16 02:15 UTC 產生。<br>
     歷史合併財務由 SEC XBRL 產生；管理層指引與分部表為人工逐筆核對官方來源，均附日期與連結。<br>
     DCF 為特定假設下的推估，非事實，不構成投資建議。
   </footer>

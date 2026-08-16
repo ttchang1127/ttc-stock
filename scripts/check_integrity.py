@@ -419,6 +419,21 @@ def c17():
     return not bad, f"已覆蓋 {len(covered)} 家：{covered or '無'}；錯誤：{bad or '無'}"
 
 
+@check("C-18", "14 家都有規則化客觀綜合評價")
+def c18():
+    markers = ["🧾 客觀綜合評價", "目前定位：", "財務體質", "營運趨勢",
+               "指引執行", "估值壓力", "風險水位", "不是買進／賣出建議"]
+    reports = sorted(REPO_ROOT.glob("*_report.html"))
+    missing = [f"{path.name}/{marker}" for path in reports
+               for marker in markers if marker not in path.read_text()]
+    generator = read("scripts/build_reports.py")
+    rule_missing = [marker for marker in ("objective_assessment_section", "guidance_outcome",
+                                           "risk_matrix_data") if marker not in generator]
+    ok = len(reports) == 14 and not missing and not rule_missing
+    return ok, (f"報告 {len(reports)} 份；缺標記：{missing or '無'}；"
+                f"產生器缺規則：{rule_missing or '無'}")
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--quiet", action="store_true", help="只印出失敗項")

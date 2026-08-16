@@ -676,6 +676,17 @@ def quarterly_trend_section(company):
         'FCF 利潤率 ±2pp、股數增加逾 5% 為警戒；這是可解釋的篩選訊號，不是投資評等。</p>')
 
 
+def guidance_outcome(item):
+    low, high, actual = item.get("low"), item.get("high"), item.get("actual")
+    if actual is None or (low is None and high is None):
+        return "待實績"
+    if low is not None and actual < low:
+        return "低於指引"
+    if high is not None and actual > high:
+        return "高於指引"
+    return "落在區間"
+
+
 def guidance_section(company, inputs):
     guidance = (inputs or {}).get("guidance") or []
     if not guidance:
@@ -701,14 +712,7 @@ def guidance_section(company, inputs):
     rows = []
     for item in guidance:
         low, high, actual = item.get("low"), item.get("high"), item.get("actual")
-        if actual is None or (low is None and high is None):
-            result = "待實績"
-        elif low is not None and actual < low:
-            result = "低於指引"
-        elif high is not None and actual > high:
-            result = "高於指引"
-        else:
-            result = "落在區間"
+        result = guidance_outcome(item)
         guide = (f"{low:,.2f}～{high:,.2f}" if low is not None and high is not None
                  else f"{(low if low is not None else high):,.2f}")
         source = item.get("source_url")
@@ -774,7 +778,7 @@ def status_badge(level):
     return f'<span class="risk-status {level}">{labels[level]}</span>'
 
 
-def risk_matrix_section(h, rows, val, risk_change):
+def risk_matrix_data(h, rows, val, risk_change):
     latest = rows[0] if rows else {}
     liq, sol = h["liquidity"], h["solvency"]
     cfq = h["cash_flow_quality"]
@@ -835,6 +839,12 @@ def risk_matrix_section(h, rows, val, risk_change):
     risk_rows.append(("SEC 風險文字變化", level, f"新增 {added} 段；改寫 {reworded} 段",
                       "新增段落須回看原文；文字變化不等於機率"))
 
+    return risk_rows
+
+
+def risk_matrix_section(h, rows, val, risk_change):
+    risk_rows = risk_matrix_data(h, rows, val, risk_change)
+
     body = "".join(f'<tr><td><strong>{name}</strong></td><td>{status_badge(level)}</td>'
                    f'<td>{evidence}</td><td>{trigger}</td></tr>'
                    for name, level, evidence, trigger in risk_rows)
@@ -842,6 +852,151 @@ def risk_matrix_section(h, rows, val, risk_change):
             '<th>風險</th><th>狀態</th><th>目前證據</th><th>觸發規則／下次檢查</th>'
             '</tr></thead><tbody>' + body + '</tbody></table></div>'
             '<p class="note">狀態只依表內規則分類，不估計主觀違約機率；黃色或紅色都應回到原始申報查證。</p>')
+
+
+def assessment_badge(label, level):
+    return f'<span class="risk-status {level}">{html.escape(label)}</span>'
+
+
+def objective_assessment_section(fund, h, val, quarterly_company, inputs, risk_change):
+    """Build a deterministic five-part assessment from already displayed evidence."""
+    quarter_rows = quarter_metrics(quarterly_company)
+    latest = quarter_rows[0] if quarter_rows else {}
+    assessments = []
+
+    current = h["liquidity"].get("current_ratio")
+    leverage = h["solvency"].get("liabilities_to_assets")
+    fcf_margin = h["cash_flow_quality"].get("fcf_margin")
+    roic_spread = h["profitability"].get("roic_minus_wacc")
+    financial_checks = []
+    for value, good, bad in (
+            (current, lambda x: x >= 1.5, lambda x: x < 1),
+            (leverage, lambda x: x <= .50, lambda x: x > .70),
+            (fcf_margin, lambda x: x >= .10, lambda x: x < 0),
+            (roic_spread, lambda x: x >= .05, lambda x: x < 0)):
+        if value is not None:
+            financial_checks.append(1 if good(value) else -1 if bad(value) else 0)
+    financial_score = sum(financial_checks)
+    if len(financial_checks) < 2:
+        financial_label, financial_level = "資料不足", "unknown"
+    elif financial_score >= 3:
+        financial_label, financial_level = "強", "low"
+    elif financial_score >= 1:
+        financial_label, financial_level = "穩健", "low"
+    elif financial_score == 0:
+        financial_label, financial_level = "普通／分歧", "medium"
+    else:
+        financial_label, financial_level = "需留意", "high"
+    financial_evidence = (
+        f"流動比率 {fmt_num(current)}；負債佔資產 {fmt_pct(leverage, 1)}；"
+        f"FCF 利潤率 {fmt_pct(fcf_margin, 1)}；ROIC−WACC {fmt_pct(roic_spread, 1)}")
+    assessments.append(("財務體質", financial_label, financial_level, financial_evidence,
+                        "流動性、槓桿、FCF 與資本報酬共 4 項計分"))
+
+    trend_label, trend_value, _ = trend_score(quarter_rows)
+    trend_level = "low" if trend_label == "改善" else "high" if trend_label == "轉弱" else "medium"
+    if not quarter_rows:
+        trend_level = "unknown"
+    revenue_yoy = latest.get("revenue_yoy")
+    operating_margin = latest.get("operating_margin")
+    prior_operating_margin = latest.get("prior_operating_margin")
+    margin_delta = (operating_margin - prior_operating_margin
+                    if operating_margin is not None and prior_operating_margin is not None else None)
+    trend_evidence = (
+        f"八季方向分數 {trend_value:+d}；營收 YoY {fmt_pct(revenue_yoy, 1)}；"
+        f"營業利益率年變化 {'—' if margin_delta is None else f'{margin_delta * 100:+.1f}pp'}")
+    assessments.append(("營運趨勢", trend_label, trend_level, trend_evidence,
+                        "分數 ≥+2 改善；≤−2 轉弱；其餘持平／分歧"))
+
+    guidance = (inputs or {}).get("guidance") or []
+    outcomes = [guidance_outcome(item) for item in guidance if item.get("actual") is not None]
+    above = outcomes.count("高於指引")
+    within = outcomes.count("落在區間")
+    below = outcomes.count("低於指引")
+    if (inputs or {}).get("guidance_status") == "no_comparable_numeric_guidance":
+        guidance_label, guidance_level = "無可比區間", "unknown"
+        guidance_evidence = "最近一期公司發布未提供可直接比較的量化區間"
+    elif not outcomes:
+        guidance_label, guidance_level = "待實績", "medium"
+        guidance_evidence = f"已有 {len(guidance)} 項正式指引，尚無對應實績"
+    elif above and below:
+        guidance_label, guidance_level = "分歧", "medium"
+        guidance_evidence = f"高於 {above} 項；區間內 {within} 項；低於 {below} 項"
+    elif below:
+        guidance_label, guidance_level = "低於", "high"
+        guidance_evidence = f"高於 {above} 項；區間內 {within} 項；低於 {below} 項"
+    elif above:
+        guidance_label, guidance_level = "優於", "low"
+        guidance_evidence = f"高於 {above} 項；區間內 {within} 項；低於 {below} 項"
+    else:
+        guidance_label, guidance_level = "符合", "low"
+        guidance_evidence = f"區間內 {within} 項；沒有高於或低於區間"
+    assessments.append(("指引執行", guidance_label, guidance_level, guidance_evidence,
+                        "只比較已有實績的公司正式數字指引"))
+
+    implied = (val.get("implied_growth") or {}).get("value")
+    base_growth = (val.get("assumptions") or {}).get("growth")
+    spread = implied - base_growth if implied is not None and base_growth is not None else None
+    price = (val.get("multiples") or {}).get("price")
+    dcf_median = (val.get("dcf") or {}).get("p50")
+    dcf_gap = price / dcf_median - 1 if price is not None and dcf_median else None
+    if spread is None and dcf_gap is None:
+        valuation_label, valuation_level = "資料不足", "unknown"
+    elif ((spread is not None and spread > .10) or (dcf_gap is not None and dcf_gap > .30)):
+        valuation_label, valuation_level = "高", "high"
+    elif ((spread is not None and spread > .05) or (dcf_gap is not None and dcf_gap > .10)):
+        valuation_label, valuation_level = "中", "medium"
+    else:
+        valuation_label, valuation_level = "低", "low"
+    valuation_evidence = (
+        f"隱含成長 {fmt_pct(implied, 1)} vs. 模型基準 {fmt_pct(base_growth, 1)}；"
+        f"現價相對 DCF P50 {'—' if dcf_gap is None else f'{dcf_gap:+.0%}'}")
+    assessments.append(("估值壓力", valuation_label, valuation_level, valuation_evidence,
+                        "隱含成長高基準 >5pp 或現價高 P50 >10% 起列中等"))
+
+    # 營運與估值已各自列為獨立面向，風險水位不重複計入這兩列。
+    matrix = [row for row in risk_matrix_data(h, quarter_rows, val, risk_change)
+              if row[0] not in {"營運動能", "估值期待"}]
+    counts = {level: sum(1 for _, item_level, _, _ in matrix if item_level == level)
+              for level in ("high", "medium", "low", "unknown")}
+    if counts["high"]:
+        risk_label, risk_level = "高", "high"
+    elif counts["medium"]:
+        risk_label, risk_level = "中", "medium"
+    elif counts["low"]:
+        risk_label, risk_level = ("低（有缺值）" if counts["unknown"] else "低"), "low"
+    else:
+        risk_label, risk_level = "資料不足", "unknown"
+    risk_evidence = (f"警戒 {counts['high']}；留意 {counts['medium']}；正常 {counts['low']}；"
+                     f"資料不足 {counts['unknown']}")
+    assessments.append(("風險水位", risk_label, risk_level, risk_evidence,
+                        "償債、現金流、稀釋、SEC 文字任一警戒＝高；否則有留意＝中"))
+
+    if financial_level == "low" and trend_level == "low" and valuation_level == "high":
+        positioning = "基本面強、營運改善，但市場期待與估值壓力偏高"
+    elif financial_level == "low" and trend_level == "low" and valuation_level == "low":
+        positioning = "基本面與營運趨勢正向，模型顯示的估值壓力較低"
+    elif trend_level == "high" or risk_level == "high":
+        positioning = "營運或風險訊號需優先查證，尚不宜只依長期故事下結論"
+    else:
+        positioning = "財務、營運與估值訊號分歧，需依後續財報確認方向"
+
+    body = "".join(
+        f'<tr><td><strong>{name}</strong></td><td>{assessment_badge(label, level)}</td>'
+        f'<td>{evidence}</td><td>{rule}</td></tr>'
+        for name, label, level, evidence, rule in assessments)
+    return (
+        f'<div class="assessment-summary"><strong>目前定位：{html.escape(positioning)}</strong>'
+        '<p>公司品質與股價合理性分開判讀；狀態由下列固定規則產生，不是買進／賣出建議。</p></div>'
+        '<div class="table-scroll"><table class="analysis-table assessment-table"><thead><tr>'
+        '<th>面向</th><th>狀態</th><th>目前證據</th><th>判定方式</th>'
+        '</tr></thead><tbody>' + body + '</tbody></table></div>'
+        '<p class="assessment-conclusion"><strong>中長期判讀：</strong>'
+        f'財務體質為「{html.escape(financial_label)}」、八季營運為「{html.escape(trend_label)}」、'
+        f'指引執行為「{html.escape(guidance_label)}」、估值壓力為「{html.escape(valuation_label)}」、'
+        f'風險水位為「{html.escape(risk_label)}」。正向情境需由後續營收、利潤率、FCF 與指引持續驗證；'
+        '若營運轉弱、現金流惡化、稀釋升高或實績持續低於指引，原有長期判斷就需要下修。</p>'
+        '<p class="note">這是財報與估值資料的規則化摘要；競爭優勢、產業週期、法規及管理層執行力仍須搭配護城河與核心風險章節閱讀。</p>')
 
 
 def operating_context_section(sections, quarterly_company, inputs):
@@ -1038,6 +1193,9 @@ font-weight:700;white-space:nowrap}
 border:1px solid rgba(56,189,248,.25);margin-bottom:14px}
 .coverage-box strong{color:#e0f2fe}.coverage-box p{margin:5px 0 0}
 .coverage-box a{color:#7dd3fc}
+.assessment-summary{padding:17px 19px;border-radius:14px;background:linear-gradient(135deg,rgba(56,189,248,.11),rgba(168,85,247,.08));border:1px solid rgba(125,211,252,.24);margin-bottom:16px}
+.assessment-summary strong{color:#e0f2fe;font-size:1.05rem}.assessment-summary p{margin:5px 0 0;color:#cbd5e1}
+.assessment-conclusion{margin-top:16px;padding:15px 17px;border-left:3px solid var(--accent);background:rgba(2,6,23,.38);border-radius:0 12px 12px 0;color:#dbeafe}
 .risk-status{display:inline-block;padding:3px 9px;border-radius:999px;font-size:.75rem;font-weight:800}
 .risk-status.low{color:#6ee7b7;background:rgba(16,185,129,.13)}
 .risk-status.medium{color:#fde68a;background:rgba(251,191,36,.13)}
@@ -1079,7 +1237,7 @@ def render(ticker, ctx):
   <div class="hero-card">
     <div class="hero-title">
       <h1>{html.escape(ctx['name'])}（{ticker}）</h1>
-      <div class="hero-subtitle">財務健全度、估值與下行風險 — 全部數據由 SEC XBRL 與含股息調整後收盤價產生</div>
+      <div class="hero-subtitle">財務健全度、估值與下行風險 — 歷史合併數據由 SEC XBRL 產生；指引與分部均附公司官方來源</div>
       <div class="tooltip-hint">ⓘ 滑鼠移到帶 i 的金融名詞，或用鍵盤聚焦，即可查看定義與判讀方法。</div>
       <div class="badge-sec">🛡️ {ctx['form']} · accession {html.escape(ctx['accession'])} · FY{ctx['fye']}</div>
     </div>
@@ -1121,6 +1279,11 @@ def render(ticker, ctx):
     <div class="card card-full">
       <h2>🚦 可追蹤風險矩陣</h2>
       {ctx['risk_matrix']}
+    </div>
+
+    <div class="card card-full">
+      <h2>🧾 客觀綜合評價</h2>
+      {ctx['objective_assessment']}
     </div>
 
     <div class="card card-full">
@@ -1455,6 +1618,9 @@ def build_context(ticker, data, ranks, peers):
         "scenarios": scenario_section(fund, v, h.get("currency") or "USD"),
         "risk_matrix": risk_matrix_section(
             h, quarter_metrics(quarterly_company), v, data["risk_changes"].get(ticker)),
+        "objective_assessment": objective_assessment_section(
+            fund, h, v, quarterly_company, forward_inputs,
+            data["risk_changes"].get(ticker)),
         "operating_context": operating_context_section(sections, quarterly_company, forward_inputs),
         "ranks": rank_cards(ticker, ranks),
         "peer_count": len(data["health"]),
