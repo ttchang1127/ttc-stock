@@ -434,6 +434,107 @@ def c18():
                 f"產生器缺規則：{rule_missing or '無'}")
 
 
+@check("C-19", "近三年指引回測有來源且口徑一致")
+def c19():
+    payload = load("guidance_history.json")
+    companies = payload.get("companies") or {}
+    fields = payload.get("record_fields") or []
+    tracked = set(load("financials.json")["companies"])
+    quarterly = load("quarterly_financials.json")["companies"]
+    valid_statuses = {"available", "no_consistent_numeric_guidance", "different_cadence"}
+    bad = []
+    available = []
+    record_count = 0
+    if fields != ["period", "period_end", "low", "high", "actual",
+                  "guidance_date", "guidance_source_url"]:
+        bad.append("record_fields 格式錯誤")
+    for ticker, company in sorted(companies.items()):
+        status = company.get("status")
+        records = company.get("records") or []
+        if status not in valid_statuses:
+            bad.append(f"{ticker}(狀態無效)")
+            continue
+        if status != "available":
+            if records:
+                bad.append(f"{ticker}(不可比較卻有回測列)")
+            if not company.get("note") or not company.get("review_url"):
+                bad.append(f"{ticker}(不可比較但缺原因或官方入口)")
+            continue
+        available.append(ticker)
+        if len(records) < 4 or len(records) > 12:
+            bad.append(f"{ticker}(樣本 {len(records)} 期)")
+        if not all(company.get(key) for key in ("metric", "unit", "comparison_basis")):
+            bad.append(f"{ticker}(缺指標、單位或比較口徑)")
+        known_periods = {row.get("period_end") for row in quarterly.get(ticker, {}).get("periods", [])}
+        period_nodes = {row.get("period_end"): row
+                        for row in quarterly.get(ticker, {}).get("periods", [])}
+        explicit_actual_sources = company.get("actual_sources") or {}
+        seen = set()
+        for index, raw in enumerate(records, 1):
+            record_count += 1
+            if not isinstance(raw, list) or len(raw) != len(fields):
+                bad.append(f"{ticker}#{index}(欄位數錯誤)")
+                continue
+            row = dict(zip(fields, raw))
+            period_key = (row.get("period"), row.get("period_end"))
+            if period_key in seen:
+                bad.append(f"{ticker}#{index}(期間重複)")
+            seen.add(period_key)
+            if (row.get("period_end") not in known_periods
+                    and row.get("period_end") not in explicit_actual_sources):
+                bad.append(f"{ticker}#{index}(找不到實績期末 {row.get('period_end')})")
+            if not row.get("period") or not row.get("guidance_date") or not row.get("guidance_source_url"):
+                bad.append(f"{ticker}#{index}(缺期間、日期或指引來源)")
+            elif row["guidance_date"] > row["period_end"]:
+                bad.append(f"{ticker}#{index}(指引日期晚於期末，疑有後見偏誤)")
+            if not str(row.get("guidance_source_url") or "").startswith("https://"):
+                bad.append(f"{ticker}#{index}(來源不是 HTTPS)")
+            low, high, actual = row.get("low"), row.get("high"), row.get("actual")
+            if not all(isinstance(value, (int, float)) for value in (low, high, actual)):
+                bad.append(f"{ticker}#{index}(上下限或實績不是數字)")
+            elif low > high:
+                bad.append(f"{ticker}#{index}(上下限顛倒)")
+            period_node = period_nodes.get(row.get("period_end")) or {}
+            revenue_node = (period_node.get("values") or {}).get("revenue")
+            if isinstance(revenue_node, dict) and revenue_node.get("unit") == "USD":
+                official_bn = revenue_node.get("value") / 1_000_000_000
+                if abs(actual - official_bn) > .001:
+                    bad.append(f"{ticker}#{index}(實績 {actual} 與季度資料 {official_bn:.6f} 不符)")
+    missing = sorted(tracked - set(companies))
+    extra = sorted(set(companies) - tracked)
+    ok = (payload.get("window_years") == 3 and not bad and not missing and not extra
+          and len(available) == 9 and record_count == 107)
+    return ok, (f"可回測 {len(available)} 家／{record_count} 期：{available}；"
+                f"欄位錯誤：{bad or '無'}；缺公司：{missing or '無'}；多餘公司：{extra or '無'}")
+
+
+@check("C-20", "14 家報告顯示近三年指引紀錄與樣本限制")
+def c20():
+    history = load("guidance_history.json")["companies"]
+    missing = []
+    for ticker, company in sorted(history.items()):
+        slug = {"GOOGL": "goog"}.get(ticker, ticker.lower())
+        path = REPO_ROOT / f"{slug}_report.html"
+        if not path.exists():
+            missing.append(f"{ticker}(缺報告)")
+            continue
+        page = path.read_text()
+        for marker in ("近 3 年指引執行紀錄", "不計入命中率"):
+            if marker == "不計入命中率" and company.get("status") == "available":
+                continue
+            if marker not in page:
+                missing.append(f"{ticker}/{marker}")
+        if company.get("status") == "available":
+            for marker in ("可驗證樣本", "達標率", "平均相對中點", "展開近 3 年逐期紀錄"):
+                if marker not in page:
+                    missing.append(f"{ticker}/{marker}")
+    generator = read("scripts/build_reports.py")
+    rule_missing = [marker for marker in ("guidance_history_stats", "historical_guidance_section",
+                                           "sample_count < 4") if marker not in generator]
+    return not missing and not rule_missing, (f"頁面缺標記：{missing or '無'}；"
+                                              f"產生器缺規則：{rule_missing or '無'}")
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--quiet", action="store_true", help="只印出失敗項")

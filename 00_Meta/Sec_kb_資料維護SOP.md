@@ -50,7 +50,8 @@ SEC XBRL Company Facts API          Yahoo Finance (yfinance)
    *_report.html（14 份獨立網頁報告）
 
 公司官方 IR／SEC 附件（人工逐筆核對）
-        ↓ forward_looking_inputs.json（每筆強制附來源 URL 與日期）
+        ↓ forward_looking_inputs.json（最近一期；每筆強制附來源 URL 與日期）
+        ↓ guidance_history.json（近 3 年；官方指引與後續實績分開追溯）
    管理層指引達標追蹤＋分部／營收來源表 ──→ build_reports.py
 
 > ⚠️ **新增一家公司時，thesis 必須有第一章與第六章**，否則報告頁的
@@ -81,6 +82,7 @@ SEC XBRL Company Facts API          Yahoo Finance (yfinance)
 | `risk_zh.json` | **人類維護**（風險變化段落的繁中譯文） | ✅ 只能改 `zh` 欄；鍵是原文雜湊，不要手改 |
 | **`dcf_assumptions.json`** | **人類維護**（14 家現皆為 `estimate_dcf_inputs.py` 推導值） | ✅ 可維護模型假設；`derived_at` 記錄整批假設推導日 |
 | **`forward_looking_inputs.json`** | **人類逐筆核對官方 IR／SEC** | ✅ 只能加入附 `source_url`、`source_date` 的公司指引與分部揭露；禁止填入分析師共識或自行推估 |
+| **`guidance_history.json`** | **人類逐期核對官方 IR／SEC** | ✅ 近 3 年指引回測；指引來源與 `quarterly_financials.json` 的實績來源分開，無一致區間者標示不可比較，不得算成未達標 |
 | `prices.json` | `fetch_price_history.py`（預設 6 年；含 `^IRX` 無風險利率） | ❌ |
 | `20_Filings/**` | `fetch_sec.py`（`--split-sections` 會拆出 Item 1A/1/7 原文） | ❌ |
 | thesis 第二 ~ 五章 | `update_thesis_financials.py` | ❌ |
@@ -159,7 +161,7 @@ python3 scripts/build_reports.py
 git status --short
 ```
 
-例行自動更新允許出現的檔案**只有**：`financials.json`、`fundamentals.json`、`financial_health.json`、`valuation.json`、`*_report.html`、`30_Analysis/*_Master_Investment_Thesis_2026.md`。若本次工作明確是核對管理層指引／分部資料，才可額外出現 `forward_looking_inputs.json`。
+例行自動更新允許出現的檔案**只有**：`financials.json`、`fundamentals.json`、`financial_health.json`、`valuation.json`、`*_report.html`、`30_Analysis/*_Master_Investment_Thesis_2026.md`。若本次工作明確是核對管理層指引／分部資料，才可額外出現 `forward_looking_inputs.json`；回溯驗證管理層指引時才可額外出現 `guidance_history.json`。
 
 出現任何其他檔案 → **停止並回報**。
 

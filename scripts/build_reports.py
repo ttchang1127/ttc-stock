@@ -687,8 +687,116 @@ def guidance_outcome(item):
     return "落在區間"
 
 
-def guidance_section(company, inputs):
+def guidance_history_records(history):
+    """Expand the compact, audited history rows into named dictionaries."""
+    fields = (history or {}).get("record_fields") or [
+        "period", "period_end", "low", "high", "actual",
+        "guidance_date", "guidance_source_url"]
+    records = []
+    for raw in (history or {}).get("records") or []:
+        if isinstance(raw, dict):
+            records.append(raw)
+        elif isinstance(raw, list) and len(raw) == len(fields):
+            records.append(dict(zip(fields, raw)))
+    return records
+
+
+def guidance_history_stats(history):
+    records = [row for row in guidance_history_records(history)
+               if row.get("actual") is not None]
+    outcomes = [guidance_outcome(row) for row in records]
+    mid_surprises = []
+    for row in records:
+        low, high, actual = row.get("low"), row.get("high"), row.get("actual")
+        if low is not None and high is not None and (low + high):
+            midpoint = (low + high) / 2
+            mid_surprises.append(actual / midpoint - 1)
+    return {
+        "count": len(records),
+        "above": outcomes.count("高於指引"),
+        "within": outcomes.count("落在區間"),
+        "below": outcomes.count("低於指引"),
+        "avg_mid_surprise": (sum(mid_surprises) / len(mid_surprises)
+                             if mid_surprises else None),
+    }
+
+
+def historical_guidance_section(company, history):
+    status = (history or {}).get("status")
+    records = guidance_history_records(history)
+    if status != "available" or not records:
+        status_label = ("無一致季度區間" if status == "no_consistent_numeric_guidance"
+                        else "週期／口徑不同" if status == "different_cadence"
+                        else "尚無可驗證歷史")
+        note = html.escape((history or {}).get("note") or
+                           "未形成可用相同口徑比較的歷史樣本。")
+        url = (history or {}).get("review_url")
+        link = (f' <a href="{html.escape(url, quote=True)}" target="_blank" rel="noopener">'
+                '查看官方資料庫</a>' if url else "")
+        return (f'<div class="coverage-box"><strong>{status_label}</strong>'
+                f'<p>{note}{link}；不計入命中率，也不視為未達標。</p></div>')
+
+    stats = guidance_history_stats(history)
+    count = stats["count"]
+    target_rate = (stats["above"] + stats["within"]) / count if count else None
+    above_rate = stats["above"] / count if count else None
+    below_rate = stats["below"] / count if count else None
+    cards = "".join([
+        metric("可驗證樣本", f"{count} 期"),
+        metric("達標率", fmt_pct(target_rate, 1)),
+        metric("高於區間", fmt_pct(above_rate, 1)),
+        metric("低於區間", fmt_pct(below_rate, 1), "warn" if below_rate else ""),
+        metric("平均相對中點", fmt_pct(stats["avg_mid_surprise"], 1)),
+    ])
+
+    actual_sources = {
+        period.get("period_end"): period.get("url")
+        for period in (company or {}).get("periods") or []
+    }
+    actual_sources.update((history or {}).get("actual_sources") or {})
+    rows = []
+    for row in reversed(records):
+        low, high, actual = row.get("low"), row.get("high"), row.get("actual")
+        result = guidance_outcome(row)
+        midpoint = ((low + high) / 2 if low is not None and high is not None else None)
+        surprise = (actual / midpoint - 1
+                    if actual is not None and midpoint not in {None, 0} else None)
+        guidance_url = row.get("guidance_source_url")
+        source_label = "指引"
+        if guidance_url:
+            source_label = (f'<a href="{html.escape(guidance_url, quote=True)}" target="_blank" '
+                            f'rel="noopener">指引</a>')
+        actual_url = actual_sources.get(row.get("period_end"))
+        actual_label = "實績"
+        if actual_url:
+            actual_label = (f'<a href="{html.escape(actual_url, quote=True)}" target="_blank" '
+                            f'rel="noopener">實績</a>')
+        guide = (f"{low:,.3f}～{high:,.3f}" if low is not None and high is not None
+                 else "—")
+        tone = "warn" if result == "低於指引" else "ok" if result == "高於指引" else ""
+        rows.append(
+            f'<tr class="{tone}"><td><strong>{html.escape(row.get("period") or "")}</strong>'
+            f'<small class="source-date">期末 {html.escape(row.get("period_end") or "")}</small></td>'
+            f'<td>{guide}</td><td>{actual:,.3f}</td><td>{html.escape(result)}</td>'
+            f'<td>{fmt_pct(surprise, 1)}</td><td>{source_label} · {actual_label}'
+            f'<small class="source-date">發布 {html.escape(row.get("guidance_date") or "")}</small></td></tr>')
+    basis = html.escape(((history or {}).get("comparison_basis") or "").rstrip("。"))
+    derived_note = ("；其中部分區間由官方分部指引加總，表中已標明方法"
+                    if (history or {}).get("derived") else "")
+    return (
+        f'<div class="metric-group">{cards}</div>'
+        f'<p class="note">主比較指標：{html.escape((history or {}).get("metric") or "")}（'
+        f'{html.escape((history or {}).get("unit") or "")}）。{basis}{derived_note}。'
+        '「達標」＝落在區間或高於上限；平均相對中點為各期（實績 ÷ 指引中點 − 1）的簡單平均。</p>'
+        f'<details class="guidance-history"><summary>展開近 3 年逐期紀錄（{count} 期）</summary>'
+        '<div class="table-scroll"><table class="analysis-table"><thead><tr>'
+        '<th>期間</th><th>當時指引</th><th>後續實績</th><th>結果</th><th>相對中點</th><th>官方來源</th>'
+        '</tr></thead><tbody>' + "".join(rows) + '</tbody></table></div></details>')
+
+
+def guidance_section(company, inputs, history):
     guidance = (inputs or {}).get("guidance") or []
+    current_html = ""
     if not guidance:
         status = (inputs or {}).get("guidance_status")
         if status == "no_comparable_numeric_guidance":
@@ -698,37 +806,42 @@ def guidance_section(company, inputs):
                     f'查看 {html.escape(source_date or "最近一期")} 官方發布</a>' if url else "")
             note = html.escape((inputs or {}).get("guidance_note") or
                                "最近一期官方發布未提供可直接比較的量化區間。")
-            return (
+            current_html = (
                 '<div class="coverage-box"><strong>本期無可比量化指引</strong>'
                 f'<p>{note} {link}</p></div>')
-        latest = ((company or {}).get("periods") or [{}])[0]
-        url = latest.get("url") or (company or {}).get("official_results_url")
-        link = (f' <a href="{html.escape(url, quote=True)}" target="_blank" rel="noopener">查看最近一期官方結果</a>'
-                if url else "")
-        return (
-            '<div class="coverage-box"><strong>尚未建檔數字指引</strong>'
-            '<p>本庫不把歷史成長率或模型推估冒充管理層指引。完成來源核對前，達標率維持缺值。'
-            f'{link}</p></div>')
-    rows = []
-    for item in guidance:
-        low, high, actual = item.get("low"), item.get("high"), item.get("actual")
-        result = guidance_outcome(item)
-        guide = (f"{low:,.2f}～{high:,.2f}" if low is not None and high is not None
-                 else f"{(low if low is not None else high):,.2f}")
-        source = item.get("source_url")
-        metric_name = html.escape(item.get("metric") or "")
-        if source:
-            metric_name = f'<a href="{html.escape(source, quote=True)}" target="_blank" rel="noopener">{metric_name}</a>'
-        source_date = html.escape(item.get("source_date") or "")
-        if source_date:
-            metric_name += f'<small class="source-date">來源 {source_date}</small>'
-        rows.append(f'<tr><td>{html.escape(item.get("period") or "")}</td><td>{metric_name}</td>'
-                    f'<td>{guide} {html.escape(item.get("unit") or "")}</td>'
-                    f'<td>{"—" if actual is None else f"{actual:,.2f}"}</td><td>{html.escape(result)}</td></tr>')
-    return ('<div class="table-scroll"><table class="analysis-table"><thead><tr>'
-            '<th>期間</th><th>指標／來源</th><th>管理層指引</th><th>實際</th><th>結果</th>'
-            '</tr></thead><tbody>' + "".join(rows) + '</tbody></table></div>'
-            '<p class="note">只收錄公司正式發布且可連回原始來源的數字指引；模型預測不列入達標率。</p>')
+        else:
+            latest = ((company or {}).get("periods") or [{}])[0]
+            url = latest.get("url") or (company or {}).get("official_results_url")
+            link = (f' <a href="{html.escape(url, quote=True)}" target="_blank" rel="noopener">查看最近一期官方結果</a>'
+                    if url else "")
+            current_html = (
+                '<div class="coverage-box"><strong>尚未建檔數字指引</strong>'
+                '<p>本庫不把歷史成長率或模型推估冒充管理層指引。完成來源核對前，達標率維持缺值。'
+                f'{link}</p></div>')
+    else:
+        rows = []
+        for item in guidance:
+            low, high, actual = item.get("low"), item.get("high"), item.get("actual")
+            result = guidance_outcome(item)
+            guide = (f"{low:,.2f}～{high:,.2f}" if low is not None and high is not None
+                     else f"{(low if low is not None else high):,.2f}")
+            source = item.get("source_url")
+            metric_name = html.escape(item.get("metric") or "")
+            if source:
+                metric_name = f'<a href="{html.escape(source, quote=True)}" target="_blank" rel="noopener">{metric_name}</a>'
+            source_date = html.escape(item.get("source_date") or "")
+            if source_date:
+                metric_name += f'<small class="source-date">來源 {source_date}</small>'
+            rows.append(f'<tr><td>{html.escape(item.get("period") or "")}</td><td>{metric_name}</td>'
+                        f'<td>{guide} {html.escape(item.get("unit") or "")}</td>'
+                        f'<td>{"—" if actual is None else f"{actual:,.2f}"}</td><td>{html.escape(result)}</td></tr>')
+        current_html = ('<div class="table-scroll"><table class="analysis-table"><thead><tr>'
+                        '<th>期間</th><th>指標／來源</th><th>管理層指引</th><th>實際</th><th>結果</th>'
+                        '</tr></thead><tbody>' + "".join(rows) + '</tbody></table></div>'
+                        '<p class="note">只收錄公司正式發布且可連回原始來源的數字指引；模型預測不列入達標率。</p>')
+    return ('<h3 class="analysis-subtitle">最近一期</h3>' + current_html
+            + '<h3 class="analysis-subtitle">近 3 年指引執行紀錄</h3>'
+            + historical_guidance_section(company, history))
 
 
 def scenario_section(fund, val, currency):
@@ -858,7 +971,7 @@ def assessment_badge(label, level):
     return f'<span class="risk-status {level}">{html.escape(label)}</span>'
 
 
-def objective_assessment_section(fund, h, val, quarterly_company, inputs, risk_change):
+def objective_assessment_section(fund, h, val, quarterly_company, inputs, history, risk_change):
     """Build a deterministic five-part assessment from already displayed evidence."""
     quarter_rows = quarter_metrics(quarterly_company)
     latest = quarter_rows[0] if quarter_rows else {}
@@ -908,31 +1021,40 @@ def objective_assessment_section(fund, h, val, quarterly_company, inputs, risk_c
     assessments.append(("營運趨勢", trend_label, trend_level, trend_evidence,
                         "分數 ≥+2 改善；≤−2 轉弱；其餘持平／分歧"))
 
-    guidance = (inputs or {}).get("guidance") or []
-    outcomes = [guidance_outcome(item) for item in guidance if item.get("actual") is not None]
-    above = outcomes.count("高於指引")
-    within = outcomes.count("落在區間")
-    below = outcomes.count("低於指引")
-    if (inputs or {}).get("guidance_status") == "no_comparable_numeric_guidance":
-        guidance_label, guidance_level = "無可比區間", "unknown"
-        guidance_evidence = "最近一期公司發布未提供可直接比較的量化區間"
-    elif not outcomes:
-        guidance_label, guidance_level = "待實績", "medium"
-        guidance_evidence = f"已有 {len(guidance)} 項正式指引，尚無對應實績"
-    elif above and below:
-        guidance_label, guidance_level = "分歧", "medium"
-        guidance_evidence = f"高於 {above} 項；區間內 {within} 項；低於 {below} 項"
-    elif below:
-        guidance_label, guidance_level = "低於", "high"
-        guidance_evidence = f"高於 {above} 項；區間內 {within} 項；低於 {below} 項"
-    elif above:
-        guidance_label, guidance_level = "優於", "low"
-        guidance_evidence = f"高於 {above} 項；區間內 {within} 項；低於 {below} 項"
+    history_status = (history or {}).get("status")
+    history_stats = guidance_history_stats(history)
+    sample_count = history_stats["count"]
+    above = history_stats["above"]
+    within = history_stats["within"]
+    below = history_stats["below"]
+    target_rate = (above + within) / sample_count if sample_count else None
+    if history_status == "no_consistent_numeric_guidance":
+        guidance_label, guidance_level = "無一致區間", "unknown"
+        guidance_evidence = "近 3 年未持續提供可直接比較的季度量化區間"
+    elif history_status == "different_cadence":
+        guidance_label, guidance_level = "口徑不同", "unknown"
+        guidance_evidence = "年度／季度目標或指標口徑不同，不混算命中率"
+    elif sample_count < 4:
+        guidance_label, guidance_level = "樣本不足", "unknown"
+        guidance_evidence = f"近 3 年只有 {sample_count} 期可驗證樣本"
+    elif below == 0 and above / sample_count >= .50:
+        guidance_label, guidance_level = "持續達標／偏保守", "low"
+        guidance_evidence = (f"近 3 年 {sample_count} 期：高於 {above}、區間內 {within}、"
+                             f"低於 {below}；達標率 {target_rate:.1%}")
+    elif below / sample_count <= .10:
+        guidance_label, guidance_level = "穩定達標", "low"
+        guidance_evidence = (f"近 3 年 {sample_count} 期：高於 {above}、區間內 {within}、"
+                             f"低於 {below}；達標率 {target_rate:.1%}")
+    elif below / sample_count <= .25:
+        guidance_label, guidance_level = "大致可信", "medium"
+        guidance_evidence = (f"近 3 年 {sample_count} 期：高於 {above}、區間內 {within}、"
+                             f"低於 {below}；達標率 {target_rate:.1%}")
     else:
-        guidance_label, guidance_level = "符合", "low"
-        guidance_evidence = f"區間內 {within} 項；沒有高於或低於區間"
+        guidance_label, guidance_level = "需留意", "high"
+        guidance_evidence = (f"近 3 年 {sample_count} 期：高於 {above}、區間內 {within}、"
+                             f"低於 {below}；達標率 {target_rate:.1%}")
     assessments.append(("指引執行", guidance_label, guidance_level, guidance_evidence,
-                        "只比較已有實績的公司正式數字指引"))
+                        "回溯 3 年；達標＝區間內或高於；無一致區間不評分"))
 
     implied = (val.get("implied_growth") or {}).get("value")
     base_growth = (val.get("assumptions") or {}).get("growth")
@@ -1193,6 +1315,14 @@ font-weight:700;white-space:nowrap}
 border:1px solid rgba(56,189,248,.25);margin-bottom:14px}
 .coverage-box strong{color:#e0f2fe}.coverage-box p{margin:5px 0 0}
 .coverage-box a{color:#7dd3fc}
+.analysis-subtitle{font-size:1rem;color:#e0f2fe;margin:18px 0 10px}
+.analysis-subtitle:first-child{margin-top:0}
+.guidance-history{margin-top:14px;border:1px solid var(--card-border);border-radius:14px;
+background:rgba(2,6,23,.3);overflow:hidden}
+.guidance-history summary{padding:13px 16px;color:#7dd3fc;font-weight:750;cursor:pointer;
+list-style-position:inside}
+.guidance-history[open] summary{border-bottom:1px solid var(--card-border)}
+.guidance-history .table-scroll{margin:0;border:0;border-radius:0}
 .assessment-summary{padding:17px 19px;border-radius:14px;background:linear-gradient(135deg,rgba(56,189,248,.11),rgba(168,85,247,.08));border:1px solid rgba(125,211,252,.24);margin-bottom:16px}
 .assessment-summary strong{color:#e0f2fe;font-size:1.05rem}.assessment-summary p{margin:5px 0 0;color:#cbd5e1}
 .assessment-conclusion{margin-top:16px;padding:15px 17px;border-left:3px solid var(--accent);background:rgba(2,6,23,.38);border-radius:0 12px 12px 0;color:#dbeafe}
@@ -1475,6 +1605,7 @@ def build_context(ticker, data, ranks, peers):
     periods = data["financials"][ticker]["periods"]
     quarterly_company = data["quarterly"].get(ticker) or {}
     forward_inputs = data["forward_inputs"].get(ticker) or {}
+    guidance_history = data["guidance_history"].get(ticker) or {}
     sections = split_sections(thesis_path(ticker).read_text()) \
         if thesis_path(ticker).exists() else {}
 
@@ -1614,12 +1745,12 @@ def build_context(ticker, data, ranks, peers):
         "risk_changes": risk_change_html(data["risk_changes"].get(ticker)),
         "health": health_section(h),
         "quarterly_trend": quarterly_trend_section(quarterly_company),
-        "guidance": guidance_section(quarterly_company, forward_inputs),
+        "guidance": guidance_section(quarterly_company, forward_inputs, guidance_history),
         "scenarios": scenario_section(fund, v, h.get("currency") or "USD"),
         "risk_matrix": risk_matrix_section(
             h, quarter_metrics(quarterly_company), v, data["risk_changes"].get(ticker)),
         "objective_assessment": objective_assessment_section(
-            fund, h, v, quarterly_company, forward_inputs,
+            fund, h, v, quarterly_company, forward_inputs, guidance_history,
             data["risk_changes"].get(ticker)),
         "operating_context": operating_context_section(sections, quarterly_company, forward_inputs),
         "ranks": rank_cards(ticker, ranks),
@@ -1658,6 +1789,8 @@ def main():
         "risk_changes": risk_changes,
         "forward_inputs": (load("forward_looking_inputs.json").get("companies", {})
                            if (REPO_ROOT / "forward_looking_inputs.json").exists() else {}),
+        "guidance_history": (load("guidance_history.json").get("companies", {})
+                             if (REPO_ROOT / "guidance_history.json").exists() else {}),
         "assumptions": load("dcf_assumptions.json"),
         "fundamentals": load("fundamentals.json")["companies"],
         "valuation": load("valuation.json")["companies"],

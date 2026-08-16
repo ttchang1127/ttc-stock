@@ -1,0 +1,250 @@
+{
+  "_README": [
+    "用途：以公司當時正式發布的數字指引，回溯比較後續實績；不以分析師共識或本庫模型取代管理層指引。",
+    "回溯窗：截至 2026-08-16 的最近 3 年。季度型公司最多 12 個已公布季度；上市未滿 3 年者採可取得期間。",
+    "records 欄位依序為 period、period_end、low、high、actual、guidance_date、guidance_source_url。",
+    "實績來源不與指引來源混用：產生報告時以 period_end 對應 quarterly_financials.json 的官方申報／結果頁。",
+    "結果分類：actual < low 為低於；actual > high 為高於；含上下限端點為落在區間。",
+    "採季度開始前公司正式發布的原始區間；後續修正不回填覆蓋原值。MSFT FY24Q1～FY26Q1 為三個官方分部指引上下限加總，FY26Q2 起公司直接提供總營收區間。",
+    "沒有一致量化區間、週期或口徑不同者標示不可比較，不計入命中率，也不視為未達標。"
+  ],
+  "as_of": "2026-08-16",
+  "window_years": 3,
+  "record_fields": [
+    "period",
+    "period_end",
+    "low",
+    "high",
+    "actual",
+    "guidance_date",
+    "guidance_source_url"
+  ],
+  "companies": {
+    "AAPL": {
+      "status": "no_consistent_numeric_guidance",
+      "cadence": "quarterly",
+      "note": "Apple 最近三年未持續提供下一季總營收或 EPS 數字區間；電話會議中的毛利率／費用展望不與總營收實績硬併。",
+      "review_url": "https://www.apple.com/newsroom/archive/"
+    },
+    "AMZN": {
+      "status": "available",
+      "cadence": "quarterly",
+      "metric": "淨銷售額",
+      "unit": "USD bn",
+      "comparison_basis": "公司發布的下一季淨銷售額區間；實績採 GAAP net sales。",
+      "records": [
+        ["2023 Q3", "2023-09-30", 138.0, 143.0, 143.083, "2023-08-03", "https://ir.aboutamazon.com/news-release/news-release-details/2023/Amazon.com-Announces-Second-Quarter-Results/"],
+        ["2023 Q4", "2023-12-31", 160.0, 167.0, 169.961, "2023-10-26", "https://ir.aboutamazon.com/news-release/news-release-details/2023/Amazon-com-Announces-Third-Quarter-Results/default.aspx"],
+        ["2024 Q1", "2024-03-31", 138.0, 143.5, 143.313, "2024-02-01", "https://ir.aboutamazon.com/news-release/news-release-details/2024/Amazon-com-Announces-Fourth-Quarter-Results/default.aspx"],
+        ["2024 Q2", "2024-06-30", 144.0, 149.0, 147.977, "2024-04-30", "https://ir.aboutamazon.com/news-release/news-release-details/2024/Amazon-com-Announces-First-Quarter-Results-68b9258cd/default.aspx"],
+        ["2024 Q3", "2024-09-30", 154.0, 158.5, 158.877, "2024-08-01", "https://ir.aboutamazon.com/news-release/news-release-details/2024/Amazon-com-Announces-Second-Quarter-Results/default.aspx"],
+        ["2024 Q4", "2024-12-31", 181.5, 188.5, 187.792, "2024-10-31", "https://ir.aboutamazon.com/news-release/news-release-details/2024/Amazon-com-Announces-Third-Quarter-Results/default.aspx"],
+        ["2025 Q1", "2025-03-31", 151.0, 155.5, 155.667, "2025-02-06", "https://ir.aboutamazon.com/news-release/news-release-details/2025/Amazon-com-Announces-Fourth-Quarter-Results/default.aspx"],
+        ["2025 Q2", "2025-06-30", 159.0, 164.0, 167.702, "2025-05-01", "https://ir.aboutamazon.com/news-release/news-release-details/2025/Amazon-com-Announces-First-Quarter-Results/"],
+        ["2025 Q3", "2025-09-30", 174.0, 179.5, 180.169, "2025-07-31", "https://ir.aboutamazon.com/news-release/news-release-details/2025/Amazon-com-Announces-Second-Quarter-Results/"],
+        ["2025 Q4", "2025-12-31", 206.0, 213.0, 213.386, "2025-10-30", "https://ir.aboutamazon.com/news-release/news-release-details/2025/Amazon-com-Announces-Third-Quarter-Results/default.aspx"],
+        ["2026 Q1", "2026-03-31", 173.5, 178.5, 181.519, "2026-02-05", "https://ir.aboutamazon.com/news-release/news-release-details/2026/Amazon-com-Announces-Fourth-Quarter-Results/default.aspx"],
+        ["2026 Q2", "2026-06-30", 194.0, 199.0, 200.606, "2026-04-29", "https://ir.aboutamazon.com/news-release/news-release-details/2026/Amazon-com-Announces-First-Quarter-Results/" ]
+      ]
+    },
+    "ARM": {
+      "status": "available",
+      "cadence": "quarterly",
+      "metric": "營收",
+      "unit": "USD bn",
+      "comparison_basis": "IPO 後可取得的正式季度營收區間；因此為 11 期，不硬補上市前指引。",
+      "review_url": "https://investors.arm.com/financials/quarterly-annual-results",
+      "records": [
+        ["FY2024 Q3", "2023-12-31", 0.720, 0.800, 0.824, "2023-11-08", "https://investors.arm.com/financials/quarterly-annual-results"],
+        ["FY2024 Q4", "2024-03-31", 0.850, 0.900, 0.928, "2024-02-07", "https://investors.arm.com/node/7041/html"],
+        ["FY2025 Q1", "2024-06-30", 0.875, 0.925, 0.939, "2024-05-08", "https://investors.arm.com/static-files/32aa4e9a-0432-4db8-be1a-b2b9483134fe"],
+        ["FY2025 Q2", "2024-09-30", 0.780, 0.830, 0.844, "2024-07-31", "https://investors.arm.com/financials/quarterly-annual-results"],
+        ["FY2025 Q3", "2024-12-31", 0.920, 0.970, 0.983, "2024-11-06", "https://investors.arm.com/node/7406/html"],
+        ["FY2025 Q4", "2025-03-31", 1.175, 1.275, 1.241, "2025-02-05", "https://investors.arm.com/node/7481/html"],
+        ["FY2026 Q1", "2025-06-30", 1.000, 1.100, 1.053, "2025-05-07", "https://investors.arm.com/financials/quarterly-annual-results"],
+        ["FY2026 Q2", "2025-09-30", 1.010, 1.110, 1.135, "2025-07-30", "https://investors.arm.com/node/7626/html"],
+        ["FY2026 Q3", "2025-12-31", 1.175, 1.275, 1.242, "2025-11-05", "https://investors.arm.com/node/7711/html"],
+        ["FY2026 Q4", "2026-03-31", 1.420, 1.520, 1.490, "2026-02-04", "https://investors.arm.com/node/7826/html"],
+        ["FY2027 Q1", "2026-06-30", 1.210, 1.310, 1.289, "2026-05-06", "https://investors.arm.com/node/8141/html"]
+      ]
+    },
+    "COHR": {
+      "status": "available",
+      "cadence": "quarterly",
+      "metric": "營收",
+      "unit": "USD bn",
+      "comparison_basis": "季度開始前公司正式發布的原始營收區間；後續修正不覆蓋原值。",
+      "records": [
+        ["FY2024 Q1", "2023-09-30", 1.000, 1.100, 1.053083, "2023-08-15", "https://www.coherent.com/content/dam/coherent/site/en/documents/investors/sec-filings/2023/august-16/quarterly-shareholder-letter-20230815.pdf"],
+        ["FY2024 Q2", "2023-12-31", 1.075, 1.175, 1.131434, "2023-11-07", "https://www.coherent.com/content/dam/coherent/site/en/documents/investors/investor-presentations/2024/november-6/cohr-investor-presentation-20231107-vf2.pdf"],
+        ["FY2024 Q3", "2024-03-31", 1.120, 1.200, 1.208809, "2024-02-05", "https://www.coherent.com/content/dam/coherent/site/en/documents/investors/investor-presentations/2024/february-5/cohr-investor-presentation-20240205.pdf"],
+        ["FY2024 Q4", "2024-06-30", 1.230, 1.320, 1.314362, "2024-05-06", "https://www.coherent.com/content/dam/coherent/site/en/documents/investors/investor-presentations/2024/may-6/investor-presentation-20240506.pdf"],
+        ["FY2025 Q1", "2024-09-30", 1.270, 1.350, 1.348135, "2024-08-15", "https://www.coherent.com/content/dam/coherent/site/en/documents/investors/investor-presentations/2024/august-15/investor-presentation-20240815.pdf"],
+        ["FY2025 Q2", "2024-12-31", 1.330, 1.410, 1.434665, "2024-11-06", "https://www.coherent.com/content/dam/coherent/site/en/documents/investors/investor-presentations/2025/november-6/investor-presentation-20251106.pdf"],
+        ["FY2025 Q3", "2025-03-31", 1.390, 1.480, 1.497879, "2025-02-05", "https://www.coherent.com/content/dam/coherent/site/en/documents/investors/investor-presentations/2025/february-5/investor-presentation-20250205.pdf"],
+        ["FY2025 Q4", "2025-06-30", 1.425, 1.575, 1.529436, "2025-05-07", "https://www.coherent.com/content/dam/coherent/site/en/documents/investors/investor-presentations/2025/may-7/investor-presentation-20250507.pdf"],
+        ["FY2026 Q1", "2025-09-30", 1.460, 1.600, 1.581378, "2025-08-13", "https://www.coherent.com/content/dam/coherent/site/en/documents/investors/financial-releases/2025/august-13/investor-presentation-20250813.pdf"],
+        ["FY2026 Q2", "2025-12-31", 1.560, 1.700, 1.685629, "2025-11-05", "https://www.coherent.com/content/dam/coherent/site/en/documents/investors/investor-presentations/2026/november-5/investor-presentation-20251105.pdf"],
+        ["FY2026 Q3", "2026-03-31", 1.700, 1.840, 1.805641, "2026-02-04", "https://www.coherent.com/content/dam/coherent/site/en/documents/investors/investor-presentations/2026/february-4/investor-presentation-20260204.pdf"],
+        ["FY2026 Q4", "2026-06-30", 1.910, 2.050, 2.045533, "2026-05-06", "https://www.coherent.com/content/dam/coherent/site/en/documents/investors/investor-presentations/2026/may-6/investor-presentation-20260506.pdf"]
+      ]
+    },
+    "GOOGL": {
+      "status": "no_consistent_numeric_guidance",
+      "cadence": "quarterly",
+      "note": "Alphabet 最近三年的季度展望以趨勢、投資與費用評論為主，未持續提供下一季總營收／EPS 區間。",
+      "review_url": "https://abc.xyz/investor/"
+    },
+    "INTC": {
+      "status": "available",
+      "cadence": "quarterly",
+      "metric": "營收",
+      "unit": "USD bn",
+      "comparison_basis": "公司發布的下一季營收區間；實績採 GAAP net revenue。",
+      "records": [
+        ["2023 Q3", "2023-09-30", 12.9, 13.9, 14.158, "2023-07-27", "https://www.sec.gov/Archives/edgar/data/50863/000005086323000068/q223_earningsrelease.htm"],
+        ["2023 Q4", "2023-12-30", 14.6, 15.6, 15.406, "2023-10-26", "https://www.sec.gov/Archives/edgar/data/50863/000005086323000100/q323_earningsrelease.htm"],
+        ["2024 Q1", "2024-03-30", 12.2, 13.2, 12.724, "2024-01-25", "https://www.sec.gov/Archives/edgar/data/50863/000005086324000008/q423_earningsrelease.htm"],
+        ["2024 Q2", "2024-06-29", 12.5, 13.5, 12.833, "2024-04-25", "https://www.sec.gov/Archives/edgar/data/50863/000005086324000074/q124_earningsrelease.htm"],
+        ["2024 Q3", "2024-09-28", 12.5, 13.5, 13.284, "2024-08-01", "https://www.sec.gov/Archives/edgar/data/50863/000005086324000122/q224_earningsrelease.htm"],
+        ["2024 Q4", "2024-12-28", 13.3, 14.3, 14.260, "2024-10-31", "https://www.sec.gov/Archives/edgar/data/50863/000005086324000147/q324_earningsrelease.htm"],
+        ["2025 Q1", "2025-03-29", 11.7, 12.7, 12.667, "2025-01-30", "https://www.sec.gov/Archives/edgar/data/50863/000005086325000004/q424_earningsrelease.htm"],
+        ["2025 Q2", "2025-06-28", 11.2, 12.4, 12.859, "2025-04-24", "https://www.sec.gov/Archives/edgar/data/50863/000005086325000070/q125_earningsrelease.htm"],
+        ["2025 Q3", "2025-09-27", 12.6, 13.6, 13.653, "2025-07-24", "https://www.sec.gov/Archives/edgar/data/50863/000005086325000107/q225_earningsrelease.htm"],
+        ["2025 Q4", "2025-12-27", 12.8, 13.8, 13.674, "2025-10-23", "https://www.sec.gov/Archives/edgar/data/50863/000005086325000169/q325earningsrelease.htm"],
+        ["2026 Q1", "2026-03-28", 11.7, 12.7, 13.577, "2026-01-22", "https://www.sec.gov/Archives/edgar/data/50863/000005086326000009/q425earningsrelease.htm"],
+        ["2026 Q2", "2026-06-27", 13.8, 14.8, 16.128, "2026-04-23", "https://www.sec.gov/Archives/edgar/data/50863/000005086326000077/q126earningsrelease.htm"]
+      ]
+    },
+    "META": {
+      "status": "available",
+      "cadence": "quarterly",
+      "metric": "總營收",
+      "unit": "USD bn",
+      "comparison_basis": "公司發布的下一季總營收區間；實績採 GAAP total revenue。",
+      "records": [
+        ["2023 Q3", "2023-09-30", 32.0, 34.5, 34.146, "2023-07-26", "https://investor.atmeta.com/investor-news/press-release-details/2023/Meta-Reports-Second-Quarter-2023-Results/default.aspx"],
+        ["2023 Q4", "2023-12-31", 36.5, 40.0, 40.111, "2023-10-25", "https://investor.atmeta.com/investor-news/press-release-details/2023/Meta-Reports-Third-Quarter-2023-Results/default.aspx"],
+        ["2024 Q1", "2024-03-31", 34.5, 37.0, 36.455, "2024-02-01", "https://investor.atmeta.com/investor-news/press-release-details/2024/Meta-Reports-Fourth-Quarter-and-Full-Year-2023-Results-Initiates-Quarterly-Dividend/default.aspx"],
+        ["2024 Q2", "2024-06-30", 36.5, 39.0, 39.071, "2024-04-24", "https://investor.atmeta.com/investor-news/press-release-details/2024/Meta-Reports-First-Quarter-2024-Results/default.aspx"],
+        ["2024 Q3", "2024-09-30", 38.5, 41.0, 40.589, "2024-07-31", "https://investor.atmeta.com/investor-news/press-release-details/2024/Meta-Reports-Second-Quarter-2024-Results/default.aspx"],
+        ["2024 Q4", "2024-12-31", 45.0, 48.0, 48.385, "2024-10-30", "https://investor.atmeta.com/investor-news/press-release-details/2024/Meta-Reports-Third-Quarter-2024-Results/default.aspx"],
+        ["2025 Q1", "2025-03-31", 39.5, 41.8, 42.314, "2025-01-29", "https://investor.atmeta.com/investor-news/press-release-details/2025/Meta-Reports-Fourth-Quarter-and-Full-Year-2024-Results/default.aspx"],
+        ["2025 Q2", "2025-06-30", 42.5, 45.5, 47.516, "2025-04-30", "https://investor.atmeta.com/investor-news/press-release-details/2025/Meta-Reports-First-Quarter-2025-Results/default.aspx"],
+        ["2025 Q3", "2025-09-30", 47.5, 50.5, 51.242, "2025-07-30", "https://investor.atmeta.com/investor-news/press-release-details/2025/Meta-Reports-Second-Quarter-2025-Results/"],
+        ["2025 Q4", "2025-12-31", 56.0, 59.0, 59.893, "2025-10-29", "https://investor.atmeta.com/investor-news/press-release-details/2025/Meta-Reports-Third-Quarter-2025-Results/"],
+        ["2026 Q1", "2026-03-31", 53.5, 56.5, 56.311, "2026-01-28", "https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Fourth-Quarter-and-Full-Year-2025-Results/default.aspx"],
+        ["2026 Q2", "2026-06-30", 58.0, 61.0, 60.801, "2026-04-29", "https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-First-Quarter-2026-Results/"]
+      ]
+    },
+    "MRVL": {
+      "status": "available",
+      "cadence": "quarterly",
+      "metric": "淨營收",
+      "unit": "USD bn",
+      "comparison_basis": "公司發布的下一季淨營收中點 ±5%；表內已換算成上下限。",
+      "records": [
+        ["FY2024 Q2", "2023-07-29", 1.2635, 1.3965, 1.3409, "2023-05-25", "https://www.sec.gov/Archives/edgar/data/1835632/000183563223000022/q124_8kx4292023ex-991.htm"],
+        ["FY2024 Q3", "2023-10-28", 1.3300, 1.4700, 1.4186, "2023-08-24", "https://www.sec.gov/Archives/edgar/data/1835632/000183563223000036/q224_8kx7292023ex-991.htm"],
+        ["FY2024 Q4", "2024-02-03", 1.3490, 1.4910, 1.4265, "2023-11-30", "https://www.sec.gov/Archives/edgar/data/1835632/000183563223000044/q324_8kx10282023ex-991.htm"],
+        ["FY2025 Q1", "2024-05-04", 1.0925, 1.2075, 1.1609, "2024-03-07", "https://www.sec.gov/Archives/edgar/data/1835632/000183563224000004/q424_8kx232024ex-991.htm"],
+        ["FY2025 Q2", "2024-08-03", 1.1875, 1.3125, 1.2729, "2024-05-30", "https://www.sec.gov/Archives/edgar/data/1835632/000183563224000060/q125_8kx542024ex-991.htm"],
+        ["FY2025 Q3", "2024-11-02", 1.3775, 1.5225, 1.5161, "2024-08-29", "https://www.sec.gov/Archives/edgar/data/1835632/000183563224000140/q225_8kx832024ex-991.htm"],
+        ["FY2025 Q4", "2025-02-01", 1.7100, 1.8900, 1.8174, "2024-12-03", "https://www.sec.gov/Archives/edgar/data/1835632/000183563224000197/q325_8kx1122024ex-991.htm"],
+        ["FY2026 Q1", "2025-05-03", 1.78125, 1.96875, 1.8953, "2025-03-05", "https://www.sec.gov/Archives/edgar/data/1835632/000183563225000051/q425_8kx212025ex-991.htm"],
+        ["FY2026 Q2", "2025-08-02", 1.9000, 2.1000, 2.0061, "2025-05-29", "https://www.sec.gov/Archives/edgar/data/1835632/000183563225000115/q126_8kx532025ex-991.htm"],
+        ["FY2026 Q3", "2025-11-01", 1.9570, 2.1630, 2.0745, "2025-08-28", "https://www.sec.gov/Archives/edgar/data/1835632/000183563225000187/q226_8kx822025ex-991.htm"],
+        ["FY2026 Q4", "2026-01-31", 2.0900, 2.3100, 2.2187, "2025-12-02", "https://www.sec.gov/Archives/edgar/data/1835632/000183563225000193/q326_8kx1112025ex-991.htm"],
+        ["FY2027 Q1", "2026-05-02", 2.2800, 2.5200, 2.4178, "2026-03-05", "https://www.sec.gov/Archives/edgar/data/1835632/000183563226000006/q426_8kx1312026ex-991.htm"]
+      ]
+    },
+    "MSFT": {
+      "status": "available",
+      "cadence": "quarterly",
+      "metric": "總營收",
+      "unit": "USD bn",
+      "comparison_basis": "FY2024 Q1～FY2026 Q1 為官方三大分部營收指引上下限加總；FY2026 Q2 起採公司直接提供的總營收區間。",
+      "derived": true,
+      "records": [
+        ["FY2024 Q1", "2023-09-30", 53.8, 54.8, 56.517, "2023-07-25", "https://www.microsoft.com/en-us/investor/events/fy-2023/earnings-fy-2023-q4"],
+        ["FY2024 Q2", "2023-12-31", 60.4, 61.4, 62.020, "2023-10-24", "https://www.microsoft.com/en-us/investor/events/fy-2024/earnings-fy-2024-q1"],
+        ["FY2024 Q3", "2024-03-31", 60.0, 61.0, 61.858, "2024-01-30", "https://www.microsoft.com/en-us/investor/events/fy-2024/earnings-fy-2024-q2"],
+        ["FY2024 Q4", "2024-06-30", 63.5, 64.5, 64.727, "2024-04-25", "https://www.microsoft.com/en-us/investor/events/fy-2024/earnings-fy-2024-q3"],
+        ["FY2025 Q1", "2024-09-30", 63.8, 64.8, 65.585, "2024-07-30", "https://www.microsoft.com/en-us/investor/events/fy-2024/earnings-fy-2024-q4"],
+        ["FY2025 Q2", "2024-12-31", 68.1, 69.1, 69.632, "2024-10-30", "https://www.microsoft.com/en-us/investor/events/fy-2025/earnings-fy-2025-q1"],
+        ["FY2025 Q3", "2025-03-31", 67.7, 68.7, 70.066, "2025-01-29", "https://www.microsoft.com/en-us/investor/events/fy-2025/earnings-fy-2025-q2"],
+        ["FY2025 Q4", "2025-06-30", 73.15, 74.25, 76.441, "2025-04-30", "https://www.microsoft.com/en-us/investor/events/fy-2025/earnings-fy-2025-q3"],
+        ["FY2026 Q1", "2025-09-30", 74.7, 75.8, 77.673, "2025-07-30", "https://www.microsoft.com/en-us/investor/events/fy-2025/earnings-fy-2025-q4"],
+        ["FY2026 Q2", "2025-12-31", 79.5, 80.6, 81.273, "2025-10-29", "https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q1"],
+        ["FY2026 Q3", "2026-03-31", 80.65, 81.75, 82.886, "2026-01-28", "https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q2"],
+        ["FY2026 Q4", "2026-06-30", 86.7, 87.8, 90.007, "2026-04-29", "https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q3"]
+      ]
+    },
+    "NOK": {
+      "status": "different_cadence",
+      "cadence": "annual_and_quarterly_mix",
+      "note": "Nokia 主要發布全年可比營業利益／自由現金流轉換率，且近期組織與口徑改變；不把年度目標與季度營收混算成命中率。",
+      "review_url": "https://www.nokia.com/about-us/investors/results-reports/"
+    },
+    "NVDA": {
+      "status": "available",
+      "cadence": "quarterly",
+      "metric": "營收",
+      "unit": "USD bn",
+      "comparison_basis": "公司發布的下一季營收中點 ±2%；表內已換算成上下限。",
+      "records": [
+        ["FY2024 Q2", "2023-07-30", 10.78, 11.22, 13.507, "2023-05-24", "https://nvidianews.nvidia.com/news/nvidia-announces-financial-results-for-first-quarter-fiscal-2024"],
+        ["FY2024 Q3", "2023-10-29", 15.68, 16.32, 18.120, "2023-08-23", "https://nvidianews.nvidia.com/news/nvidia-announces-financial-results-for-second-quarter-fiscal-2024"],
+        ["FY2024 Q4", "2024-01-28", 19.60, 20.40, 22.103, "2023-11-21", "https://nvidianews.nvidia.com/news/nvidia-announces-financial-results-for-third-quarter-fiscal-2024"],
+        ["FY2025 Q1", "2024-04-28", 23.52, 24.48, 26.044, "2024-02-21", "https://nvidianews.nvidia.com/news/nvidia-announces-financial-results-for-fourth-quarter-and-fiscal-2024"],
+        ["FY2025 Q2", "2024-07-28", 27.44, 28.56, 30.040, "2024-05-22", "https://nvidianews.nvidia.com/news/nvidia-announces-financial-results-for-first-quarter-fiscal-2025"],
+        ["FY2025 Q3", "2024-10-27", 31.85, 33.15, 35.082, "2024-08-28", "https://nvidianews.nvidia.com/news/nvidia-announces-financial-results-for-second-quarter-fiscal-2025/"],
+        ["FY2025 Q4", "2025-01-26", 36.75, 38.25, 39.331, "2024-11-20", "https://nvidianews.nvidia.com/news/nvidia-announces-financial-results-for-third-quarter-fiscal-2025/"],
+        ["FY2026 Q1", "2025-04-27", 42.14, 43.86, 44.062, "2025-02-26", "https://nvidianews.nvidia.com/news/nvidia-announces-financial-results-for-fourth-quarter-and-fiscal-2025"],
+        ["FY2026 Q2", "2025-07-27", 44.10, 45.90, 46.743, "2025-05-28", "https://nvidianews.nvidia.com/news/nvidia-announces-financial-results-for-first-quarter-fiscal-2026"],
+        ["FY2026 Q3", "2025-10-26", 52.92, 55.08, 57.006, "2025-08-27", "https://nvidianews.nvidia.com/news/nvidia-announces-financial-results-for-second-quarter-fiscal-2026"],
+        ["FY2026 Q4", "2026-01-25", 63.70, 66.30, 68.127, "2025-11-19", "https://nvidianews.nvidia.com/news/nvidia-announces-financial-results-for-third-quarter-fiscal-2026"],
+        ["FY2027 Q1", "2026-04-26", 76.44, 79.56, 81.615, "2026-02-25", "https://nvidianews.nvidia.com/news/nvidia-announces-financial-results-for-fourth-quarter-and-fiscal-2026"]
+      ]
+    },
+    "ONDS": {
+      "status": "different_cadence",
+      "cadence": "annual_only",
+      "note": "Ondas 的數字展望主要是年度最低營收目標，且近年併購使基準快速改變；未形成 3 年一致季度樣本前不計命中率。",
+      "review_url": "https://ir.ondas.com/press-releases"
+    },
+    "TSLA": {
+      "status": "no_consistent_numeric_guidance",
+      "cadence": "annual_and_long_term",
+      "note": "Tesla 最近三年未持續提供下一季總營收／EPS 區間；長期交付量敘述與公司彙整的分析師共識不列入季度命中率。",
+      "review_url": "https://ir.tesla.com/"
+    },
+    "TSM": {
+      "status": "available",
+      "cadence": "quarterly",
+      "metric": "營收",
+      "unit": "USD bn",
+      "comparison_basis": "公司發布的下一季美元營收區間；實績採公司季報揭露的美元換算營收。",
+      "actual_sources": {
+        "2023-09-30": "https://investor.tsmc.com/english/quarterly-results/2023/q3",
+        "2023-12-31": "https://investor.tsmc.com/english/quarterly-results/2023/q4",
+        "2024-03-31": "https://investor.tsmc.com/english/quarterly-results/2024/q1",
+        "2024-06-30": "https://investor.tsmc.com/english/quarterly-results/2024/q2"
+      },
+      "records": [
+        ["2023 Q3", "2023-09-30", 16.7, 17.5, 17.28, "2023-07-20", "https://investor.tsmc.com/english/quarterly-results/2023/q2"],
+        ["2023 Q4", "2023-12-31", 18.8, 19.6, 19.62, "2023-10-19", "https://investor.tsmc.com/english/quarterly-results/2023/q3"],
+        ["2024 Q1", "2024-03-31", 18.0, 18.8, 18.87, "2024-01-18", "https://investor.tsmc.com/english/quarterly-results/2023/q4"],
+        ["2024 Q2", "2024-06-30", 19.6, 20.4, 20.82, "2024-04-18", "https://investor.tsmc.com/english/quarterly-results/2024/q1"],
+        ["2024 Q3", "2024-09-30", 22.4, 23.2, 23.50, "2024-07-18", "https://investor.tsmc.com/english/quarterly-results/2024/q2"],
+        ["2024 Q4", "2024-12-31", 26.1, 26.9, 26.88, "2024-10-17", "https://investor.tsmc.com/english/quarterly-results/2024/q3"],
+        ["2025 Q1", "2025-03-31", 25.0, 25.8, 25.53, "2025-01-16", "https://investor.tsmc.com/english/quarterly-results/2024/q4"],
+        ["2025 Q2", "2025-06-30", 28.4, 29.2, 30.07, "2025-04-17", "https://investor.tsmc.com/english/quarterly-results/2025/q1"],
+        ["2025 Q3", "2025-09-30", 31.8, 33.0, 33.10, "2025-07-17", "https://investor.tsmc.com/english/quarterly-results/2025/q2"],
+        ["2025 Q4", "2025-12-31", 32.2, 33.4, 33.73, "2025-10-16", "https://investor.tsmc.com/english/quarterly-results/2025/q3"],
+        ["2026 Q1", "2026-03-31", 34.6, 35.8, 35.90, "2026-01-15", "https://investor.tsmc.com/english/quarterly-results/2025/q4"],
+        ["2026 Q2", "2026-06-30", 39.0, 40.2, 40.20, "2026-04-16", "https://investor.tsmc.com/english/quarterly-results/2026/q1"]
+      ]
+    }
+  }
+}
