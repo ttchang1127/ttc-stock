@@ -349,6 +349,76 @@ def c14():
         f"頁面缺年齡標記：{ui_missing or '無'}")
 
 
+@check("C-15", "14 家都有八季趨勢且頁面顯示新分析")
+def c15():
+    quarterly = load("quarterly_financials.json")["companies"]
+    short = [f"{ticker}({len(node.get('periods', []))}期)"
+             for ticker, node in sorted(quarterly.items())
+             if len(node.get("periods", [])) < 8]
+    markers = ["八季營運趨勢", "管理層指引 vs. 實際結果", "可追蹤風險矩陣", "分部與集中度分析"]
+    missing = [f"{path.name}/{marker}" for path in sorted(REPO_ROOT.glob("*_report.html"))
+               for marker in markers if marker not in path.read_text()]
+    dashboard_missing = [marker for marker in ("查看公司八季數字", "slice(0, 8)")
+                         if marker not in read("dashboard.html")]
+    ok = len(quarterly) == 14 and not short and not missing and not dashboard_missing
+    return ok, (f"公司 {len(quarterly)} 家；不足八季：{short or '無'}；"
+                f"報告缺段落：{missing or '無'}；儀表板缺標記：{dashboard_missing or '無'}")
+
+
+@check("C-16", "管理層指引只能使用有來源的人工核對值")
+def c16():
+    inputs = load("forward_looking_inputs.json")["companies"]
+    tracked = set(load("financials.json")["companies"])
+    bad = []
+    for ticker, company in sorted(inputs.items()):
+        status = company.get("guidance_status")
+        rows = company.get("guidance") or []
+        if status not in {"available", "no_comparable_numeric_guidance"}:
+            bad.append(f"{ticker}(指引狀態無效)")
+        if status == "available" and not rows:
+            bad.append(f"{ticker}(標示有指引但無資料)")
+        if status == "no_comparable_numeric_guidance":
+            if rows:
+                bad.append(f"{ticker}(標示無可比指引但仍有資料)")
+            if not company.get("guidance_note") or not company.get("guidance_source_url"):
+                bad.append(f"{ticker}(無指引說明缺來源或原因)")
+        for index, row in enumerate(rows, 1):
+            if not row.get("period") or not row.get("metric") or not row.get("source_url"):
+                bad.append(f"{ticker}#{index}(缺期間、指標或來源)")
+            if row.get("low") is None and row.get("high") is None:
+                bad.append(f"{ticker}#{index}(缺指引數值)")
+            if (row.get("low") is not None and row.get("high") is not None
+                    and row["low"] > row["high"]):
+                bad.append(f"{ticker}#{index}(指引上下限顛倒)")
+    missing = sorted(tracked - set(inputs))
+    extra = sorted(set(inputs) - tracked)
+    ok = not bad and not missing and not extra
+    return ok, f"欄位錯誤：{bad or '無'}；缺公司：{missing or '無'}；多餘公司：{extra or '無'}"
+
+
+@check("C-17", "分部數字有官方來源且結構可計算")
+def c17():
+    inputs = load("forward_looking_inputs.json")["companies"]
+    bad = []
+    covered = []
+    for ticker, company in sorted(inputs.items()):
+        segments = company.get("segments")
+        if not segments:
+            continue
+        covered.append(ticker)
+        if not all(segments.get(key) for key in ("period", "source_date", "source_url", "unit")):
+            bad.append(f"{ticker}(缺期間、日期、單位或來源)")
+        items = segments.get("items") or []
+        if len(items) < 2:
+            bad.append(f"{ticker}(分部不足 2 項)")
+        for index, row in enumerate(items, 1):
+            if not row.get("name") or row.get("revenue") is None:
+                bad.append(f"{ticker}#{index}(缺名稱或營收)")
+            elif not isinstance(row["revenue"], (int, float)) or row["revenue"] < 0:
+                bad.append(f"{ticker}#{index}(營收格式無效)")
+    return not bad, f"已覆蓋 {len(covered)} 家：{covered or '無'}；錯誤：{bad or '無'}"
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--quiet", action="store_true", help="只印出失敗項")

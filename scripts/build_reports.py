@@ -158,6 +158,14 @@ FINANCIAL_TERMS = {
         "企業價值（EV）÷ 息稅折舊攤銷前利潤（EBITDA）。EV 約等於市值＋有息負債−現金與短期投資；"
         "數值表示企業總價值是當期 EBITDA 的幾倍。較低可能較便宜，也可能反映低成長或高風險；"
         "必須與同產業、相似資本密集度的公司比較，且 EBITDA 不等於現金流。"),
+    "營收年增率": "本季營收相對上一年度同季的變化率，可排除多數季節性，但仍會受到併購、匯率與會計口徑改變影響。",
+    "FCF 利潤率（單季）": "單季自由現金流 ÷ 單季營收。單季現金流波動通常較大，應搭配八季趨勢與全年數字判讀。",
+    "稀釋股數年增率": "本季稀釋加權平均股數相對上一年度同季的變化；正值表示每股權益可能受到稀釋，負值通常反映淨回購。",
+    "反向 DCF": (
+        "固定其他估值假設後，反推出目前股價需要自由現金流達成的年成長率。"
+        "它回答市場已經計入什麼，不是公司指引或預測。"),
+    "情境預測": (
+        "以明確假設建立悲觀、基準與樂觀路徑。此處是敏感度分析，不是管理層指引、分析師共識或目標價。"),
 }
 
 
@@ -530,6 +538,371 @@ def health_section(h):
     return f'<div class="metric-group">{"".join(cards)}</div>{flag_html}'
 
 
+def qvalue(period, metric):
+    """Read both SEC fact objects and official-IR scalar quarterly values."""
+    value = (period.get("values") or {}).get(metric)
+    return value.get("value") if isinstance(value, dict) else value
+
+
+def compact_money(value, currency="USD"):
+    if value is None:
+        return "—"
+    absolute = abs(value)
+    if absolute >= 1e12:
+        shown = f"{value / 1e12:,.2f}T"
+    elif absolute >= 1e9:
+        shown = f"{value / 1e9:,.2f}B"
+    elif absolute >= 1e6:
+        shown = f"{value / 1e6:,.1f}M"
+    else:
+        shown = f"{value:,.0f}"
+    return f"{currency} {shown}"
+
+
+def quarter_metrics(company):
+    """Normalise the newest eight comparable quarters and add YoY fields."""
+    periods = (company or {}).get("periods", [])[:8]
+    result = []
+    for index, period in enumerate(periods):
+        revenue = qvalue(period, "revenue")
+        fcf = qvalue(period, "free_cash_flow")
+        row = {
+            "period": period,
+            "revenue": revenue,
+            "gross_margin": qvalue(period, "gross_margin"),
+            "operating_margin": qvalue(period, "operating_margin"),
+            "fcf": fcf,
+            "fcf_margin": fcf / revenue if revenue not in {None, 0} and fcf is not None else None,
+            "shares": qvalue(period, "diluted_shares"),
+        }
+        if index + 4 < len(periods):
+            prior = periods[index + 4]
+            prior_revenue = qvalue(prior, "revenue")
+            prior_shares = qvalue(prior, "diluted_shares")
+            row["revenue_yoy"] = (
+                revenue / prior_revenue - 1
+                if revenue is not None and prior_revenue not in {None, 0} else None)
+            row["shares_yoy"] = (
+                row["shares"] / prior_shares - 1
+                if row["shares"] is not None and prior_shares not in {None, 0} else None)
+            prior_fcf = qvalue(prior, "free_cash_flow")
+            row["prior_fcf_margin"] = (
+                prior_fcf / prior_revenue
+                if prior_revenue not in {None, 0} and prior_fcf is not None else None)
+            row["prior_gross_margin"] = qvalue(prior, "gross_margin")
+            row["prior_operating_margin"] = qvalue(prior, "operating_margin")
+        result.append(row)
+    return result
+
+
+def trend_score(rows):
+    """Return a transparent directional score based on the latest YoY quarter."""
+    if not rows:
+        return "資料不足", 0, []
+    latest = rows[0]
+    checks = []
+
+    def add(label, value, threshold):
+        if value is None:
+            checks.append((label, None))
+        elif value > threshold:
+            checks.append((label, 1))
+        elif value < -threshold:
+            checks.append((label, -1))
+        else:
+            checks.append((label, 0))
+
+    add("營收年增", latest.get("revenue_yoy"), .03)
+    gm = latest.get("gross_margin")
+    pgm = latest.get("prior_gross_margin")
+    add("毛利率年變化", gm - pgm if gm is not None and pgm is not None else None, .01)
+    om = latest.get("operating_margin")
+    pom = latest.get("prior_operating_margin")
+    add("營業利益率年變化", om - pom if om is not None and pom is not None else None, .01)
+    fm = latest.get("fcf_margin")
+    pfm = latest.get("prior_fcf_margin")
+    add("FCF 利潤率年變化", fm - pfm if fm is not None and pfm is not None else None, .02)
+    shares = latest.get("shares_yoy")
+    checks.append(("股數年變化", None if shares is None else (-1 if shares > .05 else 1 if shares < -.01 else 0)))
+    usable = [score for _, score in checks if score is not None]
+    score = sum(usable)
+    label = "改善" if score >= 2 else "轉弱" if score <= -2 else "持平／分歧"
+    return label, score, checks
+
+
+def quarterly_trend_section(company):
+    rows = quarter_metrics(company)
+    currency = (company or {}).get("currency") or "USD"
+    label, score, checks = trend_score(rows)
+    tone = "ok" if label == "改善" else "warn" if label == "轉弱" else ""
+    summary = metric("八季營運方向", label, tone)
+    latest = rows[0] if rows else {}
+    summary += metric("營收年增率", fmt_pct(latest.get("revenue_yoy"), 1))
+    summary += metric("FCF 利潤率（單季）", fmt_pct(latest.get("fcf_margin"), 1))
+    summary += metric("稀釋股數年增率", fmt_pct(latest.get("shares_yoy"), 1),
+                      "warn" if (latest.get("shares_yoy") or 0) > .05 else "")
+
+    body = []
+    for row in rows:
+        period = row["period"]
+        notes = period.get("quality_notes") or []
+        note = (f'<span class="data-warning" tabindex="0" title="{html.escape("；".join(notes), quote=True)}" '
+                f'aria-label="資料提醒：{html.escape("；".join(notes), quote=True)}">⚠</span>') if notes else ""
+        source = html.escape(period.get("url") or "", quote=True)
+        period_label = html.escape(period.get("period_end") or "")
+        if source:
+            period_label = f'<a href="{source}" target="_blank" rel="noopener">{period_label}</a>'
+        body.append(
+            "<tr>"
+            f"<td>{period_label} {note}</td>"
+            f"<td>{compact_money(row['revenue'], currency)}</td>"
+            f"<td>{fmt_pct(row.get('revenue_yoy'), 1)}</td>"
+            f"<td>{fmt_pct(row.get('gross_margin'), 1)}</td>"
+            f"<td>{fmt_pct(row.get('operating_margin'), 1)}</td>"
+            f"<td>{fmt_pct(row.get('fcf_margin'), 1)}</td>"
+            f"<td>{fmt_pct(row.get('shares_yoy'), 1)}</td>"
+            "</tr>")
+    if not body:
+        return '<p class="note">尚無可比較的單季資料。</p>'
+    method = "、".join(f"{name}={'+' if value == 1 else '−' if value == -1 else '0' if value == 0 else '缺'}"
+                      for name, value in checks)
+    return (
+        f'<div class="metric-group">{summary}</div>'
+        '<div class="table-scroll"><table class="analysis-table"><thead><tr>'
+        '<th>財報期末</th><th>營收</th><th>YoY</th><th>毛利率</th><th>營業利益率</th>'
+        '<th>FCF 利潤率</th><th>稀釋股數 YoY</th></tr></thead><tbody>'
+        + "".join(body) + '</tbody></table></div>'
+        f'<p class="note">方向分數 {score:+d}：{html.escape(method)}。營收 ±3%、毛利率／營業利益率 ±1pp、'
+        'FCF 利潤率 ±2pp、股數增加逾 5% 為警戒；這是可解釋的篩選訊號，不是投資評等。</p>')
+
+
+def guidance_section(company, inputs):
+    guidance = (inputs or {}).get("guidance") or []
+    if not guidance:
+        status = (inputs or {}).get("guidance_status")
+        if status == "no_comparable_numeric_guidance":
+            url = (inputs or {}).get("guidance_source_url")
+            source_date = (inputs or {}).get("guidance_source_date")
+            link = (f'<a href="{html.escape(url, quote=True)}" target="_blank" rel="noopener">'
+                    f'查看 {html.escape(source_date or "最近一期")} 官方發布</a>' if url else "")
+            note = html.escape((inputs or {}).get("guidance_note") or
+                               "最近一期官方發布未提供可直接比較的量化區間。")
+            return (
+                '<div class="coverage-box"><strong>本期無可比量化指引</strong>'
+                f'<p>{note} {link}</p></div>')
+        latest = ((company or {}).get("periods") or [{}])[0]
+        url = latest.get("url") or (company or {}).get("official_results_url")
+        link = (f' <a href="{html.escape(url, quote=True)}" target="_blank" rel="noopener">查看最近一期官方結果</a>'
+                if url else "")
+        return (
+            '<div class="coverage-box"><strong>尚未建檔數字指引</strong>'
+            '<p>本庫不把歷史成長率或模型推估冒充管理層指引。完成來源核對前，達標率維持缺值。'
+            f'{link}</p></div>')
+    rows = []
+    for item in guidance:
+        low, high, actual = item.get("low"), item.get("high"), item.get("actual")
+        if actual is None or (low is None and high is None):
+            result = "待實績"
+        elif low is not None and actual < low:
+            result = "低於指引"
+        elif high is not None and actual > high:
+            result = "高於指引"
+        else:
+            result = "落在區間"
+        guide = (f"{low:,.2f}～{high:,.2f}" if low is not None and high is not None
+                 else f"{(low if low is not None else high):,.2f}")
+        source = item.get("source_url")
+        metric_name = html.escape(item.get("metric") or "")
+        if source:
+            metric_name = f'<a href="{html.escape(source, quote=True)}" target="_blank" rel="noopener">{metric_name}</a>'
+        source_date = html.escape(item.get("source_date") or "")
+        if source_date:
+            metric_name += f'<small class="source-date">來源 {source_date}</small>'
+        rows.append(f'<tr><td>{html.escape(item.get("period") or "")}</td><td>{metric_name}</td>'
+                    f'<td>{guide} {html.escape(item.get("unit") or "")}</td>'
+                    f'<td>{"—" if actual is None else f"{actual:,.2f}"}</td><td>{html.escape(result)}</td></tr>')
+    return ('<div class="table-scroll"><table class="analysis-table"><thead><tr>'
+            '<th>期間</th><th>指標／來源</th><th>管理層指引</th><th>實際</th><th>結果</th>'
+            '</tr></thead><tbody>' + "".join(rows) + '</tbody></table></div>'
+            '<p class="note">只收錄公司正式發布且可連回原始來源的數字指引；模型預測不列入達標率。</p>')
+
+
+def scenario_section(fund, val, currency):
+    assumptions = val.get("assumptions") or {}
+    base_growth = assumptions.get("growth")
+    terminal = assumptions.get("terminal_growth")
+    revenue = fund.get("revenue")
+    margin = val.get("fcf_margin_median")
+    if None in {base_growth, terminal, revenue, margin}:
+        return '<p class="note">成長率、營收或常態化 FCF 利潤率資料不足，無法建立情境。</p>'
+    configurations = [
+        ("悲觀", max(-.05, base_growth * .70), max(-.30, margin - .03), "warn"),
+        ("基準", base_growth, margin, ""),
+        ("樂觀", min(.35, base_growth * 1.30), min(.70, margin + .03), "ok"),
+    ]
+    rows = []
+    for name, start_growth, fcf_margin, tone in configurations:
+        projected = revenue
+        values = {}
+        for year in range(1, 6):
+            growth = start_growth + (terminal - start_growth) * ((year - 1) / 4)
+            projected *= 1 + growth
+            if year in {1, 3, 5}:
+                values[year] = projected
+        rows.append(
+            f'<tr class="{tone}"><td><strong>{name}</strong></td><td>{start_growth:.1%} → {terminal:.1%}</td>'
+            f'<td>{fcf_margin:.1%}</td><td>{compact_money(values[1], currency)}</td>'
+            f'<td>{compact_money(values[3], currency)}</td><td>{compact_money(values[5], currency)}</td>'
+            f'<td>{compact_money(values[5] * fcf_margin, currency)}</td></tr>')
+    implied = (val.get("implied_growth") or {}).get("value")
+    reverse = "無法求解" if implied is None else f"{implied:.1%}／年"
+    return (
+        '<div class="metric-group">'
+        + metric("反向 DCF", reverse, "warn" if implied is not None and implied > base_growth else "")
+        + metric("模型基準成長", f"{base_growth:.1%}／年")
+        + metric("常態化 FCF 利潤率", f"{margin:.1%}") + '</div>'
+        '<div class="table-scroll"><table class="analysis-table"><thead><tr>'
+        '<th>情境</th><th>營收成長路徑</th><th>FCF 利潤率</th><th>第 1 年營收</th>'
+        '<th>第 3 年營收</th><th>第 5 年營收</th><th>第 5 年 FCF</th></tr></thead><tbody>'
+        + "".join(rows) + '</tbody></table></div>'
+        '<p class="note">試算規則：悲觀／樂觀起始成長率為基準的 70%／130%，五年內線性收斂至終端成長率；'
+        'FCF 利潤率為歷史中位數 ±3pp。這是敏感度範圍，不是公司指引或目標價。</p>')
+
+
+def status_badge(level):
+    labels = {"high": "警戒", "medium": "留意", "low": "正常", "unknown": "資料不足"}
+    return f'<span class="risk-status {level}">{labels[level]}</span>'
+
+
+def risk_matrix_section(h, rows, val, risk_change):
+    latest = rows[0] if rows else {}
+    liq, sol = h["liquidity"], h["solvency"]
+    cfq = h["cash_flow_quality"]
+    risk_rows = []
+
+    current = liq.get("current_ratio")
+    leverage = sol.get("liabilities_to_assets")
+    if current is None and leverage is None:
+        level = "unknown"
+    else:
+        level = "high" if ((current is not None and current < 1) or (leverage or 0) > .70) else "low"
+    risk_rows.append(("短期償債／槓桿", level,
+                      f"流動比率 {fmt_num(current)}；負債佔資產 {fmt_pct(leverage, 1)}",
+                      "流動比率 <1 或負債佔資產 >70%"))
+
+    fcf_margin = cfq.get("fcf_margin")
+    conversion = cfq.get("ocf_to_net_income")
+    if fcf_margin is None and conversion is None:
+        level = "unknown"
+    else:
+        level = "high" if (fcf_margin is not None and fcf_margin < 0) else "medium" if conversion is not None and conversion < .8 else "low"
+    risk_rows.append(("現金流品質", level,
+                      f"FCF 利潤率 {fmt_pct(fcf_margin, 1)}；OCF／淨利 {fmt_num(conversion)}",
+                      "FCF 為負，或 OCF／淨利 <0.8"))
+
+    share_growth = latest.get("shares_yoy")
+    level = "unknown" if share_growth is None else "high" if share_growth > .10 else "medium" if share_growth > .05 else "low"
+    risk_rows.append(("股權稀釋", level, f"稀釋股數 YoY {fmt_pct(share_growth, 1)}",
+                      "年增 >5% 留意；>10% 警戒"))
+
+    revenue_yoy = latest.get("revenue_yoy")
+    om = latest.get("operating_margin")
+    pom = latest.get("prior_operating_margin")
+    margin_delta = om - pom if om is not None and pom is not None else None
+    if revenue_yoy is None and margin_delta is None:
+        level = "unknown"
+    else:
+        level = "high" if (revenue_yoy is not None and revenue_yoy < 0 and margin_delta is not None and margin_delta < 0) else "medium" if (revenue_yoy or 0) < 0 else "low"
+    risk_rows.append(("營運動能", level,
+                      f"營收 YoY {fmt_pct(revenue_yoy, 1)}；營業利益率年變化 {'—' if margin_delta is None else f'{margin_delta * 100:+.1f}pp'}",
+                      "營收與營業利益率同時惡化"))
+
+    implied = (val.get("implied_growth") or {}).get("value")
+    base = (val.get("assumptions") or {}).get("growth")
+    spread = implied - base if implied is not None and base is not None else None
+    level = "unknown" if spread is None else "high" if spread > .10 else "medium" if spread > .05 else "low"
+    risk_rows.append(("估值期待", level,
+                      f"現價隱含成長 {fmt_pct(implied, 1)}；模型基準 {fmt_pct(base, 1)}",
+                      "隱含成長高出基準 >5pp 留意；>10pp 警戒"))
+
+    def change_count(value):
+        return value if isinstance(value, int) else len(value or [])
+
+    added = change_count((risk_change or {}).get("added"))
+    reworded = change_count((risk_change or {}).get("reworded"))
+    rc_status = (risk_change or {}).get("status")
+    level = "unknown" if rc_status != "已比較" else "medium" if added else "low"
+    risk_rows.append(("SEC 風險文字變化", level, f"新增 {added} 段；改寫 {reworded} 段",
+                      "新增段落須回看原文；文字變化不等於機率"))
+
+    body = "".join(f'<tr><td><strong>{name}</strong></td><td>{status_badge(level)}</td>'
+                   f'<td>{evidence}</td><td>{trigger}</td></tr>'
+                   for name, level, evidence, trigger in risk_rows)
+    return ('<div class="table-scroll"><table class="analysis-table"><thead><tr>'
+            '<th>風險</th><th>狀態</th><th>目前證據</th><th>觸發規則／下次檢查</th>'
+            '</tr></thead><tbody>' + body + '</tbody></table></div>'
+            '<p class="note">狀態只依表內規則分類，不估計主觀違約機率；黃色或紅色都應回到原始申報查證。</p>')
+
+
+def operating_context_section(sections, quarterly_company, inputs):
+    keywords = re.compile(r"分部|業務|產品|客戶|供應商|集中|地區|市場|訂單|backlog|RPO", re.I)
+    clues = []
+    for key in ("一", "六"):
+        body = sections.get(key, (None, ""))[1]
+        for line in body.splitlines():
+            clean = re.sub(r"^\s*[-*]\s*", "", line).strip()
+            if clean and keywords.search(clean) and clean not in clues:
+                clues.append(clean)
+    clue_html = ("<ul>" + "".join(f"<li>{md_inline(item)}</li>" for item in clues[:6]) + "</ul>"
+                 if clues else '<p class="note">Master Thesis 尚未整理可顯示的分部或集中度線索。</p>')
+    structured = (inputs or {}).get("segments") or {}
+    items = structured.get("items") or []
+    if items:
+        unit = structured.get("unit") or ""
+        total = sum(item.get("revenue") or 0 for item in items)
+        rows = []
+        for item in items:
+            revenue = item.get("revenue")
+            operating_income = item.get("operating_income")
+            margin = item.get("operating_margin")
+            if margin is None and operating_income is not None and revenue:
+                margin = operating_income / revenue * 100
+            share = revenue / total if revenue is not None and total else None
+            rows.append(
+                '<tr>'
+                f'<td><strong>{html.escape(item.get("name") or "")}</strong></td>'
+                f'<td>{"—" if revenue is None else f"{revenue:,.2f}"} {html.escape(unit)}</td>'
+                f'<td>{fmt_pct(share, 1)}</td>'
+                f'<td>{"—" if operating_income is None else f"{operating_income:,.2f} {html.escape(unit)}"}</td>'
+                f'<td>{"—" if margin is None else f"{margin:.1f}%"}</td>'
+                '</tr>')
+        source = structured.get("source_url")
+        source_label = html.escape(structured.get("source_date") or "官方來源")
+        source_link = (f'<a href="{html.escape(source, quote=True)}" target="_blank" rel="noopener">'
+                       f'{source_label} 官方表格</a>' if source else source_label)
+        note = structured.get("note")
+        structured_html = (
+            '<div class="coverage-box"><strong>已核對官方分部／營收來源資料</strong>'
+            f'<p>{html.escape(structured.get("period") or "")}；'
+            f'{html.escape(structured.get("basis") or "公司揭露口徑")}；{source_link}。'
+            '占比依本表已收錄營收加總計算，不等於長期獲利貢獻。</p></div>'
+            '<div class="table-scroll"><table class="analysis-table"><thead><tr>'
+            '<th>分部／營收來源</th><th>營收</th><th>表內營收占比</th><th>營業利益</th><th>營業利益率</th>'
+            '</tr></thead><tbody>' + "".join(rows) + '</tbody></table></div>')
+        if note:
+            structured_html += f'<p class="note">⚠️ {html.escape(note)}</p>'
+    else:
+        source = ((quarterly_company or {}).get("official_results_url")
+                  or (((quarterly_company or {}).get("periods") or [{}])[0].get("url")))
+        source_link = (f'<a href="{html.escape(source, quote=True)}" target="_blank" rel="noopener">公司官方財報頁</a>'
+                       if source else "最近一期申報連結")
+        structured_html = (
+            '<div class="coverage-box"><strong>尚無可安全拆分的結構化分部數字</strong>'
+            '<p>SEC Company Facts 不含可靠的分部 context，本庫不把合併數字拆成猜測值。'
+            f'待逐公司從附註核對；來源入口：{source_link}。</p></div>')
+    return structured_html + '<h3>已整理的營運／集中度線索</h3>' + clue_html
+
+
 def provenance_section(t, fund, h, val):
     fresh = h["freshness"]
     rows = [
@@ -602,7 +975,7 @@ font-size:.8rem;font-weight:700}
 .section-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(620px,1fr));gap:26px;margin-bottom:28px}
 @media(max-width:700px){.section-grid{grid-template-columns:1fr}}
 .card{background:var(--card-bg);backdrop-filter:blur(12px);border:1px solid var(--card-border);
-border-radius:20px;padding:28px;box-shadow:var(--glow)}
+border-radius:20px;padding:28px;box-shadow:var(--glow);min-width:0}
 .card-full{grid-column:1/-1}
 .card h2{font-size:1.25rem;font-weight:800;margin-bottom:18px;color:#fff}
 .card h3{font-size:1.05rem;font-weight:700;margin:18px 0 10px;color:#e5e7eb}
@@ -612,7 +985,7 @@ border-radius:20px;padding:28px;box-shadow:var(--glow)}
 .card p{color:#d1d5db;font-size:.925rem;margin:8px 0}
 .note{font-size:.85rem;color:var(--text-muted);border-left:3px solid var(--accent);
 padding-left:12px;margin:12px 0}
-code{background:rgba(255,255,255,.08);padding:1px 6px;border-radius:5px;font-size:.85em}
+code{background:rgba(255,255,255,.08);padding:1px 6px;border-radius:5px;font-size:.85em;overflow-wrap:anywhere}
 .metric-group{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px}
 .metric-card{background:rgba(0,0,0,.28);border:1px solid var(--card-border);
 border-radius:14px;padding:14px 16px}
@@ -652,6 +1025,26 @@ border-radius:14px;padding:16px 18px}
 .prov-table th{text-align:left;color:var(--text-muted);font-weight:600;padding:7px 12px 7px 0;
 white-space:nowrap;vertical-align:top;width:130px}
 .prov-table td{padding:7px 0;color:#e5e7eb}
+.table-scroll{overflow-x:auto;margin-top:16px;border:1px solid var(--card-border);border-radius:14px}
+.analysis-table{width:100%;border-collapse:collapse;min-width:820px;font-size:.84rem}
+.analysis-table th{padding:11px 12px;text-align:left;color:var(--text-muted);background:rgba(2,6,23,.65);
+font-weight:700;white-space:nowrap}
+.analysis-table td{padding:11px 12px;border-top:1px solid var(--card-border);color:#e5e7eb;vertical-align:top}
+.analysis-table a{color:#7dd3fc;text-decoration:none}.analysis-table a:hover{text-decoration:underline}
+.source-date{display:block;margin-top:2px;color:var(--text-muted);font-size:.72rem;font-weight:400}
+.analysis-table tr.warn td{background:rgba(251,191,36,.05)}
+.analysis-table tr.ok td{background:rgba(16,185,129,.04)}
+.coverage-box{padding:15px 17px;border-radius:14px;background:rgba(56,189,248,.07);
+border:1px solid rgba(56,189,248,.25);margin-bottom:14px}
+.coverage-box strong{color:#e0f2fe}.coverage-box p{margin:5px 0 0}
+.coverage-box a{color:#7dd3fc}
+.risk-status{display:inline-block;padding:3px 9px;border-radius:999px;font-size:.75rem;font-weight:800}
+.risk-status.low{color:#6ee7b7;background:rgba(16,185,129,.13)}
+.risk-status.medium{color:#fde68a;background:rgba(251,191,36,.13)}
+.risk-status.high{color:#fca5a5;background:rgba(239,68,68,.14)}
+.risk-status.unknown{color:#cbd5e1;background:rgba(148,163,184,.12)}
+.data-warning{display:inline-grid;place-items:center;width:21px;height:21px;margin-left:4px;border-radius:50%;
+color:#fbbf24;border:1px solid rgba(251,191,36,.55);cursor:help;font-size:.76rem;vertical-align:middle}
 .chart-container{position:relative;height:320px;margin-top:8px}
 footer{text-align:center;color:var(--text-muted);font-size:.8rem;padding:28px 0}
 """
@@ -711,6 +1104,31 @@ def render(ticker, ctx):
     </div>
 
     <div class="card card-full">
+      <h2>📅 八季營運趨勢</h2>
+      {ctx['quarterly_trend']}
+    </div>
+
+    <div class="card card-full">
+      <h2>🎯 管理層指引 vs. 實際結果</h2>
+      {ctx['guidance']}
+    </div>
+
+    <div class="card card-full">
+      <h2>🧭 {term_label("情境預測")}與{term_label("反向 DCF")}</h2>
+      {ctx['scenarios']}
+    </div>
+
+    <div class="card card-full">
+      <h2>🚦 可追蹤風險矩陣</h2>
+      {ctx['risk_matrix']}
+    </div>
+
+    <div class="card card-full">
+      <h2>🧩 分部與集中度分析</h2>
+      {ctx['operating_context']}
+    </div>
+
+    <div class="card card-full">
       <h2>🏅 本組合相對排名（{ctx['peer_count']} 家）</h2>
       <div class="rank-strip">{ctx['ranks']}</div>
       <p class="note">排名僅涵蓋本知識庫追蹤的 {ctx['peer_count']} 家公司，每次產生時重新計算。不代表全市場排名。</p>
@@ -763,7 +1181,7 @@ def render(ticker, ctx):
 
   <footer>
     由 <code>scripts/build_reports.py</code> 於 {ctx['generated_at']} 產生。<br>
-    本頁不含任何手動輸入的財務數字；質化章節除外，且已標示。<br>
+    歷史合併財務由 SEC XBRL 產生；管理層指引與分部表為人工逐筆核對官方來源，均附日期與連結。<br>
     DCF 為特定假設下的推估，非事實，不構成投資建議。
   </footer>
 </div>
@@ -892,6 +1310,8 @@ def build_context(ticker, data, ranks, peers):
     h = data["health"][ticker]
     v = data["valuation"][ticker]
     periods = data["financials"][ticker]["periods"]
+    quarterly_company = data["quarterly"].get(ticker) or {}
+    forward_inputs = data["forward_inputs"].get(ticker) or {}
     sections = split_sections(thesis_path(ticker).read_text()) \
         if thesis_path(ticker).exists() else {}
 
@@ -1030,6 +1450,12 @@ def build_context(ticker, data, ranks, peers):
         "risk_provenance": risk_provenance_html(ticker),
         "risk_changes": risk_change_html(data["risk_changes"].get(ticker)),
         "health": health_section(h),
+        "quarterly_trend": quarterly_trend_section(quarterly_company),
+        "guidance": guidance_section(quarterly_company, forward_inputs),
+        "scenarios": scenario_section(fund, v, h.get("currency") or "USD"),
+        "risk_matrix": risk_matrix_section(
+            h, quarter_metrics(quarterly_company), v, data["risk_changes"].get(ticker)),
+        "operating_context": operating_context_section(sections, quarterly_company, forward_inputs),
         "ranks": rank_cards(ticker, ranks),
         "peer_count": len(data["health"]),
         "financials": financials,
@@ -1064,11 +1490,14 @@ def main():
 
     data = {
         "risk_changes": risk_changes,
+        "forward_inputs": (load("forward_looking_inputs.json").get("companies", {})
+                           if (REPO_ROOT / "forward_looking_inputs.json").exists() else {}),
         "assumptions": load("dcf_assumptions.json"),
         "fundamentals": load("fundamentals.json")["companies"],
         "valuation": load("valuation.json")["companies"],
         "health": load("financial_health.json")["companies"],
         "financials": load("financials.json")["companies"],
+        "quarterly": load("quarterly_financials.json")["companies"],
     }
     ranks = build_ranks(data["fundamentals"], data["health"])
     tickers = args.tickers or [t for t in SLUGS if t in data["health"]]

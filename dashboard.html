@@ -1842,8 +1842,8 @@
 
         <section class="sec-section" aria-labelledby="secQuarterlyTitle">
           <div class="sec-section-heading">
-            <h3 id="secQuarterlyTitle">① 最新 4 期季報連續追蹤</h3>
-            <p>固定顯示全部 14 家，不受上方最近 7／14 日篩選影響；美國公司的 Q4 由 10-K／20-F 全年數據拆分。</p>
+            <h3 id="secQuarterlyTitle">① 最新 4 期概覽＋單公司 8 季趨勢</h3>
+            <p>上表固定顯示全部 14 家最近 4 期；選擇公司後，下表顯示最近 8 季，以便辨認完整年度循環與趨勢。</p>
           </div>
           <div class="sec-table-wrap">
             <table class="sec-table">
@@ -1852,7 +1852,7 @@
             </table>
           </div>
           <div class="sec-quarterly-controls">
-            <label for="secQuarterlyTicker">查看公司四季數字</label>
+            <label for="secQuarterlyTicker">查看公司八季數字</label>
             <select id="secQuarterlyTicker" class="sec-quarterly-select" onchange="setSecQuarterlyTicker(this.value)" aria-label="選擇公司"></select>
             <span id="secQuarterlyAvailability" class="sec-kpi-help"></span>
           </div>
@@ -3087,9 +3087,9 @@
         body.innerHTML = `<tr><td colspan="12" class="sec-empty">${escapeSec(reason)}${officialLink}</td></tr>`;
         return;
       }
-      availability.textContent = `${company.source_basis || `報表幣別 ${currency}`} 資料更新：${formatSecTimestamp(secDailyData.quarterlyFinancials.generated_at)}；顯示最新 4 期，另保留歷史期計算 YoY。`;
+      availability.textContent = `${company.source_basis || `報表幣別 ${currency}`} 資料更新：${formatSecTimestamp(secDailyData.quarterlyFinancials.generated_at)}；顯示最新 8 期，前 4 期可計算 YoY。`;
       const periods = company.periods || [];
-      body.innerHTML = periods.slice(0, 4).map((period, index) => {
+      body.innerHTML = periods.slice(0, 8).map((period, index) => {
         const previous = periods[index + 1];
         const yearAgo = periods[index + 4];
         const revenue = secMetricValue(period, 'revenue');

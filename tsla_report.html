@@ -44,7 +44,7 @@ font-size:.8rem;font-weight:700}
 .section-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(620px,1fr));gap:26px;margin-bottom:28px}
 @media(max-width:700px){.section-grid{grid-template-columns:1fr}}
 .card{background:var(--card-bg);backdrop-filter:blur(12px);border:1px solid var(--card-border);
-border-radius:20px;padding:28px;box-shadow:var(--glow)}
+border-radius:20px;padding:28px;box-shadow:var(--glow);min-width:0}
 .card-full{grid-column:1/-1}
 .card h2{font-size:1.25rem;font-weight:800;margin-bottom:18px;color:#fff}
 .card h3{font-size:1.05rem;font-weight:700;margin:18px 0 10px;color:#e5e7eb}
@@ -54,7 +54,7 @@ border-radius:20px;padding:28px;box-shadow:var(--glow)}
 .card p{color:#d1d5db;font-size:.925rem;margin:8px 0}
 .note{font-size:.85rem;color:var(--text-muted);border-left:3px solid var(--accent);
 padding-left:12px;margin:12px 0}
-code{background:rgba(255,255,255,.08);padding:1px 6px;border-radius:5px;font-size:.85em}
+code{background:rgba(255,255,255,.08);padding:1px 6px;border-radius:5px;font-size:.85em;overflow-wrap:anywhere}
 .metric-group{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px}
 .metric-card{background:rgba(0,0,0,.28);border:1px solid var(--card-border);
 border-radius:14px;padding:14px 16px}
@@ -94,6 +94,26 @@ border-radius:14px;padding:16px 18px}
 .prov-table th{text-align:left;color:var(--text-muted);font-weight:600;padding:7px 12px 7px 0;
 white-space:nowrap;vertical-align:top;width:130px}
 .prov-table td{padding:7px 0;color:#e5e7eb}
+.table-scroll{overflow-x:auto;margin-top:16px;border:1px solid var(--card-border);border-radius:14px}
+.analysis-table{width:100%;border-collapse:collapse;min-width:820px;font-size:.84rem}
+.analysis-table th{padding:11px 12px;text-align:left;color:var(--text-muted);background:rgba(2,6,23,.65);
+font-weight:700;white-space:nowrap}
+.analysis-table td{padding:11px 12px;border-top:1px solid var(--card-border);color:#e5e7eb;vertical-align:top}
+.analysis-table a{color:#7dd3fc;text-decoration:none}.analysis-table a:hover{text-decoration:underline}
+.source-date{display:block;margin-top:2px;color:var(--text-muted);font-size:.72rem;font-weight:400}
+.analysis-table tr.warn td{background:rgba(251,191,36,.05)}
+.analysis-table tr.ok td{background:rgba(16,185,129,.04)}
+.coverage-box{padding:15px 17px;border-radius:14px;background:rgba(56,189,248,.07);
+border:1px solid rgba(56,189,248,.25);margin-bottom:14px}
+.coverage-box strong{color:#e0f2fe}.coverage-box p{margin:5px 0 0}
+.coverage-box a{color:#7dd3fc}
+.risk-status{display:inline-block;padding:3px 9px;border-radius:999px;font-size:.75rem;font-weight:800}
+.risk-status.low{color:#6ee7b7;background:rgba(16,185,129,.13)}
+.risk-status.medium{color:#fde68a;background:rgba(251,191,36,.13)}
+.risk-status.high{color:#fca5a5;background:rgba(239,68,68,.14)}
+.risk-status.unknown{color:#cbd5e1;background:rgba(148,163,184,.12)}
+.data-warning{display:inline-grid;place-items:center;width:21px;height:21px;margin-left:4px;border-radius:50%;
+color:#fbbf24;border:1px solid rgba(251,191,36,.55);cursor:help;font-size:.76rem;vertical-align:middle}
 .chart-container{position:relative;height:320px;margin-top:8px}
 footer{text-align:center;color:var(--text-muted);font-size:.8rem;padding:28px 0}
 </style>
@@ -152,6 +172,31 @@ footer{text-align:center;color:var(--text-muted);font-size:.8rem;padding:28px 0}
     <div class="card card-full">
       <h2>🩺 財務健全度總覽</h2>
       <div class="metric-group"><div class="metric-card"><div class="title"><span class="fin-term" tabindex="0" data-tooltip="流動資產 ÷ 流動負債，衡量一年內資產覆蓋一年內到期債務的能力。1.0 代表兩者相當；本頁低於 1.0 會警示，但仍須考慮產業的現金週轉特性。" aria-label="流動比率：流動資產 ÷ 流動負債，衡量一年內資產覆蓋一年內到期債務的能力。1.0 代表兩者相當；本頁低於 1.0 會警示，但仍須考慮產業的現金週轉特性。">流動比率<span class="term-icon" aria-hidden="true">i</span></span></div><div class="value">2.16</div></div><div class="metric-card"><div class="title"><span class="fin-term" tabindex="0" data-tooltip="現金與短期投資 ÷ 流動負債。只用最接近現金的資產檢視短期償債能力，比流動比率更保守；過高也可能表示資金運用效率偏低。" aria-label="現金比率：現金與短期投資 ÷ 流動負債。只用最接近現金的資產檢視短期償債能力，比流動比率更保守；過高也可能表示資金運用效率偏低。">現金比率<span class="term-icon" aria-hidden="true">i</span></span></div><div class="value">1.39</div></div><div class="metric-card"><div class="title"><span class="fin-term" tabindex="0" data-tooltip="總負債 ÷ 總資產，衡量資產中有多少比例由負債支應。數值越高通常代表槓桿越高；本頁高於 60% 會警示，但仍應與同產業資本結構比較。" aria-label="負債佔資產：總負債 ÷ 總資產，衡量資產中有多少比例由負債支應。數值越高通常代表槓桿越高；本頁高於 60% 會警示，但仍應與同產業資本結構比較。">負債佔資產<span class="term-icon" aria-hidden="true">i</span></span></div><div class="value">39.9%</div></div><div class="metric-card"><div class="title"><span class="fin-term" tabindex="0" data-tooltip="會產生利息的負債 ÷ 股東權益，顯示公司以借款相對於自有資本融資的程度。數值越高，通常對利率與現金流變化越敏感。" aria-label="有息負債／淨值：會產生利息的負債 ÷ 股東權益，顯示公司以借款相對於自有資本融資的程度。數值越高，通常對利率與現金流變化越敏感。">有息負債／淨值<span class="term-icon" aria-hidden="true">i</span></span></div><div class="value">0.10</div></div><div class="metric-card"><div class="title"><span class="fin-term" tabindex="0" data-tooltip="營業利益（EBIT）÷ 利息費用，衡量本業獲利可支付幾倍利息。本頁低於 3 倍會警示；無債或利息極低時可能出現異常高值，需配合註記判讀。" aria-label="利息保障倍數：營業利益（EBIT）÷ 利息費用，衡量本業獲利可支付幾倍利息。本頁低於 3 倍會警示；無債或利息極低時可能出現異常高值，需配合註記判讀。">利息保障倍數<span class="term-icon" aria-hidden="true">i</span></span></div><div class="value">12.9x</div></div><div class="metric-card"><div class="title"><span class="fin-term" tabindex="0" data-tooltip="投入資本報酬率，衡量公司使用營運所需的債務與股東資本創造稅後營業利潤的效率。長期高於 WACC 通常表示公司正在創造經濟價值。" aria-label="ROIC：投入資本報酬率，衡量公司使用營運所需的債務與股東資本創造稅後營業利潤的效率。長期高於 WACC 通常表示公司正在創造經濟價值。">ROIC<span class="term-icon" aria-hidden="true">i</span></span></div><div class="value">5.0%</div></div><div class="metric-card warn"><div class="title"><span class="fin-term" tabindex="0" data-tooltip="ROIC 減去加權平均資本成本。正值表示投入資本報酬高於資金成本；負值表示尚未覆蓋。pp 是百分點，例如 12% − 8% = 4pp。" aria-label="ROIC − WACC：ROIC 減去加權平均資本成本。正值表示投入資本報酬高於資金成本；負值表示尚未覆蓋。pp 是百分點，例如 12% − 8% = 4pp。">ROIC − WACC<span class="term-icon" aria-hidden="true">i</span></span></div><div class="value">-8.2pp</div></div><div class="metric-card"><div class="title"><span class="fin-term" tabindex="0" data-tooltip="自由現金流 ÷ 營收，衡量每 1 元營收在支付營運與資本支出後還能保留多少現金。負值表示當期自由現金流為負。" aria-label="FCF 利潤率：自由現金流 ÷ 營收，衡量每 1 元營收在支付營運與資本支出後還能保留多少現金。負值表示當期自由現金流為負。">FCF 利潤率<span class="term-icon" aria-hidden="true">i</span></span></div><div class="value">6.6%</div></div><div class="metric-card"><div class="title"><span class="fin-term" tabindex="0" data-tooltip="（淨利 − 營運現金流）÷ 平均總資產。正值過高代表會計利潤明顯超前現金流，需檢查應收款、存貨與一次性項目；本頁高於 10% 會警示。" aria-label="應計比率：（淨利 − 營運現金流）÷ 平均總資產。正值過高代表會計利潤明顯超前現金流，需檢查應收款、存貨與一次性項目；本頁高於 10% 會警示。">應計比率<span class="term-icon" aria-hidden="true">i</span></span></div><div class="value">-8.4%</div></div><div class="metric-card"><div class="title"><span class="fin-term" tabindex="0" data-tooltip="Altman Z-double-prime 是適用於非製造業的財務困境篩選模型。本頁以 &gt;2.6 為安全區、1.1–2.6 為灰色區、&lt;1.1 為危險區；它不是違約機率。" aria-label="Altman Z&#x27;&#x27;：Altman Z-double-prime 是適用於非製造業的財務困境篩選模型。本頁以 &gt;2.6 為安全區、1.1–2.6 為灰色區、&lt;1.1 為危險區；它不是違約機率。">Altman Z&#x27;&#x27;<span class="term-icon" aria-hidden="true">i</span></span></div><div class="value">4.46（safe）</div></div><div class="metric-card"><div class="title"><span class="fin-term" tabindex="0" data-tooltip="Piotroski F-Score 從獲利、槓桿／流動性與營運效率檢查最多 9 項財報訊號。本頁將可計算項目標準化到 9 分；高分不代表股價便宜。" aria-label="Piotroski（標準化 /9）：Piotroski F-Score 從獲利、槓桿／流動性與營運效率檢查最多 9 項財報訊號。本頁將可計算項目標準化到 9 分；高分不代表股價便宜。">Piotroski（標準化 /9）<span class="term-icon" aria-hidden="true">i</span></span></div><div class="value">5.0</div></div><div class="metric-card"><div class="title"><span class="fin-term" tabindex="0" data-tooltip="以八個會計指標篩選盈餘操縱型態的統計模型。高於 -1.78 本頁會警示，但不是舞弊指控；高速成長公司容易出現偽陽性，必須回查原始財報。" aria-label="Beneish M-Score：以八個會計指標篩選盈餘操縱型態的統計模型。高於 -1.78 本頁會警示，但不是舞弊指控；高速成長公司容易出現偽陽性，必須回查原始財報。">Beneish M-Score<span class="term-icon" aria-hidden="true">i</span></span></div><div class="value">-2.89</div></div></div><div class="flag-box"><h4>⚠️ 觸發 1 項門檻</h4><ul><li><strong>資本效率</strong>：ROIC 5.0% 低於 WACC 13.19%，價差 -8.2pp，投入資本未賺回其成本</li></ul></div>
+    </div>
+
+    <div class="card card-full">
+      <h2>📅 八季營運趨勢</h2>
+      <div class="metric-group"><div class="metric-card"><div class="title">八季營運方向</div><div class="value">持平／分歧</div></div><div class="metric-card"><div class="title"><span class="fin-term" tabindex="0" data-tooltip="本季營收相對上一年度同季的變化率，可排除多數季節性，但仍會受到併購、匯率與會計口徑改變影響。" aria-label="營收年增率：本季營收相對上一年度同季的變化率，可排除多數季節性，但仍會受到併購、匯率與會計口徑改變影響。">營收年增率<span class="term-icon" aria-hidden="true">i</span></span></div><div class="value">25.5%</div></div><div class="metric-card"><div class="title"><span class="fin-term" tabindex="0" data-tooltip="單季自由現金流 ÷ 單季營收。單季現金流波動通常較大，應搭配八季趨勢與全年數字判讀。" aria-label="FCF 利潤率（單季）：單季自由現金流 ÷ 單季營收。單季現金流波動通常較大，應搭配八季趨勢與全年數字判讀。">FCF 利潤率（單季）<span class="term-icon" aria-hidden="true">i</span></span></div><div class="value">-3.9%</div></div><div class="metric-card"><div class="title"><span class="fin-term" tabindex="0" data-tooltip="本季稀釋加權平均股數相對上一年度同季的變化；正值表示每股權益可能受到稀釋，負值通常反映淨回購。" aria-label="稀釋股數年增率：本季稀釋加權平均股數相對上一年度同季的變化；正值表示每股權益可能受到稀釋，負值通常反映淨回購。">稀釋股數年增率<span class="term-icon" aria-hidden="true">i</span></span></div><div class="value">0.6%</div></div></div><div class="table-scroll"><table class="analysis-table"><thead><tr><th>財報期末</th><th>營收</th><th>YoY</th><th>毛利率</th><th>營業利益率</th><th>FCF 利潤率</th><th>稀釋股數 YoY</th></tr></thead><tbody><tr><td><a href="https://www.sec.gov/Archives/edgar/data/1318605/000162828026049270/0001628280-26-049270-index.html" target="_blank" rel="noopener">2026-06-30</a> </td><td>USD 28.24B</td><td>25.5%</td><td>16.8%</td><td>1.4%</td><td>-3.9%</td><td>0.6%</td></tr><tr><td><a href="https://www.sec.gov/Archives/edgar/data/1318605/000162828026026673/0001628280-26-026673-index.html" target="_blank" rel="noopener">2026-03-31</a> </td><td>USD 22.39B</td><td>15.8%</td><td>21.1%</td><td>4.2%</td><td>6.5%</td><td>0.5%</td></tr><tr><td><a href="https://www.sec.gov/Archives/edgar/data/1318605/000162828026003952/0001628280-26-003952-index.html" target="_blank" rel="noopener">2025-12-31</a> </td><td>USD 24.90B</td><td>-3.1%</td><td>20.1%</td><td>5.7%</td><td>5.7%</td><td>資料不足</td></tr><tr><td><a href="https://www.sec.gov/Archives/edgar/data/1318605/000162828025045968/0001628280-25-045968-index.html" target="_blank" rel="noopener">2025-09-30</a> </td><td>USD 28.09B</td><td>11.6%</td><td>18.0%</td><td>5.8%</td><td>14.2%</td><td>0.8%</td></tr><tr><td><a href="https://www.sec.gov/Archives/edgar/data/1318605/000162828026049270/0001628280-26-049270-index.html" target="_blank" rel="noopener">2025-06-30</a> </td><td>USD 22.50B</td><td>資料不足</td><td>17.2%</td><td>4.1%</td><td>0.6%</td><td>資料不足</td></tr><tr><td><a href="https://www.sec.gov/Archives/edgar/data/1318605/000162828026026673/0001628280-26-026673-index.html" target="_blank" rel="noopener">2025-03-31</a> </td><td>USD 19.34B</td><td>資料不足</td><td>16.3%</td><td>2.1%</td><td>3.4%</td><td>資料不足</td></tr><tr><td><a href="https://www.sec.gov/Archives/edgar/data/1318605/000162828026003952/0001628280-26-003952-index.html" target="_blank" rel="noopener">2024-12-31</a> </td><td>USD 25.71B</td><td>資料不足</td><td>16.3%</td><td>6.2%</td><td>7.9%</td><td>資料不足</td></tr><tr><td><a href="https://www.sec.gov/Archives/edgar/data/1318605/000162828025045968/0001628280-25-045968-index.html" target="_blank" rel="noopener">2024-09-30</a> </td><td>USD 25.18B</td><td>資料不足</td><td>19.8%</td><td>10.8%</td><td>10.9%</td><td>資料不足</td></tr></tbody></table></div><p class="note">方向分數 -1：營收年增=+、毛利率年變化=0、營業利益率年變化=−、FCF 利潤率年變化=−、股數年變化=0。營收 ±3%、毛利率／營業利益率 ±1pp、FCF 利潤率 ±2pp、股數增加逾 5% 為警戒；這是可解釋的篩選訊號，不是投資評等。</p>
+    </div>
+
+    <div class="card card-full">
+      <h2>🎯 管理層指引 vs. 實際結果</h2>
+      <div class="coverage-box"><strong>本期無可比量化指引</strong><p>2026 Q2 官方發布未提供下一季營收／EPS 區間；公司彙整的分析師共識不視為管理層指引。 <a href="https://ir.tesla.com/press-release/tesla-releases-second-quarter-2026-financial-results" target="_blank" rel="noopener">查看 2026-07-22 官方發布</a></p></div>
+    </div>
+
+    <div class="card card-full">
+      <h2>🧭 <span class="fin-term" tabindex="0" data-tooltip="以明確假設建立悲觀、基準與樂觀路徑。此處是敏感度分析，不是管理層指引、分析師共識或目標價。" aria-label="情境預測：以明確假設建立悲觀、基準與樂觀路徑。此處是敏感度分析，不是管理層指引、分析師共識或目標價。">情境預測<span class="term-icon" aria-hidden="true">i</span></span>與<span class="fin-term" tabindex="0" data-tooltip="固定其他估值假設後，反推出目前股價需要自由現金流達成的年成長率。它回答市場已經計入什麼，不是公司指引或預測。" aria-label="反向 DCF：固定其他估值假設後，反推出目前股價需要自由現金流達成的年成長率。它回答市場已經計入什麼，不是公司指引或預測。">反向 DCF<span class="term-icon" aria-hidden="true">i</span></span></h2>
+      <div class="metric-group"><div class="metric-card warn"><div class="title"><span class="fin-term" tabindex="0" data-tooltip="固定其他估值假設後，反推出目前股價需要自由現金流達成的年成長率。它回答市場已經計入什麼，不是公司指引或預測。" aria-label="反向 DCF：固定其他估值假設後，反推出目前股價需要自由現金流達成的年成長率。它回答市場已經計入什麼，不是公司指引或預測。">反向 DCF<span class="term-icon" aria-hidden="true">i</span></span></div><div class="value">46.5%／年</div></div><div class="metric-card"><div class="title">模型基準成長</div><div class="value">24.6%／年</div></div><div class="metric-card"><div class="title">常態化 FCF 利潤率</div><div class="value">7.7%</div></div></div><div class="table-scroll"><table class="analysis-table"><thead><tr><th>情境</th><th>營收成長路徑</th><th>FCF 利潤率</th><th>第 1 年營收</th><th>第 3 年營收</th><th>第 5 年營收</th><th>第 5 年 FCF</th></tr></thead><tbody><tr class="warn"><td><strong>悲觀</strong></td><td>17.2% → 2.5%</td><td>4.7%</td><td>USD 111.18B</td><td>USD 138.71B</td><td>USD 150.97B</td><td>USD 7.10B</td></tr><tr class=""><td><strong>基準</strong></td><td>24.6% → 2.5%</td><td>7.7%</td><td>USD 118.18B</td><td>USD 159.85B</td><td>USD 177.00B</td><td>USD 13.63B</td></tr><tr class="ok"><td><strong>樂觀</strong></td><td>32.0% → 2.5%</td><td>10.7%</td><td>USD 125.19B</td><td>USD 182.97B</td><td>USD 206.07B</td><td>USD 22.05B</td></tr></tbody></table></div><p class="note">試算規則：悲觀／樂觀起始成長率為基準的 70%／130%，五年內線性收斂至終端成長率；FCF 利潤率為歷史中位數 ±3pp。這是敏感度範圍，不是公司指引或目標價。</p>
+    </div>
+
+    <div class="card card-full">
+      <h2>🚦 可追蹤風險矩陣</h2>
+      <div class="table-scroll"><table class="analysis-table"><thead><tr><th>風險</th><th>狀態</th><th>目前證據</th><th>觸發規則／下次檢查</th></tr></thead><tbody><tr><td><strong>短期償債／槓桿</strong></td><td><span class="risk-status low">正常</span></td><td>流動比率 2.16；負債佔資產 39.9%</td><td>流動比率 <1 或負債佔資產 >70%</td></tr><tr><td><strong>現金流品質</strong></td><td><span class="risk-status low">正常</span></td><td>FCF 利潤率 6.6%；OCF／淨利 3.89</td><td>FCF 為負，或 OCF／淨利 <0.8</td></tr><tr><td><strong>股權稀釋</strong></td><td><span class="risk-status low">正常</span></td><td>稀釋股數 YoY 0.6%</td><td>年增 >5% 留意；>10% 警戒</td></tr><tr><td><strong>營運動能</strong></td><td><span class="risk-status low">正常</span></td><td>營收 YoY 25.5%；營業利益率年變化 -2.7pp</td><td>營收與營業利益率同時惡化</td></tr><tr><td><strong>估值期待</strong></td><td><span class="risk-status high">警戒</span></td><td>現價隱含成長 46.5%；模型基準 24.6%</td><td>隱含成長高出基準 >5pp 留意；>10pp 警戒</td></tr><tr><td><strong>SEC 風險文字變化</strong></td><td><span class="risk-status medium">留意</span></td><td>新增 7 段；改寫 2 段</td><td>新增段落須回看原文；文字變化不等於機率</td></tr></tbody></table></div><p class="note">狀態只依表內規則分類，不估計主觀違約機率；黃色或紅色都應回到原始申報查證。</p>
+    </div>
+
+    <div class="card card-full">
+      <h2>🧩 分部與集中度分析</h2>
+      <div class="coverage-box"><strong>尚無可安全拆分的結構化分部數字</strong><p>SEC Company Facts 不含可靠的分部 context，本庫不把合併數字拆成猜測值。待逐公司從附註核對；來源入口：<a href="https://www.sec.gov/Archives/edgar/data/1318605/000162828026049270/0001628280-26-049270-index.html" target="_blank" rel="noopener">公司官方財報頁</a>。</p></div><h3>已整理的營運／集中度線索</h3><ul><li>Megapack 與 Powerwall 儲能業務營收突破 <strong>$125 億美元</strong>，成為第二大核心獲利支柱，強勢受惠於全球資料中心與電網對乾淨能源儲存的暴增需求。</li><li><strong>👤 伊隆·馬斯克 (Elon Musk) Key-Person 依賴與高本益比波動 (Key-Person Risk)</strong>：公司高度依賴 Elon Musk 的願景與領導；目前的本益比（見第四節）主要反映市場對未來 Robotaxi 與 Optimus 遠景的期待，若推動稍緩易引發股價大幅修正。</li><li><strong>Cybercab Robotaxi 生態選擇權</strong>：潛在的高毛利軟體訂閱與無人派遣營收。FY2026 的 Item 1A 已把「已進入自動駕駛叫車市場」寫進風險章節（見報告頁「風險因素的年度變化」）。</li><li><strong>Megapack 儲能業務快速成長</strong>：成為第二成長曲線。（分部營收出自 10-K 分部附註，本庫只取合併數）</li></ul>
     </div>
 
     <div class="card card-full">
@@ -237,8 +282,8 @@ footer{text-align:center;color:var(--text-muted);font-size:.8rem;padding:28px 0}
   </div>
 
   <footer>
-    由 <code>scripts/build_reports.py</code> 於 2026-08-15 01:02 UTC 產生。<br>
-    本頁不含任何手動輸入的財務數字；質化章節除外，且已標示。<br>
+    由 <code>scripts/build_reports.py</code> 於 2026-08-16 01:26 UTC 產生。<br>
+    歷史合併財務由 SEC XBRL 產生；管理層指引與分部表為人工逐筆核對官方來源，均附日期與連結。<br>
     DCF 為特定假設下的推估，非事實，不構成投資建議。
   </footer>
 </div>

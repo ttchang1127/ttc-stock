@@ -1,0 +1,214 @@
+{
+  "_README": [
+    "管理層數字指引與分部資料的人工核對入口；不得從歷史成長率或分析師共識猜測公司指引。",
+    "每筆數字必須連回公司 IR、10-Q/10-K、8-K 附件或 6-K 原始來源。",
+    "guidance_status：available=有正式數字；no_comparable_numeric_guidance=最近發布未提供可比區間。",
+    "guidance 欄位：period、metric、low、high、unit、actual、source_date、source_url。actual 發布前維持 null。",
+    "segments 欄位：period、source_date、source_url、basis、items；僅收錄公司明確揭露的分部或營收來源，不自行拆分合併數字。"
+  ],
+  "updated_at": "2026-08-16",
+  "companies": {
+    "AAPL": {
+      "guidance_status": "no_comparable_numeric_guidance",
+      "guidance_note": "2026-07-30 的 FY2026 Q3 新聞稿未提供下一季可直接核對的營收／EPS 區間。",
+      "guidance_source_date": "2026-07-30",
+      "guidance_source_url": "https://www.apple.com/newsroom/2026/07/apple-reports-third-quarter-results/",
+      "guidance": [],
+      "segments": {
+        "period": "FY2026 Q3",
+        "source_date": "2026-07-30",
+        "source_url": "https://www.apple.com/newsroom/pdfs/fy2026q3/FY26_Q3_Consolidated_Financial_Statements.pdf",
+        "basis": "產品／服務營收類別（非營業利益分部）",
+        "unit": "USD m",
+        "items": [
+          {"name": "iPhone", "revenue": 54252},
+          {"name": "Mac", "revenue": 10352},
+          {"name": "iPad", "revenue": 6191},
+          {"name": "穿戴、家居與配件", "revenue": 7883},
+          {"name": "服務", "revenue": 30739}
+        ]
+      }
+    },
+    "AMZN": {
+      "guidance_status": "available",
+      "guidance": [
+        {"period": "2026 Q3", "metric": "淨銷售額", "low": 197.0, "high": 202.0, "unit": "USD bn", "actual": null, "source_date": "2026-07-30", "source_url": "https://ir.aboutamazon.com/news-release/news-release-details/2026/Amazon-com-Announces-Second-Quarter-Results/default.aspx"},
+        {"period": "2026 Q3", "metric": "營業利益", "low": 22.5, "high": 26.5, "unit": "USD bn", "actual": null, "source_date": "2026-07-30", "source_url": "https://ir.aboutamazon.com/news-release/news-release-details/2026/Amazon-com-Announces-Second-Quarter-Results/default.aspx"}
+      ],
+      "segments": {
+        "period": "2026 Q2",
+        "source_date": "2026-07-30",
+        "source_url": "https://ir.aboutamazon.com/news-release/news-release-details/2026/Amazon-com-Announces-Second-Quarter-Results/default.aspx",
+        "basis": "可報導分部",
+        "unit": "USD bn",
+        "items": [
+          {"name": "North America", "revenue": 116.2, "operating_income": 9.1},
+          {"name": "International", "revenue": 42.2, "operating_income": 1.7},
+          {"name": "AWS", "revenue": 42.2, "operating_income": 16.6}
+        ]
+      }
+    },
+    "ARM": {
+      "guidance_status": "available",
+      "guidance": [
+        {"period": "FY2027 Q1", "metric": "營收", "low": 1.21, "high": 1.31, "unit": "USD bn", "actual": 1.289, "source_date": "2026-07-29", "source_url": "https://investors.arm.com/node/8356/html"},
+        {"period": "FY2027 Q1", "metric": "Non-GAAP 稀釋 EPS", "low": 0.36, "high": 0.44, "unit": "USD/share", "actual": 0.45, "source_date": "2026-07-29", "source_url": "https://investors.arm.com/node/8356/html"},
+        {"period": "FY2027 Q2", "metric": "營收", "low": 1.33, "high": 1.43, "unit": "USD bn", "actual": null, "source_date": "2026-07-29", "source_url": "https://investors.arm.com/node/8356/html"},
+        {"period": "FY2027 Q2", "metric": "Non-GAAP 稀釋 EPS", "low": 0.43, "high": 0.51, "unit": "USD/share", "actual": null, "source_date": "2026-07-29", "source_url": "https://investors.arm.com/node/8356/html"}
+      ],
+      "segments": {
+        "period": "FY2027 Q1",
+        "source_date": "2026-07-29",
+        "source_url": "https://investors.arm.com/node/8356/html",
+        "basis": "營收來源（非可報導分部）",
+        "unit": "USD m",
+        "items": [
+          {"name": "Royalty revenue", "revenue": 715},
+          {"name": "License and other revenue", "revenue": 574}
+        ]
+      }
+    },
+    "COHR": {
+      "guidance_status": "available",
+      "guidance": [
+        {"period": "FY2027 Q1", "metric": "營收", "low": 2.2, "high": 2.4, "unit": "USD bn", "actual": null, "source_date": "2026-08-12", "source_url": "https://www.sec.gov/Archives/edgar/data/820318/000119312526346860/d128030dex991.htm"},
+        {"period": "FY2027 Q1", "metric": "Non-GAAP 毛利率", "low": 39.5, "high": 41.5, "unit": "%", "actual": null, "source_date": "2026-08-12", "source_url": "https://www.sec.gov/Archives/edgar/data/820318/000119312526346860/d128030dex991.htm"},
+        {"period": "FY2027 Q1", "metric": "Non-GAAP 稀釋 EPS", "low": 1.85, "high": 2.05, "unit": "USD/share", "actual": null, "source_date": "2026-08-12", "source_url": "https://www.sec.gov/Archives/edgar/data/820318/000119312526346860/d128030dex991.htm"}
+      ]
+    },
+    "GOOGL": {
+      "guidance_status": "no_comparable_numeric_guidance",
+      "guidance_note": "Alphabet 的季度展望以趨勢與投資評論為主，未提供下一季營收／EPS 區間；不以市場共識替代。",
+      "guidance_source_date": "2026-07-22",
+      "guidance_source_url": "https://abc.xyz/investor/",
+      "guidance": [],
+      "segments": {
+        "period": "2026 Q2",
+        "source_date": "2026-07-22",
+        "source_url": "https://abc.xyz/investor/",
+        "basis": "可報導分部",
+        "unit": "USD bn",
+        "items": [
+          {"name": "Google Services", "revenue": 94.5},
+          {"name": "Google Cloud", "revenue": 24.8}
+        ],
+        "note": "Other Bets 金額未列入本表，故占比只在表內已收錄項目間計算。"
+      }
+    },
+    "INTC": {
+      "guidance_status": "available",
+      "guidance": [
+        {"period": "2026 Q3", "metric": "營收", "low": 15.8, "high": 16.8, "unit": "USD bn", "actual": null, "source_date": "2026-07-23", "source_url": "https://newsroom.intel.com/corporate/intel-reports-second-quarter-2026-financial-results"}
+      ]
+    },
+    "META": {
+      "guidance_status": "available",
+      "guidance": [
+        {"period": "2026 Q3", "metric": "總營收", "low": 61.0, "high": 64.0, "unit": "USD bn", "actual": null, "source_date": "2026-07-29", "source_url": "https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Second-Quarter-2026-Results/default.aspx"},
+        {"period": "FY2026", "metric": "總費用", "low": 165.0, "high": 169.0, "unit": "USD bn", "actual": null, "source_date": "2026-07-29", "source_url": "https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Second-Quarter-2026-Results/default.aspx"},
+        {"period": "FY2026", "metric": "資本支出", "low": 130.0, "high": 145.0, "unit": "USD bn", "actual": null, "source_date": "2026-07-29", "source_url": "https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Second-Quarter-2026-Results/default.aspx"}
+      ],
+      "segments": {
+        "period": "2026 Q2",
+        "source_date": "2026-07-29",
+        "source_url": "https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Second-Quarter-2026-Results/default.aspx",
+        "basis": "可報導分部",
+        "unit": "USD m",
+        "items": [
+          {"name": "Family of Apps", "revenue": 60370, "operating_income": 23394},
+          {"name": "Reality Labs", "revenue": 431, "operating_income": -4619}
+        ]
+      }
+    },
+    "MRVL": {
+      "guidance_status": "available",
+      "guidance": [
+        {"period": "FY2027 Q2", "metric": "營收", "low": 2.565, "high": 2.835, "unit": "USD bn", "actual": null, "source_date": "2026-05-27", "source_url": "https://investor.marvell.com/sec-filings/all-sec-filings/content/0001835632-26-000014/q127_8kx522026ex-991.htm"},
+        {"period": "FY2027 Q2", "metric": "Non-GAAP 毛利率", "low": 58.25, "high": 59.25, "unit": "%", "actual": null, "source_date": "2026-05-27", "source_url": "https://investor.marvell.com/sec-filings/all-sec-filings/content/0001835632-26-000014/q127_8kx522026ex-991.htm"},
+        {"period": "FY2027 Q2", "metric": "Non-GAAP 稀釋 EPS", "low": 0.88, "high": 0.98, "unit": "USD/share", "actual": null, "source_date": "2026-05-27", "source_url": "https://investor.marvell.com/sec-filings/all-sec-filings/content/0001835632-26-000014/q127_8kx522026ex-991.htm"}
+      ]
+    },
+    "MSFT": {
+      "guidance_status": "available",
+      "guidance": [
+        {"period": "FY2027 Q1", "metric": "總營收", "low": 89.85, "high": 90.95, "unit": "USD bn", "actual": null, "source_date": "2026-07-29", "source_url": "https://www.microsoft.com/en-us/Investor/events/FY-2026/earnings-fy-2026-q4"}
+      ],
+      "segments": {
+        "period": "FY2026 Q4",
+        "source_date": "2026-07-29",
+        "source_url": "https://www.microsoft.com/en-us/Investor/events/FY-2026/earnings-fy-2026-q4",
+        "basis": "可報導分部",
+        "unit": "USD bn",
+        "items": [
+          {"name": "Productivity and Business Processes", "revenue": 37.8, "operating_margin": 58.0},
+          {"name": "Intelligent Cloud", "revenue": 39.3, "operating_margin": 41.0},
+          {"name": "More Personal Computing", "revenue": 12.9, "operating_margin": 21.0}
+        ]
+      }
+    },
+    "NOK": {
+      "guidance_status": "available",
+      "guidance": [
+        {"period": "FY2026", "metric": "可比營業利益", "low": 2.1, "high": 2.6, "unit": "EUR bn", "actual": null, "source_date": "2026-07-23", "source_url": "https://www.nokia.com/newsroom/nokia-corporation-report-for-q2-and-half-year-2026/"},
+        {"period": "FY2026", "metric": "自由現金流轉換率", "low": 55.0, "high": 75.0, "unit": "%", "actual": null, "source_date": "2026-07-23", "source_url": "https://www.nokia.com/newsroom/nokia-corporation-report-for-q2-and-half-year-2026/"},
+        {"period": "2026 Q3", "metric": "淨銷售額季增率", "low": 3.0, "high": 7.0, "unit": "%", "actual": null, "source_date": "2026-07-23", "source_url": "https://www.nokia.com/newsroom/nokia-corporation-report-for-q2-and-half-year-2026/"}
+      ],
+      "segments": {
+        "period": "2026 Q2",
+        "source_date": "2026-07-23",
+        "source_url": "https://www.nokia.com/newsroom/nokia-corporation-report-for-q2-and-half-year-2026/",
+        "basis": "營運分部",
+        "unit": "EUR m",
+        "items": [
+          {"name": "Network Infrastructure", "revenue": 2037, "operating_income": 166, "operating_margin": 8.1},
+          {"name": "Mobile Infrastructure", "revenue": 2680, "operating_income": 310, "operating_margin": 11.6},
+          {"name": "Portfolio Businesses", "revenue": 94, "operating_income": 0, "operating_margin": 0.0}
+        ]
+      }
+    },
+    "NVDA": {
+      "guidance_status": "available",
+      "guidance": [
+        {"period": "FY2027 Q1", "metric": "營收", "low": 76.44, "high": 79.56, "unit": "USD bn", "actual": 81.615, "source_date": "2026-05-20", "source_url": "https://nvidianews.nvidia.com/news/nvidia-announces-financial-results-for-first-quarter-fiscal-2027"},
+        {"period": "FY2027 Q1", "metric": "GAAP 毛利率", "low": 74.4, "high": 75.4, "unit": "%", "actual": 74.9, "source_date": "2026-05-20", "source_url": "https://nvidianews.nvidia.com/news/nvidia-announces-financial-results-for-first-quarter-fiscal-2027"},
+        {"period": "FY2027 Q2", "metric": "營收", "low": 89.18, "high": 92.82, "unit": "USD bn", "actual": null, "source_date": "2026-05-20", "source_url": "https://nvidianews.nvidia.com/news/nvidia-announces-financial-results-for-first-quarter-fiscal-2027"},
+        {"period": "FY2027 Q2", "metric": "GAAP 毛利率", "low": 74.4, "high": 75.4, "unit": "%", "actual": null, "source_date": "2026-05-20", "source_url": "https://nvidianews.nvidia.com/news/nvidia-announces-financial-results-for-first-quarter-fiscal-2027"}
+      ],
+      "segments": {
+        "period": "FY2027 Q1",
+        "source_date": "2026-05-20",
+        "source_url": "https://nvidianews.nvidia.com/news/nvidia-announces-financial-results-for-first-quarter-fiscal-2027",
+        "basis": "運算平台營收（非營業利益分部）",
+        "unit": "USD bn",
+        "items": [
+          {"name": "Data Center", "revenue": 75.2},
+          {"name": "Edge Computing", "revenue": 6.4}
+        ]
+      }
+    },
+    "ONDS": {
+      "guidance_status": "available",
+      "guidance": [
+        {"period": "FY2026", "metric": "營收（至少）", "low": 390.0, "high": null, "unit": "USD m", "actual": null, "source_date": "2026-05-14", "source_url": "https://ir.ondas.com/press-releases/detail/306/ondas-reports-record-first-quarter-2026-financial-results"}
+      ]
+    },
+    "TSLA": {
+      "guidance_status": "no_comparable_numeric_guidance",
+      "guidance_note": "2026 Q2 官方發布未提供下一季營收／EPS 區間；公司彙整的分析師共識不視為管理層指引。",
+      "guidance_source_date": "2026-07-22",
+      "guidance_source_url": "https://ir.tesla.com/press-release/tesla-releases-second-quarter-2026-financial-results",
+      "guidance": []
+    },
+    "TSM": {
+      "guidance_status": "available",
+      "guidance": [
+        {"period": "2026 Q2", "metric": "營收", "low": 39.0, "high": 40.2, "unit": "USD bn", "actual": 40.20, "source_date": "2026-07-16", "source_url": "https://investor.tsmc.com/english/quarterly-results/2026/q2"},
+        {"period": "2026 Q2", "metric": "毛利率", "low": 65.5, "high": 67.5, "unit": "%", "actual": 67.7, "source_date": "2026-07-16", "source_url": "https://investor.tsmc.com/english/quarterly-results/2026/q2"},
+        {"period": "2026 Q2", "metric": "營業利益率", "low": 56.5, "high": 58.5, "unit": "%", "actual": 60.3, "source_date": "2026-07-16", "source_url": "https://investor.tsmc.com/english/quarterly-results/2026/q2"},
+        {"period": "2026 Q3", "metric": "營收", "low": 44.6, "high": 45.8, "unit": "USD bn", "actual": null, "source_date": "2026-07-16", "source_url": "https://investor.tsmc.com/english/quarterly-results/2026/q2"},
+        {"period": "2026 Q3", "metric": "毛利率", "low": 65.0, "high": 67.0, "unit": "%", "actual": null, "source_date": "2026-07-16", "source_url": "https://investor.tsmc.com/english/quarterly-results/2026/q2"},
+        {"period": "2026 Q3", "metric": "營業利益率", "low": 56.0, "high": 58.0, "unit": "%", "actual": null, "source_date": "2026-07-16", "source_url": "https://investor.tsmc.com/english/quarterly-results/2026/q2"}
+      ]
+    }
+  }
+}

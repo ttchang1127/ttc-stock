@@ -7,7 +7,7 @@
 > 儀表板網頁的維護請看 [[ttc-stock_Dashboard_維運SOP]]，那是另一條線。
 > 還沒完成的事情列在 [[Sec_kb_待辦事項]]，**已決定不做的**則在本文件第 5 節。
 
-最後更新：2026-08-15
+最後更新：2026-08-16
 
 ---
 
@@ -17,7 +17,7 @@
 
 | # | 禁止事項 | 這條規則為什麼存在 |
 |---|---|---|
-| 1 | **手動輸入、估算、或「合理推測」任何財務數字** | 舊版腳本寫死 `total_assets_2026 = 115000 # approximate`，真實值是 206,803，少報 44% |
+| 1 | **手動輸入、估算、或「合理推測」任何無來源財務數字** | 舊版腳本寫死 `total_assets_2026 = 115000 # approximate`，真實值是 206,803，少報 44%；唯一例外是 `forward_looking_inputs.json` 中逐筆附官方 URL 的管理層指引／分部揭露 |
 | 2 | **直接把分數或結論賦值** | 舊版 `f1 = 1 ... f9 = 1` 九項全部手動設 1，宣稱「F-Score 9/9 滿分」，真實值是 **4/9** |
 | 3 | **在筆記寫「SEC 官方財報」除非數字真的來自 XBRL API** | 舊版 thesis 宣稱資料來自 SEC，實際是手打的 |
 | 4 | 直接用文字編輯器修改 `financials.json` / `fundamentals.json` / `prices.json` | 這三個檔案**只能**由腳本產生 |
@@ -49,6 +49,10 @@ SEC XBRL Company Facts API          Yahoo Finance (yfinance)
                             ←── risk_changes.json（風險因素年度比對）
    *_report.html（14 份獨立網頁報告）
 
+公司官方 IR／SEC 附件（人工逐筆核對）
+        ↓ forward_looking_inputs.json（每筆強制附來源 URL 與日期）
+   管理層指引達標追蹤＋分部／營收來源表 ──→ build_reports.py
+
 > ⚠️ **新增一家公司時，thesis 必須有第一章與第六章**，否則報告頁的
 > 「🏛️ 護城河」與「⚠️ 核心風險因素」會印出「本公司尚無…章節」的預設字串。
 > AMZN 就是這樣上線的：儀表板與所有量化章節都正常，只有這兩塊是空的。
@@ -75,7 +79,8 @@ SEC XBRL Company Facts API          Yahoo Finance (yfinance)
 | `*_report.html` | `build_reports.py` | ❌ **不准手改**，改了下次產生就被蓋掉 |
 | `risk_changes.json` | `diff_risk_factors.py` | ❌ |
 | `risk_zh.json` | **人類維護**（風險變化段落的繁中譯文） | ✅ 只能改 `zh` 欄；鍵是原文雜湊，不要手改 |
-| **`dcf_assumptions.json`** | **人類維護**（14 家現皆為 `estimate_dcf_inputs.py` 推導值） | ✅ **這是唯一允許手填數字的檔案**；`derived_at` 記錄整批假設推導日 |
+| **`dcf_assumptions.json`** | **人類維護**（14 家現皆為 `estimate_dcf_inputs.py` 推導值） | ✅ 可維護模型假設；`derived_at` 記錄整批假設推導日 |
+| **`forward_looking_inputs.json`** | **人類逐筆核對官方 IR／SEC** | ✅ 只能加入附 `source_url`、`source_date` 的公司指引與分部揭露；禁止填入分析師共識或自行推估 |
 | `prices.json` | `fetch_price_history.py`（預設 6 年；含 `^IRX` 無風險利率） | ❌ |
 | `20_Filings/**` | `fetch_sec.py`（`--split-sections` 會拆出 Item 1A/1/7 原文） | ❌ |
 | thesis 第二 ~ 五章 | `update_thesis_financials.py` | ❌ |
@@ -154,7 +159,7 @@ python3 scripts/build_reports.py
 git status --short
 ```
 
-允許出現的檔案**只有**：`financials.json`、`fundamentals.json`、`financial_health.json`、`valuation.json`、`*_report.html`、`30_Analysis/*_Master_Investment_Thesis_2026.md`
+例行自動更新允許出現的檔案**只有**：`financials.json`、`fundamentals.json`、`financial_health.json`、`valuation.json`、`*_report.html`、`30_Analysis/*_Master_Investment_Thesis_2026.md`。若本次工作明確是核對管理層指引／分部資料，才可額外出現 `forward_looking_inputs.json`。
 
 出現任何其他檔案 → **停止並回報**。
 
@@ -212,11 +217,11 @@ python3 scripts/fetch_sec.py AMD --years 5 --split-sections
 
 ## 4. 任務 C：驗證資料誠信（每次改動後必跑）
 
-> 🤖 **這 16 項現在有一支腳本一次跑完，排程也會跑。**
+> 🤖 **所有資料誠信檢查現在由一支腳本一次跑完，排程也會跑。**
 > ```bash
 > python3 scripts/check_integrity.py
 > ```
-> 預期最後一行 `✅ 16 項檢查全部通過`，離開碼 0。任一項失敗離開碼為 1。
+> 預期最後一行 `✅ N 項檢查全部通過`，離開碼 0。任一項失敗離開碼為 1；N 會隨新增防呆檢查增加。
 >
 > 排程在 commit **之前**執行它，不通過就讓整個 job 失敗，資料不會被推上去。
 >

@@ -44,7 +44,7 @@ font-size:.8rem;font-weight:700}
 .section-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(620px,1fr));gap:26px;margin-bottom:28px}
 @media(max-width:700px){.section-grid{grid-template-columns:1fr}}
 .card{background:var(--card-bg);backdrop-filter:blur(12px);border:1px solid var(--card-border);
-border-radius:20px;padding:28px;box-shadow:var(--glow)}
+border-radius:20px;padding:28px;box-shadow:var(--glow);min-width:0}
 .card-full{grid-column:1/-1}
 .card h2{font-size:1.25rem;font-weight:800;margin-bottom:18px;color:#fff}
 .card h3{font-size:1.05rem;font-weight:700;margin:18px 0 10px;color:#e5e7eb}
@@ -54,7 +54,7 @@ border-radius:20px;padding:28px;box-shadow:var(--glow)}
 .card p{color:#d1d5db;font-size:.925rem;margin:8px 0}
 .note{font-size:.85rem;color:var(--text-muted);border-left:3px solid var(--accent);
 padding-left:12px;margin:12px 0}
-code{background:rgba(255,255,255,.08);padding:1px 6px;border-radius:5px;font-size:.85em}
+code{background:rgba(255,255,255,.08);padding:1px 6px;border-radius:5px;font-size:.85em;overflow-wrap:anywhere}
 .metric-group{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px}
 .metric-card{background:rgba(0,0,0,.28);border:1px solid var(--card-border);
 border-radius:14px;padding:14px 16px}
@@ -94,6 +94,26 @@ border-radius:14px;padding:16px 18px}
 .prov-table th{text-align:left;color:var(--text-muted);font-weight:600;padding:7px 12px 7px 0;
 white-space:nowrap;vertical-align:top;width:130px}
 .prov-table td{padding:7px 0;color:#e5e7eb}
+.table-scroll{overflow-x:auto;margin-top:16px;border:1px solid var(--card-border);border-radius:14px}
+.analysis-table{width:100%;border-collapse:collapse;min-width:820px;font-size:.84rem}
+.analysis-table th{padding:11px 12px;text-align:left;color:var(--text-muted);background:rgba(2,6,23,.65);
+font-weight:700;white-space:nowrap}
+.analysis-table td{padding:11px 12px;border-top:1px solid var(--card-border);color:#e5e7eb;vertical-align:top}
+.analysis-table a{color:#7dd3fc;text-decoration:none}.analysis-table a:hover{text-decoration:underline}
+.source-date{display:block;margin-top:2px;color:var(--text-muted);font-size:.72rem;font-weight:400}
+.analysis-table tr.warn td{background:rgba(251,191,36,.05)}
+.analysis-table tr.ok td{background:rgba(16,185,129,.04)}
+.coverage-box{padding:15px 17px;border-radius:14px;background:rgba(56,189,248,.07);
+border:1px solid rgba(56,189,248,.25);margin-bottom:14px}
+.coverage-box strong{color:#e0f2fe}.coverage-box p{margin:5px 0 0}
+.coverage-box a{color:#7dd3fc}
+.risk-status{display:inline-block;padding:3px 9px;border-radius:999px;font-size:.75rem;font-weight:800}
+.risk-status.low{color:#6ee7b7;background:rgba(16,185,129,.13)}
+.risk-status.medium{color:#fde68a;background:rgba(251,191,36,.13)}
+.risk-status.high{color:#fca5a5;background:rgba(239,68,68,.14)}
+.risk-status.unknown{color:#cbd5e1;background:rgba(148,163,184,.12)}
+.data-warning{display:inline-grid;place-items:center;width:21px;height:21px;margin-left:4px;border-radius:50%;
+color:#fbbf24;border:1px solid rgba(251,191,36,.55);cursor:help;font-size:.76rem;vertical-align:middle}
 .chart-container{position:relative;height:320px;margin-top:8px}
 footer{text-align:center;color:var(--text-muted);font-size:.8rem;padding:28px 0}
 </style>
@@ -152,6 +172,31 @@ footer{text-align:center;color:var(--text-muted);font-size:.8rem;padding:28px 0}
 <li><strong>現金流品質</strong>：自由現金流為負，FCF 利潤率 -80.4%</li>
 <li><strong>破產風險</strong>：Altman Z&#x27;&#x27; 2.44 落在 1.1~2.6 灰色區</li>
 <li><strong>盈餘品質</strong>：Beneish M-Score 2.05 高於 -1.78，會計型態符合模型的操縱樣本特徵，需人工查證。營收年增 605%（SGI=7.05）。SGI 在模型中權重高，高速成長本身就會把分數推向門檻，這是本模型已知的偽陽性來源</li></ul></div>
+    </div>
+
+    <div class="card card-full">
+      <h2>📅 八季營運趨勢</h2>
+      <div class="metric-group"><div class="metric-card"><div class="title">八季營運方向</div><div class="value">持平／分歧</div></div><div class="metric-card"><div class="title"><span class="fin-term" tabindex="0" data-tooltip="本季營收相對上一年度同季的變化率，可排除多數季節性，但仍會受到併購、匯率與會計口徑改變影響。" aria-label="營收年增率：本季營收相對上一年度同季的變化率，可排除多數季節性，但仍會受到併購、匯率與會計口徑改變影響。">營收年增率<span class="term-icon" aria-hidden="true">i</span></span></div><div class="value">1235.4%</div></div><div class="metric-card"><div class="title"><span class="fin-term" tabindex="0" data-tooltip="單季自由現金流 ÷ 單季營收。單季現金流波動通常較大，應搭配八季趨勢與全年數字判讀。" aria-label="FCF 利潤率（單季）：單季自由現金流 ÷ 單季營收。單季現金流波動通常較大，應搭配八季趨勢與全年數字判讀。">FCF 利潤率（單季）<span class="term-icon" aria-hidden="true">i</span></span></div><div class="value">-112.0%</div></div><div class="metric-card warn"><div class="title"><span class="fin-term" tabindex="0" data-tooltip="本季稀釋加權平均股數相對上一年度同季的變化；正值表示每股權益可能受到稀釋，負值通常反映淨回購。" aria-label="稀釋股數年增率：本季稀釋加權平均股數相對上一年度同季的變化；正值表示每股權益可能受到稀釋，負值通常反映淨回購。">稀釋股數年增率<span class="term-icon" aria-hidden="true">i</span></span></div><div class="value">234.3%</div></div></div><div class="table-scroll"><table class="analysis-table"><thead><tr><th>財報期末</th><th>營收</th><th>YoY</th><th>毛利率</th><th>營業利益率</th><th>FCF 利潤率</th><th>稀釋股數 YoY</th></tr></thead><tbody><tr><td><a href="https://www.sec.gov/Archives/edgar/data/1646188/000119312526349288/0001193125-26-349288-index.html" target="_blank" rel="noopener">2026-06-30</a> </td><td>USD 83.8M</td><td>1235.4%</td><td>43.1%</td><td>-194.5%</td><td>-112.0%</td><td>234.3%</td></tr><tr><td><a href="https://www.sec.gov/Archives/edgar/data/1646188/000121390026057859/0001213900-26-057859-index.html" target="_blank" rel="noopener">2026-03-31</a> <span class="data-warning" tabindex="0" title="稀釋加權平均股數與相鄰季度差距超過 20 倍，疑為 XBRL 縮放問題，已保留缺值。" aria-label="資料提醒：稀釋加權平均股數與相鄰季度差距超過 20 倍，疑為 XBRL 縮放問題，已保留缺值。">⚠</span></td><td>USD 50.1M</td><td>1079.9%</td><td>49.2%</td><td>-85.1%</td><td>-105.0%</td><td>資料不足</td></tr><tr><td><a href="https://www.sec.gov/Archives/edgar/data/1646188/000121390026035981/0001213900-26-035981-index.html" target="_blank" rel="noopener">2025-12-31</a> </td><td>USD 30.1M</td><td>629.2%</td><td>42.3%</td><td>-77.4%</td><td>-47.6%</td><td>資料不足</td></tr><tr><td><a href="https://www.sec.gov/Archives/edgar/data/1646188/000121390025109604/0001213900-25-109604-index.html" target="_blank" rel="noopener">2025-09-30</a> </td><td>USD 10.1M</td><td>582.0%</td><td>25.8%</td><td>-153.5%</td><td>-110.2%</td><td>267.4%</td></tr><tr><td><a href="https://www.sec.gov/Archives/edgar/data/1646188/000119312526349288/0001193125-26-349288-index.html" target="_blank" rel="noopener">2025-06-30</a> </td><td>USD 6.3M</td><td>資料不足</td><td>53.1%</td><td>-147.5%</td><td>-135.5%</td><td>資料不足</td></tr><tr><td><a href="https://www.sec.gov/Archives/edgar/data/1646188/000121390026057859/0001213900-26-057859-index.html" target="_blank" rel="noopener">2025-03-31</a> <span class="data-warning" tabindex="0" title="稀釋加權平均股數與相鄰季度差距超過 20 倍，疑為 XBRL 縮放問題，已保留缺值。" aria-label="資料提醒：稀釋加權平均股數與相鄰季度差距超過 20 倍，疑為 XBRL 縮放問題，已保留缺值。">⚠</span></td><td>USD 4.2M</td><td>資料不足</td><td>35.0%</td><td>-242.7%</td><td>-160.8%</td><td>資料不足</td></tr><tr><td><a href="https://www.sec.gov/Archives/edgar/data/1646188/000121390026035981/0001213900-26-035981-index.html" target="_blank" rel="noopener">2024-12-31</a> </td><td>USD 4.1M</td><td>資料不足</td><td>21.4%</td><td>-206.3%</td><td>-197.1%</td><td>資料不足</td></tr><tr><td><a href="https://www.sec.gov/Archives/edgar/data/1646188/000121390025109604/0001213900-25-109604-index.html" target="_blank" rel="noopener">2024-09-30</a> </td><td>USD 1.5M</td><td>資料不足</td><td>3.2%</td><td>-584.9%</td><td>-567.9%</td><td>資料不足</td></tr></tbody></table></div><p class="note">方向分數 -1：營收年增=+、毛利率年變化=−、營業利益率年變化=−、FCF 利潤率年變化=+、股數年變化=−。營收 ±3%、毛利率／營業利益率 ±1pp、FCF 利潤率 ±2pp、股數增加逾 5% 為警戒；這是可解釋的篩選訊號，不是投資評等。</p>
+    </div>
+
+    <div class="card card-full">
+      <h2>🎯 管理層指引 vs. 實際結果</h2>
+      <div class="table-scroll"><table class="analysis-table"><thead><tr><th>期間</th><th>指標／來源</th><th>管理層指引</th><th>實際</th><th>結果</th></tr></thead><tbody><tr><td>FY2026</td><td><a href="https://ir.ondas.com/press-releases/detail/306/ondas-reports-record-first-quarter-2026-financial-results" target="_blank" rel="noopener">營收（至少）</a><small class="source-date">來源 2026-05-14</small></td><td>390.00 USD m</td><td>—</td><td>待實績</td></tr></tbody></table></div><p class="note">只收錄公司正式發布且可連回原始來源的數字指引；模型預測不列入達標率。</p>
+    </div>
+
+    <div class="card card-full">
+      <h2>🧭 <span class="fin-term" tabindex="0" data-tooltip="以明確假設建立悲觀、基準與樂觀路徑。此處是敏感度分析，不是管理層指引、分析師共識或目標價。" aria-label="情境預測：以明確假設建立悲觀、基準與樂觀路徑。此處是敏感度分析，不是管理層指引、分析師共識或目標價。">情境預測<span class="term-icon" aria-hidden="true">i</span></span>與<span class="fin-term" tabindex="0" data-tooltip="固定其他估值假設後，反推出目前股價需要自由現金流達成的年成長率。它回答市場已經計入什麼，不是公司指引或預測。" aria-label="反向 DCF：固定其他估值假設後，反推出目前股價需要自由現金流達成的年成長率。它回答市場已經計入什麼，不是公司指引或預測。">反向 DCF<span class="term-icon" aria-hidden="true">i</span></span></h2>
+      <div class="metric-group"><div class="metric-card"><div class="title"><span class="fin-term" tabindex="0" data-tooltip="固定其他估值假設後，反推出目前股價需要自由現金流達成的年成長率。它回答市場已經計入什麼，不是公司指引或預測。" aria-label="反向 DCF：固定其他估值假設後，反推出目前股價需要自由現金流達成的年成長率。它回答市場已經計入什麼，不是公司指引或預測。">反向 DCF<span class="term-icon" aria-hidden="true">i</span></span></div><div class="value">無法求解</div></div><div class="metric-card"><div class="title">模型基準成長</div><div class="value">25.0%／年</div></div><div class="metric-card"><div class="title">常態化 FCF 利潤率</div><div class="value">-418.3%</div></div></div><div class="table-scroll"><table class="analysis-table"><thead><tr><th>情境</th><th>營收成長路徑</th><th>FCF 利潤率</th><th>第 1 年營收</th><th>第 3 年營收</th><th>第 5 年營收</th><th>第 5 年 FCF</th></tr></thead><tbody><tr class="warn"><td><strong>悲觀</strong></td><td>17.5% → 2.5%</td><td>-30.0%</td><td>USD 59.6M</td><td>USD 74.6M</td><td>USD 81.2M</td><td>USD -24.4M</td></tr><tr class=""><td><strong>基準</strong></td><td>25.0% → 2.5%</td><td>-418.3%</td><td>USD 63.4M</td><td>USD 86.1M</td><td>USD 95.4M</td><td>USD -399.2M</td></tr><tr class="ok"><td><strong>樂觀</strong></td><td>32.5% → 2.5%</td><td>-415.3%</td><td>USD 67.2M</td><td>USD 98.7M</td><td>USD 111.3M</td><td>USD -462.3M</td></tr></tbody></table></div><p class="note">試算規則：悲觀／樂觀起始成長率為基準的 70%／130%，五年內線性收斂至終端成長率；FCF 利潤率為歷史中位數 ±3pp。這是敏感度範圍，不是公司指引或目標價。</p>
+    </div>
+
+    <div class="card card-full">
+      <h2>🚦 可追蹤風險矩陣</h2>
+      <div class="table-scroll"><table class="analysis-table"><thead><tr><th>風險</th><th>狀態</th><th>目前證據</th><th>觸發規則／下次檢查</th></tr></thead><tbody><tr><td><strong>短期償債／槓桿</strong></td><td><span class="risk-status low">正常</span></td><td>流動比率 4.84；負債佔資產 58.4%</td><td>流動比率 <1 或負債佔資產 >70%</td></tr><tr><td><strong>現金流品質</strong></td><td><span class="risk-status high">警戒</span></td><td>FCF 利潤率 -80.4%；OCF／淨利 資料不足</td><td>FCF 為負，或 OCF／淨利 <0.8</td></tr><tr><td><strong>股權稀釋</strong></td><td><span class="risk-status high">警戒</span></td><td>稀釋股數 YoY 234.3%</td><td>年增 >5% 留意；>10% 警戒</td></tr><tr><td><strong>營運動能</strong></td><td><span class="risk-status low">正常</span></td><td>營收 YoY 1235.4%；營業利益率年變化 -47.1pp</td><td>營收與營業利益率同時惡化</td></tr><tr><td><strong>估值期待</strong></td><td><span class="risk-status unknown">資料不足</span></td><td>現價隱含成長 資料不足；模型基準 25.0%</td><td>隱含成長高出基準 >5pp 留意；>10pp 警戒</td></tr><tr><td><strong>SEC 風險文字變化</strong></td><td><span class="risk-status medium">留意</span></td><td>新增 34 段；改寫 21 段</td><td>新增段落須回看原文；文字變化不等於機率</td></tr></tbody></table></div><p class="note">狀態只依表內規則分類，不估計主觀違約機率；黃色或紅色都應回到原始申報查證。</p>
+    </div>
+
+    <div class="card card-full">
+      <h2>🧩 分部與集中度分析</h2>
+      <div class="coverage-box"><strong>尚無可安全拆分的結構化分部數字</strong><p>SEC Company Facts 不含可靠的分部 context，本庫不把合併數字拆成猜測值。待逐公司從附註核對；來源入口：<a href="https://www.sec.gov/Archives/edgar/data/1646188/000119312526349288/0001193125-26-349288-index.html" target="_blank" rel="noopener">公司官方財報頁</a>。</p></div><h3>已整理的營運／集中度線索</h3><ul><li><strong>📊 小市值小型股 (Small-Cap) 高 Beta 波動</strong>：屬小型防禦與無人機科技股，二級市場成交量與股價受市場氣氛影響波動較大。</li><li><strong>美鐵 Class I 專網部署</strong>：無線專網深耕北美鐵路客戶。</li><li><strong>小型股波動度較大</strong>：市值小、成交量薄，股價受市場氣氛影響顯著。</li></ul>
     </div>
 
     <div class="card card-full">
@@ -235,8 +280,8 @@ footer{text-align:center;color:var(--text-muted);font-size:.8rem;padding:28px 0}
   </div>
 
   <footer>
-    由 <code>scripts/build_reports.py</code> 於 2026-08-15 01:02 UTC 產生。<br>
-    本頁不含任何手動輸入的財務數字；質化章節除外，且已標示。<br>
+    由 <code>scripts/build_reports.py</code> 於 2026-08-16 01:26 UTC 產生。<br>
+    歷史合併財務由 SEC XBRL 產生；管理層指引與分部表為人工逐筆核對官方來源，均附日期與連結。<br>
     DCF 為特定假設下的推估，非事實，不構成投資建議。
   </footer>
 </div>
