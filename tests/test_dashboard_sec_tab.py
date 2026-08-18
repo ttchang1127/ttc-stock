@@ -41,6 +41,7 @@ class DashboardSecTabTests(unittest.TestCase):
         self.assertIn("function setSecTableTicker(section, ticker)", self.html)
         self.assertIn('id="secAdvancedCategory"', self.html)
         self.assertIn('id="secAdvancedTicker"', self.html)
+        self.assertIn('id="secAdvancedInterpretation"', self.html)
         self.assertIn("function renderSecAdvanced()", self.html)
 
     def test_advanced_radars_cover_all_requested_categories(self):
@@ -52,6 +53,22 @@ class DashboardSecTabTests(unittest.TestCase):
         self.assertIn("13D／13G 的 5%", self.html)
         self.assertIn("Form 144 是擬售通知", self.html)
         self.assertIn("45 天時滯", self.html)
+
+    def test_each_advanced_radar_has_dynamic_interpretation(self):
+        self.assertIn("SEC_ADVANCED_INTERPRETATIONS", self.html)
+        required_copy = [
+            "不是附件份數，也不是風險數量",
+            "不是審閱輪數或違規件數",
+            "不是獨立大股東人數",
+            "不是薪酬事件數",
+            "不是成交筆數或申報人數",
+            "不是交易案數",
+            "顯示 0 不代表沒有法律風險",
+            "14 代表 14 檔追蹤股票，不是 14 家機構",
+            "Form 144 是出售意向，不等於交易已完成",
+        ]
+        for phrase in required_copy:
+            self.assertIn(phrase, self.html)
 
     def test_numeric_meanings_are_explained(self):
         required_copy = [

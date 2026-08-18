@@ -1115,6 +1115,57 @@
       line-height: 1.45;
     }
 
+    .sec-advanced-explainer {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      padding: 16px;
+      margin-bottom: 14px;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(14, 165, 233, 0.1), rgba(99, 102, 241, 0.08));
+    }
+
+    .sec-advanced-explainer h4 {
+      grid-column: 1 / -1;
+      color: #e0f2fe;
+      font-size: 0.95rem;
+      line-height: 1.45;
+    }
+
+    .sec-advanced-explainer-item {
+      padding: 11px 12px;
+      border: 1px solid rgba(148, 163, 184, 0.16);
+      border-radius: 11px;
+      background: rgba(15, 23, 42, 0.46);
+    }
+
+    .sec-advanced-explainer-label {
+      display: block;
+      margin-bottom: 4px;
+      color: #7dd3fc;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.03em;
+    }
+
+    .sec-advanced-explainer-value {
+      color: #dbe4f0;
+      font-size: 0.78rem;
+      line-height: 1.55;
+    }
+
+    .sec-advanced-explainer-caution {
+      grid-column: 1 / -1;
+      padding: 10px 12px;
+      border-left: 3px solid #fbbf24;
+      border-radius: 8px;
+      background: rgba(245, 158, 11, 0.09);
+      color: #fde68a;
+      font-size: 0.76rem;
+      line-height: 1.55;
+    }
+
     .sec-section {
       margin-top: 24px;
     }
@@ -1287,12 +1338,13 @@
     @media (max-width: 1050px) {
       .sec-kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .sec-reading-guide { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .sec-advanced-explainer { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
 
     @media (max-width: 620px) {
       .sec-daily-shell { padding: 18px; }
-      .sec-kpi-grid, .sec-reading-guide { grid-template-columns: 1fr; }
-      .sec-reading-guide h3 { grid-column: auto; }
+      .sec-kpi-grid, .sec-reading-guide, .sec-advanced-explainer { grid-template-columns: 1fr; }
+      .sec-reading-guide h3, .sec-advanced-explainer h4, .sec-advanced-explainer-caution { grid-column: auto; }
       .sec-kpi { min-height: 0; }
     }
 
@@ -1921,6 +1973,9 @@
               <label for="secAdvancedTicker">公司</label>
               <select id="secAdvancedTicker" class="sec-quarterly-select" onchange="setSecAdvancedFilter('ticker', this.value)" aria-label="篩選進階 SEC 雷達公司"></select>
             </div>
+          </div>
+          <div id="secAdvancedInterpretation" class="sec-advanced-explainer" role="note" aria-live="polite">
+            <h4>正在載入目前雷達的解讀方式…</h4>
           </div>
           <div class="sec-table-wrap">
             <table class="sec-table">
@@ -3111,6 +3166,57 @@
       thirteen_f: '完整 13F 機構持股',
     };
 
+    const SEC_ADVANCED_INTERPRETATIONS = {
+      footnotes: {
+        meaning: '把 10-K、10-Q、20-F、6-K 等申報中的財報附註主題與重要附件集中列出。附件可能包含重大合約、併購協議、內線交易政策、子公司清單、薪酬追回政策或重大新聞稿。',
+        count: '括號數字是已索引的 SEC 文件／accession 筆數，不是附件份數，也不是風險數量。',
+        watch: '優先看新出現或明顯改寫的會計政策、債務到期與契約限制、客戶集中、訴訟、商譽／資產減損、關係人交易及重大合約。',
+        caution: '關鍵字命中只是在長篇文件中導航，不代表公司已發生該風險；必須開啟官方原文核對上下文。',
+      },
+      accounting_review: {
+        meaning: 'UPLOAD 是 SEC 工作人員對申報文件提出的審閱意見；CORRESP 是公司回覆。兩者應配對閱讀，確認 SEC 問了什麼、公司如何回答，以及是否修改揭露。',
+        count: '括號數字是信件與回覆文件筆數，不是審閱輪數或違規件數；同一輪可能包含多份文件。',
+        watch: '留意反覆來回、要求修訂，以及營收認列、部門揭露、非 GAAP 指標、內部控制或 XBRL 等議題。',
+        caution: '反覆審閱可能只是揭露複雜，不等於舞弊。這類往來通常在審閱完成或註冊生效至少 20 個工作日後才公開，因此不是即時警報。',
+      },
+      ownership_13dg: {
+        meaning: '13D／13G 揭露超過 5% 的受益所有權。13D 通常用於可能影響控制權或公司政策的持有；13G 多為符合資格的機構、被動或其他可採簡式申報者。',
+        count: '括號數字是申報文件與修正版筆數，不是獨立大股東人數；同一申報人可有多次修正。',
+        watch: '看持股百分比、相較前次修正的變化、共同申報人，以及 13D Item 4 的投資目的、資金來源、董事席次或交易提案。',
+        caution: '跨過 5% 是揭露門檻，不等於準備收購；修正版也可能只是持股比例正常變動。',
+      },
+      governance: {
+        meaning: 'DEF 14A 等代理委託書呈現董事選舉、高階主管薪酬、股權獎酬、審計與股東提案，是判讀治理品質和管理層誘因的重要來源。',
+        count: '括號數字是代理委託書相關文件筆數，不是薪酬事件數，也不是股東提案件數。',
+        watch: '比較 CEO 總薪酬、薪酬與績效、CEO pay ratio、股權獎酬稀釋、董事獨立性與任期、關係人交易、審計費及股東提案。',
+        caution: '高薪或高 pay ratio 不能單獨判定治理不佳；要與公司規模、同業、股東報酬及多年趨勢一起看。PRE／DEFA／PX14 等也可能是初稿、補充材料或第三方徵求文件。',
+      },
+      insiders: {
+        meaning: 'Form 3 是內部人初始持股，Form 4 是實際持股變動，Form 5 是延後／年度補報；Form 144 是受限制或控制證券的擬售通知。',
+        count: '括號數字是表單文件筆數，不是成交筆數或申報人數；一份 Form 4 可含多筆交易。',
+        watch: '先分辨代碼：P 市場買入、S 市場賣出、A 授予、M 行使／轉換、F 扣股繳稅；再看交易股數、價格、交易後持股與 10b5-1 計畫。',
+        caution: 'Form 144 是出售意向，不等於交易已完成；後續 Form 4 才能確認變動。不要把股權授予、選擇權行使或扣股繳稅直接視為主動買賣，也不要把 144 與 Form 4 重複計算。',
+      },
+      mergers: {
+        meaning: 'S-4／F-4、425、SC TO、SC 14D9、SC 13E3 等文件，分別涵蓋併購證券註冊、交易溝通、公開收購、目標公司回應與私有化程序。',
+        count: '括號數字是交易相關文件與溝通筆數，不是交易案數；同一交易通常會產生許多文件。',
+        watch: '看現金／換股對價、換股比率、融資安排、股東與監管核准、成交前提、終止／分手費、潛在稀釋和預計完成時間。',
+        caution: '有申報只代表交易程序或溝通正在進行，不等於交易已完成；應按公司與交易名稱把多份文件合併判讀。',
+      },
+      enforcement: {
+        meaning: '彙整 SEC 訴訟公告、行政程序與交易停牌通知中，命中追蹤公司名稱的項目，用於快速發現可能影響公司的執法事件。',
+        count: '括號數字是目前 SEC 公告來源命中的項目數，不是公司全部歷史調查或訴訟件數。',
+        watch: '先確認公告中的法律實體是否真是追蹤公司，再區分指控、和解或最終裁決，並查看罰款、禁令、補救措施與停牌起訖日期。',
+        caution: '顯示 0 不代表沒有法律風險、未公開調查或其他機關案件；只表示目前來源未以追蹤公司名稱命中。',
+      },
+      thirteen_f: {
+        meaning: '彙總最新兩個報告期的 SEC 13F information table，觀察申報機構持有特定股票的 long common shares、申報市值與季變化。',
+        count: '括號數字是有 13F 股票快照的追蹤公司數；14 代表 14 檔追蹤股票，不是 14 家機構。各股實際機構數顯示在表格內。',
+        watch: '重點看機構家數、合計股數、股數季增減與前三大持有人。判讀部位變化時，股數變化通常比申報市值變化更直接，因為市值也受股價影響。',
+        caution: '13F 最晚可在季底後 45 天申報，並非即時持倉，也不等於完整投資組合或所有權比例；共享投資裁量或關係機構亦可能造成重複計入。',
+      },
+    };
+
     function secAdvancedRows(category) {
       const advanced = secDailyData?.advanced || {};
       if (category === 'thirteen_f') {
@@ -3191,6 +3297,16 @@
       tickerSelect.value = secAdvancedTicker;
       const rows = (secAdvancedTicker === 'ALL' ? allRows : allRows.filter(row => row.ticker === secAdvancedTicker))
         .sort((a, b) => String(b.date || '').localeCompare(String(a.date || '')));
+      const interpretation = SEC_ADVANCED_INTERPRETATIONS[secAdvancedCategory];
+      const selectedLabel = SEC_ADVANCED_CATEGORIES[secAdvancedCategory];
+      const scopeText = secAdvancedTicker === 'ALL'
+        ? `目前範圍：全部追蹤公司，共 ${rows.length} 筆。`
+        : `目前範圍：${secAdvancedTicker}，共 ${rows.length} 筆。`;
+      document.getElementById('secAdvancedInterpretation').innerHTML = `<h4>📖 ${escapeSec(selectedLabel)}怎麼看？ ${escapeSec(scopeText)}</h4>
+        <div class="sec-advanced-explainer-item"><span class="sec-advanced-explainer-label">這項雷達代表什麼</span><div class="sec-advanced-explainer-value">${escapeSec(interpretation.meaning)}</div></div>
+        <div class="sec-advanced-explainer-item"><span class="sec-advanced-explainer-label">括號數字代表什麼</span><div class="sec-advanced-explainer-value">${escapeSec(interpretation.count)}</div></div>
+        <div class="sec-advanced-explainer-item"><span class="sec-advanced-explainer-label">判讀時先看什麼</span><div class="sec-advanced-explainer-value">${escapeSec(interpretation.watch)}</div></div>
+        <div class="sec-advanced-explainer-caution"><strong>⚠ 不要直接這樣解讀：</strong> ${escapeSec(interpretation.caution)}</div>`;
       document.getElementById('secAdvancedBody').innerHTML = rows.length ? rows.slice(0, 200).map(row => `<tr>
         <td>${escapeSec(row.date)}</td><td><strong>${escapeSec(row.ticker)}</strong></td>
         <td>${escapeSec(row.source)}</td><td>${escapeSec(row.detail)}</td><td>${escapeSec(row.meaning)}</td>

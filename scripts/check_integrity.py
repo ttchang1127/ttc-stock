@@ -565,8 +565,10 @@ def c21():
     ]
     missing_notes = [name for name in required_notes if not (REPO_ROOT / "60_SEC_Filing_Radar" / name).exists()]
     page = read("dashboard.html")
-    missing_ui = [marker for marker in ("secAdvancedCategory", "secAdvancedTicker", "renderSecAdvanced",
-                                         "不受上方最近 7／14 日篩選影響") if marker not in page]
+    missing_ui = [marker for marker in ("secAdvancedCategory", "secAdvancedTicker",
+                                         "secAdvancedInterpretation", "SEC_ADVANCED_INTERPRETATIONS",
+                                         "括號數字代表什麼", "不受上方最近 7／14 日篩選影響")
+                  if marker not in page]
     ok = not advanced.get("errors") and not bad_counts and not bad_13f and not missing_notes and not missing_ui
     return ok, (f"回填不足：{bad_counts or '無'}；13F：{bad_13f or '無'}；"
                 f"缺筆記：{missing_notes or '無'}；缺畫面：{missing_ui or '無'}；"
