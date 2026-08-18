@@ -1,6 +1,6 @@
 ---
 title: SEC 每日申報雷達
-updated_at: 2026-08-15T06:17:04+00:00
+updated_at: 2026-08-18T11:45:38+00:00
 tags:
   - sec/alerts
   - filings/daily
@@ -15,6 +15,12 @@ GitHub Actions 於台北時間週二至週六中午 12:00 檢查；重大／重�
 
 | 重要性 | 公司 | 申報 | 日期 | 事件／Item | SEC 原文 |
 |---|---|---|---|---|---|
+| 🔵 留意 | **MRVL** | 4 | 2026-08-17 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1835632/000162828026057525/xslF345X06/wk-form4_1787014784.xml) |
+| 🔵 留意 | **MSFT** | 4 | 2026-08-17 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/789019/000078901926000145/xslF345X06/form4.xml) |
+| 🔵 留意 | **MRVL** | 144 | 2026-08-17 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1835632/000195824426000520/xsl144X01/primary_doc.xml) |
+| 🔵 留意 | **AMZN** | 144 | 2026-08-17 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000195004726008272/xsl144X01/primary_doc.xml) |
+| 🔵 留意 | **MRVL** | 4 | 2026-08-17 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1835632/000162828026057399/xslF345X06/wk-form4_1786999519.xml) |
+| 🔴 重大 | **NVDA** | 8-K | 2026-08-17 | 1.01 重大合約、2.03 新增重大債務、7.01 Reg FD／簡報 | [原文](https://www.sec.gov/Archives/edgar/data/1045810/000104581026000069/nvda-20260817.htm) |
 | 🔵 留意 | **ONDS** | 4 | 2026-08-14 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1646188/000121390026090424/xslF345X06/ownership.xml) |
 | 🔵 留意 | **ONDS** | 4 | 2026-08-14 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1646188/000121390026090422/xslF345X06/ownership.xml) |
 | 🔵 留意 | **ONDS** | 4 | 2026-08-14 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1646188/000121390026090420/xslF345X06/ownership.xml) |
@@ -108,6 +114,6 @@ GitHub Actions 於台北時間週二至週六中午 12:00 檢查；重大／重�
 
 ## 監控範圍
 
-10-K／20-F、10-Q、8-K／6-K、Form 3／4／5／144、DEF 14A、S-3／F-3／424B 等募資文件。
+10-K／20-F、10-Q、8-K／6-K、財報附件、UPLOAD／CORRESP、Form 3／4／5／144、DEF 14A、併購／公開收購、募資與延遲／下市文件。
 
-> Schedule 13D／13G 是由外部大股東申報，不一定出現在發行公司的 submissions feed，目前不宣稱完整覆蓋。
+> Schedule 13D／13G 另由 SEC 全文檢索索引回填，避免只看發行公司 submissions feed 而漏掉外部大股東。

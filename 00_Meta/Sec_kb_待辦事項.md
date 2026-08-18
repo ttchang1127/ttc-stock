@@ -1,6 +1,6 @@
 ---
 title: Sec_kb 待辦事項
-updated: 2026-08-15
+updated: 2026-08-18
 ---
 
 # 📋 Sec_kb 待辦事項
@@ -37,7 +37,9 @@ python3 scripts/build_reports.py
 
 目前沒有等待驗證的項目。每日資料管線已自 2026-08-10 起連續在 CI 完整執行；
 SEC 申報雷達另由 `.github/workflows/sec-filing-alerts.yml` 於台北時間週二至週六中午檢查，
-並同步更新 10-Q 到件、Form 4 內部人交易、募資與稀釋三個專項雷達。
+並同步更新 10-Q、Form 4、募資稀釋、財報附件、會計審閱、13D／13G、治理薪酬、
+Form 144＋3／4／5、併購與 SEC 執法／停牌雷達。完整 13F 另以
+`.github/workflows/sec-13f-radar.yml` 每月檢查 SEC 新季度資料集。
 
 ---
 

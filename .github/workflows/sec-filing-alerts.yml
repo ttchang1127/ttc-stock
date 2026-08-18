@@ -41,6 +41,9 @@ jobs:
             --alert-markdown "$RUNNER_TEMP/sec-alert.md" \
             --summary "$GITHUB_STEP_SUMMARY"
 
+      - name: Verify refreshed SEC radar snapshots
+        run: python3 scripts/check_integrity.py --quiet
+
       # A deterministic batch ID prevents a retry from creating a duplicate
       # issue after the notification succeeded but the state push conflicted.
       - name: Notify with a GitHub Issue
@@ -65,8 +68,7 @@ jobs:
             echo "Issue #$existing already records batch $BATCH_ID; skipping duplicate."
           fi
 
-      - name: Persist accession state and Obsidian alert log
-        if: steps.watch.outputs.new_count != '0' || steps.watch.outputs.initialized == 'true'
+      - name: Persist accession state and Obsidian radar snapshots
         run: |
           git config user.name  'github-actions[bot]'
           git config user.email 'github-actions[bot]@users.noreply.github.com'
@@ -74,7 +76,19 @@ jobs:
             sec_filing_details.json 60_SEC_Filing_Radar/SEC_Filing_Alerts.md \
             60_SEC_Filing_Radar/Quarterly_10Q_Radar.md \
             60_SEC_Filing_Radar/Form4_Insider_Radar.md \
-            60_SEC_Filing_Radar/Dilution_Offering_Radar.md
+            60_SEC_Filing_Radar/Dilution_Offering_Radar.md \
+            sec_advanced_radars.json \
+            60_SEC_Filing_Radar/Footnotes_Attachments_Radar.md \
+            60_SEC_Filing_Radar/Accounting_Review_Radar.md \
+            60_SEC_Filing_Radar/Schedule13DG_Ownership_Radar.md \
+            60_SEC_Filing_Radar/Governance_Compensation_Radar.md \
+            60_SEC_Filing_Radar/Insider_Forms_345144_Radar.md \
+            60_SEC_Filing_Radar/Mergers_Tender_Radar.md \
+            60_SEC_Filing_Radar/SEC_Enforcement_Radar.md
+          if git diff --cached --quiet; then
+            echo "No SEC radar changes to persist."
+            exit 0
+          fi
           git commit -m "chore: record SEC filing alerts ($(date -u +%Y-%m-%d))"
           git pull --rebase origin main
           git push origin HEAD:main

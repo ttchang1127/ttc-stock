@@ -66,6 +66,12 @@ tags:
 - 🚨 **[[SEC_Filing_Alerts|SEC 每日申報雷達（14 家、台北時間中午更新）]]**
 - 📊 **[[Quarterly_10Q_Radar|10-Q 季報到件雷達]]**
 - 💧 **[[Dilution_Offering_Radar|募資與股權稀釋雷達]]**
+- 📎 **[[Footnotes_Attachments_Radar|財報附註／附件雷達]]**
+- 🧮 **[[Accounting_Review_Radar|UPLOAD／CORRESP 會計審閱雷達]]**
+- 🐘 **[[Schedule13DG_Ownership_Radar|13D／13G 大股東雷達]]**
+- 🏛️ **[[Governance_Compensation_Radar|DEF 14A 治理與薪酬分析]]**
+- 🤝 **[[Mergers_Tender_Radar|併購／公開收購雷達]]**
+- ⚖️ **[[SEC_Enforcement_Radar|SEC 執法與停牌通知]]**
 - 📰 **[SEC Form 8-K / 6-K 法說會與第一手重大事件總覽報告](file:///Volumes/Crucial%20X8/Jarvis%20Obsidian/Sec_kb/50_Form8K_Corporate_Events/Form8K_Major_Events_Master.md)**
 
 ---
@@ -73,4 +79,6 @@ tags:
 ## 🕵️‍♂️ 華爾街 13F 機構籌碼與 Form 4 高管買賣追蹤
 
 - 👥 **[[Form4_Insider_Radar|SEC Form 4 內部人交易即時雷達（Ownership XML 解析）]]**
+- 👤 **[[Insider_Forms_345144_Radar|Form 144＋3／4／5 彙總]]**
+- 🏛️ **[[Form13F_Stock_Radar|完整 13F 股票導向持股分析（全機構）]]**
 - 🏛️ **[SEC Form 13F 華爾街頂級機構 (巴菲特/橋水/麥克貝瑞) 籌碼追蹤報告](file:///Volumes/Crucial%20X8/Jarvis%20Obsidian/Sec_kb/40_Institutional_Insiders/Form13F_Institutional_Holdings_Master.md)**

@@ -562,6 +562,8 @@ DCF 不是事實。使用者若問「這檔值多少錢」，正確回答是：
 | `check_new_annual_filings.py` | 比對 SEC 最新 10-K／20-F 與本地 accession（**只通知，不寫檔**） |
 | `watch_sec_filings.py` | 台北時間週二至週六中午比對 14 家 SEC accession，更新每日雷達並由 GitHub Issue 通知 |
 | `sec_specialized_radars.py` | 產生最新 10-Q 到件表、解析 Form 4 Ownership XML、依募資文件內文判別 ATM／股權／可轉債／一般債券／架上註冊 |
+| `sec_advanced_radars.py` | 產生財報附註／附件、UPLOAD／CORRESP、13D／13G、DEF 14A、Form 144＋3／4／5、併購與 SEC 執法／停牌雷達；結果依 accession 快取 |
+| `sec_13f_stock_radar.py` | 掃描 SEC 最新兩期完整 13F 資料集，以 14 家股票為主體彙總機構家數、股數、季變化與前大持有人；每月 20 日檢查新資料集 |
 | `compute_valuation.py` | 算本益比 / 淨現金 / DCF 蒙地卡羅 / 隱含成長率 → `valuation.json` |
 | `diff_risk_factors.py` | 比對風險因素的年度變化 → `risk_changes.json` |
 | `risk_translations.py` | 譯文的摘錄／雜湊／查找（被 `build_reports.py` 引用，不單獨執行） |
@@ -571,3 +573,11 @@ DCF 不是事實。使用者若問「這檔值多少錢」，正確回答是：
 | `fetch_price_history.py` | 抓日線收盤價（預設 6 年）→ `prices.json` |
 | `macd_analyzer.py` | MACD 計算（獨立工具） |
 | `fetch_form8k_events.py` / `fetch_insider_institutional.py` | 8-K 事件與 13F/Form 4（獨立工具） |
+
+SEC 進階雷達資料口徑：
+
+- 公司申報流每個美國工作日後於台北時間中午檢查；狀態檔 schema 升級時，新表單先建基準而不回頭誤報。
+- 13D／13G 用 SEC EFTS 回填近 3 年，因申報人是外部大股東，不只依賴發行公司 submissions feed。
+- 13F 是季度、最晚可落後季底 45 天；`VALUE` 自 2023-01-03 起單位為整數美元，不可再乘 1,000。
+- UPLOAD／CORRESP 公開時通常已距審閱結束至少 20 個工作日，不得畫成即時 SEC 執法。
+- 關鍵字命中只是閱讀導航；重大內控缺失／重述需用正向除錯句型，不可把審計範本的「評估是否存在」當成公司已發生。

@@ -1910,6 +1910,33 @@
           </div>
           <p class="sec-footnote">這裡顯示的是文件與風險分類，不估算稀釋百分比。只有文件提供且能可靠辨認公司實際新發行股數時，才適合計算稀釋幅度。</p>
         </section>
+
+        <section class="sec-section" aria-labelledby="secAdvancedTitle">
+          <div class="sec-section-heading">
+            <h3 id="secAdvancedTitle">⑤ 進階 SEC 風險與持股雷達</h3>
+            <p>財報附註／附件、會計審閱、13D／13G、治理薪酬、Form 144＋3／4／5、併購、SEC 執法與完整 13F。</p>
+            <div class="sec-section-filter">
+              <label for="secAdvancedCategory">雷達</label>
+              <select id="secAdvancedCategory" class="sec-quarterly-select" onchange="setSecAdvancedFilter('category', this.value)" aria-label="選擇進階 SEC 雷達"></select>
+              <label for="secAdvancedTicker">公司</label>
+              <select id="secAdvancedTicker" class="sec-quarterly-select" onchange="setSecAdvancedFilter('ticker', this.value)" aria-label="篩選進階 SEC 雷達公司"></select>
+            </div>
+          </div>
+          <div class="sec-table-wrap">
+            <table class="sec-table">
+              <thead><tr><th>日期／報告期</th><th>公司</th><th>來源</th><th>閱讀重點</th><th>數字代表什麼</th><th>官方原文</th></tr></thead>
+              <tbody id="secAdvancedBody"><tr><td colspan="6" class="sec-empty">正在載入…</td></tr></tbody>
+            </table>
+          </div>
+          <p id="secAdvancedFootnote" class="sec-footnote">進階雷達保留最近 3 年或最新兩個 13F 報告期，<strong>不受上方最近 7／14 日篩選影響</strong>；請用公司下拉選單聚焦單一標的。</p>
+          <div class="sec-reading-guide" aria-label="進階 SEC 數字閱讀指南">
+            <div class="sec-guide-item"><strong>13D／13G 的 5%</strong><span>是受益所有權申報門檻；13D 通常具影響控制意圖，13G 多為被動或免豁持有。</span></div>
+            <div class="sec-guide-item"><strong>Form 144 擬售股數／金額</strong><span>是關係人通知的擬定出售上限，不等於已成交；要用 Form 4 確認實際變動。</span></div>
+            <div class="sec-guide-item"><strong>CEO pay ratio</strong><span>CEO 年度薪酬÷中位員工薪酬；適合看公司內部薪酬落差，不適合直接比較產業完全不同的公司。</span></div>
+            <div class="sec-guide-item"><strong>13F 機構數／股數季變化</strong><span>是所有 SEC 13F information table 的機構家數與 long common shares 加總；通常有季底後 45 天時滯。</span></div>
+            <div class="sec-guide-item"><strong>UPLOAD／CORRESP</strong><span>前者是 SEC 審閱意見，後者是公司回覆；公開時常已距審閱結束至少 20 個工作日。</span></div>
+          </div>
+        </section>
       </section>
     </div>
 
@@ -2705,6 +2732,8 @@
     let secFilingsTicker = 'ALL';
     let secTradesTicker = 'ALL';
     let secDilutionTicker = 'ALL';
+    let secAdvancedCategory = 'footnotes';
+    let secAdvancedTicker = 'ALL';
 
     const SEC_SEVERITY = {
       critical: { label: '🔴 重大', css: 'critical' },
@@ -2868,7 +2897,13 @@
       if (form.startsWith('10-Q')) return '季度財報：更新當季營運、財務數字與風險，通常未經完整年度查核。';
       if (form.startsWith('8-K')) return `美國公司的重大事件即時申報；${event.items_summary || '需開啟原文確認事件內容'}。`;
       if (form.startsWith('6-K')) return '外國私人發行人的重大資訊或財務更新，功能近似 8-K。';
+      if (form === 'UPLOAD') return 'SEC 會計／揭露審閱意見函；公開時存在至少 20 個工作日時滯。';
+      if (form === 'CORRESP') return '公司對 SEC 審閱意見的回覆；應與對應 UPLOAD 成對閱讀。';
+      if (form.startsWith('SC 13D')) return '超過 5% 且可能有影響控制意圖的受益所有權申報。';
+      if (form.startsWith('SC 13G')) return '超過 5% 的被動型／免豁型受益所有權申報。';
       if (form.includes('DEF 14')) return '股東會與代理委託書：包含表決案、董事、高管薪酬等資訊。';
+      if (['S-4', 'S-4/A', 'F-4', 'F-4/A', '425'].includes(form) || form.startsWith('SC TO') || form.startsWith('SC 14D9') || form.startsWith('SC 13E3')) return '併購／公開收購程序文件；不等於交易已完成。';
+      if (form.startsWith('NT ')) return '延遲申報通知；要看延遲原因與預計補報日。';
       if (form.startsWith('S-3') || form.startsWith('F-3')) return '證券註冊文件：取得未來發行股票或債券的彈性，不等於當天已發行。';
       if (form.startsWith('424B')) return '最終或補充公開說明書；要依內文判斷是股票、可轉債或一般債券。';
       if (form === 'EFFECT') return 'SEC 註冊生效通知；代表註冊有效，不代表證券已實際售出。';
@@ -2897,8 +2932,12 @@
             .then(r => { if (!r.ok) throw new Error(`申報明細 HTTP ${r.status}`); return r.json(); }),
           fetch('quarterly_financials.json', { cache: 'no-cache' })
             .then(r => { if (!r.ok) throw new Error(`季度數據 HTTP ${r.status}`); return r.json(); }),
-        ]).then(([alerts, details, quarterlyFinancials]) => {
-          secDailyData = { alerts, details, quarterlyFinancials };
+          fetch('sec_advanced_radars.json', { cache: 'no-cache' })
+            .then(r => { if (!r.ok) throw new Error(`進階 SEC 雷達 HTTP ${r.status}`); return r.json(); }),
+          fetch('sec_13f_stock_radar.json', { cache: 'no-cache' })
+            .then(r => { if (!r.ok) throw new Error(`13F 雷達 HTTP ${r.status}`); return r.json(); }),
+        ]).then(([alerts, details, quarterlyFinancials, advanced, thirteenF]) => {
+          secDailyData = { alerts, details, quarterlyFinancials, advanced, thirteenF };
           renderSecDaily();
         }).catch(error => {
           secDailyPromise = null;
@@ -3008,6 +3047,7 @@
         element.value = selected;
       });
       renderSecQuarterlyTrend();
+      renderSecAdvanced();
 
       const filingsBody = document.getElementById('secFilingsBody');
       const visibleFilingRows = secFilingsTicker === 'ALL'
@@ -3058,6 +3098,114 @@
           <td><a class="sec-link" href="${safeSecUrl(event.url)}" target="_blank" rel="noopener">原文 ↗</a></td>
         </tr>`;
       }).join('') : `<tr><td colspan="7" class="sec-empty">${escapeSec(secDilutionTicker === 'ALL' ? '這段期間沒有募資／稀釋文件。' : `${secDilutionTicker} 這段期間沒有募資／稀釋文件。`)}</td></tr>`;
+    }
+
+    const SEC_ADVANCED_CATEGORIES = {
+      footnotes: '財報附註／附件',
+      accounting_review: 'UPLOAD／CORRESP 會計審閱',
+      ownership_13dg: '13D／13G 大股東',
+      governance: 'DEF 14A 治理與薪酬',
+      insiders: 'Form 144＋3／4／5',
+      mergers: '併購／公開收購',
+      enforcement: 'SEC 執法／停牌',
+      thirteen_f: '完整 13F 機構持股',
+    };
+
+    function secAdvancedRows(category) {
+      const advanced = secDailyData?.advanced || {};
+      if (category === 'thirteen_f') {
+        const thirteenF = secDailyData?.thirteenF || {};
+        return Object.entries(thirteenF.stocks || {}).map(([ticker, node]) => {
+          const current = (node.snapshots || [])[0];
+          if (!current) return null;
+          const topHolders = (current.top_holders || []).slice(0, 3)
+            .map(holder => `${holder.manager} ${formatSecNumber(holder.shares)} 股`).join('；');
+          return {
+            ticker, date: current.period, source: '13F-HR 全市場彙總',
+            detail: `${formatSecNumber(current.manager_count)} 家機構，合計 ${formatSecNumber(current.shares)} 股`,
+            meaning: current.shares_change_pct === null || current.shares_change_pct === undefined
+              ? '前期無可比資料'
+              : `較前期 ${current.shares_change_pct >= 0 ? '+' : ''}${formatSecNumber(current.shares_change_pct, 1)}%；申報市值 $${formatSecNumber(current.value_usd)}${topHolders ? `；前三大：${topHolders}` : ''}`,
+            url: (thirteenF.dataset_urls || [])[0] || 'https://www.sec.gov/data-research/sec-markets-data/form-13f-data-sets',
+          };
+        }).filter(Boolean);
+      }
+      return (advanced[category] || []).flatMap(row => {
+        if (category === 'enforcement') {
+          return (row.tickers || []).map(ticker => ({
+            ticker, date: row.date, source: row.category === 'suspension' ? '交易停牌' : 'SEC 執法',
+            detail: row.title, meaning: '命中公司名稱；需開原文確認法律實體', url: row.url,
+          }));
+        }
+        if (category === 'ownership_13dg') {
+          return [{ ticker: row.ticker, date: row.filing_date, source: row.form,
+            detail: (row.reporting_persons || []).join('、') || '申報人未辨識',
+            meaning: row.meaning, url: row.url }];
+        }
+        const event = row.event || {};
+        if (category === 'insiders' && row.form144) {
+          const item = row.form144;
+          const pct = item.shares_outstanding ? item.planned_shares / item.shares_outstanding * 100 : null;
+          return [{ ticker: event.ticker, date: event.filing_date, source: event.form,
+            detail: `${item.reporter}：擬售 ${formatSecNumber(item.planned_shares)} 股／$${formatSecNumber(item.planned_value_usd)}`,
+            meaning: `Form 144 是擬售通知，非已成交${pct === null ? '' : `；約占流通股 ${formatSecNumber(pct, 3)}%`}`,
+            url: event.url }];
+        }
+        const signalLabels = (row.signals || []).map(signal => signal.label);
+        const attachmentCount = (row.attachments || []).length;
+        const metrics = row.metrics || {};
+        const metricBits = [];
+        if (metrics.ceo_total_compensation_usd !== undefined) metricBits.push(`CEO 薪酬 $${formatSecNumber(metrics.ceo_total_compensation_usd)}`);
+        if (metrics.ceo_pay_ratio !== undefined) metricBits.push(`CEO pay ratio ${formatSecNumber(metrics.ceo_pay_ratio, 1)}:1`);
+        let detail = signalLabels.slice(0, 5).join('、');
+        if (attachmentCount) detail += `${detail ? '；' : ''}重要附件 ${attachmentCount} 份`;
+        if (metricBits.length) detail += `${detail ? '；' : ''}${metricBits.join('、')}`;
+        if (!detail) detail = secFormMeaning(event);
+        let meaning = '一列等於一份 SEC accession；關鍵字只用於閱讀導航';
+        if (category === 'accounting_review') meaning = event.form === 'UPLOAD' ? 'SEC 審閱意見；公開存在時滯' : '公司回覆；應與對應 UPLOAD 成對閱讀';
+        if (category === 'governance') meaning = '薪酬數字是代理委託書揭露值；未可靠辨識時保留缺值';
+        if (category === 'mergers') meaning = '表單表示交易程序或溝通，不等於交易已完成';
+        if (category === 'insiders') meaning = event.form === '3' || event.form === '3/A' ? '初始受益所有權申報' : (event.form.startsWith('5') ? '年度延後申報／補申報' : '內部人持股變動；要看 P／S／A／M／F 代碼');
+        return [{ ticker: event.ticker, date: event.filing_date, source: event.form,
+          detail, meaning, url: event.url }];
+      });
+    }
+
+    function renderSecAdvanced() {
+      if (!secDailyData) return;
+      const categorySelect = document.getElementById('secAdvancedCategory');
+      const tickerSelect = document.getElementById('secAdvancedTicker');
+      const allTickers = Object.keys(secDailyData.quarterlyFinancials?.companies || {}).sort();
+      categorySelect.innerHTML = Object.entries(SEC_ADVANCED_CATEGORIES).map(([key, label]) =>
+        `<option value="${key}">${escapeSec(label)}（${secAdvancedRows(key).length}）</option>`
+      ).join('');
+      categorySelect.value = secAdvancedCategory;
+      const allRows = secAdvancedRows(secAdvancedCategory);
+      const counts = allRows.reduce((result, row) => {
+        result[row.ticker] = (result[row.ticker] || 0) + 1;
+        return result;
+      }, {});
+      tickerSelect.innerHTML = `<option value="ALL">全部公司（${allRows.length}）</option>` + allTickers.map(ticker =>
+        `<option value="${escapeSec(ticker)}">${escapeSec(ticker)}（${counts[ticker] || 0}）</option>`
+      ).join('');
+      tickerSelect.value = secAdvancedTicker;
+      const rows = (secAdvancedTicker === 'ALL' ? allRows : allRows.filter(row => row.ticker === secAdvancedTicker))
+        .sort((a, b) => String(b.date || '').localeCompare(String(a.date || '')));
+      document.getElementById('secAdvancedBody').innerHTML = rows.length ? rows.slice(0, 200).map(row => `<tr>
+        <td>${escapeSec(row.date)}</td><td><strong>${escapeSec(row.ticker)}</strong></td>
+        <td>${escapeSec(row.source)}</td><td>${escapeSec(row.detail)}</td><td>${escapeSec(row.meaning)}</td>
+        <td><a class="sec-link" href="${safeSecUrl(row.url)}" target="_blank" rel="noopener">原文 ↗</a></td>
+      </tr>`).join('') : `<tr><td colspan="6" class="sec-empty">${escapeSec(secAdvancedTicker === 'ALL' ? '這個雷達目前沒有命中資料。' : `${secAdvancedTicker} 在這個雷達目前沒有資料。`)}</td></tr>`;
+    }
+
+    function setSecAdvancedFilter(kind, value) {
+      if (kind === 'category') {
+        secAdvancedCategory = value;
+        secAdvancedTicker = 'ALL';
+      } else {
+        secAdvancedTicker = value;
+      }
+      renderSecAdvanced();
     }
 
     function setSecTableTicker(section, ticker) {

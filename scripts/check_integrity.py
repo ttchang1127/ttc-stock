@@ -535,6 +535,44 @@ def c20():
                                               f"產生器缺規則：{rule_missing or '無'}")
 
 
+@check("C-21", "進階 SEC 八類雷達資料與口徑完整")
+def c21():
+    advanced = load("sec_advanced_radars.json")
+    thirteen_f = load("sec_13f_stock_radar.json")
+    tracked = set(load("financials.json")["companies"])
+    minimums = {
+        "footnotes": 14, "accounting_review": 1, "ownership_13dg": 1,
+        "governance": 1, "insiders": 14, "mergers": 1,
+    }
+    bad_counts = {
+        key: len(advanced.get(key, [])) for key, minimum in minimums.items()
+        if len(advanced.get(key, [])) < minimum
+    }
+    bad_13f = []
+    if len(thirteen_f.get("periods", [])) != 2:
+        bad_13f.append("不是兩個報告期")
+    if set(thirteen_f.get("stocks", {})) != tracked:
+        bad_13f.append("公司覆蓋不是 14 家")
+    for ticker, node in thirteen_f.get("stocks", {}).items():
+        for snapshot in node.get("snapshots", []):
+            if "value_usd" not in snapshot or "value_usd_thousands" in snapshot:
+                bad_13f.append(f"{ticker} VALUE 單位欄位錯誤")
+    required_notes = [
+        "Footnotes_Attachments_Radar.md", "Accounting_Review_Radar.md",
+        "Schedule13DG_Ownership_Radar.md", "Governance_Compensation_Radar.md",
+        "Insider_Forms_345144_Radar.md", "Mergers_Tender_Radar.md",
+        "SEC_Enforcement_Radar.md", "Form13F_Stock_Radar.md",
+    ]
+    missing_notes = [name for name in required_notes if not (REPO_ROOT / "60_SEC_Filing_Radar" / name).exists()]
+    page = read("dashboard.html")
+    missing_ui = [marker for marker in ("secAdvancedCategory", "secAdvancedTicker", "renderSecAdvanced",
+                                         "不受上方最近 7／14 日篩選影響") if marker not in page]
+    ok = not advanced.get("errors") and not bad_counts and not bad_13f and not missing_notes and not missing_ui
+    return ok, (f"回填不足：{bad_counts or '無'}；13F：{bad_13f or '無'}；"
+                f"缺筆記：{missing_notes or '無'}；缺畫面：{missing_ui or '無'}；"
+                f"解析錯誤：{advanced.get('errors') or '無'}")
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--quiet", action="store_true", help="只印出失敗項")

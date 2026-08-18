@@ -13,6 +13,8 @@ class DashboardSecTabTests(unittest.TestCase):
         cls.alerts = json.loads((ROOT / "sec_filing_alerts.json").read_text())
         cls.details = json.loads((ROOT / "sec_filing_details.json").read_text())
         cls.quarterly = json.loads((ROOT / "quarterly_financials.json").read_text())
+        cls.advanced = json.loads((ROOT / "sec_advanced_radars.json").read_text())
+        cls.thirteen_f = json.loads((ROOT / "sec_13f_stock_radar.json").read_text())
 
     def test_tab_defaults_to_14_days_and_allows_7_days(self):
         self.assertIn("🚨 4_SEC 每日重點", self.html)
@@ -25,6 +27,8 @@ class DashboardSecTabTests(unittest.TestCase):
         self.assertIn("fetch('sec_filing_alerts.json'", self.html)
         self.assertIn("fetch('sec_filing_details.json'", self.html)
         self.assertIn("fetch('quarterly_financials.json'", self.html)
+        self.assertIn("fetch('sec_advanced_radars.json'", self.html)
+        self.assertIn("fetch('sec_13f_stock_radar.json'", self.html)
         self.assertIn("function renderSecDaily()", self.html)
         self.assertIn('id="secQuarterlyBody"', self.html)
         self.assertIn('id="secKpiQuarterly"', self.html)
@@ -35,6 +39,19 @@ class DashboardSecTabTests(unittest.TestCase):
         self.assertIn('id="secTradesTicker"', self.html)
         self.assertIn('id="secDilutionTicker"', self.html)
         self.assertIn("function setSecTableTicker(section, ticker)", self.html)
+        self.assertIn('id="secAdvancedCategory"', self.html)
+        self.assertIn('id="secAdvancedTicker"', self.html)
+        self.assertIn("function renderSecAdvanced()", self.html)
+
+    def test_advanced_radars_cover_all_requested_categories(self):
+        for key in ("footnotes", "accounting_review", "ownership_13dg", "governance",
+                    "insiders", "mergers", "enforcement"):
+            self.assertIn(key, self.advanced)
+        self.assertEqual(set(self.thirteen_f["stocks"]), set(self.quarterly["companies"]))
+        self.assertEqual(len(self.thirteen_f["periods"]), 2)
+        self.assertIn("13D／13G 的 5%", self.html)
+        self.assertIn("Form 144 是擬售通知", self.html)
+        self.assertIn("45 天時滯", self.html)
 
     def test_numeric_meanings_are_explained(self):
         required_copy = [

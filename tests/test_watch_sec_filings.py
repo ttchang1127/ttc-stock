@@ -24,9 +24,20 @@ def payload(forms, items=None):
 
 
 class FilingWatcherTests(unittest.TestCase):
-    def test_filters_unwatched_forms(self):
+    def test_includes_accounting_review_forms(self):
         rows = watcher.extract_filings("TEST", "0000000001", payload(["10-Q", "UPLOAD"]))
-        self.assertEqual([row["form"] for row in rows], ["10-Q"])
+        self.assertEqual([row["form"] for row in rows], ["10-Q", "UPLOAD"])
+        self.assertEqual(rows[1]["group"], "會計審閱")
+        self.assertEqual(rows[1]["severity"], "high")
+
+    def test_schema_migration_baselines_new_form_without_alert(self):
+        rows = watcher.extract_filings("TEST", "0000000001", payload(["10-Q", "UPLOAD"]))
+        state = {"schema_version": 1, "companies": {"TEST": {"seen_accessions": []}}}
+        new = watcher.update_state(
+            {"TEST": "0000000001"}, {"TEST": rows}, state, suppress_new_forms=True
+        )
+        self.assertEqual([event["form"] for event in new], ["10-Q"])
+        self.assertEqual(len(state["companies"]["TEST"]["seen_accessions"]), 2)
 
     def test_critical_8k_item(self):
         row = watcher.extract_filings(

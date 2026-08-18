@@ -1,6 +1,6 @@
 ---
 title: Form 4 內部人交易雷達
-updated_at: 2026-08-15T06:17:04+00:00
+updated_at: 2026-08-18T11:45:38+00:00
 tags:
   - sec/form-4
   - insiders
@@ -13,6 +13,11 @@ tags:
 
 | 申報日 | 公司 | 申報人／身分 | 代碼與意義 | 股數 | 單價 | 交易金額 | 取得／處分 | 10b5-1 | SEC |
 |---|---|---|---|---:|---:|---:|---|---|---|
+| 2026-08-17 | **MRVL** | MURPHY MATTHEW J／董事、高階主管（Chairman of the Board and CEO） | `S` 公開市場或私下賣出 | 7,500 | 236.08 | 1,770,600 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1835632/000162828026057525/xslF345X06/wk-form4_1787014784.xml) |
+| 2026-08-17 | **MSFT** | Coleman Amy／高階主管（EVP, Chief Human Resources Off） | `F` 以證券支付稅款或履約價 | 89 | 495.40 | 44,112 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/789019/000078901926000145/xslF345X06/form4.xml) |
+| 2026-08-17 | **MRVL** | Scarpulla Justin／高階主管（SVP, Chief Accounting Officer） | `M` 衍生證券行使／轉換 | 3,166 | 0.00 | 0 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1835632/000162828026057399/xslF345X06/wk-form4_1786999519.xml) |
+| 2026-08-17 | **MRVL** | Scarpulla Justin／高階主管（SVP, Chief Accounting Officer） | `F` 以證券支付稅款或履約價 | 1,570 | 222.02 | 348,571 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1835632/000162828026057399/xslF345X06/wk-form4_1786999519.xml) |
+| 2026-08-17 | **MRVL** | Scarpulla Justin／高階主管（SVP, Chief Accounting Officer） | `M` 衍生證券行使／轉換 | 3,166 | 0.00 | 0 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1835632/000162828026057399/xslF345X06/wk-form4_1786999519.xml) |
 | 2026-08-14 | **ONDS** | COHEN RICHARD M／董事 | `M` 衍生證券行使／轉換 | 6,482 | 0.00 | 0 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1646188/000121390026090424/xslF345X06/ownership.xml) |
 | 2026-08-14 | **ONDS** | COHEN RICHARD M／董事 | `F` 以證券支付稅款或履約價 | 3,356 | 9.30 | 31,211 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1646188/000121390026090424/xslF345X06/ownership.xml) |
 | 2026-08-14 | **ONDS** | COHEN RICHARD M／董事 | `M` 衍生證券行使／轉換 | 2,817 | 0.00 | 0 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1646188/000121390026090424/xslF345X06/ownership.xml) |
@@ -185,8 +190,6 @@ tags:
 | 2026-07-06 | **COHR** | Place Jeffrey B.／高階主管（Chief Supply Chain Officer） | `F` 以證券支付稅款或履約價 | 2,181 | 394.47 | 860,339 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/820318/000089914026000699/xslF345X06/form4.xml) |
 | 2026-07-06 | **NVDA** | COXE TENCH／董事 | `G` 贈與 | 500,000 | 0.00 | 0 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1045810/000119764726000005/xslF345X06/wk-form4_1783371701.xml) |
 | 2026-07-02 | **AMZN** | Herrington Douglas J／高階主管（CEO Worldwide Amazon Stores） | `S` 公開市場或私下賣出 | 1,000 | 239.77 | 239,770 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000101872426000022/xslF345X06/wk-form4_1783023822.xml) |
-| 2026-07-01 | **MRVL** | Koopmans Chris／高階主管（President and COO） | `S` 公開市場或私下賣出 | 10,000 | 281.92 | 2,819,200 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1835632/000162828026046627/xslF345X06/wk-form4_1782942422.xml) |
-| 2026-06-29 | **MRVL** | House Rebecca W／董事 | `A` 公司授予／獎勵 | 1,034 | 0.00 | 0 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1835632/000162828026046114/xslF345X06/wk-form4_1782777346.xml) |
 | 2026-06-29 | **NVDA** | STEVENS MARK A／董事 | `A` 公司授予／獎勵 | 1,211 | 0.00 | 0 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1045810/000119903926000009/xslF345X06/wk-form4_1782767219.xml) |
 | 2026-06-29 | **NVDA** | Shah Aarti S.／董事 | `A` 公司授予／獎勵 | 1,211 | 0.00 | 0 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1045810/000172529226000004/xslF345X06/wk-form4_1782767179.xml) |
 | 2026-06-29 | **NVDA** | SEAWELL A BROOKE／董事 | `A` 公司授予／獎勵 | 1,211 | 0.00 | 0 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1045810/000119765226000007/xslF345X06/wk-form4_1782767137.xml) |
@@ -205,14 +208,11 @@ tags:
 | 2026-06-16 | **MSFT** | Jolla Alice L.／高階主管（Chief Accounting Officer） | `A` 公司授予／獎勵 | 5,004 | 0.00 | 0 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/789019/000078901926000135/xslF345X06/form4.xml) |
 | 2026-06-15 | **MSFT** | Coleman Amy／高階主管（EVP, Chief Human Resources Off） | `F` 以證券支付稅款或履約價 | 36 | 390.74 | 14,045 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/789019/000078901926000133/xslF345X06/form4.xml) |
 | 2026-06-12 | **MSFT** | Walmsley Emma N／董事 | `A` 公司授予／獎勵 | 3 | 0.00 | 0 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/789019/000078901926000131/xslF345X06/form4.xml) |
-| 2026-06-12 | **MSFT** | Rainey John D／董事 | `A` 公司授予／獎勵 | 1 | 0.00 | 0 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/789019/000078901926000130/xslF345X06/form4.xml) |
 | 2026-06-09 | **TSLA** | Taneja Vaibhav／高階主管（Chief Financial Officer） | `S` 公開市場或私下賣出 | 2,606 | 402.20 | 1,047,924 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1318605/000110465926071970/xslF345X06/tm2617365-1_4seq1.xml) |
 | 2026-06-09 | **TSLA** | Taneja Vaibhav／高階主管（Chief Financial Officer） | `M` 衍生證券行使／轉換 | 6,538 | 0.00 | 0 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1318605/000110465926071970/xslF345X06/tm2617365-1_4seq1.xml) |
 | 2026-06-09 | **TSLA** | Taneja Vaibhav／高階主管（Chief Financial Officer） | `M` 衍生證券行使／轉換 | 6,538 | 0.00 | 0 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1318605/000110465926071970/xslF345X06/tm2617365-1_4seq1.xml) |
 | 2026-06-05 | **COHR** | ANDERSON JAMES ROBERT／董事、高階主管（CEO） | `F` 以證券支付稅款或履約價 | 25,836 | 426.89 | 11,029,130 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/820318/000089914026000627/xslF345X06/form4.xml) |
 | 2026-06-04 | **ARM** | Bartels Laura Kathleen／高階主管（Chief Accounting Officer） | `S` 公開市場或私下賣出 | 11,306 | 392.70 | 4,439,866 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1973239/000197323926000107/xslF345X06/wk-form4_1780607139.xml) |
-| 2026-06-03 | **AMZN** | Herrington Douglas J／高階主管（CEO Worldwide Amazon Stores） | `S` 公開市場或私下賣出 | 1,000 | 266.19 | 266,190 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000193600626000018/xslF345X06/wk-form4_1780518424.xml) |
-| 2026-06-03 | **ARM** | Abbey William／高階主管（Chief Commercial Officer） | `S` 公開市場或私下賣出 | 2,644 | 383.73 | 1,014,582 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1973239/000197323926000105/xslF345X06/wk-form4_1780519586.xml) |
 
 ## 交易代碼速查
 
@@ -227,5 +227,5 @@ tags:
 
 > 金額只在股數與單價都由 SEC 文件提供時才計算；缺值保留為「—」，不以 0 代替。
 
-> 最後檢查：`2026-08-15T06:17:04+00:00`
+> 最後檢查：`2026-08-18T11:45:38+00:00`
 

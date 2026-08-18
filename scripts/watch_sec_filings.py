@@ -28,12 +28,34 @@ DEFAULT_FINANCIALS = REPO_ROOT / "financials.json"
 DEFAULT_DETAILS = REPO_ROOT / "sec_filing_details.json"
 DEFAULT_RADAR_DIR = REPO_ROOT / "60_SEC_Filing_Radar"
 
+LEGACY_WATCHED_FORMS = {
+    "10-K", "10-K/A", "20-F", "20-F/A", "10-Q", "10-Q/A",
+    "8-K", "8-K/A", "6-K", "6-K/A", "3", "3/A", "4", "4/A",
+    "5", "5/A", "144", "144/A", "DEF 14A", "DEFA14A", "DEF 14C",
+    "DEFR14A", "S-3", "S-3/A", "S-3ASR", "F-3", "F-3/A", "F-3ASR",
+    "424B2", "424B3", "424B4", "424B5", "POS AM", "EFFECT",
+}
+
 FORM_GROUPS = {
     "年度財報": {"10-K", "10-K/A", "20-F", "20-F/A"},
     "季度財報": {"10-Q", "10-Q/A"},
     "重大事件": {"8-K", "8-K/A", "6-K", "6-K/A"},
     "內部人持股": {"3", "3/A", "4", "4/A", "5", "5/A", "144", "144/A"},
-    "股東會／代理委託": {"DEF 14A", "DEFA14A", "DEF 14C", "DEFR14A"},
+    "會計審閱": {"UPLOAD", "CORRESP"},
+    "大股東持股": {"SC 13D", "SC 13D/A", "SC 13G", "SC 13G/A"},
+    "股東會／代理委託": {
+        "PRE 14A", "PRE 14C", "DEF 14A", "DEFA14A", "DEF 14C", "DEFR14A",
+        "DEFM14A", "PREM14A", "PX14A6G",
+    },
+    "併購／公開收購": {
+        "S-4", "S-4/A", "F-4", "F-4/A", "425",
+        "SC TO-C", "SC TO-I", "SC TO-I/A", "SC TO-T", "SC TO-T/A",
+        "SC 14D9", "SC 14D9/A", "SC 13E3", "SC 13E3/A",
+    },
+    "申報異常／下市": {
+        "NT 10-K", "NT 10-K/A", "NT 10-Q", "NT 10-Q/A", "NT 20-F",
+        "25", "25-NSE", "15-12B", "15-12G", "15-15D",
+    },
     "募資／稀釋": {
         "S-3", "S-3/A", "S-3ASR", "F-3", "F-3/A", "F-3ASR",
         "424B2", "424B3", "424B4", "424B5", "POS AM", "EFFECT",
@@ -102,11 +124,16 @@ def form_group(form):
 
 def classify(form, items):
     group = form_group(form)
-    if group in {"年度財報", "季度財報", "募資／稀釋"}:
+    if group in {
+        "年度財報", "季度財報", "募資／稀釋",
+        "併購／公開收購", "申報異常／下市",
+    }:
         return "critical"
     if form.startswith("8-K") and CRITICAL_8K_ITEMS.intersection(items):
         return "critical"
     if group == "重大事件":
+        return "high"
+    if group in {"會計審閱", "大股東持股", "股東會／代理委託"}:
         return "high"
     return "medium"
 
@@ -228,10 +255,9 @@ def render_note(history, checked_at, company_count):
         lines.append("基準已建立；尚未偵測到基準之後的新申報。")
     lines += [
         "", "## 監控範圍", "",
-        "10-K／20-F、10-Q、8-K／6-K、Form 3／4／5／144、DEF 14A、"
-        "S-3／F-3／424B 等募資文件。", "",
-        "> Schedule 13D／13G 是由外部大股東申報，不一定出現在發行公司的 submissions feed，"
-        "目前不宣稱完整覆蓋。", "",
+        "10-K／20-F、10-Q、8-K／6-K、財報附件、UPLOAD／CORRESP、"
+        "Form 3／4／5／144、DEF 14A、併購／公開收購、募資與延遲／下市文件。", "",
+        "> Schedule 13D／13G 另由 SEC 全文檢索索引回填，避免只看發行公司 submissions feed 而漏掉外部大股東。", "",
     ]
     return "\n".join(lines)
 
@@ -251,13 +277,17 @@ def github_warning(title, message):
         print(f"::warning title={safe_title}::{safe_message}")
 
 
-def update_state(ciks, fetched, state, initializing=False):
+def update_state(ciks, fetched, state, initializing=False, suppress_new_forms=False):
     """Return unseen filings and replace each successful ticker's SEC snapshot."""
     new_events = []
     for ticker, filings in fetched.items():
         known = set((state.get("companies", {}).get(ticker) or {}).get("seen_accessions", []))
         if not initializing:
-            new_events.extend(event for event in filings if event["accession"] not in known)
+            new_events.extend(
+                event for event in filings
+                if event["accession"] not in known
+                and not (suppress_new_forms and event["form"] not in LEGACY_WATCHED_FORMS)
+            )
         state.setdefault("companies", {})[ticker] = {
             "cik": ciks[ticker],
             "seen_accessions": [event["accession"] for event in filings],
@@ -303,7 +333,10 @@ def main():
     if not fetched:
         raise SystemExit("所有 SEC 查詢均失敗")
 
-    new_events = update_state(ciks, fetched, state, initializing=initializing)
+    migrating = not initializing and state.get("schema_version", 1) < 2
+    new_events = update_state(
+        ciks, fetched, state, initializing=initializing, suppress_new_forms=migrating
+    )
 
     history = load_json(args.events, {"schema_version": 1, "events": []})
     if initializing:
@@ -322,14 +355,14 @@ def main():
         ]
         history["events"] = sorted_events(additions + history.get("events", []))[:500]
 
-    should_write = initializing or bool(new_events)
+    should_write = initializing or migrating or bool(new_events)
     if should_write:
-        state["schema_version"] = 1
+        state["schema_version"] = 2
         state["updated_at"] = checked_at
         state["source"] = "SEC submissions API"
         args.state.parent.mkdir(parents=True, exist_ok=True)
         args.state.write_text(json.dumps(state, indent=2, ensure_ascii=False) + "\n")
-        history["schema_version"] = 1
+        history["schema_version"] = 2
         history["updated_at"] = checked_at
         history["source"] = "SEC submissions API; accession-number deduplicated"
         args.events.write_text(json.dumps(history, indent=2, ensure_ascii=False) + "\n")
@@ -348,6 +381,21 @@ def main():
             f"募資文件 {radar_result['offering_documents']} 份；"
             f"解析警告 {len(radar_result['errors'])}"
         )
+
+    # External ownership and enforcement sources must be checked even on days
+    # when the issuer submissions feed has no new accession.
+    from sec_advanced_radars import update_radars as update_advanced_radars
+    advanced_result = update_advanced_radars(
+        fetched,
+        output=REPO_ROOT / "sec_advanced_radars.json",
+        radar_dir=args.radar_dir,
+        checked_at=checked_at,
+    )
+    print(
+        "進階 SEC 雷達已更新："
+        + "、".join(f"{key} {value}" for key, value in advanced_result["counts"].items())
+        + f"；解析警告 {len(advanced_result['errors'])}"
+    )
 
     alert = render_alert(new_events, errors, checked_at)
     if args.alert_markdown:
