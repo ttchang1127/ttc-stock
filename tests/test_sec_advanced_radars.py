@@ -33,6 +33,14 @@ class AdvancedRadarTests(unittest.TestCase):
         result = radars.detect_signals("The company identified a material weakness and substantial doubt about its ability to continue as a going concern.")
         self.assertEqual({row["label"] for row in result}, {"繼續經營", "重大內控缺失"})
 
+    def test_extracts_concrete_merger_passage(self):
+        raw = b"""<html><body>Amazon and Globalstar entered into an Agreement and Plan of Merger
+        that provides for the acquisition of Globalstar by Amazon, subject to shareholder approval.
+        Each share will receive the consideration described below.</body></html>"""
+        excerpt = radars.merger_content_excerpt(raw)
+        self.assertIn("acquisition of Globalstar by Amazon", excerpt)
+        self.assertIn("shareholder approval", excerpt)
+
 
 if __name__ == "__main__":
     unittest.main()

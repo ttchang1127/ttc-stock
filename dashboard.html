@@ -1166,6 +1166,76 @@
       line-height: 1.55;
     }
 
+    .sec-advanced-actual {
+      padding: 16px;
+      margin-bottom: 14px;
+      border: 1px solid rgba(52, 211, 153, 0.28);
+      border-radius: 16px;
+      background: rgba(16, 185, 129, 0.06);
+    }
+
+    .sec-advanced-actual-heading {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 11px;
+    }
+
+    .sec-advanced-actual-heading h4 { color: #a7f3d0; font-size: 0.95rem; }
+    .sec-advanced-actual-heading span { color: var(--text-muted); font-size: 0.71rem; }
+
+    .sec-advanced-actual-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 11px;
+    }
+
+    .sec-advanced-actual-card {
+      display: flex;
+      flex-direction: column;
+      min-height: 178px;
+      padding: 12px;
+      border: 1px solid rgba(52, 211, 153, 0.18);
+      border-radius: 12px;
+      background: rgba(15, 23, 42, 0.58);
+    }
+
+    .sec-advanced-actual-meta {
+      color: #6ee7b7;
+      font-size: 0.72rem;
+      font-weight: 800;
+      margin-bottom: 7px;
+    }
+
+    .sec-advanced-actual-fact {
+      color: #f1f5f9;
+      font-size: 0.78rem;
+      font-weight: 700;
+      line-height: 1.5;
+    }
+
+    .sec-advanced-actual-excerpt {
+      margin-top: 7px;
+      padding-top: 7px;
+      border-top: 1px dashed rgba(148, 163, 184, 0.24);
+      color: #aeb8c7;
+      font-size: 0.7rem;
+      line-height: 1.48;
+    }
+
+    .sec-advanced-actual-note {
+      color: #fde68a;
+      font-size: 0.7rem;
+      line-height: 1.45;
+      margin: 7px 0 9px;
+    }
+
+    .sec-advanced-actual-card .sec-link { margin-top: auto; align-self: flex-start; }
+
+    .sec-advanced-table-fact { color: #e2e8f0; font-weight: 700; line-height: 1.5; }
+    .sec-advanced-table-excerpt { display: block; margin-top: 5px; color: #94a3b8; font-size: 0.7rem; line-height: 1.45; }
+
     .sec-section {
       margin-top: 24px;
     }
@@ -1339,11 +1409,12 @@
       .sec-kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .sec-reading-guide { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .sec-advanced-explainer { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .sec-advanced-actual-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
 
     @media (max-width: 620px) {
       .sec-daily-shell { padding: 18px; }
-      .sec-kpi-grid, .sec-reading-guide, .sec-advanced-explainer { grid-template-columns: 1fr; }
+      .sec-kpi-grid, .sec-reading-guide, .sec-advanced-explainer, .sec-advanced-actual-grid { grid-template-columns: 1fr; }
       .sec-reading-guide h3, .sec-advanced-explainer h4, .sec-advanced-explainer-caution { grid-column: auto; }
       .sec-kpi { min-height: 0; }
     }
@@ -1977,9 +2048,12 @@
           <div id="secAdvancedInterpretation" class="sec-advanced-explainer" role="note" aria-live="polite">
             <h4>正在載入目前雷達的解讀方式…</h4>
           </div>
+          <div id="secAdvancedActual" class="sec-advanced-actual" aria-live="polite">
+            <div class="sec-advanced-actual-heading"><h4>🔎 正在載入實際申報內容…</h4></div>
+          </div>
           <div class="sec-table-wrap">
             <table class="sec-table">
-              <thead><tr><th>日期／報告期</th><th>公司</th><th>來源</th><th>閱讀重點</th><th>數字代表什麼</th><th>官方原文</th></tr></thead>
+              <thead><tr><th>日期／報告期</th><th>公司</th><th>來源</th><th>實際申報內容</th><th>客觀解讀／資料限制</th><th>官方原文</th></tr></thead>
               <tbody id="secAdvancedBody"><tr><td colspan="6" class="sec-empty">正在載入…</td></tr></tbody>
             </table>
           </div>
@@ -3217,6 +3291,32 @@
       },
     };
 
+    function compactSecText(value, limit = 360) {
+      const text = String(value || '').replace(/\s+/g, ' ').trim();
+      return text.length > limit ? `${text.slice(0, limit - 1).trim()}…` : text;
+    }
+
+    function secAdvancedSignalExcerpt(row) {
+      return (row.signals || []).slice(0, 2).map(signal =>
+        `${signal.label}原文命中：「${compactSecText(signal.snippet, 260)}」`
+      ).join('；');
+    }
+
+    function secAdvancedForm4Facts(event) {
+      const filing = secDailyData?.details?.form4?.[event.accession];
+      const transactions = filing?.transactions || [];
+      if (!transactions.length) return '';
+      const facts = transactions.slice(0, 3).map(tx => {
+        const price = tx.price === null || tx.price === undefined ? '' : `，每股 $${formatSecNumber(tx.price, 2)}`;
+        const value = tx.value === null || tx.value === undefined ? '' : `，金額 $${formatSecNumber(tx.value)}`;
+        const after = tx.shares_after === null || tx.shares_after === undefined ? '' : `，交易後 ${formatSecNumber(tx.shares_after)} 股`;
+        const plan = tx.rule_10b5_1 === true ? '，10b5-1 計畫' : '';
+        return `${tx.reporter || '申報人未辨識'}於 ${tx.transaction_date || event.filing_date}：${tx.code || '—'} ${tx.code_label || ''} ${formatSecNumber(tx.shares)} 股${price}${value}${after}${plan}`;
+      });
+      if (transactions.length > 3) facts.push(`另有 ${transactions.length - 3} 筆交易列，請看原文`);
+      return facts.join('；');
+    }
+
     function secAdvancedRows(category) {
       const advanced = secDailyData?.advanced || {};
       if (category === 'thirteen_f') {
@@ -3232,6 +3332,8 @@
             meaning: current.shares_change_pct === null || current.shares_change_pct === undefined
               ? '前期無可比資料'
               : `較前期 ${current.shares_change_pct >= 0 ? '+' : ''}${formatSecNumber(current.shares_change_pct, 1)}%；申報市值 $${formatSecNumber(current.value_usd)}${topHolders ? `；前三大：${topHolders}` : ''}`,
+            actual: `${current.period}：${formatSecNumber(current.manager_count)} 家申報機構，long common shares 合計 ${formatSecNumber(current.shares)} 股，申報市值 $${formatSecNumber(current.value_usd)}`,
+            excerpt: topHolders ? `前三大申報持有人：${topHolders}` : '',
             url: (thirteenF.dataset_urls || [])[0] || 'https://www.sec.gov/data-research/sec-markets-data/form-13f-data-sets',
           };
         }).filter(Boolean);
@@ -3240,20 +3342,26 @@
         if (category === 'enforcement') {
           return (row.tickers || []).map(ticker => ({
             ticker, date: row.date, source: row.category === 'suspension' ? '交易停牌' : 'SEC 執法',
-            detail: row.title, meaning: '命中公司名稱；需開原文確認法律實體', url: row.url,
+            detail: row.title, actual: row.title,
+            meaning: '這是 SEC 公告標題的實際命中；仍需開原文確認法律實體、指控或裁決狀態', url: row.url,
           }));
         }
         if (category === 'ownership_13dg') {
+          const reporters = (row.reporting_persons || []).join('、') || '申報人未辨識';
           return [{ ticker: row.ticker, date: row.filing_date, source: row.form,
-            detail: (row.reporting_persons || []).join('、') || '申報人未辨識',
-            meaning: row.meaning, url: row.url }];
+            detail: reporters,
+            actual: `申報人：${reporters}；${row.form}；accession ${row.accession || '未提供'}`,
+            meaning: `${row.meaning} 本地資料目前未結構化擷取持股百分比與 Item 4 目的，需開原文確認。`, url: row.url }];
         }
         const event = row.event || {};
         if (category === 'insiders' && row.form144) {
           const item = row.form144;
           const pct = item.shares_outstanding ? item.planned_shares / item.shares_outstanding * 100 : null;
+          const actual = `${item.reporter}（${item.relationship}）預計 ${item.approx_sale_date} 出售 ${formatSecNumber(item.planned_shares)} 股，申報估值 $${formatSecNumber(item.planned_value_usd)}${pct === null ? '' : `，約占流通股 ${formatSecNumber(pct, 3)}%`}`;
           return [{ ticker: event.ticker, date: event.filing_date, source: event.form,
             detail: `${item.reporter}：擬售 ${formatSecNumber(item.planned_shares)} 股／$${formatSecNumber(item.planned_value_usd)}`,
+            actual,
+            excerpt: item.remarks ? `申報備註：${compactSecText(item.remarks, 320)}` : '',
             meaning: `Form 144 是擬售通知，非已成交${pct === null ? '' : `；約占流通股 ${formatSecNumber(pct, 3)}%`}`,
             url: event.url }];
         }
@@ -3263,17 +3371,38 @@
         const metricBits = [];
         if (metrics.ceo_total_compensation_usd !== undefined) metricBits.push(`CEO 薪酬 $${formatSecNumber(metrics.ceo_total_compensation_usd)}`);
         if (metrics.ceo_pay_ratio !== undefined) metricBits.push(`CEO pay ratio ${formatSecNumber(metrics.ceo_pay_ratio, 1)}:1`);
+        if (metrics.median_employee_compensation_usd !== undefined) metricBits.push(`中位員工薪酬 $${formatSecNumber(metrics.median_employee_compensation_usd)}`);
+        if (metrics.audit_fees_usd !== undefined) metricBits.push(`審計費 $${formatSecNumber(metrics.audit_fees_usd)}`);
         let detail = signalLabels.slice(0, 5).join('、');
         if (attachmentCount) detail += `${detail ? '；' : ''}重要附件 ${attachmentCount} 份`;
         if (metricBits.length) detail += `${detail ? '；' : ''}${metricBits.join('、')}`;
         if (!detail) detail = secFormMeaning(event);
+        const attachmentFacts = (row.attachments || []).slice(0, 5)
+          .map(item => `${item.type}${item.description && item.description !== item.type ? `（${compactSecText(item.description, 80)}）` : ''}`);
+        let actual = [
+          signalLabels.length ? `實際命中主題：${signalLabels.join('、')}` : '',
+          attachmentFacts.length ? `實際附件：${attachmentFacts.join('、')}` : '',
+          metricBits.length ? `實際擷取數字：${metricBits.join('、')}` : '',
+        ].filter(Boolean).join('；');
+        let excerpt = secAdvancedSignalExcerpt(row);
         let meaning = '一列等於一份 SEC accession；關鍵字只用於閱讀導航';
         if (category === 'accounting_review') meaning = event.form === 'UPLOAD' ? 'SEC 審閱意見；公開存在時滯' : '公司回覆；應與對應 UPLOAD 成對閱讀';
         if (category === 'governance') meaning = '薪酬數字是代理委託書揭露值；未可靠辨識時保留缺值';
-        if (category === 'mergers') meaning = '表單表示交易程序或溝通，不等於交易已完成';
-        if (category === 'insiders') meaning = event.form === '3' || event.form === '3/A' ? '初始受益所有權申報' : (event.form.startsWith('5') ? '年度延後申報／補申報' : '內部人持股變動；要看 P／S／A／M／F 代碼');
+        if (category === 'mergers') {
+          actual = `${event.form} 申報；accession ${event.accession || '未提供'}`;
+          excerpt = row.content_excerpt ? `交易原文摘錄：${compactSecText(row.content_excerpt, 520)}` : '';
+          meaning = row.content_excerpt
+            ? '已顯示文件中的實際交易敘述；仍須核對完整對價、成交條件與最新修正版'
+            : '目前來源未可靠擷取交易對手或對價，不能只用表單名稱推論交易內容；請開原文';
+        }
+        if (category === 'insiders') {
+          const form4Facts = secAdvancedForm4Facts(event);
+          actual = form4Facts || `${event.form}；accession ${event.accession || '未提供'}；本地明細尚未解析交易列`;
+          meaning = event.form === '3' || event.form === '3/A' ? '初始受益所有權申報' : (event.form.startsWith('5') ? '年度延後申報／補申報' : '實際交易必須依 P／S／A／M／F 代碼逐列判讀');
+        }
+        if (!actual) actual = `${event.form || 'SEC 文件'}；accession ${event.accession || '未提供'}；目前未擷取可可靠顯示的結構化內容`;
         return [{ ticker: event.ticker, date: event.filing_date, source: event.form,
-          detail, meaning, url: event.url }];
+          detail, actual, excerpt, meaning, url: event.url }];
       });
     }
 
@@ -3307,9 +3436,20 @@
         <div class="sec-advanced-explainer-item"><span class="sec-advanced-explainer-label">括號數字代表什麼</span><div class="sec-advanced-explainer-value">${escapeSec(interpretation.count)}</div></div>
         <div class="sec-advanced-explainer-item"><span class="sec-advanced-explainer-label">判讀時先看什麼</span><div class="sec-advanced-explainer-value">${escapeSec(interpretation.watch)}</div></div>
         <div class="sec-advanced-explainer-caution"><strong>⚠ 不要直接這樣解讀：</strong> ${escapeSec(interpretation.caution)}</div>`;
+      document.getElementById('secAdvancedActual').innerHTML = rows.length
+        ? `<div class="sec-advanced-actual-heading"><h4>🔎 目前實際申報內容（最新 ${Math.min(3, rows.length)} 筆）</h4><span>不是範例；內容隨雷達與公司篩選同步更新</span></div>
+          <div class="sec-advanced-actual-grid">${rows.slice(0, 3).map(row => `<article class="sec-advanced-actual-card">
+            <div class="sec-advanced-actual-meta">${escapeSec(row.date)}｜${escapeSec(row.ticker)}｜${escapeSec(row.source)}</div>
+            <div class="sec-advanced-actual-fact">${escapeSec(row.actual || row.detail)}</div>
+            ${row.excerpt ? `<div class="sec-advanced-actual-excerpt">${escapeSec(row.excerpt)}</div>` : ''}
+            <div class="sec-advanced-actual-note">解讀：${escapeSec(row.meaning)}</div>
+            <a class="sec-link" href="${safeSecUrl(row.url)}" target="_blank" rel="noopener">核對 SEC 原文 ↗</a>
+          </article>`).join('')}</div>`
+        : `<div class="sec-advanced-actual-heading"><h4>🔎 目前沒有可顯示的實際申報內容</h4></div>
+          <p class="sec-advanced-actual-note">${escapeSec(secAdvancedTicker === 'ALL' ? '這個雷達目前沒有命中資料。' : `${secAdvancedTicker} 在這個雷達目前沒有資料。`)}</p>`;
       document.getElementById('secAdvancedBody').innerHTML = rows.length ? rows.slice(0, 200).map(row => `<tr>
         <td>${escapeSec(row.date)}</td><td><strong>${escapeSec(row.ticker)}</strong></td>
-        <td>${escapeSec(row.source)}</td><td>${escapeSec(row.detail)}</td><td>${escapeSec(row.meaning)}</td>
+        <td>${escapeSec(row.source)}</td><td><div class="sec-advanced-table-fact">${escapeSec(row.actual || row.detail)}</div>${row.excerpt ? `<span class="sec-advanced-table-excerpt">${escapeSec(row.excerpt)}</span>` : ''}</td><td>${escapeSec(row.meaning)}</td>
         <td><a class="sec-link" href="${safeSecUrl(row.url)}" target="_blank" rel="noopener">原文 ↗</a></td>
       </tr>`).join('') : `<tr><td colspan="6" class="sec-empty">${escapeSec(secAdvancedTicker === 'ALL' ? '這個雷達目前沒有命中資料。' : `${secAdvancedTicker} 在這個雷達目前沒有資料。`)}</td></tr>`;
     }

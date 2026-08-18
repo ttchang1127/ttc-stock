@@ -42,6 +42,7 @@ class DashboardSecTabTests(unittest.TestCase):
         self.assertIn('id="secAdvancedCategory"', self.html)
         self.assertIn('id="secAdvancedTicker"', self.html)
         self.assertIn('id="secAdvancedInterpretation"', self.html)
+        self.assertIn('id="secAdvancedActual"', self.html)
         self.assertIn("function renderSecAdvanced()", self.html)
 
     def test_advanced_radars_cover_all_requested_categories(self):
@@ -69,6 +70,22 @@ class DashboardSecTabTests(unittest.TestCase):
         ]
         for phrase in required_copy:
             self.assertIn(phrase, self.html)
+
+    def test_advanced_radar_shows_concrete_filing_content(self):
+        required_copy = [
+            "目前實際申報內容",
+            "不是範例；內容隨雷達與公司篩選同步更新",
+            "交易原文摘錄",
+            "本地資料目前未結構化擷取持股百分比",
+            "secAdvancedForm4Facts",
+            "交易後",
+            "申報備註",
+        ]
+        for phrase in required_copy:
+            self.assertIn(phrase, self.html)
+        merger_rows = self.advanced["mergers"]
+        excerpts = [row.get("content_excerpt") for row in merger_rows if row.get("content_excerpt")]
+        self.assertGreaterEqual(len(excerpts), 20)
 
     def test_numeric_meanings_are_explained(self):
         required_copy = [

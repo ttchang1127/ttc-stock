@@ -62,13 +62,16 @@ def utc_now():
     return datetime.now(timezone.utc).isoformat(timespec="seconds")
 
 
-def fetch(url, accept="*/*"):
-    request = urllib.request.Request(url, headers={
+def fetch(url, accept="*/*", max_bytes=None):
+    headers = {
         "User-Agent": os.environ.get("SEC_USER_AGENT", "SecKBResearch user@example.com"),
         "Accept": accept,
-    })
+    }
+    if max_bytes:
+        headers["Range"] = f"bytes=0-{max_bytes - 1}"
+    request = urllib.request.Request(url, headers=headers)
     with urllib.request.urlopen(request, timeout=45) as response:
-        return response.read()
+        return response.read(max_bytes) if max_bytes else response.read()
 
 
 def html_text(raw):
@@ -113,6 +116,30 @@ def detect_signals(text):
             end = min(len(text), match.end() + 170)
             found.append({"label": label, "snippet": text[start:end].strip()})
     return found
+
+
+def merger_content_excerpt(raw, limit=720):
+    """Return a verifiable deal passage instead of only describing the form type."""
+    text = html_text(raw)
+    patterns = (
+        r"(?:entered into|executed|announced).{0,180}(?:agreement and plan of merger|merger agreement|business combination agreement)",
+        r"(?:agreement and plan of merger|business combination agreement).{0,260}(?:acquisition|merger|transaction)",
+        r"(?:item 4\.?\s+terms of the transaction).{0,520}",
+        r"(?:offer to purchase).{0,360}(?:shares|securities|company)",
+        r"(?:proposed transaction).{0,160}(?:between|with).{0,260}",
+        r"(?:proposed merger|proposed acquisition|proposed transaction).{0,300}",
+    )
+    for pattern in patterns:
+        match = re.search(pattern, text, re.IGNORECASE)
+        if not match:
+            continue
+        start = max(0, match.start() - 240)
+        end = min(len(text), match.end() + 480)
+        excerpt = text[start:end].strip()
+        if len(excerpt) > limit:
+            excerpt = excerpt[:limit].rsplit(" ", 1)[0] + "…"
+        return excerpt
+    return ""
 
 
 def normalize_cached_enrichment(row):
@@ -214,6 +241,17 @@ def enrich_event(event, need_content=True):
     result["signals"] = detect_signals(text)
     result["metrics"] = proxy_metrics(text)
     return result
+
+
+def enrich_merger_event(event):
+    raw = fetch(event["url"], "text/html,application/xhtml+xml", max_bytes=600_000)
+    return {
+        "event": event,
+        "signals": [],
+        "attachments": [],
+        "metrics": {},
+        "content_excerpt": merger_content_excerpt(raw),
+    }
 
 
 def search_13dg(ticker, company, years=3):
@@ -343,6 +381,29 @@ def render_enforcement_note(rows, checked_at):
     return "\n".join(lines)
 
 
+def refresh_merger_excerpts(output=DEFAULT_OUTPUT):
+    """Enrich existing M&A rows without rebuilding or truncating other radar history."""
+    output = Path(output)
+    payload = json.loads(output.read_text())
+    updated = 0
+    errors = []
+    for row in payload.get("mergers", []):
+        event = row.get("event", {})
+        if not event.get("url"):
+            continue
+        try:
+            row["content_excerpt"] = merger_content_excerpt(
+                fetch(event["url"], "text/html,application/xhtml+xml", max_bytes=600_000)
+            )
+            updated += bool(row["content_excerpt"])
+            time.sleep(0.11)
+        except Exception as exc:
+            errors.append(f"M&A {event.get('accession', '—')}: {type(exc).__name__}: {exc}")
+    payload["merger_excerpts_updated_at"] = utc_now()
+    output.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n")
+    return {"rows": len(payload.get("mergers", [])), "updated": updated, "errors": errors}
+
+
 def update_radars(fetched, output=DEFAULT_OUTPUT, radar_dir=DEFAULT_DIR, checked_at=None, include_external=True):
     checked_at = checked_at or utc_now()
     companies = load_companies()
@@ -401,10 +462,27 @@ def update_radars(fetched, output=DEFAULT_OUTPUT, radar_dir=DEFAULT_DIR, checked
             except Exception as exc:
                 errors.append(f"144 {event['accession']}: {type(exc).__name__}: {exc}")
         insiders.append(row)
-    mergers = enrich_many(event_rows(fetched, MA_FORMS, 8), False)
+    existing_mergers = {
+        row.get("event", {}).get("accession"): row
+        for row in previous.get("mergers", [])
+        if row.get("event", {}).get("accession") and row.get("content_excerpt")
+    }
+    mergers = []
+    for event in event_rows(fetched, MA_FORMS, 8):
+        if event["accession"] in existing_mergers:
+            cached = dict(existing_mergers[event["accession"]])
+            cached["event"] = event
+            mergers.append(cached)
+            continue
+        try:
+            mergers.append(enrich_merger_event(event))
+            time.sleep(0.11)
+        except Exception as exc:
+            errors.append(f"M&A {event['accession']}: {type(exc).__name__}: {exc}")
+            mergers.append({"event": event, "signals": [], "attachments": [], "content_excerpt": ""})
 
-    ownership = []
-    enforcement = []
+    ownership = list(previous.get("ownership_13dg", [])) if not include_external else []
+    enforcement = list(previous.get("enforcement", [])) if not include_external else []
     if include_external:
         for ticker, company in sorted(companies.items()):
             try:
@@ -443,7 +521,12 @@ def main():
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
     parser.add_argument("--radar-dir", type=Path, default=DEFAULT_DIR)
     parser.add_argument("--no-external", action="store_true")
+    parser.add_argument("--refresh-merger-excerpts-only", action="store_true",
+                        help="只補既有併購列的可驗證原文摘錄，不重建其他雷達")
     args = parser.parse_args()
+    if args.refresh_merger_excerpts_only:
+        print(json.dumps(refresh_merger_excerpts(args.output), ensure_ascii=False))
+        return
     events = json.loads(args.events.read_text()).get("events", [])
     fetched = {}
     for event in events:
