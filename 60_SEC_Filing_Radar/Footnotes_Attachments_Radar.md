@@ -1,6 +1,6 @@
 ---
 title: 📎 財報附註／附件雷達
-updated_at: 2026-08-19T04:32:49+00:00
+updated_at: 2026-08-22T04:28:24+00:00
 tags:
   - sec/footnotes
 ---
@@ -25,8 +25,8 @@ tags:
 | 2026-07-24 | **INTC** | 10-Q | 收入認列、客戶集中、減損、訴訟／或有事項、關係人交易；重要附件 7 份 | [原文](https://www.sec.gov/Archives/edgar/data/50863/000005086326000157/intc-20260627.htm) |
 | 2026-07-30 | **META** | 10-Q | 收入認列、減損、訴訟／或有事項、股份薪酬、債務／到期；重要附件 5 份 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000162828026050705/meta-20260630.htm) |
 | 2026-07-29 | **META** | 8-K | 訴訟／或有事項、股份薪酬、非 GAAP、部門報導、XBRL 標記；重要附件 4 份 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000162828026050596/meta-20260729.htm) |
+| 2026-08-19 | **MRVL** | 8-K | 減損、訴訟／或有事項、債務／到期、XBRL 標記；重要附件 3 份 | [原文](https://www.sec.gov/Archives/edgar/data/1835632/000119312526356217/d412696d8k.htm) |
 | 2026-07-09 | **MRVL** | 8-K | XBRL 標記；重要附件 3 份 | [原文](https://www.sec.gov/Archives/edgar/data/1835632/000119312526299843/d82462d8k.htm) |
-| 2026-06-25 | **MRVL** | 8-K | XBRL 標記；重要附件 4 份 | [原文](https://www.sec.gov/Archives/edgar/data/1835632/000162828026045564/mrvl-20260625.htm) |
 | 2026-07-29 | **MSFT** | 10-K | 收入認列、客戶集中、減損、訴訟／或有事項、關係人交易；重要附件 7 份 | [原文](https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm) |
 | 2026-07-29 | **MSFT** | 8-K | 收入認列、減損、訴訟／或有事項、股份薪酬、非 GAAP；重要附件 2 份 | [原文](https://www.sec.gov/Archives/edgar/data/789019/000119312526323632/msft-20260729.htm) |
 | 2026-08-14 | **NOK** | 6-K | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/924613/000110465926096765/tm2623269d1_6k.htm) |
@@ -40,5 +40,5 @@ tags:
 | 2026-08-14 | **TSM** | 6-K | 收入認列、減損、關係人交易、股份薪酬、債務／到期；重要附件 1 份 | [原文](https://www.sec.gov/Archives/edgar/data/1046179/000104617926000541/tsm-fsx20260814x6k.htm) |
 | 2026-08-11 | **TSM** | 6-K | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1046179/000104617926000539/sonysemiconductorsolutions.htm) |
 
-> 最後檢查：`2026-08-19T04:32:49+00:00`。關鍵字命中是閱讀導航，不等於會計結論或利多／利空。
+> 最後檢查：`2026-08-22T04:28:24+00:00`。關鍵字命中是閱讀導航，不等於會計結論或利多／利空。
 
