@@ -63,7 +63,7 @@ class DashboardSecTabTests(unittest.TestCase):
             "不是獨立大股東人數",
             "不是薪酬事件數",
             "不是成交筆數或申報人數",
-            "不是交易案數",
+            "括號數字是合併後的交易宗數",
             "顯示 0 不代表沒有法律風險",
             "14 代表 14 檔追蹤股票，不是 14 家機構",
             "Form 144 是出售意向，不等於交易已完成",
@@ -84,8 +84,19 @@ class DashboardSecTabTests(unittest.TestCase):
         for phrase in required_copy:
             self.assertIn(phrase, self.html)
         merger_rows = self.advanced["mergers"]
-        excerpts = [row.get("content_excerpt") for row in merger_rows if row.get("content_excerpt")]
-        self.assertGreaterEqual(len(excerpts), 20)
+        merger_deals = self.advanced["merger_deals"]
+        window = self.advanced["merger_window"]
+        self.assertEqual(window["years"], 3)
+        self.assertEqual(window["document_count"], len(merger_rows))
+        self.assertEqual(window["deal_count"], len(merger_deals))
+        self.assertEqual(sum(deal["document_count"] for deal in merger_deals), len(merger_rows))
+        self.assertTrue(all(row["event"]["filing_date"] >= window["cutoff"] for row in merger_rows))
+        self.assertEqual({deal["deal_name"] for deal in merger_deals}, {
+            "Amazon 收購 Globalstar", "Nokia 收購 Infinera",
+        })
+        self.assertNotIn("MSFT", {row["event"]["ticker"] for row in merger_rows})
+        self.assertIn("advanced.merger_deals", self.html)
+        self.assertIn("最後可見程序", self.html)
 
     def test_numeric_meanings_are_explained(self):
         required_copy = [

@@ -542,7 +542,7 @@ def c21():
     tracked = set(load("financials.json")["companies"])
     minimums = {
         "footnotes": 14, "accounting_review": 1, "ownership_13dg": 1,
-        "governance": 1, "insiders": 14, "mergers": 1,
+        "governance": 1, "insiders": 14,
     }
     bad_counts = {
         key: len(advanced.get(key, [])) for key, minimum in minimums.items()
@@ -558,9 +558,22 @@ def c21():
             if "value_usd" not in snapshot or "value_usd_thousands" in snapshot:
                 bad_13f.append(f"{ticker} VALUE 單位欄位錯誤")
     merger_rows = advanced.get("mergers", [])
-    merger_excerpt_count = sum(bool(row.get("content_excerpt")) for row in merger_rows)
-    if merger_rows and merger_excerpt_count < 20:
-        bad_counts["merger_content_excerpt"] = merger_excerpt_count
+    merger_deals = advanced.get("merger_deals", [])
+    merger_window = advanced.get("merger_window", {})
+    bad_mergers = []
+    if merger_window.get("years") != 3:
+        bad_mergers.append("不是最近 3 年")
+    cutoff = merger_window.get("cutoff", "")
+    if not cutoff or any(row.get("event", {}).get("filing_date", "") < cutoff for row in merger_rows):
+        bad_mergers.append("含時間窗外文件")
+    if not merger_deals:
+        bad_mergers.append("沒有合併後交易")
+    if sum(deal.get("document_count", 0) for deal in merger_deals) != len(merger_rows):
+        bad_mergers.append("交易文件數無法對帳")
+    if merger_window.get("deal_count") != len(merger_deals):
+        bad_mergers.append("交易宗數欄位不一致")
+    if merger_window.get("document_count") != len(merger_rows):
+        bad_mergers.append("文件數欄位不一致")
     required_notes = [
         "Footnotes_Attachments_Radar.md", "Accounting_Review_Radar.md",
         "Schedule13DG_Ownership_Radar.md", "Governance_Compensation_Radar.md",
@@ -572,11 +585,14 @@ def c21():
     missing_ui = [marker for marker in ("secAdvancedCategory", "secAdvancedTicker",
                                          "secAdvancedInterpretation", "secAdvancedActual",
                                          "SEC_ADVANCED_INTERPRETATIONS", "目前實際申報內容",
-                                         "secAdvancedForm4Facts", "括號數字代表什麼",
+                                         "secAdvancedForm4Facts", "advanced.merger_deals",
+                                         "括號數字代表什麼", "合併後的交易宗數",
                                          "不受上方最近 7／14 日篩選影響")
                   if marker not in page]
-    ok = not advanced.get("errors") and not bad_counts and not bad_13f and not missing_notes and not missing_ui
+    ok = (not advanced.get("errors") and not bad_counts and not bad_13f and not bad_mergers
+          and not missing_notes and not missing_ui)
     return ok, (f"回填不足：{bad_counts or '無'}；13F：{bad_13f or '無'}；"
+                f"併購：{bad_mergers or '無'}；"
                 f"缺筆記：{missing_notes or '無'}；缺畫面：{missing_ui or '無'}；"
                 f"解析錯誤：{advanced.get('errors') or '無'}")
 

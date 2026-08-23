@@ -23,6 +23,11 @@ ACCOUNTING_FORMS = {"UPLOAD", "CORRESP"}
 PROXY_FORMS = {"PRE 14A", "PRE 14C", "DEF 14A", "DEFA14A", "DEF 14C", "DEFR14A", "DEFM14A", "PREM14A", "PX14A6G"}
 INSIDER_FORMS = {"3", "3/A", "4", "4/A", "5", "5/A", "144", "144/A"}
 MA_FORMS = {"S-4", "S-4/A", "F-4", "F-4/A", "425", "SC TO-C", "SC TO-I", "SC TO-I/A", "SC TO-T", "SC TO-T/A", "SC 14D9", "SC 14D9/A", "SC 13E3", "SC 13E3/A"}
+MA_REGISTRATION_FORMS = {"S-4", "S-4/A", "F-4", "F-4/A"}
+MA_COMMUNICATION_FORMS = {"425"}
+MA_TENDER_FORMS = {"SC TO-C", "SC TO-I", "SC TO-I/A", "SC TO-T", "SC TO-T/A", "SC 14D9", "SC 14D9/A"}
+MA_GOING_PRIVATE_FORMS = {"SC 13E3", "SC 13E3/A"}
+MERGER_WINDOW_YEARS = 3
 FINANCIAL_FORMS = {"10-K", "10-K/A", "20-F", "20-F/A", "10-Q", "10-Q/A", "8-K", "8-K/A", "6-K", "6-K/A"}
 ATTACHMENT_TYPES = ("EX-2", "EX-10", "EX-19", "EX-21", "EX-23", "EX-97", "EX-99")
 
@@ -140,6 +145,222 @@ def merger_content_excerpt(raw, limit=720):
             excerpt = excerpt[:limit].rsplit(" ", 1)[0] + "…"
         return excerpt
     return ""
+
+
+def merger_cutoff(checked_at, years=MERGER_WINDOW_YEARS):
+    """Return an exact calendar-year cutoff, including the cutoff date."""
+    as_of = datetime.fromisoformat(str(checked_at).replace("Z", "+00:00")).date()
+    try:
+        return as_of.replace(year=as_of.year - years)
+    except ValueError:  # Feb. 29 -> Feb. 28
+        return as_of.replace(year=as_of.year - years, day=28)
+
+
+def merger_form_class(form):
+    if form in MA_REGISTRATION_FORMS:
+        return "合併／交換要約註冊"
+    if form in MA_COMMUNICATION_FORMS:
+        return "交易溝通"
+    if form in MA_TENDER_FORMS:
+        return "公開收購"
+    if form in MA_GOING_PRIVATE_FORMS:
+        return "私有化"
+    return "其他交易文件"
+
+
+def merger_document_relevant(row):
+    """S-4/F-4 also cover debt exchanges; require deal language for those forms."""
+    event = row.get("event", {})
+    form = event.get("form", "")
+    if form in MA_COMMUNICATION_FORMS | MA_TENDER_FORMS | MA_GOING_PRIVATE_FORMS:
+        return True
+    if form not in MA_REGISTRATION_FORMS:
+        return False
+    excerpt = row.get("content_excerpt", "").lower()
+    strong_deal_phrases = (
+        "agreement and plan of merger", "merger agreement", "business combination agreement",
+        "acquisition of", "to acquire", "company being acquired", "cash and stock transaction",
+        "merge with and into", "proposed acquisition",
+    )
+    return any(phrase in excerpt for phrase in strong_deal_phrases)
+
+
+def _clean_party(value):
+    value = re.sub(r"\s+", " ", value or "").strip(" ,.;:()")
+    value = re.sub(r"^(?:the|a|an)\s+", "", value, flags=re.IGNORECASE)
+    return value[:90]
+
+
+def _party_slug(value):
+    return re.sub(r"[^a-z0-9]+", "-", (value or "unknown").lower()).strip("-")[:55]
+
+
+def _tracked_brand(ticker, companies):
+    entity = companies.get(ticker, {}).get("name", ticker)
+    return _clean_party(re.split(r"\s+", entity)[0].title())
+
+
+def extract_merger_parties(row, companies):
+    """Extract the tracked-side acquirer and counterparty from a verified excerpt."""
+    event = row.get("event", {})
+    ticker = event.get("ticker", "")
+    text = row.get("content_excerpt", "")
+    if not text:
+        return None
+
+    match = re.search(
+        r"acquisition of\s+([A-Z][A-Za-z0-9&.' -]{1,80}?)\s+by\s+([A-Z][A-Za-z0-9&.' -]{1,80}?)(?=\s*(?:under|pursuant|subject|according|[,(.;]))",
+        text,
+    )
+    if match:
+        target = _clean_party(match.group(1))
+        acquirer = _clean_party(match.group(2))
+        brand = _tracked_brand(ticker, companies)
+        if brand.lower() in acquirer.lower():
+            acquirer = brand
+        return {"target": target, "acquirer": acquirer}
+
+    company_to_acquire = re.search(
+        r"(?:the Company|[A-Z][A-Za-z0-9&.' -]{1,60})\s+to acquire\s+([A-Z][A-Za-z0-9&.' -]{1,80}?)(?=\s*(?:on|under|pursuant|,|\.))",
+        text,
+    )
+    if company_to_acquire:
+        return {"target": _clean_party(company_to_acquire.group(1)),
+                "acquirer": _tracked_brand(ticker, companies)}
+
+    aliases = []
+    for legal_name, alias in re.findall(
+        r"([A-Za-z][A-Za-z0-9&.,' -]{1,90}?)\s*\([“\"]([^”\"]{2,45})[”\"]\)", text
+    ):
+        alias = _clean_party(alias)
+        if re.search(r"agreement|company|merger|transaction|surviving|sub\b", alias, re.IGNORECASE):
+            continue
+        aliases.append((alias, _clean_party(legal_name)))
+    brand = _tracked_brand(ticker, companies)
+    tracked = next((pair for pair in aliases if brand.lower() in pair[0].lower()
+                    or brand.lower() in pair[1].lower()), None)
+    other = next((pair for pair in aliases if pair != tracked), None)
+    if tracked and other:
+        tracked_name = tracked[0]
+        other_name = other[0]
+        tracked_pattern = re.escape(tracked_name)
+        other_pattern = re.escape(other_name)
+        tracked_is_target = bool(re.search(
+            rf"(?:acquisition of|acquire)\s+{tracked_pattern}\b|"
+            rf"{tracked_pattern}.{{0,100}}(?:acquisition by|acquired by|to be acquired by)\s+{other_pattern}\b|"
+            rf"{other_pattern}.{{0,100}}(?:will acquire|to acquire)\s+{tracked_pattern}\b",
+            text, re.IGNORECASE,
+        ))
+        if tracked_is_target:
+            return {"target": tracked_name, "acquirer": other_name}
+        return {"target": other_name, "acquirer": tracked_name}
+    return None
+
+
+def merger_procedural_status(latest_document):
+    """Describe only the last visible SEC procedure, not the deal's current outcome."""
+    event = latest_document.get("event", {})
+    form = event.get("form", "")
+    text = (latest_document.get("content_excerpt") or "").lower()
+    if re.search(r"(?:transaction|merger|acquisition).{0,80}(?:terminated|cancelled|abandoned)", text):
+        return "文件顯示交易已終止"
+    if re.search(r"(?:transaction|merger|acquisition).{0,80}(?:completed|consummated|closed)", text):
+        return "文件顯示交易已完成"
+    if form.endswith("/A") and form in MA_REGISTRATION_FORMS:
+        return "合併註冊文件已修訂"
+    if form in MA_REGISTRATION_FORMS:
+        return "合併註冊文件已提交"
+    if form in MA_TENDER_FORMS:
+        return "公開收購程序更新"
+    if form in MA_GOING_PRIVATE_FORMS:
+        return "私有化程序更新"
+    return "交易溝通／進度更新"
+
+
+def build_merger_deals(rows, companies, checked_at, years=MERGER_WINDOW_YEARS):
+    cutoff = merger_cutoff(checked_at, years)
+    relevant = [
+        dict(row, document_class=merger_form_class(row.get("event", {}).get("form", "")))
+        for row in rows
+        if row.get("event", {}).get("filing_date", "") >= cutoff.isoformat()
+        and merger_document_relevant(row)
+    ]
+    relevant.sort(key=lambda row: (row["event"].get("filing_date", ""),
+                                   row["event"].get("accepted_at", "")))
+
+    groups = {}
+    unresolved = []
+    for row in relevant:
+        parties = extract_merger_parties(row, companies)
+        if not parties:
+            unresolved.append(row)
+            continue
+        ticker = row["event"]["ticker"]
+        key = f"{ticker}:{_party_slug(parties['acquirer'])}:{_party_slug(parties['target'])}"
+        group = groups.setdefault(key, {"ticker": ticker, "parties": parties, "rows": []})
+        group["rows"].append(row)
+
+    # Communications may omit the parties. Attach them only when one nearby,
+    # already-verified deal for the same ticker makes the match unambiguous.
+    for row in unresolved:
+        filing_date = datetime.fromisoformat(row["event"]["filing_date"]).date()
+        candidates = []
+        for key, group in groups.items():
+            if group["ticker"] != row["event"]["ticker"]:
+                continue
+            distances = [abs((filing_date - datetime.fromisoformat(item["event"]["filing_date"]).date()).days)
+                         for item in group["rows"]]
+            if distances and min(distances) <= 180:
+                candidates.append((min(distances), key))
+        if len(candidates) == 1:
+            groups[candidates[0][1]]["rows"].append(row)
+        else:
+            ticker = row["event"]["ticker"]
+            key = f"{ticker}:unresolved:{row['event']['accession']}"
+            groups[key] = {"ticker": ticker, "parties": None, "rows": [row]}
+
+    deals = []
+    for deal_id, group in groups.items():
+        documents = sorted(group["rows"], key=lambda row: (
+            row["event"].get("filing_date", ""), row["event"].get("accepted_at", "")))
+        latest = documents[-1]
+        parties = group["parties"]
+        forms = list(dict.fromkeys(row["event"].get("form", "") for row in documents))
+        excerpts = [row.get("content_excerpt", "") for row in reversed(documents)
+                    if row.get("content_excerpt")]
+        deals.append({
+            "deal_id": deal_id,
+            "ticker": group["ticker"],
+            "deal_name": (f"{parties['acquirer']} 收購 {parties['target']}"
+                          if parties else f"{group['ticker']} 待確認交易"),
+            "acquirer": parties["acquirer"] if parties else None,
+            "target": parties["target"] if parties else None,
+            "first_filing_date": documents[0]["event"].get("filing_date"),
+            "latest_filing_date": latest["event"].get("filing_date"),
+            "last_procedural_status": merger_procedural_status(latest),
+            "document_count": len(documents),
+            "verified_excerpt_count": sum(bool(row.get("content_excerpt")) for row in documents),
+            "forms": forms,
+            "latest_excerpt": excerpts[0] if excerpts else "",
+            "latest_url": latest["event"].get("url"),
+            "documents": [{
+                "filing_date": row["event"].get("filing_date"),
+                "form": row["event"].get("form"),
+                "accession": row["event"].get("accession"),
+                "document_class": row.get("document_class"),
+                "content_excerpt": row.get("content_excerpt", ""),
+                "url": row["event"].get("url"),
+            } for row in reversed(documents)],
+        })
+    deals.sort(key=lambda deal: deal["latest_filing_date"], reverse=True)
+    relevant.sort(key=lambda row: row["event"].get("filing_date", ""), reverse=True)
+    return relevant, deals, {
+        "years": years,
+        "cutoff": cutoff.isoformat(),
+        "as_of": str(checked_at)[:10],
+        "document_count": len(relevant),
+        "deal_count": len(deals),
+    }
 
 
 def normalize_cached_enrichment(row):
@@ -381,15 +602,42 @@ def render_enforcement_note(rows, checked_at):
     return "\n".join(lines)
 
 
-def refresh_merger_excerpts(output=DEFAULT_OUTPUT):
+def render_merger_note(deals, window, checked_at):
+    lines = [
+        "---", "title: 併購／公開收購雷達", f"updated_at: {checked_at}", "tags:",
+        "  - sec/ma", "---", "", "# 🤝 併購／公開收購雷達", "",
+        f"只保留 `{window['cutoff']}` 起最近 {window['years']} 年、且由表單與內文共同確認的交易文件。",
+        "S-4／F-4 可能只是債券交換要約，沒有合併／收購內文者不納入。", "",
+        "| 最後申報 | 公司 | 交易 | 最後可見程序 | 文件 | SEC |",
+        "|---|---|---|---|---|---|",
+    ]
+    for deal in deals:
+        forms = "、".join(deal["forms"])
+        lines.append(
+            f"| {deal['latest_filing_date']} | **{deal['ticker']}** | {deal['deal_name']} | "
+            f"{deal['last_procedural_status']} | {deal['document_count']} 份（{forms}） | "
+            f"[最新原文]({deal['latest_url']}) |"
+        )
+    if not deals:
+        lines.append("| — | — | — | 最近三年沒有經內文確認的交易 | — | — |")
+    lines += [
+        "", "> 一列是一宗交易，不是一份文件。同案的 S-4／F-4、425、SC TO、SC 14D9、SC 13E3 已合併。",
+        "> 「最後可見程序」只描述最後一份 SEC 文件，不代表交易截至今日仍處於該狀態；請看日期與最新原文。", "",
+    ]
+    return "\n".join(lines)
+
+
+def refresh_merger_excerpts(output=DEFAULT_OUTPUT, radar_dir=DEFAULT_DIR):
     """Enrich existing M&A rows without rebuilding or truncating other radar history."""
     output = Path(output)
     payload = json.loads(output.read_text())
     updated = 0
     errors = []
+    checked_at = utc_now()
+    cutoff = merger_cutoff(checked_at)
     for row in payload.get("mergers", []):
         event = row.get("event", {})
-        if not event.get("url"):
+        if not event.get("url") or event.get("filing_date", "") < cutoff.isoformat():
             continue
         try:
             row["content_excerpt"] = merger_content_excerpt(
@@ -399,9 +647,20 @@ def refresh_merger_excerpts(output=DEFAULT_OUTPUT):
             time.sleep(0.11)
         except Exception as exc:
             errors.append(f"M&A {event.get('accession', '—')}: {type(exc).__name__}: {exc}")
+    relevant, deals, window = build_merger_deals(
+        payload.get("mergers", []), load_companies(), checked_at
+    )
+    payload["mergers"] = relevant
+    payload["merger_deals"] = deals
+    payload["merger_window"] = window
     payload["merger_excerpts_updated_at"] = utc_now()
     output.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n")
-    return {"rows": len(payload.get("mergers", [])), "updated": updated, "errors": errors}
+    radar_dir = Path(radar_dir)
+    radar_dir.mkdir(parents=True, exist_ok=True)
+    (radar_dir / "Mergers_Tender_Radar.md").write_text(
+        render_merger_note(deals, window, checked_at) + "\n"
+    )
+    return {"documents": len(relevant), "deals": len(deals), "updated": updated, "errors": errors}
 
 
 def update_radars(fetched, output=DEFAULT_OUTPUT, radar_dir=DEFAULT_DIR, checked_at=None, include_external=True):
@@ -420,7 +679,7 @@ def update_radars(fetched, output=DEFAULT_OUTPUT, radar_dir=DEFAULT_DIR, checked
         row.get("event", {}).get("accession"): row
         for row in previous.get("insiders", []) if row.get("event", {}).get("accession")
     }
-    cache = {"schema_version": 1, "updated_at": checked_at, "source": "SEC EDGAR submissions, EFTS and enforcement RSS"}
+    cache = {"schema_version": 2, "updated_at": checked_at, "source": "SEC EDGAR submissions, EFTS and enforcement RSS"}
 
     def enrich_many(events, content=True):
         rows = []
@@ -465,21 +724,33 @@ def update_radars(fetched, output=DEFAULT_OUTPUT, radar_dir=DEFAULT_DIR, checked
     existing_mergers = {
         row.get("event", {}).get("accession"): row
         for row in previous.get("mergers", [])
-        if row.get("event", {}).get("accession") and row.get("content_excerpt")
+        if row.get("event", {}).get("accession")
     }
-    mergers = []
-    for event in event_rows(fetched, MA_FORMS, 8):
-        if event["accession"] in existing_mergers:
-            cached = dict(existing_mergers[event["accession"]])
+    candidate_events = {
+        event["accession"]: event for event in event_rows(fetched, MA_FORMS, 50)
+    }
+    for accession, row in existing_mergers.items():
+        candidate_events.setdefault(accession, row["event"])
+    raw_mergers = []
+    cutoff = merger_cutoff(checked_at)
+    for event in sorted(candidate_events.values(), key=lambda item: item.get("filing_date", ""), reverse=True):
+        if event.get("filing_date", "") < cutoff.isoformat():
+            continue
+        cached_row = existing_mergers.get(event["accession"])
+        if cached_row and cached_row.get("content_excerpt"):
+            cached = dict(cached_row)
             cached["event"] = event
-            mergers.append(cached)
+            raw_mergers.append(cached)
             continue
         try:
-            mergers.append(enrich_merger_event(event))
+            raw_mergers.append(enrich_merger_event(event))
             time.sleep(0.11)
         except Exception as exc:
             errors.append(f"M&A {event['accession']}: {type(exc).__name__}: {exc}")
-            mergers.append({"event": event, "signals": [], "attachments": [], "content_excerpt": ""})
+            raw_mergers.append({"event": event, "signals": [], "attachments": [], "content_excerpt": ""})
+    mergers, merger_deals, merger_window = build_merger_deals(
+        raw_mergers, companies, checked_at
+    )
 
     ownership = list(previous.get("ownership_13dg", [])) if not include_external else []
     enforcement = list(previous.get("enforcement", [])) if not include_external else []
@@ -497,6 +768,7 @@ def update_radars(fetched, output=DEFAULT_OUTPUT, radar_dir=DEFAULT_DIR, checked
 
     cache.update({"footnotes": footnotes, "accounting_review": accounting, "ownership_13dg": ownership,
                   "governance": governance, "insiders": insiders, "mergers": mergers,
+                  "merger_deals": merger_deals, "merger_window": merger_window,
                   "enforcement": enforcement, "errors": errors})
     output.write_text(json.dumps(cache, ensure_ascii=False, indent=2) + "\n")
     radar_dir = Path(radar_dir)
@@ -505,14 +777,17 @@ def update_radars(fetched, output=DEFAULT_OUTPUT, radar_dir=DEFAULT_DIR, checked
         "Footnotes_Attachments_Radar.md": render_simple_note("📎 財報附註／附件雷達", "sec/footnotes", "索引財報主文的風險關鍵字與 EX-2／10／19／21／97／99 等重要附件。", footnotes, checked_at),
         "Accounting_Review_Radar.md": render_simple_note("🧮 UPLOAD／CORRESP 會計審閱雷達", "sec/accounting-review", "UPLOAD 是 SEC 意見函，CORRESP 是公司回覆；兩者成對閱讀才能看出審閱問題與解法。", accounting, checked_at),
         "Governance_Compensation_Radar.md": render_simple_note("🏛️ DEF 14A 治理與薪酬分析", "sec/governance", "追蹤正式／預備代理委託書、審計費用、CEO 薪酬、中位員工薪酬與 pay ratio；正則無法穩定辨識的數字保留缺值。", governance, checked_at),
-        "Mergers_Tender_Radar.md": render_simple_note("🤝 併購／公開收購雷達", "sec/ma", "S-4／F-4、425、SC TO、SC 14D9 與 SC 13E3 提供交易條件、對價、程序與公平性意見線索。", mergers, checked_at),
+        "Mergers_Tender_Radar.md": render_merger_note(merger_deals, merger_window, checked_at),
         "Schedule13DG_Ownership_Radar.md": render_ownership_note(ownership, checked_at),
         "Insider_Forms_345144_Radar.md": render_insider_note(insiders, checked_at),
         "SEC_Enforcement_Radar.md": render_enforcement_note(enforcement, checked_at),
     }
     for filename, content in notes.items():
         (radar_dir / filename).write_text(content + "\n")
-    return {"counts": {key: len(cache[key]) for key in ("footnotes", "accounting_review", "ownership_13dg", "governance", "insiders", "mergers", "enforcement")}, "errors": errors}
+    counts = {key: len(cache[key]) for key in ("footnotes", "accounting_review", "ownership_13dg", "governance", "insiders", "enforcement")}
+    counts["mergers"] = len(merger_deals)
+    counts["merger_documents"] = len(mergers)
+    return {"counts": counts, "errors": errors}
 
 
 def main():
@@ -525,7 +800,7 @@ def main():
                         help="只補既有併購列的可驗證原文摘錄，不重建其他雷達")
     args = parser.parse_args()
     if args.refresh_merger_excerpts_only:
-        print(json.dumps(refresh_merger_excerpts(args.output), ensure_ascii=False))
+        print(json.dumps(refresh_merger_excerpts(args.output, args.radar_dir), ensure_ascii=False))
         return
     events = json.loads(args.events.read_text()).get("events", [])
     fetched = {}

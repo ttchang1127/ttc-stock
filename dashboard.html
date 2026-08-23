@@ -3272,10 +3272,10 @@
         caution: 'Form 144 是出售意向，不等於交易已完成；後續 Form 4 才能確認變動。不要把股權授予、選擇權行使或扣股繳稅直接視為主動買賣，也不要把 144 與 Form 4 重複計算。',
       },
       mergers: {
-        meaning: 'S-4／F-4、425、SC TO、SC 14D9、SC 13E3 等文件，分別涵蓋併購證券註冊、交易溝通、公開收購、目標公司回應與私有化程序。',
-        count: '括號數字是交易相關文件與溝通筆數，不是交易案數；同一交易通常會產生許多文件。',
-        watch: '看現金／換股對價、換股比率、融資安排、股東與監管核准、成交前提、終止／分手費、潛在稀釋和預計完成時間。',
-        caution: '有申報只代表交易程序或溝通正在進行，不等於交易已完成；應按公司與交易名稱把多份文件合併判讀。',
+        meaning: '只保留最近 3 年、經表單與內文共同確認的併購／公開收購；同案的 S-4／F-4、425、SC TO、SC 14D9、SC 13E3 會合併成一宗交易。',
+        count: '括號數字是合併後的交易宗數，不是文件份數。每宗交易實際包含幾份文件與哪些表單，會顯示在內容卡與表格。',
+        watch: '看交易雙方、首見與最新申報日、文件數、最後可見程序，再從原文核對現金／換股對價、核准條件、終止條款與稀釋。',
+        caution: 'S-4／F-4 也可能用於債券交換要約，因此未出現合併／收購內文者已排除。「最後可見程序」只代表最後一份 SEC 文件，不代表交易截至今日仍處於該狀態。',
       },
       enforcement: {
         meaning: '彙整 SEC 訴訟公告、行政程序與交易停牌通知中，命中追蹤公司名稱的項目，用於快速發現可能影響公司的執法事件。',
@@ -3337,6 +3337,18 @@
             url: (thirteenF.dataset_urls || [])[0] || 'https://www.sec.gov/data-research/sec-markets-data/form-13f-data-sets',
           };
         }).filter(Boolean);
+      }
+      if (category === 'mergers' && Array.isArray(advanced.merger_deals)) {
+        return advanced.merger_deals.map(deal => ({
+          ticker: deal.ticker,
+          date: deal.latest_filing_date,
+          source: `${formatSecNumber(deal.document_count)} 份｜${(deal.forms || []).join('、')}`,
+          detail: deal.deal_name,
+          actual: `${deal.deal_name}；首見 ${deal.first_filing_date}，最新 ${deal.latest_filing_date}；共 ${formatSecNumber(deal.document_count)} 份 SEC 文件（${(deal.forms || []).join('、')}）`,
+          excerpt: deal.latest_excerpt ? `最新可驗證交易原文：${compactSecText(deal.latest_excerpt, 520)}` : '',
+          meaning: `最後可見程序（${deal.latest_filing_date}）：${deal.last_procedural_status}。這不是交易目前狀態，需核對後續公告。`,
+          url: deal.latest_url,
+        }));
       }
       return (advanced[category] || []).flatMap(row => {
         if (category === 'enforcement') {
