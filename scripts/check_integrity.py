@@ -585,6 +585,19 @@ def c21():
             bad_ownership.append(f"{row.get('ticker')}/{row.get('accession')} 持股比例超界")
         if shares is not None and shares < 0:
             bad_ownership.append(f"{row.get('ticker')}/{row.get('accession')} 持股數為負")
+    ownership_snapshot = advanced.get("ownership_snapshot", [])
+    if not ownership_snapshot:
+        bad_ownership.append("缺少最新狀態總覽")
+    snapshot_keys = set()
+    for item in ownership_snapshot:
+        key = (item.get("ticker"), item.get("owner_key"), tuple(item.get("cusips", [])))
+        if key in snapshot_keys:
+            bad_ownership.append(f"{item.get('ticker')}/{item.get('owner_key')} 最新狀態重複")
+        snapshot_keys.add(key)
+        if item.get("status") not in {"above_5", "exit", "realignment", "unknown"}:
+            bad_ownership.append(f"{item.get('ticker')}/{item.get('owner_key')} 狀態無效")
+        if item.get("history_count") != len(item.get("history", [])):
+            bad_ownership.append(f"{item.get('ticker')}/{item.get('owner_key')} 歷史數量不一致")
     required_notes = [
         "Footnotes_Attachments_Radar.md", "Accounting_Review_Radar.md",
         "Schedule13DG_Ownership_Radar.md", "Governance_Compensation_Radar.md",
@@ -597,6 +610,8 @@ def c21():
                                          "secAdvancedInterpretation", "secAdvancedActual",
                                          "SEC_ADVANCED_INTERPRETATIONS", "目前實際申報內容",
                                          "secAdvancedForm4Facts", "advanced.merger_deals",
+                                         "secOwnershipOverview", "renderSecOwnershipOverview",
+                                         "大股東最新狀態總覽", "申報主體重整顯示 0 股時",
                                          "括號數字代表什麼", "合併後的交易宗數",
                                          "不受上方最近 7／14 日篩選影響")
                   if marker not in page]

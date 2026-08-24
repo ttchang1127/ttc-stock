@@ -76,7 +76,7 @@ class AdvancedRadarTests(unittest.TestCase):
     def test_parses_new_structured_schedule_and_exit_comment(self):
         raw = b"""<SEC-DOCUMENT><submissionType>SCHEDULE 13G/A</submissionType>
         <eventDateRequiresFilingThisStatement>03/13/2026</eventDateRequiresFilingThisStatement>
-        <issuerCusipNumber>67066G104</issuerCusipNumber>
+        <issuerCusip>67066G104</issuerCusip>
         <designateRulePursuantThisScheduleFiled>Rule 13d-1(b)</designateRulePursuantThisScheduleFiled>
         <coverPageHeaderReportingPersonDetails>
         <reportingPersonName>The Vanguard Group</reportingPersonName>
@@ -93,6 +93,24 @@ class AdvancedRadarTests(unittest.TestCase):
         self.assertEqual(facts["cusip"], "67066G104")
         self.assertIn("Internal realignment", facts["filing_comment"])
         self.assertIn("SCHEDULE 13G/A", radars.OWNERSHIP_FORMS)
+
+    def test_parses_new_structured_13d_cover_and_below_five_date(self):
+        raw = b"""<SEC-DOCUMENT><submissionType>SCHEDULE 13D/A</submissionType>
+        <eventDateRequiresFilingThisStatement>02/09/2026</eventDateRequiresFilingThisStatement>
+        <issuerCUSIP>19247G107</issuerCUSIP><reportingPersons><reportingPersonInfo>
+        <reportingPersonName>Activist Fund</reportingPersonName>
+        <soleVotingPower>0</soleVotingPower><sharedVotingPower>0</sharedVotingPower>
+        <soleDispositivePower>0</soleDispositivePower><sharedDispositivePower>0</sharedDispositivePower>
+        <aggregateAmountOwned>0</aggregateAmountOwned><percentOfClass>0</percentOfClass>
+        </reportingPersonInfo></reportingPersons>
+        <transactionPurpose>The reporting person sold its remaining shares.</transactionPurpose>
+        <date5PercentOwnership>February 9, 2026</date5PercentOwnership></SEC-DOCUMENT>"""
+        facts = radars.parse_13dg_ownership(raw, "SCHEDULE 13D/A")
+        self.assertEqual(facts["aggregate_shares"], 0)
+        self.assertEqual(facts["percent_of_class"], 0)
+        self.assertTrue(facts["threshold_exit"])
+        self.assertEqual(facts["filing_basis"], "主動型／可能影響控制")
+        self.assertIn("remaining shares", facts["purpose_excerpt"])
 
     def test_compares_same_13dg_filer_without_mixing_owners(self):
         rows = [
@@ -126,6 +144,29 @@ class AdvancedRadarTests(unittest.TestCase):
         self.assertEqual(change["direction"], "減少")
         self.assertFalse(change["shares_comparable"])
         self.assertIn("拆股", change["comparison_note"])
+
+    def test_builds_latest_ownership_snapshot_with_history_and_status(self):
+        rows = [
+            {"ticker": "XYZ", "filing_date": "2025-01-01", "accession": "1", "form": "SC 13G/A", "url": "https://www.sec.gov/1",
+             "reporting_persons": ["Fund A (CIK 0000000001)"],
+             "ownership": {"cusips": ["123456789"], "aggregate_shares": 100, "percent_of_class": 6.0, "filing_basis": "合格機構投資人"}},
+            {"ticker": "XYZ", "filing_date": "2026-01-01", "accession": "2", "form": "SCHEDULE 13G/A", "url": "https://www.sec.gov/2",
+             "reporting_persons": ["Fund A (CIK 0000000001)"],
+             "ownership": {"cusips": ["123456789"], "aggregate_shares": 80, "percent_of_class": 4.8, "threshold_exit": True,
+                           "filing_basis": "合格機構投資人", "change_from_prior": {"direction": "減少"}}},
+            {"ticker": "XYZ", "filing_date": "2026-02-01", "accession": "3", "form": "SCHEDULE 13D/A", "url": "https://www.sec.gov/3",
+             "reporting_persons": ["Activist (CIK 0000000002)"],
+             "ownership": {"cusips": ["123456789"], "aggregate_shares": 120, "percent_of_class": 7.2,
+                           "filing_basis": "主動型／可能影響控制"}},
+        ]
+        snapshot = radars.build_ownership_snapshot(rows)
+        fund = next(item for item in snapshot if item["owner_key"] == "0000000001")
+        activist = next(item for item in snapshot if item["owner_key"] == "0000000002")
+        self.assertEqual(fund["latest_filing_date"], "2026-01-01")
+        self.assertEqual(fund["history_count"], 2)
+        self.assertEqual(fund["status"], "exit")
+        self.assertEqual(activist["status"], "above_5")
+        self.assertTrue(activist["active_13d"])
 
     def test_extracts_concrete_merger_passage(self):
         raw = b"""<html><body>Amazon and Globalstar entered into an Agreement and Plan of Merger

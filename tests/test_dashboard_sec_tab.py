@@ -85,6 +85,17 @@ class DashboardSecTabTests(unittest.TestCase):
         ]
         for phrase in required_copy:
             self.assertIn(phrase, self.html)
+
+    def test_ownership_latest_status_overview(self):
+        snapshot = self.advanced.get("ownership_snapshot", [])
+        self.assertTrue(snapshot)
+        self.assertLess(len(snapshot), len(self.advanced["ownership_13dg"]))
+        self.assertTrue(all(item["history_count"] == len(item["history"]) for item in snapshot))
+        self.assertTrue({"above_5", "exit", "realignment"}.issubset({item["status"] for item in snapshot}))
+        for marker in ("secOwnershipOverview", "大股東最新狀態總覽", "secOwnershipStatus",
+                       "renderSecOwnershipOverview", "同公司、同申報 CIK、同 CUSIP",
+                       "申報主體重整顯示 0 股時"):
+            self.assertIn(marker, self.html)
         merger_rows = self.advanced["mergers"]
         merger_deals = self.advanced["merger_deals"]
         window = self.advanced["merger_window"]
