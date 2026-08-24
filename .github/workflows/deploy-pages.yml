@@ -19,6 +19,13 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [main]
+  # A push made with the refresh workflow's GITHUB_TOKEN intentionally does
+  # not emit another push-triggered workflow run. Listen for the refresh job
+  # itself so its committed market/SEC data is published without a human push.
+  workflow_run:
+    workflows: ["Refresh market and filing data"]
+    types: [completed]
+    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -36,12 +43,21 @@ concurrency:
 
 jobs:
   deploy:
+    # Never publish the output of a failed refresh. Push and manual dispatch
+    # events do not carry workflow_run, so they continue to deploy normally.
+    if: >-
+      github.event_name != 'workflow_run' ||
+      github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
+      # workflow_run points at the commit that started the refresh, before its
+      # bot commit. Explicitly checkout main to package the newly pushed data.
       - uses: actions/checkout@v4
+        with:
+          ref: main
 
       - uses: actions/configure-pages@v5
 
