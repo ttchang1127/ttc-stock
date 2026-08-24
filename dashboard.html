@@ -2059,7 +2059,7 @@
           </div>
           <p id="secAdvancedFootnote" class="sec-footnote">進階雷達保留最近 3 年或最新兩個 13F 報告期，<strong>不受上方最近 7／14 日篩選影響</strong>；請用公司下拉選單聚焦單一標的。</p>
           <div class="sec-reading-guide" aria-label="進階 SEC 數字閱讀指南">
-            <div class="sec-guide-item"><strong>13D／13G 的 5%</strong><span>是受益所有權申報門檻；13D 通常具影響控制意圖，13G 多為被動或免豁持有。</span></div>
+            <div class="sec-guide-item"><strong>13D／13G 持股數／比例</strong><span>是該份申報基準日的受益所有權，不是即時持倉；5% 是申報門檻。13D 通常具影響控制意圖，13G 多為機構、被動或免豁持有。</span></div>
             <div class="sec-guide-item"><strong>Form 144 擬售股數／金額</strong><span>是關係人通知的擬定出售上限，不等於已成交；要用 Form 4 確認實際變動。</span></div>
             <div class="sec-guide-item"><strong>CEO pay ratio</strong><span>CEO 年度薪酬÷中位員工薪酬；適合看公司內部薪酬落差，不適合直接比較產業完全不同的公司。</span></div>
             <div class="sec-guide-item"><strong>13F 機構數／股數季變化</strong><span>是所有 SEC 13F information table 的機構家數與 long common shares 加總；通常有季底後 45 天時滯。</span></div>
@@ -3256,8 +3256,8 @@
       ownership_13dg: {
         meaning: '13D／13G 揭露超過 5% 的受益所有權。13D 通常用於可能影響控制權或公司政策的持有；13G 多為符合資格的機構、被動或其他可採簡式申報者。',
         count: '括號數字是申報文件與修正版筆數，不是獨立大股東人數；同一申報人可有多次修正。',
-        watch: '看持股百分比、相較前次修正的變化、共同申報人，以及 13D Item 4 的投資目的、資金來源、董事席次或交易提案。',
-        caution: '跨過 5% 是揭露門檻，不等於準備收購；修正版也可能只是持股比例正常變動。',
+        watch: '直接看 SEC 原文擷取的受益持股數、持股百分比、投票／處分權、相較同一申報 CIK 前次文件的變化，以及 13D Item 4 的投資目的。',
+        caution: '這是申報基準日持股，不是即時持倉。跨過 5% 是揭露門檻，不等於準備收購；同一申報群組的多位成員也可能重複揭露相同總持股，不可直接相加。',
       },
       governance: {
         meaning: 'DEF 14A 等代理委託書呈現董事選舉、高階主管薪酬、股權獎酬、審計與股東提案，是判讀治理品質和管理層誘因的重要來源。',
@@ -3360,10 +3360,35 @@
         }
         if (category === 'ownership_13dg') {
           const reporters = (row.reporting_persons || []).join('、') || '申報人未辨識';
+          const facts = row.ownership || {};
+          const shares = facts.aggregate_shares === null || facts.aggregate_shares === undefined ? '' : `${formatSecNumber(facts.aggregate_shares)} 股`;
+          const percent = facts.percent_of_class === null || facts.percent_of_class === undefined ? '' : `${formatSecNumber(facts.percent_of_class, 2)}%`;
+          const holding = [shares, percent].filter(Boolean).join('／');
+          const powers = [
+            facts.sole_voting_power === null || facts.sole_voting_power === undefined ? '' : `單獨投票權 ${formatSecNumber(facts.sole_voting_power)} 股`,
+            facts.shared_voting_power === null || facts.shared_voting_power === undefined ? '' : `共同投票權 ${formatSecNumber(facts.shared_voting_power)} 股`,
+            facts.sole_dispositive_power === null || facts.sole_dispositive_power === undefined ? '' : `單獨處分權 ${formatSecNumber(facts.sole_dispositive_power)} 股`,
+            facts.shared_dispositive_power === null || facts.shared_dispositive_power === undefined ? '' : `共同處分權 ${formatSecNumber(facts.shared_dispositive_power)} 股`,
+          ].filter(Boolean).join('；');
+          const change = facts.change_from_prior;
+          const changeBits = change ? [
+            `${change.direction}（前次 ${change.previous_filing_date}）`,
+            change.shares === null || change.shares === undefined || change.shares_comparable === false ? '' : `${change.shares >= 0 ? '+' : ''}${formatSecNumber(change.shares)} 股`,
+            change.percentage_points === null || change.percentage_points === undefined ? '' : `${change.percentage_points >= 0 ? '+' : ''}${formatSecNumber(change.percentage_points, 2)}pp`,
+            change.comparison_note || '',
+          ].filter(Boolean).join('／') : '無同公司、同申報 CIK 的前期可比資料';
+          const thresholdExit = facts.threshold_exit ? '原文 Item 5 勾選持股已降至 5% 以下' : '';
+          const status = `${(facts.positions || []).length > 1 && holding ? '逐申報人最高 ' : ''}${holding || thresholdExit || '原文未可靠辨識持股數字'}${holding && thresholdExit ? '（已降至 5% 以下）' : ''}`;
+          const positionSummary = (facts.positions || []).length > 1 ? (facts.positions || []).map(position => {
+            const positionShares = position.aggregate_shares === null || position.aggregate_shares === undefined ? '股數未辨識' : `${formatSecNumber(position.aggregate_shares)} 股`;
+            const positionPercent = position.percent_of_class === null || position.percent_of_class === undefined ? '' : `／${formatSecNumber(position.percent_of_class, 2)}%`;
+            return `${position.reporting_person} ${positionShares}${positionPercent}`;
+          }).join('；') : '';
           return [{ ticker: row.ticker, date: row.filing_date, source: row.form,
-            detail: reporters,
-            actual: `申報人：${reporters}；${row.form}；accession ${row.accession || '未提供'}`,
-            meaning: `${row.meaning} 本地資料目前未結構化擷取持股百分比與 Item 4 目的，需開原文確認。`, url: row.url }];
+            detail: `${reporters}：${status}`,
+            actual: `申報人：${reporters}；申報基準日：${facts.event_date || row.filing_date}；實際受益持股：${status}${positionSummary ? `；逐人揭露：${positionSummary}` : ''}${powers ? `；最高持股者權限：${powers}` : ''}；較前次：${changeBits}`,
+            excerpt: facts.purpose_excerpt ? `13D Item 4 投資目的摘錄：${compactSecText(facts.purpose_excerpt, 520)}` : (facts.filing_comment ? `申報原文備註：${compactSecText(facts.filing_comment, 520)}` : ''),
+            meaning: `${facts.filing_basis || row.meaning}。持股數與比例來自這份 SEC 文件，並非即時持倉；共同申報人的重複總額不可相加。`, url: row.url }];
         }
         const event = row.event || {};
         if (category === 'insiders' && row.form144) {

@@ -574,6 +574,17 @@ def c21():
         bad_mergers.append("交易宗數欄位不一致")
     if merger_window.get("document_count") != len(merger_rows):
         bad_mergers.append("文件數欄位不一致")
+    bad_ownership = []
+    for row in advanced.get("ownership_13dg", []):
+        facts = row.get("ownership", {})
+        if facts.get("data_status") not in {"parsed", "threshold_exit"}:
+            bad_ownership.append(f"{row.get('ticker')}/{row.get('accession')} 未解析實際持股")
+        percent = facts.get("percent_of_class")
+        shares = facts.get("aggregate_shares")
+        if percent is not None and not 0 <= percent <= 100:
+            bad_ownership.append(f"{row.get('ticker')}/{row.get('accession')} 持股比例超界")
+        if shares is not None and shares < 0:
+            bad_ownership.append(f"{row.get('ticker')}/{row.get('accession')} 持股數為負")
     required_notes = [
         "Footnotes_Attachments_Radar.md", "Accounting_Review_Radar.md",
         "Schedule13DG_Ownership_Radar.md", "Governance_Compensation_Radar.md",
@@ -589,10 +600,10 @@ def c21():
                                          "括號數字代表什麼", "合併後的交易宗數",
                                          "不受上方最近 7／14 日篩選影響")
                   if marker not in page]
-    ok = (not advanced.get("errors") and not bad_counts and not bad_13f and not bad_mergers
+    ok = (not advanced.get("errors") and not bad_counts and not bad_13f and not bad_mergers and not bad_ownership
           and not missing_notes and not missing_ui)
     return ok, (f"回填不足：{bad_counts or '無'}；13F：{bad_13f or '無'}；"
-                f"併購：{bad_mergers or '無'}；"
+                f"併購：{bad_mergers or '無'}；13D/G：{bad_ownership or '無'}；"
                 f"缺筆記：{missing_notes or '無'}；缺畫面：{missing_ui or '無'}；"
                 f"解析錯誤：{advanced.get('errors') or '無'}")
 

@@ -22,6 +22,10 @@ FINANCIALS = ROOT / "financials.json"
 ACCOUNTING_FORMS = {"UPLOAD", "CORRESP"}
 PROXY_FORMS = {"PRE 14A", "PRE 14C", "DEF 14A", "DEFA14A", "DEF 14C", "DEFR14A", "DEFM14A", "PREM14A", "PX14A6G"}
 INSIDER_FORMS = {"3", "3/A", "4", "4/A", "5", "5/A", "144", "144/A"}
+OWNERSHIP_FORMS = {
+    "SC 13D", "SC 13D/A", "SC 13G", "SC 13G/A",
+    "SCHEDULE 13D", "SCHEDULE 13D/A", "SCHEDULE 13G", "SCHEDULE 13G/A",
+}
 MA_FORMS = {"S-4", "S-4/A", "F-4", "F-4/A", "425", "SC TO-C", "SC TO-I", "SC TO-I/A", "SC TO-T", "SC TO-T/A", "SC 14D9", "SC 14D9/A", "SC 13E3", "SC 13E3/A"}
 MA_REGISTRATION_FORMS = {"S-4", "S-4/A", "F-4", "F-4/A"}
 MA_COMMUNICATION_FORMS = {"425"}
@@ -84,6 +88,272 @@ def html_text(raw):
     text = re.sub(r"(?is)<(script|style).*?>.*?</\1>", " ", text)
     text = re.sub(r"(?s)<[^>]+>", " ", text)
     return re.sub(r"\s+", " ", unescape(text)).strip()
+
+
+def _ownership_number(text, label, percent=False):
+    """Read the first disclosed number after a Schedule 13D/G row label."""
+    match = re.search(label, text, re.IGNORECASE)
+    if not match:
+        return None
+    tail = text[match.end():match.end() + 180]
+    tail = re.sub(r"^\s*(?:(?:\(SEE INSTRUCTIONS\))|(?:\(\d+\))|:)+\s*", "", tail, flags=re.IGNORECASE)
+    number = re.search(r"([\d][\d,]*(?:\.\d+)?)\s*(%)?", tail)
+    if not number or (percent and number.group(2) != "%"):
+        return None
+    value = float(number.group(1).replace(",", ""))
+    return value if percent else int(value)
+
+
+def _ownership_event_date(text):
+    match = re.search(
+        r"([A-Z][a-z]+\s+\d{1,2},\s+\d{4})\s*-*\s*\(Date of Event (?:Which|which) Requires Filing of this Statement\)",
+        text,
+    )
+    return match.group(1) if match else ""
+
+
+def _ownership_cusips(text):
+    values = []
+    for marker in re.finditer(r"CUSIP", text, re.IGNORECASE):
+        segment = text[marker.end():marker.end() + 120].upper()
+        for match in re.finditer(r"\b([0-9A-Z]{6})[\s-]*([0-9A-Z]{3})\b", segment):
+            value = match.group(1) + match.group(2)
+            if sum(character.isdigit() for character in value) < 2:
+                continue
+            if value not in values:
+                values.append(value)
+    return values
+
+
+def _ownership_filing_basis(text, form):
+    if form.startswith(("SC 13D", "SCHEDULE 13D")):
+        return "主動型／可能影響控制"
+    rules = (
+        (r"(?:\[\s*[Xx]\s*\]|☒)\s*Rule\s+13d-[1l]\s*\(b\)", "合格機構投資人"),
+        (r"(?:\[\s*[Xx]\s*\]|☒)\s*Rule\s+13d-[1l]\s*\(c\)", "被動投資人"),
+        (r"(?:\[\s*[Xx]\s*\]|☒)\s*Rule\s+13d-[1l]\s*\(d\)", "豁免投資人"),
+    )
+    for pattern, label in rules:
+        if re.search(pattern, text, re.IGNORECASE):
+            return label
+    return "13G 簡式申報（細分類未辨識）"
+
+
+def _xml_tag(block, tag):
+    match = re.search(rf"<{tag}(?:\s[^>]*)?>(.*?)</{tag}>", block, re.IGNORECASE | re.DOTALL)
+    return html_text(match.group(1)) if match else ""
+
+
+def _xml_number(block, tag, integer=False):
+    value = _xml_tag(block, tag).replace(",", "").replace("%", "").strip()
+    if not re.fullmatch(r"-?\d+(?:\.\d+)?", value):
+        return None
+    return int(float(value)) if integer else float(value)
+
+
+def parse_structured_13dg(raw, form):
+    """Parse the XML Schedule 13D/G schema introduced by the SEC in late 2024."""
+    source = raw.decode("utf-8", errors="replace") if isinstance(raw, bytes) else str(raw)
+    positions = []
+    for block in re.findall(
+        r"<coverPageHeaderReportingPersonDetails(?:\s[^>]*)?>(.*?)</coverPageHeaderReportingPersonDetails>",
+        source,
+        re.IGNORECASE | re.DOTALL,
+    ):
+        position = {
+            "reporting_person": _xml_tag(block, "reportingPersonName") or "申報人未辨識",
+            "aggregate_shares": _xml_number(block, "reportingPersonBeneficiallyOwnedAggregateNumberOfShares", integer=True),
+            "percent_of_class": _xml_number(block, "classPercent"),
+            "sole_voting_power": _xml_number(block, "soleVotingPower", integer=True),
+            "shared_voting_power": _xml_number(block, "sharedVotingPower", integer=True),
+            "sole_dispositive_power": _xml_number(block, "soleDispositivePower", integer=True),
+            "shared_dispositive_power": _xml_number(block, "sharedDispositivePower", integer=True),
+            "comments": _xml_tag(block, "comments"),
+        }
+        if position["aggregate_shares"] is not None or position["percent_of_class"] is not None:
+            positions.append(position)
+    if not positions and "<item4>" in source:
+        block = re.search(r"<item4>(.*?)</item4>", source, re.IGNORECASE | re.DOTALL).group(1)
+        positions.append({
+            "reporting_person": _xml_tag(source, "filingPersonName") or "申報群組",
+            "aggregate_shares": _xml_number(block, "amountBeneficiallyOwned", integer=True),
+            "percent_of_class": _xml_number(block, "classPercent"),
+            "sole_voting_power": _xml_number(block, "solePowerOrDirectToVote", integer=True),
+            "shared_voting_power": _xml_number(block, "sharedPowerOrDirectToVote", integer=True),
+            "sole_dispositive_power": _xml_number(block, "solePowerOrDirectToDispose", integer=True),
+            "shared_dispositive_power": _xml_number(block, "sharedPowerOrDirectToDispose", integer=True),
+        })
+    representative = max(
+        positions,
+        key=lambda item: (item.get("percent_of_class") if item.get("percent_of_class") is not None else -1,
+                          item.get("aggregate_shares") if item.get("aggregate_shares") is not None else -1),
+        default={},
+    )
+    rule = _xml_tag(source, "designateRulePursuantThisScheduleFiled")
+    basis = "主動型／可能影響控制" if form.startswith("SCHEDULE 13D") else {
+        "Rule 13d-1(b)": "合格機構投資人",
+        "Rule 13d-1(c)": "被動投資人",
+        "Rule 13d-1(d)": "豁免投資人",
+    }.get(rule, "13G 簡式申報（細分類未辨識）")
+    purpose = (_xml_tag(source, "transactionPurpose") or _xml_tag(source, "purposeOfTransaction")
+               or _xml_tag(source, "purposeOfTransactions"))
+    threshold_exit = bool(re.search(
+        r"<classOwnership5PercentOrLess>\s*Y\s*</classOwnership5PercentOrLess>", source, re.IGNORECASE
+    ))
+    cusips = []
+    for value in re.findall(r"<issuerCusipNumber>(.*?)</issuerCusipNumber>", source, re.IGNORECASE | re.DOTALL):
+        value = re.sub(r"[^0-9A-Z]", "", html_text(value).upper())
+        if value and value not in cusips:
+            cusips.append(value)
+    return {
+        "schema_version": 2,
+        "event_date": _xml_tag(source, "eventDateRequiresFilingThisStatement"),
+        "cusip": cusips[0] if cusips else "",
+        "cusips": cusips,
+        "filing_basis": basis,
+        "aggregate_shares": representative.get("aggregate_shares"),
+        "percent_of_class": representative.get("percent_of_class"),
+        "sole_voting_power": representative.get("sole_voting_power"),
+        "shared_voting_power": representative.get("shared_voting_power"),
+        "sole_dispositive_power": representative.get("sole_dispositive_power"),
+        "shared_dispositive_power": representative.get("shared_dispositive_power"),
+        "positions": positions,
+        "threshold_exit": threshold_exit,
+        "purpose_excerpt": purpose[:900],
+        "filing_comment": representative.get("comments", ""),
+        "data_status": "parsed" if representative else ("threshold_exit" if threshold_exit else "unavailable"),
+    }
+
+
+def parse_13dg_ownership(raw, form=""):
+    """Extract verifiable beneficial-ownership facts from a Schedule 13D/G filing."""
+    source = raw.decode("utf-8", errors="replace") if isinstance(raw, bytes) else str(raw)
+    if re.search(r"<submissionType>SCHEDULE\s+13[DG]", source, re.IGNORECASE):
+        return parse_structured_13dg(raw, form)
+    text = html_text(raw)
+    positions = []
+    reporter_labels = list(re.finditer(r"NAMES?\s+OF\s+REPORTING\s+PERSONS?\.?", text, re.IGNORECASE))
+    for index, label in enumerate(reporter_labels):
+        end = reporter_labels[index + 1].start() if index + 1 < len(reporter_labels) else len(text)
+        block = text[label.start():end]
+        name_tail = block[label.end() - label.start():]
+        name_match = re.match(
+            r"\s*(.*?)(?=(?:\(\s*2\s*\)|\b2)\s*CHECK\s+THE\s+APPROPRIATE\s+BOX)",
+            name_tail,
+            re.IGNORECASE,
+        )
+        name = re.sub(r"\s+", " ", name_match.group(1)).strip(" .;:-") if name_match else ""
+        name = re.split(r"\bI\.?R\.?S\.?\s+(?:IDENTIFICATION|ID)", name, flags=re.IGNORECASE)[0].strip()
+        position = {
+            "reporting_person": name or "申報人未辨識",
+            "aggregate_shares": _ownership_number(block, r"AGGREGATE\s+AMOUNT\s+BENEFICIALLY\s+OWNED\s+BY\s+EACH\s+REPORTING\s+PERSON"),
+            "percent_of_class": _ownership_number(block, r"PERCENT\s+OF\s+CLASS\s+REPRESENTED\s+BY\s+AMOUNT\s+IN\s+ROW(?:\s*\(?\d+\)?)?", percent=True),
+            "sole_voting_power": _ownership_number(block, r"SOLE\s+(?:POWER\s+TO\s+VOTE(?:\s+OR\s+TO\s+DIRECT\s+THE\s+VOTE)?|VOTING\s+POWER)"),
+            "shared_voting_power": _ownership_number(block, r"SHARED\s+(?:POWER\s+TO\s+VOTE(?:\s+OR\s+TO\s+DIRECT\s+THE\s+VOTE)?|VOTING\s+POWER)"),
+            "sole_dispositive_power": _ownership_number(block, r"SOLE\s+(?:POWER\s+TO\s+DISPOSE(?:\s+OR\s+TO\s+DIRECT\s+THE\s+DISPOSITION\s+OF)?|DISPOSITIVE\s+POWER)"),
+            "shared_dispositive_power": _ownership_number(block, r"SHARED\s+(?:POWER\s+TO\s+DISPOSE(?:\s+OR\s+TO\s+DIRECT\s+THE\s+DISPOSITION\s+OF)?|DISPOSITIVE\s+POWER)"),
+        }
+        if position["aggregate_shares"] is not None or position["percent_of_class"] is not None:
+            positions.append(position)
+
+    # Some institutional 13G filings disclose the same facts only in Item 4.
+    if not positions:
+        item_match = re.search(r"Item\s+4\.?\s+Ownership\s+(.*?)(?=Item\s+5\.)", text, re.IGNORECASE)
+        block = item_match.group(1) if item_match else text
+        position = {
+            "reporting_person": "申報群組",
+            "aggregate_shares": _ownership_number(block, r"Amount\s+beneficially\s+owned"),
+            "percent_of_class": _ownership_number(block, r"Percent\s+of\s+class", percent=True),
+            "sole_voting_power": _ownership_number(block, r"Sole\s+power\s+to\s+vote(?:\s+or\s+to\s+direct\s+the\s+vote)?"),
+            "shared_voting_power": _ownership_number(block, r"Shared\s+power\s+to\s+vote(?:\s+or\s+to\s+direct\s+the\s+vote)?"),
+            "sole_dispositive_power": _ownership_number(block, r"Sole\s+power\s+to\s+dispose(?:\s+or\s+to\s+direct\s+the\s+disposition\s+of)?"),
+            "shared_dispositive_power": _ownership_number(block, r"Shared\s+power\s+to\s+dispose(?:\s+or\s+to\s+direct\s+the\s+disposition\s+of)?"),
+        }
+        if position["aggregate_shares"] is not None or position["percent_of_class"] is not None:
+            positions.append(position)
+
+    representative = max(
+        positions,
+        key=lambda item: (item.get("percent_of_class") or -1, item.get("aggregate_shares") or -1),
+        default={},
+    )
+    purpose_match = re.search(
+        r"Item\s+4\.?\s+Purpose\s+of\s+(?:the\s+)?Transaction\.?\s+(.*?)(?=Item\s+5\.)",
+        text,
+        re.IGNORECASE,
+    )
+    purpose = re.sub(r"\s+", " ", purpose_match.group(1)).strip() if purpose_match else ""
+    if len(purpose) > 900:
+        purpose = purpose[:900].rsplit(" ", 1)[0] + "…"
+    threshold_exit = bool(re.search(
+        r"Item\s+5\.?\s+Ownership\s+of\s+(?:Five|5)\s+Percent\s+or\s+Less.*?(?:\[\s*[Xx]\s*\]|☒)",
+        text,
+        re.IGNORECASE,
+    ))
+    cusips = _ownership_cusips(text)
+    return {
+        "schema_version": 2,
+        "event_date": _ownership_event_date(text),
+        "cusip": cusips[0] if cusips else "",
+        "cusips": cusips,
+        "filing_basis": _ownership_filing_basis(text, form),
+        "aggregate_shares": representative.get("aggregate_shares"),
+        "percent_of_class": representative.get("percent_of_class"),
+        "sole_voting_power": representative.get("sole_voting_power"),
+        "shared_voting_power": representative.get("shared_voting_power"),
+        "sole_dispositive_power": representative.get("sole_dispositive_power"),
+        "shared_dispositive_power": representative.get("shared_dispositive_power"),
+        "positions": positions,
+        "threshold_exit": threshold_exit,
+        "purpose_excerpt": purpose,
+        "data_status": "parsed" if representative else ("threshold_exit" if threshold_exit else "unavailable"),
+    }
+
+
+def add_ownership_changes(rows):
+    """Compare amendments only with the same issuer and reporting filer."""
+    previous = {}
+    for row in sorted(rows, key=lambda item: (item.get("filing_date", ""), item.get("accession", ""))):
+        reporters = "|".join(row.get("reporting_persons", []))
+        cik = re.search(r"CIK\s+(\d+)", reporters, re.IGNORECASE)
+        facts = row.get("ownership", {})
+        facts.pop("change_from_prior", None)
+        security_key = tuple(facts.get("cusips", [])) or (facts.get("cusip", ""),)
+        key = (row.get("ticker", ""), cik.group(1) if cik else reporters.lower(), security_key)
+        prior = previous.get(key)
+        if prior and facts.get("data_status") == "parsed" and prior["facts"].get("data_status") == "parsed":
+            shares = facts.get("aggregate_shares")
+            prior_shares = prior["facts"].get("aggregate_shares")
+            percent = facts.get("percent_of_class")
+            prior_percent = prior["facts"].get("percent_of_class")
+            share_change = shares - prior_shares if shares is not None and prior_shares is not None else None
+            point_change = percent - prior_percent if percent is not None and prior_percent is not None else None
+            share_ratio = shares / prior_shares if shares is not None and prior_shares not in (None, 0) else None
+            internal_realignment = "internal realignment" in facts.get("filing_comment", "").lower()
+            threshold_zero = facts.get("threshold_exit") and shares == 0
+            shares_comparable = not (threshold_zero or (share_ratio is not None and (share_ratio >= 4 or share_ratio <= 0.25)))
+            if internal_realignment:
+                comparison_note = "申報人註明內部重整後改由相關實體分開申報；0 股不等於整個機構集團清倉"
+            elif threshold_zero:
+                comparison_note = "本申報顯示降至 5% 以下且持股為 0；請由原文確認是否涉及申報主體調整"
+            elif not shares_comparable:
+                comparison_note = "股數疑受拆股／併股影響，方向以持股比例判讀"
+            elif facts.get("threshold_exit"):
+                comparison_note = "本申報已降至 5% 申報門檻以下"
+            else:
+                comparison_note = ""
+            signal = point_change if point_change is not None else share_change
+            facts["change_from_prior"] = {
+                "previous_filing_date": prior["date"],
+                "shares": share_change,
+                "percentage_points": round(point_change, 4) if point_change is not None else None,
+                "direction": "增加" if signal is not None and signal > 0 else ("減少" if signal is not None and signal < 0 else "持平"),
+                "shares_comparable": shares_comparable,
+                "comparison_note": comparison_note,
+            }
+        if facts.get("data_status") in {"parsed", "threshold_exit"}:
+            previous[key] = {"date": row.get("filing_date", ""), "facts": facts}
+    return rows
 
 
 def full_submission_url(event):
@@ -480,7 +750,7 @@ def search_13dg(ticker, company, years=3):
     start = end - timedelta(days=365 * years + 1)
     query = {
         "q": company["name"],
-        "forms": "SC 13D,SC 13D/A,SC 13G,SC 13G/A",
+        "forms": ",".join(sorted(OWNERSHIP_FORMS)),
         "dateRange": "custom", "startdt": start.isoformat(), "enddt": end.isoformat(),
         "from": "0", "size": "100",
     }
@@ -491,7 +761,7 @@ def search_13dg(ticker, company, years=3):
     ticker_marker = f"({ticker})"
     for hit in payload.get("hits", {}).get("hits", []):
         source = hit.get("_source", {})
-        if source.get("sequence") != 1 or source.get("form") not in {"SC 13D", "SC 13D/A", "SC 13G", "SC 13G/A"}:
+        if source.get("sequence") != 1 or source.get("form") not in OWNERSHIP_FORMS:
             continue
         names = source.get("display_names", [])
         if not any(cik_marker in name or ticker_marker in name for name in names):
@@ -502,10 +772,46 @@ def search_13dg(ticker, company, years=3):
         rows[accession] = {
             "ticker": ticker, "form": source.get("form"), "filing_date": source.get("file_date"),
             "accession": accession, "reporting_persons": owners,
-            "meaning": FORM_MEANINGS["SC 13D" if source.get("form", "").startswith("SC 13D") else "SC 13G"],
+            "meaning": FORM_MEANINGS["SC 13D" if "13D" in source.get("form", "") else "SC 13G"],
             "url": f"https://www.sec.gov/Archives/edgar/data/{int(company['cik'])}/{clean}/{accession}-index.html",
         }
     return list(rows.values())
+
+
+def search_13dg_with_retry(ticker, company, years=3, attempts=3):
+    """Retry transient EFTS failures without silently returning an empty company."""
+    last_error = None
+    for attempt in range(attempts):
+        try:
+            return search_13dg(ticker, company, years)
+        except Exception as exc:
+            last_error = exc
+            if attempt + 1 < attempts:
+                time.sleep(0.75 * (attempt + 1))
+    raise last_error
+
+
+def enrich_ownership_rows(rows, previous_rows=None, errors=None):
+    """Attach immutable filing facts, reusing already parsed accessions."""
+    errors = errors if errors is not None else []
+    cached = {
+        row.get("accession"): row.get("ownership")
+        for row in (previous_rows or [])
+        if (row.get("accession") and row.get("ownership", {}).get("schema_version") == 2
+            and row.get("ownership", {}).get("data_status") in {"parsed", "threshold_exit"})
+    }
+    for row in rows:
+        if cached.get(row.get("accession")):
+            row["ownership"] = cached[row["accession"]]
+            continue
+        try:
+            raw_url = row["url"].replace("-index.html", ".txt")
+            row["ownership"] = parse_13dg_ownership(fetch(raw_url, max_bytes=2_500_000), row.get("form", ""))
+            time.sleep(0.11)
+        except Exception as exc:
+            row["ownership"] = {"data_status": "unavailable", "positions": []}
+            errors.append(f"13D/G facts {row.get('accession', '—')}: {type(exc).__name__}: {exc}")
+    return add_ownership_changes(rows)
 
 
 def enforcement_matches(companies):
@@ -564,10 +870,48 @@ def render_simple_note(title, tag, intro, rows, checked_at):
 
 def render_ownership_note(rows, checked_at):
     lines = ["---", "title: 13D／13G 大股東雷達", f"updated_at: {checked_at}", "tags:", "  - sec/ownership", "---", "", "# 🐘 13D／13G 大股東雷達", "",
-             "由 SEC EDGAR 全文索引搜尋發行人，不依賴公司 submissions feed。", "", "| 日期 | 公司 | 表單 | 申報人 | 代表意義 |", "|---|---|---|---|---|"]
+             "由 SEC EDGAR 全文索引搜尋發行人，並直接解析申報原文的受益持股數與持股比例。", "", "| 日期 | 公司 | 表單 | 申報人 | 實際受益持股 | 較前次同申報人 | 性質／重點 |", "|---|---|---|---|---|---|---|"]
     for row in sorted(rows, key=lambda r: r["filing_date"], reverse=True):
-        lines.append(f"| {row['filing_date']} | **{row['ticker']}** | [{row['form']}]({row['url']}) | {'、'.join(row['reporting_persons']) or '—'} | {row['meaning']} |")
-    lines += ["", "> 13D／13G 的 5% 是受益所有權申報門檻；修正案常是持股比例、資金來源或目的改變，需開原文比對。", ""]
+        facts = row.get("ownership", {})
+        if facts.get("data_status") == "parsed":
+            shares = facts.get("aggregate_shares")
+            percent = facts.get("percent_of_class")
+            holding_parts = []
+            if shares is not None:
+                holding_parts.append(f"{shares:,.0f} 股")
+            if percent is not None:
+                holding_parts.append(f"{percent:.2f}%")
+            holding = "／".join(holding_parts) or "原文未可靠辨識"
+            if len(facts.get("positions", [])) > 1:
+                holding = "逐申報人最高 " + holding
+            if facts.get("threshold_exit"):
+                holding += "（已降至 5% 以下）"
+        elif facts.get("threshold_exit"):
+            holding = "已降至 5% 以下（原文勾選）"
+        else:
+            holding = "原文未可靠辨識"
+        change = facts.get("change_from_prior")
+        if change:
+            shares = change.get("shares")
+            points = change.get("percentage_points")
+            change_text = change["direction"]
+            if shares is not None and change.get("shares_comparable", True):
+                change_text += f" {shares:+,.0f} 股"
+            if points is not None:
+                change_text += f"／{points:+.2f}pp"
+            if change.get("comparison_note"):
+                change_text += f"；{change['comparison_note']}"
+        else:
+            change_text = "無同申報人前期可比"
+        purpose = facts.get("purpose_excerpt", "")
+        detail = facts.get("filing_basis", row["meaning"])
+        if purpose:
+            detail += f"；Item 4：{purpose[:180]}{'…' if len(purpose) > 180 else ''}"
+        elif facts.get("filing_comment"):
+            comment = facts["filing_comment"]
+            detail += f"；申報備註：{comment[:180]}{'…' if len(comment) > 180 else ''}"
+        lines.append(f"| {row['filing_date']} | **{row['ticker']}** | [{row['form']}]({row['url']}) | {'、'.join(row['reporting_persons']) or '—'} | {holding} | {change_text} | {detail} |")
+    lines += ["", "> 持股數與比例取自該份 SEC 申報，不是即時持倉；『較前次』只比較同公司、同一申報 CIK 的既有 13D／13G 文件。13D 的 Item 4 摘錄用來辨識投資目的，仍應開原文閱讀完整上下文。", ""]
     return "\n".join(lines)
 
 
@@ -663,6 +1007,38 @@ def refresh_merger_excerpts(output=DEFAULT_OUTPUT, radar_dir=DEFAULT_DIR):
     return {"documents": len(relevant), "deals": len(deals), "updated": updated, "errors": errors}
 
 
+def refresh_ownership_facts(output=DEFAULT_OUTPUT, radar_dir=DEFAULT_DIR):
+    """Refresh 13D/G search results and facts without rebuilding other radars."""
+    output = Path(output)
+    payload = json.loads(output.read_text())
+    errors = []
+    previous_rows = payload.get("ownership_13dg", [])
+    rows = []
+    for ticker, company in sorted(load_companies().items()):
+        try:
+            rows.extend(search_13dg_with_retry(ticker, company))
+        except Exception as exc:
+            errors.append(f"13D/G {ticker}: {type(exc).__name__}: {exc}")
+            rows.extend(row for row in previous_rows if row.get("ticker") == ticker)
+        time.sleep(0.11)
+    enrich_ownership_rows(rows, previous_rows=previous_rows, errors=errors)
+    payload["ownership_13dg"] = rows
+    payload["ownership_facts_updated_at"] = utc_now()
+    payload["errors"] = [
+        item for item in payload.get("errors", [])
+        if not item.startswith(("13D/G ", "13D/G facts "))
+    ] + errors
+    output.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n")
+    radar_dir = Path(radar_dir)
+    radar_dir.mkdir(parents=True, exist_ok=True)
+    checked_at = payload["ownership_facts_updated_at"]
+    (radar_dir / "Schedule13DG_Ownership_Radar.md").write_text(
+        render_ownership_note(rows, checked_at) + "\n"
+    )
+    parsed = sum(row.get("ownership", {}).get("data_status") in {"parsed", "threshold_exit"} for row in rows)
+    return {"documents": len(rows), "parsed": parsed, "errors": errors}
+
+
 def update_radars(fetched, output=DEFAULT_OUTPUT, radar_dir=DEFAULT_DIR, checked_at=None, include_external=True):
     checked_at = checked_at or utc_now()
     companies = load_companies()
@@ -752,15 +1128,18 @@ def update_radars(fetched, output=DEFAULT_OUTPUT, radar_dir=DEFAULT_DIR, checked
         raw_mergers, companies, checked_at
     )
 
-    ownership = list(previous.get("ownership_13dg", [])) if not include_external else []
+    previous_ownership = list(previous.get("ownership_13dg", []))
+    ownership = list(previous_ownership) if not include_external else []
     enforcement = list(previous.get("enforcement", [])) if not include_external else []
     if include_external:
         for ticker, company in sorted(companies.items()):
             try:
-                ownership.extend(search_13dg(ticker, company))
+                ownership.extend(search_13dg_with_retry(ticker, company))
             except Exception as exc:
                 errors.append(f"13D/G {ticker}: {type(exc).__name__}: {exc}")
+                ownership.extend(row for row in previous_ownership if row.get("ticker") == ticker)
             time.sleep(0.11)
+        ownership = enrich_ownership_rows(ownership, previous_ownership, errors)
         try:
             enforcement = enforcement_matches(companies)
         except Exception as exc:
@@ -798,9 +1177,14 @@ def main():
     parser.add_argument("--no-external", action="store_true")
     parser.add_argument("--refresh-merger-excerpts-only", action="store_true",
                         help="只補既有併購列的可驗證原文摘錄，不重建其他雷達")
+    parser.add_argument("--refresh-ownership-facts-only", action="store_true",
+                        help="只補既有 13D／13G 的實際持股數字，不重建其他雷達")
     args = parser.parse_args()
     if args.refresh_merger_excerpts_only:
         print(json.dumps(refresh_merger_excerpts(args.output, args.radar_dir), ensure_ascii=False))
+        return
+    if args.refresh_ownership_facts_only:
+        print(json.dumps(refresh_ownership_facts(args.output, args.radar_dir), ensure_ascii=False))
         return
     events = json.loads(args.events.read_text()).get("events", [])
     fetched = {}

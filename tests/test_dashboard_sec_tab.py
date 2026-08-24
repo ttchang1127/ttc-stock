@@ -51,7 +51,7 @@ class DashboardSecTabTests(unittest.TestCase):
             self.assertIn(key, self.advanced)
         self.assertEqual(set(self.thirteen_f["stocks"]), set(self.quarterly["companies"]))
         self.assertEqual(len(self.thirteen_f["periods"]), 2)
-        self.assertIn("13D／13G 的 5%", self.html)
+        self.assertIn("13D／13G 持股數／比例", self.html)
         self.assertIn("Form 144 是擬售通知", self.html)
         self.assertIn("45 天時滯", self.html)
 
@@ -76,7 +76,9 @@ class DashboardSecTabTests(unittest.TestCase):
             "目前實際申報內容",
             "不是範例；內容隨雷達與公司篩選同步更新",
             "交易原文摘錄",
-            "本地資料目前未結構化擷取持股百分比",
+            "實際受益持股",
+            "change_from_prior",
+            "13D Item 4 投資目的摘錄",
             "secAdvancedForm4Facts",
             "交易後",
             "申報備註",
