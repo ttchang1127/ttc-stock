@@ -1,6 +1,6 @@
 ---
 title: Form 144＋3／4／5 彙總
-updated_at: 2026-08-22T04:28:24+00:00
+updated_at: 2026-08-25T04:34:49+00:00
 tags:
   - sec/insiders
 ---
@@ -21,6 +21,7 @@ tags:
 | 2026-05-06 | **AAPL** | 144 | LEVINSON ARTHUR D；擬售 250,000 股／$71,190,164，約占流通股 0.002% | [原文](https://www.sec.gov/Archives/edgar/data/320193/000192109426000446/xsl144X01/primary_doc.xml) |
 | 2026-05-05 | **AAPL** | 144 | KATHERINE L ADAMS；擬售 43,000 股／$12,039,493，約占流通股 0.000% | [原文](https://www.sec.gov/Archives/edgar/data/320193/000195004726004044/xsl144X01/primary_doc.xml) |
 | 2026-04-27 | **AAPL** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/320193/000114036126017175/xslF345X06/form4.xml) |
+| 2026-08-24 | **AMZN** | 144 | Zapolsky David；擬售 9,258 股／$2,404,951，約占流通股 0.000% | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000195917326006360/xsl144X01/primary_doc.xml) |
 | 2026-08-21 | **AMZN** | 144 | SHELLEY L REYNOLDS；擬售 2,343 股／$609,438，約占流通股 0.000% | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000195004726008542/xsl144X01/primary_doc.xml) |
 | 2026-08-21 | **AMZN** | 144 | Brian T Olsavsky；擬售 6,172 股／$1,606,633，約占流通股 0.000% | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000162828026058401/xsl144X01/primary_doc.xml) |
 | 2026-08-21 | **AMZN** | 144 | Jassy Andrew R；擬售 20,000 股／$5,180,213，約占流通股 0.002% | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000195917326006313/xsl144X01/primary_doc.xml) |
@@ -32,7 +33,6 @@ tags:
 | 2026-08-05 | **AMZN** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000101872426000030/xslF345X06/wk-form4_1785962562.xml) |
 | 2026-08-05 | **AMZN** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000101872426000028/xslF345X06/wk-form4_1785962062.xml) |
 | 2026-08-03 | **AMZN** | 144 | Jeffrey P. Bezos；擬售 15,000,000 股／$4,073,700,000，約占流通股 0.139% | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000195004726007580/xsl144X01/primary_doc.xml) |
-| 2026-07-02 | **AMZN** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000101872426000022/xslF345X06/wk-form4_1783023822.xml) |
 | 2026-08-18 | **ARM** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1973239/000197323926000121/xslF345X06/wk-form4_1787088706.xml) |
 | 2026-08-11 | **ARM** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1973239/000197323926000119/xslF345X06/wk-form4_1786479685.xml) |
 | 2026-06-04 | **ARM** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1973239/000197323926000107/xslF345X06/wk-form4_1780607139.xml) |
@@ -117,6 +117,7 @@ tags:
 | 2026-06-12 | **MSFT** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/789019/000078901926000131/xslF345X06/form4.xml) |
 | 2026-06-12 | **MSFT** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/789019/000078901926000130/xslF345X06/form4.xml) |
 | 2026-06-12 | **MSFT** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/789019/000078901926000129/xslF345X06/form4.xml) |
+| 2026-08-24 | **NVDA** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1045810/000134784226000015/xslF345X06/wk-form4_1787607122.xml) |
 | 2026-08-12 | **NVDA** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1045810/000131026426000008/xslF345X06/wk-form4_1786569187.xml) |
 | 2026-08-07 | **NVDA** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1045810/000119764726000007/xslF345X06/wk-form4_1786135642.xml) |
 | 2026-07-15 | **NVDA** | 3 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1045810/000131026426000002/xslF345X06/wk-form3_1784149389.xml) |
@@ -128,7 +129,6 @@ tags:
 | 2026-06-29 | **NVDA** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1045810/000128411626000004/xslF345X06/wk-form4_1782767057.xml) |
 | 2026-06-29 | **NVDA** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1045810/000119765026000002/xslF345X06/wk-form4_1782767025.xml) |
 | 2026-06-29 | **NVDA** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1045810/000121988826000002/xslF345X06/wk-form4_1782766973.xml) |
-| 2026-06-29 | **NVDA** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1045810/000181822426000006/xslF345X06/wk-form4_1782766926.xml) |
 | 2026-08-20 | **ONDS** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1646188/000121390026092185/xslF345X06/ownership.xml) |
 | 2026-08-18 | **ONDS** | 144 | RICHARD COHEN；擬售 7,500 股／$67,500，約占流通股 0.001% | [原文](https://www.sec.gov/Archives/edgar/data/1646188/000195004726008326/xsl144X01/primary_doc.xml) |
 | 2026-08-14 | **ONDS** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1646188/000121390026090424/xslF345X06/ownership.xml) |

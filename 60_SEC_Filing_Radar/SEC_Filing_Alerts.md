@@ -1,6 +1,6 @@
 ---
 title: SEC 每日申報雷達
-updated_at: 2026-08-22T04:28:24+00:00
+updated_at: 2026-08-25T04:34:49+00:00
 tags:
   - sec/alerts
   - filings/daily
@@ -15,6 +15,8 @@ GitHub Actions 於台北時間週二至週六中午 12:00 檢查；重大／重�
 
 | 重要性 | 公司 | 申報 | 日期 | 事件／Item | SEC 原文 |
 |---|---|---|---|---|---|
+| 🔵 留意 | **NVDA** | 4 | 2026-08-24 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1045810/000134784226000015/xslF345X06/wk-form4_1787607122.xml) |
+| 🔵 留意 | **AMZN** | 144 | 2026-08-24 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000195917326006360/xsl144X01/primary_doc.xml) |
 | 🔵 留意 | **AMZN** | 144 | 2026-08-21 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000195004726008542/xsl144X01/primary_doc.xml) |
 | 🔵 留意 | **AMZN** | 144 | 2026-08-21 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000162828026058401/xsl144X01/primary_doc.xml) |
 | 🔵 留意 | **AMZN** | 144 | 2026-08-21 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000195917326006313/xsl144X01/primary_doc.xml) |
