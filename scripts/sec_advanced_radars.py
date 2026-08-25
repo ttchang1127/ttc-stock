@@ -464,6 +464,144 @@ def build_ownership_snapshot(rows):
     )
 
 
+def ownership_form_family(form):
+    """Return the economic filing family while ignoring SEC naming variants."""
+    form = (form or "").upper()
+    if "13D" in form:
+        return "13D"
+    if "13G" in form:
+        return "13G"
+    return ""
+
+
+def classify_ownership_event(row, prior=None):
+    """Turn one filing and its same-owner predecessor into a readable alert."""
+    facts = row.get("ownership", {})
+    prior_facts = prior.get("ownership", {}) if prior else {}
+    form = row.get("form", "")
+    family = ownership_form_family(form)
+    prior_family = ownership_form_family(prior.get("form", "")) if prior else ""
+    percent = facts.get("percent_of_class")
+    prior_percent = prior_facts.get("percent_of_class")
+    shares = facts.get("aggregate_shares")
+    prior_shares = prior_facts.get("aggregate_shares")
+    point_change = percent - prior_percent if percent is not None and prior_percent is not None else None
+    share_change = shares - prior_shares if shares is not None and prior_shares is not None else None
+    change = facts.get("change_from_prior") or {}
+    shares_comparable = change.get("shares_comparable", True)
+    comparison_note = change.get("comparison_note", "")
+    share_change_ratio = (
+        share_change / prior_shares
+        if shares_comparable and share_change is not None and prior_shares not in (None, 0)
+        else None
+    )
+    internal_realignment = "internal realignment" in facts.get("filing_comment", "").lower()
+    crossed_below = bool(facts.get("threshold_exit")) or (
+        prior_percent is not None and prior_percent >= 5 and percent is not None and percent < 5
+    )
+    crossed_above = (
+        prior_percent is not None and prior_percent < 5 and percent is not None and percent >= 5
+    )
+    initial_form = "/A" not in form.upper() and "AMEND" not in form.upper()
+
+    if internal_realignment:
+        event_type, event_label, importance = "realignment", "申報主體重整", "watch"
+        interpretation = "申報人註明內部重整或拆分申報主體；0 股不可直接解讀為整個機構集團清倉。"
+    elif prior and prior_family == "13G" and family == "13D":
+        event_type, event_label, importance = "active_transition", "13G→13D 主動介入", "high"
+        interpretation = "申報性質由被動／豁免型轉為 13D；應優先閱讀 Item 4 是否涉及董事會、資本配置或控制權。"
+    elif crossed_below:
+        event_type, event_label, importance = "threshold_exit", "降至 5% 以下", "high"
+        interpretation = "最新申報已低於 5% 門檻；這不一定代表完全清倉，也不應把申報主體調整當成賣出。"
+    elif crossed_above:
+        event_type, event_label, importance = "threshold_entry", "升破 5% 門檻", "high"
+        interpretation = "持股比例由門檻下升至至少 5%，成為需揭露的受益所有權人；不代表全部持股都在本期買入。"
+    elif family == "13D":
+        event_type, event_label, importance = "active_13d", "13D 主動型申報", "high"
+        interpretation = "這是可能影響公司控制、治理或策略的主動型申報；需搭配 Item 4 原文判讀具體目的。"
+    elif prior is None and initial_form and percent is not None and percent >= 5:
+        event_type, event_label, importance = "new_threshold", "新進／首次達門檻", "high"
+        interpretation = "這是觀察窗內首份非修正版且持股至少 5% 的申報；不表示全部持股都在申報日前才買入。"
+    elif prior is None:
+        event_type, event_label, importance = "first_observed", "觀察窗首筆", "routine"
+        interpretation = "缺少同申報人與同 CUSIP 的更早可比文件，只能視為觀察窗首筆，不能推論新進或增減持。"
+    elif point_change is not None and abs(point_change) >= 2:
+        direction = "增加" if point_change > 0 else "減少"
+        event_type, event_label, importance = f"major_{'increase' if point_change > 0 else 'decrease'}", f"持股比例大幅{direction}", "high"
+        interpretation = "持股比例變動至少 2 個百分點，列為重大閱讀事件；比例也可能受公司流通股數變動影響。"
+    elif point_change is not None and abs(point_change) >= 0.5:
+        direction = "增加" if point_change > 0 else "減少"
+        event_type, event_label, importance = f"{'increase' if point_change > 0 else 'decrease'}", f"持股比例{direction}", "watch"
+        interpretation = "持股比例變動 0.5 至 2 個百分點，值得留意；不能僅憑比例變化斷定實際買入或賣出。"
+    elif point_change not in (None, 0):
+        direction = "增加" if point_change > 0 else "減少"
+        event_type, event_label, importance = f"small_{'increase' if point_change > 0 else 'decrease'}", f"持股比例小幅{direction}", "routine"
+        interpretation = "持股比例變動小於 0.5 個百分點，屬例行追蹤；仍可能同時受到分母變化影響。"
+    elif share_change_ratio is not None and abs(share_change_ratio) >= 0.25:
+        direction = "增加" if share_change_ratio > 0 else "減少"
+        event_type, event_label, importance = f"major_share_{'increase' if share_change_ratio > 0 else 'decrease'}", f"可比股數大幅{direction}", "high"
+        interpretation = "可比持股數變動至少 25%，但缺少可靠持股比例比較；應開啟原文核對交易與股本變化。"
+    elif share_change_ratio is not None and abs(share_change_ratio) >= 0.1:
+        direction = "增加" if share_change_ratio > 0 else "減少"
+        event_type, event_label, importance = f"share_{'increase' if share_change_ratio > 0 else 'decrease'}", f"可比股數{direction}", "watch"
+        interpretation = "可比持股數變動 10% 至 25%，但缺少可靠持股比例比較；需搭配公司股本變化判讀。"
+    elif not shares_comparable:
+        event_type, event_label, importance = "not_comparable", "股數尺度不可比", "watch"
+        interpretation = comparison_note or "股數可能受拆股、併股或申報主體變化影響，方向應以持股比例與原文為準。"
+    else:
+        event_type, event_label, importance = "stable", "持股大致持平", "routine"
+        interpretation = "相較前次沒有達到警示門檻的變動，列為例行追蹤；不代表申報日至今持倉未變。"
+
+    return {
+        "event_type": event_type,
+        "event_label": event_label,
+        "importance": importance,
+        "importance_label": {"high": "🔴 重大", "watch": "🟡 留意", "routine": "🟢 一般"}[importance],
+        "previous_filing_date": prior.get("filing_date", "") if prior else "",
+        "share_change": share_change,
+        "percentage_points": round(point_change, 4) if point_change is not None else None,
+        "shares_comparable": shares_comparable,
+        "comparison_note": comparison_note,
+        "interpretation": interpretation,
+    }
+
+
+def build_ownership_timeline(rows):
+    """Build newest-first, same-owner 13D/G changes for dashboard alerts."""
+    groups = {}
+    for row in rows:
+        groups.setdefault(ownership_group_key(row), []).append(row)
+    timeline = []
+    for (ticker, owner_key, security_key), history in groups.items():
+        history = sorted(history, key=lambda item: (item.get("filing_date", ""), item.get("accession", "")))
+        prior = None
+        for row in history:
+            facts = row.get("ownership", {})
+            event = classify_ownership_event(row, prior)
+            timeline.append({
+                "ticker": ticker,
+                "owner_key": owner_key,
+                "reporting_persons": row.get("reporting_persons", []),
+                "cusips": list(security_key) if any(security_key) else [],
+                "filing_date": row.get("filing_date", ""),
+                "event_date": facts.get("event_date", ""),
+                "form": row.get("form", ""),
+                "accession": row.get("accession", ""),
+                "url": row.get("url", ""),
+                "aggregate_shares": facts.get("aggregate_shares"),
+                "percent_of_class": facts.get("percent_of_class"),
+                **event,
+            })
+            if facts.get("data_status") in {"parsed", "threshold_exit"}:
+                prior = row
+    rank = {"high": 0, "watch": 1, "routine": 2}
+    return sorted(
+        timeline,
+        key=lambda item: (item["filing_date"], -rank[item["importance"]], item["ticker"], item["owner_key"]),
+        reverse=True,
+    )
+
+
 def full_submission_url(event):
     return event["index_url"].replace("-index.html", ".txt")
 
@@ -977,8 +1115,9 @@ def render_simple_note(title, tag, intro, rows, checked_at):
     return "\n".join(lines)
 
 
-def render_ownership_note(rows, checked_at, snapshot=None):
+def render_ownership_note(rows, checked_at, snapshot=None, timeline=None):
     snapshot = snapshot if snapshot is not None else build_ownership_snapshot(rows)
+    timeline = timeline if timeline is not None else build_ownership_timeline(rows)
     lines = ["---", "title: 13D／13G 大股東雷達", f"updated_at: {checked_at}", "tags:", "  - sec/ownership", "---", "", "# 🐘 13D／13G 大股東雷達", "",
              "由 SEC EDGAR 全文索引搜尋發行人，並直接解析申報原文的受益持股數與持股比例。", "",
              "## 最新狀態總覽", "",
@@ -997,6 +1136,31 @@ def render_ownership_note(rows, checked_at, snapshot=None):
             f"| **{item['ticker']}** | {'、'.join(item.get('reporting_persons', [])) or '—'} | "
             f"{', '.join(item.get('cusips', [])) or '—'} | {holding} | {item['status_label']} | {nature} | "
             f"[{item['latest_filing_date']}]({item['url']}) | {item['history_count']} 份 |"
+        )
+    lines += ["", "## 大股東異動時間軸與警報", "",
+              "紅／黃／綠代表閱讀優先度，不代表利多或利空。紅色包括跨越 5% 門檻、13D 主動申報、13G 轉 13D，或持股比例變動至少 2 個百分點；黃色包括 0.5 至低於 2 個百分點的變動與申報主體重整。", "",
+              "| 申報日 | 公司 | 申報人 | 關注度 | 異動事件 | 最新持股 | 較前次 | 客觀解讀 | SEC |",
+              "|---|---|---|---|---|---|---|---|---|"]
+    for event in timeline:
+        shares = event.get("aggregate_shares")
+        percent = event.get("percent_of_class")
+        holding = "／".join(part for part in (
+            f"{shares:,.0f} 股" if shares is not None else "",
+            f"{percent:.2f}%" if percent is not None else "",
+        ) if part) or "未可靠辨識"
+        changes = []
+        share_change = event.get("share_change")
+        points = event.get("percentage_points")
+        if share_change is not None and event.get("shares_comparable", True):
+            changes.append(f"{share_change:+,.0f} 股")
+        if points is not None:
+            changes.append(f"{points:+.2f}pp")
+        if not changes:
+            changes.append("無前期可比" if not event.get("previous_filing_date") else "未達警示門檻")
+        lines.append(
+            f"| {event['filing_date']} | **{event['ticker']}** | {'、'.join(event.get('reporting_persons', [])) or '—'} | "
+            f"{event['importance_label']} | {event['event_label']} | {holding} | {'／'.join(changes)} | "
+            f"{event['interpretation']} | [原文]({event['url']}) |"
         )
     lines += ["", "## 完整申報歷史", "", "| 日期 | 公司 | 表單 | 申報人 | 實際受益持股 | 較前次同申報人 | 性質／重點 |", "|---|---|---|---|---|---|---|"]
     for row in sorted(rows, key=lambda r: r["filing_date"], reverse=True):
@@ -1150,9 +1314,12 @@ def refresh_ownership_facts(output=DEFAULT_OUTPUT, radar_dir=DEFAULT_DIR):
             rows.extend(row for row in previous_rows if row.get("ticker") == ticker)
         time.sleep(0.11)
     enrich_ownership_rows(rows, previous_rows=previous_rows, errors=errors)
+    payload["schema_version"] = max(payload.get("schema_version", 1), 3)
     payload["ownership_13dg"] = rows
     snapshot = build_ownership_snapshot(rows)
+    timeline = build_ownership_timeline(rows)
     payload["ownership_snapshot"] = snapshot
+    payload["ownership_timeline"] = timeline
     payload["ownership_facts_updated_at"] = utc_now()
     payload["errors"] = [
         item for item in payload.get("errors", [])
@@ -1163,10 +1330,31 @@ def refresh_ownership_facts(output=DEFAULT_OUTPUT, radar_dir=DEFAULT_DIR):
     radar_dir.mkdir(parents=True, exist_ok=True)
     checked_at = payload["ownership_facts_updated_at"]
     (radar_dir / "Schedule13DG_Ownership_Radar.md").write_text(
-        render_ownership_note(rows, checked_at, snapshot) + "\n"
+        render_ownership_note(rows, checked_at, snapshot, timeline) + "\n"
     )
     parsed = sum(row.get("ownership", {}).get("data_status") in {"parsed", "threshold_exit"} for row in rows)
     return {"documents": len(rows), "parsed": parsed, "errors": errors}
+
+
+def rebuild_ownership_views(output=DEFAULT_OUTPUT, radar_dir=DEFAULT_DIR):
+    """Rebuild snapshot/timeline from cached filings without calling SEC."""
+    output = Path(output)
+    payload = json.loads(output.read_text())
+    rows = add_ownership_changes(payload.get("ownership_13dg", []))
+    snapshot = build_ownership_snapshot(rows)
+    timeline = build_ownership_timeline(rows)
+    payload["schema_version"] = max(payload.get("schema_version", 1), 3)
+    payload["ownership_13dg"] = rows
+    payload["ownership_snapshot"] = snapshot
+    payload["ownership_timeline"] = timeline
+    output.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n")
+    checked_at = payload.get("ownership_facts_updated_at", payload.get("updated_at", ""))
+    radar_dir = Path(radar_dir)
+    radar_dir.mkdir(parents=True, exist_ok=True)
+    (radar_dir / "Schedule13DG_Ownership_Radar.md").write_text(
+        render_ownership_note(rows, checked_at, snapshot, timeline) + "\n"
+    )
+    return {"documents": len(rows), "holders": len(snapshot), "events": len(timeline)}
 
 
 def update_radars(fetched, output=DEFAULT_OUTPUT, radar_dir=DEFAULT_DIR, checked_at=None, include_external=True):
@@ -1185,7 +1373,7 @@ def update_radars(fetched, output=DEFAULT_OUTPUT, radar_dir=DEFAULT_DIR, checked
         row.get("event", {}).get("accession"): row
         for row in previous.get("insiders", []) if row.get("event", {}).get("accession")
     }
-    cache = {"schema_version": 2, "updated_at": checked_at, "source": "SEC EDGAR submissions, EFTS and enforcement RSS"}
+    cache = {"schema_version": 3, "updated_at": checked_at, "source": "SEC EDGAR submissions, EFTS and enforcement RSS"}
 
     def enrich_many(events, content=True):
         rows = []
@@ -1276,8 +1464,10 @@ def update_radars(fetched, output=DEFAULT_OUTPUT, radar_dir=DEFAULT_DIR, checked
             errors.append(f"enforcement: {type(exc).__name__}: {exc}")
 
     ownership_snapshot = build_ownership_snapshot(ownership)
+    ownership_timeline = build_ownership_timeline(ownership)
     cache.update({"footnotes": footnotes, "accounting_review": accounting, "ownership_13dg": ownership,
                   "ownership_snapshot": ownership_snapshot,
+                  "ownership_timeline": ownership_timeline,
                   "governance": governance, "insiders": insiders, "mergers": mergers,
                   "merger_deals": merger_deals, "merger_window": merger_window,
                   "enforcement": enforcement, "errors": errors})
@@ -1289,7 +1479,9 @@ def update_radars(fetched, output=DEFAULT_OUTPUT, radar_dir=DEFAULT_DIR, checked
         "Accounting_Review_Radar.md": render_simple_note("🧮 UPLOAD／CORRESP 會計審閱雷達", "sec/accounting-review", "UPLOAD 是 SEC 意見函，CORRESP 是公司回覆；兩者成對閱讀才能看出審閱問題與解法。", accounting, checked_at),
         "Governance_Compensation_Radar.md": render_simple_note("🏛️ DEF 14A 治理與薪酬分析", "sec/governance", "追蹤正式／預備代理委託書、審計費用、CEO 薪酬、中位員工薪酬與 pay ratio；正則無法穩定辨識的數字保留缺值。", governance, checked_at),
         "Mergers_Tender_Radar.md": render_merger_note(merger_deals, merger_window, checked_at),
-        "Schedule13DG_Ownership_Radar.md": render_ownership_note(ownership, checked_at, ownership_snapshot),
+        "Schedule13DG_Ownership_Radar.md": render_ownership_note(
+            ownership, checked_at, ownership_snapshot, ownership_timeline
+        ),
         "Insider_Forms_345144_Radar.md": render_insider_note(insiders, checked_at),
         "SEC_Enforcement_Radar.md": render_enforcement_note(enforcement, checked_at),
     }
@@ -1311,12 +1503,17 @@ def main():
                         help="只補既有併購列的可驗證原文摘錄，不重建其他雷達")
     parser.add_argument("--refresh-ownership-facts-only", action="store_true",
                         help="只補既有 13D／13G 的實際持股數字，不重建其他雷達")
+    parser.add_argument("--rebuild-ownership-views-only", action="store_true",
+                        help="只用既有 13D／13G 資料重建最新總覽與異動時間軸，不連線 SEC")
     args = parser.parse_args()
     if args.refresh_merger_excerpts_only:
         print(json.dumps(refresh_merger_excerpts(args.output, args.radar_dir), ensure_ascii=False))
         return
     if args.refresh_ownership_facts_only:
         print(json.dumps(refresh_ownership_facts(args.output, args.radar_dir), ensure_ascii=False))
+        return
+    if args.rebuild_ownership_views_only:
+        print(json.dumps(rebuild_ownership_views(args.output, args.radar_dir), ensure_ascii=False))
         return
     events = json.loads(args.events.read_text()).get("events", [])
     fetched = {}

@@ -168,6 +168,45 @@ class AdvancedRadarTests(unittest.TestCase):
         self.assertEqual(activist["status"], "above_5")
         self.assertTrue(activist["active_13d"])
 
+    def test_ownership_timeline_flags_13g_to_13d_and_threshold_exit(self):
+        rows = [
+            {"ticker": "XYZ", "filing_date": "2025-01-01", "accession": "1", "form": "SC 13G", "url": "https://www.sec.gov/1",
+             "reporting_persons": ["Fund A (CIK 0000000001)"],
+             "ownership": {"data_status": "parsed", "cusips": ["123456789"], "aggregate_shares": 100, "percent_of_class": 6.0}},
+            {"ticker": "XYZ", "filing_date": "2025-06-01", "accession": "2", "form": "SC 13D/A", "url": "https://www.sec.gov/2",
+             "reporting_persons": ["Fund A (CIK 0000000001)"],
+             "ownership": {"data_status": "parsed", "cusips": ["123456789"], "aggregate_shares": 120, "percent_of_class": 7.0}},
+            {"ticker": "XYZ", "filing_date": "2026-01-01", "accession": "3", "form": "SC 13D/A", "url": "https://www.sec.gov/3",
+             "reporting_persons": ["Fund A (CIK 0000000001)"],
+             "ownership": {"data_status": "parsed", "cusips": ["123456789"], "aggregate_shares": 70, "percent_of_class": 4.5, "threshold_exit": True}},
+        ]
+        radars.add_ownership_changes(rows)
+        timeline = radars.build_ownership_timeline(rows)
+        by_accession = {event["accession"]: event for event in timeline}
+        self.assertEqual(by_accession["2"]["event_type"], "active_transition")
+        self.assertEqual(by_accession["2"]["importance"], "high")
+        self.assertEqual(by_accession["3"]["event_type"], "threshold_exit")
+        self.assertEqual(by_accession["3"]["percentage_points"], -2.5)
+        self.assertEqual(timeline[0]["accession"], "3")
+
+    def test_ownership_timeline_uses_objective_change_thresholds(self):
+        base = {"ticker": "XYZ", "reporting_persons": ["Fund A (CIK 0000000001)"], "url": "https://www.sec.gov/"}
+        rows = [
+            {**base, "filing_date": "2024-01-01", "accession": "1", "form": "SC 13G/A",
+             "ownership": {"data_status": "parsed", "cusips": ["123456789"], "aggregate_shares": 100, "percent_of_class": 6.0}},
+            {**base, "filing_date": "2025-01-01", "accession": "2", "form": "SC 13G/A",
+             "ownership": {"data_status": "parsed", "cusips": ["123456789"], "aggregate_shares": 110, "percent_of_class": 6.6}},
+            {**base, "filing_date": "2026-01-01", "accession": "3", "form": "SC 13G/A",
+             "ownership": {"data_status": "parsed", "cusips": ["123456789"], "aggregate_shares": 150, "percent_of_class": 8.8}},
+        ]
+        radars.add_ownership_changes(rows)
+        by_accession = {event["accession"]: event for event in radars.build_ownership_timeline(rows)}
+        self.assertEqual(by_accession["1"]["event_type"], "first_observed")
+        self.assertEqual(by_accession["1"]["importance"], "routine")
+        self.assertEqual(by_accession["2"]["importance"], "watch")
+        self.assertEqual(by_accession["3"]["importance"], "high")
+        self.assertIn("2 個百分點", by_accession["3"]["interpretation"])
+
     def test_extracts_concrete_merger_passage(self):
         raw = b"""<html><body>Amazon and Globalstar entered into an Agreement and Plan of Merger
         that provides for the acquisition of Globalstar by Amazon, subject to shareholder approval.

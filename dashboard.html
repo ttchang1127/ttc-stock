@@ -1043,6 +1043,54 @@
       color: #fda4af;
     }
 
+    .sec-core-shortcuts {
+      margin-bottom: 20px;
+      padding: 15px 16px;
+      border: 1px solid rgba(56, 189, 248, 0.24);
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(14, 165, 233, 0.09), rgba(126, 34, 206, 0.08));
+    }
+
+    .sec-core-shortcuts-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+
+    .sec-core-shortcuts-head strong { color: #e0f2fe; font-size: 0.88rem; }
+    .sec-core-shortcuts-head span { color: var(--text-muted); font-size: 0.73rem; line-height: 1.45; }
+
+    .sec-core-chip-list {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .sec-core-chip {
+      appearance: none;
+      border: 1px solid rgba(148, 163, 184, 0.28);
+      border-radius: 999px;
+      padding: 7px 12px;
+      background: rgba(15, 23, 42, 0.68);
+      color: #cbd5e1;
+      font: inherit;
+      font-size: 0.78rem;
+      font-weight: 850;
+      cursor: pointer;
+      transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+    }
+
+    .sec-core-chip:hover { transform: translateY(-1px); border-color: #38bdf8; color: #fff; }
+    .sec-core-chip.active {
+      color: #fff;
+      border-color: transparent;
+      background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
+      box-shadow: 0 0 18px rgba(56, 189, 248, 0.16);
+    }
+
     .sec-kpi-grid {
       display: grid;
       grid-template-columns: repeat(5, minmax(0, 1fr));
@@ -1285,6 +1333,16 @@
 
     .sec-ownership-history ul { min-width: 280px; margin: 7px 0 0 17px; color: #aeb8c7; }
     .sec-ownership-history li { margin-bottom: 5px; line-height: 1.45; }
+
+    .sec-ownership-timeline {
+      margin-top: 18px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(192, 132, 252, 0.2);
+    }
+
+    .sec-ownership-timeline-table { min-width: 1240px; }
+    .sec-ownership-timeline-change { white-space: nowrap; font-variant-numeric: tabular-nums; }
+    .sec-ownership-timeline-reading { min-width: 270px; color: #cbd5e1; line-height: 1.5; }
 
     .sec-section {
       margin-top: 24px;
@@ -1977,6 +2035,24 @@
 
         <div id="secStatus" class="sec-status" role="status" aria-live="polite">⏳ 正在載入 SEC 官方申報資料…</div>
 
+        <nav id="secCoreShortcuts" class="sec-core-shortcuts" aria-label="SEC 核心持股快捷標的">
+          <div class="sec-core-shortcuts-head">
+            <strong>⚡ 核心持股快捷標的</strong>
+            <span id="secCoreShortcutStatus">點選一次，同步切換①八季數字、②重要申報、③ Form 4、④募資稀釋與⑤進階 SEC 雷達。</span>
+          </div>
+          <div class="sec-core-chip-list" role="group" aria-label="選擇核心持股公司">
+            <button type="button" class="sec-core-chip" data-sec-core-ticker="ARM" onclick="setSecCoreTicker('ARM')" aria-pressed="false">ARM</button>
+            <button type="button" class="sec-core-chip" data-sec-core-ticker="COHR" onclick="setSecCoreTicker('COHR')" aria-pressed="false">COHR</button>
+            <button type="button" class="sec-core-chip" data-sec-core-ticker="GOOG" onclick="setSecCoreTicker('GOOG')" aria-pressed="false">GOOG</button>
+            <button type="button" class="sec-core-chip" data-sec-core-ticker="INTC" onclick="setSecCoreTicker('INTC')" aria-pressed="false">INTC</button>
+            <button type="button" class="sec-core-chip" data-sec-core-ticker="MRVL" onclick="setSecCoreTicker('MRVL')" aria-pressed="false">MRVL</button>
+            <button type="button" class="sec-core-chip" data-sec-core-ticker="NOK" onclick="setSecCoreTicker('NOK')" aria-pressed="false">NOK</button>
+            <button type="button" class="sec-core-chip" data-sec-core-ticker="NVDA" onclick="setSecCoreTicker('NVDA')" aria-pressed="false">NVDA</button>
+            <button type="button" class="sec-core-chip" data-sec-core-ticker="ONDS" onclick="setSecCoreTicker('ONDS')" aria-pressed="false">ONDS</button>
+            <button type="button" class="sec-core-chip" data-sec-core-ticker="TSLA" onclick="setSecCoreTicker('TSLA')" aria-pressed="false">TSLA</button>
+          </div>
+        </nav>
+
         <div class="sec-kpi-grid" aria-label="SEC 每日摘要數字">
           <article class="sec-kpi">
             <span class="sec-kpi-label">期間內全部申報</span>
@@ -2119,6 +2195,25 @@
               </table>
             </div>
             <p class="sec-footnote">「最新」是 SEC 最後一份已知申報，不是即時持倉；共同申報人的相同總額不可相加。申報主體重整顯示 0 股時，不代表整個機構集團已清倉。</p>
+            <div id="secOwnershipTimeline" class="sec-ownership-timeline" aria-labelledby="secOwnershipTimelineTitle">
+              <div class="sec-ownership-heading">
+                <div>
+                  <h4 id="secOwnershipTimelineTitle">🚨 大股東異動時間軸與警報</h4>
+                  <p id="secOwnershipTimelineSummary">依同公司、同申報 CIK、同 CUSIP 比較歷次申報。</p>
+                </div>
+                <div class="sec-section-filter">
+                  <label for="secOwnershipEventLevel">閱讀優先度</label>
+                  <select id="secOwnershipEventLevel" class="sec-quarterly-select" onchange="setSecOwnershipEventLevel(this.value)" aria-label="篩選大股東異動閱讀優先度"></select>
+                </div>
+              </div>
+              <div class="sec-table-wrap">
+                <table class="sec-table sec-ownership-timeline-table">
+                  <thead><tr><th>申報日</th><th>公司</th><th>申報人</th><th>優先度</th><th>異動事件</th><th>最新持股</th><th>較前次</th><th>客觀解讀</th><th>SEC</th></tr></thead>
+                  <tbody id="secOwnershipTimelineBody"><tr><td colspan="9" class="sec-empty">正在建立異動時間軸…</td></tr></tbody>
+                </table>
+              </div>
+              <p class="sec-footnote">🔴 重大：跨越 5% 門檻、13D 主動申報、13G→13D，持股比例變動至少 2pp，或可比股數變動至少 25%；🟡 留意：比例變動 0.5 至低於 2pp、可比股數變動 10% 至低於 25%，或申報主體重整；🟢 一般：其餘小幅、持平或觀察窗首筆。pp 是百分點。顏色表示閱讀優先度，不代表利多或利空；持股比例變化也可能來自公司流通股數改變。</p>
+            </div>
           </section>
           <div id="secAdvancedActual" class="sec-advanced-actual" aria-live="polite">
             <div class="sec-advanced-actual-heading"><h4>🔎 正在載入實際申報內容…</h4></div>
@@ -2936,6 +3031,9 @@
     let secAdvancedCategory = 'footnotes';
     let secAdvancedTicker = 'ALL';
     let secOwnershipStatus = 'above_5';
+    let secOwnershipEventLevel = 'ALL';
+    let secCoreTicker = '';
+    const SEC_CORE_TICKERS = ['ARM', 'COHR', 'GOOG', 'INTC', 'MRVL', 'NOK', 'NVDA', 'ONDS', 'TSLA'];
 
     const SEC_SEVERITY = {
       critical: { label: '🔴 重大', css: 'critical' },
@@ -3248,6 +3346,7 @@
         ).join('');
         element.value = selected;
       });
+      renderSecCoreShortcuts();
       renderSecQuarterlyTrend();
       renderSecAdvanced();
 
@@ -3536,6 +3635,59 @@
       return parts.join('／');
     }
 
+    function secOwnershipTimelineChange(event) {
+      if (!event.previous_filing_date) return '無同申報人前期可比';
+      const parts = [];
+      if (event.share_change !== null && event.share_change !== undefined && event.shares_comparable !== false) {
+        parts.push(`${event.share_change >= 0 ? '+' : ''}${formatSecNumber(event.share_change)} 股`);
+      }
+      if (event.percentage_points !== null && event.percentage_points !== undefined) {
+        parts.push(`${event.percentage_points >= 0 ? '+' : ''}${formatSecNumber(event.percentage_points, 2)}pp`);
+      }
+      if (!parts.length && event.shares_comparable === false) parts.push('股數尺度不可比');
+      return parts.join('／') || '未達警示門檻';
+    }
+
+    function renderSecOwnershipTimeline() {
+      const timeline = secDailyData?.advanced?.ownership_timeline || [];
+      const scoped = secAdvancedTicker === 'ALL'
+        ? timeline
+        : timeline.filter(event => event.ticker === secAdvancedTicker);
+      const levelOptions = [
+        ['ALL', '全部優先度', scoped.length],
+        ['high', '🔴 重大', scoped.filter(event => event.importance === 'high').length],
+        ['watch', '🟡 留意', scoped.filter(event => event.importance === 'watch').length],
+        ['routine', '🟢 一般', scoped.filter(event => event.importance === 'routine').length],
+      ];
+      const levelSelect = document.getElementById('secOwnershipEventLevel');
+      levelSelect.innerHTML = levelOptions.map(([value, label, count]) =>
+        `<option value="${value}">${escapeSec(label)}（${count}）</option>`
+      ).join('');
+      levelSelect.value = secOwnershipEventLevel;
+      const rows = scoped.filter(event => secOwnershipEventLevel === 'ALL' || event.importance === secOwnershipEventLevel);
+      const highCount = scoped.filter(event => event.importance === 'high').length;
+      const watchCount = scoped.filter(event => event.importance === 'watch').length;
+      const scopeLabel = secAdvancedTicker === 'ALL' ? '全部追蹤公司' : secAdvancedTicker;
+      document.getElementById('secOwnershipTimelineSummary').textContent =
+        `${scopeLabel}共 ${formatSecNumber(scoped.length)} 件歷次事件；🔴 重大 ${formatSecNumber(highCount)} 件、🟡 留意 ${formatSecNumber(watchCount)} 件。時間軸不受上方最新狀態篩選影響。`;
+      const body = document.getElementById('secOwnershipTimelineBody');
+      body.innerHTML = rows.length ? rows.slice(0, 200).map(event => {
+        const reporter = (event.reporting_persons || []).join('、') || '申報人未辨識';
+        const importanceClass = event.importance === 'high' ? 'critical' : (event.importance === 'watch' ? 'watch' : 'buy');
+        return `<tr>
+          <td>${escapeSec(event.filing_date)}<span class="sec-cell-note">基準日 ${escapeSec(event.event_date || '—')}</span></td>
+          <td><strong>${escapeSec(event.ticker)}</strong></td>
+          <td>${escapeSec(reporter)}</td>
+          <td><span class="sec-badge ${importanceClass}">${escapeSec(event.importance_label)}</span></td>
+          <td><strong>${escapeSec(event.event_label)}</strong><span class="sec-cell-note">${escapeSec(event.form)}</span></td>
+          <td class="sec-number">${escapeSec(secOwnershipHolding(event))}</td>
+          <td class="sec-ownership-timeline-change">${escapeSec(secOwnershipTimelineChange(event))}<span class="sec-cell-note">前次 ${escapeSec(event.previous_filing_date || '—')}</span></td>
+          <td class="sec-ownership-timeline-reading">${escapeSec(event.interpretation)}</td>
+          <td><a class="sec-link" href="${safeSecUrl(event.url)}" target="_blank" rel="noopener">原文 ↗</a></td>
+        </tr>`;
+      }).join('') : `<tr><td colspan="9" class="sec-empty">${escapeSec(`${scopeLabel}目前沒有符合此優先度的異動事件。`)}</td></tr>`;
+    }
+
     function renderSecOwnershipOverview() {
       const overview = document.getElementById('secOwnershipOverview');
       const visible = secAdvancedCategory === 'ownership_13dg';
@@ -3592,6 +3744,7 @@
           <td><a class="sec-link" href="${safeSecUrl(item.url)}" target="_blank" rel="noopener">最新原文 ↗</a></td>
         </tr>`;
       }).join('') : `<tr><td colspan="10" class="sec-empty">${escapeSec(secAdvancedTicker === 'ALL' ? '目前沒有符合此狀態的最新大股東申報。' : `${secAdvancedTicker} 目前沒有符合此狀態的最新申報。`)}</td></tr>`;
+      renderSecOwnershipTimeline();
     }
 
     function renderSecAdvanced() {
@@ -3646,10 +3799,11 @@
     function setSecAdvancedFilter(kind, value) {
       if (kind === 'category') {
         secAdvancedCategory = value;
-        secAdvancedTicker = 'ALL';
         if (value === 'ownership_13dg') secOwnershipStatus = 'above_5';
       } else {
         secAdvancedTicker = value;
+        secCoreTicker = '';
+        renderSecCoreShortcuts();
       }
       renderSecAdvanced();
     }
@@ -3659,16 +3813,48 @@
       renderSecOwnershipOverview();
     }
 
+    function setSecOwnershipEventLevel(value) {
+      secOwnershipEventLevel = value;
+      renderSecOwnershipTimeline();
+    }
+
     function setSecTableTicker(section, ticker) {
       if (section === 'filings') secFilingsTicker = ticker;
       if (section === 'trades') secTradesTicker = ticker;
       if (section === 'dilution') secDilutionTicker = ticker;
+      secCoreTicker = '';
       renderSecDaily();
     }
 
     function setSecQuarterlyTicker(ticker) {
       secQuarterlyTicker = ticker;
+      secCoreTicker = '';
+      renderSecCoreShortcuts();
       renderSecQuarterlyTrend();
+    }
+
+    function renderSecCoreShortcuts() {
+      document.querySelectorAll('[data-sec-core-ticker]').forEach(button => {
+        const active = button.dataset.secCoreTicker === secCoreTicker;
+        button.classList.toggle('active', active);
+        button.setAttribute('aria-pressed', active ? 'true' : 'false');
+      });
+      const status = document.getElementById('secCoreShortcutStatus');
+      if (!status) return;
+      status.textContent = secCoreTicker
+        ? `已同步選擇 ${secCoreTicker}：①八季數字、②重要申報、③ Form 4、④募資稀釋、⑤進階 SEC 雷達。`
+        : '點選一次，同步切換①八季數字、②重要申報、③ Form 4、④募資稀釋與⑤進階 SEC 雷達。';
+    }
+
+    function setSecCoreTicker(ticker) {
+      if (!SEC_CORE_TICKERS.includes(ticker)) return;
+      secCoreTicker = ticker;
+      secQuarterlyTicker = ticker;
+      secFilingsTicker = ticker;
+      secTradesTicker = ticker;
+      secDilutionTicker = ticker;
+      secAdvancedTicker = ticker;
+      renderSecDaily();
     }
 
     function renderSecQuarterlyTrend() {

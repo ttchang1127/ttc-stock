@@ -45,6 +45,21 @@ class DashboardSecTabTests(unittest.TestCase):
         self.assertIn('id="secAdvancedActual"', self.html)
         self.assertIn("function renderSecAdvanced()", self.html)
 
+    def test_core_holding_shortcuts_sync_all_five_sec_sections(self):
+        core = ["ARM", "COHR", "GOOG", "INTC", "MRVL", "NOK", "NVDA", "ONDS", "TSLA"]
+        self.assertIn('id="secCoreShortcuts"', self.html)
+        self.assertIn("function setSecCoreTicker(ticker)", self.html)
+        self.assertIn("function renderSecCoreShortcuts()", self.html)
+        self.assertIn("點選一次，同步切換①八季數字、②重要申報、③ Form 4、④募資稀釋與⑤進階 SEC 雷達", self.html)
+        for ticker in core:
+            self.assertIn(f'data-sec-core-ticker="{ticker}"', self.html)
+            self.assertIn(f"setSecCoreTicker('{ticker}')", self.html)
+        for assignment in ("secQuarterlyTicker = ticker", "secFilingsTicker = ticker",
+                           "secTradesTicker = ticker", "secDilutionTicker = ticker",
+                           "secAdvancedTicker = ticker"):
+            self.assertIn(assignment, self.html)
+        self.assertIn("button.setAttribute('aria-pressed', active ? 'true' : 'false')", self.html)
+
     def test_advanced_radars_cover_all_requested_categories(self):
         for key in ("footnotes", "accounting_review", "ownership_13dg", "governance",
                     "insiders", "mergers", "enforcement"):
@@ -95,6 +110,17 @@ class DashboardSecTabTests(unittest.TestCase):
         for marker in ("secOwnershipOverview", "大股東最新狀態總覽", "secOwnershipStatus",
                        "renderSecOwnershipOverview", "同公司、同申報 CIK、同 CUSIP",
                        "申報主體重整顯示 0 股時"):
+            self.assertIn(marker, self.html)
+
+    def test_ownership_change_timeline_and_alert_levels(self):
+        timeline = self.advanced.get("ownership_timeline", [])
+        self.assertTrue(timeline)
+        self.assertEqual(len(timeline), len(self.advanced["ownership_13dg"]))
+        self.assertTrue({"high", "watch", "routine"}.issubset({event["importance"] for event in timeline}))
+        self.assertTrue(all(event["event_label"] and event["interpretation"] for event in timeline))
+        for marker in ("secOwnershipTimeline", "大股東異動時間軸與警報", "secOwnershipEventLevel",
+                       "renderSecOwnershipTimeline", "secOwnershipTimelineChange", "顏色表示閱讀優先度",
+                       "13G→13D", "持股比例變動至少 2pp"):
             self.assertIn(marker, self.html)
         merger_rows = self.advanced["mergers"]
         merger_deals = self.advanced["merger_deals"]

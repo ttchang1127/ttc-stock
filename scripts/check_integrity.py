@@ -598,6 +598,19 @@ def c21():
             bad_ownership.append(f"{item.get('ticker')}/{item.get('owner_key')} 狀態無效")
         if item.get("history_count") != len(item.get("history", [])):
             bad_ownership.append(f"{item.get('ticker')}/{item.get('owner_key')} 歷史數量不一致")
+    ownership_timeline = advanced.get("ownership_timeline", [])
+    if len(ownership_timeline) != len(advanced.get("ownership_13dg", [])):
+        bad_ownership.append("異動時間軸沒有逐份對應 13D/G 文件")
+    timeline_accessions = set()
+    for event in ownership_timeline:
+        accession = event.get("accession")
+        if not accession or accession in timeline_accessions:
+            bad_ownership.append(f"{event.get('ticker')}/{accession or '無 accession'} 時間軸重複")
+        timeline_accessions.add(accession)
+        if event.get("importance") not in {"high", "watch", "routine"}:
+            bad_ownership.append(f"{event.get('ticker')}/{accession} 警報級別無效")
+        if not event.get("event_label") or not event.get("interpretation"):
+            bad_ownership.append(f"{event.get('ticker')}/{accession} 缺少事件解讀")
     required_notes = [
         "Footnotes_Attachments_Radar.md", "Accounting_Review_Radar.md",
         "Schedule13DG_Ownership_Radar.md", "Governance_Compensation_Radar.md",
@@ -612,6 +625,10 @@ def c21():
                                          "secAdvancedForm4Facts", "advanced.merger_deals",
                                          "secOwnershipOverview", "renderSecOwnershipOverview",
                                          "大股東最新狀態總覽", "申報主體重整顯示 0 股時",
+                                         "secOwnershipTimeline", "renderSecOwnershipTimeline",
+                                         "大股東異動時間軸與警報", "顏色表示閱讀優先度",
+                                         "secCoreShortcuts", "setSecCoreTicker",
+                                         "同步切換①八季數字、②重要申報、③ Form 4",
                                          "括號數字代表什麼", "合併後的交易宗數",
                                          "不受上方最近 7／14 日篩選影響")
                   if marker not in page]
