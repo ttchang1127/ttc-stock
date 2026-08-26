@@ -1,5 +1,6 @@
 import json
 import pathlib
+import re
 import unittest
 
 
@@ -46,7 +47,8 @@ class DashboardSecTabTests(unittest.TestCase):
         self.assertIn("function renderSecAdvanced()", self.html)
 
     def test_core_holding_shortcuts_sync_all_five_sec_sections(self):
-        core = ["ARM", "COHR", "GOOG", "INTC", "MRVL", "NOK", "NVDA", "ONDS", "TSLA"]
+        core = ["NVDA", "TSM", "MSFT", "META", "AAPL", "AMZN", "ARM",
+                "ONDS", "TSLA", "GOOG", "COHR", "MRVL", "INTC", "NOK"]
         self.assertIn('id="secCoreShortcuts"', self.html)
         self.assertIn("function setSecCoreTicker(ticker)", self.html)
         self.assertIn("function renderSecCoreShortcuts()", self.html)
@@ -54,6 +56,10 @@ class DashboardSecTabTests(unittest.TestCase):
         for ticker in core:
             self.assertIn(f'data-sec-core-ticker="{ticker}"', self.html)
             self.assertIn(f"setSecCoreTicker('{ticker}')", self.html)
+        tab_one = re.findall(r"selectQuickTicker\('([A-Z]+)'\)", self.html)
+        sec_tab = re.findall(r'data-sec-core-ticker="([A-Z]+)"', self.html)
+        self.assertEqual(tab_one, core)
+        self.assertEqual(sec_tab, tab_one)
         for assignment in ("secQuarterlyTicker = ticker", "secFilingsTicker = ticker",
                            "secTradesTicker = ticker", "secDilutionTicker = ticker",
                            "secAdvancedTicker = ticker"):

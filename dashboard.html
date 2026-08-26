@@ -2041,15 +2041,20 @@
             <span id="secCoreShortcutStatus">點選一次，同步切換①八季數字、②重要申報、③ Form 4、④募資稀釋與⑤進階 SEC 雷達。</span>
           </div>
           <div class="sec-core-chip-list" role="group" aria-label="選擇核心持股公司">
-            <button type="button" class="sec-core-chip" data-sec-core-ticker="ARM" onclick="setSecCoreTicker('ARM')" aria-pressed="false">ARM</button>
-            <button type="button" class="sec-core-chip" data-sec-core-ticker="COHR" onclick="setSecCoreTicker('COHR')" aria-pressed="false">COHR</button>
-            <button type="button" class="sec-core-chip" data-sec-core-ticker="GOOG" onclick="setSecCoreTicker('GOOG')" aria-pressed="false">GOOG</button>
-            <button type="button" class="sec-core-chip" data-sec-core-ticker="INTC" onclick="setSecCoreTicker('INTC')" aria-pressed="false">INTC</button>
-            <button type="button" class="sec-core-chip" data-sec-core-ticker="MRVL" onclick="setSecCoreTicker('MRVL')" aria-pressed="false">MRVL</button>
-            <button type="button" class="sec-core-chip" data-sec-core-ticker="NOK" onclick="setSecCoreTicker('NOK')" aria-pressed="false">NOK</button>
-            <button type="button" class="sec-core-chip" data-sec-core-ticker="NVDA" onclick="setSecCoreTicker('NVDA')" aria-pressed="false">NVDA</button>
-            <button type="button" class="sec-core-chip" data-sec-core-ticker="ONDS" onclick="setSecCoreTicker('ONDS')" aria-pressed="false">ONDS</button>
-            <button type="button" class="sec-core-chip" data-sec-core-ticker="TSLA" onclick="setSecCoreTicker('TSLA')" aria-pressed="false">TSLA</button>
+            <button type="button" class="sec-core-chip" data-sec-core-ticker="NVDA" onclick="setSecCoreTicker('NVDA')" aria-pressed="false">NVDA (輝達)</button>
+            <button type="button" class="sec-core-chip" data-sec-core-ticker="TSM" onclick="setSecCoreTicker('TSM')" aria-pressed="false">TSM (台積電)</button>
+            <button type="button" class="sec-core-chip" data-sec-core-ticker="MSFT" onclick="setSecCoreTicker('MSFT')" aria-pressed="false">MSFT (微軟)</button>
+            <button type="button" class="sec-core-chip" data-sec-core-ticker="META" onclick="setSecCoreTicker('META')" aria-pressed="false">META (Meta)</button>
+            <button type="button" class="sec-core-chip" data-sec-core-ticker="AAPL" onclick="setSecCoreTicker('AAPL')" aria-pressed="false">AAPL (蘋果)</button>
+            <button type="button" class="sec-core-chip" data-sec-core-ticker="AMZN" onclick="setSecCoreTicker('AMZN')" aria-pressed="false">AMZN (亞馬遜)</button>
+            <button type="button" class="sec-core-chip" data-sec-core-ticker="ARM" onclick="setSecCoreTicker('ARM')" aria-pressed="false">ARM (安謀)</button>
+            <button type="button" class="sec-core-chip" data-sec-core-ticker="ONDS" onclick="setSecCoreTicker('ONDS')" aria-pressed="false">ONDS (昂達斯)</button>
+            <button type="button" class="sec-core-chip" data-sec-core-ticker="TSLA" onclick="setSecCoreTicker('TSLA')" aria-pressed="false">TSLA (特斯拉)</button>
+            <button type="button" class="sec-core-chip" data-sec-core-ticker="GOOG" onclick="setSecCoreTicker('GOOG')" aria-pressed="false">GOOG (Google)</button>
+            <button type="button" class="sec-core-chip" data-sec-core-ticker="COHR" onclick="setSecCoreTicker('COHR')" aria-pressed="false">COHR (Coherent)</button>
+            <button type="button" class="sec-core-chip" data-sec-core-ticker="MRVL" onclick="setSecCoreTicker('MRVL')" aria-pressed="false">MRVL (Marvell)</button>
+            <button type="button" class="sec-core-chip" data-sec-core-ticker="INTC" onclick="setSecCoreTicker('INTC')" aria-pressed="false">INTC (英特爾)</button>
+            <button type="button" class="sec-core-chip" data-sec-core-ticker="NOK" onclick="setSecCoreTicker('NOK')" aria-pressed="false">NOK (諾基亞)</button>
           </div>
         </nav>
 
@@ -3033,7 +3038,7 @@
     let secOwnershipStatus = 'above_5';
     let secOwnershipEventLevel = 'ALL';
     let secCoreTicker = '';
-    const SEC_CORE_TICKERS = ['ARM', 'COHR', 'GOOG', 'INTC', 'MRVL', 'NOK', 'NVDA', 'ONDS', 'TSLA'];
+    const SEC_CORE_TICKERS = ['NVDA', 'TSM', 'MSFT', 'META', 'AAPL', 'AMZN', 'ARM', 'ONDS', 'TSLA', 'GOOG', 'COHR', 'MRVL', 'INTC', 'NOK'];
 
     const SEC_SEVERITY = {
       critical: { label: '🔴 重大', css: 'critical' },
