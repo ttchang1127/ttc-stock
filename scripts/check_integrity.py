@@ -696,6 +696,9 @@ def c23():
     markers = (
         "secReadingRank", "secReadingRankRows", "renderSecReadingRank",
         "核心持股每日閱讀排序", "排序只決定每日閱讀先後",
+        "SEC_READING_STORAGE_KEY", "secReadingRowStatus", "toggleSecCompanyReading",
+        "goToNextUnreadSecCompany", "completeCurrentAndNextSecCompany",
+        "今日已讀", "最重要原文", "新的 accession／大股東文件／執法事件，會自動恢復未讀",
         "chartSecQuarterly", "setSecQuarterlyMetric", "renderSecQuarterlyChart",
         "gross_margin", "operating_margin", "free_cash_flow", "diluted_shares",
         "橫軸每一格是一個財報季度", "缺值會留白，不以 0 補值",

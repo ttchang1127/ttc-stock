@@ -152,6 +152,31 @@ class DashboardSecTabTests(unittest.TestCase):
         self.assertIn("onclick=\"setSecCoreTicker('${escapeSec(row.displayTicker)}')\"", self.html)
         self.assertIn("secDaysSince(row.filing_date) <= 90", self.html)
 
+    def test_daily_reading_queue_tracks_documents_and_progress_locally(self):
+        required_copy = [
+            "SEC_READING_STORAGE_KEY",
+            "secDailyReadingProgress.v1",
+            "function secLoadReadingProgress()",
+            "function secSaveReadingProgress()",
+            "function secReadingRowStatus(row)",
+            "function toggleSecCompanyReading(event, displayTicker)",
+            "function goToNextUnreadSecCompany()",
+            "function completeCurrentAndNextSecCompany()",
+            "今日已讀 ${completed}／${rows.length} 家",
+            "尚有 ${unreadDocuments} 份文件未讀",
+            "下一家未讀",
+            "完成目前並下一家",
+            "最重要原文 ↗",
+            "data-sec-read-toggle",
+            "新的 accession／大股東文件／執法事件，會自動恢復未讀",
+            "不會跨裝置同步",
+        ]
+        for phrase in required_copy:
+            self.assertIn(phrase, self.html)
+        self.assertIn("id: `filing:${event.accession}`", self.html)
+        self.assertIn("row.evidence.filter(item => !readKeys.has(item.id))", self.html)
+        self.assertIn("stored?.date === date", self.html)
+
     def test_eight_quarter_financial_chart_has_metric_switching_and_units(self):
         self.assertTrue(all(len(company.get("periods", [])) >= 8 for company in self.quarterly["companies"].values()))
         required_copy = [
