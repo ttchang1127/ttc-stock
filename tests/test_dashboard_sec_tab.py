@@ -134,6 +134,46 @@ class DashboardSecTabTests(unittest.TestCase):
         for phrase in required_copy:
             self.assertIn(phrase, self.html)
 
+    def test_core_holdings_have_objective_daily_reading_order(self):
+        required_copy = [
+            'id="secReadingRank"',
+            "function secReadingRankRows()",
+            "function renderSecReadingRank()",
+            "data-sec-rank-ticker",
+            "核心持股每日閱讀排序",
+            "前 5 家直接顯示",
+            "潛在稀釋、重大／重要申報、90 日內重大 13D／13G",
+            "排序只決定每日閱讀先後，不是利多／利空、投資評等或報酬預測",
+            "renderSecReadingRank();",
+        ]
+        for phrase in required_copy:
+            self.assertIn(phrase, self.html)
+        self.assertIn("return SEC_CORE_TICKERS.map(displayTicker =>", self.html)
+        self.assertIn("onclick=\"setSecCoreTicker('${escapeSec(row.displayTicker)}')\"", self.html)
+        self.assertIn("secDaysSince(row.filing_date) <= 90", self.html)
+
+    def test_eight_quarter_financial_chart_has_metric_switching_and_units(self):
+        self.assertTrue(all(len(company.get("periods", [])) >= 8 for company in self.quarterly["companies"].values()))
+        required_copy = [
+            'id="chartSecQuarterly"',
+            'id="secQuarterlyChartSummary"',
+            "function setSecQuarterlyMetric(metric)",
+            "function renderSecQuarterlyChart(company)",
+            "function secQuarterlyMetricConfig(metric, currency)",
+            "data-sec-quarterly-metric=\"revenue\"",
+            "data-sec-quarterly-metric=\"gross_margin\"",
+            "data-sec-quarterly-metric=\"operating_margin\"",
+            "data-sec-quarterly-metric=\"free_cash_flow\"",
+            "data-sec-quarterly-metric=\"diluted_shares\"",
+            "const periods = [...newestFirst].reverse()",
+            "橫軸每一格是一個財報季度",
+            "缺值會留白，不以 0 補值",
+            "const amount = secAmountDisplay(currency)",
+            "free_cash_flow: { label: '自由現金流', divisor: amount.divisor, unit: `${currency} ${amount.unit}`, deltaMode: 'absolute'",
+        ]
+        for phrase in required_copy:
+            self.assertIn(phrase, self.html)
+
     def test_advanced_radars_cover_all_requested_categories(self):
         for key in ("footnotes", "accounting_review", "ownership_13dg", "governance",
                     "insiders", "mergers", "enforcement"):

@@ -681,6 +681,29 @@ def c22():
     return not bad and not missing, f"資料問題：{bad or '無'}；缺畫面／自動化：{missing or '無'}"
 
 
+@check("C-23", "SEC 每日閱讀排序與八季趨勢圖完整")
+def c23():
+    quarterly = load("quarterly_financials.json")
+    tracked = set(load("financials.json")["companies"])
+    companies = quarterly.get("companies", {})
+    bad = []
+    if set(companies) != tracked:
+        bad.append("八季資料公司覆蓋不是 14 家")
+    short = [ticker for ticker, company in companies.items() if len(company.get("periods", [])) < 8]
+    if short:
+        bad.append(f"不足八季：{short}")
+    page = read("dashboard.html")
+    markers = (
+        "secReadingRank", "secReadingRankRows", "renderSecReadingRank",
+        "核心持股每日閱讀排序", "排序只決定每日閱讀先後",
+        "chartSecQuarterly", "setSecQuarterlyMetric", "renderSecQuarterlyChart",
+        "gross_margin", "operating_margin", "free_cash_flow", "diluted_shares",
+        "橫軸每一格是一個財報季度", "缺值會留白，不以 0 補值",
+    )
+    missing = [marker for marker in markers if marker not in page]
+    return not bad and not missing, f"資料問題：{bad or '無'}；缺畫面：{missing or '無'}"
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--quiet", action="store_true", help="只印出失敗項")

@@ -1118,6 +1118,60 @@
       line-height: 1.5;
     }
 
+    .sec-reading-rank {
+      margin-bottom: 20px;
+      padding: 17px;
+      border: 1px solid rgba(251, 191, 36, 0.3);
+      border-radius: 17px;
+      background: linear-gradient(135deg, rgba(120, 53, 15, 0.13), rgba(15, 23, 42, 0.72));
+    }
+
+    .sec-reading-rank-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+
+    .sec-reading-rank-head h3 { color: #fef3c7; font-size: 1rem; }
+    .sec-reading-rank-head p { color: #94a3b8; font-size: 0.72rem; line-height: 1.5; margin-top: 4px; }
+    .sec-reading-rank-period { color: #fde68a; font-size: 0.7rem; font-weight: 750; }
+
+    .sec-reading-rank-list {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 9px;
+    }
+
+    .sec-reading-rank-card {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 8px 10px;
+      min-width: 0;
+      padding: 11px;
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      border-radius: 12px;
+      background: rgba(2, 6, 23, 0.42);
+      color: inherit;
+      font: inherit;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .sec-reading-rank-card:hover,
+    .sec-reading-rank-card.active { border-color: #38bdf8; background: rgba(14, 116, 144, 0.13); }
+    .sec-reading-rank-number { color: #fbbf24; font-size: 1rem; font-weight: 900; line-height: 1.2; }
+    .sec-reading-rank-main { min-width: 0; }
+    .sec-reading-rank-title { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; color: #fff; font-size: 0.8rem; font-weight: 850; }
+    .sec-reading-rank-reason { display: block; margin-top: 5px; color: #aeb8c7; font-size: 0.68rem; line-height: 1.45; }
+
+    .sec-reading-rank-more { margin-top: 10px; }
+    .sec-reading-rank-more summary { color: #bae6fd; font-size: 0.74rem; font-weight: 800; cursor: pointer; }
+    .sec-reading-rank-more .sec-reading-rank-list { margin-top: 10px; }
+    .sec-reading-rank-method { margin-top: 10px; color: #94a3b8; font-size: 0.68rem; line-height: 1.55; }
+
     .sec-core-shortcuts {
       margin-bottom: 20px;
       padding: 15px 16px;
@@ -1660,6 +1714,43 @@
       font-weight: 750;
     }
 
+    .sec-quarterly-chart {
+      margin: 12px 0 16px;
+      padding: 15px;
+      border: 1px solid rgba(56, 189, 248, 0.24);
+      border-radius: 15px;
+      background: rgba(2, 6, 23, 0.35);
+    }
+
+    .sec-quarterly-chart-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 11px;
+    }
+
+    .sec-quarterly-chart-head h4 { color: #e0f2fe; font-size: 0.88rem; }
+    .sec-quarterly-metrics { display: flex; gap: 7px; flex-wrap: wrap; }
+    .sec-quarterly-metric {
+      appearance: none;
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      border-radius: 999px;
+      padding: 6px 10px;
+      background: rgba(15, 23, 42, 0.72);
+      color: #cbd5e1;
+      font: inherit;
+      font-size: 0.7rem;
+      font-weight: 800;
+      cursor: pointer;
+    }
+    .sec-quarterly-metric:hover,
+    .sec-quarterly-metric.active { color: #fff; border-color: transparent; background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan)); }
+    .sec-quarterly-chart-canvas { position: relative; height: 320px; width: 100%; }
+    .sec-quarterly-chart-summary { margin-top: 9px; color: #cbd5e1; font-size: 0.74rem; line-height: 1.55; }
+    .sec-quarterly-chart-summary strong { color: #7dd3fc; }
+
     .sec-quarterly-select {
       min-width: 130px;
       color: #fff;
@@ -1737,6 +1828,7 @@
 
     @media (max-width: 1050px) {
       .sec-kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .sec-reading-rank-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .sec-reading-guide { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .sec-advanced-explainer { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .sec-advanced-actual-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -1745,8 +1837,9 @@
 
     @media (max-width: 620px) {
       .sec-daily-shell { padding: 18px; }
-      .sec-kpi-grid, .sec-reading-guide, .sec-advanced-explainer, .sec-advanced-actual-grid, .sec-company-brief-grid, .sec-update-grid, .sec-update-detail-grid, .sec-text-diff-kpis, .sec-text-change-grid { grid-template-columns: 1fr; }
+      .sec-kpi-grid, .sec-reading-rank-list, .sec-reading-guide, .sec-advanced-explainer, .sec-advanced-actual-grid, .sec-company-brief-grid, .sec-update-grid, .sec-update-detail-grid, .sec-text-diff-kpis, .sec-text-change-grid { grid-template-columns: 1fr; }
       .sec-ownership-kpis { grid-template-columns: 1fr; }
+      .sec-quarterly-chart-canvas { height: 270px; }
       .sec-reading-guide h3, .sec-advanced-explainer h4, .sec-advanced-explainer-caution { grid-column: auto; }
       .sec-kpi { min-height: 0; }
     }
@@ -2263,6 +2356,13 @@
           </div>
         </section>
 
+        <section id="secReadingRank" class="sec-reading-rank" aria-live="polite" aria-labelledby="secReadingRankTitle">
+          <div class="sec-reading-rank-head">
+            <div><h3 id="secReadingRankTitle">📌 核心持股每日閱讀排序</h3><p>先讀有重大文件或風險訊號的公司；點選公司會同步切換下方所有 SEC 區塊。</p></div>
+          </div>
+          <p class="sec-company-brief-placeholder">正在依最新 SEC 證據排列 14 家公司…</p>
+        </section>
+
         <nav id="secCoreShortcuts" class="sec-core-shortcuts" aria-label="SEC 核心持股快捷標的">
           <div class="sec-core-shortcuts-head">
             <strong>⚡ 核心持股快捷標的</strong>
@@ -2347,6 +2447,20 @@
             <label for="secQuarterlyTicker">查看公司八季數字</label>
             <select id="secQuarterlyTicker" class="sec-quarterly-select" onchange="setSecQuarterlyTicker(this.value)" aria-label="選擇公司"></select>
             <span id="secQuarterlyAvailability" class="sec-kpi-help"></span>
+          </div>
+          <div id="secQuarterlyChart" class="sec-quarterly-chart" aria-label="八季財務趨勢圖">
+            <div class="sec-quarterly-chart-head">
+              <h4 id="secQuarterlyChartTitle">📈 八季財務趨勢圖</h4>
+              <div class="sec-quarterly-metrics" role="group" aria-label="選擇八季圖表指標">
+                <button type="button" class="sec-quarterly-metric active" data-sec-quarterly-metric="revenue" onclick="setSecQuarterlyMetric('revenue')" aria-pressed="true">營收</button>
+                <button type="button" class="sec-quarterly-metric" data-sec-quarterly-metric="gross_margin" onclick="setSecQuarterlyMetric('gross_margin')" aria-pressed="false">毛利率</button>
+                <button type="button" class="sec-quarterly-metric" data-sec-quarterly-metric="operating_margin" onclick="setSecQuarterlyMetric('operating_margin')" aria-pressed="false">營業利益率</button>
+                <button type="button" class="sec-quarterly-metric" data-sec-quarterly-metric="free_cash_flow" onclick="setSecQuarterlyMetric('free_cash_flow')" aria-pressed="false">自由現金流</button>
+                <button type="button" class="sec-quarterly-metric" data-sec-quarterly-metric="diluted_shares" onclick="setSecQuarterlyMetric('diluted_shares')" aria-pressed="false">稀釋股數</button>
+              </div>
+            </div>
+            <div class="sec-quarterly-chart-canvas"><canvas id="chartSecQuarterly" role="img" aria-label="所選公司的八季財務趨勢"></canvas></div>
+            <p id="secQuarterlyChartSummary" class="sec-quarterly-chart-summary">正在載入八季圖表…</p>
           </div>
           <div class="sec-table-wrap">
             <table class="sec-table sec-trend-table">
@@ -3274,6 +3388,8 @@
     let secOwnershipStatus = 'above_5';
     let secOwnershipEventLevel = 'ALL';
     let secCoreTicker = '';
+    let secQuarterlyMetric = 'revenue';
+    let secQuarterlyChart = null;
     const SEC_CORE_TICKERS = ['NVDA', 'TSM', 'MSFT', 'META', 'AAPL', 'AMZN', 'ARM', 'ONDS', 'TSLA', 'GOOG', 'COHR', 'MRVL', 'INTC', 'NOK'];
     const SEC_TICKER_ALIASES = { GOOG: 'GOOGL' };
 
@@ -3627,6 +3743,91 @@
         <p class="sec-update-method">「本次」是 watcher 的偵測批次，不是 SEC filing date。優先度只決定閱讀順序，不是利多、利空或投資評等；財務數字仍以下方八季表及官方原文為準。</p>`;
     }
 
+    function secReadingRankRows() {
+      if (!secDailyData) return [];
+      const { alerts, details, advanced } = secDailyData;
+      const cutoff = secCutoff(secRangeDays);
+      const endDate = todayET();
+      const dilutionCategories = new Set(['atm_equity', 'equity', 'convertible', 'shelf']);
+      const tierWeight = { urgent: 3, updated: 2, quiet: 1 };
+
+      return SEC_CORE_TICKERS.map(displayTicker => {
+        const ticker = SEC_TICKER_ALIASES[displayTicker] || displayTicker;
+        const events = (alerts.events || []).filter(event =>
+          event.ticker === ticker && event.filing_date >= cutoff && event.filing_date <= endDate
+        );
+        const important = events.filter(event =>
+          ['critical', 'high'].includes(event.severity) && event.group !== '內部人持股'
+        );
+        const dilution = events.filter(event => {
+          if (event.group !== '募資／稀釋') return false;
+          return dilutionCategories.has(details.offerings?.[event.accession]?.category);
+        });
+        const activeTrades = events.filter(event => ['4', '4/A'].includes(event.form)).reduce((count, event) => {
+          const rows = details.form4?.[event.accession]?.transactions || [];
+          return count + rows.filter(tx => ['P', 'S'].includes(tx.code)).length;
+        }, 0);
+        const ownership = (advanced.ownership_timeline || []).filter(row =>
+          row.ticker === ticker && secDaysSince(row.filing_date) <= 90
+        );
+        const majorOwnership = ownership.filter(row => row.importance === 'high');
+        const enforcement = (advanced.enforcement || []).filter(row =>
+          (row.event?.ticker || row.ticker) === ticker
+        );
+        const urgent = important.length || dilution.length || majorOwnership.length || enforcement.length;
+        const tier = urgent ? 'urgent' : ((events.length || ownership.length) ? 'updated' : 'quiet');
+        const dates = [
+          ...events.map(row => row.filing_date),
+          ...ownership.map(row => row.filing_date),
+          ...enforcement.map(row => row.event?.filing_date || row.date),
+        ].filter(Boolean).sort().reverse();
+        const reasons = [];
+        if (dilution.length) reasons.push(`潛在稀釋 ${dilution.length} 份`);
+        if (important.length) reasons.push(`重大／重要申報 ${important.length} 份`);
+        if (majorOwnership.length) reasons.push(`90 日內重大 13D／13G ${majorOwnership.length} 項`);
+        if (enforcement.length) reasons.push(`SEC 執法／停牌 ${enforcement.length} 項`);
+        if (activeTrades) reasons.push(`Form 4 主動買賣 ${activeTrades} 列`);
+        if (!reasons.length && events.length) reasons.push(`近期一般申報 ${events.length} 份`);
+        if (!reasons.length && ownership.length) reasons.push(`90 日內大股東更新 ${ownership.length} 項`);
+        if (!reasons.length) reasons.push(`近 ${secRangeDays} 日無新申報`);
+        const signalScore = dilution.length * 60 + enforcement.length * 55 + majorOwnership.length * 50
+          + important.length * 40 + activeTrades * 4 + events.length;
+        return { displayTicker, ticker, tier, tierWeight: tierWeight[tier], signalScore, latestDate: dates[0] || '', reasons };
+      }).sort((a, b) => b.tierWeight - a.tierWeight
+        || b.signalScore - a.signalScore
+        || b.latestDate.localeCompare(a.latestDate)
+        || a.displayTicker.localeCompare(b.displayTicker));
+    }
+
+    function renderSecReadingRank() {
+      const container = document.getElementById('secReadingRank');
+      if (!container || !secDailyData) return;
+      const rows = secReadingRankRows();
+      const tierLabels = {
+        urgent: ['需優先閱讀', 'urgent'],
+        updated: ['近期有更新', 'updated'],
+        quiet: ['例行追蹤', 'quiet'],
+      };
+      const renderCard = (row, index) => {
+        const [label, css] = tierLabels[row.tier];
+        const active = row.displayTicker === secCoreTicker;
+        return `<button type="button" class="sec-reading-rank-card${active ? ' active' : ''}" data-sec-rank-ticker="${escapeSec(row.displayTicker)}" onclick="setSecCoreTicker('${escapeSec(row.displayTicker)}')" aria-pressed="${active ? 'true' : 'false'}">
+          <span class="sec-reading-rank-number">#${index + 1}</span>
+          <span class="sec-reading-rank-main"><span class="sec-reading-rank-title">${escapeSec(row.displayTicker)} <span class="sec-company-priority ${css}">${label}</span></span><span class="sec-reading-rank-reason">${escapeSec(row.reasons.join('；'))}${row.latestDate ? `｜最近 ${escapeSec(row.latestDate)}` : ''}</span></span>
+        </button>`;
+      };
+      const firstRows = rows.slice(0, 5).map(renderCard).join('');
+      const remainingRows = rows.slice(5).map((row, index) => renderCard(row, index + 5)).join('');
+      container.innerHTML = `
+        <div class="sec-reading-rank-head">
+          <div><h3 id="secReadingRankTitle">📌 核心持股每日閱讀排序</h3><p>前 5 家直接顯示，其餘收合；點選任一家公司會同步切換下方所有 SEC 區塊。</p></div>
+          <span class="sec-reading-rank-period">依 ${escapeSec(secCutoff(secRangeDays))}～${escapeSec(todayET())} 排序</span>
+        </div>
+        <div class="sec-reading-rank-list">${firstRows}</div>
+        <details class="sec-reading-rank-more"><summary>展開其餘 ${Math.max(0, rows.length - 5)} 家</summary><div class="sec-reading-rank-list">${remainingRows}</div></details>
+        <p class="sec-reading-rank-method">排序規則依序考量：潛在稀釋、重大／重要申報、90 日內重大 13D／13G、SEC 執法／停牌、P／S 主動買賣與一般申報；同級再按訊號數量與最近日期排列。排序只決定每日閱讀先後，不是利多／利空、投資評等或報酬預測。</p>`;
+    }
+
     function renderSecDaily() {
       if (!secDailyData) return;
       const { alerts, details, quarterlyFinancials } = secDailyData;
@@ -3680,6 +3881,7 @@
         ? `✅ 最近 ${secRangeDays} 日共找到 ${events.length} 份申報；數字以 SEC filing date 與 accession 去重。`
         : `ℹ️ 最近 ${secRangeDays} 日沒有新申報；上次雷達資料更新於 ${formatSecTimestamp(alerts.updated_at)}。`;
       renderSecUpdateBrief();
+      renderSecReadingRank();
 
       const quarterlyBody = document.getElementById('secQuarterlyBody');
       quarterlyBody.innerHTML = quarterlyRows.length ? quarterlyRows.map(row => {
@@ -4467,6 +4669,121 @@
         <p class="sec-text-diff-caution">${escapeSec(company.caveat)} 摘錄是 SEC 英文原文，未機器翻譯；「不再列出」不等於風險已消失，「新增揭露」也不必然代表風險剛發生。請用上方兩份官方原文核對完整上下文。</p>`;
     }
 
+    function secQuarterlyMetricConfig(metric, currency) {
+      const amount = secAmountDisplay(currency);
+      const configs = {
+        revenue: { label: '營收', divisor: amount.divisor, unit: `${currency} ${amount.unit}`, deltaMode: 'percent', deltaUnit: '%', deltaDivisor: 1, color: '#38bdf8' },
+        gross_margin: { label: '毛利率', divisor: 0.01, unit: '%', deltaMode: 'pp', deltaUnit: 'pp', deltaDivisor: 1, color: '#34d399' },
+        operating_margin: { label: '營業利益率', divisor: 0.01, unit: '%', deltaMode: 'pp', deltaUnit: 'pp', deltaDivisor: 1, color: '#a78bfa' },
+        free_cash_flow: { label: '自由現金流', divisor: amount.divisor, unit: `${currency} ${amount.unit}`, deltaMode: 'absolute', deltaUnit: ` ${currency} ${amount.unit}`, deltaDivisor: amount.divisor, color: '#fbbf24' },
+        diluted_shares: { label: '稀釋股數', divisor: 1e6, unit: 'M 股', deltaMode: 'percent', deltaUnit: '%', deltaDivisor: 1, color: '#fb7185' },
+      };
+      return configs[metric] || configs.revenue;
+    }
+
+    function secQuarterlyChartValue(period, metric, config) {
+      const value = secMetricValue(period, metric);
+      return value === null || Number.isNaN(value) ? null : value / config.divisor;
+    }
+
+    function setSecQuarterlyMetric(metric) {
+      const allowed = new Set(['revenue', 'gross_margin', 'operating_margin', 'free_cash_flow', 'diluted_shares']);
+      if (!allowed.has(metric)) return;
+      secQuarterlyMetric = metric;
+      renderSecQuarterlyChart(secDailyData?.quarterlyFinancials?.companies?.[secQuarterlyTicker]);
+    }
+
+    function renderSecQuarterlyChart(company) {
+      const summary = document.getElementById('secQuarterlyChartSummary');
+      const title = document.getElementById('secQuarterlyChartTitle');
+      const canvas = document.getElementById('chartSecQuarterly');
+      if (!summary || !title || !canvas) return;
+      document.querySelectorAll('[data-sec-quarterly-metric]').forEach(button => {
+        const active = button.dataset.secQuarterlyMetric === secQuarterlyMetric;
+        button.classList.toggle('active', active);
+        button.setAttribute('aria-pressed', active ? 'true' : 'false');
+      });
+      if (secQuarterlyChart) {
+        secQuarterlyChart.destroy();
+        secQuarterlyChart = null;
+      }
+      const newestFirst = (company?.periods || []).slice(0, 8);
+      if (!newestFirst.length) {
+        title.textContent = `📈 ${secQuarterlyTicker}｜八季財務趨勢圖`;
+        summary.textContent = company?.reason || '尚無可比季度資料，無法繪製趨勢。';
+        return;
+      }
+      const currency = company.currency || 'USD';
+      const config = secQuarterlyMetricConfig(secQuarterlyMetric, currency);
+      const periods = [...newestFirst].reverse();
+      const values = periods.map(period => secQuarterlyChartValue(period, secQuarterlyMetric, config));
+      const latest = newestFirst[0];
+      const previous = newestFirst[1];
+      const yearAgo = newestFirst[4];
+      const latestRaw = secMetricValue(latest, secQuarterlyMetric);
+      const scaleDelta = value => value === null ? null : value / config.deltaDivisor;
+      const qoq = scaleDelta(secDelta(latestRaw, secMetricValue(previous, secQuarterlyMetric), config.deltaMode));
+      const yoy = scaleDelta(secDelta(latestRaw, secMetricValue(yearAgo, secQuarterlyMetric), config.deltaMode));
+      const deltaUnit = config.deltaUnit;
+      const latestDisplay = latestRaw === null ? '—' : `${formatSecNumber(latestRaw / config.divisor, config.unit === '%' ? 1 : 2)} ${config.unit}`;
+      title.textContent = `📈 ${secQuarterlyTicker}｜${config.label}八季趨勢`;
+      summary.innerHTML = `<strong>最新 ${escapeSec(latest.period_end)}：</strong>${escapeSec(latestDisplay)}｜QoQ ${formatSecDelta(qoq, deltaUnit)}｜YoY ${formatSecDelta(yoy, deltaUnit)}。橫軸每一格是一個財報季度，從左至右為舊到新；缺值會留白，不以 0 補值。`;
+      if (typeof Chart === 'undefined') {
+        summary.textContent += ' 圖表元件未載入，請重新整理頁面；下方數字表仍可使用。';
+        return;
+      }
+      secQuarterlyChart = new Chart(canvas.getContext('2d'), {
+        type: 'line',
+        data: {
+          labels: periods.map(period => period.period_end),
+          datasets: [{
+            label: `${config.label}（${config.unit}）`,
+            data: values,
+            borderColor: config.color,
+            backgroundColor: `${config.color}24`,
+            pointBackgroundColor: config.color,
+            pointBorderColor: '#0f172a',
+            pointRadius: 4,
+            pointHoverRadius: 6,
+            borderWidth: 2.5,
+            tension: 0.24,
+            spanGaps: false,
+            fill: true,
+          }],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          interaction: { intersect: false, mode: 'index' },
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                label: context => context.raw === null ? `${config.label}：缺值` : `${config.label}：${formatSecNumber(context.raw, config.unit === '%' ? 1 : 2)} ${config.unit}`,
+                afterLabel: context => {
+                  const index = context.dataIndex;
+                  const raw = secMetricValue(periods[index], secQuarterlyMetric);
+                  const prior = index > 0 ? secMetricValue(periods[index - 1], secQuarterlyMetric) : null;
+                  const priorYear = index > 3 ? secMetricValue(periods[index - 4], secQuarterlyMetric) : null;
+                  const quarterDelta = scaleDelta(secDelta(raw, prior, config.deltaMode));
+                  const yearDelta = scaleDelta(secDelta(raw, priorYear, config.deltaMode));
+                  const plain = value => value === null ? '—' : `${value > 0 ? '+' : ''}${formatSecNumber(value, 1)}${deltaUnit}`;
+                  return `QoQ ${plain(quarterDelta)}｜YoY ${plain(yearDelta)}`;
+                },
+              },
+            },
+          },
+          scales: {
+            x: { ticks: { color: '#94a3b8', maxRotation: 0 }, grid: { color: 'rgba(148, 163, 184, 0.08)' } },
+            y: {
+              ticks: { color: '#94a3b8', callback: value => `${formatSecNumber(value, config.unit === '%' ? 0 : 1)} ${config.unit}` },
+              grid: { color: context => Number(context.tick.value) === 0 ? 'rgba(248, 250, 252, 0.38)' : 'rgba(148, 163, 184, 0.1)' },
+            },
+          },
+        },
+      });
+    }
+
     function renderSecQuarterlyTrend() {
       if (!secDailyData) return;
       const company = secDailyData.quarterlyFinancials?.companies?.[secQuarterlyTicker];
@@ -4480,9 +4797,11 @@
         const officialLink = officialUrl === '#' ? '' : ` <a class="sec-link" href="${officialUrl}" target="_blank" rel="noopener">開啟官方季度財報 ↗</a>`;
         availability.innerHTML = `${escapeSec(reason)}${officialLink}`;
         body.innerHTML = `<tr><td colspan="12" class="sec-empty">${escapeSec(reason)}${officialLink}</td></tr>`;
+        renderSecQuarterlyChart(company);
         return;
       }
       availability.textContent = `${company.source_basis || `報表幣別 ${currency}`} 資料更新：${formatSecTimestamp(secDailyData.quarterlyFinancials.generated_at)}；顯示最新 8 期，前 4 期可計算 YoY。`;
+      renderSecQuarterlyChart(company);
       const periods = company.periods || [];
       body.innerHTML = periods.slice(0, 8).map((period, index) => {
         const previous = periods[index + 1];
