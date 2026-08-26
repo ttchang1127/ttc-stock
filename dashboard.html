@@ -1091,6 +1091,102 @@
       box-shadow: 0 0 18px rgba(56, 189, 248, 0.16);
     }
 
+    .sec-company-brief {
+      margin-bottom: 22px;
+      padding: 18px;
+      border: 1px solid rgba(125, 211, 252, 0.28);
+      border-radius: 18px;
+      background: linear-gradient(145deg, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.7));
+    }
+
+    .sec-company-brief-placeholder {
+      color: #aeb8c7;
+      font-size: 0.84rem;
+      line-height: 1.6;
+      text-align: center;
+    }
+
+    .sec-company-brief-head,
+    .sec-company-brief-title-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .sec-company-brief-head { margin-bottom: 14px; }
+    .sec-company-brief-title-row { justify-content: flex-start; }
+    .sec-company-brief-title { color: #fff; font-size: 1.05rem; }
+    .sec-company-brief-period { color: var(--text-muted); font-size: 0.73rem; }
+
+    .sec-company-priority {
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 0.74rem;
+      font-weight: 850;
+      white-space: nowrap;
+    }
+
+    .sec-company-priority.urgent { color: #fecdd3; background: rgba(244, 63, 94, 0.13); border-color: rgba(244, 63, 94, 0.3); }
+    .sec-company-priority.updated { color: #fde68a; background: rgba(245, 158, 11, 0.12); border-color: rgba(245, 158, 11, 0.3); }
+    .sec-company-priority.quiet { color: #a7f3d0; background: rgba(16, 185, 129, 0.1); border-color: rgba(16, 185, 129, 0.28); }
+
+    .sec-company-brief-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 11px;
+    }
+
+    .sec-company-brief-card {
+      min-width: 0;
+      padding: 13px;
+      border: 1px solid rgba(148, 163, 184, 0.17);
+      border-radius: 13px;
+      background: rgba(2, 6, 23, 0.35);
+    }
+
+    .sec-company-brief-card h4 {
+      color: #dbeafe;
+      font-size: 0.78rem;
+      margin-bottom: 7px;
+    }
+
+    .sec-company-brief-fact {
+      color: #f8fafc;
+      font-size: 0.82rem;
+      font-weight: 760;
+      line-height: 1.5;
+    }
+
+    .sec-company-brief-note {
+      color: #94a3b8;
+      font-size: 0.71rem;
+      line-height: 1.5;
+      margin-top: 5px;
+    }
+
+    .sec-company-brief-conclusion {
+      margin-top: 13px;
+      padding: 12px 13px;
+      border-left: 3px solid #38bdf8;
+      border-radius: 9px;
+      background: rgba(56, 189, 248, 0.08);
+      color: #dbeafe;
+      font-size: 0.78rem;
+      line-height: 1.6;
+    }
+
+    .sec-company-brief-method {
+      margin-top: 8px;
+      color: #94a3b8;
+      font-size: 0.69rem;
+      line-height: 1.5;
+    }
+
     .sec-kpi-grid {
       display: grid;
       grid-template-columns: repeat(5, minmax(0, 1fr));
@@ -1523,7 +1619,7 @@
 
     @media (max-width: 620px) {
       .sec-daily-shell { padding: 18px; }
-      .sec-kpi-grid, .sec-reading-guide, .sec-advanced-explainer, .sec-advanced-actual-grid { grid-template-columns: 1fr; }
+      .sec-kpi-grid, .sec-reading-guide, .sec-advanced-explainer, .sec-advanced-actual-grid, .sec-company-brief-grid { grid-template-columns: 1fr; }
       .sec-ownership-kpis { grid-template-columns: 1fr; }
       .sec-reading-guide h3, .sec-advanced-explainer h4, .sec-advanced-explainer-caution { grid-column: auto; }
       .sec-kpi { min-height: 0; }
@@ -2057,6 +2153,10 @@
             <button type="button" class="sec-core-chip" data-sec-core-ticker="NOK" onclick="setSecCoreTicker('NOK')" aria-pressed="false">NOK (諾基亞)</button>
           </div>
         </nav>
+
+        <section id="secCompanyBrief" class="sec-company-brief" aria-live="polite" aria-label="單公司 SEC 綜合判讀">
+          <p class="sec-company-brief-placeholder">先點選上方一家公司，即可查看財務、重要申報、內部人交易、稀釋、大股東與會計／執法的綜合判讀。</p>
+        </section>
 
         <div class="sec-kpi-grid" aria-label="SEC 每日摘要數字">
           <article class="sec-kpi">
@@ -3039,6 +3139,7 @@
     let secOwnershipEventLevel = 'ALL';
     let secCoreTicker = '';
     const SEC_CORE_TICKERS = ['NVDA', 'TSM', 'MSFT', 'META', 'AAPL', 'AMZN', 'ARM', 'ONDS', 'TSLA', 'GOOG', 'COHR', 'MRVL', 'INTC', 'NOK'];
+    const SEC_TICKER_ALIASES = { GOOG: 'GOOGL' };
 
     const SEC_SEVERITY = {
       critical: { label: '🔴 重大', css: 'critical' },
@@ -3176,6 +3277,22 @@
       if (value === null || value === undefined || Number.isNaN(Number(value))) return '—';
       const display = secAmountDisplay(currency);
       return `${formatSecNumber(Number(value) / display.divisor, 1)}${display.unit}`;
+    }
+
+    function formatSecUsdCompact(value) {
+      if (value === null || value === undefined || Number.isNaN(Number(value))) return '金額未完整揭露';
+      const amount = Math.abs(Number(value));
+      const unit = amount >= 1e9 ? { divisor: 1e9, label: 'B' }
+        : (amount >= 1e6 ? { divisor: 1e6, label: 'M' }
+          : (amount >= 1e3 ? { divisor: 1e3, label: 'K' } : { divisor: 1, label: '' }));
+      return `$${formatSecNumber(Number(value) / unit.divisor, unit.divisor === 1 ? 0 : 1)}${unit.label}`;
+    }
+
+    function secDaysSince(value) {
+      const start = new Date(`${value}T12:00:00Z`);
+      const end = new Date(`${todayET()}T12:00:00Z`);
+      if (Number.isNaN(start.getTime()) || Number.isNaN(end.getTime())) return null;
+      return Math.max(0, Math.round((end - start) / 86400000));
     }
 
     function secDelta(current, previous, mode = 'percent') {
@@ -3352,6 +3469,7 @@
         element.value = selected;
       });
       renderSecCoreShortcuts();
+      renderSecCompanyBrief();
       renderSecQuarterlyTrend();
       renderSecAdvanced();
 
@@ -3809,6 +3927,7 @@
         secAdvancedTicker = value;
         secCoreTicker = '';
         renderSecCoreShortcuts();
+        renderSecCompanyBrief();
       }
       renderSecAdvanced();
     }
@@ -3835,6 +3954,7 @@
       secQuarterlyTicker = ticker;
       secCoreTicker = '';
       renderSecCoreShortcuts();
+      renderSecCompanyBrief();
       renderSecQuarterlyTrend();
     }
 
@@ -3853,13 +3973,155 @@
 
     function setSecCoreTicker(ticker) {
       if (!SEC_CORE_TICKERS.includes(ticker)) return;
+      const dataTicker = SEC_TICKER_ALIASES[ticker] || ticker;
       secCoreTicker = ticker;
-      secQuarterlyTicker = ticker;
-      secFilingsTicker = ticker;
-      secTradesTicker = ticker;
-      secDilutionTicker = ticker;
-      secAdvancedTicker = ticker;
+      secQuarterlyTicker = dataTicker;
+      secFilingsTicker = dataTicker;
+      secTradesTicker = dataTicker;
+      secDilutionTicker = dataTicker;
+      secAdvancedTicker = dataTicker;
       renderSecDaily();
+    }
+
+    function renderSecCompanyBrief() {
+      const brief = document.getElementById('secCompanyBrief');
+      if (!brief || !secDailyData) return;
+      if (!secCoreTicker) {
+        brief.innerHTML = '<p class="sec-company-brief-placeholder">先點選上方一家公司，即可查看財務、重要申報、內部人交易、稀釋、大股東與會計／執法的綜合判讀。</p>';
+        return;
+      }
+
+      const ticker = secCoreTicker;
+      const dataTicker = SEC_TICKER_ALIASES[ticker] || ticker;
+      const { alerts, details, quarterlyFinancials, advanced } = secDailyData;
+      const cutoff = secCutoff(secRangeDays);
+      const endDate = todayET();
+      const companyEvents = (alerts.events || []).filter(event =>
+        event.ticker === dataTicker && event.filing_date >= cutoff && event.filing_date <= endDate
+      ).sort((a, b) => String(b.filing_date).localeCompare(String(a.filing_date)));
+      const importantFilings = companyEvents.filter(event =>
+        ['critical', 'high'].includes(event.severity) && event.group !== '內部人持股'
+      );
+
+      const trades = [];
+      companyEvents.filter(event => ['4', '4/A'].includes(event.form)).forEach(event => {
+        const filing = (details.form4 || {})[event.accession];
+        (filing?.transactions || []).filter(tx => ['P', 'S'].includes(tx.code)).forEach(tx => trades.push({ event, tx }));
+      });
+      const buyRows = trades.filter(row => row.tx.code === 'P');
+      const sellRows = trades.filter(row => row.tx.code === 'S');
+      const hasTradeValue = row => row.tx.value !== null && row.tx.value !== undefined && Number.isFinite(Number(row.tx.value));
+      const knownTradeValues = rows => rows.reduce((sum, row) => sum + (hasTradeValue(row) ? Number(row.tx.value) : 0), 0);
+      const unknownTradeValues = trades.filter(row => !hasTradeValue(row)).length;
+      const buyValue = knownTradeValues(buyRows);
+      const sellValue = knownTradeValues(sellRows);
+      const netTradeValue = buyValue - sellValue;
+
+      const dilutionCategories = new Set(['atm_equity', 'equity', 'convertible', 'shelf']);
+      const offerings = companyEvents.filter(event => event.group === '募資／稀釋').map(event => ({
+        event,
+        classification: (details.offerings || {})[event.accession] || { category: 'review', label: '待人工判讀', dilution: '不確定' },
+      }));
+      const dilutionAlerts = offerings.filter(row => dilutionCategories.has(row.classification.category));
+
+      const company = quarterlyFinancials.companies?.[dataTicker];
+      const periods = company?.periods || [];
+      const latestPeriod = periods[0];
+      const yearAgo = periods[4];
+      const currency = company?.currency || 'USD';
+      const revenue = secMetricValue(latestPeriod, 'revenue');
+      const revenueYoy = secDelta(revenue, secMetricValue(yearAgo, 'revenue'));
+      const operatingMargin = secMetricValue(latestPeriod, 'operating_margin');
+      const operatingMarginYoy = secDelta(operatingMargin, secMetricValue(yearAgo, 'operating_margin'), 'pp');
+      const freeCashFlow = secMetricValue(latestPeriod, 'free_cash_flow');
+
+      const ownership = (advanced?.ownership_timeline || []).filter(row => row.ticker === dataTicker)
+        .sort((a, b) => String(b.filing_date).localeCompare(String(a.filing_date)))[0];
+      const ownershipAge = ownership ? secDaysSince(ownership.filing_date) : null;
+      const recentOwnership = ownership && ownershipAge !== null && ownershipAge <= 90;
+
+      const accountingRows = (advanced?.accounting_review || []).filter(row => row.event?.ticker === dataTicker)
+        .sort((a, b) => String(b.event?.filing_date || '').localeCompare(String(a.event?.filing_date || '')));
+      const enforcementRows = (advanced?.enforcement || []).filter(row => (row.event?.ticker || row.ticker) === dataTicker)
+        .sort((a, b) => String(b.event?.filing_date || b.date || '').localeCompare(String(a.event?.filing_date || a.date || '')));
+
+      const priorityReasons = [];
+      if (importantFilings.length) priorityReasons.push(`近 ${secRangeDays} 日有 ${importantFilings.length} 份重大／重要申報`);
+      if (dilutionAlerts.length) priorityReasons.push(`${dilutionAlerts.length} 份文件涉及股票、ATM、可轉債或架上註冊`);
+      if (recentOwnership && ownership.importance === 'high') priorityReasons.push('近 90 日有重大 13D／13G 持股異動');
+      if (enforcementRows.length) priorityReasons.push(`SEC 執法／停牌來源命中 ${enforcementRows.length} 項`);
+      const hasRecentUpdates = companyEvents.length > 0 || recentOwnership;
+      const priority = priorityReasons.length
+        ? { label: '🔴 需優先閱讀', css: 'urgent' }
+        : (hasRecentUpdates ? { label: '🟡 近期有更新', css: 'updated' } : { label: '🟢 目前無重大新增', css: 'quiet' });
+
+      const financialSource = safeQuarterlySourceUrl(latestPeriod?.url || company?.official_results_url);
+      const financialLink = financialSource === '#' ? '' : `<a class="sec-link" href="${financialSource}" target="_blank" rel="noopener">財報原文 ↗</a>`;
+      const latestFiling = importantFilings[0];
+      const latestTrade = trades.sort((a, b) => String(b.tx.transaction_date || b.event.filing_date).localeCompare(String(a.tx.transaction_date || a.event.filing_date)))[0];
+      const latestOffering = offerings[0];
+      const latestAccounting = accountingRows[0]?.event;
+      const latestEnforcement = enforcementRows[0];
+      const enforcementDate = latestEnforcement?.event?.filing_date || latestEnforcement?.date;
+      const enforcementUrl = latestEnforcement?.event?.url || latestEnforcement?.url;
+
+      const financialFact = latestPeriod
+        ? `${latestPeriod.period_end}｜營收 ${currency} ${formatSecAmount(revenue, currency)}（YoY ${revenueYoy === null ? '—' : `${revenueYoy >= 0 ? '+' : ''}${formatSecNumber(revenueYoy, 1)}%`}）`
+        : '尚無可比較季度財務數字';
+      const financialNote = latestPeriod
+        ? `營業利益率 ${operatingMargin === null ? '—' : `${formatSecNumber(operatingMargin * 100, 1)}%`}（YoY ${operatingMarginYoy === null ? '—' : `${operatingMarginYoy >= 0 ? '+' : ''}${formatSecNumber(operatingMarginYoy, 1)}pp`}）；FCF ${currency} ${formatSecAmount(freeCashFlow, currency)}。YoY 為去年同期，pp 為百分點。`
+        : (company?.reason || '資料來源尚未提供可比季度。');
+      const filingFact = latestFiling
+        ? `${latestFiling.filing_date}｜${latestFiling.form}｜${secFormMeaning(latestFiling)}`
+        : `最近 ${secRangeDays} 日沒有重大／重要申報`;
+      const tradeFact = trades.length
+        ? `P 買入 ${buyRows.length} 列 ${formatSecUsdCompact(buyValue)}；S 賣出 ${sellRows.length} 列 ${formatSecUsdCompact(sellValue)}`
+        : `最近 ${secRangeDays} 日沒有代碼 P／S 的 Form 4 主動買賣`;
+      const tradeNote = trades.length
+        ? `已知交易金額淨額（P－S）${formatSecUsdCompact(netTradeValue)}${unknownTradeValues ? `；另 ${unknownTradeValues} 列金額不完整` : ''}。這是交易揭露，不等於管理層對股價方向的預測。`
+        : 'A／M／F 等授予、行使或扣股未列入主動買賣。';
+      const dilutionFact = offerings.length
+        ? `${latestOffering.event.filing_date}｜${latestOffering.event.form}｜${latestOffering.classification.label}`
+        : `最近 ${secRangeDays} 日沒有募資／稀釋文件`;
+      const dilutionNote = dilutionAlerts.length
+        ? `其中 ${dilutionAlerts.length} 份列入潛在稀釋；註冊或額度不等於已全數發行。`
+        : (offerings.length ? '目前文件未歸類為直接股權稀釋；仍應核對用途與條款。' : '未見新文件不代表既有授權或過往可轉債已消失。');
+      const ownerFact = ownership
+        ? `${ownership.filing_date}｜${(ownership.reporting_persons || []).join('、') || '申報人未辨識'}｜${ownership.event_label}`
+        : '目前大股東雷達沒有 13D／13G 持股事件';
+      const ownerNote = ownership
+        ? `${secOwnershipHolding(ownership)}；${secOwnershipTimelineChange(ownership)}。這是最新已知申報，距今 ${ownershipAge ?? '—'} 日，不是即時持倉。`
+        : '未命中不代表沒有低於 5% 的機構或個人持股。';
+      const reviewFact = latestAccounting
+        ? `最近公開信件 ${latestAccounting.filing_date}｜${latestAccounting.form}；共 ${accountingRows.length} 份歷史文件`
+        : '近 3 年沒有公開 UPLOAD／CORRESP 命中';
+      const reviewNote = enforcementRows.length
+        ? `執法／停牌命中 ${enforcementRows.length} 項，最新 ${enforcementDate || '日期未辨識'}；先核對法律實體與程序階段。`
+        : '執法／停牌雷達目前 0 項；0 不代表不存在未公開調查或其他機關案件。會計信件數也不等於違規次數。';
+
+      let conclusion = priorityReasons.length
+        ? `${priority.label}：${priorityReasons.join('；')}。請由對應原文確認事件內容、條款與生效狀態。`
+        : (hasRecentUpdates
+          ? `${priority.label}：近 ${secRangeDays} 日共有 ${companyEvents.length} 份申報${recentOwnership ? '，且近 90 日有大股東申報更新' : ''}，但未觸發本卡的高優先條件。`
+          : `${priority.label}：近 ${secRangeDays} 日未見此公司的新申報，近 90 日亦無新的 13D／13G 異動；仍應閱讀定期財報與既有風險。`);
+      conclusion += ' 這是閱讀優先度，不是投資評等。';
+
+      const sourceLink = (url, label) => safeSecUrl(url) === '#' ? '' : `<a class="sec-link" href="${safeSecUrl(url)}" target="_blank" rel="noopener">${label} ↗</a>`;
+      brief.innerHTML = `
+        <div class="sec-company-brief-head">
+          <div class="sec-company-brief-title-row"><h3 class="sec-company-brief-title">${escapeSec(ticker)}｜單公司 SEC 綜合判讀</h3><span class="sec-company-priority ${priority.css}">${priority.label}</span></div>
+          <span class="sec-company-brief-period">近期項目：${escapeSec(cutoff)}～${escapeSec(endDate)}；大股東／審閱顯示雷達內最新已知資料</span>
+        </div>
+        <div class="sec-company-brief-grid">
+          <article class="sec-company-brief-card"><h4>① 財務連續性</h4><div class="sec-company-brief-fact">${escapeSec(financialFact)}</div><p class="sec-company-brief-note">${escapeSec(financialNote)} ${financialLink}</p></article>
+          <article class="sec-company-brief-card"><h4>② 最新重要申報</h4><div class="sec-company-brief-fact">${escapeSec(filingFact)}</div><p class="sec-company-brief-note">每份 accession 計 1 份；重要只代表要先讀，不代表利多或利空。 ${sourceLink(latestFiling?.url, '申報原文')}</p></article>
+          <article class="sec-company-brief-card"><h4>③ Form 4 主動買／賣</h4><div class="sec-company-brief-fact">${escapeSec(tradeFact)}</div><p class="sec-company-brief-note">${escapeSec(tradeNote)} ${sourceLink(latestTrade?.event?.url, 'Form 4 原文')}</p></article>
+          <article class="sec-company-brief-card"><h4>④ 募資與稀釋</h4><div class="sec-company-brief-fact">${escapeSec(dilutionFact)}</div><p class="sec-company-brief-note">${escapeSec(dilutionNote)} ${sourceLink(latestOffering?.event?.url, '募資原文')}</p></article>
+          <article class="sec-company-brief-card"><h4>⑤ 大股東最新狀態</h4><div class="sec-company-brief-fact">${escapeSec(ownerFact)}</div><p class="sec-company-brief-note">${escapeSec(ownerNote)} ${sourceLink(ownership?.url, '13D／13G 原文')}</p></article>
+          <article class="sec-company-brief-card"><h4>⑥ 會計審閱／執法</h4><div class="sec-company-brief-fact">${escapeSec(reviewFact)}</div><p class="sec-company-brief-note">${escapeSec(reviewNote)} ${sourceLink(enforcementUrl || latestAccounting?.url, '核對原文')}</p></article>
+        </div>
+        <div class="sec-company-brief-conclusion"><strong>客觀結論：</strong> ${escapeSec(conclusion)}</div>
+        <p class="sec-company-brief-method">規則：近期重大／重要申報、潛在股權稀釋、90 日內重大 13D／13G 異動或 SEC 執法／停牌命中，列為「需優先閱讀」；其他近期申報列為「近期有更新」。財務升降與 Form 4 買賣僅陳述事實，不單獨推論長期股價方向。</p>`;
     }
 
     function renderSecQuarterlyTrend() {

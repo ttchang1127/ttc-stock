@@ -629,6 +629,8 @@ def c21():
                                          "大股東異動時間軸與警報", "顏色表示閱讀優先度",
                                          "secCoreShortcuts", "setSecCoreTicker",
                                          "同步切換①八季數字、②重要申報、③ Form 4",
+                                         "secCompanyBrief", "renderSecCompanyBrief",
+                                         "單公司 SEC 綜合判讀", "這是閱讀優先度，不是投資評等",
                                          "括號數字代表什麼", "合併後的交易宗數",
                                          "不受上方最近 7／14 日篩選影響")
                   if marker not in page]

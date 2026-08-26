@@ -60,11 +60,34 @@ class DashboardSecTabTests(unittest.TestCase):
         sec_tab = re.findall(r'data-sec-core-ticker="([A-Z]+)"', self.html)
         self.assertEqual(tab_one, core)
         self.assertEqual(sec_tab, tab_one)
-        for assignment in ("secQuarterlyTicker = ticker", "secFilingsTicker = ticker",
-                           "secTradesTicker = ticker", "secDilutionTicker = ticker",
-                           "secAdvancedTicker = ticker"):
+        for assignment in ("secQuarterlyTicker = dataTicker", "secFilingsTicker = dataTicker",
+                           "secTradesTicker = dataTicker", "secDilutionTicker = dataTicker",
+                           "secAdvancedTicker = dataTicker"):
             self.assertIn(assignment, self.html)
+        self.assertIn("const SEC_TICKER_ALIASES = { GOOG: 'GOOGL' }", self.html)
         self.assertIn("button.setAttribute('aria-pressed', active ? 'true' : 'false')", self.html)
+
+    def test_single_company_sec_brief_is_traceable_and_objective(self):
+        required_copy = [
+            'id="secCompanyBrief"',
+            "function renderSecCompanyBrief()",
+            "單公司 SEC 綜合判讀",
+            "財務連續性",
+            "最新重要申報",
+            "Form 4 主動買／賣",
+            "募資與稀釋",
+            "大股東最新狀態",
+            "會計審閱／執法",
+            "這是閱讀優先度，不是投資評等",
+            "財務升降與 Form 4 買賣僅陳述事實",
+        ]
+        for phrase in required_copy:
+            self.assertIn(phrase, self.html)
+        for category in ("'atm_equity'", "'equity'", "'convertible'", "'shelf'"):
+            self.assertIn(category, self.html)
+        self.assertIn("const yearAgo = periods[4]", self.html)
+        self.assertIn("ownershipAge <= 90", self.html)
+        self.assertIn("['P', 'S'].includes(tx.code)", self.html)
 
     def test_advanced_radars_cover_all_requested_categories(self):
         for key in ("footnotes", "accounting_review", "ownership_13dg", "governance",
