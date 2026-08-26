@@ -16,6 +16,7 @@ class DashboardSecTabTests(unittest.TestCase):
         cls.quarterly = json.loads((ROOT / "quarterly_financials.json").read_text())
         cls.advanced = json.loads((ROOT / "sec_advanced_radars.json").read_text())
         cls.thirteen_f = json.loads((ROOT / "sec_13f_stock_radar.json").read_text())
+        cls.text_changes = json.loads((ROOT / "filing_text_changes.json").read_text())
 
     def test_tab_defaults_to_14_days_and_allows_7_days(self):
         self.assertIn("🚨 4_SEC 每日重點", self.html)
@@ -30,6 +31,7 @@ class DashboardSecTabTests(unittest.TestCase):
         self.assertIn("fetch('quarterly_financials.json'", self.html)
         self.assertIn("fetch('sec_advanced_radars.json'", self.html)
         self.assertIn("fetch('sec_13f_stock_radar.json'", self.html)
+        self.assertIn("fetch('filing_text_changes.json'", self.html)
         self.assertIn("function renderSecDaily()", self.html)
         self.assertIn('id="secQuarterlyBody"', self.html)
         self.assertIn('id="secKpiQuarterly"', self.html)
@@ -46,13 +48,13 @@ class DashboardSecTabTests(unittest.TestCase):
         self.assertIn('id="secAdvancedActual"', self.html)
         self.assertIn("function renderSecAdvanced()", self.html)
 
-    def test_core_holding_shortcuts_sync_all_five_sec_sections(self):
+    def test_core_holding_shortcuts_sync_all_sec_sections(self):
         core = ["NVDA", "TSM", "MSFT", "META", "AAPL", "AMZN", "ARM",
                 "ONDS", "TSLA", "GOOG", "COHR", "MRVL", "INTC", "NOK"]
         self.assertIn('id="secCoreShortcuts"', self.html)
         self.assertIn("function setSecCoreTicker(ticker)", self.html)
         self.assertIn("function renderSecCoreShortcuts()", self.html)
-        self.assertIn("點選一次，同步切換①八季數字、②重要申報、③ Form 4、④募資稀釋與⑤進階 SEC 雷達", self.html)
+        self.assertIn("點選一次，同步切換①八季數字、②重要申報、③ Form 4、④募資稀釋、⑤進階 SEC 雷達與⑥文字差異", self.html)
         for ticker in core:
             self.assertIn(f'data-sec-core-ticker="{ticker}"', self.html)
             self.assertIn(f"setSecCoreTicker('{ticker}')", self.html)
@@ -66,6 +68,32 @@ class DashboardSecTabTests(unittest.TestCase):
             self.assertIn(assignment, self.html)
         self.assertIn("const SEC_TICKER_ALIASES = { GOOG: 'GOOGL' }", self.html)
         self.assertIn("button.setAttribute('aria-pressed', active ? 'true' : 'false')", self.html)
+
+    def test_periodic_filing_text_diff_has_actual_excerpts_and_caveats(self):
+        self.assertEqual(set(self.text_changes["companies"]), set(self.quarterly["companies"]))
+        compared = [row for row in self.text_changes["companies"].values() if row["status"] == "compared"]
+        self.assertGreaterEqual(len(compared), 13)
+        self.assertTrue(all(row["previous"]["form"] == row["latest"]["form"] for row in compared))
+        self.assertTrue(any(
+            section.get("added") or section.get("modified") or section.get("removed")
+            for row in compared for section in row["sections"].values()
+            if section["status"] == "compared"
+        ))
+        signals = {
+            item["language_signal"]["label"]
+            for row in compared for section in row["sections"].values()
+            if section["status"] == "compared"
+            for group in ("added", "modified") for item in section.get(group, [])
+        }
+        self.assertTrue({"可能升高措辭", "可能緩和措辭", "大幅改寫"}.issubset(signals))
+        required_copy = [
+            'id="secTextDiff"', "function renderSecTextDiff()",
+            "10-K／10-Q 文字差異雷達", "前一期原文", "本期原文",
+            "大幅改寫",
+            "不再列出」不等於風險已消失", "原文段落比對",
+        ]
+        for phrase in required_copy:
+            self.assertIn(phrase, self.html)
 
     def test_single_company_sec_brief_is_traceable_and_objective(self):
         required_copy = [

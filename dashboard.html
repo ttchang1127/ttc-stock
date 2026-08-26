@@ -1262,6 +1262,57 @@
       line-height: 1.5;
     }
 
+    .sec-text-diff {
+      margin-bottom: 22px;
+      padding: 18px;
+      border: 1px solid rgba(192, 132, 252, 0.28);
+      border-radius: 18px;
+      background: linear-gradient(145deg, rgba(88, 28, 135, 0.12), rgba(15, 23, 42, 0.78));
+    }
+
+    .sec-text-diff-placeholder { color: #aeb8c7; font-size: 0.82rem; line-height: 1.55; text-align: center; }
+    .sec-text-diff-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; flex-wrap: wrap; margin-bottom: 12px; }
+    .sec-text-diff-title { color: #f3e8ff; font-size: 1rem; }
+    .sec-text-diff-meta { color: #94a3b8; font-size: 0.71rem; line-height: 1.5; }
+
+    .sec-text-diff-kpis {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 9px;
+      margin-bottom: 12px;
+    }
+
+    .sec-text-diff-kpi { padding: 10px; border: 1px solid rgba(148, 163, 184, 0.15); border-radius: 11px; background: rgba(2, 6, 23, 0.34); }
+    .sec-text-diff-kpi span { display: block; color: #94a3b8; font-size: 0.67rem; }
+    .sec-text-diff-kpi strong { display: block; color: #fff; font-size: 1.05rem; margin-top: 3px; }
+
+    .sec-text-sections { display: grid; gap: 12px; }
+    .sec-text-section { padding: 13px; border: 1px solid rgba(148, 163, 184, 0.16); border-radius: 13px; background: rgba(15, 23, 42, 0.48); }
+    .sec-text-section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin-bottom: 9px; }
+    .sec-text-section-head h4 { color: #ddd6fe; font-size: 0.82rem; }
+    .sec-text-section-head span { color: #94a3b8; font-size: 0.68rem; }
+
+    .sec-text-change-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 9px; }
+    .sec-text-change-column { min-width: 0; }
+    .sec-text-change-column > strong { display: block; color: #bae6fd; font-size: 0.72rem; margin-bottom: 6px; }
+
+    .sec-text-change {
+      margin-bottom: 6px;
+      border: 1px solid rgba(148, 163, 184, 0.14);
+      border-radius: 9px;
+      background: rgba(2, 6, 23, 0.36);
+      overflow: hidden;
+    }
+
+    .sec-text-change summary { padding: 8px 9px; color: #dbeafe; font-size: 0.68rem; line-height: 1.45; cursor: pointer; }
+    .sec-text-change-body { padding: 0 9px 9px; color: #cbd5e1; font-size: 0.67rem; line-height: 1.55; overflow-wrap: anywhere; }
+    .sec-text-change-body strong { color: #a5b4fc; }
+    .sec-text-change-body p + p { margin-top: 7px; }
+    .sec-text-change-more { color: #94a3b8; font-size: 0.65rem; line-height: 1.45; }
+    .sec-text-signal { display: inline-block; margin-right: 4px; color: #fbbf24; font-weight: 800; }
+    .sec-text-signal.easing { color: #34d399; }
+    .sec-text-diff-caution { margin-top: 10px; color: #aeb8c7; font-size: 0.68rem; line-height: 1.55; }
+
     .sec-kpi-grid {
       display: grid;
       grid-template-columns: repeat(5, minmax(0, 1fr));
@@ -1694,7 +1745,7 @@
 
     @media (max-width: 620px) {
       .sec-daily-shell { padding: 18px; }
-      .sec-kpi-grid, .sec-reading-guide, .sec-advanced-explainer, .sec-advanced-actual-grid, .sec-company-brief-grid, .sec-update-grid, .sec-update-detail-grid { grid-template-columns: 1fr; }
+      .sec-kpi-grid, .sec-reading-guide, .sec-advanced-explainer, .sec-advanced-actual-grid, .sec-company-brief-grid, .sec-update-grid, .sec-update-detail-grid, .sec-text-diff-kpis, .sec-text-change-grid { grid-template-columns: 1fr; }
       .sec-ownership-kpis { grid-template-columns: 1fr; }
       .sec-reading-guide h3, .sec-advanced-explainer h4, .sec-advanced-explainer-caution { grid-column: auto; }
       .sec-kpi { min-height: 0; }
@@ -2215,7 +2266,7 @@
         <nav id="secCoreShortcuts" class="sec-core-shortcuts" aria-label="SEC 核心持股快捷標的">
           <div class="sec-core-shortcuts-head">
             <strong>⚡ 核心持股快捷標的</strong>
-            <span id="secCoreShortcutStatus">點選一次，同步切換①八季數字、②重要申報、③ Form 4、④募資稀釋與⑤進階 SEC 雷達。</span>
+            <span id="secCoreShortcutStatus">點選一次，同步切換①八季數字、②重要申報、③ Form 4、④募資稀釋、⑤進階 SEC 雷達與⑥文字差異。</span>
           </div>
           <div class="sec-core-chip-list" role="group" aria-label="選擇核心持股公司">
             <button type="button" class="sec-core-chip" data-sec-core-ticker="NVDA" onclick="setSecCoreTicker('NVDA')" aria-pressed="false">NVDA (輝達)</button>
@@ -2237,6 +2288,10 @@
 
         <section id="secCompanyBrief" class="sec-company-brief" aria-live="polite" aria-label="單公司 SEC 綜合判讀">
           <p class="sec-company-brief-placeholder">先點選上方一家公司，即可查看財務、重要申報、內部人交易、稀釋、大股東與會計／執法的綜合判讀。</p>
+        </section>
+
+        <section id="secTextDiff" class="sec-text-diff" aria-live="polite" aria-label="10-K 與 10-Q 文字差異雷達">
+          <p class="sec-text-diff-placeholder">點選上方公司後，這裡會比較最近兩份同類型 10-Q、10-K 或 20-F 的實際文字。</p>
         </section>
 
         <div class="sec-kpi-grid" aria-label="SEC 每日摘要數字">
@@ -3439,8 +3494,10 @@
             .then(r => { if (!r.ok) throw new Error(`進階 SEC 雷達 HTTP ${r.status}`); return r.json(); }),
           fetch('sec_13f_stock_radar.json', { cache: 'no-cache' })
             .then(r => { if (!r.ok) throw new Error(`13F 雷達 HTTP ${r.status}`); return r.json(); }),
-        ]).then(([alerts, details, quarterlyFinancials, advanced, thirteenF]) => {
-          secDailyData = { alerts, details, quarterlyFinancials, advanced, thirteenF };
+          fetch('filing_text_changes.json', { cache: 'no-cache' })
+            .then(r => { if (!r.ok) throw new Error(`週期申報文字差異 HTTP ${r.status}`); return r.json(); }),
+        ]).then(([alerts, details, quarterlyFinancials, advanced, thirteenF, textChanges]) => {
+          secDailyData = { alerts, details, quarterlyFinancials, advanced, thirteenF, textChanges };
           renderSecDaily();
         }).catch(error => {
           secDailyPromise = null;
@@ -3669,6 +3726,7 @@
       });
       renderSecCoreShortcuts();
       renderSecCompanyBrief();
+      renderSecTextDiff();
       renderSecQuarterlyTrend();
       renderSecAdvanced();
 
@@ -4127,6 +4185,7 @@
         secCoreTicker = '';
         renderSecCoreShortcuts();
         renderSecCompanyBrief();
+        renderSecTextDiff();
       }
       renderSecAdvanced();
     }
@@ -4154,6 +4213,7 @@
       secCoreTicker = '';
       renderSecCoreShortcuts();
       renderSecCompanyBrief();
+      renderSecTextDiff();
       renderSecQuarterlyTrend();
     }
 
@@ -4166,8 +4226,8 @@
       const status = document.getElementById('secCoreShortcutStatus');
       if (!status) return;
       status.textContent = secCoreTicker
-        ? `已同步選擇 ${secCoreTicker}：①八季數字、②重要申報、③ Form 4、④募資稀釋、⑤進階 SEC 雷達。`
-        : '點選一次，同步切換①八季數字、②重要申報、③ Form 4、④募資稀釋與⑤進階 SEC 雷達。';
+        ? `已同步選擇 ${secCoreTicker}：①八季數字、②重要申報、③ Form 4、④募資稀釋、⑤進階 SEC 雷達、⑥文字差異。`
+        : '點選一次，同步切換①八季數字、②重要申報、③ Form 4、④募資稀釋、⑤進階 SEC 雷達與⑥文字差異。';
     }
 
     function setSecCoreTicker(ticker) {
@@ -4321,6 +4381,90 @@
         </div>
         <div class="sec-company-brief-conclusion"><strong>客觀結論：</strong> ${escapeSec(conclusion)}</div>
         <p class="sec-company-brief-method">規則：近期重大／重要申報、潛在股權稀釋、90 日內重大 13D／13G 異動或 SEC 執法／停牌命中，列為「需優先閱讀」；其他近期申報列為「近期有更新」。財務升降與 Form 4 買賣僅陳述事實，不單獨推論長期股價方向。</p>`;
+    }
+
+    function secTextChangeCard(row, kind, index) {
+      const signal = row.language_signal || {};
+      const signalClass = signal.code === 'possible_easing' ? ' easing' : '';
+      const topics = (row.topics || []).length ? row.topics.join('、') : '未命中特定主題';
+      const kindLabel = kind === 'added' ? '新增揭露' : (kind === 'removed' ? '不再列出' : '前後改寫');
+      const signalLabel = kind === 'removed' ? '不再列出' : (signal.label || kindLabel);
+      const triggers = (signal.triggers || []).length ? `；觸發字詞：${signal.triggers.join('、')}` : '';
+      const summary = `<span class="sec-text-signal${signalClass}">${escapeSec(signalLabel)}</span>${escapeSec(topics)}${kind === 'modified' ? `｜相似度 ${formatSecNumber(Number(row.similarity) * 100, 0)}%` : ''}`;
+      const body = kind === 'modified'
+        ? `<p><strong>前一期：</strong>${escapeSec(row.previous_excerpt)}</p><p><strong>本期：</strong>${escapeSec(row.latest_excerpt)}</p>`
+        : `<p><strong>${kind === 'added' ? '本期原文' : '前期原文'}：</strong>${escapeSec(row.excerpt)}</p>`;
+      return `<details class="sec-text-change"${index === 0 ? ' open' : ''}><summary>${summary}</summary><div class="sec-text-change-body">${body}<p><strong>客觀標記：</strong>${escapeSec(kindLabel)}${escapeSec(triggers)}。文字訊號不等於風險事實已升高、降低或消失。</p></div></details>`;
+    }
+
+    function secTextChangeColumn(section, kind, title) {
+      const rows = section[kind] || [];
+      const total = section[`${kind === 'modified' ? 'modified' : kind}_count`] || 0;
+      const cards = rows.slice(0, 3).map((row, index) => secTextChangeCard(row, kind, index)).join('');
+      const more = total > 3 ? `<p class="sec-text-change-more">另有 ${formatSecNumber(total - 3)} 段未在卡片展開；請由官方原文全文搜尋核對。</p>` : '';
+      return `<div class="sec-text-change-column"><strong>${escapeSec(title)}（${formatSecNumber(total)}）</strong>${cards || '<p class="sec-text-change-more">無</p>'}${more}</div>`;
+    }
+
+    function renderSecTextDiff() {
+      const container = document.getElementById('secTextDiff');
+      if (!container || !secDailyData) return;
+      if (!secCoreTicker) {
+        container.innerHTML = '<p class="sec-text-diff-placeholder">點選上方公司後，這裡會比較最近兩份同類型 10-Q、10-K 或 20-F 的實際文字。</p>';
+        return;
+      }
+      const displayTicker = secCoreTicker;
+      const dataTicker = SEC_TICKER_ALIASES[displayTicker] || displayTicker;
+      const company = secDailyData.textChanges?.companies?.[dataTicker];
+      if (!company) {
+        container.innerHTML = `<div class="sec-text-diff-head"><div><h3 class="sec-text-diff-title">📑 ${escapeSec(displayTicker)}｜10-K／10-Q 文字差異雷達</h3><p class="sec-text-diff-meta">尚未建立這家公司的文字差異資料。</p></div></div>`;
+        return;
+      }
+      const previous = company.previous || {};
+      const latest = company.latest || {};
+      const sourceLinks = [
+        safeSecUrl(previous.url) === '#' ? '' : `<a class="sec-link" href="${safeSecUrl(previous.url)}" target="_blank" rel="noopener">前一期原文 ↗</a>`,
+        safeSecUrl(latest.url) === '#' ? '' : `<a class="sec-link" href="${safeSecUrl(latest.url)}" target="_blank" rel="noopener">本期原文 ↗</a>`,
+      ].filter(Boolean).join('｜');
+      if (company.status !== 'compared') {
+        container.innerHTML = `<div class="sec-text-diff-head"><div><h3 class="sec-text-diff-title">📑 ${escapeSec(displayTicker)}｜10-K／10-Q 文字差異雷達</h3><p class="sec-text-diff-meta">${escapeSec(previous.form || latest.form || '週期申報')}｜${escapeSec(previous.report_date || '—')} → ${escapeSec(latest.report_date || '—')}｜${sourceLinks}</p></div><span class="sec-badge watch">⚠️ 無可靠比較</span></div>
+          <div class="sec-update-result">${escapeSec(company.reason || '至少一個章節無法可靠辨識，已保留缺值。')}</div>
+          <p class="sec-text-diff-caution">系統不會以整份文件長度或關鍵字命中取代章節邊界；無法確認時不產生猜測性差異。</p>`;
+        return;
+      }
+      const comparedSections = Object.values(company.sections || {}).filter(section => section.status === 'compared');
+      const totals = comparedSections.reduce((sum, section) => ({
+        previous: sum.previous + Number(section.paragraphs_previous || 0),
+        latest: sum.latest + Number(section.paragraphs_latest || 0),
+        unchanged: sum.unchanged + Number(section.unchanged || 0),
+        modified: sum.modified + Number(section.modified_count || 0),
+        added: sum.added + Number(section.added_count || 0),
+        removed: sum.removed + Number(section.removed_count || 0),
+      }), { previous: 0, latest: 0, unchanged: 0, modified: 0, added: 0, removed: 0 });
+      const sections = Object.values(company.sections || {}).map(section => {
+        if (section.status !== 'compared') return `<article class="sec-text-section"><div class="sec-text-section-head"><h4>${escapeSec(section.label)}</h4><span>⚠️ 無可靠比較</span></div><p class="sec-text-diff-caution">${escapeSec(section.reason)}</p></article>`;
+        return `<article class="sec-text-section">
+          <div class="sec-text-section-head"><h4>${escapeSec(section.label)}</h4><span>段落 ${formatSecNumber(section.paragraphs_previous)} → ${formatSecNumber(section.paragraphs_latest)}；沿用／高度相似 ${formatSecNumber(section.unchanged)}</span></div>
+          <div class="sec-text-change-grid">
+            ${secTextChangeColumn(section, 'added', '＋ 本期新增')}
+            ${secTextChangeColumn(section, 'modified', '△ 大幅改寫／措辭訊號')}
+            ${secTextChangeColumn(section, 'removed', '－ 本期不再列出')}
+          </div>
+        </article>`;
+      }).join('');
+      container.innerHTML = `
+        <div class="sec-text-diff-head">
+          <div><h3 class="sec-text-diff-title">📑 ${escapeSec(displayTicker)}｜10-K／10-Q 文字差異雷達</h3><p class="sec-text-diff-meta">同類型 ${escapeSec(latest.form)}：財報期 ${escapeSec(previous.report_date)} → ${escapeSec(latest.report_date)}｜申報 ${escapeSec(previous.filing_date)} → ${escapeSec(latest.filing_date)}｜${sourceLinks}</p></div>
+          <span class="sec-badge medium">原文段落比對</span>
+        </div>
+        <div class="sec-text-diff-kpis">
+          <article class="sec-text-diff-kpi"><span>前期 → 本期段落</span><strong>${formatSecNumber(totals.previous)} → ${formatSecNumber(totals.latest)}</strong></article>
+          <article class="sec-text-diff-kpi"><span>沿用／高度相似</span><strong>${formatSecNumber(totals.unchanged)}</strong></article>
+          <article class="sec-text-diff-kpi"><span>大幅改寫</span><strong>${formatSecNumber(totals.modified)}</strong></article>
+          <article class="sec-text-diff-kpi"><span>新增揭露</span><strong>${formatSecNumber(totals.added)}</strong></article>
+          <article class="sec-text-diff-kpi"><span>不再列出</span><strong>${formatSecNumber(totals.removed)}</strong></article>
+        </div>
+        <div class="sec-text-sections">${sections}</div>
+        <p class="sec-text-diff-caution">${escapeSec(company.caveat)} 摘錄是 SEC 英文原文，未機器翻譯；「不再列出」不等於風險已消失，「新增揭露」也不必然代表風險剛發生。請用上方兩份官方原文核對完整上下文。</p>`;
     }
 
     function renderSecQuarterlyTrend() {

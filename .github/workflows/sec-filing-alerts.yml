@@ -41,6 +41,11 @@ jobs:
             --alert-markdown "$RUNNER_TEMP/sec-alert.md" \
             --summary "$GITHUB_STEP_SUMMARY"
 
+      - name: Compare latest periodic filing text
+        env:
+          SEC_USER_AGENT: ${{ vars.SEC_USER_AGENT || 'SecKBResearch user@example.com' }}
+        run: python3 scripts/diff_periodic_filings.py
+
       - name: Verify refreshed SEC radar snapshots
         run: python3 scripts/check_integrity.py --quiet
 
@@ -73,7 +78,8 @@ jobs:
           git config user.name  'github-actions[bot]'
           git config user.email 'github-actions[bot]@users.noreply.github.com'
           git add .github/sec-filing-state.json sec_filing_alerts.json \
-            sec_filing_details.json 60_SEC_Filing_Radar/SEC_Filing_Alerts.md \
+            sec_filing_details.json filing_text_changes.json \
+            60_SEC_Filing_Radar/SEC_Filing_Alerts.md \
             60_SEC_Filing_Radar/Quarterly_10Q_Radar.md \
             60_SEC_Filing_Radar/Form4_Insider_Radar.md \
             60_SEC_Filing_Radar/Dilution_Offering_Radar.md \

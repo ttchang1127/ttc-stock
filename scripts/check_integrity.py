@@ -644,6 +644,43 @@ def c21():
                 f"解析錯誤：{advanced.get('errors') or '無'}")
 
 
+@check("C-22", "10-K／10-Q 文字差異可追溯且不跨表單")
+def c22():
+    changes = load("filing_text_changes.json")
+    tracked = set(load("financials.json")["companies"])
+    companies = changes.get("companies", {})
+    bad = []
+    if set(companies) != tracked:
+        bad.append("公司覆蓋不是 14 家")
+    compared = 0
+    for ticker, company in companies.items():
+        if company.get("status") != "compared":
+            continue
+        compared += 1
+        if company.get("previous", {}).get("form") != company.get("latest", {}).get("form"):
+            bad.append(f"{ticker} 混用不同表單")
+        sections = [row for row in company.get("sections", {}).values() if row.get("status") == "compared"]
+        if not sections:
+            bad.append(f"{ticker} 沒有可靠章節")
+        for section in sections:
+            for row in section.get("added", []) + section.get("removed", []):
+                if not row.get("excerpt"):
+                    bad.append(f"{ticker} 缺實際摘錄")
+            for row in section.get("modified", []):
+                if not row.get("previous_excerpt") or not row.get("latest_excerpt"):
+                    bad.append(f"{ticker} 改寫缺前後摘錄")
+    if compared < 13:
+        bad.append(f"只有 {compared} 家可比較")
+    page = read("dashboard.html")
+    workflow = read(".github/workflows/sec-filing-alerts.yml")
+    markers = ("secTextDiff", "renderSecTextDiff", "10-K／10-Q 文字差異雷達",
+               "不再列出」不等於風險已消失", "filing_text_changes.json")
+    missing = [marker for marker in markers if marker not in page]
+    if "scripts/diff_periodic_filings.py" not in workflow or "filing_text_changes.json" not in workflow:
+        missing.append("每日 workflow")
+    return not bad and not missing, f"資料問題：{bad or '無'}；缺畫面／自動化：{missing or '無'}"
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--quiet", action="store_true", help="只印出失敗項")
