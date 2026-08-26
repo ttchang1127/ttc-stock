@@ -1803,6 +1803,32 @@
     .sec-quarterly-chart-summary { margin-top: 9px; color: #cbd5e1; font-size: 0.74rem; line-height: 1.55; }
     .sec-quarterly-chart-summary strong { color: #7dd3fc; }
 
+    .sec-quarterly-diagnosis {
+      margin: 0 0 16px;
+      padding: 15px;
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      border-radius: 15px;
+      background: rgba(15, 23, 42, 0.5);
+    }
+    .sec-quarterly-diagnosis.watch { border-color: rgba(251, 191, 36, 0.38); background: rgba(120, 53, 15, 0.1); }
+    .sec-quarterly-diagnosis.improving { border-color: rgba(52, 211, 153, 0.34); background: rgba(6, 78, 59, 0.1); }
+    .sec-quarterly-diagnosis.stable { border-color: rgba(56, 189, 248, 0.26); }
+    .sec-quarterly-diagnosis-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 12px; }
+    .sec-quarterly-diagnosis-head h4 { color: #f8fafc; font-size: 0.9rem; }
+    .sec-quarterly-diagnosis-head p { margin-top: 4px; color: #aeb8c7; font-size: 0.72rem; line-height: 1.5; }
+    .sec-quarterly-diagnosis-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; }
+    .sec-quarterly-diagnosis-card { min-width: 0; padding: 10px; border: 1px solid rgba(148, 163, 184, 0.15); border-radius: 11px; background: rgba(2, 6, 23, 0.34); }
+    .sec-quarterly-diagnosis-card span { display: block; color: #94a3b8; font-size: 0.66rem; }
+    .sec-quarterly-diagnosis-card strong { display: block; margin: 3px 0; color: #fff; font-size: 0.82rem; line-height: 1.35; }
+    .sec-quarterly-diagnosis-card small { display: block; color: #aeb8c7; font-size: 0.65rem; line-height: 1.45; }
+    .sec-quarterly-signals { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; margin-top: 10px; }
+    .sec-quarterly-signal-group { padding: 10px 11px; border: 1px solid rgba(148, 163, 184, 0.14); border-radius: 11px; background: rgba(2, 6, 23, 0.3); }
+    .sec-quarterly-signal-group h5 { color: #dbeafe; font-size: 0.72rem; margin-bottom: 6px; }
+    .sec-quarterly-signal-group ul { margin: 0; padding-left: 17px; }
+    .sec-quarterly-signal-group li { color: #cbd5e1; font-size: 0.68rem; line-height: 1.5; margin-bottom: 4px; }
+    .sec-quarterly-signal-group li strong { color: #f8fafc; }
+    .sec-quarterly-diagnosis-method { margin-top: 9px; color: #94a3b8; font-size: 0.65rem; line-height: 1.55; }
+
     .sec-quarterly-select {
       min-width: 130px;
       color: #fff;
@@ -1881,6 +1907,7 @@
     @media (max-width: 1050px) {
       .sec-kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .sec-reading-rank-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .sec-quarterly-diagnosis-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .sec-reading-guide { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .sec-advanced-explainer { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .sec-advanced-actual-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -1894,6 +1921,7 @@
       .sec-reading-progress { grid-template-columns: 1fr; }
       .sec-reading-actions { justify-content: flex-start; }
       .sec-reading-notice { grid-column: auto; }
+      .sec-quarterly-diagnosis-grid, .sec-quarterly-signals { grid-template-columns: 1fr; }
       .sec-quarterly-chart-canvas { height: 270px; }
       .sec-reading-guide h3, .sec-advanced-explainer h4, .sec-advanced-explainer-caution { grid-column: auto; }
       .sec-kpi { min-height: 0; }
@@ -2517,6 +2545,9 @@
             <div class="sec-quarterly-chart-canvas"><canvas id="chartSecQuarterly" role="img" aria-label="所選公司的八季財務趨勢"></canvas></div>
             <p id="secQuarterlyChartSummary" class="sec-quarterly-chart-summary">正在載入八季圖表…</p>
           </div>
+          <section id="secQuarterlyDiagnosis" class="sec-quarterly-diagnosis stable" aria-live="polite" aria-label="八季財務趨勢自動判讀">
+            <p class="sec-company-brief-placeholder">正在依八季實際數字判讀財務連續性…</p>
+          </section>
           <div class="sec-table-wrap">
             <table class="sec-table sec-trend-table">
               <thead><tr><th>財報期末</th><th>來源</th><th id="secRevenueHeading" class="sec-number">營收（原幣）</th><th class="sec-number">營收 QoQ</th><th class="sec-number">營收 YoY</th><th class="sec-number">毛利率</th><th class="sec-number">營業利益率</th><th class="sec-number">稀釋 EPS</th><th class="sec-number">營業現金流</th><th class="sec-number">自由現金流</th><th class="sec-number">稀釋股數</th><th>原文</th></tr></thead>
@@ -3844,7 +3875,7 @@
 
     function secReadingRankRows() {
       if (!secDailyData) return [];
-      const { alerts, details, advanced } = secDailyData;
+      const { alerts, details, advanced, quarterlyFinancials } = secDailyData;
       const cutoff = secCutoff(secRangeDays);
       const endDate = todayET();
       const dilutionCategories = new Set(['atm_equity', 'equity', 'convertible', 'shelf']);
@@ -3882,18 +3913,21 @@
           const date = row.event?.filing_date || row.date;
           return !date || (date >= cutoff && date <= endDate);
         });
-        const urgent = important.length || dilution.length || majorOwnership.length || enforcement.length;
+        const financialTrend = secQuarterlyTrendAnalysis(quarterlyFinancials?.companies?.[ticker]);
+        const urgent = important.length || dilution.length || majorOwnership.length || enforcement.length || financialTrend.queueAlert;
         const tier = urgent ? 'urgent' : ((events.length || ownership.length) ? 'updated' : 'quiet');
         const dates = [
           ...events.map(row => row.filing_date),
           ...ownership.map(row => row.filing_date),
           ...enforcement.map(row => row.event?.filing_date || row.date),
+          ...(financialTrend.queueAlert ? [financialTrend.latestPeriod] : []),
         ].filter(Boolean).sort().reverse();
         const reasons = [];
         if (dilution.length) reasons.push(`潛在稀釋 ${dilution.length} 份`);
         if (important.length) reasons.push(`重大／重要申報 ${important.length} 份`);
         if (majorOwnership.length) reasons.push(`90 日內重大 13D／13G ${majorOwnership.length} 項`);
         if (enforcement.length) reasons.push(`SEC 執法／停牌 ${enforcement.length} 項`);
+        if (financialTrend.queueAlert) reasons.push(`八季財務警報 ${financialTrend.alerts.length} 項`);
         if (activeTrades) reasons.push(`Form 4 主動買賣 ${activeTrades} 列`);
         if (!reasons.length && events.length) reasons.push(`近期一般申報 ${events.length} 份`);
         if (!reasons.length && ownership.length) reasons.push(`90 日內大股東更新 ${ownership.length} 項`);
@@ -3923,11 +3957,18 @@
           const id = event.accession ? `filing:${event.accession}` : `enforcement:${row.url || `${date}|${row.title || ''}`}`;
           addEvidence({ id, kind: 'enforcement', priority: 110, date, label: `SEC 執法／停牌｜${date}`, url: event.url || row.url });
         });
+        if (financialTrend.queueAlert) {
+          addEvidence({
+            id: `trend:${ticker}:${financialTrend.fingerprint}`, kind: 'trend', priority: 88,
+            date: financialTrend.latestPeriod, label: `八季財務趨勢｜${financialTrend.latestPeriod}`,
+            url: financialTrend.latestUrl,
+          });
+        }
         const evidence = [...evidenceById.values()].sort((a, b) => b.priority - a.priority
           || String(b.date).localeCompare(String(a.date)) || a.id.localeCompare(b.id));
         const signalScore = dilution.length * 60 + enforcement.length * 55 + majorOwnership.length * 50
-          + important.length * 40 + activeTrades * 4 + events.length;
-        return { displayTicker, ticker, tier, tierWeight: tierWeight[tier], signalScore, latestDate: dates[0] || '', reasons, evidence };
+          + financialTrend.alerts.length * 45 + important.length * 40 + activeTrades * 4 + events.length;
+        return { displayTicker, ticker, tier, tierWeight: tierWeight[tier], signalScore, latestDate: dates[0] || '', reasons, evidence, financialTrend };
       }).sort((a, b) => b.tierWeight - a.tierWeight
         || b.signalScore - a.signalScore
         || b.latestDate.localeCompare(a.latestDate)
@@ -3943,7 +3984,7 @@
         entry.checked = true;
         entry.read_keys = [...new Set([...entry.read_keys, ...row.evidence.map(item => item.id)])];
         entry.read_at = new Date().toISOString();
-        secReadingNotice = `✅ ${displayTicker} 已完成；目前期間內 ${row.evidence.length} 份文件已記錄為已讀。`;
+        secReadingNotice = `✅ ${displayTicker} 已完成；目前期間內 ${row.evidence.length} 項待讀證據已記錄為已讀。`;
       } else {
         entry.checked = false;
         entry.read_keys = [];
@@ -4012,7 +4053,7 @@
         updated: ['近期有更新', 'updated'],
         quiet: ['例行追蹤', 'quiet'],
       };
-      const kindLabels = { enforcement: '執法', dilution: '稀釋', important: '重大', ownership: '大股東', form4: 'Form 4', general: '一般' };
+      const kindLabels = { enforcement: '執法', dilution: '稀釋', important: '重大', trend: '財務趨勢', ownership: '大股東', form4: 'Form 4', general: '一般' };
       const renderCard = (row, index) => {
         const [label, css] = tierLabels[row.tier];
         const active = row.displayTicker === secCoreTicker;
@@ -4024,9 +4065,9 @@
         const unreadBreakdown = Object.entries(kindLabels).filter(([kind]) => unreadKinds[kind])
           .map(([kind, kindLabel]) => `${kindLabel} ${unreadKinds[kind]}`).join('｜');
         const unreadLabel = status.done ? '✅ 今日已讀'
-          : (status.unreadCount ? `🔔 未讀 ${status.unreadCount} 份｜${unreadBreakdown}` : '○ 今日尚未確認｜期間內無新文件');
+          : (status.unreadCount ? `🔔 未讀 ${status.unreadCount} 項｜${unreadBreakdown}` : '○ 今日尚未確認｜期間內無新證據');
         const primary = status.unreadEvidence[0] || row.evidence[0];
-        const sourceUrl = safeSecUrl(primary?.url);
+        const sourceUrl = primary?.kind === 'trend' ? safeQuarterlySourceUrl(primary?.url) : safeSecUrl(primary?.url);
         const source = sourceUrl === '#'
           ? '<span class="sec-reading-no-source">目前無新原文</span>'
           : `<a class="sec-link" href="${sourceUrl}" target="_blank" rel="noopener" onclick="event.stopPropagation()">最重要原文 ↗</a>`;
@@ -4046,13 +4087,13 @@
           <span class="sec-reading-rank-period">依 ${escapeSec(secCutoff(secRangeDays))}～${escapeSec(todayET())} 排序</span>
         </div>
         <div class="sec-reading-progress">
-          <div class="sec-reading-progress-copy"><strong>今日已讀 ${completed}／${rows.length} 家</strong>｜尚有 ${unreadDocuments} 份文件未讀<div class="sec-reading-progress-track"><span class="sec-reading-progress-fill" style="width:${rows.length ? completed / rows.length * 100 : 0}%"></span></div></div>
+          <div class="sec-reading-progress-copy"><strong>今日已讀 ${completed}／${rows.length} 家</strong>｜尚有 ${unreadDocuments} 項待讀證據<div class="sec-reading-progress-track"><span class="sec-reading-progress-fill" style="width:${rows.length ? completed / rows.length * 100 : 0}%"></span></div></div>
           <div class="sec-reading-actions"><button type="button" class="sec-reading-action" onclick="goToNextUnreadSecCompany()"${allDone ? ' disabled' : ''}>下一家未讀</button><button type="button" class="sec-reading-action primary" onclick="completeCurrentAndNextSecCompany()"${allDone ? ' disabled' : ''}>${secCoreTicker ? '完成目前並下一家' : '從第一家開始'}</button></div>
           ${secReadingNotice ? `<div class="sec-reading-notice" role="status">${escapeSec(secReadingNotice)}</div>` : ''}
         </div>
         <div class="sec-reading-rank-list">${firstRows}</div>
         <details class="sec-reading-rank-more"><summary>展開其餘 ${Math.max(0, rows.length - 5)} 家</summary><div class="sec-reading-rank-list">${remainingRows}</div></details>
-        <p class="sec-reading-rank-method">排序規則依序考量：潛在稀釋、重大／重要申報、90 日內重大 13D／13G、SEC 執法／停牌、P／S 主動買賣與一般申報；同級再按訊號數量與最近日期排列。已讀狀態以美東日期每日重設；同一天若出現新的 accession／大股東文件／執法事件，會自動恢復未讀。狀態只存在這台裝置的目前瀏覽器，不會跨裝置同步。排序只決定每日閱讀先後，不是利多／利空、投資評等或報酬預測。</p>`;
+        <p class="sec-reading-rank-method">排序規則依序考量：潛在稀釋、重大／重要申報、90 日內重大 13D／13G、SEC 執法／停牌、八季財務警報、P／S 主動買賣與一般申報；同級再按訊號數量與最近日期排列。已讀狀態以美東日期每日重設；同一天若出現新的 accession／大股東文件／執法事件或季度趨勢指紋改變，會自動恢復未讀。狀態只存在這台裝置的目前瀏覽器，不會跨裝置同步。排序只決定每日閱讀先後，不是利多／利空、投資評等或報酬預測。</p>`;
     }
 
     function renderSecDaily() {
@@ -4896,6 +4937,182 @@
         <p class="sec-text-diff-caution">${escapeSec(company.caveat)} 摘錄是 SEC 英文原文，未機器翻譯；「不再列出」不等於風險已消失，「新增揭露」也不必然代表風險剛發生。請用上方兩份官方原文核對完整上下文。</p>`;
     }
 
+    function secTrendStreak(periods, metric, mode = 'percent', threshold = 0) {
+      let direction = null;
+      let comparisons = 0;
+      for (let index = 0; index < Math.min(periods.length - 1, 7); index += 1) {
+        const current = secMetricValue(periods[index], metric);
+        const previous = secMetricValue(periods[index + 1], metric);
+        const delta = secDelta(current, previous, mode);
+        if (delta === null) break;
+        const step = delta > threshold ? 'up' : (delta < -threshold ? 'down' : 'flat');
+        if (step === 'flat') break;
+        if (!direction) direction = step;
+        if (step !== direction) break;
+        comparisons += 1;
+      }
+      return {
+        direction: direction || 'flat',
+        quarters: comparisons ? comparisons + 1 : 1,
+        from: comparisons ? periods[comparisons]?.period_end : periods[0]?.period_end,
+        to: periods[0]?.period_end,
+      };
+    }
+
+    function secTrendSigned(value, unit = '%') {
+      if (value === null || value === undefined || Number.isNaN(Number(value))) return '—';
+      return `${Number(value) > 0 ? '+' : ''}${formatSecNumber(value, 1)}${unit}`;
+    }
+
+    function secQuarterlyTrendAnalysis(company) {
+      const periods = (company?.periods || []).slice(0, 8);
+      if (!periods.length) {
+        return { status: 'unavailable', label: '資料不足', alerts: [], improvements: [], metrics: [], queueAlert: false, fingerprint: 'unavailable', latestPeriod: null, latestUrl: null };
+      }
+      const latest = periods[0];
+      const previous = periods[1];
+      const yearAgo = periods[4];
+      const currency = company.currency || 'USD';
+      const revenue = secMetricValue(latest, 'revenue');
+      const grossMargin = secMetricValue(latest, 'gross_margin');
+      const operatingMargin = secMetricValue(latest, 'operating_margin');
+      const freeCashFlow = secMetricValue(latest, 'free_cash_flow');
+      const dilutedShares = secMetricValue(latest, 'diluted_shares');
+      const revenueQoq = secDelta(revenue, secMetricValue(previous, 'revenue'));
+      const revenueYoy = secDelta(revenue, secMetricValue(yearAgo, 'revenue'));
+      const grossQoq = secDelta(grossMargin, secMetricValue(previous, 'gross_margin'), 'pp');
+      const grossYoy = secDelta(grossMargin, secMetricValue(yearAgo, 'gross_margin'), 'pp');
+      const operatingQoq = secDelta(operatingMargin, secMetricValue(previous, 'operating_margin'), 'pp');
+      const operatingYoy = secDelta(operatingMargin, secMetricValue(yearAgo, 'operating_margin'), 'pp');
+      const shareYoy = secDelta(dilutedShares, secMetricValue(yearAgo, 'diluted_shares'));
+      const revenueStreak = secTrendStreak(periods, 'revenue', 'percent', 1);
+      const grossStreak = secTrendStreak(periods, 'gross_margin', 'pp', 0.5);
+      const operatingStreak = secTrendStreak(periods, 'operating_margin', 'pp', 0.5);
+      const shareStreak = secTrendStreak(periods, 'diluted_shares', 'percent', 1);
+      const negativeFcfStreak = periods.findIndex(period => {
+        const value = secMetricValue(period, 'free_cash_flow');
+        return value === null || value >= 0;
+      });
+      const negativeFcfQuarters = negativeFcfStreak === -1 ? periods.length : negativeFcfStreak;
+      const positiveFcfStreak = periods.findIndex(period => {
+        const value = secMetricValue(period, 'free_cash_flow');
+        return value === null || value <= 0;
+      });
+      const positiveFcfQuarters = positiveFcfStreak === -1 ? periods.length : positiveFcfStreak;
+      const negativeOperatingStreak = periods.findIndex(period => {
+        const value = secMetricValue(period, 'operating_margin');
+        return value === null || value >= 0;
+      });
+      const negativeOperatingQuarters = negativeOperatingStreak === -1 ? periods.length : negativeOperatingStreak;
+      const alerts = [];
+      const improvements = [];
+      const addAlert = (code, title, detail) => alerts.push({ code, title, detail });
+      const addImprovement = (code, title, detail) => improvements.push({ code, title, detail });
+      const revenueStart = secMetricValue(periods[revenueStreak.quarters - 1], 'revenue');
+      const grossStart = secMetricValue(periods[grossStreak.quarters - 1], 'gross_margin');
+      const operatingStart = secMetricValue(periods[operatingStreak.quarters - 1], 'operating_margin');
+
+      if (revenueStreak.direction === 'down' && revenueStreak.quarters >= 3) {
+        addAlert('revenue_streak_down', '營收連續下降', `${revenueStreak.from}～${revenueStreak.to} 共 ${revenueStreak.quarters} 季，由 ${currency} ${formatSecAmount(revenueStart, currency)} 降至 ${currency} ${formatSecAmount(revenue, currency)}。`);
+      }
+      if (revenueYoy !== null && revenueYoy <= -10) {
+        addAlert('revenue_yoy_down', '營收年減超過 10%', `${latest.period_end} 營收 YoY ${secTrendSigned(revenueYoy)}，門檻為 ≤ -10%。`);
+      }
+      if (grossStreak.direction === 'down' && grossStreak.quarters >= 3 && grossMargin !== null && grossStart !== null) {
+        addAlert('gross_margin_streak_down', '毛利率連續惡化', `${grossStreak.from}～${grossStreak.to} 共 ${grossStreak.quarters} 季，由 ${formatSecNumber(grossStart * 100, 1)}% 降至 ${formatSecNumber(grossMargin * 100, 1)}%。`);
+      }
+      if (grossYoy !== null && grossYoy <= -2) {
+        addAlert('gross_margin_yoy_down', '毛利率年減至少 2pp', `${latest.period_end} 毛利率 YoY ${secTrendSigned(grossYoy, 'pp')}，門檻為 ≤ -2pp。`);
+      }
+      if (operatingStreak.direction === 'down' && operatingStreak.quarters >= 3 && operatingMargin !== null && operatingStart !== null) {
+        addAlert('operating_margin_streak_down', '營業利益率連續惡化', `${operatingStreak.from}～${operatingStreak.to} 共 ${operatingStreak.quarters} 季，由 ${formatSecNumber(operatingStart * 100, 1)}% 降至 ${formatSecNumber(operatingMargin * 100, 1)}%。`);
+      }
+      if (negativeOperatingQuarters >= 3) {
+        const from = periods[Math.min(negativeOperatingQuarters - 1, periods.length - 1)]?.period_end;
+        addAlert('operating_margin_negative', '營業利益率連續為負', `${from}～${latest.period_end} 已連續 ${negativeOperatingQuarters} 季為負；最新為 ${formatSecNumber(operatingMargin * 100, 1)}%。`);
+      }
+      const previousFcf = secMetricValue(previous, 'free_cash_flow');
+      if (freeCashFlow !== null && freeCashFlow < 0 && previousFcf !== null && previousFcf >= 0) {
+        addAlert('fcf_turned_negative', 'FCF 由正轉負', `${previous?.period_end} 為 ${currency} ${formatSecAmount(previousFcf, currency)}，${latest.period_end} 轉為 ${currency} ${formatSecAmount(freeCashFlow, currency)}。`);
+      } else if (negativeFcfQuarters >= 3) {
+        const from = periods[Math.min(negativeFcfQuarters - 1, periods.length - 1)]?.period_end;
+        addAlert('fcf_negative_streak', 'FCF 連續為負', `${from}～${latest.period_end} 已連續 ${negativeFcfQuarters} 季為負；最新為 ${currency} ${formatSecAmount(freeCashFlow, currency)}。`);
+      }
+      if (shareYoy !== null && shareYoy >= 10) {
+        addAlert('diluted_shares_up', '稀釋股數年增至少 10%', `${latest.period_end} 稀釋股數 ${formatSecNumber(dilutedShares / 1e6, 1)}M，YoY ${secTrendSigned(shareYoy)}。`);
+      }
+
+      if (revenueStreak.direction === 'up' && revenueStreak.quarters >= 3) {
+        addImprovement('revenue_streak_up', '營收連續成長', `${revenueStreak.from}～${revenueStreak.to} 共 ${revenueStreak.quarters} 季；最新 YoY ${secTrendSigned(revenueYoy)}。`);
+      } else if (revenueYoy !== null && revenueYoy >= 10) {
+        addImprovement('revenue_yoy_up', '營收年增至少 10%', `${latest.period_end} 營收 YoY ${secTrendSigned(revenueYoy)}。`);
+      }
+      if (grossStreak.direction === 'up' && grossStreak.quarters >= 3 && grossYoy !== null && grossYoy >= 1) {
+        addImprovement('gross_margin_up', '毛利率持續改善', `${grossStreak.from}～${grossStreak.to} 共 ${grossStreak.quarters} 季；YoY ${secTrendSigned(grossYoy, 'pp')}。`);
+      }
+      if (operatingStreak.direction === 'up' && operatingStreak.quarters >= 3 && operatingYoy !== null && operatingYoy >= 2) {
+        addImprovement('operating_margin_up', '營業利益率持續改善', `${operatingStreak.from}～${operatingStreak.to} 共 ${operatingStreak.quarters} 季；YoY ${secTrendSigned(operatingYoy, 'pp')}。`);
+      }
+      if (freeCashFlow !== null && freeCashFlow > 0 && previousFcf !== null && previousFcf <= 0) {
+        addImprovement('fcf_turned_positive', 'FCF 由負轉正', `${previous?.period_end} 為 ${currency} ${formatSecAmount(previousFcf, currency)}，${latest.period_end} 轉為 ${currency} ${formatSecAmount(freeCashFlow, currency)}。`);
+      } else if (positiveFcfQuarters >= 3) {
+        addImprovement('fcf_positive_streak', 'FCF 連續為正', `最近 ${positiveFcfQuarters} 季 FCF 皆為正；最新為 ${currency} ${formatSecAmount(freeCashFlow, currency)}。`);
+      }
+      if (shareYoy !== null && shareYoy <= -2) {
+        addImprovement('diluted_shares_down', '稀釋股數下降', `${latest.period_end} 稀釋股數 YoY ${secTrendSigned(shareYoy)}。`);
+      }
+
+      const status = alerts.length ? 'watch' : (improvements.length >= 2 ? 'improving' : 'stable');
+      const label = status === 'watch' ? '⚠️ 需留意' : (status === 'improving' ? '🟢 改善' : '🔵 穩定／混合');
+      const streakLabel = streak => streak.quarters >= 2 ? `連續 ${streak.quarters} 季${streak.direction === 'up' ? '上升' : '下降'}` : '未形成連續方向';
+      const metrics = [
+        { label: '營收', value: `${currency} ${formatSecAmount(revenue, currency)}`, detail: `QoQ ${secTrendSigned(revenueQoq)}｜YoY ${secTrendSigned(revenueYoy)}｜${streakLabel(revenueStreak)}` },
+        { label: '毛利率', value: grossMargin === null ? '—' : `${formatSecNumber(grossMargin * 100, 1)}%`, detail: `QoQ ${secTrendSigned(grossQoq, 'pp')}｜YoY ${secTrendSigned(grossYoy, 'pp')}｜${streakLabel(grossStreak)}` },
+        { label: '營業利益率', value: operatingMargin === null ? '—' : `${formatSecNumber(operatingMargin * 100, 1)}%`, detail: `QoQ ${secTrendSigned(operatingQoq, 'pp')}｜YoY ${secTrendSigned(operatingYoy, 'pp')}｜${streakLabel(operatingStreak)}` },
+        { label: '自由現金流', value: `${currency} ${formatSecAmount(freeCashFlow, currency)}`, detail: freeCashFlow === null ? '無可靠單季值' : (freeCashFlow < 0 ? `連續 ${negativeFcfQuarters} 季為負` : `連續 ${positiveFcfQuarters} 季為正`) },
+        { label: '稀釋股數', value: dilutedShares === null ? '—' : `${formatSecNumber(dilutedShares / 1e6, 1)}M`, detail: `YoY ${secTrendSigned(shareYoy)}｜${streakLabel(shareStreak)}` },
+      ];
+      const fingerprintValues = [revenue, grossMargin, operatingMargin, freeCashFlow, dilutedShares]
+        .map(value => value === null ? 'null' : Number(value).toPrecision(8)).join(':');
+      return {
+        status, label, alerts, improvements, metrics, queueAlert: alerts.length > 0,
+        fingerprint: `${latest.accession || latest.period_end}:${fingerprintValues}:${alerts.map(item => item.code).join(',')}`,
+        latestPeriod: latest.period_end, latestUrl: latest.url,
+      };
+    }
+
+    function renderSecQuarterlyDiagnosis(company) {
+      const container = document.getElementById('secQuarterlyDiagnosis');
+      if (!container) return;
+      const analysis = secQuarterlyTrendAnalysis(company);
+      if (analysis.status === 'unavailable') {
+        container.className = 'sec-quarterly-diagnosis stable';
+        container.innerHTML = '<p class="sec-company-brief-placeholder">季度資料不足，無法產生八季財務趨勢判讀。</p>';
+        return;
+      }
+      container.className = `sec-quarterly-diagnosis ${analysis.status}`;
+      const statusCss = analysis.status === 'watch' ? 'watch' : (analysis.status === 'improving' ? 'buy' : 'medium');
+      const conclusion = analysis.status === 'watch'
+        ? `命中 ${analysis.alerts.length} 項需留意規則；已加入每日閱讀待辦。`
+        : (analysis.status === 'improving'
+          ? `未命中警報，且有 ${analysis.improvements.length} 項連續改善證據。`
+          : '未命中重大惡化規則，但改善證據未達 2 項，歸類為穩定／混合。');
+      const cards = analysis.metrics.map(metric => `<article class="sec-quarterly-diagnosis-card"><span>${escapeSec(metric.label)}</span><strong>${escapeSec(metric.value)}</strong><small>${escapeSec(metric.detail)}</small></article>`).join('');
+      const alerts = analysis.alerts.length
+        ? `<ul>${analysis.alerts.map(item => `<li><strong>${escapeSec(item.title)}：</strong>${escapeSec(item.detail)}</li>`).join('')}</ul>`
+        : '<ul><li>未觸發營收、利潤率、FCF 或稀釋股數的需留意門檻。</li></ul>';
+      const improvements = analysis.improvements.length
+        ? `<ul>${analysis.improvements.map(item => `<li><strong>${escapeSec(item.title)}：</strong>${escapeSec(item.detail)}</li>`).join('')}</ul>`
+        : '<ul><li>目前沒有達到連續改善門檻的項目；不等於基本面正在惡化。</li></ul>';
+      const latestUrl = safeQuarterlySourceUrl(analysis.latestUrl);
+      const source = latestUrl === '#' ? '' : `<a class="sec-link" href="${latestUrl}" target="_blank" rel="noopener">最新季度原文 ↗</a>`;
+      container.innerHTML = `
+        <div class="sec-quarterly-diagnosis-head"><div><h4>🧭 ${escapeSec(secQuarterlyTicker)}｜八季財務趨勢自動判讀</h4><p>${escapeSec(conclusion)} ${source}</p></div><span class="sec-badge ${statusCss}">${analysis.label}</span></div>
+        <div class="sec-quarterly-diagnosis-grid">${cards}</div>
+        <div class="sec-quarterly-signals"><section class="sec-quarterly-signal-group"><h5>⚠️ 需留意的實際證據</h5>${alerts}</section><section class="sec-quarterly-signal-group"><h5>✅ 改善／支撐證據</h5>${improvements}</section></div>
+        <p class="sec-quarterly-diagnosis-method">客觀門檻：營收連降至少 3 季或 YoY ≤ -10%；毛利率連降至少 3 季或 YoY ≤ -2pp；營業利益率連降至少 3 季或連續至少 3 季為負；FCF 由正轉負或連續至少 3 季為負；稀釋股數 YoY ≥ +10%。「改善」需未命中警報且至少 2 項改善證據。此判讀只描述已公布數字，不預測股價或未來業績。</p>`;
+    }
+
     function secQuarterlyMetricConfig(metric, currency) {
       const amount = secAmountDisplay(currency);
       const configs = {
@@ -5025,10 +5242,12 @@
         availability.innerHTML = `${escapeSec(reason)}${officialLink}`;
         body.innerHTML = `<tr><td colspan="12" class="sec-empty">${escapeSec(reason)}${officialLink}</td></tr>`;
         renderSecQuarterlyChart(company);
+        renderSecQuarterlyDiagnosis(company);
         return;
       }
       availability.textContent = `${company.source_basis || `報表幣別 ${currency}`} 資料更新：${formatSecTimestamp(secDailyData.quarterlyFinancials.generated_at)}；顯示最新 8 期，前 4 期可計算 YoY。`;
       renderSecQuarterlyChart(company);
+      renderSecQuarterlyDiagnosis(company);
       const periods = company.periods || [];
       body.innerHTML = periods.slice(0, 8).map((period, index) => {
         const previous = periods[index + 1];

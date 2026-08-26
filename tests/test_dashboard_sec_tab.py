@@ -163,12 +163,12 @@ class DashboardSecTabTests(unittest.TestCase):
             "function goToNextUnreadSecCompany()",
             "function completeCurrentAndNextSecCompany()",
             "今日已讀 ${completed}／${rows.length} 家",
-            "尚有 ${unreadDocuments} 份文件未讀",
+            "尚有 ${unreadDocuments} 項待讀證據",
             "下一家未讀",
             "完成目前並下一家",
             "最重要原文 ↗",
             "data-sec-read-toggle",
-            "新的 accession／大股東文件／執法事件，會自動恢復未讀",
+            "季度趨勢指紋改變，會自動恢復未讀",
             "不會跨裝置同步",
         ]
         for phrase in required_copy:
@@ -176,6 +176,31 @@ class DashboardSecTabTests(unittest.TestCase):
         self.assertIn("id: `filing:${event.accession}`", self.html)
         self.assertIn("row.evidence.filter(item => !readKeys.has(item.id))", self.html)
         self.assertIn("stored?.date === date", self.html)
+
+    def test_eight_quarter_objective_diagnosis_uses_actual_thresholds_and_queue(self):
+        required_copy = [
+            'id="secQuarterlyDiagnosis"',
+            "function secQuarterlyTrendAnalysis(company)",
+            "function secTrendStreak(periods, metric, mode = 'percent', threshold = 0)",
+            "function renderSecQuarterlyDiagnosis(company)",
+            "八季財務趨勢自動判讀",
+            "營收連續下降",
+            "毛利率連續惡化",
+            "營業利益率連續為負",
+            "FCF 由正轉負",
+            "FCF 連續為負",
+            "稀釋股數年增至少 10%",
+            "營收連降至少 3 季或 YoY ≤ -10%",
+            "此判讀只描述已公布數字，不預測股價或未來業績",
+            "八季財務警報 ${financialTrend.alerts.length} 項",
+            "id: `trend:${ticker}:${financialTrend.fingerprint}`",
+            "trend: '財務趨勢'",
+            "primary?.kind === 'trend' ? safeQuarterlySourceUrl(primary?.url) : safeSecUrl(primary?.url)",
+        ]
+        for phrase in required_copy:
+            self.assertIn(phrase, self.html)
+        self.assertIn("financialTrend.queueAlert", self.html)
+        self.assertIn("renderSecQuarterlyDiagnosis(company);", self.html)
 
     def test_eight_quarter_financial_chart_has_metric_switching_and_units(self):
         self.assertTrue(all(len(company.get("periods", [])) >= 8 for company in self.quarterly["companies"].values()))
