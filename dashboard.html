@@ -1043,6 +1043,81 @@
       color: #fda4af;
     }
 
+    .sec-update-brief {
+      margin-bottom: 20px;
+      padding: 17px;
+      border: 1px solid rgba(52, 211, 153, 0.28);
+      border-radius: 17px;
+      background: linear-gradient(135deg, rgba(6, 78, 59, 0.18), rgba(14, 116, 144, 0.12));
+    }
+
+    .sec-update-brief-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+
+    .sec-update-brief h3 { color: #d1fae5; font-size: 1rem; }
+    .sec-update-meta { color: #94a3b8; font-size: 0.72rem; line-height: 1.5; }
+
+    .sec-update-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .sec-update-kpi {
+      padding: 12px;
+      border: 1px solid rgba(148, 163, 184, 0.16);
+      border-radius: 12px;
+      background: rgba(2, 6, 23, 0.34);
+    }
+
+    .sec-update-kpi span { display: block; color: #94a3b8; font-size: 0.7rem; }
+    .sec-update-kpi strong { display: block; color: #f8fafc; font-size: 1.25rem; margin: 4px 0; }
+    .sec-update-kpi small { display: block; color: #94a3b8; font-size: 0.66rem; line-height: 1.45; }
+
+    .sec-update-result {
+      margin-top: 11px;
+      padding: 11px 12px;
+      border-radius: 10px;
+      background: rgba(15, 23, 42, 0.55);
+      color: #cbd5e1;
+      font-size: 0.76rem;
+      line-height: 1.6;
+    }
+
+    .sec-update-result.no-change { color: #a7f3d0; border-left: 3px solid #34d399; }
+
+    .sec-update-detail-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .sec-update-detail {
+      padding: 11px 12px;
+      border: 1px solid rgba(148, 163, 184, 0.14);
+      border-radius: 11px;
+      background: rgba(15, 23, 42, 0.38);
+    }
+
+    .sec-update-detail h4 { color: #bae6fd; font-size: 0.74rem; margin-bottom: 5px; }
+    .sec-update-detail ul { margin: 0; padding-left: 18px; }
+    .sec-update-detail li { color: #cbd5e1; font-size: 0.7rem; line-height: 1.55; margin-bottom: 3px; }
+    .sec-update-detail p { color: #94a3b8; font-size: 0.7rem; line-height: 1.5; }
+
+    .sec-update-method {
+      margin-top: 9px;
+      color: #94a3b8;
+      font-size: 0.67rem;
+      line-height: 1.5;
+    }
+
     .sec-core-shortcuts {
       margin-bottom: 20px;
       padding: 15px 16px;
@@ -1619,7 +1694,7 @@
 
     @media (max-width: 620px) {
       .sec-daily-shell { padding: 18px; }
-      .sec-kpi-grid, .sec-reading-guide, .sec-advanced-explainer, .sec-advanced-actual-grid, .sec-company-brief-grid { grid-template-columns: 1fr; }
+      .sec-kpi-grid, .sec-reading-guide, .sec-advanced-explainer, .sec-advanced-actual-grid, .sec-company-brief-grid, .sec-update-grid, .sec-update-detail-grid { grid-template-columns: 1fr; }
       .sec-ownership-kpis { grid-template-columns: 1fr; }
       .sec-reading-guide h3, .sec-advanced-explainer h4, .sec-advanced-explainer-caution { grid-column: auto; }
       .sec-kpi { min-height: 0; }
@@ -2130,6 +2205,12 @@
         </div>
 
         <div id="secStatus" class="sec-status" role="status" aria-live="polite">⏳ 正在載入 SEC 官方申報資料…</div>
+
+        <section id="secUpdateBrief" class="sec-update-brief" aria-live="polite" aria-labelledby="secUpdateTitle">
+          <div class="sec-update-brief-head">
+            <div><h3 id="secUpdateTitle">🆕 今天有什麼變化</h3><p class="sec-update-meta">正在比較本次與上次 SEC 雷達檢查…</p></div>
+          </div>
+        </section>
 
         <nav id="secCoreShortcuts" class="sec-core-shortcuts" aria-label="SEC 核心持股快捷標的">
           <div class="sec-core-shortcuts-head">
@@ -3372,6 +3453,123 @@
       return secDailyPromise;
     }
 
+    function secPriorityAt(events, ticker, checkedAt) {
+      const end = new Date(checkedAt);
+      if (Number.isNaN(end.getTime())) return 'quiet';
+      const cutoff = new Date(end);
+      cutoff.setUTCDate(cutoff.getUTCDate() - 13);
+      const cutoffDate = cutoff.toISOString().slice(0, 10);
+      const endDate = end.toISOString().slice(0, 10);
+      const recent = events.filter(event => event.ticker === ticker
+        && event.filing_date >= cutoffDate && event.filing_date <= endDate);
+      if (recent.some(event => ['critical', 'high'].includes(event.severity) && event.group !== '內部人持股')) return 'urgent';
+      return recent.length ? 'updated' : 'quiet';
+    }
+
+    function secLegacyUpdateBatch(alerts) {
+      const detected = (alerts.events || []).filter(event => event.baseline === false && event.detected_at);
+      const checkedAt = detected.reduce((latest, event) => event.detected_at > latest ? event.detected_at : latest, '');
+      if (!checkedAt) return null;
+      const newEvents = detected.filter(event => event.detected_at === checkedAt);
+      const newAccessions = new Set(newEvents.map(event => event.accession));
+      const priorEvents = (alerts.events || []).filter(event => !newAccessions.has(event.accession));
+      const previousCheckedAt = detected
+        .filter(event => event.detected_at < checkedAt)
+        .reduce((latest, event) => event.detected_at > latest ? event.detected_at : latest, '');
+      const companyChanges = [...new Set(newEvents.map(event => event.ticker))].sort().map(ticker => {
+        const before = secPriorityAt(priorEvents, ticker, checkedAt);
+        const after = secPriorityAt([...newEvents, ...priorEvents], ticker, checkedAt);
+        const tickerEvents = newEvents.filter(event => event.ticker === ticker);
+        return {
+          ticker,
+          new_count: tickerEvents.length,
+          important_count: tickerEvents.filter(event => ['critical', 'high'].includes(event.severity) && event.group !== '內部人持股').length,
+          before_priority: before,
+          after_priority: after,
+          priority_changed: before !== after,
+        };
+      });
+      return {
+        checked_at: checkedAt,
+        previous_checked_at: previousCheckedAt,
+        baseline: false,
+        compatibility_mode: true,
+        new_count: newEvents.length,
+        critical_count: newEvents.filter(event => event.severity === 'critical').length,
+        high_count: newEvents.filter(event => event.severity === 'high').length,
+        medium_count: newEvents.filter(event => event.severity === 'medium').length,
+        new_accessions: newEvents.map(event => event.accession),
+        financial_accessions: newEvents.filter(event => ['10-K', '10-K/A', '20-F', '20-F/A', '10-Q', '10-Q/A'].includes(event.form)).map(event => event.accession),
+        ownership_accessions: [],
+        enforcement_keys: [],
+        company_changes: companyChanges,
+      };
+    }
+
+    function renderSecUpdateBrief() {
+      const container = document.getElementById('secUpdateBrief');
+      if (!container || !secDailyData) return;
+      const { alerts, advanced } = secDailyData;
+      const batch = (alerts.update_batches || [])[0] || secLegacyUpdateBatch(alerts);
+      if (!batch) {
+        container.innerHTML = `<div class="sec-update-brief-head"><div><h3 id="secUpdateTitle">🆕 今天有什麼變化</h3><p class="sec-update-meta">尚未建立可比較的每日檢查批次。</p></div></div>
+          <div class="sec-update-result no-change">目前只有初始基準，需等下一次每日 watcher 完成後才能可靠區分新增項目。</div>`;
+        return;
+      }
+
+      const eventsByAccession = Object.fromEntries((alerts.events || []).map(event => [event.accession, event]));
+      const newEvents = (batch.new_accessions || []).map(accession => eventsByAccession[accession]).filter(Boolean);
+      const financialEvents = (batch.financial_accessions || []).map(accession => eventsByAccession[accession]).filter(Boolean);
+      const priorityChanges = (batch.company_changes || []).filter(row => row.priority_changed);
+      const ownershipByAccession = Object.fromEntries((advanced?.ownership_timeline || []).map(row => [row.accession, row]));
+      const ownershipRows = (batch.ownership_accessions || []).map(accession => ownershipByAccession[accession]).filter(Boolean);
+      const enforcementKey = row => row.event?.accession || row.url || `${row.date || ''}|${row.title || ''}`;
+      const enforcementKeys = new Set(batch.enforcement_keys || []);
+      const enforcementRows = (advanced?.enforcement || []).filter(row => enforcementKeys.has(enforcementKey(row)));
+      const externalCount = ownershipRows.length + enforcementRows.length;
+      const priorityLabels = {
+        quiet: '無重大新增', updated: '近期有更新', urgent: '需優先閱讀',
+      };
+      const checkedLabel = formatSecTimestamp(batch.checked_at);
+      const previousLabel = batch.previous_checked_at ? formatSecTimestamp(batch.previous_checked_at) : '無前次批次';
+      const compatibility = batch.compatibility_mode
+        ? '｜舊資料相容模式：這是最後一次「有新增」的批次；下次自動檢查後會包含 0 件批次'
+        : '';
+      const eventList = newEvents.length ? `<ul>${newEvents.slice(0, 8).map(event => `<li>${escapeSec(event.ticker)}｜${escapeSec(event.form)}｜申報 ${escapeSec(event.filing_date)} <a class="sec-link" href="${safeSecUrl(event.url)}" target="_blank" rel="noopener">原文 ↗</a></li>`).join('')}${newEvents.length > 8 ? `<li>另有 ${newEvents.length - 8} 份，請看下方明細。</li>` : ''}</ul>` : '<p>本次沒有新 accession。</p>';
+      const priorityList = priorityChanges.length ? `<ul>${priorityChanges.map(row => `<li><strong>${escapeSec(row.ticker)}</strong>：${escapeSec(priorityLabels[row.before_priority] || row.before_priority)} → ${escapeSec(priorityLabels[row.after_priority] || row.after_priority)}；新增 ${formatSecNumber(row.new_count)} 份，其中重要 ${formatSecNumber(row.important_count)} 份。</li>`).join('')}</ul>` : '<p>沒有公司改變閱讀優先度；不代表沒有一般申報。</p>';
+      const financialList = financialEvents.length ? `<ul>${financialEvents.map(event => `<li>${escapeSec(event.ticker)}｜${escapeSec(event.form)}｜財報期 ${escapeSec(event.report_date || '未列')} <a class="sec-link" href="${safeSecUrl(event.url)}" target="_blank" rel="noopener">原文 ↗</a></li>`).join('')}</ul>` : '<p>本次沒有新的 10-K／20-F／10-Q 定期財報文件；6-K 需由重要申報區核對內容。</p>';
+      const externalItems = [
+        ...ownershipRows.map(row => `<li>${escapeSec(row.ticker)}｜${escapeSec(row.form)}｜${escapeSec(row.event_label)} <a class="sec-link" href="${safeSecUrl(row.url)}" target="_blank" rel="noopener">原文 ↗</a></li>`),
+        ...enforcementRows.map(row => `<li>${escapeSec(row.event?.ticker || row.ticker)}｜SEC 執法／停牌命中｜${escapeSec(row.event?.filing_date || row.date || '日期未列')} <a class="sec-link" href="${safeSecUrl(row.event?.url || row.url)}" target="_blank" rel="noopener">原文 ↗</a></li>`),
+      ];
+      const externalList = externalItems.length ? `<ul>${externalItems.join('')}</ul>` : '<p>本次沒有新增 13D／13G 異動或 SEC 執法／停牌命中。</p>';
+      const noChanges = Number(batch.new_count || 0) === 0 && externalCount === 0;
+      const resultText = batch.baseline
+        ? '✅ 初始基準已建立；基準文件不算新增通知。'
+        : (noChanges
+          ? '✅ 本次檢查沒有新申報或外部重大訊號；這代表 watcher 已檢查但沒有差異，不是資料停更。'
+          : `本次共新增 ${formatSecNumber(batch.new_count)} 份申報；重大 ${formatSecNumber(batch.critical_count)}、重要 ${formatSecNumber(batch.high_count)}、留意 ${formatSecNumber(batch.medium_count)}，另有 ${formatSecNumber(externalCount)} 項外部大股東／執法訊號。`);
+
+      container.innerHTML = `
+        <div class="sec-update-brief-head">
+          <div><h3 id="secUpdateTitle">🆕 今天有什麼變化</h3><p class="sec-update-meta">本次檢查 ${escapeSec(checkedLabel)}｜上次檢查 ${escapeSec(previousLabel)}${escapeSec(compatibility)}</p></div>
+        </div>
+        <div class="sec-update-grid">
+          <article class="sec-update-kpi"><span>本次新增申報</span><strong>${formatSecNumber(batch.new_count)} 份</strong><small>依 accession 去重，不是公司家數</small></article>
+          <article class="sec-update-kpi"><span>閱讀優先度改變</span><strong>${formatSecNumber(priorityChanges.length)} 家</strong><small>只計前後等級真的不同</small></article>
+          <article class="sec-update-kpi"><span>新定期財報文件</span><strong>${formatSecNumber(financialEvents.length)} 份</strong><small>10-K／20-F／10-Q，不把所有 6-K 當財報</small></article>
+          <article class="sec-update-kpi"><span>外部重大訊號</span><strong>${formatSecNumber(externalCount)} 項</strong><small>新增 13D／13G 異動與 SEC 執法／停牌命中</small></article>
+        </div>
+        <div class="sec-update-result${noChanges || batch.baseline ? ' no-change' : ''}">${escapeSec(resultText)}</div>
+        <div class="sec-update-detail-grid">
+          <article class="sec-update-detail"><h4>本次新增申報</h4>${eventList}</article>
+          <article class="sec-update-detail"><h4>公司閱讀優先度變化</h4>${priorityList}</article>
+          <article class="sec-update-detail"><h4>新定期財報文件</h4>${financialList}</article>
+          <article class="sec-update-detail"><h4>大股東／執法新增訊號</h4>${externalList}</article>
+        </div>
+        <p class="sec-update-method">「本次」是 watcher 的偵測批次，不是 SEC filing date。優先度只決定閱讀順序，不是利多、利空或投資評等；財務數字仍以下方八季表及官方原文為準。</p>`;
+    }
+
     function renderSecDaily() {
       if (!secDailyData) return;
       const { alerts, details, quarterlyFinancials } = secDailyData;
@@ -3424,6 +3622,7 @@
       status.textContent = events.length
         ? `✅ 最近 ${secRangeDays} 日共找到 ${events.length} 份申報；數字以 SEC filing date 與 accession 去重。`
         : `ℹ️ 最近 ${secRangeDays} 日沒有新申報；上次雷達資料更新於 ${formatSecTimestamp(alerts.updated_at)}。`;
+      renderSecUpdateBrief();
 
       const quarterlyBody = document.getElementById('secQuarterlyBody');
       quarterlyBody.innerHTML = quarterlyRows.length ? quarterlyRows.map(row => {

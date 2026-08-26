@@ -89,6 +89,23 @@ class DashboardSecTabTests(unittest.TestCase):
         self.assertIn("ownershipAge <= 90", self.html)
         self.assertIn("['P', 'S'].includes(tx.code)", self.html)
 
+    def test_daily_change_brief_distinguishes_new_zero_and_legacy_batches(self):
+        required_copy = [
+            'id="secUpdateBrief"',
+            "🆕 今天有什麼變化",
+            "function renderSecUpdateBrief()",
+            "function secLegacyUpdateBatch(alerts)",
+            "本次檢查沒有新申報或外部重大訊號",
+            "不是資料停更",
+            "閱讀優先度改變",
+            "新定期財報文件",
+            "大股東／執法新增訊號",
+            "不把所有 6-K 當財報",
+            "優先度只決定閱讀順序",
+        ]
+        for phrase in required_copy:
+            self.assertIn(phrase, self.html)
+
     def test_advanced_radars_cover_all_requested_categories(self):
         for key in ("footnotes", "accounting_review", "ownership_13dg", "governance",
                     "insiders", "mergers", "enforcement"):

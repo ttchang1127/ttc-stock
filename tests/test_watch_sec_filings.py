@@ -63,6 +63,49 @@ class FilingWatcherTests(unittest.TestCase):
         self.assertEqual([event["accession"] for event in new], [rows[1]["accession"]])
         self.assertEqual(len(state["companies"]["TEST"]["seen_accessions"]), 2)
 
+    def test_update_batch_records_priority_financial_and_external_deltas(self):
+        prior = watcher.extract_filings("TEST", "0000000001", payload(["4"]))[0]
+        latest = watcher.extract_filings("TEST", "0000000001", payload(["10-Q"]))[0]
+        ownership = {
+            "ticker": "TEST", "accession": "owner-1", "filing_date": "2026-08-15",
+            "importance": "high",
+        }
+        batch = watcher.build_update_batch(
+            [latest], [prior], "2026-08-16T04:00:00+00:00",
+            previous_checked_at="2026-08-15T04:00:00+00:00",
+            prior_advanced={"ownership_timeline": [], "enforcement": []},
+            current_advanced={"ownership_timeline": [ownership], "enforcement": []},
+        )
+        self.assertEqual(batch["new_count"], 1)
+        self.assertEqual(batch["financial_accessions"], [latest["accession"]])
+        self.assertEqual(batch["ownership_accessions"], ["owner-1"])
+        self.assertEqual(batch["company_changes"][0]["before_priority"], "updated")
+        self.assertEqual(batch["company_changes"][0]["after_priority"], "urgent")
+        self.assertTrue(batch["company_changes"][0]["priority_changed"])
+
+    def test_zero_change_batch_is_still_explicit(self):
+        batch = watcher.build_update_batch(
+            [], [], "2026-08-16T04:00:00+00:00",
+            previous_checked_at="2026-08-15T04:00:00+00:00",
+            prior_advanced={}, current_advanced={},
+        )
+        self.assertEqual(batch["new_count"], 0)
+        self.assertEqual(batch["company_changes"], [])
+        self.assertEqual(batch["previous_checked_at"], "2026-08-15T04:00:00+00:00")
+
+    def test_initial_batch_does_not_alert_on_existing_external_history(self):
+        ownership = {
+            "ticker": "TEST", "accession": "owner-1", "filing_date": "2026-08-15",
+            "importance": "high",
+        }
+        batch = watcher.build_update_batch(
+            [], [], "2026-08-16T04:00:00+00:00", initializing=True,
+            prior_advanced={}, current_advanced={"ownership_timeline": [ownership]},
+        )
+        self.assertTrue(batch["baseline"])
+        self.assertEqual(batch["ownership_accessions"], [])
+        self.assertEqual(batch["company_changes"], [])
+
 
 if __name__ == "__main__":
     unittest.main()

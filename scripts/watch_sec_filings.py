@@ -295,6 +295,120 @@ def update_state(ciks, fetched, state, initializing=False, suppress_new_forms=Fa
     return new_events
 
 
+def reading_priority(events, ticker, as_of, ownership=None, enforcement=None):
+    """Return the dashboard's reading priority, never an investment rating."""
+    as_of_date = datetime.fromisoformat(as_of.replace("Z", "+00:00")).date()
+    cutoff = (as_of_date - timedelta(days=13)).isoformat()
+    recent = [
+        event for event in events
+        if event.get("ticker") == ticker
+        and cutoff <= event.get("filing_date", "") <= as_of_date.isoformat()
+    ]
+    urgent = any(
+        event.get("severity") in {"critical", "high"}
+        and event.get("group") != "內部人持股"
+        for event in recent
+    )
+    ownership_cutoff = (as_of_date - timedelta(days=90)).isoformat()
+    urgent = urgent or any(
+        row.get("ticker") == ticker
+        and row.get("importance") == "high"
+        and ownership_cutoff <= row.get("filing_date", "") <= as_of_date.isoformat()
+        for row in (ownership or [])
+    )
+    urgent = urgent or any(
+        (row.get("event", {}).get("ticker") or row.get("ticker")) == ticker
+        for row in (enforcement or [])
+    )
+    if urgent:
+        return "urgent"
+    if recent:
+        return "updated"
+    return "quiet"
+
+
+def new_rows(previous, current, key):
+    known = {key(row) for row in previous if key(row)}
+    return [row for row in current if key(row) and key(row) not in known]
+
+
+def build_update_batch(new_events, prior_events, checked_at, previous_checked_at="",
+                       initializing=False, prior_advanced=None, current_advanced=None):
+    """Build one auditable watcher-run delta for the dashboard."""
+    prior_advanced = prior_advanced or {}
+    current_advanced = current_advanced or {}
+    prior_ownership = prior_advanced.get("ownership_timeline", [])
+    current_ownership = current_advanced.get("ownership_timeline", [])
+    ownership_additions = new_rows(
+        prior_ownership, current_ownership, lambda row: row.get("accession")
+    )
+    prior_enforcement = prior_advanced.get("enforcement", [])
+    current_enforcement = current_advanced.get("enforcement", [])
+    enforcement_key = lambda row: (
+        row.get("event", {}).get("accession") or row.get("url")
+        or f"{row.get('date', '')}|{row.get('title', '')}"
+    )
+    enforcement_additions = new_rows(
+        prior_enforcement, current_enforcement, enforcement_key
+    )
+    if initializing:
+        # Existing documents establish the first baseline; they are not new
+        # alerts merely because this is the first local snapshot.
+        ownership_additions = []
+        enforcement_additions = []
+    after_events = sorted_events(list(new_events) + list(prior_events))
+    touched = {
+        event.get("ticker") for event in new_events if event.get("ticker")
+    } | {
+        row.get("ticker") for row in ownership_additions if row.get("ticker")
+    } | {
+        row.get("event", {}).get("ticker") or row.get("ticker")
+        for row in enforcement_additions
+        if row.get("event", {}).get("ticker") or row.get("ticker")
+    }
+    company_changes = []
+    for ticker in sorted(touched):
+        before = reading_priority(
+            prior_events, ticker, checked_at, prior_ownership, prior_enforcement
+        )
+        after = reading_priority(
+            after_events, ticker, checked_at, current_ownership, current_enforcement
+        )
+        ticker_events = [event for event in new_events if event.get("ticker") == ticker]
+        company_changes.append({
+            "ticker": ticker,
+            "new_count": len(ticker_events),
+            "important_count": sum(
+                event.get("severity") in {"critical", "high"}
+                and event.get("group") != "內部人持股"
+                for event in ticker_events
+            ),
+            "before_priority": before,
+            "after_priority": after,
+            "priority_changed": before != after,
+        })
+    periodic_forms = {
+        "10-K", "10-K/A", "20-F", "20-F/A", "10-Q", "10-Q/A",
+    }
+    return {
+        "checked_at": checked_at,
+        "previous_checked_at": previous_checked_at,
+        "baseline": bool(initializing),
+        "new_count": len(new_events),
+        "critical_count": sum(event.get("severity") == "critical" for event in new_events),
+        "high_count": sum(event.get("severity") == "high" for event in new_events),
+        "medium_count": sum(event.get("severity") == "medium" for event in new_events),
+        "new_accessions": [event.get("accession") for event in sorted_events(new_events)],
+        "financial_accessions": [
+            event.get("accession") for event in sorted_events(new_events)
+            if event.get("form") in periodic_forms
+        ],
+        "ownership_accessions": [row.get("accession") for row in ownership_additions],
+        "enforcement_keys": [enforcement_key(row) for row in enforcement_additions],
+        "company_changes": company_changes,
+    }
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--initialize", action="store_true", help="Establish baseline without alerting")
@@ -333,12 +447,14 @@ def main():
     if not fetched:
         raise SystemExit("所有 SEC 查詢均失敗")
 
-    migrating = not initializing and state.get("schema_version", 1) < 2
+    form_migrating = not initializing and state.get("schema_version", 1) < 2
     new_events = update_state(
-        ciks, fetched, state, initializing=initializing, suppress_new_forms=migrating
+        ciks, fetched, state, initializing=initializing, suppress_new_forms=form_migrating
     )
 
     history = load_json(args.events, {"schema_version": 1, "events": []})
+    previous_checked_at = history.get("updated_at", "")
+    prior_events = list(history.get("events", []))
     if initializing:
         cutoff = (datetime.now(timezone.utc) - timedelta(days=args.baseline_days)).date().isoformat()
         baseline = [
@@ -355,19 +471,8 @@ def main():
         ]
         history["events"] = sorted_events(additions + history.get("events", []))[:500]
 
-    should_write = initializing or migrating or bool(new_events)
-    if should_write:
-        state["schema_version"] = 2
-        state["updated_at"] = checked_at
-        state["source"] = "SEC submissions API"
-        args.state.parent.mkdir(parents=True, exist_ok=True)
-        args.state.write_text(json.dumps(state, indent=2, ensure_ascii=False) + "\n")
-        history["schema_version"] = 2
-        history["updated_at"] = checked_at
-        history["source"] = "SEC submissions API; accession-number deduplicated"
-        args.events.write_text(json.dumps(history, indent=2, ensure_ascii=False) + "\n")
-        args.note.parent.mkdir(parents=True, exist_ok=True)
-        args.note.write_text(render_note(history, checked_at, len(ciks)))
+    radar_data_changed = initializing or form_migrating or bool(new_events)
+    if radar_data_changed:
         from sec_specialized_radars import update_radars
         radar_result = update_radars(
             fetched,
@@ -384,18 +489,50 @@ def main():
 
     # External ownership and enforcement sources must be checked even on days
     # when the issuer submissions feed has no new accession.
+    advanced_path = REPO_ROOT / "sec_advanced_radars.json"
+    prior_advanced = load_json(advanced_path, {})
     from sec_advanced_radars import update_radars as update_advanced_radars
     advanced_result = update_advanced_radars(
         fetched,
-        output=REPO_ROOT / "sec_advanced_radars.json",
+        output=advanced_path,
         radar_dir=args.radar_dir,
         checked_at=checked_at,
     )
+    current_advanced = load_json(advanced_path, {})
     print(
         "進階 SEC 雷達已更新："
         + "、".join(f"{key} {value}" for key, value in advanced_result["counts"].items())
         + f"；解析警告 {len(advanced_result['errors'])}"
     )
+
+    batch = build_update_batch(
+        new_events,
+        prior_events,
+        checked_at,
+        previous_checked_at=previous_checked_at,
+        initializing=initializing,
+        prior_advanced=prior_advanced,
+        current_advanced=current_advanced,
+    )
+    existing_batches = [
+        row for row in history.get("update_batches", [])
+        if row.get("checked_at") != checked_at
+    ]
+    history["update_batches"] = [batch, *existing_batches][:60]
+
+    # Every successful run is persisted, including a zero-change run.  The
+    # dashboard can therefore distinguish "nothing new today" from stale data.
+    state["schema_version"] = 3
+    state["updated_at"] = checked_at
+    state["source"] = "SEC submissions API"
+    args.state.parent.mkdir(parents=True, exist_ok=True)
+    args.state.write_text(json.dumps(state, indent=2, ensure_ascii=False) + "\n")
+    history["schema_version"] = 3
+    history["updated_at"] = checked_at
+    history["source"] = "SEC submissions API; accession-number deduplicated; watcher-run deltas"
+    args.events.write_text(json.dumps(history, indent=2, ensure_ascii=False) + "\n")
+    args.note.parent.mkdir(parents=True, exist_ok=True)
+    args.note.write_text(render_note(history, checked_at, len(ciks)))
 
     alert = render_alert(new_events, errors, checked_at)
     if args.alert_markdown:
