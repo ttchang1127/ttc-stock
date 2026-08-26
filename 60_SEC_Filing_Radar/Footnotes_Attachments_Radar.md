@@ -1,6 +1,6 @@
 ---
 title: 📎 財報附註／附件雷達
-updated_at: 2026-08-25T04:34:49+00:00
+updated_at: 2026-08-26T04:35:38+00:00
 tags:
   - sec/footnotes
 ---
@@ -37,8 +37,8 @@ tags:
 | 2026-08-13 | **ONDS** | 8-K | 訴訟／或有事項、關係人交易、股份薪酬、非 GAAP、XBRL 標記；重要附件 3 份 | [原文](https://www.sec.gov/Archives/edgar/data/1646188/000119312526347973/onds-20260813.htm) |
 | 2026-07-23 | **TSLA** | 10-Q | 收入認列、減損、訴訟／或有事項、關係人交易、股份薪酬；重要附件 5 份 | [原文](https://www.sec.gov/Archives/edgar/data/1318605/000162828026049270/tsla-20260630.htm) |
 | 2026-07-22 | **TSLA** | 8-K | 減損、訴訟／或有事項、股份薪酬、非 GAAP、XBRL 標記；重要附件 4 份 | [原文](https://www.sec.gov/Archives/edgar/data/1318605/000162828026049213/tsla-20260722.htm) |
+| 2026-08-25 | **TSM** | 6-K | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1046179/000104617926000545/tsm-monthend6kx20260825.htm) |
 | 2026-08-14 | **TSM** | 6-K | 收入認列、減損、關係人交易、股份薪酬、債務／到期；重要附件 1 份 | [原文](https://www.sec.gov/Archives/edgar/data/1046179/000104617926000541/tsm-fsx20260814x6k.htm) |
-| 2026-08-11 | **TSM** | 6-K | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1046179/000104617926000539/sonysemiconductorsolutions.htm) |
 
-> 最後檢查：`2026-08-25T04:34:49+00:00`。關鍵字命中是閱讀導航，不等於會計結論或利多／利空。
+> 最後檢查：`2026-08-26T04:35:38+00:00`。關鍵字命中是閱讀導航，不等於會計結論或利多／利空。
 

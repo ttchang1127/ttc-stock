@@ -1,6 +1,6 @@
 ---
 title: Form 144＋3／4／5 彙總
-updated_at: 2026-08-25T04:34:49+00:00
+updated_at: 2026-08-26T04:35:38+00:00
 tags:
   - sec/insiders
 ---
@@ -21,18 +21,18 @@ tags:
 | 2026-05-06 | **AAPL** | 144 | LEVINSON ARTHUR D；擬售 250,000 股／$71,190,164，約占流通股 0.002% | [原文](https://www.sec.gov/Archives/edgar/data/320193/000192109426000446/xsl144X01/primary_doc.xml) |
 | 2026-05-05 | **AAPL** | 144 | KATHERINE L ADAMS；擬售 43,000 股／$12,039,493，約占流通股 0.000% | [原文](https://www.sec.gov/Archives/edgar/data/320193/000195004726004044/xsl144X01/primary_doc.xml) |
 | 2026-04-27 | **AAPL** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/320193/000114036126017175/xslF345X06/form4.xml) |
+| 2026-08-25 | **AMZN** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000137454526000010/xslF345X06/wk-form4_1787692115.xml) |
+| 2026-08-25 | **AMZN** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000202481326000010/xslF345X06/wk-form4_1787691690.xml) |
+| 2026-08-25 | **AMZN** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000193600626000022/xslF345X06/wk-form4_1787691176.xml) |
+| 2026-08-25 | **AMZN** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000155797926000008/xslF345X06/wk-form4_1787690696.xml) |
+| 2026-08-25 | **AMZN** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000163990226000008/xslF345X06/wk-form4_1787690246.xml) |
+| 2026-08-25 | **AMZN** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000139733326000006/xslF345X06/wk-form4_1787689790.xml) |
 | 2026-08-24 | **AMZN** | 144 | Zapolsky David；擬售 9,258 股／$2,404,951，約占流通股 0.000% | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000195917326006360/xsl144X01/primary_doc.xml) |
 | 2026-08-21 | **AMZN** | 144 | SHELLEY L REYNOLDS；擬售 2,343 股／$609,438，約占流通股 0.000% | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000195004726008542/xsl144X01/primary_doc.xml) |
 | 2026-08-21 | **AMZN** | 144 | Brian T Olsavsky；擬售 6,172 股／$1,606,633，約占流通股 0.000% | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000162828026058401/xsl144X01/primary_doc.xml) |
 | 2026-08-21 | **AMZN** | 144 | Jassy Andrew R；擬售 20,000 股／$5,180,213，約占流通股 0.002% | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000195917326006313/xsl144X01/primary_doc.xml) |
 | 2026-08-21 | **AMZN** | 144 | Garman Matthew S；擬售 14,541 股／$3,766,920，約占流通股 0.000% | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000195917326006312/xsl144X01/primary_doc.xml) |
 | 2026-08-21 | **AMZN** | 144 | Zapolsky David；擬售 6,172 股／$1,609,287，約占流通股 0.000% | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000195917326006299/xsl144X01/primary_doc.xml) |
-| 2026-08-19 | **AMZN** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000193600626000020/xslF345X06/wk-form4_1787174724.xml) |
-| 2026-08-17 | **AMZN** | 144 | DOUGLAS HERRINGTON；擬售 16,844 股／$4,424,077，約占流通股 0.000% | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000195004726008272/xsl144X01/primary_doc.xml) |
-| 2026-08-10 | **AMZN** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000101872426000032/xslF345X06/wk-form4_1786407545.xml) |
-| 2026-08-05 | **AMZN** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000101872426000030/xslF345X06/wk-form4_1785962562.xml) |
-| 2026-08-05 | **AMZN** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000101872426000028/xslF345X06/wk-form4_1785962062.xml) |
-| 2026-08-03 | **AMZN** | 144 | Jeffrey P. Bezos；擬售 15,000,000 股／$4,073,700,000，約占流通股 0.139% | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000195004726007580/xsl144X01/primary_doc.xml) |
 | 2026-08-18 | **ARM** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1973239/000197323926000121/xslF345X06/wk-form4_1787088706.xml) |
 | 2026-08-11 | **ARM** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1973239/000197323926000119/xslF345X06/wk-form4_1786479685.xml) |
 | 2026-06-04 | **ARM** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1973239/000197323926000107/xslF345X06/wk-form4_1780607139.xml) |
