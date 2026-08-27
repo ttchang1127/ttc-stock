@@ -710,6 +710,54 @@ def c23():
     return not bad and not missing, f"資料問題：{bad or '無'}；缺畫面：{missing or '無'}"
 
 
+@check("C-24", "14 家投資論點與失效條件可驗證")
+def c24():
+    tracking = load("investment_thesis_tracking.json")
+    tracked = set(load("financials.json")["companies"])
+    companies = tracking.get("companies", {})
+    bad = []
+    if set(companies) != tracked:
+        bad.append("論點追蹤公司覆蓋不是 14 家")
+    allowed_metrics = {"revenue_growth", "gross_margin", "operating_margin", "cash_dilution"}
+    for ticker, company in companies.items():
+        theses = company.get("theses", [])
+        if len(theses) != 3:
+            bad.append(f"{ticker} 不是 3 項論點")
+        if len({row.get("id") for row in theses}) != len(theses):
+            bad.append(f"{ticker} 論點 id 重複")
+        report = company.get("master_report", "")
+        if not report or not (REPO_ROOT / report).exists():
+            bad.append(f"{ticker} Master Thesis 不存在")
+        for row in theses:
+            if row.get("metric") not in allowed_metrics:
+                bad.append(f"{ticker}/{row.get('id')} 指標無效")
+            if not all(row.get(field) for field in ("id", "title", "rationale", "invalidation")):
+                bad.append(f"{ticker}/{row.get('id')} 缺文字定義")
+            metric = row.get("metric")
+            required = {
+                "revenue_growth": ("support_yoy", "invalidate_yoy", "invalidate_decline_quarters"),
+                "gross_margin": ("support_floor", "invalidate_floor"),
+                "operating_margin": ("support_floor", "invalidate_floor"),
+                "cash_dilution": ("support_positive_fcf_quarters", "invalidate_negative_fcf_quarters", "invalidate_share_yoy"),
+            }.get(metric, ())
+            if any(field not in row for field in required):
+                bad.append(f"{ticker}/{row.get('id')} 缺數字門檻")
+            if metric in {"gross_margin", "operating_margin"} and not any(
+                    field in row for field in ("invalidate_decline_quarters", "invalidate_negative_quarters")):
+                bad.append(f"{ticker}/{row.get('id')} 缺利潤率連續性門檻")
+    page = read("dashboard.html")
+    markers = (
+        "investment_thesis_tracking.json", "secThesisTracker", "renderSecThesisTracker",
+        "secInvestmentThesisSnapshot", "secInvestmentThesisAnalysis",
+        "投資論點與失效條件追蹤卡", "最近四季論點狀態歷史",
+        "🟢 論點維持", "🔵 需要驗證", "🟡 部分失效", "🔴 重大失效",
+        "0 項失效且至少 2 項支持＝論點維持", "狀態變化或任何失效項目會進入每日閱讀待辦",
+        "thesis:${ticker}:${investmentThesis.fingerprint}", "thesis: '投資論點'",
+    )
+    missing = [marker for marker in markers if marker not in page]
+    return not bad and not missing, f"資料問題：{bad or '無'}；缺畫面／待辦串接：{missing or '無'}"
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--quiet", action="store_true", help="只印出失敗項")

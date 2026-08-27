@@ -17,6 +17,7 @@ class DashboardSecTabTests(unittest.TestCase):
         cls.advanced = json.loads((ROOT / "sec_advanced_radars.json").read_text())
         cls.thirteen_f = json.loads((ROOT / "sec_13f_stock_radar.json").read_text())
         cls.text_changes = json.loads((ROOT / "filing_text_changes.json").read_text())
+        cls.thesis_tracking = json.loads((ROOT / "investment_thesis_tracking.json").read_text())
 
     def test_tab_defaults_to_14_days_and_allows_7_days(self):
         self.assertIn("🚨 4_SEC 每日重點", self.html)
@@ -32,6 +33,7 @@ class DashboardSecTabTests(unittest.TestCase):
         self.assertIn("fetch('sec_advanced_radars.json'", self.html)
         self.assertIn("fetch('sec_13f_stock_radar.json'", self.html)
         self.assertIn("fetch('filing_text_changes.json'", self.html)
+        self.assertIn("fetch('investment_thesis_tracking.json'", self.html)
         self.assertIn("function renderSecDaily()", self.html)
         self.assertIn('id="secQuarterlyBody"', self.html)
         self.assertIn('id="secKpiQuarterly"', self.html)
@@ -54,7 +56,7 @@ class DashboardSecTabTests(unittest.TestCase):
         self.assertIn('id="secCoreShortcuts"', self.html)
         self.assertIn("function setSecCoreTicker(ticker)", self.html)
         self.assertIn("function renderSecCoreShortcuts()", self.html)
-        self.assertIn("點選一次，同步切換①八季數字、②重要申報、③ Form 4、④募資稀釋、⑤進階 SEC 雷達與⑥文字差異", self.html)
+        self.assertIn("點選一次，同步切換①八季數字、②重要申報、③ Form 4、④募資稀釋、⑤進階 SEC 雷達、⑥文字差異與⑦投資論點", self.html)
         for ticker in core:
             self.assertIn(f'data-sec-core-ticker="{ticker}"', self.html)
             self.assertIn(f"setSecCoreTicker('{ticker}')", self.html)
@@ -195,12 +197,44 @@ class DashboardSecTabTests(unittest.TestCase):
             "八季財務警報 ${financialTrend.alerts.length} 項",
             "id: `trend:${ticker}:${financialTrend.fingerprint}`",
             "trend: '財務趨勢'",
-            "primary?.kind === 'trend' ? safeQuarterlySourceUrl(primary?.url) : safeSecUrl(primary?.url)",
+            "['trend', 'thesis'].includes(primary?.kind) ? safeQuarterlySourceUrl(primary?.url) : safeSecUrl(primary?.url)",
         ]
         for phrase in required_copy:
             self.assertIn(phrase, self.html)
         self.assertIn("financialTrend.queueAlert", self.html)
         self.assertIn("renderSecQuarterlyDiagnosis(company);", self.html)
+
+    def test_investment_thesis_tracker_has_company_rules_history_and_queue(self):
+        self.assertEqual(set(self.thesis_tracking["companies"]), set(self.quarterly["companies"]))
+        self.assertEqual(self.thesis_tracking["schema_version"], 1)
+        allowed_metrics = {"revenue_growth", "gross_margin", "operating_margin", "cash_dilution"}
+        for ticker, company in self.thesis_tracking["companies"].items():
+            self.assertEqual(len(company["theses"]), 3, ticker)
+            self.assertTrue((ROOT / company["master_report"]).exists(), ticker)
+            self.assertEqual(len({thesis["id"] for thesis in company["theses"]}), 3, ticker)
+            for thesis in company["theses"]:
+                self.assertIn(thesis["metric"], allowed_metrics)
+                self.assertTrue(thesis["title"])
+                self.assertTrue(thesis["rationale"])
+                self.assertTrue(thesis["invalidation"])
+        required_copy = [
+            'id="secThesisTracker"',
+            "function secInvestmentThesisSnapshot(company, config, offset = 0)",
+            "function secInvestmentThesisAnalysis(company, config)",
+            "function renderSecThesisTracker()",
+            "投資論點與失效條件追蹤卡",
+            "最近四季論點狀態歷史",
+            "🟢 論點維持", "🔵 需要驗證", "🟡 部分失效", "🔴 重大失效",
+            "0 項失效且至少 2 項支持＝論點維持",
+            "狀態變化或任何失效項目會進入每日閱讀待辦",
+            "id: `thesis:${ticker}:${investmentThesis.fingerprint}`",
+            "thesis: '投資論點'",
+            "renderSecThesisTracker();",
+        ]
+        for phrase in required_copy:
+            self.assertIn(phrase, self.html)
+        self.assertIn("Array.from({ length: 4 }", self.html)
+        self.assertIn("investmentThesis.queueAlert", self.html)
 
     def test_eight_quarter_financial_chart_has_metric_switching_and_units(self):
         self.assertTrue(all(len(company.get("periods", [])) >= 8 for company in self.quarterly["companies"].values()))

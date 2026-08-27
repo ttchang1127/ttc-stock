@@ -1,0 +1,119 @@
+{
+  "schema_version": 1,
+  "updated_at": "2026-08-27",
+  "method": "每家公司以三項可量化代理條件追蹤核心投資論點；代理指標只能驗證財務結果是否一致，不能單獨證明產品、市占或競爭優勢。",
+  "companies": {
+    "NVDA": {
+      "master_report": "30_Analysis/NVDA_Master_Investment_Thesis_2026.md",
+      "theses": [
+        {"id": "ai_growth", "title": "AI 加速運算需求維持高成長", "rationale": "營收成長是資料中心與加速運算需求最直接的財務代理。", "metric": "revenue_growth", "support_yoy": 20, "invalidate_yoy": -5, "invalidate_decline_quarters": 3, "invalidation": "營收 YoY ≤ -5%，或營收連續至少 3 季下降。"},
+        {"id": "pricing_moat", "title": "平台與軟體生態維持定價能力", "rationale": "毛利率用來觀察產品組合、供需與平台定價能力是否仍反映在財報。", "metric": "gross_margin", "support_floor": 0.65, "invalidate_floor": 0.55, "invalidate_decline_quarters": 3, "invalidation": "毛利率低於 55%，或連續至少 3 季顯著下降。"},
+        {"id": "cash_per_share", "title": "成長能轉化為每股現金流", "rationale": "自由現金流與稀釋股數共同檢查成長是否真正留給股東。", "metric": "cash_dilution", "support_positive_fcf_quarters": 3, "invalidate_negative_fcf_quarters": 4, "invalidate_share_yoy": 10, "invalidation": "FCF 連續至少 4 季為負，或稀釋股數 YoY ≥ 10%。"}
+      ]
+    },
+    "TSM": {
+      "master_report": "30_Analysis/TSM_Master_Investment_Thesis_2026.md",
+      "theses": [
+        {"id": "advanced_node_growth", "title": "先進製程與 AI 晶圓需求持續擴張", "rationale": "原幣營收成長是先進製程需求與產能利用率的財務代理。", "metric": "revenue_growth", "support_yoy": 10, "invalidate_yoy": 0, "invalidate_decline_quarters": 3, "invalidation": "營收 YoY ≤ 0%，或營收連續至少 3 季下降。"},
+        {"id": "manufacturing_moat", "title": "製造領先維持高毛利率", "rationale": "毛利率用來觀察製程領先、良率與定價能力是否持續。", "metric": "gross_margin", "support_floor": 0.55, "invalidate_floor": 0.50, "invalidate_decline_quarters": 3, "invalidation": "毛利率低於 50%，或連續至少 3 季顯著下降。"},
+        {"id": "capex_returns", "title": "高資本支出仍能產生正向 FCF", "rationale": "FCF 與股數用來檢查擴產後的現金報酬與每股紀律。", "metric": "cash_dilution", "support_positive_fcf_quarters": 3, "invalidate_negative_fcf_quarters": 4, "invalidate_share_yoy": 5, "invalidation": "FCF 連續至少 4 季為負，或稀釋股數 YoY ≥ 5%。"}
+      ]
+    },
+    "MSFT": {
+      "master_report": "30_Analysis/MSFT_Master_Investment_Thesis_2026.md",
+      "theses": [
+        {"id": "cloud_ai_growth", "title": "雲端與 AI 商業化維持雙位數成長", "rationale": "合併營收是 Azure、Copilot 與企業軟體需求的保守財務代理。", "metric": "revenue_growth", "support_yoy": 10, "invalidate_yoy": 0, "invalidate_decline_quarters": 3, "invalidation": "營收 YoY ≤ 0%，或營收連續至少 3 季下降。"},
+        {"id": "software_leverage", "title": "軟體規模經濟維持高營業利益率", "rationale": "營業利益率反映 AI 基礎設施投入後是否仍保有規模經濟。", "metric": "operating_margin", "support_floor": 0.40, "invalidate_floor": 0.30, "invalidate_decline_quarters": 3, "invalidation": "營業利益率低於 30%，或連續至少 3 季顯著下降。"},
+        {"id": "cash_compounding", "title": "現金流足以支撐再投資與股東回報", "rationale": "FCF 與稀釋股數共同檢查資本密集度上升後的每股價值。", "metric": "cash_dilution", "support_positive_fcf_quarters": 3, "invalidate_negative_fcf_quarters": 4, "invalidate_share_yoy": 5, "invalidation": "FCF 連續至少 4 季為負，或稀釋股數 YoY ≥ 5%。"}
+      ]
+    },
+    "META": {
+      "master_report": "30_Analysis/META_Master_Investment_Thesis_2026.md",
+      "theses": [
+        {"id": "engagement_ads", "title": "AI 推薦與廣告效率推動營收成長", "rationale": "合併營收成長是使用者參與、廣告價格與轉換效率的財務代理。", "metric": "revenue_growth", "support_yoy": 10, "invalidate_yoy": 0, "invalidate_decline_quarters": 3, "invalidation": "營收 YoY ≤ 0%，或營收連續至少 3 季下降。"},
+        {"id": "ad_margin", "title": "核心廣告業務可負擔 AI 與 Reality Labs 投資", "rationale": "營業利益率檢查高額基礎設施與 Reality Labs 支出是否侵蝕核心獲利。", "metric": "operating_margin", "support_floor": 0.35, "invalidate_floor": 0.25, "invalidate_decline_quarters": 3, "invalidation": "營業利益率低於 25%，或連續至少 3 季顯著下降。"},
+        {"id": "cash_per_share", "title": "高現金流能轉化為每股價值", "rationale": "FCF 與稀釋股數觀察回購是否抵銷股權薪酬並留下現金。", "metric": "cash_dilution", "support_positive_fcf_quarters": 3, "invalidate_negative_fcf_quarters": 4, "invalidate_share_yoy": 5, "invalidation": "FCF 連續至少 4 季為負，或稀釋股數 YoY ≥ 5%。"}
+      ]
+    },
+    "AAPL": {
+      "master_report": "30_Analysis/AAPL_Master_Investment_Thesis_2026.md",
+      "theses": [
+        {"id": "ecosystem_growth", "title": "裝置生態與服務收入維持成長", "rationale": "合併營收是硬體週期與服務變現共同結果的保守代理。", "metric": "revenue_growth", "support_yoy": 5, "invalidate_yoy": -5, "invalidate_decline_quarters": 3, "invalidation": "營收 YoY ≤ -5%，或營收連續至少 3 季下降。"},
+        {"id": "premium_mix", "title": "高價品牌與服務組合維持毛利率", "rationale": "毛利率反映產品組合、服務占比與定價能力。", "metric": "gross_margin", "support_floor": 0.45, "invalidate_floor": 0.40, "invalidate_decline_quarters": 3, "invalidation": "毛利率低於 40%，或連續至少 3 季顯著下降。"},
+        {"id": "buyback_per_share", "title": "FCF 與回購持續提升每股價值", "rationale": "正向 FCF 與不增加的稀釋股數是回購論點的量化代理。", "metric": "cash_dilution", "support_positive_fcf_quarters": 3, "invalidate_negative_fcf_quarters": 4, "invalidate_share_yoy": 3, "invalidation": "FCF 連續至少 4 季為負，或稀釋股數 YoY ≥ 3%。"}
+      ]
+    },
+    "AMZN": {
+      "master_report": "30_Analysis/AMZN_Master_Investment_Thesis_2026.md",
+      "theses": [
+        {"id": "aws_commerce_growth", "title": "AWS、廣告與零售共同推動雙位數成長", "rationale": "合併營收成長是多引擎成長是否延續的保守代理。", "metric": "revenue_growth", "support_yoy": 10, "invalidate_yoy": 0, "invalidate_decline_quarters": 3, "invalidation": "營收 YoY ≤ 0%，或營收連續至少 3 季下降。"},
+        {"id": "operating_leverage", "title": "規模經濟帶動營業利益率提升", "rationale": "營業利益率反映 AWS 組合與零售履約效率能否產生營運槓桿。", "metric": "operating_margin", "support_floor": 0.10, "invalidate_floor": 0.05, "invalidate_decline_quarters": 3, "invalidation": "營業利益率低於 5%，或連續至少 3 季顯著下降。"},
+        {"id": "cash_reinvestment", "title": "再投資後仍能維持正向自由現金流", "rationale": "FCF 與股數檢查 AI、物流與內容投資後是否仍創造每股現金。", "metric": "cash_dilution", "support_positive_fcf_quarters": 3, "invalidate_negative_fcf_quarters": 4, "invalidate_share_yoy": 5, "invalidation": "FCF 連續至少 4 季為負，或稀釋股數 YoY ≥ 5%。"}
+      ]
+    },
+    "ARM": {
+      "master_report": "30_Analysis/ARM_Master_Investment_Thesis_2026.md",
+      "theses": [
+        {"id": "royalty_growth", "title": "授權與版稅模式維持高成長", "rationale": "營收成長是架構採用率、授權與版稅提升的財務代理。", "metric": "revenue_growth", "support_yoy": 15, "invalidate_yoy": 0, "invalidate_decline_quarters": 3, "invalidation": "營收 YoY ≤ 0%，或營收連續至少 3 季下降。"},
+        {"id": "asset_light_moat", "title": "資產輕量 IP 模式維持極高毛利率", "rationale": "毛利率用來檢查授權／版稅組合與 IP 定價能力。", "metric": "gross_margin", "support_floor": 0.90, "invalidate_floor": 0.85, "invalidate_decline_quarters": 3, "invalidation": "毛利率低於 85%，或連續至少 3 季顯著下降。"},
+        {"id": "cash_scaling", "title": "成長能轉化為穩定 FCF 且避免稀釋", "rationale": "FCF 與稀釋股數檢查高估值所要求的每股現金成長。", "metric": "cash_dilution", "support_positive_fcf_quarters": 3, "invalidate_negative_fcf_quarters": 4, "invalidate_share_yoy": 10, "invalidation": "FCF 連續至少 4 季為負，或稀釋股數 YoY ≥ 10%。"}
+      ]
+    },
+    "ONDS": {
+      "master_report": "30_Analysis/ONDS_Master_Investment_Thesis_2026.md",
+      "theses": [
+        {"id": "autonomous_growth", "title": "自主無人機與反無人機業務進入規模成長", "rationale": "營收成長是訂單交付與商業化規模最直接的財務代理。", "metric": "revenue_growth", "support_yoy": 25, "invalidate_yoy": 0, "invalidate_decline_quarters": 3, "invalidation": "營收 YoY ≤ 0%，或營收連續至少 3 季下降。"},
+        {"id": "commercial_profitability", "title": "商業化最終能轉化為營業獲利", "rationale": "營業利益率直接檢查收入擴張是否跨過固定成本與研發投入。", "metric": "operating_margin", "support_floor": 0.00, "invalidate_floor": -0.50, "invalidate_negative_quarters": 4, "invalidation": "營業利益率低於 -50%，或連續至少 4 季為負。"},
+        {"id": "funding_per_share", "title": "成長資金需求不會持續傷害每股價值", "rationale": "FCF 與稀釋股數共同檢查公司是否仍高度依賴外部股權融資。", "metric": "cash_dilution", "support_positive_fcf_quarters": 2, "invalidate_negative_fcf_quarters": 4, "invalidate_share_yoy": 20, "invalidation": "FCF 連續至少 4 季為負，或稀釋股數 YoY ≥ 20%。"}
+      ]
+    },
+    "TSLA": {
+      "master_report": "30_Analysis/TSLA_Master_Investment_Thesis_2026.md",
+      "theses": [
+        {"id": "ev_energy_growth", "title": "車輛、儲能與軟體維持成長", "rationale": "合併營收成長是 EV、能源與軟體選擇權是否轉化為規模的代理。", "metric": "revenue_growth", "support_yoy": 10, "invalidate_yoy": -10, "invalidate_decline_quarters": 3, "invalidation": "營收 YoY ≤ -10%，或營收連續至少 3 季下降。"},
+        {"id": "margin_recovery", "title": "降價與新產品週期後毛利率能回升", "rationale": "毛利率觀察車價、成本、產品組合及軟體收入的淨效果。", "metric": "gross_margin", "support_floor": 0.20, "invalidate_floor": 0.15, "invalidate_decline_quarters": 3, "invalidation": "毛利率低於 15%，或連續至少 3 季顯著下降。"},
+        {"id": "self_funded_options", "title": "Robotaxi、AI 與產能投資可由自身現金支應", "rationale": "FCF 與股數檢查長期選擇權是否需要持續外部融資。", "metric": "cash_dilution", "support_positive_fcf_quarters": 3, "invalidate_negative_fcf_quarters": 4, "invalidate_share_yoy": 8, "invalidation": "FCF 連續至少 4 季為負，或稀釋股數 YoY ≥ 8%。"}
+      ]
+    },
+    "GOOGL": {
+      "master_report": "30_Analysis/GOOGL_Master_Investment_Thesis_2026.md",
+      "theses": [
+        {"id": "search_cloud_ai", "title": "搜尋、Cloud 與 AI 產品維持成長", "rationale": "合併營收成長是搜尋韌性與 Cloud／AI 擴張的保守代理。", "metric": "revenue_growth", "support_yoy": 10, "invalidate_yoy": 0, "invalidate_decline_quarters": 3, "invalidation": "營收 YoY ≤ 0%，或營收連續至少 3 季下降。"},
+        {"id": "advertising_moat", "title": "廣告與雲端組合維持高營業利益率", "rationale": "營業利益率檢查 AI 資本支出與搜尋變革是否侵蝕核心經濟性。", "metric": "operating_margin", "support_floor": 0.30, "invalidate_floor": 0.20, "invalidate_decline_quarters": 3, "invalidation": "營業利益率低於 20%，或連續至少 3 季顯著下降。"},
+        {"id": "cash_per_share", "title": "高 FCF 與回購持續累積每股價值", "rationale": "FCF 與稀釋股數觀察資本支出後的股東剩餘價值。", "metric": "cash_dilution", "support_positive_fcf_quarters": 3, "invalidate_negative_fcf_quarters": 4, "invalidate_share_yoy": 5, "invalidation": "FCF 連續至少 4 季為負，或稀釋股數 YoY ≥ 5%。"}
+      ]
+    },
+    "COHR": {
+      "master_report": "30_Analysis/COHR_Master_Investment_Thesis_2026.md",
+      "theses": [
+        {"id": "ai_optics_growth", "title": "AI 光通訊需求推動營收成長", "rationale": "營收成長是高速光模組、雷射與資料通訊需求的財務代理。", "metric": "revenue_growth", "support_yoy": 10, "invalidate_yoy": 0, "invalidate_decline_quarters": 3, "invalidation": "營收 YoY ≤ 0%，或營收連續至少 3 季下降。"},
+        {"id": "margin_recovery", "title": "產品組合與整併綜效帶動毛利率改善", "rationale": "毛利率檢查 AI 光通訊成長與整併綜效是否改善經濟性。", "metric": "gross_margin", "support_floor": 0.35, "invalidate_floor": 0.30, "invalidate_decline_quarters": 3, "invalidation": "毛利率低於 30%，或連續至少 3 季顯著下降。"},
+        {"id": "cash_deleveraging", "title": "獲利改善能轉化為 FCF 與每股價值", "rationale": "FCF 與股數用來檢查資本支出、整併與償債後的股東現金。", "metric": "cash_dilution", "support_positive_fcf_quarters": 3, "invalidate_negative_fcf_quarters": 4, "invalidate_share_yoy": 10, "invalidation": "FCF 連續至少 4 季為負，或稀釋股數 YoY ≥ 10%。"}
+      ]
+    },
+    "MRVL": {
+      "master_report": "30_Analysis/MRVL_Master_Investment_Thesis_2026.md",
+      "theses": [
+        {"id": "data_center_growth", "title": "資料中心與客製 AI 晶片維持成長", "rationale": "營收成長是客製 ASIC、互連與資料中心需求的合併財務代理。", "metric": "revenue_growth", "support_yoy": 10, "invalidate_yoy": 0, "invalidate_decline_quarters": 3, "invalidation": "營收 YoY ≤ 0%，或營收連續至少 3 季下降。"},
+        {"id": "mix_margin", "title": "高價值資料中心組合維持毛利率", "rationale": "毛利率檢查客製晶片組合、量產爬坡與競爭定價。", "metric": "gross_margin", "support_floor": 0.50, "invalidate_floor": 0.40, "invalidate_decline_quarters": 3, "invalidation": "毛利率低於 40%，或連續至少 3 季顯著下降。"},
+        {"id": "cash_scaling", "title": "AI 成長能轉化為正向 FCF", "rationale": "FCF 與股數檢查成長、收購與股權薪酬後的每股現金。", "metric": "cash_dilution", "support_positive_fcf_quarters": 3, "invalidate_negative_fcf_quarters": 4, "invalidate_share_yoy": 8, "invalidation": "FCF 連續至少 4 季為負，或稀釋股數 YoY ≥ 8%。"}
+      ]
+    },
+    "INTC": {
+      "master_report": "30_Analysis/INTC_Master_Investment_Thesis_2026.md",
+      "theses": [
+        {"id": "turnaround_growth", "title": "產品與晶圓代工轉型恢復營收成長", "rationale": "合併營收成長是產品競爭力、18A 與外部代工進度的保守代理。", "metric": "revenue_growth", "support_yoy": 5, "invalidate_yoy": -5, "invalidate_decline_quarters": 3, "invalidation": "營收 YoY ≤ -5%，或營收連續至少 3 季下降。"},
+        {"id": "manufacturing_recovery", "title": "製程與產能利用率帶動毛利率復甦", "rationale": "毛利率用來檢查製程良率、折舊負擔與產品組合的整體結果。", "metric": "gross_margin", "support_floor": 0.40, "invalidate_floor": 0.30, "invalidate_decline_quarters": 3, "invalidation": "毛利率低於 30%，或連續至少 3 季顯著下降。"},
+        {"id": "foundry_funding", "title": "轉型資本支出不造成長期現金流失血", "rationale": "FCF 與股數檢查晶圓廠投資能否由營運與資產負債表承擔。", "metric": "cash_dilution", "support_positive_fcf_quarters": 3, "invalidate_negative_fcf_quarters": 4, "invalidate_share_yoy": 8, "invalidation": "FCF 連續至少 4 季為負，或稀釋股數 YoY ≥ 8%。"}
+      ]
+    },
+    "NOK": {
+      "master_report": "30_Analysis/NOK_Master_Investment_Thesis_2026.md",
+      "theses": [
+        {"id": "network_growth", "title": "網路基礎設施與企業市場恢復成長", "rationale": "原幣營收成長是電信 CapEx、企業網路與產品需求的財務代理。", "metric": "revenue_growth", "support_yoy": 5, "invalidate_yoy": -5, "invalidate_decline_quarters": 3, "invalidation": "營收 YoY ≤ -5%，或營收連續至少 3 季下降。"},
+        {"id": "portfolio_margin", "title": "產品組合調整能維持正向營業利益率", "rationale": "營業利益率反映網路設備定價、成本控制與事業組合調整。", "metric": "operating_margin", "support_floor": 0.08, "invalidate_floor": 0.00, "invalidate_decline_quarters": 3, "invalidation": "營業利益率低於 0%，或連續至少 3 季顯著下降。"},
+        {"id": "cash_shareholder", "title": "現金流足以支撐研發與股東回報", "rationale": "FCF 與股數檢查景氣循環中是否仍能維持每股財務韌性。", "metric": "cash_dilution", "support_positive_fcf_quarters": 3, "invalidate_negative_fcf_quarters": 4, "invalidate_share_yoy": 8, "invalidation": "FCF 連續至少 4 季為負，或稀釋股數 YoY ≥ 8%。"}
+      ]
+    }
+  }
+}

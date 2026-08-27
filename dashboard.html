@@ -1368,6 +1368,49 @@
       line-height: 1.5;
     }
 
+    .sec-thesis-tracker {
+      margin-bottom: 22px;
+      padding: 18px;
+      border: 1px solid rgba(52, 211, 153, 0.28);
+      border-radius: 18px;
+      background: linear-gradient(145deg, rgba(6, 78, 59, 0.14), rgba(15, 23, 42, 0.84));
+    }
+
+    .sec-thesis-tracker.major-invalidated { border-color: rgba(244, 63, 94, 0.55); }
+    .sec-thesis-tracker.partial-invalidated { border-color: rgba(251, 191, 36, 0.5); }
+    .sec-thesis-tracker.needs-validation { border-color: rgba(56, 189, 248, 0.4); }
+    .sec-thesis-placeholder { color: #aeb8c7; font-size: 0.82rem; line-height: 1.55; text-align: center; }
+    .sec-thesis-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 12px; }
+    .sec-thesis-title { color: #ecfdf5; font-size: 1rem; }
+    .sec-thesis-meta { color: #94a3b8; font-size: 0.71rem; line-height: 1.5; margin-top: 4px; }
+    .sec-thesis-head-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .sec-thesis-status { display: inline-flex; align-items: center; border: 1px solid transparent; border-radius: 999px; padding: 6px 10px; font-size: 0.73rem; font-weight: 850; }
+    .sec-thesis-status.maintained, .sec-thesis-item-status.supported { color: #a7f3d0; background: rgba(16, 185, 129, 0.12); border-color: rgba(16, 185, 129, 0.3); }
+    .sec-thesis-status.needs-validation, .sec-thesis-item-status.verify { color: #bae6fd; background: rgba(14, 165, 233, 0.11); border-color: rgba(14, 165, 233, 0.28); }
+    .sec-thesis-status.partial-invalidated { color: #fde68a; background: rgba(245, 158, 11, 0.12); border-color: rgba(245, 158, 11, 0.3); }
+    .sec-thesis-status.major-invalidated, .sec-thesis-item-status.invalidated { color: #fecdd3; background: rgba(244, 63, 94, 0.13); border-color: rgba(244, 63, 94, 0.32); }
+    .sec-thesis-kpis { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 9px; margin-bottom: 11px; }
+    .sec-thesis-kpi { padding: 10px 12px; border: 1px solid rgba(148, 163, 184, 0.15); border-radius: 11px; background: rgba(2, 6, 23, 0.34); }
+    .sec-thesis-kpi span { color: #94a3b8; font-size: 0.67rem; }
+    .sec-thesis-kpi strong { display: block; margin-top: 3px; color: #fff; font-size: 1rem; }
+    .sec-thesis-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+    .sec-thesis-card { min-width: 0; padding: 13px; border: 1px solid rgba(148, 163, 184, 0.17); border-radius: 13px; background: rgba(2, 6, 23, 0.38); }
+    .sec-thesis-card-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; margin-bottom: 8px; }
+    .sec-thesis-card h4 { color: #f8fafc; font-size: 0.79rem; line-height: 1.45; }
+    .sec-thesis-item-status { flex: 0 0 auto; border: 1px solid transparent; border-radius: 999px; padding: 4px 7px; font-size: 0.64rem; font-weight: 850; white-space: nowrap; }
+    .sec-thesis-card p { color: #94a3b8; font-size: 0.69rem; line-height: 1.5; }
+    .sec-thesis-card p + p { margin-top: 6px; }
+    .sec-thesis-evidence { color: #dbeafe !important; }
+    .sec-thesis-invalidation { color: #fcd34d !important; }
+    .sec-thesis-history { margin-top: 12px; overflow-x: auto; }
+    .sec-thesis-history table { width: 100%; min-width: 610px; border-collapse: collapse; font-size: 0.69rem; }
+    .sec-thesis-history caption { color: #d1fae5; font-size: 0.76rem; font-weight: 850; text-align: left; margin-bottom: 7px; }
+    .sec-thesis-history th, .sec-thesis-history td { padding: 8px 9px; border-bottom: 1px solid rgba(148, 163, 184, 0.14); text-align: left; }
+    .sec-thesis-history th { color: #94a3b8; }
+    .sec-thesis-history td { color: #dbeafe; }
+    .sec-thesis-conclusion { margin-top: 11px; padding: 11px 12px; border-left: 3px solid #34d399; border-radius: 9px; background: rgba(16, 185, 129, 0.07); color: #dbeafe; font-size: 0.75rem; line-height: 1.55; }
+    .sec-thesis-method { margin-top: 8px; color: #94a3b8; font-size: 0.68rem; line-height: 1.5; }
+
     .sec-text-diff {
       margin-bottom: 22px;
       padding: 18px;
@@ -1912,11 +1955,12 @@
       .sec-advanced-explainer { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .sec-advanced-actual-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .sec-ownership-kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .sec-thesis-grid { grid-template-columns: 1fr; }
     }
 
     @media (max-width: 620px) {
       .sec-daily-shell { padding: 18px; }
-      .sec-kpi-grid, .sec-reading-rank-list, .sec-reading-guide, .sec-advanced-explainer, .sec-advanced-actual-grid, .sec-company-brief-grid, .sec-update-grid, .sec-update-detail-grid, .sec-text-diff-kpis, .sec-text-change-grid { grid-template-columns: 1fr; }
+      .sec-kpi-grid, .sec-reading-rank-list, .sec-reading-guide, .sec-advanced-explainer, .sec-advanced-actual-grid, .sec-company-brief-grid, .sec-update-grid, .sec-update-detail-grid, .sec-text-diff-kpis, .sec-text-change-grid, .sec-thesis-kpis { grid-template-columns: 1fr; }
       .sec-ownership-kpis { grid-template-columns: 1fr; }
       .sec-reading-progress { grid-template-columns: 1fr; }
       .sec-reading-actions { justify-content: flex-start; }
@@ -2449,7 +2493,7 @@
         <nav id="secCoreShortcuts" class="sec-core-shortcuts" aria-label="SEC 核心持股快捷標的">
           <div class="sec-core-shortcuts-head">
             <strong>⚡ 核心持股快捷標的</strong>
-            <span id="secCoreShortcutStatus">點選一次，同步切換①八季數字、②重要申報、③ Form 4、④募資稀釋、⑤進階 SEC 雷達與⑥文字差異。</span>
+            <span id="secCoreShortcutStatus">點選一次，同步切換①八季數字、②重要申報、③ Form 4、④募資稀釋、⑤進階 SEC 雷達、⑥文字差異與⑦投資論點。</span>
           </div>
           <div class="sec-core-chip-list" role="group" aria-label="選擇核心持股公司">
             <button type="button" class="sec-core-chip" data-sec-core-ticker="NVDA" onclick="setSecCoreTicker('NVDA')" aria-pressed="false">NVDA (輝達)</button>
@@ -2471,6 +2515,10 @@
 
         <section id="secCompanyBrief" class="sec-company-brief" aria-live="polite" aria-label="單公司 SEC 綜合判讀">
           <p class="sec-company-brief-placeholder">先點選上方一家公司，即可查看財務、重要申報、內部人交易、稀釋、大股東與會計／執法的綜合判讀。</p>
+        </section>
+
+        <section id="secThesisTracker" class="sec-thesis-tracker" aria-live="polite" aria-label="投資論點與失效條件追蹤卡">
+          <p class="sec-thesis-placeholder">點選上方公司後，這裡會用已公布季度數字逐項驗證投資論點，並顯示最近四季狀態變化。</p>
         </section>
 
         <section id="secTextDiff" class="sec-text-diff" aria-live="polite" aria-label="10-K 與 10-Q 文字差異雷達">
@@ -3578,6 +3626,12 @@
       return safeOfficialResultsUrl(value);
     }
 
+    function safeThesisReportUrl(value) {
+      const path = String(value || '');
+      if (!/^30_Analysis\/[A-Z0-9]+_Master_Investment_Thesis_2026\.md$/.test(path)) return '#';
+      return `https://github.com/ttchang1127/ttc-stock/blob/main/${path.split('/').map(encodeURIComponent).join('/')}`;
+    }
+
     function secCutoff(days) {
       const end = new Date(`${todayET()}T12:00:00Z`);
       end.setUTCDate(end.getUTCDate() - (days - 1));
@@ -3644,6 +3698,112 @@
       return (Number(current) / Number(previous) - 1) * 100;
     }
 
+    function secSignedMetricStreak(periods, metric, direction) {
+      let count = 0;
+      for (const period of periods) {
+        const value = secMetricValue(period, metric);
+        if (value === null || (direction === 'positive' ? value <= 0 : value >= 0)) break;
+        count += 1;
+      }
+      return count;
+    }
+
+    function secInvestmentThesisSnapshot(company, config, offset = 0) {
+      const periods = (company?.periods || []).slice(offset, offset + 8);
+      const latest = periods[0];
+      if (!latest || !config?.theses?.length) {
+        return { status: 'unavailable', label: '資料不足', items: [], counts: { supported: 0, verify: 0, invalidated: 0 }, period: null, url: null, accession: null };
+      }
+      const currency = company.currency || 'USD';
+      const yearAgo = periods[4];
+      const items = config.theses.map(thesis => {
+        let status = 'verify';
+        let evidence = '缺少足夠的當季或去年同期數字，暫時不能驗證。';
+        let fingerprintValue = 'missing';
+        if (thesis.metric === 'revenue_growth') {
+          const revenue = secMetricValue(latest, 'revenue');
+          const revenueYoy = secDelta(revenue, secMetricValue(yearAgo, 'revenue'));
+          const streak = secTrendStreak(periods, 'revenue', 'percent', 1);
+          const declining = streak.direction === 'down' && streak.quarters >= Number(thesis.invalidate_decline_quarters || 3);
+          if ((revenueYoy !== null && revenueYoy <= Number(thesis.invalidate_yoy)) || declining) status = 'invalidated';
+          else if (revenueYoy !== null && revenueYoy >= Number(thesis.support_yoy)) status = 'supported';
+          evidence = revenue === null
+            ? `${latest.period_end} 缺可靠營收。`
+            : `${latest.period_end} 營收 ${currency} ${formatSecAmount(revenue, currency)}，YoY ${secTrendSigned(revenueYoy)}；${streak.quarters >= 2 ? `連續 ${streak.quarters} 季${streak.direction === 'up' ? '上升' : '下降'}` : '未形成連續方向'}。`;
+          fingerprintValue = `${revenueYoy ?? 'null'}:${streak.direction}:${streak.quarters}`;
+        } else if (['gross_margin', 'operating_margin'].includes(thesis.metric)) {
+          const margin = secMetricValue(latest, thesis.metric);
+          const marginYoy = secDelta(margin, secMetricValue(yearAgo, thesis.metric), 'pp');
+          const streak = secTrendStreak(periods, thesis.metric, 'pp', 0.5);
+          const declineThreshold = Number(thesis.invalidate_decline_quarters || 0);
+          const negativeThreshold = Number(thesis.invalidate_negative_quarters || 0);
+          const declining = declineThreshold > 0 && streak.direction === 'down' && streak.quarters >= declineThreshold;
+          const negativeQuarters = negativeThreshold > 0 ? secSignedMetricStreak(periods, thesis.metric, 'negative') : 0;
+          const persistentlyNegative = negativeThreshold > 0 && negativeQuarters >= negativeThreshold;
+          if (margin !== null && (margin < Number(thesis.invalidate_floor) || declining || persistentlyNegative)) status = 'invalidated';
+          else if (margin !== null && margin >= Number(thesis.support_floor)) status = 'supported';
+          const label = thesis.metric === 'gross_margin' ? '毛利率' : '營業利益率';
+          evidence = margin === null
+            ? `${latest.period_end} 缺可靠${label}。`
+            : `${latest.period_end} ${label} ${formatSecNumber(margin * 100, 1)}%，YoY ${secTrendSigned(marginYoy, 'pp')}；${streak.quarters >= 2 ? `連續 ${streak.quarters} 季${streak.direction === 'up' ? '上升' : '下降'}` : '未形成連續方向'}。`;
+          fingerprintValue = `${margin ?? 'null'}:${marginYoy ?? 'null'}:${streak.direction}:${streak.quarters}:${negativeQuarters}`;
+        } else if (thesis.metric === 'cash_dilution') {
+          const freeCashFlow = secMetricValue(latest, 'free_cash_flow');
+          const dilutedShares = secMetricValue(latest, 'diluted_shares');
+          const shareYoy = secDelta(dilutedShares, secMetricValue(yearAgo, 'diluted_shares'));
+          const positiveFcfQuarters = secSignedMetricStreak(periods, 'free_cash_flow', 'positive');
+          const negativeFcfQuarters = secSignedMetricStreak(periods, 'free_cash_flow', 'negative');
+          const negativeBreach = negativeFcfQuarters >= Number(thesis.invalidate_negative_fcf_quarters || 4);
+          const dilutionBreach = shareYoy !== null && shareYoy >= Number(thesis.invalidate_share_yoy);
+          if (negativeBreach || dilutionBreach) status = 'invalidated';
+          else if (positiveFcfQuarters >= Number(thesis.support_positive_fcf_quarters || 3)
+            && (shareYoy === null || shareYoy <= 2)) status = 'supported';
+          const fcfText = freeCashFlow === null ? 'FCF 缺值' : `FCF ${currency} ${formatSecAmount(freeCashFlow, currency)}`;
+          const fcfStreak = freeCashFlow === null ? '無法計算連續性'
+            : `連續 ${freeCashFlow > 0 ? positiveFcfQuarters : negativeFcfQuarters} 季為${freeCashFlow > 0 ? '正' : '負'}`;
+          const shareText = dilutedShares === null ? '稀釋股數缺值' : `稀釋股數 YoY ${secTrendSigned(shareYoy)}`;
+          evidence = `${latest.period_end} ${fcfText}（${fcfStreak}）；${shareText}。`;
+          fingerprintValue = `${freeCashFlow ?? 'null'}:${positiveFcfQuarters}:${negativeFcfQuarters}:${shareYoy ?? 'null'}`;
+        }
+        const label = status === 'supported' ? '支持' : (status === 'invalidated' ? '失效' : '待驗證');
+        return { ...thesis, status, label, evidence, fingerprintValue };
+      });
+      const counts = items.reduce((result, item) => {
+        result[item.status] += 1;
+        return result;
+      }, { supported: 0, verify: 0, invalidated: 0 });
+      const status = counts.invalidated >= 2 ? 'major-invalidated'
+        : (counts.invalidated === 1 ? 'partial-invalidated'
+          : (counts.supported >= 2 ? 'maintained' : 'needs-validation'));
+      const labels = {
+        maintained: '🟢 論點維持',
+        'needs-validation': '🔵 需要驗證',
+        'partial-invalidated': '🟡 部分失效',
+        'major-invalidated': '🔴 重大失效',
+      };
+      return {
+        status, label: labels[status], items, counts, period: latest.period_end,
+        url: latest.url, accession: latest.accession,
+        fingerprint: `${latest.accession || latest.period_end}:${status}:${items.map(item => `${item.id}:${item.status}:${item.fingerprintValue}`).join('|')}`,
+      };
+    }
+
+    function secInvestmentThesisAnalysis(company, config) {
+      const history = Array.from({ length: 4 }, (_, offset) => secInvestmentThesisSnapshot(company, config, offset))
+        .filter(snapshot => snapshot.status !== 'unavailable');
+      const current = history[0] || secInvestmentThesisSnapshot(company, config, 0);
+      const previous = history[1];
+      const overallStatusChanged = Boolean(previous && previous.status !== current.status);
+      const itemStatusChanged = Boolean(previous && current.items.some(item =>
+        previous.items.find(prior => prior.id === item.id)?.status !== item.status
+      ));
+      const statusChanged = overallStatusChanged || itemStatusChanged;
+      const queueAlert = current.status !== 'unavailable' && (current.counts.invalidated > 0 || statusChanged);
+      const priority = current.status === 'major-invalidated' ? 96
+        : (current.status === 'partial-invalidated' ? 89 : (statusChanged ? 74 : 0));
+      return { ...current, history, previous, overallStatusChanged, itemStatusChanged, statusChanged, queueAlert, priority };
+    }
+
     function formatSecDelta(value, unit = '%', invert = false) {
       if (value === null || Number.isNaN(value)) return '—';
       const cssPositive = invert ? value < 0 : value > 0;
@@ -3701,8 +3861,10 @@
             .then(r => { if (!r.ok) throw new Error(`13F 雷達 HTTP ${r.status}`); return r.json(); }),
           fetch('filing_text_changes.json', { cache: 'no-cache' })
             .then(r => { if (!r.ok) throw new Error(`週期申報文字差異 HTTP ${r.status}`); return r.json(); }),
-        ]).then(([alerts, details, quarterlyFinancials, advanced, thirteenF, textChanges]) => {
-          secDailyData = { alerts, details, quarterlyFinancials, advanced, thirteenF, textChanges };
+          fetch('investment_thesis_tracking.json', { cache: 'no-cache' })
+            .then(r => { if (!r.ok) throw new Error(`投資論點追蹤 HTTP ${r.status}`); return r.json(); }),
+        ]).then(([alerts, details, quarterlyFinancials, advanced, thirteenF, textChanges, thesisTracking]) => {
+          secDailyData = { alerts, details, quarterlyFinancials, advanced, thirteenF, textChanges, thesisTracking };
           renderSecDaily();
         }).catch(error => {
           secDailyPromise = null;
@@ -3875,7 +4037,7 @@
 
     function secReadingRankRows() {
       if (!secDailyData) return [];
-      const { alerts, details, advanced, quarterlyFinancials } = secDailyData;
+      const { alerts, details, advanced, quarterlyFinancials, thesisTracking } = secDailyData;
       const cutoff = secCutoff(secRangeDays);
       const endDate = todayET();
       const dilutionCategories = new Set(['atm_equity', 'equity', 'convertible', 'shelf']);
@@ -3914,13 +4076,18 @@
           return !date || (date >= cutoff && date <= endDate);
         });
         const financialTrend = secQuarterlyTrendAnalysis(quarterlyFinancials?.companies?.[ticker]);
-        const urgent = important.length || dilution.length || majorOwnership.length || enforcement.length || financialTrend.queueAlert;
-        const tier = urgent ? 'urgent' : ((events.length || ownership.length) ? 'updated' : 'quiet');
+        const investmentThesis = secInvestmentThesisAnalysis(
+          quarterlyFinancials?.companies?.[ticker], thesisTracking?.companies?.[ticker]
+        );
+        const urgent = important.length || dilution.length || majorOwnership.length || enforcement.length
+          || financialTrend.queueAlert || investmentThesis.counts.invalidated > 0;
+        const tier = urgent ? 'urgent' : ((events.length || ownership.length || investmentThesis.statusChanged) ? 'updated' : 'quiet');
         const dates = [
           ...events.map(row => row.filing_date),
           ...ownership.map(row => row.filing_date),
           ...enforcement.map(row => row.event?.filing_date || row.date),
           ...(financialTrend.queueAlert ? [financialTrend.latestPeriod] : []),
+          ...(investmentThesis.queueAlert ? [investmentThesis.period] : []),
         ].filter(Boolean).sort().reverse();
         const reasons = [];
         if (dilution.length) reasons.push(`潛在稀釋 ${dilution.length} 份`);
@@ -3928,6 +4095,8 @@
         if (majorOwnership.length) reasons.push(`90 日內重大 13D／13G ${majorOwnership.length} 項`);
         if (enforcement.length) reasons.push(`SEC 執法／停牌 ${enforcement.length} 項`);
         if (financialTrend.queueAlert) reasons.push(`八季財務警報 ${financialTrend.alerts.length} 項`);
+        if (investmentThesis.counts.invalidated > 0) reasons.push(`投資論點${investmentThesis.label.replace(/^[^ ]+ /, '')}（失效 ${investmentThesis.counts.invalidated}/3）`);
+        else if (investmentThesis.statusChanged) reasons.push('投資論點狀態改變');
         if (activeTrades) reasons.push(`Form 4 主動買賣 ${activeTrades} 列`);
         if (!reasons.length && events.length) reasons.push(`近期一般申報 ${events.length} 份`);
         if (!reasons.length && ownership.length) reasons.push(`90 日內大股東更新 ${ownership.length} 項`);
@@ -3964,11 +4133,19 @@
             url: financialTrend.latestUrl,
           });
         }
+        if (investmentThesis.queueAlert) {
+          addEvidence({
+            id: `thesis:${ticker}:${investmentThesis.fingerprint}`, kind: 'thesis', priority: investmentThesis.priority,
+            date: investmentThesis.period, label: `投資論點｜${investmentThesis.label.replace(/^[^ ]+ /, '')}｜${investmentThesis.period}`,
+            url: investmentThesis.url,
+          });
+        }
         const evidence = [...evidenceById.values()].sort((a, b) => b.priority - a.priority
           || String(b.date).localeCompare(String(a.date)) || a.id.localeCompare(b.id));
         const signalScore = dilution.length * 60 + enforcement.length * 55 + majorOwnership.length * 50
+          + investmentThesis.counts.invalidated * 52 + (investmentThesis.statusChanged ? 18 : 0)
           + financialTrend.alerts.length * 45 + important.length * 40 + activeTrades * 4 + events.length;
-        return { displayTicker, ticker, tier, tierWeight: tierWeight[tier], signalScore, latestDate: dates[0] || '', reasons, evidence, financialTrend };
+        return { displayTicker, ticker, tier, tierWeight: tierWeight[tier], signalScore, latestDate: dates[0] || '', reasons, evidence, financialTrend, investmentThesis };
       }).sort((a, b) => b.tierWeight - a.tierWeight
         || b.signalScore - a.signalScore
         || b.latestDate.localeCompare(a.latestDate)
@@ -4053,7 +4230,7 @@
         updated: ['近期有更新', 'updated'],
         quiet: ['例行追蹤', 'quiet'],
       };
-      const kindLabels = { enforcement: '執法', dilution: '稀釋', important: '重大', trend: '財務趨勢', ownership: '大股東', form4: 'Form 4', general: '一般' };
+      const kindLabels = { enforcement: '執法', dilution: '稀釋', important: '重大', thesis: '投資論點', trend: '財務趨勢', ownership: '大股東', form4: 'Form 4', general: '一般' };
       const renderCard = (row, index) => {
         const [label, css] = tierLabels[row.tier];
         const active = row.displayTicker === secCoreTicker;
@@ -4067,7 +4244,7 @@
         const unreadLabel = status.done ? '✅ 今日已讀'
           : (status.unreadCount ? `🔔 未讀 ${status.unreadCount} 項｜${unreadBreakdown}` : '○ 今日尚未確認｜期間內無新證據');
         const primary = status.unreadEvidence[0] || row.evidence[0];
-        const sourceUrl = primary?.kind === 'trend' ? safeQuarterlySourceUrl(primary?.url) : safeSecUrl(primary?.url);
+        const sourceUrl = ['trend', 'thesis'].includes(primary?.kind) ? safeQuarterlySourceUrl(primary?.url) : safeSecUrl(primary?.url);
         const source = sourceUrl === '#'
           ? '<span class="sec-reading-no-source">目前無新原文</span>'
           : `<a class="sec-link" href="${sourceUrl}" target="_blank" rel="noopener" onclick="event.stopPropagation()">最重要原文 ↗</a>`;
@@ -4093,7 +4270,7 @@
         </div>
         <div class="sec-reading-rank-list">${firstRows}</div>
         <details class="sec-reading-rank-more"><summary>展開其餘 ${Math.max(0, rows.length - 5)} 家</summary><div class="sec-reading-rank-list">${remainingRows}</div></details>
-        <p class="sec-reading-rank-method">排序規則依序考量：潛在稀釋、重大／重要申報、90 日內重大 13D／13G、SEC 執法／停牌、八季財務警報、P／S 主動買賣與一般申報；同級再按訊號數量與最近日期排列。已讀狀態以美東日期每日重設；同一天若出現新的 accession／大股東文件／執法事件或季度趨勢指紋改變，會自動恢復未讀。狀態只存在這台裝置的目前瀏覽器，不會跨裝置同步。排序只決定每日閱讀先後，不是利多／利空、投資評等或報酬預測。</p>`;
+        <p class="sec-reading-rank-method">排序規則依序考量：潛在稀釋、重大／重要申報、90 日內重大 13D／13G、SEC 執法／停牌、投資論點失效／狀態改變、八季財務警報、P／S 主動買賣與一般申報；同級再按訊號數量與最近日期排列。已讀狀態以美東日期每日重設；同一天若出現新的 accession／大股東文件／執法事件、投資論點或季度趨勢指紋改變，會自動恢復未讀。狀態只存在這台裝置的目前瀏覽器，不會跨裝置同步。排序只決定每日閱讀先後，不是利多／利空、投資評等或報酬預測。</p>`;
     }
 
     function renderSecDaily() {
@@ -4196,6 +4373,7 @@
       });
       renderSecCoreShortcuts();
       renderSecCompanyBrief();
+      renderSecThesisTracker();
       renderSecTextDiff();
       renderSecQuarterlyTrend();
       renderSecAdvanced();
@@ -4655,6 +4833,7 @@
         secCoreTicker = '';
         renderSecCoreShortcuts();
         renderSecCompanyBrief();
+        renderSecThesisTracker();
         renderSecTextDiff();
       }
       renderSecAdvanced();
@@ -4683,6 +4862,7 @@
       secCoreTicker = '';
       renderSecCoreShortcuts();
       renderSecCompanyBrief();
+      renderSecThesisTracker();
       renderSecTextDiff();
       renderSecQuarterlyTrend();
     }
@@ -4696,8 +4876,8 @@
       const status = document.getElementById('secCoreShortcutStatus');
       if (!status) return;
       status.textContent = secCoreTicker
-        ? `已同步選擇 ${secCoreTicker}：①八季數字、②重要申報、③ Form 4、④募資稀釋、⑤進階 SEC 雷達、⑥文字差異。`
-        : '點選一次，同步切換①八季數字、②重要申報、③ Form 4、④募資稀釋、⑤進階 SEC 雷達與⑥文字差異。';
+        ? `已同步選擇 ${secCoreTicker}：①八季數字、②重要申報、③ Form 4、④募資稀釋、⑤進階 SEC 雷達、⑥文字差異、⑦投資論點。`
+        : '點選一次，同步切換①八季數字、②重要申報、③ Form 4、④募資稀釋、⑤進階 SEC 雷達、⑥文字差異與⑦投資論點。';
     }
 
     function setSecCoreTicker(ticker) {
@@ -4851,6 +5031,72 @@
         </div>
         <div class="sec-company-brief-conclusion"><strong>客觀結論：</strong> ${escapeSec(conclusion)}</div>
         <p class="sec-company-brief-method">規則：近期重大／重要申報、潛在股權稀釋、90 日內重大 13D／13G 異動或 SEC 執法／停牌命中，列為「需優先閱讀」；其他近期申報列為「近期有更新」。財務升降與 Form 4 買賣僅陳述事實，不單獨推論長期股價方向。</p>`;
+    }
+
+    function renderSecThesisTracker() {
+      const container = document.getElementById('secThesisTracker');
+      if (!container || !secDailyData) return;
+      if (!secCoreTicker) {
+        container.className = 'sec-thesis-tracker';
+        container.innerHTML = '<p class="sec-thesis-placeholder">點選上方公司後，這裡會用已公布季度數字逐項驗證投資論點，並顯示最近四季狀態變化。</p>';
+        return;
+      }
+      const displayTicker = secCoreTicker;
+      const ticker = SEC_TICKER_ALIASES[displayTicker] || displayTicker;
+      const config = secDailyData.thesisTracking?.companies?.[ticker];
+      const company = secDailyData.quarterlyFinancials?.companies?.[ticker];
+      if (!config || !company) {
+        container.className = 'sec-thesis-tracker needs-validation';
+        container.innerHTML = `<div class="sec-thesis-head"><div><h3 class="sec-thesis-title">🧭 ${escapeSec(displayTicker)}｜投資論點與失效條件</h3><p class="sec-thesis-meta">尚未建立可驗證的公司論點或季度資料。</p></div></div>`;
+        return;
+      }
+      const analysis = secInvestmentThesisAnalysis(company, config);
+      container.className = `sec-thesis-tracker ${analysis.status}`;
+      const itemCards = analysis.items.map((item, index) => `<article class="sec-thesis-card">
+        <div class="sec-thesis-card-head"><h4>${index + 1}. ${escapeSec(item.title)}</h4><span class="sec-thesis-item-status ${item.status}">${escapeSec(item.label)}</span></div>
+        <p>${escapeSec(item.rationale)}</p>
+        <p class="sec-thesis-evidence"><strong>最新證據：</strong>${escapeSec(item.evidence)}</p>
+        <p class="sec-thesis-invalidation"><strong>失效條件：</strong>${escapeSec(item.invalidation)}</p>
+      </article>`).join('');
+      const historyRows = analysis.history.map(snapshot => `<tr>
+        <td>${escapeSec(snapshot.period)}</td>
+        <td><span class="sec-thesis-status ${snapshot.status}">${escapeSec(snapshot.label)}</span></td>
+        <td>${snapshot.counts.supported} / ${snapshot.counts.verify} / ${snapshot.counts.invalidated}</td>
+        <td>${snapshot.items.map(item => `${escapeSec(item.title)}：${escapeSec(item.label)}`).join('<br>')}</td>
+      </tr>`).join('');
+      const previousText = analysis.previous
+        ? (analysis.overallStatusChanged
+          ? `狀態已由 ${analysis.previous.label.replace(/^[^ ]+ /, '')} 變為 ${analysis.label.replace(/^[^ ]+ /, '')}，已加入每日閱讀待辦。`
+          : (analysis.itemStatusChanged
+            ? `綜合狀態仍為「${analysis.label.replace(/^[^ ]+ /, '')}」，但至少一項分項狀態改變，已加入每日閱讀待辦。`
+            : `與前一季同為「${analysis.label.replace(/^[^ ]+ /, '')}」，各分項狀態也未改變。`))
+        : '只有一期可判讀，尚無前季狀態可比較。';
+      const conclusion = analysis.status === 'major-invalidated'
+        ? `三項核心論點已有 ${analysis.counts.invalidated} 項命中失效條件，應先核對財報原文並重新檢視整體持有理由。`
+        : (analysis.status === 'partial-invalidated'
+          ? `已有 1 項論點命中失效條件；其他論點不能抵銷該項風險，需分項核對。`
+          : (analysis.status === 'needs-validation'
+            ? `尚未命中失效條件，但只有 ${analysis.counts.supported} 項達支持門檻，證據仍不足。`
+            : `未命中失效條件，且 ${analysis.counts.supported} 項達支持門檻；這表示最新財務結果與論點一致，不代表估值便宜或股價一定上漲。`));
+      const quarterUrl = safeQuarterlySourceUrl(analysis.url);
+      const reportUrl = safeThesisReportUrl(config.master_report);
+      const links = [
+        quarterUrl === '#' ? '' : `<a class="sec-link" href="${quarterUrl}" target="_blank" rel="noopener">最新季度原文 ↗</a>`,
+        reportUrl === '#' ? '' : `<a class="sec-link" href="${reportUrl}" target="_blank" rel="noopener">Master Thesis ↗</a>`,
+      ].filter(Boolean).join('｜');
+      container.innerHTML = `<div class="sec-thesis-head">
+        <div><h3 class="sec-thesis-title">🧭 ${escapeSec(displayTicker)}｜投資論點與失效條件追蹤卡</h3><p class="sec-thesis-meta">最新財報期末 ${escapeSec(analysis.period || '—')}｜${links}</p></div>
+        <div class="sec-thesis-head-actions"><span class="sec-thesis-status ${analysis.status}">${escapeSec(analysis.label)}</span></div>
+      </div>
+      <div class="sec-thesis-kpis">
+        <div class="sec-thesis-kpi"><span>達支持門檻</span><strong>🟢 ${analysis.counts.supported} / 3</strong></div>
+        <div class="sec-thesis-kpi"><span>證據不足／介於門檻</span><strong>🔵 ${analysis.counts.verify} / 3</strong></div>
+        <div class="sec-thesis-kpi"><span>命中失效條件</span><strong>🔴 ${analysis.counts.invalidated} / 3</strong></div>
+      </div>
+      <div class="sec-thesis-grid">${itemCards}</div>
+      <div class="sec-thesis-history"><table><caption>最近四季論點狀態歷史（支持／待驗證／失效）</caption><thead><tr><th>財報期末</th><th>綜合狀態</th><th>項目數</th><th>各論點狀態</th></tr></thead><tbody>${historyRows}</tbody></table></div>
+      <div class="sec-thesis-conclusion"><strong>客觀判讀：</strong>${escapeSec(conclusion)} ${escapeSec(previousText)}</div>
+      <p class="sec-thesis-method"><strong>判讀規則：</strong>0 項失效且至少 2 項支持＝論點維持；0 項失效但支持不足 2 項＝需要驗證；1 項失效＝部分失效；2 項以上失效＝重大失效。${escapeSec(secDailyData.thesisTracking?.method || '')} 狀態變化或任何失效項目會進入每日閱讀待辦。</p>`;
     }
 
     function secTextChangeCard(row, kind, index) {
