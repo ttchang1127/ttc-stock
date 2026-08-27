@@ -110,8 +110,19 @@ class DashboardSecTabTests(unittest.TestCase):
             "募資與稀釋",
             "大股東最新狀態",
             "會計審閱／執法",
-            "這是閱讀優先度，不是投資評等",
-            "財務升降與 Form 4 買賣僅陳述事實",
+            "目前建議動作",
+            "SEC 證據分數／100",
+            "判讀信心",
+            "支持證據",
+            "風險證據",
+            "什麼會改變結論",
+            "實際稀釋股數 YoY",
+            "證據偏正向",
+            "中性觀察",
+            "風險偏高",
+            "高風險",
+            "不是買進／賣出指令",
+            "重要文件本身只提高閱讀優先度，不預設多空",
         ]
         for phrase in required_copy:
             self.assertIn(phrase, self.html)
@@ -120,6 +131,15 @@ class DashboardSecTabTests(unittest.TestCase):
         self.assertIn("const yearAgo = periods[4]", self.html)
         self.assertIn("ownershipAge <= 90", self.html)
         self.assertIn("['P', 'S'].includes(tx.code)", self.html)
+        self.assertIn("row.tx.rule_10b5_1 === true", self.html)
+        self.assertIn("const evidenceScore = Math.max(0, Math.min(100", self.html)
+        self.assertIn("dimensions.reduce((sum, item) => sum + item.score", self.html)
+        self.assertIn("financialScore", self.html)
+        self.assertIn("dilutionScore", self.html)
+        self.assertIn("actualDilutionScore", self.html)
+        self.assertIn("dilutedSharesYoy", self.html)
+        self.assertIn("ownershipScore", self.html)
+        self.assertIn("reviewScore", self.html)
 
     def test_daily_change_brief_distinguishes_new_zero_and_legacy_batches(self):
         required_copy = [
