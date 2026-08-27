@@ -18,6 +18,7 @@ class DashboardSecTabTests(unittest.TestCase):
         cls.thirteen_f = json.loads((ROOT / "sec_13f_stock_radar.json").read_text())
         cls.text_changes = json.loads((ROOT / "filing_text_changes.json").read_text())
         cls.thesis_tracking = json.loads((ROOT / "investment_thesis_tracking.json").read_text())
+        cls.thesis_status = json.loads((ROOT / "investment_thesis_status.json").read_text())
 
     def test_tab_defaults_to_14_days_and_allows_7_days(self):
         self.assertIn("🚨 4_SEC 每日重點", self.html)
@@ -34,6 +35,7 @@ class DashboardSecTabTests(unittest.TestCase):
         self.assertIn("fetch('sec_13f_stock_radar.json'", self.html)
         self.assertIn("fetch('filing_text_changes.json'", self.html)
         self.assertIn("fetch('investment_thesis_tracking.json'", self.html)
+        self.assertIn("fetch('investment_thesis_status.json'", self.html)
         self.assertIn("function renderSecDaily()", self.html)
         self.assertIn('id="secQuarterlyBody"', self.html)
         self.assertIn('id="secKpiQuarterly"', self.html)
@@ -125,11 +127,14 @@ class DashboardSecTabTests(unittest.TestCase):
             "🆕 今天有什麼變化",
             "function renderSecUpdateBrief()",
             "function secLegacyUpdateBatch(alerts)",
-            "本次檢查沒有新申報或外部重大訊號",
+            "本次檢查沒有新申報、外部重大訊號或論點狀態改變",
             "不是資料停更",
             "閱讀優先度改變",
             "新定期財報文件",
             "大股東／執法新增訊號",
+            "論點狀態改變",
+            "投資論點狀態變更",
+            "單純數值更新但分類不變不重複通知",
             "不把所有 6-K 當財報",
             "優先度只決定閱讀順序",
         ]
@@ -206,6 +211,7 @@ class DashboardSecTabTests(unittest.TestCase):
 
     def test_investment_thesis_tracker_has_company_rules_history_and_queue(self):
         self.assertEqual(set(self.thesis_tracking["companies"]), set(self.quarterly["companies"]))
+        self.assertEqual(set(self.thesis_status["companies"]), set(self.quarterly["companies"]))
         self.assertEqual(self.thesis_tracking["schema_version"], 1)
         allowed_metrics = {"revenue_growth", "gross_margin", "operating_margin", "cash_dilution"}
         for ticker, company in self.thesis_tracking["companies"].items():
@@ -221,15 +227,18 @@ class DashboardSecTabTests(unittest.TestCase):
             'id="secThesisTracker"',
             "function secInvestmentThesisSnapshot(company, config, offset = 0)",
             "function secInvestmentThesisAnalysis(company, config)",
+            "function secInvestmentThesisForTicker(ticker)",
             "function renderSecThesisTracker()",
             "投資論點與失效條件追蹤卡",
             "最近四季論點狀態歷史",
+            "狀態變更日誌",
             "🟢 論點維持", "🔵 需要驗證", "🟡 部分失效", "🔴 重大失效",
             "0 項失效且至少 2 項支持＝論點維持",
             "狀態變化或任何失效項目會進入每日閱讀待辦",
             "id: `thesis:${ticker}:${investmentThesis.fingerprint}`",
             "thesis: '投資論點'",
             "renderSecThesisTracker();",
+            "GitHub Issue 只在分類真的改變時建立",
         ]
         for phrase in required_copy:
             self.assertIn(phrase, self.html)

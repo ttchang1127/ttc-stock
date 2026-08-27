@@ -46,31 +46,43 @@ jobs:
           SEC_USER_AGENT: ${{ vars.SEC_USER_AGENT || 'SecKBResearch user@example.com' }}
         run: python3 scripts/diff_periodic_filings.py
 
+      - name: Compare investment thesis states
+        id: thesis
+        run: |
+          python3 scripts/track_investment_thesis_status.py \
+            --checked-at "${{ steps.watch.outputs.checked_at }}" \
+            --alert-markdown "$RUNNER_TEMP/sec-alert.md" \
+            --summary "$GITHUB_STEP_SUMMARY"
+
       - name: Verify refreshed SEC radar snapshots
         run: python3 scripts/check_integrity.py --quiet
 
       # A deterministic batch ID prevents a retry from creating a duplicate
       # issue after the notification succeeded but the state push conflicted.
       - name: Notify with a GitHub Issue
-        if: steps.watch.outputs.notify_count != '0'
+        if: steps.watch.outputs.notify_count != '0' || steps.thesis.outputs.notify_count != '0'
         env:
           GH_TOKEN: ${{ github.token }}
-          BATCH_ID: ${{ steps.watch.outputs.batch_id }}
-          CRITICAL_COUNT: ${{ steps.watch.outputs.critical_count }}
+          WATCH_BATCH_ID: ${{ steps.watch.outputs.batch_id }}
+          THESIS_BATCH_ID: ${{ steps.thesis.outputs.batch_id }}
+          WATCH_CRITICAL_COUNT: ${{ steps.watch.outputs.critical_count }}
+          THESIS_CRITICAL_COUNT: ${{ steps.thesis.outputs.critical_count }}
         run: |
-          title="SEC Filing Alert [$BATCH_ID]"
-          if [ "$CRITICAL_COUNT" != "0" ]; then
+          batch_id="$WATCH_BATCH_ID-$THESIS_BATCH_ID"
+          critical_count=$((WATCH_CRITICAL_COUNT + THESIS_CRITICAL_COUNT))
+          title="SEC / Thesis Alert [$batch_id]"
+          if [ "$critical_count" != "0" ]; then
             title="🔴 $title"
           else
             title="🟠 $title"
           fi
-          existing=$(gh issue list --state all --search "$BATCH_ID in:title" \
+          existing=$(gh issue list --state all --search "$batch_id in:title" \
             --json number --jq '.[0].number // empty')
           if [ -z "$existing" ]; then
             gh issue create --title "$title" --body-file "$RUNNER_TEMP/sec-alert.md" \
               --assignee "$GITHUB_REPOSITORY_OWNER"
           else
-            echo "Issue #$existing already records batch $BATCH_ID; skipping duplicate."
+            echo "Issue #$existing already records batch $batch_id; skipping duplicate."
           fi
 
       - name: Persist accession state and Obsidian radar snapshots
@@ -78,7 +90,7 @@ jobs:
           git config user.name  'github-actions[bot]'
           git config user.email 'github-actions[bot]@users.noreply.github.com'
           git add .github/sec-filing-state.json sec_filing_alerts.json \
-            sec_filing_details.json filing_text_changes.json \
+            sec_filing_details.json filing_text_changes.json investment_thesis_status.json \
             60_SEC_Filing_Radar/SEC_Filing_Alerts.md \
             60_SEC_Filing_Radar/Quarterly_10Q_Radar.md \
             60_SEC_Filing_Radar/Form4_Insider_Radar.md \

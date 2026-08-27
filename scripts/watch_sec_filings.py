@@ -547,6 +547,7 @@ def main():
     notify_count = sum(event["severity"] in {"critical", "high"} for event in new_events)
     write_github_output(args.github_output, {
         "initialized": str(initializing).lower(),
+        "checked_at": checked_at,
         "new_count": len(new_events),
         "critical_count": critical,
         "notify_count": notify_count,

@@ -19,11 +19,12 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [main]
-  # A push made with the refresh workflow's GITHUB_TOKEN intentionally does
-  # not emit another push-triggered workflow run. Listen for the refresh job
-  # itself so its committed market/SEC data is published without a human push.
+  # A push made with a data workflow's GITHUB_TOKEN intentionally does not emit
+  # another push-triggered workflow run. Listen for both automated data jobs so
+  # market data, SEC filings and thesis-state changes reach Pages without a
+  # human push.
   workflow_run:
-    workflows: ["Refresh market and filing data"]
+    workflows: ["Refresh market and filing data", "SEC filing alerts"]
     types: [completed]
     branches: [main]
   workflow_dispatch:

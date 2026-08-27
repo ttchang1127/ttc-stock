@@ -758,6 +758,63 @@ def c24():
     return not bad and not missing, f"資料問題：{bad or '無'}；缺畫面／待辦串接：{missing or '無'}"
 
 
+@check("C-25", "投資論點狀態快照、日誌與通知完整")
+def c25():
+    tracking = load("investment_thesis_tracking.json")
+    quarterly = load("quarterly_financials.json")
+    status = load("investment_thesis_status.json")
+    tracked = set(tracking.get("companies", {}))
+    companies = status.get("companies", {})
+    bad = []
+    pending = []
+    if set(companies) != tracked:
+        bad.append("狀態快照公司覆蓋不是 14 家")
+    from track_investment_thesis_status import snapshot  # noqa: PLC0415
+    for ticker in sorted(tracked):
+        current = companies.get(ticker, {})
+        expected = snapshot(
+            quarterly.get("companies", {}).get(ticker, {}),
+            tracking["companies"][ticker],
+        )
+        same_input = expected and current.get("fingerprint") == expected.get("fingerprint")
+        if expected and not same_input:
+            pending.append(ticker)
+            continue
+        if not expected or current.get("status") != expected.get("status"):
+            bad.append(f"{ticker} 綜合狀態不是最新計算結果")
+        current_items = {row.get("id"): row.get("status") for row in current.get("items", [])}
+        expected_items = {row.get("id"): row.get("status") for row in (expected or {}).get("items", [])}
+        if current_items != expected_items:
+            bad.append(f"{ticker} 分項狀態不是最新計算結果")
+        if len(current.get("history", [])) != 4:
+            bad.append(f"{ticker} 沒有四季狀態歷史")
+    batches = status.get("update_batches", [])
+    if not batches or not all(field in batches[0] for field in (
+            "checked_at", "previous_checked_at", "baseline", "changed_count", "changes")):
+        bad.append("缺少可稽核的最新檢查批次")
+    page = read("dashboard.html")
+    sec_workflow = read(".github/workflows/sec-filing-alerts.yml")
+    deploy_workflow = read(".github/workflows/deploy-pages.yml")
+    markers = (
+        "investment_thesis_status.json", "secInvestmentThesisForTicker",
+        "投資論點狀態變更", "狀態變更日誌", "單純數值更新但分類不變不重複通知",
+        "GitHub Issue 只在分類真的改變時建立",
+    )
+    missing = [marker for marker in markers if marker not in page]
+    workflow_markers = (
+        "track_investment_thesis_status.py", "Compare investment thesis states",
+        "steps.thesis.outputs.notify_count", "investment_thesis_status.json",
+        "SEC / Thesis Alert",
+    )
+    missing += [f"SEC workflow:{marker}" for marker in workflow_markers if marker not in sec_workflow]
+    if '"SEC filing alerts"' not in deploy_workflow:
+        missing.append("Pages workflow:SEC filing alerts")
+    return not bad and not missing, (
+        f"資料問題：{bad or '無'}；待中午狀態批次：{pending or '無'}；"
+        f"缺畫面／自動化：{missing or '無'}"
+    )
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--quiet", action="store_true", help="只印出失敗項")
