@@ -32,8 +32,8 @@ DEFAULT_FINANCIALS = REPO_ROOT / "financials.json"
 DEFAULT_STATUS = REPO_ROOT / "periodic_filing_ingest.json"
 DEFAULT_NOTE = REPO_ROOT / "60_SEC_Filing_Radar" / "Periodic_Filing_Ingest.md"
 TARGET_FORMS = {"10-Q", "10-Q/A", "8-K", "8-K/A", "6-K", "6-K/A"}
-SCHEMA_VERSION = 1
-PARSER_VERSION = 1
+SCHEMA_VERSION = 2
+PARSER_VERSION = 2
 
 
 def now_utc() -> str:
@@ -367,37 +367,84 @@ def selected_events(events_path: Path) -> list[dict]:
     )
 
 
+def expected_section_slugs(event: dict) -> set[str] | None:
+    if event["form"].startswith("10-Q"):
+        return {
+            "PartI_Item2_MD_and_A", "PartI_Item4_Controls",
+            "PartII_Item1A_Risk_Factors",
+        }
+    if event["form"].startswith("8-K"):
+        numbers = {
+            str(item).strip() for item in event.get("items", [])
+            if re.fullmatch(r"\d+\.\d{2}", str(item).strip())
+        }
+        if not numbers:
+            return None
+        return {f"Item_{number.replace('.', '_')}" for number in numbers}
+    return set()
+
+
+def active_section_paths(filing_dir: Path, stem: str) -> list[Path]:
+    return sorted((filing_dir / "sections").glob(f"{stem}_*.md"))
+
+
+def remove_active_notes(root: Path, filing_dir: Path, main_path: Path, stem: str) -> list[str]:
+    """Remove only accession-scoped generated notes after a failed reparse."""
+    removed = []
+    for path in [main_path, *active_section_paths(filing_dir, stem)]:
+        if path.is_file():
+            path.unlink()
+            removed.append(str(path.relative_to(root)))
+    return removed
+
+
+def existing_ingest_is_complete(event: dict, main_path: Path, section_paths: list[Path]) -> bool:
+    if not main_path.is_file():
+        return False
+    note = main_path.read_text()
+    required_markers = (
+        f'accession_number: "{event["accession"]}"',
+        f'sec_url: "{event["url"]}"',
+        f"ingest_parser_version: {PARSER_VERSION}",
+    )
+    if any(marker not in note for marker in required_markers):
+        return False
+    expected = expected_section_slugs(event)
+    if expected is None:
+        return False
+    actual = {path.stem.removeprefix(main_path.stem + "_") for path in section_paths}
+    if actual != expected:
+        return False
+    return all(event["accession"] in path.read_text() for path in section_paths)
+
+
 def ingest_event(event: dict, company_name: str, root: Path) -> dict:
     stem = filing_stem(event)
     filing_dir = root / "20_Filings" / event["ticker"]
     raw_path = filing_dir / "raw" / f"{stem}_raw.html"
     main_path = filing_dir / f"{stem}.md"
-    raw_cache_valid = not raw_path.exists() or raw_path.read_bytes().lstrip().startswith(b"<")
-    existing_note = main_path.read_text() if main_path.exists() else ""
-    if (main_path.exists()
-            and f'accession_number: "{event["accession"]}"' in existing_note
-            and f"ingest_parser_version: {PARSER_VERSION}" in existing_note
-            and raw_cache_valid):
-        existing_sections = sorted(
-            str(path.relative_to(root))
-            for path in (filing_dir / "sections").glob(f"{stem}_*.md")
-        )
+    expected_note = str(main_path.relative_to(root))
+    existing_section_paths = active_section_paths(filing_dir, stem)
+    if existing_ingest_is_complete(event, main_path, existing_section_paths):
+        existing_sections = [str(path.relative_to(root)) for path in existing_section_paths]
         return {
             "ticker": event["ticker"], "form": event["form"], "accession": event["accession"],
             "filing_date": event["filing_date"], "report_date": event.get("report_date"),
-            "status": "already_ingested", "note": str(main_path.relative_to(root)),
+            "status": "already_ingested", "note": expected_note, "expected_note": expected_note,
             "sections": existing_sections,
-            "source_url": event["url"], "errors": [],
+            "source_url": event["url"], "errors": [], "removed_stale_notes": [],
         }
 
     try:
         payload = download(event["url"])
     except (urllib.error.URLError, TimeoutError, OSError) as exc:
+        removed = remove_active_notes(root, filing_dir, main_path, stem)
         return {
             "ticker": event["ticker"], "form": event["form"], "accession": event["accession"],
             "filing_date": event["filing_date"], "report_date": event.get("report_date"),
-            "status": "download_failed", "note": None, "sections": [], "source_url": event["url"],
-            "errors": [f"{type(exc).__name__}: {exc}"],
+            "status": "download_failed", "note": None, "expected_note": expected_note,
+            "sections": [], "source_url": event["url"],
+            "errors": [f"{type(exc).__name__}: {exc}"], "removed_stale_notes": removed,
         }
     source = payload.decode("utf-8", errors="ignore")
     text = clean_html_to_text(source)
@@ -412,11 +459,13 @@ def ingest_event(event: dict, company_name: str, root: Path) -> dict:
         sections, errors = {}, []
 
     if errors:
+        removed = remove_active_notes(root, filing_dir, main_path, stem)
         return {
             "ticker": event["ticker"], "form": event["form"], "accession": event["accession"],
             "filing_date": event["filing_date"], "report_date": event.get("report_date"),
-            "status": "review_required", "note": None, "sections": [], "source_url": event["url"],
-            "errors": errors,
+            "status": "review_required", "note": None, "expected_note": expected_note,
+            "sections": [], "source_url": event["url"],
+            "errors": errors, "removed_stale_notes": removed,
         }
 
     raw_path.parent.mkdir(parents=True, exist_ok=True)
@@ -429,13 +478,18 @@ def ingest_event(event: dict, company_name: str, root: Path) -> dict:
     # main note therefore serves as the idempotency marker for a complete set.
     for path, content in rendered_sections.items():
         atomic_write(path, content)
+    removed = []
+    for path in active_section_paths(filing_dir, stem):
+        if path not in rendered_sections:
+            path.unlink()
+            removed.append(str(path.relative_to(root)))
     atomic_write(main_path, render_main_note(event, company_name, stem, sections))
     return {
         "ticker": event["ticker"], "form": event["form"], "accession": event["accession"],
         "filing_date": event["filing_date"], "report_date": event.get("report_date"),
-        "status": "ingested", "note": str(main_path.relative_to(root)),
+        "status": "ingested", "note": expected_note, "expected_note": expected_note,
         "sections": [str(path.relative_to(root)) for path in rendered_sections],
-        "source_url": event["url"], "errors": [],
+        "source_url": event["url"], "errors": [], "removed_stale_notes": removed,
         "source_sha256": hashlib.sha256(payload).hexdigest(),
     }
 
@@ -453,9 +507,11 @@ def render_status_note(status: dict) -> str:
     if pending:
         lines += ["## ⚠️ 待人工覆核", ""]
         for row in pending:
+            removed = row.get("removed_stale_notes") or []
+            cleanup = f"；已移除舊版輸出 {len(removed)} 份" if removed else ""
             lines.append(
                 f"- **{row['ticker']}｜{row['form']}｜{row['filing_date']}**｜`{row['accession']}`｜"
-                f"{'；'.join(row['errors'])}｜[SEC 原文]({row['source_url']})"
+                f"{'；'.join(row['errors'])}{cleanup}｜[SEC 原文]({row['source_url']})"
             )
         lines.append("")
     lines += ["## ✅ 已建立的筆記", ""]
@@ -480,7 +536,12 @@ def write_summary(path: Path | None, status: dict, heading: str = "10-Q／8-K／
         handle.write(f"\n## {heading}\n\n")
         handle.write(f"處理 {len(status['filings'])} 份；待人工覆核／下載失敗 {len(pending)} 份。\n")
         for row in pending:
-            handle.write(f"- {row['ticker']} {row['form']} `{row['accession']}`：{'；'.join(row['errors'])}\n")
+            removed = row.get("removed_stale_notes") or []
+            cleanup = f"；已移除舊版輸出 {len(removed)} 份" if removed else ""
+            handle.write(
+                f"- {row['ticker']} {row['form']} `{row['accession']}`："
+                f"{'；'.join(row['errors'])}{cleanup}\n"
+            )
 
 
 def main() -> int:

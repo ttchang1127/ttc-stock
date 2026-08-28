@@ -128,6 +128,57 @@ class PeriodicFilingIngestTests(unittest.TestCase):
             self.assertIn('accession_number: "0000000001-26-000123"', note)
             self.assertIn("fail_closed", note)
 
+    def test_failed_reparse_removes_only_stale_accession_notes(self):
+        bad_html = b"<html><body>short invalid filing</body></html>"
+        with tempfile.TemporaryDirectory() as directory, mock.patch.object(
+            ingest, "download", return_value=bad_html
+        ):
+            root = pathlib.Path(directory)
+            filing = event()
+            stem = ingest.filing_stem(filing)
+            folder = root / "20_Filings" / "TEST"
+            section_folder = folder / "sections"
+            section_folder.mkdir(parents=True)
+            main = folder / f"{stem}.md"
+            stale = section_folder / f"{stem}_PartI_Item4_Controls.md"
+            unrelated = section_folder / "TEST_2025_10Q_unrelated.md"
+            main.write_text(
+                'accession_number: "0000000001-26-000123"\n'
+                'ingest_parser_version: 1\nOLD NOTE\n'
+            )
+            stale.write_text("OLD SECTION\n")
+            unrelated.write_text("KEEP\n")
+
+            result = ingest.ingest_event(filing, "Test Company", root)
+
+            self.assertEqual(result["status"], "review_required")
+            self.assertEqual(set(result["removed_stale_notes"]), {
+                str(main.relative_to(root)), str(stale.relative_to(root)),
+            })
+            self.assertFalse(main.exists())
+            self.assertFalse(stale.exists())
+            self.assertEqual(unrelated.read_text(), "KEEP\n")
+
+    def test_incomplete_or_extra_existing_sections_force_clean_reparse(self):
+        html = "<html><body>" + valid_10q_text().replace("\n", "<br>") + "</body></html>"
+        with tempfile.TemporaryDirectory() as directory, mock.patch.object(
+            ingest, "download", return_value=html.encode()
+        ) as downloader:
+            root = pathlib.Path(directory)
+            filing = event()
+            first = ingest.ingest_event(filing, "Test Company", root)
+            stem = ingest.filing_stem(filing)
+            obsolete = root / "20_Filings" / "TEST" / "sections" / f"{stem}_Obsolete.md"
+            obsolete.write_text("stale output")
+
+            second = ingest.ingest_event(filing, "Test Company", root)
+
+            self.assertEqual(first["status"], "ingested")
+            self.assertEqual(second["status"], "ingested")
+            self.assertEqual(downloader.call_count, 2)
+            self.assertFalse(obsolete.exists())
+            self.assertIn(str(obsolete.relative_to(root)), second["removed_stale_notes"])
+
 
 if __name__ == "__main__":
     unittest.main()

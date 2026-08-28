@@ -542,6 +542,21 @@ DCF 不是事實。使用者若問「這檔值多少錢」，正確回答是：
 
 ## 7. 什麼時候必須停下來問人
 
+### 外接磁碟上的 Git ref 污染
+
+若 `git fetch`／`git pull` 出現 `bad object refs/codex/.../Icon?`，是 macOS Finder
+把自訂資料夾圖示的空白 `Icon\r` 檔寫進 `.git/refs`，不是遠端缺 object。執行：
+
+```bash
+python3 scripts/configure_local_git.py
+git fetch --dry-run origin main
+```
+
+清理器只移除 `.git/refs` 底下名稱精確為 `Icon\r` 且大小為 0 的檔案，並在本機設定
+`fetch.hideRefs=refs/codex`，讓之後即使 Finder 再建立同類檔案也不會阻斷 fetch／pull。
+可用 `python3 scripts/configure_local_git.py --check` 做唯讀檢查。不要手動刪除整個
+`.git/refs/codex`，其中仍有 Codex checkpoint 使用的有效 refs。
+
 1. 本文件沒有描述的錯誤訊息
 2. `git status` 出現預期外的檔案
 3. 需要修改任何 `scripts/*.py` 的計算邏輯
@@ -566,7 +581,8 @@ DCF 不是事實。使用者若問「這檔值多少錢」，正確回答是：
 | `estimate_dcf_inputs.py` | 由 beta／Rf／Kd／營收 CAGR 推導 g 與 WACC（**只印出，不寫檔**） |
 | `check_new_annual_filings.py` | 比對 SEC 最新 10-K／20-F 與本地 accession（**只通知，不寫檔**） |
 | `watch_sec_filings.py` | 台北時間週二至週六中午比對 14 家 SEC accession，更新每日雷達並由 GitHub Issue 通知 |
-| `ingest_periodic_filings.py` | 依 accession 下載 10-Q／8-K／6-K 官方主要文件；安全拆分 10-Q MD&A／Controls／Risk Factors 與 8-K SEC Item，失敗即列人工覆核且不寫猜測筆記 |
+| `ingest_periodic_filings.py` | 依 accession 下載 10-Q／8-K／6-K 官方主要文件；安全拆分 10-Q MD&A／Controls／Risk Factors 與 8-K SEC Item；重解析失敗會移除該 accession 的舊版現役筆記，避免狀態顯示失敗但頁面仍殘留舊內容 |
+| `configure_local_git.py` | 清除 `.git/refs` 內 0-byte Finder `Icon\r` 非法 ref，並設定 `fetch.hideRefs=refs/codex`，避免外接磁碟上的 macOS 圖示 metadata 阻斷 fetch／pull |
 | `sec_specialized_radars.py` | 產生最新 10-Q 到件表、解析 Form 4 Ownership XML、依募資文件內文判別 ATM／股權／可轉債／一般債券／架上註冊 |
 | `sec_advanced_radars.py` | 產生財報附註／附件、UPLOAD／CORRESP、13D／13G、DEF 14A、Form 144＋3／4／5、併購與 SEC 執法／停牌雷達；結果依 accession 快取 |
 | `sec_13f_stock_radar.py` | 掃描 SEC 最新兩期完整 13F 資料集，以 14 家股票為主體彙總機構家數、股數、季變化與前大持有人；每月 20 日檢查新資料集 |

@@ -820,6 +820,10 @@ def c25():
 
 @check("C-26", "10-Q／8-K 入庫可追溯且章節邊界安全")
 def c26():
+    from ingest_periodic_filings import (  # noqa: PLC0415
+        PARSER_VERSION as periodic_parser_version,
+        SCHEMA_VERSION as periodic_schema_version,
+    )
     alerts = load("sec_filing_alerts.json")
     status = load("periodic_filing_ingest.json")
     target_forms = {"10-Q", "10-Q/A", "8-K", "8-K/A", "6-K", "6-K/A"}
@@ -830,8 +834,10 @@ def c26():
     rows = status.get("filings", [])
     actual = {row.get("accession"): row for row in rows}
     bad = []
-    if status.get("schema_version") != 1:
-        bad.append("periodic_filing_ingest schema 不是 1")
+    if status.get("schema_version") != periodic_schema_version:
+        bad.append(
+            f"periodic_filing_ingest schema 不是 {periodic_schema_version}"
+        )
     if len(actual) != len(rows):
         bad.append("入庫狀態有重複 accession")
     if set(actual) != set(expected):
@@ -848,6 +854,12 @@ def c26():
                 bad.append(f"{accession} 覆核失敗卻仍列出筆記")
             if not row.get("errors"):
                 bad.append(f"{accession} 覆核失敗但沒有原因")
+            expected_note = REPO_ROOT / str(row.get("expected_note") or "")
+            stale_sections = list(
+                (expected_note.parent / "sections").glob(f"{expected_note.stem}_*.md")
+            ) if row.get("expected_note") else []
+            if expected_note.is_file() or stale_sections:
+                bad.append(f"{accession} 覆核失敗但舊版 Markdown 仍在現役路徑")
             continue
         if row.get("status") not in {"ingested", "already_ingested"}:
             bad.append(f"{accession} 狀態不合法：{row.get('status')}")
@@ -857,7 +869,10 @@ def c26():
             bad.append(f"{accession} 缺主筆記")
             continue
         note = note_path.read_text()
-        for marker in (accession, source.get("url", ""), "ingest_parser_version: 1"):
+        for marker in (
+            accession, source.get("url", ""),
+            f"ingest_parser_version: {periodic_parser_version}",
+        ):
             if marker and marker not in note:
                 bad.append(f"{accession} 主筆記缺可追溯欄位：{marker}")
 
