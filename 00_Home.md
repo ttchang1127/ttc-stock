@@ -64,6 +64,7 @@ tags:
 ## ⚡ 法說會與即時重大事件追蹤 (Form 8-K / 6-K)
 
 - 🚨 **[[SEC_Filing_Alerts|SEC 每日申報雷達（14 家、台北時間中午更新）]]**
+- 📥 **[[Periodic_Filing_Ingest|10-Q／8-K／6-K 原文筆記與安全分段狀態]]**
 - 📊 **[[Quarterly_10Q_Radar|10-Q 季報到件雷達]]**
 - 💧 **[[Dilution_Offering_Radar|募資與股權稀釋雷達]]**
 - 📎 **[[Footnotes_Attachments_Radar|財報附註／附件雷達]]**

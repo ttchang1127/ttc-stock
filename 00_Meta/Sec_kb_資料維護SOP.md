@@ -65,6 +65,11 @@ SEC XBRL Company Facts API          Yahoo Finance (yfinance)
 20_Filings/*/sections/*Risk_Factors.md
         ↓ diff_risk_factors.py
    risk_changes.json ──→ build_reports.py ←── risk_zh.json（繁中譯文，人類維護）
+
+sec_filing_alerts.json（SEC accession／官方主要文件 URL）
+        ↓ ingest_periodic_filings.py（fail-closed；章節邊界不可靠即停止）
+   periodic_filing_ingest.json ＋ 60_SEC_Filing_Radar/Periodic_Filing_Ingest.md
+        └─→ 20_Filings/<Ticker>/（10-Q／8-K／6-K 主筆記與已驗證章節）
 ```
 
 這七支腳本必須**照這個順序**執行，後面的依賴前面的產出。
@@ -561,6 +566,7 @@ DCF 不是事實。使用者若問「這檔值多少錢」，正確回答是：
 | `estimate_dcf_inputs.py` | 由 beta／Rf／Kd／營收 CAGR 推導 g 與 WACC（**只印出，不寫檔**） |
 | `check_new_annual_filings.py` | 比對 SEC 最新 10-K／20-F 與本地 accession（**只通知，不寫檔**） |
 | `watch_sec_filings.py` | 台北時間週二至週六中午比對 14 家 SEC accession，更新每日雷達並由 GitHub Issue 通知 |
+| `ingest_periodic_filings.py` | 依 accession 下載 10-Q／8-K／6-K 官方主要文件；安全拆分 10-Q MD&A／Controls／Risk Factors 與 8-K SEC Item，失敗即列人工覆核且不寫猜測筆記 |
 | `sec_specialized_radars.py` | 產生最新 10-Q 到件表、解析 Form 4 Ownership XML、依募資文件內文判別 ATM／股權／可轉債／一般債券／架上註冊 |
 | `sec_advanced_radars.py` | 產生財報附註／附件、UPLOAD／CORRESP、13D／13G、DEF 14A、Form 144＋3／4／5、併購與 SEC 執法／停牌雷達；結果依 accession 快取 |
 | `sec_13f_stock_radar.py` | 掃描 SEC 最新兩期完整 13F 資料集，以 14 家股票為主體彙總機構家數、股數、季變化與前大持有人；每月 20 日檢查新資料集 |

@@ -818,6 +818,83 @@ def c25():
     )
 
 
+@check("C-26", "10-Q／8-K 入庫可追溯且章節邊界安全")
+def c26():
+    alerts = load("sec_filing_alerts.json")
+    status = load("periodic_filing_ingest.json")
+    target_forms = {"10-Q", "10-Q/A", "8-K", "8-K/A", "6-K", "6-K/A"}
+    expected = {
+        row["accession"]: row for row in alerts.get("events", [])
+        if row.get("form") in target_forms and row.get("accession") and row.get("url")
+    }
+    rows = status.get("filings", [])
+    actual = {row.get("accession"): row for row in rows}
+    bad = []
+    if status.get("schema_version") != 1:
+        bad.append("periodic_filing_ingest schema 不是 1")
+    if len(actual) != len(rows):
+        bad.append("入庫狀態有重複 accession")
+    if set(actual) != set(expected):
+        bad.append("入庫狀態未完整覆蓋目前雷達的定期申報")
+
+    required_10q = {
+        "PartI_Item2_MD_and_A", "PartI_Item4_Controls",
+        "PartII_Item1A_Risk_Factors",
+    }
+    for accession, row in sorted(actual.items()):
+        source = expected.get(accession, {})
+        if row.get("status") in {"review_required", "download_failed"}:
+            if row.get("note") or row.get("sections"):
+                bad.append(f"{accession} 覆核失敗卻仍列出筆記")
+            if not row.get("errors"):
+                bad.append(f"{accession} 覆核失敗但沒有原因")
+            continue
+        if row.get("status") not in {"ingested", "already_ingested"}:
+            bad.append(f"{accession} 狀態不合法：{row.get('status')}")
+            continue
+        note_path = REPO_ROOT / str(row.get("note") or "")
+        if not note_path.is_file():
+            bad.append(f"{accession} 缺主筆記")
+            continue
+        note = note_path.read_text()
+        for marker in (accession, source.get("url", ""), "ingest_parser_version: 1"):
+            if marker and marker not in note:
+                bad.append(f"{accession} 主筆記缺可追溯欄位：{marker}")
+
+        section_paths = [REPO_ROOT / path for path in row.get("sections", [])]
+        for path in section_paths:
+            if not path.is_file() or accession not in path.read_text():
+                bad.append(f"{accession} 章節不存在或缺 accession：{path.name}")
+        form = row.get("form", "")
+        slugs = {path.stem.split(note_path.stem + "_", 1)[-1] for path in section_paths}
+        if form.startswith("10-Q"):
+            if slugs != required_10q:
+                bad.append(f"{accession} 10-Q 必要章節不是 3 篇")
+            controls = next((path for path in section_paths if path.stem.endswith("PartI_Item4_Controls")), None)
+            if controls and re.search(r"^PART\s+II\b", controls.read_text(), re.M | re.I):
+                bad.append(f"{accession} Controls 跨入 Part II")
+        elif form.startswith("8-K"):
+            expected_items = {
+                str(item).strip() for item in source.get("items", [])
+                if re.fullmatch(r"\d+\.\d{2}", str(item).strip())
+            }
+            if len(section_paths) != len(expected_items):
+                bad.append(f"{accession} 8-K Item 數與 SEC submissions 不一致")
+        elif form.startswith("6-K") and section_paths:
+            bad.append(f"{accession} 6-K 不應猜測 Item 章節")
+
+    workflow = read(".github/workflows/sec-filing-alerts.yml")
+    workflow_markers = (
+        "ingest_periodic_filings.py", "periodic_filing_ingest.json",
+        "20_Filings/", "steps.ingest.outputs.pending_count",
+        "Require manual review for unsafe filing boundaries",
+    )
+    missing = [marker for marker in workflow_markers if marker not in workflow]
+    if "Periodic_Filing_Ingest" not in read("00_Home.md"):
+        missing.append("00_Home:Periodic_Filing_Ingest")
+    return not bad and not missing, f"資料問題：{bad or '無'}；缺自動化／入口：{missing or '無'}"
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--quiet", action="store_true", help="只印出失敗項")
