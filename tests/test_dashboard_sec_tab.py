@@ -20,6 +20,7 @@ class DashboardSecTabTests(unittest.TestCase):
         cls.thesis_tracking = json.loads((ROOT / "investment_thesis_tracking.json").read_text())
         cls.thesis_status = json.loads((ROOT / "investment_thesis_status.json").read_text())
         cls.exhibit_991 = json.loads((ROOT / "exhibit_991_analysis.json").read_text())
+        cls.earnings_calls = json.loads((ROOT / "earnings_call_analysis.json").read_text())
 
     def test_tab_defaults_to_14_days_and_allows_7_days(self):
         self.assertIn("🚨 4_SEC 每日重點", self.html)
@@ -38,6 +39,7 @@ class DashboardSecTabTests(unittest.TestCase):
         self.assertIn("fetch('investment_thesis_tracking.json'", self.html)
         self.assertIn("fetch('investment_thesis_status.json'", self.html)
         self.assertIn("fetch('exhibit_991_analysis.json'", self.html)
+        self.assertIn("fetch('earnings_call_analysis.json'", self.html)
         self.assertIn("function renderSecDaily()", self.html)
         self.assertIn('id="secQuarterlyBody"', self.html)
         self.assertIn('id="secKpiQuarterly"', self.html)
@@ -60,7 +62,7 @@ class DashboardSecTabTests(unittest.TestCase):
         self.assertIn('id="secCoreShortcuts"', self.html)
         self.assertIn("function setSecCoreTicker(ticker)", self.html)
         self.assertIn("function renderSecCoreShortcuts()", self.html)
-        self.assertIn("點選一次，同步切換①八季數字、②重要申報、③ Form 4、④募資稀釋、⑤進階 SEC 雷達、⑥文字差異、⑦投資論點與⑧ Exhibit 99.1", self.html)
+        self.assertIn("點選一次，同步切換①八季數字、②重要申報、③ Form 4、④募資稀釋、⑤進階 SEC 雷達、⑥文字差異、⑦投資論點、⑧ Exhibit 99.1 與⑨ Earnings Call", self.html)
         for ticker in core:
             self.assertIn(f'data-sec-core-ticker="{ticker}"', self.html)
             self.assertIn(f"setSecCoreTicker('{ticker}')", self.html)
@@ -90,6 +92,21 @@ class DashboardSecTabTests(unittest.TestCase):
             "不代表公司未公布財報；外國私人發行人也可能使用 6-K",
             "舊卡已移除，不顯示可能過期的內容",
             "本卡是官方附件的原文閱讀索引，不是投資評分",
+        ]
+        for phrase in required_copy:
+            self.assertIn(phrase, self.html)
+
+    def test_earnings_call_cards_distinguish_text_and_replay_sources(self):
+        self.assertEqual(self.earnings_calls["schema_version"], 1)
+        self.assertEqual(len(self.earnings_calls["companies"]), 14)
+        self.assertEqual(len(self.earnings_calls["categories"]), 7)
+        self.assertTrue(any(row["status"] == "analyzed" for row in self.earnings_calls["companies"].values()))
+        self.assertTrue(any(row["status"] == "replay_only" for row in self.earnings_calls["companies"].values()))
+        required_copy = [
+            'id="secEarningsCall"', "function renderSecEarningsCall()",
+            "⑨ Earnings Call", "完整官方逐字稿", "官方 Prepared Remarks",
+            "僅官方影音／回放", "第三方逐字稿", "Q&A",
+            "與 Exhibit 99.1", "不把語氣關鍵字轉成評分或買賣建議",
         ]
         for phrase in required_copy:
             self.assertIn(phrase, self.html)

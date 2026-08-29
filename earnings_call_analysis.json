@@ -1,0 +1,654 @@
+{
+  "schema_version": 1,
+  "parser_version": 5,
+  "updated_at": "2026-08-29T04:40:59+00:00",
+  "source": "Official company investor-relations pages and explicitly allow-listed linked hosts",
+  "methodology": "Official text only; no audio transcription; short verbatim evidence; missing stays missing; no sentiment score",
+  "source_types": {
+    "full_transcript": {
+      "label": "完整官方逐字稿",
+      "meaning": "包含管理層發言與分析師問答，可分開閱讀兩種證據。"
+    },
+    "prepared_remarks": {
+      "label": "官方 Prepared Remarks",
+      "meaning": "只包含管理層事先講稿，不含即席追問，不能代替完整電話會議。"
+    },
+    "webcast_replay": {
+      "label": "僅官方影音／回放",
+      "meaning": "可聆聽原始會議，但沒有可驗證的官方文字，因此不產生關鍵字摘錄。"
+    }
+  },
+  "categories": {
+    "demand_growth": {
+      "label": "需求與成長驅動",
+      "meaning": "管理層談到的需求、採用、訂單、backlog 或成長來源；屬公司陳述。"
+    },
+    "margin_cost": {
+      "label": "利潤率與成本壓力",
+      "meaning": "毛利率、營業利益率、成本、費用或折舊的方向與原因。"
+    },
+    "capital_supply": {
+      "label": "資本支出、產能與供應",
+      "meaning": "CapEx、資料中心、產能、供給限制與擴產線索。"
+    },
+    "guidance": {
+      "label": "指引與未來展望",
+      "meaning": "管理層對下一季或全年展望；是前瞻聲明，不是保證。"
+    },
+    "confidence": {
+      "label": "管理層信心與限定語",
+      "meaning": "信心、可見度或保留語氣的原話；不能單獨當作業績證明。"
+    },
+    "risks": {
+      "label": "逆風與風險",
+      "meaning": "管理層明確提到的逆風、壓力、限制或不確定性；不代表風險一定發生。"
+    },
+    "analyst_questions": {
+      "label": "分析師追問",
+      "meaning": "只取完整逐字稿 Q&A 區段中的問題線索，用來辨識市場最關心的假設。"
+    }
+  },
+  "companies": {
+    "AAPL": {
+      "ticker": "AAPL",
+      "company_name": "Apple Inc.",
+      "period": "FY2026 Q3",
+      "call_date": "2026-07-30",
+      "landing_url": "https://investor.apple.com/investor-relations/",
+      "material_url": "https://www.apple.com/newsroom/2026/07/apple-reports-third-quarter-results/",
+      "source_type": "webcast_replay",
+      "source_label": "僅官方影音／回放",
+      "source_meaning": "可聆聽原始會議，但沒有可驗證的官方文字，因此不產生關鍵字摘錄。",
+      "note": "Apple 官方只保留限期影音重播，未提供可持續下載的官方逐字稿。",
+      "expected_card": "20_Filings/AAPL/analysis/AAPL_FY2026_Q3_Earnings_Call.md",
+      "status": "replay_only",
+      "categories": {},
+      "coverage": {
+        "found": 0,
+        "total": 7
+      },
+      "errors": [],
+      "freshness": {
+        "status": "current",
+        "latest_financial_period": "2026-06-27",
+        "latest_financial_filing_date": "2026-07-31",
+        "meaning": "法說會日期未落後最新財務申報超過 45 天。",
+        "lag_days": 1
+      },
+      "changed": false
+    },
+    "AMZN": {
+      "ticker": "AMZN",
+      "company_name": "Amazon.com, Inc.",
+      "period": "2026 Q2",
+      "call_date": "2026-07-30",
+      "landing_url": "https://ir.aboutamazon.com/events/",
+      "material_url": "https://ir.aboutamazon.com/events/event-details/default.aspx",
+      "source_type": "webcast_replay",
+      "source_label": "僅官方影音／回放",
+      "source_meaning": "可聆聽原始會議，但沒有可驗證的官方文字，因此不產生關鍵字摘錄。",
+      "note": "官方事件頁提供 webcast／簡報，未找到官方逐字稿。",
+      "expected_card": "20_Filings/AMZN/analysis/AMZN_2026_Q2_Earnings_Call.md",
+      "status": "replay_only",
+      "categories": {},
+      "coverage": {
+        "found": 0,
+        "total": 7
+      },
+      "errors": [],
+      "freshness": {
+        "status": "current",
+        "latest_financial_period": "2026-06-30",
+        "latest_financial_filing_date": "2026-07-31",
+        "meaning": "法說會日期未落後最新財務申報超過 45 天。",
+        "lag_days": 1
+      },
+      "changed": false
+    },
+    "ARM": {
+      "ticker": "ARM",
+      "company_name": "Arm Holdings plc",
+      "period": "FY2027 Q1",
+      "call_date": "2026-07-29",
+      "landing_url": "https://investors.arm.com/financials/quarterly-annual-results",
+      "material_url": "https://investors.arm.com/static-files/2ef5e3bf-f276-4a46-a4a2-2aadccd6710b",
+      "source_type": "full_transcript",
+      "source_label": "完整官方逐字稿",
+      "source_meaning": "包含管理層發言與分析師問答，可分開閱讀兩種證據。",
+      "note": "",
+      "expected_card": "20_Filings/ARM/analysis/ARM_FY2027_Q1_Earnings_Call.md",
+      "status": "download_failed",
+      "categories": {},
+      "coverage": {
+        "found": 0,
+        "total": 7
+      },
+      "errors": [
+        "timeout: The read operation timed out"
+      ],
+      "freshness": {
+        "status": "current",
+        "latest_financial_period": "2026-06-30",
+        "latest_financial_filing_date": "2026-07-29",
+        "meaning": "法說會日期未落後最新財務申報超過 45 天。",
+        "lag_days": 0
+      },
+      "changed": false
+    },
+    "COHR": {
+      "ticker": "COHR",
+      "company_name": "Coherent Corp.",
+      "period": "FY2026 Q4",
+      "call_date": "2026-08-12",
+      "landing_url": "https://www.coherent.com/company/investor-relations/financial-releases",
+      "material_url": "https://ir.coherent.com/events/event-details/fourth-quarter-and-fiscal-year-end-2026-conference-call",
+      "source_type": "webcast_replay",
+      "source_label": "僅官方影音／回放",
+      "source_meaning": "可聆聽原始會議，但沒有可驗證的官方文字，因此不產生關鍵字摘錄。",
+      "note": "官方事件頁提供 webcast，未找到官方逐字稿。",
+      "expected_card": "20_Filings/COHR/analysis/COHR_FY2026_Q4_Earnings_Call.md",
+      "status": "replay_only",
+      "categories": {},
+      "coverage": {
+        "found": 0,
+        "total": 7
+      },
+      "errors": [],
+      "freshness": {
+        "status": "current",
+        "latest_financial_period": "2026-06-30",
+        "latest_financial_filing_date": "2026-08-14",
+        "meaning": "法說會日期未落後最新財務申報超過 45 天。",
+        "lag_days": 2
+      },
+      "changed": false
+    },
+    "GOOGL": {
+      "ticker": "GOOGL",
+      "company_name": "Alphabet Inc.",
+      "period": "2026 Q2",
+      "call_date": "2026-07-22",
+      "landing_url": "https://abc.xyz/investor/events/default.aspx",
+      "material_url": null,
+      "source_type": "full_transcript",
+      "source_label": "完整官方逐字稿",
+      "source_meaning": "包含管理層發言與分析師問答，可分開閱讀兩種證據。",
+      "note": "Alphabet 通常發布官方逐字稿；目前頁面的動態內容尚未可靠解析出本期直連。",
+      "expected_card": "20_Filings/GOOGL/analysis/GOOGL_2026_Q2_Earnings_Call.md",
+      "status": "review_required",
+      "categories": {},
+      "coverage": {
+        "found": 0,
+        "total": 7
+      },
+      "errors": [
+        "官方 IR 頁尚未可靠解析出本期文字材料直連"
+      ],
+      "freshness": {
+        "status": "current",
+        "latest_financial_period": "2026-06-30",
+        "latest_financial_filing_date": "2026-07-23",
+        "meaning": "法說會日期未落後最新財務申報超過 45 天。",
+        "lag_days": 1
+      },
+      "changed": false
+    },
+    "INTC": {
+      "ticker": "INTC",
+      "company_name": "Intel Corporation",
+      "period": "2026 Q2",
+      "call_date": "2026-07-23",
+      "landing_url": "https://www.intc.com/news-events/ir-calendar/detail/20260723-q2-2026-intel-corporation-earnings-conference-call",
+      "material_url": "https://d1io3yog0oux5.cloudfront.net/_88b01b330621eb4afbd070d5caa4f035/intel/db/887/9266/prepared_remarks/Q2+2026+Prepared+Remarks.pdf",
+      "source_type": "prepared_remarks",
+      "source_label": "官方 Prepared Remarks",
+      "source_meaning": "只包含管理層事先講稿，不含即席追問，不能代替完整電話會議。",
+      "note": "只有管理層事先講稿，不含分析師問答。",
+      "expected_card": "20_Filings/INTC/analysis/INTC_2026_Q2_Earnings_Call.md",
+      "status": "analyzed",
+      "categories": {
+        "demand_growth": [
+          {
+            "excerpt": "Q2 year over year server growth was the strongest on record and Xeon 6 continues to be one of the fastest- ramping…",
+            "section": "prepared"
+          }
+        ],
+        "margin_cost": [
+          {
+            "excerpt": "I am pleased to see the increasing momentum on customer engagements for Intel 14A and I am increasingly confident that 14A will…",
+            "section": "prepared"
+          }
+        ],
+        "capital_supply": [
+          {
+            "excerpt": "In addition, DCAI further enhanced our connectivity offerings by introducing new controller and adapter products supporting Data Center, Enterprise and Telco applications…",
+            "section": "prepared"
+          }
+        ],
+        "guidance": [
+          {
+            "excerpt": "We also strengthened our outlook with additional strategic customer wins and long -term agreements in Q2.",
+            "section": "prepared"
+          }
+        ],
+        "confidence": [
+          {
+            "excerpt": "Looking beyond 18A, I’m encouraged by our progress on Intel 14A.",
+            "section": "prepared"
+          }
+        ],
+        "risks": [
+          {
+            "excerpt": "Refer to the company’s earnings release for the second-quarter 2026, most recent annual report on Form 10-K and other filings with the…",
+            "section": "prepared"
+          }
+        ],
+        "analyst_questions": []
+      },
+      "coverage": {
+        "found": 6,
+        "total": 7
+      },
+      "q_and_a_available": false,
+      "source_sha256": "d7576fad06d6a91f7c62a98f994e2f13453054ef2060e3afcc19ec46828dcda7",
+      "exhibit_comparison": {
+        "status": "unavailable",
+        "overlap_topics": [],
+        "call_only_topics": [],
+        "meaning": "沒有同公司可比的嚴格 Exhibit 99.1 卡，因此不推測兩份資料差異。"
+      },
+      "errors": [],
+      "card": "20_Filings/INTC/analysis/INTC_2026_Q2_Earnings_Call.md",
+      "freshness": {
+        "status": "current",
+        "latest_financial_period": "2026-06-27",
+        "latest_financial_filing_date": "2026-07-24",
+        "meaning": "法說會日期未落後最新財務申報超過 45 天。",
+        "lag_days": 1
+      },
+      "changed": false
+    },
+    "META": {
+      "ticker": "META",
+      "company_name": "Meta Platforms, Inc.",
+      "period": "2026 Q2",
+      "call_date": "2026-07-29",
+      "landing_url": "https://investor.atmeta.com/investor-events/event-details/2026/Q2-2026-Earnings-Call/default.aspx",
+      "material_url": "https://s21.q4cdn.com/399680738/files/doc_financials/2026/q2/META-Q2-2026-Earnings-Call-Transcript.pdf",
+      "source_type": "full_transcript",
+      "source_label": "完整官方逐字稿",
+      "source_meaning": "包含管理層發言與分析師問答，可分開閱讀兩種證據。",
+      "note": "",
+      "expected_card": "20_Filings/META/analysis/META_2026_Q2_Earnings_Call.md",
+      "status": "analyzed",
+      "categories": {
+        "demand_growth": [
+          {
+            "excerpt": "We are also seeing a lot of demand for our new AI-powered creative tools. 9 million small businesses on our platforms are…",
+            "section": "prepared"
+          }
+        ],
+        "margin_cost": [
+          {
+            "excerpt": "The growth in infrastructure costs was driven by higher depreciation, data center operating costs, and third party cloud spend.",
+            "section": "prepared"
+          }
+        ],
+        "capital_supply": [
+          {
+            "excerpt": "Capital expenditures, including principal payments on finance leases, were $31.1 billion, driven by investments in servers, data centers, and network infrastructure.",
+            "section": "prepared"
+          }
+        ],
+        "guidance": [
+          {
+            "excerpt": "Absent any changes to our tax landscape, we expect our tax rate for the remaining quarters of 2026 to be between 15-17%,…",
+            "section": "prepared"
+          }
+        ],
+        "confidence": [
+          {
+            "excerpt": "We are encouraged by this milestone and expect continued progress in the second half of the year.",
+            "section": "prepared"
+          }
+        ],
+        "risks": [
+          {
+            "excerpt": "Our guidance assumes foreign currency is an approximately 1% headwind to year-over-year total revenue growth, based on current exchange rates.",
+            "section": "prepared"
+          }
+        ],
+        "analyst_questions": [
+          {
+            "excerpt": "Can you just talk more about the roadmap here and how far along you are in just leveraging better models and more…",
+            "section": "q_and_a"
+          }
+        ]
+      },
+      "coverage": {
+        "found": 7,
+        "total": 7
+      },
+      "q_and_a_available": true,
+      "source_sha256": "e2afcb9b452656bea2706e1dedc190d31b3aafe5528af7f3c19de6ab347a34ec",
+      "exhibit_comparison": {
+        "status": "unavailable",
+        "overlap_topics": [],
+        "call_only_topics": [],
+        "meaning": "沒有同公司可比的嚴格 Exhibit 99.1 卡，因此不推測兩份資料差異。"
+      },
+      "errors": [],
+      "card": "20_Filings/META/analysis/META_2026_Q2_Earnings_Call.md",
+      "freshness": {
+        "status": "current",
+        "latest_financial_period": "2026-06-30",
+        "latest_financial_filing_date": "2026-07-30",
+        "meaning": "法說會日期未落後最新財務申報超過 45 天。",
+        "lag_days": 1
+      },
+      "changed": false
+    },
+    "MRVL": {
+      "ticker": "MRVL",
+      "company_name": "Marvell Technology, Inc.",
+      "period": "FY2027 Q2",
+      "call_date": "2026-08-27",
+      "landing_url": "https://investor.marvell.com/financial-information/financial-results",
+      "material_url": "https://investor.marvell.com/news-events/press-releases/detail/1031/marvell-technology-inc-reports-second-quarter-of-fiscal-year-2027-financial-results",
+      "source_type": "webcast_replay",
+      "source_label": "僅官方影音／回放",
+      "source_meaning": "可聆聽原始會議，但沒有可驗證的官方文字，因此不產生關鍵字摘錄。",
+      "note": "官方結果頁提供 webcast／Additional Earnings Information，未找到官方逐字稿。",
+      "expected_card": "20_Filings/MRVL/analysis/MRVL_FY2027_Q2_Earnings_Call.md",
+      "status": "replay_only",
+      "categories": {},
+      "coverage": {
+        "found": 0,
+        "total": 7
+      },
+      "errors": [],
+      "freshness": {
+        "status": "current",
+        "latest_financial_period": "2026-05-02",
+        "latest_financial_filing_date": "2026-05-28",
+        "meaning": "法說會日期未落後最新財務申報超過 45 天。",
+        "lag_days": -91
+      },
+      "changed": false
+    },
+    "MSFT": {
+      "ticker": "MSFT",
+      "company_name": "Microsoft Corporation",
+      "period": "FY2026 Q4",
+      "call_date": "2026-07-29",
+      "landing_url": "https://www.microsoft.com/en-us/investor/events",
+      "material_url": "https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q4",
+      "source_type": "full_transcript",
+      "source_label": "完整官方逐字稿",
+      "source_meaning": "包含管理層發言與分析師問答，可分開閱讀兩種證據。",
+      "note": "",
+      "expected_card": "20_Filings/MSFT/analysis/MSFT_FY2026_Q4_Earnings_Call.md",
+      "status": "analyzed",
+      "categories": {
+        "demand_growth": [
+          {
+            "excerpt": "Thank you, Satya, and good afternoon everyone. This fiscal year, we delivered over $331 billion in revenue, with growth accelerating to 18%,…",
+            "section": "prepared"
+          }
+        ],
+        "margin_cost": [
+          {
+            "excerpt": "Segment gross margin dollars increased 14% and 13% in constant currency. And gross margin percentage decreased slightly with increased M365 Copilot usage…",
+            "section": "prepared"
+          }
+        ],
+        "capital_supply": [
+          {
+            "excerpt": "Capital expenditures were $41 billion including the impact from higher component pricing as noted in our guide. Roughly two thirds of our…",
+            "section": "prepared"
+          }
+        ],
+        "guidance": [
+          {
+            "excerpt": "Now, before I move to outlook, effective at the start of FY27, we are extending the estimated useful lives of our datacenters…",
+            "section": "prepared"
+          }
+        ],
+        "confidence": [
+          {
+            "excerpt": "And we have been encouraged by the response to our new E7 suite, as customers increasingly go “all in” on an integrated…",
+            "section": "prepared"
+          }
+        ],
+        "risks": [
+          {
+            "excerpt": "During this call, we will be making forward-looking statements which are predictions, projections, or other statements about future events. These statements are…",
+            "section": "prepared"
+          }
+        ],
+        "analyst_questions": [
+          {
+            "excerpt": "I wanted to maybe just ask about M365 Copilot. Obviously, very strong quarter there with over 30 million paid seats and a…",
+            "section": "q_and_a"
+          }
+        ]
+      },
+      "coverage": {
+        "found": 7,
+        "total": 7
+      },
+      "q_and_a_available": true,
+      "source_sha256": "98911efb24ffff8c1372b86b80808eb3d4aec82a2b6a7a464500c5b42d2bc6fc",
+      "exhibit_comparison": {
+        "status": "unavailable",
+        "overlap_topics": [],
+        "call_only_topics": [],
+        "meaning": "沒有同公司可比的嚴格 Exhibit 99.1 卡，因此不推測兩份資料差異。"
+      },
+      "errors": [],
+      "card": "20_Filings/MSFT/analysis/MSFT_FY2026_Q4_Earnings_Call.md",
+      "freshness": {
+        "status": "current",
+        "latest_financial_period": "2026-06-30",
+        "latest_financial_filing_date": "2026-07-29",
+        "meaning": "法說會日期未落後最新財務申報超過 45 天。",
+        "lag_days": 0
+      },
+      "changed": false
+    },
+    "NOK": {
+      "ticker": "NOK",
+      "company_name": "Nokia Corporation",
+      "period": "2026 Q2",
+      "call_date": "2026-07-23",
+      "landing_url": "https://www.nokia.com/about-us/investors/results-reports/",
+      "material_url": "https://www.nokia.com/about-us/investors/results-reports/",
+      "source_type": "webcast_replay",
+      "source_label": "僅官方影音／回放",
+      "source_meaning": "可聆聽原始會議，但沒有可驗證的官方文字，因此不產生關鍵字摘錄。",
+      "note": "官方頁提供財報、簡報與 webcast，未找到官方逐字稿。",
+      "expected_card": "20_Filings/NOK/analysis/NOK_2026_Q2_Earnings_Call.md",
+      "status": "replay_only",
+      "categories": {},
+      "coverage": {
+        "found": 0,
+        "total": 7
+      },
+      "errors": [],
+      "freshness": {
+        "status": "current",
+        "latest_financial_period": "2026-06-30",
+        "latest_financial_filing_date": "2026-07-23",
+        "meaning": "法說會日期未落後最新財務申報超過 45 天。",
+        "lag_days": 0
+      },
+      "changed": false
+    },
+    "NVDA": {
+      "ticker": "NVDA",
+      "company_name": "NVIDIA Corporation",
+      "period": "FY2027 Q2",
+      "call_date": "2026-08-26",
+      "landing_url": "https://investor.nvidia.com/events-and-presentations/events-and-presentations/default.aspx",
+      "material_url": "https://investor.nvidia.com/files/content_files/TRANSCRIPT_-NVIDIA-Corp-NVDA-US-Q2-2027-Earnings-Call-26-August-2026-5_00-PM-ET.pdf",
+      "source_type": "full_transcript",
+      "source_label": "完整官方逐字稿",
+      "source_meaning": "包含管理層發言與分析師問答，可分開閱讀兩種證據。",
+      "note": "",
+      "expected_card": "20_Filings/NVDA/analysis/NVDA_FY2027_Q2_Earnings_Call.md",
+      "status": "analyzed",
+      "categories": {
+        "demand_growth": [
+          {
+            "excerpt": "The surge in AI demand is driving a global infrastructure buildout, supported by an expanding and diverse set of growth opportunities, spanning…",
+            "section": "prepared"
+          }
+        ],
+        "margin_cost": [
+          {
+            "excerpt": "GAAP and non-GAAP operating expenses were up 10% and 11% sequentially, primarily due to high compute infrastructure costs and compensation and benefits…",
+            "section": "prepared"
+          }
+        ],
+        "capital_supply": [
+          {
+            "excerpt": "We expect sequential growth to be driven primarily by ACIE with data center, while growth in hyperscale is expected to reaccelerate in…",
+            "section": "prepared"
+          }
+        ],
+        "guidance": [
+          {
+            "excerpt": "We expect to grow revenue by approximately 70% in fiscal 2028.",
+            "section": "prepared"
+          }
+        ],
+        "confidence": [
+          {
+            "excerpt": "NVIDIA provides a take-or-pay commitment on a portion of the facility's capacity, a minimum revenue guarantee that gives lenders the confidence to…",
+            "section": "prepared"
+          }
+        ],
+        "risks": [
+          {
+            "excerpt": "These are subject to a number of significant risks and uncertainties, and our actual results may differ materially.",
+            "section": "prepared"
+          }
+        ],
+        "analyst_questions": [
+          {
+            "excerpt": "And then what's the gap between that amount of growth and the 100% demand growth, what is the kind of key constraint…",
+            "section": "q_and_a"
+          }
+        ]
+      },
+      "coverage": {
+        "found": 7,
+        "total": 7
+      },
+      "q_and_a_available": true,
+      "source_sha256": "a8be2bac4fd08ca18fc4bccbb165cd48237166ac5b4e211e779fc9f89ee35e16",
+      "exhibit_comparison": {
+        "status": "unavailable",
+        "overlap_topics": [],
+        "call_only_topics": [],
+        "meaning": "沒有同公司可比的嚴格 Exhibit 99.1 卡，因此不推測兩份資料差異。"
+      },
+      "errors": [],
+      "card": "20_Filings/NVDA/analysis/NVDA_FY2027_Q2_Earnings_Call.md",
+      "freshness": {
+        "status": "current",
+        "latest_financial_period": "2026-04-26",
+        "latest_financial_filing_date": "2026-05-20",
+        "meaning": "法說會日期未落後最新財務申報超過 45 天。",
+        "lag_days": -98
+      },
+      "changed": false
+    },
+    "ONDS": {
+      "ticker": "ONDS",
+      "company_name": "Ondas Holdings Inc.",
+      "period": "2026 Q2",
+      "call_date": "2026-08-13",
+      "landing_url": "https://ir.ondas.com/ir-calendar",
+      "material_url": "https://ir.ondas.com/",
+      "source_type": "webcast_replay",
+      "source_label": "僅官方影音／回放",
+      "source_meaning": "可聆聽原始會議，但沒有可驗證的官方文字，因此不產生關鍵字摘錄。",
+      "note": "官方頁提供 webcast／音訊與簡報，未找到官方逐字稿。",
+      "expected_card": "20_Filings/ONDS/analysis/ONDS_2026_Q2_Earnings_Call.md",
+      "status": "replay_only",
+      "categories": {},
+      "coverage": {
+        "found": 0,
+        "total": 7
+      },
+      "errors": [],
+      "freshness": {
+        "status": "current",
+        "latest_financial_period": "2026-06-30",
+        "latest_financial_filing_date": "2026-08-13",
+        "meaning": "法說會日期未落後最新財務申報超過 45 天。",
+        "lag_days": 0
+      },
+      "changed": false
+    },
+    "TSLA": {
+      "ticker": "TSLA",
+      "company_name": "Tesla, Inc.",
+      "period": "2026 Q2",
+      "call_date": "2026-07-22",
+      "landing_url": "https://ir.tesla.com/",
+      "material_url": "https://ir.tesla.com/webcast-2026-07-22",
+      "source_type": "webcast_replay",
+      "source_label": "僅官方影音／回放",
+      "source_meaning": "可聆聽原始會議，但沒有可驗證的官方文字，因此不產生關鍵字摘錄。",
+      "note": "官方提供 Q&A webcast 與回放，未提供官方文字逐字稿。",
+      "expected_card": "20_Filings/TSLA/analysis/TSLA_2026_Q2_Earnings_Call.md",
+      "status": "replay_only",
+      "categories": {},
+      "coverage": {
+        "found": 0,
+        "total": 7
+      },
+      "errors": [],
+      "freshness": {
+        "status": "current",
+        "latest_financial_period": "2026-06-30",
+        "latest_financial_filing_date": "2026-07-23",
+        "meaning": "法說會日期未落後最新財務申報超過 45 天。",
+        "lag_days": 1
+      },
+      "changed": false
+    },
+    "TSM": {
+      "ticker": "TSM",
+      "company_name": "Taiwan Semiconductor Manufacturing Company Limited",
+      "period": "2026 Q2",
+      "call_date": "2026-07-16",
+      "landing_url": "https://investor.tsmc.com/english/quarterly-results/2026/q2",
+      "material_url": "https://investor.tsmc.com/english/encrypt/files/encrypt_file/reports/2026-08/3e494f0c14dd0890f897aa044415e21d93486cc4/TSMC%202Q26%20Transcript.pdf",
+      "source_type": "full_transcript",
+      "source_label": "完整官方逐字稿",
+      "source_meaning": "包含管理層發言與分析師問答，可分開閱讀兩種證據。",
+      "note": "",
+      "expected_card": "20_Filings/TSM/analysis/TSM_2026_Q2_Earnings_Call.md",
+      "status": "download_failed",
+      "categories": {},
+      "coverage": {
+        "found": 0,
+        "total": 7
+      },
+      "errors": [
+        "HTTPError: HTTP Error 403: Forbidden"
+      ],
+      "freshness": {
+        "status": "current",
+        "latest_financial_period": "2026-06-30",
+        "latest_financial_filing_date": "2026-07-16",
+        "meaning": "法說會日期未落後最新財務申報超過 45 天。",
+        "lag_days": 0
+      },
+      "changed": false
+    }
+  }
+}

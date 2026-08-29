@@ -1526,6 +1526,12 @@
     .sec-exhibit991-evidence { margin-top: 8px; padding-left: 10px; border-left: 2px solid rgba(251, 191, 36, 0.4); color: #e2e8f0; font-size: 0.7rem; line-height: 1.55; }
     .sec-exhibit991-evidence + .sec-exhibit991-evidence { margin-top: 7px; }
     .sec-exhibit991-limit { margin-top: 11px; color: #94a3b8; font-size: 0.68rem; line-height: 1.55; }
+    .sec-earnings-call { margin: 16px 0 22px; padding: 18px; border: 1px solid rgba(56, 189, 248, 0.24); border-radius: 18px; background: linear-gradient(135deg, rgba(14, 116, 144, 0.09), rgba(15, 23, 42, 0.78)); }
+    .sec-earnings-call .sec-exhibit991-title { color: #bae6fd; }
+    .sec-earnings-call .sec-exhibit991-card h4 { color: #7dd3fc; }
+    .sec-earnings-call .sec-exhibit991-evidence { border-left-color: rgba(56, 189, 248, 0.48); }
+    .sec-call-source-badge { display: inline-flex; margin-top: 7px; padding: 4px 8px; border-radius: 999px; border: 1px solid rgba(56, 189, 248, 0.3); color: #7dd3fc; background: rgba(56, 189, 248, 0.09); font-size: 0.67rem; font-weight: 800; }
+    .sec-call-comparison { margin-top: 11px; padding: 10px 12px; border-radius: 10px; background: rgba(15, 23, 42, 0.58); color: #cbd5e1; font-size: 0.69rem; line-height: 1.55; }
 
     .sec-text-diff-kpis {
       display: grid;
@@ -2598,7 +2604,7 @@
         <nav id="secCoreShortcuts" class="sec-core-shortcuts" aria-label="SEC 核心持股快捷標的">
           <div class="sec-core-shortcuts-head">
             <strong>⚡ 核心持股快捷標的</strong>
-            <span id="secCoreShortcutStatus">點選一次，同步切換①八季數字、②重要申報、③ Form 4、④募資稀釋、⑤進階 SEC 雷達、⑥文字差異、⑦投資論點與⑧ Exhibit 99.1。</span>
+            <span id="secCoreShortcutStatus">點選一次，同步切換①八季數字、②重要申報、③ Form 4、④募資稀釋、⑤進階 SEC 雷達、⑥文字差異、⑦投資論點、⑧ Exhibit 99.1 與⑨ Earnings Call。</span>
           </div>
           <div class="sec-core-chip-list" role="group" aria-label="選擇核心持股公司">
             <button type="button" class="sec-core-chip" data-sec-core-ticker="NVDA" onclick="setSecCoreTicker('NVDA')" aria-pressed="false">NVDA (輝達)</button>
@@ -2632,6 +2638,10 @@
 
         <section id="secExhibit991" class="sec-exhibit991" aria-live="polite" aria-label="Exhibit 99.1 財報證據卡">
           <p class="sec-company-brief-placeholder">點選上方公司後，這裡會顯示 Item 2.02 的官方 Exhibit 99.1 財報原文證據。</p>
+        </section>
+
+        <section id="secEarningsCall" class="sec-earnings-call" aria-live="polite" aria-label="官方 Earnings Call 與 Prepared Remarks 閱讀卡">
+          <p class="sec-company-brief-placeholder">點選上方公司後，這裡會顯示官方完整逐字稿、Prepared Remarks 或影音回放的可用狀態。</p>
         </section>
 
         <div class="sec-kpi-grid" aria-label="SEC 每日摘要數字">
@@ -4002,8 +4012,10 @@
             .then(r => { if (!r.ok) throw new Error(`投資論點狀態 HTTP ${r.status}`); return r.json(); }),
           fetch('exhibit_991_analysis.json', { cache: 'no-cache' })
             .then(r => { if (!r.ok) throw new Error(`Exhibit 99.1 分析 HTTP ${r.status}`); return r.json(); }),
-        ]).then(([alerts, details, quarterlyFinancials, advanced, thirteenF, textChanges, thesisTracking, thesisStatus, exhibit991]) => {
-          secDailyData = { alerts, details, quarterlyFinancials, advanced, thirteenF, textChanges, thesisTracking, thesisStatus, exhibit991 };
+          fetch('earnings_call_analysis.json', { cache: 'no-cache' })
+            .then(r => { if (!r.ok) throw new Error(`Earnings Call 分析 HTTP ${r.status}`); return r.json(); }),
+        ]).then(([alerts, details, quarterlyFinancials, advanced, thirteenF, textChanges, thesisTracking, thesisStatus, exhibit991, earningsCalls]) => {
+          secDailyData = { alerts, details, quarterlyFinancials, advanced, thirteenF, textChanges, thesisTracking, thesisStatus, exhibit991, earningsCalls };
           renderSecDaily();
         }).catch(error => {
           secDailyPromise = null;
@@ -4524,6 +4536,7 @@
       renderSecThesisTracker();
       renderSecTextDiff();
       renderSecExhibit991();
+      renderSecEarningsCall();
       renderSecQuarterlyTrend();
       renderSecAdvanced();
 
@@ -5014,6 +5027,7 @@
       renderSecThesisTracker();
       renderSecTextDiff();
       renderSecExhibit991();
+      renderSecEarningsCall();
       renderSecQuarterlyTrend();
     }
 
@@ -5026,8 +5040,8 @@
       const status = document.getElementById('secCoreShortcutStatus');
       if (!status) return;
       status.textContent = secCoreTicker
-        ? `已同步選擇 ${secCoreTicker}：①八季數字、②重要申報、③ Form 4、④募資稀釋、⑤進階 SEC 雷達、⑥文字差異、⑦投資論點、⑧ Exhibit 99.1。`
-        : '點選一次，同步切換①八季數字、②重要申報、③ Form 4、④募資稀釋、⑤進階 SEC 雷達、⑥文字差異、⑦投資論點與⑧ Exhibit 99.1。';
+        ? `已同步選擇 ${secCoreTicker}：①八季數字、②重要申報、③ Form 4、④募資稀釋、⑤進階 SEC 雷達、⑥文字差異、⑦投資論點、⑧ Exhibit 99.1、⑨ Earnings Call。`
+        : '點選一次，同步切換①八季數字、②重要申報、③ Form 4、④募資稀釋、⑤進階 SEC 雷達、⑥文字差異、⑦投資論點、⑧ Exhibit 99.1 與⑨ Earnings Call。';
     }
 
     function setSecCoreTicker(ticker) {
@@ -5088,6 +5102,50 @@
         <div><a class="sec-link" href="${safeSecUrl(row.exhibit_url)}" target="_blank" rel="noopener">EX-99.1 原文 ↗</a> <a class="sec-link" href="${safeSecUrl(row.index_url)}" target="_blank" rel="noopener">申報索引 ↗</a></div></div>
         <div class="sec-exhibit991-grid">${cards}</div>
         <p class="sec-exhibit991-limit">本卡是官方附件的原文閱讀索引，不是投資評分。未辨識項目保留缺值；GAAP／non-GAAP、期間與幣別不可混用，公司指引不等於保證。</p>`;
+    }
+
+    function renderSecEarningsCall() {
+      const container = document.getElementById('secEarningsCall');
+      if (!container || !secDailyData) return;
+      const displayTicker = secCoreTicker || (secQuarterlyTicker === 'GOOGL' ? 'GOOG' : secQuarterlyTicker);
+      const dataTicker = SEC_TICKER_ALIASES[displayTicker] || displayTicker;
+      if (!displayTicker) {
+        container.innerHTML = '<p class="sec-company-brief-placeholder">點選上方公司後，這裡會顯示官方完整逐字稿、Prepared Remarks 或影音回放的可用狀態。</p>';
+        return;
+      }
+      const payload = secDailyData.earningsCalls || {};
+      const row = payload.companies?.[dataTicker];
+      if (!row) {
+        container.innerHTML = `<div class="sec-exhibit991-head"><div><h3 class="sec-exhibit991-title">⑨ ${escapeSec(displayTicker)}｜官方 Earnings Call 閱讀卡</h3><p class="sec-exhibit991-meta">目前來源登錄沒有這家公司。</p></div></div><p class="sec-exhibit991-limit">未登錄時不使用第三方逐字稿補齊。</p>`;
+        return;
+      }
+      const sourceUrl = safeSecUrl(row.material_url || row.landing_url);
+      const landingUrl = safeSecUrl(row.landing_url);
+      const sourceLinks = `<a class="sec-link" href="${sourceUrl}" target="_blank" rel="noopener">官方材料 ↗</a>${landingUrl !== sourceUrl ? ` <a class="sec-link" href="${landingUrl}" target="_blank" rel="noopener">IR 發現頁 ↗</a>` : ''}`;
+      const sourceBadge = `<span class="sec-call-source-badge">${escapeSec(row.source_label)}</span>`;
+      const freshness = row.freshness?.status === 'stale' ? '｜⏳ 來源可能落後最新財報' : '';
+      if (row.status === 'replay_only') {
+        container.innerHTML = `<div class="sec-exhibit991-head"><div><h3 class="sec-exhibit991-title">⑨ ${escapeSec(displayTicker)}｜官方 Earnings Call 閱讀卡</h3><p class="sec-exhibit991-meta">${escapeSec(row.period)}｜會議日 ${escapeSec(row.call_date)}｜🎧 僅官方影音／回放${freshness}</p>${sourceBadge}</div><div>${sourceLinks}</div></div>
+          <p class="sec-exhibit991-limit">${escapeSec(row.note || row.source_meaning)} 系統不把第三方逐字稿或自動語音轉錄混入官方證據，因此七類文字判讀保留缺值。</p>`;
+        return;
+      }
+      if (row.status !== 'analyzed') {
+        container.innerHTML = `<div class="sec-exhibit991-head"><div><h3 class="sec-exhibit991-title">⑨ ${escapeSec(displayTicker)}｜官方 Earnings Call 閱讀卡</h3><p class="sec-exhibit991-meta">${escapeSec(row.period)}｜會議日 ${escapeSec(row.call_date)}｜⚠️ 待覆核${freshness}</p>${sourceBadge}</div><div>${sourceLinks}</div></div>
+          <p class="sec-exhibit991-limit">${escapeSec((row.errors || []).join('；') || row.note || '官方文字尚未可靠解析。')} 舊卡已移除，不顯示可能過期的摘錄。</p>`;
+        return;
+      }
+      const definitions = payload.categories || {};
+      const cards = Object.entries(definitions).map(([key, definition]) => {
+        const evidence = row.categories?.[key] || [];
+        return `<article class="sec-exhibit991-card${evidence.length ? '' : ' missing'}"><h4>${escapeSec(definition.label)}</h4><p class="sec-exhibit991-meaning">${escapeSec(definition.meaning)}</p>${evidence.length ? evidence.map(item => `<p class="sec-exhibit991-evidence">${escapeSec(item.excerpt)} <small>(${item.section === 'q_and_a' ? 'Q&A' : '管理層講稿'})</small></p>`).join('') : '<p class="sec-exhibit991-evidence">官方文字未可靠辨識此項；保留缺值。</p>'}</article>`;
+      }).join('');
+      const comparison = row.exhibit_comparison || {};
+      const comparisonText = comparison.status === 'topic_coverage_only'
+        ? `${comparison.meaning} 共同覆蓋 ${comparison.overlap_topics?.length || 0} 類；電話會議另覆蓋 ${comparison.call_only_topics?.length || 0} 類。`
+        : comparison.meaning || '沒有可比的嚴格 Exhibit 99.1 卡，因此不推測兩份資料差異。';
+      container.innerHTML = `<div class="sec-exhibit991-head"><div><h3 class="sec-exhibit991-title">⑨ ${escapeSec(displayTicker)}｜官方 Earnings Call 閱讀卡</h3><p class="sec-exhibit991-meta">${escapeSec(row.period)}｜會議日 ${escapeSec(row.call_date)}｜證據覆蓋 ${escapeSec(row.coverage?.found || 0)}/${escapeSec(row.coverage?.total || Object.keys(definitions).length)} 類｜Q&A ${row.q_and_a_available ? '可辨識' : '未包含／未辨識'}${freshness}｜更新 ${escapeSec(formatSecTimestamp(payload.updated_at))}</p>${sourceBadge}</div><div>${sourceLinks}</div></div>
+        <div class="sec-exhibit991-grid">${cards}</div><p class="sec-call-comparison"><strong>與 Exhibit 99.1：</strong>${escapeSec(comparisonText)}</p>
+        <p class="sec-exhibit991-limit">每類只顯示最多 22 個英文單字的官方短摘錄。完整官方逐字稿與官方 Prepared Remarks 不可混為同一證據等級；本卡不把語氣關鍵字轉成評分或買賣建議。</p>`;
     }
 
     function renderSecCompanyBrief() {

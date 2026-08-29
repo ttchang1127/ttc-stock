@@ -27,6 +27,9 @@ jobs:
         with:
           python-version: '3.12'
 
+      - name: Install earnings-call parser dependency
+        run: python3 -m pip install 'pypdf>=6,<7'
+
       - name: Verify filing watcher
         run: python3 -m unittest discover -s tests -v
 
@@ -74,6 +77,22 @@ jobs:
             exit "$result"
           fi
 
+      - name: Build official Earnings Call and Prepared Remarks cards
+        id: earnings_call
+        env:
+          SEC_USER_AGENT: ${{ vars.SEC_USER_AGENT || 'SecKBResearch user@example.com' }}
+        run: |
+          set +e
+          python3 scripts/track_earnings_calls.py \
+            --alert-markdown "$RUNNER_TEMP/sec-alert.md" \
+            --summary "$GITHUB_STEP_SUMMARY" \
+            --github-output "$GITHUB_OUTPUT"
+          result=$?
+          set -e
+          if [ "$result" != "0" ] && [ "$result" != "2" ]; then
+            exit "$result"
+          fi
+
       - name: Compare latest periodic filing text
         env:
           SEC_USER_AGENT: ${{ vars.SEC_USER_AGENT || 'SecKBResearch user@example.com' }}
@@ -93,7 +112,7 @@ jobs:
       # A deterministic batch ID prevents a retry from creating a duplicate
       # issue after the notification succeeded but the state push conflicted.
       - name: Notify with a GitHub Issue
-        if: steps.watch.outputs.notify_count != '0' || steps.thesis.outputs.notify_count != '0' || steps.ingest.outputs.pending_count != '0' || steps.exhibit991.outputs.exhibit_991_pending_count != '0'
+        if: steps.watch.outputs.notify_count != '0' || steps.thesis.outputs.notify_count != '0' || steps.ingest.outputs.pending_count != '0' || steps.exhibit991.outputs.exhibit_991_pending_count != '0' || steps.earnings_call.outputs.earnings_call_changed_count != '0'
         env:
           GH_TOKEN: ${{ github.token }}
           WATCH_BATCH_ID: ${{ steps.watch.outputs.batch_id }}
@@ -102,9 +121,11 @@ jobs:
           THESIS_CRITICAL_COUNT: ${{ steps.thesis.outputs.critical_count }}
           INGEST_PENDING_COUNT: ${{ steps.ingest.outputs.pending_count }}
           EXHIBIT_991_PENDING_COUNT: ${{ steps.exhibit991.outputs.exhibit_991_pending_count }}
+          EARNINGS_CALL_PENDING_COUNT: ${{ steps.earnings_call.outputs.earnings_call_pending_count }}
+          EARNINGS_CALL_BATCH_ID: ${{ steps.earnings_call.outputs.earnings_call_batch_id }}
         run: |
-          batch_id="$WATCH_BATCH_ID-$THESIS_BATCH_ID"
-          critical_count=$((WATCH_CRITICAL_COUNT + THESIS_CRITICAL_COUNT + INGEST_PENDING_COUNT + EXHIBIT_991_PENDING_COUNT))
+          batch_id="$WATCH_BATCH_ID-$THESIS_BATCH_ID-$EARNINGS_CALL_BATCH_ID"
+          critical_count=$((WATCH_CRITICAL_COUNT + THESIS_CRITICAL_COUNT + INGEST_PENDING_COUNT + EXHIBIT_991_PENDING_COUNT + EARNINGS_CALL_PENDING_COUNT))
           title="SEC / Thesis Alert [$batch_id]"
           if [ "$critical_count" != "0" ]; then
             title="🔴 $title"
@@ -128,9 +149,11 @@ jobs:
             sec_filing_details.json filing_text_changes.json investment_thesis_status.json \
             periodic_filing_ingest.json 20_Filings/ \
             exhibit_991_analysis.json \
+            earnings_call_analysis.json earnings_call_sources.json \
             60_SEC_Filing_Radar/SEC_Filing_Alerts.md \
             60_SEC_Filing_Radar/Periodic_Filing_Ingest.md \
             60_SEC_Filing_Radar/Exhibit_991_Earnings_Radar.md \
+            60_SEC_Filing_Radar/Earnings_Call_Radar.md \
             60_SEC_Filing_Radar/Quarterly_10Q_Radar.md \
             60_SEC_Filing_Radar/Form4_Insider_Radar.md \
             60_SEC_Filing_Radar/Dilution_Offering_Radar.md \

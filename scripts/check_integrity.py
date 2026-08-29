@@ -992,6 +992,70 @@ def c27():
                 f"資料問題：{bad or '無'}；缺自動化／入口：{missing or '無'}")
 
 
+@check("C-28", "官方 Earnings Call 雷達區分逐字稿、講稿與影音")
+def c28():
+    from track_earnings_calls import (  # noqa: PLC0415
+        CATEGORIES, MAX_EVIDENCE, MAX_EXCERPT_WORDS, PARSER_VERSION, SCHEMA_VERSION,
+    )
+    config = load("earnings_call_sources.json")
+    status = load("earnings_call_analysis.json")
+    expected = set(load("financials.json").get("companies", {}))
+    configured = set(config.get("companies", {}))
+    companies = status.get("companies", {})
+    bad = []
+    if configured != expected or set(companies) != expected:
+        bad.append("來源登錄或輸出未完整覆蓋 14 家公司")
+    if status.get("schema_version") != SCHEMA_VERSION or status.get("parser_version") != PARSER_VERSION:
+        bad.append("schema／parser 版本不一致")
+    for ticker, row in companies.items():
+        expected_card = REPO_ROOT / str(row.get("expected_card") or "")
+        if row.get("status") == "analyzed":
+            if not re.fullmatch(r"[0-9a-f]{64}", str(row.get("source_sha256") or "")):
+                bad.append(f"{ticker} 缺官方材料 SHA-256")
+            categories = row.get("categories") or {}
+            if set(categories) != set(CATEGORIES):
+                bad.append(f"{ticker} 七類證據欄位不完整")
+                continue
+            found = sum(bool(items) for items in categories.values())
+            if row.get("coverage") != {"found": found, "total": len(CATEGORIES)}:
+                bad.append(f"{ticker} 證據覆蓋數無法對帳")
+            if not expected_card.is_file():
+                bad.append(f"{ticker} 缺閱讀卡")
+                continue
+            card = expected_card.read_text()
+            for items in categories.values():
+                if len(items) > MAX_EVIDENCE:
+                    bad.append(f"{ticker} 單類證據超量")
+                for item in items:
+                    excerpt = item.get("excerpt") or ""
+                    if len(excerpt.rstrip("…").split()) > MAX_EXCERPT_WORDS or excerpt not in card:
+                        bad.append(f"{ticker} 短摘錄限制或卡片追溯失敗")
+        elif row.get("status") == "replay_only":
+            if expected_card.is_file():
+                bad.append(f"{ticker} 僅影音卻保留文字卡")
+        else:
+            if not row.get("errors"):
+                bad.append(f"{ticker} 待覆核但沒有原因")
+            if expected_card.is_file():
+                bad.append(f"{ticker} 待覆核卻保留舊卡")
+
+    workflow = read(".github/workflows/sec-filing-alerts.yml")
+    required = (
+        "track_earnings_calls.py", "earnings_call_analysis.json", "earnings_call_sources.json",
+        "Earnings_Call_Radar.md", "earnings_call_changed_count", "pypdf>=6,<7",
+    )
+    missing = [f"workflow:{marker}" for marker in required if marker not in workflow]
+    if "Earnings_Call_Radar" not in read("00_Home.md"):
+        missing.append("00_Home:Earnings_Call_Radar")
+    page = read("dashboard.html")
+    ui_markers = (
+        "secEarningsCall", "renderSecEarningsCall", "earnings_call_analysis.json",
+        "⑨ Earnings Call", "僅官方影音／回放", "第三方逐字稿",
+    )
+    missing += [f"dashboard:{marker}" for marker in ui_markers if marker not in page]
+    return not bad and not missing, f"資料問題：{bad or '無'}；缺自動化／入口：{missing or '無'}"
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--quiet", action="store_true", help="只印出失敗項")
