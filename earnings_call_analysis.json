@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
-  "parser_version": 13,
-  "updated_at": "2026-08-29T11:22:15+00:00",
+  "parser_version": 14,
+  "updated_at": "2026-08-29T13:22:41+00:00",
   "source": "Official company investor-relations pages and explicitly allow-listed linked hosts",
   "methodology": "Official text only; no audio transcription; short verbatim evidence; missing stays missing; no sentiment score",
   "source_types": {
@@ -56,6 +56,10 @@
       "call_date": "2026-07-30",
       "landing_url": "https://investor.apple.com/investor-relations/",
       "material_url": "https://www.apple.com/newsroom/2026/07/apple-reports-third-quarter-results/",
+      "allowed_hosts": [
+        "investor.apple.com",
+        "www.apple.com"
+      ],
       "source_type": "webcast_replay",
       "source_label": "僅官方影音／回放",
       "source_meaning": "可聆聽原始會議，但沒有可驗證的官方文字，因此不產生關鍵字摘錄。",
@@ -97,6 +101,9 @@
       "call_date": "2026-07-30",
       "landing_url": "https://ir.aboutamazon.com/events/",
       "material_url": "https://ir.aboutamazon.com/events/event-details/default.aspx",
+      "allowed_hosts": [
+        "ir.aboutamazon.com"
+      ],
       "source_type": "webcast_replay",
       "source_label": "僅官方影音／回放",
       "source_meaning": "可聆聽原始會議，但沒有可驗證的官方文字，因此不產生關鍵字摘錄。",
@@ -139,6 +146,9 @@
       "call_date": "2026-07-29",
       "landing_url": "https://investors.arm.com/financials/quarterly-annual-results",
       "material_url": "https://investors.arm.com/static-files/2ef5e3bf-f276-4a46-a4a2-2aadccd6710b",
+      "allowed_hosts": [
+        "investors.arm.com"
+      ],
       "source_type": "full_transcript",
       "source_label": "完整官方逐字稿",
       "source_meaning": "包含管理層發言與分析師問答，可分開閱讀兩種證據。",
@@ -149,18 +159,63 @@
         "landing_host": "investors.arm.com",
         "material_host": "investors.arm.com"
       },
-      "status": "download_failed",
-      "categories": {},
+      "status": "analyzed",
+      "categories": {
+        "demand_growth": [
+          {
+            "excerpt": "Demand now exceeds $2 billion as we continue to add new customers, including multiple customers in the US and China, while the…",
+            "section": "prepared"
+          }
+        ],
+        "margin_cost": [
+          {
+            "excerpt": "Non-GAAP operating income was $531 million, resulting in a non-GAAP operating margin of about 41%, up 200 basis points year-on-year.",
+            "section": "prepared"
+          }
+        ],
+        "capital_supply": [
+          {
+            "excerpt": "We've secured the manufacturing capacity needed to support the initial $1 billion opportunity, and we have made progress to secure additional supply,…",
+            "section": "prepared"
+          }
+        ],
+        "guidance": [
+          {
+            "excerpt": "Turning now to guidance, for Q2, we expect revenue of $1.38 billion plus or minus $50 million.",
+            "section": "prepared"
+          }
+        ],
+        "confidence": [
+          {
+            "excerpt": "…will provide an update at our Q3 results, which is when we will have better visibility of Q4 2027 and fiscal 2028.",
+            "section": "prepared"
+          }
+        ],
+        "risks": [],
+        "analyst_questions": [
+          {
+            "excerpt": "And also, if you can also walk us through how low-cost AI might be a [indiscernible] (00:50:38) for your IP business, like…",
+            "section": "q_and_a"
+          }
+        ]
+      },
       "coverage": {
-        "found": 0,
+        "found": 6,
         "total": 7
       },
-      "errors": [
-        "timeout: The read operation timed out"
-      ],
+      "q_and_a_available": true,
+      "source_sha256": "ef367c0cb62341c0bbb6b6b65ea53d201df1773e8f9b03e9e70760c3e89e24f5",
+      "exhibit_comparison": {
+        "status": "unavailable",
+        "overlap_topics": [],
+        "call_only_topics": [],
+        "meaning": "沒有同公司可比的嚴格 Exhibit 99.1 卡，因此不推測兩份資料差異。"
+      },
+      "errors": [],
+      "last_verified_at": "2026-08-29T13:18:42+00:00",
+      "card": "20_Filings/ARM/analysis/ARM_FY2027_Q1_Earnings_Call.md",
       "discovery": {
-        "status": "unverified",
-        "reason": "timeout",
+        "status": "checked",
         "newer_candidates": []
       },
       "freshness": {
@@ -178,6 +233,10 @@
       "call_date": "2026-08-12",
       "landing_url": "https://www.coherent.com/company/investor-relations/financial-releases",
       "material_url": "https://ir.coherent.com/events/event-details/fourth-quarter-and-fiscal-year-end-2026-conference-call",
+      "allowed_hosts": [
+        "www.coherent.com",
+        "ir.coherent.com"
+      ],
       "source_type": "webcast_replay",
       "source_label": "僅官方影音／回放",
       "source_meaning": "可聆聽原始會議，但沒有可驗證的官方文字，因此不產生關鍵字摘錄。",
@@ -216,25 +275,84 @@
       "company_name": "Alphabet Inc.",
       "period": "2026 Q2",
       "call_date": "2026-07-22",
-      "landing_url": "https://abc.xyz/investor/events/default.aspx",
-      "material_url": null,
+      "landing_url": "https://abc.xyz/investor/events/event-details/2026/2026-Q2-Earnings-Call-2026-GgTAq7Is0z/default.aspx",
+      "material_url": "https://s206.q4cdn.com/479360582/files/doc_events/2026/Jul/22/2026_Q2_Earnings_Transcript.pdf",
+      "allowed_hosts": [
+        "abc.xyz",
+        "s206.q4cdn.com"
+      ],
       "source_type": "full_transcript",
       "source_label": "完整官方逐字稿",
       "source_meaning": "包含管理層發言與分析師問答，可分開閱讀兩種證據。",
-      "note": "Alphabet 通常發布官方逐字稿；目前頁面的動態內容尚未可靠解析出本期直連。",
+      "note": "",
       "expected_card": "20_Filings/GOOGL/analysis/GOOGL_2026_Q2_Earnings_Call.md",
-      "status": "review_required",
-      "categories": {},
+      "provenance": {
+        "status": "official_page_link",
+        "landing_host": "abc.xyz",
+        "material_host": "s206.q4cdn.com"
+      },
+      "status": "analyzed",
+      "categories": {
+        "demand_growth": [
+          {
+            "excerpt": "Demand for our models is translating to strong token usage across developers and enterprise customers, and we continue to be supply constrained,…",
+            "section": "prepared"
+          }
+        ],
+        "margin_cost": [
+          {
+            "excerpt": "Operating income increased 30% to $40.8 billion, and operating margin was 34%.",
+            "section": "prepared"
+          }
+        ],
+        "capital_supply": [
+          {
+            "excerpt": "CapEx was $44.9 billion in the second quarter, with the vast majority of the spend in technical infrastructure to support our investments…",
+            "section": "prepared"
+          }
+        ],
+        "guidance": [
+          {
+            "excerpt": "…updating our full year 2026 CapEx guidance range to $195 ‑ 205 billion, up from our previous estimate of $180 ‑ 190…",
+            "section": "prepared"
+          }
+        ],
+        "confidence": [
+          {
+            "excerpt": "We continue to be encouraged with monetization performance on queries that show AI Overviews, even as we've expanded AI Overviews to more…",
+            "section": "prepared"
+          }
+        ],
+        "risks": [
+          {
+            "excerpt": "…we would expect a slight FX headwind to our consolidated revenue in Q3, compared to a one percentage point FX tailwind in…",
+            "section": "prepared"
+          }
+        ],
+        "analyst_questions": [
+          {
+            "excerpt": "…able to serve the customer in what is a multiyear opportunity where the margins and the returns are very, very attractive over…",
+            "section": "q_and_a"
+          }
+        ]
+      },
       "coverage": {
-        "found": 0,
+        "found": 7,
         "total": 7
       },
-      "errors": [
-        "官方 IR 頁尚未可靠解析出本期材料直連"
-      ],
+      "q_and_a_available": true,
+      "source_sha256": "de938411f77818b147ff51d8ca2f70081f9a44401d396f1779ab5b5adfbd9123",
+      "exhibit_comparison": {
+        "status": "unavailable",
+        "overlap_topics": [],
+        "call_only_topics": [],
+        "meaning": "沒有同公司可比的嚴格 Exhibit 99.1 卡，因此不推測兩份資料差異。"
+      },
+      "errors": [],
+      "last_verified_at": "2026-08-29T13:20:02+00:00",
+      "card": "20_Filings/GOOGL/analysis/GOOGL_2026_Q2_Earnings_Call.md",
       "discovery": {
-        "status": "unverified",
-        "reason": "HTTPError",
+        "status": "checked",
         "newer_candidates": []
       },
       "freshness": {
@@ -252,6 +370,10 @@
       "call_date": "2026-07-23",
       "landing_url": "https://www.intc.com/news-events/ir-calendar/detail/20260723-q2-2026-intel-corporation-earnings-conference-call",
       "material_url": "https://d1io3yog0oux5.cloudfront.net/_88b01b330621eb4afbd070d5caa4f035/intel/db/887/9266/prepared_remarks/Q2+2026+Prepared+Remarks.pdf",
+      "allowed_hosts": [
+        "www.intc.com",
+        "d1io3yog0oux5.cloudfront.net"
+      ],
       "source_type": "prepared_remarks",
       "source_label": "官方 Prepared Remarks",
       "source_meaning": "只包含管理層事先講稿，不含即席追問，不能代替完整電話會議。",
@@ -336,6 +458,10 @@
       "call_date": "2026-07-29",
       "landing_url": "https://investor.atmeta.com/investor-events/event-details/2026/Q2-2026-Earnings-Call/default.aspx",
       "material_url": "https://s21.q4cdn.com/399680738/files/doc_financials/2026/q2/META-Q2-2026-Earnings-Call-Transcript.pdf",
+      "allowed_hosts": [
+        "investor.atmeta.com",
+        "s21.q4cdn.com"
+      ],
       "source_type": "full_transcript",
       "source_label": "完整官方逐字稿",
       "source_meaning": "包含管理層發言與分析師問答，可分開閱讀兩種證據。",
@@ -423,6 +549,9 @@
       "call_date": "2026-08-27",
       "landing_url": "https://investor.marvell.com/financial-information/financial-results",
       "material_url": "https://investor.marvell.com/news-events/press-releases/detail/1031/marvell-technology-inc-reports-second-quarter-of-fiscal-year-2027-financial-results",
+      "allowed_hosts": [
+        "investor.marvell.com"
+      ],
       "source_type": "webcast_replay",
       "source_label": "僅官方影音／回放",
       "source_meaning": "可聆聽原始會議，但沒有可驗證的官方文字，因此不產生關鍵字摘錄。",
@@ -463,6 +592,9 @@
       "call_date": "2026-07-29",
       "landing_url": "https://www.microsoft.com/en-us/investor/events",
       "material_url": "https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q4",
+      "allowed_hosts": [
+        "www.microsoft.com"
+      ],
       "source_type": "full_transcript",
       "source_label": "完整官方逐字稿",
       "source_meaning": "包含管理層發言與分析師問答，可分開閱讀兩種證據。",
@@ -518,7 +650,7 @@
         "total": 7
       },
       "q_and_a_available": true,
-      "source_sha256": "c9c55761ec68bd30997f5f26d8c5640d2f1860e4dff379353ebf08487ea4973b",
+      "source_sha256": "93c1dfd9813c8c100f61d0db1a96b18e67f57250f4332c12584133796a386cdc",
       "exhibit_comparison": {
         "status": "unavailable",
         "overlap_topics": [],
@@ -526,7 +658,7 @@
         "meaning": "沒有同公司可比的嚴格 Exhibit 99.1 卡，因此不推測兩份資料差異。"
       },
       "errors": [],
-      "last_verified_at": "2026-08-29T11:22:11+00:00",
+      "last_verified_at": "2026-08-29T13:19:00+00:00",
       "card": "20_Filings/MSFT/analysis/MSFT_FY2026_Q4_Earnings_Call.md",
       "discovery": {
         "status": "checked",
@@ -547,6 +679,9 @@
       "call_date": "2026-07-23",
       "landing_url": "https://www.nokia.com/about-us/investors/results-reports/",
       "material_url": "https://www.nokia.com/about-us/investors/results-reports/",
+      "allowed_hosts": [
+        "www.nokia.com"
+      ],
       "source_type": "webcast_replay",
       "source_label": "僅官方影音／回放",
       "source_meaning": "可聆聽原始會議，但沒有可驗證的官方文字，因此不產生關鍵字摘錄。",
@@ -589,6 +724,9 @@
       "call_date": "2026-08-26",
       "landing_url": "https://investor.nvidia.com/events-and-presentations/events-and-presentations/default.aspx",
       "material_url": "https://investor.nvidia.com/files/content_files/TRANSCRIPT_-NVIDIA-Corp-NVDA-US-Q2-2027-Earnings-Call-26-August-2026-5_00-PM-ET.pdf",
+      "allowed_hosts": [
+        "investor.nvidia.com"
+      ],
       "source_type": "full_transcript",
       "source_label": "完整官方逐字稿",
       "source_meaning": "包含管理層發言與分析師問答，可分開閱讀兩種證據。",
@@ -669,6 +807,9 @@
       "call_date": "2026-08-13",
       "landing_url": "https://ir.ondas.com/ir-calendar",
       "material_url": "https://ir.ondas.com/",
+      "allowed_hosts": [
+        "ir.ondas.com"
+      ],
       "source_type": "webcast_replay",
       "source_label": "僅官方影音／回放",
       "source_meaning": "可聆聽原始會議，但沒有可驗證的官方文字，因此不產生關鍵字摘錄。",
@@ -709,6 +850,9 @@
       "call_date": "2026-07-22",
       "landing_url": "https://ir.tesla.com/",
       "material_url": "https://ir.tesla.com/webcast-2026-07-22",
+      "allowed_hosts": [
+        "ir.tesla.com"
+      ],
       "source_type": "webcast_replay",
       "source_label": "僅官方影音／回放",
       "source_meaning": "可聆聽原始會議，但沒有可驗證的官方文字，因此不產生關鍵字摘錄。",
@@ -750,6 +894,9 @@
       "call_date": "2026-07-16",
       "landing_url": "https://investor.tsmc.com/english/quarterly-results/2026/q2",
       "material_url": "https://investor.tsmc.com/english/encrypt/files/encrypt_file/reports/2026-08/3e494f0c14dd0890f897aa044415e21d93486cc4/TSMC%202Q26%20Transcript.pdf",
+      "allowed_hosts": [
+        "investor.tsmc.com"
+      ],
       "source_type": "full_transcript",
       "source_label": "完整官方逐字稿",
       "source_meaning": "包含管理層發言與分析師問答，可分開閱讀兩種證據。",
@@ -760,18 +907,63 @@
         "landing_host": "investor.tsmc.com",
         "material_host": "investor.tsmc.com"
       },
-      "status": "download_failed",
-      "categories": {},
+      "status": "analyzed",
+      "categories": {
+        "demand_growth": [
+          {
+            "excerpt": "…fabs, one in Taiwan, one in Arizona, and one in Japan, to support the robust multi-year pipeline of demand for 3-nanometer technologies.",
+            "section": "prepared"
+          }
+        ],
+        "margin_cost": [
+          {
+            "excerpt": "…exchangerate assumption of USD1 to TWD32, gross margin is expected to be between 65% and 67%, operating margin between 56% and 58%.",
+            "section": "prepared"
+          }
+        ],
+        "capital_supply": [
+          {
+            "excerpt": "Based on our assessment, we are stepping up our CapEx investment to increase our capacity to support our customers' future growth.",
+            "section": "prepared"
+          }
+        ],
+        "guidance": [
+          {
+            "excerpt": "Based on the current business outlook, we expect our third-quarter revenue to be between USD44.6 billion and USD45.8 billion, which representsa 12%…",
+            "section": "prepared"
+          }
+        ],
+        "confidence": [
+          {
+            "excerpt": "Thus, our conviction in the multi-year AI megatrend remain very high.",
+            "section": "prepared"
+          }
+        ],
+        "risks": [],
+        "analyst_questions": [
+          {
+            "excerpt": "…that as it becomes more important, how should we think of maybe you should consider bringing it out as a separate CapEx…",
+            "section": "q_and_a"
+          }
+        ]
+      },
       "coverage": {
-        "found": 0,
+        "found": 6,
         "total": 7
       },
-      "errors": [
-        "HTTPError: HTTP Error 403: Forbidden"
-      ],
+      "q_and_a_available": true,
+      "source_sha256": "17947a4c33c3ef2153641706eef7051422ab8594251dfbb64646b92d9a4cc915",
+      "exhibit_comparison": {
+        "status": "unavailable",
+        "overlap_topics": [],
+        "call_only_topics": [],
+        "meaning": "沒有同公司可比的嚴格 Exhibit 99.1 卡，因此不推測兩份資料差異。"
+      },
+      "errors": [],
+      "last_verified_at": "2026-08-29T13:19:05+00:00",
+      "card": "20_Filings/TSM/analysis/TSM_2026_Q2_Earnings_Call.md",
       "discovery": {
-        "status": "unverified",
-        "reason": "HTTPError",
+        "status": "checked",
         "newer_candidates": []
       },
       "freshness": {

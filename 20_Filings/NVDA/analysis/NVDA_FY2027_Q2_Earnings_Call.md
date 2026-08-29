@@ -5,7 +5,7 @@ period: "FY2027 Q2"
 source_type: full_transcript
 source_url: "https://investor.nvidia.com/files/content_files/TRANSCRIPT_-NVIDIA-Corp-NVDA-US-Q2-2027-Earnings-Call-26-August-2026-5_00-PM-ET.pdf"
 source_sha256: "a8be2bac4fd08ca18fc4bccbb165cd48237166ac5b4e211e779fc9f89ee35e16"
-parser_version: 13
+parser_version: 14
 tags:
   - earnings-call
   - company/nvda

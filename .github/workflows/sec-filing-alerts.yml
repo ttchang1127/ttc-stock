@@ -28,7 +28,7 @@ jobs:
           python-version: '3.12'
 
       - name: Install earnings-call parser dependency
-        run: python3 -m pip install 'pypdf>=6,<7'
+        run: python3 -m pip install 'pypdf>=6,<7' 'curl_cffi>=0.13,<0.14'
 
       - name: Verify filing watcher
         run: python3 -m unittest discover -s tests -v

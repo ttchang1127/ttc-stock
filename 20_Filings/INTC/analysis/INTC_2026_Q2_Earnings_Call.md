@@ -5,7 +5,7 @@ period: "2026 Q2"
 source_type: prepared_remarks
 source_url: "https://d1io3yog0oux5.cloudfront.net/_88b01b330621eb4afbd070d5caa4f035/intel/db/887/9266/prepared_remarks/Q2+2026+Prepared+Remarks.pdf"
 source_sha256: "d7576fad06d6a91f7c62a98f994e2f13453054ef2060e3afcc19ec46828dcda7"
-parser_version: 13
+parser_version: 14
 tags:
   - earnings-call
   - company/intc

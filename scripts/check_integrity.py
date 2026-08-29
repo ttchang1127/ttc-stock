@@ -1011,6 +1011,8 @@ def c28():
     for ticker, row in companies.items():
         company_config = config.get("companies", {}).get(ticker, {})
         expected_card = REPO_ROOT / str(row.get("expected_card") or "")
+        if row.get("allowed_hosts") != company_config.get("allowed_hosts"):
+            bad.append(f"{ticker} 儀表板官方主機白名單與來源登錄不一致")
         discovery = row.get("discovery", {})
         if discovery.get("status") not in {"checked", "unverified"}:
             bad.append(f"{ticker} 缺最新官方材料探索狀態")
@@ -1071,7 +1073,7 @@ def c28():
     required = (
         "track_earnings_calls.py", "earnings_call_analysis.json", "earnings_call_sources.json",
         "Earnings_Call_Radar.md", "earnings_call_changed_count",
-        "earnings_call_changed_attention_count", "pypdf>=6,<7",
+        "earnings_call_changed_attention_count", "pypdf>=6,<7", "curl_cffi>=0.13,<0.14",
     )
     missing = [f"workflow:{marker}" for marker in required if marker not in workflow]
     for workflow_path in (".github/workflows/update-prices.yml", ".github/workflows/sec-13f-radar.yml"):

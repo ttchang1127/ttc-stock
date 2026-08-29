@@ -113,7 +113,7 @@ class DashboardSecTabTests(unittest.TestCase):
             "僅官方影音／回放", "第三方逐字稿", "Q&A",
             "與 Exhibit 99.1", "不把語氣關鍵字轉成評分或買賣建議",
             "本次下載失敗", "來源鏈：",
-            "較新官方候選",
+            "較新官方候選", "safeEarningsCallUrl", "row.allowed_hosts",
         ]
         for phrase in required_copy:
             self.assertIn(phrase, self.html)

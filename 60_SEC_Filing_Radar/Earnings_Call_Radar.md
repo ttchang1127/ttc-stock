@@ -1,6 +1,6 @@
 ---
 title: 官方 Earnings Call 與 Prepared Remarks 雷達
-updated_at: 2026-08-29T11:22:15+00:00
+updated_at: 2026-08-29T13:22:41+00:00
 tags:
   - earnings-call
   - investor-relations
@@ -10,9 +10,9 @@ tags:
 
 只收公司 IR 官方頁或由官方頁連出的明確允許主機；不使用第三方逐字稿，不對影音自動轉錄。短摘錄是閱讀索引，不是情緒分數或投資建議。
 
-- 可分析官方文字：**4 家**
+- 可分析官方文字：**7 家**
 - 僅官方影音／回放：**7 家**
-- 待覆核／下載失敗：**3 家**
+- 待覆核／下載失敗：**0 家**
 
 ## 14 家最新狀態
 
@@ -20,9 +20,9 @@ tags:
 |---|---|---|---|---|
 | **AAPL** | FY2026 Q3／2026-07-30 | 僅官方影音／回放 | 🎧 僅影音 | [官方來源](https://www.apple.com/newsroom/2026/07/apple-reports-third-quarter-results/) |
 | **AMZN** | 2026 Q2／2026-07-30 | 僅官方影音／回放 | 🎧 僅影音 | [官方來源](https://ir.aboutamazon.com/events/event-details/default.aspx) |
-| **ARM** | FY2027 Q1／2026-07-29 | 完整官方逐字稿 | ⚠️ 下載失敗 | [官方來源](https://investors.arm.com/static-files/2ef5e3bf-f276-4a46-a4a2-2aadccd6710b) |
+| **ARM** | FY2027 Q1／2026-07-29 | 完整官方逐字稿 | ✅ 已建立文字卡 | [[20_Filings/ARM/analysis/ARM_FY2027_Q1_Earnings_Call|閱讀卡]] |
 | **COHR** | FY2026 Q4／2026-08-12 | 僅官方影音／回放 | 🎧 僅影音 | [官方來源](https://ir.coherent.com/events/event-details/fourth-quarter-and-fiscal-year-end-2026-conference-call) |
-| **GOOGL** | 2026 Q2／2026-07-22 | 完整官方逐字稿 | ⚠️ 待覆核 | [官方來源](https://abc.xyz/investor/events/default.aspx) |
+| **GOOGL** | 2026 Q2／2026-07-22 | 完整官方逐字稿 | ✅ 已建立文字卡 | [[20_Filings/GOOGL/analysis/GOOGL_2026_Q2_Earnings_Call|閱讀卡]] |
 | **INTC** | 2026 Q2／2026-07-23 | 官方 Prepared Remarks | ✅ 已建立文字卡 | [[20_Filings/INTC/analysis/INTC_2026_Q2_Earnings_Call|閱讀卡]] |
 | **META** | 2026 Q2／2026-07-29 | 完整官方逐字稿 | ✅ 已建立文字卡 | [[20_Filings/META/analysis/META_2026_Q2_Earnings_Call|閱讀卡]] |
 | **MRVL** | FY2027 Q2／2026-08-27 | 僅官方影音／回放 | 🎧 僅影音 | [官方來源](https://investor.marvell.com/news-events/press-releases/detail/1031/marvell-technology-inc-reports-second-quarter-of-fiscal-year-2027-financial-results) |
@@ -31,7 +31,7 @@ tags:
 | **NVDA** | FY2027 Q2／2026-08-26 | 完整官方逐字稿 | ✅ 已建立文字卡 | [[20_Filings/NVDA/analysis/NVDA_FY2027_Q2_Earnings_Call|閱讀卡]] |
 | **ONDS** | 2026 Q2／2026-08-13 | 僅官方影音／回放 | 🎧 僅影音 | [官方來源](https://ir.ondas.com/) |
 | **TSLA** | 2026 Q2／2026-07-22 | 僅官方影音／回放 | 🎧 僅影音 | [官方來源](https://ir.tesla.com/webcast-2026-07-22) |
-| **TSM** | 2026 Q2／2026-07-16 | 完整官方逐字稿 | ⚠️ 下載失敗 | [官方來源](https://investor.tsmc.com/english/encrypt/files/encrypt_file/reports/2026-08/3e494f0c14dd0890f897aa044415e21d93486cc4/TSMC%202Q26%20Transcript.pdf) |
+| **TSM** | 2026 Q2／2026-07-16 | 完整官方逐字稿 | ✅ 已建立文字卡 | [[20_Filings/TSM/analysis/TSM_2026_Q2_Earnings_Call|閱讀卡]] |
 
 ## 每個欄位怎麼讀
 

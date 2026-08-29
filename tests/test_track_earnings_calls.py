@@ -36,6 +36,27 @@ class EarningsCallTrackerTests(unittest.TestCase):
         self.assertFalse(tracker.allowed_url("http://ir.example.com/call.pdf", ["ir.example.com"]))
         self.assertFalse(tracker.allowed_url("https://ir.example.com.evil.test/call.pdf", ["ir.example.com"]))
 
+    def test_browser_impersonation_strategy_is_explicit_and_keeps_referer(self):
+        config = {
+            "landing_url": "https://ir.example.com/results",
+            "fetch_strategy": "browser_impersonation",
+        }
+        with mock.patch.object(
+            tracker, "download_browser_impersonated", return_value=(b"payload", "application/pdf")
+        ) as browser_download:
+            result = tracker.download_for_config("https://ir.example.com/call.pdf", config, timeout=10)
+        self.assertEqual(result, (b"payload", "application/pdf"))
+        browser_download.assert_called_once_with(
+            "https://ir.example.com/call.pdf", 45, "https://ir.example.com/results"
+        )
+
+    def test_browser_impersonation_failure_is_normalized_for_fail_closed_path(self):
+        fake_requests = mock.Mock()
+        fake_requests.get.side_effect = RuntimeError("blocked")
+        with mock.patch.object(tracker, "curl_requests", fake_requests):
+            with self.assertRaises(tracker.urllib.error.URLError):
+                tracker.download_browser_impersonated("https://ir.example.com/call.pdf")
+
     def test_cross_domain_material_requires_official_link_or_recent_attestation(self):
         config = {
             "landing_url": "https://ir.example.com/event", "material_url": "https://cdn.example.net/call.pdf",
@@ -52,6 +73,17 @@ class EarningsCallTrackerTests(unittest.TestCase):
         with mock.patch.object(tracker, "download", side_effect=tracker.urllib.error.URLError("blocked")):
             provenance, errors = tracker.verify_provenance(config)
         self.assertEqual(provenance["status"], "manual_official_page_attestation")
+        self.assertEqual(errors, [])
+
+    def test_cross_domain_protocol_relative_official_link_is_verified(self):
+        config = {
+            "landing_url": "https://ir.example.com/event",
+            "material_url": "https://cdn.example.net/call.pdf",
+        }
+        page = b"<a href='//cdn.example.net/call.pdf'>Official transcript</a>"
+        with mock.patch.object(tracker, "download", return_value=(page, "text/html")):
+            provenance, errors = tracker.verify_provenance(config)
+        self.assertEqual(provenance["status"], "official_page_link")
         self.assertEqual(errors, [])
 
     def test_discovery_only_surfaces_explicitly_newer_official_text(self):
@@ -96,6 +128,18 @@ class EarningsCallTrackerTests(unittest.TestCase):
                 for evidence in row["categories"].values() for item in evidence
             ))
             self.assertTrue((root / row["card"]).is_file())
+
+    def test_q_and_a_transition_accepts_official_take_your_questions_wording(self):
+        html = b"""<html><body>
+          <p>Example Inc. 2026 Q2 management remarks and quarterly results.</p>
+          <p>We expect revenue growth and continued customer demand next quarter.</p>
+          <p>Sundar, Philipp and I will now take your questions.</p>
+          <p>Our first question comes from Brian Nowak with Morgan Stanley.</p>
+          <p>Can you help us understand forward capital expenditures and capacity?</p>
+        </body></html>"""
+        blocks = tracker.source_blocks(html, "text/html", "https://ir.example.com/call.html")
+        self.assertEqual([block["section"] for block in blocks[:2]], ["prepared", "prepared"])
+        self.assertTrue(all(block["section"] == "q_and_a" for block in blocks[2:]))
 
     def test_prepared_remarks_never_claims_analyst_questions(self):
         config = {
@@ -159,6 +203,16 @@ class EarningsCallTrackerTests(unittest.TestCase):
             "text": "Average weekly engagement is now on par with Outlook and Teams across active users.",
         }]
         self.assertEqual(tracker.extract_evidence(product_usage, tracker.CATEGORIES["guidance"]), [])
+        generic_outlook_transition = [{
+            "section": "prepared",
+            "text": "I'll end with some commentary on our outlook for the third quarter and full year 2026.",
+        }]
+        self.assertEqual(tracker.extract_evidence(generic_outlook_transition, tracker.CATEGORIES["guidance"]), [])
+        annual_report_boilerplate = [{
+            "section": "prepared",
+            "text": "Important risk factors that may affect our business are described in our Annual Report on Form 20-F filed with the SEC.",
+        }]
+        self.assertEqual(tracker.extract_evidence(annual_report_boilerplate, tracker.CATEGORIES["risks"]), [])
 
     def test_fingerprint_detects_evidence_change_but_ignores_last_verified_time(self):
         base = {

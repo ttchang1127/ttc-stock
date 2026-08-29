@@ -3728,6 +3728,18 @@
       return url.startsWith('https://www.sec.gov/') ? escapeSec(url) : '#';
     }
 
+    function safeEarningsCallUrl(value, allowedHosts) {
+      const url = String(value || '');
+      try {
+        const parsed = new URL(url);
+        const allowed = new Set((allowedHosts || []).map(host => String(host).toLowerCase()));
+        return parsed.protocol === 'https:' && allowed.has(parsed.hostname.toLowerCase())
+          ? escapeSec(url) : '#';
+      } catch (_) {
+        return '#';
+      }
+    }
+
     function safeOfficialResultsUrl(value) {
       const url = String(value || '');
       try {
@@ -5119,10 +5131,10 @@
         container.innerHTML = `<div class="sec-exhibit991-head"><div><h3 class="sec-exhibit991-title">⑨ ${escapeSec(displayTicker)}｜官方 Earnings Call 閱讀卡</h3><p class="sec-exhibit991-meta">目前來源登錄沒有這家公司。</p></div></div><p class="sec-exhibit991-limit">未登錄時不使用第三方逐字稿補齊。</p>`;
         return;
       }
-      const sourceUrl = safeSecUrl(row.material_url || row.landing_url);
-      const landingUrl = safeSecUrl(row.landing_url);
+      const sourceUrl = safeEarningsCallUrl(row.material_url || row.landing_url, row.allowed_hosts);
+      const landingUrl = safeEarningsCallUrl(row.landing_url, row.allowed_hosts);
       const newerCandidate = row.discovery?.newer_candidates?.[0];
-      const newerCandidateUrl = newerCandidate ? safeSecUrl(newerCandidate.url) : '';
+      const newerCandidateUrl = newerCandidate ? safeEarningsCallUrl(newerCandidate.url, row.allowed_hosts) : '';
       const sourceLinks = `<a class="sec-link" href="${sourceUrl}" target="_blank" rel="noopener">官方材料 ↗</a>${landingUrl !== sourceUrl ? ` <a class="sec-link" href="${landingUrl}" target="_blank" rel="noopener">IR 發現頁 ↗</a>` : ''}${newerCandidateUrl ? ` <a class="sec-link" href="${newerCandidateUrl}" target="_blank" rel="noopener">🆕 較新官方候選 ↗</a>` : ''}`;
       const sourceBadge = `<span class="sec-call-source-badge">${escapeSec(row.source_label)}</span>`;
       const provenanceLabel = {

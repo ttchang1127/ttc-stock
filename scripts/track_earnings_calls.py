@@ -27,6 +27,11 @@ from pathlib import Path
 
 from pypdf import PdfReader
 
+try:
+    from curl_cffi import requests as curl_requests
+except ImportError:  # Unit tests and non-network readers do not require it.
+    curl_requests = None
+
 REPO_ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_CONFIG = REPO_ROOT / "earnings_call_sources.json"
 DEFAULT_OUTPUT = REPO_ROOT / "earnings_call_analysis.json"
@@ -34,7 +39,7 @@ DEFAULT_EXHIBIT = REPO_ROOT / "exhibit_991_analysis.json"
 DEFAULT_QUARTERLY = REPO_ROOT / "quarterly_financials.json"
 DEFAULT_RADAR = REPO_ROOT / "60_SEC_Filing_Radar" / "Earnings_Call_Radar.md"
 SCHEMA_VERSION = 2
-PARSER_VERSION = 13
+PARSER_VERSION = 14
 MAX_EVIDENCE = 1
 MAX_EXCERPT_WORDS = 22
 ANALYZABLE_STATUSES = {"analyzed", "analyzed_cached"}
@@ -94,6 +99,8 @@ CATEGORIES = {
         "weights": (4, 4, 1, 3, 2),
         "exclude_patterns": (
             r"\bbefore I move to outlook\b", r"\bin line with guidance\b",
+            r"\b(?:end|conclude) with (?:some )?commentary on (?:our )?outlook\b",
+            r"\bturning to (?:our )?outlook\b",
             r"\b(?:versus|better than|compared (?:with|to))\b.{0,80}\bguidance\b",
         ),
         "section": "prepared",
@@ -112,9 +119,10 @@ CATEGORIES = {
         "patterns": (r"\bheadwinds?\b", r"\brisks?\b", r"\bpressure\b", r"\bconstraints?\b", r"\btariffs?\b", r"\bsoftness\b"),
         "weights": (4, 1, 3, 3, 4, 4),
         "exclude_patterns": (
-            r"\bforward-looking statements?\b", r"\bactual results may differ\b",
+            r"\bforward-looking statements?\b", r"\bactual results (?:may |could |to )?differ\b",
             r"\bsubject to (?:a number of )?(?:significant )?risks? and uncertainties\b",
             r"\brefer to\b.{0,160}\b(?:form 10-k|annual report|sec filings?)\b",
+            r"\brisk factors?\b.{0,160}\b(?:annual report|form 20-f|sec filings?)\b",
             r"\brisk production\b",
         ),
         "section": "prepared",
@@ -176,6 +184,35 @@ def download(url: str, timeout: int = 25) -> tuple[bytes, str]:
         return response.read(), content_type
 
 
+def download_browser_impersonated(
+    url: str, timeout: int = 45, referer: str | None = None,
+) -> tuple[bytes, str]:
+    """Fetch official IR material from CDNs that reject urllib TLS fingerprints."""
+    if curl_requests is None:
+        raise urllib.error.URLError("缺少 curl_cffi，無法下載受 CDN 保護的官方 IR 材料")
+    headers = {
+        "Accept": "application/pdf,text/html,application/xhtml+xml;q=0.9,*/*;q=0.8",
+        "Accept-Encoding": "identity",
+    }
+    if referer:
+        headers["Referer"] = referer
+    try:
+        response = curl_requests.get(
+            url, headers=headers, impersonate="chrome", timeout=timeout, allow_redirects=True,
+        )
+        response.raise_for_status()
+    except Exception as exc:  # Normalize curl_cffi errors for the fail-closed caller.
+        raise urllib.error.URLError(str(exc)) from exc
+    content_type = response.headers.get("content-type", "application/octet-stream")
+    return response.content, content_type.split(";", 1)[0].strip().lower()
+
+
+def download_for_config(url: str, config: dict, timeout: int = 25) -> tuple[bytes, str]:
+    if config.get("fetch_strategy") == "browser_impersonation":
+        return download_browser_impersonated(url, max(timeout, 45), config.get("landing_url"))
+    return download(url, timeout)
+
+
 def probe_url(url: str) -> dict:
     """Check a replay link without treating anti-bot responses as proof it is dead."""
     request = urllib.request.Request(url, headers=request_headers(), method="HEAD")
@@ -213,9 +250,15 @@ def verify_provenance(config: dict) -> tuple[dict, list[str]]:
     if organization_domain(landing_host) == organization_domain(material_host):
         return {"status": "official_host", "landing_host": landing_host, "material_host": material_host}, []
     try:
-        landing_payload, _ = download(landing_url)
+        landing_payload, _ = download_for_config(landing_url, config)
         landing_html = html_lib.unescape(landing_payload.decode("utf-8", errors="ignore"))
-        if material_url in landing_html:
+        parser = LinkHTMLParser()
+        parser.feed(landing_html)
+        linked_urls = {
+            urllib.parse.urljoin(landing_url, href)
+            for href, _ in parser.links
+        }
+        if material_url in linked_urls:
             return {"status": "official_page_link", "landing_host": landing_host, "material_host": material_host}, []
     except (urllib.error.URLError, TimeoutError, OSError, ValueError):
         pass
@@ -313,7 +356,7 @@ def discover_newer_material(config: dict, previous: dict | None = None) -> dict:
     if not current_key:
         return {"status": "unverified", "reason": "目前期間格式無法比較", "newer_candidates": []}
     try:
-        payload, content_type = download(config["landing_url"], timeout=10)
+        payload, content_type = download_for_config(config["landing_url"], config, timeout=10)
         if content_type not in {"text/html", "application/xhtml+xml"}:
             return {"status": "unverified", "reason": "IR 發現頁不是 HTML", "newer_candidates": []}
         parser = LinkHTMLParser()
@@ -358,7 +401,8 @@ def source_blocks(payload: bytes, content_type: str, url: str) -> list[dict]:
         if (re.search(r"\bQUESTION\s+AND\s+ANSWER\s+(?:SESSION|SECTION)\b", text)
                 or re.match(r"^(?:question[- ]and[- ]answer|questions? and answers?|q\s*&\s*a)\b", text, re.I)
                 or re.search(r"\b(?:go|move over) to Q\s*&\s*A\b", text, re.I)
-                or re.search(r"\b(?:our|your) first question comes from the line\b", text, re.I)
+                or re.search(r"\b(?:will|we(?:'|’)ll) now take (?:your|some) questions\b", text, re.I)
+                or re.search(r"\b(?:our|your) first question comes from(?: the line of)?\b", text, re.I)
                 or heading in {
             "question and answer session", "question and answer section",
             "questions and answers", "q & a", "q a",
@@ -605,6 +649,7 @@ def analyze_company(
         "call_date": config["call_date"],
         "landing_url": config["landing_url"],
         "material_url": config.get("material_url") or None,
+        "allowed_hosts": config["allowed_hosts"],
         "source_type": config["source_type"],
         "source_label": SOURCE_TYPES[config["source_type"]]["label"],
         "source_meaning": SOURCE_TYPES[config["source_type"]]["meaning"],
@@ -655,7 +700,7 @@ def analyze_company(
             "link_check": link_check,
         }
     try:
-        payload, content_type = download(url)
+        payload, content_type = download_for_config(url, config)
         blocks = source_blocks(payload, content_type, url)
     except (urllib.error.URLError, TimeoutError, OSError, ValueError) as exc:
         cached = cached_analysis(base, previous, path, exc)
