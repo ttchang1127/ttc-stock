@@ -25,6 +25,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Install integrity-check dependencies
+        run: python3 -m pip install 'pypdf>=6,<7'
       - name: Build complete stock-oriented 13F snapshot
         env:
           SEC_USER_AGENT: ${{ vars.SEC_USER_AGENT || 'SecKBResearch user@example.com' }}

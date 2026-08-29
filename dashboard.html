@@ -5121,20 +5121,32 @@
       }
       const sourceUrl = safeSecUrl(row.material_url || row.landing_url);
       const landingUrl = safeSecUrl(row.landing_url);
-      const sourceLinks = `<a class="sec-link" href="${sourceUrl}" target="_blank" rel="noopener">官方材料 ↗</a>${landingUrl !== sourceUrl ? ` <a class="sec-link" href="${landingUrl}" target="_blank" rel="noopener">IR 發現頁 ↗</a>` : ''}`;
+      const newerCandidate = row.discovery?.newer_candidates?.[0];
+      const newerCandidateUrl = newerCandidate ? safeSecUrl(newerCandidate.url) : '';
+      const sourceLinks = `<a class="sec-link" href="${sourceUrl}" target="_blank" rel="noopener">官方材料 ↗</a>${landingUrl !== sourceUrl ? ` <a class="sec-link" href="${landingUrl}" target="_blank" rel="noopener">IR 發現頁 ↗</a>` : ''}${newerCandidateUrl ? ` <a class="sec-link" href="${newerCandidateUrl}" target="_blank" rel="noopener">🆕 較新官方候選 ↗</a>` : ''}`;
       const sourceBadge = `<span class="sec-call-source-badge">${escapeSec(row.source_label)}</span>`;
+      const provenanceLabel = {
+        official_host: '同一公司官方網域',
+        official_page_link: '官方 IR 頁直連已驗證',
+        manual_official_page_attestation: '官方連結經人工覆核',
+      }[row.provenance?.status] || '來源鏈待驗證';
       const freshness = row.freshness?.status === 'stale' ? '｜⏳ 來源可能落後最新財報' : '';
+      const discovery = newerCandidate ? `｜🆕 官方頁發現 ${escapeSec(newerCandidate.period_key)} 候選材料，尚未自動取代` : '';
       if (row.status === 'replay_only') {
-        container.innerHTML = `<div class="sec-exhibit991-head"><div><h3 class="sec-exhibit991-title">⑨ ${escapeSec(displayTicker)}｜官方 Earnings Call 閱讀卡</h3><p class="sec-exhibit991-meta">${escapeSec(row.period)}｜會議日 ${escapeSec(row.call_date)}｜🎧 僅官方影音／回放${freshness}</p>${sourceBadge}</div><div>${sourceLinks}</div></div>
-          <p class="sec-exhibit991-limit">${escapeSec(row.note || row.source_meaning)} 系統不把第三方逐字稿或自動語音轉錄混入官方證據，因此七類文字判讀保留缺值。</p>`;
+        const linkState = row.link_check?.status === 'unverified' ? `｜⚠️ 自動檢查未確認連結（${escapeSec(row.link_check.reason || '網站阻擋')}）` : '';
+        container.innerHTML = `<div class="sec-exhibit991-head"><div><h3 class="sec-exhibit991-title">⑨ ${escapeSec(displayTicker)}｜官方 Earnings Call 閱讀卡</h3><p class="sec-exhibit991-meta">${escapeSec(row.period)}｜會議日 ${escapeSec(row.call_date)}｜🎧 僅官方影音／回放｜來源鏈：${escapeSec(provenanceLabel)}${freshness}${discovery}${linkState}</p>${sourceBadge}</div><div>${sourceLinks}</div></div>
+          <p class="sec-exhibit991-limit">${escapeSec(row.note || row.source_meaning)} 系統不把第三方逐字稿或自動語音轉錄混入官方證據，因此七類文字判讀保留缺值；連結未驗證時請從 IR 發現頁進入。</p>`;
         return;
       }
-      if (row.status !== 'analyzed') {
+      if (!['analyzed', 'analyzed_cached'].includes(row.status)) {
         container.innerHTML = `<div class="sec-exhibit991-head"><div><h3 class="sec-exhibit991-title">⑨ ${escapeSec(displayTicker)}｜官方 Earnings Call 閱讀卡</h3><p class="sec-exhibit991-meta">${escapeSec(row.period)}｜會議日 ${escapeSec(row.call_date)}｜⚠️ 待覆核${freshness}</p>${sourceBadge}</div><div>${sourceLinks}</div></div>
           <p class="sec-exhibit991-limit">${escapeSec((row.errors || []).join('；') || row.note || '官方文字尚未可靠解析。')} 舊卡已移除，不顯示可能過期的摘錄。</p>`;
         return;
       }
       const definitions = payload.categories || {};
+      const cachedWarning = row.status === 'analyzed_cached'
+        ? `｜⚠️ 本次下載失敗，顯示 ${escapeSec(formatSecTimestamp(row.last_verified_at))} 最後驗證內容`
+        : '';
       const cards = Object.entries(definitions).map(([key, definition]) => {
         const evidence = row.categories?.[key] || [];
         return `<article class="sec-exhibit991-card${evidence.length ? '' : ' missing'}"><h4>${escapeSec(definition.label)}</h4><p class="sec-exhibit991-meaning">${escapeSec(definition.meaning)}</p>${evidence.length ? evidence.map(item => `<p class="sec-exhibit991-evidence">${escapeSec(item.excerpt)} <small>(${item.section === 'q_and_a' ? 'Q&A' : '管理層講稿'})</small></p>`).join('') : '<p class="sec-exhibit991-evidence">官方文字未可靠辨識此項；保留缺值。</p>'}</article>`;
@@ -5143,7 +5155,7 @@
       const comparisonText = comparison.status === 'topic_coverage_only'
         ? `${comparison.meaning} 共同覆蓋 ${comparison.overlap_topics?.length || 0} 類；電話會議另覆蓋 ${comparison.call_only_topics?.length || 0} 類。`
         : comparison.meaning || '沒有可比的嚴格 Exhibit 99.1 卡，因此不推測兩份資料差異。';
-      container.innerHTML = `<div class="sec-exhibit991-head"><div><h3 class="sec-exhibit991-title">⑨ ${escapeSec(displayTicker)}｜官方 Earnings Call 閱讀卡</h3><p class="sec-exhibit991-meta">${escapeSec(row.period)}｜會議日 ${escapeSec(row.call_date)}｜證據覆蓋 ${escapeSec(row.coverage?.found || 0)}/${escapeSec(row.coverage?.total || Object.keys(definitions).length)} 類｜Q&A ${row.q_and_a_available ? '可辨識' : '未包含／未辨識'}${freshness}｜更新 ${escapeSec(formatSecTimestamp(payload.updated_at))}</p>${sourceBadge}</div><div>${sourceLinks}</div></div>
+      container.innerHTML = `<div class="sec-exhibit991-head"><div><h3 class="sec-exhibit991-title">⑨ ${escapeSec(displayTicker)}｜官方 Earnings Call 閱讀卡</h3><p class="sec-exhibit991-meta">${escapeSec(row.period)}｜會議日 ${escapeSec(row.call_date)}｜證據覆蓋 ${escapeSec(row.coverage?.found || 0)}/${escapeSec(row.coverage?.total || Object.keys(definitions).length)} 類｜Q&A ${row.q_and_a_available ? '可辨識' : '未包含／未辨識'}｜來源鏈：${escapeSec(provenanceLabel)}${freshness}${discovery}${cachedWarning}｜更新 ${escapeSec(formatSecTimestamp(payload.updated_at))}</p>${sourceBadge}</div><div>${sourceLinks}</div></div>
         <div class="sec-exhibit991-grid">${cards}</div><p class="sec-call-comparison"><strong>與 Exhibit 99.1：</strong>${escapeSec(comparisonText)}</p>
         <p class="sec-exhibit991-limit">每類只顯示最多 22 個英文單字的官方短摘錄。完整官方逐字稿與官方 Prepared Remarks 不可混為同一證據等級；本卡不把語氣關鍵字轉成評分或買賣建議。</p>`;
     }

@@ -45,7 +45,7 @@ jobs:
           python-version: '3.12'
 
       - name: Install dependencies
-        run: pip install --quiet 'yfinance>=1.2.0' pandas
+        run: pip install --quiet 'yfinance>=1.2.0' pandas 'pypdf>=6,<7'
 
       # Read-only early warning. A new annual filing still requires a person to
       # run fetch_sec.py --split-sections and review the extracted boundaries.

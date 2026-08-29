@@ -995,7 +995,8 @@ def c27():
 @check("C-28", "官方 Earnings Call 雷達區分逐字稿、講稿與影音")
 def c28():
     from track_earnings_calls import (  # noqa: PLC0415
-        CATEGORIES, MAX_EVIDENCE, MAX_EXCERPT_WORDS, PARSER_VERSION, SCHEMA_VERSION,
+        ANALYZABLE_STATUSES, CATEGORIES, MAX_EVIDENCE, MAX_EXCERPT_WORDS,
+        PARSER_VERSION, SCHEMA_VERSION, allowed_url, period_key,
     )
     config = load("earnings_call_sources.json")
     status = load("earnings_call_analysis.json")
@@ -1008,8 +1009,29 @@ def c28():
     if status.get("schema_version") != SCHEMA_VERSION or status.get("parser_version") != PARSER_VERSION:
         bad.append("schema／parser 版本不一致")
     for ticker, row in companies.items():
+        company_config = config.get("companies", {}).get(ticker, {})
         expected_card = REPO_ROOT / str(row.get("expected_card") or "")
-        if row.get("status") == "analyzed":
+        discovery = row.get("discovery", {})
+        if discovery.get("status") not in {"checked", "unverified"}:
+            bad.append(f"{ticker} 缺最新官方材料探索狀態")
+        current_period_key = period_key(company_config.get("period", ""))
+        for candidate in discovery.get("newer_candidates", []):
+            if (
+                not allowed_url(candidate.get("url", ""), company_config.get("allowed_hosts", []))
+                or not period_key(candidate.get("period_key", ""))
+                or not current_period_key
+                or period_key(candidate["period_key"]) <= current_period_key
+            ):
+                bad.append(f"{ticker} 較新材料候選未通過期間或主機驗證")
+        if company_config.get("source_type") != "webcast_replay" and not company_config.get("identity_patterns"):
+            bad.append(f"{ticker} 文字來源缺公司／期間身分驗證規則")
+        if row.get("status") in ANALYZABLE_STATUSES:
+            if row.get("provenance", {}).get("status") not in {
+                "official_host", "official_page_link", "manual_official_page_attestation",
+            }:
+                bad.append(f"{ticker} 可分析文字缺官方來源鏈驗證")
+            if row.get("status") == "analyzed_cached" and not row.get("errors"):
+                bad.append(f"{ticker} 使用快取卡但沒有下載失敗原因")
             if not re.fullmatch(r"[0-9a-f]{64}", str(row.get("source_sha256") or "")):
                 bad.append(f"{ticker} 缺官方材料 SHA-256")
             categories = row.get("categories") or {}
@@ -1031,6 +1053,12 @@ def c28():
                     if len(excerpt.rstrip("…").split()) > MAX_EXCERPT_WORDS or excerpt not in card:
                         bad.append(f"{ticker} 短摘錄限制或卡片追溯失敗")
         elif row.get("status") == "replay_only":
+            if row.get("provenance", {}).get("status") not in {
+                "official_host", "official_page_link", "manual_official_page_attestation",
+            }:
+                bad.append(f"{ticker} 影音來源缺官方來源鏈驗證")
+            if row.get("link_check", {}).get("status") not in {"reachable", "unverified"}:
+                bad.append(f"{ticker} 影音連結沒有探測狀態")
             if expected_card.is_file():
                 bad.append(f"{ticker} 僅影音卻保留文字卡")
         else:
@@ -1042,9 +1070,13 @@ def c28():
     workflow = read(".github/workflows/sec-filing-alerts.yml")
     required = (
         "track_earnings_calls.py", "earnings_call_analysis.json", "earnings_call_sources.json",
-        "Earnings_Call_Radar.md", "earnings_call_changed_count", "pypdf>=6,<7",
+        "Earnings_Call_Radar.md", "earnings_call_changed_count",
+        "earnings_call_changed_attention_count", "pypdf>=6,<7",
     )
     missing = [f"workflow:{marker}" for marker in required if marker not in workflow]
+    for workflow_path in (".github/workflows/update-prices.yml", ".github/workflows/sec-13f-radar.yml"):
+        if "pypdf>=6,<7" not in read(workflow_path):
+            missing.append(f"{workflow_path}:pypdf>=6,<7")
     if "Earnings_Call_Radar" not in read("00_Home.md"):
         missing.append("00_Home:Earnings_Call_Radar")
     page = read("dashboard.html")

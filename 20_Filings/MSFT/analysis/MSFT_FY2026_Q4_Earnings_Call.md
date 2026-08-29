@@ -4,8 +4,8 @@ call_date: 2026-07-29
 period: "FY2026 Q4"
 source_type: full_transcript
 source_url: "https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q4"
-source_sha256: "98911efb24ffff8c1372b86b80808eb3d4aec82a2b6a7a464500c5b42d2bc6fc"
-parser_version: 5
+source_sha256: "c9c55761ec68bd30997f5f26d8c5640d2f1860e4dff379353ebf08487ea4973b"
+parser_version: 13
 tags:
   - earnings-call
   - company/msft
@@ -18,14 +18,15 @@ tags:
 - **會議日期**：2026-07-29
 - **文字類型**：完整官方逐字稿。包含管理層發言與分析師問答，可分開閱讀兩種證據。
 - **官方來源**：[文字材料](https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q4)｜[IR 發現頁](https://www.microsoft.com/en-us/investor/events)
-- **證據覆蓋**：7/7 類；這是閱讀索引，不是評分。
+- **來源鏈驗證**：材料與 IR 頁屬同一公司網域
+- **證據覆蓋**：6/7 類；這是閱讀索引，不是評分。
 - **方法限制**：每類只保留最多 22 個英文單字的短摘錄。未命中保留缺值；不把語氣關鍵字轉成投資建議。
 
 ## 需求與成長驅動
 
 > **怎麼讀**：管理層談到的需求、採用、訂單、backlog 或成長來源；屬公司陳述。
 
-> Thank you, Satya, and good afternoon everyone. This fiscal year, we delivered over $331 billion in revenue, with growth accelerating to 18%,…
+> Commercial bookings grew 18% when excluding the impact from OpenAI driven by strong execution in our core annuity sales motions and reflecting…
 
 ## 利潤率與成本壓力
 
@@ -43,7 +44,7 @@ tags:
 
 > **怎麼讀**：管理層對下一季或全年展望；是前瞻聲明，不是保證。
 
-> Now, before I move to outlook, effective at the start of FY27, we are extending the estimated useful lives of our datacenters…
+> …by the end of this month, we expect to have our Cobalt 200 racks in over 25 datacenters around the world as…
 
 ## 管理層信心與限定語
 
@@ -55,13 +56,13 @@ tags:
 
 > **怎麼讀**：管理層明確提到的逆風、壓力、限制或不確定性；不代表風險一定發生。
 
-> During this call, we will be making forward-looking statements which are predictions, projections, or other statements about future events. These statements are…
+- **官方文字未可靠辨識此項；保留缺值。**
 
 ## 分析師追問
 
 > **怎麼讀**：只取完整逐字稿 Q&A 區段中的問題線索，用來辨識市場最關心的假設。
 
-> I wanted to maybe just ask about M365 Copilot. Obviously, very strong quarter there with over 30 million paid seats and a…
+> …compare to a year ago, and what are some of the levers that you can still pull, perhaps from the internal silicon…
 
 ## 與 Exhibit 99.1 的主題覆蓋比較
 

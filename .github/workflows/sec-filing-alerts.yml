@@ -121,11 +121,11 @@ jobs:
           THESIS_CRITICAL_COUNT: ${{ steps.thesis.outputs.critical_count }}
           INGEST_PENDING_COUNT: ${{ steps.ingest.outputs.pending_count }}
           EXHIBIT_991_PENDING_COUNT: ${{ steps.exhibit991.outputs.exhibit_991_pending_count }}
-          EARNINGS_CALL_PENDING_COUNT: ${{ steps.earnings_call.outputs.earnings_call_pending_count }}
+          EARNINGS_CALL_CHANGED_ATTENTION_COUNT: ${{ steps.earnings_call.outputs.earnings_call_changed_attention_count }}
           EARNINGS_CALL_BATCH_ID: ${{ steps.earnings_call.outputs.earnings_call_batch_id }}
         run: |
           batch_id="$WATCH_BATCH_ID-$THESIS_BATCH_ID-$EARNINGS_CALL_BATCH_ID"
-          critical_count=$((WATCH_CRITICAL_COUNT + THESIS_CRITICAL_COUNT + INGEST_PENDING_COUNT + EXHIBIT_991_PENDING_COUNT + EARNINGS_CALL_PENDING_COUNT))
+          critical_count=$((WATCH_CRITICAL_COUNT + THESIS_CRITICAL_COUNT + INGEST_PENDING_COUNT + EXHIBIT_991_PENDING_COUNT + EARNINGS_CALL_CHANGED_ATTENTION_COUNT))
           title="SEC / Thesis Alert [$batch_id]"
           if [ "$critical_count" != "0" ]; then
             title="🔴 $title"

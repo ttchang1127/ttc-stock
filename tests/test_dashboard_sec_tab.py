@@ -97,16 +97,23 @@ class DashboardSecTabTests(unittest.TestCase):
             self.assertIn(phrase, self.html)
 
     def test_earnings_call_cards_distinguish_text_and_replay_sources(self):
-        self.assertEqual(self.earnings_calls["schema_version"], 1)
+        self.assertEqual(self.earnings_calls["schema_version"], 2)
         self.assertEqual(len(self.earnings_calls["companies"]), 14)
         self.assertEqual(len(self.earnings_calls["categories"]), 7)
         self.assertTrue(any(row["status"] == "analyzed" for row in self.earnings_calls["companies"].values()))
         self.assertTrue(any(row["status"] == "replay_only" for row in self.earnings_calls["companies"].values()))
+        available = [
+            row for row in self.earnings_calls["companies"].values()
+            if row["status"] in {"analyzed", "replay_only", "analyzed_cached"}
+        ]
+        self.assertTrue(all(row.get("provenance", {}).get("status") for row in available))
         required_copy = [
             'id="secEarningsCall"', "function renderSecEarningsCall()",
             "⑨ Earnings Call", "完整官方逐字稿", "官方 Prepared Remarks",
             "僅官方影音／回放", "第三方逐字稿", "Q&A",
             "與 Exhibit 99.1", "不把語氣關鍵字轉成評分或買賣建議",
+            "本次下載失敗", "來源鏈：",
+            "較新官方候選",
         ]
         for phrase in required_copy:
             self.assertIn(phrase, self.html)
