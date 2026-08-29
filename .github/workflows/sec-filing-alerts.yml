@@ -58,6 +58,22 @@ jobs:
             exit "$result"
           fi
 
+      - name: Build Exhibit 99.1 earnings cards
+        id: exhibit991
+        env:
+          SEC_USER_AGENT: ${{ vars.SEC_USER_AGENT || 'SecKBResearch user@example.com' }}
+        run: |
+          set +e
+          python3 scripts/analyze_exhibit_991.py \
+            --alert-markdown "$RUNNER_TEMP/sec-alert.md" \
+            --summary "$GITHUB_STEP_SUMMARY" \
+            --github-output "$GITHUB_OUTPUT"
+          result=$?
+          set -e
+          if [ "$result" != "0" ] && [ "$result" != "2" ]; then
+            exit "$result"
+          fi
+
       - name: Compare latest periodic filing text
         env:
           SEC_USER_AGENT: ${{ vars.SEC_USER_AGENT || 'SecKBResearch user@example.com' }}
@@ -77,7 +93,7 @@ jobs:
       # A deterministic batch ID prevents a retry from creating a duplicate
       # issue after the notification succeeded but the state push conflicted.
       - name: Notify with a GitHub Issue
-        if: steps.watch.outputs.notify_count != '0' || steps.thesis.outputs.notify_count != '0' || steps.ingest.outputs.pending_count != '0'
+        if: steps.watch.outputs.notify_count != '0' || steps.thesis.outputs.notify_count != '0' || steps.ingest.outputs.pending_count != '0' || steps.exhibit991.outputs.exhibit_991_pending_count != '0'
         env:
           GH_TOKEN: ${{ github.token }}
           WATCH_BATCH_ID: ${{ steps.watch.outputs.batch_id }}
@@ -85,9 +101,10 @@ jobs:
           WATCH_CRITICAL_COUNT: ${{ steps.watch.outputs.critical_count }}
           THESIS_CRITICAL_COUNT: ${{ steps.thesis.outputs.critical_count }}
           INGEST_PENDING_COUNT: ${{ steps.ingest.outputs.pending_count }}
+          EXHIBIT_991_PENDING_COUNT: ${{ steps.exhibit991.outputs.exhibit_991_pending_count }}
         run: |
           batch_id="$WATCH_BATCH_ID-$THESIS_BATCH_ID"
-          critical_count=$((WATCH_CRITICAL_COUNT + THESIS_CRITICAL_COUNT + INGEST_PENDING_COUNT))
+          critical_count=$((WATCH_CRITICAL_COUNT + THESIS_CRITICAL_COUNT + INGEST_PENDING_COUNT + EXHIBIT_991_PENDING_COUNT))
           title="SEC / Thesis Alert [$batch_id]"
           if [ "$critical_count" != "0" ]; then
             title="🔴 $title"
@@ -110,8 +127,10 @@ jobs:
           git add .github/sec-filing-state.json sec_filing_alerts.json \
             sec_filing_details.json filing_text_changes.json investment_thesis_status.json \
             periodic_filing_ingest.json 20_Filings/ \
+            exhibit_991_analysis.json \
             60_SEC_Filing_Radar/SEC_Filing_Alerts.md \
             60_SEC_Filing_Radar/Periodic_Filing_Ingest.md \
+            60_SEC_Filing_Radar/Exhibit_991_Earnings_Radar.md \
             60_SEC_Filing_Radar/Quarterly_10Q_Radar.md \
             60_SEC_Filing_Radar/Form4_Insider_Radar.md \
             60_SEC_Filing_Radar/Dilution_Offering_Radar.md \
@@ -132,7 +151,7 @@ jobs:
           git push origin HEAD:main
 
       - name: Require manual review for unsafe filing boundaries
-        if: steps.ingest.outputs.pending_count != '0'
+        if: steps.ingest.outputs.pending_count != '0' || steps.exhibit991.outputs.exhibit_991_pending_count != '0'
         run: |
-          echo "${{ steps.ingest.outputs.pending_count }} filing(s) require manual review. See Periodic_Filing_Ingest.md."
+          echo "Periodic filings pending: ${{ steps.ingest.outputs.pending_count }}; Exhibit 99.1 cards pending: ${{ steps.exhibit991.outputs.exhibit_991_pending_count }}."
           exit 1

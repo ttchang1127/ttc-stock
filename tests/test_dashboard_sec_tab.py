@@ -19,6 +19,7 @@ class DashboardSecTabTests(unittest.TestCase):
         cls.text_changes = json.loads((ROOT / "filing_text_changes.json").read_text())
         cls.thesis_tracking = json.loads((ROOT / "investment_thesis_tracking.json").read_text())
         cls.thesis_status = json.loads((ROOT / "investment_thesis_status.json").read_text())
+        cls.exhibit_991 = json.loads((ROOT / "exhibit_991_analysis.json").read_text())
 
     def test_tab_defaults_to_14_days_and_allows_7_days(self):
         self.assertIn("🚨 4_SEC 每日重點", self.html)
@@ -36,6 +37,7 @@ class DashboardSecTabTests(unittest.TestCase):
         self.assertIn("fetch('filing_text_changes.json'", self.html)
         self.assertIn("fetch('investment_thesis_tracking.json'", self.html)
         self.assertIn("fetch('investment_thesis_status.json'", self.html)
+        self.assertIn("fetch('exhibit_991_analysis.json'", self.html)
         self.assertIn("function renderSecDaily()", self.html)
         self.assertIn('id="secQuarterlyBody"', self.html)
         self.assertIn('id="secKpiQuarterly"', self.html)
@@ -58,7 +60,7 @@ class DashboardSecTabTests(unittest.TestCase):
         self.assertIn('id="secCoreShortcuts"', self.html)
         self.assertIn("function setSecCoreTicker(ticker)", self.html)
         self.assertIn("function renderSecCoreShortcuts()", self.html)
-        self.assertIn("點選一次，同步切換①八季數字、②重要申報、③ Form 4、④募資稀釋、⑤進階 SEC 雷達、⑥文字差異與⑦投資論點", self.html)
+        self.assertIn("點選一次，同步切換①八季數字、②重要申報、③ Form 4、④募資稀釋、⑤進階 SEC 雷達、⑥文字差異、⑦投資論點與⑧ Exhibit 99.1", self.html)
         for ticker in core:
             self.assertIn(f'data-sec-core-ticker="{ticker}"', self.html)
             self.assertIn(f"setSecCoreTicker('{ticker}')", self.html)
@@ -72,6 +74,25 @@ class DashboardSecTabTests(unittest.TestCase):
             self.assertIn(assignment, self.html)
         self.assertIn("const SEC_TICKER_ALIASES = { GOOG: 'GOOGL' }", self.html)
         self.assertIn("button.setAttribute('aria-pressed', active ? 'true' : 'false')", self.html)
+
+    def test_exhibit_991_cards_show_verbatim_evidence_and_missing_state(self):
+        self.assertEqual(self.exhibit_991["schema_version"], 1)
+        self.assertEqual(len(self.exhibit_991["categories"]), 7)
+        analyzed = [row for row in self.exhibit_991["filings"] if row["status"] == "analyzed"]
+        self.assertEqual({row["ticker"] for row in analyzed}, {"COHR", "ONDS"})
+        self.assertTrue(all(row["exhibit_url"].startswith("https://www.sec.gov/") for row in analyzed))
+        self.assertTrue(all(any(row["categories"].values()) for row in analyzed))
+        self.assertIn("安全港文字是警語", self.exhibit_991["categories"]["risks"]["meaning"])
+        required_copy = [
+            'id="secExhibit991"', "function renderSecExhibit991()",
+            "⑧ Exhibit 99.1", "Item 2.02", "證據覆蓋",
+            "本附件未可靠辨識此項；保留缺值",
+            "不代表公司未公布財報；外國私人發行人也可能使用 6-K",
+            "舊卡已移除，不顯示可能過期的內容",
+            "本卡是官方附件的原文閱讀索引，不是投資評分",
+        ]
+        for phrase in required_copy:
+            self.assertIn(phrase, self.html)
 
     def test_periodic_filing_text_diff_has_actual_excerpts_and_caveats(self):
         self.assertEqual(set(self.text_changes["companies"]), set(self.quarterly["companies"]))

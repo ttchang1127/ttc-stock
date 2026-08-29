@@ -7,7 +7,7 @@
 > 儀表板網頁的維護請看 [[ttc-stock_Dashboard_維運SOP]]，那是另一條線。
 > 還沒完成的事情列在 [[Sec_kb_待辦事項]]，**已決定不做的**則在本文件第 5 節。
 
-最後更新：2026-08-16
+最後更新：2026-08-29
 
 ---
 
@@ -70,6 +70,11 @@ sec_filing_alerts.json（SEC accession／官方主要文件 URL）
         ↓ ingest_periodic_filings.py（fail-closed；章節邊界不可靠即停止）
    periodic_filing_ingest.json ＋ 60_SEC_Filing_Radar/Periodic_Filing_Ingest.md
         └─→ 20_Filings/<Ticker>/（10-Q／8-K／6-K 主筆記與已驗證章節）
+
+sec_filing_alerts.json（8-K／8-K-A 且 SEC metadata 含 Item 2.02）
+        ↓ analyze_exhibit_991.py（官方 filing index 必須只有一份精確 EX-99.1）
+   exhibit_991_analysis.json ＋ 60_SEC_Filing_Radar/Exhibit_991_Earnings_Radar.md
+        └─→ 20_Filings/<Ticker>/analysis/*_Exhibit_99_1.md（七類原文證據卡）
 ```
 
 這七支腳本必須**照這個順序**執行，後面的依賴前面的產出。
@@ -582,6 +587,7 @@ git fetch --dry-run origin main
 | `check_new_annual_filings.py` | 比對 SEC 最新 10-K／20-F 與本地 accession（**只通知，不寫檔**） |
 | `watch_sec_filings.py` | 台北時間週二至週六中午比對 14 家 SEC accession，更新每日雷達並由 GitHub Issue 通知 |
 | `ingest_periodic_filings.py` | 依 accession 下載 10-Q／8-K／6-K 官方主要文件；安全拆分 10-Q MD&A／Controls／Risk Factors 與 8-K SEC Item；重解析失敗會移除該 accession 的舊版現役筆記，避免狀態顯示失敗但頁面仍殘留舊內容 |
+| `analyze_exhibit_991.py` | 只處理 Item 2.02 的 8-K／8-K-A；由同 accession 官方 filing index 找唯一 EX-99.1，保留營收、毛利率、EPS、分部、市場指引、管理層語句與風險／前瞻限制的原文證據；未命中保留缺值，重新分析失敗會移除舊卡 |
 | `configure_local_git.py` | 清除 `.git/refs` 內 0-byte Finder `Icon\r` 非法 ref，並設定 `fetch.hideRefs=refs/codex`，避免外接磁碟上的 macOS 圖示 metadata 阻斷 fetch／pull |
 | `sec_specialized_radars.py` | 產生最新 10-Q 到件表、解析 Form 4 Ownership XML、依募資文件內文判別 ATM／股權／可轉債／一般債券／架上註冊 |
 | `sec_advanced_radars.py` | 產生財報附註／附件、UPLOAD／CORRESP、13D／13G、DEF 14A、Form 144＋3／4／5、併購與 SEC 執法／停牌雷達；結果依 accession 快取 |

@@ -910,6 +910,88 @@ def c26():
     return not bad and not missing, f"資料問題：{bad or '無'}；缺自動化／入口：{missing or '無'}"
 
 
+@check("C-27", "8-K Exhibit 99.1 分析卡可追溯且不補猜測值")
+def c27():
+    from analyze_exhibit_991 import (  # noqa: PLC0415
+        CATEGORIES, MAX_EVIDENCE, PARSER_VERSION, SCHEMA_VERSION, eligible_events,
+    )
+    status = load("exhibit_991_analysis.json")
+    expected = {row["accession"]: row for row in eligible_events(REPO_ROOT / "sec_filing_alerts.json")}
+    rows = status.get("filings", [])
+    actual = {row.get("accession"): row for row in rows}
+    bad = []
+    if status.get("schema_version") != SCHEMA_VERSION:
+        bad.append(f"schema 不是 {SCHEMA_VERSION}")
+    if status.get("parser_version") != PARSER_VERSION:
+        bad.append(f"parser 不是 {PARSER_VERSION}")
+    if len(actual) != len(rows):
+        bad.append("狀態有重複 accession")
+    if set(actual) != set(expected):
+        bad.append("沒有完整覆蓋 Item 2.02 的 8-K／8-K-A")
+
+    analyzed = 0
+    pending = 0
+    for accession, row in sorted(actual.items()):
+        expected_card = REPO_ROOT / str(row.get("expected_card") or "")
+        if row.get("status") != "analyzed":
+            pending += 1
+            if not row.get("errors"):
+                bad.append(f"{accession} 待覆核但沒有原因")
+            if expected_card.is_file():
+                bad.append(f"{accession} 待覆核但仍留有舊分析卡")
+            continue
+        analyzed += 1
+        exhibit_url = str(row.get("exhibit_url") or "")
+        compact = accession.replace("-", "")
+        if (not exhibit_url.startswith("https://www.sec.gov/Archives/edgar/data/")
+                or f"/{compact}/" not in exhibit_url):
+            bad.append(f"{accession} Exhibit 不是同 accession 的 SEC HTTPS 來源")
+        if not re.fullmatch(r"[0-9a-f]{64}", str(row.get("source_sha256") or "")):
+            bad.append(f"{accession} 缺附件 SHA-256")
+        categories = row.get("categories") or {}
+        if set(categories) != set(CATEGORIES):
+            bad.append(f"{accession} 七類證據欄位不完整")
+            continue
+        found = sum(bool(items) for items in categories.values())
+        if row.get("coverage") != {"found": found, "total": len(CATEGORIES)}:
+            bad.append(f"{accession} 證據覆蓋數無法對帳")
+        card_path = REPO_ROOT / str(row.get("card") or "")
+        if not card_path.is_file():
+            bad.append(f"{accession} 缺分析卡")
+            continue
+        card = card_path.read_text()
+        for marker in (accession, exhibit_url, f"parser_version: {PARSER_VERSION}", "保留缺值"):
+            if marker not in card:
+                bad.append(f"{accession} 分析卡缺追溯標記：{marker}")
+        for key, items in categories.items():
+            if len(items) > MAX_EVIDENCE:
+                bad.append(f"{accession}/{key} 證據超過 {MAX_EVIDENCE} 則")
+            for item in items:
+                excerpt = item.get("excerpt") or ""
+                if not excerpt or excerpt not in card:
+                    bad.append(f"{accession}/{key} 證據未原文寫入分析卡")
+
+    workflow = read(".github/workflows/sec-filing-alerts.yml")
+    workflow_markers = (
+        "analyze_exhibit_991.py", "exhibit_991_analysis.json",
+        "Exhibit_991_Earnings_Radar.md", "exhibit_991_pending_count",
+        "Require manual review for unsafe filing boundaries",
+    )
+    missing = [marker for marker in workflow_markers if marker not in workflow]
+    if "Exhibit_991_Earnings_Radar" not in read("00_Home.md"):
+        missing.append("00_Home:Exhibit_991_Earnings_Radar")
+    page = read("dashboard.html")
+    ui_markers = (
+        "secExhibit991", "renderSecExhibit991", "exhibit_991_analysis.json",
+        "⑧ Exhibit 99.1", "本附件未可靠辨識此項；保留缺值",
+        "本卡是官方附件的原文閱讀索引，不是投資評分",
+    )
+    missing += [f"dashboard:{marker}" for marker in ui_markers if marker not in page]
+    ok = not bad and not missing
+    return ok, (f"已分析 {analyzed}；待覆核 {pending}；"
+                f"資料問題：{bad or '無'}；缺自動化／入口：{missing or '無'}")
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--quiet", action="store_true", help="只印出失敗項")

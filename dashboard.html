@@ -1508,6 +1508,25 @@
     .sec-text-diff-title { color: #f3e8ff; font-size: 1rem; }
     .sec-text-diff-meta { color: #94a3b8; font-size: 0.71rem; line-height: 1.5; }
 
+    .sec-exhibit991 {
+      margin-bottom: 22px;
+      padding: 18px;
+      border: 1px solid rgba(251, 191, 36, 0.3);
+      border-radius: 18px;
+      background: linear-gradient(145deg, rgba(120, 53, 15, 0.12), rgba(15, 23, 42, 0.82));
+    }
+    .sec-exhibit991-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 12px; }
+    .sec-exhibit991-title { color: #fef3c7; font-size: 1rem; }
+    .sec-exhibit991-meta { margin-top: 4px; color: #94a3b8; font-size: 0.71rem; line-height: 1.5; }
+    .sec-exhibit991-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 10px; }
+    .sec-exhibit991-card { min-width: 0; padding: 12px; border: 1px solid rgba(148, 163, 184, 0.17); border-radius: 12px; background: rgba(2, 6, 23, 0.38); }
+    .sec-exhibit991-card.missing { opacity: 0.74; }
+    .sec-exhibit991-card h4 { color: #fde68a; font-size: 0.78rem; line-height: 1.4; }
+    .sec-exhibit991-meaning { margin-top: 4px; color: #94a3b8; font-size: 0.67rem; line-height: 1.5; }
+    .sec-exhibit991-evidence { margin-top: 8px; padding-left: 10px; border-left: 2px solid rgba(251, 191, 36, 0.4); color: #e2e8f0; font-size: 0.7rem; line-height: 1.55; }
+    .sec-exhibit991-evidence + .sec-exhibit991-evidence { margin-top: 7px; }
+    .sec-exhibit991-limit { margin-top: 11px; color: #94a3b8; font-size: 0.68rem; line-height: 1.55; }
+
     .sec-text-diff-kpis {
       display: grid;
       grid-template-columns: repeat(5, minmax(0, 1fr));
@@ -2579,7 +2598,7 @@
         <nav id="secCoreShortcuts" class="sec-core-shortcuts" aria-label="SEC 核心持股快捷標的">
           <div class="sec-core-shortcuts-head">
             <strong>⚡ 核心持股快捷標的</strong>
-            <span id="secCoreShortcutStatus">點選一次，同步切換①八季數字、②重要申報、③ Form 4、④募資稀釋、⑤進階 SEC 雷達、⑥文字差異與⑦投資論點。</span>
+            <span id="secCoreShortcutStatus">點選一次，同步切換①八季數字、②重要申報、③ Form 4、④募資稀釋、⑤進階 SEC 雷達、⑥文字差異、⑦投資論點與⑧ Exhibit 99.1。</span>
           </div>
           <div class="sec-core-chip-list" role="group" aria-label="選擇核心持股公司">
             <button type="button" class="sec-core-chip" data-sec-core-ticker="NVDA" onclick="setSecCoreTicker('NVDA')" aria-pressed="false">NVDA (輝達)</button>
@@ -2609,6 +2628,10 @@
 
         <section id="secTextDiff" class="sec-text-diff" aria-live="polite" aria-label="10-K 與 10-Q 文字差異雷達">
           <p class="sec-text-diff-placeholder">點選上方公司後，這裡會比較最近兩份同類型 10-Q、10-K 或 20-F 的實際文字。</p>
+        </section>
+
+        <section id="secExhibit991" class="sec-exhibit991" aria-live="polite" aria-label="Exhibit 99.1 財報證據卡">
+          <p class="sec-company-brief-placeholder">點選上方公司後，這裡會顯示 Item 2.02 的官方 Exhibit 99.1 財報原文證據。</p>
         </section>
 
         <div class="sec-kpi-grid" aria-label="SEC 每日摘要數字">
@@ -3977,8 +4000,10 @@
             .then(r => { if (!r.ok) throw new Error(`投資論點追蹤 HTTP ${r.status}`); return r.json(); }),
           fetch('investment_thesis_status.json', { cache: 'no-cache' })
             .then(r => { if (!r.ok) throw new Error(`投資論點狀態 HTTP ${r.status}`); return r.json(); }),
-        ]).then(([alerts, details, quarterlyFinancials, advanced, thirteenF, textChanges, thesisTracking, thesisStatus]) => {
-          secDailyData = { alerts, details, quarterlyFinancials, advanced, thirteenF, textChanges, thesisTracking, thesisStatus };
+          fetch('exhibit_991_analysis.json', { cache: 'no-cache' })
+            .then(r => { if (!r.ok) throw new Error(`Exhibit 99.1 分析 HTTP ${r.status}`); return r.json(); }),
+        ]).then(([alerts, details, quarterlyFinancials, advanced, thirteenF, textChanges, thesisTracking, thesisStatus, exhibit991]) => {
+          secDailyData = { alerts, details, quarterlyFinancials, advanced, thirteenF, textChanges, thesisTracking, thesisStatus, exhibit991 };
           renderSecDaily();
         }).catch(error => {
           secDailyPromise = null;
@@ -4498,6 +4523,7 @@
       renderSecCompanyBrief();
       renderSecThesisTracker();
       renderSecTextDiff();
+      renderSecExhibit991();
       renderSecQuarterlyTrend();
       renderSecAdvanced();
 
@@ -4987,6 +5013,7 @@
       renderSecCompanyBrief();
       renderSecThesisTracker();
       renderSecTextDiff();
+      renderSecExhibit991();
       renderSecQuarterlyTrend();
     }
 
@@ -4999,8 +5026,8 @@
       const status = document.getElementById('secCoreShortcutStatus');
       if (!status) return;
       status.textContent = secCoreTicker
-        ? `已同步選擇 ${secCoreTicker}：①八季數字、②重要申報、③ Form 4、④募資稀釋、⑤進階 SEC 雷達、⑥文字差異、⑦投資論點。`
-        : '點選一次，同步切換①八季數字、②重要申報、③ Form 4、④募資稀釋、⑤進階 SEC 雷達、⑥文字差異與⑦投資論點。';
+        ? `已同步選擇 ${secCoreTicker}：①八季數字、②重要申報、③ Form 4、④募資稀釋、⑤進階 SEC 雷達、⑥文字差異、⑦投資論點、⑧ Exhibit 99.1。`
+        : '點選一次，同步切換①八季數字、②重要申報、③ Form 4、④募資稀釋、⑤進階 SEC 雷達、⑥文字差異、⑦投資論點與⑧ Exhibit 99.1。';
     }
 
     function setSecCoreTicker(ticker) {
@@ -5013,6 +5040,54 @@
       secDilutionTicker = dataTicker;
       secAdvancedTicker = dataTicker;
       renderSecDaily();
+    }
+
+    function renderSecExhibit991() {
+      const container = document.getElementById('secExhibit991');
+      if (!container || !secDailyData) return;
+      const displayTicker = secCoreTicker || (secQuarterlyTicker === 'GOOGL' ? 'GOOG' : secQuarterlyTicker);
+      const dataTicker = SEC_TICKER_ALIASES[displayTicker] || displayTicker;
+      if (!displayTicker) {
+        container.innerHTML = '<p class="sec-company-brief-placeholder">點選上方公司後，這裡會顯示 Item 2.02 的官方 Exhibit 99.1 財報原文證據。</p>';
+        return;
+      }
+      const payload = secDailyData.exhibit991 || {};
+      const rows = (payload.filings || []).filter(row => row.ticker === dataTicker)
+        .sort((a, b) => `${b.filing_date || ''}${b.accession || ''}`.localeCompare(`${a.filing_date || ''}${a.accession || ''}`));
+      const row = rows[0];
+      if (!row) {
+        container.innerHTML = `
+          <div class="sec-exhibit991-head"><div><h3 class="sec-exhibit991-title">⑧ ${escapeSec(displayTicker)}｜Exhibit 99.1 財報證據卡</h3>
+          <p class="sec-exhibit991-meta">目前雷達沒有同時符合 8-K／8-K-A、Item 2.02、唯一官方 EX-99.1 的附件。</p></div></div>
+          <p class="sec-exhibit991-limit">這表示目前沒有符合嚴格條件的卡片，不代表公司未公布財報；外國私人發行人也可能使用 6-K。系統不以其他附件或舊資料補猜。</p>`;
+        return;
+      }
+      if (row.status !== 'analyzed') {
+        container.innerHTML = `
+          <div class="sec-exhibit991-head"><div><h3 class="sec-exhibit991-title">⑧ ${escapeSec(displayTicker)}｜Exhibit 99.1 財報證據卡</h3>
+          <p class="sec-exhibit991-meta">${escapeSec(row.filing_date)}｜${escapeSec(row.accession)}｜⚠️ 待人工覆核</p></div>
+          <a class="sec-link" href="${safeSecUrl(row.index_url)}" target="_blank" rel="noopener">SEC 申報索引 ↗</a></div>
+          <p class="sec-exhibit991-limit">${escapeSec((row.errors || []).join('；') || '附件尚未可靠解析。')} 舊卡已移除，不顯示可能過期的內容。</p>`;
+        return;
+      }
+      const categoryDefinitions = payload.categories || {};
+      const cards = Object.entries(categoryDefinitions).map(([key, definition]) => {
+        const evidence = row.categories?.[key] || [];
+        return `<article class="sec-exhibit991-card${evidence.length ? '' : ' missing'}">
+          <h4>${escapeSec(definition.label)}</h4>
+          <p class="sec-exhibit991-meaning">${escapeSec(definition.meaning)}</p>
+          ${evidence.length
+            ? evidence.map(item => `<p class="sec-exhibit991-evidence">${escapeSec(item.excerpt)}</p>`).join('')
+            : '<p class="sec-exhibit991-evidence">本附件未可靠辨識此項；保留缺值。</p>'}
+        </article>`;
+      }).join('');
+      const coverage = row.coverage || { found: 0, total: Object.keys(categoryDefinitions).length };
+      container.innerHTML = `
+        <div class="sec-exhibit991-head"><div><h3 class="sec-exhibit991-title">⑧ ${escapeSec(displayTicker)}｜Exhibit 99.1 財報證據卡</h3>
+        <p class="sec-exhibit991-meta">申報日 ${escapeSec(row.filing_date)}｜證據覆蓋 ${escapeSec(coverage.found)}/${escapeSec(coverage.total)} 類｜accession ${escapeSec(row.accession)}｜更新 ${escapeSec(formatSecTimestamp(payload.updated_at))}</p></div>
+        <div><a class="sec-link" href="${safeSecUrl(row.exhibit_url)}" target="_blank" rel="noopener">EX-99.1 原文 ↗</a> <a class="sec-link" href="${safeSecUrl(row.index_url)}" target="_blank" rel="noopener">申報索引 ↗</a></div></div>
+        <div class="sec-exhibit991-grid">${cards}</div>
+        <p class="sec-exhibit991-limit">本卡是官方附件的原文閱讀索引，不是投資評分。未辨識項目保留缺值；GAAP／non-GAAP、期間與幣別不可混用，公司指引不等於保證。</p>`;
     }
 
     function renderSecCompanyBrief() {
