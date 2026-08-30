@@ -1,6 +1,6 @@
 ---
 title: Sec_kb 待辦事項
-updated: 2026-08-29
+updated: 2026-08-30
 ---
 
 # 📋 Sec_kb 待辦事項
@@ -43,31 +43,7 @@ Form 144＋3／4／5、併購與 SEC 執法／停牌雷達。完整 13F 另以
 
 ---
 
-## C. 未來強化：電話會議整理
-
-### C-1. 把已入庫的官方原文再整理成可判讀分析卡
-
-適用範圍：**Sec_kb 網頁／報告內列到的全部追蹤公司**，不是只針對 META、NVDA 或單一公司。
-目前報告頁已列到的公司包含 AAPL、AMZN、ARM、COHR、GOOGL/GOOG、INTC、META、MRVL、MSFT、NOK、NVDA、ONDS、TSLA、TSM；
-後續若 dashboard/report 新增追蹤公司，也一併適用本項自動化強化。
-
-10-Q／8-K／6-K 主筆記與安全章節拆分已由 `ingest_periodic_filings.py` 接進每日 SEC 流程；
-8-K Item 2.02 的 Exhibit 99.1 也已由 `analyze_exhibit_991.py` 自動整理成七類證據卡。
-剩下的是電話會議內容的結構化整理。
-
-希望未來可以做到：
-
-- 自動下載 earnings call transcript。
-- 自動整理電話會議重點。
-
-成功條件：
-
-- 電話會議逐字稿來源必須可追溯，若官方 IR 只有 replay 或 CFO commentary，需明確標示來源型態。
-- 更新後需跑 `scripts/check_integrity.py`，並確認不會手動覆寫由腳本產生的 JSON 與報告檔。
-
----
-
-## D. 不在這份清單上的東西
+## C. 不在這份清單上的東西
 
 以下都是**已經判斷過、決定不修**的，理由記在
 [[Sec_kb_資料維護SOP#5. 已知限制（不是 bug，不要「修」）|SOP 的「已知限制」]]：

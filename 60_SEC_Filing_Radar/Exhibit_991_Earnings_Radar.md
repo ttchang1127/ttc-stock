@@ -1,6 +1,6 @@
 ---
 title: Exhibit 99.1 財報分析卡雷達
-updated_at: 2026-08-29T04:06:56+00:00
+updated_at: 2026-08-30T00:59:37+00:00
 tags:
   - sec/exhibit991
 ---
@@ -9,11 +9,13 @@ tags:
 
 僅處理 SEC metadata 同時具備 **8-K／8-K/A、Item 2.02、唯一 EX-99.1** 的申報。數字與語句保留附件原文；未辨識欄位維持缺值。
 
-- 已建立：**2** 份
+- 已建立：**4** 份
 - 待覆核／下載失敗：**0** 份
 
 ## 已建立分析卡
 
+- **MRVL｜2026-08-27**｜證據 4/7 類｜[[20_Filings/MRVL/analysis/MRVL_2026-08-27_8K_000022_Exhibit_99_1|分析卡]]｜[EX-99.1](https://www.sec.gov/Archives/edgar/data/1835632/000183563226000022/q227_8kx812026ex-991.htm)
+- **NVDA｜2026-08-26**｜證據 3/7 類｜[[20_Filings/NVDA/analysis/NVDA_2026-08-26_8K_000073_Exhibit_99_1|分析卡]]｜[EX-99.1](https://www.sec.gov/Archives/edgar/data/1045810/000104581026000073/q2fy27pr.htm)
 - **ONDS｜2026-08-13**｜證據 6/7 類｜[[20_Filings/ONDS/analysis/ONDS_2026-08-13_8K_347973_Exhibit_99_1|分析卡]]｜[EX-99.1](https://www.sec.gov/Archives/edgar/data/1646188/000119312526347973/onds-ex99_1.htm)
 - **COHR｜2026-08-12**｜證據 6/7 類｜[[20_Filings/COHR/analysis/COHR_2026-08-12_8K_346860_Exhibit_99_1|分析卡]]｜[EX-99.1](https://www.sec.gov/Archives/edgar/data/820318/000119312526346860/d128030dex991.htm)
 

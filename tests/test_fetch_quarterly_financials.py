@@ -20,6 +20,9 @@ def row(start, end, value, form="10-Q", filed="2026-01-01", frame=None):
 
 
 class QuarterlyFinancialTests(unittest.TestCase):
+    def test_history_limit_preserves_three_year_guidance_actuals_after_roll_forward(self):
+        self.assertGreaterEqual(quarterly.QUARTER_HISTORY_LIMIT, 16)
+
     def test_q4_is_annual_minus_nine_months(self):
         rows = [
             row("2025-01-01", "2025-09-30", 90),

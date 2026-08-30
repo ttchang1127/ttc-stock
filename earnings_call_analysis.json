@@ -1,7 +1,7 @@
 {
   "schema_version": 3,
   "parser_version": 16,
-  "updated_at": "2026-08-30T00:29:14+00:00",
+  "updated_at": "2026-08-30T00:54:27+00:00",
   "source": "Official company investor-relations pages and explicitly allow-listed linked hosts",
   "methodology": "Official text only; no audio transcription; short verbatim evidence; missing stays missing; no sentiment score",
   "source_types": {
@@ -2217,10 +2217,10 @@
       },
       "freshness": {
         "status": "current",
-        "latest_financial_period": "2026-05-02",
-        "latest_financial_filing_date": "2026-05-28",
+        "latest_financial_period": "2026-08-01",
+        "latest_financial_filing_date": "2026-08-28",
         "meaning": "法說會日期未落後最新財務申報超過 45 天。",
-        "lag_days": -91
+        "lag_days": 1
       }
     },
     "MSFT": {
@@ -2809,10 +2809,19 @@
       "q_and_a_available": true,
       "source_sha256": "98213a1a32a1f101284eb50265ee059fe02565c76148f39951d146f14a44d5fd",
       "exhibit_comparison": {
-        "status": "unavailable",
-        "overlap_topics": [],
-        "call_only_topics": [],
-        "meaning": "沒有同公司可比的嚴格 Exhibit 99.1 卡，因此不推測兩份資料差異。"
+        "status": "topic_coverage_only",
+        "exhibit_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000073/q2fy27pr.htm",
+        "filing_date": "2026-08-26",
+        "overlap_topics": [
+          "demand_growth",
+          "margin_cost"
+        ],
+        "call_only_topics": [
+          "capital_supply",
+          "guidance",
+          "analyst_questions"
+        ],
+        "meaning": "只比較兩份來源是否覆蓋同類主題；不代表內容一致、相反、利多或利空。"
       },
       "errors": [],
       "last_verified_at": "2026-08-30T00:29:09+00:00",
@@ -3217,10 +3226,10 @@
       },
       "freshness": {
         "status": "current",
-        "latest_financial_period": "2026-04-26",
-        "latest_financial_filing_date": "2026-05-20",
+        "latest_financial_period": "2026-07-26",
+        "latest_financial_filing_date": "2026-08-26",
         "meaning": "法說會日期未落後最新財務申報超過 45 天。",
-        "lag_days": -98
+        "lag_days": 0
       }
     },
     "ONDS": {

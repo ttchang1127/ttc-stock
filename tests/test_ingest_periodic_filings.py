@@ -48,6 +48,13 @@ def event(form="10-Q", items=None):
 
 
 class PeriodicFilingIngestTests(unittest.TestCase):
+    def test_clean_html_rejoins_item_number_split_inside_one_heading(self):
+        source = "<p><b>Item\n9.01.&nbsp;Financial Statements and Exhibits.</b></p>"
+        self.assertEqual(
+            ingest.clean_html_to_text(source),
+            "Item 9.01. Financial Statements and Exhibits.",
+        )
+
     def test_10q_extracts_three_required_sections(self):
         sections, errors = ingest.extract_10q_sections(valid_10q_text())
         self.assertEqual(errors, [])

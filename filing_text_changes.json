@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-08-26T13:09:48+00:00",
+  "generated_at": "2026-08-30T00:55:25+00:00",
   "source": "SEC EDGAR official filing HTML; paragraph-level comparison",
   "thresholds": {
     "same": 0.6,
@@ -37,8 +37,8 @@
       "0001628280-26-050705"
     ],
     "MRVL": [
-      "0001835632-25-000197",
-      "0001835632-26-000019"
+      "0001835632-26-000019",
+      "0001835632-26-000025"
     ],
     "MSFT": [
       "0001193125-26-027207",
@@ -49,8 +49,8 @@
       "0001628280-26-015034"
     ],
     "NVDA": [
-      "0001045810-25-000230",
-      "0001045810-26-000052"
+      "0001045810-26-000052",
+      "0001045810-26-000075"
     ],
     "ONDS": [
       "0001213900-26-057859",
@@ -1934,14 +1934,6 @@
       "comparison_basis": "同公司、同表單類型的最近兩份週期申報",
       "caveat": "段落重組、表格排版或跨期數字更新可能被判為文字變化；可能升高／緩和只代表指定措辭新增，不代表風險事實已改變。",
       "previous": {
-        "accession": "0001835632-25-000197",
-        "form": "10-Q",
-        "filing_date": "2025-12-03",
-        "report_date": "2025-11-01",
-        "url": "https://www.sec.gov/Archives/edgar/data/1835632/000183563225000197/mrvl-20251101.htm",
-        "index_url": "https://www.sec.gov/Archives/edgar/data/1835632/000183563225000197/0001835632-25-000197-index.html"
-      },
-      "latest": {
         "accession": "0001835632-26-000019",
         "form": "10-Q",
         "filing_date": "2026-05-28",
@@ -1949,129 +1941,32 @@
         "url": "https://www.sec.gov/Archives/edgar/data/1835632/000183563226000019/mrvl-20260502.htm",
         "index_url": "https://www.sec.gov/Archives/edgar/data/1835632/000183563226000019/0001835632-26-000019-index.html"
       },
+      "latest": {
+        "accession": "0001835632-26-000025",
+        "form": "10-Q",
+        "filing_date": "2026-08-28",
+        "report_date": "2026-08-01",
+        "url": "https://www.sec.gov/Archives/edgar/data/1835632/000183563226000025/mrvl-20260801.htm",
+        "index_url": "https://www.sec.gov/Archives/edgar/data/1835632/000183563226000025/0001835632-26-000025-index.html"
+      },
       "sections": {
         "risk_factors": {
           "status": "compared",
           "label": "風險因素（Part II Item 1A）",
-          "paragraphs_previous": 199,
-          "paragraphs_latest": 216,
-          "unchanged": 196,
-          "modified_count": 2,
-          "added_count": 18,
-          "removed_count": 1,
-          "modified": [
-            {
-              "similarity": 0.505,
-              "previous_excerpt": "The U.S. government has in the past, and may in the future, instituted or proposed changes in trade policies that included the negotiation or termination of trade agreements, the imposition of higher tariffs on imports into the U.S., economic sanctions on individuals, corporations or countries, and other government regulations affecting trade between the U.S. and other countries where we conduct our business. For example, on May 14, 2024, the Biden administration announced new tariffs on certain goods to encourage China to eliminate unfair trade practices regarding technology transfer, intellectual property, and innovation. The Biden administration directed increases in tariffs on a significant amount of imports from China across certain strategic s…",
-              "latest_excerpt": "Changes in U.S. or foreign international tax, social, political, regulatory and economic conditions or in laws and policies governing foreign trade, manufacturing, development and investment in the territories or countries where we currently sell our products or conduct our business have in the past and could in the future adversely affect our business. The U.S. government has in the past, and may in the future, instituted or proposed changes in trade policies that included the negotiation or termination of trade agreements, the imposition of higher tariffs on imports into the U.S., economic sanctions on individuals, corporations or countries, and other government regulations affecting trade between the U.S. and other countries where we conduct our…",
-              "topics": [
-                "法規／訴訟"
-              ],
-              "language_signal": {
-                "code": "rewritten",
-                "label": "大幅改寫",
-                "triggers": []
-              }
-            },
-            {
-              "similarity": 0.32,
-              "previous_excerpt": "We have in the past including in the first few quarters of fiscal 2023, and may in the future, experience a number of industry-wide supply constraints. These supply challenges have in the past, and may in the future, limit our ability to fully satisfy demand for some of our products.",
-              "latest_excerpt": "We have in the past and may in the future, experienced a number of industry-wide supply constraints. These supply challenges have in the past, and may in the future, limited our ability to fully satisfy demand for some of our products. For example, there has and continues to be a tight supply environment for AI related components and manufacturing resources, such as advanced wafer fabrication, advanced packaging, and large body substrates which have in the past and may continue to result in increased lead times, inability to meet demand, and increased costs.",
-              "topics": [
-                "需求／客戶",
-                "毛利／成本"
-              ],
-              "language_signal": {
-                "code": "rewritten",
-                "label": "大幅改寫",
-                "triggers": []
-              }
-            }
-          ],
+          "paragraphs_previous": 216,
+          "paragraphs_latest": 215,
+          "unchanged": 214,
+          "modified_count": 0,
+          "added_count": 1,
+          "removed_count": 2,
+          "modified": [],
           "added": [
             {
-              "excerpt": "Advances in artificial intelligence could disrupt our business model and materially adversely affect our results of operations and financial condition.",
-              "topics": [],
-              "language_signal": {
-                "code": "rewritten",
-                "label": "大幅改寫",
-                "triggers": []
-              }
-            },
-            {
-              "excerpt": "Rapid advances in artificial intelligence (“AI”) and machine learning (“ML”) technologies, including generative AI, could fundamentally alter the semiconductor industry and disrupt our business model and operations. AI-driven tools and platforms are increasingly being deployed across the integrated circuit (“IC”) development lifecycle, including in chip architecture design, electronic design automation (“EDA”), layout optimization, verification, testing, and process node development. If AI-enabled efficiencies substantially reduce the complexity, cost, or time required to design, develop, and manufacture semiconductor products, our competitive position could be materially and adversely affected.",
-              "topics": [
-                "毛利／成本"
-              ],
-              "language_signal": {
-                "code": "rewritten",
-                "label": "大幅改寫",
-                "triggers": []
-              }
-            },
-            {
-              "excerpt": "AI-driven design tools may lower traditional barriers to entry in the semiconductor industry by enabling new market participants, including technology companies that have not historically engaged in chip design, to develop high-performance, custom semiconductor solutions in-house with reduced reliance on third-party chip suppliers. This trend toward internal chip development, sometimes referred to as \"insourcing\" or \"vertical integration,\" could reduce demand for our products and erode our market share. In particular, large cloud computing providers, automotive original equipment manufacturers, and other technology-focused enterprises have already begun investing in proprietary chip design capabilities, and advancements in AI may accelerate this tre…",
+              "excerpt": "• risks related to our dependence on a limited number of suppliers of critical materials, including components, within our supply chain, and potential inability to obtain sufficient advance node wafers from Taiwan Semiconductor Manufacturing Company Limited (“TSMC”) as well as to obtain other critical components from other suppliers, to meet customer demand and our forecasts;",
               "topics": [
                 "需求／客戶",
                 "庫存／供應鏈"
               ],
-              "language_signal": {
-                "code": "rewritten",
-                "label": "大幅改寫",
-                "triggers": []
-              }
-            },
-            {
-              "excerpt": "41 Table of Contents AI and ML technologies may enable our existing competitors to achieve design and manufacturing efficiencies that we are unable to match, thereby diminishing or eliminating our current technological or cost advantages. Competitors that more effectively integrate AI into their IC development workflows may be able to bring products to market faster, at lower cost, or with superior performance characteristics compared to our offerings. If we fail to adopt and integrate AI technologies into our own design and development processes at a pace consistent with or faster than our competitors, our products could become less competitive, which would have a material adverse effect on our revenue and profitability.",
-              "topics": [
-                "需求／客戶",
-                "毛利／成本"
-              ],
-              "language_signal": {
-                "code": "rewritten",
-                "label": "大幅改寫",
-                "triggers": []
-              }
-            },
-            {
-              "excerpt": "AI-generated efficiencies may compress product development cycles across the industry, which could shorten the useful commercial life of our existing products and reduce the return on our research and development investments. As AI tools enable more rapid iteration and optimization of chip designs, customers may expect faster product refresh cycles, placing additional pressure on our research and development resources and potentially leading to accelerated inventory obsolescence.",
-              "topics": [
-                "需求／客戶",
-                "庫存／供應鏈"
-              ],
-              "language_signal": {
-                "code": "rewritten",
-                "label": "大幅改寫",
-                "triggers": []
-              }
-            },
-            {
-              "excerpt": "Our investment in AI-related capabilities may not yield the anticipated benefits. Developing, acquiring, or integrating AI-driven tools and talent into our operations will require significant capital expenditures and operational resources, and there is no assurance that these investments will generate a return sufficient to justify their cost. Additionally, the deployment of AI technologies in our design and manufacturing processes may introduce new and unforeseen risks, including design errors, security vulnerabilities, intellectual property concerns, and regulatory compliance challenges that could increase our costs, expose us to liability, or delay product launches. See also, “ Costs related to defective products could have a material adverse eff…",
-              "topics": [
-                "毛利／成本",
-                "法規／訴訟",
-                "資安／資料"
-              ],
-              "language_signal": {
-                "code": "rewritten",
-                "label": "大幅改寫",
-                "triggers": []
-              }
-            },
-            {
-              "excerpt": "AI technologies may disrupt the broader semiconductor supply chain and ecosystem in ways that are difficult to predict. For example, AI-driven advances in chiplet-based architectures, advanced packaging, or novel materials science could render certain of our existing product lines, manufacturing processes, or intellectual property less valuable or obsolete. Furthermore, the increasing use of AI in semiconductor design raises complex and evolving questions around intellectual property ownership, patentability, and trade secret protection, and the legal frameworks governing these issues remain uncertain and may develop in ways that are unfavorable to our business. See also, “ We may be unable to protect our intellectual property, which would negativel…",
-              "topics": [
-                "庫存／供應鏈"
-              ],
-              "language_signal": {
-                "code": "rewritten",
-                "label": "大幅改寫",
-                "triggers": []
-              }
-            },
-            {
-              "excerpt": "We cannot predict the pace or trajectory of AI development or the extent to which AI-driven disruption will affect the semiconductor industry. If we are unable to anticipate and adapt to these changes in a timely and effective manner, our business, financial condition, results of operations, and competitive position could be materially and adversely affected.",
-              "topics": [],
               "language_signal": {
                 "code": "rewritten",
                 "label": "大幅改寫",
@@ -2081,11 +1976,19 @@
           ],
           "removed": [
             {
-              "excerpt": "Changes in U.S. or foreign international tax, social, political, regulatory and economic conditions or in laws and policies governing foreign trade, manufacturing, development and investment in the territories or countries where we currently sell our products or conduct our business have in the past and could in the future adversely affect our business. For example, while the Russian invasion of Ukraine (including related export and other business sanctions on Russia) has not had a material impact on us due to our limited sales to Russia and Ukraine, we are unable to predict the indirect impact this conflict will have on us through impacts to the supply chain, the global and domestic economies, interest rates or stock markets .",
+              "excerpt": "43 Table of Contents We operate in intensely competitive markets. Our failure to compete effectively would harm our results of operations.",
+              "topics": [],
+              "language_signal": {
+                "code": "removed",
+                "label": "不再列出",
+                "triggers": []
+              }
+            },
+            {
+              "excerpt": "Because of the geographic concentration of some of our suppliers, we are exposed to the risk that their operations may be disrupted by regional events including droughts, earthquakes (particularly in Taiwan and elsewhere in the Pacific Rim close to fault lines), tsunamis or typhoons, severe storms, power outages, or by actual or threatened public health emergencies such as the COVID-19 pandemic, or by political, social or economic instability. In addition, while the Russian invasion of Ukraine has not had a direct material impact on us due to our limited sales to Russia and Ukraine, we are unable to predict the indirect impact this conflict will have on us due to impacts on the supply chain, global and domestic economies, interest rates and stock ma…",
               "topics": [
                 "需求／客戶",
-                "庫存／供應鏈",
-                "法規／訴訟"
+                "庫存／供應鏈"
               ],
               "language_signal": {
                 "code": "removed",
@@ -2098,85 +2001,19 @@
         "management_discussion": {
           "status": "compared",
           "label": "MD&A 管理層討論（Part I Item 2）",
-          "paragraphs_previous": 70,
-          "paragraphs_latest": 69,
-          "unchanged": 44,
-          "modified_count": 13,
-          "added_count": 12,
-          "removed_count": 13,
+          "paragraphs_previous": 69,
+          "paragraphs_latest": 76,
+          "unchanged": 67,
+          "modified_count": 2,
+          "added_count": 7,
+          "removed_count": 0,
           "modified": [
             {
-              "similarity": 0.571,
-              "previous_excerpt": "Sales and Customer Composition. Our accounts receivable was concentrated with three customers at November 1, 2025, who represented a total of 70% of gross accounts receivable, compared with four customers at November 2, 2024, who represented a total of 67% of gross accounts receivable. Net revenue attributable to significant customers including both distributor and direct customers whose revenues represented 10% or more of total net revenue is presented in the following table: Three Months Ended Nine Months Ended November 1, 2025 November 2, 2024 November 1, 2025 November 2, 2024 Direct Customer: Customer A 11% 13% 14% * Distributor: Distributor A 38% 33% 36% 35% *Less than 10% of net revenue.",
-              "latest_excerpt": "Sales and Customer Composition. Our accounts receivable were concentrated with three customers at May 2, 2026, who represented a total of 75% of gross accounts receivable, compared with five customers at May 3, 2025, who represented a total of 72% of gross accounts receivable. Net revenue attributable to significant customers including both distributor and direct customers whose revenues represented 10% or more of total net revenue is presented in the following table: Three Months Ended May 2, 2026 May 3, 2025 Direct Customer: Customer A 16% 16% Distributor: Distributor A 45% 36% We regularly monitor the creditworthiness of our distributor and direct customers, and believe these distributors’ sales to diverse end customers and geographies further se…",
+              "similarity": 0.548,
+              "previous_excerpt": "Cash Flows from Operating Activities Net cash provided by operating activities for the three months ended May 2, 2026 was $638.8 million. We had a net income of $34.5 million adjusted for the following non-cash items: change in fair value of contingent consideration liability of $331.8 million, amortization of acquired intangible assets of $225.2 million, stock-based compensation expense of $207.6 million, depreciation and amortization of $95.4 million, unrealized gain on forward stock purchase contract of $81.1 million, deferred income tax of $13.8 million, and $23.2 million of net loss from other non-cash items. Cash outflow from working capital of $211.6 million for the three months ended May 2, 2026 was primarily driven by decreases in accounts…",
+              "latest_excerpt": "Cash Flows from Operating Activities Net cash provided by operating activities for the six months ended August 1, 2026 was $1.2 billion. We had a net income of $342.5 million adjusted for the following non-cash items: stock-based compensation expense of $533.8 million, amortization of acquired intangible assets of $440.1 million, change in fair value of contingent consideration liability of $433.7 million, depreciation and amortization of $188.5 million, unrealized gain on forward stock purchase contract of $131.0 million, deferred income tax of $38.7 million, and $58.3 million of net loss from other non-cash items. Cash outflow from working capital of $660.3 million for the six months ended August 1, 2026 was primarily driven by an increases in pre…",
               "topics": [
-                "需求／客戶"
-              ],
-              "language_signal": {
-                "code": "rewritten",
-                "label": "大幅改寫",
-                "triggers": []
-              }
-            },
-            {
-              "similarity": 0.553,
-              "previous_excerpt": "The One Big Beautiful Bill Act of 2025 (the “2025 Tax Act”) was signed into law on July 4, 2025. The 2025 Tax Act makes permanent key elements of the 2017 Tax Cuts and Jobs Act, including domestic research cost expensing, 100% bonus depreciation and makes modifications to the U.S. International tax framework. Our tax provision for the November 1, 2025 period includes the estimated impact of the 2025 Tax Act. We will continue to evaluate the impact of the 2025 Tax Act on our income taxes.",
-              "latest_excerpt": "The One Big Beautiful Bill Act of 2025 (the “2025 Tax Act”) was signed into law on July 4, 2025. The 2025 Tax Act makes permanent key elements of the 2017 Tax Cuts and Jobs Act and modifies certain provisions of the U.S. International tax framework. Certain provisions of the 2025 Tax Act become effective in fiscal year 2027. Our tax provision for the May 2, 2026 period includes the impact of the 2025 Tax Act. We will continue to evaluate the impact of the 2025 Tax Act on our income taxes.",
-              "topics": [
-                "毛利／成本"
-              ],
-              "language_signal": {
-                "code": "rewritten",
-                "label": "大幅改寫",
-                "triggers": []
-              }
-            },
-            {
-              "similarity": 0.529,
-              "previous_excerpt": "32 Table of Contents Cash Flows from Operating Activities Net cash provided by operating activities for the nine months ended November 1, 2025 was $1.4 billion. We had a net income of $2.3 billion adjusted for the following non-cash items: gain on sale of our automotive ethernet business of $1.8 billion, amortization of acquired intangible assets of $718.4 million, stock-based compensation expense of $447.8 million, depreciation and amortization of $255.2 million, restructuring related gains of $14.0 million, deferred income tax benefit of $2.2 million, and $85.1 million of net loss from other non-cash items. Cash outflow from working capital of $557.1 million for the nine months ended November 1, 2025 was primarily driven by increases in accounts r…",
-              "latest_excerpt": "Cash Flows from Operating Activities Net cash provided by operating activities for the three months ended May 2, 2026 was $638.8 million. We had a net income of $34.5 million adjusted for the following non-cash items: change in fair value of contingent consideration liability of $331.8 million, amortization of acquired intangible assets of $225.2 million, stock-based compensation expense of $207.6 million, depreciation and amortization of $95.4 million, unrealized gain on forward stock purchase contract of $81.1 million, deferred income tax of $13.8 million, and $23.2 million of net loss from other non-cash items. Cash outflow from working capital of $211.6 million for the three months ended May 2, 2026 was primarily driven by decreases in accounts…",
-              "topics": [
-                "需求／客戶",
                 "庫存／供應鏈"
-              ],
-              "language_signal": {
-                "code": "rewritten",
-                "label": "大幅改寫",
-                "triggers": []
-              }
-            },
-            {
-              "similarity": 0.526,
-              "previous_excerpt": "On June 30, 2025, we completed a debt offering and issued (i) $500.0 million of Senior Notes with a 5-year term due in 2030 (“2030 Senior Notes”) and (ii) $500.0 million of Senior Notes with a 10-year term due in 2035 (“2035 Senior Notes”).",
-              "latest_excerpt": "On April 15, 2026, we completed a debt offering and issued $1.0 billion Senior Notes with a 10-year term due in 2036 (\"2036 Senior Notes\"). We used a portion of the net proceeds from the 2036 Senior Notes to repay the $500.0 million 2026 Senior Notes at maturity.",
-              "topics": [
-                "流動性／債務"
-              ],
-              "language_signal": {
-                "code": "rewritten",
-                "label": "大幅改寫",
-                "triggers": []
-              }
-            },
-            {
-              "similarity": 0.521,
-              "previous_excerpt": "We are subject to legislation based on the Organization for Economic Cooperation and Development’s 15% global minimum tax regime which applies to the majority of countries in which we operate. As a result of this legislation, our foreign earnings are generally subject to a minimum tax rate of 15%. On June 28, 2025, the G7 released a joint statement that it had reached an understanding with the U.S. on a side-by-side system that would exempt U.S. parented multinational businesses from certain provisions of Pillar Two; however, no agreement regarding implementation of the proposal has yet been reached. The effects of any future legislation in this area are not yet reasonably estimable, but if such legislation is enacted in the future, could have a sig…",
-              "latest_excerpt": "We are subject to legislation based on the Organization for Economic Cooperation and Development’s 15% global minimum tax regime which applies to the majority of countries in which we operate. As a result of this legislation, our foreign earnings are generally subject to a minimum tax rate of 15%. On January 5, 2026, the OECD released a comprehensive package of administrative guidance, including the “side-by-side system” that exempts U.S. parented multinational businesses from certain provisions of Pillar Two, specifically the Income Inclusion Rule and the Undertaxed Profits Rule. The OECD guidance provides that the side-by-side system will be effective for fiscal years beginning on or after January 1, 2026. In certain jurisdictions, local legislati…",
-              "topics": [],
-              "language_signal": {
-                "code": "rewritten",
-                "label": "大幅改寫",
-                "triggers": []
-              }
-            },
-            {
-              "similarity": 0.511,
-              "previous_excerpt": "Research and Development Three Months Ended Nine Months Ended November 1, 2025 November 2, 2024 % Change November 1, 2025 November 2, 2024 % Change (in millions, except percentage) Research and development $ 512.5 $ 488.6 4.9% $ 1,539.2 $ 1,451.4 6.0% % of net revenue 24.6 % 32.2 % 25.8 % 36.7 % Research and development expense increased by $23.9 million and $87.8 million, respectively, in the three and nine months ended November 1, 2025 compared to the three and nine months ended November 2, 2024. The increases were primarily due to higher overall spending to support our R&D initiatives, including $15.8 million and $26.8 million, respectively, of higher engineering design related costs driven by impairment charges for property and equipment.",
-              "latest_excerpt": "Research and Development Three Months Ended May 2, 2026 May 3, 2025 % Change (in millions, except percentage) Research and development $ 652.3 $ 507.7 28% % of net revenue 27.0 % 26.8 % Research and development expense increased by $144.6 million in the three months ended May 2, 2026 compared to the three months ended May 3, 2025. The increase was primarily due to higher overall spending to support our R&D initiatives, including increased employee compensation and related costs, primarily driven by growth in headcount including the addition of new employees from our recent acquisitions. The increase is also due to higher acquisition related costs of $22.3 million.",
-              "topics": [
-                "需求／客戶",
-                "毛利／成本",
-                "減損／商譽"
               ],
               "language_signal": {
                 "code": "rewritten",
@@ -2186,26 +2023,11 @@
             },
             {
               "similarity": 0.51,
-              "previous_excerpt": "For a description of our contractual obligations including debt and purchase commitments, see “Note 6 – Debt,” and “Note 8 – Commitments and Contingencies” in the Notes to Unaudited Condensed Consolidated Financial Statements. We generally expect to satisfy these commitments with cash on hand and cash provided by operating activities.",
-              "latest_excerpt": "Subsequent to quarter end, we entered into agreements to secure long-term wafer and substrate manufacturing capacity, in which we committed to pay deposits totaling $870.0 million, payable in quarterly installments from the second quarter of fiscal 2027 through the second quarter of fiscal 2028. For a description of our contractual obligations including debt and purchase commitments, see “Note 7 – Debt,” and “Note 9 – Commitments and Contingencies” in the Notes to Unaudited Condensed Consolidated Financial Statements. We generally expect to satisfy these commitments with cash on hand and cash provided by operating activities.",
+              "previous_excerpt": "Subsequent to quarter end, we entered into agreements to secure long-term wafer and substrate manufacturing capacity, in which we committed to pay deposits totaling $870.0 million, payable in quarterly installments from the second quarter of fiscal 2027 through the second quarter of fiscal 2028. For a description of our contractual obligations including debt and purchase commitments, see “Note 7 – Debt,” and “Note 9 – Commitments and Contingencies” in the Notes to Unaudited Condensed Consolidated Financial Statements. We generally expect to satisfy these commitments with cash on hand and cash provided by operating activities.",
+              "latest_excerpt": "For a description of our contractual obligations including debt and purchase commitments, see “Note 7 – Debt,” and “Note 9 – Commitments and Contingencies” in the Notes to Unaudited Condensed Consolidated Financial Statements. We generally expect to satisfy these commitments with cash on hand and cash provided by operating activities.",
               "topics": [
                 "流動性／債務",
                 "庫存／供應鏈"
-              ],
-              "language_signal": {
-                "code": "rewritten",
-                "label": "大幅改寫",
-                "triggers": []
-              }
-            },
-            {
-              "similarity": 0.484,
-              "previous_excerpt": "Cost of Goods Sold and Gross Profit Three Months Ended Nine Months Ended November 1, 2025 November 2, 2024 % Change November 1, 2025 November 2, 2024 % Change (in millions, except percentage) Cost of goods sold $ 1,004.7 $ 1,166.7 (13.9)% $ 2,943.1 $ 2,485.1 18.4% % of net revenue 48.4 % 77.0 % 49.2 % 62.9 % Gross profit $ 1,069.8 $ 349.4 206.2% $ 3,032.8 $ 1,464.8 107.0% % of net revenue 51.6 % 23.0 % 50.8 % 37.1 % Cost of goods sold as a percentage of net revenue decreased for the three and nine months ended November 1, 2025 compared to the three and nine months ended November 2, 2024, which was primarily due to impairment charges of $356.8 million for acquired intangible assets, inventories, property and equipment, and other non-current assets as…",
-              "latest_excerpt": "Cost of Goods Sold and Gross Profit Three Months Ended May 2, 2026 May 3, 2025 % Change (in millions, except percentage) Cost of goods sold $ 1,157.0 $ 942.9 23% % of net revenue 47.9 % 49.7 % Gross profit $ 1,260.8 $ 952.4 32% % of net revenue 52.1 % 50.3 % Cost of goods sold as a percentage of net revenue decreased for the three months ended May 2, 2026 compared to the three months ended May 3, 2025, which was primarily due to better cost absorption driven by higher revenues, partially offset by a shift in product mix. As a result, gross margin for the three months ended May 2, 2026 increased by 1.8 percentage points, compared to the three months ended May 3, 2025.",
-              "topics": [
-                "需求／客戶",
-                "毛利／成本",
-                "減損／商譽"
               ],
               "language_signal": {
                 "code": "rewritten",
@@ -2216,48 +2038,10 @@
           ],
           "added": [
             {
-              "excerpt": "On February 2, 2026, we completed the acquisition of Celestial AI, Inc., a provider of a Photonic Fabric TM technology platform purpose-built for next-generation scale-up interconnect. The acquisition of Celestial is expected to accelerate our connectivity strategy for next-generation AI and cloud data centers.",
-              "topics": [],
-              "language_signal": {
-                "code": "rewritten",
-                "label": "大幅改寫",
-                "triggers": []
-              }
-            },
-            {
-              "excerpt": "On February 10, 2026, we completed the acquisition of XConn Technologies Holdings, Ltd., a provider of advanced PCIe and CXL switching silicon. The acquisition of XConn expands our switching portfolio and augments our UALink TM scale-up switch team.",
-              "topics": [],
-              "language_signal": {
-                "code": "rewritten",
-                "label": "大幅改寫",
-                "triggers": []
-              }
-            },
-            {
-              "excerpt": "The unaudited condensed consolidated financial statements include the operating results of Celestial and XConn for the period from the dates of acquisition through our first quarter ended May 2, 2026. See “Note 4 – Business Combinations” and “Note 5 – Goodwill and Acquired Intangible Assets, Net” in the Notes to Unaudited Condensed Consolidated Financial Statements for additional information.",
-              "topics": [
-                "減損／商譽"
-              ],
-              "language_signal": {
-                "code": "rewritten",
-                "label": "大幅改寫",
-                "triggers": []
-              }
-            },
-            {
-              "excerpt": "During the first quarter of fiscal 2027, Marvell and NVIDIA Corporation (“NVIDIA”) announced a strategic partnership to connect our custom XPUs and compatible scale-up networking with NVIDIA’s AI infrastructure ecosystem. On March 31, 2026, we completed the issuance of Series A Convertible Preferred Stock to NVIDIA for an aggregate purchase price of $2.0 billion. See “Note 10 – Stockholders’ Equity” in the Notes to Unaudited Condensed Consolidated Financial Statements for additional information.",
-              "topics": [],
-              "language_signal": {
-                "code": "rewritten",
-                "label": "大幅改寫",
-                "triggers": []
-              }
-            },
-            {
-              "excerpt": "28 Table of Contents We continue to monitor the environment for potential impacts on supply and demand from tariffs and other geo-political events.",
+              "excerpt": "• risks related to our dependence on a limited number of suppliers of critical materials, including components, within our supply chain, and potential inability to obtain sufficient advance node wafers from Taiwan Semiconductor Manufacturing Company Limited (“TSMC”) as well as to obtain other critical components from other suppliers, to meet customer demand and our forecasts;",
               "topics": [
                 "需求／客戶",
-                "法規／訴訟"
+                "庫存／供應鏈"
               ],
               "language_signal": {
                 "code": "rewritten",
@@ -2266,7 +2050,52 @@
               }
             },
             {
-              "excerpt": "In addition, certain jurisdictions in which we operate have enacted alternative incentive programs, which operate within the Pillar Two tax framework. We have entered into agreements with governmental agencies to secure such incentives and we record the benefit associated with these incentives as earned when there is reasonable assurance that we will meet the conditions of the incentive agreements and that the incentives will ultimately be received.",
+              "excerpt": "29 Table of Contents Subsequent to quarter end, we issued a warrant to a customer to purchase an aggregate of up to 59.0 million of our common stock at an exercise price of $206.58 per share over a seven year term expiring in August 2033. The warrant is eligible for vesting from our third quarter of fiscal 2027 through the end of fiscal 2033, upon meeting certain revenue milestone conditions or time-based conditions.",
+              "topics": [
+                "需求／客戶"
+              ],
+              "language_signal": {
+                "code": "rewritten",
+                "label": "大幅改寫",
+                "triggers": []
+              }
+            },
+            {
+              "excerpt": "Our net revenue for the six months ended August 1, 2026 increased by $1.3 billion, or 32%, compared to net revenue for the six months ended August 2, 2025. This was primarily due to a 37% increase in sales from the data center end market which benefited from strong AI-related demand. Sales from the communications and other end market also increased by 19%, which has continued to recover due to normalizing customer inventory levels, partially offset by a decrease in sales from our automotive ethernet product portfolio due to the divestiture of our automotive ethernet business at the beginning of the third quarter of fiscal 2026.",
+              "topics": [
+                "需求／客戶",
+                "庫存／供應鏈"
+              ],
+              "language_signal": {
+                "code": "rewritten",
+                "label": "大幅改寫",
+                "triggers": []
+              }
+            },
+            {
+              "excerpt": "Research and development expense increased by $366.7 million in the six months ended August 1, 2026 compared to the six months ended August 2, 2025. The increase was primarily due to higher overall spending to support our R&D initiatives, including increased employee compensation and related costs, primarily driven by growth in headcount including the addition of new employees from our recent acquisitions. The increase is also due to higher acquisition related costs of $21.9 million.",
+              "topics": [
+                "毛利／成本"
+              ],
+              "language_signal": {
+                "code": "rewritten",
+                "label": "大幅改寫",
+                "triggers": []
+              }
+            },
+            {
+              "excerpt": "Selling, general and administrative expense increased by $136.8 million in the six months ended August 1, 2026 compared to the six months ended August 2, 2025. The increase was primarily due to higher acquisition related costs of $44.8 million, as well as an increase in employee compensation and related costs.",
+              "topics": [
+                "毛利／成本"
+              ],
+              "language_signal": {
+                "code": "rewritten",
+                "label": "大幅改寫",
+                "triggers": []
+              }
+            },
+            {
+              "excerpt": "Interest and other loss, net increased by $25.0 million in the three months ended August 1, 2026 compared to the three months ended August 2, 2025. The increase was primarily due to a $101.9 million increase in fair value of the contingent consideration liability associated with the Celestial acquisition, partially offset by an unrealized gain of $49.9 million from the forward stock purchase contract and higher interest income in the three months ended August 1, 2026.",
               "topics": [],
               "language_signal": {
                 "code": "rewritten",
@@ -2275,16 +2104,7 @@
               }
             },
             {
-              "excerpt": "Interest and other loss, net increased by $201.4 million in the three months ended May 2, 2026 compared to the three months ended May 3, 2025. The increase was primarily due to a $331.8 million increase in fair value of the contingent consideration liability associated with the Celestial acquisition, partially offset by an unrealized gain of $81.1 million from the forward stock purchase contract and higher net unrealized gains from equity investments in the three months ended May 2, 2026.",
-              "topics": [],
-              "language_signal": {
-                "code": "rewritten",
-                "label": "大幅改寫",
-                "triggers": []
-              }
-            },
-            {
-              "excerpt": "Provision for income taxes Three Months Ended May 2, 2026 May 3, 2025 % Change (in millions, except percentage) Provision for income taxes $ 48.8 $ 38.0 28% 32 Table of Contents Our income tax expense for the three months ended May 2, 2026 was $48.8 million compared to a tax expense of $38.0 million for the three months ended May 3, 2025. T hese amounts differed from the U.S. federal statutory tax rate of 21%, primarily due to a substantial portion of earnings or losses being taxed or benefited at rates lower than the U.S. statutory rate, net of the impact of U.S. taxation of foreign operations, benefits from tax credits, valuation allowance releases, and discrete tax benefits and expenses for excess deductions and deficiencies on stock-based compen…",
+              "excerpt": "Our income tax expense for the six months ended August 1, 2026 was $119.1 million compared to a tax expense of $76.9 million for the six months ended August 2, 2025. The increase in our tax provision was primarily driven by an increase in our pre-tax earnings. These amounts differed from the U.S. federal statutory tax rate of 21%, primarily due to a substantial portion of our earnings taxed at rates lower than the U.S. statutory rate, net of the impact of U.S. taxation of foreign operations, benefits from tax credits, non-deductible adjustments to contingent consideration liability, (net of the tax impacts of the Company’s forward stock purchase contract), valuation allowance releases as well as discrete tax benefits and expenses for excess deductio…",
               "topics": [],
               "language_signal": {
                 "code": "rewritten",
@@ -2293,90 +2113,7 @@
               }
             }
           ],
-          "removed": [
-            {
-              "excerpt": "25 Table of Contents • risks related to failures to protect our intellectual property, particularly outside the United States;",
-              "topics": [],
-              "language_signal": {
-                "code": "removed",
-                "label": "不再列出",
-                "triggers": []
-              }
-            },
-            {
-              "excerpt": "On August 14, 2025, we completed the sale of our automotive ethernet business to Infineon Technologies AG for $2.5 billion in cash. During the three months ended November 1, 2025, we recorded a pre-tax gain on sale of $1.8 billion, which is included in interest income and other, net in the Unaudited Condensed Consolidated Statements of Operations. See “Note 1 – Basis of Presentation” in the Notes to Unaudited Condensed Consolidated Financial Statements for further information.",
-              "topics": [],
-              "language_signal": {
-                "code": "removed",
-                "label": "不再列出",
-                "triggers": []
-              }
-            },
-            {
-              "excerpt": "Subsequent to quarter end, on December 2, 2025, we announced our intent to acquire Celestial AI Inc. (“Celestial”), a provider of a photonic fabric platform purpose-built for next-generation scale-up interconnect. We will issue Celestial shareholders a mix of cash and shares of our common stock to be determined. This represents approximately $3.25 billion in transaction value upon acquisition close and may increase up to a total of approximately $5.5 billion in transaction value depending on the achievement of earn-out milestones after acquisition close. The acquisition is expected to close in the first quarter of calendar 2026, subject to regulatory approval as well as other customary closing conditions.",
-              "topics": [
-                "法規／訴訟"
-              ],
-              "language_signal": {
-                "code": "removed",
-                "label": "不再列出",
-                "triggers": []
-              }
-            },
-            {
-              "excerpt": "On May 1, 2025, we received notification that our application for government incentives in a foreign jurisdiction in which we operate had been approved by the necessary government agencies. For the duration of the incentive period from February 2, 2025, through February 1, 2030, qualifying expenditures and certain qualifying purchases will result in the generation of credits that will reduce qualifying cost of sales and operating expenses by the incentives earned, and the credits may be used to offset income taxes payable or be refunded in cash. We believe there is reasonable assurance that we will meet the conditions of the incentive agreement and that the credits will ultimately be received and thus have recognized benefits associated with qualify…",
-              "topics": [
-                "需求／客戶",
-                "毛利／成本"
-              ],
-              "language_signal": {
-                "code": "removed",
-                "label": "不再列出",
-                "triggers": []
-              }
-            },
-            {
-              "excerpt": "We regularly monitor the creditworthiness of our distributor and direct customers, and believe these distributors’ sales to diverse end customers and geographies further serve to mitigate our exposure to credit risk.",
-              "topics": [
-                "需求／客戶"
-              ],
-              "language_signal": {
-                "code": "removed",
-                "label": "不再列出",
-                "triggers": []
-              }
-            },
-            {
-              "excerpt": "Our net revenue for the nine months ended November 1, 2025 increased by $2.0 billion, or 51%, compared to net revenue for the nine months ended November 2, 2024. This was primarily due to a 59% increase in sales from the data center end market which benefited from strong AI related demand. Sales from the carrier infrastructure end market and the enterprise networking end market also increased by 88% and 34%, respectively, which have both continued to recover due to normalizing customer inventory levels and strong adoption of our products. The increase was partially offset by a decrease in sales from the automotive/industrial end market by 21%, primarily due to the divestiture of our automotive ethernet business at the beginning of the third quarter…",
-              "topics": [
-                "需求／客戶",
-                "庫存／供應鏈"
-              ],
-              "language_signal": {
-                "code": "removed",
-                "label": "不再列出",
-                "triggers": []
-              }
-            },
-            {
-              "excerpt": "Interest and other income (loss), net increased by $1.9 billion in the three and nine months ended November 1, 2025 compared to the three and nine months ended November 2, 2024. The increases were primarily due to the $1.8 billion gain on sale of our automotive ethernet business in the third quarter of fiscal 2026. The increases were also driven by higher net gains recognized from equity investments, as well as higher interest income.",
-              "topics": [],
-              "language_signal": {
-                "code": "removed",
-                "label": "不再列出",
-                "triggers": []
-              }
-            },
-            {
-              "excerpt": "30 Table of Contents Our income tax expense for the three months ended November 1, 2025 was $314.1 million compared to a tax benefit of $74.2 million for the three months ended November 2, 2024. The increase in the provision for income taxes for three months ended November 1, 2025 as compared to the three months ended November 2, 2024, was driven by an increase in earnings, resulting primarily from the sale of our automotive ethernet business, in the current period against losses in the November 2, 2024 period. The recorded tax expense is based on year-to-date pretax results, forecasted pretax results, forecasted annual tax expense and discrete adjustments for the respective periods.",
-              "topics": [],
-              "language_signal": {
-                "code": "removed",
-                "label": "不再列出",
-                "triggers": []
-              }
-            }
-          ]
+          "removed": []
         }
       }
     },
@@ -2657,14 +2394,6 @@
       "comparison_basis": "同公司、同表單類型的最近兩份週期申報",
       "caveat": "段落重組、表格排版或跨期數字更新可能被判為文字變化；可能升高／緩和只代表指定措辭新增，不代表風險事實已改變。",
       "previous": {
-        "accession": "0001045810-25-000230",
-        "form": "10-Q",
-        "filing_date": "2025-11-19",
-        "report_date": "2025-10-26",
-        "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581025000230/nvda-20251026.htm",
-        "index_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581025000230/0001045810-25-000230-index.html"
-      },
-      "latest": {
         "accession": "0001045810-26-000052",
         "form": "10-Q",
         "filing_date": "2026-05-20",
@@ -2672,41 +2401,32 @@
         "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000052/nvda-20260426.htm",
         "index_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000052/0001045810-26-000052-index.html"
       },
+      "latest": {
+        "accession": "0001045810-26-000075",
+        "form": "10-Q",
+        "filing_date": "2026-08-26",
+        "report_date": "2026-07-26",
+        "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/nvda-20260726.htm",
+        "index_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/0001045810-26-000075-index.html"
+      },
       "sections": {
         "risk_factors": {
           "status": "compared",
           "label": "風險因素（Part II Item 1A）",
-          "paragraphs_previous": 62,
-          "paragraphs_latest": 53,
-          "unchanged": 44,
-          "modified_count": 3,
-          "added_count": 6,
-          "removed_count": 15,
+          "paragraphs_previous": 53,
+          "paragraphs_latest": 46,
+          "unchanged": 33,
+          "modified_count": 2,
+          "added_count": 11,
+          "removed_count": 18,
           "modified": [
             {
-              "similarity": 0.961,
-              "previous_excerpt": "If we overestimate demand, or if customers cancel or defer orders or choose to purchase from our competitors, we may not be able to utilize on-hand inventory or reduce purchase commitments accordingly. We have had to reduce average selling prices, including due to our channel pricing programs, increase prices for certain of our products as a result of our suppliers’ increase in prices, write down our inventory, incur cancellation penalties, and record impairments, and may have to do so in the future. These impacts would be amplified by our non-cancellable and non-returnable purchase orders placed in advance of our historical lead times and could be exacerbated if we need to make changes to the design of future products. The risk of these impacts has…",
-              "latest_excerpt": "If we overestimate demand, or if customers cancel or defer orders or choose to purchase from our competitors, we may not be able to utilize on-hand inventory or reduce purchase commitments accordingly. We have had to reduce average selling prices, including due to our channel pricing programs, increase prices for certain of our products as a result of our suppliers’ increase in prices, write down our inventory, incur cancellation penalties, and record impairments, and may have to do so in the future. The impact of these risks would be amplified by our non-cancellable and non-returnable purchase orders placed in advance of our historical lead times and could be exacerbated if we need to make changes to the design of future products. These risks have…",
+              "similarity": 0.391,
+              "previous_excerpt": "Beginning in February 2026, the USG granted licenses that would allow us to ship small amounts of H200 products to specific China-based customers. To date, we have not generated any revenue under the H200 licensing program, and do not yet know whether any imports will be allowed into China. The license requires that the H200s go through an inspection process in the United States prior to any shipment to the customer. As a result, any H200 shipped under the new licensing program will be subject to a 25% tariff upon importation into the United States.",
+              "latest_excerpt": "Beginning in February 2026, the USG granted licenses that would allow us to ship small amounts of H200 products to specific China-based customers, but such sales were restricted by the PRC government, and we have been unable to sell all the products for which we have licenses. During the first half of fiscal year 2027, we incurred a $0.4 billion charge associated with H200 for excess inventory and purchase obligations, as the demand for H200 products diminished. After incurring that charge, we have made a fraction of the allowed shipments under the USG’s H200 licensing program. Those shipments account for less than 1% of Data Center revenue in our most recent quarter. The licenses require that the H200s go through an inspection process in the United…",
               "topics": [
                 "需求／客戶",
                 "庫存／供應鏈",
-                "毛利／成本",
-                "減損／商譽"
-              ],
-              "language_signal": {
-                "code": "possible_escalation",
-                "label": "可能升高措辭",
-                "triggers": [
-                  "have increased"
-                ]
-              }
-            },
-            {
-              "similarity": 0.531,
-              "previous_excerpt": "• government actions or changes in governmental policies, such as export controls, increased restrictions on gaming usage, or tariffs • our customers’ and partners’ ability to secure capital and energy and to build complex datacenter infrastructure timely; and • the availability of third-party content on our platforms, such as GeForce NOW.",
-              "latest_excerpt": "• our customers’ and partners’ ability to secure capital and energy and to build complex data center infrastructure timely; and • the availability of third-party content on our platforms, such as GeForce NOW.",
-              "topics": [
-                "需求／客戶",
                 "法規／訴訟"
               ],
               "language_signal": {
@@ -2716,12 +2436,12 @@
               }
             },
             {
-              "similarity": 0.509,
-              "previous_excerpt": "In August 2025, the USG granted licenses that would allow us to ship certain H20 products to certain China-based customers, but to date, we have generated approximately $50 million in H20 revenue under those licenses. USG officials have expressed an expectation that the USG will receive 15% or more of the revenue generated from licensed sales of our products, but to date, the USG has not published a regulation codifying such requirement. In the event that we are able to sell licensed products into the China market and the USG implements a regulation requiring us to pay a percentage of the revenue from such sales, we may not be able to pass along all or any of that fee to our customers, and may be subject to litigation, increased costs, and a harmed…",
-              "latest_excerpt": "Beginning in August 2025, the USG granted licenses that would allow us to ship certain H20 products to certain China-based customers. USG officials expressed an expectation that the USG will receive 15% or more of the revenue generated from licensed sales of our products, but the USG did not publish a regulation codifying such requirement.",
+              "similarity": 0.378,
+              "previous_excerpt": "Beginning in August 2025, the USG granted licenses that would allow us to ship certain H20 products to certain China-based customers. USG officials expressed an expectation that the USG will receive 15% or more of the revenue generated from licensed sales of our products, but the USG did not publish a regulation codifying such requirement.",
+              "latest_excerpt": "Beginning in August 2025, the USG granted licenses that would have allowed us to ship certain H20 products to certain China-based customers, but such sales were restricted by the PRC government, and we were unable to sell our H20 inventory.",
               "topics": [
                 "需求／客戶",
-                "毛利／成本",
+                "庫存／供應鏈",
                 "法規／訴訟"
               ],
               "language_signal": {
@@ -2733,7 +2453,63 @@
           ],
           "added": [
             {
-              "excerpt": "Our target markets remain competitive, and competition may intensify with expanding and changing product and service offerings, industry standards, customer and market needs, new entrants and consolidations. Other companies compete 31 with us on a wide range of parameters including price, total cost of ownership, and performance, which has resulted and may in the future result in lower-than-expected selling prices or demand for our products. Some of our competitors operate their own fabrication facilities, and have longer operating histories, larger customer bases, more comprehensive IP portfolios and patent protections, more design wins, and greater financial, sales, marketing and distribution resources than we do. These competitors may be able to…",
+              "excerpt": "Commitments, guarantees, and other commercial arrangements expose us to financial, counterparty and execution risks and may not provide anticipated benefits.",
+              "topics": [],
+              "language_signal": {
+                "code": "rewritten",
+                "label": "大幅改寫",
+                "triggers": []
+              }
+            },
+            {
+              "excerpt": "To support our operations and growth, we commit capital to secure supply and capacity, obtain cloud services, and lease data center capacity. These arrangements require substantial payments over many years. If future demand, our needs or plans differ from our expectations, we may be unable to reduce these commitments. Future demand may be affected by the ability of customers and partners, including those developing open models, to generate revenue and sustain investment in computing infrastructure.",
+              "topics": [
+                "需求／客戶",
+                "庫存／供應鏈"
+              ],
+              "language_signal": {
+                "code": "rewritten",
+                "label": "大幅改寫",
+                "triggers": []
+              }
+            },
+            {
+              "excerpt": "To support our customers’ and partners’ buildout of AI infrastructure, we enter into commercial arrangements, including financial guarantees and other forms of credit support, financing arrangements, and data center leases.",
+              "topics": [
+                "需求／客戶"
+              ],
+              "language_signal": {
+                "code": "rewritten",
+                "label": "大幅改寫",
+                "triggers": []
+              }
+            },
+            {
+              "excerpt": "Customers or partners may fail to fulfill their financial commitments, secure necessary capital or infrastructure, complete projects on schedule or within budget, or experience financial distress or insolvency. Power constraints, government actions or regulations, permitting delays, or community opposition may delay, restrict or prevent the development or operation of data centers. We may have limited control over these matters.",
+              "topics": [
+                "需求／客戶",
+                "法規／訴訟"
+              ],
+              "language_signal": {
+                "code": "rewritten",
+                "label": "大幅改寫",
+                "triggers": []
+              }
+            },
+            {
+              "excerpt": "Financing arrangements with certain investment-grade customers, including extended payment terms under large, multi-quarter agreements, will continue to affect the timing of our operating cash flows. We intend to assign certain data center leases to third parties. Delays in completing these assignments could cause us to bear the related lease costs longer than anticipated.",
+              "topics": [
+                "需求／客戶",
+                "毛利／成本"
+              ],
+              "language_signal": {
+                "code": "rewritten",
+                "label": "大幅改寫",
+                "triggers": []
+              }
+            },
+            {
+              "excerpt": "We have entered into agreements with AI clouds to enable broader access to our data center infrastructure products. Under the agreements, if AI clouds do not successfully sell committed capacity to third-party customers, we have agreed to purchase that capacity. We may not have sufficient demand for, or the operational ability to use or resell, all the capacity we are committed to purchase. We may earn a share of revenue generated by sales of the supported capacity, but lower-than-expected AI compute demand or pricing may reduce the revenue we receive.",
               "topics": [
                 "需求／客戶",
                 "庫存／供應鏈",
@@ -2746,9 +2522,9 @@
               }
             },
             {
-              "excerpt": "• government actions or changes in governmental policies, such as export controls, increased restrictions on gaming usage, or tariffs;",
+              "excerpt": "We have entered into guarantees with SB Energy relating to leases at the PORTS Technology Campus that may expose us to substantial obligations over extended periods. SB Energy may not complete or deliver the infrastructure as expected or on schedule, which may delay or reduce anticipated benefits. If OpenAI does not perform its obligations or becomes subject to an insolvency event, and a guarantee is triggered, we may assume the applicable lease, require the landlord to 34 seek a replacement tenant, initiate a sale process or choose to pursue other remedies. A replacement tenant or buyer may not be found on acceptable terms or timing, any replacement lease or sale may generate less value than anticipated, and our obligations may continue longer than…",
               "topics": [
-                "法規／訴訟"
+                "毛利／成本"
               ],
               "language_signal": {
                 "code": "rewritten",
@@ -2757,46 +2533,8 @@
               }
             },
             {
-              "excerpt": "In July 2023, the USG also informed us of an additional licensing requirement for a subset of A100 and H100 products destined to certain customers and other regions, including some countries in the Middle East.",
-              "topics": [
-                "需求／客戶"
-              ],
-              "language_signal": {
-                "code": "rewritten",
-                "label": "大幅改寫",
-                "triggers": []
-              }
-            },
-            {
-              "excerpt": "Beginning in February 2026, the USG granted licenses that would allow us to ship small amounts of H200 products to specific China-based customers. To date, we have not generated any revenue under the H200 licensing program, and do not yet know whether any imports will be allowed into China. The license requires that the H200s go through an inspection process in the United States prior to any shipment to the customer. As a result, any H200 shipped under the new licensing program will be subject to a 25% tariff upon importation into the United States.",
-              "topics": [
-                "需求／客戶",
-                "法規／訴訟"
-              ],
-              "language_signal": {
-                "code": "rewritten",
-                "label": "大幅改寫",
-                "triggers": []
-              }
-            },
-            {
-              "excerpt": "In the event that we are able to sell licensed products into the China market, we may not be able to pass along all or any of the tariff to our customers, and may be subject to litigation, increased costs, and a harmed competitive position.",
-              "topics": [
-                "需求／客戶",
-                "毛利／成本",
-                "法規／訴訟"
-              ],
-              "language_signal": {
-                "code": "rewritten",
-                "label": "大幅改寫",
-                "triggers": []
-              }
-            },
-            {
-              "excerpt": "In addition to controls targeting D:1, D:4 and D:5 countries, the USG has also imposed worldwide export controls impacting our products, and may impose additional controls in the future.",
-              "topics": [
-                "法規／訴訟"
-              ],
+              "excerpt": "In August 2026, we entered into memoranda of understanding with large capital providers regarding independent financing platforms through which the providers would raise and deploy third-party capital for the buildout of AI infrastructure. These and other preliminary arrangements may not lead to definitive agreements.",
+              "topics": [],
               "language_signal": {
                 "code": "rewritten",
                 "label": "大幅改寫",
@@ -2806,7 +2544,20 @@
           ],
           "removed": [
             {
-              "excerpt": "We are increasing our U.S.-based manufacturing and investing in specialized equipment and processes to support domestic production. We may experience delays or difficulties in scaling production as planned. Our ability to increase manufacturing capabilities will depend on the domestic manufacturing ecosystem's capacity to ramp production supply to the required volume timely. Delays or shortfalls could impact our ability to meet demand.",
+              "excerpt": "Our target markets remain competitive, and competition may intensify with expanding and changing product and service offerings, industry standards, customer and market needs, new entrants and consolidations. Other companies compete 31 with us on a wide range of parameters including price, total cost of ownership, and performance, which has resulted and may in the future result in lower-than-expected selling prices or demand for our products. Some of our competitors operate their own fabrication facilities, and have longer operating histories, larger customer bases, more comprehensive IP portfolios and patent protections, more design wins, and greater financial, sales, marketing and distribution resources than we do. These competitors may be able to…",
+              "topics": [
+                "需求／客戶",
+                "庫存／供應鏈",
+                "毛利／成本"
+              ],
+              "language_signal": {
+                "code": "removed",
+                "label": "不再列出",
+                "triggers": []
+              }
+            },
+            {
+              "excerpt": "Long manufacturing lead times and uncertain supply and capacity availability, combined with a failure to estimate customer demand accurately, has led and could in the future lead to mismatches between supply and demand.",
               "topics": [
                 "需求／客戶",
                 "庫存／供應鏈"
@@ -2818,18 +2569,11 @@
               }
             },
             {
-              "excerpt": "We may not be able to realize the potential benefits of business investments or acquisitions, and we may not be able to successfully integrate acquired companies, which could hurt our ability to grow our business, develop new products or sell our products.",
-              "topics": [],
-              "language_signal": {
-                "code": "removed",
-                "label": "不再列出",
-                "triggers": []
-              }
-            },
-            {
-              "excerpt": "We acquire and invest in businesses that offer products, services and technologies that we believe will help expand or enhance our strategic objectives. Acquisitions or investments involve significant challenges and risks and could impair our ability to grow our business, develop new products or sell our products and ultimately could have a negative impact on our financial results. If we pursue a particular transaction, we may limit our ability to enter into other transactions that could help us achieve our other strategic objectives. If we are unable to timely complete acquisitions or investments, including due to delays and challenges in obtaining regulatory approvals, we may be unable to pursue other transactions, we may not be able to retain cri…",
+              "excerpt": "We have long manufacturing lead times and build finished products and maintain inventory in advance of anticipated demand. In periods of shortages impacting the semiconductor industry and/or limited supply or capacity in our supply chain, the lead times for certain supply may be extended. We have previously experienced and may continue to experience extended lead times of more than 12 months. To secure future supply and capacity, we have paid premiums, provided deposits, and entered into long-term supply agreements and capacity commitments, which have increased our product costs and this may continue. We may still be unable to secure sufficient commitments for capacity to address our business needs.",
               "topics": [
-                "法規／訴訟"
+                "需求／客戶",
+                "庫存／供應鏈",
+                "毛利／成本"
               ],
               "language_signal": {
                 "code": "removed",
@@ -2838,8 +2582,23 @@
               }
             },
             {
-              "excerpt": "Our investments in publicly traded and private companies could create volatility and fluctuations in our results. These investments may generate realized and unrealized gains or losses and we could realize losses up to the value of the investments. In addition, we have invested and may continue to invest in private companies to further our strategic objectives and to support certain key business initiatives. These companies can include early-stage companies still defining their strategic direction. Many of the securities in which we invest are non-marketable and illiquid at the time of our initial investment, and we may not be able to achieve a return. To the extent any of the companies in which we invest are not successful, we could recognize an im…",
+              "excerpt": "If we inaccurately estimate demand, or our customers change orders, as we have experienced in the past, we may not be able to reduce our supply commitments in time, at the same rate, or at all. Significant mismatches between supply and demand have varied across our market platforms, resulted in both product shortages and excess inventory, significantly harmed our financial results and could reoccur. If we underestimate demand, and our foundry partners and contract manufacturers are unable to increase production or provide sufficient supply, we may not be able to meet increased customer demand in a timely manner, or at all. Our reputation and customer relationships could be damaged and we could lose revenue and market share. Additionally, since some…",
               "topics": [
+                "需求／客戶",
+                "庫存／供應鏈"
+              ],
+              "language_signal": {
+                "code": "removed",
+                "label": "不再列出",
+                "triggers": []
+              }
+            },
+            {
+              "excerpt": "If we overestimate demand, or if customers cancel or defer orders or choose to purchase from our competitors, we may not be able to utilize on-hand inventory or reduce purchase commitments accordingly. We have had to reduce average selling prices, including due to our channel pricing programs, increase prices for certain of our products as a result of our suppliers’ increase in prices, write down our inventory, incur cancellation penalties, and record impairments, and may have to do so in the future. The impact of these risks would be amplified by our non-cancellable and non-returnable purchase orders placed in advance of our historical lead times and could be exacerbated if we need to make changes to the design of future products. These risks have…",
+              "topics": [
+                "需求／客戶",
+                "庫存／供應鏈",
+                "毛利／成本",
                 "減損／商譽"
               ],
               "language_signal": {
@@ -2849,9 +2608,9 @@
               }
             },
             {
-              "excerpt": "We expect to continue investing in strategic partnerships. In the third quarter of fiscal year 2026, we entered into a letter of intent with an opportunity to invest in OpenAI. In November 2025, we entered into an agreement, subject to certain closing conditions, to invest up to $10 billion in Anthropic. There is no assurance that we will enter into definitive agreements with respect to the OpenAI opportunity or other potential investments, or that any investment will be completed on expected terms, if at all. The timing and magnitude of these and other investments we may make will depend on various factors, including the ability of our partners to successfully develop and deploy AI infrastructure. There can be no certainty as to the timing or amoun…",
+              "excerpt": "Factors that have caused and/or could in the future cause us to underestimate or overestimate demand, and impact the timing and volume of our revenue, include: • changes in product development cycles and time to market;",
               "topics": [
-                "流動性／債務"
+                "需求／客戶"
               ],
               "language_signal": {
                 "code": "removed",
@@ -2860,9 +2619,9 @@
               }
             },
             {
-              "excerpt": "We have committed to make an equity investment in Intel Corporation, subject to regulatory approval. This investment involves execution, financing, and operational risks, including dependence on the partner’s ability to scale production and deliver competitive technology on schedule. We may not realize the anticipated strategic benefits.",
+              "excerpt": "32 • purchasing decisions made, and inventory levels held by, distributors, ODMs, OEMs, system integrators, other channel partners and other third parties;",
               "topics": [
-                "法規／訴訟"
+                "庫存／供應鏈"
               ],
               "language_signal": {
                 "code": "removed",
@@ -2871,20 +2630,9 @@
               }
             },
             {
-              "excerpt": "Our investment portfolio contains industry sector concentration risks, and a decline in any one or multiple industry sectors could increase our impairment losses.",
+              "excerpt": "• the ability of developers, end customers and other third parties to build, enhance, and maintain accelerated computing applications that leverage our platforms;",
               "topics": [
-                "減損／商譽"
-              ],
-              "language_signal": {
-                "code": "removed",
-                "label": "不再列出",
-                "triggers": []
-              }
-            },
-            {
-              "excerpt": "We face additional risks related to acquisitions and strategic investments, including the diversion of capital and other resources, including management’s attention; difficulty in realizing a satisfactory return and uncertainties to realize the benefits of an acquisition or strategic investment, if at all; difficulty or inability in obtaining governmental, regulatory approval or restrictions or other consents and approvals or financing; legal proceedings initiated as a result of an 36 acquisition or investment; and potential failure of our due diligence processes to identify significant issues with the assets or company in which we are investing or are acquiring.",
-              "topics": [
-                "法規／訴訟"
+                "需求／客戶"
               ],
               "language_signal": {
                 "code": "removed",
@@ -2898,45 +2646,17 @@
           "status": "compared",
           "label": "MD&A 管理層討論（Part I Item 2）",
           "paragraphs_previous": 66,
-          "paragraphs_latest": 66,
-          "unchanged": 40,
-          "modified_count": 10,
-          "added_count": 16,
-          "removed_count": 16,
+          "paragraphs_latest": 71,
+          "unchanged": 48,
+          "modified_count": 13,
+          "added_count": 10,
+          "removed_count": 5,
           "modified": [
             {
-              "similarity": 0.596,
-              "previous_excerpt": "Material Cash Requirements and Other Obligations Unrecognized tax benefits were $3.2 billion, which includes related interest and penalties, and were recorded in non-current income tax payable as of October 26, 2025. We are unable to estimate the timing of any potential tax liability, interest payments, or penalties in individual years due to uncertainties in the underlying income tax positions and the timing of the effective settlement of such tax positions. Refer to Note 4 of the Notes to Condensed Consolidated Financial Statements for further information.",
-              "latest_excerpt": "Unrecognized tax benefits were $4.5 billion, which includes related interest and penalties of $439 million, and were recorded in non-current income tax payable as of April 26, 2026. We are unable to estimate the timing of any potential tax liability, interest payments, or penalties in individual years due to uncertainties in the underlying income tax positions and the timing of the effective settlement of such tax positions. We are currently under examination by the Internal Revenue Service for our fiscal years 2023 and 2024. Refer to Note 11 of the Notes to Condensed Consolidated Financial Statements in Part I, Item 1 of this Quarterly Report on Form 10-Q.",
+              "similarity": 0.583,
+              "previous_excerpt": "Operating expenses were up 52% from a year ago and up 12% sequentially. The increases were primarily driven by higher compensation and benefits expense due to employee growth and compensation increases, compute and infrastructure costs, and engineering development materials for new product developments.",
+              "latest_excerpt": "Operating expenses were up 55% from a year ago and up 10% sequentially. These increases were driven by higher compute infrastructure and compensation and benefits costs.",
               "topics": [
-                "需求／客戶"
-              ],
-              "language_signal": {
-                "code": "rewritten",
-                "label": "大幅改寫",
-                "triggers": []
-              }
-            },
-            {
-              "similarity": 0.593,
-              "previous_excerpt": "Recent Developments, Future Objectives and Challenges Revenue growth in the third quarter was driven by data center compute and networking platforms for accelerated computing and AI solutions. Our Blackwell architectures are the majority of our Data Center revenue.",
-              "latest_excerpt": "Recent Developments, Future Objectives and Challenges Revenue growth in the first quarter was driven by data center products for accelerated computing and AI solutions. Blackwell continued to account for the majority of our system shipments.",
-              "topics": [
-                "需求／客戶"
-              ],
-              "language_signal": {
-                "code": "rewritten",
-                "label": "大幅改寫",
-                "triggers": []
-              }
-            },
-            {
-              "similarity": 0.592,
-              "previous_excerpt": "We continue to execute Data Center compute product introductions, bringing new advanced architectures on a one-year product cadence. We began shipping production units of our new Blackwell Ultra platforms including GB300 in the second quarter of fiscal year 2026 and continue to sell prior generation architecture. The complexity of our product transitions and sophisticated system configurations may cause delays in production or create challenges in managing supply and demand. This could result in revenue volatility, quality issues, increased inventory provisions, and/or increased warranty costs. Customers may postpone purchasing new architectures or may adopt new technologies more gradually than anticipated, affecting our revenue timing and supply ch…",
-              "latest_excerpt": "23 We expect our Rubin platform to start shipping in the second half of fiscal year 2027. The complexity of bringing up our product architecture and sophisticated system configurations has caused and may in the future cause delays in production and create challenges in managing supply and demand. This could further result in revenue volatility, quality issues, increased inventory provisions, decreases in product yields and higher material costs, and/or increased warranty costs. Customers may postpone purchasing new architectures or may adopt new technologies more gradually than anticipated, affecting our revenue timing and supply chain expenses.",
-              "topics": [
-                "需求／客戶",
-                "庫存／供應鏈",
                 "毛利／成本"
               ],
               "language_signal": {
@@ -2946,9 +2666,60 @@
               }
             },
             {
-              "similarity": 0.571,
-              "previous_excerpt": "Liquidity and Capital Resources Oct 26, 2025 Jan 26, 2025 (In millions) Cash and cash equivalents $ 11,486 $ 8,589 Marketable securities 49,122 34,621 Cash, cash equivalents and marketable securities $ 60,608 $ 43,210 30 Nine Months Ended Oct 26, 2025 Oct 27, 2024 (In millions) Net cash provided by operating activities $ 66,530 $ 47,460 Net cash used in investing activities $ (21,367) $ (13,223) Net cash used in financing activities $ (42,266) $ (32,410) Our investment policy requires the purchase of highly-rated fixed income securities, the diversification of investment types and credit exposures, and certain maturity limits on our portfolio.",
-              "latest_excerpt": "Liquidity and Capital Resources Apr 26, 2026 Jan 25, 2026 (In millions) Cash and cash equivalents $ 13,237 $ 10,605 Marketable debt securities 37,098 39,065 Cash, cash equivalents, and marketable debt securities $ 50,335 $ 49,670 Three Months Ended Apr 26, 2026 Apr 27, 2025 (In millions) Net cash provided by operating activities $ 50,344 $ 27,414 Net cash used in investing activities $ (26,429) $ (5,216) Net cash used in financing activities $ (21,283) $ (15,553) Our fixed income security investments include highly rated, diversified investment types and credit exposures with shorter maturities.",
+              "similarity": 0.565,
+              "previous_excerpt": "Capital Return to Shareholders In the first quarter of fiscal year 2027, we repurchased 108 million shares of our common stock for $20.2 billion. As of April 26, 2026, we were authorized, subject to certain specifications, to repurchase up to $38.5 billion of our common stock.",
+              "latest_excerpt": "Capital Return to Shareholders In the second quarter and first half of fiscal year 2027, we repurchased 94 million and 203 million shares of our common stock for $19.7 billion and $39.8 billion, respectively.",
+              "topics": [],
+              "language_signal": {
+                "code": "rewritten",
+                "label": "大幅改寫",
+                "triggers": []
+              }
+            },
+            {
+              "similarity": 0.556,
+              "previous_excerpt": "On May 18, 2026, our Board of Directors approved an additional $80.0 billion in share repurchase authorization, without expiration.",
+              "latest_excerpt": "On May 18, 2026, our Board of Directors approved an additional $80.0 billion in share repurchase authorization, without expiration. As of July 26, 2026, we were authorized, subject to certain specifications, to repurchase up to $99.3 billion of our common stock.",
+              "topics": [],
+              "language_signal": {
+                "code": "rewritten",
+                "label": "大幅改寫",
+                "triggers": []
+              }
+            },
+            {
+              "similarity": 0.489,
+              "previous_excerpt": "Material Cash Requirements and Other Obligations For descriptions of our facility lease guarantees, long-term debt, purchase commitments, and operating lease obligations, refer to Note 8, Note 9, Note 10, and Note 14 of the Notes to the Condensed Consolidated Financial Statements in Part I, Item 1 of this Quarterly Report on Form 10-Q, respectively.",
+              "latest_excerpt": "Material Cash Requirements and Other Obligations For descriptions of our long-term debt and commitments and obligations used to secure supply to produce our products, procure data center infrastructure to support our research and development efforts, and provide certain guarantees to support our customers’ and partners’ buildouts of data center infrastructure, refer to Notes 8, 9, 10, and 14 of the Notes to Condensed Consolidated Financial Statements in Part I, Item 1 of this Quarterly Report on Form 10-Q.",
+              "topics": [
+                "流動性／債務",
+                "需求／客戶"
+              ],
+              "language_signal": {
+                "code": "rewritten",
+                "label": "大幅改寫",
+                "triggers": []
+              }
+            },
+            {
+              "similarity": 0.488,
+              "previous_excerpt": "The availability of data centers, energy, and capital to support the buildout of NVIDIA AI infrastructure by our customers and partners is crucial, and any shortage of these or other necessary resources could impact our future revenue and financial performance. Expanding energy capacity to meet demand is a complex, multi-year process that involves significant regulatory, technical, and construction challenges. In addition, access to capital can be particularly constrained for less-capitalized companies, which may face difficulties securing financing for large-scale infrastructure projects. These limitations could delay customer and partner deployments or reduce the scale of accelerated computing and AI adoption.",
+              "latest_excerpt": "The availability of land, power, shell, and capital is crucial to support the buildout of a full data center inclusive of NVIDIA AI infrastructure by our customers and partners, and any shortage of these or other necessary resources could impact our future revenue and financial performance. Expanding land, power, shell, and energy needs to meet demand is a complex, multi-year process that involves significant regulatory, technical, and construction challenges. In addition, access to capital can be particularly constrained for less-capitalized companies, which may face difficulties securing financing for large-scale infrastructure projects. We believe AI clouds and AI model makers have significant demand for training and inference compute and current…",
+              "topics": [
+                "需求／客戶",
+                "庫存／供應鏈",
+                "法規／訴訟"
+              ],
+              "language_signal": {
+                "code": "rewritten",
+                "label": "大幅改寫",
+                "triggers": []
+              }
+            },
+            {
+              "similarity": 0.48,
+              "previous_excerpt": "28 Cash used in financing activities increased in the first quarter of fiscal year 2027 compared to the first quarter of fiscal year 2026, mainly due to higher share repurchases.",
+              "latest_excerpt": "Cash used in financing activities was flat in the first half of fiscal year 2027 compared to the first half of fiscal year 2026, mainly due to higher share repurchases, dividends, and a payment related to Groq, Inc. in the first half of fiscal year 2027, offset by higher cash proceeds from debt issuance.",
               "topics": [
                 "流動性／債務"
               ],
@@ -2959,33 +2730,12 @@
               }
             },
             {
-              "similarity": 0.56,
-              "previous_excerpt": "We paid cash dividends to our shareholders of $243 million and $732 million during the third quarter and first nine months of fiscal year 2026, respectively. The payment of future cash dividends is subject to our Board of Directors' continuing determination that the declaration of dividends is in the best interests of our shareholders.",
-              "latest_excerpt": "The payment of future cash dividends is subject to our Board of Directors' continuing determination that the declaration of dividends is in the best interests of our shareholders.",
-              "topics": [],
-              "language_signal": {
-                "code": "rewritten",
-                "label": "大幅改寫",
-                "triggers": []
-              }
-            },
-            {
-              "similarity": 0.543,
-              "previous_excerpt": "Capital Return to Shareholders We repurchased 70 million and 262 million shares of our common stock for $12.6 billion and $36.7 billion during the third quarter and first nine months of fiscal year 2026, respectively. On August 26, 2025, our Board of Directors approved an additional $60.0 billion in share repurchase authorization, without expiration. As of October 26, 2025, we were authorized, subject to certain specifications, to repurchase up to $62.2 billion of our common stock.",
-              "latest_excerpt": "Capital Return to Shareholders In the first quarter of fiscal year 2027, we repurchased 108 million shares of our common stock for $20.2 billion. As of April 26, 2026, we were authorized, subject to certain specifications, to repurchase up to $38.5 billion of our common stock.",
-              "topics": [],
-              "language_signal": {
-                "code": "rewritten",
-                "label": "大幅改寫",
-                "triggers": []
-              }
-            },
-            {
-              "similarity": 0.444,
-              "previous_excerpt": "Third Quarter of Fiscal Year 2026 Summary Three Months Ended Quarter-over-Quarter Change Year-over-Year Change Oct 26, 2025 Jul 27, 2025 Oct 27, 2024 ($ in millions, except per share data) Revenue $ 57,006 $ 46,743 $ 35,082 22 % 62 % Gross margin 73.4 % 72.4 % 74.6 % 1.0 pts (1.2) pts Operating expenses $ 5,839 $ 5,413 $ 4,287 8 % 36 % Operating income $ 36,010 $ 28,440 $ 21,869 27 % 65 % Net income $ 31,910 $ 26,422 $ 19,309 21 % 65 % Net income per diluted share $ 1.30 $ 1.08 $ 0.78 20 % 67 % Revenue was $57.0 billion, up 62% from a year ago and up 22% sequentially.",
-              "latest_excerpt": "First Quarter of Fiscal Year 2027 Summary Three Months Ended Quarter-over-Quarter Change Year-over-Year Change Apr 26, 2026 Jan 25, 2026 Apr 27, 2025 ($ in millions, except per share data) Revenue $ 81,615 $ 68,127 $ 44,062 20 % 85 % Gross margin 74.9 % 75.0 % 60.5 % (0.1) pts 14.4 pts Operating expenses $ 7,621 $ 6,794 $ 5,030 12 % 52 % Operating income $ 53,536 $ 44,299 $ 21,638 21 % 147 % Net income $ 58,321 $ 42,960 $ 18,775 36 % 211 % Net income per diluted share $ 2.39 $ 1.76 $ 0.76 36 % 214 % We specialize in markets where our computing platforms can provide tremendous acceleration for applications. These platforms incorporate processors, interconnects, software, algorithms, systems, and services to deliver unique value.",
+              "similarity": 0.464,
+              "previous_excerpt": "Gross margin increased from a year ago on lower inventory provisions, primarily due to the prior year's $4.5 billion charge associated with H20 excess inventory and purchase obligations. Gross margin was approximately flat sequentially as our Blackwell architecture remains the majority of our revenue.",
+              "latest_excerpt": "Gross margin increased from a year ago on improved mix from Blackwell Ultra. Gross margin was approximately flat sequentially as our Blackwell architecture remains the vast majority of our revenue.",
               "topics": [
                 "需求／客戶",
+                "庫存／供應鏈",
                 "毛利／成本"
               ],
               "language_signal": {
@@ -2995,10 +2745,12 @@
               }
             },
             {
-              "similarity": 0.442,
-              "previous_excerpt": "Other income, net consists of realized or unrealized gains and losses from investments in non-marketable equity securities, publicly-held equity securities, and the impact of changes in foreign currency rates. The change in Other income, net, compared to the third quarter and first nine months of fiscal year 2025, was primarily driven by unrealized gains in our publicly-held equity securities and non-marketable equity securities. Refer to Notes 5 and 6 of the Notes to Condensed Consolidated Financial Statements in Part I, Item 1 of this Quarterly Report on Form 10-Q for additional information regarding our investments in non-marketable equity securities and publicly-held equity securities.",
-              "latest_excerpt": "Total Other Income, Net Three Months Ended Apr 26, 2026 Apr 27, 2025 $ Change ($ in millions) Interest income $ 540 $ 515 $ 25 Interest expense (102) (63) (39) Other income (expense), net 15,929 (180) 16,109 Total other income, net $ 16,367 $ 272 $ 16,095 Total other income, net primarily consists of realized or unrealized gains and losses from investments in non-marketable securities and publicly-held equity securities. The change in Other income (expense), net compared to the first quarter of fiscal year 2026, was primarily driven by unrealized gains on investments in publicly-held equity securities of $13.4 billion and non-marketable equity securities of $2.6 billion.",
-              "topics": [],
+              "similarity": 0.462,
+              "previous_excerpt": "Except for approximately $1.7 billion of cash, cash equivalents, and marketable debt securities held outside of the U.S., for which we have not accrued any related foreign or state taxes if we repatriate these amounts to the U.S., substantially all of our cash, cash equivalents, and marketable debt securities held outside the U.S. at the end of the first quarter of fiscal year 2027 are available for use in the U.S. without incurring additional U.S. federal income taxes. We made no federal income tax payments in the first quarter of fiscal year 2027, whereas our second quarter of fiscal year 2027 is scheduled to include two payments.",
+              "latest_excerpt": "At the end of the first half of fiscal year 2027, substantially all of our cash, cash equivalents, and marketable debt securities held outside the U.S. were available for use in the U.S. without incurring additional U.S. federal income taxes.",
+              "topics": [
+                "流動性／債務"
+              ],
               "language_signal": {
                 "code": "rewritten",
                 "label": "大幅改寫",
@@ -3008,19 +2760,9 @@
           ],
           "added": [
             {
-              "excerpt": "In addition, statements that “we believe” and similar statements reflect our beliefs and opinions on the relevant subject. These statements are based upon information available to us as of the filing date of this Quarterly Report on Form 10-Q, and while we believe such information forms a reasonable basis for such statements, such information may be limited or incomplete, and our statements should not be read to indicate that we have conducted an exhaustive inquiry into, or review of, all potentially available relevant information. These statements are inherently uncertain, and investors are cautioned not to unduly rely upon these statements.",
-              "topics": [],
-              "language_signal": {
-                "code": "rewritten",
-                "label": "大幅改寫",
-                "triggers": []
-              }
-            },
-            {
-              "excerpt": "Beginning in February 2026, the U.S. government, or USG, granted licenses that allow us to ship small amounts of H200 products to specific China-based customers. To date, we have not generated any revenue under the H200 licensing program, and do not yet know whether any imports will be allowed into China. The license requires that the H200s go through an inspection process in the United States prior to any shipment to the customer. As a result, any H200 shipped under the new licensing program will be subject to a 25% tariff upon importation into the United States.",
+              "excerpt": "In August 2026, we entered into guarantees with SB Energy Corp. to provide credit support on the land, power, and shell buildout at SB Energy’s PORTS Technology Campus in Pike County, Ohio, covering leases for approximately 4.25 gigawatts of IT load. The campus will exclusively host our compute under 20-year leases to OpenAI, subject to limited exceptions, with our obligation capped at $105 billion in the aggregate, subject to certain conditions including SB Energy, the lessor, satisfying applicable ready-for-service conditions. Each guarantee generally becomes effective upon commencement of the applicable lease, with corresponding guarantee amounts increasing as each of nine data centers is placed in service, which is expected to begin in fiscal ye…",
               "topics": [
-                "需求／客戶",
-                "法規／訴訟"
+                "毛利／成本"
               ],
               "language_signal": {
                 "code": "rewritten",
@@ -3029,25 +2771,7 @@
               }
             },
             {
-              "excerpt": "We have made, and expect to continue making, investments in our ecosystem to enhance our growth opportunities, cultivate our ecosystem, and strengthen our competitive position. In the first quarter of fiscal year 2027, we made the following investments: • $18.6 billion in private companies and infrastructure funds. Some of these investments include AI model makers that may indirectly purchase or use our products in the cloud.",
-              "topics": [],
-              "language_signal": {
-                "code": "rewritten",
-                "label": "大幅改寫",
-                "triggers": []
-              }
-            },
-            {
-              "excerpt": "• We made investments in publicly-held equity securities where the value may fluctuate significantly and could adversely affect our financial results.",
-              "topics": [],
-              "language_signal": {
-                "code": "rewritten",
-                "label": "大幅改寫",
-                "triggers": []
-              }
-            },
-            {
-              "excerpt": "Our global supply chain for our networking products, including our Israel operations of approximately 5,900 employees supporting research and development, operations, and sales and marketing, has not been significantly impacted by the conflict in the Middle East. If the conflict escalates or extends, it could affect future product development, supply chain, and revenue, and create business uncertainty.",
+              "excerpt": "In the second quarter of fiscal year 2027, we introduced a new business model with certain select AI cloud partners, to enable broader access to our data center infrastructure products to serve AI startups, model builders, enterprises, research organizations, and sovereign customers. We believe these AI cloud partners have strong customer demand and robust sales pipelines but are constrained by the large-scale infrastructure that is required to meet that demand. Through this model, we expect our AI cloud partners will be able to deploy incremental NVIDIA AI infrastructure, enabling them to serve a broader set of customers and address expanding demand for AI compute. Under these agreements, AI clouds procure our data center infrastructure products an…",
               "topics": [
                 "需求／客戶",
                 "庫存／供應鏈"
@@ -3059,16 +2783,7 @@
               }
             },
             {
-              "excerpt": "Following the rapid evolution in our businesses, we are transitioning to a new reporting framework that better reflects our current and future growth drivers.",
-              "topics": [],
-              "language_signal": {
-                "code": "rewritten",
-                "label": "大幅改寫",
-                "triggers": []
-              }
-            },
-            {
-              "excerpt": "Within Data Center, we will report two sub-markets, Hyperscale and ACIE which incorporates AI Clouds, Industrial, and Enterprise. Hyperscale will include revenue from the public clouds and the world’s largest consumer internet companies, 24 while ACIE addresses our growth opportunity in diverse AI purpose-built data centers and AI factories across industries and countries.",
+              "excerpt": "In August 2026, we entered into memorandums of understanding with several large capital providers to establish independent financing platforms designed to mobilize more than $500 billion of third-party capital over time to support the deployment of AI infrastructure. These and other preliminary arrangements may not lead to definitive agreements. These arrangements are designed for our ecosystem partners and customers to build and gain access to AI infrastructure with the corresponding funding structures independently underwritten and provided by the capital providers. At our option, we may provide limited residual-value support for a portion of specific projects, subject to disciplined risk management and project-by-project evaluation.",
               "topics": [
                 "需求／客戶"
               ],
@@ -3079,7 +2794,52 @@
               }
             },
             {
-              "excerpt": "Edge Computing highlights devices for agentic and physical AI including PCs, game consoles, workstations, AI-RAN base stations, robotics and automotive.",
+              "excerpt": "Open-source foundation models are rapidly growing in popularity with developers worldwide. We believe the demand for open-source foundation models and applications promotes use of our products worldwide. If these models and 26 applications are primarily deployed on competitors’ platforms, they could reduce demand for our offerings. Any regulatory control or other restriction that limits our ability to provide products and services that support third-party applications and models could have a material impact on our business, operating results, and financial condition.",
+              "topics": [
+                "需求／客戶",
+                "法規／訴訟"
+              ],
+              "language_signal": {
+                "code": "rewritten",
+                "label": "大幅改寫",
+                "triggers": []
+              }
+            },
+            {
+              "excerpt": "(2) During the second quarter of fiscal year 2027, we reclassified a company from ACIE to Hyperscale due to a change in their business model and recast the prior period revenue associated with this company.",
+              "topics": [
+                "需求／客戶"
+              ],
+              "language_signal": {
+                "code": "rewritten",
+                "label": "大幅改寫",
+                "triggers": []
+              }
+            },
+            {
+              "excerpt": "Provisions for inventory and excess inventory purchase obligations totaled $985 million and $2.1 billion for the second quarter and first half of fiscal year 2027, respectively. Sales of previously reserved inventory and settlements of excess inventory purchase obligations resulted in a provision release of $177 million and $280 million for the second quarter and first half of fiscal year 2027, respectively. The net effect on our gross margin was an unfavorable impact of 0.8% and 1.0% in the second quarter and first half of fiscal year 2027, respectively.",
+              "topics": [
+                "需求／客戶",
+                "庫存／供應鏈",
+                "毛利／成本"
+              ],
+              "language_signal": {
+                "code": "rewritten",
+                "label": "大幅改寫",
+                "triggers": []
+              }
+            },
+            {
+              "excerpt": "Refer to Notes 5 and 6 of the Notes to Condensed Consolidated Financial Statements in Part I, Item 1 of this Quarterly Report on Form 10-Q for additional information.",
+              "topics": [],
+              "language_signal": {
+                "code": "rewritten",
+                "label": "大幅改寫",
+                "triggers": []
+              }
+            },
+            {
+              "excerpt": "31 The exception is approximately $1.7 billion, for which we have not accrued the related foreign or state taxes that repatriation would trigger. We made two federal income tax payments in the second quarter of fiscal year 2027, as compared with no estimated tax payments in the first quarter of fiscal year 2027.",
               "topics": [],
               "language_signal": {
                 "code": "rewritten",
@@ -3090,57 +2850,7 @@
           ],
           "removed": [
             {
-              "excerpt": "25 In April 2025, the U.S. government, or USG, informed us that a license is required for exports of our H20 product into the China market. As a result of these new requirements, we incurred a $4.5 billion charge in the first quarter of fiscal year 2026 associated with H20 for excess inventory and purchase obligations, as the demand for H20 diminished. In August 2025, the USG granted licenses that would allow us to ship certain H20 products to certain China-based customers, but to date, we have generated approximately $50 million in H20 revenue under those licenses. USG officials have expressed an expectation that the USG will receive 15% or more of the revenue generated from licensed sales of our products, but to date, the USG has not published a r…",
-              "topics": [
-                "需求／客戶",
-                "庫存／供應鏈",
-                "法規／訴訟"
-              ],
-              "language_signal": {
-                "code": "removed",
-                "label": "不再列出",
-                "triggers": []
-              }
-            },
-            {
-              "excerpt": "In January 2025, the USG published the “AI Diffusion” Interim Final Rule, or IFR, in the Federal Register. The IFR would have imposed a worldwide licensing requirement on our most recent data center products, such as our H200, GB200 and GB300. In May 2025, the USG announced that it would rescind the AI Diffusion IFR and implement a replacement rule. The scope, timing, and requirements of the forthcoming rule remain uncertain. The replacement rule may impose new restrictions on our products or operations and/or add license requirements that could have a material impact on our business, operating results, and financial condition. For example, in October 2025, the Senate passed the “GAIN AI Act” in the National Defense Authorization Act, or the NDAA. T…",
-              "topics": [
-                "法規／訴訟"
-              ],
-              "language_signal": {
-                "code": "removed",
-                "label": "不再列出",
-                "triggers": []
-              }
-            },
-            {
-              "excerpt": "The rapid evolution of global trade policies, such as export controls and tariffs, has added complexity and increased costs throughout our supply chain, and these challenges are likely to persist. Ongoing uncertainty regarding the scope and application of such measures may adversely affect investment decisions by us and our partners, disrupt supply chain operations, and impact the timing and volume of customer purchases due to challenges in forecasting future costs and demand.",
-              "topics": [
-                "需求／客戶",
-                "庫存／供應鏈",
-                "毛利／成本",
-                "法規／訴訟"
-              ],
-              "language_signal": {
-                "code": "removed",
-                "label": "不再列出",
-                "triggers": []
-              }
-            },
-            {
-              "excerpt": "We are increasing our U.S.-based manufacturing and investing in specialized equipment and processes to support domestic production. This move is expected to strengthen our supply chain, add resiliency and redundancy, and meet the growing demand for AI infrastructure. Our ability to increase manufacturing capabilities will depend on the domestic manufacturing ecosystem's capacity to ramp production supply to the required volume and on a timely basis.",
-              "topics": [
-                "需求／客戶",
-                "庫存／供應鏈"
-              ],
-              "language_signal": {
-                "code": "removed",
-                "label": "不再列出",
-                "triggers": []
-              }
-            },
-            {
-              "excerpt": "Data Center revenue was $51.2 billion, up 66% from a year ago and up 25% sequentially, driven by three platform shifts –accelerated computing, powerful AI models, and agentic applications. Blackwell Ultra is now our leading architecture across all customer categories while our prior Blackwell architecture saw continued strong demand. H20 sales were insignificant in the third quarter of fiscal year 2026.",
+              "excerpt": "The recent rise in high-quality, open-source foundation models is making advanced AI capabilities broadly accessible. Open-source AI is dependent on developer adoption, and if deployed on our competitors’ platforms, it could reduce demand for our products and services.",
               "topics": [
                 "需求／客戶"
               ],
@@ -3151,7 +2861,25 @@
               }
             },
             {
-              "excerpt": "Data Center compute revenue was $43.0 billion, up 56% from a year ago and up 27% sequentially. Networking revenue was $8.2 billion, up 162% from a year ago from the introduction and continued growth of NVLink compute fabric for 26 GB200 and GB300 systems. Networking revenue was up 13% sequentially, driven by the growth of XDR InfiniBand products, NVLink, and Ethernet for AI solutions, while shipment timing and supply availability varied compared to the prior quarter.",
+              "excerpt": "• We made investments in publicly-held equity securities where the value may fluctuate significantly and could adversely affect our financial results.",
+              "topics": [],
+              "language_signal": {
+                "code": "removed",
+                "label": "不再列出",
+                "triggers": []
+              }
+            },
+            {
+              "excerpt": "Following the rapid evolution in our businesses, we are transitioning to a new reporting framework that better reflects our current and future growth drivers.",
+              "topics": [],
+              "language_signal": {
+                "code": "removed",
+                "label": "不再列出",
+                "triggers": []
+              }
+            },
+            {
+              "excerpt": "Within Data Center, we will report two sub-markets, Hyperscale and ACIE which incorporates AI Clouds, Industrial, and Enterprise. Hyperscale will include revenue from the public clouds and the world’s largest consumer internet companies, 24 while ACIE addresses our growth opportunity in diverse AI purpose-built data centers and AI factories across industries and countries.",
               "topics": [
                 "需求／客戶"
               ],
@@ -3162,21 +2890,8 @@
               }
             },
             {
-              "excerpt": "Gaming revenue was up 30% from a year ago on the continued demand for Blackwell. Gaming revenue was down 1% sequentially as channel inventories have reached more normalized levels heading into the holiday season.",
-              "topics": [
-                "需求／客戶"
-              ],
-              "language_signal": {
-                "code": "removed",
-                "label": "不再列出",
-                "triggers": []
-              }
-            },
-            {
-              "excerpt": "Professional Visualization revenue was up 56% from a year ago and up 26% sequentially, driven by the launch of our new DGX Spark as well as the growth of Blackwell sales.",
-              "topics": [
-                "需求／客戶"
-              ],
+              "excerpt": "Edge Computing highlights devices for agentic and physical AI including PCs, game consoles, workstations, AI-RAN base stations, robotics and automotive.",
+              "topics": [],
               "language_signal": {
                 "code": "removed",
                 "label": "不再列出",
@@ -3188,7 +2903,7 @@
       }
     },
     "ONDS": {
-      "status": "compared",
+      "status": "unavailable",
       "comparison_basis": "同公司、同表單類型的最近兩份週期申報",
       "caveat": "段落重組、表格排版或跨期數字更新可能被判為文字變化；可能升高／緩和只代表指定措辭新增，不代表風險事實已改變。",
       "previous": {
@@ -3209,17 +2924,9 @@
       },
       "sections": {
         "risk_factors": {
-          "status": "compared",
+          "status": "unavailable",
           "label": "風險因素（Part II Item 1A）",
-          "paragraphs_previous": 1,
-          "paragraphs_latest": 1,
-          "unchanged": 1,
-          "modified_count": 0,
-          "added_count": 0,
-          "removed_count": 0,
-          "modified": [],
-          "added": [],
-          "removed": []
+          "reason": "至少一份文件未可靠辨識章節邊界，已保留缺值。"
         },
         "management_discussion": {
           "status": "unavailable",

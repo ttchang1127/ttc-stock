@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-08-27T12:17:28+00:00",
+  "updated_at": "2026-08-30T00:53:00+00:00",
   "source_updated_at": null,
   "source": "quarterly_financials.json + investment_thesis_tracking.json; status-change snapshots",
   "method": "每家公司以三項可量化代理條件追蹤核心投資論點；代理指標只能驗證財務結果是否一致，不能單獨證明產品、市占或競爭優勢。",
@@ -3366,10 +3366,10 @@
           "invalidation": "營收 YoY ≤ 0%，或營收連續至少 3 季下降。",
           "status": "supported",
           "label": "支持",
-          "evidence": "2026-05-02 營收 USD 2,417.8M，YoY +27.6%；連續 8 季上升。",
+          "evidence": "2026-08-01 營收 USD 2,739.3M，YoY +36.5%；連續 8 季上升。",
           "facts": {
-            "revenue": 2417800000.0,
-            "revenue_yoy": 27.568195008705754,
+            "revenue": 2739300000.0,
+            "revenue_yoy": 36.54852699267235,
             "streak": {
               "direction": "up",
               "quarters": 8
@@ -3387,13 +3387,13 @@
           "invalidation": "毛利率低於 40%，或連續至少 3 季顯著下降。",
           "status": "supported",
           "label": "支持",
-          "evidence": "2026-05-02 毛利率 52.1%，YoY +1.9pp；未形成連續方向。",
+          "evidence": "2026-08-01 毛利率 53.1%，YoY +2.8pp；連續 2 季上升。",
           "facts": {
-            "margin": 0.5214657953511457,
-            "margin_yoy_pp": 1.8959595804899698,
+            "margin": 0.5313766290658197,
+            "margin_yoy_pp": 2.7613107805663173,
             "streak": {
-              "direction": "flat",
-              "quarters": 1
+              "direction": "up",
+              "quarters": 2
             },
             "negative_quarters": 0
           }
@@ -3409,13 +3409,13 @@
           "invalidation": "FCF 連續至少 4 季為負，或稀釋股數 YoY ≥ 8%。",
           "status": "verify",
           "label": "待驗證",
-          "evidence": "2026-05-02 FCF USD 483.1M（連續 8 季為正）；稀釋股數 YoY +2.0%。",
+          "evidence": "2026-08-01 FCF USD 478.8M（連續 8 季為正）；稀釋股數 YoY +5.8%。",
           "facts": {
-            "free_cash_flow": 483100000.0,
+            "free_cash_flow": 478800000.0,
             "positive_fcf_quarters": 8,
             "negative_fcf_quarters": 0,
-            "diluted_shares": 893300000.0,
-            "share_yoy": 2.02147099132024
+            "diluted_shares": 921200000.0,
+            "share_yoy": 5.836397058823528
           }
         }
       ],
@@ -3424,11 +3424,89 @@
         "verify": 1,
         "invalidated": 0
       },
-      "period": "2026-05-02",
-      "url": "https://www.sec.gov/Archives/edgar/data/1835632/000183563226000019/0001835632-26-000019-index.html",
-      "accession": "0001835632-26-000019",
-      "fingerprint": "0b38189dde3c62812c30",
+      "period": "2026-08-01",
+      "url": "https://www.sec.gov/Archives/edgar/data/1835632/000183563226000025/0001835632-26-000025-index.html",
+      "accession": "0001835632-26-000025",
+      "fingerprint": "f8bbb20d743d4f4ddeaf",
       "history": [
+        {
+          "status": "maintained",
+          "label": "論點維持",
+          "items": [
+            {
+              "id": "data_center_growth",
+              "title": "資料中心與客製 AI 晶片維持成長",
+              "rationale": "營收成長是客製 ASIC、互連與資料中心需求的合併財務代理。",
+              "metric": "revenue_growth",
+              "support_yoy": 10,
+              "invalidate_yoy": 0,
+              "invalidate_decline_quarters": 3,
+              "invalidation": "營收 YoY ≤ 0%，或營收連續至少 3 季下降。",
+              "status": "supported",
+              "label": "支持",
+              "evidence": "2026-08-01 營收 USD 2,739.3M，YoY +36.5%；連續 8 季上升。",
+              "facts": {
+                "revenue": 2739300000.0,
+                "revenue_yoy": 36.54852699267235,
+                "streak": {
+                  "direction": "up",
+                  "quarters": 8
+                }
+              }
+            },
+            {
+              "id": "mix_margin",
+              "title": "高價值資料中心組合維持毛利率",
+              "rationale": "毛利率檢查客製晶片組合、量產爬坡與競爭定價。",
+              "metric": "gross_margin",
+              "support_floor": 0.5,
+              "invalidate_floor": 0.4,
+              "invalidate_decline_quarters": 3,
+              "invalidation": "毛利率低於 40%，或連續至少 3 季顯著下降。",
+              "status": "supported",
+              "label": "支持",
+              "evidence": "2026-08-01 毛利率 53.1%，YoY +2.8pp；連續 2 季上升。",
+              "facts": {
+                "margin": 0.5313766290658197,
+                "margin_yoy_pp": 2.7613107805663173,
+                "streak": {
+                  "direction": "up",
+                  "quarters": 2
+                },
+                "negative_quarters": 0
+              }
+            },
+            {
+              "id": "cash_scaling",
+              "title": "AI 成長能轉化為正向 FCF",
+              "rationale": "FCF 與股數檢查成長、收購與股權薪酬後的每股現金。",
+              "metric": "cash_dilution",
+              "support_positive_fcf_quarters": 3,
+              "invalidate_negative_fcf_quarters": 4,
+              "invalidate_share_yoy": 8,
+              "invalidation": "FCF 連續至少 4 季為負，或稀釋股數 YoY ≥ 8%。",
+              "status": "verify",
+              "label": "待驗證",
+              "evidence": "2026-08-01 FCF USD 478.8M（連續 8 季為正）；稀釋股數 YoY +5.8%。",
+              "facts": {
+                "free_cash_flow": 478800000.0,
+                "positive_fcf_quarters": 8,
+                "negative_fcf_quarters": 0,
+                "diluted_shares": 921200000.0,
+                "share_yoy": 5.836397058823528
+              }
+            }
+          ],
+          "counts": {
+            "supported": 2,
+            "verify": 1,
+            "invalidated": 0
+          },
+          "period": "2026-08-01",
+          "url": "https://www.sec.gov/Archives/edgar/data/1835632/000183563226000025/0001835632-26-000025-index.html",
+          "accession": "0001835632-26-000025",
+          "fingerprint": "f8bbb20d743d4f4ddeaf"
+        },
         {
           "status": "maintained",
           "label": "論點維持",
@@ -3662,84 +3740,6 @@
           "url": "https://www.sec.gov/Archives/edgar/data/1835632/000183563225000197/0001835632-25-000197-index.html",
           "accession": "0001835632-25-000197",
           "fingerprint": "9a283abf3fa0be9d8546"
-        },
-        {
-          "status": "maintained",
-          "label": "論點維持",
-          "items": [
-            {
-              "id": "data_center_growth",
-              "title": "資料中心與客製 AI 晶片維持成長",
-              "rationale": "營收成長是客製 ASIC、互連與資料中心需求的合併財務代理。",
-              "metric": "revenue_growth",
-              "support_yoy": 10,
-              "invalidate_yoy": 0,
-              "invalidate_decline_quarters": 3,
-              "invalidation": "營收 YoY ≤ 0%，或營收連續至少 3 季下降。",
-              "status": "supported",
-              "label": "支持",
-              "evidence": "2025-08-02 營收 USD 2,006.1M，YoY +57.6%；連續 6 季上升。",
-              "facts": {
-                "revenue": 2006100000.0,
-                "revenue_yoy": 57.600754183360834,
-                "streak": {
-                  "direction": "up",
-                  "quarters": 6
-                }
-              }
-            },
-            {
-              "id": "mix_margin",
-              "title": "高價值資料中心組合維持毛利率",
-              "rationale": "毛利率檢查客製晶片組合、量產爬坡與競爭定價。",
-              "metric": "gross_margin",
-              "support_floor": 0.5,
-              "invalidate_floor": 0.4,
-              "invalidate_decline_quarters": 3,
-              "invalidation": "毛利率低於 40%，或連續至少 3 季顯著下降。",
-              "status": "supported",
-              "label": "支持",
-              "evidence": "2025-08-02 毛利率 50.4%，YoY +4.2pp；未形成連續方向。",
-              "facts": {
-                "margin": 0.5037635212601566,
-                "margin_yoy_pp": 4.214045581903786,
-                "streak": {
-                  "direction": "flat",
-                  "quarters": 1
-                },
-                "negative_quarters": 0
-              }
-            },
-            {
-              "id": "cash_scaling",
-              "title": "AI 成長能轉化為正向 FCF",
-              "rationale": "FCF 與股數檢查成長、收購與股權薪酬後的每股現金。",
-              "metric": "cash_dilution",
-              "support_positive_fcf_quarters": 3,
-              "invalidate_negative_fcf_quarters": 4,
-              "invalidate_share_yoy": 8,
-              "invalidation": "FCF 連續至少 4 季為負，或稀釋股數 YoY ≥ 8%。",
-              "status": "supported",
-              "label": "支持",
-              "evidence": "2025-08-02 FCF USD 414.1M（連續 8 季為正）；稀釋股數 YoY +0.5%。",
-              "facts": {
-                "free_cash_flow": 414100000.0,
-                "positive_fcf_quarters": 8,
-                "negative_fcf_quarters": 0,
-                "diluted_shares": 870400000.0,
-                "share_yoy": 0.5429132493935507
-              }
-            }
-          ],
-          "counts": {
-            "supported": 3,
-            "verify": 0,
-            "invalidated": 0
-          },
-          "period": "2025-08-02",
-          "url": "https://www.sec.gov/Archives/edgar/data/1835632/000183563225000189/0001835632-25-000189-index.html",
-          "accession": "0001835632-25-000189",
-          "fingerprint": "71afee86327e87592234"
         }
       ],
       "previous": {
@@ -3757,10 +3757,10 @@
             "invalidation": "營收 YoY ≤ 0%，或營收連續至少 3 季下降。",
             "status": "supported",
             "label": "支持",
-            "evidence": "2026-01-31 營收 USD 2,218.7M，YoY +22.1%；連續 8 季上升。",
+            "evidence": "2026-05-02 營收 USD 2,417.8M，YoY +27.6%；連續 8 季上升。",
             "facts": {
-              "revenue": 2218700000.0,
-              "revenue_yoy": 22.080994827775946,
+              "revenue": 2417800000.0,
+              "revenue_yoy": 27.568195008705754,
               "streak": {
                 "direction": "up",
                 "quarters": 8
@@ -3778,10 +3778,10 @@
             "invalidation": "毛利率低於 40%，或連續至少 3 季顯著下降。",
             "status": "supported",
             "label": "支持",
-            "evidence": "2026-01-31 毛利率 51.7%，YoY +1.3pp；未形成連續方向。",
+            "evidence": "2026-05-02 毛利率 52.1%，YoY +1.9pp；未形成連續方向。",
             "facts": {
-              "margin": 0.5173750394375084,
-              "margin_yoy_pp": 1.2587981002381343,
+              "margin": 0.5214657953511457,
+              "margin_yoy_pp": 1.8959595804899698,
               "streak": {
                 "direction": "flat",
                 "quarters": 1
@@ -3798,27 +3798,27 @@
             "invalidate_negative_fcf_quarters": 4,
             "invalidate_share_yoy": 8,
             "invalidation": "FCF 連續至少 4 季為負，或稀釋股數 YoY ≥ 8%。",
-            "status": "supported",
-            "label": "支持",
-            "evidence": "2026-01-31 FCF USD 259.4M（連續 8 季為正）；稀釋股數缺值。",
+            "status": "verify",
+            "label": "待驗證",
+            "evidence": "2026-05-02 FCF USD 483.1M（連續 8 季為正）；稀釋股數 YoY +2.0%。",
             "facts": {
-              "free_cash_flow": 259400000.0,
+              "free_cash_flow": 483100000.0,
               "positive_fcf_quarters": 8,
               "negative_fcf_quarters": 0,
-              "diluted_shares": null,
-              "share_yoy": null
+              "diluted_shares": 893300000.0,
+              "share_yoy": 2.02147099132024
             }
           }
         ],
         "counts": {
-          "supported": 3,
-          "verify": 0,
+          "supported": 2,
+          "verify": 1,
           "invalidated": 0
         },
-        "period": "2026-01-31",
-        "url": "https://www.sec.gov/Archives/edgar/data/1835632/000183563226000011/0001835632-26-000011-index.html",
-        "accession": "0001835632-26-000011",
-        "fingerprint": "a980330b5aee557792f4"
+        "period": "2026-05-02",
+        "url": "https://www.sec.gov/Archives/edgar/data/1835632/000183563226000019/0001835632-26-000019-index.html",
+        "accession": "0001835632-26-000019",
+        "fingerprint": "0b38189dde3c62812c30"
       },
       "overallStatusChanged": false,
       "itemStatusChanged": false,
@@ -4800,10 +4800,10 @@
           "invalidation": "營收 YoY ≤ -5%，或營收連續至少 3 季下降。",
           "status": "supported",
           "label": "支持",
-          "evidence": "2026-04-26 營收 USD 81,615.0M，YoY +85.2%；連續 8 季上升。",
+          "evidence": "2026-07-26 營收 USD 96,221.0M，YoY +105.9%；連續 8 季上升。",
           "facts": {
-            "revenue": 81615000000.0,
-            "revenue_yoy": 85.22763378875223,
+            "revenue": 96221000000.0,
+            "revenue_yoy": 105.85114348672526,
             "streak": {
               "direction": "up",
               "quarters": 8
@@ -4821,10 +4821,10 @@
           "invalidation": "毛利率低於 55%，或連續至少 3 季顯著下降。",
           "status": "supported",
           "label": "支持",
-          "evidence": "2026-04-26 毛利率 74.9%，YoY +14.4pp；未形成連續方向。",
+          "evidence": "2026-07-26 毛利率 75.0%，YoY +2.6pp；未形成連續方向。",
           "facts": {
-            "margin": 0.749335293757275,
-            "margin_yoy_pp": 14.40972201337446,
+            "margin": 0.7497531723844068,
+            "margin_yoy_pp": 2.5516388266998757,
             "streak": {
               "direction": "flat",
               "quarters": 1
@@ -4843,13 +4843,13 @@
           "invalidation": "FCF 連續至少 4 季為負，或稀釋股數 YoY ≥ 10%。",
           "status": "supported",
           "label": "支持",
-          "evidence": "2026-04-26 FCF USD 48,587.0M（連續 8 季為正）；稀釋股數 YoY -0.9%。",
+          "evidence": "2026-07-26 FCF USD 21,400.0M（連續 8 季為正）；稀釋股數 YoY -1.0%。",
           "facts": {
-            "free_cash_flow": 48587000000.0,
+            "free_cash_flow": 21400000000.0,
             "positive_fcf_quarters": 8,
             "negative_fcf_quarters": 0,
-            "diluted_shares": 24391000000.0,
-            "share_yoy": -0.8939092275811578
+            "diluted_shares": 24285000000.0,
+            "share_yoy": -1.0068481982716482
           }
         }
       ],
@@ -4858,11 +4858,89 @@
         "verify": 0,
         "invalidated": 0
       },
-      "period": "2026-04-26",
-      "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000052/0001045810-26-000052-index.html",
-      "accession": "0001045810-26-000052",
-      "fingerprint": "9f0d920531fee1907977",
+      "period": "2026-07-26",
+      "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/0001045810-26-000075-index.html",
+      "accession": "0001045810-26-000075",
+      "fingerprint": "315aaca71a4c7136fd58",
       "history": [
+        {
+          "status": "maintained",
+          "label": "論點維持",
+          "items": [
+            {
+              "id": "ai_growth",
+              "title": "AI 加速運算需求維持高成長",
+              "rationale": "營收成長是資料中心與加速運算需求最直接的財務代理。",
+              "metric": "revenue_growth",
+              "support_yoy": 20,
+              "invalidate_yoy": -5,
+              "invalidate_decline_quarters": 3,
+              "invalidation": "營收 YoY ≤ -5%，或營收連續至少 3 季下降。",
+              "status": "supported",
+              "label": "支持",
+              "evidence": "2026-07-26 營收 USD 96,221.0M，YoY +105.9%；連續 8 季上升。",
+              "facts": {
+                "revenue": 96221000000.0,
+                "revenue_yoy": 105.85114348672526,
+                "streak": {
+                  "direction": "up",
+                  "quarters": 8
+                }
+              }
+            },
+            {
+              "id": "pricing_moat",
+              "title": "平台與軟體生態維持定價能力",
+              "rationale": "毛利率用來觀察產品組合、供需與平台定價能力是否仍反映在財報。",
+              "metric": "gross_margin",
+              "support_floor": 0.65,
+              "invalidate_floor": 0.55,
+              "invalidate_decline_quarters": 3,
+              "invalidation": "毛利率低於 55%，或連續至少 3 季顯著下降。",
+              "status": "supported",
+              "label": "支持",
+              "evidence": "2026-07-26 毛利率 75.0%，YoY +2.6pp；未形成連續方向。",
+              "facts": {
+                "margin": 0.7497531723844068,
+                "margin_yoy_pp": 2.5516388266998757,
+                "streak": {
+                  "direction": "flat",
+                  "quarters": 1
+                },
+                "negative_quarters": 0
+              }
+            },
+            {
+              "id": "cash_per_share",
+              "title": "成長能轉化為每股現金流",
+              "rationale": "自由現金流與稀釋股數共同檢查成長是否真正留給股東。",
+              "metric": "cash_dilution",
+              "support_positive_fcf_quarters": 3,
+              "invalidate_negative_fcf_quarters": 4,
+              "invalidate_share_yoy": 10,
+              "invalidation": "FCF 連續至少 4 季為負，或稀釋股數 YoY ≥ 10%。",
+              "status": "supported",
+              "label": "支持",
+              "evidence": "2026-07-26 FCF USD 21,400.0M（連續 8 季為正）；稀釋股數 YoY -1.0%。",
+              "facts": {
+                "free_cash_flow": 21400000000.0,
+                "positive_fcf_quarters": 8,
+                "negative_fcf_quarters": 0,
+                "diluted_shares": 24285000000.0,
+                "share_yoy": -1.0068481982716482
+              }
+            }
+          ],
+          "counts": {
+            "supported": 3,
+            "verify": 0,
+            "invalidated": 0
+          },
+          "period": "2026-07-26",
+          "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/0001045810-26-000075-index.html",
+          "accession": "0001045810-26-000075",
+          "fingerprint": "315aaca71a4c7136fd58"
+        },
         {
           "status": "maintained",
           "label": "論點維持",
@@ -5096,84 +5174,6 @@
           "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581025000230/0001045810-25-000230-index.html",
           "accession": "0001045810-25-000230",
           "fingerprint": "8741ca9cc00a9a617d40"
-        },
-        {
-          "status": "maintained",
-          "label": "論點維持",
-          "items": [
-            {
-              "id": "ai_growth",
-              "title": "AI 加速運算需求維持高成長",
-              "rationale": "營收成長是資料中心與加速運算需求最直接的財務代理。",
-              "metric": "revenue_growth",
-              "support_yoy": 20,
-              "invalidate_yoy": -5,
-              "invalidate_decline_quarters": 3,
-              "invalidation": "營收 YoY ≤ -5%，或營收連續至少 3 季下降。",
-              "status": "supported",
-              "label": "支持",
-              "evidence": "2025-07-27 營收 USD 46,743.0M，YoY +55.6%；連續 8 季上升。",
-              "facts": {
-                "revenue": 46743000000.0,
-                "revenue_yoy": 55.60252996005326,
-                "streak": {
-                  "direction": "up",
-                  "quarters": 8
-                }
-              }
-            },
-            {
-              "id": "pricing_moat",
-              "title": "平台與軟體生態維持定價能力",
-              "rationale": "毛利率用來觀察產品組合、供需與平台定價能力是否仍反映在財報。",
-              "metric": "gross_margin",
-              "support_floor": 0.65,
-              "invalidate_floor": 0.55,
-              "invalidate_decline_quarters": 3,
-              "invalidation": "毛利率低於 55%，或連續至少 3 季顯著下降。",
-              "status": "supported",
-              "label": "支持",
-              "evidence": "2025-07-27 毛利率 72.4%，YoY -2.7pp；連續 2 季上升。",
-              "facts": {
-                "margin": 0.724236784117408,
-                "margin_yoy_pp": -2.7227929597638645,
-                "streak": {
-                  "direction": "up",
-                  "quarters": 2
-                },
-                "negative_quarters": 0
-              }
-            },
-            {
-              "id": "cash_per_share",
-              "title": "成長能轉化為每股現金流",
-              "rationale": "自由現金流與稀釋股數共同檢查成長是否真正留給股東。",
-              "metric": "cash_dilution",
-              "support_positive_fcf_quarters": 3,
-              "invalidate_negative_fcf_quarters": 4,
-              "invalidate_share_yoy": 10,
-              "invalidation": "FCF 連續至少 4 季為負，或稀釋股數 YoY ≥ 10%。",
-              "status": "supported",
-              "label": "支持",
-              "evidence": "2025-07-27 FCF USD 13,470.0M（連續 8 季為正）；稀釋股數 YoY -1.3%。",
-              "facts": {
-                "free_cash_flow": 13470000000.0,
-                "positive_fcf_quarters": 8,
-                "negative_fcf_quarters": 0,
-                "diluted_shares": 24532000000.0,
-                "share_yoy": -1.2717321313586605
-              }
-            }
-          ],
-          "counts": {
-            "supported": 3,
-            "verify": 0,
-            "invalidated": 0
-          },
-          "period": "2025-07-27",
-          "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581025000209/0001045810-25-000209-index.html",
-          "accession": "0001045810-25-000209",
-          "fingerprint": "1cb5655ae4247deb8e7d"
         }
       ],
       "previous": {
@@ -5191,10 +5191,10 @@
             "invalidation": "營收 YoY ≤ -5%，或營收連續至少 3 季下降。",
             "status": "supported",
             "label": "支持",
-            "evidence": "2026-01-25 營收 USD 68,127.0M，YoY +73.2%；連續 8 季上升。",
+            "evidence": "2026-04-26 營收 USD 81,615.0M，YoY +85.2%；連續 8 季上升。",
             "facts": {
-              "revenue": 68127000000.0,
-              "revenue_yoy": 73.21451272533118,
+              "revenue": 81615000000.0,
+              "revenue_yoy": 85.22763378875223,
               "streak": {
                 "direction": "up",
                 "quarters": 8
@@ -5212,13 +5212,13 @@
             "invalidation": "毛利率低於 55%，或連續至少 3 季顯著下降。",
             "status": "supported",
             "label": "支持",
-            "evidence": "2026-01-25 毛利率 75.0%，YoY +2.0pp；連續 4 季上升。",
+            "evidence": "2026-04-26 毛利率 74.9%，YoY +14.4pp；未形成連續方向。",
             "facts": {
-              "margin": 0.7499669734466511,
-              "margin_yoy_pp": 1.9677888500933993,
+              "margin": 0.749335293757275,
+              "margin_yoy_pp": 14.40972201337446,
               "streak": {
-                "direction": "up",
-                "quarters": 4
+                "direction": "flat",
+                "quarters": 1
               },
               "negative_quarters": 0
             }
@@ -5234,13 +5234,13 @@
             "invalidation": "FCF 連續至少 4 季為負，或稀釋股數 YoY ≥ 10%。",
             "status": "supported",
             "label": "支持",
-            "evidence": "2026-01-25 FCF USD 34,904.0M（連續 8 季為正）；稀釋股數缺值。",
+            "evidence": "2026-04-26 FCF USD 48,587.0M（連續 8 季為正）；稀釋股數 YoY -0.9%。",
             "facts": {
-              "free_cash_flow": 34904000000.0,
+              "free_cash_flow": 48587000000.0,
               "positive_fcf_quarters": 8,
               "negative_fcf_quarters": 0,
-              "diluted_shares": null,
-              "share_yoy": null
+              "diluted_shares": 24391000000.0,
+              "share_yoy": -0.8939092275811578
             }
           }
         ],
@@ -5249,10 +5249,10 @@
           "verify": 0,
           "invalidated": 0
         },
-        "period": "2026-01-25",
-        "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000021/0001045810-26-000021-index.html",
-        "accession": "0001045810-26-000021",
-        "fingerprint": "675f4e72d7f0af352c37"
+        "period": "2026-04-26",
+        "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000052/0001045810-26-000052-index.html",
+        "accession": "0001045810-26-000052",
+        "fingerprint": "9f0d920531fee1907977"
       },
       "overallStatusChanged": false,
       "itemStatusChanged": false,
@@ -6700,6 +6700,24 @@
   },
   "change_log": [],
   "update_batches": [
+    {
+      "checked_at": "2026-08-30T00:53:00+00:00",
+      "previous_checked_at": "2026-08-30T00:53:00+00:00",
+      "baseline": false,
+      "changed_count": 0,
+      "critical_count": 0,
+      "changed_tickers": [],
+      "changes": []
+    },
+    {
+      "checked_at": "2026-08-30T00:00:00+00:00",
+      "previous_checked_at": "2026-08-27T12:17:28+00:00",
+      "baseline": false,
+      "changed_count": 0,
+      "critical_count": 0,
+      "changed_tickers": [],
+      "changes": []
+    },
     {
       "checked_at": "2026-08-27T12:17:28+00:00",
       "previous_checked_at": "",

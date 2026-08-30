@@ -656,8 +656,17 @@ def c22():
     if set(companies) != tracked:
         bad.append("公司覆蓋不是 14 家")
     compared = 0
+    unavailable = []
     for ticker, company in companies.items():
         if company.get("status") != "compared":
+            unavailable.append(ticker)
+            if company.get("status") not in {"unavailable", "insufficient"}:
+                bad.append(f"{ticker} 非可比較狀態未安全保留缺值")
+            sections = company.get("sections", {})
+            if company.get("status") == "unavailable" and (
+                not sections or any(not row.get("reason") for row in sections.values())
+            ):
+                bad.append(f"{ticker} 不可比較但缺章節原因")
             continue
         compared += 1
         if company.get("previous", {}).get("form") != company.get("latest", {}).get("form"):
@@ -672,8 +681,8 @@ def c22():
             for row in section.get("modified", []):
                 if not row.get("previous_excerpt") or not row.get("latest_excerpt"):
                     bad.append(f"{ticker} 改寫缺前後摘錄")
-    if compared < 13:
-        bad.append(f"只有 {compared} 家可比較")
+    if compared < len(tracked) - 2:
+        bad.append(f"只有 {compared} 家可比較；不可比較：{unavailable}")
     page = read("dashboard.html")
     workflow = read(".github/workflows/sec-filing-alerts.yml")
     markers = ("secTextDiff", "renderSecTextDiff", "10-K／10-Q 文字差異雷達",

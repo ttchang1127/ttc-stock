@@ -71,7 +71,21 @@ def clean_html_to_text(source: str) -> str:
     text = re.sub(r"[\u00a0\u1680\u2000-\u200a\u202f\u205f\u3000]", " ", text)
     text = text.replace("\u200b", "").replace("\ufeff", "")
     lines = [re.sub(r"[ \t]+", " ", line).strip() for line in text.splitlines()]
-    return "\n".join(line for line in lines if line)
+    lines = [line for line in lines if line]
+    # Some EDGAR HTML wraps a body heading as ``Item\n9.01. Title`` inside one
+    # paragraph. Rejoin only that exact structural split; the normal line-start
+    # and table-of-contents checks still decide whether it is a valid heading.
+    joined = []
+    index = 0
+    while index < len(lines):
+        if (lines[index].casefold() == "item" and index + 1 < len(lines)
+                and re.match(r"^\d+\.\d{2}[.\s]", lines[index + 1])):
+            joined.append(f"Item {lines[index + 1]}")
+            index += 2
+            continue
+        joined.append(lines[index])
+        index += 1
+    return "\n".join(joined)
 
 
 def loose(value: str) -> str:

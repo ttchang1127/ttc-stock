@@ -1,6 +1,6 @@
 ---
 title: 🧮 UPLOAD／CORRESP 會計審閱雷達
-updated_at: 2026-08-26T04:35:38+00:00
+updated_at: 2026-08-30T00:53:00+00:00
 tags:
   - sec/accounting-review
 ---
@@ -78,5 +78,5 @@ UPLOAD 是 SEC 意見函，CORRESP 是公司回覆；兩者成對閱讀才能看
 | 2016-05-31 | **TSM** | CORRESP | 收入認列 | [原文](https://www.sec.gov/Archives/edgar/data/1046179/000119312516607139/filename1.htm) |
 | 2016-05-17 | **TSM** | UPLOAD | SEC 審閱意見函；公開時通常已距審閱結束至少 20 個工作日，不是即時執法警報。 | [原文](https://www.sec.gov/Archives/edgar/data/1046179/000000000016076791/filename1.pdf) |
 
-> 最後檢查：`2026-08-26T04:35:38+00:00`。關鍵字命中是閱讀導航，不等於會計結論或利多／利空。
+> 最後檢查：`2026-08-30T00:53:00+00:00`。關鍵字命中是閱讀導航，不等於會計結論或利多／利空。
 

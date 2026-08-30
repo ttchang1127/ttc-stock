@@ -27,6 +27,9 @@ OUTPUT_PATH = REPO_ROOT / "quarterly_financials.json"
 FOREIGN_QUARTERLY_PATH = REPO_ROOT / "foreign_quarterly_financials.json"
 FOREIGN_IR_TICKERS = {"NOK", "TSM"}
 FORMS = {"10-Q", "10-Q/A", "10-K", "10-K/A", "6-K", "6-K/A", "20-F", "20-F/A"}
+# Keep four years so a newly filed quarter cannot evict the oldest actual used
+# by the rolling three-year management-guidance backtest.
+QUARTER_HISTORY_LIMIT = 16
 OFFICIAL_RESULTS_URLS = {
     "ARM": "https://investors.arm.com/financials/quarterly-annual-results",
     "NOK": "https://www.nokia.com/about-us/investors/results-reports/",
@@ -213,7 +216,7 @@ def fact_value(row):
 
 def build_company(ticker, cik, document):
     series = {metric: metric_series(document, metric) for metric in CONCEPTS}
-    period_ends = sorted(series["revenue"], reverse=True)[:12]
+    period_ends = sorted(series["revenue"], reverse=True)[:QUARTER_HISTORY_LIMIT]
     periods = []
     for end in period_ends:
         revenue_row = series["revenue"][end]

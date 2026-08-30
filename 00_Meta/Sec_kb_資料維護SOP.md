@@ -7,7 +7,7 @@
 > 儀表板網頁的維護請看 [[ttc-stock_Dashboard_維運SOP]]，那是另一條線。
 > 還沒完成的事情列在 [[Sec_kb_待辦事項]]，**已決定不做的**則在本文件第 5 節。
 
-最後更新：2026-08-29
+最後更新：2026-08-30
 
 ---
 
@@ -519,6 +519,7 @@ print('市值/營收 異常:', bad or '無')
 | 三個 Sortino 數值差很多 | **正常**。頻率（週/日）、期間（3年/5年/1年）、MAR 都不同，衡量的是不同的東西，**不准「統一」它們** |
 | 12 個月那組用 MAR=0 而非無風險利率 | 實測對照 PortfoliosLab 公布值決定的（NVDA 0.76→0.75、TSLA 0.36→0.36）。改成無風險利率就對不上公開網站 |
 | 各公司科目數 11~14 不等 | 每家 tag 的科目本來就不同 |
+| `quarterly_financials.json` 的美國申報公司保留 16 季 | 儀表板仍預設顯示最近八季；多保留的季度是為了讓新季度加入後，近三年管理層指引回測的最舊實績不會被擠出。**不准為縮小 JSON 而改回 12 季** |
 
 ---
 
@@ -588,6 +589,7 @@ git fetch --dry-run origin main
 | `watch_sec_filings.py` | 台北時間週二至週六中午比對 14 家 SEC accession，更新每日雷達並由 GitHub Issue 通知 |
 | `ingest_periodic_filings.py` | 依 accession 下載 10-Q／8-K／6-K 官方主要文件；安全拆分 10-Q MD&A／Controls／Risk Factors 與 8-K SEC Item；重解析失敗會移除該 accession 的舊版現役筆記，避免狀態顯示失敗但頁面仍殘留舊內容 |
 | `analyze_exhibit_991.py` | 只處理 Item 2.02 的 8-K／8-K-A；由同 accession 官方 filing index 找唯一 EX-99.1，保留營收、毛利率、EPS、分部、市場指引、管理層語句與風險／前瞻限制的原文證據；未命中保留缺值，重新分析失敗會移除舊卡 |
+| `track_earnings_calls.py` | 只使用公司官方 IR 文字或由官方頁明確連出的允許主機；區分完整逐字稿、Prepared Remarks 與僅影音回放，並產生最近四季主題命中比較；不以第三方逐字稿補值 |
 | `configure_local_git.py` | 清除 `.git/refs` 內 0-byte Finder `Icon\r` 非法 ref，並設定 `fetch.hideRefs=refs/codex`，避免外接磁碟上的 macOS 圖示 metadata 阻斷 fetch／pull |
 | `sec_specialized_radars.py` | 產生最新 10-Q 到件表、解析 Form 4 Ownership XML、依募資文件內文判別 ATM／股權／可轉債／一般債券／架上註冊 |
 | `sec_advanced_radars.py` | 產生財報附註／附件、UPLOAD／CORRESP、13D／13G、DEF 14A、Form 144＋3／4／5、併購與 SEC 執法／停牌雷達；結果依 accession 快取 |

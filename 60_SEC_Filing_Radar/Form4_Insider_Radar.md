@@ -1,6 +1,6 @@
 ---
 title: Form 4 內部人交易雷達
-updated_at: 2026-08-26T04:35:38+00:00
+updated_at: 2026-08-30T00:53:00+00:00
 tags:
   - sec/form-4
   - insiders
@@ -13,6 +13,41 @@ tags:
 
 | 申報日 | 公司 | 申報人／身分 | 代碼與意義 | 股數 | 單價 | 交易金額 | 取得／處分 | 10b5-1 | SEC |
 |---|---|---|---|---:|---:|---:|---|---|---|
+| 2026-08-27 | **AMZN** | BEZOS JEFFREY P／董事、高階主管（Executive Chair） | `G` 贈與 | 230,637 | 0.00 | 0 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000104329826000002/xslF345X06/wk-form4_1787862279.xml) |
+| 2026-08-27 | **AAPL** | Newstead Jennifer／高階主管（SVP, GC and Secretary） | `S` 公開市場或私下賣出 | 1,439 | 310.95 | 447,457 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/320193/000114036126034741/xslF345X06/form4.xml) |
+| 2026-08-27 | **AMZN** | BEZOS JEFFREY P／董事、高階主管（Executive Chair） | `G` 贈與 | 184,943 | 0.00 | 0 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000104329826000002/xslF345X06/wk-form4_1787862279.xml) |
+| 2026-08-27 | **GOOGL** | WALKER JOHN KENT／高階主管（President, Global Affairs, CLO） | `C` 衍生證券轉換 | 1,624 | 0.00 | 0 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526371799/xslF345X06/ownership.xml) |
+| 2026-08-27 | **GOOGL** | WALKER JOHN KENT／高階主管（President, Global Affairs, CLO） | `F` 以證券支付稅款或履約價 | 1,639 | 344.59 | 564,783 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526371799/xslF345X06/ownership.xml) |
+| 2026-08-27 | **GOOGL** | WALKER JOHN KENT／高階主管（President, Global Affairs, CLO） | `C` 衍生證券轉換 | 1,624 | 0.00 | 0 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526371799/xslF345X06/ownership.xml) |
+| 2026-08-27 | **GOOGL** | Pichai Sundar／董事、高階主管（Chief Executive Officer） | `C` 衍生證券轉換 | 3,669 | 0.00 | 0 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526371797/xslF345X06/ownership.xml) |
+| 2026-08-27 | **GOOGL** | Pichai Sundar／董事、高階主管（Chief Executive Officer） | `F` 以證券支付稅款或履約價 | 3,703 | 344.59 | 1,276,017 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526371797/xslF345X06/ownership.xml) |
+| 2026-08-27 | **GOOGL** | Pichai Sundar／董事、高階主管（Chief Executive Officer） | `C` 衍生證券轉換 | 3,669 | 0.00 | 0 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526371797/xslF345X06/ownership.xml) |
+| 2026-08-27 | **GOOGL** | Porat Ruth／高階主管（President and CIO） | `C` 衍生證券轉換 | 1,624 | 0.00 | 0 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526371794/xslF345X06/ownership.xml) |
+| 2026-08-27 | **GOOGL** | Porat Ruth／高階主管（President and CIO） | `F` 以證券支付稅款或履約價 | 1,639 | 0.00 | 0 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526371794/xslF345X06/ownership.xml) |
+| 2026-08-27 | **GOOGL** | Porat Ruth／高階主管（President and CIO） | `C` 衍生證券轉換 | 1,624 | 0.00 | 0 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526371794/xslF345X06/ownership.xml) |
+| 2026-08-27 | **GOOGL** | Schindler Philipp／高階主管（SVP, Chief Business Officer） | `C` 衍生證券轉換 | 1,996 | 0.00 | 0 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526371788/xslF345X06/ownership.xml) |
+| 2026-08-27 | **GOOGL** | Schindler Philipp／高階主管（SVP, Chief Business Officer） | `F` 以證券支付稅款或履約價 | 2,015 | 344.59 | 694,349 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526371788/xslF345X06/ownership.xml) |
+| 2026-08-27 | **GOOGL** | Schindler Philipp／高階主管（SVP, Chief Business Officer） | `C` 衍生證券轉換 | 1,996 | 0.00 | 0 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526371788/xslF345X06/ownership.xml) |
+| 2026-08-27 | **GOOGL** | Ashkenazi Anat／高階主管（SVP, Chief Financial Officer） | `C` 衍生證券轉換 | 1,764 | 0.00 | 0 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526371785/xslF345X06/ownership.xml) |
+| 2026-08-27 | **GOOGL** | Ashkenazi Anat／高階主管（SVP, Chief Financial Officer） | `F` 以證券支付稅款或履約價 | 1,781 | 344.59 | 613,715 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526371785/xslF345X06/ownership.xml) |
+| 2026-08-27 | **GOOGL** | Ashkenazi Anat／高階主管（SVP, Chief Financial Officer） | `C` 衍生證券轉換 | 1,764 | 0.00 | 0 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526371785/xslF345X06/ownership.xml) |
+| 2026-08-27 | **GOOGL** | Saraci Marsida／高階主管（VP, Chief Accounting Officer） | `C` 衍生證券轉換 | 121 | 0.00 | 0 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526371778/xslF345X06/ownership.xml) |
+| 2026-08-27 | **GOOGL** | Saraci Marsida／高階主管（VP, Chief Accounting Officer） | `F` 以證券支付稅款或履約價 | 122 | 344.59 | 42,040 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526371778/xslF345X06/ownership.xml) |
+| 2026-08-27 | **GOOGL** | Saraci Marsida／高階主管（VP, Chief Accounting Officer） | `C` 衍生證券轉換 | 101 | 0.00 | 0 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526371778/xslF345X06/ownership.xml) |
+| 2026-08-27 | **GOOGL** | Saraci Marsida／高階主管（VP, Chief Accounting Officer） | `F` 以證券支付稅款或履約價 | 101 | 344.59 | 34,804 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526371778/xslF345X06/ownership.xml) |
+| 2026-08-27 | **GOOGL** | Saraci Marsida／高階主管（VP, Chief Accounting Officer） | `C` 衍生證券轉換 | 69 | 0.00 | 0 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526371778/xslF345X06/ownership.xml) |
+| 2026-08-27 | **GOOGL** | Saraci Marsida／高階主管（VP, Chief Accounting Officer） | `F` 以證券支付稅款或履約價 | 69 | 344.59 | 23,777 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526371778/xslF345X06/ownership.xml) |
+| 2026-08-27 | **GOOGL** | Saraci Marsida／高階主管（VP, Chief Accounting Officer） | `C` 衍生證券轉換 | 106 | 0.00 | 0 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526371778/xslF345X06/ownership.xml) |
+| 2026-08-27 | **GOOGL** | Saraci Marsida／高階主管（VP, Chief Accounting Officer） | `F` 以證券支付稅款或履約價 | 107 | 344.59 | 36,871 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526371778/xslF345X06/ownership.xml) |
+| 2026-08-27 | **GOOGL** | Saraci Marsida／高階主管（VP, Chief Accounting Officer） | `C` 衍生證券轉換 | 26 | 0.00 | 0 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526371778/xslF345X06/ownership.xml) |
+| 2026-08-27 | **GOOGL** | Saraci Marsida／高階主管（VP, Chief Accounting Officer） | `F` 以證券支付稅款或履約價 | 27 | 344.59 | 9,304 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526371778/xslF345X06/ownership.xml) |
+| 2026-08-27 | **GOOGL** | Saraci Marsida／高階主管（VP, Chief Accounting Officer） | `C` 衍生證券轉換 | 27 | 0.00 | 0 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526371778/xslF345X06/ownership.xml) |
+| 2026-08-27 | **GOOGL** | Saraci Marsida／高階主管（VP, Chief Accounting Officer） | `F` 以證券支付稅款或履約價 | 27 | 344.59 | 9,304 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526371778/xslF345X06/ownership.xml) |
+| 2026-08-27 | **GOOGL** | Saraci Marsida／高階主管（VP, Chief Accounting Officer） | `C` 衍生證券轉換 | 19 | 0.00 | 0 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526371778/xslF345X06/ownership.xml) |
+| 2026-08-27 | **GOOGL** | Saraci Marsida／高階主管（VP, Chief Accounting Officer） | `F` 以證券支付稅款或履約價 | 20 | 344.59 | 6,892 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526371778/xslF345X06/ownership.xml) |
+| 2026-08-27 | **GOOGL** | Saraci Marsida／高階主管（VP, Chief Accounting Officer） | `C` 衍生證券轉換 | 19 | 0.00 | 0 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526371778/xslF345X06/ownership.xml) |
+| 2026-08-27 | **GOOGL** | Saraci Marsida／高階主管（VP, Chief Accounting Officer） | `F` 以證券支付稅款或履約價 | 20 | 344.59 | 6,892 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526371778/xslF345X06/ownership.xml) |
+| 2026-08-27 | **GOOGL** | Saraci Marsida／高階主管（VP, Chief Accounting Officer） | `C` 衍生證券轉換 | 488 | 0.00 | 0 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526371778/xslF345X06/ownership.xml) |
 | 2026-08-25 | **AMZN** | Zapolsky David／高階主管（Senior Vice President） | `S` 公開市場或私下賣出 | 9,258 | 259.77 | 2,404,951 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000155797926000008/xslF345X06/wk-form4_1787690696.xml) |
 | 2026-08-25 | **AMZN** | Jassy Andrew R／董事、高階主管（President and CEO） | `M` 衍生證券行使／轉換 | 50,000 | 0.00 | 0 | 取得 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000137454526000010/xslF345X06/wk-form4_1787692115.xml) |
 | 2026-08-25 | **AMZN** | Jassy Andrew R／董事、高階主管（President and CEO） | `S` 公開市場或私下賣出 | 3,197 | 257.63 | 823,657 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000137454526000010/xslF345X06/wk-form4_1787692115.xml) |
@@ -161,7 +196,6 @@ tags:
 | 2026-08-10 | **TSM** | Yoo Chue-San／高階主管（VP） | `P` 公開市場或私下買入 | 51 | 73.31 | 3,739 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1046179/000104617926000529/xslF345X06/wk-form4_1786363201.xml) |
 | 2026-08-10 | **TSM** | Mii Yuh-Jier／高階主管（EVP and Co-COO） | `P` 公開市場或私下買入 | 72 | 73.31 | 5,278 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1046179/000104617926000523/xslF345X06/wk-form4_1786363149.xml) |
 | 2026-08-10 | **TSM** | Wang Ying-Lang／高階主管（SVP） | `P` 公開市場或私下買入 | 55 | 73.31 | 4,032 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1046179/000104617926000522/xslF345X06/wk-form4_1786363142.xml) |
-| 2026-08-10 | **AMZN** | Herrington Douglas J／高階主管（CEO Worldwide Amazon Stores） | `G` 贈與 | 22,000 | 0.00 | 0 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000101872426000032/xslF345X06/wk-form4_1786407545.xml) |
 | 2026-08-07 | **NVDA** | COXE TENCH／董事 | `G` 贈與 | 500,000 | 0.00 | 0 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1045810/000119764726000007/xslF345X06/wk-form4_1786135642.xml) |
 | 2026-08-06 | **GOOGL** | Hennessy John L.／董事 | `G` 贈與 | 1,738 | 0.00 | 0 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526338824/xslF345X06/ownership.xml) |
 | 2026-08-06 | **GOOGL** | Hennessy John L.／董事 | `G` 贈與 | 1,738 | 0.00 | 0 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526338824/xslF345X06/ownership.xml) |
@@ -172,37 +206,6 @@ tags:
 | 2026-08-03 | **INTC** | Chandrasekaran Nagasubramaniyan／高階主管（EVP, CT & Ops Off, GM Foundry） | `F` 以證券支付稅款或履約價 | 14,738 | 90.04 | 1,327,010 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/50863/000005086326000174/xslF345X06/form4.xml) |
 | 2026-08-03 | **INTC** | Chandrasekaran Nagasubramaniyan／高階主管（EVP, CT & Ops Off, GM Foundry） | `M` 衍生證券行使／轉換 | 33,007 | — | — | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/50863/000005086326000174/xslF345X06/form4.xml) |
 | 2026-08-03 | **INTC** | BARRATT CRAIG H／董事 | `A` 公司授予／獎勵 | 1,461 | — | — | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/50863/000005086326000173/xslF345X06/form4.xml) |
-| 2026-07-30 | **GOOGL** | ARNOLD FRANCES／董事 | `S` 公開市場或私下賣出 | 82 | 333.39 | 27,338 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526326284/xslF345X06/ownership.xml) |
-| 2026-07-29 | **GOOGL** | Saraci Marsida／高階主管（VP, Chief Accounting Officer） | `S` 公開市場或私下賣出 | 449 | 333.20 | 149,607 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526324312/xslF345X06/ownership.xml) |
-| 2026-07-29 | **GOOGL** | GV 2019 GP, L.L.C.、GV 2019 GP, L.P.、GV 2019, L.P.、GV 2021 GP, L.L.C.、GV 2021 GP, L.P.、GV 2021, L.P.、Alphabet Inc.／10% 大股東；10% 大股東；10% 大股東；10% 大股東；10% 大股東；10% 大股東；10% 大股東 | `J` 其他交易（看註腳） | 118,138 | 0.00 | 0 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000116840426000041/xslF345X06/form4-07292026_110704.xml) |
-| 2026-07-29 | **GOOGL** | GV 2019 GP, L.L.C.、GV 2019 GP, L.P.、GV 2019, L.P.、GV 2021 GP, L.L.C.、GV 2021 GP, L.P.、GV 2021, L.P.、Alphabet Inc.／10% 大股東；10% 大股東；10% 大股東；10% 大股東；10% 大股東；10% 大股東；10% 大股東 | `S` 公開市場或私下賣出 | 118,138 | 18.90 | 2,232,761 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000116840426000041/xslF345X06/form4-07292026_110704.xml) |
-| 2026-07-29 | **GOOGL** | GV 2019 GP, L.L.C.、GV 2019 GP, L.P.、GV 2019, L.P.、GV 2021 GP, L.L.C.、GV 2021 GP, L.P.、GV 2021, L.P.、Alphabet Inc.／10% 大股東；10% 大股東；10% 大股東；10% 大股東；10% 大股東；10% 大股東；10% 大股東 | `J` 其他交易（看註腳） | 196,931 | 0.00 | 0 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000116840426000041/xslF345X06/form4-07292026_110704.xml) |
-| 2026-07-29 | **GOOGL** | GV 2019 GP, L.L.C.、GV 2019 GP, L.P.、GV 2019, L.P.、GV 2021 GP, L.L.C.、GV 2021 GP, L.P.、GV 2021, L.P.、Alphabet Inc.／10% 大股東；10% 大股東；10% 大股東；10% 大股東；10% 大股東；10% 大股東；10% 大股東 | `S` 公開市場或私下賣出 | 196,931 | 19.46 | 3,832,848 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000116840426000041/xslF345X06/form4-07292026_110704.xml) |
-| 2026-07-28 | **GOOGL** | Saraci Marsida／高階主管（VP, Chief Accounting Officer） | `C` 衍生證券轉換 | 121 | 0.00 | 0 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526321684/xslF345X06/ownership.xml) |
-| 2026-07-28 | **GOOGL** | Saraci Marsida／高階主管（VP, Chief Accounting Officer） | `F` 以證券支付稅款或履約價 | 122 | 319.09 | 38,929 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526321684/xslF345X06/ownership.xml) |
-| 2026-07-28 | **GOOGL** | Saraci Marsida／高階主管（VP, Chief Accounting Officer） | `C` 衍生證券轉換 | 101 | 0.00 | 0 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526321684/xslF345X06/ownership.xml) |
-| 2026-07-28 | **GOOGL** | Saraci Marsida／高階主管（VP, Chief Accounting Officer） | `F` 以證券支付稅款或履約價 | 102 | 319.09 | 32,547 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526321684/xslF345X06/ownership.xml) |
-| 2026-07-28 | **GOOGL** | Saraci Marsida／高階主管（VP, Chief Accounting Officer） | `C` 衍生證券轉換 | 69 | 0.00 | 0 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526321684/xslF345X06/ownership.xml) |
-| 2026-07-28 | **GOOGL** | Saraci Marsida／高階主管（VP, Chief Accounting Officer） | `F` 以證券支付稅款或履約價 | 69 | 319.09 | 22,017 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526321684/xslF345X06/ownership.xml) |
-| 2026-07-28 | **GOOGL** | Saraci Marsida／高階主管（VP, Chief Accounting Officer） | `C` 衍生證券轉換 | 105 | 0.00 | 0 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526321684/xslF345X06/ownership.xml) |
-| 2026-07-28 | **GOOGL** | Saraci Marsida／高階主管（VP, Chief Accounting Officer） | `F` 以證券支付稅款或履約價 | 106 | 319.09 | 33,824 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526321684/xslF345X06/ownership.xml) |
-| 2026-07-28 | **GOOGL** | Saraci Marsida／高階主管（VP, Chief Accounting Officer） | `C` 衍生證券轉換 | 27 | 0.00 | 0 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526321684/xslF345X06/ownership.xml) |
-| 2026-07-28 | **GOOGL** | Saraci Marsida／高階主管（VP, Chief Accounting Officer） | `F` 以證券支付稅款或履約價 | 27 | 319.09 | 8,615 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526321684/xslF345X06/ownership.xml) |
-| 2026-07-28 | **GOOGL** | Saraci Marsida／高階主管（VP, Chief Accounting Officer） | `C` 衍生證券轉換 | 26 | 0.00 | 0 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526321684/xslF345X06/ownership.xml) |
-| 2026-07-28 | **GOOGL** | Saraci Marsida／高階主管（VP, Chief Accounting Officer） | `F` 以證券支付稅款或履約價 | 27 | 319.09 | 8,615 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526321684/xslF345X06/ownership.xml) |
-| 2026-07-28 | **GOOGL** | Saraci Marsida／高階主管（VP, Chief Accounting Officer） | `C` 衍生證券轉換 | 19 | 0.00 | 0 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526321684/xslF345X06/ownership.xml) |
-| 2026-07-28 | **GOOGL** | Saraci Marsida／高階主管（VP, Chief Accounting Officer） | `F` 以證券支付稅款或履約價 | 19 | 319.09 | 6,090 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526321684/xslF345X06/ownership.xml) |
-| 2026-07-28 | **GOOGL** | Saraci Marsida／高階主管（VP, Chief Accounting Officer） | `C` 衍生證券轉換 | 19 | 0.00 | 0 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526321684/xslF345X06/ownership.xml) |
-| 2026-07-28 | **GOOGL** | Saraci Marsida／高階主管（VP, Chief Accounting Officer） | `F` 以證券支付稅款或履約價 | 20 | 319.09 | 6,382 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526321684/xslF345X06/ownership.xml) |
-| 2026-07-28 | **GOOGL** | Saraci Marsida／高階主管（VP, Chief Accounting Officer） | `C` 衍生證券轉換 | 487 | 0.00 | 0 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526321684/xslF345X06/ownership.xml) |
-| 2026-07-28 | **GOOGL** | WALKER JOHN KENT／高階主管（President, Global Affairs, CLO） | `C` 衍生證券轉換 | 1,625 | 0.00 | 0 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526321683/xslF345X06/ownership.xml) |
-| 2026-07-28 | **GOOGL** | WALKER JOHN KENT／高階主管（President, Global Affairs, CLO） | `F` 以證券支付稅款或履約價 | 1,640 | 319.09 | 523,308 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526321683/xslF345X06/ownership.xml) |
-| 2026-07-28 | **GOOGL** | WALKER JOHN KENT／高階主管（President, Global Affairs, CLO） | `C` 衍生證券轉換 | 1,625 | 0.00 | 0 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526321683/xslF345X06/ownership.xml) |
-| 2026-07-28 | **GOOGL** | Porat Ruth／高階主管（President and CIO） | `C` 衍生證券轉換 | 1,625 | 0.00 | 0 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526321678/xslF345X06/ownership.xml) |
-| 2026-07-28 | **GOOGL** | Porat Ruth／高階主管（President and CIO） | `F` 以證券支付稅款或履約價 | 1,640 | 0.00 | 0 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526321678/xslF345X06/ownership.xml) |
-| 2026-07-28 | **GOOGL** | Porat Ruth／高階主管（President and CIO） | `C` 衍生證券轉換 | 1,625 | 0.00 | 0 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526321678/xslF345X06/ownership.xml) |
-| 2026-07-28 | **GOOGL** | Saraci Marsida／高階主管（VP, Chief Accounting Officer） | `A` 公司授予／獎勵 | 1,232 | 0.00 | 0 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526321684/xslF345X06/ownership.xml) |
-| 2026-07-28 | **GOOGL** | Saraci Marsida／高階主管（VP, Chief Accounting Officer） | `A` 公司授予／獎勵 | 784 | 0.00 | 0 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526321684/xslF345X06/ownership.xml) |
 | 2026-07-24 | **COHR** | Luther Sherri R／高階主管（Chief Financial Officer） | `S` 公開市場或私下賣出 | 1,000 | 306.68 | 306,680 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/820318/000089914026000726/xslF345X06/form4.xml) |
 | 2026-07-16 | **MRVL** | Bharathi Sandeep／高階主管（President, Data Center Group） | `S` 公開市場或私下賣出 | 9,013 | 199.24 | 1,795,750 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1835632/000162828026048556/xslF345X06/wk-form4_1784252922.xml) |
 | 2026-07-16 | **MRVL** | Bharathi Sandeep／高階主管（President, Data Center Group） | `M` 衍生證券行使／轉換 | 2,462 | 0.00 | 0 | 取得 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1835632/000162828026048556/xslF345X06/wk-form4_1784252922.xml) |
@@ -210,9 +213,6 @@ tags:
 | 2026-07-16 | **MRVL** | Bharathi Sandeep／高階主管（President, Data Center Group） | `M` 衍生證券行使／轉換 | 3,567 | 0.00 | 0 | 取得 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1835632/000162828026048556/xslF345X06/wk-form4_1784252922.xml) |
 | 2026-07-16 | **MRVL** | Bharathi Sandeep／高階主管（President, Data Center Group） | `F` 以證券支付稅款或履約價 | 1,879 | 206.26 | 387,563 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1835632/000162828026048556/xslF345X06/wk-form4_1784252922.xml) |
 | 2026-07-16 | **MRVL** | Bharathi Sandeep／高階主管（President, Data Center Group） | `M` 衍生證券行使／轉換 | 1,757 | 0.00 | 0 | 取得 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1835632/000162828026048556/xslF345X06/wk-form4_1784252922.xml) |
-| 2026-07-16 | **MRVL** | Bharathi Sandeep／高階主管（President, Data Center Group） | `F` 以證券支付稅款或履約價 | 926 | 206.26 | 190,997 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1835632/000162828026048556/xslF345X06/wk-form4_1784252922.xml) |
-| 2026-07-16 | **MRVL** | Bharathi Sandeep／高階主管（President, Data Center Group） | `M` 衍生證券行使／轉換 | 11,256 | 0.00 | 0 | 取得 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1835632/000162828026048556/xslF345X06/wk-form4_1784252922.xml) |
-| 2026-07-16 | **MRVL** | Bharathi Sandeep／高階主管（President, Data Center Group） | `F` 以證券支付稅款或履約價 | 5,927 | 206.26 | 1,222,503 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1835632/000162828026048556/xslF345X06/wk-form4_1784252922.xml) |
 
 ## 交易代碼速查
 
@@ -227,5 +227,5 @@ tags:
 
 > 金額只在股數與單價都由 SEC 文件提供時才計算；缺值保留為「—」，不以 0 代替。
 
-> 最後檢查：`2026-08-26T04:35:38+00:00`
+> 最後檢查：`2026-08-30T00:53:00+00:00`
 

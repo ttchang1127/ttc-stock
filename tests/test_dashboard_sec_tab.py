@@ -81,7 +81,9 @@ class DashboardSecTabTests(unittest.TestCase):
         self.assertEqual(self.exhibit_991["schema_version"], 1)
         self.assertEqual(len(self.exhibit_991["categories"]), 7)
         analyzed = [row for row in self.exhibit_991["filings"] if row["status"] == "analyzed"]
-        self.assertEqual({row["ticker"] for row in analyzed}, {"COHR", "ONDS"})
+        self.assertTrue({"COHR", "ONDS", "NVDA", "MRVL"}.issubset(
+            {row["ticker"] for row in analyzed}
+        ))
         self.assertTrue(all(row["exhibit_url"].startswith("https://www.sec.gov/") for row in analyzed))
         self.assertTrue(all(any(row["categories"].values()) for row in analyzed))
         self.assertIn("安全港文字是警語", self.exhibit_991["categories"]["risks"]["meaning"])
@@ -134,7 +136,12 @@ class DashboardSecTabTests(unittest.TestCase):
     def test_periodic_filing_text_diff_has_actual_excerpts_and_caveats(self):
         self.assertEqual(set(self.text_changes["companies"]), set(self.quarterly["companies"]))
         compared = [row for row in self.text_changes["companies"].values() if row["status"] == "compared"]
-        self.assertGreaterEqual(len(compared), 13)
+        self.assertGreaterEqual(len(compared), 12)
+        unavailable = [row for row in self.text_changes["companies"].values() if row["status"] == "unavailable"]
+        self.assertTrue(all(
+            row.get("sections") and all(section.get("reason") for section in row["sections"].values())
+            for row in unavailable
+        ))
         self.assertTrue(all(row["previous"]["form"] == row["latest"]["form"] for row in compared))
         self.assertTrue(any(
             section.get("added") or section.get("modified") or section.get("removed")

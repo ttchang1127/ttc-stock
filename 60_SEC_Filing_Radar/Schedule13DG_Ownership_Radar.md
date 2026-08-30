@@ -1,6 +1,6 @@
 ---
 title: 13D／13G 大股東雷達
-updated_at: 2026-08-26T04:35:38+00:00
+updated_at: 2026-08-30T00:53:00+00:00
 tags:
   - sec/ownership
 ---
@@ -224,8 +224,8 @@ tags:
 | 2024-02-14 | **TSLA** | [SC 13G/A](https://www.sec.gov/Archives/edgar/data/1318605/000119312524036110/0001193125-24-036110-index.html) | Musk Elon  (CIK 0001494730) | 715,022,706 股／20.50% | 無同申報人前期可比 | 豁免投資人 |
 | 2024-02-13 | **AAPL** | [SC 13G/A](https://www.sec.gov/Archives/edgar/data/320193/000110465924020009/0001104659-24-020009-index.html) | VANGUARD GROUP INC  (CIK 0000102909) | 1,317,966,471 股／8.47% | 無同申報人前期可比 | 合格機構投資人 |
 | 2024-02-13 | **COHR** | [SC 13G/A](https://www.sec.gov/Archives/edgar/data/820318/000119312524033355/0001193125-24-033355-index.html) | DODGE & COX  (CIK 0000200217) | 18,735,408 股／12.40% | 無同申報人前期可比 | 合格機構投資人 |
-| 2024-02-13 | **GOOGL** | [SC 13G/A](https://www.sec.gov/Archives/edgar/data/1652044/000110465924020000/0001104659-24-020000-index.html) | VANGUARD GROUP INC  (CIK 0000102909) | 493,782,758 股／8.34% | 無同申報人前期可比 | 合格機構投資人 |
 | 2024-02-13 | **GOOGL** | [SC 13G/A](https://www.sec.gov/Archives/edgar/data/1652044/000110465924020001/0001104659-24-020001-index.html) | VANGUARD GROUP INC  (CIK 0000102909) | 410,957,639 股／7.18% | 無同申報人前期可比 | 合格機構投資人 |
+| 2024-02-13 | **GOOGL** | [SC 13G/A](https://www.sec.gov/Archives/edgar/data/1652044/000110465924020000/0001104659-24-020000-index.html) | VANGUARD GROUP INC  (CIK 0000102909) | 493,782,758 股／8.34% | 無同申報人前期可比 | 合格機構投資人 |
 | 2024-02-13 | **INTC** | [SC 13G/A](https://www.sec.gov/Archives/edgar/data/50863/000110465924021208/0001104659-24-021208-index.html) | VANGUARD GROUP INC  (CIK 0000102909) | 385,750,808 股／9.15% | 無同申報人前期可比 | 合格機構投資人 |
 | 2024-02-13 | **META** | [SC 13G/A](https://www.sec.gov/Archives/edgar/data/1326801/000110465924021456/0001104659-24-021456-index.html) | VANGUARD GROUP INC  (CIK 0000102909) | 186,347,527 股／8.40% | 無同申報人前期可比 | 合格機構投資人 |
 | 2024-02-13 | **MRVL** | [SC 13G/A](https://www.sec.gov/Archives/edgar/data/1835632/000110465924021420/0001104659-24-021420-index.html) | VANGUARD GROUP INC  (CIK 0000102909) | 72,342,284 股／8.37% | 無同申報人前期可比 | 合格機構投資人 |
