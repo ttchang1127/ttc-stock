@@ -21,6 +21,7 @@ import tempfile
 import urllib.error
 import urllib.parse
 import urllib.request
+from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
 from html.parser import HTMLParser
 from pathlib import Path
@@ -38,11 +39,31 @@ DEFAULT_OUTPUT = REPO_ROOT / "earnings_call_analysis.json"
 DEFAULT_EXHIBIT = REPO_ROOT / "exhibit_991_analysis.json"
 DEFAULT_QUARTERLY = REPO_ROOT / "quarterly_financials.json"
 DEFAULT_RADAR = REPO_ROOT / "60_SEC_Filing_Radar" / "Earnings_Call_Radar.md"
-SCHEMA_VERSION = 2
-PARSER_VERSION = 14
+SCHEMA_VERSION = 3
+PARSER_VERSION = 16
 MAX_EVIDENCE = 1
 MAX_EXCERPT_WORDS = 22
+HISTORY_QUARTERS = 4
 ANALYZABLE_STATUSES = {"analyzed", "analyzed_cached"}
+
+TREND_STATES = {
+    "newly_detected": {
+        "label": "本季新增命中",
+        "meaning": "前一季未命中、本季命中；只代表官方文字出現此主題，不等於基本面改善或惡化。",
+    },
+    "continued": {
+        "label": "連續兩季命中",
+        "meaning": "前後兩季都命中此主題；摘錄可用來核對說法如何更新，不代表方向未變。",
+    },
+    "not_detected": {
+        "label": "本季未再命中",
+        "meaning": "前一季命中、本季未命中；不等於該議題或風險已消失。",
+    },
+    "insufficient": {
+        "label": "資料不足",
+        "meaning": "兩季至少一季來源不可分析，或前後都未命中，不能判斷主題變化。",
+    },
+}
 
 SOURCE_TYPES = {
     "full_transcript": {
@@ -398,7 +419,7 @@ def source_blocks(payload: bytes, content_type: str, url: str) -> list[dict]:
     for raw in raw_blocks:
         text = normalize_text(raw)
         heading = re.sub(r"[^a-z&]+", " ", text.casefold()).strip()
-        if (re.search(r"\bQUESTION\s+AND\s+ANSWER\s+(?:SESSION|SECTION)\b", text)
+        if (re.search(r"\bQUESTION\s+AND\s+ANSWER\s+(?:SESSION|SECTION)", text, re.I)
                 or re.match(r"^(?:question[- ]and[- ]answer|questions? and answers?|q\s*&\s*a)\b", text, re.I)
                 or re.search(r"\b(?:go|move over) to Q\s*&\s*A\b", text, re.I)
                 or re.search(r"\b(?:will|we(?:'|’)ll) now take (?:your|some) questions\b", text, re.I)
@@ -414,6 +435,12 @@ def source_blocks(payload: bytes, content_type: str, url: str) -> list[dict]:
         seen.add(key)
         result.append({"section": section, "text": text})
     return result
+
+
+def source_content_sha256(blocks: list[dict]) -> str:
+    """Hash normalized readable content, not volatile HTML wrappers or request tokens."""
+    canonical = "\n".join(f"{block['section']}\t{block['text']}" for block in blocks)
+    return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
 
 
 def short_excerpt(text: str, limit: int = MAX_EXCERPT_WORDS) -> str:
@@ -633,10 +660,68 @@ def row_fingerprint(parser_version: int | None, row: dict) -> str:
         "link_check": row.get("link_check"),
         "provenance": row.get("provenance"),
         "discovery": row.get("discovery"),
+        "history": row.get("history"),
+        "history_coverage": row.get("history_coverage"),
+        "quarter_comparisons": row.get("quarter_comparisons"),
     }
     return hashlib.sha256(
         json.dumps(material, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode()
     ).hexdigest()
+
+
+def history_snapshot(row: dict) -> dict:
+    """Keep only non-recursive, traceable fields needed by the four-quarter UI."""
+    return {
+        key: row.get(key)
+        for key in (
+            "period", "call_date", "landing_url", "material_url", "allowed_hosts",
+            "source_type", "source_label", "status", "categories", "coverage",
+            "q_and_a_available", "source_sha256", "provenance", "card",
+            "last_verified_at", "errors",
+        )
+    }
+
+
+def topic_change_state(current: dict, previous: dict, category: str) -> str:
+    if current.get("status") not in ANALYZABLE_STATUSES or previous.get("status") not in ANALYZABLE_STATUSES:
+        return "insufficient"
+    current_evidence = current.get("categories", {}).get(category) or []
+    previous_evidence = previous.get("categories", {}).get(category) or []
+    if current_evidence and previous_evidence:
+        return "continued"
+    if current_evidence:
+        return "newly_detected"
+    if previous_evidence:
+        return "not_detected"
+    return "insufficient"
+
+
+def build_quarter_comparisons(history: list[dict]) -> list[dict]:
+    comparisons = []
+    for current, previous in zip(history, history[1:]):
+        topics = {}
+        for category in CATEGORIES:
+            current_evidence = current.get("categories", {}).get(category) or []
+            previous_evidence = previous.get("categories", {}).get(category) or []
+            topics[category] = {
+                "state": topic_change_state(current, previous, category),
+                "current_excerpt": current_evidence[0].get("excerpt") if current_evidence else None,
+                "previous_excerpt": previous_evidence[0].get("excerpt") if previous_evidence else None,
+            }
+        comparisons.append({
+            "current_period": current.get("period"),
+            "previous_period": previous.get("period"),
+            "topics": topics,
+        })
+    return comparisons
+
+
+def with_history_config(company: dict, historical: dict) -> dict:
+    merged = {key: value for key, value in company.items() if key != "history"}
+    merged.update(historical)
+    return merged
+
+
 def analyze_company(
     ticker: str, config: dict, exhibit: dict, root: Path, previous: dict | None = None,
 ) -> dict:
@@ -754,7 +839,7 @@ def analyze_company(
         **base, "status": "analyzed", "categories": categories,
         "coverage": {"found": sum(bool(value) for value in categories.values()), "total": len(CATEGORIES)},
         "q_and_a_available": q_and_a_available,
-        "source_sha256": hashlib.sha256(payload).hexdigest(),
+        "source_sha256": source_content_sha256(blocks),
         "exhibit_comparison": comparison, "errors": [],
     }
     row["last_verified_at"] = (
@@ -764,6 +849,47 @@ def analyze_company(
     )
     atomic_write(path, render_card(row))
     row["card"] = str(path.relative_to(root))
+    return row
+
+
+def analyze_company_bundle(
+    ticker: str, company: dict, exhibit: dict, root: Path,
+    previous_row: dict, quarterly_company: dict | None,
+) -> dict:
+    row = analyze_company(ticker, company, exhibit, root, previous_row)
+    if company["source_type"] == "webcast_replay":
+        row["history"] = []
+        row["history_coverage"] = {
+            "available": 0, "expected": 0, "status": "not_applicable",
+            "meaning": "官方目前只有影音／回放，未用第三方逐字稿補足四季文字。",
+        }
+        row["quarter_comparisons"] = []
+    else:
+        previous_history = {
+            item.get("period"): item
+            for item in previous_row.get("history", [])
+            if item.get("period")
+        }
+        history = [history_snapshot(row)]
+        for historical in company.get("history", [])[:HISTORY_QUARTERS - 1]:
+            historical_config = with_history_config(company, historical)
+            historical_row = analyze_company(
+                ticker, historical_config, exhibit, root,
+                previous_history.get(historical_config["period"]),
+            )
+            history.append(history_snapshot(historical_row))
+        history.sort(key=lambda item: (item.get("call_date") or "", item.get("period") or ""), reverse=True)
+        available = sum(item.get("status") in ANALYZABLE_STATUSES for item in history)
+        expected = HISTORY_QUARTERS
+        row["history"] = history
+        row["history_coverage"] = {
+            "available": available, "expected": expected,
+            "status": "complete" if available == expected and len(history) == expected else "partial",
+            "meaning": "只比較公司官方文字；缺季保留缺值，不以第三方逐字稿或影音轉錄補齊。",
+        }
+        row["quarter_comparisons"] = build_quarter_comparisons(history)
+    row["discovery"] = discover_newer_material(company, previous_row)
+    row["freshness"] = source_freshness(company, quarterly_company)
     return row
 
 
@@ -778,19 +904,25 @@ def render_radar(status: dict) -> str:
         "# 🎙️ 官方 Earnings Call／Prepared Remarks 雷達", "",
         "只收公司 IR 官方頁或由官方頁連出的明確允許主機；不使用第三方逐字稿，不對影音自動轉錄。短摘錄是閱讀索引，不是情緒分數或投資建議。", "",
         f"- 可分析官方文字：**{len(analyzed)} 家**", f"- 僅官方影音／回放：**{len(replay)} 家**",
+        f"- 四季官方文字完整：**{sum(row.get('history_coverage', {}).get('status') == 'complete' for row in rows)} 家**",
         f"- 待覆核／下載失敗：**{len(pending)} 家**", "", "## 14 家最新狀態", "",
-        "| 公司 | 期間／日期 | 官方資料型態 | 狀態 | 入口 |", "|---|---|---|---|---|",
+        "| 公司 | 期間／日期 | 官方資料型態 | 四季文字 | 狀態 | 入口 |", "|---|---|---|---|---|---|",
     ]
     status_labels = {"analyzed": "✅ 已建立文字卡", "analyzed_cached": "⚠️ 本次下載失敗；顯示上次驗證卡", "replay_only": "🎧 僅影音", "review_required": "⚠️ 待覆核", "download_failed": "⚠️ 下載失敗"}
     for row in rows:
         link = f"[[{row['card'].removesuffix('.md')}|閱讀卡]]" if row.get("card") else f"[官方來源]({row.get('material_url') or row['landing_url']})"
         freshness = "；⏳ 來源可能過期" if row.get("freshness", {}).get("status") == "stale" else ""
         newer = "；🆕 發現較新官方候選" if row.get("discovery", {}).get("newer_candidates") else ""
-        lines.append(f"| **{row['ticker']}** | {row['period']}／{row['call_date']} | {row['source_label']} | {status_labels[row['status']]}{freshness}{newer} | {link} |")
+        history = row.get("history_coverage", {})
+        history_label = "不適用（僅影音）" if history.get("status") == "not_applicable" else f"{history.get('available', 0)}/{history.get('expected', HISTORY_QUARTERS)} 季"
+        lines.append(f"| **{row['ticker']}** | {row['period']}／{row['call_date']} | {row['source_label']} | {history_label} | {status_labels[row['status']]}{freshness}{newer} | {link} |")
     lines += ["", "## 每個欄位怎麼讀", ""]
     for definition in CATEGORIES.values():
         lines.append(f"- **{definition['label']}**：{definition['meaning']}")
-    lines += ["", "## 重要限制", "", "- Prepared Remarks 沒有分析師追問，不能與完整逐字稿等量齊觀。", "- 僅影音公司不產生文字判讀；需要人工聆聽官方回放。", "- 與 Exhibit 99.1 只比較主題有無覆蓋，不判定兩份內容一致或矛盾。", ""]
+    lines += ["", "## 四季變化狀態怎麼讀", ""]
+    for definition in TREND_STATES.values():
+        lines.append(f"- **{definition['label']}**：{definition['meaning']}")
+    lines += ["", "## 重要限制", "", "- Prepared Remarks 沒有分析師追問，不能與完整逐字稿等量齊觀。", "- 僅影音公司不產生文字判讀；需要人工聆聽官方回放。", "- 四季比較只表示主題是否命中，不把文字關鍵字判定為改善或惡化。", "- 與 Exhibit 99.1 只比較主題有無覆蓋，不判定兩份內容一致或矛盾。", ""]
     return "\n".join(lines)
 
 
@@ -821,17 +953,24 @@ def main() -> int:
     previous_payload = load_json(args.output, {})
     previous = previous_payload.get("companies", {})
     previous_parser_version = previous_payload.get("parser_version")
+    companies = config.get("companies", {})
     results = {}
-    for ticker, company in config.get("companies", {}).items():
-        previous_row = previous.get(ticker, {})
-        row = analyze_company(ticker, company, exhibit, args.root, previous_row)
-        row["discovery"] = discover_newer_material(company, previous_row)
-        row["freshness"] = source_freshness(company, quarterly.get(ticker))
-        old_fingerprint = row_fingerprint(previous_parser_version, previous_row)
-        new_fingerprint = row_fingerprint(PARSER_VERSION, row)
-        row["changed"] = not previous_row or old_fingerprint != new_fingerprint
-        results[ticker] = row
-        print(f"  {'✅' if row['status'] == 'analyzed' else '⚠️'} {ticker:6s} {row['status']}")
+    with ThreadPoolExecutor(max_workers=min(4, max(1, len(companies)))) as executor:
+        futures = {
+            ticker: executor.submit(
+                analyze_company_bundle, ticker, company, exhibit, args.root,
+                previous.get(ticker, {}), quarterly.get(ticker),
+            )
+            for ticker, company in companies.items()
+        }
+        for ticker in companies:
+            row = futures[ticker].result()
+            previous_row = previous.get(ticker, {})
+            old_fingerprint = row_fingerprint(previous_parser_version, previous_row)
+            new_fingerprint = row_fingerprint(PARSER_VERSION, row)
+            row["changed"] = not previous_row or old_fingerprint != new_fingerprint
+            results[ticker] = row
+            print(f"  {'✅' if row['status'] == 'analyzed' else '⚠️'} {ticker:6s} {row['status']}")
     changed = [row for row in results.values() if row["changed"]]
     persisted_results = {
         ticker: {key: value for key, value in row.items() if key != "changed"}
@@ -844,6 +983,8 @@ def main() -> int:
         "source": "Official company investor-relations pages and explicitly allow-listed linked hosts",
         "methodology": "Official text only; no audio transcription; short verbatim evidence; missing stays missing; no sentiment score",
         "source_types": SOURCE_TYPES,
+        "history_quarters": HISTORY_QUARTERS,
+        "trend_states": TREND_STATES,
         "categories": {key: {"label": value["label"], "meaning": value["meaning"]} for key, value in CATEGORIES.items()},
         "companies": persisted_results,
     }
@@ -861,7 +1002,9 @@ def main() -> int:
         if row["status"] not in ANALYZABLE_STATUSES | {"replay_only"}
         or row.get("discovery", {}).get("newer_candidates")
     ]
-    summary_lines = [f"官方文字可分析 {len(analyzed)} 家；待覆核／下載失敗 {len(pending)} 家；來源可能過期 {len(stale)} 家；較新官方材料候選 {len(newer)} 家；本次狀態或來源變更 {len(changed)} 家。"]
+    complete_history = [row for row in results.values() if row.get("history_coverage", {}).get("status") == "complete"]
+    partial_history = [row for row in results.values() if row.get("history_coverage", {}).get("status") == "partial"]
+    summary_lines = [f"官方文字可分析 {len(analyzed)} 家；四季文字完整 {len(complete_history)} 家；四季文字不完整 {len(partial_history)} 家；待覆核／下載失敗 {len(pending)} 家；來源可能過期 {len(stale)} 家；較新官方材料候選 {len(newer)} 家；本次狀態或來源變更 {len(changed)} 家。"]
     summary_lines.extend(f"- {row['ticker']}：{'；'.join(row['errors'])}" for row in pending)
     write_outputs(args.summary, "官方 Earnings Call／Prepared Remarks 雷達", summary_lines)
     if changed:

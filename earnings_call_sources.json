@@ -31,7 +31,27 @@
       "source_type": "full_transcript",
       "allowed_hosts": ["investors.arm.com"],
       "fetch_strategy": "browser_impersonation",
-      "identity_patterns": ["\\bArm(?: Holdings)?\\b", "(?:Q1|first quarter).{0,60}(?:2027|fiscal 2027)|(?:2027|fiscal 2027).{0,60}(?:Q1|first quarter)"]
+      "identity_patterns": ["\\bArm(?: Holdings)?\\b", "(?:Q1|first quarter).{0,60}(?:2027|fiscal 2027)|(?:2027|fiscal 2027).{0,60}(?:Q1|first quarter)"],
+      "history": [
+        {
+          "period": "FY2026 Q4",
+          "call_date": "2026-05-06",
+          "material_url": "https://investors.arm.com/static-files/78526857-5997-46eb-9b65-0d3249d83711",
+          "identity_patterns": ["\\bArm(?: Holdings)?\\b", "(?:Q4|fourth quarter).{0,60}(?:2026|fiscal 2026)|(?:2026|fiscal 2026).{0,60}(?:Q4|fourth quarter)"]
+        },
+        {
+          "period": "FY2026 Q3",
+          "call_date": "2026-02-04",
+          "material_url": "https://investors.arm.com/static-files/ba30dca7-d2dd-4d44-b4c5-9fd953fedaea",
+          "identity_patterns": ["\\bArm(?: Holdings)?\\b", "(?:Q3|third quarter).{0,60}(?:2026|fiscal 2026)|(?:2026|fiscal 2026).{0,60}(?:Q3|third quarter)"]
+        },
+        {
+          "period": "FY2026 Q2",
+          "call_date": "2025-11-05",
+          "material_url": "https://investors.arm.com/static-files/65566543-de64-4743-b168-fc72009a7bdc",
+          "identity_patterns": ["\\bArm(?: Holdings)?\\b", "(?:Q2|second quarter).{0,60}(?:2026|fiscal 2026)|(?:2026|fiscal 2026).{0,60}(?:Q2|second quarter)"]
+        }
+      ]
     },
     "COHR": {
       "company_name": "Coherent Corp.",
@@ -54,7 +74,33 @@
       "fetch_strategy": "browser_impersonation",
       "identity_patterns": ["\\bAlphabet\\b", "(?:Q2|second quarter).{0,60}2026|2026.{0,60}(?:Q2|second quarter)"],
       "provenance_verified_on": "2026-08-29",
-      "provenance_note": "Alphabet 官方 Q2 2026 活動頁直接連至這份 q4cdn 官方逐字稿。"
+      "provenance_note": "Alphabet 官方 Q2 2026 活動頁直接連至這份 q4cdn 官方逐字稿。",
+      "history": [
+        {
+          "period": "2026 Q1",
+          "call_date": "2026-04-29",
+          "landing_url": "https://abc.xyz/investor/events/event-details/2026/2026-Q1-Earnings-Call-2026-nW8kCrBAKS/default.aspx",
+          "material_url": "https://s206.q4cdn.com/479360582/files/doc_events/2026/Apr/29/Alphabet-2026_Q1_Earnings_Transcript.pdf",
+          "identity_patterns": ["\\bAlphabet\\b", "(?:Q1|first quarter).{0,60}2026|2026.{0,60}(?:Q1|first quarter)"],
+          "provenance_note": "Alphabet 官方 Q1 2026 活動頁直接連至這份 q4cdn 官方逐字稿。"
+        },
+        {
+          "period": "2025 Q4",
+          "call_date": "2026-02-04",
+          "landing_url": "https://abc.xyz/investor/events/event-details/2026/2025-Q4-Earnings-Call-2026-Dr_C033hS6/default.aspx",
+          "material_url": "https://s206.q4cdn.com/479360582/files/doc_events/2026/Feb/04/2025_Q4_Earnings_Transcript.pdf",
+          "identity_patterns": ["\\bAlphabet\\b", "(?:Q4|fourth quarter).{0,60}2025|2025.{0,60}(?:Q4|fourth quarter)"],
+          "provenance_note": "Alphabet 官方 Q4 2025 活動頁直接連至這份 q4cdn 官方逐字稿。"
+        },
+        {
+          "period": "2025 Q3",
+          "call_date": "2025-10-29",
+          "landing_url": "https://abc.xyz/investor/events/event-details/2025/2025-Q3-Earnings-Call-2025-4OI4Bac_Q9/default.aspx",
+          "material_url": "https://s206.q4cdn.com/479360582/files/doc_events/2025/Oct/29/2025_Q3_Earnings_Transcript.pdf",
+          "identity_patterns": ["\\bAlphabet\\b", "(?:Q3|third quarter).{0,60}2025|2025.{0,60}(?:Q3|third quarter)"],
+          "provenance_note": "Alphabet 官方 Q3 2025 活動頁直接連至這份 q4cdn 官方逐字稿。"
+        }
+      ]
     },
     "INTC": {
       "company_name": "Intel Corporation",
@@ -67,7 +113,33 @@
       "identity_patterns": ["\\bIntel\\b", "(?:Q2|second quarter).{0,60}2026|2026.{0,60}(?:Q2|second quarter)"],
       "provenance_verified_on": "2026-08-29",
       "provenance_note": "Intel 官方活動頁直接連至這份 CloudFront Prepared Remarks。",
-      "note": "只有管理層事先講稿，不含分析師問答。"
+      "note": "只有管理層事先講稿，不含分析師問答。",
+      "history": [
+        {
+          "period": "2026 Q1",
+          "call_date": "2026-04-23",
+          "landing_url": "https://www.intc.com/news-events/ir-calendar/detail/20260423-q1-2026-intel-corporation-earnings-conference-call",
+          "material_url": "https://d1io3yog0oux5.cloudfront.net/_88b01b330621eb4afbd070d5caa4f035/intel/db/887/9254/prepared_remarks/1Q2026-Earnings-Call.pdf",
+          "identity_patterns": ["\\bIntel\\b", "(?:Q1|first quarter).{0,60}2026|2026.{0,60}(?:Q1|first quarter)"],
+          "provenance_note": "Intel 官方 Q1 2026 活動頁直接連至這份 CloudFront Prepared Remarks。"
+        },
+        {
+          "period": "2025 Q4",
+          "call_date": "2026-01-22",
+          "landing_url": "https://www.intc.com/news-events/ir-calendar/detail/20260122-q4-2025-intel-corporation-earnings-conference-call",
+          "material_url": "https://d1io3yog0oux5.cloudfront.net/_88b01b330621eb4afbd070d5caa4f035/intel/db/887/9159/prepared_remarks/Intel-4Q2025-Earnings-Call+1+%281%29.pdf",
+          "identity_patterns": ["\\bIntel\\b", "(?:Q4|fourth[- ]quarter).{0,60}2025|2025.{0,60}(?:Q4|fourth[- ]quarter)"],
+          "provenance_note": "Intel 官方 Q4 2025 活動頁直接連至這份 CloudFront Prepared Remarks。"
+        },
+        {
+          "period": "2025 Q3",
+          "call_date": "2025-10-23",
+          "landing_url": "https://www.intc.com/news-events/ir-calendar/detail/20251023-q3-2025-intel-corporation-earnings-conference-call",
+          "material_url": "https://d1io3yog0oux5.cloudfront.net/_88b01b330621eb4afbd070d5caa4f035/intel/db/887/9148/prepared_remarks/3Q2025+Earnings+Call+Prepared+Remarks.pdf",
+          "identity_patterns": ["\\bIntel\\b", "(?:Q3|third[- ]quarter).{0,60}2025|2025.{0,60}(?:Q3|third[- ]quarter)"],
+          "provenance_note": "Intel 官方 Q3 2025 活動頁直接連至這份 CloudFront Prepared Remarks。"
+        }
+      ]
     },
     "META": {
       "company_name": "Meta Platforms, Inc.",
@@ -79,7 +151,33 @@
       "allowed_hosts": ["investor.atmeta.com", "s21.q4cdn.com"],
       "identity_patterns": ["\\bMeta(?: Platforms)?\\b", "(?:Q2|second quarter).{0,60}2026|2026.{0,60}(?:Q2|second quarter)"],
       "provenance_verified_on": "2026-08-29",
-      "provenance_note": "Meta 官方 Q2 2026 活動頁發布並連結這份 q4cdn 官方逐字稿。"
+      "provenance_note": "Meta 官方 Q2 2026 活動頁發布並連結這份 q4cdn 官方逐字稿。",
+      "history": [
+        {
+          "period": "2026 Q1",
+          "call_date": "2026-04-29",
+          "landing_url": "https://investor.atmeta.com/investor-events/event-details/2026/Q1-2026-Earnings-Call/default.aspx",
+          "material_url": "https://s21.q4cdn.com/399680738/files/doc_financials/2026/q1/META-Q1-2026-Earnings-Call-Transcript.pdf",
+          "identity_patterns": ["\\bMeta(?: Platforms)?\\b", "(?:Q1|first quarter).{0,60}2026|2026.{0,60}(?:Q1|first quarter)"],
+          "provenance_note": "Meta 官方 Q1 2026 活動頁發布並連結這份 q4cdn 官方逐字稿。"
+        },
+        {
+          "period": "2025 Q4",
+          "call_date": "2026-01-28",
+          "landing_url": "https://investor.atmeta.com/investor-events/event-details/2026/Q4-2025-Earnings-Call/default.aspx",
+          "material_url": "https://s21.q4cdn.com/399680738/files/doc_financials/2025/q4/META-Q4-2025-Earnings-Call-Transcript.pdf",
+          "identity_patterns": ["\\bMeta(?: Platforms)?\\b", "(?:Q4|fourth quarter).{0,60}2025|2025.{0,60}(?:Q4|fourth quarter)"],
+          "provenance_note": "Meta 官方 Q4 2025 活動頁發布並連結這份 q4cdn 官方逐字稿。"
+        },
+        {
+          "period": "2025 Q3",
+          "call_date": "2025-10-29",
+          "landing_url": "https://investor.atmeta.com/investor-events/event-details/2025/Q3-2025-Earnings-Call/default.aspx",
+          "material_url": "https://s21.q4cdn.com/399680738/files/doc_financials/2025/q3/META-Q3-2025-Earnings-Call-Transcript.pdf",
+          "identity_patterns": ["\\bMeta(?: Platforms)?\\b", "(?:Q3|third quarter).{0,60}2025|2025.{0,60}(?:Q3|third quarter)"],
+          "provenance_note": "Meta 官方 Q3 2025 活動頁發布並連結這份 q4cdn 官方逐字稿。"
+        }
+      ]
     },
     "MRVL": {
       "company_name": "Marvell Technology, Inc.",
@@ -99,7 +197,30 @@
       "material_url": "https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q4",
       "source_type": "full_transcript",
       "allowed_hosts": ["www.microsoft.com"],
-      "identity_patterns": ["\\bMicrosoft\\b", "(?:Q4|fourth quarter).{0,60}(?:2026|FY26)|(?:2026|FY26).{0,60}(?:Q4|fourth quarter)"]
+      "identity_patterns": ["\\bMicrosoft\\b", "(?:Q4|fourth quarter).{0,60}(?:2026|FY26)|(?:2026|FY26).{0,60}(?:Q4|fourth quarter)"],
+      "history": [
+        {
+          "period": "FY2026 Q3",
+          "call_date": "2026-04-29",
+          "landing_url": "https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q3",
+          "material_url": "https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q3",
+          "identity_patterns": ["\\bMicrosoft\\b", "(?:Q3|third quarter).{0,60}(?:2026|FY26)|(?:2026|FY26).{0,60}(?:Q3|third quarter)"]
+        },
+        {
+          "period": "FY2026 Q2",
+          "call_date": "2026-01-28",
+          "landing_url": "https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q2",
+          "material_url": "https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q2",
+          "identity_patterns": ["\\bMicrosoft\\b", "(?:Q2|second quarter).{0,60}(?:2026|FY26)|(?:2026|FY26).{0,60}(?:Q2|second quarter)"]
+        },
+        {
+          "period": "FY2026 Q1",
+          "call_date": "2025-10-29",
+          "landing_url": "https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q1",
+          "material_url": "https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q1",
+          "identity_patterns": ["\\bMicrosoft\\b", "(?:Q1|first quarter).{0,60}(?:2026|FY26)|(?:2026|FY26).{0,60}(?:Q1|first quarter)"]
+        }
+      ]
     },
     "NOK": {
       "company_name": "Nokia Corporation",
@@ -118,8 +239,37 @@
       "landing_url": "https://investor.nvidia.com/events-and-presentations/events-and-presentations/default.aspx",
       "material_url": "https://investor.nvidia.com/files/content_files/TRANSCRIPT_-NVIDIA-Corp-NVDA-US-Q2-2027-Earnings-Call-26-August-2026-5_00-PM-ET.pdf",
       "source_type": "full_transcript",
-      "allowed_hosts": ["investor.nvidia.com"],
-      "identity_patterns": ["\\bNVIDIA\\b", "(?:Q2|second quarter).{0,60}(?:2027|fiscal 2027)|(?:2027|fiscal 2027).{0,60}(?:Q2|second quarter)"]
+      "allowed_hosts": ["investor.nvidia.com", "s201.q4cdn.com"],
+      "identity_patterns": ["\\bNVIDIA\\b", "(?:Q2|second quarter).{0,60}(?:2027|fiscal 2027)|(?:2027|fiscal 2027).{0,60}(?:Q2|second quarter)"],
+      "history": [
+        {
+          "period": "FY2027 Q1",
+          "call_date": "2026-05-20",
+          "landing_url": "https://investor.nvidia.com/financial-info/quarterly-results/default.aspx",
+          "material_url": "https://s201.q4cdn.com/141608511/files/doc_financials/2027/q1/NVDA-Q1-2027-Earnings-Call-20-May-2026-5_00-PM-ET.pdf",
+          "identity_patterns": ["\\bNVIDIA\\b", "(?:Q1|first quarter).{0,60}(?:2027|fiscal 2027)|(?:2027|fiscal 2027).{0,60}(?:Q1|first quarter)"],
+          "provenance_verified_on": "2026-08-30",
+          "provenance_note": "NVIDIA 官方 Quarterly Results 頁發布並連結 FY2027 Q1 q4cdn 逐字稿。"
+        },
+        {
+          "period": "FY2026 Q4",
+          "call_date": "2026-02-25",
+          "landing_url": "https://investor.nvidia.com/financial-info/quarterly-results/default.aspx",
+          "material_url": "https://s201.q4cdn.com/141608511/files/doc_financials/2026/q4/NVDA-Q4-2026-Earnings-Call-25-February-2026-5_00-PM-ET.pdf",
+          "identity_patterns": ["\\bNVIDIA\\b", "(?:Q4|fourth quarter).{0,60}(?:2026|fiscal 2026)|(?:2026|fiscal 2026).{0,60}(?:Q4|fourth quarter)"],
+          "provenance_verified_on": "2026-08-30",
+          "provenance_note": "NVIDIA 官方 Quarterly Results 頁發布並連結 FY2026 Q4 q4cdn 逐字稿。"
+        },
+        {
+          "period": "FY2026 Q3",
+          "call_date": "2025-11-19",
+          "landing_url": "https://investor.nvidia.com/financial-info/quarterly-results/default.aspx",
+          "material_url": "https://s201.q4cdn.com/141608511/files/doc_financials/2026/q3/NVDA-Q3-2026-Earnings-Call-19-November-2025-5_00-PM-ET.pdf",
+          "identity_patterns": ["\\bNVIDIA\\b", "(?:Q3|third quarter).{0,60}(?:2026|fiscal 2026)|(?:2026|fiscal 2026).{0,60}(?:Q3|third quarter)"],
+          "provenance_verified_on": "2026-08-30",
+          "provenance_note": "NVIDIA 官方 Quarterly Results 頁發布並連結 FY2026 Q3 q4cdn 逐字稿。"
+        }
+      ]
     },
     "ONDS": {
       "company_name": "Ondas Holdings Inc.",
@@ -150,7 +300,30 @@
       "source_type": "full_transcript",
       "allowed_hosts": ["investor.tsmc.com"],
       "fetch_strategy": "browser_impersonation",
-      "identity_patterns": ["\\b(?:TSMC|Taiwan Semiconductor)\\b", "(?:2Q26|Q2).{0,60}2026|2026.{0,60}(?:2Q26|Q2|second quarter)"]
+      "identity_patterns": ["\\b(?:TSMC|Taiwan Semiconductor)\\b", "(?:2Q26|Q2).{0,60}2026|2026.{0,60}(?:2Q26|Q2|second quarter)"],
+      "history": [
+        {
+          "period": "2026 Q1",
+          "call_date": "2026-04-16",
+          "landing_url": "https://investor.tsmc.com/english/quarterly-results/2026/q1",
+          "material_url": "https://investor.tsmc.com/english/encrypt/files/encrypt_file/reports/2026-04/3cef85204275f94fd111485cfdf4adb3c0263c45/TSMC%201Q26%20Transcript.pdf",
+          "identity_patterns": ["\\b(?:TSMC|Taiwan Semiconductor)\\b", "(?:1Q26|Q1).{0,60}2026|2026.{0,60}(?:1Q26|Q1|first quarter)"]
+        },
+        {
+          "period": "2025 Q4",
+          "call_date": "2026-01-15",
+          "landing_url": "https://investor.tsmc.com/english/quarterly-results/2025/q4",
+          "material_url": "https://investor.tsmc.com/english/encrypt/files/encrypt_file/reports/2026-01/51d09df96cd89ac19d65af39032b038dc2896a24/TSMC%204Q25%20Transcript.pdf",
+          "identity_patterns": ["\\b(?:TSMC|Taiwan Semiconductor)\\b", "(?:4Q25|Q4|fourth quarter).{0,60}2025|2025.{0,60}(?:4Q25|Q4|fourth quarter)"]
+        },
+        {
+          "period": "2025 Q3",
+          "call_date": "2025-10-16",
+          "landing_url": "https://investor.tsmc.com/english/quarterly-results/2025/q3",
+          "material_url": "https://investor.tsmc.com/english/encrypt/files/encrypt_file/reports/2025-10/6860312f04fd291d0f26b46c1234f84e6332717e/TSMC%203Q25%20Transcript.pdf",
+          "identity_patterns": ["\\b(?:TSMC|Taiwan Semiconductor)\\b", "(?:3Q25|Q3|third quarter).{0,60}2025|2025.{0,60}(?:3Q25|Q3|third quarter)"]
+        }
+      ]
     }
   }
 }

@@ -4,8 +4,8 @@ call_date: 2026-07-29
 period: "2026 Q2"
 source_type: full_transcript
 source_url: "https://s21.q4cdn.com/399680738/files/doc_financials/2026/q2/META-Q2-2026-Earnings-Call-Transcript.pdf"
-source_sha256: "e2afcb9b452656bea2706e1dedc190d31b3aafe5528af7f3c19de6ab347a34ec"
-parser_version: 14
+source_sha256: "2904d91d791f0b66936d2916e4d4e768e62f263ed7e23dc071cfc192821479b7"
+parser_version: 16
 tags:
   - earnings-call
   - company/meta

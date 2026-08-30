@@ -1,23 +1,23 @@
 ---
 ticker: INTC
-call_date: 2026-07-23
-period: "2026 Q2"
+call_date: 2025-10-23
+period: "2025 Q3"
 source_type: prepared_remarks
-source_url: "https://d1io3yog0oux5.cloudfront.net/_88b01b330621eb4afbd070d5caa4f035/intel/db/887/9266/prepared_remarks/Q2+2026+Prepared+Remarks.pdf"
-source_sha256: "6367250fec3eba1fc9ad8c3357f7c8d07e5c988c08a488fb631947a246d6c091"
+source_url: "https://d1io3yog0oux5.cloudfront.net/_88b01b330621eb4afbd070d5caa4f035/intel/db/887/9148/prepared_remarks/3Q2025+Earnings+Call+Prepared+Remarks.pdf"
+source_sha256: "5244623b1c0a165dce87a2b837f6e6d274dea29d12c00d99602415436c86ac60"
 parser_version: 16
 tags:
   - earnings-call
   - company/intc
 ---
 
-# Intel Corporation (INTC)｜2026 Q2 Earnings Call 閱讀卡
+# Intel Corporation (INTC)｜2025 Q3 Earnings Call 閱讀卡
 
 ## 來源與限制
 
-- **會議日期**：2026-07-23
+- **會議日期**：2025-10-23
 - **文字類型**：官方 Prepared Remarks。只包含管理層事先講稿，不含即席追問，不能代替完整電話會議。
-- **官方來源**：[文字材料](https://d1io3yog0oux5.cloudfront.net/_88b01b330621eb4afbd070d5caa4f035/intel/db/887/9266/prepared_remarks/Q2+2026+Prepared+Remarks.pdf)｜[IR 發現頁](https://www.intc.com/news-events/ir-calendar/detail/20260723-q2-2026-intel-corporation-earnings-conference-call)
+- **官方來源**：[文字材料](https://d1io3yog0oux5.cloudfront.net/_88b01b330621eb4afbd070d5caa4f035/intel/db/887/9148/prepared_remarks/3Q2025+Earnings+Call+Prepared+Remarks.pdf)｜[IR 發現頁](https://www.intc.com/news-events/ir-calendar/detail/20251023-q3-2025-intel-corporation-earnings-conference-call)
 - **來源鏈驗證**：程式已在官方 IR 頁驗證材料直連
 - **證據覆蓋**：6/7 類；這是閱讀索引，不是評分。
 - **方法限制**：每類只保留最多 22 個英文單字的短摘錄。未命中保留缺值；不把語氣關鍵字轉成投資建議。
@@ -26,37 +26,37 @@ tags:
 
 > **怎麼讀**：管理層談到的需求、採用、訂單、backlog 或成長來源；屬公司陳述。
 
-> …to have a g rowing EMIB-T backlog, yield and reliability are hitting targets, and we are focused on ramping the technology into…
+> …and we’re prudently preparing for another year of strong demand in 2026 as Core Ultra 3 ramps into a healthy PC ecosystem.
 
 ## 利潤率與成本壓力
 
 > **怎麼讀**：毛利率、營業利益率、成本、費用或折舊的方向與原因。
 
-> Q2 non- GAAP gross margin was 4 1.8 percent, approximately 28 0 basis points better than guidance.
+> …share of 23 cents versus our guidance of break -even EPS, driven by higher revenue, stronger gross margin and continued cost discipline.
 
 ## 資本支出、產能與供應
 
 > **怎麼讀**：CapEx、資料中心、產能、供給限制與擴產線索。
 
-> …a result, we are forecasting 2027 capital expenditures to be significantly above the 2026 levels with the vast majority spent across our…
+> …flow was $2.5 billion with gross capex of $3 billion in the quarter and positive adjusted free cash flow of $900 million.
 
 ## 指引與未來展望
 
 > **怎麼讀**：管理層對下一季或全年展望；是前瞻聲明，不是保證。
 
-> We also strengthened our outlook with additional strategic customer wins and long -term agreements in Q2.
+> …Other, which now excludes Altera, we expect revenue to decline consistent with Mobileye’s guidance , partially offset by sequential growth in IMS.
 
 ## 管理層信心與限定語
 
 > **怎麼讀**：信心、可見度或保留語氣的原話；不能單獨當作業績證明。
 
-> Looking beyond 18A, I’m encouraged by our progress on Intel 14A.
+> Like Intel Products, my conviction in the market potential for Intel Foundry continues to grow.
 
 ## 逆風與風險
 
 > **怎麼讀**：管理層明確提到的逆風、壓力、限制或不確定性；不代表風險一定發生。
 
-> …second half of the year and down low double digits percent for all of 2026, impacted by rising memory prices and constraints.
+> Capacity constraints, especially on Intel 10 and Intel 7, limited our ability to fully meet demand in Q3 for both data center…
 
 ## 分析師追問
 

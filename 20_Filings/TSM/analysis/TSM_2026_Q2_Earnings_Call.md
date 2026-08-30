@@ -4,8 +4,8 @@ call_date: 2026-07-16
 period: "2026 Q2"
 source_type: full_transcript
 source_url: "https://investor.tsmc.com/english/encrypt/files/encrypt_file/reports/2026-08/3e494f0c14dd0890f897aa044415e21d93486cc4/TSMC%202Q26%20Transcript.pdf"
-source_sha256: "17947a4c33c3ef2153641706eef7051422ab8594251dfbb64646b92d9a4cc915"
-parser_version: 14
+source_sha256: "77ed552a7e8ff4a70e55b76ca58712993ce75478f6185aba3dc72c4f5cdd447c"
+parser_version: 16
 tags:
   - earnings-call
   - company/tsm

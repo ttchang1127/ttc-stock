@@ -1,23 +1,23 @@
 ---
-ticker: MSFT
-call_date: 2026-07-29
+ticker: ARM
+call_date: 2026-05-06
 period: "FY2026 Q4"
 source_type: full_transcript
-source_url: "https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q4"
-source_sha256: "96c66d2d6926bd3cbbc956fa62a9b459e9364b9c4d686da3a9381bc8ff47b957"
+source_url: "https://investors.arm.com/static-files/78526857-5997-46eb-9b65-0d3249d83711"
+source_sha256: "75f7268ae0bda5055f73b9d3ae26aa71494b130bbfbddc6721eab8c8b5e769b6"
 parser_version: 16
 tags:
   - earnings-call
-  - company/msft
+  - company/arm
 ---
 
-# Microsoft Corporation (MSFT)｜FY2026 Q4 Earnings Call 閱讀卡
+# Arm Holdings plc (ARM)｜FY2026 Q4 Earnings Call 閱讀卡
 
 ## 來源與限制
 
-- **會議日期**：2026-07-29
+- **會議日期**：2026-05-06
 - **文字類型**：完整官方逐字稿。包含管理層發言與分析師問答，可分開閱讀兩種證據。
-- **官方來源**：[文字材料](https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q4)｜[IR 發現頁](https://www.microsoft.com/en-us/investor/events)
+- **官方來源**：[文字材料](https://investors.arm.com/static-files/78526857-5997-46eb-9b65-0d3249d83711)｜[IR 發現頁](https://investors.arm.com/financials/quarterly-annual-results)
 - **來源鏈驗證**：材料與 IR 頁屬同一公司網域
 - **證據覆蓋**：6/7 類；這是閱讀索引，不是評分。
 - **方法限制**：每類只保留最多 22 個英文單字的短摘錄。未命中保留缺值；不把語氣關鍵字轉成投資建議。
@@ -26,31 +26,31 @@ tags:
 
 > **怎麼讀**：管理層談到的需求、採用、訂單、backlog 或成長來源；屬公司陳述。
 
-> Commercial bookings grew 18% when excluding the impact from OpenAI driven by strong execution in our core annuity sales motions and reflecting…
+> Growth was driven by strong demand for next generation architectures and deeper strategic engagements with key customers.
 
 ## 利潤率與成本壓力
 
 > **怎麼讀**：毛利率、營業利益率、成本、費用或折舊的方向與原因。
 
-> Segment gross margin dollars increased 14% and 13% in constant currency. And gross margin percentage decreased slightly with increased M365 Copilot usage…
+> Non-GAAP operating income was $731 million, resulting in a non-GAAP operating margin of about 49%.
 
 ## 資本支出、產能與供應
 
 > **怎麼讀**：CapEx、資料中心、產能、供給限制與擴產線索。
 
-> Capital expenditures were $41 billion including the impact from higher component pricing as noted in our guide. Roughly two thirds of our…
+> …work around accelerators.As agentic AI scales, data centers will require more than four times today's CPU capacity, creating a datacenter CPU market…
 
 ## 指引與未來展望
 
 > **怎麼讀**：管理層對下一季或全年展望；是前瞻聲明，不是保證。
 
-> …by the end of this month, we expect to have our Cobalt 200 racks in over 25 datacenters around the world as…
+> …and above the midpoint of our guidance.Licensing revenue grew 29% year-over-year to $819 million, driven by strong demand for the Arm platform.
 
 ## 管理層信心與限定語
 
 > **怎麼讀**：信心、可見度或保留語氣的原話；不能單獨當作業績證明。
 
-> And we have been encouraged by the response to our new E7 suite, as customers increasingly go “all in” on an integrated…
+> …we're seeing combined with our expanding portfolio and deepening customer engagements gives us confidence in our ability to deliver sustained long-term growth.
 
 ## 逆風與風險
 
@@ -62,7 +62,7 @@ tags:
 
 > **怎麼讀**：只取完整逐字稿 Q&A 區段中的問題線索，用來辨識市場最關心的假設。
 
-> …compare to a year ago, and what are some of the levers that you can still pull, perhaps from the internal silicon…
+> …your total cost structure, but Jason, can you just give us a rough sense on the OpEx attributed to supporting your chip…
 
 ## 與 Exhibit 99.1 的主題覆蓋比較
 

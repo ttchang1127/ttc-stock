@@ -1,24 +1,24 @@
 ---
-ticker: GOOGL
-call_date: 2026-07-22
-period: "2026 Q2"
+ticker: MSFT
+call_date: 2026-04-29
+period: "FY2026 Q3"
 source_type: full_transcript
-source_url: "https://s206.q4cdn.com/479360582/files/doc_events/2026/Jul/22/2026_Q2_Earnings_Transcript.pdf"
-source_sha256: "5e566cfc58c321b42c493653732f6aa1d7abf0306b27c9b96d1e343e588302ff"
+source_url: "https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q3"
+source_sha256: "093a45eb4b5ccf60da4007b02890f59c7e3677fbfb3d325f9b1eda8339498070"
 parser_version: 16
 tags:
   - earnings-call
-  - company/googl
+  - company/msft
 ---
 
-# Alphabet Inc. (GOOGL)｜2026 Q2 Earnings Call 閱讀卡
+# Microsoft Corporation (MSFT)｜FY2026 Q3 Earnings Call 閱讀卡
 
 ## 來源與限制
 
-- **會議日期**：2026-07-22
+- **會議日期**：2026-04-29
 - **文字類型**：完整官方逐字稿。包含管理層發言與分析師問答，可分開閱讀兩種證據。
-- **官方來源**：[文字材料](https://s206.q4cdn.com/479360582/files/doc_events/2026/Jul/22/2026_Q2_Earnings_Transcript.pdf)｜[IR 發現頁](https://abc.xyz/investor/events/event-details/2026/2026-Q2-Earnings-Call-2026-GgTAq7Is0z/default.aspx)
-- **來源鏈驗證**：程式已在官方 IR 頁驗證材料直連
+- **官方來源**：[文字材料](https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q3)｜[IR 發現頁](https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q3)
+- **來源鏈驗證**：材料與 IR 頁屬同一公司網域
 - **證據覆蓋**：7/7 類；這是閱讀索引，不是評分。
 - **方法限制**：每類只保留最多 22 個英文單字的短摘錄。未命中保留缺值；不把語氣關鍵字轉成投資建議。
 
@@ -26,43 +26,43 @@ tags:
 
 > **怎麼讀**：管理層談到的需求、採用、訂單、backlog 或成長來源；屬公司陳述。
 
-> Demand for our models is translating to strong token usage across developers and enterprise customers, and we continue to be supply constrained,…
+> …gains and growth across all workloads. Bookings growth was impacted by weaker renewals as customers balance spend between the traditional per seat…
 
 ## 利潤率與成本壓力
 
 > **怎麼讀**：毛利率、營業利益率、成本、費用或折舊的方向與原因。
 
-> Operating income increased 30% to $40.8 billion, and operating margin was 34%.
+> Segment gross margin dollars increased 18% and 13% in constant currency. And gross margin percentage increased slightly, again driven by efficiency gains…
 
 ## 資本支出、產能與供應
 
 > **怎麼讀**：CapEx、資料中心、產能、供給限制與擴產線索。
 
-> CapEx was $44.9 billion in the second quarter, with the vast majority of the spend in technical infrastructure to support our investments…
+> Capital expenditures were $31.9 billion, down sequentially due to the normal variability from cloud infrastructure buildouts and the timing of delivery of…
 
 ## 指引與未來展望
 
 > **怎麼讀**：管理層對下一季或全年展望；是前瞻聲明，不是保證。
 
-> …updating our full year 2026 CapEx guidance range to $195 ‑ 205 billion, up from our previous estimate of $180 ‑ 190…
+> Based on current rates, we expect FX to increase revenue growth by roughly 1 point in Productivity and Business Processes and More…
 
 ## 管理層信心與限定語
 
 > **怎麼讀**：信心、可見度或保留語氣的原話；不能單獨當作業績證明。
 
-> We continue to be encouraged with monetization performance on queries that show AI Overviews, even as we've expanded AI Overviews to more…
+> …of higher component pricing. We remain confident in the return on these investments given higher demand signals and increasing product usage as…
 
 ## 逆風與風險
 
 > **怎麼讀**：管理層明確提到的逆風、壓力、限制或不確定性；不代表風險一定發生。
 
-> …we would expect a slight FX headwind to our consolidated revenue in Q3, compared to a one percentage point FX tailwind in…
+> …at least through 2026. Despite these constraints, and the continued need to balance incoming supply, we expect Azure growth to show modest…
 
 ## 分析師追問
 
 > **怎麼讀**：只取完整逐字稿 Q&A 區段中的問題線索，用來辨識市場最關心的假設。
 
-> …able to serve the customer in what is a multiyear opportunity where the margins and the returns are very, very attractive over…
+> …UBS: Great, thank you. Maybe, Amy, could you elaborate a little bit on the CapEx guidance you just provided? Obviously, it requires…
 
 ## 與 Exhibit 99.1 的主題覆蓋比較
 

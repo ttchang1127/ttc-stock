@@ -97,7 +97,8 @@ class DashboardSecTabTests(unittest.TestCase):
             self.assertIn(phrase, self.html)
 
     def test_earnings_call_cards_distinguish_text_and_replay_sources(self):
-        self.assertEqual(self.earnings_calls["schema_version"], 2)
+        self.assertEqual(self.earnings_calls["schema_version"], 3)
+        self.assertEqual(self.earnings_calls["history_quarters"], 4)
         self.assertEqual(len(self.earnings_calls["companies"]), 14)
         self.assertEqual(len(self.earnings_calls["categories"]), 7)
         self.assertTrue(any(row["status"] == "analyzed" for row in self.earnings_calls["companies"].values()))
@@ -107,6 +108,16 @@ class DashboardSecTabTests(unittest.TestCase):
             if row["status"] in {"analyzed", "replay_only", "analyzed_cached"}
         ]
         self.assertTrue(all(row.get("provenance", {}).get("status") for row in available))
+        text_rows = [
+            row for row in self.earnings_calls["companies"].values()
+            if row["status"] in {"analyzed", "analyzed_cached"}
+        ]
+        self.assertEqual(len(text_rows), 7)
+        self.assertTrue(all(row["history_coverage"]["status"] == "complete" for row in text_rows))
+        self.assertTrue(all(len(row["history"]) == 4 for row in text_rows))
+        self.assertTrue(all(len(row["quarter_comparisons"]) == 3 for row in text_rows))
+        replay_rows = [row for row in self.earnings_calls["companies"].values() if row["status"] == "replay_only"]
+        self.assertTrue(all(row["history_coverage"]["status"] == "not_applicable" for row in replay_rows))
         required_copy = [
             'id="secEarningsCall"', "function renderSecEarningsCall()",
             "⑨ Earnings Call", "完整官方逐字稿", "官方 Prepared Remarks",
@@ -114,6 +125,8 @@ class DashboardSecTabTests(unittest.TestCase):
             "與 Exhibit 99.1", "不把語氣關鍵字轉成評分或買賣建議",
             "本次下載失敗", "來源鏈：",
             "較新官方候選", "safeEarningsCallUrl", "row.allowed_hosts",
+            "最近四季法說趨勢比較", "本季新增命中", "連續兩季命中",
+            "本季未再命中", "資料不足", "不等於風險消失",
         ]
         for phrase in required_copy:
             self.assertIn(phrase, self.html)

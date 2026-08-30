@@ -141,6 +141,24 @@ class EarningsCallTrackerTests(unittest.TestCase):
         self.assertEqual([block["section"] for block in blocks[:2]], ["prepared", "prepared"])
         self.assertTrue(all(block["section"] == "q_and_a" for block in blocks[2:]))
 
+    def test_q_and_a_transition_is_case_insensitive_inside_pdf_block(self):
+        payload = b"""<html><body>
+          <p>Example Inc. 2026 Q2 management remarks and quarterly results.</p>
+          <p>We expect revenue growth and continued customer demand next quarter.</p>
+          <p>End of remarks ........ QUESTION AND ANSWER SECTIONOperator: Thank you.</p>
+          <p>Our first question comes from Brian Nowak with Morgan Stanley.</p>
+        </body></html>"""
+        blocks = tracker.source_blocks(payload, "text/html", "https://ir.example.com/call.html")
+        self.assertEqual([block["section"] for block in blocks[:2]], ["prepared", "prepared"])
+        self.assertTrue(all(block["section"] == "q_and_a" for block in blocks[2:]))
+
+    def test_content_hash_ignores_volatile_html_outside_readable_blocks(self):
+        first = b"<html><head><script>nonce-a</script></head><body><p>Stable official earnings call content for investors.</p></body></html>"
+        second = first.replace(b"nonce-a", b"nonce-b")
+        first_blocks = tracker.source_blocks(first, "text/html", "https://ir.example.com/call")
+        second_blocks = tracker.source_blocks(second, "text/html", "https://ir.example.com/call")
+        self.assertEqual(tracker.source_content_sha256(first_blocks), tracker.source_content_sha256(second_blocks))
+
     def test_prepared_remarks_never_claims_analyst_questions(self):
         config = {
             "company_name": "Example Inc.", "period": "2026 Q2", "call_date": "2026-07-01",
@@ -228,6 +246,25 @@ class EarningsCallTrackerTests(unittest.TestCase):
         self.assertEqual(tracker.row_fingerprint(version, base), tracker.row_fingerprint(version, later))
         self.assertNotEqual(tracker.row_fingerprint(version, base), tracker.row_fingerprint(version, changed))
         self.assertNotEqual(tracker.row_fingerprint(version, base), tracker.row_fingerprint(version, discovered))
+
+    def test_four_quarter_comparison_uses_objective_presence_states(self):
+        def quarter(period, evidence, status="analyzed"):
+            categories = {key: [] for key in tracker.CATEGORIES}
+            categories["risks"] = ([{"excerpt": evidence, "section": "prepared"}] if evidence else [])
+            return {"period": period, "status": status, "categories": categories}
+
+        history = [
+            quarter("Q4", "Current risk"),
+            quarter("Q3", "Previous risk"),
+            quarter("Q2", None),
+            quarter("Q1", None, "review_required"),
+        ]
+        comparisons = tracker.build_quarter_comparisons(history)
+        self.assertEqual(len(comparisons), 3)
+        self.assertEqual(comparisons[0]["topics"]["risks"]["state"], "continued")
+        self.assertEqual(comparisons[1]["topics"]["risks"]["state"], "newly_detected")
+        self.assertEqual(comparisons[2]["topics"]["risks"]["state"], "insufficient")
+        self.assertEqual(comparisons[0]["topics"]["risks"]["current_excerpt"], "Current risk")
 
     def test_wrong_company_or_period_is_rejected(self):
         config = {

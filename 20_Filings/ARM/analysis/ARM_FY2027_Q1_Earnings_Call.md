@@ -4,8 +4,8 @@ call_date: 2026-07-29
 period: "FY2027 Q1"
 source_type: full_transcript
 source_url: "https://investors.arm.com/static-files/2ef5e3bf-f276-4a46-a4a2-2aadccd6710b"
-source_sha256: "ef367c0cb62341c0bbb6b6b65ea53d201df1773e8f9b03e9e70760c3e89e24f5"
-parser_version: 14
+source_sha256: "e1c501edda7bca365ad384b6929bafc065fabbef2eaed9847ecda5a09623a9e8"
+parser_version: 16
 tags:
   - earnings-call
   - company/arm

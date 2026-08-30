@@ -1,7 +1,7 @@
 {
-  "schema_version": 2,
-  "parser_version": 14,
-  "updated_at": "2026-08-29T13:22:41+00:00",
+  "schema_version": 3,
+  "parser_version": 16,
+  "updated_at": "2026-08-30T00:29:14+00:00",
   "source": "Official company investor-relations pages and explicitly allow-listed linked hosts",
   "methodology": "Official text only; no audio transcription; short verbatim evidence; missing stays missing; no sentiment score",
   "source_types": {
@@ -16,6 +16,25 @@
     "webcast_replay": {
       "label": "僅官方影音／回放",
       "meaning": "可聆聽原始會議，但沒有可驗證的官方文字，因此不產生關鍵字摘錄。"
+    }
+  },
+  "history_quarters": 4,
+  "trend_states": {
+    "newly_detected": {
+      "label": "本季新增命中",
+      "meaning": "前一季未命中、本季命中；只代表官方文字出現此主題，不等於基本面改善或惡化。"
+    },
+    "continued": {
+      "label": "連續兩季命中",
+      "meaning": "前後兩季都命中此主題；摘錄可用來核對說法如何更新，不代表方向未變。"
+    },
+    "not_detected": {
+      "label": "本季未再命中",
+      "meaning": "前一季命中、本季未命中；不等於該議題或風險已消失。"
+    },
+    "insufficient": {
+      "label": "資料不足",
+      "meaning": "兩季至少一季來源不可分析，或前後都未命中，不能判斷主題變化。"
     }
   },
   "categories": {
@@ -82,6 +101,14 @@
         "http_status": 403,
         "reason": "HTTP 403"
       },
+      "history": [],
+      "history_coverage": {
+        "available": 0,
+        "expected": 0,
+        "status": "not_applicable",
+        "meaning": "官方目前只有影音／回放，未用第三方逐字稿補足四季文字。"
+      },
+      "quarter_comparisons": [],
       "discovery": {
         "status": "checked",
         "newer_candidates": []
@@ -126,6 +153,14 @@
         "http_status": 403,
         "reason": "HTTP 403"
       },
+      "history": [],
+      "history_coverage": {
+        "available": 0,
+        "expected": 0,
+        "status": "not_applicable",
+        "meaning": "官方目前只有影音／回放，未用第三方逐字稿補足四季文字。"
+      },
+      "quarter_comparisons": [],
       "discovery": {
         "status": "unverified",
         "reason": "HTTPError",
@@ -204,7 +239,7 @@
         "total": 7
       },
       "q_and_a_available": true,
-      "source_sha256": "ef367c0cb62341c0bbb6b6b65ea53d201df1773e8f9b03e9e70760c3e89e24f5",
+      "source_sha256": "e1c501edda7bca365ad384b6929bafc065fabbef2eaed9847ecda5a09623a9e8",
       "exhibit_comparison": {
         "status": "unavailable",
         "overlap_topics": [],
@@ -212,8 +247,406 @@
         "meaning": "沒有同公司可比的嚴格 Exhibit 99.1 卡，因此不推測兩份資料差異。"
       },
       "errors": [],
-      "last_verified_at": "2026-08-29T13:18:42+00:00",
+      "last_verified_at": "2026-08-30T00:28:58+00:00",
       "card": "20_Filings/ARM/analysis/ARM_FY2027_Q1_Earnings_Call.md",
+      "history": [
+        {
+          "period": "FY2027 Q1",
+          "call_date": "2026-07-29",
+          "landing_url": "https://investors.arm.com/financials/quarterly-annual-results",
+          "material_url": "https://investors.arm.com/static-files/2ef5e3bf-f276-4a46-a4a2-2aadccd6710b",
+          "allowed_hosts": [
+            "investors.arm.com"
+          ],
+          "source_type": "full_transcript",
+          "source_label": "完整官方逐字稿",
+          "status": "analyzed",
+          "categories": {
+            "demand_growth": [
+              {
+                "excerpt": "Demand now exceeds $2 billion as we continue to add new customers, including multiple customers in the US and China, while the…",
+                "section": "prepared"
+              }
+            ],
+            "margin_cost": [
+              {
+                "excerpt": "Non-GAAP operating income was $531 million, resulting in a non-GAAP operating margin of about 41%, up 200 basis points year-on-year.",
+                "section": "prepared"
+              }
+            ],
+            "capital_supply": [
+              {
+                "excerpt": "We've secured the manufacturing capacity needed to support the initial $1 billion opportunity, and we have made progress to secure additional supply,…",
+                "section": "prepared"
+              }
+            ],
+            "guidance": [
+              {
+                "excerpt": "Turning now to guidance, for Q2, we expect revenue of $1.38 billion plus or minus $50 million.",
+                "section": "prepared"
+              }
+            ],
+            "confidence": [
+              {
+                "excerpt": "…will provide an update at our Q3 results, which is when we will have better visibility of Q4 2027 and fiscal 2028.",
+                "section": "prepared"
+              }
+            ],
+            "risks": [],
+            "analyst_questions": [
+              {
+                "excerpt": "And also, if you can also walk us through how low-cost AI might be a [indiscernible] (00:50:38) for your IP business, like…",
+                "section": "q_and_a"
+              }
+            ]
+          },
+          "coverage": {
+            "found": 6,
+            "total": 7
+          },
+          "q_and_a_available": true,
+          "source_sha256": "e1c501edda7bca365ad384b6929bafc065fabbef2eaed9847ecda5a09623a9e8",
+          "provenance": {
+            "status": "official_host",
+            "landing_host": "investors.arm.com",
+            "material_host": "investors.arm.com"
+          },
+          "card": "20_Filings/ARM/analysis/ARM_FY2027_Q1_Earnings_Call.md",
+          "last_verified_at": "2026-08-30T00:28:58+00:00",
+          "errors": []
+        },
+        {
+          "period": "FY2026 Q4",
+          "call_date": "2026-05-06",
+          "landing_url": "https://investors.arm.com/financials/quarterly-annual-results",
+          "material_url": "https://investors.arm.com/static-files/78526857-5997-46eb-9b65-0d3249d83711",
+          "allowed_hosts": [
+            "investors.arm.com"
+          ],
+          "source_type": "full_transcript",
+          "source_label": "完整官方逐字稿",
+          "status": "analyzed",
+          "categories": {
+            "demand_growth": [
+              {
+                "excerpt": "Growth was driven by strong demand for next generation architectures and deeper strategic engagements with key customers.",
+                "section": "prepared"
+              }
+            ],
+            "margin_cost": [
+              {
+                "excerpt": "Non-GAAP operating income was $731 million, resulting in a non-GAAP operating margin of about 49%.",
+                "section": "prepared"
+              }
+            ],
+            "capital_supply": [
+              {
+                "excerpt": "…work around accelerators.As agentic AI scales, data centers will require more than four times today's CPU capacity, creating a datacenter CPU market…",
+                "section": "prepared"
+              }
+            ],
+            "guidance": [
+              {
+                "excerpt": "…and above the midpoint of our guidance.Licensing revenue grew 29% year-over-year to $819 million, driven by strong demand for the Arm platform.",
+                "section": "prepared"
+              }
+            ],
+            "confidence": [
+              {
+                "excerpt": "…we're seeing combined with our expanding portfolio and deepening customer engagements gives us confidence in our ability to deliver sustained long-term growth.",
+                "section": "prepared"
+              }
+            ],
+            "risks": [],
+            "analyst_questions": [
+              {
+                "excerpt": "…your total cost structure, but Jason, can you just give us a rough sense on the OpEx attributed to supporting your chip…",
+                "section": "q_and_a"
+              }
+            ]
+          },
+          "coverage": {
+            "found": 6,
+            "total": 7
+          },
+          "q_and_a_available": true,
+          "source_sha256": "75f7268ae0bda5055f73b9d3ae26aa71494b130bbfbddc6721eab8c8b5e769b6",
+          "provenance": {
+            "status": "official_host",
+            "landing_host": "investors.arm.com",
+            "material_host": "investors.arm.com"
+          },
+          "card": "20_Filings/ARM/analysis/ARM_FY2026_Q4_Earnings_Call.md",
+          "last_verified_at": "2026-08-30T00:28:59+00:00",
+          "errors": []
+        },
+        {
+          "period": "FY2026 Q3",
+          "call_date": "2026-02-04",
+          "landing_url": "https://investors.arm.com/financials/quarterly-annual-results",
+          "material_url": "https://investors.arm.com/static-files/ba30dca7-d2dd-4d44-b4c5-9fd953fedaea",
+          "allowed_hosts": [
+            "investors.arm.com"
+          ],
+          "source_type": "full_transcript",
+          "source_label": "完整官方逐字稿",
+          "status": "analyzed",
+          "categories": {
+            "demand_growth": [
+              {
+                "excerpt": "Growth was driven by strong demand for next-generation architectures and deeper strategic engagements with key customers.",
+                "section": "prepared"
+              }
+            ],
+            "margin_cost": [
+              {
+                "excerpt": "This resulted in non-GAAP operating margin of about 41%.",
+                "section": "prepared"
+              }
+            ],
+            "capital_supply": [
+              {
+                "excerpt": "…getting a further benefit as the build out of these new AI data centers are driving increased deployment of networking chips, particularly…",
+                "section": "prepared"
+              }
+            ],
+            "guidance": [
+              {
+                "excerpt": "…was $0.43, close to the high end of our guidance range, driven by both higher revenue and slightly lower OpEx than expected.",
+                "section": "prepared"
+              }
+            ],
+            "confidence": [
+              {
+                "excerpt": "…combined with a growing base of long duration contracts at structurally higher royalty rates, provides increasing confidence in our future revenue profile.",
+                "section": "prepared"
+              }
+            ],
+            "risks": [
+              {
+                "excerpt": "…scales, customers need CPU chips with higher core counts and better power efficiency to operate continuously within tight power and cost constraints.",
+                "section": "prepared"
+              }
+            ],
+            "analyst_questions": []
+          },
+          "coverage": {
+            "found": 6,
+            "total": 7
+          },
+          "q_and_a_available": true,
+          "source_sha256": "70503f744a726f15167010d411f7c20a813945284c2d13e63b81b0191df213b5",
+          "provenance": {
+            "status": "official_host",
+            "landing_host": "investors.arm.com",
+            "material_host": "investors.arm.com"
+          },
+          "card": "20_Filings/ARM/analysis/ARM_FY2026_Q3_Earnings_Call.md",
+          "last_verified_at": "2026-08-30T00:29:01+00:00",
+          "errors": []
+        },
+        {
+          "period": "FY2026 Q2",
+          "call_date": "2025-11-05",
+          "landing_url": "https://investors.arm.com/financials/quarterly-annual-results",
+          "material_url": "https://investors.arm.com/static-files/65566543-de64-4743-b168-fc72009a7bdc",
+          "allowed_hosts": [
+            "investors.arm.com"
+          ],
+          "source_type": "full_transcript",
+          "source_label": "完整官方逐字稿",
+          "status": "analyzed",
+          "categories": {
+            "demand_growth": [
+              {
+                "excerpt": "Growth was driven by strong demand for next-generation architectures and deeper strategic engagements with key customers.",
+                "section": "prepared"
+              }
+            ],
+            "margin_cost": [
+              {
+                "excerpt": "This resulted in a non-GAAP operating margin of 41.1% and an improvement from 38.6% a year ago.",
+                "section": "prepared"
+              }
+            ],
+            "capital_supply": [
+              {
+                "excerpt": "…new Stargate sites this quarter further expands visibility into future AI capacity and reinforces Arm's central role in the hyperscale build- out.",
+                "section": "prepared"
+              }
+            ],
+            "guidance": [
+              {
+                "excerpt": "It exceeded the midpoint of our guidance range by $75 million and marked our third consecutive quarter above $1 billion.",
+                "section": "prepared"
+              }
+            ],
+            "confidence": [
+              {
+                "excerpt": "…new Stargate sites this quarter further expands visibility into future AI capacity and reinforces Arm's central role in the hyperscale build- out.",
+                "section": "prepared"
+              }
+            ],
+            "risks": [
+              {
+                "excerpt": "…about future results and performance, our actual results are subjected to many risks and uncertainties that could cause results to differ materially.",
+                "section": "prepared"
+              }
+            ],
+            "analyst_questions": [
+              {
+                "excerpt": "…the Stargate theme and the sites, can you maybe just talk about the shape of what that revenue opportunity looks like on…",
+                "section": "q_and_a"
+              }
+            ]
+          },
+          "coverage": {
+            "found": 7,
+            "total": 7
+          },
+          "q_and_a_available": true,
+          "source_sha256": "da984e91e250a7f9fb95564536545fabba5cb1dbc0b99e5eddaf96cdcd440ebb",
+          "provenance": {
+            "status": "official_host",
+            "landing_host": "investors.arm.com",
+            "material_host": "investors.arm.com"
+          },
+          "card": "20_Filings/ARM/analysis/ARM_FY2026_Q2_Earnings_Call.md",
+          "last_verified_at": "2026-08-30T00:29:01+00:00",
+          "errors": []
+        }
+      ],
+      "history_coverage": {
+        "available": 4,
+        "expected": 4,
+        "status": "complete",
+        "meaning": "只比較公司官方文字；缺季保留缺值，不以第三方逐字稿或影音轉錄補齊。"
+      },
+      "quarter_comparisons": [
+        {
+          "current_period": "FY2027 Q1",
+          "previous_period": "FY2026 Q4",
+          "topics": {
+            "demand_growth": {
+              "state": "continued",
+              "current_excerpt": "Demand now exceeds $2 billion as we continue to add new customers, including multiple customers in the US and China, while the…",
+              "previous_excerpt": "Growth was driven by strong demand for next generation architectures and deeper strategic engagements with key customers."
+            },
+            "margin_cost": {
+              "state": "continued",
+              "current_excerpt": "Non-GAAP operating income was $531 million, resulting in a non-GAAP operating margin of about 41%, up 200 basis points year-on-year.",
+              "previous_excerpt": "Non-GAAP operating income was $731 million, resulting in a non-GAAP operating margin of about 49%."
+            },
+            "capital_supply": {
+              "state": "continued",
+              "current_excerpt": "We've secured the manufacturing capacity needed to support the initial $1 billion opportunity, and we have made progress to secure additional supply,…",
+              "previous_excerpt": "…work around accelerators.As agentic AI scales, data centers will require more than four times today's CPU capacity, creating a datacenter CPU market…"
+            },
+            "guidance": {
+              "state": "continued",
+              "current_excerpt": "Turning now to guidance, for Q2, we expect revenue of $1.38 billion plus or minus $50 million.",
+              "previous_excerpt": "…and above the midpoint of our guidance.Licensing revenue grew 29% year-over-year to $819 million, driven by strong demand for the Arm platform."
+            },
+            "confidence": {
+              "state": "continued",
+              "current_excerpt": "…will provide an update at our Q3 results, which is when we will have better visibility of Q4 2027 and fiscal 2028.",
+              "previous_excerpt": "…we're seeing combined with our expanding portfolio and deepening customer engagements gives us confidence in our ability to deliver sustained long-term growth."
+            },
+            "risks": {
+              "state": "insufficient",
+              "current_excerpt": null,
+              "previous_excerpt": null
+            },
+            "analyst_questions": {
+              "state": "continued",
+              "current_excerpt": "And also, if you can also walk us through how low-cost AI might be a [indiscernible] (00:50:38) for your IP business, like…",
+              "previous_excerpt": "…your total cost structure, but Jason, can you just give us a rough sense on the OpEx attributed to supporting your chip…"
+            }
+          }
+        },
+        {
+          "current_period": "FY2026 Q4",
+          "previous_period": "FY2026 Q3",
+          "topics": {
+            "demand_growth": {
+              "state": "continued",
+              "current_excerpt": "Growth was driven by strong demand for next generation architectures and deeper strategic engagements with key customers.",
+              "previous_excerpt": "Growth was driven by strong demand for next-generation architectures and deeper strategic engagements with key customers."
+            },
+            "margin_cost": {
+              "state": "continued",
+              "current_excerpt": "Non-GAAP operating income was $731 million, resulting in a non-GAAP operating margin of about 49%.",
+              "previous_excerpt": "This resulted in non-GAAP operating margin of about 41%."
+            },
+            "capital_supply": {
+              "state": "continued",
+              "current_excerpt": "…work around accelerators.As agentic AI scales, data centers will require more than four times today's CPU capacity, creating a datacenter CPU market…",
+              "previous_excerpt": "…getting a further benefit as the build out of these new AI data centers are driving increased deployment of networking chips, particularly…"
+            },
+            "guidance": {
+              "state": "continued",
+              "current_excerpt": "…and above the midpoint of our guidance.Licensing revenue grew 29% year-over-year to $819 million, driven by strong demand for the Arm platform.",
+              "previous_excerpt": "…was $0.43, close to the high end of our guidance range, driven by both higher revenue and slightly lower OpEx than expected."
+            },
+            "confidence": {
+              "state": "continued",
+              "current_excerpt": "…we're seeing combined with our expanding portfolio and deepening customer engagements gives us confidence in our ability to deliver sustained long-term growth.",
+              "previous_excerpt": "…combined with a growing base of long duration contracts at structurally higher royalty rates, provides increasing confidence in our future revenue profile."
+            },
+            "risks": {
+              "state": "not_detected",
+              "current_excerpt": null,
+              "previous_excerpt": "…scales, customers need CPU chips with higher core counts and better power efficiency to operate continuously within tight power and cost constraints."
+            },
+            "analyst_questions": {
+              "state": "newly_detected",
+              "current_excerpt": "…your total cost structure, but Jason, can you just give us a rough sense on the OpEx attributed to supporting your chip…",
+              "previous_excerpt": null
+            }
+          }
+        },
+        {
+          "current_period": "FY2026 Q3",
+          "previous_period": "FY2026 Q2",
+          "topics": {
+            "demand_growth": {
+              "state": "continued",
+              "current_excerpt": "Growth was driven by strong demand for next-generation architectures and deeper strategic engagements with key customers.",
+              "previous_excerpt": "Growth was driven by strong demand for next-generation architectures and deeper strategic engagements with key customers."
+            },
+            "margin_cost": {
+              "state": "continued",
+              "current_excerpt": "This resulted in non-GAAP operating margin of about 41%.",
+              "previous_excerpt": "This resulted in a non-GAAP operating margin of 41.1% and an improvement from 38.6% a year ago."
+            },
+            "capital_supply": {
+              "state": "continued",
+              "current_excerpt": "…getting a further benefit as the build out of these new AI data centers are driving increased deployment of networking chips, particularly…",
+              "previous_excerpt": "…new Stargate sites this quarter further expands visibility into future AI capacity and reinforces Arm's central role in the hyperscale build- out."
+            },
+            "guidance": {
+              "state": "continued",
+              "current_excerpt": "…was $0.43, close to the high end of our guidance range, driven by both higher revenue and slightly lower OpEx than expected.",
+              "previous_excerpt": "It exceeded the midpoint of our guidance range by $75 million and marked our third consecutive quarter above $1 billion."
+            },
+            "confidence": {
+              "state": "continued",
+              "current_excerpt": "…combined with a growing base of long duration contracts at structurally higher royalty rates, provides increasing confidence in our future revenue profile.",
+              "previous_excerpt": "…new Stargate sites this quarter further expands visibility into future AI capacity and reinforces Arm's central role in the hyperscale build- out."
+            },
+            "risks": {
+              "state": "continued",
+              "current_excerpt": "…scales, customers need CPU chips with higher core counts and better power efficiency to operate continuously within tight power and cost constraints.",
+              "previous_excerpt": "…about future results and performance, our actual results are subjected to many risks and uncertainties that could cause results to differ materially."
+            },
+            "analyst_questions": {
+              "state": "not_detected",
+              "current_excerpt": null,
+              "previous_excerpt": "…the Stargate theme and the sites, can you maybe just talk about the shape of what that revenue opportunity looks like on…"
+            }
+          }
+        }
+      ],
       "discovery": {
         "status": "checked",
         "newer_candidates": []
@@ -258,6 +691,14 @@
         "status": "unverified",
         "reason": "timeout"
       },
+      "history": [],
+      "history_coverage": {
+        "available": 0,
+        "expected": 0,
+        "status": "not_applicable",
+        "meaning": "官方目前只有影音／回放，未用第三方逐字稿補足四季文字。"
+      },
+      "quarter_comparisons": [],
       "discovery": {
         "status": "checked",
         "newer_candidates": []
@@ -341,7 +782,7 @@
         "total": 7
       },
       "q_and_a_available": true,
-      "source_sha256": "de938411f77818b147ff51d8ca2f70081f9a44401d396f1779ab5b5adfbd9123",
+      "source_sha256": "5e566cfc58c321b42c493653732f6aa1d7abf0306b27c9b96d1e343e588302ff",
       "exhibit_comparison": {
         "status": "unavailable",
         "overlap_topics": [],
@@ -349,8 +790,390 @@
         "meaning": "沒有同公司可比的嚴格 Exhibit 99.1 卡，因此不推測兩份資料差異。"
       },
       "errors": [],
-      "last_verified_at": "2026-08-29T13:20:02+00:00",
+      "last_verified_at": "2026-08-30T00:29:00+00:00",
       "card": "20_Filings/GOOGL/analysis/GOOGL_2026_Q2_Earnings_Call.md",
+      "history": [
+        {
+          "period": "2026 Q2",
+          "call_date": "2026-07-22",
+          "landing_url": "https://abc.xyz/investor/events/event-details/2026/2026-Q2-Earnings-Call-2026-GgTAq7Is0z/default.aspx",
+          "material_url": "https://s206.q4cdn.com/479360582/files/doc_events/2026/Jul/22/2026_Q2_Earnings_Transcript.pdf",
+          "allowed_hosts": [
+            "abc.xyz",
+            "s206.q4cdn.com"
+          ],
+          "source_type": "full_transcript",
+          "source_label": "完整官方逐字稿",
+          "status": "analyzed",
+          "categories": {
+            "demand_growth": [
+              {
+                "excerpt": "Demand for our models is translating to strong token usage across developers and enterprise customers, and we continue to be supply constrained,…",
+                "section": "prepared"
+              }
+            ],
+            "margin_cost": [
+              {
+                "excerpt": "Operating income increased 30% to $40.8 billion, and operating margin was 34%.",
+                "section": "prepared"
+              }
+            ],
+            "capital_supply": [
+              {
+                "excerpt": "CapEx was $44.9 billion in the second quarter, with the vast majority of the spend in technical infrastructure to support our investments…",
+                "section": "prepared"
+              }
+            ],
+            "guidance": [
+              {
+                "excerpt": "…updating our full year 2026 CapEx guidance range to $195 ‑ 205 billion, up from our previous estimate of $180 ‑ 190…",
+                "section": "prepared"
+              }
+            ],
+            "confidence": [
+              {
+                "excerpt": "We continue to be encouraged with monetization performance on queries that show AI Overviews, even as we've expanded AI Overviews to more…",
+                "section": "prepared"
+              }
+            ],
+            "risks": [
+              {
+                "excerpt": "…we would expect a slight FX headwind to our consolidated revenue in Q3, compared to a one percentage point FX tailwind in…",
+                "section": "prepared"
+              }
+            ],
+            "analyst_questions": [
+              {
+                "excerpt": "…able to serve the customer in what is a multiyear opportunity where the margins and the returns are very, very attractive over…",
+                "section": "q_and_a"
+              }
+            ]
+          },
+          "coverage": {
+            "found": 7,
+            "total": 7
+          },
+          "q_and_a_available": true,
+          "source_sha256": "5e566cfc58c321b42c493653732f6aa1d7abf0306b27c9b96d1e343e588302ff",
+          "provenance": {
+            "status": "official_page_link",
+            "landing_host": "abc.xyz",
+            "material_host": "s206.q4cdn.com"
+          },
+          "card": "20_Filings/GOOGL/analysis/GOOGL_2026_Q2_Earnings_Call.md",
+          "last_verified_at": "2026-08-30T00:29:00+00:00",
+          "errors": []
+        },
+        {
+          "period": "2026 Q1",
+          "call_date": "2026-04-29",
+          "landing_url": "https://abc.xyz/investor/events/event-details/2026/2026-Q1-Earnings-Call-2026-nW8kCrBAKS/default.aspx",
+          "material_url": "https://s206.q4cdn.com/479360582/files/doc_events/2026/Apr/29/Alphabet-2026_Q1_Earnings_Transcript.pdf",
+          "allowed_hosts": [
+            "abc.xyz",
+            "s206.q4cdn.com"
+          ],
+          "source_type": "full_transcript",
+          "source_label": "完整官方逐字稿",
+          "status": "analyzed",
+          "categories": {
+            "demand_growth": [],
+            "margin_cost": [],
+            "capital_supply": [],
+            "guidance": [],
+            "confidence": [],
+            "risks": [],
+            "analyst_questions": [
+              {
+                "excerpt": "First, on the Cloud and capacity, could you speak about how your verticalized capabilities enable you to navigate a complicated supply chain,…",
+                "section": "q_and_a"
+              }
+            ]
+          },
+          "coverage": {
+            "found": 1,
+            "total": 7
+          },
+          "q_and_a_available": true,
+          "source_sha256": "53412eabaa50f58af17bc16f6f4d1263dc479237309691859f292823d56418b4",
+          "provenance": {
+            "status": "official_page_link",
+            "landing_host": "abc.xyz",
+            "material_host": "s206.q4cdn.com"
+          },
+          "card": "20_Filings/GOOGL/analysis/GOOGL_2026_Q1_Earnings_Call.md",
+          "last_verified_at": "2026-08-30T00:29:02+00:00",
+          "errors": []
+        },
+        {
+          "period": "2025 Q4",
+          "call_date": "2026-02-04",
+          "landing_url": "https://abc.xyz/investor/events/event-details/2026/2025-Q4-Earnings-Call-2026-Dr_C033hS6/default.aspx",
+          "material_url": "https://s206.q4cdn.com/479360582/files/doc_events/2026/Feb/04/2025_Q4_Earnings_Transcript.pdf",
+          "allowed_hosts": [
+            "abc.xyz",
+            "s206.q4cdn.com"
+          ],
+          "source_type": "full_transcript",
+          "source_label": "完整官方逐字稿",
+          "status": "analyzed",
+          "categories": {
+            "demand_growth": [
+              {
+                "excerpt": "Backlog grew by 55% quarter-over-quarter to $240 billion, representing a wide breadth of customers, driven by demand for AI products.",
+                "section": "prepared"
+              }
+            ],
+            "margin_cost": [
+              {
+                "excerpt": "Operating income increased 16% to $35.9 billion, and operating margin was 31.6%.",
+                "section": "prepared"
+              }
+            ],
+            "capital_supply": [
+              {
+                "excerpt": "The vast majority of our CapEx was invested in technical infrastructure, with approximately 60% of that investment in servers and 40% in…",
+                "section": "prepared"
+              }
+            ],
+            "guidance": [
+              {
+                "excerpt": "…growing opportunities ahead of us, our 2026 CapEx investments are anticipated to be in the range of $175 billion to $185 billion.",
+                "section": "prepared"
+              }
+            ],
+            "confidence": [
+              {
+                "excerpt": "Our successful execution, coupled with strong performance, reinforces our conviction to make the investments required to further capitalize on the AI opportunity.",
+                "section": "prepared"
+              }
+            ],
+            "risks": [
+              {
+                "excerpt": "…technical infrastructure will continue to put pressure on the P&L in the form of higher depreciation expense and related data centers' operations…",
+                "section": "prepared"
+              }
+            ],
+            "analyst_questions": [
+              {
+                "excerpt": "And then, how should we think about the potential for TPUs to move outside of Google Cloud and into external data centers…",
+                "section": "q_and_a"
+              }
+            ]
+          },
+          "coverage": {
+            "found": 7,
+            "total": 7
+          },
+          "q_and_a_available": true,
+          "source_sha256": "638e79a41604d2e1b82bb7a027ac2f259979acc25a8aaa33a9dab34f3e213f9c",
+          "provenance": {
+            "status": "official_page_link",
+            "landing_host": "abc.xyz",
+            "material_host": "s206.q4cdn.com"
+          },
+          "card": "20_Filings/GOOGL/analysis/GOOGL_2025_Q4_Earnings_Call.md",
+          "last_verified_at": "2026-08-30T00:29:04+00:00",
+          "errors": []
+        },
+        {
+          "period": "2025 Q3",
+          "call_date": "2025-10-29",
+          "landing_url": "https://abc.xyz/investor/events/event-details/2025/2025-Q3-Earnings-Call-2025-4OI4Bac_Q9/default.aspx",
+          "material_url": "https://s206.q4cdn.com/479360582/files/doc_events/2025/Oct/29/2025_Q3_Earnings_Transcript.pdf",
+          "allowed_hosts": [
+            "abc.xyz",
+            "s206.q4cdn.com"
+          ],
+          "source_type": "full_transcript",
+          "source_label": "完整官方逐字稿",
+          "status": "analyzed",
+          "categories": {
+            "demand_growth": [
+              {
+                "excerpt": "…our products remains high as evidenced by the accelerated revenue growth and the $49 billion sequential increase in Cloud backlog in Q3.",
+                "section": "prepared"
+              }
+            ],
+            "margin_cost": [
+              {
+                "excerpt": "The expansion in Cloud operating margin was driven by strong revenue performance and continued efficiencies in our expense base, partially offset by…",
+                "section": "prepared"
+              }
+            ],
+            "capital_supply": [
+              {
+                "excerpt": "The vast majority of our CapEx was invested in technical infrastructure, with approximately 60% of that investment in servers and 40% in…",
+                "section": "prepared"
+              }
+            ],
+            "guidance": [
+              {
+                "excerpt": "Looking out to 2026, we expect a significant increase in CapEx and will provide more detail on our fourth quarter earnings call.…",
+                "section": "prepared"
+              }
+            ],
+            "confidence": [],
+            "risks": [
+              {
+                "excerpt": "…technical infrastructure will continue to put pressure on the P&L in the form of higher depreciation expenses and related data center operations…",
+                "section": "prepared"
+              }
+            ],
+            "analyst_questions": [
+              {
+                "excerpt": "…growth is accelerating, but can you help us understand from there, kind of what happens in terms of clicks per query and…",
+                "section": "q_and_a"
+              }
+            ]
+          },
+          "coverage": {
+            "found": 6,
+            "total": 7
+          },
+          "q_and_a_available": true,
+          "source_sha256": "752af44b541c7e0c47941db34d5c73fa7b7e730ce8b1cf76991831d3915712ff",
+          "provenance": {
+            "status": "official_page_link",
+            "landing_host": "abc.xyz",
+            "material_host": "s206.q4cdn.com"
+          },
+          "card": "20_Filings/GOOGL/analysis/GOOGL_2025_Q3_Earnings_Call.md",
+          "last_verified_at": "2026-08-30T00:29:06+00:00",
+          "errors": []
+        }
+      ],
+      "history_coverage": {
+        "available": 4,
+        "expected": 4,
+        "status": "complete",
+        "meaning": "只比較公司官方文字；缺季保留缺值，不以第三方逐字稿或影音轉錄補齊。"
+      },
+      "quarter_comparisons": [
+        {
+          "current_period": "2026 Q2",
+          "previous_period": "2026 Q1",
+          "topics": {
+            "demand_growth": {
+              "state": "newly_detected",
+              "current_excerpt": "Demand for our models is translating to strong token usage across developers and enterprise customers, and we continue to be supply constrained,…",
+              "previous_excerpt": null
+            },
+            "margin_cost": {
+              "state": "newly_detected",
+              "current_excerpt": "Operating income increased 30% to $40.8 billion, and operating margin was 34%.",
+              "previous_excerpt": null
+            },
+            "capital_supply": {
+              "state": "newly_detected",
+              "current_excerpt": "CapEx was $44.9 billion in the second quarter, with the vast majority of the spend in technical infrastructure to support our investments…",
+              "previous_excerpt": null
+            },
+            "guidance": {
+              "state": "newly_detected",
+              "current_excerpt": "…updating our full year 2026 CapEx guidance range to $195 ‑ 205 billion, up from our previous estimate of $180 ‑ 190…",
+              "previous_excerpt": null
+            },
+            "confidence": {
+              "state": "newly_detected",
+              "current_excerpt": "We continue to be encouraged with monetization performance on queries that show AI Overviews, even as we've expanded AI Overviews to more…",
+              "previous_excerpt": null
+            },
+            "risks": {
+              "state": "newly_detected",
+              "current_excerpt": "…we would expect a slight FX headwind to our consolidated revenue in Q3, compared to a one percentage point FX tailwind in…",
+              "previous_excerpt": null
+            },
+            "analyst_questions": {
+              "state": "continued",
+              "current_excerpt": "…able to serve the customer in what is a multiyear opportunity where the margins and the returns are very, very attractive over…",
+              "previous_excerpt": "First, on the Cloud and capacity, could you speak about how your verticalized capabilities enable you to navigate a complicated supply chain,…"
+            }
+          }
+        },
+        {
+          "current_period": "2026 Q1",
+          "previous_period": "2025 Q4",
+          "topics": {
+            "demand_growth": {
+              "state": "not_detected",
+              "current_excerpt": null,
+              "previous_excerpt": "Backlog grew by 55% quarter-over-quarter to $240 billion, representing a wide breadth of customers, driven by demand for AI products."
+            },
+            "margin_cost": {
+              "state": "not_detected",
+              "current_excerpt": null,
+              "previous_excerpt": "Operating income increased 16% to $35.9 billion, and operating margin was 31.6%."
+            },
+            "capital_supply": {
+              "state": "not_detected",
+              "current_excerpt": null,
+              "previous_excerpt": "The vast majority of our CapEx was invested in technical infrastructure, with approximately 60% of that investment in servers and 40% in…"
+            },
+            "guidance": {
+              "state": "not_detected",
+              "current_excerpt": null,
+              "previous_excerpt": "…growing opportunities ahead of us, our 2026 CapEx investments are anticipated to be in the range of $175 billion to $185 billion."
+            },
+            "confidence": {
+              "state": "not_detected",
+              "current_excerpt": null,
+              "previous_excerpt": "Our successful execution, coupled with strong performance, reinforces our conviction to make the investments required to further capitalize on the AI opportunity."
+            },
+            "risks": {
+              "state": "not_detected",
+              "current_excerpt": null,
+              "previous_excerpt": "…technical infrastructure will continue to put pressure on the P&L in the form of higher depreciation expense and related data centers' operations…"
+            },
+            "analyst_questions": {
+              "state": "continued",
+              "current_excerpt": "First, on the Cloud and capacity, could you speak about how your verticalized capabilities enable you to navigate a complicated supply chain,…",
+              "previous_excerpt": "And then, how should we think about the potential for TPUs to move outside of Google Cloud and into external data centers…"
+            }
+          }
+        },
+        {
+          "current_period": "2025 Q4",
+          "previous_period": "2025 Q3",
+          "topics": {
+            "demand_growth": {
+              "state": "continued",
+              "current_excerpt": "Backlog grew by 55% quarter-over-quarter to $240 billion, representing a wide breadth of customers, driven by demand for AI products.",
+              "previous_excerpt": "…our products remains high as evidenced by the accelerated revenue growth and the $49 billion sequential increase in Cloud backlog in Q3."
+            },
+            "margin_cost": {
+              "state": "continued",
+              "current_excerpt": "Operating income increased 16% to $35.9 billion, and operating margin was 31.6%.",
+              "previous_excerpt": "The expansion in Cloud operating margin was driven by strong revenue performance and continued efficiencies in our expense base, partially offset by…"
+            },
+            "capital_supply": {
+              "state": "continued",
+              "current_excerpt": "The vast majority of our CapEx was invested in technical infrastructure, with approximately 60% of that investment in servers and 40% in…",
+              "previous_excerpt": "The vast majority of our CapEx was invested in technical infrastructure, with approximately 60% of that investment in servers and 40% in…"
+            },
+            "guidance": {
+              "state": "continued",
+              "current_excerpt": "…growing opportunities ahead of us, our 2026 CapEx investments are anticipated to be in the range of $175 billion to $185 billion.",
+              "previous_excerpt": "Looking out to 2026, we expect a significant increase in CapEx and will provide more detail on our fourth quarter earnings call.…"
+            },
+            "confidence": {
+              "state": "newly_detected",
+              "current_excerpt": "Our successful execution, coupled with strong performance, reinforces our conviction to make the investments required to further capitalize on the AI opportunity.",
+              "previous_excerpt": null
+            },
+            "risks": {
+              "state": "continued",
+              "current_excerpt": "…technical infrastructure will continue to put pressure on the P&L in the form of higher depreciation expense and related data centers' operations…",
+              "previous_excerpt": "…technical infrastructure will continue to put pressure on the P&L in the form of higher depreciation expenses and related data center operations…"
+            },
+            "analyst_questions": {
+              "state": "continued",
+              "current_excerpt": "And then, how should we think about the potential for TPUs to move outside of Google Cloud and into external data centers…",
+              "previous_excerpt": "…growth is accelerating, but can you help us understand from there, kind of what happens in terms of clicks per query and…"
+            }
+          }
+        }
+      ],
       "discovery": {
         "status": "checked",
         "newer_candidates": []
@@ -429,7 +1252,7 @@
         "total": 7
       },
       "q_and_a_available": false,
-      "source_sha256": "d7576fad06d6a91f7c62a98f994e2f13453054ef2060e3afcc19ec46828dcda7",
+      "source_sha256": "6367250fec3eba1fc9ad8c3357f7c8d07e5c988c08a488fb631947a246d6c091",
       "exhibit_comparison": {
         "status": "unavailable",
         "overlap_topics": [],
@@ -437,8 +1260,405 @@
         "meaning": "沒有同公司可比的嚴格 Exhibit 99.1 卡，因此不推測兩份資料差異。"
       },
       "errors": [],
-      "last_verified_at": "2026-08-29T11:06:28+00:00",
+      "last_verified_at": "2026-08-30T00:29:00+00:00",
       "card": "20_Filings/INTC/analysis/INTC_2026_Q2_Earnings_Call.md",
+      "history": [
+        {
+          "period": "2026 Q2",
+          "call_date": "2026-07-23",
+          "landing_url": "https://www.intc.com/news-events/ir-calendar/detail/20260723-q2-2026-intel-corporation-earnings-conference-call",
+          "material_url": "https://d1io3yog0oux5.cloudfront.net/_88b01b330621eb4afbd070d5caa4f035/intel/db/887/9266/prepared_remarks/Q2+2026+Prepared+Remarks.pdf",
+          "allowed_hosts": [
+            "www.intc.com",
+            "d1io3yog0oux5.cloudfront.net"
+          ],
+          "source_type": "prepared_remarks",
+          "source_label": "官方 Prepared Remarks",
+          "status": "analyzed",
+          "categories": {
+            "demand_growth": [
+              {
+                "excerpt": "…to have a g rowing EMIB-T backlog, yield and reliability are hitting targets, and we are focused on ramping the technology into…",
+                "section": "prepared"
+              }
+            ],
+            "margin_cost": [
+              {
+                "excerpt": "Q2 non- GAAP gross margin was 4 1.8 percent, approximately 28 0 basis points better than guidance.",
+                "section": "prepared"
+              }
+            ],
+            "capital_supply": [
+              {
+                "excerpt": "…a result, we are forecasting 2027 capital expenditures to be significantly above the 2026 levels with the vast majority spent across our…",
+                "section": "prepared"
+              }
+            ],
+            "guidance": [
+              {
+                "excerpt": "We also strengthened our outlook with additional strategic customer wins and long -term agreements in Q2.",
+                "section": "prepared"
+              }
+            ],
+            "confidence": [
+              {
+                "excerpt": "Looking beyond 18A, I’m encouraged by our progress on Intel 14A.",
+                "section": "prepared"
+              }
+            ],
+            "risks": [
+              {
+                "excerpt": "…second half of the year and down low double digits percent for all of 2026, impacted by rising memory prices and constraints.",
+                "section": "prepared"
+              }
+            ],
+            "analyst_questions": []
+          },
+          "coverage": {
+            "found": 6,
+            "total": 7
+          },
+          "q_and_a_available": false,
+          "source_sha256": "6367250fec3eba1fc9ad8c3357f7c8d07e5c988c08a488fb631947a246d6c091",
+          "provenance": {
+            "status": "official_page_link",
+            "landing_host": "www.intc.com",
+            "material_host": "d1io3yog0oux5.cloudfront.net"
+          },
+          "card": "20_Filings/INTC/analysis/INTC_2026_Q2_Earnings_Call.md",
+          "last_verified_at": "2026-08-30T00:29:00+00:00",
+          "errors": []
+        },
+        {
+          "period": "2026 Q1",
+          "call_date": "2026-04-23",
+          "landing_url": "https://www.intc.com/news-events/ir-calendar/detail/20260423-q1-2026-intel-corporation-earnings-conference-call",
+          "material_url": "https://d1io3yog0oux5.cloudfront.net/_88b01b330621eb4afbd070d5caa4f035/intel/db/887/9254/prepared_remarks/1Q2026-Earnings-Call.pdf",
+          "allowed_hosts": [
+            "www.intc.com",
+            "d1io3yog0oux5.cloudfront.net"
+          ],
+          "source_type": "prepared_remarks",
+          "source_label": "官方 Prepared Remarks",
+          "status": "analyzed",
+          "categories": {
+            "demand_growth": [
+              {
+                "excerpt": "We also continue to make steady progress on our advanced packaging technologies, including additional growth in customer backlog in the quarter.",
+                "section": "prepared"
+              }
+            ],
+            "margin_cost": [
+              {
+                "excerpt": "Non-GAAP gross margin came in at 41 percent, approximately 650 basis points ahead of guidance due to the combination of higher volume,…",
+                "section": "prepared"
+              }
+            ],
+            "capital_supply": [
+              {
+                "excerpt": "We forecast capital expenditures in 2026 to be flat to last year vs our prior expectation of flat to down, reflecting increased…",
+                "section": "prepared"
+              }
+            ],
+            "guidance": [
+              {
+                "excerpt": "Our outlook for server CPU demand has improved over the last 90 days and we expect a strong year of double-digit unit…",
+                "section": "prepared"
+              }
+            ],
+            "confidence": [
+              {
+                "excerpt": "Elon and I share a strong conviction that global semiconductor supply is not keeping pace with the rapid acceleration in demand.",
+                "section": "prepared"
+              }
+            ],
+            "risks": [
+              {
+                "excerpt": "…in its ramp and rising input costs, especially in memory, present growing headwinds in the second half, that we need to overcome.",
+                "section": "prepared"
+              }
+            ],
+            "analyst_questions": []
+          },
+          "coverage": {
+            "found": 6,
+            "total": 7
+          },
+          "q_and_a_available": false,
+          "source_sha256": "423e1171369bde9b384194be948e02a82ebfc31d4372544abda80d1573d6b35c",
+          "provenance": {
+            "status": "official_page_link",
+            "landing_host": "www.intc.com",
+            "material_host": "d1io3yog0oux5.cloudfront.net"
+          },
+          "card": "20_Filings/INTC/analysis/INTC_2026_Q1_Earnings_Call.md",
+          "last_verified_at": "2026-08-30T00:29:00+00:00",
+          "errors": []
+        },
+        {
+          "period": "2025 Q4",
+          "call_date": "2026-01-22",
+          "landing_url": "https://www.intc.com/news-events/ir-calendar/detail/20260122-q4-2025-intel-corporation-earnings-conference-call",
+          "material_url": "https://d1io3yog0oux5.cloudfront.net/_88b01b330621eb4afbd070d5caa4f035/intel/db/887/9159/prepared_remarks/Intel-4Q2025-Earnings-Call+1+%281%29.pdf",
+          "allowed_hosts": [
+            "www.intc.com",
+            "d1io3yog0oux5.cloudfront.net"
+          ],
+          "source_type": "prepared_remarks",
+          "source_label": "官方 Prepared Remarks",
+          "status": "analyzed",
+          "categories": {
+            "demand_growth": [
+              {
+                "excerpt": "…remain l aser focused on additional improvements as they ramp Series 3 into the high volume needed to meet strong customer demand.",
+                "section": "prepared"
+              }
+            ],
+            "margin_cost": [
+              {
+                "excerpt": "Non- GAAP gross margin came in at 37.9 percent, approximately 140 basis points ahead of guidance on higher revenue and lower inventory…",
+                "section": "prepared"
+              }
+            ],
+            "capital_supply": [
+              {
+                "excerpt": "…workloads is driving massive demand for data centers, but cloud capacity alone cannot meet the scale of inference needed especially in a…",
+                "section": "prepared"
+              }
+            ],
+            "guidance": [
+              {
+                "excerpt": "Q4 marks the fifth consecutive quarter of revenue above our guidance even as we navigate industry-wide supply constraints for our key products.",
+                "section": "prepared"
+              }
+            ],
+            "confidence": [
+              {
+                "excerpt": "…have work to do, I am encouraged by the steady progress on Intel 18A yields, and Naga and his team remain l…",
+                "section": "prepared"
+              }
+            ],
+            "risks": [
+              {
+                "excerpt": "…a market that has shifted from tariff driven uncertainty in the first half to an intense AI driven demand environment constrained by…",
+                "section": "prepared"
+              }
+            ],
+            "analyst_questions": []
+          },
+          "coverage": {
+            "found": 6,
+            "total": 7
+          },
+          "q_and_a_available": false,
+          "source_sha256": "2fa6b1ae93483487b49a915a799272165143a71758d9fe4c6b298f16c29529fc",
+          "provenance": {
+            "status": "official_page_link",
+            "landing_host": "www.intc.com",
+            "material_host": "d1io3yog0oux5.cloudfront.net"
+          },
+          "card": "20_Filings/INTC/analysis/INTC_2025_Q4_Earnings_Call.md",
+          "last_verified_at": "2026-08-30T00:29:01+00:00",
+          "errors": []
+        },
+        {
+          "period": "2025 Q3",
+          "call_date": "2025-10-23",
+          "landing_url": "https://www.intc.com/news-events/ir-calendar/detail/20251023-q3-2025-intel-corporation-earnings-conference-call",
+          "material_url": "https://d1io3yog0oux5.cloudfront.net/_88b01b330621eb4afbd070d5caa4f035/intel/db/887/9148/prepared_remarks/3Q2025+Earnings+Call+Prepared+Remarks.pdf",
+          "allowed_hosts": [
+            "www.intc.com",
+            "d1io3yog0oux5.cloudfront.net"
+          ],
+          "source_type": "prepared_remarks",
+          "source_label": "官方 Prepared Remarks",
+          "status": "analyzed",
+          "categories": {
+            "demand_growth": [
+              {
+                "excerpt": "…and we’re prudently preparing for another year of strong demand in 2026 as Core Ultra 3 ramps into a healthy PC ecosystem.",
+                "section": "prepared"
+              }
+            ],
+            "margin_cost": [
+              {
+                "excerpt": "…share of 23 cents versus our guidance of break -even EPS, driven by higher revenue, stronger gross margin and continued cost discipline.",
+                "section": "prepared"
+              }
+            ],
+            "capital_supply": [
+              {
+                "excerpt": "…flow was $2.5 billion with gross capex of $3 billion in the quarter and positive adjusted free cash flow of $900 million.",
+                "section": "prepared"
+              }
+            ],
+            "guidance": [
+              {
+                "excerpt": "…Other, which now excludes Altera, we expect revenue to decline consistent with Mobileye’s guidance , partially offset by sequential growth in IMS.",
+                "section": "prepared"
+              }
+            ],
+            "confidence": [
+              {
+                "excerpt": "Like Intel Products, my conviction in the market potential for Intel Foundry continues to grow.",
+                "section": "prepared"
+              }
+            ],
+            "risks": [
+              {
+                "excerpt": "Capacity constraints, especially on Intel 10 and Intel 7, limited our ability to fully meet demand in Q3 for both data center…",
+                "section": "prepared"
+              }
+            ],
+            "analyst_questions": []
+          },
+          "coverage": {
+            "found": 6,
+            "total": 7
+          },
+          "q_and_a_available": false,
+          "source_sha256": "5244623b1c0a165dce87a2b837f6e6d274dea29d12c00d99602415436c86ac60",
+          "provenance": {
+            "status": "official_page_link",
+            "landing_host": "www.intc.com",
+            "material_host": "d1io3yog0oux5.cloudfront.net"
+          },
+          "card": "20_Filings/INTC/analysis/INTC_2025_Q3_Earnings_Call.md",
+          "last_verified_at": "2026-08-30T00:29:02+00:00",
+          "errors": []
+        }
+      ],
+      "history_coverage": {
+        "available": 4,
+        "expected": 4,
+        "status": "complete",
+        "meaning": "只比較公司官方文字；缺季保留缺值，不以第三方逐字稿或影音轉錄補齊。"
+      },
+      "quarter_comparisons": [
+        {
+          "current_period": "2026 Q2",
+          "previous_period": "2026 Q1",
+          "topics": {
+            "demand_growth": {
+              "state": "continued",
+              "current_excerpt": "…to have a g rowing EMIB-T backlog, yield and reliability are hitting targets, and we are focused on ramping the technology into…",
+              "previous_excerpt": "We also continue to make steady progress on our advanced packaging technologies, including additional growth in customer backlog in the quarter."
+            },
+            "margin_cost": {
+              "state": "continued",
+              "current_excerpt": "Q2 non- GAAP gross margin was 4 1.8 percent, approximately 28 0 basis points better than guidance.",
+              "previous_excerpt": "Non-GAAP gross margin came in at 41 percent, approximately 650 basis points ahead of guidance due to the combination of higher volume,…"
+            },
+            "capital_supply": {
+              "state": "continued",
+              "current_excerpt": "…a result, we are forecasting 2027 capital expenditures to be significantly above the 2026 levels with the vast majority spent across our…",
+              "previous_excerpt": "We forecast capital expenditures in 2026 to be flat to last year vs our prior expectation of flat to down, reflecting increased…"
+            },
+            "guidance": {
+              "state": "continued",
+              "current_excerpt": "We also strengthened our outlook with additional strategic customer wins and long -term agreements in Q2.",
+              "previous_excerpt": "Our outlook for server CPU demand has improved over the last 90 days and we expect a strong year of double-digit unit…"
+            },
+            "confidence": {
+              "state": "continued",
+              "current_excerpt": "Looking beyond 18A, I’m encouraged by our progress on Intel 14A.",
+              "previous_excerpt": "Elon and I share a strong conviction that global semiconductor supply is not keeping pace with the rapid acceleration in demand."
+            },
+            "risks": {
+              "state": "continued",
+              "current_excerpt": "…second half of the year and down low double digits percent for all of 2026, impacted by rising memory prices and constraints.",
+              "previous_excerpt": "…in its ramp and rising input costs, especially in memory, present growing headwinds in the second half, that we need to overcome."
+            },
+            "analyst_questions": {
+              "state": "insufficient",
+              "current_excerpt": null,
+              "previous_excerpt": null
+            }
+          }
+        },
+        {
+          "current_period": "2026 Q1",
+          "previous_period": "2025 Q4",
+          "topics": {
+            "demand_growth": {
+              "state": "continued",
+              "current_excerpt": "We also continue to make steady progress on our advanced packaging technologies, including additional growth in customer backlog in the quarter.",
+              "previous_excerpt": "…remain l aser focused on additional improvements as they ramp Series 3 into the high volume needed to meet strong customer demand."
+            },
+            "margin_cost": {
+              "state": "continued",
+              "current_excerpt": "Non-GAAP gross margin came in at 41 percent, approximately 650 basis points ahead of guidance due to the combination of higher volume,…",
+              "previous_excerpt": "Non- GAAP gross margin came in at 37.9 percent, approximately 140 basis points ahead of guidance on higher revenue and lower inventory…"
+            },
+            "capital_supply": {
+              "state": "continued",
+              "current_excerpt": "We forecast capital expenditures in 2026 to be flat to last year vs our prior expectation of flat to down, reflecting increased…",
+              "previous_excerpt": "…workloads is driving massive demand for data centers, but cloud capacity alone cannot meet the scale of inference needed especially in a…"
+            },
+            "guidance": {
+              "state": "continued",
+              "current_excerpt": "Our outlook for server CPU demand has improved over the last 90 days and we expect a strong year of double-digit unit…",
+              "previous_excerpt": "Q4 marks the fifth consecutive quarter of revenue above our guidance even as we navigate industry-wide supply constraints for our key products."
+            },
+            "confidence": {
+              "state": "continued",
+              "current_excerpt": "Elon and I share a strong conviction that global semiconductor supply is not keeping pace with the rapid acceleration in demand.",
+              "previous_excerpt": "…have work to do, I am encouraged by the steady progress on Intel 18A yields, and Naga and his team remain l…"
+            },
+            "risks": {
+              "state": "continued",
+              "current_excerpt": "…in its ramp and rising input costs, especially in memory, present growing headwinds in the second half, that we need to overcome.",
+              "previous_excerpt": "…a market that has shifted from tariff driven uncertainty in the first half to an intense AI driven demand environment constrained by…"
+            },
+            "analyst_questions": {
+              "state": "insufficient",
+              "current_excerpt": null,
+              "previous_excerpt": null
+            }
+          }
+        },
+        {
+          "current_period": "2025 Q4",
+          "previous_period": "2025 Q3",
+          "topics": {
+            "demand_growth": {
+              "state": "continued",
+              "current_excerpt": "…remain l aser focused on additional improvements as they ramp Series 3 into the high volume needed to meet strong customer demand.",
+              "previous_excerpt": "…and we’re prudently preparing for another year of strong demand in 2026 as Core Ultra 3 ramps into a healthy PC ecosystem."
+            },
+            "margin_cost": {
+              "state": "continued",
+              "current_excerpt": "Non- GAAP gross margin came in at 37.9 percent, approximately 140 basis points ahead of guidance on higher revenue and lower inventory…",
+              "previous_excerpt": "…share of 23 cents versus our guidance of break -even EPS, driven by higher revenue, stronger gross margin and continued cost discipline."
+            },
+            "capital_supply": {
+              "state": "continued",
+              "current_excerpt": "…workloads is driving massive demand for data centers, but cloud capacity alone cannot meet the scale of inference needed especially in a…",
+              "previous_excerpt": "…flow was $2.5 billion with gross capex of $3 billion in the quarter and positive adjusted free cash flow of $900 million."
+            },
+            "guidance": {
+              "state": "continued",
+              "current_excerpt": "Q4 marks the fifth consecutive quarter of revenue above our guidance even as we navigate industry-wide supply constraints for our key products.",
+              "previous_excerpt": "…Other, which now excludes Altera, we expect revenue to decline consistent with Mobileye’s guidance , partially offset by sequential growth in IMS."
+            },
+            "confidence": {
+              "state": "continued",
+              "current_excerpt": "…have work to do, I am encouraged by the steady progress on Intel 18A yields, and Naga and his team remain l…",
+              "previous_excerpt": "Like Intel Products, my conviction in the market potential for Intel Foundry continues to grow."
+            },
+            "risks": {
+              "state": "continued",
+              "current_excerpt": "…a market that has shifted from tariff driven uncertainty in the first half to an intense AI driven demand environment constrained by…",
+              "previous_excerpt": "Capacity constraints, especially on Intel 10 and Intel 7, limited our ability to fully meet demand in Q3 for both data center…"
+            },
+            "analyst_questions": {
+              "state": "insufficient",
+              "current_excerpt": null,
+              "previous_excerpt": null
+            }
+          }
+        }
+      ],
       "discovery": {
         "status": "checked",
         "newer_candidates": []
@@ -519,7 +1739,7 @@
         "total": 7
       },
       "q_and_a_available": true,
-      "source_sha256": "e2afcb9b452656bea2706e1dedc190d31b3aafe5528af7f3c19de6ab347a34ec",
+      "source_sha256": "2904d91d791f0b66936d2916e4d4e768e62f263ed7e23dc071cfc192821479b7",
       "exhibit_comparison": {
         "status": "unavailable",
         "overlap_topics": [],
@@ -527,8 +1747,418 @@
         "meaning": "沒有同公司可比的嚴格 Exhibit 99.1 卡，因此不推測兩份資料差異。"
       },
       "errors": [],
-      "last_verified_at": "2026-08-29T11:06:29+00:00",
+      "last_verified_at": "2026-08-30T00:29:03+00:00",
       "card": "20_Filings/META/analysis/META_2026_Q2_Earnings_Call.md",
+      "history": [
+        {
+          "period": "2026 Q2",
+          "call_date": "2026-07-29",
+          "landing_url": "https://investor.atmeta.com/investor-events/event-details/2026/Q2-2026-Earnings-Call/default.aspx",
+          "material_url": "https://s21.q4cdn.com/399680738/files/doc_financials/2026/q2/META-Q2-2026-Earnings-Call-Transcript.pdf",
+          "allowed_hosts": [
+            "investor.atmeta.com",
+            "s21.q4cdn.com"
+          ],
+          "source_type": "full_transcript",
+          "source_label": "完整官方逐字稿",
+          "status": "analyzed",
+          "categories": {
+            "demand_growth": [
+              {
+                "excerpt": "…are also seeing a lot of demand for our new AI-powered creative tools. 9 million small businesses on our platforms are now…",
+                "section": "prepared"
+              }
+            ],
+            "margin_cost": [
+              {
+                "excerpt": "Second quarter GAAP operating income was $18.8 billion, representing an 8% decline year -over- year and a 31% operating margin.",
+                "section": "prepared"
+              }
+            ],
+            "capital_supply": [
+              {
+                "excerpt": "Capital expenditures, including principal payments on finance leases, were $31.1 billion, driven by investments in servers, data centers, and network infrastructure.",
+                "section": "prepared"
+              }
+            ],
+            "guidance": [
+              {
+                "excerpt": "Our guidance assumes foreign currency is an approximately 1% headwind to year-over-year total revenue growth, based on current exchange rates.",
+                "section": "prepared"
+              }
+            ],
+            "confidence": [
+              {
+                "excerpt": "We are encouraged by this milestone and expect continued progress in the second half of the year.",
+                "section": "prepared"
+              }
+            ],
+            "risks": [
+              {
+                "excerpt": "Our guidance assumes foreign currency is an approximately 1% headwind to year-over-year total revenue growth, based on current exchange rates.",
+                "section": "prepared"
+              }
+            ],
+            "analyst_questions": []
+          },
+          "coverage": {
+            "found": 6,
+            "total": 7
+          },
+          "q_and_a_available": true,
+          "source_sha256": "2904d91d791f0b66936d2916e4d4e768e62f263ed7e23dc071cfc192821479b7",
+          "provenance": {
+            "status": "manual_official_page_attestation",
+            "verified_on": "2026-08-29",
+            "landing_host": "investor.atmeta.com",
+            "material_host": "s21.q4cdn.com",
+            "note": "Meta 官方 Q2 2026 活動頁發布並連結這份 q4cdn 官方逐字稿。"
+          },
+          "card": "20_Filings/META/analysis/META_2026_Q2_Earnings_Call.md",
+          "last_verified_at": "2026-08-30T00:29:03+00:00",
+          "errors": []
+        },
+        {
+          "period": "2026 Q1",
+          "call_date": "2026-04-29",
+          "landing_url": "https://investor.atmeta.com/investor-events/event-details/2026/Q1-2026-Earnings-Call/default.aspx",
+          "material_url": "https://s21.q4cdn.com/399680738/files/doc_financials/2026/q1/META-Q1-2026-Earnings-Call-Transcript.pdf",
+          "allowed_hosts": [
+            "investor.atmeta.com",
+            "s21.q4cdn.com"
+          ],
+          "source_type": "full_transcript",
+          "source_label": "完整官方逐字稿",
+          "status": "analyzed",
+          "categories": {
+            "demand_growth": [
+              {
+                "excerpt": "…using at least one of our gen AI ad creative tools and particularly strong adoption among small and medium - sized advertisers.",
+                "section": "prepared"
+              }
+            ],
+            "margin_cost": [
+              {
+                "excerpt": "First quarter operating income was $22.9 billion, representing a 41% operating margin.",
+                "section": "prepared"
+              }
+            ],
+            "capital_supply": [
+              {
+                "excerpt": "Capital expenditures, including principal payments on finance leases, were $19.8 billion, driven by investments in servers, data centers, and network infrastructure.",
+                "section": "prepared"
+              }
+            ],
+            "guidance": [
+              {
+                "excerpt": "…quarter of 2025, which reflects updated guidance from the US Treasury issued in February 2026 regarding the tax treatment of previously capitalized…",
+                "section": "prepared"
+              }
+            ],
+            "confidence": [
+              {
+                "excerpt": "But every sign that we’re seeing in our own work and across the industry gives us confidence in this investment.",
+                "section": "prepared"
+              }
+            ],
+            "risks": [
+              {
+                "excerpt": "…active legal and regulatory matters, including headwinds in the EU and the US that could significantly impact our business and financial results.",
+                "section": "prepared"
+              }
+            ],
+            "analyst_questions": [
+              {
+                "excerpt": "…Meta AI, Muse advances, core algorithm, what are you sort of watching foremost just to make sure that you’re on the right…",
+                "section": "q_and_a"
+              }
+            ]
+          },
+          "coverage": {
+            "found": 7,
+            "total": 7
+          },
+          "q_and_a_available": true,
+          "source_sha256": "bcdad6fd537b3ef9548b7b21e00f6702d2e107d78f1181f052a498127e0143e4",
+          "provenance": {
+            "status": "manual_official_page_attestation",
+            "verified_on": "2026-08-29",
+            "landing_host": "investor.atmeta.com",
+            "material_host": "s21.q4cdn.com",
+            "note": "Meta 官方 Q1 2026 活動頁發布並連結這份 q4cdn 官方逐字稿。"
+          },
+          "card": "20_Filings/META/analysis/META_2026_Q1_Earnings_Call.md",
+          "last_verified_at": "2026-08-30T00:29:05+00:00",
+          "errors": []
+        },
+        {
+          "period": "2025 Q4",
+          "call_date": "2026-01-28",
+          "landing_url": "https://investor.atmeta.com/investor-events/event-details/2026/Q4-2025-Earnings-Call/default.aspx",
+          "material_url": "https://s21.q4cdn.com/399680738/files/doc_financials/2025/q4/META-Q4-2025-Earnings-Call-Transcript.pdf",
+          "allowed_hosts": [
+            "investor.atmeta.com",
+            "s21.q4cdn.com"
+          ],
+          "source_type": "full_transcript",
+          "source_label": "完整官方逐字稿",
+          "status": "analyzed",
+          "categories": {
+            "demand_growth": [
+              {
+                "excerpt": "…year - over-year driven by strong adoption of our Website to Message ads, which direct people to a businesses’ website for more…",
+                "section": "prepared"
+              }
+            ],
+            "margin_cost": [
+              {
+                "excerpt": "Fourth quarter operating income was $24.7 billion, representing a 41% operating margin.",
+                "section": "prepared"
+              }
+            ],
+            "capital_supply": [
+              {
+                "excerpt": "Capital expenditures, including principal payments on finance leases, were $22.1 billion, driven by investments in data centers, servers, and network infrastructure.",
+                "section": "prepared"
+              }
+            ],
+            "guidance": [
+              {
+                "excerpt": "…for the quarter was 10%, slightly lower than our outlook of 12 -15% due to the settlement of matters with tax authorities.",
+                "section": "prepared"
+              }
+            ],
+            "confidence": [],
+            "risks": [
+              {
+                "excerpt": "…continue to monitor legal and regulatory headwinds in the EU and the US that could significantly impact our business and financial results.",
+                "section": "prepared"
+              }
+            ],
+            "analyst_questions": [
+              {
+                "excerpt": "Can you walk us through a little bit of how you think about the largest revenue or ROIC long-term opportunities you’re trying…",
+                "section": "q_and_a"
+              }
+            ]
+          },
+          "coverage": {
+            "found": 6,
+            "total": 7
+          },
+          "q_and_a_available": true,
+          "source_sha256": "3c699dc6d7107ba2d51c73d4c029d56b72914d9b5f0bfc065802b359aa4d077c",
+          "provenance": {
+            "status": "manual_official_page_attestation",
+            "verified_on": "2026-08-29",
+            "landing_host": "investor.atmeta.com",
+            "material_host": "s21.q4cdn.com",
+            "note": "Meta 官方 Q4 2025 活動頁發布並連結這份 q4cdn 官方逐字稿。"
+          },
+          "card": "20_Filings/META/analysis/META_2025_Q4_Earnings_Call.md",
+          "last_verified_at": "2026-08-30T00:29:06+00:00",
+          "errors": []
+        },
+        {
+          "period": "2025 Q3",
+          "call_date": "2025-10-29",
+          "landing_url": "https://investor.atmeta.com/investor-events/event-details/2025/Q3-2025-Earnings-Call/default.aspx",
+          "material_url": "https://s21.q4cdn.com/399680738/files/doc_financials/2025/q3/META-Q3-2025-Earnings-Call-Transcript.pdf",
+          "allowed_hosts": [
+            "investor.atmeta.com",
+            "s21.q4cdn.com"
+          ],
+          "source_type": "full_transcript",
+          "source_label": "完整官方逐字稿",
+          "status": "analyzed",
+          "categories": {
+            "demand_growth": [
+              {
+                "excerpt": "The average price per ad increased 10% year-over-year, benefiting from increased advertiser demand, largely driven by improved ad performance.",
+                "section": "prepared"
+              }
+            ],
+            "margin_cost": [
+              {
+                "excerpt": "Third quarter operating income was $20.5 billion, representing a 40% operating margin.",
+                "section": "prepared"
+              }
+            ],
+            "capital_supply": [
+              {
+                "excerpt": "Capital expenditures, including principal payments on finance leases, were $19.4 billion, driven by investments in servers, data centers and network infrastructure.",
+                "section": "prepared"
+              }
+            ],
+            "guidance": [
+              {
+                "excerpt": "Our guidance assumes foreign currency is an approximately 1% tailwind to year - over-year total revenue growth, based on current exchange rates.",
+                "section": "prepared"
+              }
+            ],
+            "confidence": [],
+            "risks": [
+              {
+                "excerpt": "…and regulatory matters, including the increasing headwinds in the EU and the US that could significantly impact our business and financial results.",
+                "section": "prepared"
+              }
+            ],
+            "analyst_questions": [
+              {
+                "excerpt": "Can you just talk about your thought process in kind of triangulating the CapEx dollar growth and the significantly faster expense growth…",
+                "section": "q_and_a"
+              }
+            ]
+          },
+          "coverage": {
+            "found": 6,
+            "total": 7
+          },
+          "q_and_a_available": true,
+          "source_sha256": "b3f29847808318e6c853aa45812871d41f578f9674f571e5a098040edd55c475",
+          "provenance": {
+            "status": "manual_official_page_attestation",
+            "verified_on": "2026-08-29",
+            "landing_host": "investor.atmeta.com",
+            "material_host": "s21.q4cdn.com",
+            "note": "Meta 官方 Q3 2025 活動頁發布並連結這份 q4cdn 官方逐字稿。"
+          },
+          "card": "20_Filings/META/analysis/META_2025_Q3_Earnings_Call.md",
+          "last_verified_at": "2026-08-30T00:29:07+00:00",
+          "errors": []
+        }
+      ],
+      "history_coverage": {
+        "available": 4,
+        "expected": 4,
+        "status": "complete",
+        "meaning": "只比較公司官方文字；缺季保留缺值，不以第三方逐字稿或影音轉錄補齊。"
+      },
+      "quarter_comparisons": [
+        {
+          "current_period": "2026 Q2",
+          "previous_period": "2026 Q1",
+          "topics": {
+            "demand_growth": {
+              "state": "continued",
+              "current_excerpt": "…are also seeing a lot of demand for our new AI-powered creative tools. 9 million small businesses on our platforms are now…",
+              "previous_excerpt": "…using at least one of our gen AI ad creative tools and particularly strong adoption among small and medium - sized advertisers."
+            },
+            "margin_cost": {
+              "state": "continued",
+              "current_excerpt": "Second quarter GAAP operating income was $18.8 billion, representing an 8% decline year -over- year and a 31% operating margin.",
+              "previous_excerpt": "First quarter operating income was $22.9 billion, representing a 41% operating margin."
+            },
+            "capital_supply": {
+              "state": "continued",
+              "current_excerpt": "Capital expenditures, including principal payments on finance leases, were $31.1 billion, driven by investments in servers, data centers, and network infrastructure.",
+              "previous_excerpt": "Capital expenditures, including principal payments on finance leases, were $19.8 billion, driven by investments in servers, data centers, and network infrastructure."
+            },
+            "guidance": {
+              "state": "continued",
+              "current_excerpt": "Our guidance assumes foreign currency is an approximately 1% headwind to year-over-year total revenue growth, based on current exchange rates.",
+              "previous_excerpt": "…quarter of 2025, which reflects updated guidance from the US Treasury issued in February 2026 regarding the tax treatment of previously capitalized…"
+            },
+            "confidence": {
+              "state": "continued",
+              "current_excerpt": "We are encouraged by this milestone and expect continued progress in the second half of the year.",
+              "previous_excerpt": "But every sign that we’re seeing in our own work and across the industry gives us confidence in this investment."
+            },
+            "risks": {
+              "state": "continued",
+              "current_excerpt": "Our guidance assumes foreign currency is an approximately 1% headwind to year-over-year total revenue growth, based on current exchange rates.",
+              "previous_excerpt": "…active legal and regulatory matters, including headwinds in the EU and the US that could significantly impact our business and financial results."
+            },
+            "analyst_questions": {
+              "state": "not_detected",
+              "current_excerpt": null,
+              "previous_excerpt": "…Meta AI, Muse advances, core algorithm, what are you sort of watching foremost just to make sure that you’re on the right…"
+            }
+          }
+        },
+        {
+          "current_period": "2026 Q1",
+          "previous_period": "2025 Q4",
+          "topics": {
+            "demand_growth": {
+              "state": "continued",
+              "current_excerpt": "…using at least one of our gen AI ad creative tools and particularly strong adoption among small and medium - sized advertisers.",
+              "previous_excerpt": "…year - over-year driven by strong adoption of our Website to Message ads, which direct people to a businesses’ website for more…"
+            },
+            "margin_cost": {
+              "state": "continued",
+              "current_excerpt": "First quarter operating income was $22.9 billion, representing a 41% operating margin.",
+              "previous_excerpt": "Fourth quarter operating income was $24.7 billion, representing a 41% operating margin."
+            },
+            "capital_supply": {
+              "state": "continued",
+              "current_excerpt": "Capital expenditures, including principal payments on finance leases, were $19.8 billion, driven by investments in servers, data centers, and network infrastructure.",
+              "previous_excerpt": "Capital expenditures, including principal payments on finance leases, were $22.1 billion, driven by investments in data centers, servers, and network infrastructure."
+            },
+            "guidance": {
+              "state": "continued",
+              "current_excerpt": "…quarter of 2025, which reflects updated guidance from the US Treasury issued in February 2026 regarding the tax treatment of previously capitalized…",
+              "previous_excerpt": "…for the quarter was 10%, slightly lower than our outlook of 12 -15% due to the settlement of matters with tax authorities."
+            },
+            "confidence": {
+              "state": "newly_detected",
+              "current_excerpt": "But every sign that we’re seeing in our own work and across the industry gives us confidence in this investment.",
+              "previous_excerpt": null
+            },
+            "risks": {
+              "state": "continued",
+              "current_excerpt": "…active legal and regulatory matters, including headwinds in the EU and the US that could significantly impact our business and financial results.",
+              "previous_excerpt": "…continue to monitor legal and regulatory headwinds in the EU and the US that could significantly impact our business and financial results."
+            },
+            "analyst_questions": {
+              "state": "continued",
+              "current_excerpt": "…Meta AI, Muse advances, core algorithm, what are you sort of watching foremost just to make sure that you’re on the right…",
+              "previous_excerpt": "Can you walk us through a little bit of how you think about the largest revenue or ROIC long-term opportunities you’re trying…"
+            }
+          }
+        },
+        {
+          "current_period": "2025 Q4",
+          "previous_period": "2025 Q3",
+          "topics": {
+            "demand_growth": {
+              "state": "continued",
+              "current_excerpt": "…year - over-year driven by strong adoption of our Website to Message ads, which direct people to a businesses’ website for more…",
+              "previous_excerpt": "The average price per ad increased 10% year-over-year, benefiting from increased advertiser demand, largely driven by improved ad performance."
+            },
+            "margin_cost": {
+              "state": "continued",
+              "current_excerpt": "Fourth quarter operating income was $24.7 billion, representing a 41% operating margin.",
+              "previous_excerpt": "Third quarter operating income was $20.5 billion, representing a 40% operating margin."
+            },
+            "capital_supply": {
+              "state": "continued",
+              "current_excerpt": "Capital expenditures, including principal payments on finance leases, were $22.1 billion, driven by investments in data centers, servers, and network infrastructure.",
+              "previous_excerpt": "Capital expenditures, including principal payments on finance leases, were $19.4 billion, driven by investments in servers, data centers and network infrastructure."
+            },
+            "guidance": {
+              "state": "continued",
+              "current_excerpt": "…for the quarter was 10%, slightly lower than our outlook of 12 -15% due to the settlement of matters with tax authorities.",
+              "previous_excerpt": "Our guidance assumes foreign currency is an approximately 1% tailwind to year - over-year total revenue growth, based on current exchange rates."
+            },
+            "confidence": {
+              "state": "insufficient",
+              "current_excerpt": null,
+              "previous_excerpt": null
+            },
+            "risks": {
+              "state": "continued",
+              "current_excerpt": "…continue to monitor legal and regulatory headwinds in the EU and the US that could significantly impact our business and financial results.",
+              "previous_excerpt": "…and regulatory matters, including the increasing headwinds in the EU and the US that could significantly impact our business and financial results."
+            },
+            "analyst_questions": {
+              "state": "continued",
+              "current_excerpt": "Can you walk us through a little bit of how you think about the largest revenue or ROIC long-term opportunities you’re trying…",
+              "previous_excerpt": "Can you just talk about your thought process in kind of triangulating the CapEx dollar growth and the significantly faster expense growth…"
+            }
+          }
+        }
+      ],
       "discovery": {
         "status": "unverified",
         "reason": "HTTPError",
@@ -573,6 +2203,14 @@
         "status": "reachable",
         "http_status": 200
       },
+      "history": [],
+      "history_coverage": {
+        "available": 0,
+        "expected": 0,
+        "status": "not_applicable",
+        "meaning": "官方目前只有影音／回放，未用第三方逐字稿補足四季文字。"
+      },
+      "quarter_comparisons": [],
       "discovery": {
         "status": "checked",
         "newer_candidates": []
@@ -650,7 +2288,7 @@
         "total": 7
       },
       "q_and_a_available": true,
-      "source_sha256": "93c1dfd9813c8c100f61d0db1a96b18e67f57250f4332c12584133796a386cdc",
+      "source_sha256": "96c66d2d6926bd3cbbc956fa62a9b459e9364b9c4d686da3a9381bc8ff47b957",
       "exhibit_comparison": {
         "status": "unavailable",
         "overlap_topics": [],
@@ -658,8 +2296,391 @@
         "meaning": "沒有同公司可比的嚴格 Exhibit 99.1 卡，因此不推測兩份資料差異。"
       },
       "errors": [],
-      "last_verified_at": "2026-08-29T13:19:00+00:00",
+      "last_verified_at": "2026-08-30T00:29:03+00:00",
       "card": "20_Filings/MSFT/analysis/MSFT_FY2026_Q4_Earnings_Call.md",
+      "history": [
+        {
+          "period": "FY2026 Q4",
+          "call_date": "2026-07-29",
+          "landing_url": "https://www.microsoft.com/en-us/investor/events",
+          "material_url": "https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q4",
+          "allowed_hosts": [
+            "www.microsoft.com"
+          ],
+          "source_type": "full_transcript",
+          "source_label": "完整官方逐字稿",
+          "status": "analyzed",
+          "categories": {
+            "demand_growth": [
+              {
+                "excerpt": "Commercial bookings grew 18% when excluding the impact from OpenAI driven by strong execution in our core annuity sales motions and reflecting…",
+                "section": "prepared"
+              }
+            ],
+            "margin_cost": [
+              {
+                "excerpt": "Segment gross margin dollars increased 14% and 13% in constant currency. And gross margin percentage decreased slightly with increased M365 Copilot usage…",
+                "section": "prepared"
+              }
+            ],
+            "capital_supply": [
+              {
+                "excerpt": "Capital expenditures were $41 billion including the impact from higher component pricing as noted in our guide. Roughly two thirds of our…",
+                "section": "prepared"
+              }
+            ],
+            "guidance": [
+              {
+                "excerpt": "…by the end of this month, we expect to have our Cobalt 200 racks in over 25 datacenters around the world as…",
+                "section": "prepared"
+              }
+            ],
+            "confidence": [
+              {
+                "excerpt": "And we have been encouraged by the response to our new E7 suite, as customers increasingly go “all in” on an integrated…",
+                "section": "prepared"
+              }
+            ],
+            "risks": [],
+            "analyst_questions": [
+              {
+                "excerpt": "…compare to a year ago, and what are some of the levers that you can still pull, perhaps from the internal silicon…",
+                "section": "q_and_a"
+              }
+            ]
+          },
+          "coverage": {
+            "found": 6,
+            "total": 7
+          },
+          "q_and_a_available": true,
+          "source_sha256": "96c66d2d6926bd3cbbc956fa62a9b459e9364b9c4d686da3a9381bc8ff47b957",
+          "provenance": {
+            "status": "official_host",
+            "landing_host": "www.microsoft.com",
+            "material_host": "www.microsoft.com"
+          },
+          "card": "20_Filings/MSFT/analysis/MSFT_FY2026_Q4_Earnings_Call.md",
+          "last_verified_at": "2026-08-30T00:29:03+00:00",
+          "errors": []
+        },
+        {
+          "period": "FY2026 Q3",
+          "call_date": "2026-04-29",
+          "landing_url": "https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q3",
+          "material_url": "https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q3",
+          "allowed_hosts": [
+            "www.microsoft.com"
+          ],
+          "source_type": "full_transcript",
+          "source_label": "完整官方逐字稿",
+          "status": "analyzed",
+          "categories": {
+            "demand_growth": [
+              {
+                "excerpt": "…gains and growth across all workloads. Bookings growth was impacted by weaker renewals as customers balance spend between the traditional per seat…",
+                "section": "prepared"
+              }
+            ],
+            "margin_cost": [
+              {
+                "excerpt": "Segment gross margin dollars increased 18% and 13% in constant currency. And gross margin percentage increased slightly, again driven by efficiency gains…",
+                "section": "prepared"
+              }
+            ],
+            "capital_supply": [
+              {
+                "excerpt": "Capital expenditures were $31.9 billion, down sequentially due to the normal variability from cloud infrastructure buildouts and the timing of delivery of…",
+                "section": "prepared"
+              }
+            ],
+            "guidance": [
+              {
+                "excerpt": "Based on current rates, we expect FX to increase revenue growth by roughly 1 point in Productivity and Business Processes and More…",
+                "section": "prepared"
+              }
+            ],
+            "confidence": [
+              {
+                "excerpt": "…of higher component pricing. We remain confident in the return on these investments given higher demand signals and increasing product usage as…",
+                "section": "prepared"
+              }
+            ],
+            "risks": [
+              {
+                "excerpt": "…at least through 2026. Despite these constraints, and the continued need to balance incoming supply, we expect Azure growth to show modest…",
+                "section": "prepared"
+              }
+            ],
+            "analyst_questions": [
+              {
+                "excerpt": "…UBS: Great, thank you. Maybe, Amy, could you elaborate a little bit on the CapEx guidance you just provided? Obviously, it requires…",
+                "section": "q_and_a"
+              }
+            ]
+          },
+          "coverage": {
+            "found": 7,
+            "total": 7
+          },
+          "q_and_a_available": true,
+          "source_sha256": "093a45eb4b5ccf60da4007b02890f59c7e3677fbfb3d325f9b1eda8339498070",
+          "provenance": {
+            "status": "official_host",
+            "landing_host": "www.microsoft.com",
+            "material_host": "www.microsoft.com"
+          },
+          "card": "20_Filings/MSFT/analysis/MSFT_FY2026_Q3_Earnings_Call.md",
+          "last_verified_at": "2026-08-30T00:29:04+00:00",
+          "errors": []
+        },
+        {
+          "period": "FY2026 Q2",
+          "call_date": "2026-01-28",
+          "landing_url": "https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q2",
+          "material_url": "https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q2",
+          "allowed_hosts": [
+            "www.microsoft.com"
+          ],
+          "source_type": "full_transcript",
+          "source_label": "完整官方逐字稿",
+          "status": "analyzed",
+          "categories": {
+            "demand_growth": [
+              {
+                "excerpt": "Commercial bookings increased 230% and 228% in constant currency driven by the previously announced large Azure commitment from OpenAI that reflects multi-year…",
+                "section": "prepared"
+              }
+            ],
+            "margin_cost": [
+              {
+                "excerpt": "Segment gross margin dollars increased 17% and 15% in constant currency. And gross margin percentage increased, again driven by efficiency gains in…",
+                "section": "prepared"
+              }
+            ],
+            "capital_supply": [
+              {
+                "excerpt": "Capital expenditures were $37.5 billion, and this quarter, roughly two thirds of our capex was on short-lived assets, primarily GPUs and CPUs.…",
+                "section": "prepared"
+              }
+            ],
+            "guidance": [
+              {
+                "excerpt": "Based on current rates, we expect FX to increase total revenue growth by 3 points. Within the segments, we expect FX to…",
+                "section": "prepared"
+              }
+            ],
+            "confidence": [],
+            "risks": [],
+            "analyst_questions": [
+              {
+                "excerpt": "I was hoping you guys could help us fill in some of the blanks a little bit in terms of how should…",
+                "section": "q_and_a"
+              }
+            ]
+          },
+          "coverage": {
+            "found": 5,
+            "total": 7
+          },
+          "q_and_a_available": true,
+          "source_sha256": "07b974a528e466aa389fa02d0fc06672e6dc717eddb7fdff64d324e441ed9105",
+          "provenance": {
+            "status": "official_host",
+            "landing_host": "www.microsoft.com",
+            "material_host": "www.microsoft.com"
+          },
+          "card": "20_Filings/MSFT/analysis/MSFT_FY2026_Q2_Earnings_Call.md",
+          "last_verified_at": "2026-08-30T00:29:05+00:00",
+          "errors": []
+        },
+        {
+          "period": "FY2026 Q1",
+          "call_date": "2025-10-29",
+          "landing_url": "https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q1",
+          "material_url": "https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q1",
+          "allowed_hosts": [
+            "www.microsoft.com"
+          ],
+          "source_type": "full_transcript",
+          "source_label": "完整官方逐字稿",
+          "status": "analyzed",
+          "categories": {
+            "demand_growth": [
+              {
+                "excerpt": "Commercial bookings increased 112% and 111% in constant currency and were significantly ahead of expectations, driven by Azure commitments from OpenAI as…",
+                "section": "prepared"
+              }
+            ],
+            "margin_cost": [
+              {
+                "excerpt": "Segment gross margin dollars increased 20% and 19% in constant currency. And gross margin percentage decreased year-over-year driven by investments in AI…",
+                "section": "prepared"
+              }
+            ],
+            "capital_supply": [
+              {
+                "excerpt": "Capital expenditures were $34.9 billion driven by growing demand for our cloud and AI offerings. This quarter, roughly half of our spend…",
+                "section": "prepared"
+              }
+            ],
+            "guidance": [
+              {
+                "excerpt": "…Therefore, going forward, we will provide our outlook excluding any impact from our investments in OpenAI. On that basis, in Q2, other…",
+                "section": "prepared"
+              }
+            ],
+            "confidence": [],
+            "risks": [],
+            "analyst_questions": []
+          },
+          "coverage": {
+            "found": 4,
+            "total": 7
+          },
+          "q_and_a_available": true,
+          "source_sha256": "7ba5d59ee1ea875545cb615fe0b3b22ee7a33e30785e86c0ee633da74fb5e5dd",
+          "provenance": {
+            "status": "official_host",
+            "landing_host": "www.microsoft.com",
+            "material_host": "www.microsoft.com"
+          },
+          "card": "20_Filings/MSFT/analysis/MSFT_FY2026_Q1_Earnings_Call.md",
+          "last_verified_at": "2026-08-30T00:29:06+00:00",
+          "errors": []
+        }
+      ],
+      "history_coverage": {
+        "available": 4,
+        "expected": 4,
+        "status": "complete",
+        "meaning": "只比較公司官方文字；缺季保留缺值，不以第三方逐字稿或影音轉錄補齊。"
+      },
+      "quarter_comparisons": [
+        {
+          "current_period": "FY2026 Q4",
+          "previous_period": "FY2026 Q3",
+          "topics": {
+            "demand_growth": {
+              "state": "continued",
+              "current_excerpt": "Commercial bookings grew 18% when excluding the impact from OpenAI driven by strong execution in our core annuity sales motions and reflecting…",
+              "previous_excerpt": "…gains and growth across all workloads. Bookings growth was impacted by weaker renewals as customers balance spend between the traditional per seat…"
+            },
+            "margin_cost": {
+              "state": "continued",
+              "current_excerpt": "Segment gross margin dollars increased 14% and 13% in constant currency. And gross margin percentage decreased slightly with increased M365 Copilot usage…",
+              "previous_excerpt": "Segment gross margin dollars increased 18% and 13% in constant currency. And gross margin percentage increased slightly, again driven by efficiency gains…"
+            },
+            "capital_supply": {
+              "state": "continued",
+              "current_excerpt": "Capital expenditures were $41 billion including the impact from higher component pricing as noted in our guide. Roughly two thirds of our…",
+              "previous_excerpt": "Capital expenditures were $31.9 billion, down sequentially due to the normal variability from cloud infrastructure buildouts and the timing of delivery of…"
+            },
+            "guidance": {
+              "state": "continued",
+              "current_excerpt": "…by the end of this month, we expect to have our Cobalt 200 racks in over 25 datacenters around the world as…",
+              "previous_excerpt": "Based on current rates, we expect FX to increase revenue growth by roughly 1 point in Productivity and Business Processes and More…"
+            },
+            "confidence": {
+              "state": "continued",
+              "current_excerpt": "And we have been encouraged by the response to our new E7 suite, as customers increasingly go “all in” on an integrated…",
+              "previous_excerpt": "…of higher component pricing. We remain confident in the return on these investments given higher demand signals and increasing product usage as…"
+            },
+            "risks": {
+              "state": "not_detected",
+              "current_excerpt": null,
+              "previous_excerpt": "…at least through 2026. Despite these constraints, and the continued need to balance incoming supply, we expect Azure growth to show modest…"
+            },
+            "analyst_questions": {
+              "state": "continued",
+              "current_excerpt": "…compare to a year ago, and what are some of the levers that you can still pull, perhaps from the internal silicon…",
+              "previous_excerpt": "…UBS: Great, thank you. Maybe, Amy, could you elaborate a little bit on the CapEx guidance you just provided? Obviously, it requires…"
+            }
+          }
+        },
+        {
+          "current_period": "FY2026 Q3",
+          "previous_period": "FY2026 Q2",
+          "topics": {
+            "demand_growth": {
+              "state": "continued",
+              "current_excerpt": "…gains and growth across all workloads. Bookings growth was impacted by weaker renewals as customers balance spend between the traditional per seat…",
+              "previous_excerpt": "Commercial bookings increased 230% and 228% in constant currency driven by the previously announced large Azure commitment from OpenAI that reflects multi-year…"
+            },
+            "margin_cost": {
+              "state": "continued",
+              "current_excerpt": "Segment gross margin dollars increased 18% and 13% in constant currency. And gross margin percentage increased slightly, again driven by efficiency gains…",
+              "previous_excerpt": "Segment gross margin dollars increased 17% and 15% in constant currency. And gross margin percentage increased, again driven by efficiency gains in…"
+            },
+            "capital_supply": {
+              "state": "continued",
+              "current_excerpt": "Capital expenditures were $31.9 billion, down sequentially due to the normal variability from cloud infrastructure buildouts and the timing of delivery of…",
+              "previous_excerpt": "Capital expenditures were $37.5 billion, and this quarter, roughly two thirds of our capex was on short-lived assets, primarily GPUs and CPUs.…"
+            },
+            "guidance": {
+              "state": "continued",
+              "current_excerpt": "Based on current rates, we expect FX to increase revenue growth by roughly 1 point in Productivity and Business Processes and More…",
+              "previous_excerpt": "Based on current rates, we expect FX to increase total revenue growth by 3 points. Within the segments, we expect FX to…"
+            },
+            "confidence": {
+              "state": "newly_detected",
+              "current_excerpt": "…of higher component pricing. We remain confident in the return on these investments given higher demand signals and increasing product usage as…",
+              "previous_excerpt": null
+            },
+            "risks": {
+              "state": "newly_detected",
+              "current_excerpt": "…at least through 2026. Despite these constraints, and the continued need to balance incoming supply, we expect Azure growth to show modest…",
+              "previous_excerpt": null
+            },
+            "analyst_questions": {
+              "state": "continued",
+              "current_excerpt": "…UBS: Great, thank you. Maybe, Amy, could you elaborate a little bit on the CapEx guidance you just provided? Obviously, it requires…",
+              "previous_excerpt": "I was hoping you guys could help us fill in some of the blanks a little bit in terms of how should…"
+            }
+          }
+        },
+        {
+          "current_period": "FY2026 Q2",
+          "previous_period": "FY2026 Q1",
+          "topics": {
+            "demand_growth": {
+              "state": "continued",
+              "current_excerpt": "Commercial bookings increased 230% and 228% in constant currency driven by the previously announced large Azure commitment from OpenAI that reflects multi-year…",
+              "previous_excerpt": "Commercial bookings increased 112% and 111% in constant currency and were significantly ahead of expectations, driven by Azure commitments from OpenAI as…"
+            },
+            "margin_cost": {
+              "state": "continued",
+              "current_excerpt": "Segment gross margin dollars increased 17% and 15% in constant currency. And gross margin percentage increased, again driven by efficiency gains in…",
+              "previous_excerpt": "Segment gross margin dollars increased 20% and 19% in constant currency. And gross margin percentage decreased year-over-year driven by investments in AI…"
+            },
+            "capital_supply": {
+              "state": "continued",
+              "current_excerpt": "Capital expenditures were $37.5 billion, and this quarter, roughly two thirds of our capex was on short-lived assets, primarily GPUs and CPUs.…",
+              "previous_excerpt": "Capital expenditures were $34.9 billion driven by growing demand for our cloud and AI offerings. This quarter, roughly half of our spend…"
+            },
+            "guidance": {
+              "state": "continued",
+              "current_excerpt": "Based on current rates, we expect FX to increase total revenue growth by 3 points. Within the segments, we expect FX to…",
+              "previous_excerpt": "…Therefore, going forward, we will provide our outlook excluding any impact from our investments in OpenAI. On that basis, in Q2, other…"
+            },
+            "confidence": {
+              "state": "insufficient",
+              "current_excerpt": null,
+              "previous_excerpt": null
+            },
+            "risks": {
+              "state": "insufficient",
+              "current_excerpt": null,
+              "previous_excerpt": null
+            },
+            "analyst_questions": {
+              "state": "newly_detected",
+              "current_excerpt": "I was hoping you guys could help us fill in some of the blanks a little bit in terms of how should…",
+              "previous_excerpt": null
+            }
+          }
+        }
+      ],
       "discovery": {
         "status": "checked",
         "newer_candidates": []
@@ -704,6 +2725,14 @@
         "http_status": 403,
         "reason": "HTTP 403"
       },
+      "history": [],
+      "history_coverage": {
+        "available": 0,
+        "expected": 0,
+        "status": "not_applicable",
+        "meaning": "官方目前只有影音／回放，未用第三方逐字稿補足四季文字。"
+      },
+      "quarter_comparisons": [],
       "discovery": {
         "status": "unverified",
         "reason": "HTTPError",
@@ -725,7 +2754,8 @@
       "landing_url": "https://investor.nvidia.com/events-and-presentations/events-and-presentations/default.aspx",
       "material_url": "https://investor.nvidia.com/files/content_files/TRANSCRIPT_-NVIDIA-Corp-NVDA-US-Q2-2027-Earnings-Call-26-August-2026-5_00-PM-ET.pdf",
       "allowed_hosts": [
-        "investor.nvidia.com"
+        "investor.nvidia.com",
+        "s201.q4cdn.com"
       ],
       "source_type": "full_transcript",
       "source_label": "完整官方逐字稿",
@@ -777,7 +2807,7 @@
         "total": 7
       },
       "q_and_a_available": true,
-      "source_sha256": "a8be2bac4fd08ca18fc4bccbb165cd48237166ac5b4e211e779fc9f89ee35e16",
+      "source_sha256": "98213a1a32a1f101284eb50265ee059fe02565c76148f39951d146f14a44d5fd",
       "exhibit_comparison": {
         "status": "unavailable",
         "overlap_topics": [],
@@ -785,8 +2815,401 @@
         "meaning": "沒有同公司可比的嚴格 Exhibit 99.1 卡，因此不推測兩份資料差異。"
       },
       "errors": [],
-      "last_verified_at": "2026-08-29T11:06:32+00:00",
+      "last_verified_at": "2026-08-30T00:29:09+00:00",
       "card": "20_Filings/NVDA/analysis/NVDA_FY2027_Q2_Earnings_Call.md",
+      "history": [
+        {
+          "period": "FY2027 Q2",
+          "call_date": "2026-08-26",
+          "landing_url": "https://investor.nvidia.com/events-and-presentations/events-and-presentations/default.aspx",
+          "material_url": "https://investor.nvidia.com/files/content_files/TRANSCRIPT_-NVIDIA-Corp-NVDA-US-Q2-2027-Earnings-Call-26-August-2026-5_00-PM-ET.pdf",
+          "allowed_hosts": [
+            "investor.nvidia.com",
+            "s201.q4cdn.com"
+          ],
+          "source_type": "full_transcript",
+          "source_label": "完整官方逐字稿",
+          "status": "analyzed",
+          "categories": {
+            "demand_growth": [
+              {
+                "excerpt": "Rising adoption of agentic AI is driving an acceleration in demand for data center CPUs.",
+                "section": "prepared"
+              }
+            ],
+            "margin_cost": [
+              {
+                "excerpt": "Many of you have expressed concerns regarding our gross margins as component costs have risen significantly.",
+                "section": "prepared"
+              }
+            ],
+            "capital_supply": [
+              {
+                "excerpt": "…backlog now greater than $2 trillion, CapEx by the top-five hyperscalers is expected to reach nearly $800 billion in 2026 and $1.3…",
+                "section": "prepared"
+              }
+            ],
+            "guidance": [
+              {
+                "excerpt": "…on our customer demand and improving supply outlook, our preliminary expectation is for CPU revenue to more than double in fiscal 2028,…",
+                "section": "prepared"
+              }
+            ],
+            "confidence": [],
+            "risks": [],
+            "analyst_questions": [
+              {
+                "excerpt": "…growth and the 100% demand growth, what is the kind of key constraint that separates those numbers, and could you close those…",
+                "section": "q_and_a"
+              }
+            ]
+          },
+          "coverage": {
+            "found": 5,
+            "total": 7
+          },
+          "q_and_a_available": true,
+          "source_sha256": "98213a1a32a1f101284eb50265ee059fe02565c76148f39951d146f14a44d5fd",
+          "provenance": {
+            "status": "official_host",
+            "landing_host": "investor.nvidia.com",
+            "material_host": "investor.nvidia.com"
+          },
+          "card": "20_Filings/NVDA/analysis/NVDA_FY2027_Q2_Earnings_Call.md",
+          "last_verified_at": "2026-08-30T00:29:09+00:00",
+          "errors": []
+        },
+        {
+          "period": "FY2027 Q1",
+          "call_date": "2026-05-20",
+          "landing_url": "https://investor.nvidia.com/financial-info/quarterly-results/default.aspx",
+          "material_url": "https://s201.q4cdn.com/141608511/files/doc_financials/2027/q1/NVDA-Q1-2027-Earnings-Call-20-May-2026-5_00-PM-ET.pdf",
+          "allowed_hosts": [
+            "investor.nvidia.com",
+            "s201.q4cdn.com"
+          ],
+          "source_type": "full_transcript",
+          "source_label": "完整官方逐字稿",
+          "status": "analyzed",
+          "categories": {
+            "demand_growth": [
+              {
+                "excerpt": "Robust Blackwell workstation demand was a strong contributor to the growth, while consumer demand fell modestly due to higher memory and system…",
+                "section": "prepared"
+              }
+            ],
+            "margin_cost": [
+              {
+                "excerpt": "GAAP gross margin was 74.9% and non-GAAP gross margin was 75%, largely flat sequentially by Blackwell systems continued to account for most…",
+                "section": "prepared"
+              }
+            ],
+            "capital_supply": [
+              {
+                "excerpt": "With analysts now forecasting hyperscale CapEx to exceed $1 trillion in 2027 and agentic AI beginning to proliferate all industries, AI infrastructure…",
+                "section": "prepared"
+              }
+            ],
+            "guidance": [
+              {
+                "excerpt": "As a result, consistent with last quarter, we are not including any China Data Center compute revenue in our outlook.",
+                "section": "prepared"
+              }
+            ],
+            "confidence": [
+              {
+                "excerpt": "We have visibility to nearly $20 billion in total CPU revenue this year, setting us up to become the world-leading CPU supplier.",
+                "section": "prepared"
+              }
+            ],
+            "risks": [],
+            "analyst_questions": []
+          },
+          "coverage": {
+            "found": 5,
+            "total": 7
+          },
+          "q_and_a_available": true,
+          "source_sha256": "8c03ef8b8a39236c9952738f5fda71cb1bb0a46f54ec6b6ec7cf5581bc0a663d",
+          "provenance": {
+            "status": "manual_official_page_attestation",
+            "verified_on": "2026-08-30",
+            "landing_host": "investor.nvidia.com",
+            "material_host": "s201.q4cdn.com",
+            "note": "NVIDIA 官方 Quarterly Results 頁發布並連結 FY2027 Q1 q4cdn 逐字稿。"
+          },
+          "card": "20_Filings/NVDA/analysis/NVDA_FY2027_Q1_Earnings_Call.md",
+          "last_verified_at": "2026-08-30T00:29:10+00:00",
+          "errors": []
+        },
+        {
+          "period": "FY2026 Q4",
+          "call_date": "2026-02-25",
+          "landing_url": "https://investor.nvidia.com/financial-info/quarterly-results/default.aspx",
+          "material_url": "https://s201.q4cdn.com/141608511/files/doc_financials/2026/q4/NVDA-Q4-2026-Earnings-Call-25-February-2026-5_00-PM-ET.pdf",
+          "allowed_hosts": [
+            "investor.nvidia.com",
+            "s201.q4cdn.com"
+          ],
+          "source_type": "full_transcript",
+          "source_label": "完整官方逐字稿",
+          "status": "analyzed",
+          "categories": {
+            "demand_growth": [
+              {
+                "excerpt": "Demand for our scale up and scale out technologies reached record levels, both growing double digit sequentially, driven by strong adoption of…",
+                "section": "prepared"
+              }
+            ],
+            "margin_cost": [
+              {
+                "excerpt": "GAAP gross margin was 75%, and non-GAAP gross margin was 75.2%, increasing sequentially as Blackwell continued to ramp.",
+                "section": "prepared"
+              }
+            ],
+            "capital_supply": [
+              {
+                "excerpt": "Analysts expectations for 2026 CapEx across the top five cloud providers and hyperscalers who collectively account for little over 50% of our…",
+                "section": "prepared"
+              }
+            ],
+            "guidance": [
+              {
+                "excerpt": "…for the fourth quarter was 15.4%, below our outlook for the quarter, primarily due to the impact of a one-time tax benefit.",
+                "section": "prepared"
+              }
+            ],
+            "confidence": [
+              {
+                "excerpt": "This is further out in time than usual and reflects the longer demand visibility we have.",
+                "section": "prepared"
+              }
+            ],
+            "risks": [
+              {
+                "excerpt": "…remains strong and channel inventory levels are healthy, we expect supply constraints to be the headwind to gaming in Q1 and beyond.",
+                "section": "prepared"
+              }
+            ],
+            "analyst_questions": []
+          },
+          "coverage": {
+            "found": 6,
+            "total": 7
+          },
+          "q_and_a_available": true,
+          "source_sha256": "9ce9574de54a9884f9e7110f3ef20e11ab327b777a622034ea9f64de1c0db5cd",
+          "provenance": {
+            "status": "manual_official_page_attestation",
+            "verified_on": "2026-08-30",
+            "landing_host": "investor.nvidia.com",
+            "material_host": "s201.q4cdn.com",
+            "note": "NVIDIA 官方 Quarterly Results 頁發布並連結 FY2026 Q4 q4cdn 逐字稿。"
+          },
+          "card": "20_Filings/NVDA/analysis/NVDA_FY2026_Q4_Earnings_Call.md",
+          "last_verified_at": "2026-08-30T00:29:12+00:00",
+          "errors": []
+        },
+        {
+          "period": "FY2026 Q3",
+          "call_date": "2025-11-19",
+          "landing_url": "https://investor.nvidia.com/financial-info/quarterly-results/default.aspx",
+          "material_url": "https://s201.q4cdn.com/141608511/files/doc_financials/2026/q3/NVDA-Q3-2026-Earnings-Call-19-November-2025-5_00-PM-ET.pdf",
+          "allowed_hosts": [
+            "investor.nvidia.com",
+            "s201.q4cdn.com"
+          ],
+          "source_type": "full_transcript",
+          "source_label": "完整官方逐字稿",
+          "status": "analyzed",
+          "categories": {
+            "demand_growth": [
+              {
+                "excerpt": "This demand spans every market, CSPs, sovereigns, modern builders, enterprises and supercomputing centers, and includes multiple landmark build-outs, xAI's Colossus 2, the…",
+                "section": "prepared"
+              }
+            ],
+            "margin_cost": [
+              {
+                "excerpt": "…ahead to fiscal year 2027, input costs are on the rise, but we are working to hold gross margins in the mid-70s.",
+                "section": "prepared"
+              }
+            ],
+            "capital_supply": [
+              {
+                "excerpt": "…CSPs and hyperscalers in 2026 aggregate CapEx have continued to increase and now sit roughly at $600 billion, more than $200 billion…",
+                "section": "prepared"
+              }
+            ],
+            "guidance": [
+              {
+                "excerpt": "GAAP gross margins were 73.4%, and non-GAAP gross margins was 73.6%, exceeding our outlook.",
+                "section": "prepared"
+              }
+            ],
+            "confidence": [
+              {
+                "excerpt": "We currently have visibility to a $0.5 trillion in Blackwell and Rubin revenue from the start of this year through the end…",
+                "section": "prepared"
+              }
+            ],
+            "risks": [],
+            "analyst_questions": [
+              {
+                "excerpt": "And then also, how should we think about OpEx growth next year, given the revenues seem likely to grow materially from where…",
+                "section": "q_and_a"
+              }
+            ]
+          },
+          "coverage": {
+            "found": 6,
+            "total": 7
+          },
+          "q_and_a_available": true,
+          "source_sha256": "0f02cadf75a9cce736eecfab6ebdd6d234a0f730706a88bd53396873d248a18b",
+          "provenance": {
+            "status": "manual_official_page_attestation",
+            "verified_on": "2026-08-30",
+            "landing_host": "investor.nvidia.com",
+            "material_host": "s201.q4cdn.com",
+            "note": "NVIDIA 官方 Quarterly Results 頁發布並連結 FY2026 Q3 q4cdn 逐字稿。"
+          },
+          "card": "20_Filings/NVDA/analysis/NVDA_FY2026_Q3_Earnings_Call.md",
+          "last_verified_at": "2026-08-30T00:29:14+00:00",
+          "errors": []
+        }
+      ],
+      "history_coverage": {
+        "available": 4,
+        "expected": 4,
+        "status": "complete",
+        "meaning": "只比較公司官方文字；缺季保留缺值，不以第三方逐字稿或影音轉錄補齊。"
+      },
+      "quarter_comparisons": [
+        {
+          "current_period": "FY2027 Q2",
+          "previous_period": "FY2027 Q1",
+          "topics": {
+            "demand_growth": {
+              "state": "continued",
+              "current_excerpt": "Rising adoption of agentic AI is driving an acceleration in demand for data center CPUs.",
+              "previous_excerpt": "Robust Blackwell workstation demand was a strong contributor to the growth, while consumer demand fell modestly due to higher memory and system…"
+            },
+            "margin_cost": {
+              "state": "continued",
+              "current_excerpt": "Many of you have expressed concerns regarding our gross margins as component costs have risen significantly.",
+              "previous_excerpt": "GAAP gross margin was 74.9% and non-GAAP gross margin was 75%, largely flat sequentially by Blackwell systems continued to account for most…"
+            },
+            "capital_supply": {
+              "state": "continued",
+              "current_excerpt": "…backlog now greater than $2 trillion, CapEx by the top-five hyperscalers is expected to reach nearly $800 billion in 2026 and $1.3…",
+              "previous_excerpt": "With analysts now forecasting hyperscale CapEx to exceed $1 trillion in 2027 and agentic AI beginning to proliferate all industries, AI infrastructure…"
+            },
+            "guidance": {
+              "state": "continued",
+              "current_excerpt": "…on our customer demand and improving supply outlook, our preliminary expectation is for CPU revenue to more than double in fiscal 2028,…",
+              "previous_excerpt": "As a result, consistent with last quarter, we are not including any China Data Center compute revenue in our outlook."
+            },
+            "confidence": {
+              "state": "not_detected",
+              "current_excerpt": null,
+              "previous_excerpt": "We have visibility to nearly $20 billion in total CPU revenue this year, setting us up to become the world-leading CPU supplier."
+            },
+            "risks": {
+              "state": "insufficient",
+              "current_excerpt": null,
+              "previous_excerpt": null
+            },
+            "analyst_questions": {
+              "state": "newly_detected",
+              "current_excerpt": "…growth and the 100% demand growth, what is the kind of key constraint that separates those numbers, and could you close those…",
+              "previous_excerpt": null
+            }
+          }
+        },
+        {
+          "current_period": "FY2027 Q1",
+          "previous_period": "FY2026 Q4",
+          "topics": {
+            "demand_growth": {
+              "state": "continued",
+              "current_excerpt": "Robust Blackwell workstation demand was a strong contributor to the growth, while consumer demand fell modestly due to higher memory and system…",
+              "previous_excerpt": "Demand for our scale up and scale out technologies reached record levels, both growing double digit sequentially, driven by strong adoption of…"
+            },
+            "margin_cost": {
+              "state": "continued",
+              "current_excerpt": "GAAP gross margin was 74.9% and non-GAAP gross margin was 75%, largely flat sequentially by Blackwell systems continued to account for most…",
+              "previous_excerpt": "GAAP gross margin was 75%, and non-GAAP gross margin was 75.2%, increasing sequentially as Blackwell continued to ramp."
+            },
+            "capital_supply": {
+              "state": "continued",
+              "current_excerpt": "With analysts now forecasting hyperscale CapEx to exceed $1 trillion in 2027 and agentic AI beginning to proliferate all industries, AI infrastructure…",
+              "previous_excerpt": "Analysts expectations for 2026 CapEx across the top five cloud providers and hyperscalers who collectively account for little over 50% of our…"
+            },
+            "guidance": {
+              "state": "continued",
+              "current_excerpt": "As a result, consistent with last quarter, we are not including any China Data Center compute revenue in our outlook.",
+              "previous_excerpt": "…for the fourth quarter was 15.4%, below our outlook for the quarter, primarily due to the impact of a one-time tax benefit."
+            },
+            "confidence": {
+              "state": "continued",
+              "current_excerpt": "We have visibility to nearly $20 billion in total CPU revenue this year, setting us up to become the world-leading CPU supplier.",
+              "previous_excerpt": "This is further out in time than usual and reflects the longer demand visibility we have."
+            },
+            "risks": {
+              "state": "not_detected",
+              "current_excerpt": null,
+              "previous_excerpt": "…remains strong and channel inventory levels are healthy, we expect supply constraints to be the headwind to gaming in Q1 and beyond."
+            },
+            "analyst_questions": {
+              "state": "insufficient",
+              "current_excerpt": null,
+              "previous_excerpt": null
+            }
+          }
+        },
+        {
+          "current_period": "FY2026 Q4",
+          "previous_period": "FY2026 Q3",
+          "topics": {
+            "demand_growth": {
+              "state": "continued",
+              "current_excerpt": "Demand for our scale up and scale out technologies reached record levels, both growing double digit sequentially, driven by strong adoption of…",
+              "previous_excerpt": "This demand spans every market, CSPs, sovereigns, modern builders, enterprises and supercomputing centers, and includes multiple landmark build-outs, xAI's Colossus 2, the…"
+            },
+            "margin_cost": {
+              "state": "continued",
+              "current_excerpt": "GAAP gross margin was 75%, and non-GAAP gross margin was 75.2%, increasing sequentially as Blackwell continued to ramp.",
+              "previous_excerpt": "…ahead to fiscal year 2027, input costs are on the rise, but we are working to hold gross margins in the mid-70s."
+            },
+            "capital_supply": {
+              "state": "continued",
+              "current_excerpt": "Analysts expectations for 2026 CapEx across the top five cloud providers and hyperscalers who collectively account for little over 50% of our…",
+              "previous_excerpt": "…CSPs and hyperscalers in 2026 aggregate CapEx have continued to increase and now sit roughly at $600 billion, more than $200 billion…"
+            },
+            "guidance": {
+              "state": "continued",
+              "current_excerpt": "…for the fourth quarter was 15.4%, below our outlook for the quarter, primarily due to the impact of a one-time tax benefit.",
+              "previous_excerpt": "GAAP gross margins were 73.4%, and non-GAAP gross margins was 73.6%, exceeding our outlook."
+            },
+            "confidence": {
+              "state": "continued",
+              "current_excerpt": "This is further out in time than usual and reflects the longer demand visibility we have.",
+              "previous_excerpt": "We currently have visibility to a $0.5 trillion in Blackwell and Rubin revenue from the start of this year through the end…"
+            },
+            "risks": {
+              "state": "newly_detected",
+              "current_excerpt": "…remains strong and channel inventory levels are healthy, we expect supply constraints to be the headwind to gaming in Q1 and beyond.",
+              "previous_excerpt": null
+            },
+            "analyst_questions": {
+              "state": "not_detected",
+              "current_excerpt": null,
+              "previous_excerpt": "And then also, how should we think about OpEx growth next year, given the revenues seem likely to grow materially from where…"
+            }
+          }
+        }
+      ],
       "discovery": {
         "status": "unverified",
         "reason": "HTTPError",
@@ -831,6 +3254,14 @@
         "status": "reachable",
         "http_status": 200
       },
+      "history": [],
+      "history_coverage": {
+        "available": 0,
+        "expected": 0,
+        "status": "not_applicable",
+        "meaning": "官方目前只有影音／回放，未用第三方逐字稿補足四季文字。"
+      },
+      "quarter_comparisons": [],
       "discovery": {
         "status": "checked",
         "newer_candidates": []
@@ -874,6 +3305,14 @@
         "status": "reachable",
         "http_status": 200
       },
+      "history": [],
+      "history_coverage": {
+        "available": 0,
+        "expected": 0,
+        "status": "not_applicable",
+        "meaning": "官方目前只有影音／回放，未用第三方逐字稿補足四季文字。"
+      },
+      "quarter_comparisons": [],
       "discovery": {
         "status": "unverified",
         "reason": "HTTPError",
@@ -952,7 +3391,7 @@
         "total": 7
       },
       "q_and_a_available": true,
-      "source_sha256": "17947a4c33c3ef2153641706eef7051422ab8594251dfbb64646b92d9a4cc915",
+      "source_sha256": "77ed552a7e8ff4a70e55b76ca58712993ce75478f6185aba3dc72c4f5cdd447c",
       "exhibit_comparison": {
         "status": "unavailable",
         "overlap_topics": [],
@@ -960,8 +3399,411 @@
         "meaning": "沒有同公司可比的嚴格 Exhibit 99.1 卡，因此不推測兩份資料差異。"
       },
       "errors": [],
-      "last_verified_at": "2026-08-29T13:19:05+00:00",
+      "last_verified_at": "2026-08-30T00:29:08+00:00",
       "card": "20_Filings/TSM/analysis/TSM_2026_Q2_Earnings_Call.md",
+      "history": [
+        {
+          "period": "2026 Q2",
+          "call_date": "2026-07-16",
+          "landing_url": "https://investor.tsmc.com/english/quarterly-results/2026/q2",
+          "material_url": "https://investor.tsmc.com/english/encrypt/files/encrypt_file/reports/2026-08/3e494f0c14dd0890f897aa044415e21d93486cc4/TSMC%202Q26%20Transcript.pdf",
+          "allowed_hosts": [
+            "investor.tsmc.com"
+          ],
+          "source_type": "full_transcript",
+          "source_label": "完整官方逐字稿",
+          "status": "analyzed",
+          "categories": {
+            "demand_growth": [
+              {
+                "excerpt": "…fabs, one in Taiwan, one in Arizona, and one in Japan, to support the robust multi-year pipeline of demand for 3-nanometer technologies.",
+                "section": "prepared"
+              }
+            ],
+            "margin_cost": [
+              {
+                "excerpt": "…exchangerate assumption of USD1 to TWD32, gross margin is expected to be between 65% and 67%, operating margin between 56% and 58%.",
+                "section": "prepared"
+              }
+            ],
+            "capital_supply": [
+              {
+                "excerpt": "Based on our assessment, we are stepping up our CapEx investment to increase our capacity to support our customers' future growth.",
+                "section": "prepared"
+              }
+            ],
+            "guidance": [
+              {
+                "excerpt": "Based on the current business outlook, we expect our third-quarter revenue to be between USD44.6 billion and USD45.8 billion, which representsa 12%…",
+                "section": "prepared"
+              }
+            ],
+            "confidence": [
+              {
+                "excerpt": "Thus, our conviction in the multi-year AI megatrend remain very high.",
+                "section": "prepared"
+              }
+            ],
+            "risks": [],
+            "analyst_questions": [
+              {
+                "excerpt": "…that as it becomes more important, how should we think of maybe you should consider bringing it out as a separate CapEx…",
+                "section": "q_and_a"
+              }
+            ]
+          },
+          "coverage": {
+            "found": 6,
+            "total": 7
+          },
+          "q_and_a_available": true,
+          "source_sha256": "77ed552a7e8ff4a70e55b76ca58712993ce75478f6185aba3dc72c4f5cdd447c",
+          "provenance": {
+            "status": "official_host",
+            "landing_host": "investor.tsmc.com",
+            "material_host": "investor.tsmc.com"
+          },
+          "card": "20_Filings/TSM/analysis/TSM_2026_Q2_Earnings_Call.md",
+          "last_verified_at": "2026-08-30T00:29:08+00:00",
+          "errors": []
+        },
+        {
+          "period": "2026 Q1",
+          "call_date": "2026-04-16",
+          "landing_url": "https://investor.tsmc.com/english/quarterly-results/2026/q1",
+          "material_url": "https://investor.tsmc.com/english/encrypt/files/encrypt_file/reports/2026-04/3cef85204275f94fd111485cfdf4adb3c0263c45/TSMC%201Q26%20Transcript.pdf",
+          "allowed_hosts": [
+            "investor.tsmc.com"
+          ],
+          "source_type": "full_transcript",
+          "source_label": "完整官方逐字稿",
+          "status": "analyzed",
+          "categories": {
+            "demand_growth": [
+              {
+                "excerpt": "…plan to support the robust multiyear pipeline of demand for 3-nanometer technologies, which are used by smartphone, HPC/AI, including HBM base dies,…",
+                "section": "prepared"
+              }
+            ],
+            "margin_cost": [
+              {
+                "excerpt": "Gross margin increased 3.9 percentage points sequentially to 66.2%, primarily due to cost improvement efforts, a higher capacity utilization rate, and a…",
+                "section": "prepared"
+              }
+            ],
+            "capital_supply": [
+              {
+                "excerpt": "…our assessment, to meet the strong demand in AI applications, we are stepping up our CapEx investment to increase our N3 capacity.",
+                "section": "prepared"
+              }
+            ],
+            "guidance": [
+              {
+                "excerpt": "Based on the current business outlook, we expect our second quarter revenue to be between USD39.0 billion and USD40.2 billion, which represents…",
+                "section": "prepared"
+              }
+            ],
+            "confidence": [
+              {
+                "excerpt": "Thus, our conviction in the multi-year AI megatrend remain high, and we believe the demand for semiconductors will continue to be very…",
+                "section": "prepared"
+              }
+            ],
+            "risks": [
+              {
+                "excerpt": "TSMC operates a well-established enterprise risk management system to identify and assess all relevant risks and proactively implement risk mitigation strategies.",
+                "section": "prepared"
+              }
+            ],
+            "analyst_questions": [
+              {
+                "excerpt": "…years, given the very strong revenue ramp of leading edge, how should we think about the revenue growth compared with CapEx growth?",
+                "section": "q_and_a"
+              }
+            ]
+          },
+          "coverage": {
+            "found": 7,
+            "total": 7
+          },
+          "q_and_a_available": true,
+          "source_sha256": "aa7032f2b22f42dcce4800cab6ea318d74c1f9b9b3f48219d651caa3bc74c6bc",
+          "provenance": {
+            "status": "official_host",
+            "landing_host": "investor.tsmc.com",
+            "material_host": "investor.tsmc.com"
+          },
+          "card": "20_Filings/TSM/analysis/TSM_2026_Q1_Earnings_Call.md",
+          "last_verified_at": "2026-08-30T00:29:08+00:00",
+          "errors": []
+        },
+        {
+          "period": "2025 Q4",
+          "call_date": "2026-01-15",
+          "landing_url": "https://investor.tsmc.com/english/quarterly-results/2025/q4",
+          "material_url": "https://investor.tsmc.com/english/encrypt/files/encrypt_file/reports/2026-01/51d09df96cd89ac19d65af39032b038dc2896a24/TSMC%204Q25%20Transcript.pdf",
+          "allowed_hosts": [
+            "investor.tsmc.com"
+          ],
+          "source_type": "full_transcript",
+          "source_label": "完整官方逐字稿",
+          "status": "analyzed",
+          "categories": {
+            "demand_growth": [
+              {
+                "excerpt": "Underpinned by strong demand for our leading-edge, specialty, and advanced packaging technologies, we are confident we can continue to outperform the industry…",
+                "section": "prepared"
+              }
+            ],
+            "margin_cost": [
+              {
+                "excerpt": "Gross margin increased 3.8 percentage points to 59.9%, mainly reflecting a higher capacity utilization rate and cost improvement efforts, partially offset by…",
+                "section": "prepared"
+              }
+            ],
+            "capital_supply": [
+              {
+                "excerpt": "As a result, the CapEx dollar required to build 1k wafer-per-month capacity of N2 is substantially higher than 1k wafer-per-month capacity for…",
+                "section": "prepared"
+              }
+            ],
+            "guidance": [
+              {
+                "excerpt": "Based on the current business outlook, we expect our first quarter revenue to be between USD34.6 billion and USD35.8 billion, which represents…",
+                "section": "prepared"
+              }
+            ],
+            "confidence": [
+              {
+                "excerpt": "Thus, our conviction in the multi-year AI megatrend remains strong, and we believe the demand for semiconductor will continue to be very…",
+                "section": "prepared"
+              }
+            ],
+            "risks": [
+              {
+                "excerpt": "…risk from the potential impact of tariff policies and rising component prices, especially in consumer related and price sensitive end market segments.",
+                "section": "prepared"
+              }
+            ],
+            "analyst_questions": [
+              {
+                "excerpt": "Could you give us a little bit more detail about how that is progressing and when could we get there, in terms…",
+                "section": "q_and_a"
+              }
+            ]
+          },
+          "coverage": {
+            "found": 7,
+            "total": 7
+          },
+          "q_and_a_available": true,
+          "source_sha256": "486062d7b02fe16a71643e9739931c018810f90e7730ab433c27ff3943b5a4ac",
+          "provenance": {
+            "status": "official_host",
+            "landing_host": "investor.tsmc.com",
+            "material_host": "investor.tsmc.com"
+          },
+          "card": "20_Filings/TSM/analysis/TSM_2025_Q4_Earnings_Call.md",
+          "last_verified_at": "2026-08-30T00:29:09+00:00",
+          "errors": []
+        },
+        {
+          "period": "2025 Q3",
+          "call_date": "2025-10-16",
+          "landing_url": "https://investor.tsmc.com/english/quarterly-results/2025/q3",
+          "material_url": "https://investor.tsmc.com/english/encrypt/files/encrypt_file/reports/2025-10/6860312f04fd291d0f26b46c1234f84e6332717e/TSMC%203Q25%20Transcript.pdf",
+          "allowed_hosts": [
+            "investor.tsmc.com"
+          ],
+          "source_type": "full_transcript",
+          "source_label": "完整官方逐字稿",
+          "status": "analyzed",
+          "categories": {
+            "demand_growth": [
+              {
+                "excerpt": "…token volume demonstrated increasing consumer AI model adoption, which means more and more computation is needed, leading to more leading-edge silicon demand.",
+                "section": "prepared"
+              }
+            ],
+            "margin_cost": [
+              {
+                "excerpt": "…rate assumption of USD1 to TWD30.6, gross margin is expected to be between 59% and 61%, operating margin between 49% and 51%.",
+                "section": "prepared"
+              }
+            ],
+            "capital_supply": [
+              {
+                "excerpt": "Regarding cash flow and CapEx, during the third quarter, we generated about TWD427 billion in cash from operations, spent TWD287 billion in…",
+                "section": "prepared"
+              }
+            ],
+            "guidance": [
+              {
+                "excerpt": "Based on the current business outlook, we expect our fourth quarter revenue to be between USD32.2 billion and USD33.4 billion, which represents…",
+                "section": "prepared"
+              }
+            ],
+            "confidence": [],
+            "risks": [
+              {
+                "excerpt": "…far, we understand there are uncertainties and risk from the potential impact of tariff policies, especially in consumer-related and price-sensitive market segments.",
+                "section": "prepared"
+              }
+            ],
+            "analyst_questions": [
+              {
+                "excerpt": "Especially, how should we think about the gross margin impact from 2-nanometer ramp for 2026?",
+                "section": "q_and_a"
+              }
+            ]
+          },
+          "coverage": {
+            "found": 6,
+            "total": 7
+          },
+          "q_and_a_available": true,
+          "source_sha256": "27454d214e9425ac7c502d9277e18e58f5206276178a01770c7577456edf5e5f",
+          "provenance": {
+            "status": "official_host",
+            "landing_host": "investor.tsmc.com",
+            "material_host": "investor.tsmc.com"
+          },
+          "card": "20_Filings/TSM/analysis/TSM_2025_Q3_Earnings_Call.md",
+          "last_verified_at": "2026-08-30T00:29:09+00:00",
+          "errors": []
+        }
+      ],
+      "history_coverage": {
+        "available": 4,
+        "expected": 4,
+        "status": "complete",
+        "meaning": "只比較公司官方文字；缺季保留缺值，不以第三方逐字稿或影音轉錄補齊。"
+      },
+      "quarter_comparisons": [
+        {
+          "current_period": "2026 Q2",
+          "previous_period": "2026 Q1",
+          "topics": {
+            "demand_growth": {
+              "state": "continued",
+              "current_excerpt": "…fabs, one in Taiwan, one in Arizona, and one in Japan, to support the robust multi-year pipeline of demand for 3-nanometer technologies.",
+              "previous_excerpt": "…plan to support the robust multiyear pipeline of demand for 3-nanometer technologies, which are used by smartphone, HPC/AI, including HBM base dies,…"
+            },
+            "margin_cost": {
+              "state": "continued",
+              "current_excerpt": "…exchangerate assumption of USD1 to TWD32, gross margin is expected to be between 65% and 67%, operating margin between 56% and 58%.",
+              "previous_excerpt": "Gross margin increased 3.9 percentage points sequentially to 66.2%, primarily due to cost improvement efforts, a higher capacity utilization rate, and a…"
+            },
+            "capital_supply": {
+              "state": "continued",
+              "current_excerpt": "Based on our assessment, we are stepping up our CapEx investment to increase our capacity to support our customers' future growth.",
+              "previous_excerpt": "…our assessment, to meet the strong demand in AI applications, we are stepping up our CapEx investment to increase our N3 capacity."
+            },
+            "guidance": {
+              "state": "continued",
+              "current_excerpt": "Based on the current business outlook, we expect our third-quarter revenue to be between USD44.6 billion and USD45.8 billion, which representsa 12%…",
+              "previous_excerpt": "Based on the current business outlook, we expect our second quarter revenue to be between USD39.0 billion and USD40.2 billion, which represents…"
+            },
+            "confidence": {
+              "state": "continued",
+              "current_excerpt": "Thus, our conviction in the multi-year AI megatrend remain very high.",
+              "previous_excerpt": "Thus, our conviction in the multi-year AI megatrend remain high, and we believe the demand for semiconductors will continue to be very…"
+            },
+            "risks": {
+              "state": "not_detected",
+              "current_excerpt": null,
+              "previous_excerpt": "TSMC operates a well-established enterprise risk management system to identify and assess all relevant risks and proactively implement risk mitigation strategies."
+            },
+            "analyst_questions": {
+              "state": "continued",
+              "current_excerpt": "…that as it becomes more important, how should we think of maybe you should consider bringing it out as a separate CapEx…",
+              "previous_excerpt": "…years, given the very strong revenue ramp of leading edge, how should we think about the revenue growth compared with CapEx growth?"
+            }
+          }
+        },
+        {
+          "current_period": "2026 Q1",
+          "previous_period": "2025 Q4",
+          "topics": {
+            "demand_growth": {
+              "state": "continued",
+              "current_excerpt": "…plan to support the robust multiyear pipeline of demand for 3-nanometer technologies, which are used by smartphone, HPC/AI, including HBM base dies,…",
+              "previous_excerpt": "Underpinned by strong demand for our leading-edge, specialty, and advanced packaging technologies, we are confident we can continue to outperform the industry…"
+            },
+            "margin_cost": {
+              "state": "continued",
+              "current_excerpt": "Gross margin increased 3.9 percentage points sequentially to 66.2%, primarily due to cost improvement efforts, a higher capacity utilization rate, and a…",
+              "previous_excerpt": "Gross margin increased 3.8 percentage points to 59.9%, mainly reflecting a higher capacity utilization rate and cost improvement efforts, partially offset by…"
+            },
+            "capital_supply": {
+              "state": "continued",
+              "current_excerpt": "…our assessment, to meet the strong demand in AI applications, we are stepping up our CapEx investment to increase our N3 capacity.",
+              "previous_excerpt": "As a result, the CapEx dollar required to build 1k wafer-per-month capacity of N2 is substantially higher than 1k wafer-per-month capacity for…"
+            },
+            "guidance": {
+              "state": "continued",
+              "current_excerpt": "Based on the current business outlook, we expect our second quarter revenue to be between USD39.0 billion and USD40.2 billion, which represents…",
+              "previous_excerpt": "Based on the current business outlook, we expect our first quarter revenue to be between USD34.6 billion and USD35.8 billion, which represents…"
+            },
+            "confidence": {
+              "state": "continued",
+              "current_excerpt": "Thus, our conviction in the multi-year AI megatrend remain high, and we believe the demand for semiconductors will continue to be very…",
+              "previous_excerpt": "Thus, our conviction in the multi-year AI megatrend remains strong, and we believe the demand for semiconductor will continue to be very…"
+            },
+            "risks": {
+              "state": "continued",
+              "current_excerpt": "TSMC operates a well-established enterprise risk management system to identify and assess all relevant risks and proactively implement risk mitigation strategies.",
+              "previous_excerpt": "…risk from the potential impact of tariff policies and rising component prices, especially in consumer related and price sensitive end market segments."
+            },
+            "analyst_questions": {
+              "state": "continued",
+              "current_excerpt": "…years, given the very strong revenue ramp of leading edge, how should we think about the revenue growth compared with CapEx growth?",
+              "previous_excerpt": "Could you give us a little bit more detail about how that is progressing and when could we get there, in terms…"
+            }
+          }
+        },
+        {
+          "current_period": "2025 Q4",
+          "previous_period": "2025 Q3",
+          "topics": {
+            "demand_growth": {
+              "state": "continued",
+              "current_excerpt": "Underpinned by strong demand for our leading-edge, specialty, and advanced packaging technologies, we are confident we can continue to outperform the industry…",
+              "previous_excerpt": "…token volume demonstrated increasing consumer AI model adoption, which means more and more computation is needed, leading to more leading-edge silicon demand."
+            },
+            "margin_cost": {
+              "state": "continued",
+              "current_excerpt": "Gross margin increased 3.8 percentage points to 59.9%, mainly reflecting a higher capacity utilization rate and cost improvement efforts, partially offset by…",
+              "previous_excerpt": "…rate assumption of USD1 to TWD30.6, gross margin is expected to be between 59% and 61%, operating margin between 49% and 51%."
+            },
+            "capital_supply": {
+              "state": "continued",
+              "current_excerpt": "As a result, the CapEx dollar required to build 1k wafer-per-month capacity of N2 is substantially higher than 1k wafer-per-month capacity for…",
+              "previous_excerpt": "Regarding cash flow and CapEx, during the third quarter, we generated about TWD427 billion in cash from operations, spent TWD287 billion in…"
+            },
+            "guidance": {
+              "state": "continued",
+              "current_excerpt": "Based on the current business outlook, we expect our first quarter revenue to be between USD34.6 billion and USD35.8 billion, which represents…",
+              "previous_excerpt": "Based on the current business outlook, we expect our fourth quarter revenue to be between USD32.2 billion and USD33.4 billion, which represents…"
+            },
+            "confidence": {
+              "state": "newly_detected",
+              "current_excerpt": "Thus, our conviction in the multi-year AI megatrend remains strong, and we believe the demand for semiconductor will continue to be very…",
+              "previous_excerpt": null
+            },
+            "risks": {
+              "state": "continued",
+              "current_excerpt": "…risk from the potential impact of tariff policies and rising component prices, especially in consumer related and price sensitive end market segments.",
+              "previous_excerpt": "…far, we understand there are uncertainties and risk from the potential impact of tariff policies, especially in consumer-related and price-sensitive market segments."
+            },
+            "analyst_questions": {
+              "state": "continued",
+              "current_excerpt": "Could you give us a little bit more detail about how that is progressing and when could we get there, in terms…",
+              "previous_excerpt": "Especially, how should we think about the gross margin impact from 2-nanometer ramp for 2026?"
+            }
+          }
+        }
+      ],
       "discovery": {
         "status": "checked",
         "newer_candidates": []

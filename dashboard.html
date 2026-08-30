@@ -1532,6 +1532,33 @@
     .sec-earnings-call .sec-exhibit991-evidence { border-left-color: rgba(56, 189, 248, 0.48); }
     .sec-call-source-badge { display: inline-flex; margin-top: 7px; padding: 4px 8px; border-radius: 999px; border: 1px solid rgba(56, 189, 248, 0.3); color: #7dd3fc; background: rgba(56, 189, 248, 0.09); font-size: 0.67rem; font-weight: 800; }
     .sec-call-comparison { margin-top: 11px; padding: 10px 12px; border-radius: 10px; background: rgba(15, 23, 42, 0.58); color: #cbd5e1; font-size: 0.69rem; line-height: 1.55; }
+    .sec-call-history { margin-top: 16px; padding-top: 15px; border-top: 1px solid rgba(56, 189, 248, 0.2); }
+    .sec-call-history-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 11px; }
+    .sec-call-history-head h4 { color: #bae6fd; font-size: 0.86rem; }
+    .sec-call-history-head p { margin-top: 4px; color: #94a3b8; font-size: 0.67rem; line-height: 1.55; }
+    .sec-call-history-count { padding: 4px 8px; border: 1px solid rgba(45, 212, 191, 0.3); border-radius: 999px; color: #5eead4; background: rgba(13, 148, 136, 0.1); font-size: 0.66rem; font-weight: 800; }
+    .sec-call-quarter-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 9px; margin-bottom: 12px; }
+    .sec-call-quarter { min-width: 0; padding: 10px; border: 1px solid rgba(56, 189, 248, 0.17); border-radius: 11px; background: rgba(2, 6, 23, 0.35); }
+    .sec-call-quarter.latest { border-color: rgba(45, 212, 191, 0.38); background: rgba(13, 148, 136, 0.08); }
+    .sec-call-quarter strong { display: block; color: #e0f2fe; font-size: 0.74rem; }
+    .sec-call-quarter span { display: block; margin-top: 4px; color: #94a3b8; font-size: 0.64rem; line-height: 1.45; }
+    .sec-call-quarter a { display: inline-block; margin-top: 7px; color: #7dd3fc; font-size: 0.65rem; text-decoration: none; }
+    .sec-call-trend-note { margin-bottom: 10px; padding: 9px 11px; border-left: 3px solid #fbbf24; border-radius: 8px; color: #fde68a; background: rgba(120, 53, 15, 0.12); font-size: 0.68rem; line-height: 1.55; }
+    .sec-call-trend-legend { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px 10px; margin-bottom: 10px; color: #94a3b8; font-size: 0.64rem; line-height: 1.45; }
+    .sec-call-trend-legend strong { color: #cbd5e1; }
+    .sec-call-transition { margin-top: 8px; border: 1px solid rgba(148, 163, 184, 0.17); border-radius: 11px; background: rgba(15, 23, 42, 0.48); overflow: hidden; }
+    .sec-call-transition summary { padding: 10px 12px; color: #dbeafe; font-size: 0.72rem; font-weight: 800; cursor: pointer; }
+    .sec-call-transition-body { padding: 0 10px 10px; }
+    .sec-call-topic { display: grid; grid-template-columns: minmax(105px, 0.8fr) minmax(120px, 0.8fr) minmax(0, 2.2fr); gap: 9px; align-items: start; padding: 9px 2px; border-top: 1px solid rgba(148, 163, 184, 0.12); }
+    .sec-call-topic-name { color: #e2e8f0; font-size: 0.68rem; font-weight: 800; }
+    .sec-call-state { display: inline-flex; width: fit-content; padding: 3px 7px; border-radius: 999px; font-size: 0.62rem; font-weight: 800; }
+    .sec-call-state.continued { color: #5eead4; background: rgba(13, 148, 136, 0.14); }
+    .sec-call-state.newly_detected { color: #7dd3fc; background: rgba(2, 132, 199, 0.16); }
+    .sec-call-state.not_detected { color: #fbbf24; background: rgba(217, 119, 6, 0.15); }
+    .sec-call-state.insufficient { color: #94a3b8; background: rgba(71, 85, 105, 0.22); }
+    .sec-call-topic-evidence { color: #cbd5e1; font-size: 0.65rem; line-height: 1.5; }
+    .sec-call-topic-evidence span { display: block; }
+    .sec-call-topic-evidence span + span { margin-top: 4px; color: #94a3b8; }
 
     .sec-text-diff-kpis {
       display: grid;
@@ -2066,6 +2093,7 @@
       .sec-advanced-actual-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .sec-ownership-kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .sec-thesis-grid { grid-template-columns: 1fr; }
+      .sec-call-quarter-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
 
     @media (max-width: 620px) {
@@ -2078,6 +2106,8 @@
       .sec-update-thesis { grid-column: auto; }
       .sec-quarterly-diagnosis-grid, .sec-quarterly-signals { grid-template-columns: 1fr; }
       .sec-quarterly-chart-canvas { height: 270px; }
+      .sec-call-quarter-grid, .sec-call-trend-legend { grid-template-columns: 1fr; }
+      .sec-call-topic { grid-template-columns: 1fr; gap: 5px; }
       .sec-reading-guide h3, .sec-advanced-explainer h4, .sec-advanced-explainer-caution { grid-column: auto; }
       .sec-kpi { min-height: 0; }
     }
@@ -5147,7 +5177,7 @@
       if (row.status === 'replay_only') {
         const linkState = row.link_check?.status === 'unverified' ? `｜⚠️ 自動檢查未確認連結（${escapeSec(row.link_check.reason || '網站阻擋')}）` : '';
         container.innerHTML = `<div class="sec-exhibit991-head"><div><h3 class="sec-exhibit991-title">⑨ ${escapeSec(displayTicker)}｜官方 Earnings Call 閱讀卡</h3><p class="sec-exhibit991-meta">${escapeSec(row.period)}｜會議日 ${escapeSec(row.call_date)}｜🎧 僅官方影音／回放｜來源鏈：${escapeSec(provenanceLabel)}${freshness}${discovery}${linkState}</p>${sourceBadge}</div><div>${sourceLinks}</div></div>
-          <p class="sec-exhibit991-limit">${escapeSec(row.note || row.source_meaning)} 系統不把第三方逐字稿或自動語音轉錄混入官方證據，因此七類文字判讀保留缺值；連結未驗證時請從 IR 發現頁進入。</p>`;
+          <p class="sec-exhibit991-limit">${escapeSec(row.note || row.source_meaning)} 系統不把第三方逐字稿或自動語音轉錄混入官方證據，因此七類文字判讀與四季文字比較均不適用；連結未驗證時請從 IR 發現頁進入。</p>`;
         return;
       }
       if (!['analyzed', 'analyzed_cached'].includes(row.status)) {
@@ -5167,9 +5197,43 @@
       const comparisonText = comparison.status === 'topic_coverage_only'
         ? `${comparison.meaning} 共同覆蓋 ${comparison.overlap_topics?.length || 0} 類；電話會議另覆蓋 ${comparison.call_only_topics?.length || 0} 類。`
         : comparison.meaning || '沒有可比的嚴格 Exhibit 99.1 卡，因此不推測兩份資料差異。';
+      const history = Array.isArray(row.history) ? row.history : [];
+      const historyCoverage = row.history_coverage || {};
+      const trendStates = payload.trend_states || {
+        newly_detected: { label: '本季新增命中', meaning: '前季未命中、本季有命中。' },
+        continued: { label: '連續兩季命中', meaning: '前季與本季都有命中。' },
+        not_detected: { label: '本季未再命中', meaning: '前季有命中、本季未命中；不代表風險消失。' },
+        insufficient: { label: '資料不足', meaning: '兩季都未命中，不能據此判斷變化。' },
+      };
+      const historyCards = history.map((quarter, index) => {
+        const quarterUrl = safeEarningsCallUrl(quarter.material_url || quarter.landing_url, quarter.allowed_hosts);
+        const link = quarterUrl === '#' ? '' : `<a href="${quarterUrl}" target="_blank" rel="noopener">官方原文 ↗</a>`;
+        const coverage = quarter.coverage || {};
+        const coverageText = ['analyzed', 'analyzed_cached'].includes(quarter.status)
+          ? `命中 ${coverage.found || 0}/${coverage.total || Object.keys(definitions).length} 類`
+          : '⚠️ 本季文字待覆核';
+        return `<article class="sec-call-quarter${index === 0 ? ' latest' : ''}"><strong>${escapeSec(quarter.period)}${index === 0 ? '｜本季' : ''}</strong><span>${escapeSec(quarter.call_date)}｜${escapeSec(quarter.source_label || '')}</span><span>${escapeSec(coverageText)}</span>${link}</article>`;
+      }).join('');
+      const trendLegend = Object.entries(trendStates).map(([key, definition]) =>
+        `<span><strong>${escapeSec(definition.label)}：</strong>${escapeSec(definition.meaning)}</span>`
+      ).join('');
+      const transitionSections = (row.quarter_comparisons || []).map((transition, index) => {
+        const topicRows = Object.entries(definitions).map(([key, definition]) => {
+          const topic = transition.topics?.[key] || { state: 'insufficient' };
+          const stateKey = Object.prototype.hasOwnProperty.call(trendStates, topic.state) ? topic.state : 'insufficient';
+          const state = trendStates[stateKey];
+          const currentEvidence = topic.current_excerpt
+            ? `本季：${escapeSec(topic.current_excerpt)}` : '本季：未命中';
+          const previousEvidence = topic.previous_excerpt
+            ? `前季：${escapeSec(topic.previous_excerpt)}` : '前季：未命中';
+          return `<div class="sec-call-topic"><span class="sec-call-topic-name">${escapeSec(definition.label)}</span><span class="sec-call-state ${stateKey}" title="${escapeSec(state.meaning)}">${escapeSec(state.label)}</span><span class="sec-call-topic-evidence"><span>${currentEvidence}</span><span>${previousEvidence}</span></span></div>`;
+        }).join('');
+        return `<details class="sec-call-transition"${index === 0 ? ' open' : ''}><summary>${escapeSec(transition.current_period)} 對比 ${escapeSec(transition.previous_period)}${index === 0 ? '｜最新變化' : ''}</summary><div class="sec-call-transition-body">${topicRows}</div></details>`;
+      }).join('');
+      const historySection = history.length ? `<section class="sec-call-history"><div class="sec-call-history-head"><div><h4>最近四季法說趨勢比較</h4><p>依會議日期由新到舊；點官方原文可回看完整上下文。</p></div><span class="sec-call-history-count">官方文字 ${escapeSec(historyCoverage.available || 0)}/${escapeSec(historyCoverage.expected || 4)} 季</span></div><div class="sec-call-quarter-grid">${historyCards}</div><p class="sec-call-trend-note"><strong>判讀限制：</strong>以下只比較同一主題是否被規則命中，不判定改善或惡化；「本季未再命中」不等於風險消失，也可能只是本季沒有重複討論。</p><div class="sec-call-trend-legend">${trendLegend}</div>${transitionSections || '<p class="sec-exhibit991-limit">尚無兩季可比較資料。</p>'}</section>` : '';
       container.innerHTML = `<div class="sec-exhibit991-head"><div><h3 class="sec-exhibit991-title">⑨ ${escapeSec(displayTicker)}｜官方 Earnings Call 閱讀卡</h3><p class="sec-exhibit991-meta">${escapeSec(row.period)}｜會議日 ${escapeSec(row.call_date)}｜證據覆蓋 ${escapeSec(row.coverage?.found || 0)}/${escapeSec(row.coverage?.total || Object.keys(definitions).length)} 類｜Q&A ${row.q_and_a_available ? '可辨識' : '未包含／未辨識'}｜來源鏈：${escapeSec(provenanceLabel)}${freshness}${discovery}${cachedWarning}｜更新 ${escapeSec(formatSecTimestamp(payload.updated_at))}</p>${sourceBadge}</div><div>${sourceLinks}</div></div>
         <div class="sec-exhibit991-grid">${cards}</div><p class="sec-call-comparison"><strong>與 Exhibit 99.1：</strong>${escapeSec(comparisonText)}</p>
-        <p class="sec-exhibit991-limit">每類只顯示最多 22 個英文單字的官方短摘錄。完整官方逐字稿與官方 Prepared Remarks 不可混為同一證據等級；本卡不把語氣關鍵字轉成評分或買賣建議。</p>`;
+        ${historySection}<p class="sec-exhibit991-limit">每類只顯示最多 22 個英文單字的官方短摘錄。完整官方逐字稿與官方 Prepared Remarks 不可混為同一證據等級；本卡不把語氣關鍵字轉成評分或買賣建議。</p>`;
     }
 
     function renderSecCompanyBrief() {

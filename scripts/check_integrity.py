@@ -995,8 +995,9 @@ def c27():
 @check("C-28", "官方 Earnings Call 雷達區分逐字稿、講稿與影音")
 def c28():
     from track_earnings_calls import (  # noqa: PLC0415
-        ANALYZABLE_STATUSES, CATEGORIES, MAX_EVIDENCE, MAX_EXCERPT_WORDS,
-        PARSER_VERSION, SCHEMA_VERSION, allowed_url, period_key,
+        ANALYZABLE_STATUSES, CATEGORIES, HISTORY_QUARTERS, MAX_EVIDENCE,
+        MAX_EXCERPT_WORDS, PARSER_VERSION, SCHEMA_VERSION, TREND_STATES,
+        allowed_url, period_key,
     )
     config = load("earnings_call_sources.json")
     status = load("earnings_call_analysis.json")
@@ -1008,6 +1009,8 @@ def c28():
         bad.append("來源登錄或輸出未完整覆蓋 14 家公司")
     if status.get("schema_version") != SCHEMA_VERSION or status.get("parser_version") != PARSER_VERSION:
         bad.append("schema／parser 版本不一致")
+    if status.get("history_quarters") != HISTORY_QUARTERS or status.get("trend_states") != TREND_STATES:
+        bad.append("四季比較方法或狀態定義與程式不一致")
     for ticker, row in companies.items():
         company_config = config.get("companies", {}).get(ticker, {})
         expected_card = REPO_ROOT / str(row.get("expected_card") or "")
@@ -1028,6 +1031,58 @@ def c28():
         if company_config.get("source_type") != "webcast_replay" and not company_config.get("identity_patterns"):
             bad.append(f"{ticker} 文字來源缺公司／期間身分驗證規則")
         if row.get("status") in ANALYZABLE_STATUSES:
+            configured_history = company_config.get("history", [])
+            history = row.get("history", [])
+            history_coverage = row.get("history_coverage", {})
+            if len(configured_history) != HISTORY_QUARTERS - 1:
+                bad.append(f"{ticker} 未登錄最近 {HISTORY_QUARTERS} 季官方文字來源")
+            if len(history) != HISTORY_QUARTERS:
+                bad.append(f"{ticker} 四季歷史輸出不是 {HISTORY_QUARTERS} 季")
+            available = sum(item.get("status") in ANALYZABLE_STATUSES for item in history)
+            if history_coverage != {
+                "available": available, "expected": HISTORY_QUARTERS,
+                "status": "complete" if available == HISTORY_QUARTERS and len(history) == HISTORY_QUARTERS else "partial",
+                "meaning": "只比較公司官方文字；缺季保留缺值，不以第三方逐字稿或影音轉錄補齊。",
+            }:
+                bad.append(f"{ticker} 四季文字覆蓋狀態無法對帳")
+            if history_coverage.get("status") != "complete":
+                bad.append(f"{ticker} 最近四季官方文字尚未完整")
+            for quarter in history:
+                if quarter.get("status") not in ANALYZABLE_STATUSES:
+                    continue
+                if not allowed_url(quarter.get("material_url", ""), quarter.get("allowed_hosts", [])):
+                    bad.append(f"{ticker}/{quarter.get('period')} 歷史材料未通過 HTTPS 主機白名單")
+                quarter_categories = quarter.get("categories") or {}
+                if set(quarter_categories) != set(CATEGORIES):
+                    bad.append(f"{ticker}/{quarter.get('period')} 七類歷史證據不完整")
+                    continue
+                quarter_found = sum(bool(items) for items in quarter_categories.values())
+                if quarter.get("coverage") != {"found": quarter_found, "total": len(CATEGORIES)}:
+                    bad.append(f"{ticker}/{quarter.get('period')} 歷史覆蓋數無法對帳")
+                if not re.fullmatch(r"[0-9a-f]{64}", str(quarter.get("source_sha256") or "")):
+                    bad.append(f"{ticker}/{quarter.get('period')} 缺官方材料 SHA-256")
+                quarter_card = REPO_ROOT / str(quarter.get("card") or "")
+                if not quarter_card.is_file():
+                    bad.append(f"{ticker}/{quarter.get('period')} 缺歷史閱讀卡")
+                    continue
+                quarter_card_text = quarter_card.read_text()
+                for items in quarter_categories.values():
+                    for item in items:
+                        excerpt = item.get("excerpt") or ""
+                        if len(excerpt.rstrip("…").split()) > MAX_EXCERPT_WORDS or excerpt not in quarter_card_text:
+                            bad.append(f"{ticker}/{quarter.get('period')} 歷史摘錄限制或追溯失敗")
+            comparisons = row.get("quarter_comparisons", [])
+            if len(comparisons) != max(0, len(history) - 1):
+                bad.append(f"{ticker} 季度比較數量錯誤")
+            for index, comparison in enumerate(comparisons):
+                if (comparison.get("current_period") != history[index].get("period")
+                        or comparison.get("previous_period") != history[index + 1].get("period")):
+                    bad.append(f"{ticker} 季度比較期間順序錯誤")
+                topics = comparison.get("topics", {})
+                if set(topics) != set(CATEGORIES) or any(
+                    topic.get("state") not in TREND_STATES for topic in topics.values()
+                ):
+                    bad.append(f"{ticker} 季度比較主題或狀態不完整")
             if row.get("provenance", {}).get("status") not in {
                 "official_host", "official_page_link", "manual_official_page_attestation",
             }:
@@ -1055,6 +1110,10 @@ def c28():
                     if len(excerpt.rstrip("…").split()) > MAX_EXCERPT_WORDS or excerpt not in card:
                         bad.append(f"{ticker} 短摘錄限制或卡片追溯失敗")
         elif row.get("status") == "replay_only":
+            if row.get("history") or row.get("quarter_comparisons"):
+                bad.append(f"{ticker} 僅影音來源不應產生四季文字比較")
+            if row.get("history_coverage", {}).get("status") != "not_applicable":
+                bad.append(f"{ticker} 僅影音來源未標示四季比較不適用")
             if row.get("provenance", {}).get("status") not in {
                 "official_host", "official_page_link", "manual_official_page_attestation",
             }:
@@ -1085,6 +1144,8 @@ def c28():
     ui_markers = (
         "secEarningsCall", "renderSecEarningsCall", "earnings_call_analysis.json",
         "⑨ Earnings Call", "僅官方影音／回放", "第三方逐字稿",
+        "最近四季法說趨勢比較", "本季新增命中", "連續兩季命中",
+        "本季未再命中", "資料不足", "不等於風險消失",
     )
     missing += [f"dashboard:{marker}" for marker in ui_markers if marker not in page]
     return not bad and not missing, f"資料問題：{bad or '無'}；缺自動化／入口：{missing or '無'}"
