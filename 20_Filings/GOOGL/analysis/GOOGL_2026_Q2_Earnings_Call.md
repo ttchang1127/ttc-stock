@@ -4,7 +4,7 @@ call_date: 2026-07-22
 period: "2026 Q2"
 source_type: full_transcript
 source_url: "https://s206.q4cdn.com/479360582/files/doc_events/2026/Jul/22/2026_Q2_Earnings_Transcript.pdf"
-source_sha256: "5e566cfc58c321b42c493653732f6aa1d7abf0306b27c9b96d1e343e588302ff"
+source_sha256: "cc0962ef5a53d57285567a64a67d2ad85e263564a779ffa4b8447aca5153b03f"
 parser_version: 16
 tags:
   - earnings-call

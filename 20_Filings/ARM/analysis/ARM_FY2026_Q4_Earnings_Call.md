@@ -4,7 +4,7 @@ call_date: 2026-05-06
 period: "FY2026 Q4"
 source_type: full_transcript
 source_url: "https://investors.arm.com/static-files/78526857-5997-46eb-9b65-0d3249d83711"
-source_sha256: "75f7268ae0bda5055f73b9d3ae26aa71494b130bbfbddc6721eab8c8b5e769b6"
+source_sha256: "c3493cf475c5dd9b812126f5f7ed150d740d059d1f8fcc32ff26488569282505"
 parser_version: 16
 tags:
   - earnings-call
@@ -38,13 +38,13 @@ tags:
 
 > **怎麼讀**：CapEx、資料中心、產能、供給限制與擴產線索。
 
-> …work around accelerators.As agentic AI scales, data centers will require more than four times today's CPU capacity, creating a datacenter CPU market…
+> As agentic AI scales, data centers will require more than four times today's CPU capacity, creating a datacenter CPU market opportunity of…
 
 ## 指引與未來展望
 
 > **怎麼讀**：管理層對下一季或全年展望；是前瞻聲明，不是保證。
 
-> …and above the midpoint of our guidance.Licensing revenue grew 29% year-over-year to $819 million, driven by strong demand for the Arm platform.
+> Revenue this quarter was $1.49 billion, up 20%, our highest quarterly revenue quarter ever and above the midpoint of our guidance.
 
 ## 管理層信心與限定語
 
@@ -62,7 +62,7 @@ tags:
 
 > **怎麼讀**：只取完整逐字稿 Q&A 區段中的問題線索，用來辨識市場最關心的假設。
 
-> …your total cost structure, but Jason, can you just give us a rough sense on the OpEx attributed to supporting your chip…
+> What do you think you'll be able to do in terms of accessing that supply or how are you going about that?
 
 ## 與 Exhibit 99.1 的主題覆蓋比較
 

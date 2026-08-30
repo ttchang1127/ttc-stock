@@ -1,6 +1,6 @@
 ---
 title: 官方 Earnings Call 與 Prepared Remarks 雷達
-updated_at: 2026-08-30T00:54:27+00:00
+updated_at: 2026-08-30T02:57:37+00:00
 tags:
   - earnings-call
   - investor-relations
@@ -32,7 +32,7 @@ tags:
 | **NVDA** | FY2027 Q2／2026-08-26 | 完整官方逐字稿 | 4/4 季 | ✅ 已建立文字卡 | [[20_Filings/NVDA/analysis/NVDA_FY2027_Q2_Earnings_Call|閱讀卡]] |
 | **ONDS** | 2026 Q2／2026-08-13 | 僅官方影音／回放 | 不適用（僅影音） | 🎧 僅影音 | [官方來源](https://ir.ondas.com/) |
 | **TSLA** | 2026 Q2／2026-07-22 | 僅官方影音／回放 | 不適用（僅影音） | 🎧 僅影音 | [官方來源](https://ir.tesla.com/webcast-2026-07-22) |
-| **TSM** | 2026 Q2／2026-07-16 | 完整官方逐字稿 | 4/4 季 | ✅ 已建立文字卡 | [[20_Filings/TSM/analysis/TSM_2026_Q2_Earnings_Call|閱讀卡]] |
+| **TSM** | 2026 Q2／2026-07-16 | 完整官方逐字稿 | 4/4 季 | ⚠️ 本次下載失敗；顯示上次驗證卡 | [[20_Filings/TSM/analysis/TSM_2026_Q2_Earnings_Call|閱讀卡]] |
 
 ## 每個欄位怎麼讀
 

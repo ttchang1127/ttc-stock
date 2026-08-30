@@ -4,7 +4,7 @@ call_date: 2026-01-22
 period: "2025 Q4"
 source_type: prepared_remarks
 source_url: "https://d1io3yog0oux5.cloudfront.net/_88b01b330621eb4afbd070d5caa4f035/intel/db/887/9159/prepared_remarks/Intel-4Q2025-Earnings-Call+1+%281%29.pdf"
-source_sha256: "2fa6b1ae93483487b49a915a799272165143a71758d9fe4c6b298f16c29529fc"
+source_sha256: "19f77e76c26084dbef4e91ffe1bbef8c362d111254568106095ccf6599ffcde9"
 parser_version: 16
 tags:
   - earnings-call
