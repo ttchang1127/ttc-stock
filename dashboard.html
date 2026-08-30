@@ -375,6 +375,9 @@
       align-items: center;
     }
 
+    .macd-result-display > * { min-width: 0; }
+    #liveMACDChart { max-width: 100%; }
+
     .macd-result-metrics {
       background: rgba(255, 255, 255, 0.03);
       border: 1px solid var(--card-border);
@@ -809,11 +812,30 @@
       grid-column: 1 / -1;
     }
 
+    .portfolio-allocation-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+      gap: 24px;
+      align-items: start;
+    }
+
+    .portfolio-allocation-table-wrap,
+    .portfolio-allocation-chart-card,
+    .portfolio-allocation-chart-wrap {
+      min-width: 0;
+    }
+
+    .portfolio-allocation-table-wrap { overflow-x: auto; }
+    .portfolio-allocation-chart-wrap { position: relative; height: 280px; width: 100%; }
+    #chartPortfolioPie { max-width: 100%; }
+
     @media (max-width: 720px) {
       .chart-card-large { padding: 20px 14px; }
       .chart-card h3 { align-items: flex-start; flex-direction: column; gap: 5px; }
       .macd-summary-chart-wrap { height: 52vh; min-height: 360px; }
       .macd-trend-grid { grid-template-columns: 1fr; }
+      .macd-result-display { grid-template-columns: minmax(0, 1fr); }
+      .portfolio-allocation-layout { grid-template-columns: minmax(0, 1fr); }
     }
 
     /* Guide Tab Documentation Styles */
@@ -2022,6 +2044,8 @@
       display: flex;
       align-items: center;
       gap: 8px;
+      min-width: 0;
+      max-width: 100%;
       color: #cbd5e1;
       font-size: 0.76rem;
       font-weight: 750;
@@ -2110,6 +2134,8 @@
       .sec-call-topic { grid-template-columns: 1fr; gap: 5px; }
       .sec-reading-guide h3, .sec-advanced-explainer h4, .sec-advanced-explainer-caution { grid-column: auto; }
       .sec-kpi { min-height: 0; }
+      .sec-section-filter { width: 100%; flex-wrap: wrap; }
+      .sec-section-filter .sec-quarterly-select { flex: 1 1 130px; min-width: 0; max-width: 100%; }
     }
 
     footer {
@@ -2565,9 +2591,9 @@
         </div>
 
         <!-- Portfolio Table & Allocation Chart -->
-        <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 24px; align-items: start;">
+        <div class="portfolio-allocation-layout">
           <!-- Table -->
-          <div style="overflow-x: auto;">
+          <div class="portfolio-allocation-table-wrap">
             <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.85rem;">
               <thead>
                 <tr style="background: rgba(15, 23, 42, 0.8); border-bottom: 1px solid var(--card-border); color: #94a3b8;">
@@ -2589,9 +2615,9 @@
           </div>
 
           <!-- Pie Chart -->
-          <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid var(--card-border); border-radius: 18px; padding: 20px;">
+          <div class="portfolio-allocation-chart-card" style="background: rgba(15, 23, 42, 0.6); border: 1px solid var(--card-border); border-radius: 18px; padding: 20px;">
             <h3 style="font-size: 1rem; color: #fff; font-weight: 700; margin-bottom: 12px;">🍰 資產配置比重分佈</h3>
-            <div style="position: relative; height: 280px; width: 100%;">
+            <div class="portfolio-allocation-chart-wrap">
               <canvas id="chartPortfolioPie"></canvas>
             </div>
           </div>

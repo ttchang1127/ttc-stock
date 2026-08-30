@@ -508,6 +508,26 @@ class DashboardSecTabTests(unittest.TestCase):
         for holding in expected:
             self.assertIn(holding, self.html)
 
+    def test_mobile_sec_filters_and_portfolio_chart_do_not_force_page_overflow(self):
+        required_copy = [
+            'class="portfolio-allocation-layout"',
+            'class="portfolio-allocation-table-wrap"',
+            'class="portfolio-allocation-chart-card"',
+            'class="portfolio-allocation-chart-wrap"',
+            '.portfolio-allocation-layout { grid-template-columns: minmax(0, 1fr); }',
+            '.macd-result-display { grid-template-columns: minmax(0, 1fr); }',
+            '.sec-section-filter { width: 100%; flex-wrap: wrap; }',
+            '.sec-section-filter .sec-quarterly-select { flex: 1 1 130px; min-width: 0; max-width: 100%; }',
+            '#liveMACDChart { max-width: 100%; }',
+            '#chartPortfolioPie { max-width: 100%; }',
+        ]
+        for marker in required_copy:
+            self.assertIn(marker, self.html)
+        self.assertNotIn(
+            'style="display: grid; grid-template-columns: 2fr 1fr; gap: 24px; align-items: start;"',
+            self.html,
+        )
+
 
 if __name__ == "__main__":
     unittest.main()
