@@ -717,6 +717,16 @@ def c23():
                             or not row.get("watch") or not row.get("source_url")]
     if incomplete_editorial:
         bad.append(f"人工每日重點不完整：{incomplete_editorial}")
+    if editorial.get("schema_version") != 2:
+        bad.append("人工每日重點不是含 AI 覆蓋基準的 schema 2")
+    incomplete_coverage = [row.get("ticker") for row in editorial_companies
+                           if not isinstance(row.get("coverage"), dict)
+                           or "ownership_accession" not in row["coverage"]
+                           or not row["coverage"].get("quarterly_key")
+                           or not row["coverage"].get("thesis_fingerprint")
+                           or not isinstance(row["coverage"].get("enforcement_keys"), list)]
+    if incomplete_coverage:
+        bad.append(f"AI 覆蓋基準不完整：{incomplete_coverage}")
     page = read("dashboard.html")
     markers = (
         "secReadingRank", "secReadingRankRows", "renderSecReadingRank",
@@ -725,7 +735,9 @@ def c23():
         "你的實際持股閱讀順序", "人工稿不會假裝即時自動判讀",
         "sec_daily_editorial.json", "merger_stock_consideration",
         "本區只列出閱讀先後，不建立待辦或人工列管",
-        "AI 已讀，已記錄重點", "下方人工消化重點已有該公司紀錄",
+        "AI 已讀，已記錄重點", "secAiEditorialStatus", "有新資料，待 AI 重讀",
+        "event.detected_at", "quarterly_key", "thesis_fingerprint", "ownership_accession", "enforcement_keys",
+        "若覆核後偵測到新增或覆蓋指紋改變",
         "secQuarterlyDiagnosis", "secQuarterlyTrendAnalysis", "renderSecQuarterlyDiagnosis",
         "八季財務趨勢自動判讀", "營收連降至少 3 季或 YoY ≤ -10%",
         "八季財務警報", "已提高每日閱讀排序",

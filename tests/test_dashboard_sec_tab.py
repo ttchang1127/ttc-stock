@@ -250,7 +250,7 @@ class DashboardSecTabTests(unittest.TestCase):
         core = {"NVDA", "TSM", "MSFT", "META", "AAPL", "AMZN", "ARM",
                 "ONDS", "TSLA", "GOOG", "COHR", "MRVL", "INTC", "NOK"}
         companies = self.editorial["companies"]
-        self.assertEqual(self.editorial["schema_version"], 1)
+        self.assertEqual(self.editorial["schema_version"], 2)
         self.assertEqual({row["ticker"] for row in companies}, core)
         self.assertEqual(sorted(row["rank"] for row in companies), list(range(1, 15)))
         self.assertEqual(
@@ -262,6 +262,11 @@ class DashboardSecTabTests(unittest.TestCase):
             self.assertGreaterEqual(len(row["evidence"]), 3, row["ticker"])
             self.assertTrue(row["watch"], row["ticker"])
             self.assertTrue(row["source_url"].startswith(("https://www.sec.gov/", "https://www.nokia.com/")))
+            coverage = row["coverage"]
+            self.assertIn("ownership_accession", coverage, row["ticker"])
+            self.assertTrue(coverage["quarterly_key"], row["ticker"])
+            self.assertTrue(coverage["thesis_fingerprint"], row["ticker"])
+            self.assertIsInstance(coverage["enforcement_keys"], list, row["ticker"])
         required_copy = [
             'id="secEditorial"', "function renderSecEditorial()",
             "人工消化後的每日綜合重點", "你的實際持股閱讀順序",
@@ -278,9 +283,16 @@ class DashboardSecTabTests(unittest.TestCase):
         required_copy = [
             "本區只列出閱讀先後，不建立待辦或人工列管",
             "✅ AI 已讀，已記錄重點",
-            "已完成 ${aiReadCount}／${rows.length} 家",
-            "下方人工消化重點已有該公司紀錄",
+            "最新重點涵蓋 ${aiReadCount}／${rows.length} 家",
             "const editorialByTicker = new Map",
+            "function secAiEditorialStatus(displayTicker, editorialByTicker, data = secDailyData)",
+            "🟠 有新資料，待 AI 重讀",
+            "event.detected_at", "event.accepted_at",
+            "quarterlyKey !== coverage.quarterly_key",
+            "thesis.fingerprint !== coverage.thesis_fingerprint",
+            "latestOwnership.accession !== coverage.ownership_accession",
+            "coveredEnforcement.has(key)",
+            "若覆核後偵測到新增或覆蓋指紋改變",
         ]
         for phrase in required_copy:
             self.assertIn(phrase, self.html)
