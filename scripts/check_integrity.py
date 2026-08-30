@@ -696,6 +696,7 @@ def c22():
 @check("C-23", "SEC 每日閱讀排序與八季趨勢圖完整")
 def c23():
     quarterly = load("quarterly_financials.json")
+    editorial = load("sec_daily_editorial.json")
     tracked = set(load("financials.json")["companies"])
     companies = quarterly.get("companies", {})
     bad = []
@@ -704,16 +705,30 @@ def c23():
     short = [ticker for ticker, company in companies.items() if len(company.get("periods", [])) < 8]
     if short:
         bad.append(f"不足八季：{short}")
+    editorial_companies = editorial.get("companies", [])
+    editorial_tickers = {row.get("ticker") for row in editorial_companies}
+    display_tickers = {"GOOG" if ticker == "GOOGL" else ticker for ticker in tracked}
+    if editorial_tickers != display_tickers:
+        bad.append("人工每日重點公司覆蓋不是 14 家")
+    if sorted(row.get("rank") for row in editorial_companies) != list(range(1, 15)):
+        bad.append("人工每日重點排名不是 1～14")
+    incomplete_editorial = [row.get("ticker") for row in editorial_companies
+                            if not row.get("summary") or len(row.get("evidence", [])) < 3
+                            or not row.get("watch") or not row.get("source_url")]
+    if incomplete_editorial:
+        bad.append(f"人工每日重點不完整：{incomplete_editorial}")
     page = read("dashboard.html")
     markers = (
         "secReadingRank", "secReadingRankRows", "renderSecReadingRank",
         "核心持股每日閱讀排序", "排序只決定每日閱讀先後",
-        "SEC_READING_STORAGE_KEY", "secReadingRowStatus", "toggleSecCompanyReading",
-        "goToNextUnreadSecCompany", "completeCurrentAndNextSecCompany",
-        "今日已讀", "最重要原文", "季度趨勢指紋改變，會自動恢復未讀",
+        "secEditorial", "renderSecEditorial", "人工消化後的每日綜合重點",
+        "你的實際持股閱讀順序", "人工稿不會假裝即時自動判讀",
+        "sec_daily_editorial.json", "merger_stock_consideration",
+        "本區只列出閱讀先後，不建立待辦或人工列管",
+        "AI 已讀，已記錄重點", "下方人工消化重點已有該公司紀錄",
         "secQuarterlyDiagnosis", "secQuarterlyTrendAnalysis", "renderSecQuarterlyDiagnosis",
         "八季財務趨勢自動判讀", "營收連降至少 3 季或 YoY ≤ -10%",
-        "八季財務警報", "trend:${ticker}:${financialTrend.fingerprint}",
+        "八季財務警報", "已提高每日閱讀排序",
         "chartSecQuarterly", "setSecQuarterlyMetric", "renderSecQuarterlyChart",
         "gross_margin", "operating_margin", "free_cash_flow", "diluted_shares",
         "橫軸每一格是一個財報季度", "缺值會留白，不以 0 補值",
@@ -763,11 +778,10 @@ def c24():
         "secInvestmentThesisSnapshot", "secInvestmentThesisAnalysis",
         "投資論點與失效條件追蹤卡", "最近四季論點狀態歷史",
         "🟢 論點維持", "🔵 需要驗證", "🟡 部分失效", "🔴 重大失效",
-        "0 項失效且至少 2 項支持＝論點維持", "狀態變化或任何失效項目會進入每日閱讀待辦",
-        "thesis:${ticker}:${investmentThesis.fingerprint}", "thesis: '投資論點'",
+        "0 項失效且至少 2 項支持＝論點維持", "狀態變化或任何失效項目會提高每日閱讀排序",
     )
     missing = [marker for marker in markers if marker not in page]
-    return not bad and not missing, f"資料問題：{bad or '無'}；缺畫面／待辦串接：{missing or '無'}"
+    return not bad and not missing, f"資料問題：{bad or '無'}；缺畫面／排序串接：{missing or '無'}"
 
 
 @check("C-25", "投資論點狀態快照、日誌與通知完整")

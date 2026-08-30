@@ -98,6 +98,17 @@ class OfferingClassificationTests(unittest.TestCase):
         self.assertEqual(result["category"], "shelf")
         self.assertIn("尚未發生", result["dilution"])
 
+    def test_merger_stock_consideration_is_conditional_dilution(self):
+        result = radars.classify_offering(
+            "424B3",
+            "Information statement/prospectus under a merger agreement. "
+            "Stock consideration means holders may receive Amazon common stock. "
+            "This prospectus covers shares of common stock to be issued in the merger.",
+        )
+        self.assertEqual(result["category"], "merger_stock_consideration")
+        self.assertEqual(result["label"], "併購股票對價")
+        self.assertEqual(result["dilution"], "條件式股權稀釋")
+
 
 class QuarterlyTests(unittest.TestCase):
     def test_selects_four_distinct_reporting_periods_and_marks_foreign_issuer(self):

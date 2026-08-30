@@ -1,0 +1,208 @@
+{
+  "schema_version": 1,
+  "reviewed_at": "2026-08-30T19:35:00+08:00",
+  "window_start": "2026-08-17",
+  "window_end": "2026-08-30",
+  "title": "人工消化後的核心持股每日重點",
+  "headline": "真正需要先處理的是 ONDS 的獲利與稀釋、MRVL 的每股價值與條件式稀釋、NOK 的現金流，以及 COHR 的自由現金流；NVDA 基本面維持，但新增巨額承諾與估值風險。",
+  "method": "由 SEC／公司官方原文、八季財務趨勢、Form 4、13D／13G 與投資論點卡交叉閱讀後人工整理。排序是閱讀優先級，不是買賣評等。",
+  "portfolio_order": ["ONDS", "MRVL", "NOK", "COHR", "NVDA", "INTC", "TSLA", "GOOG", "ARM"],
+  "companies": [
+    {
+      "rank": 1,
+      "ticker": "ONDS",
+      "tone": "risk",
+      "status": "高風險｜投資論點重大失效",
+      "summary": "營收高速擴張是真的，但尚未轉換成獲利、現金流與每股價值；目前不能只看訂單與營收成長。",
+      "evidence": [
+        "營收 USD 83.8M，YoY +1,235.4%，連續 8 季成長。",
+        "營業利益率 -194.5%，連續 3 季惡化；FCF USD -93.8M，連續 8 季為負。",
+        "稀釋股數 YoY +234.3%；最新 99,105 股轉售登記本身只約占總股數 0.017%，不是主要稀釋來源。"
+      ],
+      "watch": "下一季優先確認營業虧損、調整後 EBITDA、FCF 消耗及稀釋股數能否同時收斂。",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1646188/000121390026095097/ea0303660-8k_ondas.htm"
+    },
+    {
+      "rank": 2,
+      "ticker": "MRVL",
+      "tone": "caution",
+      "status": "論點維持｜每股價值待驗證",
+      "summary": "AI 資料中心營運動能強，但實際股數增加、大股東減持及收購／客戶股權工具會壓低每股成長。",
+      "evidence": [
+        "營收 USD 2,739.3M，YoY +36.5%；營業利益率 16.8%，FCF USD 478.8M。",
+        "稀釋股數 YoY +5.8%；FMR 持股降至 6.5%，減少約 27.5M 股。",
+        "可轉換特別股、客戶認股權證及收購或有對價，極端條件下潛在增加股數約為現有普通股 12%；不是立即一次發生。"
+      ],
+      "watch": "追蹤下一季資料中心營收、稀釋股數、FCF／股與四大客戶占應收帳款比重。",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1835632/000183563226000025/mrvl-20260801.htm"
+    },
+    {
+      "rank": 3,
+      "ticker": "META",
+      "tone": "caution",
+      "status": "中性觀察｜部分失效",
+      "summary": "廣告與 AI 推薦仍推動強勁營收，但 AI 基礎設施與 Reality Labs 投入正在明顯壓縮利潤與自由現金流。",
+      "evidence": [
+        "營收 USD 60,801.0M，YoY +28.0%；營業利益率 30.9%，YoY -12.1pp。",
+        "FCF 僅 USD 1,746.0M；FMR 持股降至 4.4%，減少約 38.4M 股。",
+        "Form 4 共 16 列、約 USD 11.8M 賣出，但只有 1 列非 10b5-1；不能把 16 列都當成獨立看空訊號。"
+      ],
+      "watch": "確認營業利益率與 FCF 是否回升，以及 AI 資本支出能否帶來對應的收入與現金報酬。",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026050705/0001628280-26-050705-index.html"
+    },
+    {
+      "rank": 4,
+      "ticker": "AMZN",
+      "tone": "caution",
+      "status": "論點維持｜FCF 與收購待驗證",
+      "summary": "AWS、廣告與零售規模經濟仍在改善；近期 424B3 的實質內容是收購 Globalstar 的現金／股票合併對價。",
+      "evidence": [
+        "營收 USD 200,606.0M，YoY +19.6%；營業利益率 13.7%，YoY +2.3pp。",
+        "FCF USD -8,821.0M，連續 2 季為負；23 列內部人賣出均屬 10b5-1，訊號強度低。",
+        "Globalstar 股東可選現金或 Amazon 股票，現金選擇最多涵蓋 40% 合資格股份，因此交易完成時存在條件式 Amazon 新股發行。"
+      ],
+      "watch": "追蹤 Globalstar 交易最終股票／現金比例、整合與衛星資本支出，以及 FCF 是否恢復。",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1018724/000110465926098339/tm2617924-6_424b3.htm"
+    },
+    {
+      "rank": 5,
+      "ticker": "NOK",
+      "tone": "risk",
+      "status": "高風險｜部分失效",
+      "summary": "AI／Cloud 與光通訊需求改善，但報表獲利、重整現金流及股數尚未證明復甦能轉化為股東價值。",
+      "evidence": [
+        "營收 EUR 4,815.0M，YoY +8.4%；報表營業利益率 -1.0%，可比營業利益率 9.0%。",
+        "FCF EUR -732.0M；稀釋股數 YoY +5.6%。",
+        "最新 6-K 移轉 3.635M 股庫藏股給激勵計畫參與者，約占季度稀釋股數 0.063%，不是重大公開募資。"
+      ],
+      "watch": "確認重整現金支出下降、FCF 恢復，以及 AI／Cloud 訂單能否轉換成可比與報表獲利。",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/924613/000110465926102322/tm2624213d1_6k.htm"
+    },
+    {
+      "rank": 6,
+      "ticker": "COHR",
+      "tone": "risk",
+      "status": "風險偏高｜部分失效",
+      "summary": "AI 光通訊營收與毛利率改善，但連續負自由現金流及大型機構明顯減持仍未解除。",
+      "evidence": [
+        "營收 USD 2,045.5M，YoY +33.7%；毛利率 38.5%，連續 3 季改善。",
+        "FCF USD -486.2M，已連續 5 季為負。",
+        "FMR 持股降至 5.6%，減少約 11.6M 股、6.5pp；單筆 10b5-1 賣出約 USD 972K 的訊號較弱。"
+      ],
+      "watch": "下一季優先看 FCF、營運資金、資本支出及機構持股是否繼續下降。",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/820318/000082031826000020/0000820318-26-000020-index.html"
+    },
+    {
+      "rank": 7,
+      "ticker": "NVDA",
+      "tone": "positive",
+      "status": "證據偏正向｜3 項論點全數支持",
+      "summary": "營收、定價能力與每股現金流仍是追蹤組合中最強；新增風險來自巨額供應／產能承諾、客戶保證與估值。",
+      "evidence": [
+        "營收 USD 96,221.0M，YoY +105.9%；營業利益率 66.2%，FCF USD 21,400.0M。",
+        "毛利率約 75.0%；稀釋股數 YoY -1.0%。",
+        "最新 10-Q 新增承諾、保證與執行風險揭露；中國 H200 出貨仍受限制。"
+      ],
+      "watch": "核對下一季公司指引、供應承諾、資料中心電力與客戶付款條件，並另行評估估值。",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/nvda-20260726.htm"
+    },
+    {
+      "rank": 8,
+      "ticker": "AAPL",
+      "tone": "positive",
+      "status": "證據偏正向｜季節性校正後觀察",
+      "summary": "財務與回購紀律仍強；自動規則因連續三季季減標成部分失效，但 Apple 季節性高，不能單靠 QoQ 判定本業失效。",
+      "evidence": [
+        "營收 USD 109,417.0M，YoY +16.4%；營業利益率 32.6%。",
+        "FCF USD 31,914.0M；稀釋股數 YoY -1.6%。",
+        "Form 4 賣出約 USD 889.9K，均屬 10b5-1，訊號強度低。"
+      ],
+      "watch": "以 YoY、服務收入占比、毛利率與稀釋股數判讀，不以單純季減作結論。",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000020/0000320193-26-000020-index.html"
+    },
+    {
+      "rank": 9,
+      "ticker": "MSFT",
+      "tone": "positive",
+      "status": "證據偏正向｜利潤率需校正",
+      "summary": "雲端與 AI 商業化仍支持雙位數成長；自動規則的連續季減警報需與 YoY 及 AI 折舊／資本支出共同判讀。",
+      "evidence": [
+        "營收 USD 90,007.0M，YoY +17.7%；營業利益率 45.1%，YoY +0.2pp。",
+        "FCF USD 19,639.0M，連續 8 季為正。",
+        "近期沒有重大申報、主動 P／S 交易或新增募資文件。"
+      ],
+      "watch": "追蹤 Azure／AI 收入增速、折舊與資本支出對營業利益率及 FCF 的影響。",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/0001193125-26-323660-index.html"
+    },
+    {
+      "rank": 10,
+      "ticker": "INTC",
+      "tone": "caution",
+      "status": "中性觀察｜每股論點失效",
+      "summary": "產品與製程轉型的營收、毛利率及現金流已改善，但股數增加使復甦尚未完整反映到每股價值。",
+      "evidence": [
+        "營收 USD 16,128.0M，YoY +25.4%；營業利益率 11.1%。",
+        "FCF USD 4,450.0M，由負轉正。",
+        "稀釋股數 YoY +16.8%，已超過投資論點失效門檻。"
+      ],
+      "watch": "以毛利率、外部晶圓代工客戶、資本支出及稀釋股數／股為主要驗證條件。",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/50863/000005086326000157/0000050863-26-000157-index.html"
+    },
+    {
+      "rank": 11,
+      "ticker": "TSLA",
+      "tone": "risk",
+      "status": "風險偏高｜需要驗證",
+      "summary": "營收恢復成長，但低營業利益率與負自由現金流仍無法證明 Robotaxi、AI 與產能投資能由本業支應。",
+      "evidence": [
+        "營收 USD 28,236.0M，YoY +25.5%。",
+        "營業利益率僅 1.4%；FCF USD -1,092.0M。",
+        "毛利率 16.8%，已接近 15% 失效門檻；Musk 最新申報持股比例小幅下降 0.4pp。"
+      ],
+      "watch": "確認毛利率是否跌破 15%、FCF 是否連續轉負，以及新業務收入能否改善單位經濟。",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026049270/0001628280-26-049270-index.html"
+    },
+    {
+      "rank": 12,
+      "ticker": "TSM",
+      "tone": "positive",
+      "status": "證據偏正向｜3 項論點全數支持",
+      "summary": "先進製程、毛利率與自由現金流均支持長期論點；近期 6-K 是月度公司事項，未見重大基本面負面。",
+      "evidence": [
+        "營收 TWD 1,270.4B，YoY +36.0%；營業利益率 60.3%。",
+        "FCF TWD 287.4B；近期 3 列主動買入合計約 USD 174K。",
+        "最新 6-K 披露兩名副總各增加 5,000 股及發行 TWD 18.5B 無擔保債券，利率 2.03%～2.10%。"
+      ],
+      "watch": "追蹤先進製程需求、海外廠稀釋、資本支出與高毛利率是否維持。",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000545/tsm-monthend6kx20260825.htm"
+    },
+    {
+      "rank": 13,
+      "ticker": "GOOG",
+      "tone": "caution",
+      "status": "論點維持｜FCF 待驗證",
+      "summary": "搜尋、Cloud 與 AI 成長及營業利益率仍健康；單季負自由現金流需要判斷是否只是 AI 資本支出時點。",
+      "evidence": [
+        "營收 USD 119,796.0M，YoY +24.2%；營業利益率 34.0%。",
+        "FCF USD -5,855.0M，最新一季轉負；稀釋股數 YoY +0.9%。",
+        "目前 2 項投資論點支持、1 項現金流論點待驗證。"
+      ],
+      "watch": "看未來 2～3 季 FCF 是否恢復、AI 資本支出報酬及搜尋商業化是否維持。",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/0001652044-26-000071-index.html"
+    },
+    {
+      "rank": 14,
+      "ticker": "ARM",
+      "tone": "caution",
+      "status": "論點維持｜估值與季減觀察",
+      "summary": "授權／版稅、極高毛利率與自由現金流均支持論點；近期沒有重大 SEC 新事件，風險主要在估值與營收連續季減。",
+      "evidence": [
+        "營收 USD 1,289.0M，YoY +22.4%，但已連續 2 季季減。",
+        "毛利率 97.2%；FCF USD 705.0M，連續 7 季為正。",
+        "稀釋股數 YoY +1.2%；近期沒有主動 P／S、募資或 13D／13G 事件。"
+      ],
+      "watch": "確認下一季營收是否停止季減、營業利益率能否回升，並把估值獨立於 SEC 分數評估。",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1973239/000197323926000114/0001973239-26-000114-index.html"
+    }
+  ]
+}

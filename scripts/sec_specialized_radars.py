@@ -29,7 +29,7 @@ OFFERING_FORMS = {
     "424B2", "424B3", "424B4", "424B5", "POS AM", "EFFECT",
 }
 FOREIGN_PRIVATE_ISSUERS = {"ARM", "NOK", "TSM"}
-OFFERING_CLASSIFIER_VERSION = 3
+OFFERING_CLASSIFIER_VERSION = 4
 
 TRANSACTION_CODES = {
     "A": "公司授予／獎勵",
@@ -235,6 +235,11 @@ def classify_offering(form, document_text):
     has_debt = any(term in lead for term in (
         "senior notes", "aggregate principal amount", "debt securities", "notes due",
     ))
+    has_merger_stock = all(term in lead for term in (
+        "information statement/prospectus", "merger agreement", "stock consideration",
+    )) and any(term in lead for term in (
+        "shares of common stock to be issued", "offering shares of", "receive amazon common stock",
+    ))
     shelf_form = form.startswith("S-3") or form.startswith("F-3") or form == "POS AM"
     broad_shelf = shelf_form and (
         "from time to time" in lead
@@ -262,6 +267,12 @@ def classify_offering(form, document_text):
             "shelf", "架上註冊",
             "先取得未來募資彈性，不代表立即發行；可能包含股權或債券",
             "可能稀釋，尚未發生",
+        )
+    if has_merger_stock:
+        return result(
+            "merger_stock_consideration", "併購股票對價",
+            "合併完成時可能以收購方股票支付對價；實際稀釋取決於成交條件、選擇比例與最終換股數",
+            "條件式股權稀釋",
         )
     if has_convertible:
         return result(

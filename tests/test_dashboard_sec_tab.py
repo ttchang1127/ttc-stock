@@ -21,6 +21,7 @@ class DashboardSecTabTests(unittest.TestCase):
         cls.thesis_status = json.loads((ROOT / "investment_thesis_status.json").read_text())
         cls.exhibit_991 = json.loads((ROOT / "exhibit_991_analysis.json").read_text())
         cls.earnings_calls = json.loads((ROOT / "earnings_call_analysis.json").read_text())
+        cls.editorial = json.loads((ROOT / "sec_daily_editorial.json").read_text())
 
     def test_tab_defaults_to_14_days_and_allows_7_days(self):
         self.assertIn("🚨 4_SEC 每日重點", self.html)
@@ -40,6 +41,7 @@ class DashboardSecTabTests(unittest.TestCase):
         self.assertIn("fetch('investment_thesis_status.json'", self.html)
         self.assertIn("fetch('exhibit_991_analysis.json'", self.html)
         self.assertIn("fetch('earnings_call_analysis.json'", self.html)
+        self.assertIn("fetch('sec_daily_editorial.json'", self.html)
         self.assertIn("function renderSecDaily()", self.html)
         self.assertIn('id="secQuarterlyBody"', self.html)
         self.assertIn('id="secKpiQuarterly"', self.html)
@@ -191,7 +193,7 @@ class DashboardSecTabTests(unittest.TestCase):
         ]
         for phrase in required_copy:
             self.assertIn(phrase, self.html)
-        for category in ("'atm_equity'", "'equity'", "'convertible'", "'shelf'"):
+        for category in ("'atm_equity'", "'equity'", "'convertible'", "'shelf'", "'merger_stock_consideration'"):
             self.assertIn(category, self.html)
         self.assertIn("const yearAgo = periods[4]", self.html)
         self.assertIn("ownershipAge <= 90", self.html)
@@ -233,7 +235,7 @@ class DashboardSecTabTests(unittest.TestCase):
             "function renderSecReadingRank()",
             "data-sec-rank-ticker",
             "核心持股每日閱讀排序",
-            "前 5 家直接顯示",
+            "本區只列出閱讀先後，不建立待辦或人工列管",
             "潛在稀釋、重大／重要申報、90 日內重大 13D／13G",
             "排序只決定每日閱讀先後，不是利多／利空、投資評等或報酬預測",
             "renderSecReadingRank();",
@@ -244,30 +246,51 @@ class DashboardSecTabTests(unittest.TestCase):
         self.assertIn("onclick=\"setSecCoreTicker('${escapeSec(row.displayTicker)}')\"", self.html)
         self.assertIn("secDaysSince(row.filing_date) <= 90", self.html)
 
-    def test_daily_reading_queue_tracks_documents_and_progress_locally(self):
+    def test_daily_editorial_contains_digested_evidence_and_next_checks(self):
+        core = {"NVDA", "TSM", "MSFT", "META", "AAPL", "AMZN", "ARM",
+                "ONDS", "TSLA", "GOOG", "COHR", "MRVL", "INTC", "NOK"}
+        companies = self.editorial["companies"]
+        self.assertEqual(self.editorial["schema_version"], 1)
+        self.assertEqual({row["ticker"] for row in companies}, core)
+        self.assertEqual(sorted(row["rank"] for row in companies), list(range(1, 15)))
+        self.assertEqual(
+            self.editorial["portfolio_order"],
+            ["ONDS", "MRVL", "NOK", "COHR", "NVDA", "INTC", "TSLA", "GOOG", "ARM"],
+        )
+        for row in companies:
+            self.assertTrue(row["summary"], row["ticker"])
+            self.assertGreaterEqual(len(row["evidence"]), 3, row["ticker"])
+            self.assertTrue(row["watch"], row["ticker"])
+            self.assertTrue(row["source_url"].startswith(("https://www.sec.gov/", "https://www.nokia.com/")))
         required_copy = [
-            "SEC_READING_STORAGE_KEY",
-            "secDailyReadingProgress.v1",
-            "function secLoadReadingProgress()",
-            "function secSaveReadingProgress()",
-            "function secReadingRowStatus(row)",
-            "function toggleSecCompanyReading(event, displayTicker)",
-            "function goToNextUnreadSecCompany()",
-            "function completeCurrentAndNextSecCompany()",
-            "今日已讀 ${completed}／${rows.length} 家",
-            "尚有 ${unreadDocuments} 項待讀證據",
-            "下一家未讀",
-            "完成目前並下一家",
-            "最重要原文 ↗",
-            "data-sec-read-toggle",
-            "季度趨勢指紋改變，會自動恢復未讀",
-            "不會跨裝置同步",
+            'id="secEditorial"', "function renderSecEditorial()",
+            "人工消化後的每日綜合重點", "你的實際持股閱讀順序",
+            "今日已人工消化", "非今日覆核稿", "人工稿不會假裝即時自動判讀",
+            "renderSecEditorial();", "merger_stock_consideration",
         ]
         for phrase in required_copy:
             self.assertIn(phrase, self.html)
-        self.assertIn("id: `filing:${event.accession}`", self.html)
-        self.assertIn("row.evidence.filter(item => !readKeys.has(item.id))", self.html)
-        self.assertIn("stored?.date === date", self.html)
+        amzn = next(row for row in companies if row["ticker"] == "AMZN")
+        self.assertIn("Globalstar", amzn["summary"])
+        self.assertIn("條件式", " ".join(amzn["evidence"]))
+
+    def test_daily_reading_order_uses_ai_editorial_status_without_local_tracking(self):
+        required_copy = [
+            "本區只列出閱讀先後，不建立待辦或人工列管",
+            "✅ AI 已讀，已記錄重點",
+            "已完成 ${aiReadCount}／${rows.length} 家",
+            "下方人工消化重點已有該公司紀錄",
+            "const editorialByTicker = new Map",
+        ]
+        for phrase in required_copy:
+            self.assertIn(phrase, self.html)
+        forbidden_copy = [
+            "SEC_READING_STORAGE_KEY", "secDailyReadingProgress.v1",
+            "function toggleSecCompanyReading", "goToNextUnreadSecCompany",
+            "completeCurrentAndNextSecCompany", "data-sec-read-toggle",
+        ]
+        for phrase in forbidden_copy:
+            self.assertNotIn(phrase, self.html)
 
     def test_eight_quarter_objective_diagnosis_uses_actual_thresholds_and_queue(self):
         required_copy = [
@@ -285,9 +308,7 @@ class DashboardSecTabTests(unittest.TestCase):
             "營收連降至少 3 季或 YoY ≤ -10%",
             "此判讀只描述已公布數字，不預測股價或未來業績",
             "八季財務警報 ${financialTrend.alerts.length} 項",
-            "id: `trend:${ticker}:${financialTrend.fingerprint}`",
-            "trend: '財務趨勢'",
-            "['trend', 'thesis'].includes(primary?.kind) ? safeQuarterlySourceUrl(primary?.url) : safeSecUrl(primary?.url)",
+            "已提高每日閱讀排序",
         ]
         for phrase in required_copy:
             self.assertIn(phrase, self.html)
@@ -319,9 +340,7 @@ class DashboardSecTabTests(unittest.TestCase):
             "狀態變更日誌",
             "🟢 論點維持", "🔵 需要驗證", "🟡 部分失效", "🔴 重大失效",
             "0 項失效且至少 2 項支持＝論點維持",
-            "狀態變化或任何失效項目會進入每日閱讀待辦",
-            "id: `thesis:${ticker}:${investmentThesis.fingerprint}`",
-            "thesis: '投資論點'",
+            "狀態變化或任何失效項目會提高每日閱讀排序",
             "renderSecThesisTracker();",
             "GitHub Issue 只在分類真的改變時建立",
         ]

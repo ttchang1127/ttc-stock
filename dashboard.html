@@ -1247,6 +1247,37 @@
     .sec-reading-rank-more .sec-reading-rank-list { margin-top: 10px; }
     .sec-reading-rank-method { margin-top: 10px; color: #94a3b8; font-size: 0.68rem; line-height: 1.55; }
 
+    .sec-editorial {
+      margin: 0 0 20px;
+      padding: 16px;
+      border: 1px solid rgba(251, 191, 36, 0.3);
+      border-radius: 16px;
+      background: linear-gradient(145deg, rgba(69, 26, 3, 0.2), rgba(15, 23, 42, 0.82));
+    }
+    .sec-editorial-head { display: flex; justify-content: space-between; gap: 14px; align-items: flex-start; flex-wrap: wrap; }
+    .sec-editorial-head h3 { margin: 0; color: #fef3c7; font-size: 0.95rem; }
+    .sec-editorial-meta { margin: 5px 0 0; color: #94a3b8; font-size: 0.69rem; line-height: 1.5; }
+    .sec-editorial-badge { border: 1px solid rgba(251, 191, 36, 0.34); border-radius: 999px; padding: 5px 9px; color: #fde68a; font-size: 0.66rem; font-weight: 850; }
+    .sec-editorial-badge.stale { border-color: rgba(251, 113, 133, 0.42); color: #fecdd3; }
+    .sec-editorial-headline { margin: 12px 0; padding: 10px 12px; border-left: 3px solid #fbbf24; border-radius: 8px; background: rgba(120, 53, 15, 0.15); color: #f8fafc; font-size: 0.78rem; line-height: 1.65; }
+    .sec-editorial-portfolio { margin: 0 0 12px; color: #cbd5e1; font-size: 0.72rem; line-height: 1.55; }
+    .sec-editorial-portfolio strong { color: #7dd3fc; }
+    .sec-editorial-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 285px), 1fr)); gap: 9px; }
+    .sec-editorial-card { min-width: 0; border: 1px solid rgba(148, 163, 184, 0.2); border-radius: 12px; background: rgba(2, 6, 23, 0.44); overflow: hidden; }
+    .sec-editorial-card.risk { border-color: rgba(251, 113, 133, 0.4); }
+    .sec-editorial-card.caution { border-color: rgba(251, 191, 36, 0.34); }
+    .sec-editorial-card.positive { border-color: rgba(52, 211, 153, 0.34); }
+    .sec-editorial-card summary { display: flex; align-items: center; gap: 8px; padding: 10px 11px; cursor: pointer; list-style-position: inside; }
+    .sec-editorial-rank { color: #fbbf24; font-weight: 900; }
+    .sec-editorial-ticker { color: #fff; font-size: 0.82rem; font-weight: 900; }
+    .sec-editorial-status { margin-left: auto; color: #cbd5e1; font-size: 0.63rem; font-weight: 760; text-align: right; }
+    .sec-editorial-body { padding: 0 12px 12px; color: #cbd5e1; font-size: 0.7rem; line-height: 1.55; }
+    .sec-editorial-body > p { margin: 0 0 8px; color: #e2e8f0; }
+    .sec-editorial-body ul { margin: 0 0 8px; padding-left: 18px; }
+    .sec-editorial-body li + li { margin-top: 4px; }
+    .sec-editorial-watch { color: #fde68a; }
+    .sec-editorial-method { margin: 11px 0 0; color: #94a3b8; font-size: 0.66rem; line-height: 1.5; }
+
     .sec-core-shortcuts {
       margin-bottom: 20px;
       padding: 15px 16px;
@@ -2657,6 +2688,10 @@
           <p class="sec-company-brief-placeholder">正在依最新 SEC 證據排列 14 家公司…</p>
         </section>
 
+        <section id="secEditorial" class="sec-editorial" aria-live="polite" aria-labelledby="secEditorialTitle">
+          <div class="sec-editorial-head"><div><h3 id="secEditorialTitle">🧠 人工消化後的每日綜合重點</h3><p class="sec-editorial-meta">正在載入已讀結論、關鍵證據與下一步驗證條件…</p></div></div>
+        </section>
+
         <nav id="secCoreShortcuts" class="sec-core-shortcuts" aria-label="SEC 核心持股快捷標的">
           <div class="sec-core-shortcuts-head">
             <strong>⚡ 核心持股快捷標的</strong>
@@ -2719,7 +2754,7 @@
           <article class="sec-kpi">
             <span class="sec-kpi-label">潛在稀釋文件</span>
             <strong id="secKpiDilution" class="sec-kpi-value">—</strong>
-            <p class="sec-kpi-help">ATM、新股、可轉債或架上註冊文件份數；是風險訊號，不等於股票已全部發行。</p>
+            <p class="sec-kpi-help">ATM、新股、可轉債、架上註冊或併購股票對價文件份數；是風險訊號，不等於股票已全部發行。</p>
           </article>
           <article class="sec-kpi">
             <span class="sec-kpi-label">四季數據可比較</span>
@@ -3697,13 +3732,10 @@
     let secOwnershipStatus = 'above_5';
     let secOwnershipEventLevel = 'ALL';
     let secCoreTicker = '';
-    let secReadingProgress = null;
-    let secReadingNotice = '';
     let secQuarterlyMetric = 'revenue';
     let secQuarterlyChart = null;
     const SEC_CORE_TICKERS = ['NVDA', 'TSM', 'MSFT', 'META', 'AAPL', 'AMZN', 'ARM', 'ONDS', 'TSLA', 'GOOG', 'COHR', 'MRVL', 'INTC', 'NOK'];
     const SEC_TICKER_ALIASES = { GOOG: 'GOOGL' };
-    const SEC_READING_STORAGE_KEY = 'secDailyReadingProgress.v1';
 
     const SEC_SEVERITY = {
       critical: { label: '🔴 重大', css: 'critical' },
@@ -4082,8 +4114,11 @@
             .then(r => { if (!r.ok) throw new Error(`Exhibit 99.1 分析 HTTP ${r.status}`); return r.json(); }),
           fetch('earnings_call_analysis.json', { cache: 'no-cache' })
             .then(r => { if (!r.ok) throw new Error(`Earnings Call 分析 HTTP ${r.status}`); return r.json(); }),
-        ]).then(([alerts, details, quarterlyFinancials, advanced, thirteenF, textChanges, thesisTracking, thesisStatus, exhibit991, earningsCalls]) => {
-          secDailyData = { alerts, details, quarterlyFinancials, advanced, thirteenF, textChanges, thesisTracking, thesisStatus, exhibit991, earningsCalls };
+          fetch('sec_daily_editorial.json', { cache: 'no-cache' })
+            .then(r => { if (!r.ok) throw new Error(`人工每日重點 HTTP ${r.status}`); return r.json(); })
+            .catch(error => { console.warn('sec_daily_editorial.json 載入失敗', error); return null; }),
+        ]).then(([alerts, details, quarterlyFinancials, advanced, thirteenF, textChanges, thesisTracking, thesisStatus, exhibit991, earningsCalls, editorial]) => {
+          secDailyData = { alerts, details, quarterlyFinancials, advanced, thirteenF, textChanges, thesisTracking, thesisStatus, exhibit991, earningsCalls, editorial };
           renderSecDaily();
         }).catch(error => {
           secDailyPromise = null;
@@ -4224,53 +4259,12 @@
         <p class="sec-update-method">「本次」是 watcher 的偵測批次，不是 SEC filing date。論點通知只在綜合狀態或任一分項分類改變時觸發；單純數值更新但分類不變不重複通知。優先度只決定閱讀順序，不是利多、利空或投資評等；財務數字仍以下方八季表及官方原文為準。</p>`;
     }
 
-    function secLoadReadingProgress() {
-      const date = todayET();
-      if (secReadingProgress?.date === date) return secReadingProgress;
-      let stored = null;
-      try {
-        stored = JSON.parse(localStorage.getItem(SEC_READING_STORAGE_KEY) || 'null');
-      } catch (_) {
-        stored = null;
-      }
-      secReadingProgress = stored?.date === date && stored.companies && typeof stored.companies === 'object'
-        ? stored : { date, companies: {} };
-      return secReadingProgress;
-    }
-
-    function secSaveReadingProgress() {
-      try {
-        localStorage.setItem(SEC_READING_STORAGE_KEY, JSON.stringify(secReadingProgress));
-      } catch (_) {
-        secReadingNotice = '⚠️ 瀏覽器未允許保存已讀狀態；本次開啟期間仍可使用。';
-      }
-    }
-
-    function secReadingEntry(displayTicker) {
-      const state = secLoadReadingProgress();
-      const existing = state.companies[displayTicker] || {};
-      const entry = {
-        checked: existing.checked === true,
-        read_keys: Array.isArray(existing.read_keys) ? existing.read_keys.filter(value => typeof value === 'string') : [],
-        read_at: existing.read_at || null,
-      };
-      state.companies[displayTicker] = entry;
-      return entry;
-    }
-
-    function secReadingRowStatus(row) {
-      const entry = secReadingEntry(row.displayTicker);
-      const readKeys = new Set(entry.read_keys);
-      const unreadEvidence = row.evidence.filter(item => !readKeys.has(item.id));
-      return { entry, unreadEvidence, unreadCount: unreadEvidence.length, done: entry.checked && unreadEvidence.length === 0 };
-    }
-
     function secReadingRankRows() {
       if (!secDailyData) return [];
       const { alerts, details, advanced, quarterlyFinancials, thesisTracking } = secDailyData;
       const cutoff = secCutoff(secRangeDays);
       const endDate = todayET();
-      const dilutionCategories = new Set(['atm_equity', 'equity', 'convertible', 'shelf']);
+      const dilutionCategories = new Set(['atm_equity', 'equity', 'convertible', 'shelf', 'merger_stock_consideration']);
       const tierWeight = { urgent: 3, updated: 2, quiet: 1 };
 
       return SEC_CORE_TICKERS.map(displayTicker => {
@@ -4285,26 +4279,19 @@
           if (event.group !== '募資／稀釋') return false;
           return dilutionCategories.has(details.offerings?.[event.accession]?.category);
         });
-        const activeTradeAccessions = new Set();
         let activeTrades = 0;
         events.filter(event => ['4', '4/A'].includes(event.form)).forEach(event => {
           const rows = details.form4?.[event.accession]?.transactions || [];
           const count = rows.filter(tx => ['P', 'S'].includes(tx.code)).length;
-          if (count) activeTradeAccessions.add(event.accession);
           activeTrades += count;
         });
         const ownership = (advanced.ownership_timeline || []).filter(row =>
           row.ticker === ticker && secDaysSince(row.filing_date) <= 90
         );
-        const ownershipInRange = ownership.filter(row => row.filing_date >= cutoff && row.filing_date <= endDate);
         const majorOwnership = ownership.filter(row => row.importance === 'high');
         const enforcement = (advanced.enforcement || []).filter(row =>
           (row.event?.ticker || row.ticker) === ticker
         );
-        const enforcementInRange = enforcement.filter(row => {
-          const date = row.event?.filing_date || row.date;
-          return !date || (date >= cutoff && date <= endDate);
-        });
         const financialTrend = secQuarterlyTrendAnalysis(quarterlyFinancials?.companies?.[ticker]);
         const investmentThesis = secInvestmentThesisForTicker(ticker);
         const urgent = important.length || dilution.length || majorOwnership.length || enforcement.length
@@ -4330,175 +4317,89 @@
         if (!reasons.length && ownership.length) reasons.push(`90 日內大股東更新 ${ownership.length} 項`);
         if (!reasons.length) reasons.push(`近 ${secRangeDays} 日無新申報`);
 
-        const evidenceById = new Map();
-        const addEvidence = item => {
-          if (!item.id) return;
-          const prior = evidenceById.get(item.id);
-          if (!prior || item.priority > prior.priority) evidenceById.set(item.id, item);
-        };
-        events.forEach(event => {
-          const isDilution = dilution.some(row => row.accession === event.accession);
-          const isImportant = important.some(row => row.accession === event.accession);
-          const isActiveTrade = activeTradeAccessions.has(event.accession);
-          const kind = isDilution ? 'dilution' : (isImportant ? 'important' : (isActiveTrade ? 'form4' : 'general'));
-          const priority = isDilution ? 100 : (event.severity === 'critical' ? 95 : (isImportant ? 85 : (isActiveTrade ? 55 : 35)));
-          addEvidence({ id: `filing:${event.accession}`, kind, priority, date: event.filing_date, label: `${event.form}｜${event.filing_date}`, url: event.url });
-        });
-        ownershipInRange.forEach(row => addEvidence({
-          id: `filing:${row.accession}`, kind: 'ownership', priority: row.importance === 'high' ? 90 : 60,
-          date: row.filing_date, label: `${row.form}｜${row.filing_date}`, url: row.url,
-        }));
-        enforcementInRange.forEach(row => {
-          const event = row.event || {};
-          const date = event.filing_date || row.date || '日期未列';
-          const id = event.accession ? `filing:${event.accession}` : `enforcement:${row.url || `${date}|${row.title || ''}`}`;
-          addEvidence({ id, kind: 'enforcement', priority: 110, date, label: `SEC 執法／停牌｜${date}`, url: event.url || row.url });
-        });
-        if (financialTrend.queueAlert) {
-          addEvidence({
-            id: `trend:${ticker}:${financialTrend.fingerprint}`, kind: 'trend', priority: 88,
-            date: financialTrend.latestPeriod, label: `八季財務趨勢｜${financialTrend.latestPeriod}`,
-            url: financialTrend.latestUrl,
-          });
-        }
-        if (investmentThesis.queueAlert) {
-          addEvidence({
-            id: `thesis:${ticker}:${investmentThesis.fingerprint}`, kind: 'thesis', priority: investmentThesis.priority,
-            date: investmentThesis.period, label: `投資論點｜${investmentThesis.label.replace(/^[^ ]+ /, '')}｜${investmentThesis.period}`,
-            url: investmentThesis.url,
-          });
-        }
-        const evidence = [...evidenceById.values()].sort((a, b) => b.priority - a.priority
-          || String(b.date).localeCompare(String(a.date)) || a.id.localeCompare(b.id));
         const signalScore = dilution.length * 60 + enforcement.length * 55 + majorOwnership.length * 50
           + investmentThesis.counts.invalidated * 52 + (investmentThesis.statusChanged ? 18 : 0)
           + financialTrend.alerts.length * 45 + important.length * 40 + activeTrades * 4 + events.length;
-        return { displayTicker, ticker, tier, tierWeight: tierWeight[tier], signalScore, latestDate: dates[0] || '', reasons, evidence, financialTrend, investmentThesis };
+        return { displayTicker, ticker, tier, tierWeight: tierWeight[tier], signalScore, latestDate: dates[0] || '', reasons };
       }).sort((a, b) => b.tierWeight - a.tierWeight
         || b.signalScore - a.signalScore
         || b.latestDate.localeCompare(a.latestDate)
         || a.displayTicker.localeCompare(b.displayTicker));
     }
 
-    function secSetCompanyReadingDone(displayTicker, done, rerender = true) {
-      if (!SEC_CORE_TICKERS.includes(displayTicker)) return;
-      const row = secReadingRankRows().find(item => item.displayTicker === displayTicker);
-      if (!row) return;
-      const entry = secReadingEntry(displayTicker);
-      if (done) {
-        entry.checked = true;
-        entry.read_keys = [...new Set([...entry.read_keys, ...row.evidence.map(item => item.id)])];
-        entry.read_at = new Date().toISOString();
-        secReadingNotice = `✅ ${displayTicker} 已完成；目前期間內 ${row.evidence.length} 項待讀證據已記錄為已讀。`;
-      } else {
-        entry.checked = false;
-        entry.read_keys = [];
-        entry.read_at = null;
-        secReadingNotice = `↩️ ${displayTicker} 已改回未讀。`;
-      }
-      secSaveReadingProgress();
-      if (rerender) renderSecReadingRank();
-    }
-
-    function toggleSecCompanyReading(event, displayTicker) {
-      event.preventDefault();
-      event.stopPropagation();
-      const row = secReadingRankRows().find(item => item.displayTicker === displayTicker);
-      if (!row) return;
-      secSetCompanyReadingDone(displayTicker, !secReadingRowStatus(row).done);
-    }
-
-    function secNextUnreadRow(rows) {
-      const currentIndex = rows.findIndex(row => row.displayTicker === secCoreTicker);
-      for (let offset = 1; offset <= rows.length; offset += 1) {
-        const index = currentIndex < 0 ? offset - 1 : (currentIndex + offset) % rows.length;
-        if (!secReadingRowStatus(rows[index]).done) return rows[index];
-      }
-      return null;
-    }
-
-    function goToNextUnreadSecCompany() {
-      const next = secNextUnreadRow(secReadingRankRows());
-      if (!next) {
-        secReadingNotice = '🎉 今日 14 家都已完成閱讀。';
-        renderSecReadingRank();
-        return;
-      }
-      secReadingNotice = `➡️ 接著閱讀 ${next.displayTicker}。`;
-      setSecCoreTicker(next.displayTicker);
-    }
-
-    function completeCurrentAndNextSecCompany() {
-      if (!secCoreTicker) {
-        goToNextUnreadSecCompany();
-        return;
-      }
-      secSetCompanyReadingDone(secCoreTicker, true, false);
-      const next = secNextUnreadRow(secReadingRankRows());
-      if (!next) {
-        secReadingNotice = '🎉 今日 14 家都已完成閱讀。';
-        renderSecReadingRank();
-        return;
-      }
-      secReadingNotice = `✅ ${secCoreTicker} 完成；接著閱讀 ${next.displayTicker}。`;
-      setSecCoreTicker(next.displayTicker);
-    }
-
     function renderSecReadingRank() {
       const container = document.getElementById('secReadingRank');
       if (!container || !secDailyData) return;
-      secLoadReadingProgress();
       const rows = secReadingRankRows();
-      const statuses = new Map(rows.map(row => [row.displayTicker, secReadingRowStatus(row)]));
-      const completed = rows.filter(row => statuses.get(row.displayTicker).done).length;
-      const unreadDocuments = rows.reduce((sum, row) => sum + statuses.get(row.displayTicker).unreadCount, 0);
-      const allDone = completed === rows.length;
+      const editorialRows = Array.isArray(secDailyData.editorial?.companies) ? secDailyData.editorial.companies : [];
+      const editorialByTicker = new Map(editorialRows.map(row => [row.ticker, row]));
+      const aiReadCount = rows.filter(row => editorialByTicker.has(row.displayTicker)).length;
+      const reviewedAt = secDailyData.editorial?.reviewed_at
+        ? new Date(secDailyData.editorial.reviewed_at).toLocaleString('zh-TW', { timeZone: 'Asia/Taipei', hour12: false })
+        : '';
       const tierLabels = {
         urgent: ['需優先閱讀', 'urgent'],
         updated: ['近期有更新', 'updated'],
         quiet: ['例行追蹤', 'quiet'],
       };
-      const kindLabels = { enforcement: '執法', dilution: '稀釋', important: '重大', thesis: '投資論點', trend: '財務趨勢', ownership: '大股東', form4: 'Form 4', general: '一般' };
       const renderCard = (row, index) => {
         const [label, css] = tierLabels[row.tier];
         const active = row.displayTicker === secCoreTicker;
-        const status = statuses.get(row.displayTicker);
-        const unreadKinds = status.unreadEvidence.reduce((counts, item) => {
-          counts[item.kind] = (counts[item.kind] || 0) + 1;
-          return counts;
-        }, {});
-        const unreadBreakdown = Object.entries(kindLabels).filter(([kind]) => unreadKinds[kind])
-          .map(([kind, kindLabel]) => `${kindLabel} ${unreadKinds[kind]}`).join('｜');
-        const unreadLabel = status.done ? '✅ 今日已讀'
-          : (status.unreadCount ? `🔔 未讀 ${status.unreadCount} 項｜${unreadBreakdown}` : '○ 今日尚未確認｜期間內無新證據');
-        const primary = status.unreadEvidence[0] || row.evidence[0];
-        const sourceUrl = ['trend', 'thesis'].includes(primary?.kind) ? safeQuarterlySourceUrl(primary?.url) : safeSecUrl(primary?.url);
-        const source = sourceUrl === '#'
-          ? '<span class="sec-reading-no-source">目前無新原文</span>'
-          : `<a class="sec-link" href="${sourceUrl}" target="_blank" rel="noopener" onclick="event.stopPropagation()">最重要原文 ↗</a>`;
-        return `<article class="sec-reading-rank-card${active ? ' active' : ''}${status.done ? ' done' : ''}">
+        const aiRead = editorialByTicker.has(row.displayTicker);
+        const readLabel = aiRead ? '✅ AI 已讀，已記錄重點' : '○ 尚未寫入 AI 重點';
+        return `<article class="sec-reading-rank-card${active ? ' active' : ''}${aiRead ? ' done' : ''}">
           <button type="button" class="sec-reading-company-btn" data-sec-rank-ticker="${escapeSec(row.displayTicker)}" onclick="setSecCoreTicker('${escapeSec(row.displayTicker)}')" aria-pressed="${active ? 'true' : 'false'}">
             <span class="sec-reading-rank-number">#${index + 1}</span>
-            <span class="sec-reading-rank-main"><span class="sec-reading-rank-title">${escapeSec(row.displayTicker)} <span class="sec-company-priority ${css}">${label}</span></span><span class="sec-reading-rank-reason">${escapeSec(row.reasons.join('；'))}${row.latestDate ? `｜最近 ${escapeSec(row.latestDate)}` : ''}</span><span class="sec-reading-unread">${escapeSec(unreadLabel)}</span></span>
+            <span class="sec-reading-rank-main"><span class="sec-reading-rank-title">${escapeSec(row.displayTicker)} <span class="sec-company-priority ${css}">${label}</span></span><span class="sec-reading-rank-reason">${escapeSec(row.reasons.join('；'))}${row.latestDate ? `｜最近 ${escapeSec(row.latestDate)}` : ''}</span><span class="sec-reading-unread">${escapeSec(readLabel)}</span></span>
           </button>
-          <div class="sec-reading-card-actions">${source}<button type="button" class="sec-reading-toggle" data-sec-read-toggle="${escapeSec(row.displayTicker)}" onclick="toggleSecCompanyReading(event, '${escapeSec(row.displayTicker)}')">${status.done ? '改為未讀' : '標記已讀'}</button></div>
         </article>`;
       };
       const firstRows = rows.slice(0, 5).map(renderCard).join('');
       const remainingRows = rows.slice(5).map((row, index) => renderCard(row, index + 5)).join('');
       container.innerHTML = `
         <div class="sec-reading-rank-head">
-          <div><h3 id="secReadingRankTitle">📌 核心持股每日閱讀排序</h3><p>前 5 家直接顯示，其餘收合；點選公司會同步切換下方 SEC 區塊，已讀進度保存在目前瀏覽器。</p></div>
+          <div><h3 id="secReadingRankTitle">📌 核心持股每日閱讀排序</h3><p>本區只列出閱讀先後，不建立待辦或人工列管；點選公司會同步切換下方 SEC 區塊。</p></div>
           <span class="sec-reading-rank-period">依 ${escapeSec(secCutoff(secRangeDays))}～${escapeSec(todayET())} 排序</span>
         </div>
         <div class="sec-reading-progress">
-          <div class="sec-reading-progress-copy"><strong>今日已讀 ${completed}／${rows.length} 家</strong>｜尚有 ${unreadDocuments} 項待讀證據<div class="sec-reading-progress-track"><span class="sec-reading-progress-fill" style="width:${rows.length ? completed / rows.length * 100 : 0}%"></span></div></div>
-          <div class="sec-reading-actions"><button type="button" class="sec-reading-action" onclick="goToNextUnreadSecCompany()"${allDone ? ' disabled' : ''}>下一家未讀</button><button type="button" class="sec-reading-action primary" onclick="completeCurrentAndNextSecCompany()"${allDone ? ' disabled' : ''}>${secCoreTicker ? '完成目前並下一家' : '從第一家開始'}</button></div>
-          ${secReadingNotice ? `<div class="sec-reading-notice" role="status">${escapeSec(secReadingNotice)}</div>` : ''}
+          <div class="sec-reading-progress-copy"><strong>✅ AI 已讀，已記錄重點</strong>｜已完成 ${aiReadCount}／${rows.length} 家${reviewedAt ? `｜覆核時間 ${escapeSec(reviewedAt)}` : ''}</div>
         </div>
         <div class="sec-reading-rank-list">${firstRows}</div>
         <details class="sec-reading-rank-more"><summary>展開其餘 ${Math.max(0, rows.length - 5)} 家</summary><div class="sec-reading-rank-list">${remainingRows}</div></details>
-        <p class="sec-reading-rank-method">排序規則依序考量：潛在稀釋、重大／重要申報、90 日內重大 13D／13G、SEC 執法／停牌、投資論點失效／狀態改變、八季財務警報、P／S 主動買賣與一般申報；同級再按訊號數量與最近日期排列。已讀狀態以美東日期每日重設；同一天若出現新的 accession／大股東文件／執法事件、投資論點或季度趨勢指紋改變，會自動恢復未讀。狀態只存在這台裝置的目前瀏覽器，不會跨裝置同步。排序只決定每日閱讀先後，不是利多／利空、投資評等或報酬預測。</p>`;
+        <p class="sec-reading-rank-method">排序規則依序考量：潛在稀釋、重大／重要申報、90 日內重大 13D／13G、SEC 執法／停牌、投資論點失效／狀態改變、八季財務警報、P／S 主動買賣與一般申報；同級再按訊號數量與最近日期排列。「AI 已讀」表示下方人工消化重點已有該公司紀錄，不是瀏覽器待辦或使用者閱讀進度。排序只決定每日閱讀先後，不是利多／利空、投資評等或報酬預測。</p>`;
+    }
+
+    function renderSecEditorial() {
+      const container = document.getElementById('secEditorial');
+      if (!container || !secDailyData) return;
+      const editorial = secDailyData.editorial;
+      if (!editorial || !Array.isArray(editorial.companies)) {
+        container.innerHTML = '<div class="sec-editorial-head"><div><h3 id="secEditorialTitle">🧠 人工消化後的每日綜合重點</h3><p class="sec-editorial-meta">目前沒有人工覆核稿；請先閱讀上方排序及下方官方原文。</p></div></div>';
+        return;
+      }
+      const reviewed = new Date(editorial.reviewed_at);
+      const today = new Date(`${todayET()}T12:00:00Z`);
+      const ageDays = Number.isNaN(reviewed.getTime()) ? null : Math.max(0, Math.floor((today - reviewed) / 86400000));
+      const stale = ageDays === null || ageDays > 1 || editorial.window_end < todayET();
+      const toneLabels = { risk: '🔴', caution: '🟡', positive: '🟢' };
+      const cards = [...editorial.companies].sort((a, b) => Number(a.rank) - Number(b.rank)).map(company => {
+        const sourceUrl = safeQuarterlySourceUrl(company.source_url);
+        const source = sourceUrl === '#' ? '' : `<a class="sec-link" href="${sourceUrl}" target="_blank" rel="noopener">官方原文 ↗</a>`;
+        const evidence = (company.evidence || []).map(item => `<li>${escapeSec(item)}</li>`).join('');
+        return `<details class="sec-editorial-card ${escapeSec(company.tone || 'caution')}"${Number(company.rank) <= 5 ? ' open' : ''}>
+          <summary><span class="sec-editorial-rank">#${formatSecNumber(company.rank)}</span><span>${toneLabels[company.tone] || '🔵'}</span><span class="sec-editorial-ticker">${escapeSec(company.ticker)}</span><span class="sec-editorial-status">${escapeSec(company.status)}</span></summary>
+          <div class="sec-editorial-body"><p>${escapeSec(company.summary)}</p><ul>${evidence}</ul><p class="sec-editorial-watch"><strong>下一步：</strong>${escapeSec(company.watch)}</p>${source}</div>
+        </details>`;
+      }).join('');
+      container.innerHTML = `
+        <div class="sec-editorial-head">
+          <div><h3 id="secEditorialTitle">🧠 ${escapeSec(editorial.title || '人工消化後的每日綜合重點')}</h3><p class="sec-editorial-meta">覆核 ${escapeSec(formatSecTimestamp(editorial.reviewed_at))}｜資料窗 ${escapeSec(editorial.window_start)}～${escapeSec(editorial.window_end)}</p></div>
+          <span class="sec-editorial-badge${stale ? ' stale' : ''}">${stale ? '⚠️ 非今日覆核稿' : '✅ 今日已人工消化'}</span>
+        </div>
+        <p class="sec-editorial-headline">${escapeSec(editorial.headline)}</p>
+        <p class="sec-editorial-portfolio"><strong>你的實際持股閱讀順序：</strong>${(editorial.portfolio_order || []).map(escapeSec).join(' → ')}</p>
+        <div class="sec-editorial-grid">${cards}</div>
+        <p class="sec-editorial-method">${escapeSec(editorial.method)} 人工稿不會假裝即時自動判讀；若官方資料日期晚於覆核時間，請以上方新申報排序為先並等待重讀。</p>`;
     }
 
     function renderSecDaily() {
@@ -4529,7 +4430,7 @@
           risk: '明細尚未解析，請開啟 SEC 原文確認。',
         },
       }));
-      const dilutionCategories = new Set(['atm_equity', 'equity', 'convertible', 'shelf']);
+      const dilutionCategories = new Set(['atm_equity', 'equity', 'convertible', 'shelf', 'merger_stock_consideration']);
       const dilutionCount = offeringRows.filter(row => dilutionCategories.has(row.classification.category)).length;
       const quarterlyRows = Object.entries(details.quarterly || {})
         .map(([ticker, row]) => ({ ticker, ...row }))
@@ -4555,6 +4456,7 @@
         : `ℹ️ 最近 ${secRangeDays} 日沒有新申報；上次雷達資料更新於 ${formatSecTimestamp(alerts.updated_at)}。`;
       renderSecUpdateBrief();
       renderSecReadingRank();
+      renderSecEditorial();
 
       const quarterlyBody = document.getElementById('secQuarterlyBody');
       quarterlyBody.innerHTML = quarterlyRows.length ? quarterlyRows.map(row => {
@@ -5296,7 +5198,7 @@
       const sellValue = knownTradeValues(sellRows);
       const netTradeValue = buyValue - sellValue;
 
-      const dilutionCategories = new Set(['atm_equity', 'equity', 'convertible', 'shelf']);
+      const dilutionCategories = new Set(['atm_equity', 'equity', 'convertible', 'shelf', 'merger_stock_consideration']);
       const offerings = companyEvents.filter(event => event.group === '募資／稀釋').map(event => ({
         event,
         classification: (details.offerings || {})[event.accession] || { category: 'review', label: '待人工判讀', dilution: '不確定' },
@@ -5328,7 +5230,7 @@
 
       const priorityReasons = [];
       if (importantFilings.length) priorityReasons.push(`近 ${secRangeDays} 日有 ${importantFilings.length} 份重大／重要申報`);
-      if (dilutionAlerts.length) priorityReasons.push(`${dilutionAlerts.length} 份文件涉及股票、ATM、可轉債或架上註冊`);
+      if (dilutionAlerts.length) priorityReasons.push(`${dilutionAlerts.length} 份文件涉及股票、ATM、可轉債、架上註冊或併購股票對價`);
       if (recentOwnership && ownership.importance === 'high') priorityReasons.push('近 90 日有重大 13D／13G 持股異動');
       if (enforcementRows.length) priorityReasons.push(`SEC 執法／停牌來源命中 ${enforcementRows.length} 項`);
       const hasRecentUpdates = companyEvents.length > 0 || recentOwnership;
@@ -5465,23 +5367,26 @@
       }
 
       const directDilution = offerings.filter(row => ['atm_equity', 'equity'].includes(row.classification.category));
+      const mergerDilution = offerings.filter(row => row.classification.category === 'merger_stock_consideration');
       const convertibleDilution = offerings.filter(row => row.classification.category === 'convertible');
       const shelfDilution = offerings.filter(row => row.classification.category === 'shelf');
       const debtOfferings = offerings.filter(row => row.classification.category === 'debt');
-      const filingDilutionScore = directDilution.length * -12 + convertibleDilution.length * -8 + shelfDilution.length * -4 + debtOfferings.length * -2;
+      const filingDilutionScore = directDilution.length * -12 + mergerDilution.length * -6 + convertibleDilution.length * -8 + shelfDilution.length * -4 + debtOfferings.length * -2;
       const actualDilutionScore = dilutedSharesYoy === null ? 0
         : (dilutedSharesYoy >= 10 ? -12 : (dilutedSharesYoy >= 5 ? -7 : (dilutedSharesYoy >= 2 ? -3 : 0)));
       const dilutionScore = Math.max(-15, filingDilutionScore + actualDilutionScore);
-      const dilutionSignal = directDilution.length || convertibleDilution.length || actualDilutionScore < 0 ? 'risk' : 'observe';
+      const dilutionSignal = directDilution.length || mergerDilution.length || convertibleDilution.length || actualDilutionScore < 0 ? 'risk' : 'observe';
       const actualDilutionText = dilutedSharesYoy === null ? '實際稀釋股數 YoY 缺值'
         : `實際稀釋股數 YoY ${dilutedSharesYoy >= 0 ? '+' : ''}${formatSecNumber(dilutedSharesYoy, 1)}%`;
       const dilutionInterpretation = actualDilutionScore < 0
-        ? `${actualDilutionText}，已反映實際每股權益稀釋${directDilution.length || convertibleDilution.length ? '；同時有新募資文件需追蹤落地量。' : '；即使近期沒有新募資文件也不能忽略。'}`
+        ? `${actualDilutionText}，已反映實際每股權益稀釋${directDilution.length || mergerDilution.length || convertibleDilution.length ? '；同時有新募資或股票對價文件需追蹤落地量。' : '；即使近期沒有新募資文件也不能忽略。'}`
         : (directDilution.length ? '出現股票／ATM 文件，股權稀釋風險較直接；仍需確認實際發行量。'
-          : (convertibleDilution.length ? '可轉債可能在轉股後稀釋，需追蹤轉換條款與實際轉股。'
-            : (shelfDilution.length ? '架上註冊提供未來募資彈性，尚不等於已發行。'
-              : (debtOfferings.length ? '目前是債券募資，非直接稀釋，但會增加利息與償債負擔。' : `${actualDilutionText}；近期無新增募資文件，不代表既有授權已失效。`))));
+          : (mergerDilution.length ? '併購案含股票對價，只有交易完成並實際發股才會稀釋；需追蹤交割條件、現金／股票選擇比例與最終發行量。'
+            : (convertibleDilution.length ? '可轉債可能在轉股後稀釋，需追蹤轉換條款與實際轉股。'
+              : (shelfDilution.length ? '架上註冊提供未來募資彈性，尚不等於已發行。'
+                : (debtOfferings.length ? '目前是債券募資，非直接稀釋，但會增加利息與償債負擔。' : `${actualDilutionText}；近期無新增募資文件，不代表既有授權已失效。`)))));
       if (directDilution.length) riskEvidence.push(`有 ${directDilution.length} 份股票／ATM 文件`);
+      else if (mergerDilution.length) riskEvidence.push(`有 ${mergerDilution.length} 份併購股票對價文件（交易完成後才可能稀釋）`);
       else if (convertibleDilution.length) riskEvidence.push(`有 ${convertibleDilution.length} 份可轉債文件`);
       if (actualDilutionScore < 0) riskEvidence.push(actualDilutionText);
 
@@ -5605,8 +5510,8 @@
       const latestChange = analysis.latestChange;
       const previousText = latestChange
         ? (latestChange.overall_changed
-          ? `本次自動檢查由「${latestChange.before_label}」變為「${latestChange.after_label}」，已加入每日閱讀待辦並建立通知。`
-          : `本次綜合狀態未變，但至少一項分項分類改變，已加入每日閱讀待辦並建立通知。`)
+          ? `本次自動檢查由「${latestChange.before_label}」變為「${latestChange.after_label}」，已提高每日閱讀排序並建立通知。`
+          : `本次綜合狀態未變，但至少一項分項分類改變，已提高每日閱讀排序並建立通知。`)
         : '本次自動檢查沒有分類改變；單純數值更新不重複通知。';
       const changeLog = (secDailyData.thesisStatus?.change_log || []).filter(change => change.ticker === ticker).slice(0, 5);
       const changeLogHtml = changeLog.length ? changeLog.map(change => {
@@ -5641,7 +5546,7 @@
       <div class="sec-thesis-history"><table><caption>最近四季論點狀態歷史（支持／待驗證／失效）</caption><thead><tr><th>財報期末</th><th>綜合狀態</th><th>項目數</th><th>各論點狀態</th></tr></thead><tbody>${historyRows}</tbody></table></div>
       <details class="sec-thesis-log"${changeLog.length ? ' open' : ''}><summary>狀態變更日誌（${changeLog.length} 筆；最多顯示最近 5 筆）</summary><div class="sec-thesis-log-list">${changeLogHtml}</div></details>
       <div class="sec-thesis-conclusion"><strong>客觀判讀：</strong>${escapeSec(conclusion)} ${escapeSec(previousText)}</div>
-      <p class="sec-thesis-method"><strong>判讀規則：</strong>0 項失效且至少 2 項支持＝論點維持；0 項失效但支持不足 2 項＝需要驗證；1 項失效＝部分失效；2 項以上失效＝重大失效。${escapeSec(secDailyData.thesisTracking?.method || '')} 狀態變化或任何失效項目會進入每日閱讀待辦；GitHub Issue 只在分類真的改變時建立，避免每日重複通知。</p>`;
+      <p class="sec-thesis-method"><strong>判讀規則：</strong>0 項失效且至少 2 項支持＝論點維持；0 項失效但支持不足 2 項＝需要驗證；1 項失效＝部分失效；2 項以上失效＝重大失效。${escapeSec(secDailyData.thesisTracking?.method || '')} 狀態變化或任何失效項目會提高每日閱讀排序；GitHub Issue 只在分類真的改變時建立，避免每日重複通知。</p>`;
     }
 
     function secTextChangeCard(row, kind, index) {
@@ -5884,7 +5789,7 @@
       container.className = `sec-quarterly-diagnosis ${analysis.status}`;
       const statusCss = analysis.status === 'watch' ? 'watch' : (analysis.status === 'improving' ? 'buy' : 'medium');
       const conclusion = analysis.status === 'watch'
-        ? `命中 ${analysis.alerts.length} 項需留意規則；已加入每日閱讀待辦。`
+        ? `命中 ${analysis.alerts.length} 項需留意規則；已提高每日閱讀排序。`
         : (analysis.status === 'improving'
           ? `未命中警報，且有 ${analysis.improvements.length} 項連續改善證據。`
           : '未命中重大惡化規則，但改善證據未達 2 項，歸類為穩定／混合。');
