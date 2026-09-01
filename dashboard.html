@@ -1141,6 +1141,31 @@
       line-height: 1.5;
     }
 
+    .sec-change-candidates {
+      margin-bottom: 20px;
+      padding: 17px;
+      border: 1px solid rgba(251, 113, 133, 0.28);
+      border-radius: 17px;
+      background: linear-gradient(135deg, rgba(127, 29, 29, 0.13), rgba(15, 23, 42, 0.72));
+    }
+    .sec-change-candidates-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; flex-wrap: wrap; margin-bottom: 12px; }
+    .sec-change-candidates-head h3 { color: #ffe4e6; font-size: 1rem; }
+    .sec-change-candidates-head p { color: #94a3b8; font-size: 0.72rem; line-height: 1.5; margin-top: 4px; }
+    .sec-change-counts { color: #fecdd3; font-size: 0.7rem; font-weight: 800; }
+    .sec-change-candidate-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 310px), 1fr)); gap: 10px; }
+    .sec-change-candidate { padding: 12px; border: 1px solid rgba(148, 163, 184, 0.18); border-left: 3px solid #fbbf24; border-radius: 11px; background: rgba(2, 6, 23, 0.44); }
+    .sec-change-candidate.risk { border-left-color: #fb7185; }
+    .sec-change-candidate.improvement { border-left-color: #34d399; }
+    .sec-change-candidate.conclusion { border-left-color: #fbbf24; }
+    .sec-change-candidate-title { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; color: #fff; font-size: 0.78rem; font-weight: 850; }
+    .sec-change-candidate-title button { appearance: none; border: 0; padding: 0; background: none; color: #7dd3fc; font: inherit; font-weight: 900; cursor: pointer; }
+    .sec-change-candidate-badge { padding: 2px 6px; border: 1px solid rgba(148, 163, 184, 0.22); border-radius: 999px; color: #cbd5e1; font-size: 0.58rem; }
+    .sec-change-candidate h4 { margin: 8px 0 5px; color: #f8fafc; font-size: 0.74rem; line-height: 1.5; }
+    .sec-change-candidate ul { margin: 0 0 7px; padding-left: 18px; }
+    .sec-change-candidate li, .sec-change-candidate p { color: #cbd5e1; font-size: 0.68rem; line-height: 1.52; }
+    .sec-change-method { margin: 11px 0 0; color: #94a3b8; font-size: 0.67rem; line-height: 1.55; }
+    .sec-change-empty { padding: 11px 12px; border-left: 3px solid #34d399; border-radius: 9px; background: rgba(6, 78, 59, 0.15); color: #a7f3d0; font-size: 0.74rem; }
+
     .sec-reading-rank {
       margin-bottom: 20px;
       padding: 17px;
@@ -2707,6 +2732,12 @@
           </div>
         </section>
 
+        <section id="secChangeCandidates" class="sec-change-candidates" aria-live="polite" aria-labelledby="secChangeCandidatesTitle">
+          <div class="sec-change-candidates-head">
+            <div><h3 id="secChangeCandidatesTitle">📝 每日變更候選稿</h3><p>正在整理上次 AI 覆核後的新風險、改善與可能改變結論的證據…</p></div>
+          </div>
+        </section>
+
         <section id="secReadingRank" class="sec-reading-rank" aria-live="polite" aria-labelledby="secReadingRankTitle">
           <div class="sec-reading-rank-head">
             <div><h3 id="secReadingRankTitle">📌 核心持股每日閱讀排序</h3><p>先讀有重大文件或風險訊號的公司；點選公司會同步切換下方所有 SEC 區塊。</p></div>
@@ -4160,11 +4191,14 @@
           fetch('sec_daily_editorial.json', { cache: 'no-cache' })
             .then(r => { if (!r.ok) throw new Error(`人工每日重點 HTTP ${r.status}`); return r.json(); })
             .catch(error => { console.warn('sec_daily_editorial.json 載入失敗', error); return null; }),
+          fetch('sec_daily_change_candidates.json', { cache: 'no-cache' })
+            .then(r => { if (!r.ok) throw new Error(`每日變更候選稿 HTTP ${r.status}`); return r.json(); })
+            .catch(error => { console.warn('sec_daily_change_candidates.json 載入失敗', error); return null; }),
           fetch('valuation.json', { cache: 'no-cache' })
             .then(r => { if (!r.ok) throw new Error(`估值資料 HTTP ${r.status}`); return r.json(); })
             .catch(error => { console.warn('valuation.json 載入失敗，跨公司估值排名將顯示缺值', error); return null; }),
-        ]).then(([alerts, details, quarterlyFinancials, advanced, thirteenF, textChanges, thesisTracking, thesisStatus, exhibit991, earningsCalls, editorial, valuation]) => {
-          secDailyData = { alerts, details, quarterlyFinancials, advanced, thirteenF, textChanges, thesisTracking, thesisStatus, exhibit991, earningsCalls, editorial, valuation };
+        ]).then(([alerts, details, quarterlyFinancials, advanced, thirteenF, textChanges, thesisTracking, thesisStatus, exhibit991, earningsCalls, editorial, changeCandidates, valuation]) => {
+          secDailyData = { alerts, details, quarterlyFinancials, advanced, thirteenF, textChanges, thesisTracking, thesisStatus, exhibit991, earningsCalls, editorial, changeCandidates, valuation };
           renderSecDaily();
         }).catch(error => {
           secDailyPromise = null;
@@ -4303,6 +4337,46 @@
           <article class="sec-update-detail sec-update-thesis"><h4>投資論點狀態變更</h4>${thesisList}</article>
         </div>
         <p class="sec-update-method">「本次」是 watcher 的偵測批次，不是 SEC filing date。論點通知只在綜合狀態或任一分項分類改變時觸發；單純數值更新但分類不變不重複通知。優先度只決定閱讀順序，不是利多、利空或投資評等；財務數字仍以下方八季表及官方原文為準。</p>`;
+    }
+
+    function renderSecChangeCandidates() {
+      const container = document.getElementById('secChangeCandidates');
+      if (!container || !secDailyData) return;
+      const payload = secDailyData.changeCandidates;
+      if (!payload) {
+        container.innerHTML = `<div class="sec-change-candidates-head"><div><h3 id="secChangeCandidatesTitle">📝 每日變更候選稿</h3><p>候選稿尚未建立；官方申報與人工重點仍可正常閱讀。</p></div></div>`;
+        return;
+      }
+      const candidates = Array.isArray(payload.candidates) ? payload.candidates : [];
+      const generated = formatSecTimestamp(payload.generated_at);
+      const reviewed = formatSecTimestamp(payload.editorial_reviewed_at);
+      if (!candidates.length) {
+        container.innerHTML = `<div class="sec-change-candidates-head"><div><h3 id="secChangeCandidatesTitle">📝 每日變更候選稿</h3><p>產生 ${escapeSec(generated)}｜正式 AI 覆核 ${escapeSec(reviewed)}</p></div></div>
+          <div class="sec-change-empty">✅ 上次 AI 覆核後，目前沒有新增風險、改善或結論變化候選。</div>
+          <p class="sec-change-method">這只表示規則未找到新差異，不代表公司沒有風險；仍以下方官方原文與已覆核綜合重點為準。</p>`;
+        return;
+      }
+      const confidenceLabels = { low: '低｜需更多佐證', medium: '中｜需讀原文', high: '高｜優先覆核' };
+      const typeLabels = { risk: '🔴 新增風險候選', improvement: '🟢 改善候選', conclusion: '🟡 結論變化候選' };
+      const cards = candidates.map(row => {
+        const displayTicker = row.ticker === 'GOOGL' ? 'GOOG' : row.ticker;
+        const owned = SEC_OWNED_TICKERS.has(displayTicker);
+        const evidence = (row.evidence || []).map(text => `<li>${escapeSec(text)}</li>`).join('');
+        const sources = (row.sources || []).map(source => {
+          const url = safeQuarterlySourceUrl(source.url);
+          return url === '#' ? '' : `<a class="sec-link" href="${url}" target="_blank" rel="noopener">${escapeSec(source.label || '官方原文')} ↗</a>`;
+        }).filter(Boolean).join('｜');
+        return `<article class="sec-change-candidate ${escapeSec(row.type)}">
+          <div class="sec-change-candidate-title"><button type="button" onclick="setSecCoreTicker('${escapeSec(displayTicker)}')">${escapeSec(displayTicker)}</button><span>${escapeSec(typeLabels[row.type] || row.type_label || '待覆核候選')}</span><span class="sec-change-candidate-badge">${owned ? '💼 實際持股' : '👀 觀察名單'}</span><span class="sec-change-candidate-badge">證據 ${escapeSec(confidenceLabels[row.confidence] || row.confidence || '未分級')}</span></div>
+          <h4>${escapeSec(row.headline)}</h4>
+          ${evidence ? `<ul>${evidence}</ul>` : ''}
+          <p><strong>列入原因：</strong>${escapeSec(row.why_candidate)}</p>
+          ${sources ? `<p>${sources}</p>` : ''}
+        </article>`;
+      }).join('');
+      container.innerHTML = `<div class="sec-change-candidates-head"><div><h3 id="secChangeCandidatesTitle">📝 每日變更候選稿</h3><p>產生 ${escapeSec(generated)}｜比較基準：正式 AI 覆核 ${escapeSec(reviewed)}</p></div><span class="sec-change-counts">風險 ${formatSecNumber(payload.counts?.risk || 0)}｜改善 ${formatSecNumber(payload.counts?.improvement || 0)}｜結論 ${formatSecNumber(payload.counts?.conclusion || 0)}</span></div>
+        <div class="sec-change-candidate-list">${cards}</div>
+        <p class="sec-change-method">⚠️ 這是規則自動產生、等待 AI 閱讀官方原文的候選稿，不是最終綜合判讀、利多／利空或買賣建議。Form 144 只代表擬售意向；10b5-1 賣出訊號會降低證據強度。AI 覆核後才會把真正重要的改變寫入「人工消化後的每日綜合重點」。</p>`;
     }
 
     function secReadingRankRows() {
@@ -4692,6 +4766,7 @@
         ? `✅ 最近 ${secRangeDays} 日共找到 ${events.length} 份申報；數字以 SEC filing date 與 accession 去重。`
         : `ℹ️ 最近 ${secRangeDays} 日沒有新申報；上次雷達資料更新於 ${formatSecTimestamp(alerts.updated_at)}。`;
       renderSecUpdateBrief();
+      renderSecChangeCandidates();
       renderSecReadingRank();
       renderSecEditorial();
       renderSecCrossCompany();

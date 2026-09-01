@@ -106,13 +106,21 @@ jobs:
             --alert-markdown "$RUNNER_TEMP/sec-alert.md" \
             --summary "$GITHUB_STEP_SUMMARY"
 
+      - name: Build daily AI-review change candidates
+        id: candidates
+        run: |
+          python3 scripts/generate_sec_daily_change_candidates.py \
+            --alert-markdown "$RUNNER_TEMP/sec-alert.md" \
+            --summary "$GITHUB_STEP_SUMMARY" \
+            --github-output "$GITHUB_OUTPUT"
+
       - name: Verify refreshed SEC radar snapshots
         run: python3 scripts/check_integrity.py --quiet
 
       # A deterministic batch ID prevents a retry from creating a duplicate
       # issue after the notification succeeded but the state push conflicted.
       - name: Notify with a GitHub Issue
-        if: steps.watch.outputs.notify_count != '0' || steps.thesis.outputs.notify_count != '0' || steps.ingest.outputs.pending_count != '0' || steps.exhibit991.outputs.exhibit_991_pending_count != '0' || steps.earnings_call.outputs.earnings_call_changed_count != '0'
+        if: steps.watch.outputs.notify_count != '0' || steps.thesis.outputs.notify_count != '0' || steps.ingest.outputs.pending_count != '0' || steps.exhibit991.outputs.exhibit_991_pending_count != '0' || steps.earnings_call.outputs.earnings_call_changed_count != '0' || steps.candidates.outputs.notify_count != '0'
         env:
           GH_TOKEN: ${{ github.token }}
           WATCH_BATCH_ID: ${{ steps.watch.outputs.batch_id }}
@@ -123,8 +131,9 @@ jobs:
           EXHIBIT_991_PENDING_COUNT: ${{ steps.exhibit991.outputs.exhibit_991_pending_count }}
           EARNINGS_CALL_CHANGED_ATTENTION_COUNT: ${{ steps.earnings_call.outputs.earnings_call_changed_attention_count }}
           EARNINGS_CALL_BATCH_ID: ${{ steps.earnings_call.outputs.earnings_call_batch_id }}
+          CANDIDATE_BATCH_ID: ${{ steps.candidates.outputs.candidate_batch_id }}
         run: |
-          batch_id="$WATCH_BATCH_ID-$THESIS_BATCH_ID-$EARNINGS_CALL_BATCH_ID"
+          batch_id="$WATCH_BATCH_ID-$THESIS_BATCH_ID-$EARNINGS_CALL_BATCH_ID-$CANDIDATE_BATCH_ID"
           critical_count=$((WATCH_CRITICAL_COUNT + THESIS_CRITICAL_COUNT + INGEST_PENDING_COUNT + EXHIBIT_991_PENDING_COUNT + EARNINGS_CALL_CHANGED_ATTENTION_COUNT))
           title="SEC / Thesis Alert [$batch_id]"
           if [ "$critical_count" != "0" ]; then
@@ -164,7 +173,9 @@ jobs:
             60_SEC_Filing_Radar/Governance_Compensation_Radar.md \
             60_SEC_Filing_Radar/Insider_Forms_345144_Radar.md \
             60_SEC_Filing_Radar/Mergers_Tender_Radar.md \
-            60_SEC_Filing_Radar/SEC_Enforcement_Radar.md
+            60_SEC_Filing_Radar/SEC_Enforcement_Radar.md \
+            sec_daily_change_candidates.json \
+            60_SEC_Filing_Radar/SEC_Daily_Change_Candidates.md
           if git diff --cached --quiet; then
             echo "No SEC radar changes to persist."
             exit 0

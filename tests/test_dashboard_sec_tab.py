@@ -22,6 +22,7 @@ class DashboardSecTabTests(unittest.TestCase):
         cls.exhibit_991 = json.loads((ROOT / "exhibit_991_analysis.json").read_text())
         cls.earnings_calls = json.loads((ROOT / "earnings_call_analysis.json").read_text())
         cls.editorial = json.loads((ROOT / "sec_daily_editorial.json").read_text())
+        cls.change_candidates = json.loads((ROOT / "sec_daily_change_candidates.json").read_text())
 
     def test_tab_defaults_to_14_days_and_allows_7_days(self):
         self.assertIn("🚨 4_SEC 每日重點", self.html)
@@ -42,6 +43,7 @@ class DashboardSecTabTests(unittest.TestCase):
         self.assertIn("fetch('exhibit_991_analysis.json'", self.html)
         self.assertIn("fetch('earnings_call_analysis.json'", self.html)
         self.assertIn("fetch('sec_daily_editorial.json'", self.html)
+        self.assertIn("fetch('sec_daily_change_candidates.json'", self.html)
         self.assertIn("fetch('valuation.json'", self.html)
         self.assertIn("function renderSecDaily()", self.html)
         self.assertIn('id="secQuarterlyBody"', self.html)
@@ -225,6 +227,28 @@ class DashboardSecTabTests(unittest.TestCase):
             "單純數值更新但分類不變不重複通知",
             "不把所有 6-K 當財報",
             "優先度只決定閱讀順序",
+        ]
+        for phrase in required_copy:
+            self.assertIn(phrase, self.html)
+
+    def test_daily_change_candidates_are_drafts_with_sources_and_caveats(self):
+        self.assertEqual(self.change_candidates["schema_version"], 1)
+        self.assertEqual(
+            self.change_candidates["candidate_count"],
+            len(self.change_candidates["candidates"]),
+        )
+        self.assertTrue(all(row["status"] == "pending_ai_review"
+                            for row in self.change_candidates["candidates"]))
+        self.assertTrue(all(row["type"] in {"risk", "improvement", "conclusion"}
+                            for row in self.change_candidates["candidates"]))
+        self.assertTrue(all(row["source_keys"] and row["sources"]
+                            for row in self.change_candidates["candidates"]))
+        required_copy = [
+            'id="secChangeCandidates"', "function renderSecChangeCandidates()",
+            "每日變更候選稿", "新增風險候選", "改善候選", "結論變化候選",
+            "規則自動產生、等待 AI 閱讀官方原文的候選稿",
+            "不是最終綜合判讀", "Form 144 只代表擬售意向",
+            "10b5-1 賣出訊號會降低證據強度", "renderSecChangeCandidates();",
         ]
         for phrase in required_copy:
             self.assertIn(phrase, self.html)

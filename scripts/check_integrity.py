@@ -29,6 +29,7 @@ import pathlib
 import re
 import subprocess
 import sys
+import tempfile
 from datetime import date, datetime
 
 REPO_ROOT = pathlib.Path(__file__).resolve().parent.parent
@@ -1201,6 +1202,83 @@ def c28():
     )
     missing += [f"dashboard:{marker}" for marker in ui_markers if marker not in page]
     return not bad and not missing, f"資料問題：{bad or '無'}；缺自動化／入口：{missing or '無'}"
+
+
+@check("C-29", "每日變更候選稿可重現、可追溯且不冒充 AI 判讀")
+def c29():
+    data = load("sec_daily_change_candidates.json")
+    editorial = load("sec_daily_editorial.json")
+    bad = []
+    if data.get("schema_version") != 1:
+        bad.append("schema_version 不是 1")
+    if data.get("editorial_reviewed_at") != editorial.get("reviewed_at"):
+        bad.append("AI 覆核基準與正式人工稿不一致")
+    candidates = data.get("candidates", [])
+    if data.get("candidate_count") != len(candidates):
+        bad.append("candidate_count 與明細數不一致")
+    if data.get("company_count") != len({row.get("ticker") for row in candidates}):
+        bad.append("company_count 與明細公司數不一致")
+    if len({row.get("id") for row in candidates}) != len(candidates):
+        bad.append("候選 ID 重複")
+    expected_counts = {
+        kind: sum(row.get("type") == kind for row in candidates)
+        for kind in ("risk", "improvement", "conclusion")
+    }
+    if data.get("counts") != expected_counts:
+        bad.append("候選分類計數不一致")
+    for row in candidates:
+        ticker = row.get("ticker") or "未知"
+        if row.get("type") not in expected_counts:
+            bad.append(f"{ticker} 候選類型不在允許清單")
+        if row.get("status") != "pending_ai_review":
+            bad.append(f"{ticker} 候選未標示待 AI 覆核")
+        if row.get("confidence") not in {"low", "medium", "high"}:
+            bad.append(f"{ticker} 證據強度無效")
+        if not row.get("source_keys") or not row.get("sources"):
+            bad.append(f"{ticker} 缺來源鍵或官方來源")
+        if not row.get("headline") or not row.get("why_candidate"):
+            bad.append(f"{ticker} 缺候選摘要或列入原因")
+
+    with tempfile.TemporaryDirectory() as temp_dir:
+        temp = pathlib.Path(temp_dir)
+        result = subprocess.run([
+            sys.executable, str(REPO_ROOT / "scripts/generate_sec_daily_change_candidates.py"),
+            "--output", str(temp / "candidates.json"),
+            "--markdown", str(temp / "candidates.md"),
+            "--github-output", str(temp / "github-output"),
+        ], cwd=REPO_ROOT, text=True, capture_output=True, check=False)
+        if result.returncode:
+            bad.append(f"候選稿重建失敗：{result.stderr.strip() or result.stdout.strip()}")
+        else:
+            rebuilt = json.loads((temp / "candidates.json").read_text())
+            if rebuilt != data:
+                bad.append("現存候選稿無法由目前來源確定性重建")
+            markdown = (temp / "candidates.md").read_text()
+            if "待 AI 覆核候選" not in markdown or "不是最終判讀" not in markdown:
+                bad.append("Obsidian 候選稿缺非最終判讀警語")
+
+    sec_workflow = read(".github/workflows/sec-filing-alerts.yml")
+    price_workflow = read(".github/workflows/update-prices.yml")
+    dashboard = read("dashboard.html")
+    home = read("00_Home.md")
+    markers = {
+        "SEC workflow": (sec_workflow, (
+            "generate_sec_daily_change_candidates.py", "steps.candidates.outputs.notify_count",
+            "candidate_batch_id", "sec_daily_change_candidates.json", "SEC_Daily_Change_Candidates.md",
+        )),
+        "價格 workflow": (price_workflow, (
+            "generate_sec_daily_change_candidates.py", "sec_daily_change_candidates",
+            "SEC_Daily_Change_Candidates",
+        )),
+        "dashboard": (dashboard, (
+            "secChangeCandidates", "renderSecChangeCandidates", "sec_daily_change_candidates.json",
+            "待 AI 閱讀官方原文的候選稿", "Form 144 只代表擬售意向",
+        )),
+        "00_Home": (home, ("SEC_Daily_Change_Candidates", "SEC_Daily_Editorial")),
+    }
+    missing = [f"{label}:{marker}" for label, (text, required) in markers.items()
+               for marker in required if marker not in text]
+    return not bad and not missing, f"資料問題：{bad or '無'}；缺自動化／畫面：{missing or '無'}"
 
 
 def main():
