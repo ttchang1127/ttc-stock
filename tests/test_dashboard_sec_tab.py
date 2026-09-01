@@ -42,6 +42,7 @@ class DashboardSecTabTests(unittest.TestCase):
         self.assertIn("fetch('exhibit_991_analysis.json'", self.html)
         self.assertIn("fetch('earnings_call_analysis.json'", self.html)
         self.assertIn("fetch('sec_daily_editorial.json'", self.html)
+        self.assertIn("fetch('valuation.json'", self.html)
         self.assertIn("function renderSecDaily()", self.html)
         self.assertIn('id="secQuarterlyBody"', self.html)
         self.assertIn('id="secKpiQuarterly"', self.html)
@@ -250,13 +251,15 @@ class DashboardSecTabTests(unittest.TestCase):
         core = {"NVDA", "TSM", "MSFT", "META", "AAPL", "AMZN", "ARM",
                 "ONDS", "TSLA", "GOOG", "COHR", "MRVL", "INTC", "NOK"}
         companies = self.editorial["companies"]
-        self.assertEqual(self.editorial["schema_version"], 2)
+        self.assertEqual(self.editorial["schema_version"], 3)
         self.assertEqual({row["ticker"] for row in companies}, core)
         self.assertEqual(sorted(row["rank"] for row in companies), list(range(1, 15)))
         self.assertEqual(
             self.editorial["portfolio_order"],
-            ["ONDS", "MRVL", "NOK", "COHR", "NVDA", "INTC", "TSLA", "GOOG", "ARM"],
+            ["MRVL", "NOK", "COHR", "NVDA", "INTC", "TSLA", "GOOG", "ARM"],
         )
+        self.assertIsNone(self.editorial["comparison"]["previous_reviewed_at"])
+        self.assertEqual(self.editorial["comparison"]["changes"], [])
         for row in companies:
             self.assertTrue(row["summary"], row["ticker"])
             self.assertGreaterEqual(len(row["evidence"]), 3, row["ticker"])
@@ -269,7 +272,7 @@ class DashboardSecTabTests(unittest.TestCase):
             self.assertIsInstance(coverage["enforcement_keys"], list, row["ticker"])
         required_copy = [
             'id="secEditorial"', "function renderSecEditorial()",
-            "人工消化後的每日綜合重點", "你的實際持股閱讀順序",
+            "人工消化後的每日綜合重點", "目前實際持股閱讀順序",
             "今日已人工消化", "非今日覆核稿", "人工稿不會假裝即時自動判讀",
             "renderSecEditorial();", "merger_stock_consideration",
         ]
@@ -278,6 +281,35 @@ class DashboardSecTabTests(unittest.TestCase):
         amzn = next(row for row in companies if row["ticker"] == "AMZN")
         self.assertIn("Globalstar", amzn["summary"])
         self.assertIn("條件式", " ".join(amzn["evidence"]))
+
+    def test_editorial_changes_holdings_groups_and_cross_company_rankings(self):
+        required_copy = [
+            "function renderSecEditorialChanges(editorial)",
+            "相較前次判讀有什麼改變",
+            "只會列出新增風險、改善與結論變化",
+            "未變項目不重複列出",
+            "new Set(['risk', 'improvement', 'conclusion'])",
+            "const SEC_OWNED_TICKERS = new Set(userHoldings.map",
+            "💼 實際持股｜優先看部位風險",
+            "👀 觀察名單",
+            "function secHoldingPosition(ticker, companyTone)",
+            "持有 ${formatSecNumber(position.holding.shares",
+            'id="secCrossCompany"',
+            "function secCrossCompanyRows()",
+            "function renderSecCrossCompany()",
+            "營收 YoY<br>#1＝成長最高",
+            "毛利率<br>#1＝最高",
+            "FCF 率<br>#1＝最高",
+            "稀釋股數 YoY<br>#1＝風險最高",
+            "估值警戒<br>#1＝不確定性最高",
+            "跨幣別只比較比率、不直接比較金額",
+            "renderSecCrossCompany();",
+        ]
+        for phrase in required_copy:
+            self.assertIn(phrase, self.html)
+        actual = {"ARM", "COHR", "GOOG", "INTC", "MRVL", "NOK", "NVDA", "TSLA"}
+        self.assertEqual(set(self.editorial["portfolio_order"]), actual)
+        self.assertNotIn("ONDS", self.editorial["portfolio_order"])
 
     def test_daily_reading_order_uses_ai_editorial_status_without_local_tracking(self):
         required_copy = [

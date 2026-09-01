@@ -17,7 +17,16 @@ tags:
 
 真正需要先處理的是 **ONDS 的獲利與稀釋、MRVL 的每股價值與條件式稀釋、NOK 的現金流，以及 COHR 的自由現金流**。NVDA 基本面維持，但新增巨額承諾與估值風險。
 
-實際持股閱讀順序：**ONDS → MRVL → NOK → COHR → NVDA → INTC → TSLA → GOOG → ARM**。
+實際持股閱讀順序：**MRVL → NOK → COHR → NVDA → INTC → TSLA → GOOG → ARM**。
+
+## 相較前次判讀
+
+本次先建立比較基準，尚無前次人工判讀可比。下一次覆核只列出「新增風險、明確改善、結論變化」，未變項目不重複列出。
+
+## 實際持股與觀察名單
+
+- 實際持股：**MRVL、NOK、COHR、NVDA、INTC、TSLA、GOOG、ARM**。網頁會優先顯示股數、成本、現價、組合占比、未實現報酬與部位風險。
+- 觀察名單：**ONDS、META、AMZN、AAPL、MSFT、TSM**。不顯示部位損益，避免誤認為目前持有。
 
 ## 逐公司重點
 

@@ -717,8 +717,19 @@ def c23():
                             or not row.get("watch") or not row.get("source_url")]
     if incomplete_editorial:
         bad.append(f"人工每日重點不完整：{incomplete_editorial}")
-    if editorial.get("schema_version") != 2:
-        bad.append("人工每日重點不是含 AI 覆蓋基準的 schema 2")
+    if editorial.get("schema_version") != 3:
+        bad.append("人工每日重點不是含比較基準與 AI 覆蓋基準的 schema 3")
+    expected_holdings = {"ARM", "COHR", "GOOG", "INTC", "MRVL", "NOK", "NVDA", "TSLA"}
+    if set(editorial.get("portfolio_order", [])) != expected_holdings:
+        bad.append("實際持股分組與個人持股部位明細不一致")
+    comparison = editorial.get("comparison", {})
+    if not isinstance(comparison.get("changes"), list) or not comparison.get("method"):
+        bad.append("缺前次判讀比較基準")
+    invalid_changes = [row for row in comparison.get("changes", [])
+                       if row.get("type") not in {"risk", "improvement", "conclusion"}
+                       or not row.get("summary")]
+    if invalid_changes:
+        bad.append("前次判讀變化含無效類型或缺摘要")
     incomplete_coverage = [row.get("ticker") for row in editorial_companies
                            if not isinstance(row.get("coverage"), dict)
                            or "ownership_accession" not in row["coverage"]
@@ -732,12 +743,18 @@ def c23():
         "secReadingRank", "secReadingRankRows", "renderSecReadingRank",
         "核心持股每日閱讀排序", "排序只決定每日閱讀先後",
         "secEditorial", "renderSecEditorial", "人工消化後的每日綜合重點",
-        "你的實際持股閱讀順序", "人工稿不會假裝即時自動判讀",
+        "目前實際持股閱讀順序", "人工稿不會假裝即時自動判讀",
         "sec_daily_editorial.json", "merger_stock_consideration",
         "本區只列出閱讀先後，不建立待辦或人工列管",
         "AI 已讀，已記錄重點", "secAiEditorialStatus", "有新資料，待 AI 重讀",
         "event.detected_at", "quarterly_key", "thesis_fingerprint", "ownership_accession", "enforcement_keys",
         "若覆核後偵測到新增或覆蓋指紋改變",
+        "renderSecEditorialChanges", "相較前次判讀有什麼改變", "未變項目不重複列出",
+        "SEC_OWNED_TICKERS", "實際持股｜優先看部位風險", "觀察名單", "secHoldingPosition",
+        "secCrossCompany", "secCrossCompanyRows", "renderSecCrossCompany",
+        "營收 YoY<br>#1＝成長最高", "毛利率<br>#1＝最高", "FCF 率<br>#1＝最高",
+        "稀釋股數 YoY<br>#1＝風險最高", "估值警戒<br>#1＝不確定性最高",
+        "跨幣別只比較比率、不直接比較金額", "fetch('valuation.json'",
         "secQuarterlyDiagnosis", "secQuarterlyTrendAnalysis", "renderSecQuarterlyDiagnosis",
         "八季財務趨勢自動判讀", "營收連降至少 3 季或 YoY ≤ -10%",
         "八季財務警報", "已提高每日閱讀排序",

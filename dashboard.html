@@ -1277,6 +1277,32 @@
     .sec-editorial-body li + li { margin-top: 4px; }
     .sec-editorial-watch { color: #fde68a; }
     .sec-editorial-method { margin: 11px 0 0; color: #94a3b8; font-size: 0.66rem; line-height: 1.5; }
+    .sec-editorial-changes { margin: 0 0 14px; padding: 11px 12px; border: 1px solid rgba(56, 189, 248, 0.24); border-radius: 12px; background: rgba(14, 116, 144, 0.08); }
+    .sec-editorial-changes h4 { color: #bae6fd; font-size: 0.78rem; margin-bottom: 7px; }
+    .sec-editorial-change-list { display: grid; gap: 7px; }
+    .sec-editorial-change { padding: 8px 9px; border-radius: 9px; color: #dbeafe; font-size: 0.7rem; line-height: 1.5; background: rgba(15, 23, 42, 0.52); }
+    .sec-editorial-change.risk { border-left: 3px solid #fb7185; }
+    .sec-editorial-change.improvement { border-left: 3px solid #34d399; }
+    .sec-editorial-change.conclusion { border-left: 3px solid #fbbf24; }
+    .sec-editorial-change strong { color: #fff; }
+    .sec-editorial-change-empty { color: #94a3b8; font-size: 0.7rem; line-height: 1.5; }
+    .sec-editorial-group + .sec-editorial-group { margin-top: 15px; padding-top: 14px; border-top: 1px solid rgba(148, 163, 184, 0.14); }
+    .sec-editorial-group-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; flex-wrap: wrap; margin-bottom: 8px; }
+    .sec-editorial-group-head h4 { color: #e0f2fe; font-size: 0.82rem; }
+    .sec-editorial-group-head span { color: #94a3b8; font-size: 0.67rem; }
+    .sec-editorial-holding-badge { color: #a7f3d0; border: 1px solid rgba(52, 211, 153, 0.3); border-radius: 999px; padding: 2px 6px; font-size: 0.58rem; }
+    .sec-editorial-position { margin: 0 0 8px; padding: 7px 8px; border-radius: 8px; background: rgba(14, 116, 144, 0.1); color: #bae6fd; font-size: 0.67rem; line-height: 1.5; }
+    .sec-editorial-position strong { color: #fff; }
+
+    .sec-cross-company { margin: 0 0 20px; padding: 16px; border: 1px solid rgba(129, 140, 248, 0.28); border-radius: 16px; background: linear-gradient(145deg, rgba(49, 46, 129, 0.14), rgba(15, 23, 42, 0.82)); }
+    .sec-cross-company-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; flex-wrap: wrap; margin-bottom: 10px; }
+    .sec-cross-company-head h3 { color: #e0e7ff; font-size: 0.95rem; }
+    .sec-cross-company-head p { color: #94a3b8; font-size: 0.69rem; line-height: 1.5; margin-top: 4px; }
+    .sec-cross-table { min-width: 1040px; }
+    .sec-cross-rank { display: block; color: #c4b5fd; font-size: 0.66rem; font-weight: 850; }
+    .sec-cross-value { display: block; color: #f8fafc; font-size: 0.73rem; font-weight: 760; margin-top: 2px; }
+    .sec-cross-risk { color: #fda4af; }
+    .sec-cross-company .sec-footnote { margin-bottom: 0; }
 
     .sec-core-shortcuts {
       margin-bottom: 20px;
@@ -2692,6 +2718,10 @@
           <div class="sec-editorial-head"><div><h3 id="secEditorialTitle">🧠 人工消化後的每日綜合重點</h3><p class="sec-editorial-meta">正在載入已讀結論、關鍵證據與下一步驗證條件…</p></div></div>
         </section>
 
+        <section id="secCrossCompany" class="sec-cross-company" aria-live="polite" aria-labelledby="secCrossCompanyTitle">
+          <div class="sec-cross-company-head"><div><h3 id="secCrossCompanyTitle">📊 14 家跨公司財務與風險排名</h3><p>正在用最新八季財務與估值資料建立一致口徑比較…</p></div></div>
+        </section>
+
         <nav id="secCoreShortcuts" class="sec-core-shortcuts" aria-label="SEC 核心持股快捷標的">
           <div class="sec-core-shortcuts-head">
             <strong>⚡ 核心持股快捷標的</strong>
@@ -3736,6 +3766,19 @@
     let secQuarterlyChart = null;
     const SEC_CORE_TICKERS = ['NVDA', 'TSM', 'MSFT', 'META', 'AAPL', 'AMZN', 'ARM', 'ONDS', 'TSLA', 'GOOG', 'COHR', 'MRVL', 'INTC', 'NOK'];
     const SEC_TICKER_ALIASES = { GOOG: 'GOOGL' };
+    const userHoldings = [
+      { ticker: "ARM", shares: 15, cost: 231.038 },
+      { ticker: "COHR", shares: 10, cost: 336.066 },
+      { ticker: "GOOG", shares: 20, cost: 266.492 },
+      { ticker: "INTC", shares: 25, cost: 70.164 },
+      { ticker: "MRVL", shares: 25, cost: 157.392 },
+      { ticker: "NOK", shares: 600, cost: 11.68895 },
+      { ticker: "NVDA", shares: 15, cost: 212.995333 },
+      { ticker: "TSLA", shares: 7.29815, cost: 225.820242 },
+      { ticker: "VGT", shares: 248, cost: 90.276935 },
+      { ticker: "VOO", shares: 45.76647, cost: 570.406675 },
+    ];
+    const SEC_OWNED_TICKERS = new Set(userHoldings.map(row => row.ticker).filter(ticker => SEC_CORE_TICKERS.includes(ticker)));
 
     const SEC_SEVERITY = {
       critical: { label: '🔴 重大', css: 'critical' },
@@ -4117,8 +4160,11 @@
           fetch('sec_daily_editorial.json', { cache: 'no-cache' })
             .then(r => { if (!r.ok) throw new Error(`人工每日重點 HTTP ${r.status}`); return r.json(); })
             .catch(error => { console.warn('sec_daily_editorial.json 載入失敗', error); return null; }),
-        ]).then(([alerts, details, quarterlyFinancials, advanced, thirteenF, textChanges, thesisTracking, thesisStatus, exhibit991, earningsCalls, editorial]) => {
-          secDailyData = { alerts, details, quarterlyFinancials, advanced, thirteenF, textChanges, thesisTracking, thesisStatus, exhibit991, earningsCalls, editorial };
+          fetch('valuation.json', { cache: 'no-cache' })
+            .then(r => { if (!r.ok) throw new Error(`估值資料 HTTP ${r.status}`); return r.json(); })
+            .catch(error => { console.warn('valuation.json 載入失敗，跨公司估值排名將顯示缺值', error); return null; }),
+        ]).then(([alerts, details, quarterlyFinancials, advanced, thirteenF, textChanges, thesisTracking, thesisStatus, exhibit991, earningsCalls, editorial, valuation]) => {
+          secDailyData = { alerts, details, quarterlyFinancials, advanced, thirteenF, textChanges, thesisTracking, thesisStatus, exhibit991, earningsCalls, editorial, valuation };
           renderSecDaily();
         }).catch(error => {
           secDailyPromise = null;
@@ -4436,6 +4482,45 @@
         <p class="sec-reading-rank-method">排序規則依序考量：潛在稀釋、重大／重要申報、90 日內重大 13D／13G、SEC 執法／停牌、投資論點失效／狀態改變、八季財務警報、P／S 主動買賣與一般申報；同級再按訊號數量與最近日期排列。「AI 已讀」只在人工重點仍涵蓋最新 SEC 申報、季度財務、投資論點、13D／13G 與執法資料時顯示；若覆核後偵測到新增或覆蓋指紋改變，就改標「有新資料，待 AI 重讀」。這不是瀏覽器待辦或使用者閱讀進度。排序只決定每日閱讀先後，不是利多／利空、投資評等或報酬預測。</p>`;
     }
 
+    function secHoldingPosition(ticker, companyTone) {
+      const holding = userHoldings.find(row => row.ticker === ticker);
+      if (!holding) return null;
+      const latestPrice = row => {
+        const closes = priceDB?.series?.[row.ticker]?.closes || [];
+        const dashboardPrice = titansData.find(item => item.ticker === row.ticker)?.price;
+        return Number(closes[closes.length - 1] ?? dashboardPrice ?? row.cost);
+      };
+      const currentPrice = latestPrice(holding);
+      const marketValue = holding.shares * currentPrice;
+      const costBasis = holding.shares * holding.cost;
+      const pnlPct = costBasis > 0 ? (marketValue / costBasis - 1) * 100 : null;
+      const totalPortfolioValue = userHoldings.reduce((sum, row) => sum + row.shares * latestPrice(row), 0);
+      const weight = totalPortfolioValue > 0 ? marketValue / totalPortfolioValue * 100 : null;
+      const risks = [];
+      if (weight !== null && weight >= 15) risks.push(`單一部位占比 ${formatSecNumber(weight, 1)}%，集中度偏高`);
+      else if (weight !== null && weight >= 8) risks.push(`部位占比 ${formatSecNumber(weight, 1)}%，需注意集中度`);
+      if (pnlPct !== null && pnlPct <= -20) risks.push(`未實現報酬 ${formatSecNumber(pnlPct, 1)}%，回撤偏大`);
+      else if (pnlPct !== null && pnlPct <= -10) risks.push(`未實現報酬 ${formatSecNumber(pnlPct, 1)}%，處於回撤`);
+      if (companyTone === 'risk') risks.push('公司財務／申報判讀屬風險組');
+      return {
+        holding, currentPrice, marketValue, pnlPct, weight,
+        riskText: risks.length ? risks.join('；') : '目前未見單一部位集中或大幅回撤訊號，仍須依公司風險持續覆核。',
+      };
+    }
+
+    function renderSecEditorialChanges(editorial) {
+      const comparison = editorial.comparison || {};
+      const allowedTypes = new Set(['risk', 'improvement', 'conclusion']);
+      const changes = (comparison.changes || []).filter(row => allowedTypes.has(row.type));
+      const typeLabels = { risk: '🔴 新增風險', improvement: '🟢 新增改善', conclusion: '🟡 結論變化' };
+      const body = changes.length ? `<div class="sec-editorial-change-list">${changes.map(row => `
+        <div class="sec-editorial-change ${escapeSec(row.type)}"><strong>${typeLabels[row.type]}｜${escapeSec(row.ticker || '整體')}</strong><br>${escapeSec(row.summary)}${row.evidence ? `<br><span>${escapeSec(row.evidence)}</span>` : ''}</div>`).join('')}</div>`
+        : `<p class="sec-editorial-change-empty">${comparison.previous_reviewed_at
+          ? '相較前次判讀，沒有新增風險、明確改善或足以改變結論的證據；未變項目不重複列出。'
+          : '本次先建立前次判讀比較基準；下一次覆核只會列出新增風險、改善與結論變化。'}</p>`;
+      return `<section class="sec-editorial-changes" aria-label="相較前次判讀的變化"><h4>↕ 相較前次判讀有什麼改變${comparison.previous_reviewed_at ? `｜前次 ${escapeSec(formatSecTimestamp(comparison.previous_reviewed_at))}` : ''}</h4>${body}</section>`;
+    }
+
     function renderSecEditorial() {
       const container = document.getElementById('secEditorial');
       if (!container || !secDailyData) return;
@@ -4449,24 +4534,109 @@
       const ageDays = Number.isNaN(reviewed.getTime()) ? null : Math.max(0, Math.floor((today - reviewed) / 86400000));
       const stale = ageDays === null || ageDays > 1 || editorial.window_end < todayET();
       const toneLabels = { risk: '🔴', caution: '🟡', positive: '🟢' };
-      const cards = [...editorial.companies].sort((a, b) => Number(a.rank) - Number(b.rank)).map(company => {
+      const renderCard = (company, owned, open) => {
         const sourceUrl = safeQuarterlySourceUrl(company.source_url);
         const source = sourceUrl === '#' ? '' : `<a class="sec-link" href="${sourceUrl}" target="_blank" rel="noopener">官方原文 ↗</a>`;
         const evidence = (company.evidence || []).map(item => `<li>${escapeSec(item)}</li>`).join('');
-        return `<details class="sec-editorial-card ${escapeSec(company.tone || 'caution')}"${Number(company.rank) <= 5 ? ' open' : ''}>
-          <summary><span class="sec-editorial-rank">#${formatSecNumber(company.rank)}</span><span>${toneLabels[company.tone] || '🔵'}</span><span class="sec-editorial-ticker">${escapeSec(company.ticker)}</span><span class="sec-editorial-status">${escapeSec(company.status)}</span></summary>
-          <div class="sec-editorial-body"><p>${escapeSec(company.summary)}</p><ul>${evidence}</ul><p class="sec-editorial-watch"><strong>下一步：</strong>${escapeSec(company.watch)}</p>${source}</div>
+        const position = owned ? secHoldingPosition(company.ticker, company.tone) : null;
+        const positionHtml = position ? `<p class="sec-editorial-position"><strong>部位風險：</strong>持有 ${formatSecNumber(position.holding.shares, position.holding.shares % 1 ? 4 : 0)} 股｜成本 $${formatSecNumber(position.holding.cost, 3)}｜現價 $${formatSecNumber(position.currentPrice, 2)}｜組合占比 ${formatSecNumber(position.weight, 1)}%｜未實現 ${position.pnlPct >= 0 ? '+' : ''}${formatSecNumber(position.pnlPct, 1)}%<br>${escapeSec(position.riskText)}</p>` : '';
+        return `<details class="sec-editorial-card ${escapeSec(company.tone || 'caution')}"${open ? ' open' : ''}>
+          <summary><span class="sec-editorial-rank">#${formatSecNumber(company.rank)}</span><span>${toneLabels[company.tone] || '🔵'}</span><span class="sec-editorial-ticker">${escapeSec(company.ticker)}</span>${owned ? '<span class="sec-editorial-holding-badge">實際持股</span>' : ''}<span class="sec-editorial-status">${escapeSec(company.status)}</span></summary>
+          <div class="sec-editorial-body">${positionHtml}<p>${escapeSec(company.summary)}</p><ul>${evidence}</ul><p class="sec-editorial-watch"><strong>下一步：</strong>${escapeSec(company.watch)}</p>${source}</div>
         </details>`;
-      }).join('');
+      };
+      const order = new Map((editorial.portfolio_order || []).map((ticker, index) => [ticker, index]));
+      const ownedCompanies = editorial.companies.filter(company => SEC_OWNED_TICKERS.has(company.ticker))
+        .sort((a, b) => (order.get(a.ticker) ?? 999) - (order.get(b.ticker) ?? 999) || Number(a.rank) - Number(b.rank));
+      const watchCompanies = editorial.companies.filter(company => !SEC_OWNED_TICKERS.has(company.ticker))
+        .sort((a, b) => Number(a.rank) - Number(b.rank));
+      const ownedCards = ownedCompanies.map((company, index) => renderCard(company, true, index < 3)).join('');
+      const watchCards = watchCompanies.map(company => renderCard(company, false, false)).join('');
       container.innerHTML = `
         <div class="sec-editorial-head">
           <div><h3 id="secEditorialTitle">🧠 ${escapeSec(editorial.title || '人工消化後的每日綜合重點')}</h3><p class="sec-editorial-meta">覆核 ${escapeSec(formatSecTimestamp(editorial.reviewed_at))}｜資料窗 ${escapeSec(editorial.window_start)}～${escapeSec(editorial.window_end)}</p></div>
           <span class="sec-editorial-badge${stale ? ' stale' : ''}">${stale ? '⚠️ 非今日覆核稿' : '✅ 今日已人工消化'}</span>
         </div>
         <p class="sec-editorial-headline">${escapeSec(editorial.headline)}</p>
-        <p class="sec-editorial-portfolio"><strong>你的實際持股閱讀順序：</strong>${(editorial.portfolio_order || []).map(escapeSec).join(' → ')}</p>
-        <div class="sec-editorial-grid">${cards}</div>
+        ${renderSecEditorialChanges(editorial)}
+        <p class="sec-editorial-portfolio"><strong>目前實際持股閱讀順序：</strong>${ownedCompanies.map(company => escapeSec(company.ticker)).join(' → ')}</p>
+        <section class="sec-editorial-group" aria-label="實際持股摘要"><div class="sec-editorial-group-head"><h4>💼 實際持股｜優先看部位風險</h4><span>${ownedCompanies.length} 家；股數與成本取自個人持股部位明細</span></div><div class="sec-editorial-grid">${ownedCards}</div></section>
+        <section class="sec-editorial-group" aria-label="觀察名單摘要"><div class="sec-editorial-group-head"><h4>👀 觀察名單</h4><span>${watchCompanies.length} 家；不顯示部位損益，避免誤認為持有</span></div><div class="sec-editorial-grid">${watchCards}</div></section>
         <p class="sec-editorial-method">${escapeSec(editorial.method)} 人工稿不會假裝即時自動判讀；若官方資料日期晚於覆核時間，請以上方新申報排序為先並等待重讀。</p>`;
+    }
+
+    function secCrossCompanyRows() {
+      const companies = secDailyData?.quarterlyFinancials?.companies || {};
+      const valuationCompanies = secDailyData?.valuation?.companies || {};
+      const rows = SEC_CORE_TICKERS.map(displayTicker => {
+        const ticker = SEC_TICKER_ALIASES[displayTicker] || displayTicker;
+        const periods = companies[ticker]?.periods || [];
+        const latest = periods[0];
+        const yearAgo = periods[4];
+        const revenue = secMetricValue(latest, 'revenue');
+        const revenueYoy = secDelta(revenue, secMetricValue(yearAgo, 'revenue'));
+        const grossMargin = secMetricValue(latest, 'gross_margin');
+        const freeCashFlow = secMetricValue(latest, 'free_cash_flow');
+        const fcfMargin = revenue && freeCashFlow !== null ? freeCashFlow / revenue * 100 : null;
+        const dilutedSharesYoy = secDelta(secMetricValue(latest, 'diluted_shares'), secMetricValue(yearAgo, 'diluted_shares'));
+        const valuation = valuationCompanies[ticker];
+        let valuationRisk = null;
+        let valuationLabel = '—';
+        if (valuation) {
+          const divergence = Number(valuation.divergence_vs_price);
+          if (valuation.dcf_status !== '已計算') {
+            valuationRisk = 100;
+            valuationLabel = valuation.dcf_status || 'DCF 不適用';
+          } else if (valuation.credibility_warning) {
+            valuationRisk = 90 + Math.min(9.9, Math.abs(Number.isFinite(divergence) ? divergence : 0) * 10);
+            valuationLabel = `模型警示${Number.isFinite(divergence) ? `｜DCF差 ${divergence >= 0 ? '+' : ''}${formatSecNumber(divergence * 100, 0)}%` : ''}`;
+          } else if (Number.isFinite(divergence)) {
+            valuationRisk = Math.max(0, -divergence * 100);
+            valuationLabel = `DCF差 ${divergence >= 0 ? '+' : ''}${formatSecNumber(divergence * 100, 0)}%`;
+          }
+        }
+        return { displayTicker, ticker, owned: SEC_OWNED_TICKERS.has(displayTicker), revenueYoy, grossMargin: grossMargin === null ? null : grossMargin * 100, fcfMargin, dilutedSharesYoy, valuationRisk, valuationLabel };
+      });
+      const assignRanks = (key, descending = true) => {
+        let priorValue = null;
+        let priorRank = null;
+        rows.filter(row => row[key] !== null && Number.isFinite(row[key]))
+          .sort((a, b) => descending ? b[key] - a[key] : a[key] - b[key])
+          .forEach((row, index) => {
+            const tied = priorValue !== null && Math.abs(row[key] - priorValue) < 1e-9;
+            row[`${key}Rank`] = tied ? priorRank : index + 1;
+            priorValue = row[key];
+            priorRank = row[`${key}Rank`];
+          });
+      };
+      assignRanks('revenueYoy');
+      assignRanks('grossMargin');
+      assignRanks('fcfMargin');
+      assignRanks('dilutedSharesYoy');
+      assignRanks('valuationRisk');
+      const editorialRank = new Map((secDailyData.editorial?.companies || []).map(row => [row.ticker, Number(row.rank)]));
+      return rows.sort((a, b) => Number(b.owned) - Number(a.owned)
+        || (editorialRank.get(a.displayTicker) ?? 999) - (editorialRank.get(b.displayTicker) ?? 999));
+    }
+
+    function renderSecCrossCompany() {
+      const container = document.getElementById('secCrossCompany');
+      if (!container || !secDailyData) return;
+      const rows = secCrossCompanyRows();
+      const metricCell = (rank, value, suffix = '%', risk = false) => value === null || !Number.isFinite(value)
+        ? '<span class="sec-cross-value">—</span>'
+        : `<span class="sec-cross-rank${risk ? ' sec-cross-risk' : ''}">#${formatSecNumber(rank)}${risk ? ' 風險' : ''}</span><span class="sec-cross-value">${value >= 0 ? '+' : ''}${formatSecNumber(value, 1)}${suffix}</span>`;
+      const body = rows.map(row => `<tr>
+        <td><strong>${escapeSec(row.displayTicker)}</strong><span class="sec-cell-note">${row.owned ? '💼 實際持股' : '👀 觀察名單'}</span></td>
+        <td>${metricCell(row.revenueYoyRank, row.revenueYoy)}</td>
+        <td>${metricCell(row.grossMarginRank, row.grossMargin)}</td>
+        <td>${metricCell(row.fcfMarginRank, row.fcfMargin)}</td>
+        <td>${metricCell(row.dilutedSharesYoyRank, row.dilutedSharesYoy, '%', true)}</td>
+        <td>${row.valuationRisk === null ? '<span class="sec-cross-value">—</span>' : `<span class="sec-cross-rank sec-cross-risk">#${formatSecNumber(row.valuationRiskRank)} 警戒</span><span class="sec-cross-value">${escapeSec(row.valuationLabel)}</span>`}</td>
+      </tr>`).join('');
+      container.innerHTML = `<div class="sec-cross-company-head"><div><h3 id="secCrossCompanyTitle">📊 14 家跨公司財務與風險排名</h3><p>實際持股優先列出；所有比率取最新季度及去年同期，跨幣別只比較比率、不直接比較金額。</p></div></div>
+        <div class="sec-table-wrap"><table class="sec-cross-table"><thead><tr><th>公司／類別</th><th>營收 YoY<br>#1＝成長最高</th><th>毛利率<br>#1＝最高</th><th>FCF 率<br>#1＝最高</th><th>稀釋股數 YoY<br>#1＝風險最高</th><th>估值警戒<br>#1＝不確定性最高</th></tr></thead><tbody>${body}</tbody></table></div>
+        <p class="sec-footnote">FCF 率＝當季自由現金流 ÷ 當季營收。估值警戒先列 DCF 不適用，再列模型可信度警示，最後才比較現價高於 DCF 中位數的幅度；這是模型不確定性排序，不是目標價、便宜／昂貴結論或買賣建議。缺值不排名。</p>`;
     }
 
     function renderSecDaily() {
@@ -4524,6 +4694,7 @@
       renderSecUpdateBrief();
       renderSecReadingRank();
       renderSecEditorial();
+      renderSecCrossCompany();
 
       const quarterlyBody = document.getElementById('secQuarterlyBody');
       quarterlyBody.innerHTML = quarterlyRows.length ? quarterlyRows.map(row => {
@@ -6845,19 +7016,6 @@
       const create = chartPageCreators[pageId];
       if (create) create();
     }
-
-    const userHoldings = [
-      { ticker: "ARM", shares: 15, cost: 231.038 },
-      { ticker: "COHR", shares: 10, cost: 336.066 },
-      { ticker: "GOOG", shares: 20, cost: 266.492 },
-      { ticker: "INTC", shares: 25, cost: 70.164 },
-      { ticker: "MRVL", shares: 25, cost: 157.392 },
-      { ticker: "NOK", shares: 600, cost: 11.68895 },
-      { ticker: "NVDA", shares: 15, cost: 212.995333 },
-      { ticker: "TSLA", shares: 7.29815, cost: 225.820242 },
-      { ticker: "VGT", shares: 248, cost: 90.276935 },
-      { ticker: "VOO", shares: 45.76647, cost: 570.406675 }
-    ];
 
     let portfolioPieChart = null;
 
