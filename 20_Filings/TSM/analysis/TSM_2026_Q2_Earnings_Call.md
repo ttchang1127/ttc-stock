@@ -4,7 +4,7 @@ call_date: 2026-07-16
 period: "2026 Q2"
 source_type: full_transcript
 source_url: "https://investor.tsmc.com/english/encrypt/files/encrypt_file/reports/2026-08/3e494f0c14dd0890f897aa044415e21d93486cc4/TSMC%202Q26%20Transcript.pdf"
-source_sha256: "77ed552a7e8ff4a70e55b76ca58712993ce75478f6185aba3dc72c4f5cdd447c"
+source_sha256: "26cb9de5876d0d74988be7d872302fb6d1caa81c79bdd1e3a6b5db4e3f8a9e21"
 parser_version: 16
 tags:
   - earnings-call
@@ -19,38 +19,38 @@ tags:
 - **文字類型**：完整官方逐字稿。包含管理層發言與分析師問答，可分開閱讀兩種證據。
 - **官方來源**：[文字材料](https://investor.tsmc.com/english/encrypt/files/encrypt_file/reports/2026-08/3e494f0c14dd0890f897aa044415e21d93486cc4/TSMC%202Q26%20Transcript.pdf)｜[IR 發現頁](https://investor.tsmc.com/english/quarterly-results/2026/q2)
 - **來源鏈驗證**：材料與 IR 頁屬同一公司網域
-- **證據覆蓋**：6/7 類；這是閱讀索引，不是評分。
+- **證據覆蓋**：5/7 類；這是閱讀索引，不是評分。
 - **方法限制**：每類只保留最多 22 個英文單字的短摘錄。未命中保留缺值；不把語氣關鍵字轉成投資建議。
 
 ## 需求與成長驅動
 
 > **怎麼讀**：管理層談到的需求、採用、訂單、backlog 或成長來源；屬公司陳述。
 
-> …fabs, one in Taiwan, one in Arizona, and one in Japan, to support the robust multi-year pipeline of demand for 3-nanometer technologies.
+> Given the continued strong structural demand from our customers, including the newly emerging agentic AI market, we have decided to raise our…
 
 ## 利潤率與成本壓力
 
 > **怎麼讀**：毛利率、營業利益率、成本、費用或折舊的方向與原因。
 
-> …exchangerate assumption of USD1 to TWD32, gross margin is expected to be between 65% and 67%, operating margin between 56% and 58%.
+> …steep ramp-up of our 2-nanometer to dilute our gross margin by about 3 to 4 percentage points in the second halfoftheyear.Furthermore,asthescaleofouroverseasexpansiongrows,wecontinuetoforecastthegrossmargindilutionfrom theramp-upofoverseasfabsinthenextseveralyearstobe2%to3%intheearlystagesandwidento3%to4%inthelatterstages.
 
 ## 資本支出、產能與供應
 
 > **怎麼讀**：CapEx、資料中心、產能、供給限制與擴產線索。
 
-> Based on our assessment, we are stepping up our CapEx investment to increase our capacity to support our customers' future growth.
+> …for the future growth with this level of CapEx spending in 2026, we remain committed to delivering profitable growth to our shareholders.
 
 ## 指引與未來展望
 
 > **怎麼讀**：管理層對下一季或全年展望；是前瞻聲明，不是保證。
 
-> Based on the current business outlook, we expect our third-quarter revenue to be between USD44.6 billion and USD45.8 billion, which representsa 12%…
+> Based on the current business outlook, we expect our third-quarter revenue to be between USD44.6 billion and USD45.8 billion, whichrepresentsa12%sequentialincreaseora37%year-over-yearincreaseatthemidpoint.Basedontheexchangerateassumption ofUSD1toTWD32,grossmarginisexpectedtobebetween65%and67%,operatingmarginbetween56%and58%.
 
 ## 管理層信心與限定語
 
 > **怎麼讀**：信心、可見度或保留語氣的原話；不能單獨當作業績證明。
 
-> Thus, our conviction in the multi-year AI megatrend remain very high.
+- **官方文字未可靠辨識此項；保留缺值。**
 
 ## 逆風與風險
 

@@ -1,6 +1,6 @@
 ---
 title: SEC 每日申報雷達
-updated_at: 2026-08-30T02:56:57+00:00
+updated_at: 2026-09-01T09:08:06+00:00
 tags:
   - sec/alerts
   - filings/daily
@@ -15,6 +15,13 @@ GitHub Actions 於台北時間週二至週六中午 12:00 檢查；重大／重�
 
 | 重要性 | 公司 | 申報 | 日期 | 事件／Item | SEC 原文 |
 |---|---|---|---|---|---|
+| 🔵 留意 | **GOOGL** | 4 | 2026-08-31 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526377149/xslF345X06/ownership.xml) |
+| 🔵 留意 | **ARM** | 4 | 2026-08-31 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1973239/000197323926000122/xslF345X06/wk-form4_1788210409.xml) |
+| 🔵 留意 | **COHR** | 144 | 2026-08-31 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/820318/000195004726008866/xsl144X01/primary_doc.xml) |
+| 🔵 留意 | **COHR** | 144 | 2026-08-31 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/820318/000195004726008864/xsl144X01/primary_doc.xml) |
+| 🔵 留意 | **COHR** | 144 | 2026-08-31 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/820318/000195004726008863/xsl144X01/primary_doc.xml) |
+| 🔵 留意 | **NVDA** | 144 | 2026-08-31 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1045810/000192109426000969/xsl144X01/primary_doc.xml) |
+| 🔴 重大 | **COHR** | 8-K | 2026-08-31 | 5.02 董事／高管異動、8.01 其他重大事項 | [原文](https://www.sec.gov/Archives/edgar/data/820318/000119312526375462/d110649d8k.htm) |
 | 🔵 留意 | **GOOGL** | 144 | 2026-08-28 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000192109426000964/xsl144X01/primary_doc.xml) |
 | 🔴 重大 | **MRVL** | 10-Q | 2026-08-28 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1835632/000183563226000025/mrvl-20260801.htm) |
 | 🔴 重大 | **ONDS** | 8-K | 2026-08-28 | 3.02 未註冊股權發行、8.01 其他重大事項、9.01 附件／財務報表 | [原文](https://www.sec.gov/Archives/edgar/data/1646188/000121390026095097/ea0303660-8k_ondas.htm) |

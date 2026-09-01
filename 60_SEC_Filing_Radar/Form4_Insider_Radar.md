@@ -1,6 +1,6 @@
 ---
 title: Form 4 內部人交易雷達
-updated_at: 2026-08-30T00:53:00+00:00
+updated_at: 2026-09-01T09:08:06+00:00
 tags:
   - sec/form-4
   - insiders
@@ -13,6 +13,8 @@ tags:
 
 | 申報日 | 公司 | 申報人／身分 | 代碼與意義 | 股數 | 單價 | 交易金額 | 取得／處分 | 10b5-1 | SEC |
 |---|---|---|---|---:|---:|---:|---|---|---|
+| 2026-08-31 | **GOOGL** | ARNOLD FRANCES／董事 | `S` 公開市場或私下賣出 | 82 | 337.71 | 27,692 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526377149/xslF345X06/ownership.xml) |
+| 2026-08-31 | **ARM** | Child Jason／高階主管（Chief Financial Officer） | `S` 公開市場或私下賣出 | 10,400 | 255.33 | 2,655,432 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1973239/000197323926000122/xslF345X06/wk-form4_1788210409.xml) |
 | 2026-08-27 | **AMZN** | BEZOS JEFFREY P／董事、高階主管（Executive Chair） | `G` 贈與 | 230,637 | 0.00 | 0 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000104329826000002/xslF345X06/wk-form4_1787862279.xml) |
 | 2026-08-27 | **AAPL** | Newstead Jennifer／高階主管（SVP, GC and Secretary） | `S` 公開市場或私下賣出 | 1,439 | 310.95 | 447,457 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/320193/000114036126034741/xslF345X06/form4.xml) |
 | 2026-08-27 | **AMZN** | BEZOS JEFFREY P／董事、高階主管（Executive Chair） | `G` 贈與 | 184,943 | 0.00 | 0 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000104329826000002/xslF345X06/wk-form4_1787862279.xml) |
@@ -197,8 +199,6 @@ tags:
 | 2026-08-10 | **TSM** | Mii Yuh-Jier／高階主管（EVP and Co-COO） | `P` 公開市場或私下買入 | 72 | 73.31 | 5,278 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1046179/000104617926000523/xslF345X06/wk-form4_1786363149.xml) |
 | 2026-08-10 | **TSM** | Wang Ying-Lang／高階主管（SVP） | `P` 公開市場或私下買入 | 55 | 73.31 | 4,032 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1046179/000104617926000522/xslF345X06/wk-form4_1786363142.xml) |
 | 2026-08-07 | **NVDA** | COXE TENCH／董事 | `G` 贈與 | 500,000 | 0.00 | 0 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1045810/000119764726000007/xslF345X06/wk-form4_1786135642.xml) |
-| 2026-08-06 | **GOOGL** | Hennessy John L.／董事 | `G` 贈與 | 1,738 | 0.00 | 0 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526338824/xslF345X06/ownership.xml) |
-| 2026-08-06 | **GOOGL** | Hennessy John L.／董事 | `G` 贈與 | 1,738 | 0.00 | 0 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526338824/xslF345X06/ownership.xml) |
 | 2026-08-06 | **MSFT** | Althoff Judson／高階主管（CEO Microsoft Commercial） | `S` 公開市場或私下賣出 | 10,000 | 487.89 | 4,878,930 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/789019/000078901926000143/xslF345X06/form4.xml) |
 | 2026-08-05 | **MSFT** | Numoto Takeshi／高階主管（EVP, Chief Marketing Officer） | `S` 公開市場或私下賣出 | 4,810 | 496.48 | 2,388,244 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/789019/000078901926000141/xslF345X06/form4.xml) |
 | 2026-08-03 | **MRVL** | Koopmans Chris／高階主管（President and COO） | `S` 公開市場或私下賣出 | 10,000 | 180.50 | 1,805,000 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1835632/000162828026051905/xslF345X06/wk-form4_1785789180.xml) |
@@ -227,5 +227,5 @@ tags:
 
 > 金額只在股數與單價都由 SEC 文件提供時才計算；缺值保留為「—」，不以 0 代替。
 
-> 最後檢查：`2026-08-30T00:53:00+00:00`
+> 最後檢查：`2026-09-01T09:08:06+00:00`
 

@@ -1,6 +1,6 @@
 ---
 title: 📎 財報附註／附件雷達
-updated_at: 2026-08-30T02:56:57+00:00
+updated_at: 2026-09-01T09:08:06+00:00
 tags:
   - sec/footnotes
 ---
@@ -17,8 +17,8 @@ tags:
 | 2026-07-30 | **AMZN** | 8-K | 訴訟／或有事項、股份薪酬、非 GAAP、XBRL 標記；重要附件 6 份 | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000101872426000024/amzn-20260730.htm) |
 | 2026-08-10 | **ARM** | 6-K | XBRL 標記；重要附件 8 份 | [原文](https://www.sec.gov/Archives/edgar/data/1973239/000197323926000117/arm-20260810.htm) |
 | 2026-07-29 | **ARM** | 6-K | 收入認列、減損、訴訟／或有事項、關係人交易、股份薪酬；重要附件 5 份 | [原文](https://www.sec.gov/Archives/edgar/data/1973239/000197323926000114/arm-20260630.htm) |
+| 2026-08-31 | **COHR** | 8-K | 訴訟／或有事項、XBRL 標記；重要附件 3 份 | [原文](https://www.sec.gov/Archives/edgar/data/820318/000119312526375462/d110649d8k.htm) |
 | 2026-08-14 | **COHR** | 10-K | 收入認列、客戶集中、減損、訴訟／或有事項、股份薪酬；重要附件 7 份 | [原文](https://www.sec.gov/Archives/edgar/data/820318/000082031826000020/iivi-20260630.htm) |
-| 2026-08-12 | **COHR** | 8-K | 減損、訴訟／或有事項、股份薪酬、非 GAAP、XBRL 標記；重要附件 5 份 | [原文](https://www.sec.gov/Archives/edgar/data/820318/000119312526346860/d128030d8k.htm) |
 | 2026-08-10 | **GOOGL** | 8-K | 債務／到期、XBRL 標記；重要附件 4 份 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526342390/d171253d8k.htm) |
 | 2026-07-23 | **GOOGL** | 10-Q | 收入認列、減損、訴訟／或有事項、股份薪酬、債務／到期；重要附件 7 份 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/goog-20260630.htm) |
 | 2026-08-12 | **INTC** | 8-K | 客戶集中、訴訟／或有事項、XBRL 標記；重要附件 5 份 | [原文](https://www.sec.gov/Archives/edgar/data/50863/000119312526346806/d117670d8k.htm) |
@@ -40,5 +40,5 @@ tags:
 | 2026-08-25 | **TSM** | 6-K | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1046179/000104617926000545/tsm-monthend6kx20260825.htm) |
 | 2026-08-14 | **TSM** | 6-K | 收入認列、減損、關係人交易、股份薪酬、債務／到期；重要附件 1 份 | [原文](https://www.sec.gov/Archives/edgar/data/1046179/000104617926000541/tsm-fsx20260814x6k.htm) |
 
-> 最後檢查：`2026-08-30T02:56:57+00:00`。關鍵字命中是閱讀導航，不等於會計結論或利多／利空。
+> 最後檢查：`2026-09-01T09:08:06+00:00`。關鍵字命中是閱讀導航，不等於會計結論或利多／利空。
 
