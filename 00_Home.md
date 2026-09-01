@@ -65,6 +65,7 @@ tags:
 
 - 🚨 **[[SEC_Filing_Alerts|SEC 每日申報雷達（14 家、台北時間中午更新）]]**
 - 📝 **[[SEC_Daily_Change_Candidates|每日變更候選稿（規則自動產生、待 AI 覆核）]]**
+- ✅ **[[SEC_Daily_Candidate_Reviews|每日 AI 候選覆核紀錄（採納／駁回理由）]]**
 - 🧠 **[[SEC_Daily_Editorial|SEC 每日人工消化重點（正式判讀）]]**
 - 📥 **[[Periodic_Filing_Ingest|10-Q／8-K／6-K 原文筆記與安全分段狀態]]**
 - 📊 **[[Exhibit_991_Earnings_Radar|8-K Exhibit 99.1 財報分析卡雷達]]**

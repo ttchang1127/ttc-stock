@@ -1,0 +1,109 @@
+{
+  "schema_version": 1,
+  "updated_at": "2026-09-01T20:46:16+08:00",
+  "method": "AI 必須逐項核對官方原文、交易規模、是否已成交及既有公司結論；每項保留採納或駁回理由。只有採納項目可以寫入正式每日綜合重點。",
+  "batches": [
+    {
+      "id": "e7c6c19fd9e1",
+      "reviewed_at": "2026-09-01T20:46:16+08:00",
+      "candidate_generated_at": "2026-09-01T09:08:06+00:00",
+      "editorial_before": "2026-08-30T19:35:00+08:00",
+      "candidate_count": 5,
+      "accepted_count": 1,
+      "rejected_count": 4,
+      "summary": "5 項候選中，只有 COHR 特殊績效股獎勵納入正式新增風險；兩筆 10b5-1 賣出與兩組 Form 144 擬售因交易性質及規模不足，未改變公司結論。",
+      "decisions": [
+        {
+          "candidate_id": "2789f053f28020d0",
+          "ticker": "ARM",
+          "candidate_type": "risk",
+          "disposition": "rejected",
+          "final_type": null,
+          "conclusion_changed": false,
+          "materiality": "low",
+          "rationale": "CFO Jason Child 賣出 10,400 股，約占交易前直接持股 5.97%，但申報明確標示為 10b5-1 預先交易計畫；單筆資料不足以推翻營運或投資論點。保留例行監測，不寫成新增風險。",
+          "verified_evidence": [
+            "2026-08-27 以每股 USD 255.33 賣出 10,400 股，金額 USD 2,655,432。",
+            "交易後直接持股 163,832 股；本次約占交易前直接持股 5.97%。",
+            "Form 4 標示交易依 Rule 10b5-1 計畫執行。"
+          ],
+          "source_keys": ["0001973239-26-000122"],
+          "sources": ["https://www.sec.gov/Archives/edgar/data/1973239/000197323926000122/xslF345X06/wk-form4_1788210409.xml"]
+        },
+        {
+          "candidate_id": "ac755fb0af99e04b",
+          "ticker": "COHR",
+          "candidate_type": "risk",
+          "disposition": "rejected",
+          "final_type": null,
+          "conclusion_changed": false,
+          "materiality": "low",
+          "rationale": "三份 Form 144 合計只是擬售 11,591 股，約占已發行股數 0.0059%，且 Form 144 不代表已成交。規模不足以改變既有 COHR 風險結論，等待後續 Form 4 確認即可。",
+          "verified_evidence": [
+            "Stephen Skaggs、Julie Eng 與 Enrico Digirolamo 合計擬售 11,591 股，申報估值約 USD 3.24M。",
+            "申報所列已發行股數 195,832,246 股，擬售量約占 0.0059%。",
+            "Form 144 是擬售通知，不是成交回報。"
+          ],
+          "source_keys": ["0001950047-26-008863", "0001950047-26-008864", "0001950047-26-008866"],
+          "sources": [
+            "https://www.sec.gov/Archives/edgar/data/820318/000195004726008863/xsl144X01/primary_doc.xml",
+            "https://www.sec.gov/Archives/edgar/data/820318/000195004726008864/xsl144X01/primary_doc.xml",
+            "https://www.sec.gov/Archives/edgar/data/820318/000195004726008866/xsl144X01/primary_doc.xml"
+          ]
+        },
+        {
+          "candidate_id": "7ed7c5eb02ea4888",
+          "ticker": "GOOG",
+          "candidate_type": "risk",
+          "disposition": "rejected",
+          "final_type": null,
+          "conclusion_changed": false,
+          "materiality": "low",
+          "rationale": "董事 Frances Arnold 的 82 股賣出僅約占交易前直接持股 0.43%，且屬 10b5-1 計畫；金額與比例都不足以構成公司基本面或治理結論變化。",
+          "verified_evidence": [
+            "2026-08-28 以每股 USD 337.71 賣出 82 股，金額約 USD 27,692。",
+            "交易後直接持股 18,995 股；本次約占交易前直接持股 0.43%。",
+            "Form 4 標示交易依 Rule 10b5-1 計畫執行。"
+          ],
+          "source_keys": ["0001193125-26-377149"],
+          "sources": ["https://www.sec.gov/Archives/edgar/data/1652044/000119312526377149/xslF345X06/ownership.xml"]
+        },
+        {
+          "candidate_id": "174f7a8d7b2953fe",
+          "ticker": "NVDA",
+          "candidate_type": "risk",
+          "disposition": "rejected",
+          "final_type": null,
+          "conclusion_changed": false,
+          "materiality": "low",
+          "rationale": "Timothy Teter 家族信託擬售 30,000 股，約占 NVIDIA 已發行股數 0.00012%，且仍只是 Form 144 擬售通知；不改變 NVDA 的營運、風險或投資論點結論。",
+          "verified_evidence": [
+            "擬售 30,000 股，申報估值 USD 6,536,514，預計出售日 2026-08-31。",
+            "申報所列已發行股數 24.1B 股，擬售量約占 0.00012%。",
+            "備註指出股份由 Horne Teter Family Living Trust 出售；Form 144 不等於已成交。"
+          ],
+          "source_keys": ["0001921094-26-000969"],
+          "sources": ["https://www.sec.gov/Archives/edgar/data/1045810/000192109426000969/xsl144X01/primary_doc.xml"]
+        },
+        {
+          "candidate_id": "8a01c406bf215983",
+          "ticker": "COHR",
+          "candidate_type": "conclusion",
+          "disposition": "accepted",
+          "final_type": "risk",
+          "conclusion_changed": false,
+          "materiality": "medium",
+          "rationale": "特殊獎勵的目標價值與最高可取得倍數足以列入薪酬及潛在稀釋監測；但它是長期、100% 績效制，需同時達成絕對股價與相對 TSR 門檻，且目前未披露 PSU 股數，因此不把它直接判定為已發生稀釋，也不改變 COHR 既有風險偏高結論。",
+          "verified_evidence": [
+            "五名高管目標獎勵合計 USD 100M：CEO USD 50M，CFO、CTO、策略與法務主管各 USD 15M，供應鏈主管 USD 5M。",
+            "獎勵 100% 為 PSU；四個 60 日均價門檻為 USD 454.43、542.86、643.61、757.77，另須相對 TSR 高於同業指數中位數。",
+            "依門檻可取得目標 PSU 的 50%、100%、150% 或 200%；四年績效期結束後另有一年持有期。",
+            "實際 PSU 股數尚未披露，獎勵協議預計在下一份定期報告作為附件申報。"
+          ],
+          "source_keys": ["0001193125-26-375462"],
+          "sources": ["https://www.sec.gov/Archives/edgar/data/820318/000119312526375462/d110649d8k.htm"]
+        }
+      ]
+    }
+  ]
+}

@@ -180,6 +180,21 @@ git status --short
 git add financials.json fundamentals.json financial_health.json valuation.json *_report.html 30_Analysis/ && git commit -m "chore: refresh SEC financials" && git push origin main
 ```
 
+### 每日 SEC 候選 → AI 正式覆核閉環
+
+1. GitHub Actions 只執行 `generate_sec_daily_change_candidates.py`，把上次正式覆核後的新文件整理成 `sec_daily_change_candidates.json`，並在有新候選時發 Issue。**規則候選不是 AI 結論。**
+2. AI 必須逐項閱讀候選的 SEC 官方來源，核對：是否已成交、10b5-1 屬性、交易占持股／流通股比例、文件實際條款，以及是否足以改變既有公司判讀。
+3. 每項決策都寫入 `sec_daily_candidate_reviews.json`，保留採納／駁回、核實證據、來源鍵、官方 URL、實質性與是否改變結論；Obsidian 對照頁為 `60_SEC_Filing_Radar/SEC_Daily_Candidate_Reviews.md`。
+4. 只有採納項目才能寫進 `sec_daily_editorial.json` 與 `SEC_Daily_Editorial.md` 的「相較前次判讀」。駁回項目不得偷偷改變 tone／status，但必須保留理由，避免下次重複誤判。
+5. 正式稿更新後再次執行：
+
+```bash
+python3 scripts/generate_sec_daily_change_candidates.py
+python3 scripts/check_integrity.py --quiet
+```
+
+預期：已覆核候選歸零；儀表板顯示最近一次採納／駁回紀錄。GitHub Actions 沒有模型憑證，也不會自動冒充 AI 完成覆核；真正的語意判讀必須由可追溯的 AI 閱讀工作完成後 commit。
+
 ### 輸出對照表
 
 | 你看到的 | 意思 | 下一步 |
@@ -587,6 +602,7 @@ git fetch --dry-run origin main
 | `estimate_dcf_inputs.py` | 由 beta／Rf／Kd／營收 CAGR 推導 g 與 WACC（**只印出，不寫檔**） |
 | `check_new_annual_filings.py` | 比對 SEC 最新 10-K／20-F 與本地 accession（**只通知，不寫檔**） |
 | `watch_sec_filings.py` | 台北時間週二至週六中午比對 14 家 SEC accession，更新每日雷達並由 GitHub Issue 通知 |
+| `generate_sec_daily_change_candidates.py` | 比較最新 SEC／季度／論點資料與正式 AI 覆核基準，只產生風險、改善或結論變化候選；不自行改寫正式判讀 |
 | `ingest_periodic_filings.py` | 依 accession 下載 10-Q／8-K／6-K 官方主要文件；安全拆分 10-Q MD&A／Controls／Risk Factors 與 8-K SEC Item；重解析失敗會移除該 accession 的舊版現役筆記，避免狀態顯示失敗但頁面仍殘留舊內容 |
 | `analyze_exhibit_991.py` | 只處理 Item 2.02 的 8-K／8-K-A；由同 accession 官方 filing index 找唯一 EX-99.1，保留營收、毛利率、EPS、分部、市場指引、管理層語句與風險／前瞻限制的原文證據；未命中保留缺值，重新分析失敗會移除舊卡 |
 | `track_earnings_calls.py` | 只使用公司官方 IR 文字或由官方頁明確連出的允許主機；區分完整逐字稿、Prepared Remarks 與僅影音回放，並產生最近四季主題命中比較；不以第三方逐字稿補值 |

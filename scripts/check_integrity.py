@@ -24,6 +24,7 @@ is never pushed.
 """
 
 import argparse
+import hashlib
 import json
 import pathlib
 import re
@@ -1208,6 +1209,7 @@ def c28():
 def c29():
     data = load("sec_daily_change_candidates.json")
     editorial = load("sec_daily_editorial.json")
+    reviews = load("sec_daily_candidate_reviews.json")
     bad = []
     if data.get("schema_version") != 1:
         bad.append("schema_version 不是 1")
@@ -1238,6 +1240,48 @@ def c29():
             bad.append(f"{ticker} 缺來源鍵或官方來源")
         if not row.get("headline") or not row.get("why_candidate"):
             bad.append(f"{ticker} 缺候選摘要或列入原因")
+
+    if reviews.get("schema_version") != 1 or not reviews.get("batches"):
+        bad.append("AI 候選覆核紀錄缺批次或 schema 無效")
+    else:
+        latest_review = reviews["batches"][0]
+        decisions = latest_review.get("decisions", [])
+        decision_ids = [row.get("candidate_id") for row in decisions]
+        accepted = [row for row in decisions if row.get("disposition") == "accepted"]
+        rejected = [row for row in decisions if row.get("disposition") == "rejected"]
+        if latest_review.get("reviewed_at") != editorial.get("reviewed_at"):
+            bad.append("最新 AI 覆核時間未寫回正式人工稿")
+        if latest_review.get("id") != editorial.get("last_candidate_review_id"):
+            bad.append("正式人工稿未指向最新 AI 覆核批次")
+        if len(set(decision_ids)) != len(decisions):
+            bad.append("AI 覆核決策 candidate_id 重複")
+        if latest_review.get("candidate_count") != len(decisions):
+            bad.append("AI 覆核候選計數與決策數不一致")
+        if latest_review.get("accepted_count") != len(accepted) or latest_review.get("rejected_count") != len(rejected):
+            bad.append("AI 覆核採納／駁回計數不一致")
+        batch_hash = hashlib.sha256("|".join(sorted(decision_ids)).encode()).hexdigest()[:12]
+        if latest_review.get("id") != batch_hash:
+            bad.append("AI 覆核批次 ID 無法由候選 ID 重建")
+        for row in decisions:
+            ticker = row.get("ticker") or "未知"
+            if row.get("candidate_type") not in {"risk", "improvement", "conclusion"}:
+                bad.append(f"{ticker} 缺原候選類型")
+            expected_id = hashlib.sha256("|".join([
+                row.get("candidate_type", ""), ticker,
+                *sorted(str(key) for key in row.get("source_keys", []) if key),
+            ]).encode()).hexdigest()[:16]
+            if row.get("candidate_id") != expected_id:
+                bad.append(f"{ticker} 候選 ID 與來源鍵不一致")
+            if row.get("disposition") not in {"accepted", "rejected"}:
+                bad.append(f"{ticker} 覆核決策無效")
+            if not row.get("rationale") or not row.get("verified_evidence"):
+                bad.append(f"{ticker} 缺駁回／採納理由或核實證據")
+            if not row.get("sources") or any(not url.startswith("https://www.sec.gov/") for url in row.get("sources", [])):
+                bad.append(f"{ticker} 覆核來源不是 SEC 官方網址")
+        accepted_tickers = {row.get("ticker") for row in accepted}
+        changed_tickers = {row.get("ticker") for row in editorial.get("comparison", {}).get("changes", [])}
+        if not changed_tickers.issubset(accepted_tickers):
+            bad.append("正式比較稿含未經 AI 採納的公司")
 
     with tempfile.TemporaryDirectory() as temp_dir:
         temp = pathlib.Path(temp_dir)
@@ -1272,9 +1316,17 @@ def c29():
         )),
         "dashboard": (dashboard, (
             "secChangeCandidates", "renderSecChangeCandidates", "sec_daily_change_candidates.json",
-            "待 AI 閱讀官方原文的候選稿", "Form 144 只代表擬售意向",
+            "sec_daily_candidate_reviews.json", "待 AI 閱讀官方原文的候選稿",
+            "Form 144 只代表擬售意向", "查看逐項採納／駁回理由",
         )),
-        "00_Home": (home, ("SEC_Daily_Change_Candidates", "SEC_Daily_Editorial")),
+        "00_Home": (home, ("SEC_Daily_Change_Candidates", "SEC_Daily_Candidate_Reviews", "SEC_Daily_Editorial")),
+        "覆核筆記": (read("60_SEC_Filing_Radar/SEC_Daily_Candidate_Reviews.md"), (
+            "採納", "駁回", "不是結論", "SEC 8-K 原文",
+        )),
+        "維護 SOP": (read("00_Meta/Sec_kb_資料維護SOP.md"), (
+            "每日 SEC 候選 → AI 正式覆核閉環", "規則候選不是 AI 結論",
+            "sec_daily_candidate_reviews.json",
+        )),
     }
     missing = [f"{label}:{marker}" for label, (text, required) in markers.items()
                for marker in required if marker not in text]

@@ -23,6 +23,7 @@ class DashboardSecTabTests(unittest.TestCase):
         cls.earnings_calls = json.loads((ROOT / "earnings_call_analysis.json").read_text())
         cls.editorial = json.loads((ROOT / "sec_daily_editorial.json").read_text())
         cls.change_candidates = json.loads((ROOT / "sec_daily_change_candidates.json").read_text())
+        cls.candidate_reviews = json.loads((ROOT / "sec_daily_candidate_reviews.json").read_text())
 
     def test_tab_defaults_to_14_days_and_allows_7_days(self):
         self.assertIn("🚨 4_SEC 每日重點", self.html)
@@ -44,6 +45,7 @@ class DashboardSecTabTests(unittest.TestCase):
         self.assertIn("fetch('earnings_call_analysis.json'", self.html)
         self.assertIn("fetch('sec_daily_editorial.json'", self.html)
         self.assertIn("fetch('sec_daily_change_candidates.json'", self.html)
+        self.assertIn("fetch('sec_daily_candidate_reviews.json'", self.html)
         self.assertIn("fetch('valuation.json'", self.html)
         self.assertIn("function renderSecDaily()", self.html)
         self.assertIn('id="secQuarterlyBody"', self.html)
@@ -243,12 +245,19 @@ class DashboardSecTabTests(unittest.TestCase):
                             for row in self.change_candidates["candidates"]))
         self.assertTrue(all(row["source_keys"] and row["sources"]
                             for row in self.change_candidates["candidates"]))
+        latest = self.candidate_reviews["batches"][0]
+        self.assertEqual(latest["candidate_count"], 5)
+        self.assertEqual(latest["accepted_count"], 1)
+        self.assertEqual(latest["rejected_count"], 4)
+        self.assertEqual(len(latest["decisions"]), 5)
+        self.assertEqual(self.change_candidates["candidate_count"], 0)
         required_copy = [
             'id="secChangeCandidates"', "function renderSecChangeCandidates()",
             "每日變更候選稿", "新增風險候選", "改善候選", "結論變化候選",
             "規則自動產生、等待 AI 閱讀官方原文的候選稿",
             "不是最終綜合判讀", "Form 144 只代表擬售意向",
             "10b5-1 賣出訊號會降低證據強度", "renderSecChangeCandidates();",
+            "最近一次 AI 覆核", "查看逐項採納／駁回理由",
         ]
         for phrase in required_copy:
             self.assertIn(phrase, self.html)
@@ -282,8 +291,12 @@ class DashboardSecTabTests(unittest.TestCase):
             self.editorial["portfolio_order"],
             ["MRVL", "NOK", "COHR", "NVDA", "INTC", "TSLA", "GOOG", "ARM"],
         )
-        self.assertIsNone(self.editorial["comparison"]["previous_reviewed_at"])
-        self.assertEqual(self.editorial["comparison"]["changes"], [])
+        self.assertEqual(
+            self.editorial["comparison"]["previous_reviewed_at"],
+            "2026-08-30T19:35:00+08:00",
+        )
+        self.assertEqual(len(self.editorial["comparison"]["changes"]), 1)
+        self.assertEqual(self.editorial["comparison"]["changes"][0]["ticker"], "COHR")
         for row in companies:
             self.assertTrue(row["summary"], row["ticker"])
             self.assertGreaterEqual(len(row["evidence"]), 3, row["ticker"])

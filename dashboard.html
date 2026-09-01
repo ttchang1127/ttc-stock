@@ -1165,6 +1165,11 @@
     .sec-change-candidate li, .sec-change-candidate p { color: #cbd5e1; font-size: 0.68rem; line-height: 1.52; }
     .sec-change-method { margin: 11px 0 0; color: #94a3b8; font-size: 0.67rem; line-height: 1.55; }
     .sec-change-empty { padding: 11px 12px; border-left: 3px solid #34d399; border-radius: 9px; background: rgba(6, 78, 59, 0.15); color: #a7f3d0; font-size: 0.74rem; }
+    .sec-change-review-summary { margin-top: 10px; padding: 11px 12px; border: 1px solid rgba(52, 211, 153, 0.2); border-radius: 10px; background: rgba(6, 78, 59, 0.09); }
+    .sec-change-review-summary h4 { color: #a7f3d0; font-size: 0.76rem; margin-bottom: 6px; }
+    .sec-change-review-summary p { color: #cbd5e1; font-size: 0.69rem; line-height: 1.55; }
+    .sec-change-review-decisions { margin: 8px 0 0; padding-left: 18px; }
+    .sec-change-review-decisions li { color: #cbd5e1; font-size: 0.68rem; line-height: 1.5; margin-top: 4px; }
 
     .sec-reading-rank {
       margin-bottom: 20px;
@@ -4194,11 +4199,14 @@
           fetch('sec_daily_change_candidates.json', { cache: 'no-cache' })
             .then(r => { if (!r.ok) throw new Error(`每日變更候選稿 HTTP ${r.status}`); return r.json(); })
             .catch(error => { console.warn('sec_daily_change_candidates.json 載入失敗', error); return null; }),
+          fetch('sec_daily_candidate_reviews.json', { cache: 'no-cache' })
+            .then(r => { if (!r.ok) throw new Error(`AI 候選覆核紀錄 HTTP ${r.status}`); return r.json(); })
+            .catch(error => { console.warn('sec_daily_candidate_reviews.json 載入失敗', error); return null; }),
           fetch('valuation.json', { cache: 'no-cache' })
             .then(r => { if (!r.ok) throw new Error(`估值資料 HTTP ${r.status}`); return r.json(); })
             .catch(error => { console.warn('valuation.json 載入失敗，跨公司估值排名將顯示缺值', error); return null; }),
-        ]).then(([alerts, details, quarterlyFinancials, advanced, thirteenF, textChanges, thesisTracking, thesisStatus, exhibit991, earningsCalls, editorial, changeCandidates, valuation]) => {
-          secDailyData = { alerts, details, quarterlyFinancials, advanced, thirteenF, textChanges, thesisTracking, thesisStatus, exhibit991, earningsCalls, editorial, changeCandidates, valuation };
+        ]).then(([alerts, details, quarterlyFinancials, advanced, thirteenF, textChanges, thesisTracking, thesisStatus, exhibit991, earningsCalls, editorial, changeCandidates, candidateReviews, valuation]) => {
+          secDailyData = { alerts, details, quarterlyFinancials, advanced, thirteenF, textChanges, thesisTracking, thesisStatus, exhibit991, earningsCalls, editorial, changeCandidates, candidateReviews, valuation };
           renderSecDaily();
         }).catch(error => {
           secDailyPromise = null;
@@ -4351,8 +4359,17 @@
       const generated = formatSecTimestamp(payload.generated_at);
       const reviewed = formatSecTimestamp(payload.editorial_reviewed_at);
       if (!candidates.length) {
+        const latestReview = (secDailyData.candidateReviews?.batches || [])[0];
+        const decisions = (latestReview?.decisions || []).map(row => {
+          const accepted = row.disposition === 'accepted';
+          const sourceUrl = safeQuarterlySourceUrl((row.sources || [])[0]);
+          const source = sourceUrl === '#' ? '' : ` <a class="sec-link" href="${sourceUrl}" target="_blank" rel="noopener">原文 ↗</a>`;
+          return `<li>${accepted ? '✅ 採納' : '❎ 駁回'}｜<strong>${escapeSec(row.ticker)}</strong>：${escapeSec(row.rationale)}${source}</li>`;
+        }).join('');
+        const reviewHtml = latestReview ? `<div class="sec-change-review-summary"><h4>最近一次 AI 覆核｜${escapeSec(formatSecTimestamp(latestReview.reviewed_at))}｜採納 ${formatSecNumber(latestReview.accepted_count)}／駁回 ${formatSecNumber(latestReview.rejected_count)}</h4><p>${escapeSec(latestReview.summary)}</p>${decisions ? `<details><summary>查看逐項採納／駁回理由</summary><ul class="sec-change-review-decisions">${decisions}</ul></details>` : ''}</div>` : '';
         container.innerHTML = `<div class="sec-change-candidates-head"><div><h3 id="secChangeCandidatesTitle">📝 每日變更候選稿</h3><p>產生 ${escapeSec(generated)}｜正式 AI 覆核 ${escapeSec(reviewed)}</p></div></div>
           <div class="sec-change-empty">✅ 上次 AI 覆核後，目前沒有新增風險、改善或結論變化候選。</div>
+          ${reviewHtml}
           <p class="sec-change-method">這只表示規則未找到新差異，不代表公司沒有風險；仍以下方官方原文與已覆核綜合重點為準。</p>`;
         return;
       }

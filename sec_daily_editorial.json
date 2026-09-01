@@ -1,15 +1,24 @@
 {
   "schema_version": 3,
-  "reviewed_at": "2026-08-30T19:35:00+08:00",
-  "window_start": "2026-08-17",
-  "window_end": "2026-08-30",
+  "reviewed_at": "2026-09-01T20:46:16+08:00",
+  "window_start": "2026-08-19",
+  "window_end": "2026-09-01",
+  "last_candidate_review_id": "e7c6c19fd9e1",
   "title": "人工消化後的核心持股每日重點",
-  "headline": "真正需要先處理的是 ONDS 的獲利與稀釋、MRVL 的每股價值與條件式稀釋、NOK 的現金流，以及 COHR 的自由現金流；NVDA 基本面維持，但新增巨額承諾與估值風險。",
+  "headline": "真正需要先處理的是 ONDS 的獲利與稀釋、MRVL 的每股價值與條件式稀釋、NOK 的現金流，以及 COHR 的自由現金流；COHR 新增長期績效股獎勵的薪酬與潛在稀釋監測，其他本批內部人交易未改變結論。",
   "method": "由 SEC／公司官方原文、八季財務趨勢、Form 4、13D／13G 與投資論點卡交叉閱讀後人工整理。排序是閱讀優先級，不是買賣評等。",
   "comparison": {
-    "previous_reviewed_at": null,
+    "previous_reviewed_at": "2026-08-30T19:35:00+08:00",
     "method": "只記錄相較前次人工判讀的新增風險、明確改善與足以改變結論的證據；未變項目不重複列出。",
-    "changes": []
+    "changes": [
+      {
+        "type": "risk",
+        "ticker": "COHR",
+        "summary": "新增長期績效股獎勵的薪酬與潛在稀釋監測，但尚未改變 COHR 既有風險偏高結論。",
+        "evidence": "五名高管目標獎勵合計 USD 100M，100% 為 PSU；依四年股價與相對 TSR 門檻可取得目標數量 50%～200%，2030 年後另有一年持有期。實際 PSU 股數尚未披露。",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/820318/000119312526375462/d110649d8k.htm"
+      }
+    ]
   },
   "portfolio_order": ["MRVL", "NOK", "COHR", "NVDA", "INTC", "TSLA", "GOOG", "ARM"],
   "companies": [
@@ -93,13 +102,14 @@
       "ticker": "COHR",
       "tone": "risk",
       "status": "風險偏高｜部分失效",
-      "summary": "AI 光通訊營收與毛利率改善，但連續負自由現金流及大型機構明顯減持仍未解除。",
+      "summary": "AI 光通訊營收與毛利率改善，但連續負自由現金流及大型機構明顯減持仍未解除；新增長期績效股獎勵需監測薪酬成本與潛在稀釋。",
       "evidence": [
         "營收 USD 2,045.5M，YoY +33.7%；毛利率 38.5%，連續 3 季改善。",
         "FCF USD -486.2M，已連續 5 季為負。",
-        "FMR 持股降至 5.6%，減少約 11.6M 股、6.5pp；單筆 10b5-1 賣出約 USD 972K 的訊號較弱。"
+        "FMR 持股降至 5.6%，減少約 11.6M 股、6.5pp；單筆 10b5-1 賣出約 USD 972K 的訊號較弱。",
+        "五名高管特殊 PSU 目標價值合計 USD 100M，100% 績效制；需同時達股價與相對 TSR 門檻，實際股數尚未披露。"
       ],
-      "watch": "下一季優先看 FCF、營運資金、資本支出及機構持股是否繼續下降。",
+      "watch": "下一季優先看 FCF、營運資金、資本支出及機構持股；並核對後續定期報告的獎勵協議、PSU 股數與稀釋影響。",
       "source_url": "https://www.sec.gov/Archives/edgar/data/820318/000082031826000020/0000820318-26-000020-index.html",
       "coverage": {"ownership_accession": "0000315066-26-001472", "quarterly_key": "0000820318-26-000020|2026-06-30|2026-08-14", "thesis_fingerprint": "acc0b5a3e8e301f21fab", "enforcement_keys": []}
     },
