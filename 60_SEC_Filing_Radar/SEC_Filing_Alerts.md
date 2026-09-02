@@ -1,6 +1,6 @@
 ---
 title: SEC 每日申報雷達
-updated_at: 2026-09-01T09:08:06+00:00
+updated_at: 2026-09-02T08:21:48+00:00
 tags:
   - sec/alerts
   - filings/daily
@@ -15,6 +15,26 @@ GitHub Actions 於台北時間週二至週六中午 12:00 檢查；重大／重�
 
 | 重要性 | 公司 | 申報 | 日期 | 事件／Item | SEC 原文 |
 |---|---|---|---|---|---|
+| 🔵 留意 | **COHR** | 4 | 2026-09-01 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/820318/000089914026001040/xslF345X06/form4.xml) |
+| 🔵 留意 | **COHR** | 4 | 2026-09-01 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/820318/000089914026001039/xslF345X06/form4.xml) |
+| 🔵 留意 | **COHR** | 4 | 2026-09-01 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/820318/000089914026001038/xslF345X06/form4.xml) |
+| 🔵 留意 | **COHR** | 4 | 2026-09-01 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/820318/000089914026001037/xslF345X06/form4.xml) |
+| 🔵 留意 | **COHR** | 4 | 2026-09-01 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/820318/000089914026001036/xslF345X06/form4.xml) |
+| 🔵 留意 | **COHR** | 4 | 2026-09-01 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/820318/000089914026001035/xslF345X06/form4.xml) |
+| 🔵 留意 | **AAPL** | 4 | 2026-09-01 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/320193/000114036126035362/xslF345X06/form4.xml) |
+| 🔵 留意 | **AAPL** | 3 | 2026-09-01 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/320193/000114036126035359/xslF345X06/form3.xml) |
+| 🔵 留意 | **MSFT** | 4 | 2026-09-01 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/789019/000078901926000159/xslF345X06/form4.xml) |
+| 🔵 留意 | **MSFT** | 4 | 2026-09-01 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/789019/000078901926000158/xslF345X06/form4.xml) |
+| 🔵 留意 | **MSFT** | 4 | 2026-09-01 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/789019/000078901926000157/xslF345X06/form4.xml) |
+| 🔵 留意 | **MSFT** | 4 | 2026-09-01 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/789019/000078901926000156/xslF345X06/form4.xml) |
+| 🔵 留意 | **MSFT** | 4 | 2026-09-01 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/789019/000078901926000155/xslF345X06/form4.xml) |
+| 🔵 留意 | **MSFT** | 4 | 2026-09-01 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/789019/000078901926000154/xslF345X06/form4.xml) |
+| 🔵 留意 | **MSFT** | 4 | 2026-09-01 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/789019/000078901926000153/xslF345X06/form4.xml) |
+| 🔵 留意 | **COHR** | 144 | 2026-09-01 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/820318/000195004726008955/xsl144X01/primary_doc.xml) |
+| 🔵 留意 | **MSFT** | 144 | 2026-09-01 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/789019/000195004726008927/xsl144X01/primary_doc.xml) |
+| 🔴 重大 | **AAPL** | 8-K/A | 2026-09-01 | 5.02 董事／高管異動 | [原文](https://www.sec.gov/Archives/edgar/data/320193/000114036126035325/ef20081427_8ka.htm) |
+| 🔵 留意 | **MRVL** | 144 | 2026-09-01 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1835632/000195004726008892/xsl144X01/primary_doc.xml) |
+| 🟠 重要 | **TSM** | 6-K | 2026-09-01 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1046179/000104617926000552/tsm-dividendadjustmentx202.htm) |
 | 🔵 留意 | **GOOGL** | 4 | 2026-08-31 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526377149/xslF345X06/ownership.xml) |
 | 🔵 留意 | **ARM** | 4 | 2026-08-31 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1973239/000197323926000122/xslF345X06/wk-form4_1788210409.xml) |
 | 🔵 留意 | **COHR** | 144 | 2026-08-31 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/820318/000195004726008866/xsl144X01/primary_doc.xml) |

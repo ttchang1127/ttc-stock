@@ -1,6 +1,6 @@
 ---
 title: Form 144＋3／4／5 彙總
-updated_at: 2026-09-01T09:08:06+00:00
+updated_at: 2026-09-02T08:21:48+00:00
 tags:
   - sec/insiders
 ---
@@ -9,6 +9,8 @@ tags:
 
 | 申報日 | 公司 | 表單 | 數字／意義 | SEC |
 |---|---|---|---|---|
+| 2026-09-01 | **AAPL** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/320193/000114036126035362/xslF345X06/form4.xml) |
+| 2026-09-01 | **AAPL** | 3 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/320193/000114036126035359/xslF345X06/form3.xml) |
 | 2026-08-27 | **AAPL** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/320193/000114036126034741/xslF345X06/form4.xml) |
 | 2026-08-20 | **AAPL** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/320193/000114036126033928/xslF345X06/form4.xml) |
 | 2026-08-13 | **AAPL** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/320193/000114036126032884/xslF345X06/form4.xml) |
@@ -19,8 +21,6 @@ tags:
 | 2026-05-27 | **AAPL** | 144 | LEVINSON ARTHUR D；擬售 50,000 股／$15,551,085，約占流通股 0.000% | [原文](https://www.sec.gov/Archives/edgar/data/320193/000192109426000555/xsl144X01/primary_doc.xml) |
 | 2026-05-12 | **AAPL** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/320193/000114036126020871/xslF345X06/form4.xml) |
 | 2026-05-08 | **AAPL** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/320193/000114036126020298/xslF345X06/form4.xml) |
-| 2026-05-06 | **AAPL** | 144 | LEVINSON ARTHUR D；擬售 250,000 股／$71,190,164，約占流通股 0.002% | [原文](https://www.sec.gov/Archives/edgar/data/320193/000192109426000446/xsl144X01/primary_doc.xml) |
-| 2026-05-05 | **AAPL** | 144 | KATHERINE L ADAMS；擬售 43,000 股／$12,039,493，約占流通股 0.000% | [原文](https://www.sec.gov/Archives/edgar/data/320193/000195004726004044/xsl144X01/primary_doc.xml) |
 | 2026-08-27 | **AMZN** | 144 | DAY 1 ACADEMIES；擬售 230,637 股／$59,174,627，約占流通股 0.002% | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000195004726008794/xsl144X01/primary_doc.xml) |
 | 2026-08-27 | **AMZN** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000104329826000002/xslF345X06/wk-form4_1787862279.xml) |
 | 2026-08-25 | **AMZN** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000137454526000010/xslF345X06/wk-form4_1787692115.xml) |
@@ -45,18 +45,18 @@ tags:
 | 2026-05-22 | **ARM** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1973239/000197323926000089/xslF345X06/wk-form4_1779485003.xml) |
 | 2026-05-21 | **ARM** | 144 | Eaton Charlotte Claire；擬售 11,805 股／$3,394,595，約占流通股 0.001% | [原文](https://www.sec.gov/Archives/edgar/data/1973239/000195917326003881/xsl144X01/primary_doc.xml) |
 | 2026-05-21 | **ARM** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1973239/000197323926000086/xslF345X06/wk-form4_1779394606.xml) |
+| 2026-09-01 | **COHR** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/820318/000089914026001040/xslF345X06/form4.xml) |
+| 2026-09-01 | **COHR** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/820318/000089914026001039/xslF345X06/form4.xml) |
+| 2026-09-01 | **COHR** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/820318/000089914026001038/xslF345X06/form4.xml) |
+| 2026-09-01 | **COHR** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/820318/000089914026001037/xslF345X06/form4.xml) |
+| 2026-09-01 | **COHR** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/820318/000089914026001036/xslF345X06/form4.xml) |
+| 2026-09-01 | **COHR** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/820318/000089914026001035/xslF345X06/form4.xml) |
+| 2026-09-01 | **COHR** | 144 | JULIE S ENG；擬售 6,030 股／$1,675,315，約占流通股 0.003% | [原文](https://www.sec.gov/Archives/edgar/data/820318/000195004726008955/xsl144X01/primary_doc.xml) |
 | 2026-08-31 | **COHR** | 144 | STEPHEN SKAGGS；擬售 2,272 股／$634,342，約占流通股 0.001% | [原文](https://www.sec.gov/Archives/edgar/data/820318/000195004726008866/xsl144X01/primary_doc.xml) |
 | 2026-08-31 | **COHR** | 144 | JULIE S ENG；擬售 7,047 股／$1,967,522，約占流通股 0.004% | [原文](https://www.sec.gov/Archives/edgar/data/820318/000195004726008864/xsl144X01/primary_doc.xml) |
 | 2026-08-31 | **COHR** | 144 | ENRICO DIGIROLAMO；擬售 2,272 股／$634,342，約占流通股 0.001% | [原文](https://www.sec.gov/Archives/edgar/data/820318/000195004726008863/xsl144X01/primary_doc.xml) |
 | 2026-08-20 | **COHR** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/820318/000089914026000912/xslF345X06/form4.xml) |
 | 2026-08-18 | **COHR** | 144 | Sherri Luther；擬售 3,000 股／$1,053,660，約占流通股 0.002% | [原文](https://www.sec.gov/Archives/edgar/data/820318/000195004726008339/xsl144X01/primary_doc.xml) |
-| 2026-07-24 | **COHR** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/820318/000089914026000726/xslF345X06/form4.xml) |
-| 2026-07-22 | **COHR** | 144 | Sherri Luther；擬售 1,000 股／$317,220，約占流通股 0.001% | [原文](https://www.sec.gov/Archives/edgar/data/820318/000195004726007261/xsl144X01/primary_doc.xml) |
-| 2026-07-06 | **COHR** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/820318/000089914026000699/xslF345X06/form4.xml) |
-| 2026-06-05 | **COHR** | 3 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/820318/000089914026000628/xslF345X06/form3.xml) |
-| 2026-06-05 | **COHR** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/820318/000089914026000627/xslF345X06/form4.xml) |
-| 2026-05-13 | **COHR** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/820318/000089914026000476/xslF345X06/form4.xml) |
-| 2026-05-13 | **COHR** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/820318/000089914026000475/xslF345X06/form4.xml) |
 | 2026-08-31 | **GOOGL** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526377149/xslF345X06/ownership.xml) |
 | 2026-08-28 | **GOOGL** | 144 | ARNOLD FRANCES；擬售 82 股／$27,692，約占流通股 0.000% | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000192109426000964/xsl144X01/primary_doc.xml) |
 | 2026-08-27 | **GOOGL** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526371799/xslF345X06/ownership.xml) |
@@ -93,6 +93,7 @@ tags:
 | 2026-08-18 | **META** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000095010326012605/xslF345X06/ownership.xml) |
 | 2026-08-18 | **META** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000095010326012604/xslF345X06/ownership.xml) |
 | 2026-08-18 | **META** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000095010326012603/xslF345X06/ownership.xml) |
+| 2026-09-01 | **MRVL** | 144 | KOOPMANS FAMILY TRUST U/A DTD 03/28/2013；擬售 10,000 股／$2,032,703，約占流通股 0.001% | [原文](https://www.sec.gov/Archives/edgar/data/1835632/000195004726008892/xsl144X01/primary_doc.xml) |
 | 2026-08-17 | **MRVL** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1835632/000162828026057525/xslF345X06/wk-form4_1787014784.xml) |
 | 2026-08-17 | **MRVL** | 144 | Matthew Murphy；擬售 22,500 股／$5,272,425，約占流通股 0.003% | [原文](https://www.sec.gov/Archives/edgar/data/1835632/000195824426000520/xsl144X01/primary_doc.xml) |
 | 2026-08-17 | **MRVL** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1835632/000162828026057399/xslF345X06/wk-form4_1786999519.xml) |
@@ -104,19 +105,18 @@ tags:
 | 2026-07-16 | **MRVL** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1835632/000162828026048543/xslF345X06/wk-form4_1784241423.xml) |
 | 2026-07-16 | **MRVL** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1835632/000162828026048541/xslF345X06/wk-form4_1784241307.xml) |
 | 2026-07-16 | **MRVL** | 144 | SANDEEP BHARATHI；擬售 9,013 股／$1,795,778，約占流通股 0.001% | [原文](https://www.sec.gov/Archives/edgar/data/1835632/000195004726007147/xsl144X01/primary_doc.xml) |
-| 2026-07-01 | **MRVL** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1835632/000162828026046627/xslF345X06/wk-form4_1782942422.xml) |
+| 2026-09-01 | **MSFT** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/789019/000078901926000159/xslF345X06/form4.xml) |
+| 2026-09-01 | **MSFT** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/789019/000078901926000158/xslF345X06/form4.xml) |
+| 2026-09-01 | **MSFT** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/789019/000078901926000157/xslF345X06/form4.xml) |
+| 2026-09-01 | **MSFT** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/789019/000078901926000156/xslF345X06/form4.xml) |
+| 2026-09-01 | **MSFT** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/789019/000078901926000155/xslF345X06/form4.xml) |
+| 2026-09-01 | **MSFT** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/789019/000078901926000154/xslF345X06/form4.xml) |
+| 2026-09-01 | **MSFT** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/789019/000078901926000153/xslF345X06/form4.xml) |
+| 2026-09-01 | **MSFT** | 144 | SATYA NADELLA；擬售 86,525 股／$43,893,267，約占流通股 0.001% | [原文](https://www.sec.gov/Archives/edgar/data/789019/000195004726008927/xsl144X01/primary_doc.xml) |
 | 2026-08-17 | **MSFT** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/789019/000078901926000145/xslF345X06/form4.xml) |
 | 2026-08-06 | **MSFT** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/789019/000078901926000143/xslF345X06/form4.xml) |
 | 2026-08-05 | **MSFT** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/789019/000078901926000141/xslF345X06/form4.xml) |
 | 2026-08-05 | **MSFT** | 144 | Althoff Judson；擬售 10,000 股／$4,878,931，約占流通股 0.000% | [原文](https://www.sec.gov/Archives/edgar/data/789019/000195917326005674/xsl144X01/primary_doc.xml) |
-| 2026-08-04 | **MSFT** | 144 | Numoto Takeshi；擬售 6,444 股／$3,142,417，約占流通股 100.000% | [原文](https://www.sec.gov/Archives/edgar/data/789019/000195917326005608/xsl144X01/primary_doc.xml) |
-| 2026-07-15 | **MSFT** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/789019/000078901926000139/xslF345X06/form4.xml) |
-| 2026-07-01 | **MSFT** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/789019/000078901926000137/xslF345X06/form4.xml) |
-| 2026-06-16 | **MSFT** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/789019/000078901926000135/xslF345X06/form4.xml) |
-| 2026-06-15 | **MSFT** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/789019/000078901926000133/xslF345X06/form4.xml) |
-| 2026-06-12 | **MSFT** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/789019/000078901926000131/xslF345X06/form4.xml) |
-| 2026-06-12 | **MSFT** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/789019/000078901926000130/xslF345X06/form4.xml) |
-| 2026-06-12 | **MSFT** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/789019/000078901926000129/xslF345X06/form4.xml) |
 | 2026-08-31 | **NVDA** | 144 | Teter Timothy S.；擬售 30,000 股／$6,536,514，約占流通股 0.000% | [原文](https://www.sec.gov/Archives/edgar/data/1045810/000192109426000969/xsl144X01/primary_doc.xml) |
 | 2026-08-24 | **NVDA** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1045810/000134784226000015/xslF345X06/wk-form4_1787607122.xml) |
 | 2026-08-12 | **NVDA** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1045810/000131026426000008/xslF345X06/wk-form4_1786569187.xml) |

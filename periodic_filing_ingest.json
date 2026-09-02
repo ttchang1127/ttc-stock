@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "updated_at": "2026-09-01T09:08:51+00:00",
+  "updated_at": "2026-09-02T08:22:15+00:00",
   "source": "SEC filing alerts + official primary filing documents",
   "methodology": "fail-closed heading boundaries; accession-deduplicated",
   "filings": [
@@ -400,7 +400,7 @@
       "accession": "0001193125-26-375462",
       "filing_date": "2026-08-31",
       "report_date": "2026-08-27",
-      "status": "ingested",
+      "status": "already_ingested",
       "note": "20_Filings/COHR/COHR_2026-08-27_8K_375462.md",
       "expected_note": "20_Filings/COHR/COHR_2026-08-27_8K_375462.md",
       "sections": [
@@ -409,8 +409,39 @@
       ],
       "source_url": "https://www.sec.gov/Archives/edgar/data/820318/000119312526375462/d110649d8k.htm",
       "errors": [],
+      "removed_stale_notes": []
+    },
+    {
+      "ticker": "TSM",
+      "form": "6-K",
+      "accession": "0001046179-26-000552",
+      "filing_date": "2026-09-01",
+      "report_date": "2026-09-01",
+      "status": "ingested",
+      "note": "20_Filings/TSM/TSM_2026-09-01_6K_000552.md",
+      "expected_note": "20_Filings/TSM/TSM_2026-09-01_6K_000552.md",
+      "sections": [],
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000552/tsm-dividendadjustmentx202.htm",
+      "errors": [],
       "removed_stale_notes": [],
-      "source_sha256": "0775164f23fbe4255397145187715069631ed4985824835eadd9aac6fcac6d13"
+      "source_sha256": "515acf416d70d58de02d1901f0aab9946e802e40c5235007ec175ccaf7b9cd03"
+    },
+    {
+      "ticker": "AAPL",
+      "form": "8-K/A",
+      "accession": "0001140361-26-035325",
+      "filing_date": "2026-09-01",
+      "report_date": "2026-04-17",
+      "status": "ingested",
+      "note": "20_Filings/AAPL/AAPL_2026-04-17_8K_A_035325.md",
+      "expected_note": "20_Filings/AAPL/AAPL_2026-04-17_8K_A_035325.md",
+      "sections": [
+        "20_Filings/AAPL/sections/AAPL_2026-04-17_8K_A_035325_Item_5_02.md"
+      ],
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126035325/ef20081427_8ka.htm",
+      "errors": [],
+      "removed_stale_notes": [],
+      "source_sha256": "4cc8ebccca4cd4870b6afd6b864225448a0cece5cc65478dc2947835567a26f7"
     }
   ]
 }

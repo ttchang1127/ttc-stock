@@ -1,16 +1,168 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-09-01T09:08:06+00:00",
+  "generated_at": "2026-09-02T08:21:48+00:00",
   "editorial_reviewed_at": "2026-09-01T20:46:16+08:00",
   "editorial_window_end": "2026-09-01",
-  "status": "no_new_candidates",
-  "candidate_count": 0,
-  "company_count": 0,
+  "status": "pending_ai_review",
+  "candidate_count": 6,
+  "company_count": 5,
   "counts": {
-    "risk": 0,
+    "risk": 4,
     "improvement": 0,
-    "conclusion": 0
+    "conclusion": 2
   },
   "method": "規則只建立候選：新風險、改善或可能改變結論；不得自動寫入正式 AI 判讀。",
-  "candidates": []
+  "candidates": [
+    {
+      "id": "3e30323a4c1cc374",
+      "ticker": "COHR",
+      "type": "risk",
+      "type_label": "🔴 新增風險候選",
+      "status": "pending_ai_review",
+      "confidence": "low",
+      "headline": "新增 1 份 Form 144 擬售通知，列為低強度風險候選",
+      "evidence": [
+        "已解析擬售 6,030 股、申報估值 $1.7M。",
+        "申報人：JULIE S ENG。",
+        "Form 144 是擬售意向，不等於已成交；需等待後續 Form 4 或市場交易確認。"
+      ],
+      "why_candidate": "集中或大額擬售可能增加供給壓力，但證據強度低於已完成的非 10b5-1 賣出。",
+      "filing_date": "2026-09-01",
+      "detected_at": "2026-09-02T08:21:48+00:00",
+      "source_keys": [
+        "0001950047-26-008955"
+      ],
+      "sources": [
+        {
+          "label": "SEC Form 144",
+          "url": "https://www.sec.gov/Archives/edgar/data/820318/000195004726008955/xsl144X01/primary_doc.xml"
+        }
+      ]
+    },
+    {
+      "id": "93e78efda2205baf",
+      "ticker": "COHR",
+      "type": "risk",
+      "type_label": "🔴 新增風險候選",
+      "status": "pending_ai_review",
+      "confidence": "low",
+      "headline": "Form 4 出現 2 列賣出，列為風險候選",
+      "evidence": [
+        "已知賣出金額合計 $3.6M；其中 2/2 列標示 10b5-1。",
+        "10b5-1 是預先安排交易，訊號強度低於臨時主動賣出。"
+      ],
+      "why_candidate": "內部人賣出需看計畫屬性、持股比例與交易規模，不直接等於看空。",
+      "filing_date": "2026-09-01",
+      "detected_at": "2026-09-02T08:21:48+00:00",
+      "source_keys": [
+        "0000899140-26-001037"
+      ],
+      "sources": [
+        {
+          "label": "SEC 4",
+          "url": "https://www.sec.gov/Archives/edgar/data/820318/000089914026001037/xslF345X06/form4.xml"
+        }
+      ]
+    },
+    {
+      "id": "2899bff117c01f76",
+      "ticker": "MRVL",
+      "type": "risk",
+      "type_label": "🔴 新增風險候選",
+      "status": "pending_ai_review",
+      "confidence": "low",
+      "headline": "新增 1 份 Form 144 擬售通知，列為低強度風險候選",
+      "evidence": [
+        "已解析擬售 10,000 股、申報估值 $2.0M。",
+        "申報人：KOOPMANS FAMILY TRUST U/A DTD 03/28/2013。",
+        "Form 144 是擬售意向，不等於已成交；需等待後續 Form 4 或市場交易確認。"
+      ],
+      "why_candidate": "集中或大額擬售可能增加供給壓力，但證據強度低於已完成的非 10b5-1 賣出。",
+      "filing_date": "2026-09-01",
+      "detected_at": "2026-09-02T08:21:48+00:00",
+      "source_keys": [
+        "0001950047-26-008892"
+      ],
+      "sources": [
+        {
+          "label": "SEC Form 144",
+          "url": "https://www.sec.gov/Archives/edgar/data/1835632/000195004726008892/xsl144X01/primary_doc.xml"
+        }
+      ]
+    },
+    {
+      "id": "12c3ac41057d316e",
+      "ticker": "MSFT",
+      "type": "risk",
+      "type_label": "🔴 新增風險候選",
+      "status": "pending_ai_review",
+      "confidence": "low",
+      "headline": "新增 1 份 Form 144 擬售通知，列為低強度風險候選",
+      "evidence": [
+        "已解析擬售 86,525 股、申報估值 $43.9M。",
+        "申報人：SATYA NADELLA。",
+        "Form 144 是擬售意向，不等於已成交；需等待後續 Form 4 或市場交易確認。"
+      ],
+      "why_candidate": "集中或大額擬售可能增加供給壓力，但證據強度低於已完成的非 10b5-1 賣出。",
+      "filing_date": "2026-09-01",
+      "detected_at": "2026-09-02T08:21:48+00:00",
+      "source_keys": [
+        "0001950047-26-008927"
+      ],
+      "sources": [
+        {
+          "label": "SEC Form 144",
+          "url": "https://www.sec.gov/Archives/edgar/data/789019/000195004726008927/xsl144X01/primary_doc.xml"
+        }
+      ]
+    },
+    {
+      "id": "7aa7885e96c9344c",
+      "ticker": "AAPL",
+      "type": "conclusion",
+      "type_label": "🟡 結論變化候選",
+      "status": "pending_ai_review",
+      "confidence": "medium",
+      "headline": "重大 8-K/A 可能改變既有結論",
+      "evidence": [
+        "5.02 董事／高管異動"
+      ],
+      "why_candidate": "文件重要性只提高重讀優先級，不預設為利多或利空。",
+      "filing_date": "2026-09-01",
+      "detected_at": "2026-09-02T08:21:48+00:00",
+      "source_keys": [
+        "0001140361-26-035325"
+      ],
+      "sources": [
+        {
+          "label": "SEC 8-K/A",
+          "url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126035325/ef20081427_8ka.htm"
+        }
+      ]
+    },
+    {
+      "id": "0c5fe5654b81886e",
+      "ticker": "TSM",
+      "type": "conclusion",
+      "type_label": "🟡 結論變化候選",
+      "status": "pending_ai_review",
+      "confidence": "medium",
+      "headline": "重大 6-K 可能改變既有結論",
+      "evidence": [
+        "未提供 Item 分類"
+      ],
+      "why_candidate": "文件重要性只提高重讀優先級，不預設為利多或利空。",
+      "filing_date": "2026-09-01",
+      "detected_at": "2026-09-02T08:21:48+00:00",
+      "source_keys": [
+        "0001046179-26-000552"
+      ],
+      "sources": [
+        {
+          "label": "SEC 6-K",
+          "url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000552/tsm-dividendadjustmentx202.htm"
+        }
+      ]
+    }
+  ]
 }
