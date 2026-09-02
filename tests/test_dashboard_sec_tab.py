@@ -288,6 +288,29 @@ class DashboardSecTabTests(unittest.TestCase):
         self.assertIn("onclick=\"setSecCoreTicker('${escapeSec(row.displayTicker)}')\"", self.html)
         self.assertIn("secDaysSince(row.filing_date) <= 90", self.html)
 
+    def test_position_impact_score_is_transparent_and_holdings_only(self):
+        required_copy = [
+            'id="secPositionImpact"',
+            "function secPositionImpactRows()",
+            "function renderSecPositionImpact()",
+            "實際持股部位影響排序",
+            "SEC 訊號最高 40 分",
+            "持股集中度最高 35 分",
+            "未實現回撤最高 25 分",
+            "候選稿只提高閱讀優先度，不當成事實結論",
+            "不是公司好壞、預期報酬或買進／賣出建議",
+            "VGT／VOO 的成分股曝險未拆入單一公司",
+            "renderSecPositionImpact();",
+        ]
+        for phrase in required_copy:
+            self.assertIn(phrase, self.html)
+        self.assertIn("return [...SEC_OWNED_TICKERS].map(displayTicker =>", self.html)
+        self.assertIn("const totalScore = Math.min(100, eventScore + positionScore + drawdownScore)", self.html)
+        self.assertIn("totalScore >= 70", self.html)
+        self.assertIn("totalScore >= 45", self.html)
+        self.assertIn("pnlPct <= -30 ? 25", self.html)
+        self.assertIn("weight >= 15 ? 35", self.html)
+
     def test_daily_editorial_contains_digested_evidence_and_next_checks(self):
         core = {"NVDA", "TSM", "MSFT", "META", "AAPL", "AMZN", "ARM",
                 "ONDS", "TSLA", "GOOG", "COHR", "MRVL", "INTC", "NOK"}

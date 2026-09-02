@@ -1372,6 +1372,30 @@ def c29():
     return not bad and not missing, f"資料問題：{bad or '無'}；缺自動化／畫面：{missing or '無'}"
 
 
+@check("C-30", "實際持股部位影響分數透明且不冒充投資建議")
+def c30():
+    dashboard = read("dashboard.html")
+    note = read("60_SEC_Filing_Radar/SEC_Position_Impact_Scoring.md")
+    home = read("00_Home.md")
+    dashboard_markers = (
+        "secPositionImpact", "secPositionImpactRows", "renderSecPositionImpact",
+        "SEC 訊號最高 40 分", "持股集中度最高 35 分", "未實現回撤最高 25 分",
+        "return [...SEC_OWNED_TICKERS].map", "候選稿只提高閱讀優先度，不當成事實結論",
+        "不是公司好壞、預期報酬或買進／賣出建議",
+        "VGT／VOO 的成分股曝險未拆入單一公司",
+    )
+    note_markers = (
+        "只決定每日核對順序", "SEC 訊號", "持股集中度", "未實現回撤",
+        "70～100：高影響", "45～69：中影響", "0～44：低影響",
+        "待 AI 覆核候選", "VGT、VOO", "不納入個人現金流",
+    )
+    missing = [f"dashboard:{marker}" for marker in dashboard_markers if marker not in dashboard]
+    missing += [f"說明筆記:{marker}" for marker in note_markers if marker not in note]
+    if "SEC_Position_Impact_Scoring" not in home:
+        missing.append("00_Home:SEC_Position_Impact_Scoring")
+    return not missing, f"缺畫面／公式／邊界說明：{missing or '無'}"
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--quiet", action="store_true", help="只印出失敗項")

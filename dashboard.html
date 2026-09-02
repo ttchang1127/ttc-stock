@@ -1284,6 +1284,43 @@
     .sec-reading-rank-more .sec-reading-rank-list { margin-top: 10px; }
     .sec-reading-rank-method { margin-top: 10px; color: #94a3b8; font-size: 0.68rem; line-height: 1.55; }
 
+    .sec-position-impact {
+      margin: 0 0 20px;
+      padding: 17px;
+      border: 1px solid rgba(45, 212, 191, 0.28);
+      border-radius: 17px;
+      background: linear-gradient(135deg, rgba(13, 148, 136, 0.11), rgba(15, 23, 42, 0.76));
+    }
+    .sec-position-impact-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 12px; }
+    .sec-position-impact-head h3 { color: #ccfbf1; font-size: 1rem; }
+    .sec-position-impact-head p { margin-top: 4px; color: #94a3b8; font-size: 0.72rem; line-height: 1.5; }
+    .sec-position-impact-date { color: #99f6e4; font-size: 0.68rem; font-weight: 760; }
+    .sec-position-impact-list { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 9px; }
+    .sec-position-impact-card { min-width: 0; padding: 12px; border: 1px solid rgba(148, 163, 184, 0.17); border-radius: 12px; background: rgba(2, 6, 23, 0.45); }
+    .sec-position-impact-card.high { border-color: rgba(251, 113, 133, 0.46); }
+    .sec-position-impact-card.medium { border-color: rgba(251, 191, 36, 0.4); }
+    .sec-position-impact-card.low { border-color: rgba(52, 211, 153, 0.3); }
+    .sec-position-impact-title { display: flex; align-items: center; gap: 7px; }
+    .sec-position-impact-title button { appearance: none; border: 0; padding: 0; background: none; color: #7dd3fc; font: inherit; font-size: 0.86rem; font-weight: 900; cursor: pointer; }
+    .sec-position-impact-level { margin-left: auto; padding: 2px 6px; border-radius: 999px; font-size: 0.59rem; font-weight: 850; }
+    .sec-position-impact-level.high { color: #fecdd3; background: rgba(190, 18, 60, 0.2); }
+    .sec-position-impact-level.medium { color: #fde68a; background: rgba(180, 83, 9, 0.2); }
+    .sec-position-impact-level.low { color: #a7f3d0; background: rgba(5, 150, 105, 0.17); }
+    .sec-position-impact-score { display: flex; align-items: baseline; gap: 4px; margin: 9px 0 5px; color: #fff; }
+    .sec-position-impact-score strong { font-size: 1.45rem; line-height: 1; }
+    .sec-position-impact-score span { color: #94a3b8; font-size: 0.68rem; }
+    .sec-position-impact-bar { height: 6px; margin-bottom: 9px; border-radius: 999px; background: rgba(148, 163, 184, 0.15); overflow: hidden; }
+    .sec-position-impact-bar span { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, #2dd4bf, #fbbf24, #fb7185); }
+    .sec-position-impact-parts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 5px; }
+    .sec-position-impact-part { padding: 6px; border-radius: 7px; background: rgba(15, 23, 42, 0.7); text-align: center; }
+    .sec-position-impact-part strong { display: block; color: #f8fafc; font-size: 0.69rem; }
+    .sec-position-impact-part span { display: block; margin-top: 2px; color: #94a3b8; font-size: 0.55rem; line-height: 1.3; }
+    .sec-position-impact-position, .sec-position-impact-reason, .sec-position-impact-action { margin-top: 8px; font-size: 0.66rem; line-height: 1.5; }
+    .sec-position-impact-position { color: #bae6fd; }
+    .sec-position-impact-reason { color: #cbd5e1; }
+    .sec-position-impact-action { color: #fde68a; }
+    .sec-position-impact-method { margin: 11px 0 0; color: #94a3b8; font-size: 0.67rem; line-height: 1.55; }
+
     .sec-editorial {
       margin: 0 0 20px;
       padding: 16px;
@@ -2205,6 +2242,7 @@
       .sec-kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .sec-update-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .sec-reading-rank-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .sec-position-impact-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .sec-quarterly-diagnosis-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .sec-reading-guide { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .sec-advanced-explainer { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -2216,7 +2254,7 @@
 
     @media (max-width: 620px) {
       .sec-daily-shell { padding: 18px; }
-      .sec-kpi-grid, .sec-reading-rank-list, .sec-reading-guide, .sec-advanced-explainer, .sec-advanced-actual-grid, .sec-company-brief-grid, .sec-company-assessment, .sec-company-evidence-columns, .sec-update-grid, .sec-update-detail-grid, .sec-text-diff-kpis, .sec-text-change-grid, .sec-thesis-kpis { grid-template-columns: 1fr; }
+      .sec-kpi-grid, .sec-reading-rank-list, .sec-position-impact-list, .sec-reading-guide, .sec-advanced-explainer, .sec-advanced-actual-grid, .sec-company-brief-grid, .sec-company-assessment, .sec-company-evidence-columns, .sec-update-grid, .sec-update-detail-grid, .sec-text-diff-kpis, .sec-text-change-grid, .sec-thesis-kpis { grid-template-columns: 1fr; }
       .sec-ownership-kpis { grid-template-columns: 1fr; }
       .sec-reading-progress { grid-template-columns: 1fr; }
       .sec-reading-actions { justify-content: flex-start; }
@@ -2755,6 +2793,13 @@
             <div><h3 id="secReadingRankTitle">📌 核心持股每日閱讀排序</h3><p>先讀有重大文件或風險訊號的公司；點選公司會同步切換下方所有 SEC 區塊。</p></div>
           </div>
           <p class="sec-company-brief-placeholder">正在依最新 SEC 證據排列 14 家公司…</p>
+        </section>
+
+        <section id="secPositionImpact" class="sec-position-impact" aria-live="polite" aria-labelledby="secPositionImpactTitle">
+          <div class="sec-position-impact-head">
+            <div><h3 id="secPositionImpactTitle">💼 實際持股部位影響排序</h3><p>把 SEC 訊號、持股集中度與未實現回撤拆開計分，找出今天應先核對的實際持股。</p></div>
+          </div>
+          <p class="sec-company-brief-placeholder">正在計算 8 家實際持股的閱讀影響…</p>
         </section>
 
         <section id="secEditorial" class="sec-editorial" aria-live="polite" aria-labelledby="secEditorialTitle">
@@ -4606,6 +4651,109 @@
         <p class="sec-reading-rank-method">排序規則依序考量：潛在稀釋、重大／重要申報、90 日內重大 13D／13G、SEC 執法／停牌、投資論點失效／狀態改變、八季財務警報、P／S 主動買賣與一般申報；同級再按訊號數量與最近日期排列。「AI 已讀」只在人工重點仍涵蓋最新 SEC 申報、季度財務、投資論點、13D／13G 與執法資料時顯示；若覆核後偵測到新增或覆蓋指紋改變，就改標「有新資料，待 AI 重讀」。這不是瀏覽器待辦或使用者閱讀進度。排序只決定每日閱讀先後，不是利多／利空、投資評等或報酬預測。</p>`;
     }
 
+    function secPositionImpactRows() {
+      if (!secDailyData) return [];
+      const rankByTicker = new Map(secReadingRankRows().map(row => [row.displayTicker, row]));
+      const editorialByTicker = new Map((secDailyData.editorial?.companies || []).map(row => [row.ticker, row]));
+      const pendingCandidates = secDailyData.changeCandidates?.candidates || [];
+      const reviewedChanges = secDailyData.editorial?.comparison?.changes || [];
+      const tierScores = { urgent: 28, updated: 16, quiet: 6 };
+      const toneScores = { risk: 32, caution: 18, positive: 8 };
+      const candidateScores = {
+        risk: { high: 40, medium: 34, low: 24 },
+        conclusion: { high: 36, medium: 30, low: 20 },
+        improvement: { high: 20, medium: 16, low: 12 },
+      };
+      const reviewedScores = { risk: 40, conclusion: 35, improvement: 18 };
+
+      return [...SEC_OWNED_TICKERS].map(displayTicker => {
+        const ticker = SEC_TICKER_ALIASES[displayTicker] || displayTicker;
+        const rank = rankByTicker.get(displayTicker);
+        const editorial = editorialByTicker.get(displayTicker);
+        const position = secHoldingPosition(displayTicker, editorial?.tone);
+        if (!position) return null;
+
+        let eventScore = tierScores[rank?.tier] || 6;
+        let eventReason = rank?.reasons?.[0] || `近 ${secRangeDays} 日無新申報`;
+        const companyCandidates = pendingCandidates.filter(row =>
+          (row.ticker === ticker || row.ticker === displayTicker)
+        );
+        companyCandidates.forEach(row => {
+          const base = candidateScores[row.type]?.[row.confidence] || 10;
+          const adjusted = row.display_priority === 'low' ? Math.max(6, base - 6) : base;
+          if (adjusted > eventScore) {
+            eventScore = adjusted;
+            eventReason = `待 AI 覆核：${row.headline || row.type_label || '規則候選'}`;
+          }
+        });
+        const companyChanges = reviewedChanges.filter(row => row.ticker === displayTicker || row.ticker === ticker);
+        companyChanges.forEach(row => {
+          const score = reviewedScores[row.type] || 18;
+          if (score > eventScore) {
+            eventScore = score;
+            eventReason = `已覆核：${row.summary || '正式判讀出現變化'}`;
+          }
+        });
+        const toneScore = toneScores[editorial?.tone] || 0;
+        if (toneScore > eventScore) {
+          eventScore = toneScore;
+          eventReason = `目前綜合判讀：${editorial?.status || editorial?.tone || '維持追蹤'}`;
+        }
+        eventScore = Math.min(40, eventScore);
+
+        const weight = Number(position.weight || 0);
+        const positionScore = weight >= 15 ? 35 : (weight >= 10 ? 28 : (weight >= 5 ? 20 : (weight >= 2 ? 12 : 6)));
+        const pnlPct = Number(position.pnlPct);
+        const drawdownScore = pnlPct <= -30 ? 25 : (pnlPct <= -20 ? 20 : (pnlPct <= -10 ? 12 : (pnlPct < 0 ? 6 : 0)));
+        const totalScore = Math.min(100, eventScore + positionScore + drawdownScore);
+        const level = totalScore >= 70
+          ? { key: 'high', label: '高影響', action: '先讀：先核對最新官方原文與投資論點失效條件。' }
+          : (totalScore >= 45
+            ? { key: 'medium', label: '中影響', action: '優先確認：判斷新事件是否足以改變既有結論。' }
+            : { key: 'low', label: '低影響', action: '例行追蹤：目前沒有明顯的部位放大訊號。' });
+        const priceSeries = priceDB?.series?.[displayTicker];
+        const priceDate = priceSeries?.dates?.[priceSeries.dates.length - 1] || '';
+        return { displayTicker, eventScore, positionScore, drawdownScore, totalScore, level, eventReason, priceDate, ...position };
+      }).filter(Boolean).sort((a, b) => b.totalScore - a.totalScore
+        || b.eventScore - a.eventScore
+        || b.weight - a.weight
+        || a.displayTicker.localeCompare(b.displayTicker));
+    }
+
+    function renderSecPositionImpact() {
+      const container = document.getElementById('secPositionImpact');
+      if (!container || !secDailyData) return;
+      const rows = secPositionImpactRows();
+      if (!rows.length) {
+        container.innerHTML = '<div class="sec-position-impact-head"><div><h3 id="secPositionImpactTitle">💼 實際持股部位影響排序</h3><p>目前沒有可配對的實際持股資料。</p></div></div>';
+        return;
+      }
+      const priceDates = rows.map(row => row.priceDate).filter(Boolean).sort();
+      const priceDate = priceDates[priceDates.length - 1] || '價格資料載入中';
+      const cards = rows.map((row, index) => {
+        const pnl = Number(row.pnlPct);
+        return `<article class="sec-position-impact-card ${row.level.key}">
+          <div class="sec-position-impact-title"><span class="sec-reading-rank-number">#${index + 1}</span><button type="button" onclick="setSecCoreTicker('${escapeSec(row.displayTicker)}')">${escapeSec(row.displayTicker)}</button><span class="sec-position-impact-level ${row.level.key}">${row.level.label}</span></div>
+          <div class="sec-position-impact-score"><strong>${formatSecNumber(row.totalScore)}</strong><span>／100 閱讀影響分數</span></div>
+          <div class="sec-position-impact-bar" aria-label="影響分數 ${formatSecNumber(row.totalScore)} 分"><span style="width:${Math.max(0, Math.min(100, row.totalScore))}%"></span></div>
+          <div class="sec-position-impact-parts">
+            <div class="sec-position-impact-part"><strong>${formatSecNumber(row.eventScore)}／40</strong><span>SEC 訊號</span></div>
+            <div class="sec-position-impact-part"><strong>${formatSecNumber(row.positionScore)}／35</strong><span>持股集中度</span></div>
+            <div class="sec-position-impact-part"><strong>${formatSecNumber(row.drawdownScore)}／25</strong><span>未實現回撤</span></div>
+          </div>
+          <p class="sec-position-impact-position">組合占比 ${formatSecNumber(row.weight, 1)}%｜未實現 ${pnl >= 0 ? '+' : ''}${formatSecNumber(pnl, 1)}%</p>
+          <p class="sec-position-impact-reason"><strong>主要依據：</strong>${escapeSec(row.eventReason)}</p>
+          <p class="sec-position-impact-action">${escapeSec(row.level.action)}</p>
+        </article>`;
+      }).join('');
+      container.innerHTML = `<div class="sec-position-impact-head">
+          <div><h3 id="secPositionImpactTitle">💼 實際持股部位影響排序</h3><p>只列 8 家實際持股；分數越高，代表同一 SEC 訊號可能對目前組合更值得優先核對。</p></div>
+          <span class="sec-position-impact-date">持股價格基準：${escapeSec(priceDate)}</span>
+        </div>
+        <div class="sec-position-impact-list">${cards}</div>
+        <p class="sec-position-impact-method"><strong>怎麼算：</strong>SEC 訊號最高 40 分（正式已覆核變化、待覆核候選、申報／財務警報）；持股集中度最高 35 分（占整體持股現值）；未實現回撤最高 25 分（獲利部位為 0 分）。候選稿只提高閱讀優先度，不當成事實結論。總分是閱讀影響，不是公司好壞、預期報酬或買進／賣出建議；VGT／VOO 的成分股曝險未拆入單一公司。</p>`;
+    }
+
     function secHoldingPosition(ticker, companyTone) {
       const holding = userHoldings.find(row => row.ticker === ticker);
       if (!holding) return null;
@@ -4818,6 +4966,7 @@
       renderSecUpdateBrief();
       renderSecChangeCandidates();
       renderSecReadingRank();
+      renderSecPositionImpact();
       renderSecEditorial();
       renderSecCrossCompany();
 
