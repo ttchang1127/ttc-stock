@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-09-01T20:46:16+08:00",
+  "minimum_samples_before_adjustment": 5,
+  "low_acceptance_rate_threshold": 0.2,
+  "policy": "樣本不足時不調整；達門檻後只降低候選顯示優先級，不刪除 SEC 事件或正式原文。",
+  "reviewed_candidate_count": 5,
+  "accepted_candidate_count": 1,
+  "rejected_candidate_count": 4,
+  "acceptance_rate": 0.2,
+  "rules": {
+    "form144_proposed_sale": {
+      "label": "Form 144 擬售",
+      "reviewed_count": 2,
+      "accepted_count": 0,
+      "rejected_count": 2,
+      "acceptance_rate": 0.0,
+      "sample_status": "insufficient",
+      "priority_adjustment": "none",
+      "reason": "只有 2 個已覆核樣本；至少 5 個樣本前不調整優先級。"
+    },
+    "form4_sell_10b5_1": {
+      "label": "Form 4｜10b5-1 賣出",
+      "reviewed_count": 2,
+      "accepted_count": 0,
+      "rejected_count": 2,
+      "acceptance_rate": 0.0,
+      "sample_status": "insufficient",
+      "priority_adjustment": "none",
+      "reason": "只有 2 個已覆核樣本；至少 5 個樣本前不調整優先級。"
+    },
+    "major_current_report": {
+      "label": "重大 8-K／6-K",
+      "reviewed_count": 1,
+      "accepted_count": 1,
+      "rejected_count": 0,
+      "acceptance_rate": 1.0,
+      "sample_status": "insufficient",
+      "priority_adjustment": "none",
+      "reason": "只有 1 個已覆核樣本；至少 5 個樣本前不調整優先級。"
+    }
+  },
+  "rejection_reasons": [
+    {
+      "key": "immaterial_relative_size",
+      "label": "相對持股／流通股規模過低",
+      "count": 3
+    },
+    {
+      "key": "preplanned_trade",
+      "label": "10b5-1 預先交易計畫",
+      "count": 2
+    },
+    {
+      "key": "proposed_not_completed",
+      "label": "只是擬售、尚未證明成交",
+      "count": 2
+    },
+    {
+      "key": "insufficient_thesis_evidence",
+      "label": "不足以改變營運或投資論點",
+      "count": 1
+    }
+  ]
+}

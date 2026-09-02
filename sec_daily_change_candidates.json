@@ -11,6 +11,8 @@
     "improvement": 0,
     "conclusion": 2
   },
+  "calibration_updated_at": "2026-09-01T20:46:16+08:00",
+  "lower_priority_count": 0,
   "method": "規則只建立候選：新風險、改善或可能改變結論；不得自動寫入正式 AI 判讀。",
   "candidates": [
     {
@@ -20,9 +22,19 @@
       "type_label": "🔴 新增風險候選",
       "status": "pending_ai_review",
       "confidence": "low",
+      "rule_key": "form144_proposed_sale",
+      "materiality": {
+        "planned_shares": 6030.0,
+        "planned_value_usd": 1675314.9,
+        "shares_outstanding": 195832246.0,
+        "planned_shares_outstanding_percent": 0.003079166032748253
+      },
+      "display_priority": "normal",
+      "priority_reason": "只有 2 個已覆核樣本；至少 5 個樣本前不調整優先級。",
       "headline": "新增 1 份 Form 144 擬售通知，列為低強度風險候選",
       "evidence": [
         "已解析擬售 6,030 股、申報估值 $1.7M。",
+        "約占申報所列已發行股數 0.00308%。",
         "申報人：JULIE S ENG。",
         "Form 144 是擬售意向，不等於已成交；需等待後續 Form 4 或市場交易確認。"
       ],
@@ -37,7 +49,13 @@
           "label": "SEC Form 144",
           "url": "https://www.sec.gov/Archives/edgar/data/820318/000195004726008955/xsl144X01/primary_doc.xml"
         }
-      ]
+      ],
+      "rule_quality": {
+        "reviewed_count": 2,
+        "accepted_count": 0,
+        "acceptance_rate": 0.0,
+        "sample_status": "insufficient"
+      }
     },
     {
       "id": "93e78efda2205baf",
@@ -46,9 +64,19 @@
       "type_label": "🔴 新增風險候選",
       "status": "pending_ai_review",
       "confidence": "low",
+      "rule_key": "form4_sell_10b5_1",
+      "materiality": {
+        "transaction_value_usd": 3583080.6273,
+        "max_transaction_holding_percent": 13.02491497855981,
+        "planned_transaction_count": 2,
+        "transaction_count": 2
+      },
+      "display_priority": "normal",
+      "priority_reason": "只有 2 個已覆核樣本；至少 5 個樣本前不調整優先級。",
       "headline": "Form 4 出現 2 列賣出，列為風險候選",
       "evidence": [
         "已知賣出金額合計 $3.6M；其中 2/2 列標示 10b5-1。",
+        "單筆最高約占交易前直接持股 13.02%。",
         "10b5-1 是預先安排交易，訊號強度低於臨時主動賣出。"
       ],
       "why_candidate": "內部人賣出需看計畫屬性、持股比例與交易規模，不直接等於看空。",
@@ -62,7 +90,13 @@
           "label": "SEC 4",
           "url": "https://www.sec.gov/Archives/edgar/data/820318/000089914026001037/xslF345X06/form4.xml"
         }
-      ]
+      ],
+      "rule_quality": {
+        "reviewed_count": 2,
+        "accepted_count": 0,
+        "acceptance_rate": 0.0,
+        "sample_status": "insufficient"
+      }
     },
     {
       "id": "2899bff117c01f76",
@@ -71,9 +105,19 @@
       "type_label": "🔴 新增風險候選",
       "status": "pending_ai_review",
       "confidence": "low",
+      "rule_key": "form144_proposed_sale",
+      "materiality": {
+        "planned_shares": 10000.0,
+        "planned_value_usd": 2032703.0,
+        "shares_outstanding": 876900000.0,
+        "planned_shares_outstanding_percent": 0.0011403808872163302
+      },
+      "display_priority": "normal",
+      "priority_reason": "只有 2 個已覆核樣本；至少 5 個樣本前不調整優先級。",
       "headline": "新增 1 份 Form 144 擬售通知，列為低強度風險候選",
       "evidence": [
         "已解析擬售 10,000 股、申報估值 $2.0M。",
+        "約占申報所列已發行股數 0.00114%。",
         "申報人：KOOPMANS FAMILY TRUST U/A DTD 03/28/2013。",
         "Form 144 是擬售意向，不等於已成交；需等待後續 Form 4 或市場交易確認。"
       ],
@@ -88,7 +132,13 @@
           "label": "SEC Form 144",
           "url": "https://www.sec.gov/Archives/edgar/data/1835632/000195004726008892/xsl144X01/primary_doc.xml"
         }
-      ]
+      ],
+      "rule_quality": {
+        "reviewed_count": 2,
+        "accepted_count": 0,
+        "acceptance_rate": 0.0,
+        "sample_status": "insufficient"
+      }
     },
     {
       "id": "12c3ac41057d316e",
@@ -97,9 +147,19 @@
       "type_label": "🔴 新增風險候選",
       "status": "pending_ai_review",
       "confidence": "low",
+      "rule_key": "form144_proposed_sale",
+      "materiality": {
+        "planned_shares": 86525.0,
+        "planned_value_usd": 43893267.25,
+        "shares_outstanding": 7425545491.0,
+        "planned_shares_outstanding_percent": 0.0011652342592860159
+      },
+      "display_priority": "normal",
+      "priority_reason": "只有 2 個已覆核樣本；至少 5 個樣本前不調整優先級。",
       "headline": "新增 1 份 Form 144 擬售通知，列為低強度風險候選",
       "evidence": [
         "已解析擬售 86,525 股、申報估值 $43.9M。",
+        "約占申報所列已發行股數 0.00117%。",
         "申報人：SATYA NADELLA。",
         "Form 144 是擬售意向，不等於已成交；需等待後續 Form 4 或市場交易確認。"
       ],
@@ -114,7 +174,13 @@
           "label": "SEC Form 144",
           "url": "https://www.sec.gov/Archives/edgar/data/789019/000195004726008927/xsl144X01/primary_doc.xml"
         }
-      ]
+      ],
+      "rule_quality": {
+        "reviewed_count": 2,
+        "accepted_count": 0,
+        "acceptance_rate": 0.0,
+        "sample_status": "insufficient"
+      }
     },
     {
       "id": "7aa7885e96c9344c",
@@ -123,6 +189,10 @@
       "type_label": "🟡 結論變化候選",
       "status": "pending_ai_review",
       "confidence": "medium",
+      "rule_key": "major_current_report",
+      "materiality": {},
+      "display_priority": "normal",
+      "priority_reason": "只有 1 個已覆核樣本；至少 5 個樣本前不調整優先級。",
       "headline": "重大 8-K/A 可能改變既有結論",
       "evidence": [
         "5.02 董事／高管異動"
@@ -138,7 +208,13 @@
           "label": "SEC 8-K/A",
           "url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126035325/ef20081427_8ka.htm"
         }
-      ]
+      ],
+      "rule_quality": {
+        "reviewed_count": 1,
+        "accepted_count": 1,
+        "acceptance_rate": 1.0,
+        "sample_status": "insufficient"
+      }
     },
     {
       "id": "0c5fe5654b81886e",
@@ -147,6 +223,10 @@
       "type_label": "🟡 結論變化候選",
       "status": "pending_ai_review",
       "confidence": "medium",
+      "rule_key": "major_current_report",
+      "materiality": {},
+      "display_priority": "normal",
+      "priority_reason": "只有 1 個已覆核樣本；至少 5 個樣本前不調整優先級。",
       "headline": "重大 6-K 可能改變既有結論",
       "evidence": [
         "未提供 Item 分類"
@@ -162,7 +242,13 @@
           "label": "SEC 6-K",
           "url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000552/tsm-dividendadjustmentx202.htm"
         }
-      ]
+      ],
+      "rule_quality": {
+        "reviewed_count": 1,
+        "accepted_count": 1,
+        "acceptance_rate": 1.0,
+        "sample_status": "insufficient"
+      }
     }
   ]
 }

@@ -109,6 +109,7 @@ jobs:
       - name: Build daily AI-review change candidates
         id: candidates
         run: |
+          python3 scripts/build_sec_candidate_rule_calibration.py
           python3 scripts/generate_sec_daily_change_candidates.py \
             --alert-markdown "$RUNNER_TEMP/sec-alert.md" \
             --summary "$GITHUB_STEP_SUMMARY" \
@@ -175,6 +176,8 @@ jobs:
             60_SEC_Filing_Radar/Mergers_Tender_Radar.md \
             60_SEC_Filing_Radar/SEC_Enforcement_Radar.md \
             sec_daily_change_candidates.json \
+            sec_candidate_rule_calibration.json \
+            60_SEC_Filing_Radar/SEC_Candidate_Rule_Calibration.md \
             60_SEC_Filing_Radar/SEC_Daily_Change_Candidates.md
           if git diff --cached --quiet; then
             echo "No SEC radar changes to persist."

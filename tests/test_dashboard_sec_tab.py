@@ -24,6 +24,7 @@ class DashboardSecTabTests(unittest.TestCase):
         cls.editorial = json.loads((ROOT / "sec_daily_editorial.json").read_text())
         cls.change_candidates = json.loads((ROOT / "sec_daily_change_candidates.json").read_text())
         cls.candidate_reviews = json.loads((ROOT / "sec_daily_candidate_reviews.json").read_text())
+        cls.candidate_calibration = json.loads((ROOT / "sec_candidate_rule_calibration.json").read_text())
 
     def test_tab_defaults_to_14_days_and_allows_7_days(self):
         self.assertIn("🚨 4_SEC 每日重點", self.html)
@@ -46,6 +47,7 @@ class DashboardSecTabTests(unittest.TestCase):
         self.assertIn("fetch('sec_daily_editorial.json'", self.html)
         self.assertIn("fetch('sec_daily_change_candidates.json'", self.html)
         self.assertIn("fetch('sec_daily_candidate_reviews.json'", self.html)
+        self.assertIn("fetch('sec_candidate_rule_calibration.json'", self.html)
         self.assertIn("fetch('valuation.json'", self.html)
         self.assertIn("function renderSecDaily()", self.html)
         self.assertIn('id="secQuarterlyBody"', self.html)
@@ -250,7 +252,10 @@ class DashboardSecTabTests(unittest.TestCase):
         self.assertEqual(latest["accepted_count"], 1)
         self.assertEqual(latest["rejected_count"], 4)
         self.assertEqual(len(latest["decisions"]), 5)
-        self.assertEqual(self.change_candidates["candidate_count"], 0)
+        self.assertEqual(self.candidate_calibration["reviewed_candidate_count"], 5)
+        self.assertEqual(self.candidate_calibration["accepted_candidate_count"], 1)
+        self.assertTrue(all(row["sample_status"] == "insufficient"
+                            for row in self.candidate_calibration["rules"].values()))
         required_copy = [
             'id="secChangeCandidates"', "function renderSecChangeCandidates()",
             "每日變更候選稿", "新增風險候選", "改善候選", "結論變化候選",
@@ -258,6 +263,9 @@ class DashboardSecTabTests(unittest.TestCase):
             "不是最終綜合判讀", "Form 144 只代表擬售意向",
             "10b5-1 賣出訊號會降低證據強度", "renderSecChangeCandidates();",
             "最近一次 AI 覆核", "查看逐項採納／駁回理由",
+            "function secRuleCalibrationHtml()", "候選規則品質",
+            "樣本不足", "降低顯示優先級", "歷史低命中",
+            "常見駁回原因",
         ]
         for phrase in required_copy:
             self.assertIn(phrase, self.html)

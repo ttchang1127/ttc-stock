@@ -90,7 +90,9 @@ jobs:
 
       - name: Refresh daily AI-review change candidates
         if: steps.gate.outputs.changed == 'true'
-        run: python3 scripts/generate_sec_daily_change_candidates.py
+        run: |
+          python3 scripts/build_sec_candidate_rule_calibration.py
+          python3 scripts/generate_sec_daily_change_candidates.py
 
       # The checks that caught TSMC's $29bn net-cash error, NVIDIA's stale
       # ROIC-WACC and TSMC's $10.9tn market cap. They existed only as snippets
@@ -104,7 +106,7 @@ jobs:
         if: steps.gate.outputs.changed == 'true'
         run: |
           unexpected=$(git status --porcelain | awk '{print $2}' | grep -Ev \
-            '^(prices|financials|quarterly_financials|fundamentals|financial_health|valuation|sec_daily_change_candidates)\.json$|^[a-z]+_report\.html$|^30_Analysis/.*_Master_Investment_Thesis_2026\.md$|^60_SEC_Filing_Radar/SEC_Daily_Change_Candidates\.md$' \
+            '^(prices|financials|quarterly_financials|fundamentals|financial_health|valuation|sec_daily_change_candidates|sec_candidate_rule_calibration)\.json$|^[a-z]+_report\.html$|^30_Analysis/.*_Master_Investment_Thesis_2026\.md$|^60_SEC_Filing_Radar/SEC_(Daily_Change_Candidates|Candidate_Rule_Calibration)\.md$' \
             || true)
           if [ -n "$unexpected" ]; then
             echo "Unexpected files changed; refusing to commit:"

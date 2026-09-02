@@ -189,6 +189,7 @@ git add financials.json fundamentals.json financial_health.json valuation.json *
 5. 正式稿更新後再次執行：
 
 ```bash
+python3 scripts/build_sec_candidate_rule_calibration.py
 python3 scripts/generate_sec_daily_change_candidates.py
 python3 scripts/check_integrity.py --quiet
 ```
@@ -603,6 +604,7 @@ git fetch --dry-run origin main
 | `check_new_annual_filings.py` | 比對 SEC 最新 10-K／20-F 與本地 accession（**只通知，不寫檔**） |
 | `watch_sec_filings.py` | 台北時間週二至週六中午比對 14 家 SEC accession，更新每日雷達並由 GitHub Issue 通知 |
 | `generate_sec_daily_change_candidates.py` | 比較最新 SEC／季度／論點資料與正式 AI 覆核基準，只產生風險、改善或結論變化候選；不自行改寫正式判讀 |
+| `build_sec_candidate_rule_calibration.py` | 由歷次 AI 採納／駁回紀錄統計候選規則命中率；至少 5 個樣本後才允許降低顯示優先級，永不刪除 SEC 原始事件 |
 | `ingest_periodic_filings.py` | 依 accession 下載 10-Q／8-K／6-K 官方主要文件；安全拆分 10-Q MD&A／Controls／Risk Factors 與 8-K SEC Item；重解析失敗會移除該 accession 的舊版現役筆記，避免狀態顯示失敗但頁面仍殘留舊內容 |
 | `analyze_exhibit_991.py` | 只處理 Item 2.02 的 8-K／8-K-A；由同 accession 官方 filing index 找唯一 EX-99.1，保留營收、毛利率、EPS、分部、市場指引、管理層語句與風險／前瞻限制的原文證據；未命中保留缺值，重新分析失敗會移除舊卡 |
 | `track_earnings_calls.py` | 只使用公司官方 IR 文字或由官方頁明確連出的允許主機；區分完整逐字稿、Prepared Remarks 與僅影音回放，並產生最近四季主題命中比較；不以第三方逐字稿補值 |

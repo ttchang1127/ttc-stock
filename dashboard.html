@@ -1157,6 +1157,7 @@
     .sec-change-candidate.risk { border-left-color: #fb7185; }
     .sec-change-candidate.improvement { border-left-color: #34d399; }
     .sec-change-candidate.conclusion { border-left-color: #fbbf24; }
+    .sec-change-candidate.low-priority { opacity: 0.82; border-style: dashed; }
     .sec-change-candidate-title { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; color: #fff; font-size: 0.78rem; font-weight: 850; }
     .sec-change-candidate-title button { appearance: none; border: 0; padding: 0; background: none; color: #7dd3fc; font: inherit; font-weight: 900; cursor: pointer; }
     .sec-change-candidate-badge { padding: 2px 6px; border: 1px solid rgba(148, 163, 184, 0.22); border-radius: 999px; color: #cbd5e1; font-size: 0.58rem; }
@@ -1170,6 +1171,12 @@
     .sec-change-review-summary p { color: #cbd5e1; font-size: 0.69rem; line-height: 1.55; }
     .sec-change-review-decisions { margin: 8px 0 0; padding-left: 18px; }
     .sec-change-review-decisions li { color: #cbd5e1; font-size: 0.68rem; line-height: 1.5; margin-top: 4px; }
+    .sec-rule-calibration { margin-top: 10px; padding: 11px 12px; border: 1px solid rgba(56, 189, 248, 0.2); border-radius: 10px; background: rgba(14, 116, 144, 0.08); }
+    .sec-rule-calibration h4 { color: #bae6fd; font-size: 0.76rem; margin-bottom: 7px; }
+    .sec-rule-calibration-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr)); gap: 7px; }
+    .sec-rule-calibration-card { padding: 8px 9px; border-radius: 8px; background: rgba(2, 6, 23, 0.38); color: #cbd5e1; font-size: 0.66rem; line-height: 1.5; }
+    .sec-rule-calibration-card strong { color: #fff; }
+    .sec-rule-calibration-reasons { margin: 8px 0 0; color: #94a3b8; font-size: 0.66rem; line-height: 1.5; }
 
     .sec-reading-rank {
       margin-bottom: 20px;
@@ -4202,11 +4209,14 @@
           fetch('sec_daily_candidate_reviews.json', { cache: 'no-cache' })
             .then(r => { if (!r.ok) throw new Error(`AI 候選覆核紀錄 HTTP ${r.status}`); return r.json(); })
             .catch(error => { console.warn('sec_daily_candidate_reviews.json 載入失敗', error); return null; }),
+          fetch('sec_candidate_rule_calibration.json', { cache: 'no-cache' })
+            .then(r => { if (!r.ok) throw new Error(`候選規則校準 HTTP ${r.status}`); return r.json(); })
+            .catch(error => { console.warn('sec_candidate_rule_calibration.json 載入失敗', error); return null; }),
           fetch('valuation.json', { cache: 'no-cache' })
             .then(r => { if (!r.ok) throw new Error(`估值資料 HTTP ${r.status}`); return r.json(); })
             .catch(error => { console.warn('valuation.json 載入失敗，跨公司估值排名將顯示缺值', error); return null; }),
-        ]).then(([alerts, details, quarterlyFinancials, advanced, thirteenF, textChanges, thesisTracking, thesisStatus, exhibit991, earningsCalls, editorial, changeCandidates, candidateReviews, valuation]) => {
-          secDailyData = { alerts, details, quarterlyFinancials, advanced, thirteenF, textChanges, thesisTracking, thesisStatus, exhibit991, earningsCalls, editorial, changeCandidates, candidateReviews, valuation };
+        ]).then(([alerts, details, quarterlyFinancials, advanced, thirteenF, textChanges, thesisTracking, thesisStatus, exhibit991, earningsCalls, editorial, changeCandidates, candidateReviews, candidateCalibration, valuation]) => {
+          secDailyData = { alerts, details, quarterlyFinancials, advanced, thirteenF, textChanges, thesisTracking, thesisStatus, exhibit991, earningsCalls, editorial, changeCandidates, candidateReviews, candidateCalibration, valuation };
           renderSecDaily();
         }).catch(error => {
           secDailyPromise = null;
@@ -4347,6 +4357,23 @@
         <p class="sec-update-method">「本次」是 watcher 的偵測批次，不是 SEC filing date。論點通知只在綜合狀態或任一分項分類改變時觸發；單純數值更新但分類不變不重複通知。優先度只決定閱讀順序，不是利多、利空或投資評等；財務數字仍以下方八季表及官方原文為準。</p>`;
     }
 
+    function secRuleCalibrationHtml() {
+      const calibration = secDailyData?.candidateCalibration;
+      if (!calibration) return '';
+      const rules = Object.values(calibration.rules || {});
+      const ruleCards = rules.map(rule => {
+        const rate = Number.isFinite(rule.acceptance_rate) ? `${formatSecNumber(rule.acceptance_rate * 100, 0)}%` : '—';
+        const status = rule.sample_status === 'insufficient'
+          ? `樣本不足 ${formatSecNumber(rule.reviewed_count)}/${formatSecNumber(calibration.minimum_samples_before_adjustment)}`
+          : (rule.priority_adjustment === 'lower_priority' ? '降低顯示優先級' : '維持原優先級');
+        return `<div class="sec-rule-calibration-card"><strong>${escapeSec(rule.label)}</strong><br>採納 ${formatSecNumber(rule.accepted_count)}／覆核 ${formatSecNumber(rule.reviewed_count)}｜採納率 ${escapeSec(rate)}<br>${escapeSec(status)}<br><span>${escapeSec(rule.reason)}</span></div>`;
+      }).join('');
+      const reasons = (calibration.rejection_reasons || []).map(row => `${row.label} ${row.count} 次`).join('｜') || '尚無駁回樣本';
+      const overallRate = Number.isFinite(calibration.acceptance_rate) ? `${formatSecNumber(calibration.acceptance_rate * 100, 0)}%` : '—';
+      const lowered = rules.filter(rule => rule.priority_adjustment === 'lower_priority').length;
+      return `<section class="sec-rule-calibration" aria-label="候選規則品質校準"><h4>🎯 候選規則品質｜整體採納 ${formatSecNumber(calibration.accepted_candidate_count)}／${formatSecNumber(calibration.reviewed_candidate_count)}（${escapeSec(overallRate)}）｜目前降級 ${formatSecNumber(lowered)} 類</h4><div class="sec-rule-calibration-grid">${ruleCards}</div><p class="sec-rule-calibration-reasons"><strong>常見駁回原因：</strong>${escapeSec(reasons)}<br>${escapeSec(calibration.policy)}</p></section>`;
+    }
+
     function renderSecChangeCandidates() {
       const container = document.getElementById('secChangeCandidates');
       if (!container || !secDailyData) return;
@@ -4370,6 +4397,7 @@
         container.innerHTML = `<div class="sec-change-candidates-head"><div><h3 id="secChangeCandidatesTitle">📝 每日變更候選稿</h3><p>產生 ${escapeSec(generated)}｜正式 AI 覆核 ${escapeSec(reviewed)}</p></div></div>
           <div class="sec-change-empty">✅ 上次 AI 覆核後，目前沒有新增風險、改善或結論變化候選。</div>
           ${reviewHtml}
+          ${secRuleCalibrationHtml()}
           <p class="sec-change-method">這只表示規則未找到新差異，不代表公司沒有風險；仍以下方官方原文與已覆核綜合重點為準。</p>`;
         return;
       }
@@ -4383,16 +4411,21 @@
           const url = safeQuarterlySourceUrl(source.url);
           return url === '#' ? '' : `<a class="sec-link" href="${url}" target="_blank" rel="noopener">${escapeSec(source.label || '官方原文')} ↗</a>`;
         }).filter(Boolean).join('｜');
-        return `<article class="sec-change-candidate ${escapeSec(row.type)}">
-          <div class="sec-change-candidate-title"><button type="button" onclick="setSecCoreTicker('${escapeSec(displayTicker)}')">${escapeSec(displayTicker)}</button><span>${escapeSec(typeLabels[row.type] || row.type_label || '待覆核候選')}</span><span class="sec-change-candidate-badge">${owned ? '💼 實際持股' : '👀 觀察名單'}</span><span class="sec-change-candidate-badge">證據 ${escapeSec(confidenceLabels[row.confidence] || row.confidence || '未分級')}</span></div>
+        const quality = row.rule_quality || {};
+        const rate = Number.isFinite(quality.acceptance_rate) ? `${formatSecNumber(quality.acceptance_rate * 100, 0)}%` : '樣本不足';
+        const lowered = row.display_priority === 'low';
+        return `<article class="sec-change-candidate ${escapeSec(row.type)}${lowered ? ' low-priority' : ''}">
+          <div class="sec-change-candidate-title"><button type="button" onclick="setSecCoreTicker('${escapeSec(displayTicker)}')">${escapeSec(displayTicker)}</button><span>${escapeSec(typeLabels[row.type] || row.type_label || '待覆核候選')}</span><span class="sec-change-candidate-badge">${owned ? '💼 實際持股' : '👀 觀察名單'}</span><span class="sec-change-candidate-badge">證據 ${escapeSec(confidenceLabels[row.confidence] || row.confidence || '未分級')}</span>${lowered ? '<span class="sec-change-candidate-badge">⬇ 歷史低命中</span>' : ''}</div>
           <h4>${escapeSec(row.headline)}</h4>
           ${evidence ? `<ul>${evidence}</ul>` : ''}
           <p><strong>列入原因：</strong>${escapeSec(row.why_candidate)}</p>
+          <p><strong>規則品質：</strong>已覆核 ${formatSecNumber(quality.reviewed_count || 0)} 次、採納 ${formatSecNumber(quality.accepted_count || 0)} 次｜採納率 ${escapeSec(rate)}。${escapeSec(row.priority_reason)}</p>
           ${sources ? `<p>${sources}</p>` : ''}
         </article>`;
       }).join('');
       container.innerHTML = `<div class="sec-change-candidates-head"><div><h3 id="secChangeCandidatesTitle">📝 每日變更候選稿</h3><p>產生 ${escapeSec(generated)}｜比較基準：正式 AI 覆核 ${escapeSec(reviewed)}</p></div><span class="sec-change-counts">風險 ${formatSecNumber(payload.counts?.risk || 0)}｜改善 ${formatSecNumber(payload.counts?.improvement || 0)}｜結論 ${formatSecNumber(payload.counts?.conclusion || 0)}</span></div>
         <div class="sec-change-candidate-list">${cards}</div>
+        ${secRuleCalibrationHtml()}
         <p class="sec-change-method">⚠️ 這是規則自動產生、等待 AI 閱讀官方原文的候選稿，不是最終綜合判讀、利多／利空或買賣建議。Form 144 只代表擬售意向；10b5-1 賣出訊號會降低證據強度。AI 覆核後才會把真正重要的改變寫入「人工消化後的每日綜合重點」。</p>`;
     }
 

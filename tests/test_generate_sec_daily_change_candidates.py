@@ -45,18 +45,38 @@ class DailyChangeCandidateTests(unittest.TestCase):
              "detected_at": "2026-09-01T01:00:00+00:00", "url": "https://www.sec.gov/form144"},
         ]}
         details = {"form4": {"form4": {"transactions": [
-            {"code": "S", "value": 2_500_000, "rule_10b5_1": True},
+            {"code": "S", "value": 2_500_000, "rule_10b5_1": True,
+             "shares": 1000, "shares_after": 9000, "acquired_disposed": "D"},
         ]}}}
         advanced = {"insiders": [{"event": {"accession": "form144"}, "form144": {
             "planned_shares": 1000, "planned_value_usd": 250000, "reporter": "Officer A",
+            "shares_outstanding": 1_000_000,
         }}]}
         rows, used = MODULE.filing_candidates(alerts, details, advanced, self.editorial)
         self.assertEqual({row["type"] for row in rows}, {"risk"})
         self.assertTrue(all(row["confidence"] == "low" for row in rows))
+        form4 = next(row for row in rows if row["rule_key"] == "form4_sell_10b5_1")
+        self.assertEqual(form4["materiality"]["max_transaction_holding_percent"], 10)
         self.assertIn("form4", used)
         self.assertIn("form144", used)
         form144 = next(row for row in rows if "Form 144" in row["headline"])
         self.assertIn("不等於已成交", " ".join(form144["evidence"]))
+        self.assertEqual(form144["materiality"]["planned_shares_outstanding_percent"], 0.1)
+
+    def test_calibration_only_lowers_display_priority_after_rule_marks_it(self):
+        candidate = MODULE.make_candidate(
+            "risk", "NVDA", ["accession"], "headline", ["evidence"], "reason",
+            [{"label": "SEC", "url": "https://www.sec.gov/example"}],
+            "2026-09-01T00:00:00+00:00", rule_key="form144_proposed_sale",
+        )
+        calibration = {"rules": {"form144_proposed_sale": {
+            "reviewed_count": 5, "accepted_count": 0, "acceptance_rate": 0,
+            "sample_status": "enough", "priority_adjustment": "lower_priority",
+            "reason": "歷史採納率偏低，只降低顯示優先級、不刪除事件。",
+        }}}
+        MODULE.apply_calibration([candidate], calibration)
+        self.assertEqual(candidate["display_priority"], "low")
+        self.assertIn("不刪除事件", candidate["priority_reason"])
 
     def test_quarterly_and_thesis_fingerprint_changes_create_review_candidates(self):
         quarterly = {"generated_at": "2026-09-01T00:00:00+00:00", "companies": {"ARM": {

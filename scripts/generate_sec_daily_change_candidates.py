@@ -21,6 +21,7 @@ DEFAULT_ADVANCED = REPO_ROOT / "sec_advanced_radars.json"
 DEFAULT_QUARTERLY = REPO_ROOT / "quarterly_financials.json"
 DEFAULT_THESIS = REPO_ROOT / "investment_thesis_status.json"
 DEFAULT_EDITORIAL = REPO_ROOT / "sec_daily_editorial.json"
+DEFAULT_CALIBRATION = REPO_ROOT / "sec_candidate_rule_calibration.json"
 DEFAULT_OUTPUT = REPO_ROOT / "sec_daily_change_candidates.json"
 DEFAULT_MARKDOWN = REPO_ROOT / "60_SEC_Filing_Radar/SEC_Daily_Change_Candidates.md"
 
@@ -80,6 +81,28 @@ def percent_change(current, prior):
     return (current / prior - 1) * 100
 
 
+def relative_percent(numerator, denominator):
+    if numerator is None or denominator in (None, 0):
+        return None
+    return float(numerator) / float(denominator) * 100
+
+
+def max_transaction_holding_percent(rows):
+    ratios = []
+    for row in rows:
+        shares = row.get("shares")
+        shares_after = row.get("shares_after")
+        if shares is None or shares_after is None:
+            continue
+        denominator = float(shares_after) if row.get("acquired_disposed") == "A" else (
+            float(shares) + float(shares_after)
+        )
+        ratio = relative_percent(shares, denominator)
+        if ratio is not None:
+            ratios.append(ratio)
+    return max(ratios) if ratios else None
+
+
 def signed(value, suffix="%"):
     if value is None:
         return "—"
@@ -102,7 +125,8 @@ def stable_id(kind, ticker, keys):
 
 
 def make_candidate(kind, ticker, keys, headline, evidence, reason, sources,
-                   detected_at, confidence="medium", filing_date=""):
+                   detected_at, confidence="medium", filing_date="",
+                   rule_key="other", materiality=None):
     display = DISPLAY_TICKER.get(ticker, ticker)
     return {
         "id": stable_id(kind, display, keys),
@@ -111,6 +135,10 @@ def make_candidate(kind, ticker, keys, headline, evidence, reason, sources,
         "type_label": TYPE_LABELS[kind],
         "status": "pending_ai_review",
         "confidence": confidence,
+        "rule_key": rule_key,
+        "materiality": materiality or {},
+        "display_priority": "normal",
+        "priority_reason": "目前規則樣本不足或採納率未達降級門檻，維持原顯示優先級。",
         "headline": headline,
         "evidence": [text for text in evidence if text],
         "why_candidate": reason,
@@ -119,6 +147,24 @@ def make_candidate(kind, ticker, keys, headline, evidence, reason, sources,
         "source_keys": sorted({str(key) for key in keys if key}),
         "sources": sources,
     }
+
+
+def apply_calibration(candidates, calibration):
+    rules = calibration.get("rules", {}) if calibration else {}
+    for candidate in candidates:
+        quality = rules.get(candidate.get("rule_key"), {})
+        candidate["rule_quality"] = {
+            "reviewed_count": quality.get("reviewed_count", 0),
+            "accepted_count": quality.get("accepted_count", 0),
+            "acceptance_rate": quality.get("acceptance_rate"),
+            "sample_status": quality.get("sample_status", "insufficient"),
+        }
+        if quality.get("priority_adjustment") == "lower_priority":
+            candidate["display_priority"] = "low"
+            candidate["priority_reason"] = quality.get("reason") or "歷史採納率偏低，降低顯示優先級。"
+        elif quality:
+            candidate["priority_reason"] = quality.get("reason") or candidate["priority_reason"]
+    return candidates
 
 
 def source_as_of(*payloads):
@@ -159,25 +205,37 @@ def filing_candidates(alerts, details, advanced, editorial):
             sells = [row for row in transactions if row.get("code") == "S"]
             if buys:
                 value = sum(float(row.get("value") or 0) for row in buys)
+                holding_percent = max_transaction_holding_percent(buys)
                 candidates.append(make_candidate(
                     "improvement", ticker, [accession],
                     f"Form 4 出現 {len(buys)} 列主動買入，列為改善候選",
                     [f"已知買入金額合計 {compact_usd(value)}。",
+                     f"單筆最高約占交易後直接持股 {holding_percent:,.2f}%。" if holding_percent is not None else "交易相對持股比例尚無法計算。",
                      "交易代碼 P 代表公開市場或私下買入；仍需核對占持股與薪酬規模。"],
                     "內部人主動投入資金可能支持信心，但不能單獨推論股價。",
                     source, event.get("detected_at") or event.get("accepted_at"), "medium", event.get("filing_date", ""),
+                    rule_key="form4_buy",
+                    materiality={"transaction_value_usd": value, "max_transaction_holding_percent": holding_percent},
                 ))
             if sells:
                 planned = sum(row.get("rule_10b5_1") is True for row in sells)
                 value = sum(float(row.get("value") or 0) for row in sells)
+                holding_percent = max_transaction_holding_percent(sells)
+                sell_rule = "form4_sell_10b5_1" if planned == len(sells) else (
+                    "form4_sell_unplanned" if planned == 0 else "form4_sell_mixed"
+                )
                 candidates.append(make_candidate(
                     "risk", ticker, [accession],
                     f"Form 4 出現 {len(sells)} 列賣出，列為風險候選",
                     [f"已知賣出金額合計 {compact_usd(value)}；其中 {planned}/{len(sells)} 列標示 10b5-1。",
+                     f"單筆最高約占交易前直接持股 {holding_percent:,.2f}%。" if holding_percent is not None else "交易相對持股比例尚無法計算。",
                      "10b5-1 是預先安排交易，訊號強度低於臨時主動賣出。"],
                     "內部人賣出需看計畫屬性、持股比例與交易規模，不直接等於看空。",
                     source, event.get("detected_at") or event.get("accepted_at"),
                     "low" if planned == len(sells) else "medium", event.get("filing_date", ""),
+                    rule_key=sell_rule,
+                    materiality={"transaction_value_usd": value, "max_transaction_holding_percent": holding_percent,
+                                 "planned_transaction_count": planned, "transaction_count": len(sells)},
                 ))
             used_accessions.add(accession)
             continue
@@ -190,6 +248,7 @@ def filing_candidates(alerts, details, advanced, editorial):
                 [classification.get("dilution"), classification.get("risk")],
                 "這是潛在稀釋文件；是否真正稀釋仍取決於發行、轉股或交易完成條件。",
                 source, event.get("detected_at") or event.get("accepted_at"), "high", event.get("filing_date", ""),
+                rule_key="dilution_filing",
             ))
             used_accessions.add(accession)
             continue
@@ -200,6 +259,7 @@ def filing_candidates(alerts, details, advanced, editorial):
                 [event.get("items_summary") or "定期財報已申報。"],
                 "新定期財報可能同時改變營收、利潤、現金流、稀釋與風險結論。",
                 source, event.get("detected_at") or event.get("accepted_at"), "high", event.get("filing_date", ""),
+                rule_key="periodic_filing",
             ))
             used_accessions.add(accession)
             continue
@@ -210,6 +270,7 @@ def filing_candidates(alerts, details, advanced, editorial):
                 [event.get("items_summary") or "重大事件文件需讀取原文。"],
                 "文件重要性只提高重讀優先級，不預設為利多或利空。",
                 source, event.get("detected_at") or event.get("accepted_at"), "medium", event.get("filing_date", ""),
+                rule_key="major_current_report",
             ))
             used_accessions.add(accession)
 
@@ -219,17 +280,24 @@ def filing_candidates(alerts, details, advanced, editorial):
         parsed_facts = [fact for fact in facts if fact]
         planned_shares = sum(float(fact.get("planned_shares") or 0) for fact in parsed_facts)
         planned_value = sum(float(fact.get("planned_value_usd") or 0) for fact in parsed_facts)
+        shares_outstanding = max((float(fact.get("shares_outstanding") or 0) for fact in parsed_facts), default=0) or None
+        outstanding_percent = relative_percent(planned_shares, shares_outstanding)
         reporters = sorted({fact.get("reporter") for fact in parsed_facts if fact.get("reporter")})
         sources = [{"label": "SEC Form 144", "url": row.get("url") or row.get("index_url")} for row in rows]
         candidates.append(make_candidate(
             "risk", ticker, accessions,
             f"新增 {len(rows)} 份 Form 144 擬售通知，列為低強度風險候選",
             [f"已解析擬售 {planned_shares:,.0f} 股、申報估值 {compact_usd(planned_value)}。" if parsed_facts else "擬售股數／金額尚未完整解析。",
+             f"約占申報所列已發行股數 {outstanding_percent:,.5f}%。" if outstanding_percent is not None else "擬售量占流通股比例尚無法計算。",
              f"申報人：{'、'.join(reporters)}。" if reporters else "申報人需開啟原文核對。",
              "Form 144 是擬售意向，不等於已成交；需等待後續 Form 4 或市場交易確認。"],
             "集中或大額擬售可能增加供給壓力，但證據強度低於已完成的非 10b5-1 賣出。",
             sources, max((row.get("detected_at") or row.get("accepted_at") or "" for row in rows), default=""),
             "low", max((row.get("filing_date", "") for row in rows), default=""),
+            rule_key="form144_proposed_sale",
+            materiality={"planned_shares": planned_shares, "planned_value_usd": planned_value,
+                         "shares_outstanding": shares_outstanding,
+                         "planned_shares_outstanding_percent": outstanding_percent},
         ))
         used_accessions.update(accessions)
     return candidates, used_accessions
@@ -267,6 +335,7 @@ def quarterly_candidates(quarterly, editorial, used_accessions):
             evidence, "季度指紋與上次 AI 覆核基準不同；規則只列候選，不自行改寫結論。",
             [{"label": f"{latest.get('form') or '季度財報'} 原文", "url": latest.get("url")}],
             quarterly.get("generated_at", ""), "high", latest.get("filing_date", ""),
+            rule_key="quarterly_fingerprint",
         ))
     return candidates
 
@@ -305,6 +374,7 @@ def thesis_candidates(thesis, editorial):
             evidence, "需由 AI 讀取最新季度證據後，決定是否改寫正式綜合結論。",
             [{"label": "最新季度原文", "url": current.get("url")}],
             detected_at, "high" if change else "medium", current.get("period", ""),
+            rule_key="thesis_fingerprint",
         ))
     return candidates
 
@@ -329,6 +399,7 @@ def ownership_and_enforcement_candidates(advanced, editorial, used_accessions):
             "持股比例也可能受流通股數變化影響，需讀取原表與前次申報。",
             [{"label": f"SEC {row.get('form')}", "url": row.get("url")}],
             advanced.get("updated_at", ""), "medium", row.get("filing_date", ""),
+            rule_key="ownership_change",
         ))
         used_accessions.add(accession)
 
@@ -348,15 +419,17 @@ def ownership_and_enforcement_candidates(advanced, editorial, used_accessions):
             "執法或停牌屬高優先級風險來源，需核對官方通知與涉案主體。",
             [{"label": "SEC 官方來源", "url": event.get("url") or row.get("url")}],
             advanced.get("updated_at", ""), "high", event.get("filing_date") or row.get("date", ""),
+            rule_key="sec_enforcement",
         ))
     return candidates
 
 
-def build_payload(alerts, details, advanced, quarterly, thesis, editorial):
+def build_payload(alerts, details, advanced, quarterly, thesis, editorial, calibration=None):
     candidates, used = filing_candidates(alerts, details, advanced, editorial)
     candidates += quarterly_candidates(quarterly, editorial, used)
     candidates += thesis_candidates(thesis, editorial)
     candidates += ownership_and_enforcement_candidates(advanced, editorial, used)
+    apply_calibration(candidates, calibration or {})
     owned = set(editorial.get("portfolio_order", []))
     # Stable passes keep holdings and candidate type as the primary order while
     # sorting ISO dates newest-first inside each group.
@@ -366,17 +439,20 @@ def build_payload(alerts, details, advanced, quarterly, thesis, editorial):
         reverse=True,
     )
     candidates.sort(key=lambda row: TYPE_ORDER[row["type"]])
+    candidates.sort(key=lambda row: 1 if row["display_priority"] == "low" else 0)
     candidates.sort(key=lambda row: 0 if row["ticker"] in owned else 1)
     counts = {kind: sum(row["type"] == kind for row in candidates) for kind in TYPE_LABELS}
     return {
         "schema_version": 1,
-        "generated_at": source_as_of(alerts, advanced, quarterly, thesis),
+        "generated_at": source_as_of(alerts, advanced, quarterly, thesis, editorial, calibration),
         "editorial_reviewed_at": editorial.get("reviewed_at"),
         "editorial_window_end": editorial.get("window_end"),
         "status": "pending_ai_review" if candidates else "no_new_candidates",
         "candidate_count": len(candidates),
         "company_count": len({row["ticker"] for row in candidates}),
         "counts": counts,
+        "calibration_updated_at": (calibration or {}).get("generated_at"),
+        "lower_priority_count": sum(row["display_priority"] == "low" for row in candidates),
         "method": "規則只建立候選：新風險、改善或可能改變結論；不得自動寫入正式 AI 判讀。",
         "candidates": candidates,
     }
@@ -391,7 +467,8 @@ def render_markdown(payload):
         f"- 候選：**{payload['candidate_count']} 項／{payload['company_count']} 家**",
         f"- 新增風險候選：**{payload['counts']['risk']}**",
         f"- 改善候選：**{payload['counts']['improvement']}**",
-        f"- 結論變化候選：**{payload['counts']['conclusion']}**", "",
+        f"- 結論變化候選：**{payload['counts']['conclusion']}**",
+        f"- 歷史低命中而降低顯示優先級：**{payload.get('lower_priority_count', 0)}**", "",
     ]
     if not payload["candidates"]:
         lines.append("目前沒有晚於上次 AI 覆核基準的新候選。")
@@ -399,6 +476,8 @@ def render_markdown(payload):
         lines += [f"## {index}. {row['type_label']}｜{row['ticker']}", "", row["headline"], ""]
         lines += [f"- {text}" for text in row["evidence"]]
         lines += [f"- **為何列入**：{row['why_candidate']}", f"- **證據強度**：{row['confidence']}"]
+        quality = row.get("rule_quality", {})
+        lines += [f"- **規則品質**：已覆核 {quality.get('reviewed_count', 0)} 次、採納 {quality.get('accepted_count', 0)} 次；{row.get('priority_reason', '維持原優先級。')}"]
         links = "｜".join(f"[{source['label']}]({source['url']})" for source in row["sources"] if source.get("url")) or "—"
         lines += [f"- **官方來源**：{links}", ""]
     return "\n".join(lines).rstrip() + "\n"
@@ -443,6 +522,7 @@ def main():
     parser.add_argument("--quarterly", type=Path, default=DEFAULT_QUARTERLY)
     parser.add_argument("--thesis", type=Path, default=DEFAULT_THESIS)
     parser.add_argument("--editorial", type=Path, default=DEFAULT_EDITORIAL)
+    parser.add_argument("--calibration", type=Path, default=DEFAULT_CALIBRATION)
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
     parser.add_argument("--markdown", type=Path, default=DEFAULT_MARKDOWN)
     parser.add_argument("--alert-markdown", type=Path)
@@ -451,11 +531,12 @@ def main():
     args = parser.parse_args()
 
     inputs = [load_json(path, {}) for path in (args.alerts, args.details, args.advanced, args.quarterly, args.thesis, args.editorial)]
+    calibration = load_json(args.calibration, {})
     if not inputs[-1].get("reviewed_at"):
         raise SystemExit("sec_daily_editorial.json 缺 reviewed_at，不能建立覆核後候選")
     previous = load_json(args.output, {})
     previous_ids = {row.get("id") for row in previous.get("candidates", []) if row.get("id")}
-    payload = build_payload(*inputs)
+    payload = build_payload(*inputs, calibration)
     current_ids = {row["id"] for row in payload["candidates"]}
     new_ids = current_ids - previous_ids
     args.output.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n")

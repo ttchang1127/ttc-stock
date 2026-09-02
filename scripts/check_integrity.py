@@ -1210,6 +1210,7 @@ def c29():
     data = load("sec_daily_change_candidates.json")
     editorial = load("sec_daily_editorial.json")
     reviews = load("sec_daily_candidate_reviews.json")
+    calibration = load("sec_candidate_rule_calibration.json")
     bad = []
     if data.get("schema_version") != 1:
         bad.append("schema_version 不是 1")
@@ -1240,6 +1241,10 @@ def c29():
             bad.append(f"{ticker} 缺來源鍵或官方來源")
         if not row.get("headline") or not row.get("why_candidate"):
             bad.append(f"{ticker} 缺候選摘要或列入原因")
+        if not row.get("rule_key") or row.get("display_priority") not in {"normal", "low"}:
+            bad.append(f"{ticker} 缺規則鍵或顯示優先級")
+        if not isinstance(row.get("materiality"), dict) or not isinstance(row.get("rule_quality"), dict):
+            bad.append(f"{ticker} 缺實質性或規則品質欄位")
 
     if reviews.get("schema_version") != 1 or not reviews.get("batches"):
         bad.append("AI 候選覆核紀錄缺批次或 schema 無效")
@@ -1266,6 +1271,8 @@ def c29():
             ticker = row.get("ticker") or "未知"
             if row.get("candidate_type") not in {"risk", "improvement", "conclusion"}:
                 bad.append(f"{ticker} 缺原候選類型")
+            if not row.get("rule_key"):
+                bad.append(f"{ticker} 覆核紀錄缺規則鍵")
             expected_id = hashlib.sha256("|".join([
                 row.get("candidate_type", ""), ticker,
                 *sorted(str(key) for key in row.get("source_keys", []) if key),
@@ -1274,6 +1281,8 @@ def c29():
                 bad.append(f"{ticker} 候選 ID 與來源鍵不一致")
             if row.get("disposition") not in {"accepted", "rejected"}:
                 bad.append(f"{ticker} 覆核決策無效")
+            if row.get("disposition") == "rejected" and not row.get("rejection_reasons"):
+                bad.append(f"{ticker} 駁回決策缺標準化原因")
             if not row.get("rationale") or not row.get("verified_evidence"):
                 bad.append(f"{ticker} 缺駁回／採納理由或核實證據")
             if not row.get("sources") or any(not url.startswith("https://www.sec.gov/") for url in row.get("sources", [])):
@@ -1282,6 +1291,19 @@ def c29():
         changed_tickers = {row.get("ticker") for row in editorial.get("comparison", {}).get("changes", [])}
         if not changed_tickers.issubset(accepted_tickers):
             bad.append("正式比較稿含未經 AI 採納的公司")
+
+    if calibration.get("schema_version") != 1:
+        bad.append("候選規則校準 schema 無效")
+    if calibration.get("minimum_samples_before_adjustment") != 5:
+        bad.append("候選規則校準最小樣本不是 5")
+    if calibration.get("reviewed_candidate_count") != sum(
+            len(batch.get("decisions", [])) for batch in reviews.get("batches", [])):
+        bad.append("規則校準覆核總數與歷史紀錄不一致")
+    if "不刪除" not in calibration.get("policy", ""):
+        bad.append("規則校準缺不刪除 SEC 事件政策")
+    for rule_key, row in calibration.get("rules", {}).items():
+        if row.get("reviewed_count", 0) < 5 and row.get("priority_adjustment") != "none":
+            bad.append(f"{rule_key} 樣本不足卻調整優先級")
 
     with tempfile.TemporaryDirectory() as temp_dir:
         temp = pathlib.Path(temp_dir)
@@ -1300,6 +1322,15 @@ def c29():
             markdown = (temp / "candidates.md").read_text()
             if "待 AI 覆核候選" not in markdown or "不是最終判讀" not in markdown:
                 bad.append("Obsidian 候選稿缺非最終判讀警語")
+        calibration_result = subprocess.run([
+            sys.executable, str(REPO_ROOT / "scripts/build_sec_candidate_rule_calibration.py"),
+            "--output", str(temp / "calibration.json"),
+            "--markdown", str(temp / "calibration.md"),
+        ], cwd=REPO_ROOT, text=True, capture_output=True, check=False)
+        if calibration_result.returncode:
+            bad.append(f"規則校準重建失敗：{calibration_result.stderr.strip() or calibration_result.stdout.strip()}")
+        elif json.loads((temp / "calibration.json").read_text()) != calibration:
+            bad.append("現存規則校準無法由 AI 覆核紀錄確定性重建")
 
     sec_workflow = read(".github/workflows/sec-filing-alerts.yml")
     price_workflow = read(".github/workflows/update-prices.yml")
@@ -1308,24 +1339,32 @@ def c29():
     markers = {
         "SEC workflow": (sec_workflow, (
             "generate_sec_daily_change_candidates.py", "steps.candidates.outputs.notify_count",
-            "candidate_batch_id", "sec_daily_change_candidates.json", "SEC_Daily_Change_Candidates.md",
+            "build_sec_candidate_rule_calibration.py", "candidate_batch_id",
+            "sec_daily_change_candidates.json", "sec_candidate_rule_calibration.json",
+            "SEC_Daily_Change_Candidates.md", "SEC_Candidate_Rule_Calibration.md",
         )),
         "價格 workflow": (price_workflow, (
-            "generate_sec_daily_change_candidates.py", "sec_daily_change_candidates",
-            "SEC_Daily_Change_Candidates",
+            "generate_sec_daily_change_candidates.py", "build_sec_candidate_rule_calibration.py",
+            "sec_daily_change_candidates", "sec_candidate_rule_calibration",
+            "SEC_(Daily_Change_Candidates|Candidate_Rule_Calibration)",
         )),
         "dashboard": (dashboard, (
             "secChangeCandidates", "renderSecChangeCandidates", "sec_daily_change_candidates.json",
-            "sec_daily_candidate_reviews.json", "待 AI 閱讀官方原文的候選稿",
+            "sec_daily_candidate_reviews.json", "sec_candidate_rule_calibration.json",
+            "secRuleCalibrationHtml", "候選規則品質", "待 AI 閱讀官方原文的候選稿",
             "Form 144 只代表擬售意向", "查看逐項採納／駁回理由",
         )),
-        "00_Home": (home, ("SEC_Daily_Change_Candidates", "SEC_Daily_Candidate_Reviews", "SEC_Daily_Editorial")),
+        "00_Home": (home, ("SEC_Daily_Change_Candidates", "SEC_Daily_Candidate_Reviews",
+                            "SEC_Candidate_Rule_Calibration", "SEC_Daily_Editorial")),
+        "校準筆記": (read("60_SEC_Filing_Radar/SEC_Candidate_Rule_Calibration.md"), (
+            "採納率", "樣本不足、不調整", "不刪除 SEC 事件", "常見駁回原因",
+        )),
         "覆核筆記": (read("60_SEC_Filing_Radar/SEC_Daily_Candidate_Reviews.md"), (
             "採納", "駁回", "不是結論", "SEC 8-K 原文",
         )),
         "維護 SOP": (read("00_Meta/Sec_kb_資料維護SOP.md"), (
             "每日 SEC 候選 → AI 正式覆核閉環", "規則候選不是 AI 結論",
-            "sec_daily_candidate_reviews.json",
+            "sec_daily_candidate_reviews.json", "build_sec_candidate_rule_calibration.py",
         )),
     }
     missing = [f"{label}:{marker}" for label, (text, required) in markers.items()
