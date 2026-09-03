@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "updated_at": "2026-09-02T08:22:15+00:00",
+  "updated_at": "2026-09-03T08:36:15+00:00",
   "source": "SEC filing alerts + official primary filing documents",
   "methodology": "fail-closed heading boundaries; accession-deduplicated",
   "filings": [
@@ -417,14 +417,13 @@
       "accession": "0001046179-26-000552",
       "filing_date": "2026-09-01",
       "report_date": "2026-09-01",
-      "status": "ingested",
+      "status": "already_ingested",
       "note": "20_Filings/TSM/TSM_2026-09-01_6K_000552.md",
       "expected_note": "20_Filings/TSM/TSM_2026-09-01_6K_000552.md",
       "sections": [],
       "source_url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000552/tsm-dividendadjustmentx202.htm",
       "errors": [],
-      "removed_stale_notes": [],
-      "source_sha256": "515acf416d70d58de02d1901f0aab9946e802e40c5235007ec175ccaf7b9cd03"
+      "removed_stale_notes": []
     },
     {
       "ticker": "AAPL",
@@ -432,7 +431,7 @@
       "accession": "0001140361-26-035325",
       "filing_date": "2026-09-01",
       "report_date": "2026-04-17",
-      "status": "ingested",
+      "status": "already_ingested",
       "note": "20_Filings/AAPL/AAPL_2026-04-17_8K_A_035325.md",
       "expected_note": "20_Filings/AAPL/AAPL_2026-04-17_8K_A_035325.md",
       "sections": [
@@ -440,8 +439,25 @@
       ],
       "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126035325/ef20081427_8ka.htm",
       "errors": [],
+      "removed_stale_notes": []
+    },
+    {
+      "ticker": "MSFT",
+      "form": "8-K",
+      "accession": "0001193125-26-380280",
+      "filing_date": "2026-09-02",
+      "report_date": "2026-09-02",
+      "status": "ingested",
+      "note": "20_Filings/MSFT/MSFT_2026-09-02_8K_380280.md",
+      "expected_note": "20_Filings/MSFT/MSFT_2026-09-02_8K_380280.md",
+      "sections": [
+        "20_Filings/MSFT/sections/MSFT_2026-09-02_8K_380280_Item_7_01.md",
+        "20_Filings/MSFT/sections/MSFT_2026-09-02_8K_380280_Item_9_01.md"
+      ],
+      "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526380280/d291965d8k.htm",
+      "errors": [],
       "removed_stale_notes": [],
-      "source_sha256": "4cc8ebccca4cd4870b6afd6b864225448a0cece5cc65478dc2947835567a26f7"
+      "source_sha256": "6328d05612511965c29ff3d6a6919137eab86080fc2952d141c126cfe091d600"
     }
   ]
 }

@@ -1,6 +1,6 @@
 ---
 title: SEC 每日申報雷達
-updated_at: 2026-09-02T08:21:48+00:00
+updated_at: 2026-09-03T08:35:58+00:00
 tags:
   - sec/alerts
   - filings/daily
@@ -15,6 +15,37 @@ GitHub Actions 於台北時間週二至週六中午 12:00 檢查；重大／重�
 
 | 重要性 | 公司 | 申報 | 日期 | 事件／Item | SEC 原文 |
 |---|---|---|---|---|---|
+| 🔵 留意 | **COHR** | 4 | 2026-09-02 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/820318/000089914026001048/xslF345X06/form4.xml) |
+| 🔵 留意 | **COHR** | 4 | 2026-09-02 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/820318/000089914026001047/xslF345X06/form4.xml) |
+| 🔵 留意 | **COHR** | 4/A | 2026-09-02 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/820318/000089914026001046/xslF345X06/form4a.xml) |
+| 🔵 留意 | **NVDA** | 4 | 2026-09-02 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1045810/000119903926000012/xslF345X06/wk-form4_1788387031.xml) |
+| 🔵 留意 | **NVDA** | 4 | 2026-09-02 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1045810/000169684126000010/xslF345X06/wk-form4_1788386836.xml) |
+| 🔵 留意 | **MSFT** | 4 | 2026-09-02 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/789019/000078901926000161/xslF345X06/form4.xml) |
+| 🔵 留意 | **NVDA** | 144 | 2026-09-02 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1045810/000162828026060177/xsl144X01/primary_doc.xml) |
+| 🟠 重要 | **MSFT** | 8-K | 2026-09-02 | 7.01 Reg FD／簡報、9.01 附件／財務報表 | [原文](https://www.sec.gov/Archives/edgar/data/789019/000119312526380280/d291965d8k.htm) |
+| 🔵 留意 | **MRVL** | 4 | 2026-09-02 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1835632/000162828026060112/xslF345X06/wk-form4_1788380464.xml) |
+| 🔵 留意 | **COHR** | 144 | 2026-09-02 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/820318/000195004726008984/xsl144X01/primary_doc.xml) |
+| 🔵 留意 | **TSM** | 4 | 2026-09-02 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1046179/000104617926000594/xslF345X06/wk-form4_1788344670.xml) |
+| 🔵 留意 | **TSM** | 4 | 2026-09-02 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1046179/000104617926000593/xslF345X06/wk-form4_1788344662.xml) |
+| 🔵 留意 | **TSM** | 4 | 2026-09-02 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1046179/000104617926000592/xslF345X06/wk-form4_1788344654.xml) |
+| 🔵 留意 | **TSM** | 4 | 2026-09-02 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1046179/000104617926000591/xslF345X06/wk-form4_1788344647.xml) |
+| 🔵 留意 | **TSM** | 4 | 2026-09-02 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1046179/000104617926000590/xslF345X06/wk-form4_1788344516.xml) |
+| 🔵 留意 | **TSM** | 4 | 2026-09-02 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1046179/000104617926000589/xslF345X06/wk-form4_1788344508.xml) |
+| 🔵 留意 | **TSM** | 4 | 2026-09-02 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1046179/000104617926000588/xslF345X06/wk-form4_1788344500.xml) |
+| 🔵 留意 | **TSM** | 4 | 2026-09-02 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1046179/000104617926000587/xslF345X06/wk-form4_1788344492.xml) |
+| 🔵 留意 | **TSM** | 4 | 2026-09-02 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1046179/000104617926000586/xslF345X06/wk-form4_1788344485.xml) |
+| 🔵 留意 | **TSM** | 4 | 2026-09-02 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1046179/000104617926000585/xslF345X06/wk-form4_1788344477.xml) |
+| 🔵 留意 | **TSM** | 4 | 2026-09-02 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1046179/000104617926000584/xslF345X06/wk-form4_1788344146.xml) |
+| 🔵 留意 | **TSM** | 4 | 2026-09-02 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1046179/000104617926000583/xslF345X06/wk-form4_1788344138.xml) |
+| 🔵 留意 | **TSM** | 4 | 2026-09-02 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1046179/000104617926000582/xslF345X06/wk-form4_1788344129.xml) |
+| 🔵 留意 | **TSM** | 4 | 2026-09-02 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1046179/000104617926000581/xslF345X06/wk-form4_1788344122.xml) |
+| 🔵 留意 | **TSM** | 4 | 2026-09-02 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1046179/000104617926000580/xslF345X06/wk-form4_1788344114.xml) |
+| 🔵 留意 | **TSM** | 4 | 2026-09-02 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1046179/000104617926000579/xslF345X06/wk-form4_1788343756.xml) |
+| 🔵 留意 | **TSM** | 4 | 2026-09-02 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1046179/000104617926000578/xslF345X06/wk-form4_1788343750.xml) |
+| 🔵 留意 | **TSM** | 4 | 2026-09-02 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1046179/000104617926000577/xslF345X06/wk-form4_1788343744.xml) |
+| 🔵 留意 | **TSM** | 4 | 2026-09-02 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1046179/000104617926000576/xslF345X06/wk-form4_1788343736.xml) |
+| 🔵 留意 | **TSM** | 4 | 2026-09-02 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1046179/000104617926000575/xslF345X06/wk-form4_1788343728.xml) |
+| 🔵 留意 | **TSM** | 4 | 2026-09-02 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1046179/000104617926000574/xslF345X06/wk-form4_1788343720.xml) |
 | 🔵 留意 | **COHR** | 4 | 2026-09-01 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/820318/000089914026001040/xslF345X06/form4.xml) |
 | 🔵 留意 | **COHR** | 4 | 2026-09-01 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/820318/000089914026001039/xslF345X06/form4.xml) |
 | 🔵 留意 | **COHR** | 4 | 2026-09-01 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/820318/000089914026001038/xslF345X06/form4.xml) |
@@ -184,20 +215,6 @@ GitHub Actions 於台北時間週二至週六中午 12:00 檢查；重大／重�
 | 🔴 重大 | **GOOGL** | 424B5 | 2026-08-06 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526336798/d32286d424b5.htm) |
 | 🔵 留意 | **META** | 4 | 2026-08-05 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000095010326011964/xslF345X06/ownership.xml) |
 | 🔵 留意 | **MSFT** | 4 | 2026-08-05 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/789019/000078901926000141/xslF345X06/form4.xml) |
-| 🔵 留意 | **AMZN** | 4 | 2026-08-05 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000101872426000030/xslF345X06/wk-form4_1785962562.xml) |
-| 🔵 留意 | **AMZN** | 4 | 2026-08-05 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000101872426000028/xslF345X06/wk-form4_1785962062.xml) |
-| 🔵 留意 | **MSFT** | 144 | 2026-08-05 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/789019/000195917326005674/xsl144X01/primary_doc.xml) |
-| 🔵 留意 | **TSM** | 4 | 2026-08-05 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1046179/000104617926000468/xslF345X06/wk-form4_1785926000.xml) |
-| 🔵 留意 | **META** | 4 | 2026-08-04 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000095010326011909/xslF345X06/ownership.xml) |
-| 🔵 留意 | **META** | 4 | 2026-08-04 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000095010326011908/xslF345X06/ownership.xml) |
-| 🔵 留意 | **MSFT** | 144 | 2026-08-04 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/789019/000195917326005608/xsl144X01/primary_doc.xml) |
-| 🔵 留意 | **TSM** | 4 | 2026-08-04 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1046179/000104617926000465/xslF345X06/wk-form4_1785841276.xml) |
-| 🔵 留意 | **AMZN** | 144 | 2026-08-03 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000195004726007580/xsl144X01/primary_doc.xml) |
-| 🔵 留意 | **INTC** | 4 | 2026-08-03 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/50863/000005086326000174/xslF345X06/form4.xml) |
-| 🔵 留意 | **INTC** | 4 | 2026-08-03 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/50863/000005086326000173/xslF345X06/form4.xml) |
-| 🔵 留意 | **MRVL** | 4 | 2026-08-03 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1835632/000162828026051905/xslF345X06/wk-form4_1785789180.xml) |
-| 🔵 留意 | **MRVL** | 144 | 2026-08-03 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1835632/000195004726007514/xsl144X01/primary_doc.xml) |
-| 🔵 留意 | **META** | 144 | 2026-08-03 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000192109426000788/xsl144X01/primary_doc.xml) |
 
 ## 監控範圍
 
