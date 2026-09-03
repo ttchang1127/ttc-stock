@@ -1346,7 +1346,7 @@ def c29():
         "價格 workflow": (price_workflow, (
             "generate_sec_daily_change_candidates.py", "build_sec_candidate_rule_calibration.py",
             "sec_daily_change_candidates", "sec_candidate_rule_calibration",
-            "SEC_(Daily_Change_Candidates|Candidate_Rule_Calibration)",
+            "SEC_(Daily_Change_Candidates|Candidate_Rule_Calibration|Position_Impact_History)",
         )),
         "dashboard": (dashboard, (
             "secChangeCandidates", "renderSecChangeCandidates", "sec_daily_change_candidates.json",
@@ -1394,6 +1394,96 @@ def c30():
     if "SEC_Position_Impact_Scoring" not in home:
         missing.append("00_Home:SEC_Position_Impact_Scoring")
     return not missing, f"缺畫面／公式／邊界說明：{missing or '無'}"
+
+
+@check("C-31", "部位影響快照可重建且只通知實質門檻變化")
+def c31():
+    data = load("sec_position_impact_history.json")
+    holdings = load("portfolio_holdings.json")
+    dashboard = read("dashboard.html")
+    bad = []
+    if data.get("schema_version") != 1:
+        bad.append("schema_version 不是 1")
+    current = data.get("current") or {}
+    rows = current.get("rows") or []
+    if data.get("current_snapshot_id") != current.get("snapshot_id"):
+        bad.append("current_snapshot_id 與目前快照不一致")
+    expected = {"ARM", "COHR", "GOOG", "INTC", "MRVL", "NOK", "NVDA", "TSLA"}
+    if {row.get("ticker") for row in rows} != expected:
+        bad.append("目前快照不是 8 家實際持股")
+    if data.get("notify_count") != len(data.get("notifications", [])):
+        bad.append("notify_count 與通知明細不一致")
+    if not data.get("history") or data["history"][0].get("snapshot_id") != current.get("snapshot_id"):
+        bad.append("歷史第一筆不是目前快照")
+    for row in rows:
+        expected_total = min(100, sum(int(row.get(key, 0)) for key in ("event_score", "position_score", "drawdown_score")))
+        if row.get("total_score") != expected_total:
+            bad.append(f"{row.get('ticker')} 總分無法由三構面重建")
+        expected_level = "high" if expected_total >= 70 else "medium" if expected_total >= 45 else "low"
+        if row.get("level") != expected_level:
+            bad.append(f"{row.get('ticker')} 影響等級與總分不一致")
+        comparison = row.get("comparison") or {}
+        if comparison.get("status") not in {"baseline", "changed", "unchanged"}:
+            bad.append(f"{row.get('ticker')} 缺有效前次比較狀態")
+        if comparison.get("notify") and not comparison.get("reasons"):
+            bad.append(f"{row.get('ticker')} 通知缺具體原因")
+
+    embedded = {
+        (ticker, float(shares), float(cost))
+        for ticker, shares, cost in re.findall(
+            r'\{ ticker: "([A-Z]+)", shares: ([0-9.]+), cost: ([0-9.]+) \}', dashboard
+        )
+    }
+    configured = {(row["ticker"], float(row["shares"]), float(row["cost"]))
+                  for row in holdings.get("holdings", [])}
+    if embedded != configured:
+        bad.append("dashboard 備援持股與 portfolio_holdings.json 不一致")
+
+    with tempfile.TemporaryDirectory() as temp_dir:
+        temp = pathlib.Path(temp_dir)
+        result = subprocess.run([
+            sys.executable, str(REPO_ROOT / "scripts/build_sec_position_impact_history.py"),
+            "--output", str(temp / "history.json"),
+            "--markdown", str(temp / "history.md"),
+            "--github-output", str(temp / "github-output"),
+        ], cwd=REPO_ROOT, text=True, capture_output=True, check=False)
+        if result.returncode:
+            bad.append(f"部位影響快照重建失敗：{result.stderr.strip() or result.stdout.strip()}")
+        else:
+            rebuilt = json.loads((temp / "history.json").read_text())
+            if rebuilt.get("current_snapshot_id") != data.get("current_snapshot_id"):
+                bad.append("目前快照無法由來源資料確定性重建")
+            if "首次建立比較基準" not in (temp / "history.md").read_text():
+                bad.append("Obsidian 歷史頁缺首次基準說明")
+
+    markers = {
+        "dashboard": (dashboard, (
+            "sec_position_impact_history.json", "portfolio_holdings.json", "loadPortfolioHoldings",
+            "較前次 ${deltaText} 分", "小幅價格波動不通知", "持股比重跨 5%／10%／15%",
+            "回撤跨 -10%／-20%／-30%",
+        )),
+        "SEC workflow": (read(".github/workflows/sec-filing-alerts.yml"), (
+            "build_sec_position_impact_history.py", "steps.position_impact.outputs.notify_count",
+            "POSITION_IMPACT_BATCH_ID", "sec_position_impact_history.json", "SEC_Position_Impact_History.md",
+        )),
+        "價格 workflow": (read(".github/workflows/update-prices.yml"), (
+            "build_sec_position_impact_history.py", "Notify meaningful portfolio-impact changes",
+            "steps.position_impact.outputs.notify_count", "issues: write", "Position_Impact_History",
+        )),
+        "說明筆記": (read("60_SEC_Filing_Radar/SEC_Position_Impact_Scoring.md"), (
+            "第一次只建立比較基準", "總分至少變動 10 分", "小幅價格波動", "不會重複通知",
+        )),
+        "歷史筆記": (read("60_SEC_Filing_Radar/SEC_Position_Impact_History.md"), (
+            "本次真正需要注意的變化", "目前排序", "通知門檻", "不是公司評等",
+        )),
+        "維護 SOP": (read("00_Meta/Sec_kb_資料維護SOP.md"), (
+            "build_sec_position_impact_history.py", "重跑相同快照", "notify_count",
+        )),
+        "00_Home": (read("00_Home.md"), ("SEC_Position_Impact_Scoring", "SEC_Position_Impact_History")),
+    }
+    missing = [f"{label}:{marker}" for label, (text, required) in markers.items()
+               for marker in required if marker not in text]
+    return not bad and not missing, f"資料問題：{bad or '無'}；缺自動化／畫面：{missing or '無'}"
 
 
 def main():

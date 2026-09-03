@@ -1319,6 +1319,16 @@
     .sec-position-impact-position { color: #bae6fd; }
     .sec-position-impact-reason { color: #cbd5e1; }
     .sec-position-impact-action { color: #fde68a; }
+    .sec-position-impact-summary { margin-bottom: 11px; padding: 9px 11px; border-left: 3px solid #34d399; border-radius: 9px; background: rgba(6, 78, 59, 0.13); color: #a7f3d0; font-size: 0.7rem; line-height: 1.5; }
+    .sec-position-impact-summary.alert { border-left-color: #fb7185; background: rgba(127, 29, 29, 0.15); color: #fecdd3; }
+    .sec-position-impact-change { display: flex; align-items: baseline; gap: 6px; margin-top: 8px; padding: 6px 7px; border-radius: 7px; background: rgba(15, 23, 42, 0.68); font-size: 0.62rem; line-height: 1.4; }
+    .sec-position-impact-change strong { color: #e2e8f0; }
+    .sec-position-impact-change span { color: #94a3b8; }
+    .sec-position-impact-change.increase strong { color: #fecdd3; }
+    .sec-position-impact-change.decrease strong { color: #a7f3d0; }
+    .sec-position-impact-change.baseline strong { color: #bae6fd; }
+    .sec-position-impact-change-reasons { margin: 6px 0 0; padding-left: 17px; }
+    .sec-position-impact-change-reasons li { color: #cbd5e1; font-size: 0.62rem; line-height: 1.45; }
     .sec-position-impact-method { margin: 11px 0 0; color: #94a3b8; font-size: 0.67rem; line-height: 1.55; }
 
     .sec-editorial {
@@ -3854,7 +3864,7 @@
     let secQuarterlyChart = null;
     const SEC_CORE_TICKERS = ['NVDA', 'TSM', 'MSFT', 'META', 'AAPL', 'AMZN', 'ARM', 'ONDS', 'TSLA', 'GOOG', 'COHR', 'MRVL', 'INTC', 'NOK'];
     const SEC_TICKER_ALIASES = { GOOG: 'GOOGL' };
-    const userHoldings = [
+    let userHoldings = [
       { ticker: "ARM", shares: 15, cost: 231.038 },
       { ticker: "COHR", shares: 10, cost: 336.066 },
       { ticker: "GOOG", shares: 20, cost: 266.492 },
@@ -3866,7 +3876,26 @@
       { ticker: "VGT", shares: 248, cost: 90.276935 },
       { ticker: "VOO", shares: 45.76647, cost: 570.406675 },
     ];
-    const SEC_OWNED_TICKERS = new Set(userHoldings.map(row => row.ticker).filter(ticker => SEC_CORE_TICKERS.includes(ticker)));
+    let SEC_OWNED_TICKERS = new Set(userHoldings.map(row => row.ticker).filter(ticker => SEC_CORE_TICKERS.includes(ticker)));
+    let portfolioHoldingsPromise = null;
+
+    function loadPortfolioHoldings() {
+      if (!portfolioHoldingsPromise) {
+        portfolioHoldingsPromise = fetch('portfolio_holdings.json', { cache: 'no-cache' })
+          .then(response => { if (!response.ok) throw new Error(`個人持股 HTTP ${response.status}`); return response.json(); })
+          .then(payload => {
+            if (!Array.isArray(payload.holdings) || !payload.holdings.length) throw new Error('個人持股明細為空');
+            userHoldings = payload.holdings.map(row => ({ ticker: row.ticker, shares: Number(row.shares), cost: Number(row.cost) }));
+            SEC_OWNED_TICKERS = new Set(userHoldings.map(row => row.ticker).filter(ticker => SEC_CORE_TICKERS.includes(ticker)));
+            return payload;
+          })
+          .catch(error => {
+            console.warn('portfolio_holdings.json 載入失敗，使用頁面內建持股備援', error);
+            return { holdings: userHoldings, fallback: true };
+          });
+      }
+      return portfolioHoldingsPromise;
+    }
 
     const SEC_SEVERITY = {
       critical: { label: '🔴 重大', css: 'critical' },
@@ -4257,11 +4286,15 @@
           fetch('sec_candidate_rule_calibration.json', { cache: 'no-cache' })
             .then(r => { if (!r.ok) throw new Error(`候選規則校準 HTTP ${r.status}`); return r.json(); })
             .catch(error => { console.warn('sec_candidate_rule_calibration.json 載入失敗', error); return null; }),
+          fetch('sec_position_impact_history.json', { cache: 'no-cache' })
+            .then(r => { if (!r.ok) throw new Error(`部位影響歷史 HTTP ${r.status}`); return r.json(); })
+            .catch(error => { console.warn('sec_position_impact_history.json 載入失敗，改用即時計算', error); return null; }),
+          loadPortfolioHoldings(),
           fetch('valuation.json', { cache: 'no-cache' })
             .then(r => { if (!r.ok) throw new Error(`估值資料 HTTP ${r.status}`); return r.json(); })
             .catch(error => { console.warn('valuation.json 載入失敗，跨公司估值排名將顯示缺值', error); return null; }),
-        ]).then(([alerts, details, quarterlyFinancials, advanced, thirteenF, textChanges, thesisTracking, thesisStatus, exhibit991, earningsCalls, editorial, changeCandidates, candidateReviews, candidateCalibration, valuation]) => {
-          secDailyData = { alerts, details, quarterlyFinancials, advanced, thirteenF, textChanges, thesisTracking, thesisStatus, exhibit991, earningsCalls, editorial, changeCandidates, candidateReviews, candidateCalibration, valuation };
+        ]).then(([alerts, details, quarterlyFinancials, advanced, thirteenF, textChanges, thesisTracking, thesisStatus, exhibit991, earningsCalls, editorial, changeCandidates, candidateReviews, candidateCalibration, positionImpact, holdingsPayload, valuation]) => {
+          secDailyData = { alerts, details, quarterlyFinancials, advanced, thirteenF, textChanges, thesisTracking, thesisStatus, exhibit991, earningsCalls, editorial, changeCandidates, candidateReviews, candidateCalibration, positionImpact, holdingsPayload, valuation };
           renderSecDaily();
         }).catch(error => {
           secDailyPromise = null;
@@ -4651,8 +4684,33 @@
         <p class="sec-reading-rank-method">排序規則依序考量：潛在稀釋、重大／重要申報、90 日內重大 13D／13G、SEC 執法／停牌、投資論點失效／狀態改變、八季財務警報、P／S 主動買賣與一般申報；同級再按訊號數量與最近日期排列。「AI 已讀」只在人工重點仍涵蓋最新 SEC 申報、季度財務、投資論點、13D／13G 與執法資料時顯示；若覆核後偵測到新增或覆蓋指紋改變，就改標「有新資料，待 AI 重讀」。這不是瀏覽器待辦或使用者閱讀進度。排序只決定每日閱讀先後，不是利多／利空、投資評等或報酬預測。</p>`;
     }
 
+    function secPositionImpactLevel(totalScore, storedKey = '') {
+      const key = storedKey || (totalScore >= 70 ? 'high' : (totalScore >= 45 ? 'medium' : 'low'));
+      if (key === 'high') return { key, label: '高影響', action: '先讀：先核對最新官方原文與投資論點失效條件。' };
+      if (key === 'medium') return { key, label: '中影響', action: '優先確認：判斷新事件是否足以改變既有結論。' };
+      return { key: 'low', label: '低影響', action: '例行追蹤：目前沒有明顯的部位放大訊號。' };
+    }
+
     function secPositionImpactRows() {
       if (!secDailyData) return [];
+      const storedRows = secDailyData.positionImpact?.current?.rows;
+      if (Array.isArray(storedRows) && storedRows.length) {
+        return storedRows.map(row => ({
+          displayTicker: row.ticker,
+          eventScore: Number(row.event_score),
+          positionScore: Number(row.position_score),
+          drawdownScore: Number(row.drawdown_score),
+          totalScore: Number(row.total_score),
+          level: secPositionImpactLevel(Number(row.total_score), row.level),
+          eventReason: row.event_reason,
+          priceDate: row.price_date,
+          currentPrice: Number(row.current_price),
+          marketValue: Number(row.market_value),
+          pnlPct: Number(row.pnl_pct),
+          weight: Number(row.weight_pct),
+          comparison: row.comparison || null,
+        }));
+      }
       const rankByTicker = new Map(secReadingRankRows().map(row => [row.displayTicker, row]));
       const editorialByTicker = new Map((secDailyData.editorial?.companies || []).map(row => [row.ticker, row]));
       const pendingCandidates = secDailyData.changeCandidates?.candidates || [];
@@ -4706,11 +4764,7 @@
         const pnlPct = Number(position.pnlPct);
         const drawdownScore = pnlPct <= -30 ? 25 : (pnlPct <= -20 ? 20 : (pnlPct <= -10 ? 12 : (pnlPct < 0 ? 6 : 0)));
         const totalScore = Math.min(100, eventScore + positionScore + drawdownScore);
-        const level = totalScore >= 70
-          ? { key: 'high', label: '高影響', action: '先讀：先核對最新官方原文與投資論點失效條件。' }
-          : (totalScore >= 45
-            ? { key: 'medium', label: '中影響', action: '優先確認：判斷新事件是否足以改變既有結論。' }
-            : { key: 'low', label: '低影響', action: '例行追蹤：目前沒有明顯的部位放大訊號。' });
+        const level = secPositionImpactLevel(totalScore);
         const priceSeries = priceDB?.series?.[displayTicker];
         const priceDate = priceSeries?.dates?.[priceSeries.dates.length - 1] || '';
         return { displayTicker, eventScore, positionScore, drawdownScore, totalScore, level, eventReason, priceDate, ...position };
@@ -4732,6 +4786,18 @@
       const priceDate = priceDates[priceDates.length - 1] || '價格資料載入中';
       const cards = rows.map((row, index) => {
         const pnl = Number(row.pnlPct);
+        const comparison = row.comparison;
+        let comparisonHtml = '<div class="sec-position-impact-change baseline"><strong>即時計算</strong><span>歷史快照尚未建立</span></div>';
+        if (comparison?.status === 'baseline') {
+          comparisonHtml = '<div class="sec-position-impact-change baseline"><strong>首次建立比較基準</strong><span>本次不發通知</span></div>';
+        } else if (comparison) {
+          const delta = Number(comparison.score_delta || 0);
+          const css = comparison.notify ? (delta > 0 ? 'increase' : (delta < 0 ? 'decrease' : 'baseline')) : '';
+          const deltaText = `${delta > 0 ? '+' : ''}${formatSecNumber(delta)}`;
+          const reasons = comparison.reasons?.length
+            ? `<ul class="sec-position-impact-change-reasons">${comparison.reasons.map(reason => `<li>${escapeSec(reason)}</li>`).join('')}</ul>` : '';
+          comparisonHtml = `<div class="sec-position-impact-change ${css}"><strong>較前次 ${deltaText} 分</strong><span>${escapeSec(comparison.label)}</span></div>${reasons}`;
+        }
         return `<article class="sec-position-impact-card ${row.level.key}">
           <div class="sec-position-impact-title"><span class="sec-reading-rank-number">#${index + 1}</span><button type="button" onclick="setSecCoreTicker('${escapeSec(row.displayTicker)}')">${escapeSec(row.displayTicker)}</button><span class="sec-position-impact-level ${row.level.key}">${row.level.label}</span></div>
           <div class="sec-position-impact-score"><strong>${formatSecNumber(row.totalScore)}</strong><span>／100 閱讀影響分數</span></div>
@@ -4742,16 +4808,24 @@
             <div class="sec-position-impact-part"><strong>${formatSecNumber(row.drawdownScore)}／25</strong><span>未實現回撤</span></div>
           </div>
           <p class="sec-position-impact-position">組合占比 ${formatSecNumber(row.weight, 1)}%｜未實現 ${pnl >= 0 ? '+' : ''}${formatSecNumber(pnl, 1)}%</p>
+          ${comparisonHtml}
           <p class="sec-position-impact-reason"><strong>主要依據：</strong>${escapeSec(row.eventReason)}</p>
           <p class="sec-position-impact-action">${escapeSec(row.level.action)}</p>
         </article>`;
       }).join('');
+      const history = secDailyData.positionImpact;
+      const notifyCount = Number(history?.notify_count || 0);
+      const hasPrevious = Boolean(history?.previous_snapshot_id);
+      const summary = notifyCount
+        ? `<div class="sec-position-impact-summary alert"><strong>🔔 相較前次有 ${formatSecNumber(notifyCount)} 家跨越通知門檻。</strong>只顯示等級、SEC 訊號、總分或部位／回撤門檻的實質變化。</div>`
+        : `<div class="sec-position-impact-summary"><strong>${hasPrevious ? '✅ 相較前次沒有實質變化。' : '📍 首次建立比較基準，本次不發通知。'}</strong>${hasPrevious ? ' 小幅價格波動不重複提醒。' : ' 下一個不同快照才開始比較。'}</div>`;
       container.innerHTML = `<div class="sec-position-impact-head">
           <div><h3 id="secPositionImpactTitle">💼 實際持股部位影響排序</h3><p>只列 8 家實際持股；分數越高，代表同一 SEC 訊號可能對目前組合更值得優先核對。</p></div>
           <span class="sec-position-impact-date">持股價格基準：${escapeSec(priceDate)}</span>
         </div>
+        ${summary}
         <div class="sec-position-impact-list">${cards}</div>
-        <p class="sec-position-impact-method"><strong>怎麼算：</strong>SEC 訊號最高 40 分（正式已覆核變化、待覆核候選、申報／財務警報）；持股集中度最高 35 分（占整體持股現值）；未實現回撤最高 25 分（獲利部位為 0 分）。候選稿只提高閱讀優先度，不當成事實結論。總分是閱讀影響，不是公司好壞、預期報酬或買進／賣出建議；VGT／VOO 的成分股曝險未拆入單一公司。</p>`;
+        <p class="sec-position-impact-method"><strong>怎麼算：</strong>SEC 訊號最高 40 分（正式已覆核變化、待覆核候選、申報／財務警報）；持股集中度最高 35 分（占整體持股現值）；未實現回撤最高 25 分（獲利部位為 0 分）。只在影響等級改變、SEC 訊號分數改變、總分至少變動 10 分、持股比重跨 5%／10%／15%，或回撤跨 -10%／-20%／-30% 時通知；小幅價格波動不通知。候選稿只提高閱讀優先度，不當成事實結論。總分是閱讀影響，不是公司好壞、預期報酬或買進／賣出建議；VGT／VOO 的成分股曝險未拆入單一公司。</p>`;
     }
 
     function secHoldingPosition(ticker, companyTone) {
@@ -7303,7 +7377,7 @@
     // prefills the rate field with it, replacing the static placeholder that
     // used to sit there indefinitely with no way to tell how stale it was.
     function initFxRate() {
-      loadPriceDB().then(db => {
+      Promise.all([loadPriceDB(), loadPortfolioHoldings()]).then(([db]) => {
         const fx = db.fx_usdtwd;
         if (fx && fx.values.length && !fxManuallyEdited) {
           document.getElementById('usdTwdRateInput').value = fx.values[fx.values.length - 1].toFixed(3);

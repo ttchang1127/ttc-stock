@@ -25,6 +25,8 @@ class DashboardSecTabTests(unittest.TestCase):
         cls.change_candidates = json.loads((ROOT / "sec_daily_change_candidates.json").read_text())
         cls.candidate_reviews = json.loads((ROOT / "sec_daily_candidate_reviews.json").read_text())
         cls.candidate_calibration = json.loads((ROOT / "sec_candidate_rule_calibration.json").read_text())
+        cls.position_impact = json.loads((ROOT / "sec_position_impact_history.json").read_text())
+        cls.holdings = json.loads((ROOT / "portfolio_holdings.json").read_text())
 
     def test_tab_defaults_to_14_days_and_allows_7_days(self):
         self.assertIn("🚨 4_SEC 每日重點", self.html)
@@ -311,6 +313,31 @@ class DashboardSecTabTests(unittest.TestCase):
         self.assertIn("pnlPct <= -30 ? 25", self.html)
         self.assertIn("weight >= 15 ? 35", self.html)
 
+    def test_position_impact_history_shows_only_meaningful_changes(self):
+        self.assertEqual(self.position_impact["schema_version"], 1)
+        self.assertEqual(len(self.position_impact["current"]["rows"]), 8)
+        self.assertEqual(self.position_impact["current_snapshot_id"], self.position_impact["current"]["snapshot_id"])
+        self.assertEqual(self.position_impact["notify_count"], len(self.position_impact["notifications"]))
+        self.assertEqual({row["ticker"] for row in self.position_impact["current"]["rows"]},
+                         {"ARM", "COHR", "GOOG", "INTC", "MRVL", "NOK", "NVDA", "TSLA"})
+        required_copy = [
+            "fetch('sec_position_impact_history.json'", "fetch('portfolio_holdings.json'",
+            "function loadPortfolioHoldings()", "function secPositionImpactLevel",
+            "首次建立比較基準，本次不發通知", "相較前次沒有實質變化",
+            "較前次 ${deltaText} 分", "小幅價格波動不通知",
+            "持股比重跨 5%／10%／15%", "回撤跨 -10%／-20%／-30%",
+        ]
+        for phrase in required_copy:
+            self.assertIn(phrase, self.html)
+        embedded = {
+            match.groups() for match in re.finditer(
+                r'\{ ticker: "([A-Z]+)", shares: ([0-9.]+), cost: ([0-9.]+) \}', self.html
+            )
+        }
+        configured = {(row["ticker"], str(row["shares"]), str(row["cost"]))
+                      for row in self.holdings["holdings"]}
+        self.assertEqual(embedded, configured)
+
     def test_daily_editorial_contains_digested_evidence_and_next_checks(self):
         core = {"NVDA", "TSM", "MSFT", "META", "AAPL", "AMZN", "ARM",
                 "ONDS", "TSLA", "GOOG", "COHR", "MRVL", "INTC", "NOK"}
@@ -357,7 +384,7 @@ class DashboardSecTabTests(unittest.TestCase):
             "只會列出新增風險、改善與結論變化",
             "未變項目不重複列出",
             "new Set(['risk', 'improvement', 'conclusion'])",
-            "const SEC_OWNED_TICKERS = new Set(userHoldings.map",
+            "let SEC_OWNED_TICKERS = new Set(userHoldings.map",
             "💼 實際持股｜優先看部位風險",
             "👀 觀察名單",
             "function secHoldingPosition(ticker, companyTone)",

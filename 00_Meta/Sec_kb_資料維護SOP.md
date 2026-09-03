@@ -191,10 +191,13 @@ git add financials.json fundamentals.json financial_health.json valuation.json *
 ```bash
 python3 scripts/build_sec_candidate_rule_calibration.py
 python3 scripts/generate_sec_daily_change_candidates.py
+python3 scripts/build_sec_position_impact_history.py
 python3 scripts/check_integrity.py --quiet
 ```
 
 預期：已覆核候選歸零；儀表板顯示最近一次採納／駁回紀錄。GitHub Actions 沒有模型憑證，也不會自動冒充 AI 完成覆核；真正的語意判讀必須由可追溯的 AI 閱讀工作完成後 commit。
+
+部位影響歷史由 `portfolio_holdings.json`、最新價格、SEC 申報、八季財務警報、投資論點、候選稿與正式人工判讀確定性重建。第一次執行只建立基準；之後只有等級改變、SEC 訊號分數改變、總分至少變動 10 分，或持股比重／回撤跨門檻時才通知。重跑相同快照的 `notify_count` 必須為 0，避免 GitHub Issue 重複發送。
 
 ### 輸出對照表
 

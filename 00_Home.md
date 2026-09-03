@@ -69,6 +69,7 @@ tags:
 - 🎯 **[[SEC_Candidate_Rule_Calibration|候選規則品質校準（採納率／駁回原因）]]**
 - 🧠 **[[SEC_Daily_Editorial|SEC 每日人工消化重點（正式判讀）]]**
 - 💼 **[[SEC_Position_Impact_Scoring|實際持股部位影響排序（SEC 訊號 × 部位 × 回撤）]]**
+- 🔔 **[[SEC_Position_Impact_History|部位影響變化歷史（只列跨門檻變化）]]**
 - 📥 **[[Periodic_Filing_Ingest|10-Q／8-K／6-K 原文筆記與安全分段狀態]]**
 - 📊 **[[Exhibit_991_Earnings_Radar|8-K Exhibit 99.1 財報分析卡雷達]]**
 - 🎙️ **[[Earnings_Call_Radar|官方 Earnings Call／Prepared Remarks 雷達]]**
