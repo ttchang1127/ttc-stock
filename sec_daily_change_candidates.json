@@ -1,15 +1,15 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-09-03T08:35:58+00:00",
+  "generated_at": "2026-09-04T08:26:33+00:00",
   "editorial_reviewed_at": "2026-09-01T20:46:16+08:00",
   "editorial_window_end": "2026-09-01",
   "status": "pending_ai_review",
-  "candidate_count": 15,
-  "company_count": 6,
+  "candidate_count": 18,
+  "company_count": 7,
   "counts": {
-    "risk": 12,
+    "risk": 14,
     "improvement": 0,
-    "conclusion": 3
+    "conclusion": 4
   },
   "calibration_updated_at": "2026-09-01T20:46:16+08:00",
   "lower_priority_count": 0,
@@ -424,6 +424,122 @@
         {
           "label": "SEC Form 144",
           "url": "https://www.sec.gov/Archives/edgar/data/1835632/000195004726008892/xsl144X01/primary_doc.xml"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 2,
+        "accepted_count": 0,
+        "acceptance_rate": 0.0,
+        "sample_status": "insufficient"
+      }
+    },
+    {
+      "id": "d1baf6718355c313",
+      "ticker": "NVDA",
+      "type": "conclusion",
+      "type_label": "🟡 結論變化候選",
+      "status": "pending_ai_review",
+      "confidence": "medium",
+      "rule_key": "major_current_report",
+      "materiality": {},
+      "display_priority": "normal",
+      "priority_reason": "只有 1 個已覆核樣本；至少 5 個樣本前不調整優先級。",
+      "headline": "重大 8-K 可能改變既有結論",
+      "evidence": [
+        "8.01 其他重大事項"
+      ],
+      "why_candidate": "文件重要性只提高重讀優先級，不預設為利多或利空。",
+      "filing_date": "2026-09-03",
+      "detected_at": "2026-09-04T08:26:33+00:00",
+      "source_keys": [
+        "0001045810-26-000078"
+      ],
+      "sources": [
+        {
+          "label": "SEC 8-K",
+          "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000078/nvda-20260902.htm"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 1,
+        "accepted_count": 1,
+        "acceptance_rate": 1.0,
+        "sample_status": "insufficient"
+      }
+    },
+    {
+      "id": "4e517213c3b921be",
+      "ticker": "AAPL",
+      "type": "risk",
+      "type_label": "🔴 新增風險候選",
+      "status": "pending_ai_review",
+      "confidence": "low",
+      "rule_key": "form4_sell_10b5_1",
+      "materiality": {
+        "transaction_value_usd": 456177.39,
+        "max_transaction_holding_percent": 3.8652663246393937,
+        "planned_transaction_count": 1,
+        "transaction_count": 1
+      },
+      "display_priority": "normal",
+      "priority_reason": "只有 2 個已覆核樣本；至少 5 個樣本前不調整優先級。",
+      "headline": "Form 4 出現 1 列賣出，列為風險候選",
+      "evidence": [
+        "已知賣出金額合計 $456.2K；其中 1/1 列標示 10b5-1。",
+        "單筆最高約占交易前直接持股 3.87%。",
+        "10b5-1 是預先安排交易，訊號強度低於臨時主動賣出。"
+      ],
+      "why_candidate": "內部人賣出需看計畫屬性、持股比例與交易規模，不直接等於看空。",
+      "filing_date": "2026-09-03",
+      "detected_at": "2026-09-04T08:26:33+00:00",
+      "source_keys": [
+        "0001140361-26-035636"
+      ],
+      "sources": [
+        {
+          "label": "SEC 4",
+          "url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126035636/xslF345X06/form4.xml"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 2,
+        "accepted_count": 0,
+        "acceptance_rate": 0.0,
+        "sample_status": "insufficient"
+      }
+    },
+    {
+      "id": "d2591a67e9490c8b",
+      "ticker": "AMZN",
+      "type": "risk",
+      "type_label": "🔴 新增風險候選",
+      "status": "pending_ai_review",
+      "confidence": "low",
+      "rule_key": "form4_sell_10b5_1",
+      "materiality": {
+        "transaction_value_usd": 254770.0,
+        "max_transaction_holding_percent": 0.2097839016029588,
+        "planned_transaction_count": 1,
+        "transaction_count": 1
+      },
+      "display_priority": "normal",
+      "priority_reason": "只有 2 個已覆核樣本；至少 5 個樣本前不調整優先級。",
+      "headline": "Form 4 出現 1 列賣出，列為風險候選",
+      "evidence": [
+        "已知賣出金額合計 $254.8K；其中 1/1 列標示 10b5-1。",
+        "單筆最高約占交易前直接持股 0.21%。",
+        "10b5-1 是預先安排交易，訊號強度低於臨時主動賣出。"
+      ],
+      "why_candidate": "內部人賣出需看計畫屬性、持股比例與交易規模，不直接等於看空。",
+      "filing_date": "2026-09-03",
+      "detected_at": "2026-09-04T08:26:33+00:00",
+      "source_keys": [
+        "0001936006-26-000024"
+      ],
+      "sources": [
+        {
+          "label": "SEC 4",
+          "url": "https://www.sec.gov/Archives/edgar/data/1018724/000193600626000024/xslF345X06/wk-form4_1788468119.xml"
         }
       ],
       "rule_quality": {

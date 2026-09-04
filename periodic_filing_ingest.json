@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "updated_at": "2026-09-03T08:36:15+00:00",
+  "updated_at": "2026-09-04T08:26:42+00:00",
   "source": "SEC filing alerts + official primary filing documents",
   "methodology": "fail-closed heading boundaries; accession-deduplicated",
   "filings": [
@@ -447,7 +447,7 @@
       "accession": "0001193125-26-380280",
       "filing_date": "2026-09-02",
       "report_date": "2026-09-02",
-      "status": "ingested",
+      "status": "already_ingested",
       "note": "20_Filings/MSFT/MSFT_2026-09-02_8K_380280.md",
       "expected_note": "20_Filings/MSFT/MSFT_2026-09-02_8K_380280.md",
       "sections": [
@@ -456,8 +456,24 @@
       ],
       "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526380280/d291965d8k.htm",
       "errors": [],
+      "removed_stale_notes": []
+    },
+    {
+      "ticker": "NVDA",
+      "form": "8-K",
+      "accession": "0001045810-26-000078",
+      "filing_date": "2026-09-03",
+      "report_date": "2026-09-02",
+      "status": "ingested",
+      "note": "20_Filings/NVDA/NVDA_2026-09-02_8K_000078.md",
+      "expected_note": "20_Filings/NVDA/NVDA_2026-09-02_8K_000078.md",
+      "sections": [
+        "20_Filings/NVDA/sections/NVDA_2026-09-02_8K_000078_Item_8_01.md"
+      ],
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000078/nvda-20260902.htm",
+      "errors": [],
       "removed_stale_notes": [],
-      "source_sha256": "6328d05612511965c29ff3d6a6919137eab86080fc2952d141c126cfe091d600"
+      "source_sha256": "089fc17e99aaaa97e4b4b8a13c5b78dca7c4f0d24aca12c2d275a4e765ca461a"
     }
   ]
 }
