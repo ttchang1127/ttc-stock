@@ -1,6 +1,6 @@
 ---
 title: 📎 財報附註／附件雷達
-updated_at: 2026-09-04T08:26:33+00:00
+updated_at: 2026-09-05T08:01:03+00:00
 tags:
   - sec/footnotes
 ---
@@ -40,5 +40,5 @@ tags:
 | 2026-09-01 | **TSM** | 6-K | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1046179/000104617926000552/tsm-dividendadjustmentx202.htm) |
 | 2026-08-25 | **TSM** | 6-K | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1046179/000104617926000545/tsm-monthend6kx20260825.htm) |
 
-> 最後檢查：`2026-09-04T08:26:33+00:00`。關鍵字命中是閱讀導航，不等於會計結論或利多／利空。
+> 最後檢查：`2026-09-05T08:01:03+00:00`。關鍵字命中是閱讀導航，不等於會計結論或利多／利空。
 

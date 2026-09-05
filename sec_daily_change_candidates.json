@@ -1,20 +1,61 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-09-04T08:26:33+00:00",
+  "generated_at": "2026-09-05T08:01:03+00:00",
   "editorial_reviewed_at": "2026-09-01T20:46:16+08:00",
   "editorial_window_end": "2026-09-01",
   "status": "pending_ai_review",
-  "candidate_count": 18,
+  "candidate_count": 20,
   "company_count": 7,
   "counts": {
-    "risk": 14,
-    "improvement": 0,
+    "risk": 15,
+    "improvement": 1,
     "conclusion": 4
   },
   "calibration_updated_at": "2026-09-01T20:46:16+08:00",
   "lower_priority_count": 0,
   "method": "規則只建立候選：新風險、改善或可能改變結論；不得自動寫入正式 AI 判讀。",
   "candidates": [
+    {
+      "id": "954c5927cb8efdb7",
+      "ticker": "COHR",
+      "type": "risk",
+      "type_label": "🔴 新增風險候選",
+      "status": "pending_ai_review",
+      "confidence": "medium",
+      "rule_key": "form4_sell_unplanned",
+      "materiality": {
+        "transaction_value_usd": 590524.0,
+        "max_transaction_holding_percent": 14.442329153810807,
+        "planned_transaction_count": 0,
+        "transaction_count": 1
+      },
+      "display_priority": "normal",
+      "priority_reason": "目前規則樣本不足或採納率未達降級門檻，維持原顯示優先級。",
+      "headline": "Form 4 出現 1 列賣出，列為風險候選",
+      "evidence": [
+        "已知賣出金額合計 $590.5K；其中 0/1 列標示 10b5-1。",
+        "單筆最高約占交易前直接持股 14.44%。",
+        "10b5-1 是預先安排交易，訊號強度低於臨時主動賣出。"
+      ],
+      "why_candidate": "內部人賣出需看計畫屬性、持股比例與交易規模，不直接等於看空。",
+      "filing_date": "2026-09-04",
+      "detected_at": "2026-09-05T08:01:03+00:00",
+      "source_keys": [
+        "0000899140-26-001054"
+      ],
+      "sources": [
+        {
+          "label": "SEC 4",
+          "url": "https://www.sec.gov/Archives/edgar/data/820318/000089914026001054/xslF345X06/form4.xml"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 0,
+        "accepted_count": 0,
+        "acceptance_rate": null,
+        "sample_status": "insufficient"
+      }
+    },
     {
       "id": "63cf2be400a46279",
       "ticker": "COHR",
@@ -731,6 +772,45 @@
         "reviewed_count": 1,
         "accepted_count": 1,
         "acceptance_rate": 1.0,
+        "sample_status": "insufficient"
+      }
+    },
+    {
+      "id": "b43a45f73e7ae3e4",
+      "ticker": "TSM",
+      "type": "improvement",
+      "type_label": "🟢 改善候選",
+      "status": "pending_ai_review",
+      "confidence": "medium",
+      "rule_key": "form4_buy",
+      "materiality": {
+        "transaction_value_usd": 154180.0,
+        "max_transaction_holding_percent": 13.877324451845684
+      },
+      "display_priority": "normal",
+      "priority_reason": "目前規則樣本不足或採納率未達降級門檻，維持原顯示優先級。",
+      "headline": "Form 4 出現 2 列主動買入，列為改善候選",
+      "evidence": [
+        "已知買入金額合計 $154.2K。",
+        "單筆最高約占交易後直接持股 13.88%。",
+        "交易代碼 P 代表公開市場或私下買入；仍需核對占持股與薪酬規模。"
+      ],
+      "why_candidate": "內部人主動投入資金可能支持信心，但不能單獨推論股價。",
+      "filing_date": "2026-09-04",
+      "detected_at": "2026-09-05T08:01:03+00:00",
+      "source_keys": [
+        "0001046179-26-000596"
+      ],
+      "sources": [
+        {
+          "label": "SEC 4",
+          "url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000596/xslF345X06/wk-form4_1788517801.xml"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 0,
+        "accepted_count": 0,
+        "acceptance_rate": null,
         "sample_status": "insufficient"
       }
     }

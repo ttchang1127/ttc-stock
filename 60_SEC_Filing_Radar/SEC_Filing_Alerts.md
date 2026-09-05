@@ -1,6 +1,6 @@
 ---
 title: SEC 每日申報雷達
-updated_at: 2026-09-04T08:26:33+00:00
+updated_at: 2026-09-05T08:01:03+00:00
 tags:
   - sec/alerts
   - filings/daily
@@ -15,6 +15,9 @@ GitHub Actions 於台北時間週二至週六中午 12:00 檢查；重大／重�
 
 | 重要性 | 公司 | 申報 | 日期 | 事件／Item | SEC 原文 |
 |---|---|---|---|---|---|
+| 🔵 留意 | **NVDA** | 4 | 2026-09-04 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1045810/000119764726000009/xslF345X06/wk-form4_1788555631.xml) |
+| 🔵 留意 | **COHR** | 4 | 2026-09-04 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/820318/000089914026001054/xslF345X06/form4.xml) |
+| 🔵 留意 | **TSM** | 4 | 2026-09-04 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1046179/000104617926000596/xslF345X06/wk-form4_1788517801.xml) |
 | 🔵 留意 | **GOOGL** | 4 | 2026-09-03 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526382332/xslF345X06/ownership.xml) |
 | 🔵 留意 | **GOOGL** | 4 | 2026-09-03 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526382328/xslF345X06/ownership.xml) |
 | 🔵 留意 | **AAPL** | 4 | 2026-09-03 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/320193/000114036126035636/xslF345X06/form4.xml) |
@@ -212,9 +215,6 @@ GitHub Actions 於台北時間週二至週六中午 12:00 檢查；重大／重�
 | 🟠 重要 | **TSM** | 6-K | 2026-08-10 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1046179/000104617926000471/tsm-revenue20260810.htm) |
 | 🔵 留意 | **NVDA** | 4 | 2026-08-07 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1045810/000119764726000007/xslF345X06/wk-form4_1786135642.xml) |
 | 🔴 重大 | **ONDS** | 8-K | 2026-08-07 | 5.02 董事／高管異動、9.01 附件／財務報表 | [原文](https://www.sec.gov/Archives/edgar/data/1646188/000119312526340352/onds-20260803.htm) |
-| 🔴 重大 | **GOOGL** | 424B2 | 2026-08-07 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526340264/d32286d424b2.htm) |
-| 🟠 重要 | **NOK** | 6-K | 2026-08-07 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/924613/000110465926092536/tm2622574d1_6k.htm) |
-| 🔵 留意 | **META** | 4 | 2026-08-06 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000116007726000008/xslF345X06/form4-08072026_010856.xml) |
 
 ## 監控範圍
 
