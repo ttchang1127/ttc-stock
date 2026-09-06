@@ -26,6 +26,7 @@ class DashboardSecTabTests(unittest.TestCase):
         cls.candidate_reviews = json.loads((ROOT / "sec_daily_candidate_reviews.json").read_text())
         cls.candidate_calibration = json.loads((ROOT / "sec_candidate_rule_calibration.json").read_text())
         cls.position_impact = json.loads((ROOT / "sec_position_impact_history.json").read_text())
+        cls.event_calendar = json.loads((ROOT / "company_event_calendar.json").read_text())
         cls.holdings = json.loads((ROOT / "portfolio_holdings.json").read_text())
 
     def test_tab_defaults_to_14_days_and_allows_7_days(self):
@@ -301,7 +302,7 @@ class DashboardSecTabTests(unittest.TestCase):
             "未實現回撤最高 25 分",
             "候選稿只提高閱讀優先度，不當成事實結論",
             "不是公司好壞、預期報酬或買進／賣出建議",
-            "VGT／VOO 的成分股曝險未拆入單一公司",
+            "本區只處理直接持有的個股，ETF 不納入個股曝險",
             "renderSecPositionImpact();",
         ]
         for phrase in required_copy:
@@ -337,6 +338,29 @@ class DashboardSecTabTests(unittest.TestCase):
         configured = {(row["ticker"], str(row["shares"]), str(row["cost"]))
                       for row in self.holdings["holdings"]}
         self.assertEqual(embedded, configured)
+
+    def test_rolling_stock_event_calendar_is_traceable_and_holdings_first(self):
+        calendar = self.event_calendar
+        self.assertEqual(calendar["schema_version"], 1)
+        self.assertEqual(calendar["tracked_count"], 14)
+        self.assertEqual(calendar["owned_stock_count"], 8)
+        self.assertEqual(calendar["event_count"], len(calendar["events"]))
+        self.assertEqual(calendar["holding_event_count"], sum(
+            row["position"] == "holding" for row in calendar["events"]
+        ))
+        self.assertTrue(all(row["ticker"] not in {"VGT", "VOO"} for row in calendar["events"]))
+        self.assertTrue(any(row["confidence"] == "official" for row in calendar["events"]))
+        self.assertTrue(any(row["position"] == "holding" for row in calendar["events"]))
+        required_copy = [
+            'id="secEventCalendar"', "個股未來 30 天事件日曆",
+            "fetch('company_event_calendar.json'", "function renderSecEventCalendar()",
+            "實際持股優先", "官方已確認", "市場預估", "市場資料",
+            "本視窗目前沒有已知財報、股東會、SEC 法定期限或投資人活動",
+            "Form 4、8-K／6-K、臨時募資及併購多半無法事先知道",
+            "ETF 不納入", "renderSecEventCalendar();",
+        ]
+        for phrase in required_copy:
+            self.assertIn(phrase, self.html)
 
     def test_daily_editorial_contains_digested_evidence_and_next_checks(self):
         core = {"NVDA", "TSM", "MSFT", "META", "AAPL", "AMZN", "ARM",

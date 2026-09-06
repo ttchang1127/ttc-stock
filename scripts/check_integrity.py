@@ -1382,7 +1382,7 @@ def c30():
         "SEC 訊號最高 40 分", "持股集中度最高 35 分", "未實現回撤最高 25 分",
         "return [...SEC_OWNED_TICKERS].map", "候選稿只提高閱讀優先度，不當成事實結論",
         "不是公司好壞、預期報酬或買進／賣出建議",
-        "VGT／VOO 的成分股曝險未拆入單一公司",
+        "本區只處理直接持有的個股，ETF 不納入個股曝險",
     )
     note_markers = (
         "只決定每日核對順序", "SEC 訊號", "持股集中度", "未實現回撤",
@@ -1480,6 +1480,97 @@ def c31():
             "build_sec_position_impact_history.py", "重跑相同快照", "notify_count",
         )),
         "00_Home": (read("00_Home.md"), ("SEC_Position_Impact_Scoring", "SEC_Position_Impact_History")),
+    }
+    missing = [f"{label}:{marker}" for label, (text, required) in markers.items()
+               for marker in required if marker not in text]
+    return not bad and not missing, f"資料問題：{bad or '無'}；缺自動化／畫面：{missing or '無'}"
+
+
+@check("C-32", "個股未來 30 天事件日曆可重建且不混入 ETF")
+def c32():
+    data = load("company_event_calendar.json")
+    dashboard = read("dashboard.html")
+    bad = []
+    if data.get("schema_version") != 1:
+        bad.append("schema_version 不是 1")
+    companies = data.get("companies") or {}
+    events = data.get("events") or []
+    window = data.get("window") or {}
+    try:
+        start = date.fromisoformat(window["start"])
+        end = date.fromisoformat(window["end"])
+        if (end - start).days != 30 or window.get("days") != 30 or window.get("inclusive") is not True:
+            bad.append("視窗不是含首尾的未來 30 天")
+    except (KeyError, TypeError, ValueError):
+        start = end = None
+        bad.append("視窗日期無法解析")
+    if data.get("tracked_count") != 14 or len(companies) != 14:
+        bad.append("不是 14 家個股")
+    if data.get("owned_stock_count") != 8:
+        bad.append("實際個股持股家數不是 8")
+    if data.get("event_count") != len(events):
+        bad.append("event_count 與事件明細不一致")
+    if data.get("holding_event_count") != sum(row.get("position") == "holding" for row in events):
+        bad.append("holding_event_count 與事件明細不一致")
+    if {"VGT", "VOO"} & (set(companies) | {row.get("ticker") for row in events}):
+        bad.append("ETF 混入個股事件日曆")
+    for row in events:
+        event_date = date.fromisoformat(row["date"])
+        if start and end and not (start <= event_date <= end):
+            bad.append(f"{row.get('ticker')} 事件超出 30 天視窗")
+        if start and row.get("days_until") != (event_date - start).days:
+            bad.append(f"{row.get('ticker')} 距今天數錯誤")
+        if row.get("confidence") not in {"official", "estimated", "provider"}:
+            bad.append(f"{row.get('ticker')} 缺有效可信度")
+        if row.get("confidence") == "official" and not str(row.get("source_url", "")).startswith("https://"):
+            bad.append(f"{row.get('ticker')} 官方事件缺 HTTPS 原文")
+
+    with tempfile.TemporaryDirectory() as temp_dir:
+        temp = pathlib.Path(temp_dir)
+        fixture = {}
+        field_by_type = {
+            "earnings": "Earnings Date",
+            "ex_dividend": "Ex-Dividend Date",
+            "dividend_payment": "Dividend Date",
+        }
+        for ticker, company in companies.items():
+            fixture[ticker] = {}
+            for row in company.get("provider_events", []):
+                field = field_by_type.get(row.get("type"))
+                if field:
+                    fixture[ticker].setdefault(field, []).append(row["date"])
+        (temp / "provider.json").write_text(json.dumps(fixture))
+        result = subprocess.run([
+            sys.executable, str(REPO_ROOT / "scripts/build_company_event_calendar.py"),
+            "--today", data.get("generated_at", ""),
+            "--provider-json", str(temp / "provider.json"),
+            "--output", str(temp / "calendar.json"),
+            "--markdown", str(temp / "calendar.md"),
+        ], cwd=REPO_ROOT, text=True, capture_output=True, check=False)
+        if result.returncode:
+            bad.append(f"事件日曆重建失敗：{result.stderr.strip() or result.stdout.strip()}")
+        else:
+            rebuilt = json.loads((temp / "calendar.json").read_text())
+            if rebuilt != data:
+                bad.append("事件日曆無法由官方覆蓋與市場資料確定性重建")
+
+    markers = {
+        "dashboard": (dashboard, (
+            "secEventCalendar", "company_event_calendar.json", "renderSecEventCalendar",
+            "實際持股優先", "官方已確認", "市場預估", "ETF 不納入",
+            "Form 4、8-K／6-K、臨時募資及併購多半無法事先知道",
+        )),
+        "每日 workflow": (read(".github/workflows/update-prices.yml"), (
+            "cron: '0 23 * * *'", "build_company_event_calendar.py",
+            "company_event_calendar", "Company_Event_Calendar",
+        )),
+        "事件筆記": (read("60_SEC_Filing_Radar/Company_Event_Calendar.md"), (
+            "官方已確認", "市場預估／市場資料", "ETF 不納入", "空白不代表沒有風險",
+        )),
+        "維護 SOP": (read("00_Meta/Sec_kb_資料維護SOP.md"), (
+            "build_company_event_calendar.py", "company_event_overrides.json", "30 天事件日曆",
+        )),
+        "00_Home": (read("00_Home.md"), ("Company_Event_Calendar",)),
     }
     missing = [f"{label}:{marker}" for label, (text, required) in markers.items()
                for marker in required if marker not in text]

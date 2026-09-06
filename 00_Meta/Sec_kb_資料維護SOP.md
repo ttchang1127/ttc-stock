@@ -199,6 +199,16 @@ python3 scripts/check_integrity.py --quiet
 
 部位影響歷史由 `portfolio_holdings.json`、最新價格、SEC 申報、八季財務警報、投資論點、候選稿與正式人工判讀確定性重建。第一次執行只建立基準；之後只有等級改變、SEC 訊號分數改變、總分至少變動 10 分，或持股比重／回撤跨門檻時才通知。重跑相同快照的 `notify_count` 必須為 0，避免 GitHub Issue 重複發送。
 
+個股未來 **30 天事件日曆**由 `scripts/build_company_event_calendar.py` 每天更新 `company_event_calendar.json` 與 `60_SEC_Filing_Radar/Company_Event_Calendar.md`。14 家個股中實際持股優先，VGT／VOO 不納入；公司 IR／SEC 原文透過 `company_event_overrides.json` 覆蓋同日同類型的市場資料，Yahoo Finance 只補充日期探索且不得標成官方。單一 ticker 抓取失敗時保留上次成功資料並標示 stale，不可把舊資料冒充本次更新。Form 4、8-K／6-K、臨時募資和併購無法可靠事前排程，應於送件後由 SEC 雷達接手。
+
+手動重建與驗證：
+
+```bash
+python3 scripts/build_company_event_calendar.py
+python3 -m unittest tests.test_build_company_event_calendar -v
+python3 scripts/check_integrity.py --quiet
+```
+
 ### 輸出對照表
 
 | 你看到的 | 意思 | 下一步 |

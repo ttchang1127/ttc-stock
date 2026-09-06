@@ -1,0 +1,789 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-09-06",
+  "window": {
+    "start": "2026-09-06",
+    "end": "2026-10-06",
+    "days": 30,
+    "inclusive": true
+  },
+  "methodology": {
+    "scope": "14 家個股；ETF 不納入事件日曆或個股曝險。",
+    "official_priority": "公司 IR 或 SEC 原文優先，且覆蓋同日同類型的市場資料列。",
+    "provider_role": "Yahoo Finance 只補充日期探索；預估財報日不冒充公司正式公告。",
+    "unpredictable": "Form 4、8-K／6-K、臨時募資與併購通常無法事前排程，送件後由 SEC 雷達即時補充。"
+  },
+  "tracked_count": 14,
+  "owned_stock_count": 8,
+  "event_count": 7,
+  "holding_event_count": 5,
+  "provider_failures": {},
+  "events": [
+    {
+      "ticker": "GOOG",
+      "date": "2026-09-07",
+      "type": "dividend_record",
+      "title": "普通股現金股利登記日",
+      "detail": "每股 0.22 美元；Class A、B、C 普通股均適用。",
+      "meaning": "只有在登記日名冊上的股東具領息資格；這是股東權利日期，不代表公司基本面改變。",
+      "source_label": "Alphabet 2026 Q2 Form 10-Q",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/goog-20260630.htm",
+      "confidence": "official",
+      "announced_at": "2026-07-22",
+      "days_until": 1,
+      "position": "holding",
+      "company_name": "Alphabet"
+    },
+    {
+      "ticker": "NVDA",
+      "date": "2026-09-10",
+      "type": "dividend_record",
+      "title": "季度現金股利登記日",
+      "detail": "每股 0.25 美元；預計 2026-10-01 發放。",
+      "meaning": "只有在登記日名冊上的股東具領息資格；股利金額相對股價的影響仍須另外評估。",
+      "source_label": "NVIDIA FY2027 Q2 官方財報",
+      "source_url": "https://investor.nvidia.com/news/press-release-details/2026/NVIDIA-Announces-Financial-Results-for-Second-Quarter-Fiscal-2027/default.aspx",
+      "confidence": "official",
+      "announced_at": "2026-08-26",
+      "days_until": 4,
+      "position": "holding",
+      "company_name": "NVIDIA"
+    },
+    {
+      "ticker": "NVDA",
+      "date": "2026-09-10",
+      "type": "ex_dividend",
+      "title": "除息日",
+      "detail": "第三方市場資料日期；公司尚未公告時可能變更。",
+      "meaning": "自除息日起買進通常無法取得本次股利；價格可能機械式調整，不等於基本面轉弱。",
+      "source_label": "Yahoo Finance 行事曆",
+      "source_url": "https://finance.yahoo.com/quote/NVDA/calendar/",
+      "confidence": "provider",
+      "announced_at": null,
+      "days_until": 4,
+      "position": "holding",
+      "company_name": "NVIDIA"
+    },
+    {
+      "ticker": "MSFT",
+      "date": "2026-09-10",
+      "type": "dividend_payment",
+      "title": "季度現金股利發放日",
+      "detail": "每股 0.91 美元；登記日與除息日均為 2026-08-20。",
+      "meaning": "股息在此日支付；除息調整已在 8 月發生，本日通常不代表新的基本面訊號。",
+      "source_label": "Microsoft 官方公告",
+      "source_url": "https://news.microsoft.com/source/2026/06/10/microsoft-announces-quarterly-dividend-29/",
+      "confidence": "official",
+      "announced_at": "2026-06-10",
+      "days_until": 4,
+      "position": "watchlist",
+      "company_name": "Microsoft"
+    },
+    {
+      "ticker": "GOOG",
+      "date": "2026-09-14",
+      "type": "dividend_payment",
+      "title": "普通股現金股利發放日",
+      "detail": "每股 0.22 美元。",
+      "meaning": "股息在此日支付；這是現金入帳事件，不應解讀成營運趨勢或額外報酬。",
+      "source_label": "Alphabet 2026 Q2 Form 10-Q",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/goog-20260630.htm",
+      "confidence": "official",
+      "announced_at": "2026-07-22",
+      "days_until": 8,
+      "position": "holding",
+      "company_name": "Alphabet"
+    },
+    {
+      "ticker": "TSM",
+      "date": "2026-09-16",
+      "type": "ex_dividend",
+      "title": "2026 Q1 現金股利除息日",
+      "detail": "每普通股約新台幣 7 元、每 ADR 約 1.11 美元；預計 2026-10-08 發放。",
+      "meaning": "自除息日起買進通常無法取得本次股利，價格常有機械式除息調整，不能直接視為基本面轉弱。",
+      "source_label": "TSMC 官方股利頁",
+      "source_url": "https://investor.tsmc.com/english/dividends/1q26",
+      "confidence": "official",
+      "announced_at": "2026-05-12",
+      "days_until": 10,
+      "position": "watchlist",
+      "company_name": "台積電"
+    },
+    {
+      "ticker": "NVDA",
+      "date": "2026-10-01",
+      "type": "dividend_payment",
+      "title": "季度現金股利發放日",
+      "detail": "每股 0.25 美元。",
+      "meaning": "股息在此日支付；這是現金入帳事件，不等同新的營運利多。",
+      "source_label": "NVIDIA FY2027 Q2 官方財報",
+      "source_url": "https://investor.nvidia.com/news/press-release-details/2026/NVIDIA-Announces-Financial-Results-for-Second-Quarter-Fiscal-2027/default.aspx",
+      "confidence": "official",
+      "announced_at": "2026-08-26",
+      "days_until": 25,
+      "position": "holding",
+      "company_name": "NVIDIA"
+    }
+  ],
+  "companies": {
+    "NVDA": {
+      "name": "NVIDIA",
+      "position": "holding",
+      "source_status": "fresh",
+      "last_success_at": "2026-09-06",
+      "source_error": null,
+      "next_earnings_date": "2026-11-18",
+      "provider_events": [
+        {
+          "ticker": "NVDA",
+          "date": "2026-11-18",
+          "type": "earnings",
+          "title": "預估財報公布日",
+          "detail": "第三方市場資料日期；公司尚未公告時可能變更。",
+          "meaning": "財報日可能調整；應優先核對營收、毛利率、自由現金流與管理層指引是否改變。",
+          "source_label": "Yahoo Finance 行事曆",
+          "source_url": "https://finance.yahoo.com/quote/NVDA/calendar/",
+          "confidence": "estimated",
+          "announced_at": null
+        },
+        {
+          "ticker": "NVDA",
+          "date": "2026-09-10",
+          "type": "ex_dividend",
+          "title": "除息日",
+          "detail": "第三方市場資料日期；公司尚未公告時可能變更。",
+          "meaning": "自除息日起買進通常無法取得本次股利；價格可能機械式調整，不等於基本面轉弱。",
+          "source_label": "Yahoo Finance 行事曆",
+          "source_url": "https://finance.yahoo.com/quote/NVDA/calendar/",
+          "confidence": "provider",
+          "announced_at": null
+        },
+        {
+          "ticker": "NVDA",
+          "date": "2026-10-01",
+          "type": "dividend_payment",
+          "title": "股利發放日",
+          "detail": "第三方市場資料日期；公司尚未公告時可能變更。",
+          "meaning": "股息支付或入帳日期；不應重複視為一筆額外投資報酬。",
+          "source_label": "Yahoo Finance 行事曆",
+          "source_url": "https://finance.yahoo.com/quote/NVDA/calendar/",
+          "confidence": "provider",
+          "announced_at": null
+        }
+      ],
+      "events": [
+        {
+          "ticker": "NVDA",
+          "date": "2026-09-10",
+          "type": "dividend_record",
+          "title": "季度現金股利登記日",
+          "detail": "每股 0.25 美元；預計 2026-10-01 發放。",
+          "meaning": "只有在登記日名冊上的股東具領息資格；股利金額相對股價的影響仍須另外評估。",
+          "source_label": "NVIDIA FY2027 Q2 官方財報",
+          "source_url": "https://investor.nvidia.com/news/press-release-details/2026/NVIDIA-Announces-Financial-Results-for-Second-Quarter-Fiscal-2027/default.aspx",
+          "confidence": "official",
+          "announced_at": "2026-08-26",
+          "days_until": 4,
+          "position": "holding",
+          "company_name": "NVIDIA"
+        },
+        {
+          "ticker": "NVDA",
+          "date": "2026-09-10",
+          "type": "ex_dividend",
+          "title": "除息日",
+          "detail": "第三方市場資料日期；公司尚未公告時可能變更。",
+          "meaning": "自除息日起買進通常無法取得本次股利；價格可能機械式調整，不等於基本面轉弱。",
+          "source_label": "Yahoo Finance 行事曆",
+          "source_url": "https://finance.yahoo.com/quote/NVDA/calendar/",
+          "confidence": "provider",
+          "announced_at": null,
+          "days_until": 4,
+          "position": "holding",
+          "company_name": "NVIDIA"
+        },
+        {
+          "ticker": "NVDA",
+          "date": "2026-10-01",
+          "type": "dividend_payment",
+          "title": "季度現金股利發放日",
+          "detail": "每股 0.25 美元。",
+          "meaning": "股息在此日支付；這是現金入帳事件，不等同新的營運利多。",
+          "source_label": "NVIDIA FY2027 Q2 官方財報",
+          "source_url": "https://investor.nvidia.com/news/press-release-details/2026/NVIDIA-Announces-Financial-Results-for-Second-Quarter-Fiscal-2027/default.aspx",
+          "confidence": "official",
+          "announced_at": "2026-08-26",
+          "days_until": 25,
+          "position": "holding",
+          "company_name": "NVIDIA"
+        }
+      ]
+    },
+    "TSM": {
+      "name": "台積電",
+      "position": "watchlist",
+      "source_status": "fresh",
+      "last_success_at": "2026-09-06",
+      "source_error": null,
+      "next_earnings_date": "2026-10-15",
+      "provider_events": [
+        {
+          "ticker": "TSM",
+          "date": "2026-10-15",
+          "type": "earnings",
+          "title": "預估財報公布日",
+          "detail": "第三方市場資料日期；公司尚未公告時可能變更。",
+          "meaning": "財報日可能調整；應優先核對營收、毛利率、自由現金流與管理層指引是否改變。",
+          "source_label": "Yahoo Finance 行事曆",
+          "source_url": "https://finance.yahoo.com/quote/TSM/calendar/",
+          "confidence": "estimated",
+          "announced_at": null
+        },
+        {
+          "ticker": "TSM",
+          "date": "2026-09-16",
+          "type": "ex_dividend",
+          "title": "除息日",
+          "detail": "第三方市場資料日期；公司尚未公告時可能變更。",
+          "meaning": "自除息日起買進通常無法取得本次股利；價格可能機械式調整，不等於基本面轉弱。",
+          "source_label": "Yahoo Finance 行事曆",
+          "source_url": "https://finance.yahoo.com/quote/TSM/calendar/",
+          "confidence": "provider",
+          "announced_at": null
+        },
+        {
+          "ticker": "TSM",
+          "date": "2027-01-07",
+          "type": "dividend_payment",
+          "title": "股利發放日",
+          "detail": "第三方市場資料日期；公司尚未公告時可能變更。",
+          "meaning": "股息支付或入帳日期；不應重複視為一筆額外投資報酬。",
+          "source_label": "Yahoo Finance 行事曆",
+          "source_url": "https://finance.yahoo.com/quote/TSM/calendar/",
+          "confidence": "provider",
+          "announced_at": null
+        }
+      ],
+      "events": [
+        {
+          "ticker": "TSM",
+          "date": "2026-09-16",
+          "type": "ex_dividend",
+          "title": "2026 Q1 現金股利除息日",
+          "detail": "每普通股約新台幣 7 元、每 ADR 約 1.11 美元；預計 2026-10-08 發放。",
+          "meaning": "自除息日起買進通常無法取得本次股利，價格常有機械式除息調整，不能直接視為基本面轉弱。",
+          "source_label": "TSMC 官方股利頁",
+          "source_url": "https://investor.tsmc.com/english/dividends/1q26",
+          "confidence": "official",
+          "announced_at": "2026-05-12",
+          "days_until": 10,
+          "position": "watchlist",
+          "company_name": "台積電"
+        }
+      ]
+    },
+    "MSFT": {
+      "name": "Microsoft",
+      "position": "watchlist",
+      "source_status": "fresh",
+      "last_success_at": "2026-09-06",
+      "source_error": null,
+      "next_earnings_date": "2026-10-29",
+      "provider_events": [
+        {
+          "ticker": "MSFT",
+          "date": "2026-10-29",
+          "type": "earnings",
+          "title": "預估財報公布日",
+          "detail": "第三方市場資料日期；公司尚未公告時可能變更。",
+          "meaning": "財報日可能調整；應優先核對營收、毛利率、自由現金流與管理層指引是否改變。",
+          "source_label": "Yahoo Finance 行事曆",
+          "source_url": "https://finance.yahoo.com/quote/MSFT/calendar/",
+          "confidence": "estimated",
+          "announced_at": null
+        },
+        {
+          "ticker": "MSFT",
+          "date": "2026-08-20",
+          "type": "ex_dividend",
+          "title": "除息日",
+          "detail": "第三方市場資料日期；公司尚未公告時可能變更。",
+          "meaning": "自除息日起買進通常無法取得本次股利；價格可能機械式調整，不等於基本面轉弱。",
+          "source_label": "Yahoo Finance 行事曆",
+          "source_url": "https://finance.yahoo.com/quote/MSFT/calendar/",
+          "confidence": "provider",
+          "announced_at": null
+        },
+        {
+          "ticker": "MSFT",
+          "date": "2026-09-10",
+          "type": "dividend_payment",
+          "title": "股利發放日",
+          "detail": "第三方市場資料日期；公司尚未公告時可能變更。",
+          "meaning": "股息支付或入帳日期；不應重複視為一筆額外投資報酬。",
+          "source_label": "Yahoo Finance 行事曆",
+          "source_url": "https://finance.yahoo.com/quote/MSFT/calendar/",
+          "confidence": "provider",
+          "announced_at": null
+        }
+      ],
+      "events": [
+        {
+          "ticker": "MSFT",
+          "date": "2026-09-10",
+          "type": "dividend_payment",
+          "title": "季度現金股利發放日",
+          "detail": "每股 0.91 美元；登記日與除息日均為 2026-08-20。",
+          "meaning": "股息在此日支付；除息調整已在 8 月發生，本日通常不代表新的基本面訊號。",
+          "source_label": "Microsoft 官方公告",
+          "source_url": "https://news.microsoft.com/source/2026/06/10/microsoft-announces-quarterly-dividend-29/",
+          "confidence": "official",
+          "announced_at": "2026-06-10",
+          "days_until": 4,
+          "position": "watchlist",
+          "company_name": "Microsoft"
+        }
+      ]
+    },
+    "META": {
+      "name": "Meta",
+      "position": "watchlist",
+      "source_status": "fresh",
+      "last_success_at": "2026-09-06",
+      "source_error": null,
+      "next_earnings_date": "2026-10-29",
+      "provider_events": [
+        {
+          "ticker": "META",
+          "date": "2026-10-29",
+          "type": "earnings",
+          "title": "預估財報公布日",
+          "detail": "第三方市場資料日期；公司尚未公告時可能變更。",
+          "meaning": "財報日可能調整；應優先核對營收、毛利率、自由現金流與管理層指引是否改變。",
+          "source_label": "Yahoo Finance 行事曆",
+          "source_url": "https://finance.yahoo.com/quote/META/calendar/",
+          "confidence": "estimated",
+          "announced_at": null
+        },
+        {
+          "ticker": "META",
+          "date": "2026-06-15",
+          "type": "ex_dividend",
+          "title": "除息日",
+          "detail": "第三方市場資料日期；公司尚未公告時可能變更。",
+          "meaning": "自除息日起買進通常無法取得本次股利；價格可能機械式調整，不等於基本面轉弱。",
+          "source_label": "Yahoo Finance 行事曆",
+          "source_url": "https://finance.yahoo.com/quote/META/calendar/",
+          "confidence": "provider",
+          "announced_at": null
+        },
+        {
+          "ticker": "META",
+          "date": "2026-06-25",
+          "type": "dividend_payment",
+          "title": "股利發放日",
+          "detail": "第三方市場資料日期；公司尚未公告時可能變更。",
+          "meaning": "股息支付或入帳日期；不應重複視為一筆額外投資報酬。",
+          "source_label": "Yahoo Finance 行事曆",
+          "source_url": "https://finance.yahoo.com/quote/META/calendar/",
+          "confidence": "provider",
+          "announced_at": null
+        }
+      ],
+      "events": []
+    },
+    "AAPL": {
+      "name": "Apple",
+      "position": "watchlist",
+      "source_status": "fresh",
+      "last_success_at": "2026-09-06",
+      "source_error": null,
+      "next_earnings_date": "2026-10-30",
+      "provider_events": [
+        {
+          "ticker": "AAPL",
+          "date": "2026-10-30",
+          "type": "earnings",
+          "title": "預估財報公布日",
+          "detail": "第三方市場資料日期；公司尚未公告時可能變更。",
+          "meaning": "財報日可能調整；應優先核對營收、毛利率、自由現金流與管理層指引是否改變。",
+          "source_label": "Yahoo Finance 行事曆",
+          "source_url": "https://finance.yahoo.com/quote/AAPL/calendar/",
+          "confidence": "estimated",
+          "announced_at": null
+        },
+        {
+          "ticker": "AAPL",
+          "date": "2026-08-10",
+          "type": "ex_dividend",
+          "title": "除息日",
+          "detail": "第三方市場資料日期；公司尚未公告時可能變更。",
+          "meaning": "自除息日起買進通常無法取得本次股利；價格可能機械式調整，不等於基本面轉弱。",
+          "source_label": "Yahoo Finance 行事曆",
+          "source_url": "https://finance.yahoo.com/quote/AAPL/calendar/",
+          "confidence": "provider",
+          "announced_at": null
+        },
+        {
+          "ticker": "AAPL",
+          "date": "2026-08-13",
+          "type": "dividend_payment",
+          "title": "股利發放日",
+          "detail": "第三方市場資料日期；公司尚未公告時可能變更。",
+          "meaning": "股息支付或入帳日期；不應重複視為一筆額外投資報酬。",
+          "source_label": "Yahoo Finance 行事曆",
+          "source_url": "https://finance.yahoo.com/quote/AAPL/calendar/",
+          "confidence": "provider",
+          "announced_at": null
+        }
+      ],
+      "events": []
+    },
+    "AMZN": {
+      "name": "Amazon",
+      "position": "watchlist",
+      "source_status": "fresh",
+      "last_success_at": "2026-09-06",
+      "source_error": null,
+      "next_earnings_date": "2026-10-30",
+      "provider_events": [
+        {
+          "ticker": "AMZN",
+          "date": "2026-10-30",
+          "type": "earnings",
+          "title": "預估財報公布日",
+          "detail": "第三方市場資料日期；公司尚未公告時可能變更。",
+          "meaning": "財報日可能調整；應優先核對營收、毛利率、自由現金流與管理層指引是否改變。",
+          "source_label": "Yahoo Finance 行事曆",
+          "source_url": "https://finance.yahoo.com/quote/AMZN/calendar/",
+          "confidence": "estimated",
+          "announced_at": null
+        }
+      ],
+      "events": []
+    },
+    "ARM": {
+      "name": "Arm",
+      "position": "holding",
+      "source_status": "fresh",
+      "last_success_at": "2026-09-06",
+      "source_error": null,
+      "next_earnings_date": "2026-11-05",
+      "provider_events": [
+        {
+          "ticker": "ARM",
+          "date": "2026-11-05",
+          "type": "earnings",
+          "title": "預估財報公布日",
+          "detail": "第三方市場資料日期；公司尚未公告時可能變更。",
+          "meaning": "財報日可能調整；應優先核對營收、毛利率、自由現金流與管理層指引是否改變。",
+          "source_label": "Yahoo Finance 行事曆",
+          "source_url": "https://finance.yahoo.com/quote/ARM/calendar/",
+          "confidence": "estimated",
+          "announced_at": null
+        }
+      ],
+      "events": []
+    },
+    "ONDS": {
+      "name": "Ondas",
+      "position": "watchlist",
+      "source_status": "fresh",
+      "last_success_at": "2026-09-06",
+      "source_error": null,
+      "next_earnings_date": "2026-11-12",
+      "provider_events": [
+        {
+          "ticker": "ONDS",
+          "date": "2026-11-12",
+          "type": "earnings",
+          "title": "預估財報公布日",
+          "detail": "第三方市場資料日期；公司尚未公告時可能變更。",
+          "meaning": "財報日可能調整；應優先核對營收、毛利率、自由現金流與管理層指引是否改變。",
+          "source_label": "Yahoo Finance 行事曆",
+          "source_url": "https://finance.yahoo.com/quote/ONDS/calendar/",
+          "confidence": "estimated",
+          "announced_at": null
+        },
+        {
+          "ticker": "ONDS",
+          "date": "2020-11-16",
+          "type": "dividend_payment",
+          "title": "股利發放日",
+          "detail": "第三方市場資料日期；公司尚未公告時可能變更。",
+          "meaning": "股息支付或入帳日期；不應重複視為一筆額外投資報酬。",
+          "source_label": "Yahoo Finance 行事曆",
+          "source_url": "https://finance.yahoo.com/quote/ONDS/calendar/",
+          "confidence": "provider",
+          "announced_at": null
+        }
+      ],
+      "events": []
+    },
+    "TSLA": {
+      "name": "Tesla",
+      "position": "holding",
+      "source_status": "fresh",
+      "last_success_at": "2026-09-06",
+      "source_error": null,
+      "next_earnings_date": "2026-10-22",
+      "provider_events": [
+        {
+          "ticker": "TSLA",
+          "date": "2026-10-22",
+          "type": "earnings",
+          "title": "預估財報公布日",
+          "detail": "第三方市場資料日期；公司尚未公告時可能變更。",
+          "meaning": "財報日可能調整；應優先核對營收、毛利率、自由現金流與管理層指引是否改變。",
+          "source_label": "Yahoo Finance 行事曆",
+          "source_url": "https://finance.yahoo.com/quote/TSLA/calendar/",
+          "confidence": "estimated",
+          "announced_at": null
+        }
+      ],
+      "events": []
+    },
+    "GOOG": {
+      "name": "Alphabet",
+      "position": "holding",
+      "source_status": "fresh",
+      "last_success_at": "2026-09-06",
+      "source_error": null,
+      "next_earnings_date": "2026-10-29",
+      "provider_events": [
+        {
+          "ticker": "GOOG",
+          "date": "2026-10-29",
+          "type": "earnings",
+          "title": "預估財報公布日",
+          "detail": "第三方市場資料日期；公司尚未公告時可能變更。",
+          "meaning": "財報日可能調整；應優先核對營收、毛利率、自由現金流與管理層指引是否改變。",
+          "source_label": "Yahoo Finance 行事曆",
+          "source_url": "https://finance.yahoo.com/quote/GOOG/calendar/",
+          "confidence": "estimated",
+          "announced_at": null
+        },
+        {
+          "ticker": "GOOG",
+          "date": "2026-09-04",
+          "type": "ex_dividend",
+          "title": "除息日",
+          "detail": "第三方市場資料日期；公司尚未公告時可能變更。",
+          "meaning": "自除息日起買進通常無法取得本次股利；價格可能機械式調整，不等於基本面轉弱。",
+          "source_label": "Yahoo Finance 行事曆",
+          "source_url": "https://finance.yahoo.com/quote/GOOG/calendar/",
+          "confidence": "provider",
+          "announced_at": null
+        },
+        {
+          "ticker": "GOOG",
+          "date": "2026-09-14",
+          "type": "dividend_payment",
+          "title": "股利發放日",
+          "detail": "第三方市場資料日期；公司尚未公告時可能變更。",
+          "meaning": "股息支付或入帳日期；不應重複視為一筆額外投資報酬。",
+          "source_label": "Yahoo Finance 行事曆",
+          "source_url": "https://finance.yahoo.com/quote/GOOG/calendar/",
+          "confidence": "provider",
+          "announced_at": null
+        }
+      ],
+      "events": [
+        {
+          "ticker": "GOOG",
+          "date": "2026-09-07",
+          "type": "dividend_record",
+          "title": "普通股現金股利登記日",
+          "detail": "每股 0.22 美元；Class A、B、C 普通股均適用。",
+          "meaning": "只有在登記日名冊上的股東具領息資格；這是股東權利日期，不代表公司基本面改變。",
+          "source_label": "Alphabet 2026 Q2 Form 10-Q",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/goog-20260630.htm",
+          "confidence": "official",
+          "announced_at": "2026-07-22",
+          "days_until": 1,
+          "position": "holding",
+          "company_name": "Alphabet"
+        },
+        {
+          "ticker": "GOOG",
+          "date": "2026-09-14",
+          "type": "dividend_payment",
+          "title": "普通股現金股利發放日",
+          "detail": "每股 0.22 美元。",
+          "meaning": "股息在此日支付；這是現金入帳事件，不應解讀成營運趨勢或額外報酬。",
+          "source_label": "Alphabet 2026 Q2 Form 10-Q",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/goog-20260630.htm",
+          "confidence": "official",
+          "announced_at": "2026-07-22",
+          "days_until": 8,
+          "position": "holding",
+          "company_name": "Alphabet"
+        }
+      ]
+    },
+    "COHR": {
+      "name": "Coherent",
+      "position": "holding",
+      "source_status": "fresh",
+      "last_success_at": "2026-09-06",
+      "source_error": null,
+      "next_earnings_date": "2026-11-05",
+      "provider_events": [
+        {
+          "ticker": "COHR",
+          "date": "2026-11-05",
+          "type": "earnings",
+          "title": "預估財報公布日",
+          "detail": "第三方市場資料日期；公司尚未公告時可能變更。",
+          "meaning": "財報日可能調整；應優先核對營收、毛利率、自由現金流與管理層指引是否改變。",
+          "source_label": "Yahoo Finance 行事曆",
+          "source_url": "https://finance.yahoo.com/quote/COHR/calendar/",
+          "confidence": "estimated",
+          "announced_at": null
+        }
+      ],
+      "events": []
+    },
+    "MRVL": {
+      "name": "Marvell",
+      "position": "holding",
+      "source_status": "fresh",
+      "last_success_at": "2026-09-06",
+      "source_error": null,
+      "next_earnings_date": "2026-12-02",
+      "provider_events": [
+        {
+          "ticker": "MRVL",
+          "date": "2026-12-02",
+          "type": "earnings",
+          "title": "預估財報公布日",
+          "detail": "第三方市場資料日期；公司尚未公告時可能變更。",
+          "meaning": "財報日可能調整；應優先核對營收、毛利率、自由現金流與管理層指引是否改變。",
+          "source_label": "Yahoo Finance 行事曆",
+          "source_url": "https://finance.yahoo.com/quote/MRVL/calendar/",
+          "confidence": "estimated",
+          "announced_at": null
+        },
+        {
+          "ticker": "MRVL",
+          "date": "2026-07-10",
+          "type": "ex_dividend",
+          "title": "除息日",
+          "detail": "第三方市場資料日期；公司尚未公告時可能變更。",
+          "meaning": "自除息日起買進通常無法取得本次股利；價格可能機械式調整，不等於基本面轉弱。",
+          "source_label": "Yahoo Finance 行事曆",
+          "source_url": "https://finance.yahoo.com/quote/MRVL/calendar/",
+          "confidence": "provider",
+          "announced_at": null
+        },
+        {
+          "ticker": "MRVL",
+          "date": "2026-07-30",
+          "type": "dividend_payment",
+          "title": "股利發放日",
+          "detail": "第三方市場資料日期；公司尚未公告時可能變更。",
+          "meaning": "股息支付或入帳日期；不應重複視為一筆額外投資報酬。",
+          "source_label": "Yahoo Finance 行事曆",
+          "source_url": "https://finance.yahoo.com/quote/MRVL/calendar/",
+          "confidence": "provider",
+          "announced_at": null
+        }
+      ],
+      "events": []
+    },
+    "INTC": {
+      "name": "Intel",
+      "position": "holding",
+      "source_status": "fresh",
+      "last_success_at": "2026-09-06",
+      "source_error": null,
+      "next_earnings_date": "2026-10-23",
+      "provider_events": [
+        {
+          "ticker": "INTC",
+          "date": "2026-10-23",
+          "type": "earnings",
+          "title": "預估財報公布日",
+          "detail": "第三方市場資料日期；公司尚未公告時可能變更。",
+          "meaning": "財報日可能調整；應優先核對營收、毛利率、自由現金流與管理層指引是否改變。",
+          "source_label": "Yahoo Finance 行事曆",
+          "source_url": "https://finance.yahoo.com/quote/INTC/calendar/",
+          "confidence": "estimated",
+          "announced_at": null
+        },
+        {
+          "ticker": "INTC",
+          "date": "2024-08-07",
+          "type": "ex_dividend",
+          "title": "除息日",
+          "detail": "第三方市場資料日期；公司尚未公告時可能變更。",
+          "meaning": "自除息日起買進通常無法取得本次股利；價格可能機械式調整，不等於基本面轉弱。",
+          "source_label": "Yahoo Finance 行事曆",
+          "source_url": "https://finance.yahoo.com/quote/INTC/calendar/",
+          "confidence": "provider",
+          "announced_at": null
+        },
+        {
+          "ticker": "INTC",
+          "date": "2024-09-01",
+          "type": "dividend_payment",
+          "title": "股利發放日",
+          "detail": "第三方市場資料日期；公司尚未公告時可能變更。",
+          "meaning": "股息支付或入帳日期；不應重複視為一筆額外投資報酬。",
+          "source_label": "Yahoo Finance 行事曆",
+          "source_url": "https://finance.yahoo.com/quote/INTC/calendar/",
+          "confidence": "provider",
+          "announced_at": null
+        }
+      ],
+      "events": []
+    },
+    "NOK": {
+      "name": "Nokia",
+      "position": "holding",
+      "source_status": "fresh",
+      "last_success_at": "2026-09-06",
+      "source_error": null,
+      "next_earnings_date": "2026-10-22",
+      "provider_events": [
+        {
+          "ticker": "NOK",
+          "date": "2026-10-22",
+          "type": "earnings",
+          "title": "預估財報公布日",
+          "detail": "第三方市場資料日期；公司尚未公告時可能變更。",
+          "meaning": "財報日可能調整；應優先核對營收、毛利率、自由現金流與管理層指引是否改變。",
+          "source_label": "Yahoo Finance 行事曆",
+          "source_url": "https://finance.yahoo.com/quote/NOK/calendar/",
+          "confidence": "estimated",
+          "announced_at": null
+        },
+        {
+          "ticker": "NOK",
+          "date": "2026-07-28",
+          "type": "ex_dividend",
+          "title": "除息日",
+          "detail": "第三方市場資料日期；公司尚未公告時可能變更。",
+          "meaning": "自除息日起買進通常無法取得本次股利；價格可能機械式調整，不等於基本面轉弱。",
+          "source_label": "Yahoo Finance 行事曆",
+          "source_url": "https://finance.yahoo.com/quote/NOK/calendar/",
+          "confidence": "provider",
+          "announced_at": null
+        },
+        {
+          "ticker": "NOK",
+          "date": "2026-08-11",
+          "type": "dividend_payment",
+          "title": "股利發放日",
+          "detail": "第三方市場資料日期；公司尚未公告時可能變更。",
+          "meaning": "股息支付或入帳日期；不應重複視為一筆額外投資報酬。",
+          "source_label": "Yahoo Finance 行事曆",
+          "source_url": "https://finance.yahoo.com/quote/NOK/calendar/",
+          "confidence": "provider",
+          "announced_at": null
+        }
+      ],
+      "events": []
+    }
+  }
+}

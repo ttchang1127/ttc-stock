@@ -20,11 +20,10 @@ name: Refresh market and filing data
 
 on:
   schedule:
-    # 23:00 UTC on weekdays = 19:00 ET (EDT) / 18:00 ET (EST), a few hours after
-    # the 16:00 ET close so Yahoo has settled the daily bar. The SEC fetch rides
-    # along daily rather than weekly: it is fourteen rate-limited requests, and
-    # a filing that lands on a Tuesday should not wait until the following week.
-    - cron: '0 23 * * 1-5'
+    # 23:00 UTC every day keeps the rolling 30-day company calendar moving on
+    # weekends too. Market/SEC derived files are recomputed only when their
+    # underlying source files actually change.
+    - cron: '0 23 * * *'
   workflow_dispatch:
 
 permissions:
@@ -66,22 +65,22 @@ jobs:
       - name: Fetch SEC quarterly trends
         run: python3 scripts/fetch_quarterly_financials.py
 
-      - name: Stop unless source data actually moved
-        id: gate
+      - name: Check whether market or filing source data moved
+        id: source_gate
         run: |
           if git diff --quiet -- prices.json financials.json quarterly_financials.json; then
-            echo "No new quotes or filings; nothing downstream to recompute."
-            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "No new quotes or filings; derived market files stay unchanged."
+            echo "market_changed=false" >> "$GITHUB_OUTPUT"
           else
             git diff --stat -- prices.json financials.json quarterly_financials.json
-            echo "changed=true" >> "$GITHUB_OUTPUT"
+            echo "market_changed=true" >> "$GITHUB_OUTPUT"
           fi
 
       # dcf_assumptions.json is deliberately absent from this chain. Its growth
       # and WACC values are derived, but deciding to re-derive them is a
       # judgement, so estimate_dcf_inputs.py is never run here.
       - name: Recompute everything derived
-        if: steps.gate.outputs.changed == 'true'
+        if: steps.source_gate.outputs.market_changed == 'true'
         run: |
           python3 scripts/compute_fundamentals.py
           python3 scripts/compute_financial_health.py
@@ -90,19 +89,33 @@ jobs:
           python3 scripts/build_reports.py
 
       - name: Refresh daily AI-review change candidates
-        if: steps.gate.outputs.changed == 'true'
+        if: steps.source_gate.outputs.market_changed == 'true'
         run: |
           python3 scripts/build_sec_candidate_rule_calibration.py
           python3 scripts/generate_sec_daily_change_candidates.py
 
       - name: Compare portfolio impact with the previous snapshot
-        if: steps.gate.outputs.changed == 'true'
+        if: steps.source_gate.outputs.market_changed == 'true'
         id: position_impact
         run: |
           python3 scripts/build_sec_position_impact_history.py \
             --alert-markdown "$RUNNER_TEMP/position-impact-alert.md" \
             --summary "$GITHUB_STEP_SUMMARY" \
             --github-output "$GITHUB_OUTPUT"
+
+      - name: Refresh rolling 30-day stock event calendar
+        run: python3 scripts/build_company_event_calendar.py
+
+      - name: Stop unless any publishable data moved
+        id: gate
+        run: |
+          if git diff --quiet; then
+            echo "No source, derived, or event-calendar changes to publish."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            git diff --stat
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
 
       # The checks that caught TSMC's $29bn net-cash error, NVIDIA's stale
       # ROIC-WACC and TSMC's $10.9tn market cap. They existed only as snippets
@@ -116,7 +129,7 @@ jobs:
         if: steps.gate.outputs.changed == 'true'
         run: |
           unexpected=$(git status --porcelain | awk '{print $2}' | grep -Ev \
-            '^(prices|financials|quarterly_financials|fundamentals|financial_health|valuation|sec_daily_change_candidates|sec_candidate_rule_calibration|sec_position_impact_history)\.json$|^[a-z]+_report\.html$|^30_Analysis/.*_Master_Investment_Thesis_2026\.md$|^60_SEC_Filing_Radar/SEC_(Daily_Change_Candidates|Candidate_Rule_Calibration|Position_Impact_History)\.md$' \
+            '^(prices|financials|quarterly_financials|fundamentals|financial_health|valuation|sec_daily_change_candidates|sec_candidate_rule_calibration|sec_position_impact_history|company_event_calendar)\.json$|^[a-z]+_report\.html$|^30_Analysis/.*_Master_Investment_Thesis_2026\.md$|^60_SEC_Filing_Radar/(SEC_(Daily_Change_Candidates|Candidate_Rule_Calibration|Position_Impact_History)|Company_Event_Calendar)\.md$' \
             || true)
           if [ -n "$unexpected" ]; then
             echo "Unexpected files changed; refusing to commit:"
@@ -125,7 +138,7 @@ jobs:
           fi
 
       - name: Notify meaningful portfolio-impact changes
-        if: steps.gate.outputs.changed == 'true' && steps.position_impact.outputs.notify_count != '0'
+        if: steps.source_gate.outputs.market_changed == 'true' && steps.position_impact.outputs.notify_count != '0'
         env:
           GH_TOKEN: ${{ github.token }}
           POSITION_IMPACT_BATCH_ID: ${{ steps.position_impact.outputs.batch_id }}
