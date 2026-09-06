@@ -1577,6 +1577,91 @@ def c32():
     return not bad and not missing, f"資料問題：{bad or '無'}；缺自動化／畫面：{missing or '無'}"
 
 
+@check("C-33", "財報前後驗證卡可重建且不把缺值冒充結論")
+def c33():
+    data = load("earnings_verification_cards.json")
+    dashboard = read("dashboard.html")
+    quarterly = load("quarterly_financials.json").get("companies", {})
+    bad = []
+    companies = data.get("companies") or []
+    if data.get("schema_version") != 1:
+        bad.append("schema_version 不是 1")
+    if data.get("tracked_count") != 14 or len(companies) != 14:
+        bad.append("不是 14 家個股")
+    if data.get("holding_count") != 8:
+        bad.append("實際持股家數不是 8")
+    tickers = {row.get("ticker") for row in companies}
+    if {"VGT", "VOO"} & tickers:
+        bad.append("ETF 混入財報驗證卡")
+    if data.get("preparation_due_count") != sum(bool(row.get("pre_event", {}).get("preparation_due")) for row in companies):
+        bad.append("財報前待準備家數不一致")
+    if data.get("post_review_due_count") != sum(bool(row.get("post_event", {}).get("review_due")) for row in companies):
+        bad.append("財報後待核對家數不一致")
+    for row in companies:
+        ticker = row.get("ticker")
+        if len(row.get("pre_event", {}).get("checkpoints") or []) < 3:
+            bad.append(f"{ticker} 財報前檢查題不足")
+        latest = row.get("post_event", {}).get("latest_result")
+        kpis = row.get("post_event", {}).get("kpis") or []
+        if latest and len(kpis) != 5:
+            bad.append(f"{ticker} 最新季度不是五項 KPI")
+        if latest and not str(latest.get("source_url", "")).startswith("https://"):
+            bad.append(f"{ticker} 最新季度缺 HTTPS 原文")
+        data_ticker = row.get("data_ticker")
+        periods = quarterly.get(data_ticker, {}).get("periods") or []
+        for index, basis in ((1, "qoq"), (4, "yoy")):
+            if len(periods) <= index:
+                continue
+            previous = (periods[index].get("values") or {}).get("free_cash_flow")
+            if isinstance(previous, dict):
+                previous = previous.get("value")
+            fcf = next((item for item in kpis if item.get("metric") == "free_cash_flow"), {})
+            current = fcf.get("value")
+            if ((previous is not None and previous <= 0) or
+                    (current is not None and current < 0)) and fcf.get(basis) is not None:
+                bad.append(f"{ticker} FCF 跨越負／零值仍顯示 {basis} 百分比")
+
+    with tempfile.TemporaryDirectory() as temp_dir:
+        temp = pathlib.Path(temp_dir)
+        result = subprocess.run([
+            sys.executable, str(REPO_ROOT / "scripts/build_earnings_verification_cards.py"),
+            "--today", data.get("generated_at", ""),
+            "--output", str(temp / "cards.json"),
+            "--markdown", str(temp / "cards.md"),
+        ], cwd=REPO_ROOT, text=True, capture_output=True, check=False)
+        if result.returncode:
+            bad.append(f"財報驗證卡重建失敗：{result.stderr.strip() or result.stdout.strip()}")
+        elif json.loads((temp / "cards.json").read_text()) != data:
+            bad.append("財報驗證卡無法由既有來源確定性重建")
+
+    markers = {
+        "dashboard": (dashboard, (
+            "secEarningsVerification", "earnings_verification_cards.json",
+            "renderSecEarningsVerification", "財報前｜先定義驗證題",
+            "財報後｜實績與論點核對", "FCF 前期為零或任一期為負數時不顯示成長率",
+            "ETF 不納入",
+        )),
+        "價格 workflow": (read(".github/workflows/update-prices.yml"), (
+            "build_earnings_verification_cards.py", "earnings_verification_cards",
+            "Earnings_Verification_Cards",
+        )),
+        "SEC workflow": (read(".github/workflows/sec-filing-alerts.yml"), (
+            "build_earnings_verification_cards.py", "earnings_verification_cards.json",
+            "Earnings_Verification_Cards.md",
+        )),
+        "驗證卡筆記": (read("60_SEC_Filing_Radar/Earnings_Verification_Cards.md"), (
+            "財報前 7 天", "財報後 14 天", "分析師共識", "ETF 不納入",
+        )),
+        "維護 SOP": (read("00_Meta/Sec_kb_資料維護SOP.md"), (
+            "build_earnings_verification_cards.py", "申報後 14 天", "自由現金流",
+        )),
+        "00_Home": (read("00_Home.md"), ("Earnings_Verification_Cards",)),
+    }
+    missing = [f"{label}:{marker}" for label, (text, required) in markers.items()
+               for marker in required if marker not in text]
+    return not bad and not missing, f"資料問題：{bad or '無'}；缺自動化／畫面：{missing or '無'}"
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--quiet", action="store_true", help="只印出失敗項")

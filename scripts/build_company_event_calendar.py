@@ -14,6 +14,7 @@ import json
 from datetime import date, datetime, timedelta
 from pathlib import Path
 from typing import Any
+from zoneinfo import ZoneInfo
 
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -301,7 +302,7 @@ def main() -> int:
     parser.add_argument("--provider-json", type=Path, help="Offline provider fixture")
     args = parser.parse_args()
 
-    today = date.fromisoformat(args.today) if args.today else date.today()
+    today = date.fromisoformat(args.today) if args.today else datetime.now(ZoneInfo("Asia/Taipei")).date()
     overrides = load_json(args.overrides, {"events": []})
     holdings = load_json(args.holdings, {"holdings": []})
     previous = load_json(args.output, None)

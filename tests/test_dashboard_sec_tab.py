@@ -27,6 +27,7 @@ class DashboardSecTabTests(unittest.TestCase):
         cls.candidate_calibration = json.loads((ROOT / "sec_candidate_rule_calibration.json").read_text())
         cls.position_impact = json.loads((ROOT / "sec_position_impact_history.json").read_text())
         cls.event_calendar = json.loads((ROOT / "company_event_calendar.json").read_text())
+        cls.earnings_verification = json.loads((ROOT / "earnings_verification_cards.json").read_text())
         cls.holdings = json.loads((ROOT / "portfolio_holdings.json").read_text())
 
     def test_tab_defaults_to_14_days_and_allows_7_days(self):
@@ -74,7 +75,7 @@ class DashboardSecTabTests(unittest.TestCase):
         self.assertIn('id="secCoreShortcuts"', self.html)
         self.assertIn("function setSecCoreTicker(ticker)", self.html)
         self.assertIn("function renderSecCoreShortcuts()", self.html)
-        self.assertIn("點選一次，同步切換①八季數字、②重要申報、③ Form 4、④募資稀釋、⑤進階 SEC 雷達、⑥文字差異、⑦投資論點、⑧ Exhibit 99.1 與⑨ Earnings Call", self.html)
+        self.assertIn("點選一次，同步切換①八季數字、②重要申報、③ Form 4、④募資稀釋、⑤進階 SEC 雷達、⑥文字差異、⑦投資論點、⑧ Exhibit 99.1、⑨ Earnings Call 與⑩財報前後驗證", self.html)
         for ticker in core:
             self.assertIn(f'data-sec-core-ticker="{ticker}"', self.html)
             self.assertIn(f"setSecCoreTicker('{ticker}')", self.html)
@@ -84,7 +85,7 @@ class DashboardSecTabTests(unittest.TestCase):
         self.assertEqual(sec_tab, tab_one)
         for assignment in ("secQuarterlyTicker = dataTicker", "secFilingsTicker = dataTicker",
                            "secTradesTicker = dataTicker", "secDilutionTicker = dataTicker",
-                           "secAdvancedTicker = dataTicker"):
+                           "secAdvancedTicker = dataTicker", "secEarningsVerificationTicker = ticker"):
             self.assertIn(assignment, self.html)
         self.assertIn("const SEC_TICKER_ALIASES = { GOOG: 'GOOGL' }", self.html)
         self.assertIn("button.setAttribute('aria-pressed', active ? 'true' : 'false')", self.html)
@@ -358,6 +359,28 @@ class DashboardSecTabTests(unittest.TestCase):
             "本視窗目前沒有已知財報、股東會、SEC 法定期限或投資人活動",
             "Form 4、8-K／6-K、臨時募資及併購多半無法事先知道",
             "ETF 不納入", "renderSecEventCalendar();",
+        ]
+        for phrase in required_copy:
+            self.assertIn(phrase, self.html)
+
+    def test_earnings_verification_cards_close_the_pre_post_loop(self):
+        payload = self.earnings_verification
+        self.assertEqual(payload["schema_version"], 1)
+        self.assertEqual(payload["tracked_count"], 14)
+        self.assertEqual(payload["holding_count"], 8)
+        self.assertEqual(payload["post_review_due_count"], sum(
+            row["post_event"]["review_due"] for row in payload["companies"]
+        ))
+        self.assertFalse({"VGT", "VOO"} & {row["ticker"] for row in payload["companies"]})
+        self.assertTrue(any(row["pre_event"]["guidance"]["rows"] for row in payload["companies"]))
+        self.assertTrue(any(row["post_event"]["completed_guidance"]["record"] for row in payload["companies"]))
+        required_copy = [
+            'id="secEarningsVerification"', "fetch('earnings_verification_cards.json'",
+            "function renderSecEarningsVerification()", "function setSecEarningsVerificationTicker(ticker)",
+            "財報前｜先定義驗證題", "財報後｜實績與論點核對", "最近指引命中結果",
+            "失效條件", "FCF 前期為零或任一期為負數時不顯示成長率", "分析師共識",
+            "ETF 不納入", "renderSecEarningsVerification();",
+            "if (value === null || value === undefined) return '—';",
         ]
         for phrase in required_copy:
             self.assertIn(phrase, self.html)

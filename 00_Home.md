@@ -71,6 +71,7 @@ tags:
 - 💼 **[[SEC_Position_Impact_Scoring|實際持股部位影響排序（SEC 訊號 × 部位 × 回撤）]]**
 - 🔔 **[[SEC_Position_Impact_History|部位影響變化歷史（只列跨門檻變化）]]**
 - 🗓 **[[Company_Event_Calendar|個股未來 30 天事件日曆（實際持股優先）]]**
+- 🎯 **[[Earnings_Verification_Cards|財報前後驗證追蹤卡（指引、實績與論點閉環）]]**
 - 📥 **[[Periodic_Filing_Ingest|10-Q／8-K／6-K 原文筆記與安全分段狀態]]**
 - 📊 **[[Exhibit_991_Earnings_Radar|8-K Exhibit 99.1 財報分析卡雷達]]**
 - 🎙️ **[[Earnings_Call_Radar|官方 Earnings Call／Prepared Remarks 雷達]]**

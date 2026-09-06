@@ -1366,6 +1366,41 @@
     .sec-event-calendar details .sec-event-calendar-list { margin-top: 9px; }
     .sec-event-method { margin: 12px 0 0; color: #94a3b8; font-size: 0.66rem; line-height: 1.55; }
 
+    .sec-earnings-verification {
+      margin: 0 0 20px;
+      padding: 17px;
+      border: 1px solid rgba(45, 212, 191, 0.3);
+      border-radius: 17px;
+      background: linear-gradient(135deg, rgba(13, 148, 136, 0.1), rgba(15, 23, 42, 0.8));
+    }
+    .sec-verify-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+    .sec-verify-head h3 { color: #ccfbf1; font-size: 1rem; }
+    .sec-verify-head p { margin-top: 4px; color: #94a3b8; font-size: 0.72rem; line-height: 1.5; }
+    .sec-verify-summary { display: flex; gap: 7px; flex-wrap: wrap; margin: 12px 0; }
+    .sec-verify-summary span, .sec-verify-phase, .sec-verify-state { padding: 4px 8px; border-radius: 999px; background: rgba(15, 118, 110, 0.16); color: #99f6e4; font-size: 0.62rem; font-weight: 850; }
+    .sec-verify-phase.due, .sec-verify-state.risk { color: #fecdd3; background: rgba(190, 18, 60, 0.19); }
+    .sec-verify-phase.upcoming, .sec-verify-state.unknown { color: #fde68a; background: rgba(180, 83, 9, 0.18); }
+    .sec-verify-state.improved { color: #a7f3d0; background: rgba(5, 150, 105, 0.18); }
+    .sec-verify-state.stable { color: #bfdbfe; background: rgba(37, 99, 235, 0.15); }
+    .sec-verify-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 11px; }
+    .sec-verify-panel { min-width: 0; padding: 13px; border: 1px solid rgba(148, 163, 184, 0.19); border-radius: 13px; background: rgba(2, 6, 23, 0.43); }
+    .sec-verify-panel h4 { margin: 0; color: #f8fafc; font-size: 0.82rem; }
+    .sec-verify-meta { margin: 6px 0 10px; color: #cbd5e1; font-size: 0.67rem; line-height: 1.55; }
+    .sec-verify-guidance { display: grid; gap: 7px; margin: 9px 0; }
+    .sec-verify-guidance-row, .sec-verify-check, .sec-verify-thesis-row { padding: 8px 9px; border-radius: 9px; background: rgba(15, 23, 42, 0.7); color: #cbd5e1; font-size: 0.66rem; line-height: 1.5; }
+    .sec-verify-guidance-row strong, .sec-verify-check strong, .sec-verify-thesis-row strong { color: #f8fafc; }
+    .sec-verify-check small { display: block; margin-top: 3px; color: #94a3b8; font-size: 0.61rem; }
+    .sec-verify-kpis { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 7px; margin: 10px 0; }
+    .sec-verify-kpi { min-width: 0; padding: 8px; border: 1px solid rgba(148, 163, 184, 0.16); border-radius: 9px; background: rgba(15, 23, 42, 0.68); }
+    .sec-verify-kpi.risk { border-color: rgba(251, 113, 133, 0.36); }
+    .sec-verify-kpi.improved { border-color: rgba(52, 211, 153, 0.31); }
+    .sec-verify-kpi span, .sec-verify-kpi small { display: block; color: #94a3b8; font-size: 0.57rem; line-height: 1.4; }
+    .sec-verify-kpi strong { display: block; margin: 4px 0; color: #f8fafc; font-size: 0.76rem; overflow-wrap: anywhere; }
+    .sec-verify-kpi small { color: #cbd5e1; }
+    .sec-verify-thesis { display: grid; gap: 7px; margin-top: 9px; }
+    .sec-verify-change { color: #fde68a; font-weight: 800; }
+    .sec-verify-method { margin: 12px 0 0; color: #94a3b8; font-size: 0.66rem; line-height: 1.55; }
+
     .sec-editorial {
       margin: 0 0 20px;
       padding: 16px;
@@ -2289,6 +2324,7 @@
       .sec-reading-rank-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .sec-position-impact-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .sec-event-calendar-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .sec-verify-kpis { grid-template-columns: repeat(3, minmax(0, 1fr)); }
       .sec-quarterly-diagnosis-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .sec-reading-guide { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .sec-advanced-explainer { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -2300,7 +2336,7 @@
 
     @media (max-width: 620px) {
       .sec-daily-shell { padding: 18px; }
-      .sec-kpi-grid, .sec-reading-rank-list, .sec-position-impact-list, .sec-event-calendar-list, .sec-reading-guide, .sec-advanced-explainer, .sec-advanced-actual-grid, .sec-company-brief-grid, .sec-company-assessment, .sec-company-evidence-columns, .sec-update-grid, .sec-update-detail-grid, .sec-text-diff-kpis, .sec-text-change-grid, .sec-thesis-kpis { grid-template-columns: 1fr; }
+      .sec-kpi-grid, .sec-reading-rank-list, .sec-position-impact-list, .sec-event-calendar-list, .sec-verify-grid, .sec-verify-kpis, .sec-reading-guide, .sec-advanced-explainer, .sec-advanced-actual-grid, .sec-company-brief-grid, .sec-company-assessment, .sec-company-evidence-columns, .sec-update-grid, .sec-update-detail-grid, .sec-text-diff-kpis, .sec-text-change-grid, .sec-thesis-kpis { grid-template-columns: 1fr; }
       .sec-ownership-kpis { grid-template-columns: 1fr; }
       .sec-reading-progress { grid-template-columns: 1fr; }
       .sec-reading-actions { justify-content: flex-start; }
@@ -2855,6 +2891,13 @@
           <p class="sec-company-brief-placeholder">正在載入 14 家個股的未來事件…</p>
         </section>
 
+        <section id="secEarningsVerification" class="sec-earnings-verification" aria-live="polite" aria-labelledby="secEarningsVerificationTitle">
+          <div class="sec-verify-head">
+            <div><h3 id="secEarningsVerificationTitle">🎯 財報前後驗證追蹤卡</h3><p>財報前先寫下要驗證的官方指引與失效條件；財報後用同一張卡核對實績、現金流、稀釋與論點變化。</p></div>
+          </div>
+          <p class="sec-company-brief-placeholder">正在建立 14 家個股的財報驗證閉環…</p>
+        </section>
+
         <section id="secEditorial" class="sec-editorial" aria-live="polite" aria-labelledby="secEditorialTitle">
           <div class="sec-editorial-head"><div><h3 id="secEditorialTitle">🧠 人工消化後的每日綜合重點</h3><p class="sec-editorial-meta">正在載入已讀結論、關鍵證據與下一步驗證條件…</p></div></div>
         </section>
@@ -2866,7 +2909,7 @@
         <nav id="secCoreShortcuts" class="sec-core-shortcuts" aria-label="SEC 核心持股快捷標的">
           <div class="sec-core-shortcuts-head">
             <strong>⚡ 核心持股快捷標的</strong>
-            <span id="secCoreShortcutStatus">點選一次，同步切換①八季數字、②重要申報、③ Form 4、④募資稀釋、⑤進階 SEC 雷達、⑥文字差異、⑦投資論點、⑧ Exhibit 99.1 與⑨ Earnings Call。</span>
+            <span id="secCoreShortcutStatus">點選一次，同步切換①八季數字、②重要申報、③ Form 4、④募資稀釋、⑤進階 SEC 雷達、⑥文字差異、⑦投資論點、⑧ Exhibit 99.1、⑨ Earnings Call 與⑩財報前後驗證。</span>
           </div>
           <div class="sec-core-chip-list" role="group" aria-label="選擇核心持股公司">
             <button type="button" class="sec-core-chip" data-sec-core-ticker="NVDA" onclick="setSecCoreTicker('NVDA')" aria-pressed="false">NVDA (輝達)</button>
@@ -3903,6 +3946,7 @@
     let secOwnershipStatus = 'above_5';
     let secOwnershipEventLevel = 'ALL';
     let secCoreTicker = '';
+    let secEarningsVerificationTicker = '';
     let secQuarterlyMetric = 'revenue';
     let secQuarterlyChart = null;
     const SEC_CORE_TICKERS = ['NVDA', 'TSM', 'MSFT', 'META', 'AAPL', 'AMZN', 'ARM', 'ONDS', 'TSLA', 'GOOG', 'COHR', 'MRVL', 'INTC', 'NOK'];
@@ -4345,12 +4389,15 @@
           fetch('company_event_calendar.json', { cache: 'no-cache' })
             .then(r => { if (!r.ok) throw new Error(`個股事件日曆 HTTP ${r.status}`); return r.json(); })
             .catch(error => { console.warn('company_event_calendar.json 載入失敗', error); return null; }),
+          fetch('earnings_verification_cards.json', { cache: 'no-cache' })
+            .then(r => { if (!r.ok) throw new Error(`財報驗證追蹤卡 HTTP ${r.status}`); return r.json(); })
+            .catch(error => { console.warn('earnings_verification_cards.json 載入失敗', error); return null; }),
           loadPortfolioHoldings(),
           fetch('valuation.json', { cache: 'no-cache' })
             .then(r => { if (!r.ok) throw new Error(`估值資料 HTTP ${r.status}`); return r.json(); })
             .catch(error => { console.warn('valuation.json 載入失敗，跨公司估值排名將顯示缺值', error); return null; }),
-        ]).then(([alerts, details, quarterlyFinancials, advanced, thirteenF, textChanges, thesisTracking, thesisStatus, exhibit991, earningsCalls, editorial, changeCandidates, candidateReviews, candidateCalibration, positionImpact, eventCalendar, holdingsPayload, valuation]) => {
-          secDailyData = { alerts, details, quarterlyFinancials, advanced, thirteenF, textChanges, thesisTracking, thesisStatus, exhibit991, earningsCalls, editorial, changeCandidates, candidateReviews, candidateCalibration, positionImpact, eventCalendar, holdingsPayload, valuation };
+        ]).then(([alerts, details, quarterlyFinancials, advanced, thirteenF, textChanges, thesisTracking, thesisStatus, exhibit991, earningsCalls, editorial, changeCandidates, candidateReviews, candidateCalibration, positionImpact, eventCalendar, earningsVerification, holdingsPayload, valuation]) => {
+          secDailyData = { alerts, details, quarterlyFinancials, advanced, thirteenF, textChanges, thesisTracking, thesisStatus, exhibit991, earningsCalls, editorial, changeCandidates, candidateReviews, candidateCalibration, positionImpact, eventCalendar, earningsVerification, holdingsPayload, valuation };
           renderSecDaily();
         }).catch(error => {
           secDailyPromise = null;
@@ -4958,6 +5005,101 @@
         <p class="sec-event-method"><strong>怎麼看：</strong>「官方已確認」來自公司 IR 或 SEC 原文；「市場預估／市場資料」只是日期探索，仍可能變動。Form 4、8-K／6-K、臨時募資及併購多半無法事先知道，送件後由 SEC 雷達顯示，不能因日曆空白而推論未來 30 天不會發生。</p>`;
     }
 
+    function formatSecVerificationMetric(row, currency) {
+      if (row.value === null || row.value === undefined) return '—';
+      const value = Number(row.value);
+      if (!Number.isFinite(value)) return '—';
+      if (row.display === 'percent') return `${formatSecNumber(value * 100, 1)}%`;
+      if (row.display === 'shares') return `${formatSecNumber(value / 1e6, 1)}M 股`;
+      const divisor = Math.abs(value) >= 1e9 ? 1e9 : 1e6;
+      return `${escapeSec(currency || 'USD')} ${formatSecNumber(value / divisor, 1)}${divisor === 1e9 ? 'B' : 'M'}`;
+    }
+
+    function formatSecVerificationDelta(value, display) {
+      if (value === null || value === undefined) return '—';
+      const number = Number(value);
+      if (!Number.isFinite(number)) return '—';
+      return `${number >= 0 ? '+' : ''}${formatSecNumber(number, 1)}${display === 'percent' ? 'pp' : '%'}`;
+    }
+
+    function renderSecEarningsVerification() {
+      const container = document.getElementById('secEarningsVerification');
+      if (!container) return;
+      const payload = secDailyData?.earningsVerification;
+      if (!payload || !Array.isArray(payload.companies) || !payload.companies.length) {
+        container.innerHTML = '<div class="sec-verify-head"><div><h3 id="secEarningsVerificationTitle">🎯 財報前後驗證追蹤卡</h3><p>⚠️ 驗證卡目前無法載入；不以舊數字或市場共識補猜。</p></div></div>';
+        return;
+      }
+      const requested = secEarningsVerificationTicker || secCoreTicker || payload.default_ticker;
+      let company = payload.companies.find(row => row.ticker === requested) || payload.companies[0];
+      secEarningsVerificationTicker = company.ticker;
+      const options = payload.companies.map(row => `<option value="${escapeSec(row.ticker)}"${row.ticker === company.ticker ? ' selected' : ''}>${row.position === 'holding' ? '💼' : '👀'} ${escapeSec(row.ticker)}｜${escapeSec(row.name || '')}</option>`).join('');
+      const earnings = company.next_earnings;
+      const phaseClass = ['post_review_due', 'preparation_due'].includes(company.phase) ? 'due' : (company.phase === 'upcoming' ? 'upcoming' : '');
+      const source = earnings && safeEventUrl(earnings.source_url) !== '#'
+        ? `<a class="sec-link" href="${safeEventUrl(earnings.source_url)}" target="_blank" rel="noopener">${escapeSec(earnings.source_label || '日期來源')} ↗</a>` : '';
+      const dateLabel = earnings
+        ? `${escapeSec(earnings.date)}｜${earnings.days_until >= 0 ? `${formatSecNumber(earnings.days_until)} 天後` : `已過 ${formatSecNumber(Math.abs(earnings.days_until))} 天`}｜${earnings.confidence === 'official' ? '公司已確認' : '市場預估，仍可能變動'}`
+        : '尚未取得可靠日期';
+      const guidance = company.pre_event?.guidance || {};
+      const guidanceRows = (guidance.rows || []).map(row => {
+        const hasLow = Number.isFinite(Number(row.low));
+        const hasHigh = Number.isFinite(Number(row.high));
+        const range = hasLow && hasHigh ? `${formatSecNumber(Number(row.low), 2)}～${formatSecNumber(Number(row.high), 2)}` : (hasLow ? formatSecNumber(Number(row.low), 2) : (hasHigh ? formatSecNumber(Number(row.high), 2) : '—'));
+        const officialUrl = safeEventUrl(row.source_url);
+        const official = officialUrl === '#' ? '' : `<a class="sec-link" href="${officialUrl}" target="_blank" rel="noopener">官方原文 ↗</a>`;
+        return `<div class="sec-verify-guidance-row"><strong>${escapeSec(row.period)}｜${escapeSec(row.metric)}</strong><br>${range} ${escapeSec(row.unit || '')}${row.source_date ? `｜指引日 ${escapeSec(row.source_date)}` : ''}<br>${official}</div>`;
+      }).join('');
+      const guidanceHtml = guidanceRows || `<div class="sec-verify-guidance-row"><strong>目前沒有可比量化指引</strong><br>${escapeSec(guidance.note || '不以分析師共識或模型預測補值；只記錄公司官方原文。')}</div>`;
+      const checks = (company.pre_event?.checkpoints || []).map(row => `<div class="sec-verify-check"><strong>${escapeSec(row.topic)}</strong><br>${escapeSec(row.question)}<small>為什麼：${escapeSec(row.why)}</small></div>`).join('');
+      const latest = company.post_event?.latest_result;
+      const latestSource = latest && safeEventUrl(latest.source_url) !== '#'
+        ? `<a class="sec-link" href="${safeEventUrl(latest.source_url)}" target="_blank" rel="noopener">財報原文 ↗</a>` : '';
+      const latestMeta = latest
+        ? `${escapeSec(latest.period_end)}｜${escapeSec(latest.form)}｜申報 ${escapeSec(latest.filing_date)}${Number.isFinite(Number(latest.days_since_filing)) ? `（${formatSecNumber(Number(latest.days_since_filing))} 天前）` : ''}`
+        : '尚無可比較季度';
+      const currency = latest?.currency || 'USD';
+      const kpis = (company.post_event?.kpis || []).map(row => `<div class="sec-verify-kpi ${escapeSec(row.state || 'unknown')}">
+        <span>${escapeSec(row.label)}</span><strong>${formatSecVerificationMetric(row, currency)}</strong>
+        <small>QoQ ${formatSecVerificationDelta(row.qoq, row.display)}｜YoY ${formatSecVerificationDelta(row.yoy, row.display)}</small>
+        <small>${escapeSec(row.interpretation)}</small></div>`).join('') || '<p class="sec-verify-meta">缺少可比季度數字，暫不判斷。</p>';
+      const completed = company.post_event?.completed_guidance || {};
+      const record = completed.record;
+      let completedHtml = `<div class="sec-verify-guidance-row"><strong>最近指引命中結果</strong><br>${escapeSec(completed.note || '目前沒有相同期間、相同口徑的可驗證資料。')}</div>`;
+      if (record) {
+        const guidanceUrl = safeEventUrl(record.guidance_source_url);
+        completedHtml = `<div class="sec-verify-guidance-row"><strong>最近指引命中結果｜${escapeSec(record.outcome_label)}</strong><br>${escapeSec(record.period)} ${escapeSec(record.metric)}：指引 ${formatSecNumber(Number(record.low), 2)}～${formatSecNumber(Number(record.high), 2)} ${escapeSec(record.unit || '')}；實際 ${formatSecNumber(Number(record.actual), 2)}${guidanceUrl === '#' ? '' : `<br><a class="sec-link" href="${guidanceUrl}" target="_blank" rel="noopener">指引原文 ↗</a>`}</div>`;
+      }
+      const thesis = company.post_event?.thesis || {};
+      const thesisRows = (thesis.items || []).map(row => {
+        const changed = row.changed_from_previous_quarter
+          ? `<span class="sec-verify-change">前季 ${escapeSec(row.previous_label || row.previous_status)} → 本季 ${escapeSec(row.label || row.status)}</span><br>` : '';
+        const state = row.status === 'invalidated' ? 'risk' : (row.status === 'supported' ? 'improved' : 'unknown');
+        return `<div class="sec-verify-thesis-row"><strong>${escapeSec(row.title)}</strong> <span class="sec-verify-state ${state}">${escapeSec(row.label || row.status)}</span><br>${changed}${escapeSec(row.evidence)}<br><small>失效條件：${escapeSec(row.invalidation)}</small></div>`;
+      }).join('');
+      const thesisSource = safeThesisReportUrl(thesis.master_report);
+      const thesisChange = thesis.changed_from_previous_quarter
+        ? `<span class="sec-verify-change">前季 ${escapeSec(thesis.previous_label || thesis.previous_status)} → 本季 ${escapeSec(thesis.label || thesis.status)}</span>` : '相較前季總結論未變';
+      container.innerHTML = `<div class="sec-verify-head">
+          <div><h3 id="secEarningsVerificationTitle">🎯 財報前後驗證追蹤卡</h3><p>先立可驗證條件，再用官方財報核對；同一張卡保存「原先要看什麼」與「結果改變了什麼」。</p></div>
+          <label class="sec-section-filter"><span>查看公司</span><select class="sec-quarterly-select" aria-label="選擇財報驗證公司" onchange="setSecEarningsVerificationTicker(this.value)">${options}</select></label>
+        </div>
+        <div class="sec-verify-summary"><span>${escapeSec(payload.methodology?.scope || '14 家個股')}</span><span>財報前待準備 ${formatSecNumber(payload.preparation_due_count)} 家</span><span>財報後待核對 ${formatSecNumber(payload.post_review_due_count)} 家</span><span>有未結案指引 ${formatSecNumber(payload.pending_guidance_company_count)} 家</span><span class="sec-verify-phase ${phaseClass}">${escapeSec(company.phase_label)}</span></div>
+        <div class="sec-verify-grid">
+          <section class="sec-verify-panel" aria-label="財報前驗證條件"><h4>財報前｜先定義驗證題</h4><p class="sec-verify-meta"><strong>下一財報：</strong>${dateLabel}<br>${source}</p><div class="sec-verify-guidance">${guidanceHtml}</div>${checks}</section>
+          <section class="sec-verify-panel" aria-label="財報後核對結果"><h4>財報後｜實績與論點核對</h4><p class="sec-verify-meta"><strong>最近結果：</strong>${latestMeta}<br>${latestSource}</p><div class="sec-verify-kpis">${kpis}</div><div class="sec-verify-guidance">${completedHtml}</div><p class="sec-verify-meta"><strong>客觀結論：</strong>${escapeSec(thesis.label || '資料不足')}｜${thesisChange}${thesisSource === '#' ? '' : `｜<a class="sec-link" href="${thesisSource}" target="_blank" rel="noopener">完整投資論點 ↗</a>`}</p><div class="sec-verify-thesis">${thesisRows}</div></section>
+        </div>
+        <p class="sec-verify-method"><strong>使用方式：</strong>財報前 7 天自動標為準備期；申報後 14 天標為核對期。QoQ＝與前一季相比，YoY＝與去年同期相比，pp＝百分點。FCF 前期為零或任一期為負數時不顯示成長率，避免錯誤放大；缺值不補猜。日期若標示市場預估，仍可能變動。本卡是可追溯的財務驗證，不是股價預測或買進／賣出建議；ETF 不納入。</p>`;
+    }
+
+    function setSecEarningsVerificationTicker(ticker) {
+      if (!SEC_CORE_TICKERS.includes(ticker)) return;
+      secEarningsVerificationTicker = ticker;
+      secCoreTicker = '';
+      renderSecCoreShortcuts();
+      renderSecEarningsVerification();
+    }
+
     function secHoldingPosition(ticker, companyTone) {
       const holding = userHoldings.find(row => row.ticker === ticker);
       if (!holding) return null;
@@ -5172,6 +5314,7 @@
       renderSecReadingRank();
       renderSecPositionImpact();
       renderSecEventCalendar();
+      renderSecEarningsVerification();
       renderSecEditorial();
       renderSecCrossCompany();
 
@@ -5708,6 +5851,7 @@
 
     function setSecQuarterlyTicker(ticker) {
       secQuarterlyTicker = ticker;
+      secEarningsVerificationTicker = ticker === 'GOOGL' ? 'GOOG' : ticker;
       secCoreTicker = '';
       renderSecCoreShortcuts();
       renderSecCompanyBrief();
@@ -5715,6 +5859,7 @@
       renderSecTextDiff();
       renderSecExhibit991();
       renderSecEarningsCall();
+      renderSecEarningsVerification();
       renderSecQuarterlyTrend();
     }
 
@@ -5727,8 +5872,8 @@
       const status = document.getElementById('secCoreShortcutStatus');
       if (!status) return;
       status.textContent = secCoreTicker
-        ? `已同步選擇 ${secCoreTicker}：①八季數字、②重要申報、③ Form 4、④募資稀釋、⑤進階 SEC 雷達、⑥文字差異、⑦投資論點、⑧ Exhibit 99.1、⑨ Earnings Call。`
-        : '點選一次，同步切換①八季數字、②重要申報、③ Form 4、④募資稀釋、⑤進階 SEC 雷達、⑥文字差異、⑦投資論點、⑧ Exhibit 99.1 與⑨ Earnings Call。';
+        ? `已同步選擇 ${secCoreTicker}：①八季數字、②重要申報、③ Form 4、④募資稀釋、⑤進階 SEC 雷達、⑥文字差異、⑦投資論點、⑧ Exhibit 99.1、⑨ Earnings Call、⑩財報前後驗證。`
+        : '點選一次，同步切換①八季數字、②重要申報、③ Form 4、④募資稀釋、⑤進階 SEC 雷達、⑥文字差異、⑦投資論點、⑧ Exhibit 99.1、⑨ Earnings Call 與⑩財報前後驗證。';
     }
 
     function setSecCoreTicker(ticker) {
@@ -5740,6 +5885,7 @@
       secTradesTicker = dataTicker;
       secDilutionTicker = dataTicker;
       secAdvancedTicker = dataTicker;
+      secEarningsVerificationTicker = ticker;
       renderSecDaily();
     }
 
