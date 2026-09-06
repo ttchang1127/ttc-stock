@@ -30,6 +30,7 @@ class DashboardSecTabTests(unittest.TestCase):
         cls.earnings_verification = json.loads((ROOT / "earnings_verification_cards.json").read_text())
         cls.earnings_verification_history = json.loads((ROOT / "earnings_verification_history.json").read_text())
         cls.segment_drivers = json.loads((ROOT / "segment_driver_validation.json").read_text())
+        cls.segment_driver_history = json.loads((ROOT / "segment_driver_history.json").read_text())
         cls.holdings = json.loads((ROOT / "portfolio_holdings.json").read_text())
 
     def test_tab_defaults_to_14_days_and_allows_7_days(self):
@@ -421,6 +422,22 @@ class DashboardSecTabTests(unittest.TestCase):
             "分部營運與成長驅動驗證", "最大成長驅動", "成長貢獻", "營收集中度",
             "風險與限制", "下期要驗證", "不是同一概念", "成長貢獻不是獲利貢獻",
             "缺少同口徑前期絕對值，不反推成長貢獻",
+        ]
+        for phrase in required_copy:
+            self.assertIn(phrase, self.html)
+
+    def test_segment_driver_history_shows_four_periods_and_transition_guardrails(self):
+        payload = self.segment_driver_history
+        self.assertEqual(payload["schema_version"], 1)
+        self.assertEqual(payload["tracked_count"], 14)
+        self.assertEqual(payload["period_count"], 56)
+        self.assertTrue(all(len(row["history"]) == 4 for row in payload["companies"]))
+        nvda = next(row for row in payload["companies"] if row["ticker"] == "NVDA")
+        self.assertTrue(any(row["type"] == "basis_break" for row in nvda["transition_events"]))
+        required_copy = [
+            "fetch('segment_driver_history.json'", "function renderSecSegmentDriverHistory(ticker)",
+            "四季分部趨勢與轉折通知", "口徑中斷", "相較前季觸發的客觀轉折",
+            "初次回補只建立基準", "不是獲利貢獻或投資建議",
         ]
         for phrase in required_copy:
             self.assertIn(phrase, self.html)

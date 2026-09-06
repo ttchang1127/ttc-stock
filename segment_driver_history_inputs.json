@@ -1,0 +1,1660 @@
+{
+  "_README": [
+    "只收錄公司 IR、SEC 或正式財務表格中的絕對金額／占比；不得由成長率反推缺值。",
+    "observations 必須由舊到新排列；basis_id 改變時，產生器會切斷 QoQ 與轉折比較。",
+    "derived=true 只允許官方全年數減官方累計數等可直接勾稽的算術，並須保留 derivation_note。"
+  ],
+  "updated_at": "2026-09-06",
+  "companies": {
+    "AAPL": {
+      "name": "Apple",
+      "unit": "USD m",
+      "observations": [
+        {
+          "period": "FY2025 Q4",
+          "period_end": "2025-09-27",
+          "basis_id": "product_service",
+          "basis": "產品／服務營收類別（非營業利益分部）",
+          "source_date": "2025-10-30",
+          "source_url": "https://www.apple.com/newsroom/pdfs/fy2025-q4/FY25_Q4_Consolidated_Financial_Statements.pdf",
+          "prior_year_total_revenue": 115360,
+          "items": [
+            {
+              "key": "iphone",
+              "name": "iPhone",
+              "revenue": 49025
+            },
+            {
+              "key": "mac",
+              "name": "Mac",
+              "revenue": 8726
+            },
+            {
+              "key": "ipad",
+              "name": "iPad",
+              "revenue": 6952
+            },
+            {
+              "key": "wearables",
+              "name": "穿戴、家居與配件",
+              "revenue": 9013
+            },
+            {
+              "key": "services",
+              "name": "服務",
+              "revenue": 28750
+            }
+          ]
+        },
+        {
+          "period": "FY2026 Q1",
+          "period_end": "2025-12-27",
+          "basis_id": "product_service",
+          "basis": "產品／服務營收類別（非營業利益分部）",
+          "source_date": "2026-01-29",
+          "source_url": "https://www.apple.com/newsroom/pdfs/fy2026-q1/FY26_Q1_Consolidated_Financial_Statements.pdf",
+          "prior_year_total_revenue": 124300,
+          "items": [
+            {
+              "key": "iphone",
+              "name": "iPhone",
+              "revenue": 85269
+            },
+            {
+              "key": "mac",
+              "name": "Mac",
+              "revenue": 8386
+            },
+            {
+              "key": "ipad",
+              "name": "iPad",
+              "revenue": 8595
+            },
+            {
+              "key": "wearables",
+              "name": "穿戴、家居與配件",
+              "revenue": 11493
+            },
+            {
+              "key": "services",
+              "name": "服務",
+              "revenue": 30013
+            }
+          ]
+        },
+        {
+          "period": "FY2026 Q2",
+          "period_end": "2026-03-28",
+          "basis_id": "product_service",
+          "basis": "產品／服務營收類別（非營業利益分部）",
+          "source_date": "2026-04-30",
+          "source_url": "https://www.apple.com/newsroom/pdfs/fy2026q2/FY26_Q2_Consolidated_Financial_Statements.pdf",
+          "prior_year_total_revenue": 95339,
+          "items": [
+            {
+              "key": "iphone",
+              "name": "iPhone",
+              "revenue": 56994
+            },
+            {
+              "key": "mac",
+              "name": "Mac",
+              "revenue": 8399
+            },
+            {
+              "key": "ipad",
+              "name": "iPad",
+              "revenue": 6914
+            },
+            {
+              "key": "wearables",
+              "name": "穿戴、家居與配件",
+              "revenue": 7901
+            },
+            {
+              "key": "services",
+              "name": "服務",
+              "revenue": 30976
+            }
+          ]
+        },
+        {
+          "period": "FY2026 Q3",
+          "period_end": "2026-06-27",
+          "basis_id": "product_service",
+          "basis": "產品／服務營收類別（非營業利益分部）",
+          "source_date": "2026-07-30",
+          "source_url": "https://www.apple.com/newsroom/pdfs/fy2026q3/FY26_Q3_Consolidated_Financial_Statements.pdf",
+          "prior_year_total_revenue": 94036,
+          "items": [
+            {
+              "key": "iphone",
+              "name": "iPhone",
+              "revenue": 54252
+            },
+            {
+              "key": "mac",
+              "name": "Mac",
+              "revenue": 10352
+            },
+            {
+              "key": "ipad",
+              "name": "iPad",
+              "revenue": 6191
+            },
+            {
+              "key": "wearables",
+              "name": "穿戴、家居與配件",
+              "revenue": 7883
+            },
+            {
+              "key": "services",
+              "name": "服務",
+              "revenue": 30739
+            }
+          ]
+        }
+      ]
+    },
+    "AMZN": {
+      "name": "Amazon",
+      "unit": "USD m",
+      "observations": [
+        {
+          "period": "2025 Q3",
+          "period_end": "2025-09-30",
+          "basis_id": "reportable_segments",
+          "basis": "可報導分部",
+          "source_date": "2025-10-30",
+          "source_url": "https://ir.aboutamazon.com/news-release/news-release-details/2025/Amazon-com-Announces-Third-Quarter-Results/",
+          "reported_total_yoy_pct": 13,
+          "items": [
+            {
+              "key": "north_america",
+              "name": "North America",
+              "revenue": 106267,
+              "profit": 4789
+            },
+            {
+              "key": "international",
+              "name": "International",
+              "revenue": 40896,
+              "profit": 1199
+            },
+            {
+              "key": "aws",
+              "name": "AWS",
+              "revenue": 33006,
+              "profit": 11434
+            }
+          ]
+        },
+        {
+          "period": "2025 Q4",
+          "period_end": "2025-12-31",
+          "basis_id": "reportable_segments",
+          "basis": "可報導分部",
+          "source_date": "2026-02-05",
+          "source_url": "https://ir.aboutamazon.com/news-release/news-release-details/2026/Amazon-com-Announces-Fourth-Quarter-Results/",
+          "reported_total_yoy_pct": 14,
+          "items": [
+            {
+              "key": "north_america",
+              "name": "North America",
+              "revenue": 127083,
+              "profit": 11472
+            },
+            {
+              "key": "international",
+              "name": "International",
+              "revenue": 50724,
+              "profit": 1040
+            },
+            {
+              "key": "aws",
+              "name": "AWS",
+              "revenue": 35579,
+              "profit": 12465
+            }
+          ]
+        },
+        {
+          "period": "2026 Q1",
+          "period_end": "2026-03-31",
+          "basis_id": "reportable_segments",
+          "basis": "可報導分部",
+          "source_date": "2026-04-30",
+          "source_url": "https://ir.aboutamazon.com/news-release/news-release-details/2026/Amazon-com-Announces-First-Quarter-Results/",
+          "reported_total_yoy_pct": 13,
+          "items": [
+            {
+              "key": "north_america",
+              "name": "North America",
+              "revenue": 104143,
+              "profit": 8267
+            },
+            {
+              "key": "international",
+              "name": "International",
+              "revenue": 39789,
+              "profit": 1424
+            },
+            {
+              "key": "aws",
+              "name": "AWS",
+              "revenue": 37587,
+              "profit": 14161
+            }
+          ]
+        },
+        {
+          "period": "2026 Q2",
+          "period_end": "2026-06-30",
+          "basis_id": "reportable_segments",
+          "basis": "可報導分部",
+          "source_date": "2026-07-30",
+          "source_url": "https://ir.aboutamazon.com/news-release/news-release-details/2026/Amazon-com-Announces-Second-Quarter-Results/default.aspx",
+          "prior_year_total_revenue": 167702,
+          "items": [
+            {
+              "key": "north_america",
+              "name": "North America",
+              "revenue": 116177,
+              "profit": 9123
+            },
+            {
+              "key": "international",
+              "name": "International",
+              "revenue": 42197,
+              "profit": 1717
+            },
+            {
+              "key": "aws",
+              "name": "AWS",
+              "revenue": 42232,
+              "profit": 16621
+            }
+          ]
+        }
+      ]
+    },
+    "ARM": {
+      "name": "Arm",
+      "unit": "USD m",
+      "observations": [
+        {
+          "period": "FY2026 Q2",
+          "period_end": "2025-09-30",
+          "basis_id": "revenue_source",
+          "basis": "營收來源（非可報導分部）",
+          "source_date": "2025-11-05",
+          "source_url": "https://investors.arm.com/static-files/59959491-1724-4f1d-bc6f-9186652b8a8b",
+          "items": [
+            {
+              "key": "royalty",
+              "name": "Royalty revenue",
+              "revenue": 620
+            },
+            {
+              "key": "license",
+              "name": "License and other revenue",
+              "revenue": 515
+            }
+          ]
+        },
+        {
+          "period": "FY2026 Q3",
+          "period_end": "2025-12-31",
+          "basis_id": "revenue_source",
+          "basis": "營收來源（非可報導分部）",
+          "source_date": "2026-02-04",
+          "source_url": "https://investors.arm.com/node/7826/html",
+          "items": [
+            {
+              "key": "royalty",
+              "name": "Royalty revenue",
+              "revenue": 737
+            },
+            {
+              "key": "license",
+              "name": "License and other revenue",
+              "revenue": 505
+            }
+          ]
+        },
+        {
+          "period": "FY2026 Q4",
+          "period_end": "2026-03-31",
+          "basis_id": "revenue_source",
+          "basis": "營收來源（非可報導分部）",
+          "source_date": "2026-05-13",
+          "source_url": "https://investors.arm.com/node/8141/html",
+          "items": [
+            {
+              "key": "royalty",
+              "name": "Royalty revenue",
+              "revenue": 671
+            },
+            {
+              "key": "license",
+              "name": "License and other revenue",
+              "revenue": 819
+            }
+          ]
+        },
+        {
+          "period": "FY2027 Q1",
+          "period_end": "2026-06-30",
+          "basis_id": "revenue_source",
+          "basis": "營收來源（非可報導分部）",
+          "source_date": "2026-07-29",
+          "source_url": "https://investors.arm.com/node/8356/html",
+          "prior_year_total_revenue": 1053,
+          "items": [
+            {
+              "key": "royalty",
+              "name": "Royalty revenue",
+              "revenue": 715
+            },
+            {
+              "key": "license",
+              "name": "License and other revenue",
+              "revenue": 574
+            }
+          ]
+        }
+      ]
+    },
+    "COHR": {
+      "name": "Coherent",
+      "unit": "USD m",
+      "observations": [
+        {
+          "period": "FY2026 Q1",
+          "period_end": "2025-09-30",
+          "basis_id": "new_reportable_segments",
+          "basis": "可報導分部（新口徑）",
+          "source_date": "2025-11-05",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/820318/000119312525266951/d27982dex991.htm",
+          "items": [
+            {
+              "key": "datacenter",
+              "name": "Datacenter & Communications",
+              "revenue": 1090
+            },
+            {
+              "key": "industrial",
+              "name": "Industrial",
+              "revenue": 491.4
+            }
+          ]
+        },
+        {
+          "period": "FY2026 Q2",
+          "period_end": "2025-12-31",
+          "basis_id": "new_reportable_segments",
+          "basis": "可報導分部（新口徑）",
+          "source_date": "2026-02-04",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/820318/000119312526037556/d101115dex991.htm",
+          "items": [
+            {
+              "key": "datacenter",
+              "name": "Datacenter & Communications",
+              "revenue": 1208
+            },
+            {
+              "key": "industrial",
+              "name": "Industrial",
+              "revenue": 477.6
+            }
+          ]
+        },
+        {
+          "period": "FY2026 Q3",
+          "period_end": "2026-03-31",
+          "basis_id": "new_reportable_segments",
+          "basis": "可報導分部（新口徑）",
+          "source_date": "2026-05-06",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/820318/000119312526346860/d128030dex991.htm",
+          "items": [
+            {
+              "key": "datacenter",
+              "name": "Datacenter & Communications",
+              "revenue": 1361.6
+            },
+            {
+              "key": "industrial",
+              "name": "Industrial",
+              "revenue": 444
+            }
+          ]
+        },
+        {
+          "period": "FY2026 Q4",
+          "period_end": "2026-06-30",
+          "basis_id": "new_reportable_segments",
+          "basis": "可報導分部（新口徑）",
+          "source_date": "2026-08-12",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/820318/000119312526346860/d128030dex991.htm",
+          "items": [
+            {
+              "key": "datacenter",
+              "name": "Datacenter & Communications",
+              "revenue": 1615
+            },
+            {
+              "key": "industrial",
+              "name": "Industrial",
+              "revenue": 430.5
+            }
+          ]
+        }
+      ]
+    },
+    "GOOG": {
+      "name": "Alphabet",
+      "unit": "USD m",
+      "observations": [
+        {
+          "period": "2025 Q3",
+          "period_end": "2025-09-30",
+          "basis_id": "reportable_segments",
+          "basis": "可報導分部",
+          "source_date": "2025-10-29",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204425000091/goog-20250930.htm",
+          "items": [
+            {
+              "key": "services",
+              "name": "Google Services",
+              "revenue": 87052,
+              "profit": 33527
+            },
+            {
+              "key": "cloud",
+              "name": "Google Cloud",
+              "revenue": 15157,
+              "profit": 3594
+            },
+            {
+              "key": "other_bets",
+              "name": "Other Bets",
+              "revenue": 344,
+              "profit": -1426
+            }
+          ]
+        },
+        {
+          "period": "2025 Q4",
+          "period_end": "2025-12-31",
+          "basis_id": "reportable_segments",
+          "basis": "可報導分部",
+          "source_date": "2026-02-04",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000018/goog-20251231.htm",
+          "derived": true,
+          "derivation_note": "官方 2025 全年分部數減官方 2025 前九月累計分部數。",
+          "items": [
+            {
+              "key": "services",
+              "name": "Google Services",
+              "revenue": 95862,
+              "profit": 40132
+            },
+            {
+              "key": "cloud",
+              "name": "Google Cloud",
+              "revenue": 17664,
+              "profit": 5313
+            },
+            {
+              "key": "other_bets",
+              "name": "Other Bets",
+              "revenue": 370,
+              "profit": -3617
+            }
+          ]
+        },
+        {
+          "period": "2026 Q1",
+          "period_end": "2026-03-31",
+          "basis_id": "reportable_segments",
+          "basis": "可報導分部",
+          "source_date": "2026-04-23",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000043/googexhibit991q12026.htm",
+          "reported_total_yoy_pct": 12,
+          "items": [
+            {
+              "key": "services",
+              "name": "Google Services",
+              "revenue": 89637
+            },
+            {
+              "key": "cloud",
+              "name": "Google Cloud",
+              "revenue": 20028
+            },
+            {
+              "key": "other_bets",
+              "name": "Other Bets",
+              "revenue": 411
+            }
+          ]
+        },
+        {
+          "period": "2026 Q2",
+          "period_end": "2026-06-30",
+          "basis_id": "reportable_segments",
+          "basis": "可報導分部",
+          "source_date": "2026-07-23",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/goog-20260630.htm",
+          "prior_year_total_revenue": 96540,
+          "items": [
+            {
+              "key": "services",
+              "name": "Google Services",
+              "revenue": 94540,
+              "profit": 39544
+            },
+            {
+              "key": "cloud",
+              "name": "Google Cloud",
+              "revenue": 24768,
+              "profit": 8814
+            },
+            {
+              "key": "other_bets",
+              "name": "Other Bets",
+              "revenue": 382,
+              "profit": -1799
+            }
+          ]
+        }
+      ]
+    },
+    "INTC": {
+      "name": "Intel",
+      "unit": "USD m",
+      "concentration_applicable": false,
+      "observations": [
+        {
+          "period": "2025 Q3",
+          "period_end": "2025-09-27",
+          "basis_id": "operating_segments_internal",
+          "basis": "營運分部；含內部交易與合併沖銷",
+          "source_date": "2025-10-23",
+          "source_url": "https://www.intc.com/news-events/press-releases/detail/1753/intel-reports-third-quarter-2025-financial-results",
+          "items": [
+            {
+              "key": "client",
+              "name": "Client Computing",
+              "revenue": 8535
+            },
+            {
+              "key": "dcai",
+              "name": "DCAI",
+              "revenue": 4117
+            },
+            {
+              "key": "foundry",
+              "name": "Intel Foundry",
+              "revenue": 4235
+            },
+            {
+              "key": "other",
+              "name": "All Other",
+              "revenue": 993
+            },
+            {
+              "key": "elimination",
+              "name": "合併沖銷",
+              "revenue": -4227,
+              "is_elimination": true
+            }
+          ]
+        },
+        {
+          "period": "2025 Q4",
+          "period_end": "2025-12-27",
+          "basis_id": "operating_segments_internal",
+          "basis": "營運分部；含內部交易與合併沖銷",
+          "source_date": "2026-01-22",
+          "source_url": "https://www.intc.com/news-events/press-releases/detail/1759/intel-reports-fourth-quarter-and-full-year-2025-financial",
+          "items": [
+            {
+              "key": "client",
+              "name": "Client Computing",
+              "revenue": 8193
+            },
+            {
+              "key": "dcai",
+              "name": "DCAI",
+              "revenue": 4737
+            },
+            {
+              "key": "foundry",
+              "name": "Intel Foundry",
+              "revenue": 4507
+            },
+            {
+              "key": "other",
+              "name": "All Other",
+              "revenue": 574
+            },
+            {
+              "key": "elimination",
+              "name": "合併沖銷",
+              "revenue": -4337,
+              "is_elimination": true
+            }
+          ]
+        },
+        {
+          "period": "2026 Q1",
+          "period_end": "2026-03-28",
+          "basis_id": "operating_segments_internal",
+          "basis": "營運分部；含內部交易與合併沖銷",
+          "source_date": "2026-04-23",
+          "source_url": "https://www.intc.com/news-events/press-releases/detail/1767/intel-reports-first-quarter-2026-financial-results",
+          "items": [
+            {
+              "key": "client",
+              "name": "Client Computing",
+              "revenue": 7727
+            },
+            {
+              "key": "dcai",
+              "name": "DCAI",
+              "revenue": 5052
+            },
+            {
+              "key": "foundry",
+              "name": "Intel Foundry",
+              "revenue": 5421
+            },
+            {
+              "key": "other",
+              "name": "All Other",
+              "revenue": 628
+            },
+            {
+              "key": "elimination",
+              "name": "合併沖銷",
+              "revenue": -5251,
+              "is_elimination": true
+            }
+          ]
+        },
+        {
+          "period": "2026 Q2",
+          "period_end": "2026-06-27",
+          "basis_id": "operating_segments_internal",
+          "basis": "營運分部；含內部交易與合併沖銷",
+          "source_date": "2026-07-24",
+          "source_url": "https://www.intc.com/filings-reports/quarterly-reports/content/0000050863-26-000157/0000050863-26-000157.pdf",
+          "items": [
+            {
+              "key": "client",
+              "name": "CCPG",
+              "revenue": 8877,
+              "profit": 2343
+            },
+            {
+              "key": "dcai",
+              "name": "DCAI",
+              "revenue": 6262,
+              "profit": 2474
+            },
+            {
+              "key": "foundry",
+              "name": "Intel Foundry",
+              "revenue": 5765,
+              "profit": -2089
+            },
+            {
+              "key": "other",
+              "name": "All Other",
+              "revenue": 701,
+              "profit": 230
+            },
+            {
+              "key": "elimination",
+              "name": "合併沖銷",
+              "revenue": -5477,
+              "profit": 254,
+              "is_elimination": true
+            }
+          ]
+        }
+      ]
+    },
+    "META": {
+      "name": "Meta",
+      "unit": "USD m",
+      "observations": [
+        {
+          "period": "2025 Q3",
+          "period_end": "2025-09-30",
+          "basis_id": "reportable_segments",
+          "basis": "可報導分部",
+          "source_date": "2025-10-29",
+          "source_url": "https://investor.atmeta.com/investor-news/press-release-details/2025/Meta-Reports-Third-Quarter-2025-Results/",
+          "reported_total_yoy_pct": 26,
+          "items": [
+            {
+              "key": "foa",
+              "name": "Family of Apps",
+              "revenue": 50772,
+              "profit": 24967
+            },
+            {
+              "key": "reality_labs",
+              "name": "Reality Labs",
+              "revenue": 470,
+              "profit": -4432
+            }
+          ]
+        },
+        {
+          "period": "2025 Q4",
+          "period_end": "2025-12-31",
+          "basis_id": "reportable_segments",
+          "basis": "可報導分部",
+          "source_date": "2026-01-28",
+          "source_url": "https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Fourth-Quarter-and-Full-Year-2025-Results/",
+          "reported_total_yoy_pct": 24,
+          "items": [
+            {
+              "key": "foa",
+              "name": "Family of Apps",
+              "revenue": 58938,
+              "profit": 30766
+            },
+            {
+              "key": "reality_labs",
+              "name": "Reality Labs",
+              "revenue": 955,
+              "profit": -6021
+            }
+          ]
+        },
+        {
+          "period": "2026 Q1",
+          "period_end": "2026-03-31",
+          "basis_id": "reportable_segments",
+          "basis": "可報導分部",
+          "source_date": "2026-04-29",
+          "source_url": "https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-First-Quarter-2026-Results/default.aspx",
+          "prior_year_total_revenue": 42314,
+          "items": [
+            {
+              "key": "foa",
+              "name": "Family of Apps",
+              "revenue": 55909,
+              "profit": 26900
+            },
+            {
+              "key": "reality_labs",
+              "name": "Reality Labs",
+              "revenue": 402,
+              "profit": -4028
+            }
+          ]
+        },
+        {
+          "period": "2026 Q2",
+          "period_end": "2026-06-30",
+          "basis_id": "reportable_segments",
+          "basis": "可報導分部",
+          "source_date": "2026-07-29",
+          "source_url": "https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Second-Quarter-2026-Results/default.aspx",
+          "prior_year_total_revenue": 47516,
+          "items": [
+            {
+              "key": "foa",
+              "name": "Family of Apps",
+              "revenue": 60370,
+              "profit": 23394
+            },
+            {
+              "key": "reality_labs",
+              "name": "Reality Labs",
+              "revenue": 431,
+              "profit": -4619
+            }
+          ]
+        }
+      ]
+    },
+    "MRVL": {
+      "name": "Marvell",
+      "unit": "USD m",
+      "observations": [
+        {
+          "period": "FY2026 Q3",
+          "period_end": "2025-11-01",
+          "basis_id": "end_market",
+          "basis": "終端市場營收（非可報導分部）",
+          "source_date": "2025-12-02",
+          "source_url": "https://investor.marvell.com/news-events/press-releases/detail/999/marvell-technology-inc-reports-third-quarter-of-fiscal-year-2026-financial-results",
+          "items": [
+            {
+              "key": "datacenter",
+              "name": "Data center",
+              "revenue": 1517.9
+            },
+            {
+              "key": "communications",
+              "name": "Communications and other",
+              "revenue": 556.6
+            }
+          ]
+        },
+        {
+          "period": "FY2026 Q4",
+          "period_end": "2026-01-31",
+          "basis_id": "end_market",
+          "basis": "終端市場營收（非可報導分部）",
+          "source_date": "2026-03-05",
+          "source_url": "https://investor.marvell.com/news-events/press-releases/detail/1010/marvell-technology-inc-reports-fourth-quarter-and-fiscal-year-2026-financial-results",
+          "items": [
+            {
+              "key": "datacenter",
+              "name": "Data center",
+              "revenue": 1651.3
+            },
+            {
+              "key": "communications",
+              "name": "Communications and other",
+              "revenue": 567.4
+            }
+          ]
+        },
+        {
+          "period": "FY2027 Q1",
+          "period_end": "2026-05-02",
+          "basis_id": "end_market",
+          "basis": "終端市場營收（非可報導分部）",
+          "source_date": "2026-05-28",
+          "source_url": "https://investor.marvell.com/sec-filings/all-sec-filings/content/0001835632-26-000014/0001835632-26-000014.pdf",
+          "items": [
+            {
+              "key": "datacenter",
+              "name": "Data center",
+              "revenue": 1832.7
+            },
+            {
+              "key": "communications",
+              "name": "Communications and other",
+              "revenue": 585.1
+            }
+          ]
+        },
+        {
+          "period": "FY2027 Q2",
+          "period_end": "2026-08-01",
+          "basis_id": "end_market",
+          "basis": "終端市場營收（非可報導分部）",
+          "source_date": "2026-08-27",
+          "source_url": "https://investor.marvell.com/news-events/press-releases/detail/1031/marvell-technology-inc-reports-second-quarter-of-fiscal-year-2027-financial-results",
+          "prior_year_total_revenue": 2006.1,
+          "items": [
+            {
+              "key": "datacenter",
+              "name": "Data center",
+              "revenue": 2171.5
+            },
+            {
+              "key": "communications",
+              "name": "Communications and other",
+              "revenue": 567.8
+            }
+          ]
+        }
+      ]
+    },
+    "MSFT": {
+      "name": "Microsoft",
+      "unit": "USD m",
+      "observations": [
+        {
+          "period": "FY2026 Q1",
+          "period_end": "2025-09-30",
+          "basis_id": "legacy_reportable_segments",
+          "basis": "可報導分部（三分部舊口徑）",
+          "source_date": "2025-10-29",
+          "source_url": "https://www.microsoft.com/en-us/Investor/earnings/FY-2026-Q1/press-release-webcast",
+          "prior_year_total_revenue": 65585,
+          "items": [
+            {
+              "key": "productivity",
+              "name": "Productivity and Business Processes",
+              "revenue": 33020,
+              "profit": 20407
+            },
+            {
+              "key": "cloud",
+              "name": "Intelligent Cloud",
+              "revenue": 30897,
+              "profit": 13391
+            },
+            {
+              "key": "personal",
+              "name": "More Personal Computing",
+              "revenue": 13756,
+              "profit": 4163
+            }
+          ]
+        },
+        {
+          "period": "FY2026 Q2",
+          "period_end": "2025-12-31",
+          "basis_id": "legacy_reportable_segments",
+          "basis": "可報導分部（三分部舊口徑）",
+          "source_date": "2026-01-28",
+          "source_url": "https://www.microsoft.com/en-us/Investor/earnings/FY-2026-Q2/press-release-webcast",
+          "prior_year_total_revenue": 69632,
+          "items": [
+            {
+              "key": "productivity",
+              "name": "Productivity and Business Processes",
+              "revenue": 34116,
+              "profit": 20599
+            },
+            {
+              "key": "cloud",
+              "name": "Intelligent Cloud",
+              "revenue": 32907,
+              "profit": 13873
+            },
+            {
+              "key": "personal",
+              "name": "More Personal Computing",
+              "revenue": 14250,
+              "profit": 3803
+            }
+          ]
+        },
+        {
+          "period": "FY2026 Q3",
+          "period_end": "2026-03-31",
+          "basis_id": "legacy_reportable_segments",
+          "basis": "可報導分部（三分部舊口徑）",
+          "source_date": "2026-04-29",
+          "source_url": "https://www.microsoft.com/en-us/investor/earnings/FY-2026-Q3/press-release-webcast",
+          "prior_year_total_revenue": 70066,
+          "items": [
+            {
+              "key": "productivity",
+              "name": "Productivity and Business Processes",
+              "revenue": 35013,
+              "profit": 20973
+            },
+            {
+              "key": "cloud",
+              "name": "Intelligent Cloud",
+              "revenue": 34681,
+              "profit": 13753
+            },
+            {
+              "key": "personal",
+              "name": "More Personal Computing",
+              "revenue": 13192,
+              "profit": 3672
+            }
+          ]
+        },
+        {
+          "period": "FY2026 Q4",
+          "period_end": "2026-06-30",
+          "basis_id": "legacy_reportable_segments",
+          "basis": "可報導分部（三分部舊口徑）",
+          "source_date": "2026-07-29",
+          "source_url": "https://www.microsoft.com/en-us/investor/earnings/fy-2026-q4/press-release-webcast",
+          "prior_year_total_revenue": 76441,
+          "items": [
+            {
+              "key": "productivity",
+              "name": "Productivity and Business Processes",
+              "revenue": 37847,
+              "profit": 21900
+            },
+            {
+              "key": "cloud",
+              "name": "Intelligent Cloud",
+              "revenue": 39306,
+              "profit": 15955
+            },
+            {
+              "key": "personal",
+              "name": "More Personal Computing",
+              "revenue": 12854,
+              "profit": 2748
+            }
+          ]
+        }
+      ]
+    },
+    "NOK": {
+      "name": "Nokia",
+      "unit": "EUR m",
+      "observations": [
+        {
+          "period": "2025 Q3",
+          "period_end": "2025-09-30",
+          "basis_id": "recast_2026_segments",
+          "basis": "營運分部（依 2026 停業單位重編）",
+          "source_date": "2026-07-09",
+          "source_url": "https://www.nokia.com/newsroom/nokia-provides-recast-comparative-financial-information-reflecting-the-presentation-of-fixed-wireless-access-cpe-and-enterprise-campus-edge-businesses-as-discontinued-operations/",
+          "items": [
+            {
+              "key": "network",
+              "name": "Network Infrastructure",
+              "revenue": 1850,
+              "profit": 143
+            },
+            {
+              "key": "mobile",
+              "name": "Mobile Infrastructure",
+              "revenue": 2755,
+              "profit": 355
+            },
+            {
+              "key": "portfolio",
+              "name": "Portfolio Businesses",
+              "revenue": 97,
+              "profit": -4
+            }
+          ]
+        },
+        {
+          "period": "2025 Q4",
+          "period_end": "2025-12-31",
+          "basis_id": "recast_2026_segments",
+          "basis": "營運分部（依 2026 停業單位重編）",
+          "source_date": "2026-07-09",
+          "source_url": "https://www.nokia.com/newsroom/nokia-provides-recast-comparative-financial-information-reflecting-the-presentation-of-fixed-wireless-access-cpe-and-enterprise-campus-edge-businesses-as-discontinued-operations/",
+          "items": [
+            {
+              "key": "network",
+              "name": "Network Infrastructure",
+              "revenue": 2332,
+              "profit": 387
+            },
+            {
+              "key": "mobile",
+              "name": "Mobile Infrastructure",
+              "revenue": 3579,
+              "profit": 732
+            },
+            {
+              "key": "portfolio",
+              "name": "Portfolio Businesses",
+              "revenue": 113,
+              "profit": 4
+            }
+          ]
+        },
+        {
+          "period": "2026 Q1",
+          "period_end": "2026-03-31",
+          "basis_id": "recast_2026_segments",
+          "basis": "營運分部（依 2026 停業單位重編）",
+          "source_date": "2026-07-09",
+          "source_url": "https://www.nokia.com/newsroom/nokia-provides-recast-comparative-financial-information-reflecting-the-presentation-of-fixed-wireless-access-cpe-and-enterprise-campus-edge-businesses-as-discontinued-operations/",
+          "items": [
+            {
+              "key": "network",
+              "name": "Network Infrastructure",
+              "revenue": 1829,
+              "profit": 121
+            },
+            {
+              "key": "mobile",
+              "name": "Mobile Infrastructure",
+              "revenue": 2503,
+              "profit": 222
+            },
+            {
+              "key": "portfolio",
+              "name": "Portfolio Businesses",
+              "revenue": 100,
+              "profit": 3
+            }
+          ]
+        },
+        {
+          "period": "2026 Q2",
+          "period_end": "2026-06-30",
+          "basis_id": "recast_2026_segments",
+          "basis": "營運分部（依 2026 停業單位重編）",
+          "source_date": "2026-07-23",
+          "source_url": "https://www.nokia.com/newsroom/nokia-corporation-report-for-q2-and-half-year-2026/",
+          "prior_year_total_revenue": 4445,
+          "items": [
+            {
+              "key": "network",
+              "name": "Network Infrastructure",
+              "revenue": 2037,
+              "profit": 166
+            },
+            {
+              "key": "mobile",
+              "name": "Mobile Infrastructure",
+              "revenue": 2680,
+              "profit": 310
+            },
+            {
+              "key": "portfolio",
+              "name": "Portfolio Businesses",
+              "revenue": 94,
+              "profit": 0
+            }
+          ]
+        }
+      ]
+    },
+    "NVDA": {
+      "name": "NVIDIA",
+      "unit": "USD bn",
+      "observations": [
+        {
+          "period": "FY2026 Q3",
+          "period_end": "2025-10-26",
+          "basis_id": "legacy_market_platforms",
+          "basis": "舊市場平台口徑（部分平台）",
+          "source_date": "2025-11-19",
+          "source_url": "https://nvidianews.nvidia.com/news/nvidia-announces-financial-results-for-third-quarter-fiscal-2026",
+          "source_note": "平台合計與公司總營收存在小額未列項目／四捨五入差異。",
+          "items": [
+            {
+              "key": "datacenter",
+              "name": "Data Center",
+              "revenue": 51.2
+            },
+            {
+              "key": "gaming",
+              "name": "Gaming & AI PC",
+              "revenue": 4.3
+            },
+            {
+              "key": "professional",
+              "name": "Professional Visualization",
+              "revenue": 0.76
+            },
+            {
+              "key": "automotive",
+              "name": "Automotive & Robotics",
+              "revenue": 0.592
+            }
+          ]
+        },
+        {
+          "period": "FY2026 Q4",
+          "period_end": "2026-01-25",
+          "basis_id": "legacy_market_platforms",
+          "basis": "舊市場平台口徑（部分平台）",
+          "source_date": "2026-02-25",
+          "source_url": "https://nvidianews.nvidia.com/_gallery/download_pdf/699f6ab43d6332ccaa689907/",
+          "source_note": "平台合計與公司總營收存在小額未列項目／四捨五入差異。",
+          "items": [
+            {
+              "key": "datacenter",
+              "name": "Data Center",
+              "revenue": 62.3
+            },
+            {
+              "key": "gaming",
+              "name": "Gaming",
+              "revenue": 3.7
+            },
+            {
+              "key": "professional",
+              "name": "Professional Visualization",
+              "revenue": 1.3
+            },
+            {
+              "key": "automotive",
+              "name": "Automotive",
+              "revenue": 0.604
+            }
+          ]
+        },
+        {
+          "period": "FY2027 Q1",
+          "period_end": "2026-04-26",
+          "basis_id": "compute_platforms",
+          "basis": "運算平台營收（新口徑）",
+          "source_date": "2026-05-20",
+          "source_url": "https://nvidianews.nvidia.com/news/nvidia-announces-financial-results-for-first-quarter-fiscal-2027",
+          "source_note": "公司自 FY2027 Q1 改列 Data Center 與 Edge Computing；不與舊市場平台跨口徑比較。",
+          "items": [
+            {
+              "key": "datacenter",
+              "name": "Data Center",
+              "revenue": 75.2
+            },
+            {
+              "key": "edge",
+              "name": "Edge Computing",
+              "revenue": 6.4
+            }
+          ]
+        },
+        {
+          "period": "FY2027 Q2",
+          "period_end": "2026-07-26",
+          "basis_id": "compute_platforms",
+          "basis": "運算平台營收（新口徑）",
+          "source_date": "2026-08-26",
+          "source_url": "https://nvidianews.nvidia.com/news/nvidia-announces-financial-results-for-second-quarter-fiscal-2027",
+          "source_note": "Data Center 與 Edge Computing 合計和公司總營收有小額未列項目／四捨五入差異；占比只代表已收錄運算平台。",
+          "items": [
+            {
+              "key": "datacenter",
+              "name": "Data Center",
+              "revenue": 89
+            },
+            {
+              "key": "edge",
+              "name": "Edge Computing",
+              "revenue": 7.2
+            }
+          ]
+        }
+      ]
+    },
+    "ONDS": {
+      "name": "Ondas",
+      "unit": "USD k",
+      "observations": [
+        {
+          "period": "2025 Q3",
+          "period_end": "2025-09-30",
+          "basis_id": "revenue_type",
+          "basis": "營收類型（非可報導分部）",
+          "source_date": "2025-11-13",
+          "source_url": "https://ir.ondas.com/all-sec-filings/content/0001213900-25-109604/ea0264505-10q_ondas.htm",
+          "source_note": "收購使各季納入範圍快速擴張，連續性信心低。",
+          "items": [
+            {
+              "key": "product",
+              "name": "Product revenue",
+              "revenue": 5444
+            },
+            {
+              "key": "service",
+              "name": "Service revenue",
+              "revenue": 4591
+            },
+            {
+              "key": "development",
+              "name": "Development revenue",
+              "revenue": 63
+            }
+          ]
+        },
+        {
+          "period": "2025 Q4",
+          "period_end": "2025-12-31",
+          "basis_id": "revenue_type",
+          "basis": "營收類型（非可報導分部）",
+          "source_date": "2026-03-30",
+          "source_url": "https://ir.ondas.com/all-sec-filings/content/0001213900-26-035981/ea0282911-10k_ondas.htm",
+          "derived": true,
+          "derivation_note": "官方 2025 全年營收類型金額減官方 2025 前九月累計金額。",
+          "source_note": "收購及 Ondas Networks 去合併使連續性信心低。",
+          "items": [
+            {
+              "key": "product",
+              "name": "Product revenue",
+              "revenue": 22310
+            },
+            {
+              "key": "service",
+              "name": "Service revenue",
+              "revenue": 2345
+            },
+            {
+              "key": "development",
+              "name": "Development revenue",
+              "revenue": 5457
+            }
+          ]
+        },
+        {
+          "period": "2026 Q1",
+          "period_end": "2026-03-31",
+          "basis_id": "revenue_type",
+          "basis": "營收類型（非可報導分部）",
+          "source_date": "2026-05-15",
+          "source_url": "https://ir.ondas.com/all-sec-filings/content/0001213900-26-057859/ea0290102-10q_ondas.htm",
+          "source_note": "收購及 Ondas Networks 去合併使連續性信心低。",
+          "items": [
+            {
+              "key": "product",
+              "name": "Product revenue",
+              "revenue": 38368
+            },
+            {
+              "key": "service",
+              "name": "Service revenue",
+              "revenue": 9323
+            },
+            {
+              "key": "development",
+              "name": "Development revenue",
+              "revenue": 2431
+            }
+          ]
+        },
+        {
+          "period": "2026 Q2",
+          "period_end": "2026-06-30",
+          "basis_id": "revenue_type",
+          "basis": "營收類型（非可報導分部）",
+          "source_date": "2026-08-13",
+          "source_url": "https://ir.ondas.com/all-sec-filings/content/0001193125-26-349288/onds-20260630.htm",
+          "prior_year_total_revenue": 6273,
+          "source_note": "收購及 Ondas Networks 去合併使連續性信心低；YoY 不代表有機成長。",
+          "items": [
+            {
+              "key": "product",
+              "name": "Product revenue",
+              "revenue": 43446
+            },
+            {
+              "key": "service",
+              "name": "Service revenue",
+              "revenue": 23603
+            },
+            {
+              "key": "development",
+              "name": "Development revenue",
+              "revenue": 16723
+            }
+          ]
+        }
+      ]
+    },
+    "TSLA": {
+      "name": "Tesla",
+      "unit": "USD m",
+      "observations": [
+        {
+          "period": "2025 Q3",
+          "period_end": "2025-09-30",
+          "basis_id": "revenue_categories",
+          "basis": "營收類別（非純可報導分部）",
+          "source_date": "2025-10-22",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828025045861/exhibit991.htm",
+          "items": [
+            {
+              "key": "automotive",
+              "name": "Total automotive revenues",
+              "revenue": 21205
+            },
+            {
+              "key": "energy",
+              "name": "Energy generation and storage",
+              "revenue": 3415
+            },
+            {
+              "key": "services",
+              "name": "Services and other",
+              "revenue": 3475
+            }
+          ]
+        },
+        {
+          "period": "2025 Q4",
+          "period_end": "2025-12-31",
+          "basis_id": "revenue_categories",
+          "basis": "營收類別（非純可報導分部）",
+          "source_date": "2026-01-28",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026003837/exhibit991.htm",
+          "items": [
+            {
+              "key": "automotive",
+              "name": "Total automotive revenues",
+              "revenue": 17693
+            },
+            {
+              "key": "energy",
+              "name": "Energy generation and storage",
+              "revenue": 3837
+            },
+            {
+              "key": "services",
+              "name": "Services and other",
+              "revenue": 3371
+            }
+          ]
+        },
+        {
+          "period": "2026 Q1",
+          "period_end": "2026-03-31",
+          "basis_id": "revenue_categories",
+          "basis": "營收類別（非純可報導分部）",
+          "source_date": "2026-04-22",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026026551/exhibit991.htm",
+          "items": [
+            {
+              "key": "automotive",
+              "name": "Total automotive revenues",
+              "revenue": 16234
+            },
+            {
+              "key": "energy",
+              "name": "Energy generation and storage",
+              "revenue": 2408
+            },
+            {
+              "key": "services",
+              "name": "Services and other",
+              "revenue": 3745
+            }
+          ]
+        },
+        {
+          "period": "2026 Q2",
+          "period_end": "2026-06-30",
+          "basis_id": "revenue_categories",
+          "basis": "營收類別（非純可報導分部）",
+          "source_date": "2026-07-23",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026049213/exhibit991.htm",
+          "prior_year_total_revenue": 22496,
+          "items": [
+            {
+              "key": "automotive",
+              "name": "Total automotive revenues",
+              "revenue": 20516
+            },
+            {
+              "key": "energy",
+              "name": "Energy generation and storage",
+              "revenue": 3139
+            },
+            {
+              "key": "services",
+              "name": "Services and other",
+              "revenue": 4581
+            }
+          ]
+        }
+      ]
+    },
+    "TSM": {
+      "name": "TSMC",
+      "unit": "TWD bn",
+      "observations": [
+        {
+          "period": "2025 Q3",
+          "period_end": "2025-09-30",
+          "basis_id": "platform_mix",
+          "basis": "平台營收占比（非可報導分部）",
+          "source_date": "2026-01-15",
+          "source_url": "https://investor.tsmc.com/schinese/encrypt/files/encrypt_file/qr/phase4_reports/2026-01/a920e9c2e3879f198dc700d041344229e7ffb438/4Q25%20Management%20Report.pdf",
+          "total_revenue": 989.92,
+          "reported_total_yoy_pct": 30,
+          "items": [
+            {
+              "key": "hpc",
+              "name": "High Performance Computing",
+              "share_pct": 57
+            },
+            {
+              "key": "smartphone",
+              "name": "Smartphone",
+              "share_pct": 30
+            },
+            {
+              "key": "iot",
+              "name": "Internet of Things",
+              "share_pct": 5
+            },
+            {
+              "key": "automotive",
+              "name": "Automotive",
+              "share_pct": 5
+            },
+            {
+              "key": "dce",
+              "name": "Digital Consumer Electronics",
+              "share_pct": 1
+            },
+            {
+              "key": "others",
+              "name": "Others",
+              "share_pct": 2
+            }
+          ]
+        },
+        {
+          "period": "2025 Q4",
+          "period_end": "2025-12-31",
+          "basis_id": "platform_mix",
+          "basis": "平台營收占比（非可報導分部）",
+          "source_date": "2026-01-15",
+          "source_url": "https://investor.tsmc.com/schinese/encrypt/files/encrypt_file/qr/phase4_reports/2026-01/a920e9c2e3879f198dc700d041344229e7ffb438/4Q25%20Management%20Report.pdf",
+          "total_revenue": 1046.09,
+          "reported_total_yoy_pct": 20.5,
+          "items": [
+            {
+              "key": "hpc",
+              "name": "High Performance Computing",
+              "share_pct": 55
+            },
+            {
+              "key": "smartphone",
+              "name": "Smartphone",
+              "share_pct": 32
+            },
+            {
+              "key": "iot",
+              "name": "Internet of Things",
+              "share_pct": 5
+            },
+            {
+              "key": "automotive",
+              "name": "Automotive",
+              "share_pct": 5
+            },
+            {
+              "key": "dce",
+              "name": "Digital Consumer Electronics",
+              "share_pct": 1
+            },
+            {
+              "key": "others",
+              "name": "Others",
+              "share_pct": 2
+            }
+          ]
+        },
+        {
+          "period": "2026 Q1",
+          "period_end": "2026-03-31",
+          "basis_id": "platform_mix",
+          "basis": "平台營收占比（非可報導分部）",
+          "source_date": "2026-04-16",
+          "source_url": "https://investor.tsmc.com/english/encrypt/files/encrypt_file/reports/2026-04/5508a9df8981f587c73dbfaf9f577f142e22bbb1/1Q26ManagementReport.pdf",
+          "total_revenue": 1134.1,
+          "prior_year_total_revenue": 839.25,
+          "items": [
+            {
+              "key": "hpc",
+              "name": "High Performance Computing",
+              "share_pct": 61
+            },
+            {
+              "key": "smartphone",
+              "name": "Smartphone",
+              "share_pct": 26
+            },
+            {
+              "key": "iot",
+              "name": "Internet of Things",
+              "share_pct": 6
+            },
+            {
+              "key": "automotive",
+              "name": "Automotive",
+              "share_pct": 4
+            },
+            {
+              "key": "dce",
+              "name": "Digital Consumer Electronics",
+              "share_pct": 1
+            },
+            {
+              "key": "others",
+              "name": "Others",
+              "share_pct": 2
+            }
+          ]
+        },
+        {
+          "period": "2026 Q2",
+          "period_end": "2026-06-30",
+          "basis_id": "platform_mix",
+          "basis": "平台營收占比（非可報導分部）",
+          "source_date": "2026-07-16",
+          "source_url": "https://investor.tsmc.com/japanese/encrypt/files/encrypt_file/qr/phase4_reports/2026-07/bf09036349a253e83f78155099133806cad0320b/2Q26%20ManagementReport.pdf",
+          "total_revenue": 1270.38,
+          "prior_year_total_revenue": 933.79,
+          "items": [
+            {
+              "key": "hpc",
+              "name": "High Performance Computing",
+              "share_pct": 66
+            },
+            {
+              "key": "smartphone",
+              "name": "Smartphone",
+              "share_pct": 22
+            },
+            {
+              "key": "iot",
+              "name": "Internet of Things",
+              "share_pct": 5
+            },
+            {
+              "key": "automotive",
+              "name": "Automotive",
+              "share_pct": 4
+            },
+            {
+              "key": "dce",
+              "name": "Digital Consumer Electronics",
+              "share_pct": 1
+            },
+            {
+              "key": "others",
+              "name": "Others",
+              "share_pct": 2
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

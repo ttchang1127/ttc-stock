@@ -207,12 +207,18 @@ python3 scripts/check_integrity.py --quiet
 
 **分部營運與成長驅動驗證**由 `scripts/build_segment_driver_validation.py` 讀取人工核對的 `segment_driver_inputs.json`，產生 `segment_driver_validation.json` 與 `60_SEC_Filing_Radar/Segment_Driver_Validation.md`。資料只可來自公司 IR、SEC 原始申報或公司正式財報表格；可報導分部、產品／服務類別、終端市場與平台占比必須分開標示。成長貢獻＝單一項目營收增量 ÷ 已收錄項目合計營收增量，負值代表抵銷成長，可能因其他分部衰退而高於 100%；它不是獲利貢獻。HHI 只用於沒有內部交易重複計算的營收口徑。沒有同口徑前期絕對值時只保留公司公布的 YoY，不得由百分比反推；收購、去合併、重編或占比四捨五入必須降低信心並顯示警語。
 
+**分部成長驅動歷史與轉折通知**由 `scripts/build_segment_driver_history.py` 讀取 `segment_driver_history_inputs.json`，產生 `segment_driver_history.json` 與 `60_SEC_Filing_Radar/Segment_Driver_History.md`。每家公司保留最近 4～8 期，`basis_id` 不同即切斷 QoQ、季增驅動和轉折比較；不得把重編前後資料硬接成趨勢。季增驅動是同口徑相鄰期中營收絕對增量最大的項目，不是獲利貢獻。轉折門檻為：驅動更換、YoY 降速至少 10pp、季增轉季減、單項占比季增至少 5pp、分部利益率季減至少 3pp，或主要驅動貢獻高於 100%。初次回補只建立比較基準；之後產生器只把最新季度且尚未存在於前一版輸出的事件寫入 GitHub Issue 摘要，重跑不重複通知。只允許官方絕對值、官方占比，以及清楚註明的「官方全年減官方累計」算術；不得由成長率反推。
+
+維護原則是**不跨口徑**計算；一旦 `basis_id` 改變，該期只能作為新基準。
+
 手動重建與驗證：
 
 ```bash
 python3 scripts/build_company_event_calendar.py
 python3 scripts/build_segment_driver_validation.py
+python3 scripts/build_segment_driver_history.py
 python3 -m unittest tests.test_build_segment_driver_validation -v
+python3 -m unittest tests.test_build_segment_driver_history -v
 python3 -m unittest tests.test_build_company_event_calendar -v
 python3 scripts/check_integrity.py --quiet
 ```
@@ -632,6 +638,7 @@ git fetch --dry-run origin main
 | `build_earnings_verification_cards.py` | 串接下一財報日、官方指引、最新季 QoQ／YoY、指引回測與論點失效條件，產生 14 家財報前後驗證追蹤卡；ETF 與分析師共識不納入 |
 | `track_earnings_verification_history.py` | 凍結財報前驗證條件、配對財報後新季度、保存差異歷史；只對實質階段／風險／改善／結論變化輸出 GitHub Issue 通知 |
 | `build_segment_driver_validation.py` | 由官方分部／營收來源表計算 YoY、成長貢獻、利益率與 HHI 集中度；不同揭露口徑分開標示，缺前期不反推 |
+| `build_segment_driver_history.py` | 保留 14 家個股最近 4～8 期分部歷史，切斷不同 `basis_id`，偵測最新季度的驅動更換、降速、集中與利益率轉折並避免重複通知 |
 | `configure_local_git.py` | 清除 `.git/refs` 內 0-byte Finder `Icon\r` 非法 ref，並設定 `fetch.hideRefs=refs/codex`，避免外接磁碟上的 macOS 圖示 metadata 阻斷 fetch／pull |
 | `sec_specialized_radars.py` | 產生最新 10-Q 到件表、解析 Form 4 Ownership XML、依募資文件內文判別 ATM／股權／可轉債／一般債券／架上註冊 |
 | `sec_advanced_radars.py` | 產生財報附註／附件、UPLOAD／CORRESP、13D／13G、DEF 14A、Form 144＋3／4／5、併購與 SEC 執法／停牌雷達；結果依 accession 快取 |

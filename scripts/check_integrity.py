@@ -1839,6 +1839,91 @@ def c35():
     return not bad and not missing, f"資料問題：{bad or '無'}；缺自動化／畫面：{missing or '無'}"
 
 
+@check("C-36", "分部歷史只比同口徑且轉折不重複通知")
+def c36():
+    data = load("segment_driver_history.json")
+    inputs = load("segment_driver_history_inputs.json")
+    dashboard = read("dashboard.html")
+    companies = data.get("companies") or []
+    bad = []
+    expected = {"NVDA", "TSM", "MSFT", "META", "AAPL", "AMZN", "ARM",
+                "ONDS", "TSLA", "GOOG", "COHR", "MRVL", "INTC", "NOK"}
+    if data.get("schema_version") != 1 or data.get("tracked_count") != 14:
+        bad.append("schema_version／追蹤家數錯誤")
+    if {row.get("ticker") for row in companies} != expected:
+        bad.append("公司範圍不是 14 家個股")
+    if data.get("period_count") != sum(len(row.get("history") or []) for row in companies):
+        bad.append("period_count 無法勾稽")
+    for company in companies:
+        ticker = company.get("ticker")
+        history = company.get("history") or []
+        if not 4 <= len(history) <= 8:
+            bad.append(f"{ticker} 不是 4～8 期")
+        for index, row in enumerate(history):
+            if not str(row.get("source_url", "")).startswith("https://"):
+                bad.append(f"{ticker}:{row.get('period')} 缺官方 HTTPS 來源")
+            if index and row.get("basis_id") != history[index - 1].get("basis_id"):
+                if row.get("qoq_pct") is not None or row.get("sequential_driver") is not None:
+                    bad.append(f"{ticker}:{row.get('period')} 跨口徑計算趨勢")
+                matching = [event for event in company.get("transition_events") or []
+                            if event.get("to_period_end") == row.get("period_end")
+                            and event.get("type") == "basis_break"]
+                if len(matching) != 1:
+                    bad.append(f"{ticker}:{row.get('period')} 缺唯一口徑中斷事件")
+        event_ids = [event.get("id") for event in company.get("transition_events") or []]
+        if len(event_ids) != len(set(event_ids)):
+            bad.append(f"{ticker} 轉折事件 ID 重複")
+    by_ticker = {row["ticker"]: row for row in companies}
+    nvda_q1 = next((row for row in by_ticker.get("NVDA", {}).get("history", [])
+                    if row.get("period") == "FY2027 Q1"), {})
+    if nvda_q1.get("qoq_pct") is not None:
+        bad.append("NVDA 新口徑首期未切斷")
+    if by_ticker.get("INTC", {}).get("history", [{}])[-1].get("hhi") is not None:
+        bad.append("INTC 內部交易錯算 HHI")
+    if not all(item.get("approximate") for item in by_ticker.get("TSM", {}).get("history", [{}])[-1].get("items", [])):
+        bad.append("TSM 占比衍生金額未標約數")
+    ondas_derived = [row for row in by_ticker.get("ONDS", {}).get("history", []) if row.get("derived")]
+    if not ondas_derived or not all(row.get("derivation_note") for row in ondas_derived):
+        bad.append("ONDS 年度減累計衍生值缺說明")
+
+    with tempfile.TemporaryDirectory() as temp_dir:
+        temp = pathlib.Path(temp_dir)
+        result = subprocess.run([
+            sys.executable, str(REPO_ROOT / "scripts/build_segment_driver_history.py"),
+            "--input", str(REPO_ROOT / "segment_driver_history_inputs.json"),
+            "--output", str(temp / "history.json"),
+            "--markdown", str(temp / "history.md"),
+        ], cwd=REPO_ROOT, text=True, capture_output=True, check=False)
+        if result.returncode:
+            bad.append(f"分部歷史重建失敗：{result.stderr.strip() or result.stdout.strip()}")
+        elif json.loads((temp / "history.json").read_text()) != data:
+            bad.append("分部歷史無法由官方輸入確定性重建")
+
+    markers = {
+        "輸入": (json.dumps(inputs, ensure_ascii=False), (
+            "不得由成長率反推", "basis_id", "derivation_note",
+        )),
+        "dashboard": (dashboard, (
+            "segment_driver_history.json", "renderSecSegmentDriverHistory",
+            "四季分部趨勢與轉折通知", "口徑中斷", "初次回補只建立基準",
+        )),
+        "SEC workflow": (read(".github/workflows/sec-filing-alerts.yml"), (
+            "id: segment_driver", "steps.segment_driver.outputs.notify_count",
+            "SEGMENT_DRIVER_BATCH_ID", "segment_driver_history.json", "Segment_Driver_History.md",
+        )),
+        "歷史筆記": (read("60_SEC_Filing_Radar/Segment_Driver_History.md"), (
+            "季增驅動", "轉折通知", "口徑防線", "ETF 不納入",
+        )),
+        "維護 SOP": (read("00_Meta/Sec_kb_資料維護SOP.md"), (
+            "build_segment_driver_history.py", "不跨口徑", "初次回補只建立比較基準",
+        )),
+        "00_Home": (read("00_Home.md"), ("Segment_Driver_History",)),
+    }
+    missing = [f"{label}:{marker}" for label, (text, required) in markers.items()
+               for marker in required if marker not in text]
+    return not bad and not missing, f"資料問題：{bad or '無'}；缺自動化／畫面：{missing or '無'}"
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--quiet", action="store_true", help="只印出失敗項")

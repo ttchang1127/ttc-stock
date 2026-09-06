@@ -1436,6 +1436,23 @@
     .sec-segment-evidence ul { margin: 5px 0 0; padding-left: 17px; }
     .sec-segment-note { margin: 9px 0 0; color: #cbd5e1; font-size: 0.62rem; line-height: 1.5; }
     .sec-segment-note.warning { color: #fde68a; }
+    .sec-segment-history { margin: 0 0 12px; padding: 12px; border: 1px solid rgba(56, 189, 248, 0.24); border-radius: 12px; background: rgba(8, 47, 73, 0.12); }
+    .sec-segment-history-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+    .sec-segment-history-head h4 { margin: 0; color: #bae6fd; font-size: 0.8rem; }
+    .sec-segment-history-head p { margin: 4px 0 0; color: #94a3b8; font-size: 0.64rem; line-height: 1.5; }
+    .sec-segment-history-coverage { padding: 5px 9px; border-radius: 999px; color: #bae6fd; background: rgba(14, 116, 144, 0.22); font-size: 0.62rem; font-weight: 850; }
+    .sec-segment-history-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 7px; margin-top: 10px; }
+    .sec-segment-period { position: relative; min-width: 0; padding: 9px; border-radius: 10px; background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(148, 163, 184, 0.11); }
+    .sec-segment-period.latest { border-color: rgba(56, 189, 248, 0.42); }
+    .sec-segment-period.break-before::before { content: '口徑中斷'; position: absolute; top: -8px; left: 8px; padding: 1px 5px; border-radius: 5px; color: #fde68a; background: #713f12; font-size: 0.5rem; font-weight: 800; }
+    .sec-segment-period time { color: #f8fafc; font-size: 0.67rem; font-weight: 850; }
+    .sec-segment-period p { margin: 5px 0 0; color: #cbd5e1; font-size: 0.59rem; line-height: 1.45; }
+    .sec-segment-share-track { height: 5px; margin-top: 7px; overflow: hidden; border-radius: 999px; background: rgba(148, 163, 184, 0.15); }
+    .sec-segment-share-fill { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, #0ea5e9, #22d3ee); }
+    .sec-segment-transition { margin-top: 9px; padding: 8px 9px; border-radius: 9px; color: #cbd5e1; background: rgba(15, 23, 42, 0.62); font-size: 0.62rem; line-height: 1.5; }
+    .sec-segment-transition.warning { color: #fde68a; border: 1px solid rgba(245, 158, 11, 0.24); }
+    .sec-segment-transition ul { margin: 5px 0 0; padding-left: 17px; }
+    .sec-segment-history-sources { margin: 8px 0 0; color: #94a3b8; font-size: 0.58rem; line-height: 1.5; }
     .sec-verify-method { margin: 12px 0 0; color: #94a3b8; font-size: 0.66rem; line-height: 1.55; }
 
     .sec-editorial {
@@ -2361,7 +2378,7 @@
       .sec-reading-rank-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .sec-position-impact-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .sec-event-calendar-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .sec-verify-kpis, .sec-segment-summary { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .sec-verify-kpis, .sec-segment-summary, .sec-segment-history-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .sec-quarterly-diagnosis-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .sec-reading-guide { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .sec-advanced-explainer { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -2373,7 +2390,7 @@
 
     @media (max-width: 620px) {
       .sec-daily-shell { padding: 18px; }
-      .sec-kpi-grid, .sec-reading-rank-list, .sec-position-impact-list, .sec-event-calendar-list, .sec-verify-grid, .sec-verify-kpis, .sec-segment-summary, .sec-segment-evidence, .sec-reading-guide, .sec-advanced-explainer, .sec-advanced-actual-grid, .sec-company-brief-grid, .sec-company-assessment, .sec-company-evidence-columns, .sec-update-grid, .sec-update-detail-grid, .sec-text-diff-kpis, .sec-text-change-grid, .sec-thesis-kpis { grid-template-columns: 1fr; }
+      .sec-kpi-grid, .sec-reading-rank-list, .sec-position-impact-list, .sec-event-calendar-list, .sec-verify-grid, .sec-verify-kpis, .sec-segment-summary, .sec-segment-evidence, .sec-segment-history-grid, .sec-reading-guide, .sec-advanced-explainer, .sec-advanced-actual-grid, .sec-company-brief-grid, .sec-company-assessment, .sec-company-evidence-columns, .sec-update-grid, .sec-update-detail-grid, .sec-text-diff-kpis, .sec-text-change-grid, .sec-thesis-kpis { grid-template-columns: 1fr; }
       .sec-ownership-kpis { grid-template-columns: 1fr; }
       .sec-reading-progress { grid-template-columns: 1fr; }
       .sec-reading-actions { justify-content: flex-start; }
@@ -4435,12 +4452,15 @@
           fetch('segment_driver_validation.json', { cache: 'no-cache' })
             .then(r => { if (!r.ok) throw new Error(`分部成長驅動 HTTP ${r.status}`); return r.json(); })
             .catch(error => { console.warn('segment_driver_validation.json 載入失敗', error); return null; }),
+          fetch('segment_driver_history.json', { cache: 'no-cache' })
+            .then(r => { if (!r.ok) throw new Error(`分部歷史 HTTP ${r.status}`); return r.json(); })
+            .catch(error => { console.warn('segment_driver_history.json 載入失敗', error); return null; }),
           loadPortfolioHoldings(),
           fetch('valuation.json', { cache: 'no-cache' })
             .then(r => { if (!r.ok) throw new Error(`估值資料 HTTP ${r.status}`); return r.json(); })
             .catch(error => { console.warn('valuation.json 載入失敗，跨公司估值排名將顯示缺值', error); return null; }),
-        ]).then(([alerts, details, quarterlyFinancials, advanced, thirteenF, textChanges, thesisTracking, thesisStatus, exhibit991, earningsCalls, editorial, changeCandidates, candidateReviews, candidateCalibration, positionImpact, eventCalendar, earningsVerification, earningsVerificationHistory, segmentDrivers, holdingsPayload, valuation]) => {
-          secDailyData = { alerts, details, quarterlyFinancials, advanced, thirteenF, textChanges, thesisTracking, thesisStatus, exhibit991, earningsCalls, editorial, changeCandidates, candidateReviews, candidateCalibration, positionImpact, eventCalendar, earningsVerification, earningsVerificationHistory, segmentDrivers, holdingsPayload, valuation };
+        ]).then(([alerts, details, quarterlyFinancials, advanced, thirteenF, textChanges, thesisTracking, thesisStatus, exhibit991, earningsCalls, editorial, changeCandidates, candidateReviews, candidateCalibration, positionImpact, eventCalendar, earningsVerification, earningsVerificationHistory, segmentDrivers, segmentDriverHistory, holdingsPayload, valuation]) => {
+          secDailyData = { alerts, details, quarterlyFinancials, advanced, thirteenF, textChanges, thesisTracking, thesisStatus, exhibit991, earningsCalls, editorial, changeCandidates, candidateReviews, candidateCalibration, positionImpact, eventCalendar, earningsVerification, earningsVerificationHistory, segmentDrivers, segmentDriverHistory, holdingsPayload, valuation };
           renderSecDaily();
         }).catch(error => {
           secDailyPromise = null;
@@ -5165,6 +5185,51 @@
       </section>`;
     }
 
+    function renderSecSegmentDriverHistory(ticker) {
+      const payload = secDailyData?.segmentDriverHistory;
+      const company = payload?.companies?.find(row => row.ticker === ticker);
+      if (!company) {
+        return '<section class="sec-segment-history"><div class="sec-segment-history-head"><div><h4>📈 四季分部趨勢與轉折</h4><p>⚠️ 歷史資料尚未載入；上方單期官方表格仍可閱讀。</p></div></div></section>';
+      }
+      const history = company.history || [];
+      const coverage = company.coverage || {};
+      const basisBreakEnds = new Set((company.transition_events || []).filter(event => event.type === 'basis_break').map(event => event.to_period_end));
+      const cards = history.map((row, index) => {
+        const driver = row.sequential_driver;
+        const officialUrl = safeEventUrl(row.source_url);
+        const yoyBasis = row.total_yoy_basis === 'company_reported' ? '（公司公布）' : '';
+        const driverText = driver
+          ? `${escapeSec(driver.name)}｜占合計季增 ${formatSecSigned(driver.growth_contribution_pct, '%')}`
+          : (basisBreakEnds.has(row.period_end) ? '口徑已切換，不跨期比較' : '首期基準／無正增量');
+        const notes = [row.source_note, row.derivation_note].filter(Boolean).map(escapeSec).join(' ');
+        const share = row.largest_share_pct === null || row.largest_share_pct === undefined ? null : Number(row.largest_share_pct);
+        return `<article class="sec-segment-period${index === history.length - 1 ? ' latest' : ''}${basisBreakEnds.has(row.period_end) ? ' break-before' : ''}">
+          <time datetime="${escapeSec(row.period_end)}">${escapeSec(row.period)}</time>
+          <p><strong>合計：</strong>${formatSecSegmentAmount(row.total_revenue, company.unit, false)}<br><strong>QoQ：</strong>${formatSecSigned(row.qoq_pct, '%')}｜<strong>YoY：</strong>${formatSecSigned(row.total_yoy_pct, '%')}${yoyBasis}</p>
+          <div class="sec-segment-share-track" title="最大項目占比 ${share === null ? '缺值' : `${share.toFixed(1)}%`}"><span class="sec-segment-share-fill" style="width:${share === null ? 0 : Math.max(0, Math.min(100, share))}%"></span></div>
+          <p><strong>最大項目：</strong>${escapeSec(row.largest_item || '—')} ${share === null ? '—' : `${formatSecNumber(share, 1)}%`}<br><strong>季增驅動：</strong>${driverText}${row.hhi === null || row.hhi === undefined ? '' : `<br><strong>HHI：</strong>${formatSecNumber(Number(row.hhi), 0)}`}</p>
+          ${notes ? `<p title="${notes}">⚠️ ${notes}</p>` : ''}
+          ${officialUrl === '#' ? '' : `<p><a class="sec-link" href="${officialUrl}" target="_blank" rel="noopener">該期官方表格 ↗</a></p>`}
+        </article>`;
+      }).join('');
+      const latest = company.latest_change || {};
+      const events = latest.events || [];
+      let transitionHtml;
+      if (!latest.comparable) {
+        transitionHtml = `<div class="sec-segment-transition warning"><strong>⚠️ 相較前季不可直接比較</strong><br>${escapeSec(latest.summary || '揭露口徑改變，已切斷趨勢線。')}</div>`;
+      } else if (events.length) {
+        transitionHtml = `<div class="sec-segment-transition warning"><strong>⚠️ 相較前季觸發的客觀轉折</strong><ul>${events.map(event => `<li><strong>${escapeSec(event.label)}：</strong>${escapeSec(event.detail)}</li>`).join('')}</ul></div>`;
+      } else {
+        transitionHtml = '<div class="sec-segment-transition"><strong>✅ 相較前季未觸發重大轉折門檻</strong><br>仍應閱讀各期數字；這不代表風險消失，也不構成股價方向判斷。</div>';
+      }
+      return `<section class="sec-segment-history" aria-label="四季分部趨勢與轉折通知">
+        <div class="sec-segment-history-head"><div><h4>📈 四季分部趨勢與轉折通知</h4><p>同口徑相鄰季度才計算 QoQ；最大項目占比長條愈長，營收來源愈集中。</p></div><span class="sec-segment-history-coverage">收錄 ${formatSecNumber(coverage.period_count || 0)}/8 期｜同口徑連續 ${formatSecNumber(coverage.same_basis_run || 0)} 期</span></div>
+        <div class="sec-segment-history-grid">${cards}</div>
+        ${transitionHtml}
+        <p class="sec-segment-history-sources"><strong>通知門檻：</strong>主要季增驅動更換、整體 YoY 降速至少 10pp、合計由季增轉季減、單項占比季增至少 5pp、分部利益率季減至少 3pp，或主要驅動貢獻高於 100%。初次回補只建立基準；往後只有最新季度新增事件會通知。季增驅動是營收絕對增量，不是獲利貢獻或投資建議。</p>
+      </section>`;
+    }
+
     function renderSecEarningsVerification() {
       const container = document.getElementById('secEarningsVerification');
       if (!container) return;
@@ -5224,7 +5289,7 @@
       const thesisChange = thesis.changed_from_previous_quarter
         ? `<span class="sec-verify-change">前季 ${escapeSec(thesis.previous_label || thesis.previous_status)} → 本季 ${escapeSec(thesis.label || thesis.status)}</span>` : '相較前季總結論未變';
       const historyHtml = renderSecVerificationHistory(company.ticker);
-      const segmentHtml = renderSecSegmentDriverValidation(company.ticker);
+      const segmentHtml = renderSecSegmentDriverValidation(company.ticker) + renderSecSegmentDriverHistory(company.ticker);
       container.innerHTML = `<div class="sec-verify-head">
           <div><h3 id="secEarningsVerificationTitle">🎯 財報前後驗證追蹤卡</h3><p>先立可驗證條件，再用官方財報核對；同一張卡保存「原先要看什麼」與「結果改變了什麼」。</p></div>
           <label class="sec-section-filter"><span>查看公司</span><select class="sec-quarterly-select" aria-label="選擇財報驗證公司" onchange="setSecEarningsVerificationTicker(this.value)">${options}</select></label>
