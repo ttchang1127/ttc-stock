@@ -1399,6 +1399,19 @@
     .sec-verify-kpi small { color: #cbd5e1; }
     .sec-verify-thesis { display: grid; gap: 7px; margin-top: 9px; }
     .sec-verify-change { color: #fde68a; font-weight: 800; }
+    .sec-verify-history { margin: 0 0 12px; padding: 11px 12px; border: 1px solid rgba(56, 189, 248, 0.24); border-radius: 12px; background: rgba(14, 116, 144, 0.08); }
+    .sec-verify-history-head { display: flex; align-items: center; justify-content: space-between; gap: 9px; flex-wrap: wrap; }
+    .sec-verify-history-head h4 { margin: 0; color: #bae6fd; font-size: 0.78rem; }
+    .sec-verify-history-head span { color: #94a3b8; font-size: 0.61rem; }
+    .sec-verify-history-alert { margin-top: 8px; padding: 8px 9px; border-left: 3px solid #38bdf8; border-radius: 8px; background: rgba(15, 23, 42, 0.62); color: #dbeafe; font-size: 0.67rem; line-height: 1.5; }
+    .sec-verify-history-alert.risk { border-left-color: #fb7185; color: #fecdd3; }
+    .sec-verify-history-alert.improvement { border-left-color: #34d399; color: #a7f3d0; }
+    .sec-verify-history-alert ul { margin: 5px 0 0; padding-left: 18px; color: #cbd5e1; }
+    .sec-verify-history details { margin-top: 8px; border-top: 1px solid rgba(148, 163, 184, 0.15); padding-top: 8px; }
+    .sec-verify-history summary { color: #c7d2fe; cursor: pointer; font-size: 0.67rem; font-weight: 800; }
+    .sec-verify-cycle { margin-top: 8px; padding: 8px 9px; border-radius: 8px; background: rgba(15, 23, 42, 0.62); color: #cbd5e1; font-size: 0.64rem; line-height: 1.5; }
+    .sec-verify-cycle strong { color: #f8fafc; }
+    .sec-verify-cycle ul { margin: 5px 0 0; padding-left: 18px; }
     .sec-verify-method { margin: 12px 0 0; color: #94a3b8; font-size: 0.66rem; line-height: 1.55; }
 
     .sec-editorial {
@@ -4392,12 +4405,15 @@
           fetch('earnings_verification_cards.json', { cache: 'no-cache' })
             .then(r => { if (!r.ok) throw new Error(`財報驗證追蹤卡 HTTP ${r.status}`); return r.json(); })
             .catch(error => { console.warn('earnings_verification_cards.json 載入失敗', error); return null; }),
+          fetch('earnings_verification_history.json', { cache: 'no-cache' })
+            .then(r => { if (!r.ok) throw new Error(`財報驗證歷史 HTTP ${r.status}`); return r.json(); })
+            .catch(error => { console.warn('earnings_verification_history.json 載入失敗', error); return null; }),
           loadPortfolioHoldings(),
           fetch('valuation.json', { cache: 'no-cache' })
             .then(r => { if (!r.ok) throw new Error(`估值資料 HTTP ${r.status}`); return r.json(); })
             .catch(error => { console.warn('valuation.json 載入失敗，跨公司估值排名將顯示缺值', error); return null; }),
-        ]).then(([alerts, details, quarterlyFinancials, advanced, thirteenF, textChanges, thesisTracking, thesisStatus, exhibit991, earningsCalls, editorial, changeCandidates, candidateReviews, candidateCalibration, positionImpact, eventCalendar, earningsVerification, holdingsPayload, valuation]) => {
-          secDailyData = { alerts, details, quarterlyFinancials, advanced, thirteenF, textChanges, thesisTracking, thesisStatus, exhibit991, earningsCalls, editorial, changeCandidates, candidateReviews, candidateCalibration, positionImpact, eventCalendar, earningsVerification, holdingsPayload, valuation };
+        ]).then(([alerts, details, quarterlyFinancials, advanced, thirteenF, textChanges, thesisTracking, thesisStatus, exhibit991, earningsCalls, editorial, changeCandidates, candidateReviews, candidateCalibration, positionImpact, eventCalendar, earningsVerification, earningsVerificationHistory, holdingsPayload, valuation]) => {
+          secDailyData = { alerts, details, quarterlyFinancials, advanced, thirteenF, textChanges, thesisTracking, thesisStatus, exhibit991, earningsCalls, editorial, changeCandidates, candidateReviews, candidateCalibration, positionImpact, eventCalendar, earningsVerification, earningsVerificationHistory, holdingsPayload, valuation };
           renderSecDaily();
         }).catch(error => {
           secDailyPromise = null;
@@ -5022,6 +5038,42 @@
       return `${number >= 0 ? '+' : ''}${formatSecNumber(number, 1)}${display === 'percent' ? 'pp' : '%'}`;
     }
 
+    function renderSecVerificationHistory(ticker) {
+      const history = secDailyData?.earningsVerificationHistory;
+      if (!history?.current?.companies) {
+        return '<section class="sec-verify-history"><div class="sec-verify-history-head"><h4>↕ 相較前次驗證有什麼改變</h4></div><div class="sec-verify-history-alert">⚠️ 歷史快照尚未載入；目前追蹤卡仍可閱讀，但不宣稱已完成前後差異比較。</div></section>';
+      }
+      const current = history.current.companies[ticker] || {};
+      const notification = (history.notifications || []).find(row => row.ticker === ticker);
+      const comparison = current.comparison || {};
+      let changeHtml;
+      if (notification) {
+        const reasons = (notification.reasons || []).map(reason => `<li>${escapeSec(reason)}</li>`).join('');
+        changeHtml = `<div class="sec-verify-history-alert ${escapeSec(notification.direction || '')}"><strong>${escapeSec(notification.label)}</strong><ul>${reasons}</ul></div>`;
+      } else if (!history.previous_snapshot_id || comparison.status === 'baseline') {
+        changeHtml = '<div class="sec-verify-history-alert"><strong>首次建立比較基準</strong><br>不發通知，也不回填本系統啟用前不存在的財報前判斷。</div>';
+      } else {
+        changeHtml = '<div class="sec-verify-history-alert"><strong>相較前次沒有需通知的實質變化</strong><br>每日倒數及未跨狀態的數值波動不重複提醒。</div>';
+      }
+      const cycles = (history.cycles || []).filter(row => row.ticker === ticker);
+      const cycleRows = cycles.map(cycle => {
+        const pre = cycle.pre || {};
+        const preCard = pre.card || {};
+        const baseline = preCard.latest_result || {};
+        const guidance = (preCard.guidance?.rows || []).map(row => {
+          const low = row.low === null || row.low === undefined ? '—' : formatSecNumber(Number(row.low), 2);
+          const high = row.high === null || row.high === undefined ? '—' : formatSecNumber(Number(row.high), 2);
+          return `<li>${escapeSec(row.period)}｜${escapeSec(row.metric)}：${low}～${high} ${escapeSec(row.unit || '')}</li>`;
+        }).join('') || '<li>凍結時沒有可比較的量化官方指引。</li>';
+        const post = cycle.post;
+        const differences = (cycle.differences || []).map(reason => `<li>${escapeSec(reason)}</li>`).join('');
+        const revisions = (cycle.schedule_revisions || []).map(row => `<li>財報日期修訂：${escapeSec(row.before || '待公告')} → ${escapeSec(row.after)}（${escapeSec(row.observed_at)}）</li>`).join('');
+        return `<div class="sec-verify-cycle"><strong>${post ? '✅ 已完成核對' : '⏳ 等待新季度'}｜原定 ${escapeSec(cycle.scheduled_earnings_date || '待公告')}</strong><br>財報前凍結 ${escapeSec(pre.captured_at)}｜基準季度 ${escapeSec(baseline.period_end || '—')}<ul>${guidance}${revisions}</ul>${post ? `<br>財報後核對 ${escapeSec(post.captured_at)}｜新季度 ${escapeSec(post.latest_result?.period_end || '—')}${differences ? `<ul>${differences}</ul>` : '<br>沒有跨越判讀狀態的差異。'}` : '<br>尚未取得不同於基準季度的新財報；原始條件不會被每日更新覆寫。'}</div>`;
+      }).join('');
+      const cycleHtml = cycleRows || '<div class="sec-verify-cycle">尚未進入財報前 7 天，因此沒有凍結快照；系統不回填過去的假設。</div>';
+      return `<section class="sec-verify-history" aria-label="財報驗證歷史與差異"><div class="sec-verify-history-head"><h4>↕ 相較前次驗證有什麼改變</h4><span>更新 ${escapeSec(history.updated_at)}｜快照 ${escapeSec(history.current_snapshot_id)}</span></div>${changeHtml}<details${cycles.some(row => row.status === 'waiting_result') ? ' open' : ''}><summary>查看 ${escapeSec(ticker)} 財報前凍結／財報後結案紀錄（${formatSecNumber(cycles.length)} 期）</summary>${cycleHtml}</details></section>`;
+    }
+
     function renderSecEarningsVerification() {
       const container = document.getElementById('secEarningsVerification');
       if (!container) return;
@@ -5080,11 +5132,13 @@
       const thesisSource = safeThesisReportUrl(thesis.master_report);
       const thesisChange = thesis.changed_from_previous_quarter
         ? `<span class="sec-verify-change">前季 ${escapeSec(thesis.previous_label || thesis.previous_status)} → 本季 ${escapeSec(thesis.label || thesis.status)}</span>` : '相較前季總結論未變';
+      const historyHtml = renderSecVerificationHistory(company.ticker);
       container.innerHTML = `<div class="sec-verify-head">
           <div><h3 id="secEarningsVerificationTitle">🎯 財報前後驗證追蹤卡</h3><p>先立可驗證條件，再用官方財報核對；同一張卡保存「原先要看什麼」與「結果改變了什麼」。</p></div>
           <label class="sec-section-filter"><span>查看公司</span><select class="sec-quarterly-select" aria-label="選擇財報驗證公司" onchange="setSecEarningsVerificationTicker(this.value)">${options}</select></label>
         </div>
         <div class="sec-verify-summary"><span>${escapeSec(payload.methodology?.scope || '14 家個股')}</span><span>財報前待準備 ${formatSecNumber(payload.preparation_due_count)} 家</span><span>財報後待核對 ${formatSecNumber(payload.post_review_due_count)} 家</span><span>有未結案指引 ${formatSecNumber(payload.pending_guidance_company_count)} 家</span><span class="sec-verify-phase ${phaseClass}">${escapeSec(company.phase_label)}</span></div>
+        ${historyHtml}
         <div class="sec-verify-grid">
           <section class="sec-verify-panel" aria-label="財報前驗證條件"><h4>財報前｜先定義驗證題</h4><p class="sec-verify-meta"><strong>下一財報：</strong>${dateLabel}<br>${source}</p><div class="sec-verify-guidance">${guidanceHtml}</div>${checks}</section>
           <section class="sec-verify-panel" aria-label="財報後核對結果"><h4>財報後｜實績與論點核對</h4><p class="sec-verify-meta"><strong>最近結果：</strong>${latestMeta}<br>${latestSource}</p><div class="sec-verify-kpis">${kpis}</div><div class="sec-verify-guidance">${completedHtml}</div><p class="sec-verify-meta"><strong>客觀結論：</strong>${escapeSec(thesis.label || '資料不足')}｜${thesisChange}${thesisSource === '#' ? '' : `｜<a class="sec-link" href="${thesisSource}" target="_blank" rel="noopener">完整投資論點 ↗</a>`}</p><div class="sec-verify-thesis">${thesisRows}</div></section>

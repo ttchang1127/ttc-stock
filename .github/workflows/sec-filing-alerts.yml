@@ -109,6 +109,15 @@ jobs:
       - name: Rebuild pre/post earnings verification cards
         run: python3 scripts/build_earnings_verification_cards.py
 
+      - name: Track earnings verification history and differences
+        id: earnings_verification
+        run: |
+          python3 scripts/track_earnings_verification_history.py \
+            --checked-at "${{ steps.watch.outputs.checked_at }}" \
+            --alert-markdown "$RUNNER_TEMP/sec-alert.md" \
+            --summary "$GITHUB_STEP_SUMMARY" \
+            --github-output "$GITHUB_OUTPUT"
+
       - name: Build daily AI-review change candidates
         id: candidates
         run: |
@@ -132,7 +141,7 @@ jobs:
       # A deterministic batch ID prevents a retry from creating a duplicate
       # issue after the notification succeeded but the state push conflicted.
       - name: Notify with a GitHub Issue
-        if: steps.watch.outputs.notify_count != '0' || steps.thesis.outputs.notify_count != '0' || steps.ingest.outputs.pending_count != '0' || steps.exhibit991.outputs.exhibit_991_pending_count != '0' || steps.earnings_call.outputs.earnings_call_changed_count != '0' || steps.candidates.outputs.notify_count != '0' || steps.position_impact.outputs.notify_count != '0'
+        if: steps.watch.outputs.notify_count != '0' || steps.thesis.outputs.notify_count != '0' || steps.ingest.outputs.pending_count != '0' || steps.exhibit991.outputs.exhibit_991_pending_count != '0' || steps.earnings_call.outputs.earnings_call_changed_count != '0' || steps.candidates.outputs.notify_count != '0' || steps.position_impact.outputs.notify_count != '0' || steps.earnings_verification.outputs.notify_count != '0'
         env:
           GH_TOKEN: ${{ github.token }}
           WATCH_BATCH_ID: ${{ steps.watch.outputs.batch_id }}
@@ -146,9 +155,11 @@ jobs:
           CANDIDATE_BATCH_ID: ${{ steps.candidates.outputs.candidate_batch_id }}
           POSITION_IMPACT_BATCH_ID: ${{ steps.position_impact.outputs.batch_id }}
           POSITION_IMPACT_CRITICAL_COUNT: ${{ steps.position_impact.outputs.critical_count }}
+          EARNINGS_VERIFICATION_BATCH_ID: ${{ steps.earnings_verification.outputs.batch_id }}
+          EARNINGS_VERIFICATION_CRITICAL_COUNT: ${{ steps.earnings_verification.outputs.critical_count }}
         run: |
-          batch_id="$WATCH_BATCH_ID-$THESIS_BATCH_ID-$EARNINGS_CALL_BATCH_ID-$CANDIDATE_BATCH_ID-$POSITION_IMPACT_BATCH_ID"
-          critical_count=$((WATCH_CRITICAL_COUNT + THESIS_CRITICAL_COUNT + INGEST_PENDING_COUNT + EXHIBIT_991_PENDING_COUNT + EARNINGS_CALL_CHANGED_ATTENTION_COUNT + POSITION_IMPACT_CRITICAL_COUNT))
+          batch_id="$WATCH_BATCH_ID-$THESIS_BATCH_ID-$EARNINGS_CALL_BATCH_ID-$CANDIDATE_BATCH_ID-$POSITION_IMPACT_BATCH_ID-$EARNINGS_VERIFICATION_BATCH_ID"
+          critical_count=$((WATCH_CRITICAL_COUNT + THESIS_CRITICAL_COUNT + INGEST_PENDING_COUNT + EXHIBIT_991_PENDING_COUNT + EARNINGS_CALL_CHANGED_ATTENTION_COUNT + POSITION_IMPACT_CRITICAL_COUNT + EARNINGS_VERIFICATION_CRITICAL_COUNT))
           title="SEC / Thesis Alert [$batch_id]"
           if [ "$critical_count" != "0" ]; then
             title="🔴 $title"
@@ -191,11 +202,12 @@ jobs:
             sec_daily_change_candidates.json \
             sec_candidate_rule_calibration.json \
             portfolio_holdings.json sec_position_impact_history.json \
-            earnings_verification_cards.json \
+            earnings_verification_cards.json earnings_verification_history.json \
             60_SEC_Filing_Radar/SEC_Candidate_Rule_Calibration.md \
             60_SEC_Filing_Radar/SEC_Daily_Change_Candidates.md \
             60_SEC_Filing_Radar/SEC_Position_Impact_History.md \
-            60_SEC_Filing_Radar/Earnings_Verification_Cards.md
+            60_SEC_Filing_Radar/Earnings_Verification_Cards.md \
+            60_SEC_Filing_Radar/Earnings_Verification_History.md
           if git diff --cached --quiet; then
             echo "No SEC radar changes to persist."
             exit 0

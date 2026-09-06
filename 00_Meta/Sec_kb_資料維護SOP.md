@@ -203,6 +203,8 @@ python3 scripts/check_integrity.py --quiet
 
 **財報前後驗證追蹤卡**由 `scripts/build_earnings_verification_cards.py` 每天更新 `earnings_verification_cards.json` 與 `60_SEC_Filing_Radar/Earnings_Verification_Cards.md`。它把事件日曆、八季財務、公司官方指引、近三年指引回測與投資論點狀態串成同一張卡：財報前 7 天標記準備期，申報後 14 天標記核對期。指引只採公司 IR／SEC 已建檔區間，不得拿分析師共識補值；財報後比較最新季、前季與去年同期。自由現金流的比較基期若為零，或任一期為負數，不顯示百分比成長率，以免產生無經濟意義的巨大數字。14 家個股全部建立卡片，實際持股排序優先，VGT／VOO 不納入。
 
+`scripts/track_earnings_verification_history.py` 接續保存 `earnings_verification_history.json` 與 `60_SEC_Filing_Radar/Earnings_Verification_History.md`。第一次執行只建立比較基準，不回填不存在的過往判斷；公司進入財報前 7 天時，原始指引、檢查題、KPI 基準與論點狀態會凍結成不可被每日更新覆寫的 cycle。取得不同季度的新財報後才關閉該 cycle，保存財報後數字與相較原始條件的差異。通知只涵蓋進入財報前／後階段、新季度、官方日期或指引、KPI 風險／改善、指引驗證與論點結論變化；每日倒數及未跨狀態的數值波動不通知。兩條每日 workflow 都會執行此追蹤器，`notify_count > 0` 時才建立去重的 GitHub Issue。
+
 手動重建與驗證：
 
 ```bash
@@ -624,6 +626,7 @@ git fetch --dry-run origin main
 | `analyze_exhibit_991.py` | 只處理 Item 2.02 的 8-K／8-K-A；由同 accession 官方 filing index 找唯一 EX-99.1，保留營收、毛利率、EPS、分部、市場指引、管理層語句與風險／前瞻限制的原文證據；未命中保留缺值，重新分析失敗會移除舊卡 |
 | `track_earnings_calls.py` | 只使用公司官方 IR 文字或由官方頁明確連出的允許主機；區分完整逐字稿、Prepared Remarks 與僅影音回放，並產生最近四季主題命中比較；不以第三方逐字稿補值 |
 | `build_earnings_verification_cards.py` | 串接下一財報日、官方指引、最新季 QoQ／YoY、指引回測與論點失效條件，產生 14 家財報前後驗證追蹤卡；ETF 與分析師共識不納入 |
+| `track_earnings_verification_history.py` | 凍結財報前驗證條件、配對財報後新季度、保存差異歷史；只對實質階段／風險／改善／結論變化輸出 GitHub Issue 通知 |
 | `configure_local_git.py` | 清除 `.git/refs` 內 0-byte Finder `Icon\r` 非法 ref，並設定 `fetch.hideRefs=refs/codex`，避免外接磁碟上的 macOS 圖示 metadata 阻斷 fetch／pull |
 | `sec_specialized_radars.py` | 產生最新 10-Q 到件表、解析 Form 4 Ownership XML、依募資文件內文判別 ATM／股權／可轉債／一般債券／架上註冊 |
 | `sec_advanced_radars.py` | 產生財報附註／附件、UPLOAD／CORRESP、13D／13G、DEF 14A、Form 144＋3／4／5、併購與 SEC 執法／停牌雷達；結果依 accession 快取 |

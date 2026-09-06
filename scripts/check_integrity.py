@@ -1643,7 +1643,7 @@ def c33():
         )),
         "價格 workflow": (read(".github/workflows/update-prices.yml"), (
             "build_earnings_verification_cards.py", "earnings_verification_cards",
-            "Earnings_Verification_Cards",
+            "Earnings_Verification_(Cards|History)",
         )),
         "SEC workflow": (read(".github/workflows/sec-filing-alerts.yml"), (
             "build_earnings_verification_cards.py", "earnings_verification_cards.json",
@@ -1656,6 +1656,94 @@ def c33():
             "build_earnings_verification_cards.py", "申報後 14 天", "自由現金流",
         )),
         "00_Home": (read("00_Home.md"), ("Earnings_Verification_Cards",)),
+    }
+    missing = [f"{label}:{marker}" for label, (text, required) in markers.items()
+               for marker in required if marker not in text]
+    return not bad and not missing, f"資料問題：{bad or '無'}；缺自動化／畫面：{missing or '無'}"
+
+
+@check("C-34", "財報前快照不可覆寫且差異通知可重建去重")
+def c34():
+    data = load("earnings_verification_history.json")
+    cards = load("earnings_verification_cards.json")
+    dashboard = read("dashboard.html")
+    bad = []
+    current = data.get("current") or {}
+    companies = current.get("companies") or {}
+    notifications = data.get("notifications") or []
+    cycles = data.get("cycles") or []
+    if data.get("schema_version") != 1:
+        bad.append("schema_version 不是 1")
+    if data.get("current_snapshot_id") != current.get("snapshot_id"):
+        bad.append("current_snapshot_id 不一致")
+    if len(companies) != 14:
+        bad.append("目前快照不是 14 家")
+    if {"VGT", "VOO"} & (set(companies) | {row.get("ticker") for row in cycles}):
+        bad.append("ETF 混入驗證歷史")
+    if current.get("source_date") != cards.get("generated_at"):
+        bad.append("目前快照與驗證卡資料日不一致")
+    if data.get("notify_count") != len(notifications):
+        bad.append("notify_count 與通知明細不一致")
+    if data.get("critical_count") != sum(bool(row.get("critical")) for row in notifications):
+        bad.append("critical_count 與通知明細不一致")
+    if any(row.get("ticker") not in companies or not row.get("reasons") for row in notifications):
+        bad.append("通知缺公司或具體原因")
+    if any("companies" in row for row in data.get("history", [])):
+        bad.append("歷史索引重複保存完整 14 家快照，檔案會無限膨脹")
+    cycle_ids = [row.get("cycle_id") for row in cycles]
+    if len(cycle_ids) != len(set(cycle_ids)):
+        bad.append("cycle_id 重複")
+    for row in cycles:
+        pre = row.get("pre") or {}
+        if not pre.get("captured_at") or not pre.get("card") or "baseline_result_key" not in pre:
+            bad.append(f"{row.get('ticker')} 財報前凍結內容不完整")
+        if row.get("status") == "waiting_result" and row.get("post") is not None:
+            bad.append(f"{row.get('ticker')} 等待中 cycle 卻已有 post")
+        if row.get("status") == "completed":
+            post = row.get("post") or {}
+            if not post.get("latest_result"):
+                bad.append(f"{row.get('ticker')} 已結案但缺財報後結果")
+            elif tuple(pre.get("baseline_result_key") or []) == (
+                    post["latest_result"].get("period_end"),
+                    post["latest_result"].get("accession"),
+                    post["latest_result"].get("filing_date")):
+                bad.append(f"{row.get('ticker')} 用同一季度錯誤結案")
+
+    with tempfile.TemporaryDirectory() as temp_dir:
+        temp = pathlib.Path(temp_dir)
+        output = temp / "history.json"
+        output.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n")
+        result = subprocess.run([
+            sys.executable, str(REPO_ROOT / "scripts/track_earnings_verification_history.py"),
+            "--checked-at", data.get("updated_at", ""),
+            "--output", str(output), "--markdown", str(temp / "history.md"),
+        ], cwd=REPO_ROOT, text=True, capture_output=True, check=False)
+        if result.returncode:
+            bad.append(f"驗證歷史重建失敗：{result.stderr.strip() or result.stdout.strip()}")
+        elif json.loads(output.read_text()) != data:
+            bad.append("相同輸入重跑改寫歷史或重複通知")
+
+    markers = {
+        "dashboard": (dashboard, (
+            "earnings_verification_history.json", "renderSecVerificationHistory",
+            "相較前次驗證有什麼改變", "財報前凍結／財報後結案紀錄",
+            "原始條件不會被每日更新覆寫", "每日倒數及未跨狀態的數值波動不重複提醒",
+        )),
+        "價格 workflow": (read(".github/workflows/update-prices.yml"), (
+            "track_earnings_verification_history.py", "steps.earnings_verification.outputs.notify_count",
+            "EARNINGS_VERIFICATION_BATCH_ID", "earnings_verification_history",
+        )),
+        "SEC workflow": (read(".github/workflows/sec-filing-alerts.yml"), (
+            "track_earnings_verification_history.py", "steps.earnings_verification.outputs.notify_count",
+            "EARNINGS_VERIFICATION_CRITICAL_COUNT", "Earnings_Verification_History.md",
+        )),
+        "歷史筆記": (read("60_SEC_Filing_Radar/Earnings_Verification_History.md"), (
+            "首次建立比較基準", "不回填不存在的財報前判斷", "通知原則", "ETF 不納入",
+        )),
+        "維護 SOP": (read("00_Meta/Sec_kb_資料維護SOP.md"), (
+            "track_earnings_verification_history.py", "凍結成不可被每日更新覆寫", "notify_count > 0",
+        )),
+        "00_Home": (read("00_Home.md"), ("Earnings_Verification_History",)),
     }
     missing = [f"{label}:{marker}" for label, (text, required) in markers.items()
                for marker in required if marker not in text]

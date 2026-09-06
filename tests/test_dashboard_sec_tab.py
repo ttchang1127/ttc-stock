@@ -28,6 +28,7 @@ class DashboardSecTabTests(unittest.TestCase):
         cls.position_impact = json.loads((ROOT / "sec_position_impact_history.json").read_text())
         cls.event_calendar = json.loads((ROOT / "company_event_calendar.json").read_text())
         cls.earnings_verification = json.loads((ROOT / "earnings_verification_cards.json").read_text())
+        cls.earnings_verification_history = json.loads((ROOT / "earnings_verification_history.json").read_text())
         cls.holdings = json.loads((ROOT / "portfolio_holdings.json").read_text())
 
     def test_tab_defaults_to_14_days_and_allows_7_days(self):
@@ -381,6 +382,23 @@ class DashboardSecTabTests(unittest.TestCase):
             "失效條件", "FCF 前期為零或任一期為負數時不顯示成長率", "分析師共識",
             "ETF 不納入", "renderSecEarningsVerification();",
             "if (value === null || value === undefined) return '—';",
+        ]
+        for phrase in required_copy:
+            self.assertIn(phrase, self.html)
+
+    def test_earnings_verification_history_freezes_preconditions_and_shows_differences(self):
+        history = self.earnings_verification_history
+        self.assertEqual(history["schema_version"], 1)
+        self.assertEqual(history["current_snapshot_id"], history["current"]["snapshot_id"])
+        self.assertEqual(len(history["current"]["companies"]), 14)
+        self.assertEqual(history["notify_count"], len(history["notifications"]))
+        self.assertFalse({"VGT", "VOO"} & set(history["current"]["companies"]))
+        self.assertTrue(all("companies" not in row for row in history["history"]))
+        required_copy = [
+            "fetch('earnings_verification_history.json'", "function renderSecVerificationHistory(ticker)",
+            "相較前次驗證有什麼改變", "首次建立比較基準", "不回填本系統啟用前不存在的財報前判斷",
+            "財報前凍結／財報後結案紀錄", "原始條件不會被每日更新覆寫",
+            "每日倒數及未跨狀態的數值波動不重複提醒",
         ]
         for phrase in required_copy:
             self.assertIn(phrase, self.html)
