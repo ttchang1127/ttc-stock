@@ -205,10 +205,14 @@ python3 scripts/check_integrity.py --quiet
 
 `scripts/track_earnings_verification_history.py` 接續保存 `earnings_verification_history.json` 與 `60_SEC_Filing_Radar/Earnings_Verification_History.md`。第一次執行只建立比較基準，不回填不存在的過往判斷；公司進入財報前 7 天時，原始指引、檢查題、KPI 基準與論點狀態會凍結成不可被每日更新覆寫的 cycle。取得不同季度的新財報後才關閉該 cycle，保存財報後數字與相較原始條件的差異。通知只涵蓋進入財報前／後階段、新季度、官方日期或指引、KPI 風險／改善、指引驗證與論點結論變化；每日倒數及未跨狀態的數值波動不通知。兩條每日 workflow 都會執行此追蹤器，`notify_count > 0` 時才建立去重的 GitHub Issue。
 
+**分部營運與成長驅動驗證**由 `scripts/build_segment_driver_validation.py` 讀取人工核對的 `segment_driver_inputs.json`，產生 `segment_driver_validation.json` 與 `60_SEC_Filing_Radar/Segment_Driver_Validation.md`。資料只可來自公司 IR、SEC 原始申報或公司正式財報表格；可報導分部、產品／服務類別、終端市場與平台占比必須分開標示。成長貢獻＝單一項目營收增量 ÷ 已收錄項目合計營收增量，負值代表抵銷成長，可能因其他分部衰退而高於 100%；它不是獲利貢獻。HHI 只用於沒有內部交易重複計算的營收口徑。沒有同口徑前期絕對值時只保留公司公布的 YoY，不得由百分比反推；收購、去合併、重編或占比四捨五入必須降低信心並顯示警語。
+
 手動重建與驗證：
 
 ```bash
 python3 scripts/build_company_event_calendar.py
+python3 scripts/build_segment_driver_validation.py
+python3 -m unittest tests.test_build_segment_driver_validation -v
 python3 -m unittest tests.test_build_company_event_calendar -v
 python3 scripts/check_integrity.py --quiet
 ```
@@ -627,6 +631,7 @@ git fetch --dry-run origin main
 | `track_earnings_calls.py` | 只使用公司官方 IR 文字或由官方頁明確連出的允許主機；區分完整逐字稿、Prepared Remarks 與僅影音回放，並產生最近四季主題命中比較；不以第三方逐字稿補值 |
 | `build_earnings_verification_cards.py` | 串接下一財報日、官方指引、最新季 QoQ／YoY、指引回測與論點失效條件，產生 14 家財報前後驗證追蹤卡；ETF 與分析師共識不納入 |
 | `track_earnings_verification_history.py` | 凍結財報前驗證條件、配對財報後新季度、保存差異歷史；只對實質階段／風險／改善／結論變化輸出 GitHub Issue 通知 |
+| `build_segment_driver_validation.py` | 由官方分部／營收來源表計算 YoY、成長貢獻、利益率與 HHI 集中度；不同揭露口徑分開標示，缺前期不反推 |
 | `configure_local_git.py` | 清除 `.git/refs` 內 0-byte Finder `Icon\r` 非法 ref，並設定 `fetch.hideRefs=refs/codex`，避免外接磁碟上的 macOS 圖示 metadata 阻斷 fetch／pull |
 | `sec_specialized_radars.py` | 產生最新 10-Q 到件表、解析 Form 4 Ownership XML、依募資文件內文判別 ATM／股權／可轉債／一般債券／架上註冊 |
 | `sec_advanced_radars.py` | 產生財報附註／附件、UPLOAD／CORRESP、13D／13G、DEF 14A、Form 144＋3／4／5、併購與 SEC 執法／停牌雷達；結果依 accession 快取 |

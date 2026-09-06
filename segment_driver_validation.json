@@ -1,0 +1,1672 @@
+{
+  "schema_version": 1,
+  "updated_at": "2026-09-03",
+  "tracked_count": 14,
+  "exact_growth_contribution_count": 12,
+  "approximate_growth_contribution_count": 1,
+  "direction_only_count": 1,
+  "methodology": {
+    "scope": "14 家個股；ETF 不納入",
+    "comparison": "優先比較同口徑去年同期；沒有前期絕對值時只顯示公司直接公布的 YoY。",
+    "growth_contribution": "分部營收增量 ÷ 已收錄分部合計營收增量；負值代表抵銷公司成長。",
+    "concentration": "HHI 為各分部營收占比平方和；>=2500 或單一項目 >=65% 標為高度集中。",
+    "guardrail": "營收成長不等於獲利或股價上漲；口徑變動、收購與內部交易會降低信心並顯示警語。"
+  },
+  "companies": [
+    {
+      "ticker": "NVDA",
+      "name": "NVIDIA",
+      "period": "FY2027 Q2",
+      "comparison_period": "FY2026 Q2",
+      "basis": "運算平台營收（非營業利益分部）",
+      "unit": "USD bn",
+      "source_date": "2026-08-26",
+      "source_url": "https://nvidianews.nvidia.com/news/nvidia-announces-financial-results-for-second-quarter-fiscal-2027",
+      "basis_change_source_url": null,
+      "coverage_status": "complete",
+      "coverage_note": null,
+      "comparability": "medium",
+      "comparability_note": "公司自 FY2027 Q1 改用 Data Center／Edge Computing 新框架，未在本表提供同口徑去年同期絕對值；只採公司直接公布的 YoY，不反推前期金額與成長貢獻。",
+      "approximate": false,
+      "totals": {
+        "current_revenue": 96.2,
+        "prior_revenue": null,
+        "revenue_delta": null,
+        "yoy_pct": null
+      },
+      "concentration": {
+        "applicable": true,
+        "status": "high",
+        "label": "高度集中",
+        "hhi": 8612.0,
+        "largest_item": "Data Center",
+        "largest_share_pct": 92.5
+      },
+      "driver": null,
+      "drag": null,
+      "assessment": {
+        "status": "directional_concentrated_growth",
+        "label": "方向向上但貢獻待補",
+        "confidence": "medium",
+        "confidence_label": "中",
+        "positive_evidence": [
+          "公司直接公布 Data Center YoY +117.0%，但無同口徑前期金額可算貢獻。"
+        ],
+        "risk_evidence": [
+          "Data Center 占目前已揭露營收 92.5%，高度集中。",
+          "公司自 FY2027 Q1 改用 Data Center／Edge Computing 新框架，未在本表提供同口徑去年同期絕對值；只採公司直接公布的 YoY，不反推前期金額與成長貢獻。"
+        ],
+        "next_checks": [
+          "下期等待 Data Center 等新口徑前期絕對值，補算成長貢獻。",
+          "追蹤 Data Center 占比是否由 92.5% 繼續上升，以及其他業務能否分散風險。",
+          "公司未按此口徑揭露分部利益；必須另用公司毛利率、營業利益率與 FCF 驗證成長品質。"
+        ]
+      },
+      "items": [
+        {
+          "name": "Data Center",
+          "is_elimination": false,
+          "current_revenue": 89.0,
+          "prior_revenue": null,
+          "revenue_delta": null,
+          "yoy_pct": 117,
+          "yoy_basis": "company_reported",
+          "current_share_pct": 92.5,
+          "prior_share_pct": null,
+          "share_change_pp": null,
+          "current_profit": null,
+          "prior_profit": null,
+          "current_margin_pct": null,
+          "prior_margin_pct": null,
+          "margin_change_pp": null,
+          "approximate": false,
+          "growth_contribution_pct": null
+        },
+        {
+          "name": "Edge Computing",
+          "is_elimination": false,
+          "current_revenue": 7.2,
+          "prior_revenue": null,
+          "revenue_delta": null,
+          "yoy_pct": 27,
+          "yoy_basis": "company_reported",
+          "current_share_pct": 7.5,
+          "prior_share_pct": null,
+          "share_change_pp": null,
+          "current_profit": null,
+          "prior_profit": null,
+          "current_margin_pct": null,
+          "prior_margin_pct": null,
+          "margin_change_pp": null,
+          "approximate": false,
+          "growth_contribution_pct": null
+        }
+      ]
+    },
+    {
+      "ticker": "TSM",
+      "name": "TSMC",
+      "period": "2026 Q2",
+      "comparison_period": "2025 Q2",
+      "basis": "平台營收占比（非可報導分部）",
+      "unit": "TWD bn",
+      "source_date": "2026-07-16",
+      "source_url": "https://investor.tsmc.com/japanese/encrypt/files/encrypt_file/qr/phase4_reports/2026-07/bf09036349a253e83f78155099133806cad0320b/2Q26%20ManagementReport.pdf",
+      "basis_change_source_url": null,
+      "coverage_status": "complete",
+      "coverage_note": null,
+      "comparability": "medium",
+      "comparability_note": "公司平台占比四捨五入到整數；衍生平台金額與成長貢獻為約數，精確判讀應以占比變化為主。",
+      "approximate": true,
+      "totals": {
+        "current_revenue": 1270.38,
+        "prior_revenue": 933.79,
+        "revenue_delta": 336.59,
+        "yoy_pct": 36.0
+      },
+      "concentration": {
+        "applicable": true,
+        "status": "high",
+        "label": "高度集中",
+        "hhi": 4886.0,
+        "largest_item": "High Performance Computing",
+        "largest_share_pct": 66.0
+      },
+      "driver": {
+        "name": "High Performance Computing",
+        "revenue_delta": 278.18,
+        "growth_contribution_pct": 82.6
+      },
+      "drag": null,
+      "assessment": {
+        "status": "concentrated_growth",
+        "label": "成長但驅動集中",
+        "confidence": "medium",
+        "confidence_label": "中",
+        "positive_evidence": [
+          "最大成長來源為 High Performance Computing：YoY +49.7%，占合計增量 82.6%。"
+        ],
+        "risk_evidence": [
+          "High Performance Computing 占目前已揭露營收 66.0%，高度集中。",
+          "公司平台占比四捨五入到整數；衍生平台金額與成長貢獻為約數，精確判讀應以占比變化為主。"
+        ],
+        "next_checks": [
+          "下期先確認 High Performance Computing 是否仍是最大增量來源，且成長率未明顯降速。",
+          "追蹤 High Performance Computing 占比是否由 66.0% 繼續上升，以及其他業務能否分散風險。",
+          "公司未按此口徑揭露分部利益；必須另用公司毛利率、營業利益率與 FCF 驗證成長品質。"
+        ]
+      },
+      "items": [
+        {
+          "name": "High Performance Computing",
+          "is_elimination": false,
+          "current_revenue": 838.45,
+          "prior_revenue": 560.27,
+          "revenue_delta": 278.18,
+          "yoy_pct": 49.7,
+          "yoy_basis": "calculated",
+          "current_share_pct": 66.0,
+          "prior_share_pct": 60.0,
+          "share_change_pp": 6.0,
+          "current_profit": null,
+          "prior_profit": null,
+          "current_margin_pct": null,
+          "prior_margin_pct": null,
+          "margin_change_pp": null,
+          "approximate": true,
+          "growth_contribution_pct": 82.6
+        },
+        {
+          "name": "Smartphone",
+          "is_elimination": false,
+          "current_revenue": 279.48,
+          "prior_revenue": 252.12,
+          "revenue_delta": 27.36,
+          "yoy_pct": 10.9,
+          "yoy_basis": "calculated",
+          "current_share_pct": 22.0,
+          "prior_share_pct": 27.0,
+          "share_change_pp": -5.0,
+          "current_profit": null,
+          "prior_profit": null,
+          "current_margin_pct": null,
+          "prior_margin_pct": null,
+          "margin_change_pp": null,
+          "approximate": true,
+          "growth_contribution_pct": 8.1
+        },
+        {
+          "name": "Internet of Things",
+          "is_elimination": false,
+          "current_revenue": 63.52,
+          "prior_revenue": 46.69,
+          "revenue_delta": 16.83,
+          "yoy_pct": 36.0,
+          "yoy_basis": "calculated",
+          "current_share_pct": 5.0,
+          "prior_share_pct": 5.0,
+          "share_change_pp": 0.0,
+          "current_profit": null,
+          "prior_profit": null,
+          "current_margin_pct": null,
+          "prior_margin_pct": null,
+          "margin_change_pp": null,
+          "approximate": true,
+          "growth_contribution_pct": 5.0
+        },
+        {
+          "name": "Automotive",
+          "is_elimination": false,
+          "current_revenue": 50.82,
+          "prior_revenue": 46.69,
+          "revenue_delta": 4.13,
+          "yoy_pct": 8.8,
+          "yoy_basis": "calculated",
+          "current_share_pct": 4.0,
+          "prior_share_pct": 5.0,
+          "share_change_pp": -1.0,
+          "current_profit": null,
+          "prior_profit": null,
+          "current_margin_pct": null,
+          "prior_margin_pct": null,
+          "margin_change_pp": null,
+          "approximate": true,
+          "growth_contribution_pct": 1.2
+        },
+        {
+          "name": "Digital Consumer Electronics",
+          "is_elimination": false,
+          "current_revenue": 12.7,
+          "prior_revenue": 9.34,
+          "revenue_delta": 3.37,
+          "yoy_pct": 36.0,
+          "yoy_basis": "calculated",
+          "current_share_pct": 1.0,
+          "prior_share_pct": 1.0,
+          "share_change_pp": 0.0,
+          "current_profit": null,
+          "prior_profit": null,
+          "current_margin_pct": null,
+          "prior_margin_pct": null,
+          "margin_change_pp": null,
+          "approximate": true,
+          "growth_contribution_pct": 1.0
+        },
+        {
+          "name": "Others",
+          "is_elimination": false,
+          "current_revenue": 25.41,
+          "prior_revenue": 18.68,
+          "revenue_delta": 6.73,
+          "yoy_pct": 36.0,
+          "yoy_basis": "calculated",
+          "current_share_pct": 2.0,
+          "prior_share_pct": 2.0,
+          "share_change_pp": 0.0,
+          "current_profit": null,
+          "prior_profit": null,
+          "current_margin_pct": null,
+          "prior_margin_pct": null,
+          "margin_change_pp": null,
+          "approximate": true,
+          "growth_contribution_pct": 2.0
+        }
+      ]
+    },
+    {
+      "ticker": "MSFT",
+      "name": "Microsoft",
+      "period": "FY2026 Q4",
+      "comparison_period": "FY2025 Q4",
+      "basis": "可報導分部",
+      "unit": "USD m",
+      "source_date": "2026-07-29",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323632/msft-ex99_1.htm",
+      "basis_change_source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526380280/d291965dex991.htm",
+      "coverage_status": "complete",
+      "coverage_note": null,
+      "comparability": "high",
+      "comparability_note": "FY27 起公司將改為 Agents and Infra、Devices and Consumer 兩大分部；下一季須用公司重編資料重新建基準，不能直接延續舊三分部。",
+      "approximate": false,
+      "totals": {
+        "current_revenue": 90007.0,
+        "prior_revenue": 76441.0,
+        "revenue_delta": 13566.0,
+        "yoy_pct": 17.7
+      },
+      "concentration": {
+        "applicable": true,
+        "status": "high",
+        "label": "高度集中",
+        "hhi": 3878.0,
+        "largest_item": "Intelligent Cloud",
+        "largest_share_pct": 43.7
+      },
+      "driver": {
+        "name": "Intelligent Cloud",
+        "revenue_delta": 9428.0,
+        "growth_contribution_pct": 69.5
+      },
+      "drag": {
+        "name": "More Personal Computing",
+        "revenue_delta": -597.0,
+        "growth_contribution_pct": -4.4
+      },
+      "assessment": {
+        "status": "mixed_growth",
+        "label": "成長但內部分化",
+        "confidence": "high",
+        "confidence_label": "高",
+        "positive_evidence": [
+          "最大成長來源為 Intelligent Cloud：YoY +31.6%，占合計增量 69.5%。"
+        ],
+        "risk_evidence": [
+          "More Personal Computing 營收 YoY -4.4%，形成內部拖累。",
+          "Intelligent Cloud 占目前已揭露營收 43.7%，高度集中。",
+          "More Personal Computing 分部利益率 YoY -2.3pp。",
+          "FY27 起公司將改為 Agents and Infra、Devices and Consumer 兩大分部；下一季須用公司重編資料重新建基準，不能直接延續舊三分部。"
+        ],
+        "next_checks": [
+          "下期先確認 Intelligent Cloud 是否仍是最大增量來源，且成長率未明顯降速。",
+          "追蹤 Intelligent Cloud 占比是否由 43.7% 繼續上升，以及其他業務能否分散風險。",
+          "追蹤 More Personal Computing 利益率能否由 21.4% 改善；營收成長不能替代獲利驗證。"
+        ]
+      },
+      "items": [
+        {
+          "name": "Productivity and Business Processes",
+          "is_elimination": false,
+          "current_revenue": 37847.0,
+          "prior_revenue": 33112.0,
+          "revenue_delta": 4735.0,
+          "yoy_pct": 14.3,
+          "yoy_basis": "calculated",
+          "current_share_pct": 42.0,
+          "prior_share_pct": null,
+          "share_change_pp": null,
+          "current_profit": 21900,
+          "prior_profit": 18993,
+          "current_margin_pct": 57.9,
+          "prior_margin_pct": 57.4,
+          "margin_change_pp": 0.5,
+          "approximate": false,
+          "growth_contribution_pct": 34.9
+        },
+        {
+          "name": "Intelligent Cloud",
+          "is_elimination": false,
+          "current_revenue": 39306.0,
+          "prior_revenue": 29878.0,
+          "revenue_delta": 9428.0,
+          "yoy_pct": 31.6,
+          "yoy_basis": "calculated",
+          "current_share_pct": 43.7,
+          "prior_share_pct": null,
+          "share_change_pp": null,
+          "current_profit": 15955,
+          "prior_profit": 12140,
+          "current_margin_pct": 40.6,
+          "prior_margin_pct": 40.6,
+          "margin_change_pp": -0.0,
+          "approximate": false,
+          "growth_contribution_pct": 69.5
+        },
+        {
+          "name": "More Personal Computing",
+          "is_elimination": false,
+          "current_revenue": 12854.0,
+          "prior_revenue": 13451.0,
+          "revenue_delta": -597.0,
+          "yoy_pct": -4.4,
+          "yoy_basis": "calculated",
+          "current_share_pct": 14.3,
+          "prior_share_pct": null,
+          "share_change_pp": null,
+          "current_profit": 2748,
+          "prior_profit": 3190,
+          "current_margin_pct": 21.4,
+          "prior_margin_pct": 23.7,
+          "margin_change_pp": -2.3,
+          "approximate": false,
+          "growth_contribution_pct": -4.4
+        }
+      ]
+    },
+    {
+      "ticker": "META",
+      "name": "Meta",
+      "period": "2026 Q2",
+      "comparison_period": "2025 Q2",
+      "basis": "可報導分部",
+      "unit": "USD m",
+      "source_date": "2026-07-29",
+      "source_url": "https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Second-Quarter-2026-Results/default.aspx",
+      "basis_change_source_url": null,
+      "coverage_status": "complete",
+      "coverage_note": null,
+      "comparability": "high",
+      "comparability_note": null,
+      "approximate": false,
+      "totals": {
+        "current_revenue": 60801.0,
+        "prior_revenue": 47516.0,
+        "revenue_delta": 13285.0,
+        "yoy_pct": 28.0
+      },
+      "concentration": {
+        "applicable": true,
+        "status": "high",
+        "label": "高度集中",
+        "hhi": 9861.0,
+        "largest_item": "Family of Apps",
+        "largest_share_pct": 99.3
+      },
+      "driver": {
+        "name": "Family of Apps",
+        "revenue_delta": 13224.0,
+        "growth_contribution_pct": 99.5
+      },
+      "drag": null,
+      "assessment": {
+        "status": "concentrated_growth",
+        "label": "成長但驅動集中",
+        "confidence": "high",
+        "confidence_label": "高",
+        "positive_evidence": [
+          "最大成長來源為 Family of Apps：YoY +28.0%，占合計增量 99.5%。"
+        ],
+        "risk_evidence": [
+          "Family of Apps 占目前已揭露營收 99.3%，高度集中。",
+          "Reality Labs 分部利益率 -1071.7%，仍為虧損。",
+          "Family of Apps 分部利益率 YoY -14.2pp。"
+        ],
+        "next_checks": [
+          "下期先確認 Family of Apps 是否仍是最大增量來源，且成長率未明顯降速。",
+          "追蹤 Family of Apps 占比是否由 99.3% 繼續上升，以及其他業務能否分散風險。",
+          "追蹤 Reality Labs 利益率能否由 -1071.7% 改善；營收成長不能替代獲利驗證。"
+        ]
+      },
+      "items": [
+        {
+          "name": "Family of Apps",
+          "is_elimination": false,
+          "current_revenue": 60370.0,
+          "prior_revenue": 47146.0,
+          "revenue_delta": 13224.0,
+          "yoy_pct": 28.0,
+          "yoy_basis": "calculated",
+          "current_share_pct": 99.3,
+          "prior_share_pct": null,
+          "share_change_pp": null,
+          "current_profit": 23394,
+          "prior_profit": 24971,
+          "current_margin_pct": 38.8,
+          "prior_margin_pct": 53.0,
+          "margin_change_pp": -14.2,
+          "approximate": false,
+          "growth_contribution_pct": 99.5
+        },
+        {
+          "name": "Reality Labs",
+          "is_elimination": false,
+          "current_revenue": 431.0,
+          "prior_revenue": 370.0,
+          "revenue_delta": 61.0,
+          "yoy_pct": 16.5,
+          "yoy_basis": "calculated",
+          "current_share_pct": 0.7,
+          "prior_share_pct": null,
+          "share_change_pp": null,
+          "current_profit": -4619,
+          "prior_profit": -4530,
+          "current_margin_pct": -1071.7,
+          "prior_margin_pct": -1224.3,
+          "margin_change_pp": 152.6,
+          "approximate": false,
+          "growth_contribution_pct": 0.5
+        }
+      ]
+    },
+    {
+      "ticker": "AAPL",
+      "name": "Apple",
+      "period": "FY2026 Q3",
+      "comparison_period": "FY2025 Q3",
+      "basis": "產品／服務營收類別（非營業利益分部）",
+      "unit": "USD m",
+      "source_date": "2026-07-30",
+      "source_url": "https://www.apple.com/newsroom/pdfs/fy2026q3/FY26_Q3_Consolidated_Financial_Statements.pdf",
+      "basis_change_source_url": null,
+      "coverage_status": "complete",
+      "coverage_note": null,
+      "comparability": "high",
+      "comparability_note": null,
+      "approximate": false,
+      "totals": {
+        "current_revenue": 109417.0,
+        "prior_revenue": 94036.0,
+        "revenue_delta": 15381.0,
+        "yoy_pct": 16.4
+      },
+      "concentration": {
+        "applicable": true,
+        "status": "high",
+        "label": "高度集中",
+        "hhi": 3424.0,
+        "largest_item": "iPhone",
+        "largest_share_pct": 49.6
+      },
+      "driver": {
+        "name": "iPhone",
+        "revenue_delta": 9670.0,
+        "growth_contribution_pct": 62.9
+      },
+      "drag": {
+        "name": "iPad",
+        "revenue_delta": -390.0,
+        "growth_contribution_pct": -2.5
+      },
+      "assessment": {
+        "status": "mixed_growth",
+        "label": "成長但內部分化",
+        "confidence": "high",
+        "confidence_label": "高",
+        "positive_evidence": [
+          "最大成長來源為 iPhone：YoY +21.7%，占合計增量 62.9%。"
+        ],
+        "risk_evidence": [
+          "iPad 營收 YoY -5.9%，形成內部拖累。",
+          "iPhone 占目前已揭露營收 49.6%，高度集中。"
+        ],
+        "next_checks": [
+          "下期先確認 iPhone 是否仍是最大增量來源，且成長率未明顯降速。",
+          "追蹤 iPhone 占比是否由 49.6% 繼續上升，以及其他業務能否分散風險。",
+          "公司未按此口徑揭露分部利益；必須另用公司毛利率、營業利益率與 FCF 驗證成長品質。"
+        ]
+      },
+      "items": [
+        {
+          "name": "iPhone",
+          "is_elimination": false,
+          "current_revenue": 54252.0,
+          "prior_revenue": 44582.0,
+          "revenue_delta": 9670.0,
+          "yoy_pct": 21.7,
+          "yoy_basis": "calculated",
+          "current_share_pct": 49.6,
+          "prior_share_pct": null,
+          "share_change_pp": null,
+          "current_profit": null,
+          "prior_profit": null,
+          "current_margin_pct": null,
+          "prior_margin_pct": null,
+          "margin_change_pp": null,
+          "approximate": false,
+          "growth_contribution_pct": 62.9
+        },
+        {
+          "name": "Mac",
+          "is_elimination": false,
+          "current_revenue": 10352.0,
+          "prior_revenue": 8046.0,
+          "revenue_delta": 2306.0,
+          "yoy_pct": 28.7,
+          "yoy_basis": "calculated",
+          "current_share_pct": 9.5,
+          "prior_share_pct": null,
+          "share_change_pp": null,
+          "current_profit": null,
+          "prior_profit": null,
+          "current_margin_pct": null,
+          "prior_margin_pct": null,
+          "margin_change_pp": null,
+          "approximate": false,
+          "growth_contribution_pct": 15.0
+        },
+        {
+          "name": "iPad",
+          "is_elimination": false,
+          "current_revenue": 6191.0,
+          "prior_revenue": 6581.0,
+          "revenue_delta": -390.0,
+          "yoy_pct": -5.9,
+          "yoy_basis": "calculated",
+          "current_share_pct": 5.7,
+          "prior_share_pct": null,
+          "share_change_pp": null,
+          "current_profit": null,
+          "prior_profit": null,
+          "current_margin_pct": null,
+          "prior_margin_pct": null,
+          "margin_change_pp": null,
+          "approximate": false,
+          "growth_contribution_pct": -2.5
+        },
+        {
+          "name": "穿戴、家居與配件",
+          "is_elimination": false,
+          "current_revenue": 7883.0,
+          "prior_revenue": 7404.0,
+          "revenue_delta": 479.0,
+          "yoy_pct": 6.5,
+          "yoy_basis": "calculated",
+          "current_share_pct": 7.2,
+          "prior_share_pct": null,
+          "share_change_pp": null,
+          "current_profit": null,
+          "prior_profit": null,
+          "current_margin_pct": null,
+          "prior_margin_pct": null,
+          "margin_change_pp": null,
+          "approximate": false,
+          "growth_contribution_pct": 3.1
+        },
+        {
+          "name": "服務",
+          "is_elimination": false,
+          "current_revenue": 30739.0,
+          "prior_revenue": 27423.0,
+          "revenue_delta": 3316.0,
+          "yoy_pct": 12.1,
+          "yoy_basis": "calculated",
+          "current_share_pct": 28.1,
+          "prior_share_pct": null,
+          "share_change_pp": null,
+          "current_profit": null,
+          "prior_profit": null,
+          "current_margin_pct": null,
+          "prior_margin_pct": null,
+          "margin_change_pp": null,
+          "approximate": false,
+          "growth_contribution_pct": 21.6
+        }
+      ]
+    },
+    {
+      "ticker": "AMZN",
+      "name": "Amazon",
+      "period": "2026 Q2",
+      "comparison_period": "2025 Q2",
+      "basis": "可報導分部",
+      "unit": "USD m",
+      "source_date": "2026-07-30",
+      "source_url": "https://ir.aboutamazon.com/news-release/news-release-details/2026/Amazon-com-Announces-Second-Quarter-Results/default.aspx",
+      "basis_change_source_url": null,
+      "coverage_status": "complete",
+      "coverage_note": null,
+      "comparability": "high",
+      "comparability_note": null,
+      "approximate": false,
+      "totals": {
+        "current_revenue": 200606.0,
+        "prior_revenue": 167702.0,
+        "revenue_delta": 32904.0,
+        "yoy_pct": 19.6
+      },
+      "concentration": {
+        "applicable": true,
+        "status": "high",
+        "label": "高度集中",
+        "hhi": 4239.0,
+        "largest_item": "North America",
+        "largest_share_pct": 57.9
+      },
+      "driver": {
+        "name": "North America",
+        "revenue_delta": 16109.0,
+        "growth_contribution_pct": 49.0
+      },
+      "drag": null,
+      "assessment": {
+        "status": "concentrated_growth",
+        "label": "成長但驅動集中",
+        "confidence": "high",
+        "confidence_label": "高",
+        "positive_evidence": [
+          "最大成長來源為 North America：YoY +16.1%，占合計增量 49.0%。"
+        ],
+        "risk_evidence": [
+          "North America 占目前已揭露營收 57.9%，高度集中。"
+        ],
+        "next_checks": [
+          "下期先確認 North America 是否仍是最大增量來源，且成長率未明顯降速。",
+          "追蹤 North America 占比是否由 57.9% 繼續上升，以及其他業務能否分散風險。",
+          "追蹤 International 利益率能否由 4.1% 改善；營收成長不能替代獲利驗證。"
+        ]
+      },
+      "items": [
+        {
+          "name": "North America",
+          "is_elimination": false,
+          "current_revenue": 116177.0,
+          "prior_revenue": 100068.0,
+          "revenue_delta": 16109.0,
+          "yoy_pct": 16.1,
+          "yoy_basis": "calculated",
+          "current_share_pct": 57.9,
+          "prior_share_pct": null,
+          "share_change_pp": null,
+          "current_profit": 9123,
+          "prior_profit": 7517,
+          "current_margin_pct": 7.9,
+          "prior_margin_pct": 7.5,
+          "margin_change_pp": 0.3,
+          "approximate": false,
+          "growth_contribution_pct": 49.0
+        },
+        {
+          "name": "International",
+          "is_elimination": false,
+          "current_revenue": 42197.0,
+          "prior_revenue": 36761.0,
+          "revenue_delta": 5436.0,
+          "yoy_pct": 14.8,
+          "yoy_basis": "calculated",
+          "current_share_pct": 21.0,
+          "prior_share_pct": null,
+          "share_change_pp": null,
+          "current_profit": 1717,
+          "prior_profit": 1494,
+          "current_margin_pct": 4.1,
+          "prior_margin_pct": 4.1,
+          "margin_change_pp": 0.0,
+          "approximate": false,
+          "growth_contribution_pct": 16.5
+        },
+        {
+          "name": "AWS",
+          "is_elimination": false,
+          "current_revenue": 42232.0,
+          "prior_revenue": 30873.0,
+          "revenue_delta": 11359.0,
+          "yoy_pct": 36.8,
+          "yoy_basis": "calculated",
+          "current_share_pct": 21.1,
+          "prior_share_pct": null,
+          "share_change_pp": null,
+          "current_profit": 16621,
+          "prior_profit": 10160,
+          "current_margin_pct": 39.4,
+          "prior_margin_pct": 32.9,
+          "margin_change_pp": 6.4,
+          "approximate": false,
+          "growth_contribution_pct": 34.5
+        }
+      ]
+    },
+    {
+      "ticker": "ARM",
+      "name": "Arm",
+      "period": "FY2027 Q1",
+      "comparison_period": "FY2026 Q1",
+      "basis": "營收來源（非可報導分部）",
+      "unit": "USD m",
+      "source_date": "2026-07-29",
+      "source_url": "https://investors.arm.com/node/8356/html",
+      "basis_change_source_url": null,
+      "coverage_status": "complete",
+      "coverage_note": null,
+      "comparability": "high",
+      "comparability_note": null,
+      "approximate": false,
+      "totals": {
+        "current_revenue": 1289.0,
+        "prior_revenue": 1053.0,
+        "revenue_delta": 236.0,
+        "yoy_pct": 22.4
+      },
+      "concentration": {
+        "applicable": true,
+        "status": "high",
+        "label": "高度集中",
+        "hhi": 5060.0,
+        "largest_item": "Royalty revenue",
+        "largest_share_pct": 55.5
+      },
+      "driver": {
+        "name": "Royalty revenue",
+        "revenue_delta": 130.0,
+        "growth_contribution_pct": 55.1
+      },
+      "drag": null,
+      "assessment": {
+        "status": "concentrated_growth",
+        "label": "成長但驅動集中",
+        "confidence": "high",
+        "confidence_label": "高",
+        "positive_evidence": [
+          "最大成長來源為 Royalty revenue：YoY +22.2%，占合計增量 55.1%。"
+        ],
+        "risk_evidence": [
+          "Royalty revenue 占目前已揭露營收 55.5%，高度集中。"
+        ],
+        "next_checks": [
+          "下期先確認 Royalty revenue 是否仍是最大增量來源，且成長率未明顯降速。",
+          "追蹤 Royalty revenue 占比是否由 55.5% 繼續上升，以及其他業務能否分散風險。",
+          "公司未按此口徑揭露分部利益；必須另用公司毛利率、營業利益率與 FCF 驗證成長品質。"
+        ]
+      },
+      "items": [
+        {
+          "name": "Royalty revenue",
+          "is_elimination": false,
+          "current_revenue": 715.0,
+          "prior_revenue": 585.0,
+          "revenue_delta": 130.0,
+          "yoy_pct": 22.2,
+          "yoy_basis": "calculated",
+          "current_share_pct": 55.5,
+          "prior_share_pct": null,
+          "share_change_pp": null,
+          "current_profit": null,
+          "prior_profit": null,
+          "current_margin_pct": null,
+          "prior_margin_pct": null,
+          "margin_change_pp": null,
+          "approximate": false,
+          "growth_contribution_pct": 55.1
+        },
+        {
+          "name": "License and other revenue",
+          "is_elimination": false,
+          "current_revenue": 574.0,
+          "prior_revenue": 468.0,
+          "revenue_delta": 106.0,
+          "yoy_pct": 22.6,
+          "yoy_basis": "calculated",
+          "current_share_pct": 44.5,
+          "prior_share_pct": null,
+          "share_change_pp": null,
+          "current_profit": null,
+          "prior_profit": null,
+          "current_margin_pct": null,
+          "prior_margin_pct": null,
+          "margin_change_pp": null,
+          "approximate": false,
+          "growth_contribution_pct": 44.9
+        }
+      ]
+    },
+    {
+      "ticker": "ONDS",
+      "name": "Ondas",
+      "period": "2026 Q2",
+      "comparison_period": "2025 Q2",
+      "basis": "營收類型（非可報導分部）",
+      "unit": "USD k",
+      "source_date": "2026-08-13",
+      "source_url": "https://ir.ondas.com/all-sec-filings/content/0001193125-26-349288/onds-20260630.htm",
+      "basis_change_source_url": null,
+      "coverage_status": "complete",
+      "coverage_note": null,
+      "comparability": "low",
+      "comparability_note": "2026 年數字包含多項新收購，Ondas Networks 又自 2026-01-16 起去合併；YoY 能描述報表變化，但不能解讀為純有機成長。",
+      "approximate": false,
+      "totals": {
+        "current_revenue": 83772.0,
+        "prior_revenue": 6273.0,
+        "revenue_delta": 77499.0,
+        "yoy_pct": 1235.4
+      },
+      "concentration": {
+        "applicable": true,
+        "status": "high",
+        "label": "高度集中",
+        "hhi": 3889.0,
+        "largest_item": "Product revenue",
+        "largest_share_pct": 51.9
+      },
+      "driver": {
+        "name": "Product revenue",
+        "revenue_delta": 39841.0,
+        "growth_contribution_pct": 51.4
+      },
+      "drag": {
+        "name": "Ondas Networks revenue",
+        "revenue_delta": -179.0,
+        "growth_contribution_pct": -0.2
+      },
+      "assessment": {
+        "status": "mixed_growth",
+        "label": "成長但內部分化",
+        "confidence": "low",
+        "confidence_label": "低",
+        "positive_evidence": [
+          "最大成長來源為 Product revenue：YoY +1105.2%，占合計增量 51.4%。"
+        ],
+        "risk_evidence": [
+          "Ondas Networks revenue 營收 YoY -100.0%，形成內部拖累。",
+          "Product revenue 占目前已揭露營收 51.9%，高度集中。",
+          "2026 年數字包含多項新收購，Ondas Networks 又自 2026-01-16 起去合併；YoY 能描述報表變化，但不能解讀為純有機成長。"
+        ],
+        "next_checks": [
+          "下期先確認 Product revenue 是否仍是最大增量來源，且成長率未明顯降速。",
+          "追蹤 Product revenue 占比是否由 51.9% 繼續上升，以及其他業務能否分散風險。",
+          "公司未按此口徑揭露分部利益；必須另用公司毛利率、營業利益率與 FCF 驗證成長品質。"
+        ]
+      },
+      "items": [
+        {
+          "name": "Product revenue",
+          "is_elimination": false,
+          "current_revenue": 43446.0,
+          "prior_revenue": 3605.0,
+          "revenue_delta": 39841.0,
+          "yoy_pct": 1105.2,
+          "yoy_basis": "calculated",
+          "current_share_pct": 51.9,
+          "prior_share_pct": null,
+          "share_change_pp": null,
+          "current_profit": null,
+          "prior_profit": null,
+          "current_margin_pct": null,
+          "prior_margin_pct": null,
+          "margin_change_pp": null,
+          "approximate": false,
+          "growth_contribution_pct": 51.4
+        },
+        {
+          "name": "Service revenue",
+          "is_elimination": false,
+          "current_revenue": 23603.0,
+          "prior_revenue": 2489.0,
+          "revenue_delta": 21114.0,
+          "yoy_pct": 848.3,
+          "yoy_basis": "calculated",
+          "current_share_pct": 28.2,
+          "prior_share_pct": null,
+          "share_change_pp": null,
+          "current_profit": null,
+          "prior_profit": null,
+          "current_margin_pct": null,
+          "prior_margin_pct": null,
+          "margin_change_pp": null,
+          "approximate": false,
+          "growth_contribution_pct": 27.2
+        },
+        {
+          "name": "Development revenue",
+          "is_elimination": false,
+          "current_revenue": 16723.0,
+          "prior_revenue": 0.0,
+          "revenue_delta": 16723.0,
+          "yoy_pct": null,
+          "yoy_basis": "unavailable",
+          "current_share_pct": 20.0,
+          "prior_share_pct": null,
+          "share_change_pp": null,
+          "current_profit": null,
+          "prior_profit": null,
+          "current_margin_pct": null,
+          "prior_margin_pct": null,
+          "margin_change_pp": null,
+          "approximate": false,
+          "growth_contribution_pct": 21.6
+        },
+        {
+          "name": "Ondas Networks revenue",
+          "is_elimination": false,
+          "current_revenue": 0.0,
+          "prior_revenue": 179.0,
+          "revenue_delta": -179.0,
+          "yoy_pct": -100.0,
+          "yoy_basis": "calculated",
+          "current_share_pct": 0.0,
+          "prior_share_pct": null,
+          "share_change_pp": null,
+          "current_profit": null,
+          "prior_profit": null,
+          "current_margin_pct": null,
+          "prior_margin_pct": null,
+          "margin_change_pp": null,
+          "approximate": false,
+          "growth_contribution_pct": -0.2
+        }
+      ]
+    },
+    {
+      "ticker": "TSLA",
+      "name": "Tesla",
+      "period": "2026 Q2",
+      "comparison_period": "2025 Q2",
+      "basis": "營收類別（服務及其他含於汽車報導分部）",
+      "unit": "USD m",
+      "source_date": "2026-07-23",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026049270/tsla-20260630.htm",
+      "basis_change_source_url": null,
+      "coverage_status": "complete",
+      "coverage_note": null,
+      "comparability": "high",
+      "comparability_note": null,
+      "approximate": false,
+      "totals": {
+        "current_revenue": 28236.0,
+        "prior_revenue": 22496.0,
+        "revenue_delta": 5740.0,
+        "yoy_pct": 25.5
+      },
+      "concentration": {
+        "applicable": true,
+        "status": "high",
+        "label": "高度集中",
+        "hhi": 5671.0,
+        "largest_item": "Total automotive revenues",
+        "largest_share_pct": 72.7
+      },
+      "driver": {
+        "name": "Total automotive revenues",
+        "revenue_delta": 3855.0,
+        "growth_contribution_pct": 67.2
+      },
+      "drag": null,
+      "assessment": {
+        "status": "concentrated_growth",
+        "label": "成長但驅動集中",
+        "confidence": "high",
+        "confidence_label": "高",
+        "positive_evidence": [
+          "最大成長來源為 Total automotive revenues：YoY +23.1%，占合計增量 67.2%。"
+        ],
+        "risk_evidence": [
+          "Total automotive revenues 占目前已揭露營收 72.7%，高度集中。"
+        ],
+        "next_checks": [
+          "下期先確認 Total automotive revenues 是否仍是最大增量來源，且成長率未明顯降速。",
+          "追蹤 Total automotive revenues 占比是否由 72.7% 繼續上升，以及其他業務能否分散風險。",
+          "公司未按此口徑揭露分部利益；必須另用公司毛利率、營業利益率與 FCF 驗證成長品質。"
+        ]
+      },
+      "items": [
+        {
+          "name": "Total automotive revenues",
+          "is_elimination": false,
+          "current_revenue": 20516.0,
+          "prior_revenue": 16661.0,
+          "revenue_delta": 3855.0,
+          "yoy_pct": 23.1,
+          "yoy_basis": "calculated",
+          "current_share_pct": 72.7,
+          "prior_share_pct": null,
+          "share_change_pp": null,
+          "current_profit": null,
+          "prior_profit": null,
+          "current_margin_pct": null,
+          "prior_margin_pct": null,
+          "margin_change_pp": null,
+          "approximate": false,
+          "growth_contribution_pct": 67.2
+        },
+        {
+          "name": "Energy generation and storage",
+          "is_elimination": false,
+          "current_revenue": 3139.0,
+          "prior_revenue": 2789.0,
+          "revenue_delta": 350.0,
+          "yoy_pct": 12.5,
+          "yoy_basis": "calculated",
+          "current_share_pct": 11.1,
+          "prior_share_pct": null,
+          "share_change_pp": null,
+          "current_profit": null,
+          "prior_profit": null,
+          "current_margin_pct": null,
+          "prior_margin_pct": null,
+          "margin_change_pp": null,
+          "approximate": false,
+          "growth_contribution_pct": 6.1
+        },
+        {
+          "name": "Services and other",
+          "is_elimination": false,
+          "current_revenue": 4581.0,
+          "prior_revenue": 3046.0,
+          "revenue_delta": 1535.0,
+          "yoy_pct": 50.4,
+          "yoy_basis": "calculated",
+          "current_share_pct": 16.2,
+          "prior_share_pct": null,
+          "share_change_pp": null,
+          "current_profit": null,
+          "prior_profit": null,
+          "current_margin_pct": null,
+          "prior_margin_pct": null,
+          "margin_change_pp": null,
+          "approximate": false,
+          "growth_contribution_pct": 26.7
+        }
+      ]
+    },
+    {
+      "ticker": "GOOG",
+      "name": "Alphabet",
+      "period": "2026 Q2",
+      "comparison_period": "2025 Q2",
+      "basis": "可報導分部",
+      "unit": "USD m",
+      "source_date": "2026-07-23",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/goog-20260630.htm",
+      "basis_change_source_url": null,
+      "coverage_status": "near_complete",
+      "coverage_note": "分部合計不含公司層級避險損益；營收占比與成長貢獻以三個已揭露分部為分母。",
+      "comparability": "high",
+      "comparability_note": null,
+      "approximate": false,
+      "totals": {
+        "current_revenue": 119690.0,
+        "prior_revenue": 96540.0,
+        "revenue_delta": 23150.0,
+        "yoy_pct": 24.0
+      },
+      "concentration": {
+        "applicable": true,
+        "status": "high",
+        "label": "高度集中",
+        "hhi": 6670.0,
+        "largest_item": "Google Services",
+        "largest_share_pct": 79.0
+      },
+      "driver": {
+        "name": "Google Services",
+        "revenue_delta": 11997.0,
+        "growth_contribution_pct": 51.8
+      },
+      "drag": null,
+      "assessment": {
+        "status": "concentrated_growth",
+        "label": "成長但驅動集中",
+        "confidence": "medium",
+        "confidence_label": "中",
+        "positive_evidence": [
+          "最大成長來源為 Google Services：YoY +14.5%，占合計增量 51.8%。"
+        ],
+        "risk_evidence": [
+          "Google Services 占目前已揭露營收 79.0%，高度集中。",
+          "Other Bets 分部利益率 -470.9%，仍為虧損。",
+          "Other Bets 分部利益率 YoY -136.9pp。"
+        ],
+        "next_checks": [
+          "下期先確認 Google Services 是否仍是最大增量來源，且成長率未明顯降速。",
+          "追蹤 Google Services 占比是否由 79.0% 繼續上升，以及其他業務能否分散風險。",
+          "追蹤 Other Bets 利益率能否由 -470.9% 改善；營收成長不能替代獲利驗證。"
+        ]
+      },
+      "items": [
+        {
+          "name": "Google Services",
+          "is_elimination": false,
+          "current_revenue": 94540.0,
+          "prior_revenue": 82543.0,
+          "revenue_delta": 11997.0,
+          "yoy_pct": 14.5,
+          "yoy_basis": "calculated",
+          "current_share_pct": 79.0,
+          "prior_share_pct": null,
+          "share_change_pp": null,
+          "current_profit": 39544,
+          "prior_profit": 33063,
+          "current_margin_pct": 41.8,
+          "prior_margin_pct": 40.1,
+          "margin_change_pp": 1.8,
+          "approximate": false,
+          "growth_contribution_pct": 51.8
+        },
+        {
+          "name": "Google Cloud",
+          "is_elimination": false,
+          "current_revenue": 24768.0,
+          "prior_revenue": 13624.0,
+          "revenue_delta": 11144.0,
+          "yoy_pct": 81.8,
+          "yoy_basis": "calculated",
+          "current_share_pct": 20.7,
+          "prior_share_pct": null,
+          "share_change_pp": null,
+          "current_profit": 8814,
+          "prior_profit": 2826,
+          "current_margin_pct": 35.6,
+          "prior_margin_pct": 20.7,
+          "margin_change_pp": 14.8,
+          "approximate": false,
+          "growth_contribution_pct": 48.1
+        },
+        {
+          "name": "Other Bets",
+          "is_elimination": false,
+          "current_revenue": 382.0,
+          "prior_revenue": 373.0,
+          "revenue_delta": 9.0,
+          "yoy_pct": 2.4,
+          "yoy_basis": "calculated",
+          "current_share_pct": 0.3,
+          "prior_share_pct": null,
+          "share_change_pp": null,
+          "current_profit": -1799,
+          "prior_profit": -1246,
+          "current_margin_pct": -470.9,
+          "prior_margin_pct": -334.0,
+          "margin_change_pp": -136.9,
+          "approximate": false,
+          "growth_contribution_pct": 0.0
+        }
+      ]
+    },
+    {
+      "ticker": "COHR",
+      "name": "Coherent",
+      "period": "FY2026",
+      "comparison_period": "FY2025",
+      "basis": "可報導分部（年度；歷史已依新口徑重編）",
+      "unit": "USD m",
+      "source_date": "2026-08-12",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/820318/000082031826000020/iivi-20260630.htm",
+      "basis_change_source_url": null,
+      "coverage_status": "complete",
+      "coverage_note": null,
+      "comparability": "high",
+      "comparability_note": null,
+      "approximate": false,
+      "totals": {
+        "current_revenue": 7119.0,
+        "prior_revenue": 5810.0,
+        "revenue_delta": 1309.0,
+        "yoy_pct": 22.5
+      },
+      "concentration": {
+        "applicable": true,
+        "status": "high",
+        "label": "高度集中",
+        "hhi": 6162.0,
+        "largest_item": "Datacenter & Communications",
+        "largest_share_pct": 74.1
+      },
+      "driver": {
+        "name": "Datacenter & Communications",
+        "revenue_delta": 1520.0,
+        "growth_contribution_pct": 116.1
+      },
+      "drag": {
+        "name": "Industrial",
+        "revenue_delta": -211.0,
+        "growth_contribution_pct": -16.1
+      },
+      "assessment": {
+        "status": "mixed_growth",
+        "label": "成長但內部分化",
+        "confidence": "high",
+        "confidence_label": "高",
+        "positive_evidence": [
+          "最大成長來源為 Datacenter & Communications：YoY +40.5%，占合計增量 116.1%。"
+        ],
+        "risk_evidence": [
+          "Industrial 營收 YoY -10.3%，形成內部拖累。",
+          "Datacenter & Communications 占目前已揭露營收 74.1%，高度集中。"
+        ],
+        "next_checks": [
+          "下期先確認 Datacenter & Communications 是否仍是最大增量來源，且成長率未明顯降速。",
+          "追蹤 Datacenter & Communications 占比是否由 74.1% 繼續上升，以及其他業務能否分散風險。",
+          "追蹤 Industrial 利益率能否由 22.9% 改善；營收成長不能替代獲利驗證。"
+        ]
+      },
+      "items": [
+        {
+          "name": "Datacenter & Communications",
+          "is_elimination": false,
+          "current_revenue": 5275.0,
+          "prior_revenue": 3755.0,
+          "revenue_delta": 1520.0,
+          "yoy_pct": 40.5,
+          "yoy_basis": "calculated",
+          "current_share_pct": 74.1,
+          "prior_share_pct": null,
+          "share_change_pp": null,
+          "current_profit": 1330,
+          "prior_profit": 904,
+          "current_margin_pct": 25.2,
+          "prior_margin_pct": 24.1,
+          "margin_change_pp": 1.1,
+          "approximate": false,
+          "growth_contribution_pct": 116.1
+        },
+        {
+          "name": "Industrial",
+          "is_elimination": false,
+          "current_revenue": 1844.0,
+          "prior_revenue": 2055.0,
+          "revenue_delta": -211.0,
+          "yoy_pct": -10.3,
+          "yoy_basis": "calculated",
+          "current_share_pct": 25.9,
+          "prior_share_pct": null,
+          "share_change_pp": null,
+          "current_profit": 423,
+          "prior_profit": 407,
+          "current_margin_pct": 22.9,
+          "prior_margin_pct": 19.8,
+          "margin_change_pp": 3.1,
+          "approximate": false,
+          "growth_contribution_pct": -16.1
+        }
+      ]
+    },
+    {
+      "ticker": "MRVL",
+      "name": "Marvell",
+      "period": "FY2027 Q2",
+      "comparison_period": "FY2026 Q2",
+      "basis": "終端市場營收（非可報導分部）",
+      "unit": "USD m",
+      "source_date": "2026-08-27",
+      "source_url": "https://investor.marvell.com/news-events/press-releases/detail/1031/marvell-technology-inc-reports-second-quarter-of-fiscal-year-2027-financial-results",
+      "basis_change_source_url": null,
+      "coverage_status": "complete",
+      "coverage_note": null,
+      "comparability": "high",
+      "comparability_note": null,
+      "approximate": false,
+      "totals": {
+        "current_revenue": 2739.3,
+        "prior_revenue": 2006.1,
+        "revenue_delta": 733.2,
+        "yoy_pct": 36.5
+      },
+      "concentration": {
+        "applicable": true,
+        "status": "high",
+        "label": "高度集中",
+        "hhi": 6717.0,
+        "largest_item": "Data center",
+        "largest_share_pct": 79.3
+      },
+      "driver": {
+        "name": "Data center",
+        "revenue_delta": 681.0,
+        "growth_contribution_pct": 92.9
+      },
+      "drag": null,
+      "assessment": {
+        "status": "concentrated_growth",
+        "label": "成長但驅動集中",
+        "confidence": "high",
+        "confidence_label": "高",
+        "positive_evidence": [
+          "最大成長來源為 Data center：YoY +45.7%，占合計增量 92.9%。"
+        ],
+        "risk_evidence": [
+          "Data center 占目前已揭露營收 79.3%，高度集中。"
+        ],
+        "next_checks": [
+          "下期先確認 Data center 是否仍是最大增量來源，且成長率未明顯降速。",
+          "追蹤 Data center 占比是否由 79.3% 繼續上升，以及其他業務能否分散風險。",
+          "公司未按此口徑揭露分部利益；必須另用公司毛利率、營業利益率與 FCF 驗證成長品質。"
+        ]
+      },
+      "items": [
+        {
+          "name": "Data center",
+          "is_elimination": false,
+          "current_revenue": 2171.5,
+          "prior_revenue": 1490.5,
+          "revenue_delta": 681.0,
+          "yoy_pct": 45.7,
+          "yoy_basis": "calculated",
+          "current_share_pct": 79.3,
+          "prior_share_pct": null,
+          "share_change_pp": null,
+          "current_profit": null,
+          "prior_profit": null,
+          "current_margin_pct": null,
+          "prior_margin_pct": null,
+          "margin_change_pp": null,
+          "approximate": false,
+          "growth_contribution_pct": 92.9
+        },
+        {
+          "name": "Communications and other",
+          "is_elimination": false,
+          "current_revenue": 567.8,
+          "prior_revenue": 515.6,
+          "revenue_delta": 52.2,
+          "yoy_pct": 10.1,
+          "yoy_basis": "calculated",
+          "current_share_pct": 20.7,
+          "prior_share_pct": null,
+          "share_change_pp": null,
+          "current_profit": null,
+          "prior_profit": null,
+          "current_margin_pct": null,
+          "prior_margin_pct": null,
+          "margin_change_pp": null,
+          "approximate": false,
+          "growth_contribution_pct": 7.1
+        }
+      ]
+    },
+    {
+      "ticker": "INTC",
+      "name": "Intel",
+      "period": "2026 Q2",
+      "comparison_period": "2025 Q2",
+      "basis": "營運分部；含內部交易與合併沖銷",
+      "unit": "USD m",
+      "source_date": "2026-07-24",
+      "source_url": "https://www.intc.com/filings-reports/quarterly-reports/content/0000050863-26-000157/0000050863-26-000157.pdf",
+      "basis_change_source_url": null,
+      "coverage_status": "reconciled",
+      "coverage_note": null,
+      "comparability": "medium",
+      "comparability_note": "Intel Foundry 大部分為對內銷售，不能把各分部占比當成外部客戶營收集中度；成長貢獻含合併沖銷才可勾稽總營收。",
+      "approximate": false,
+      "totals": {
+        "current_revenue": 16128.0,
+        "prior_revenue": 12859.0,
+        "revenue_delta": 3269.0,
+        "yoy_pct": 25.4
+      },
+      "concentration": {
+        "applicable": false,
+        "status": "not_applicable",
+        "label": "不適用",
+        "hhi": null,
+        "largest_item": null,
+        "largest_share_pct": null
+      },
+      "driver": {
+        "name": "DCAI",
+        "revenue_delta": 2323.0,
+        "growth_contribution_pct": 71.1
+      },
+      "drag": {
+        "name": "All Other",
+        "revenue_delta": -352.0,
+        "growth_contribution_pct": -10.8
+      },
+      "assessment": {
+        "status": "mixed_growth",
+        "label": "成長但內部分化",
+        "confidence": "medium",
+        "confidence_label": "中",
+        "positive_evidence": [
+          "最大成長來源為 DCAI：YoY +59.0%，占合計增量 71.1%。"
+        ],
+        "risk_evidence": [
+          "All Other 營收 YoY -33.4%，形成內部拖累。",
+          "Intel Foundry 分部利益率 -36.2%，仍為虧損。",
+          "Intel Foundry 大部分為對內銷售，不能把各分部占比當成外部客戶營收集中度；成長貢獻含合併沖銷才可勾稽總營收。"
+        ],
+        "next_checks": [
+          "下期先確認 DCAI 是否仍是最大增量來源，且成長率未明顯降速。",
+          "追蹤 Intel Foundry 利益率能否由 -36.2% 改善；營收成長不能替代獲利驗證。"
+        ]
+      },
+      "items": [
+        {
+          "name": "CCPG",
+          "is_elimination": false,
+          "current_revenue": 8877.0,
+          "prior_revenue": 7871.0,
+          "revenue_delta": 1006.0,
+          "yoy_pct": 12.8,
+          "yoy_basis": "calculated",
+          "current_share_pct": null,
+          "prior_share_pct": null,
+          "share_change_pp": null,
+          "current_profit": 2343,
+          "prior_profit": 2053,
+          "current_margin_pct": 26.4,
+          "prior_margin_pct": 26.1,
+          "margin_change_pp": 0.3,
+          "approximate": false,
+          "growth_contribution_pct": 30.8
+        },
+        {
+          "name": "DCAI",
+          "is_elimination": false,
+          "current_revenue": 6262.0,
+          "prior_revenue": 3939.0,
+          "revenue_delta": 2323.0,
+          "yoy_pct": 59.0,
+          "yoy_basis": "calculated",
+          "current_share_pct": null,
+          "prior_share_pct": null,
+          "share_change_pp": null,
+          "current_profit": 2474,
+          "prior_profit": 633,
+          "current_margin_pct": 39.5,
+          "prior_margin_pct": 16.1,
+          "margin_change_pp": 23.4,
+          "approximate": false,
+          "growth_contribution_pct": 71.1
+        },
+        {
+          "name": "Intel Foundry",
+          "is_elimination": false,
+          "current_revenue": 5765.0,
+          "prior_revenue": 4417.0,
+          "revenue_delta": 1348.0,
+          "yoy_pct": 30.5,
+          "yoy_basis": "calculated",
+          "current_share_pct": null,
+          "prior_share_pct": null,
+          "share_change_pp": null,
+          "current_profit": -2089,
+          "prior_profit": -3168,
+          "current_margin_pct": -36.2,
+          "prior_margin_pct": -71.7,
+          "margin_change_pp": 35.5,
+          "approximate": false,
+          "growth_contribution_pct": 41.2
+        },
+        {
+          "name": "All Other",
+          "is_elimination": false,
+          "current_revenue": 701.0,
+          "prior_revenue": 1053.0,
+          "revenue_delta": -352.0,
+          "yoy_pct": -33.4,
+          "yoy_basis": "calculated",
+          "current_share_pct": null,
+          "prior_share_pct": null,
+          "share_change_pp": null,
+          "current_profit": 230,
+          "prior_profit": 69,
+          "current_margin_pct": 32.8,
+          "prior_margin_pct": 6.6,
+          "margin_change_pp": 26.3,
+          "approximate": false,
+          "growth_contribution_pct": -10.8
+        },
+        {
+          "name": "合併沖銷",
+          "is_elimination": true,
+          "current_revenue": -5477.0,
+          "prior_revenue": -4421.0,
+          "revenue_delta": -1056.0,
+          "yoy_pct": 23.9,
+          "yoy_basis": "calculated",
+          "current_share_pct": null,
+          "prior_share_pct": null,
+          "share_change_pp": null,
+          "current_profit": 254,
+          "prior_profit": -8,
+          "current_margin_pct": -4.6,
+          "prior_margin_pct": 0.2,
+          "margin_change_pp": -4.8,
+          "approximate": false,
+          "growth_contribution_pct": -32.3
+        }
+      ]
+    },
+    {
+      "ticker": "NOK",
+      "name": "Nokia",
+      "period": "2026 Q2",
+      "comparison_period": "2025 Q2",
+      "basis": "營運分部",
+      "unit": "EUR m",
+      "source_date": "2026-07-23",
+      "source_url": "https://www.nokia.com/newsroom/nokia-corporation-report-for-q2-and-half-year-2026/",
+      "basis_change_source_url": null,
+      "coverage_status": "near_complete",
+      "coverage_note": "分部表依持續營業口徑；兩項原 Portfolio Businesses 業務已改列停業單位，判讀時不與舊公司總營收混用。",
+      "comparability": "medium",
+      "comparability_note": null,
+      "approximate": false,
+      "totals": {
+        "current_revenue": 4811.0,
+        "prior_revenue": 4445.0,
+        "revenue_delta": 366.0,
+        "yoy_pct": 8.2
+      },
+      "concentration": {
+        "applicable": true,
+        "status": "high",
+        "label": "高度集中",
+        "hhi": 4896.0,
+        "largest_item": "Mobile Infrastructure",
+        "largest_share_pct": 55.7
+      },
+      "driver": {
+        "name": "Network Infrastructure",
+        "revenue_delta": 212.0,
+        "growth_contribution_pct": 57.9
+      },
+      "drag": null,
+      "assessment": {
+        "status": "concentrated_growth",
+        "label": "成長但驅動集中",
+        "confidence": "medium",
+        "confidence_label": "中",
+        "positive_evidence": [
+          "最大成長來源為 Network Infrastructure：YoY +11.6%，占合計增量 57.9%。"
+        ],
+        "risk_evidence": [
+          "Mobile Infrastructure 占目前已揭露營收 55.7%，高度集中。"
+        ],
+        "next_checks": [
+          "下期先確認 Network Infrastructure 是否仍是最大增量來源，且成長率未明顯降速。",
+          "追蹤 Mobile Infrastructure 占比是否由 55.7% 繼續上升，以及其他業務能否分散風險。",
+          "追蹤 Portfolio Businesses 利益率能否由 0.0% 改善；營收成長不能替代獲利驗證。"
+        ]
+      },
+      "items": [
+        {
+          "name": "Network Infrastructure",
+          "is_elimination": false,
+          "current_revenue": 2037.0,
+          "prior_revenue": 1825.0,
+          "revenue_delta": 212.0,
+          "yoy_pct": 11.6,
+          "yoy_basis": "calculated",
+          "current_share_pct": 42.3,
+          "prior_share_pct": null,
+          "share_change_pp": null,
+          "current_profit": 166,
+          "prior_profit": 117,
+          "current_margin_pct": 8.1,
+          "prior_margin_pct": 6.4,
+          "margin_change_pp": 1.7,
+          "approximate": false,
+          "growth_contribution_pct": 57.9
+        },
+        {
+          "name": "Mobile Infrastructure",
+          "is_elimination": false,
+          "current_revenue": 2680.0,
+          "prior_revenue": 2531.0,
+          "revenue_delta": 149.0,
+          "yoy_pct": 5.9,
+          "yoy_basis": "calculated",
+          "current_share_pct": 55.7,
+          "prior_share_pct": null,
+          "share_change_pp": null,
+          "current_profit": 310,
+          "prior_profit": 310,
+          "current_margin_pct": 11.6,
+          "prior_margin_pct": 12.2,
+          "margin_change_pp": -0.7,
+          "approximate": false,
+          "growth_contribution_pct": 40.7
+        },
+        {
+          "name": "Portfolio Businesses",
+          "is_elimination": false,
+          "current_revenue": 94.0,
+          "prior_revenue": 89.0,
+          "revenue_delta": 5.0,
+          "yoy_pct": 5.6,
+          "yoy_basis": "calculated",
+          "current_share_pct": 2.0,
+          "prior_share_pct": null,
+          "share_change_pp": null,
+          "current_profit": 0,
+          "prior_profit": -11,
+          "current_margin_pct": 0.0,
+          "prior_margin_pct": -12.4,
+          "margin_change_pp": 12.4,
+          "approximate": false,
+          "growth_contribution_pct": 1.4
+        }
+      ]
+    }
+  ]
+}

@@ -1412,6 +1412,30 @@
     .sec-verify-cycle { margin-top: 8px; padding: 8px 9px; border-radius: 8px; background: rgba(15, 23, 42, 0.62); color: #cbd5e1; font-size: 0.64rem; line-height: 1.5; }
     .sec-verify-cycle strong { color: #f8fafc; }
     .sec-verify-cycle ul { margin: 5px 0 0; padding-left: 18px; }
+    .sec-segment-validation { margin: 0 0 12px; padding: 12px; border: 1px solid rgba(167, 139, 250, 0.25); border-radius: 12px; background: rgba(76, 29, 149, 0.08); }
+    .sec-segment-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+    .sec-segment-head h4 { margin: 0; color: #ddd6fe; font-size: 0.8rem; }
+    .sec-segment-head p { margin: 4px 0 0; color: #94a3b8; font-size: 0.64rem; line-height: 1.5; }
+    .sec-segment-verdict { padding: 5px 9px; border-radius: 999px; color: #c4b5fd; background: rgba(124, 58, 237, 0.2); font-size: 0.64rem; font-weight: 850; }
+    .sec-segment-verdict.broad_growth { color: #a7f3d0; background: rgba(5, 150, 105, 0.18); }
+    .sec-segment-verdict.mixed_growth, .sec-segment-verdict.decline { color: #fecdd3; background: rgba(190, 18, 60, 0.19); }
+    .sec-segment-summary { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 7px; margin: 10px 0; }
+    .sec-segment-summary div { min-width: 0; padding: 8px 9px; border-radius: 9px; background: rgba(15, 23, 42, 0.68); }
+    .sec-segment-summary span, .sec-segment-summary small { display: block; color: #94a3b8; font-size: 0.58rem; line-height: 1.4; }
+    .sec-segment-summary strong { display: block; margin: 3px 0; color: #f8fafc; font-size: 0.73rem; overflow-wrap: anywhere; }
+    .sec-segment-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .sec-segment-table { width: 100%; min-width: 760px; border-collapse: collapse; font-size: 0.62rem; }
+    .sec-segment-table th, .sec-segment-table td { padding: 7px 8px; border-bottom: 1px solid rgba(148, 163, 184, 0.13); text-align: right; white-space: nowrap; }
+    .sec-segment-table th:first-child, .sec-segment-table td:first-child { text-align: left; white-space: normal; color: #e2e8f0; }
+    .sec-segment-table th { color: #a5b4fc; font-weight: 800; }
+    .sec-segment-table td { color: #cbd5e1; }
+    .sec-segment-table tr.is-drag td { color: #fda4af; }
+    .sec-segment-evidence { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin-top: 10px; }
+    .sec-segment-evidence > div { padding: 8px 9px; border-radius: 9px; background: rgba(15, 23, 42, 0.62); color: #cbd5e1; font-size: 0.62rem; line-height: 1.5; }
+    .sec-segment-evidence strong { color: #f8fafc; }
+    .sec-segment-evidence ul { margin: 5px 0 0; padding-left: 17px; }
+    .sec-segment-note { margin: 9px 0 0; color: #cbd5e1; font-size: 0.62rem; line-height: 1.5; }
+    .sec-segment-note.warning { color: #fde68a; }
     .sec-verify-method { margin: 12px 0 0; color: #94a3b8; font-size: 0.66rem; line-height: 1.55; }
 
     .sec-editorial {
@@ -2337,7 +2361,7 @@
       .sec-reading-rank-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .sec-position-impact-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .sec-event-calendar-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .sec-verify-kpis { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .sec-verify-kpis, .sec-segment-summary { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .sec-quarterly-diagnosis-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .sec-reading-guide { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .sec-advanced-explainer { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -2349,7 +2373,7 @@
 
     @media (max-width: 620px) {
       .sec-daily-shell { padding: 18px; }
-      .sec-kpi-grid, .sec-reading-rank-list, .sec-position-impact-list, .sec-event-calendar-list, .sec-verify-grid, .sec-verify-kpis, .sec-reading-guide, .sec-advanced-explainer, .sec-advanced-actual-grid, .sec-company-brief-grid, .sec-company-assessment, .sec-company-evidence-columns, .sec-update-grid, .sec-update-detail-grid, .sec-text-diff-kpis, .sec-text-change-grid, .sec-thesis-kpis { grid-template-columns: 1fr; }
+      .sec-kpi-grid, .sec-reading-rank-list, .sec-position-impact-list, .sec-event-calendar-list, .sec-verify-grid, .sec-verify-kpis, .sec-segment-summary, .sec-segment-evidence, .sec-reading-guide, .sec-advanced-explainer, .sec-advanced-actual-grid, .sec-company-brief-grid, .sec-company-assessment, .sec-company-evidence-columns, .sec-update-grid, .sec-update-detail-grid, .sec-text-diff-kpis, .sec-text-change-grid, .sec-thesis-kpis { grid-template-columns: 1fr; }
       .sec-ownership-kpis { grid-template-columns: 1fr; }
       .sec-reading-progress { grid-template-columns: 1fr; }
       .sec-reading-actions { justify-content: flex-start; }
@@ -2922,7 +2946,7 @@
         <nav id="secCoreShortcuts" class="sec-core-shortcuts" aria-label="SEC 核心持股快捷標的">
           <div class="sec-core-shortcuts-head">
             <strong>⚡ 核心持股快捷標的</strong>
-            <span id="secCoreShortcutStatus">點選一次，同步切換①八季數字、②重要申報、③ Form 4、④募資稀釋、⑤進階 SEC 雷達、⑥文字差異、⑦投資論點、⑧ Exhibit 99.1、⑨ Earnings Call 與⑩財報前後驗證。</span>
+            <span id="secCoreShortcutStatus">點選一次，同步切換①八季數字、②重要申報、③ Form 4、④募資稀釋、⑤進階 SEC 雷達、⑥文字差異、⑦投資論點、⑧ Exhibit 99.1、⑨ Earnings Call、⑩財報前後驗證與⑪分部成長驅動。</span>
           </div>
           <div class="sec-core-chip-list" role="group" aria-label="選擇核心持股公司">
             <button type="button" class="sec-core-chip" data-sec-core-ticker="NVDA" onclick="setSecCoreTicker('NVDA')" aria-pressed="false">NVDA (輝達)</button>
@@ -4408,12 +4432,15 @@
           fetch('earnings_verification_history.json', { cache: 'no-cache' })
             .then(r => { if (!r.ok) throw new Error(`財報驗證歷史 HTTP ${r.status}`); return r.json(); })
             .catch(error => { console.warn('earnings_verification_history.json 載入失敗', error); return null; }),
+          fetch('segment_driver_validation.json', { cache: 'no-cache' })
+            .then(r => { if (!r.ok) throw new Error(`分部成長驅動 HTTP ${r.status}`); return r.json(); })
+            .catch(error => { console.warn('segment_driver_validation.json 載入失敗', error); return null; }),
           loadPortfolioHoldings(),
           fetch('valuation.json', { cache: 'no-cache' })
             .then(r => { if (!r.ok) throw new Error(`估值資料 HTTP ${r.status}`); return r.json(); })
             .catch(error => { console.warn('valuation.json 載入失敗，跨公司估值排名將顯示缺值', error); return null; }),
-        ]).then(([alerts, details, quarterlyFinancials, advanced, thirteenF, textChanges, thesisTracking, thesisStatus, exhibit991, earningsCalls, editorial, changeCandidates, candidateReviews, candidateCalibration, positionImpact, eventCalendar, earningsVerification, earningsVerificationHistory, holdingsPayload, valuation]) => {
-          secDailyData = { alerts, details, quarterlyFinancials, advanced, thirteenF, textChanges, thesisTracking, thesisStatus, exhibit991, earningsCalls, editorial, changeCandidates, candidateReviews, candidateCalibration, positionImpact, eventCalendar, earningsVerification, earningsVerificationHistory, holdingsPayload, valuation };
+        ]).then(([alerts, details, quarterlyFinancials, advanced, thirteenF, textChanges, thesisTracking, thesisStatus, exhibit991, earningsCalls, editorial, changeCandidates, candidateReviews, candidateCalibration, positionImpact, eventCalendar, earningsVerification, earningsVerificationHistory, segmentDrivers, holdingsPayload, valuation]) => {
+          secDailyData = { alerts, details, quarterlyFinancials, advanced, thirteenF, textChanges, thesisTracking, thesisStatus, exhibit991, earningsCalls, editorial, changeCandidates, candidateReviews, candidateCalibration, positionImpact, eventCalendar, earningsVerification, earningsVerificationHistory, segmentDrivers, holdingsPayload, valuation };
           renderSecDaily();
         }).catch(error => {
           secDailyPromise = null;
@@ -5074,6 +5101,70 @@
       return `<section class="sec-verify-history" aria-label="財報驗證歷史與差異"><div class="sec-verify-history-head"><h4>↕ 相較前次驗證有什麼改變</h4><span>更新 ${escapeSec(history.updated_at)}｜快照 ${escapeSec(history.current_snapshot_id)}</span></div>${changeHtml}<details${cycles.some(row => row.status === 'waiting_result') ? ' open' : ''}><summary>查看 ${escapeSec(ticker)} 財報前凍結／財報後結案紀錄（${formatSecNumber(cycles.length)} 期）</summary>${cycleHtml}</details></section>`;
     }
 
+    function formatSecSegmentAmount(value, unit, approximate = false) {
+      if (value === null || value === undefined || !Number.isFinite(Number(value))) return '—';
+      return `${approximate ? '約 ' : ''}${formatSecNumber(Number(value), 2)} ${escapeSec(unit || '')}`;
+    }
+
+    function formatSecSigned(value, suffix = '') {
+      if (value === null || value === undefined || !Number.isFinite(Number(value))) return '—';
+      const number = Number(value);
+      return `${number >= 0 ? '+' : ''}${formatSecNumber(number, 1)}${suffix}`;
+    }
+
+    function renderSecSegmentDriverValidation(ticker) {
+      const payload = secDailyData?.segmentDrivers;
+      const company = payload?.companies?.find(row => row.ticker === ticker);
+      if (!company) {
+        return '<section class="sec-segment-validation"><div class="sec-segment-head"><div><h4>🧭 分部營運與成長驅動驗證</h4><p>⚠️ 分部資料尚未載入；不從合併營收猜測分部數字。</p></div></div></section>';
+      }
+      const totals = company.totals || {};
+      const concentration = company.concentration || {};
+      const assessment = company.assessment || {};
+      const driver = company.driver;
+      const directionRow = !driver
+        ? (company.items || []).filter(row => row.yoy_pct !== null && row.yoy_pct !== undefined).sort((a, b) => Number(b.yoy_pct) - Number(a.yoy_pct))[0]
+        : null;
+      const driverLabel = driver
+        ? `${escapeSec(driver.name)}｜${driver.growth_contribution_pct === null || driver.growth_contribution_pct === undefined ? '貢獻待補' : `${formatSecSigned(driver.growth_contribution_pct, '%')} 增量`}`
+        : (directionRow ? `${escapeSec(directionRow.name)}｜官方 YoY ${formatSecSigned(directionRow.yoy_pct, '%')}` : '資料不足');
+      const driverNote = driver?.growth_contribution_pct !== null && driver?.growth_contribution_pct !== undefined
+        ? '貢獻可能高於 100%，代表其他分部有抵銷'
+        : '缺少同口徑前期絕對值，不反推成長貢獻';
+      const concentrationLabel = concentration.applicable
+        ? `${escapeSec(concentration.label)}｜${escapeSec(concentration.largest_item || '—')} ${concentration.largest_share_pct === null || concentration.largest_share_pct === undefined ? '—' : `${formatSecNumber(Number(concentration.largest_share_pct), 1)}%`}`
+        : '不適用｜含內部交易';
+      const rows = (company.items || []).map(row => {
+        const contribution = row.growth_contribution_pct === null || row.growth_contribution_pct === undefined ? '—' : formatSecSigned(row.growth_contribution_pct, '%');
+        const share = row.current_share_pct === null || row.current_share_pct === undefined ? '—' : `${formatSecNumber(Number(row.current_share_pct), 1)}%`;
+        const margin = row.current_margin_pct === null || row.current_margin_pct === undefined
+          ? '未揭露'
+          : `${formatSecSigned(row.current_margin_pct, '%')}${row.margin_change_pp === null || row.margin_change_pp === undefined ? '' : `｜YoY ${formatSecSigned(row.margin_change_pp, 'pp')}`}`;
+        const yoyBasis = row.yoy_basis === 'company_reported' ? '（公司公布）' : '';
+        return `<tr class="${Number(row.revenue_delta) < 0 ? 'is-drag' : ''}"><td>${escapeSec(row.name)}${row.is_elimination ? '（沖銷）' : ''}</td><td>${formatSecSegmentAmount(row.current_revenue, company.unit, row.approximate)}</td><td>${formatSecSegmentAmount(row.prior_revenue, company.unit, row.approximate)}</td><td>${formatSecSigned(row.yoy_pct, '%')}${yoyBasis}</td><td>${contribution}</td><td>${share}</td><td>${margin}</td></tr>`;
+      }).join('');
+      const evidenceList = items => (items || []).length
+        ? `<ul>${items.map(item => `<li>${escapeSec(item)}</li>`).join('')}</ul>`
+        : '<p>本期未取得足夠證據。</p>';
+      const officialUrl = safeEventUrl(company.source_url);
+      const basisChangeUrl = safeEventUrl(company.basis_change_source_url);
+      const noteParts = [company.coverage_note, company.comparability_note].filter(Boolean);
+      const basisChange = basisChangeUrl === '#' ? '' : `｜<a class="sec-link" href="${basisChangeUrl}" target="_blank" rel="noopener">下期口徑變更原文 ↗</a>`;
+      return `<section class="sec-segment-validation" aria-label="分部營運與成長驅動驗證">
+        <div class="sec-segment-head"><div><h4>🧭 分部營運與成長驅動驗證</h4><p>${escapeSec(company.period)} vs ${escapeSec(company.comparison_period || '無可比期')}｜${escapeSec(company.basis)}｜更新 ${escapeSec(company.source_date)}</p></div><span class="sec-segment-verdict ${escapeSec(assessment.status || '')}">${escapeSec(assessment.label || '資料不足')}｜信心 ${escapeSec(assessment.confidence_label || '低')}</span></div>
+        <div class="sec-segment-summary">
+          <div><span>分部合計 YoY</span><strong>${formatSecSigned(totals.yoy_pct, '%')}</strong><small>相同揭露口徑合計</small></div>
+          <div><span><abbr title="分部營收增量 ÷ 已收錄分部合計營收增量；負值代表抵銷成長。">最大成長驅動</abbr></span><strong>${driverLabel}</strong><small>${driverNote}</small></div>
+          <div><span><abbr title="HHI 是各分部營收占比平方和；數字愈高代表營收來源愈集中。">營收集中度</abbr></span><strong>${concentrationLabel}</strong><small>${concentration.hhi === null || concentration.hhi === undefined ? 'HHI 不適用' : `HHI ${formatSecNumber(Number(concentration.hhi), 0)}`}</small></div>
+          <div><span>資料可信度</span><strong>${escapeSec(assessment.confidence_label || '低')}</strong><small>${company.approximate ? '平台占比衍生約數' : '公司正式表格'}</small></div>
+        </div>
+        <div class="sec-segment-table-wrap"><table class="sec-segment-table"><thead><tr><th>分部／營收來源</th><th>本期</th><th>去年同期</th><th>YoY</th><th><abbr title="該項營收增量占已收錄合計營收增量的比例。">成長貢獻</abbr></th><th>本期占比</th><th>分部利益率</th></tr></thead><tbody>${rows}</tbody></table></div>
+        <div class="sec-segment-evidence"><div><strong>支持證據</strong>${evidenceList(assessment.positive_evidence)}</div><div><strong>風險與限制</strong>${evidenceList(assessment.risk_evidence)}</div><div><strong>下期要驗證</strong>${evidenceList(assessment.next_checks)}</div></div>
+        ${noteParts.length ? `<p class="sec-segment-note warning">⚠️ ${noteParts.map(escapeSec).join(' ')}</p>` : ''}
+        <p class="sec-segment-note"><strong>口徑提醒：</strong>分部、終端市場、產品類別與平台占比不是同一概念，只能和各公司自己的同口徑前期比較。成長貢獻不是獲利貢獻，也不是股價預測。${officialUrl === '#' ? '' : `｜<a class="sec-link" href="${officialUrl}" target="_blank" rel="noopener">官方原始表格 ↗</a>`}${basisChange}</p>
+      </section>`;
+    }
+
     function renderSecEarningsVerification() {
       const container = document.getElementById('secEarningsVerification');
       if (!container) return;
@@ -5133,12 +5224,14 @@
       const thesisChange = thesis.changed_from_previous_quarter
         ? `<span class="sec-verify-change">前季 ${escapeSec(thesis.previous_label || thesis.previous_status)} → 本季 ${escapeSec(thesis.label || thesis.status)}</span>` : '相較前季總結論未變';
       const historyHtml = renderSecVerificationHistory(company.ticker);
+      const segmentHtml = renderSecSegmentDriverValidation(company.ticker);
       container.innerHTML = `<div class="sec-verify-head">
           <div><h3 id="secEarningsVerificationTitle">🎯 財報前後驗證追蹤卡</h3><p>先立可驗證條件，再用官方財報核對；同一張卡保存「原先要看什麼」與「結果改變了什麼」。</p></div>
           <label class="sec-section-filter"><span>查看公司</span><select class="sec-quarterly-select" aria-label="選擇財報驗證公司" onchange="setSecEarningsVerificationTicker(this.value)">${options}</select></label>
         </div>
         <div class="sec-verify-summary"><span>${escapeSec(payload.methodology?.scope || '14 家個股')}</span><span>財報前待準備 ${formatSecNumber(payload.preparation_due_count)} 家</span><span>財報後待核對 ${formatSecNumber(payload.post_review_due_count)} 家</span><span>有未結案指引 ${formatSecNumber(payload.pending_guidance_company_count)} 家</span><span class="sec-verify-phase ${phaseClass}">${escapeSec(company.phase_label)}</span></div>
         ${historyHtml}
+        ${segmentHtml}
         <div class="sec-verify-grid">
           <section class="sec-verify-panel" aria-label="財報前驗證條件"><h4>財報前｜先定義驗證題</h4><p class="sec-verify-meta"><strong>下一財報：</strong>${dateLabel}<br>${source}</p><div class="sec-verify-guidance">${guidanceHtml}</div>${checks}</section>
           <section class="sec-verify-panel" aria-label="財報後核對結果"><h4>財報後｜實績與論點核對</h4><p class="sec-verify-meta"><strong>最近結果：</strong>${latestMeta}<br>${latestSource}</p><div class="sec-verify-kpis">${kpis}</div><div class="sec-verify-guidance">${completedHtml}</div><p class="sec-verify-meta"><strong>客觀結論：</strong>${escapeSec(thesis.label || '資料不足')}｜${thesisChange}${thesisSource === '#' ? '' : `｜<a class="sec-link" href="${thesisSource}" target="_blank" rel="noopener">完整投資論點 ↗</a>`}</p><div class="sec-verify-thesis">${thesisRows}</div></section>
@@ -5926,8 +6019,8 @@
       const status = document.getElementById('secCoreShortcutStatus');
       if (!status) return;
       status.textContent = secCoreTicker
-        ? `已同步選擇 ${secCoreTicker}：①八季數字、②重要申報、③ Form 4、④募資稀釋、⑤進階 SEC 雷達、⑥文字差異、⑦投資論點、⑧ Exhibit 99.1、⑨ Earnings Call、⑩財報前後驗證。`
-        : '點選一次，同步切換①八季數字、②重要申報、③ Form 4、④募資稀釋、⑤進階 SEC 雷達、⑥文字差異、⑦投資論點、⑧ Exhibit 99.1、⑨ Earnings Call 與⑩財報前後驗證。';
+        ? `已同步選擇 ${secCoreTicker}：①八季數字、②重要申報、③ Form 4、④募資稀釋、⑤進階 SEC 雷達、⑥文字差異、⑦投資論點、⑧ Exhibit 99.1、⑨ Earnings Call、⑩財報前後驗證、⑪分部成長驅動。`
+        : '點選一次，同步切換①八季數字、②重要申報、③ Form 4、④募資稀釋、⑤進階 SEC 雷達、⑥文字差異、⑦投資論點、⑧ Exhibit 99.1、⑨ Earnings Call、⑩財報前後驗證與⑪分部成長驅動。';
     }
 
     function setSecCoreTicker(ticker) {

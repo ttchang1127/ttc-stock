@@ -1750,6 +1750,95 @@ def c34():
     return not bad and not missing, f"資料問題：{bad or '無'}；缺自動化／畫面：{missing or '無'}"
 
 
+@check("C-35", "分部成長驅動可勾稽且缺前期不反推")
+def c35():
+    data = load("segment_driver_validation.json")
+    inputs = load("segment_driver_inputs.json")
+    dashboard = read("dashboard.html")
+    companies = data.get("companies") or []
+    bad = []
+    if data.get("schema_version") != 1:
+        bad.append("schema_version 不是 1")
+    if data.get("tracked_count") != 14 or len(companies) != 14:
+        bad.append("不是 14 家個股")
+    tickers = {row.get("ticker") for row in companies}
+    expected = {"NVDA", "TSM", "MSFT", "META", "AAPL", "AMZN", "ARM",
+                "ONDS", "TSLA", "GOOG", "COHR", "MRVL", "INTC", "NOK"}
+    if tickers != expected:
+        bad.append(f"公司範圍不符：{sorted(tickers ^ expected)}")
+    if {"VGT", "VOO"} & tickers:
+        bad.append("ETF 混入分部驗證")
+    for row in companies:
+        ticker = row.get("ticker")
+        if not str(row.get("source_url", "")).startswith("https://"):
+            bad.append(f"{ticker} 缺 HTTPS 官方來源")
+        if len(row.get("items") or []) < 2:
+            bad.append(f"{ticker} 分部／營收來源不足兩項")
+        if not row.get("assessment", {}).get("next_checks"):
+            bad.append(f"{ticker} 缺下期驗證條件")
+        totals = row.get("totals") or {}
+        item_rows = row.get("items") or []
+        prior_missing = any(item.get("prior_revenue") is None for item in item_rows)
+        if prior_missing:
+            if totals.get("prior_revenue") is not None or totals.get("yoy_pct") is not None:
+                bad.append(f"{ticker} 缺前期卻反推合計")
+            if any(item.get("growth_contribution_pct") is not None for item in item_rows):
+                bad.append(f"{ticker} 缺前期卻計算成長貢獻")
+        else:
+            contribution = [item.get("growth_contribution_pct") for item in item_rows]
+            if totals.get("revenue_delta") not in {None, 0} and any(value is None for value in contribution):
+                bad.append(f"{ticker} 有完整前期卻缺成長貢獻")
+            elif contribution and abs(sum(contribution) - 100) > 0.2:
+                bad.append(f"{ticker} 成長貢獻未勾稽 100%：{sum(contribution):.1f}%")
+    by_ticker = {row["ticker"]: row for row in companies}
+    if by_ticker.get("INTC", {}).get("concentration", {}).get("applicable") is not False:
+        bad.append("INTC 內部交易錯算集中度")
+    if by_ticker.get("TSM", {}).get("approximate") is not True:
+        bad.append("TSM 平台占比衍生金額未標約數")
+    if by_ticker.get("ONDS", {}).get("assessment", {}).get("confidence") != "low":
+        bad.append("ONDS 收購／去合併未降低信心")
+
+    with tempfile.TemporaryDirectory() as temp_dir:
+        temp = pathlib.Path(temp_dir)
+        result = subprocess.run([
+            sys.executable, str(REPO_ROOT / "scripts/build_segment_driver_validation.py"),
+            "--input", str(REPO_ROOT / "segment_driver_inputs.json"),
+            "--output", str(temp / "segments.json"),
+            "--markdown", str(temp / "segments.md"),
+        ], cwd=REPO_ROOT, text=True, capture_output=True, check=False)
+        if result.returncode:
+            bad.append(f"分部驗證重建失敗：{result.stderr.strip() or result.stdout.strip()}")
+        elif json.loads((temp / "segments.json").read_text()) != data:
+            bad.append("分部驗證無法由官方輸入確定性重建")
+
+    markers = {
+        "輸入": (json.dumps(inputs, ensure_ascii=False), (
+            "公司 IR、SEC 原始申報", "reported_yoy_pct", "input_kind=share_of_total",
+        )),
+        "dashboard": (dashboard, (
+            "segment_driver_validation.json", "renderSecSegmentDriverValidation",
+            "分部營運與成長驅動驗證", "最大成長驅動", "營收集中度",
+            "成長貢獻不是獲利貢獻",
+        )),
+        "價格 workflow": (read(".github/workflows/update-prices.yml"), (
+            "build_segment_driver_validation.py", "segment_driver_validation", "Segment_Driver_Validation",
+        )),
+        "SEC workflow": (read(".github/workflows/sec-filing-alerts.yml"), (
+            "build_segment_driver_validation.py", "segment_driver_validation.json", "Segment_Driver_Validation.md",
+        )),
+        "分部筆記": (read("60_SEC_Filing_Radar/Segment_Driver_Validation.md"), (
+            "成長貢獻", "集中度", "風險／限制", "下期驗證", "ETF 不納入",
+        )),
+        "維護 SOP": (read("00_Meta/Sec_kb_資料維護SOP.md"), (
+            "build_segment_driver_validation.py", "不得由百分比反推", "HHI",
+        )),
+        "00_Home": (read("00_Home.md"), ("Segment_Driver_Validation",)),
+    }
+    missing = [f"{label}:{marker}" for label, (text, required) in markers.items()
+               for marker in required if marker not in text]
+    return not bad and not missing, f"資料問題：{bad or '無'}；缺自動化／畫面：{missing or '無'}"
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--quiet", action="store_true", help="只印出失敗項")

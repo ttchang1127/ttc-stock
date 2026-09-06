@@ -1,0 +1,263 @@
+{
+  "_README": [
+    "14 家個股的分部／營收來源人工核對入口；只收錄公司 IR、SEC 原始申報或公司正式財報表格。",
+    "current_revenue／prior_revenue 為公司揭露數字；reported_yoy_pct 僅在公司未提供同口徑前期絕對值時使用，不用百分比反推前期值。",
+    "basis 必須區分可報導分部、產品／服務營收類別、終端市場與平台占比；不同口徑不得混算。",
+    "input_kind=share_of_total 代表公司只公布占比；衍生金額會標示約數，不能視為公司原始精確分部營收。"
+  ],
+  "updated_at": "2026-09-03",
+  "companies": {
+    "AAPL": {
+      "name": "Apple",
+      "period": "FY2026 Q3",
+      "comparison_period": "FY2025 Q3",
+      "basis": "產品／服務營收類別（非營業利益分部）",
+      "input_kind": "amount",
+      "unit": "USD m",
+      "coverage_status": "complete",
+      "comparability": "high",
+      "source_date": "2026-07-30",
+      "source_url": "https://www.apple.com/newsroom/pdfs/fy2026q3/FY26_Q3_Consolidated_Financial_Statements.pdf",
+      "items": [
+        {"name": "iPhone", "current_revenue": 54252, "prior_revenue": 44582},
+        {"name": "Mac", "current_revenue": 10352, "prior_revenue": 8046},
+        {"name": "iPad", "current_revenue": 6191, "prior_revenue": 6581},
+        {"name": "穿戴、家居與配件", "current_revenue": 7883, "prior_revenue": 7404},
+        {"name": "服務", "current_revenue": 30739, "prior_revenue": 27423}
+      ]
+    },
+    "AMZN": {
+      "name": "Amazon",
+      "period": "2026 Q2",
+      "comparison_period": "2025 Q2",
+      "basis": "可報導分部",
+      "input_kind": "amount",
+      "unit": "USD m",
+      "coverage_status": "complete",
+      "comparability": "high",
+      "source_date": "2026-07-30",
+      "source_url": "https://ir.aboutamazon.com/news-release/news-release-details/2026/Amazon-com-Announces-Second-Quarter-Results/default.aspx",
+      "items": [
+        {"name": "North America", "current_revenue": 116177, "prior_revenue": 100068, "current_profit": 9123, "prior_profit": 7517},
+        {"name": "International", "current_revenue": 42197, "prior_revenue": 36761, "current_profit": 1717, "prior_profit": 1494},
+        {"name": "AWS", "current_revenue": 42232, "prior_revenue": 30873, "current_profit": 16621, "prior_profit": 10160}
+      ]
+    },
+    "ARM": {
+      "name": "Arm",
+      "period": "FY2027 Q1",
+      "comparison_period": "FY2026 Q1",
+      "basis": "營收來源（非可報導分部）",
+      "input_kind": "amount",
+      "unit": "USD m",
+      "coverage_status": "complete",
+      "comparability": "high",
+      "source_date": "2026-07-29",
+      "source_url": "https://investors.arm.com/node/8356/html",
+      "items": [
+        {"name": "Royalty revenue", "current_revenue": 715, "prior_revenue": 585},
+        {"name": "License and other revenue", "current_revenue": 574, "prior_revenue": 468}
+      ]
+    },
+    "COHR": {
+      "name": "Coherent",
+      "period": "FY2026",
+      "comparison_period": "FY2025",
+      "basis": "可報導分部（年度；歷史已依新口徑重編）",
+      "input_kind": "amount",
+      "unit": "USD m",
+      "coverage_status": "complete",
+      "comparability": "high",
+      "source_date": "2026-08-12",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/820318/000082031826000020/iivi-20260630.htm",
+      "items": [
+        {"name": "Datacenter & Communications", "current_revenue": 5275, "prior_revenue": 3755, "current_profit": 1330, "prior_profit": 904},
+        {"name": "Industrial", "current_revenue": 1844, "prior_revenue": 2055, "current_profit": 423, "prior_profit": 407}
+      ]
+    },
+    "GOOG": {
+      "name": "Alphabet",
+      "period": "2026 Q2",
+      "comparison_period": "2025 Q2",
+      "basis": "可報導分部",
+      "input_kind": "amount",
+      "unit": "USD m",
+      "coverage_status": "near_complete",
+      "comparability": "high",
+      "coverage_note": "分部合計不含公司層級避險損益；營收占比與成長貢獻以三個已揭露分部為分母。",
+      "source_date": "2026-07-23",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/goog-20260630.htm",
+      "items": [
+        {"name": "Google Services", "current_revenue": 94540, "prior_revenue": 82543, "current_profit": 39544, "prior_profit": 33063},
+        {"name": "Google Cloud", "current_revenue": 24768, "prior_revenue": 13624, "current_profit": 8814, "prior_profit": 2826},
+        {"name": "Other Bets", "current_revenue": 382, "prior_revenue": 373, "current_profit": -1799, "prior_profit": -1246}
+      ]
+    },
+    "INTC": {
+      "name": "Intel",
+      "period": "2026 Q2",
+      "comparison_period": "2025 Q2",
+      "basis": "營運分部；含內部交易與合併沖銷",
+      "input_kind": "amount",
+      "unit": "USD m",
+      "coverage_status": "reconciled",
+      "comparability": "medium",
+      "concentration_applicable": false,
+      "comparability_note": "Intel Foundry 大部分為對內銷售，不能把各分部占比當成外部客戶營收集中度；成長貢獻含合併沖銷才可勾稽總營收。",
+      "source_date": "2026-07-24",
+      "source_url": "https://www.intc.com/filings-reports/quarterly-reports/content/0000050863-26-000157/0000050863-26-000157.pdf",
+      "items": [
+        {"name": "CCPG", "current_revenue": 8877, "prior_revenue": 7871, "current_profit": 2343, "prior_profit": 2053},
+        {"name": "DCAI", "current_revenue": 6262, "prior_revenue": 3939, "current_profit": 2474, "prior_profit": 633},
+        {"name": "Intel Foundry", "current_revenue": 5765, "prior_revenue": 4417, "current_profit": -2089, "prior_profit": -3168},
+        {"name": "All Other", "current_revenue": 701, "prior_revenue": 1053, "current_profit": 230, "prior_profit": 69},
+        {"name": "合併沖銷", "current_revenue": -5477, "prior_revenue": -4421, "current_profit": 254, "prior_profit": -8, "is_elimination": true}
+      ]
+    },
+    "META": {
+      "name": "Meta",
+      "period": "2026 Q2",
+      "comparison_period": "2025 Q2",
+      "basis": "可報導分部",
+      "input_kind": "amount",
+      "unit": "USD m",
+      "coverage_status": "complete",
+      "comparability": "high",
+      "source_date": "2026-07-29",
+      "source_url": "https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Second-Quarter-2026-Results/default.aspx",
+      "items": [
+        {"name": "Family of Apps", "current_revenue": 60370, "prior_revenue": 47146, "current_profit": 23394, "prior_profit": 24971},
+        {"name": "Reality Labs", "current_revenue": 431, "prior_revenue": 370, "current_profit": -4619, "prior_profit": -4530}
+      ]
+    },
+    "MRVL": {
+      "name": "Marvell",
+      "period": "FY2027 Q2",
+      "comparison_period": "FY2026 Q2",
+      "basis": "終端市場營收（非可報導分部）",
+      "input_kind": "amount",
+      "unit": "USD m",
+      "coverage_status": "complete",
+      "comparability": "high",
+      "source_date": "2026-08-27",
+      "source_url": "https://investor.marvell.com/news-events/press-releases/detail/1031/marvell-technology-inc-reports-second-quarter-of-fiscal-year-2027-financial-results",
+      "items": [
+        {"name": "Data center", "current_revenue": 2171.5, "prior_revenue": 1490.5},
+        {"name": "Communications and other", "current_revenue": 567.8, "prior_revenue": 515.6}
+      ]
+    },
+    "MSFT": {
+      "name": "Microsoft",
+      "period": "FY2026 Q4",
+      "comparison_period": "FY2025 Q4",
+      "basis": "可報導分部",
+      "input_kind": "amount",
+      "unit": "USD m",
+      "coverage_status": "complete",
+      "comparability": "high",
+      "source_date": "2026-07-29",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323632/msft-ex99_1.htm",
+      "comparability_note": "FY27 起公司將改為 Agents and Infra、Devices and Consumer 兩大分部；下一季須用公司重編資料重新建基準，不能直接延續舊三分部。",
+      "basis_change_source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526380280/d291965dex991.htm",
+      "items": [
+        {"name": "Productivity and Business Processes", "current_revenue": 37847, "prior_revenue": 33112, "current_profit": 21900, "prior_profit": 18993},
+        {"name": "Intelligent Cloud", "current_revenue": 39306, "prior_revenue": 29878, "current_profit": 15955, "prior_profit": 12140},
+        {"name": "More Personal Computing", "current_revenue": 12854, "prior_revenue": 13451, "current_profit": 2748, "prior_profit": 3190}
+      ]
+    },
+    "NOK": {
+      "name": "Nokia",
+      "period": "2026 Q2",
+      "comparison_period": "2025 Q2",
+      "basis": "營運分部",
+      "input_kind": "amount",
+      "unit": "EUR m",
+      "coverage_status": "near_complete",
+      "comparability": "medium",
+      "coverage_note": "分部表依持續營業口徑；兩項原 Portfolio Businesses 業務已改列停業單位，判讀時不與舊公司總營收混用。",
+      "source_date": "2026-07-23",
+      "source_url": "https://www.nokia.com/newsroom/nokia-corporation-report-for-q2-and-half-year-2026/",
+      "items": [
+        {"name": "Network Infrastructure", "current_revenue": 2037, "prior_revenue": 1825, "current_profit": 166, "prior_profit": 117},
+        {"name": "Mobile Infrastructure", "current_revenue": 2680, "prior_revenue": 2531, "current_profit": 310, "prior_profit": 310},
+        {"name": "Portfolio Businesses", "current_revenue": 94, "prior_revenue": 89, "current_profit": 0, "prior_profit": -11}
+      ]
+    },
+    "NVDA": {
+      "name": "NVIDIA",
+      "period": "FY2027 Q2",
+      "comparison_period": "FY2026 Q2",
+      "basis": "運算平台營收（非營業利益分部）",
+      "input_kind": "amount",
+      "unit": "USD bn",
+      "coverage_status": "complete",
+      "comparability": "medium",
+      "comparability_note": "公司自 FY2027 Q1 改用 Data Center／Edge Computing 新框架，未在本表提供同口徑去年同期絕對值；只採公司直接公布的 YoY，不反推前期金額與成長貢獻。",
+      "source_date": "2026-08-26",
+      "source_url": "https://nvidianews.nvidia.com/news/nvidia-announces-financial-results-for-second-quarter-fiscal-2027",
+      "items": [
+        {"name": "Data Center", "current_revenue": 89.0, "prior_revenue": null, "reported_yoy_pct": 117},
+        {"name": "Edge Computing", "current_revenue": 7.2, "prior_revenue": null, "reported_yoy_pct": 27}
+      ]
+    },
+    "ONDS": {
+      "name": "Ondas",
+      "period": "2026 Q2",
+      "comparison_period": "2025 Q2",
+      "basis": "營收類型（非可報導分部）",
+      "input_kind": "amount",
+      "unit": "USD k",
+      "coverage_status": "complete",
+      "comparability": "low",
+      "comparability_note": "2026 年數字包含多項新收購，Ondas Networks 又自 2026-01-16 起去合併；YoY 能描述報表變化，但不能解讀為純有機成長。",
+      "source_date": "2026-08-13",
+      "source_url": "https://ir.ondas.com/all-sec-filings/content/0001193125-26-349288/onds-20260630.htm",
+      "items": [
+        {"name": "Product revenue", "current_revenue": 43446, "prior_revenue": 3605},
+        {"name": "Service revenue", "current_revenue": 23603, "prior_revenue": 2489},
+        {"name": "Development revenue", "current_revenue": 16723, "prior_revenue": 0},
+        {"name": "Ondas Networks revenue", "current_revenue": 0, "prior_revenue": 179}
+      ]
+    },
+    "TSLA": {
+      "name": "Tesla",
+      "period": "2026 Q2",
+      "comparison_period": "2025 Q2",
+      "basis": "營收類別（服務及其他含於汽車報導分部）",
+      "input_kind": "amount",
+      "unit": "USD m",
+      "coverage_status": "complete",
+      "comparability": "high",
+      "source_date": "2026-07-23",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026049270/tsla-20260630.htm",
+      "items": [
+        {"name": "Total automotive revenues", "current_revenue": 20516, "prior_revenue": 16661},
+        {"name": "Energy generation and storage", "current_revenue": 3139, "prior_revenue": 2789},
+        {"name": "Services and other", "current_revenue": 4581, "prior_revenue": 3046}
+      ]
+    },
+    "TSM": {
+      "name": "TSMC",
+      "period": "2026 Q2",
+      "comparison_period": "2025 Q2",
+      "basis": "平台營收占比（非可報導分部）",
+      "input_kind": "share_of_total",
+      "unit": "TWD bn",
+      "current_total_revenue": 1270.38,
+      "prior_total_revenue": 933.79,
+      "coverage_status": "complete",
+      "comparability": "medium",
+      "comparability_note": "公司平台占比四捨五入到整數；衍生平台金額與成長貢獻為約數，精確判讀應以占比變化為主。",
+      "source_date": "2026-07-16",
+      "source_url": "https://investor.tsmc.com/japanese/encrypt/files/encrypt_file/qr/phase4_reports/2026-07/bf09036349a253e83f78155099133806cad0320b/2Q26%20ManagementReport.pdf",
+      "items": [
+        {"name": "High Performance Computing", "current_share_pct": 66, "prior_share_pct": 60},
+        {"name": "Smartphone", "current_share_pct": 22, "prior_share_pct": 27},
+        {"name": "Internet of Things", "current_share_pct": 5, "prior_share_pct": 5},
+        {"name": "Automotive", "current_share_pct": 4, "prior_share_pct": 5},
+        {"name": "Digital Consumer Electronics", "current_share_pct": 1, "prior_share_pct": 1},
+        {"name": "Others", "current_share_pct": 2, "prior_share_pct": 2}
+      ]
+    }
+  }
+}

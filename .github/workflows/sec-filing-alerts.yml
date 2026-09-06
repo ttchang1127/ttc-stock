@@ -106,6 +106,9 @@ jobs:
             --alert-markdown "$RUNNER_TEMP/sec-alert.md" \
             --summary "$GITHUB_STEP_SUMMARY"
 
+      - name: Rebuild segment operating and growth-driver validation
+        run: python3 scripts/build_segment_driver_validation.py
+
       - name: Rebuild pre/post earnings verification cards
         run: python3 scripts/build_earnings_verification_cards.py
 
@@ -203,11 +206,13 @@ jobs:
             sec_candidate_rule_calibration.json \
             portfolio_holdings.json sec_position_impact_history.json \
             earnings_verification_cards.json earnings_verification_history.json \
+            segment_driver_validation.json \
             60_SEC_Filing_Radar/SEC_Candidate_Rule_Calibration.md \
             60_SEC_Filing_Radar/SEC_Daily_Change_Candidates.md \
             60_SEC_Filing_Radar/SEC_Position_Impact_History.md \
             60_SEC_Filing_Radar/Earnings_Verification_Cards.md \
-            60_SEC_Filing_Radar/Earnings_Verification_History.md
+            60_SEC_Filing_Radar/Earnings_Verification_History.md \
+            60_SEC_Filing_Radar/Segment_Driver_Validation.md
           if git diff --cached --quiet; then
             echo "No SEC radar changes to persist."
             exit 0

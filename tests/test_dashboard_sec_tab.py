@@ -29,6 +29,7 @@ class DashboardSecTabTests(unittest.TestCase):
         cls.event_calendar = json.loads((ROOT / "company_event_calendar.json").read_text())
         cls.earnings_verification = json.loads((ROOT / "earnings_verification_cards.json").read_text())
         cls.earnings_verification_history = json.loads((ROOT / "earnings_verification_history.json").read_text())
+        cls.segment_drivers = json.loads((ROOT / "segment_driver_validation.json").read_text())
         cls.holdings = json.loads((ROOT / "portfolio_holdings.json").read_text())
 
     def test_tab_defaults_to_14_days_and_allows_7_days(self):
@@ -76,7 +77,7 @@ class DashboardSecTabTests(unittest.TestCase):
         self.assertIn('id="secCoreShortcuts"', self.html)
         self.assertIn("function setSecCoreTicker(ticker)", self.html)
         self.assertIn("function renderSecCoreShortcuts()", self.html)
-        self.assertIn("點選一次，同步切換①八季數字、②重要申報、③ Form 4、④募資稀釋、⑤進階 SEC 雷達、⑥文字差異、⑦投資論點、⑧ Exhibit 99.1、⑨ Earnings Call 與⑩財報前後驗證", self.html)
+        self.assertIn("⑩財報前後驗證與⑪分部成長驅動", self.html)
         for ticker in core:
             self.assertIn(f'data-sec-core-ticker="{ticker}"', self.html)
             self.assertIn(f"setSecCoreTicker('{ticker}')", self.html)
@@ -399,6 +400,27 @@ class DashboardSecTabTests(unittest.TestCase):
             "相較前次驗證有什麼改變", "首次建立比較基準", "不回填本系統啟用前不存在的財報前判斷",
             "財報前凍結／財報後結案紀錄", "原始條件不會被每日更新覆寫",
             "每日倒數及未跨狀態的數值波動不重複提醒",
+        ]
+        for phrase in required_copy:
+            self.assertIn(phrase, self.html)
+
+    def test_segment_driver_validation_is_source_traceable_and_digested(self):
+        payload = self.segment_drivers
+        self.assertEqual(payload["schema_version"], 1)
+        self.assertEqual(payload["tracked_count"], 14)
+        self.assertEqual(len(payload["companies"]), 14)
+        self.assertFalse({"VGT", "VOO"} & {row["ticker"] for row in payload["companies"]})
+        self.assertTrue(all(row["source_url"].startswith("https://") for row in payload["companies"]))
+        self.assertTrue(all(row["assessment"]["next_checks"] for row in payload["companies"]))
+        nvda = next(row for row in payload["companies"] if row["ticker"] == "NVDA")
+        self.assertIsNone(nvda["totals"]["prior_revenue"])
+        self.assertIsNone(nvda["driver"])
+        self.assertTrue(all(row["growth_contribution_pct"] is None for row in nvda["items"]))
+        required_copy = [
+            "fetch('segment_driver_validation.json'", "function renderSecSegmentDriverValidation(ticker)",
+            "分部營運與成長驅動驗證", "最大成長驅動", "成長貢獻", "營收集中度",
+            "風險與限制", "下期要驗證", "不是同一概念", "成長貢獻不是獲利貢獻",
+            "缺少同口徑前期絕對值，不反推成長貢獻",
         ]
         for phrase in required_copy:
             self.assertIn(phrase, self.html)
