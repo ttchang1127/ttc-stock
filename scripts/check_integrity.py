@@ -2071,6 +2071,94 @@ def c38():
     return not bad and not missing, f"資料問題：{bad or '無'}；缺自動化／畫面：{missing or '無'}"
 
 
+@check("C-39", "分部展望只和同口徑官方實績閉環核對")
+def c39():
+    data = load("segment_outlook_verification.json")
+    inputs = load("segment_outlook_inputs.json")
+    expected = {"NVDA", "TSM", "MSFT", "META", "AAPL", "AMZN", "ARM",
+                "ONDS", "TSLA", "GOOG", "COHR", "MRVL", "INTC", "NOK"}
+    companies = data.get("companies") or []
+    bad = []
+    if data.get("schema_version") != 1 or data.get("tracked_count") != 14:
+        bad.append("schema_version／追蹤家數錯誤")
+    if {row.get("ticker") for row in companies} != expected:
+        bad.append("公司範圍不是 14 家個股")
+    if set((inputs.get("companies") or {}).keys()) != expected:
+        bad.append("人工展望輸入未覆蓋 14 家")
+    expected_counts = {
+        "available_companies": sum(row.get("coverage_status") == "available" for row in companies),
+        "completed_records": sum(row.get("counts", {}).get("completed", 0) for row in companies),
+        "pending_records": sum(row.get("counts", {}).get("pending", 0) for row in companies),
+        "miss_records": sum(row.get("counts", {}).get("miss", 0) for row in companies),
+    }
+    if data.get("counts") != expected_counts:
+        bad.append("展望覆蓋／狀態計數無法勾稽")
+    if expected_counts["available_companies"] != 2:
+        bad.append("目前可比公司應為 MSFT、NOK 兩家")
+    ids = []
+    valid_outcomes = {"above", "within", "below", "met", "missed", "pending", "not_comparable"}
+    for company in companies:
+        ticker = company.get("ticker") or "未知"
+        records = company.get("records") or []
+        if company.get("coverage_status") == "available" and not records:
+            bad.append(f"{ticker} 標示 available 但沒有紀錄")
+        if company.get("coverage_status") != "available" and records:
+            bad.append(f"{ticker} 無可比展望卻有驗證紀錄")
+        if not company.get("review_url", "").startswith("https://"):
+            bad.append(f"{ticker} 缺官方覆核頁")
+        for row in records:
+            ids.append(row.get("id"))
+            if row.get("segment_key") == "total":
+                bad.append(f"{ticker} 錯把公司總指引當分部指引")
+            if row.get("outcome") not in valid_outcomes:
+                bad.append(f"{ticker}#{row.get('id')} 結果狀態無效")
+            if not row.get("source_url", "").startswith("https://") or not row.get("source_date"):
+                bad.append(f"{ticker}#{row.get('id')} 缺官方展望來源")
+            if row.get("outcome") in {"above", "within", "below", "met", "missed"}:
+                if row.get("actual") is None or not row.get("actual_source_url", "").startswith("https://"):
+                    bad.append(f"{ticker}#{row.get('id')} 已結案但缺實績／官方來源")
+            if row.get("outcome") in {"pending", "not_comparable"} and row.get("actual") is not None:
+                bad.append(f"{ticker}#{row.get('id')} 等待／不可比卻保留實績")
+            if row.get("thesis_impact") != "neutral" and "不重複加分" not in row.get("thesis_note", ""):
+                bad.append(f"{ticker}#{row.get('id')} 未防止同一實績重複計分")
+    if len(ids) != len(set(ids)):
+        bad.append("展望紀錄 id 重複")
+
+    with tempfile.TemporaryDirectory() as temp_dir:
+        temp = pathlib.Path(temp_dir)
+        result = subprocess.run([
+            sys.executable, str(REPO_ROOT / "scripts/build_segment_outlook_verification.py"),
+            "--output", str(temp / "outlook.json"), "--markdown", str(temp / "outlook.md"),
+        ], cwd=REPO_ROOT, text=True, capture_output=True, check=False)
+        if result.returncode:
+            bad.append(f"分部展望驗證重建失敗：{result.stderr.strip() or result.stdout.strip()}")
+        elif json.loads((temp / "outlook.json").read_text()) != data:
+            bad.append("分部展望驗證無法由現有資料確定性重建")
+        elif (temp / "outlook.md").read_text() != read("60_SEC_Filing_Radar/Segment_Outlook_Verification.md"):
+            bad.append("分部展望驗證筆記無法確定性重建")
+
+    markers = {
+        "dashboard": (read("dashboard.html"), (
+            "segment_outlook_verification.json", "segmentOutlookVerification", "分部展望驗證卡",
+            "公司總指引不代替分部指引", "不重複加入 SEC 證據分數",
+        )),
+        "價格 workflow": (read(".github/workflows/update-prices.yml"), (
+            "build_segment_outlook_verification.py", "segment_outlook_verification", "Segment_Outlook_Verification",
+        )),
+        "SEC workflow": (read(".github/workflows/sec-filing-alerts.yml"), (
+            "build_segment_outlook_verification.py", "segment_outlook_verification.json", "Segment_Outlook_Verification.md",
+        )),
+        "維護 SOP": (read("00_Meta/Sec_kb_資料維護SOP.md"), (
+            "build_segment_outlook_verification.py", "公司總營收、公司毛利率或分析師共識不得代替分部展望",
+            "不得再加一次 SEC 證據分數",
+        )),
+        "00_Home": (read("00_Home.md"), ("Segment_Outlook_Verification",)),
+    }
+    missing = [f"{label}:{marker}" for label, (text, required) in markers.items()
+               for marker in required if marker not in text]
+    return not bad and not missing, f"資料問題：{bad or '無'}；缺自動化／畫面：{missing or '無'}"
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--quiet", action="store_true", help="只印出失敗項")

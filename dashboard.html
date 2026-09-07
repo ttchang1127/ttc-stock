@@ -1704,6 +1704,25 @@
       margin-bottom: 7px;
     }
 
+    .sec-company-brief-card.wide { grid-column: 1 / -1; }
+    .sec-segment-outlook { margin-top: 10px; padding-top: 10px; border-top: 1px solid rgba(129, 140, 248, 0.2); }
+    .sec-segment-outlook-head { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; margin-bottom: 8px; }
+    .sec-segment-outlook-head strong { color: #e0e7ff; font-size: 0.75rem; }
+    .sec-segment-outlook-count { padding: 2px 6px; border-radius: 999px; color: #c7d2fe; background: rgba(79, 70, 229, 0.17); font-size: 0.61rem; font-weight: 850; }
+    .sec-segment-outlook-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+    .sec-segment-outlook-row { min-width: 0; padding: 9px 10px; border: 1px solid rgba(148, 163, 184, 0.15); border-radius: 9px; background: rgba(15, 23, 42, 0.58); }
+    .sec-segment-outlook-row.pending { border-color: rgba(251, 191, 36, 0.28); }
+    .sec-segment-outlook-row.pressure { border-color: rgba(251, 113, 133, 0.38); }
+    .sec-segment-outlook-row.support { border-color: rgba(52, 211, 153, 0.3); }
+    .sec-segment-outlook-title { display: flex; align-items: center; justify-content: space-between; gap: 8px; color: #f8fafc; font-size: 0.7rem; font-weight: 820; }
+    .sec-segment-outlook-status { flex: 0 0 auto; font-size: 0.61rem; }
+    .sec-segment-outlook-status.support { color: #6ee7b7; }
+    .sec-segment-outlook-status.pressure { color: #fda4af; }
+    .sec-segment-outlook-status.pending { color: #fcd34d; }
+    .sec-segment-outlook-values { margin-top: 5px; color: #cbd5e1; font-size: 0.68rem; line-height: 1.45; }
+    .sec-segment-outlook-note { margin-top: 4px; color: #94a3b8; font-size: 0.64rem; line-height: 1.45; }
+    .sec-segment-outlook-empty { color: #94a3b8; font-size: 0.68rem; line-height: 1.5; }
+
     .sec-company-brief-fact {
       color: #f8fafc;
       font-size: 0.82rem;
@@ -2393,7 +2412,7 @@
 
     @media (max-width: 620px) {
       .sec-daily-shell { padding: 18px; }
-      .sec-kpi-grid, .sec-reading-rank-list, .sec-position-impact-list, .sec-event-calendar-list, .sec-verify-grid, .sec-verify-kpis, .sec-segment-summary, .sec-segment-evidence, .sec-segment-history-grid, .sec-reading-guide, .sec-advanced-explainer, .sec-advanced-actual-grid, .sec-company-brief-grid, .sec-company-assessment, .sec-company-evidence-columns, .sec-update-grid, .sec-update-detail-grid, .sec-text-diff-kpis, .sec-text-change-grid, .sec-thesis-kpis { grid-template-columns: 1fr; }
+      .sec-kpi-grid, .sec-reading-rank-list, .sec-position-impact-list, .sec-event-calendar-list, .sec-verify-grid, .sec-verify-kpis, .sec-segment-summary, .sec-segment-evidence, .sec-segment-history-grid, .sec-reading-guide, .sec-advanced-explainer, .sec-advanced-actual-grid, .sec-company-brief-grid, .sec-company-assessment, .sec-company-evidence-columns, .sec-segment-outlook-list, .sec-update-grid, .sec-update-detail-grid, .sec-text-diff-kpis, .sec-text-change-grid, .sec-thesis-kpis { grid-template-columns: 1fr; }
       .sec-ownership-kpis { grid-template-columns: 1fr; }
       .sec-reading-progress { grid-template-columns: 1fr; }
       .sec-reading-actions { justify-content: flex-start; }
@@ -4464,12 +4483,15 @@
           fetch('segment_thesis_linkage.json', { cache: 'no-cache' })
             .then(r => { if (!r.ok) throw new Error(`分部論點聯動 HTTP ${r.status}`); return r.json(); })
             .catch(error => { console.warn('segment_thesis_linkage.json 載入失敗', error); return null; }),
+          fetch('segment_outlook_verification.json', { cache: 'no-cache' })
+            .then(r => { if (!r.ok) throw new Error(`分部展望驗證 HTTP ${r.status}`); return r.json(); })
+            .catch(error => { console.warn('segment_outlook_verification.json 載入失敗', error); return null; }),
           loadPortfolioHoldings(),
           fetch('valuation.json', { cache: 'no-cache' })
             .then(r => { if (!r.ok) throw new Error(`估值資料 HTTP ${r.status}`); return r.json(); })
             .catch(error => { console.warn('valuation.json 載入失敗，跨公司估值排名將顯示缺值', error); return null; }),
-        ]).then(([alerts, details, quarterlyFinancials, advanced, thirteenF, textChanges, thesisTracking, thesisStatus, exhibit991, earningsCalls, editorial, changeCandidates, candidateReviews, candidateCalibration, positionImpact, eventCalendar, earningsVerification, earningsVerificationHistory, segmentDrivers, segmentDriverHistory, segmentDriverUpdates, segmentThesisLinkage, holdingsPayload, valuation]) => {
-          secDailyData = { alerts, details, quarterlyFinancials, advanced, thirteenF, textChanges, thesisTracking, thesisStatus, exhibit991, earningsCalls, editorial, changeCandidates, candidateReviews, candidateCalibration, positionImpact, eventCalendar, earningsVerification, earningsVerificationHistory, segmentDrivers, segmentDriverHistory, segmentDriverUpdates, segmentThesisLinkage, holdingsPayload, valuation };
+        ]).then(([alerts, details, quarterlyFinancials, advanced, thirteenF, textChanges, thesisTracking, thesisStatus, exhibit991, earningsCalls, editorial, changeCandidates, candidateReviews, candidateCalibration, positionImpact, eventCalendar, earningsVerification, earningsVerificationHistory, segmentDrivers, segmentDriverHistory, segmentDriverUpdates, segmentThesisLinkage, segmentOutlookVerification, holdingsPayload, valuation]) => {
+          secDailyData = { alerts, details, quarterlyFinancials, advanced, thirteenF, textChanges, thesisTracking, thesisStatus, exhibit991, earningsCalls, editorial, changeCandidates, candidateReviews, candidateCalibration, positionImpact, eventCalendar, earningsVerification, earningsVerificationHistory, segmentDrivers, segmentDriverHistory, segmentDriverUpdates, segmentThesisLinkage, segmentOutlookVerification, holdingsPayload, valuation };
           renderSecDaily();
         }).catch(error => {
           secDailyPromise = null;
@@ -6314,6 +6336,7 @@
       const dilutedShares = secMetricValue(latestPeriod, 'diluted_shares');
       const dilutedSharesYoy = secDelta(dilutedShares, secMetricValue(yearAgo, 'diluted_shares'));
       const segmentLink = (secDailyData.segmentThesisLinkage?.companies || []).find(row => row.ticker === ticker);
+      const segmentOutlook = (secDailyData.segmentOutlookVerification?.companies || []).find(row => row.ticker === ticker);
 
       const ownership = (advanced?.ownership_timeline || []).filter(row => row.ticker === dataTicker)
         .sort((a, b) => String(b.filing_date).localeCompare(String(a.filing_date)))[0];
@@ -6565,6 +6588,23 @@
       };
 
       const sourceLink = (url, label) => safeSecUrl(url) === '#' ? '' : `<a class="sec-link" href="${safeSecUrl(url)}" target="_blank" rel="noopener">${label} ↗</a>`;
+      const officialSourceLink = (url, label) => safeEventUrl(url) === '#' ? '' : `<a class="sec-link" href="${safeEventUrl(url)}" target="_blank" rel="noopener">${label} ↗</a>`;
+      const outlookRows = segmentOutlook?.records || [];
+      const outlookCards = outlookRows.map(row => {
+        const statusClass = ['above', 'within', 'met'].includes(row.outcome) ? 'support'
+          : (['below', 'missed'].includes(row.outcome) ? 'pressure' : 'pending');
+        const actualText = row.actual === null || row.actual === undefined ? '等待正式實績' : row.actual_display;
+        return `<div class="sec-segment-outlook-row ${statusClass}">
+          <div class="sec-segment-outlook-title"><span>${escapeSec(row.target_period)}｜${escapeSec(row.segment_name)}／${escapeSec(row.metric_label)}</span><span class="sec-segment-outlook-status ${statusClass}">${escapeSec(row.outcome_label)}</span></div>
+          <div class="sec-segment-outlook-values">管理層展望：${escapeSec(row.target)}｜實績：${escapeSec(actualText)}</div>
+          <div class="sec-segment-outlook-note">${escapeSec(row.statement_zh)} ${escapeSec(row.verification_note)} ${escapeSec(row.thesis_note)} ${officialSourceLink(row.source_url, '展望原文')}${row.actual_source_url ? ` ${officialSourceLink(row.actual_source_url, '實績原文')}` : ''}</div>
+        </div>`;
+      }).join('');
+      const segmentOutlookHtml = segmentOutlook
+        ? `<div class="sec-segment-outlook"><div class="sec-segment-outlook-head"><strong>分部展望驗證卡</strong><span class="sec-segment-outlook-count">已驗證 ${escapeSec(segmentOutlook.counts?.completed || 0)}</span><span class="sec-segment-outlook-count">待驗證 ${escapeSec(segmentOutlook.counts?.pending || 0)}</span></div>
+            ${outlookRows.length ? `<div class="sec-segment-outlook-list">${outlookCards}</div>` : `<p class="sec-segment-outlook-empty">${escapeSec(segmentOutlook.note)} 公司總指引不代替分部指引。 ${officialSourceLink(segmentOutlook.review_url, '官方展望頁')}</p>`}
+            <p class="sec-segment-outlook-empty">判讀限制：只核對同分部、同期間、同指標；季度進度不當成全年結果，且相同實績不重複加入 SEC 證據分數。</p></div>`
+        : '<div class="sec-segment-outlook"><p class="sec-segment-outlook-empty">分部展望驗證資料尚未載入；不以公司總指引補值。</p></div>';
       brief.innerHTML = `
         <div class="sec-company-brief-head">
           <div class="sec-company-brief-title-row"><h3 class="sec-company-brief-title">${escapeSec(ticker)}｜單公司 SEC 綜合判讀</h3><span class="sec-company-priority ${priority.css}">${priority.label}</span></div>
@@ -6588,11 +6628,11 @@
           <article class="sec-company-brief-card"><h4>④ 募資與稀釋</h4><div class="sec-company-brief-fact">${escapeSec(dilutionFact)}</div><p class="sec-company-brief-note">${escapeSec(dilutionNote)} ${sourceLink(latestOffering?.event?.url, '募資原文')}</p>${interpretation('dilution')}</article>
           <article class="sec-company-brief-card"><h4>⑤ 大股東最新狀態</h4><div class="sec-company-brief-fact">${escapeSec(ownerFact)}</div><p class="sec-company-brief-note">${escapeSec(ownerNote)} ${sourceLink(ownership?.url, '13D／13G 原文')}</p>${interpretation('ownership')}</article>
           <article class="sec-company-brief-card"><h4>⑥ 會計審閱／執法</h4><div class="sec-company-brief-fact">${escapeSec(reviewFact)}</div><p class="sec-company-brief-note">${escapeSec(reviewNote)} ${sourceLink(enforcementUrl || latestAccounting?.url, '核對原文')}</p>${interpretation('review')}</article>
-          <article class="sec-company-brief-card"><h4>⑦ 分部趨勢 × 投資論點</h4><div class="sec-company-brief-fact">${escapeSec(segmentFact)}</div><p class="sec-company-brief-note">${escapeSec(segmentNote)} ${sourceLink(segmentLink?.source_url, '分部表原文')}</p>${interpretation('segment')}</article>
+          <article class="sec-company-brief-card wide"><h4>⑦ 分部趨勢 × 投資論點</h4><div class="sec-company-brief-fact">${escapeSec(segmentFact)}</div><p class="sec-company-brief-note">${escapeSec(segmentNote)} ${sourceLink(segmentLink?.source_url, '分部表原文')}</p>${interpretation('segment')}${segmentOutlookHtml}</article>
         </div>
         <div class="sec-company-next-check"><strong>什麼會改變結論：</strong>${nextChecks.map(item => `・${escapeSec(item)}`).join('<br>')}</div>
         <div class="sec-company-brief-conclusion"><strong>判斷邊界：</strong>這是依現有 SEC 官方申報與季度財務數字產生的證據式判讀，不是買進／賣出指令。它刻意不把「沒有新申報」、單筆內部人交易或單一大股東變動當成完整投資結論。</div>
-        <p class="sec-company-brief-method">計分基準 50 分：財務連續性最多 ±25；分部同口徑趨勢最多 ±8；Form 4 最多 +6／-4，10b5-1 賣出降權；募資文件與實際稀釋股數 YoY 合計最多 -15；180 日內 13D／13G 增減最多 ±5；延遲申報 -6；公開執法／停牌 -20。分部資料只驗證營收與已揭露利益率，不能代替 FCF、稀釋或估值。重要文件本身只提高閱讀優先度，不預設多空。分數是可重算的證據尺度，不是目標價或投資評等。</p>`;
+        <p class="sec-company-brief-method">計分基準 50 分：財務連續性最多 ±25；分部同口徑趨勢最多 ±8；Form 4 最多 +6／-4，10b5-1 賣出降權；募資文件與實際稀釋股數 YoY 合計最多 -15；180 日內 13D／13G 增減最多 ±5；延遲申報 -6；公開執法／停牌 -20。分部資料只驗證營收與已揭露利益率，不能代替 FCF、稀釋或估值；分部展望達標與同一實績不重複加分。重要文件本身只提高閱讀優先度，不預設多空。分數是可重算的證據尺度，不是目標價或投資評等。</p>`;
     }
 
     function renderSecThesisTracker() {

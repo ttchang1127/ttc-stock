@@ -33,6 +33,7 @@ class DashboardSecTabTests(unittest.TestCase):
         cls.segment_driver_history = json.loads((ROOT / "segment_driver_history.json").read_text())
         cls.segment_driver_updates = json.loads((ROOT / "segment_driver_update_candidates.json").read_text())
         cls.segment_thesis_linkage = json.loads((ROOT / "segment_thesis_linkage.json").read_text())
+        cls.segment_outlook_verification = json.loads((ROOT / "segment_outlook_verification.json").read_text())
         cls.holdings = json.loads((ROOT / "portfolio_holdings.json").read_text())
 
     def test_tab_defaults_to_14_days_and_allows_7_days(self):
@@ -58,6 +59,7 @@ class DashboardSecTabTests(unittest.TestCase):
         self.assertIn("fetch('sec_daily_candidate_reviews.json'", self.html)
         self.assertIn("fetch('sec_candidate_rule_calibration.json'", self.html)
         self.assertIn("fetch('valuation.json'", self.html)
+        self.assertIn("fetch('segment_outlook_verification.json'", self.html)
         self.assertIn("function renderSecDaily()", self.html)
         self.assertIn('id="secQuarterlyBody"', self.html)
         self.assertIn('id="secKpiQuarterly"', self.html)
@@ -242,6 +244,27 @@ class DashboardSecTabTests(unittest.TestCase):
             "fetch('segment_thesis_linkage.json'", "segmentThesisLinkage",
             "分部趨勢 × 投資論點", "分部證據", "分部表原文",
             "不能代替 FCF、稀釋或估值", "可判讀 ${assessableDimensions}/7 構面",
+        ]
+        for phrase in required_copy:
+            self.assertIn(phrase, self.html)
+
+    def test_segment_outlook_verification_is_closed_loop_and_not_double_counted(self):
+        payload = self.segment_outlook_verification
+        self.assertEqual(payload["schema_version"], 1)
+        self.assertEqual(payload["tracked_count"], 14)
+        self.assertEqual(payload["counts"]["available_companies"], 2)
+        self.assertEqual(payload["counts"]["completed_records"], 4)
+        self.assertEqual(payload["counts"]["pending_records"], 3)
+        msft = next(row for row in payload["companies"] if row["ticker"] == "MSFT")
+        nok = next(row for row in payload["companies"] if row["ticker"] == "NOK")
+        self.assertEqual(msft["records"][0]["outcome"], "above")
+        self.assertEqual(msft["records"][-1]["outcome"], "pending")
+        self.assertEqual(nok["records"][0]["outcome"], "met")
+        required_copy = [
+            "segmentOutlookVerification", "分部展望驗證卡", "管理層展望：",
+            "等待正式實績", "公司總指引不代替分部指引",
+            "季度進度不當成全年結果", "不重複加入 SEC 證據分數",
+            "sec-segment-outlook-list", "sec-company-brief-card wide",
         ]
         for phrase in required_copy:
             self.assertIn(phrase, self.html)

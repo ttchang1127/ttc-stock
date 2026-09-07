@@ -1,0 +1,228 @@
+{
+  "schema_version": 1,
+  "updated_at": "2026-09-07",
+  "methodology": "只收錄公司 IR 或 SEC 原文中，具明確分部、期間與可驗證指標的管理層展望；公司總指引不代替分部指引。",
+  "companies": {
+    "NVDA": {
+      "status": "no_comparable_segment_outlook",
+      "note": "最新正式指引為公司總營收與毛利率；CPU 長期展望尚無相同口徑分部實績，不能納入下一季達標率。",
+      "review_url": "https://nvidianews.nvidia.com/news/nvidia-announces-financial-results-for-second-quarter-fiscal-2027",
+      "records": []
+    },
+    "TSM": {
+      "status": "no_comparable_segment_outlook",
+      "note": "最新量化指引為公司總營收與公司毛利率；HPC 占比不是管理層分部營收區間，兩者不混算。",
+      "review_url": "https://investor.tsmc.com/english/quarterly-results/2026/q2",
+      "records": []
+    },
+    "MSFT": {
+      "status": "available",
+      "note": "FY2026 Q4 使用舊三分部口徑完成回測；FY2027 Q1 使用 2026-09-02 SEC 8-K 調整後的新兩分部口徑，等待下一季實績。",
+      "review_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526380280/d291965dex991.htm",
+      "records": [
+        {
+          "id": "MSFT-FY2026Q4-PBP-REVENUE",
+          "outlook_period": "FY2026 Q3",
+          "target_period": "FY2026 Q4",
+          "target_period_end": "2026-06-30",
+          "basis_id": "legacy_reportable_segments",
+          "segment_key": "productivity",
+          "segment_name": "Productivity and Business Processes",
+          "metric": "revenue",
+          "metric_label": "分部營收",
+          "comparison": "range",
+          "low": 37000.0,
+          "high": 37300.0,
+          "unit": "USD m",
+          "statement_zh": "管理層預期 FY2026 Q4 分部營收為 370～373 億美元。",
+          "source_date": "2026-04-29",
+          "source_url": "https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q3",
+          "actual_source_date": "2026-07-29",
+          "actual_source_url": "https://www.microsoft.com/en-us/investor/earnings/fy-2026-q4/press-release-webcast"
+        },
+        {
+          "id": "MSFT-FY2026Q4-IC-REVENUE",
+          "outlook_period": "FY2026 Q3",
+          "target_period": "FY2026 Q4",
+          "target_period_end": "2026-06-30",
+          "basis_id": "legacy_reportable_segments",
+          "segment_key": "cloud",
+          "segment_name": "Intelligent Cloud",
+          "metric": "revenue",
+          "metric_label": "分部營收",
+          "comparison": "range",
+          "low": 37950.0,
+          "high": 38250.0,
+          "unit": "USD m",
+          "statement_zh": "管理層預期 FY2026 Q4 分部營收為 379.5～382.5 億美元。",
+          "source_date": "2026-04-29",
+          "source_url": "https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q3",
+          "actual_source_date": "2026-07-29",
+          "actual_source_url": "https://www.microsoft.com/en-us/investor/earnings/fy-2026-q4/press-release-webcast"
+        },
+        {
+          "id": "MSFT-FY2026Q4-MPC-REVENUE",
+          "outlook_period": "FY2026 Q3",
+          "target_period": "FY2026 Q4",
+          "target_period_end": "2026-06-30",
+          "basis_id": "legacy_reportable_segments",
+          "segment_key": "personal",
+          "segment_name": "More Personal Computing",
+          "metric": "revenue",
+          "metric_label": "分部營收",
+          "comparison": "range",
+          "low": 11750.0,
+          "high": 12250.0,
+          "unit": "USD m",
+          "statement_zh": "管理層預期 FY2026 Q4 分部營收為 117.5～122.5 億美元。",
+          "source_date": "2026-04-29",
+          "source_url": "https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q3",
+          "actual_source_date": "2026-07-29",
+          "actual_source_url": "https://www.microsoft.com/en-us/investor/earnings/fy-2026-q4/press-release-webcast"
+        },
+        {
+          "id": "MSFT-FY2027Q1-AGENTS-INFRA-REVENUE",
+          "outlook_period": "FY2026 Q4",
+          "target_period": "FY2027 Q1",
+          "target_period_end": "2026-09-30",
+          "basis_id": "fy2027_reportable_segments",
+          "segment_key": "agents_infra",
+          "segment_name": "Agents and Infra",
+          "metric": "revenue",
+          "metric_label": "分部營收",
+          "comparison": "range",
+          "low": 75150.0,
+          "high": 75750.0,
+          "unit": "USD m",
+          "statement_zh": "重編後的管理層展望為 FY2027 Q1 分部營收 751.5～757.5 億美元。",
+          "source_date": "2026-09-02",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526380280/d291965dex991.htm"
+        },
+        {
+          "id": "MSFT-FY2027Q1-DEVICES-CONSUMER-REVENUE",
+          "outlook_period": "FY2026 Q4",
+          "target_period": "FY2027 Q1",
+          "target_period_end": "2026-09-30",
+          "basis_id": "fy2027_reportable_segments",
+          "segment_key": "devices_consumer",
+          "segment_name": "Devices and Consumer",
+          "metric": "revenue",
+          "metric_label": "分部營收",
+          "comparison": "range",
+          "low": 14700.0,
+          "high": 15200.0,
+          "unit": "USD m",
+          "statement_zh": "重編後的管理層展望為 FY2027 Q1 分部營收 147～152 億美元。",
+          "source_date": "2026-09-02",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526380280/d291965dex991.htm"
+        }
+      ]
+    },
+    "META": {
+      "status": "no_comparable_segment_outlook",
+      "note": "公司提供總營收、費用與資本支出展望，但未提供可與 Family of Apps／Reality Labs 分部表直接核對的營收區間。",
+      "review_url": "https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Second-Quarter-2026-Results/default.aspx",
+      "records": []
+    },
+    "AAPL": {
+      "status": "no_comparable_segment_outlook",
+      "note": "公司未持續提供可與產品／服務分部實績同口徑核對的下一季量化區間。",
+      "review_url": "https://www.apple.com/newsroom/archive/",
+      "records": []
+    },
+    "AMZN": {
+      "status": "no_comparable_segment_outlook",
+      "note": "公司提供總淨銷售額與總營業利益區間，但沒有 AWS、North America、International 的分部營收區間。",
+      "review_url": "https://ir.aboutamazon.com/news-release/news-release-details/2026/Amazon-com-Announces-Second-Quarter-Results/default.aspx",
+      "records": []
+    },
+    "ARM": {
+      "status": "no_comparable_segment_outlook",
+      "note": "最新正式區間為公司總營收與 EPS；License／Royalty 組合沒有相同期間的正式數字區間。",
+      "review_url": "https://investors.arm.com/node/8356/html",
+      "records": []
+    },
+    "ONDS": {
+      "status": "no_comparable_segment_outlook",
+      "note": "公司提供全年總營收目標，但未提供 Product、Service、Development revenue 的分部區間。",
+      "review_url": "https://ir.ondas.com/press-releases/detail/306/ondas-reports-record-first-quarter-2026-financial-results",
+      "records": []
+    },
+    "TSLA": {
+      "status": "no_comparable_segment_outlook",
+      "note": "最新資料沒有可和 Automotive、Energy、Services 分部營收直接核對的正式數字區間。",
+      "review_url": "https://ir.tesla.com/",
+      "records": []
+    },
+    "GOOG": {
+      "status": "no_comparable_segment_outlook",
+      "note": "公司提供資本支出展望，但未提供 Google Services、Google Cloud、Other Bets 的下一季分部營收區間。",
+      "review_url": "https://abc.xyz/investor/",
+      "records": []
+    },
+    "COHR": {
+      "status": "no_comparable_segment_outlook",
+      "note": "公司提供總營收、毛利率及 EPS 區間，但未提供 Datacenter & Communications 等市場分部的正式營收區間。",
+      "review_url": "https://www.sec.gov/Archives/edgar/data/820318/000119312526346860/d128030dex991.htm",
+      "records": []
+    },
+    "MRVL": {
+      "status": "no_comparable_segment_outlook",
+      "note": "公司提出整體成長加速與總營收區間，但沒有 Data center／Communications and other 的下一季正式分部營收區間。",
+      "review_url": "https://www.sec.gov/Archives/edgar/data/1835632/000183563226000022/q227_8kx812026ex-991.htm",
+      "records": []
+    },
+    "INTC": {
+      "status": "no_comparable_segment_outlook",
+      "note": "公司提供總營收區間及伺服器需求方向，但沒有可和 DCAI、CCG、Intel Foundry 分部營收直接核對的正式區間。",
+      "review_url": "https://newsroom.intel.com/corporate/intel-reports-second-quarter-2026-financial-results",
+      "records": []
+    },
+    "NOK": {
+      "status": "available",
+      "note": "IP Networks 的 Q2 方向展望已用下一季官方結果驗證；Network Infrastructure 全年成長區間等待 FY2026 正式結果。",
+      "review_url": "https://www.nokia.com/newsroom/nokia-corporation-report-for-q2-and-half-year-2026/",
+      "records": [
+        {
+          "id": "NOK-2026Q2-IP-NETWORKS-GROWTH",
+          "outlook_period": "2026 Q1",
+          "target_period": "2026 Q2",
+          "target_period_end": "2026-06-30",
+          "basis_id": "ip_networks_subsegment",
+          "segment_key": "ip_networks",
+          "segment_name": "IP Networks",
+          "metric": "revenue_yoy_pct",
+          "metric_label": "營收 YoY",
+          "comparison": "increase_from",
+          "baseline": 3.0,
+          "reported_actual": 16.0,
+          "unit": "%",
+          "statement_zh": "管理層預期 IP Networks 成長在 Q2 改善；Q1 官方基準為 YoY +3%。",
+          "source_date": "2026-04-23",
+          "source_url": "https://www.nokia.com/newsroom/nokia-corporation-interim-report-for-q1-2026/",
+          "actual_source_date": "2026-07-23",
+          "actual_source_url": "https://www.nokia.com/newsroom/nokia-corporation-report-for-q2-and-half-year-2026/"
+        },
+        {
+          "id": "NOK-FY2026-NETWORK-INFRA-GROWTH",
+          "outlook_period": "2026 Q2",
+          "target_period": "FY2026",
+          "target_period_end": "2026-12-31",
+          "basis_id": "recast_2026_segments",
+          "segment_key": "network",
+          "segment_name": "Network Infrastructure",
+          "metric": "revenue_yoy_pct",
+          "metric_label": "全年營收成長",
+          "comparison": "range",
+          "low": 12.0,
+          "high": 14.0,
+          "unit": "%",
+          "verification_mode": "manual_official_result",
+          "statement_zh": "公司假設 FY2026 Network Infrastructure 淨銷售額成長 12%～14%。",
+          "source_date": "2026-07-23",
+          "source_url": "https://www.nokia.com/newsroom/nokia-corporation-report-for-q2-and-half-year-2026/"
+        }
+      ]
+    }
+  }
+}

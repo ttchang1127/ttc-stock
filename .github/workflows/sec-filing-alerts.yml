@@ -123,6 +123,7 @@ jobs:
             --summary "$GITHUB_STEP_SUMMARY" \
             --github-output "$GITHUB_OUTPUT"
           python3 scripts/build_segment_thesis_linkage.py
+          python3 scripts/build_segment_outlook_verification.py
 
       - name: Rebuild pre/post earnings verification cards
         run: python3 scripts/build_earnings_verification_cards.py
@@ -227,7 +228,7 @@ jobs:
             earnings_verification_cards.json earnings_verification_history.json \
             segment_driver_validation.json segment_driver_history.json \
             segment_driver_history_inputs.json segment_driver_update_candidates.json \
-            segment_thesis_linkage.json \
+            segment_thesis_linkage.json segment_outlook_verification.json \
             60_SEC_Filing_Radar/SEC_Candidate_Rule_Calibration.md \
             60_SEC_Filing_Radar/SEC_Daily_Change_Candidates.md \
             60_SEC_Filing_Radar/SEC_Position_Impact_History.md \
@@ -236,7 +237,8 @@ jobs:
             60_SEC_Filing_Radar/Segment_Driver_Validation.md \
             60_SEC_Filing_Radar/Segment_Driver_History.md \
             60_SEC_Filing_Radar/Segment_Driver_Update_Candidates.md \
-            60_SEC_Filing_Radar/Segment_Thesis_Linkage.md
+            60_SEC_Filing_Radar/Segment_Thesis_Linkage.md \
+            60_SEC_Filing_Radar/Segment_Outlook_Verification.md
           if git diff --cached --quiet; then
             echo "No SEC radar changes to persist."
             exit 0
