@@ -20,6 +20,7 @@ DEFAULT_DETAILS = REPO_ROOT / "sec_filing_details.json"
 DEFAULT_ADVANCED = REPO_ROOT / "sec_advanced_radars.json"
 DEFAULT_QUARTERLY = REPO_ROOT / "quarterly_financials.json"
 DEFAULT_THESIS = REPO_ROOT / "investment_thesis_status.json"
+DEFAULT_SEGMENT_LINKAGE = REPO_ROOT / "segment_thesis_linkage.json"
 DEFAULT_EDITORIAL = REPO_ROOT / "sec_daily_editorial.json"
 DEFAULT_CALIBRATION = REPO_ROOT / "sec_candidate_rule_calibration.json"
 DEFAULT_OUTPUT = REPO_ROOT / "sec_daily_change_candidates.json"
@@ -379,6 +380,50 @@ def thesis_candidates(thesis, editorial):
     return candidates
 
 
+def segment_thesis_candidates(segment_linkage, editorial):
+    """只列相較 AI 基準的新 linkage；同一 fingerprint 不重複列出。"""
+    editorial_rows = {row.get("ticker"): row for row in editorial.get("companies", [])}
+    candidates = []
+    for current in segment_linkage.get("companies", []):
+        ticker = current.get("ticker")
+        entry = editorial_rows.get(ticker)
+        if not ticker or not entry:
+            continue
+        coverage = entry.get("coverage", {})
+        baseline = coverage.get("segment_thesis_fingerprint")
+        if baseline == current.get("fingerprint"):
+            continue
+        # Schema migration: the current segment period was already included in
+        # the latest AI-reviewed quarter.  Establish a silent baseline instead
+        # of creating fourteen historical candidates on first deployment.
+        quarterly_key = str(coverage.get("quarterly_key") or "")
+        same_reviewed_period = current.get("period_end") and f"|{current['period_end']}|" in quarterly_key
+        if not baseline and same_reviewed_period and not current.get("pending_review"):
+            continue
+        signal = current.get("signal")
+        kind = "risk" if signal in {"pressure", "needs_review"} else (
+            "improvement" if signal == "support" else "conclusion"
+        )
+        thesis_impacts = [
+            f"{row.get('title')}：{row.get('impact_label')}；{row.get('detail')}"
+            for row in current.get("linked_theses") or []
+            if row.get("impact") != "not_applicable"
+        ]
+        candidates.append(make_candidate(
+            kind, ticker, [current.get("fingerprint")],
+            f"分部趨勢與投資論點聯動更新：{current.get('label', '待判讀')}",
+            [current.get("conclusion"), *(current.get("evidence") or []), *thesis_impacts],
+            "只有分部 linkage fingerprint 相較最近 AI 覆核改變才列入；需讀官方分部表後決定是否改寫正式結論。",
+            [{"label": "官方分部表", "url": current.get("source_url")}],
+            segment_linkage.get("updated_at", ""),
+            "high" if signal in {"pressure", "needs_review"} else "medium",
+            current.get("source_date", ""), rule_key="segment_thesis_change",
+            materiality={"segment_score": current.get("score"), "segment_signal": signal,
+                         "period_end": current.get("period_end")},
+        ))
+    return candidates
+
+
 def ownership_and_enforcement_candidates(advanced, editorial, used_accessions):
     editorial_rows = {"GOOGL" if row.get("ticker") == "GOOG" else row.get("ticker"): row for row in editorial.get("companies", [])}
     candidates = []
@@ -424,10 +469,11 @@ def ownership_and_enforcement_candidates(advanced, editorial, used_accessions):
     return candidates
 
 
-def build_payload(alerts, details, advanced, quarterly, thesis, editorial, calibration=None):
+def build_payload(alerts, details, advanced, quarterly, thesis, segment_linkage, editorial, calibration=None):
     candidates, used = filing_candidates(alerts, details, advanced, editorial)
     candidates += quarterly_candidates(quarterly, editorial, used)
     candidates += thesis_candidates(thesis, editorial)
+    candidates += segment_thesis_candidates(segment_linkage, editorial)
     candidates += ownership_and_enforcement_candidates(advanced, editorial, used)
     apply_calibration(candidates, calibration or {})
     owned = set(editorial.get("portfolio_order", []))
@@ -444,7 +490,7 @@ def build_payload(alerts, details, advanced, quarterly, thesis, editorial, calib
     counts = {kind: sum(row["type"] == kind for row in candidates) for kind in TYPE_LABELS}
     return {
         "schema_version": 1,
-        "generated_at": source_as_of(alerts, advanced, quarterly, thesis, editorial, calibration),
+        "generated_at": source_as_of(alerts, advanced, quarterly, thesis, segment_linkage, editorial, calibration),
         "editorial_reviewed_at": editorial.get("reviewed_at"),
         "editorial_window_end": editorial.get("window_end"),
         "status": "pending_ai_review" if candidates else "no_new_candidates",
@@ -521,6 +567,7 @@ def main():
     parser.add_argument("--advanced", type=Path, default=DEFAULT_ADVANCED)
     parser.add_argument("--quarterly", type=Path, default=DEFAULT_QUARTERLY)
     parser.add_argument("--thesis", type=Path, default=DEFAULT_THESIS)
+    parser.add_argument("--segment-linkage", type=Path, default=DEFAULT_SEGMENT_LINKAGE)
     parser.add_argument("--editorial", type=Path, default=DEFAULT_EDITORIAL)
     parser.add_argument("--calibration", type=Path, default=DEFAULT_CALIBRATION)
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
@@ -530,7 +577,10 @@ def main():
     parser.add_argument("--github-output", type=Path, default=os.environ.get("GITHUB_OUTPUT"))
     args = parser.parse_args()
 
-    inputs = [load_json(path, {}) for path in (args.alerts, args.details, args.advanced, args.quarterly, args.thesis, args.editorial)]
+    inputs = [load_json(path, {}) for path in (
+        args.alerts, args.details, args.advanced, args.quarterly, args.thesis,
+        args.segment_linkage, args.editorial,
+    )]
     calibration = load_json(args.calibration, {})
     if not inputs[-1].get("reviewed_at"):
         raise SystemExit("sec_daily_editorial.json 缺 reviewed_at，不能建立覆核後候選")

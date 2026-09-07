@@ -32,6 +32,7 @@ class DashboardSecTabTests(unittest.TestCase):
         cls.segment_drivers = json.loads((ROOT / "segment_driver_validation.json").read_text())
         cls.segment_driver_history = json.loads((ROOT / "segment_driver_history.json").read_text())
         cls.segment_driver_updates = json.loads((ROOT / "segment_driver_update_candidates.json").read_text())
+        cls.segment_thesis_linkage = json.loads((ROOT / "segment_thesis_linkage.json").read_text())
         cls.holdings = json.loads((ROOT / "portfolio_holdings.json").read_text())
 
     def test_tab_defaults_to_14_days_and_allows_7_days(self):
@@ -192,6 +193,7 @@ class DashboardSecTabTests(unittest.TestCase):
             "募資與稀釋",
             "大股東最新狀態",
             "會計審閱／執法",
+            "分部趨勢 × 投資論點",
             "目前建議動作",
             "SEC 證據分數／100",
             "判讀信心",
@@ -222,6 +224,27 @@ class DashboardSecTabTests(unittest.TestCase):
         self.assertIn("dilutedSharesYoy", self.html)
         self.assertIn("ownershipScore", self.html)
         self.assertIn("reviewScore", self.html)
+        self.assertIn("segmentScore", self.html)
+        self.assertIn("分部同口徑趨勢最多 ±8", self.html)
+        self.assertIn("分部資料只驗證營收與已揭露利益率", self.html)
+
+    def test_segment_trend_links_to_thesis_without_overclaiming(self):
+        payload = self.segment_thesis_linkage
+        self.assertEqual(payload["schema_version"], 1)
+        self.assertEqual(payload["tracked_count"], 14)
+        self.assertEqual(sum(payload["counts"].values()), 14)
+        self.assertTrue(all(len(row["linked_theses"]) == 3 for row in payload["companies"]))
+        self.assertTrue(all(
+            next(item for item in row["linked_theses"] if item["metric"] == "cash_dilution")["impact"] == "not_applicable"
+            for row in payload["companies"]
+        ))
+        required_copy = [
+            "fetch('segment_thesis_linkage.json'", "segmentThesisLinkage",
+            "分部趨勢 × 投資論點", "分部證據", "分部表原文",
+            "不能代替 FCF、稀釋或估值", "可判讀 ${assessableDimensions}/7 構面",
+        ]
+        for phrase in required_copy:
+            self.assertIn(phrase, self.html)
 
     def test_daily_change_brief_distinguishes_new_zero_and_legacy_batches(self):
         required_copy = [

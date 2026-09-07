@@ -1,0 +1,1125 @@
+{
+  "schema_version": 1,
+  "updated_at": "2026-09-06",
+  "tracked_count": 14,
+  "counts": {
+    "support": 8,
+    "pressure": 1,
+    "mixed": 5,
+    "needs_review": 0
+  },
+  "methodology": {
+    "scope": "14 家個股；ETF 不納入。只連結同公司、同一期已核對的分部資料與現有三項投資論點。",
+    "score": "分部證據分數 -8～+8：QoQ／YoY 方向加權，再扣除降速、轉負、利益率下降、集中上升與抵銷成長事件。",
+    "boundary": "分部資料只能直接驗證營收成長與已揭露的分部利益率；不能驗證 FCF、稀釋、估值或股價。",
+    "change_rule": "每日候選以 fingerprint 對照最近一次 AI 覆核；同一 fingerprint 不重複列出。"
+  },
+  "companies": [
+    {
+      "ticker": "NVDA",
+      "name": "NVIDIA",
+      "period": "FY2027 Q2",
+      "period_end": "2026-07-26",
+      "basis_id": "compute_platforms",
+      "basis": "運算平台營收（新口徑）",
+      "source_date": "2026-08-26",
+      "source_url": "https://nvidianews.nvidia.com/news/nvidia-announces-financial-results-for-second-quarter-fiscal-2027",
+      "signal": "support",
+      "label": "分部趨勢提供支持",
+      "score": 3,
+      "alignment": "支持既有論點",
+      "conclusion": "分部趨勢提供支持；支持既有論點。分部證據分數 +3/8，只調整 SEC 證據權重，不直接改寫投資論點總狀態。",
+      "comparable": true,
+      "pending_review": false,
+      "latest_change_summary": "相較前季未觸發重大分部轉折門檻。",
+      "events": [],
+      "evidence": [
+        "FY2027 Q2 已收錄分部合計 QoQ +17.9%、YoY —。",
+        "相較前季未觸發既定的分部重大轉折門檻。"
+      ],
+      "linked_theses": [
+        {
+          "id": "ai_growth",
+          "title": "AI 加速運算需求維持高成長",
+          "metric": "revenue_growth",
+          "thesis_status": "supported",
+          "thesis_label": "支持",
+          "impact": "support",
+          "impact_label": "支持",
+          "detail": "已收錄分部合計 QoQ +17.9%、YoY —；只代表本表已收錄且同口徑項目。"
+        },
+        {
+          "id": "pricing_moat",
+          "title": "平台與軟體生態維持定價能力",
+          "metric": "gross_margin",
+          "thesis_status": "supported",
+          "thesis_label": "支持",
+          "impact": "monitor",
+          "impact_label": "持續觀察",
+          "detail": "本期分部表未提供可比較的分部利益率；不能用分部營收替代利益率。"
+        },
+        {
+          "id": "cash_per_share",
+          "title": "成長能轉化為每股現金流",
+          "metric": "cash_dilution",
+          "thesis_status": "supported",
+          "thesis_label": "支持",
+          "impact": "not_applicable",
+          "impact_label": "不直接驗證",
+          "detail": "分部營收／利益資料不能直接驗證 FCF、稀釋、資本支出或每股價值。"
+        }
+      ],
+      "next_checks": [
+        "下一季先確認分部名稱與 basis_id 是否相同；不同即切斷趨勢。",
+        "核對主要成長驅動、分部占比與利益率是否連續兩期同向；單季變化不直接升降投資評等。"
+      ],
+      "fingerprint": "a779fa46394503344e37"
+    },
+    {
+      "ticker": "TSM",
+      "name": "TSMC",
+      "period": "2026 Q2",
+      "period_end": "2026-06-30",
+      "basis_id": "platform_mix",
+      "basis": "平台營收占比（非可報導分部）",
+      "source_date": "2026-07-16",
+      "source_url": "https://investor.tsmc.com/japanese/encrypt/files/encrypt_file/qr/phase4_reports/2026-07/bf09036349a253e83f78155099133806cad0320b/2Q26%20ManagementReport.pdf",
+      "signal": "support",
+      "label": "分部趨勢提供支持",
+      "score": 3,
+      "alignment": "支持既有論點",
+      "conclusion": "分部趨勢提供支持；支持既有論點。分部證據分數 +3/8，只調整 SEC 證據權重，不直接改寫投資論點總狀態。",
+      "comparable": true,
+      "pending_review": false,
+      "latest_change_summary": "High Performance Computing 占比季增 +5.0pp 至 66.0%；High Performance Computing 占合計季增 107.6%；高於 100% 代表其他項目合計衰退。",
+      "events": [
+        {
+          "ticker": "TSM",
+          "from_period": "2026 Q1",
+          "to_period": "2026 Q2",
+          "from_period_end": "2026-03-31",
+          "to_period_end": "2026-06-30",
+          "id": "TSM:2026-06-30:concentration_jump:hpc",
+          "type": "concentration_jump",
+          "severity": "warning",
+          "comparable": true,
+          "label": "單一項目占比明顯上升",
+          "detail": "High Performance Computing 占比季增 +5.0pp 至 66.0%。"
+        },
+        {
+          "ticker": "TSM",
+          "from_period": "2026 Q1",
+          "to_period": "2026 Q2",
+          "from_period_end": "2026-03-31",
+          "to_period_end": "2026-06-30",
+          "id": "TSM:2026-06-30:offsetting_growth:hpc",
+          "type": "offsetting_growth",
+          "severity": "attention",
+          "comparable": true,
+          "label": "其他項目抵銷主要成長",
+          "detail": "High Performance Computing 占合計季增 107.6%；高於 100% 代表其他項目合計衰退。"
+        }
+      ],
+      "evidence": [
+        "2026 Q2 已收錄分部合計 QoQ +12.0%、YoY +36.0%。",
+        "單一項目占比明顯上升：High Performance Computing 占比季增 +5.0pp 至 66.0%。",
+        "其他項目抵銷主要成長：High Performance Computing 占合計季增 107.6%；高於 100% 代表其他項目合計衰退。"
+      ],
+      "linked_theses": [
+        {
+          "id": "advanced_node_growth",
+          "title": "先進製程與 AI 晶圓需求持續擴張",
+          "metric": "revenue_growth",
+          "thesis_status": "supported",
+          "thesis_label": "支持",
+          "impact": "support",
+          "impact_label": "支持",
+          "detail": "已收錄分部合計 QoQ +12.0%、YoY +36.0%；只代表本表已收錄且同口徑項目。"
+        },
+        {
+          "id": "manufacturing_moat",
+          "title": "製造領先維持高毛利率",
+          "metric": "gross_margin",
+          "thesis_status": "supported",
+          "thesis_label": "支持",
+          "impact": "monitor",
+          "impact_label": "持續觀察",
+          "detail": "本期分部表未提供可比較的分部利益率；不能用分部營收替代利益率。"
+        },
+        {
+          "id": "capex_returns",
+          "title": "高資本支出仍能產生正向 FCF",
+          "metric": "cash_dilution",
+          "thesis_status": "supported",
+          "thesis_label": "支持",
+          "impact": "not_applicable",
+          "impact_label": "不直接驗證",
+          "detail": "分部營收／利益資料不能直接驗證 FCF、稀釋、資本支出或每股價值。"
+        }
+      ],
+      "next_checks": [
+        "下一季先確認分部名稱與 basis_id 是否相同；不同即切斷趨勢。",
+        "核對主要成長驅動、分部占比與利益率是否連續兩期同向；單季變化不直接升降投資評等。"
+      ],
+      "fingerprint": "8c7efb7135dade424533"
+    },
+    {
+      "ticker": "MSFT",
+      "name": "Microsoft",
+      "period": "FY2026 Q4",
+      "period_end": "2026-06-30",
+      "basis_id": "legacy_reportable_segments",
+      "basis": "可報導分部（三分部舊口徑）",
+      "source_date": "2026-07-29",
+      "source_url": "https://www.microsoft.com/en-us/investor/earnings/fy-2026-q4/press-release-webcast",
+      "signal": "mixed",
+      "label": "分部訊號混合／未達門檻",
+      "score": 0,
+      "alignment": "對既有論點形成壓力",
+      "conclusion": "分部訊號混合／未達門檻；對既有論點形成壓力。分部證據分數 +0/8，只調整 SEC 證據權重，不直接改寫投資論點總狀態。",
+      "comparable": true,
+      "pending_review": false,
+      "latest_change_summary": "More Personal Computing 利益率季減 -6.4pp 至 21.4%。",
+      "events": [
+        {
+          "ticker": "MSFT",
+          "from_period": "FY2026 Q3",
+          "to_period": "FY2026 Q4",
+          "from_period_end": "2026-03-31",
+          "to_period_end": "2026-06-30",
+          "id": "MSFT:2026-06-30:margin_drop:personal",
+          "type": "margin_drop",
+          "severity": "warning",
+          "comparable": true,
+          "label": "分部利益率明顯下降",
+          "detail": "More Personal Computing 利益率季減 -6.4pp 至 21.4%。"
+        }
+      ],
+      "evidence": [
+        "FY2026 Q4 已收錄分部合計 QoQ +8.6%、YoY +17.7%。",
+        "分部利益率明顯下降：More Personal Computing 利益率季減 -6.4pp 至 21.4%。"
+      ],
+      "linked_theses": [
+        {
+          "id": "cloud_ai_growth",
+          "title": "雲端與 AI 商業化維持雙位數成長",
+          "metric": "revenue_growth",
+          "thesis_status": "supported",
+          "thesis_label": "支持",
+          "impact": "support",
+          "impact_label": "支持",
+          "detail": "已收錄分部合計 QoQ +8.6%、YoY +17.7%；只代表本表已收錄且同口徑項目。"
+        },
+        {
+          "id": "software_leverage",
+          "title": "軟體規模經濟維持高營業利益率",
+          "metric": "operating_margin",
+          "thesis_status": "invalidated",
+          "thesis_label": "失效",
+          "impact": "pressure",
+          "impact_label": "形成壓力",
+          "detail": "分部利益率最大變化 +0.9pp、最小變化 -6.4pp。"
+        },
+        {
+          "id": "cash_compounding",
+          "title": "現金流足以支撐再投資與股東回報",
+          "metric": "cash_dilution",
+          "thesis_status": "supported",
+          "thesis_label": "支持",
+          "impact": "not_applicable",
+          "impact_label": "不直接驗證",
+          "detail": "分部營收／利益資料不能直接驗證 FCF、稀釋、資本支出或每股價值。"
+        }
+      ],
+      "next_checks": [
+        "下一季先確認分部名稱與 basis_id 是否相同；不同即切斷趨勢。",
+        "核對主要成長驅動、分部占比與利益率是否連續兩期同向；單季變化不直接升降投資評等。"
+      ],
+      "fingerprint": "ee06c86012291285a24c"
+    },
+    {
+      "ticker": "META",
+      "name": "Meta",
+      "period": "2026 Q2",
+      "period_end": "2026-06-30",
+      "basis_id": "reportable_segments",
+      "basis": "可報導分部",
+      "source_date": "2026-07-29",
+      "source_url": "https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Second-Quarter-2026-Results/default.aspx",
+      "signal": "mixed",
+      "label": "分部訊號混合／未達門檻",
+      "score": -1,
+      "alignment": "對既有論點形成壓力",
+      "conclusion": "分部訊號混合／未達門檻；對既有論點形成壓力。分部證據分數 -1/8，只調整 SEC 證據權重，不直接改寫投資論點總狀態。",
+      "comparable": true,
+      "pending_review": false,
+      "latest_change_summary": "Family of Apps 利益率季減 -9.3pp 至 38.8%；Reality Labs 利益率季減 -69.7pp 至 -1071.7%。",
+      "events": [
+        {
+          "ticker": "META",
+          "from_period": "2026 Q1",
+          "to_period": "2026 Q2",
+          "from_period_end": "2026-03-31",
+          "to_period_end": "2026-06-30",
+          "id": "META:2026-06-30:margin_drop:foa",
+          "type": "margin_drop",
+          "severity": "warning",
+          "comparable": true,
+          "label": "分部利益率明顯下降",
+          "detail": "Family of Apps 利益率季減 -9.3pp 至 38.8%。"
+        },
+        {
+          "ticker": "META",
+          "from_period": "2026 Q1",
+          "to_period": "2026 Q2",
+          "from_period_end": "2026-03-31",
+          "to_period_end": "2026-06-30",
+          "id": "META:2026-06-30:margin_drop:reality_labs",
+          "type": "margin_drop",
+          "severity": "warning",
+          "comparable": true,
+          "label": "分部利益率明顯下降",
+          "detail": "Reality Labs 利益率季減 -69.7pp 至 -1071.7%。"
+        }
+      ],
+      "evidence": [
+        "2026 Q2 已收錄分部合計 QoQ +8.0%、YoY +28.0%。",
+        "分部利益率明顯下降：Family of Apps 利益率季減 -9.3pp 至 38.8%。",
+        "分部利益率明顯下降：Reality Labs 利益率季減 -69.7pp 至 -1071.7%。"
+      ],
+      "linked_theses": [
+        {
+          "id": "engagement_ads",
+          "title": "AI 推薦與廣告效率推動營收成長",
+          "metric": "revenue_growth",
+          "thesis_status": "supported",
+          "thesis_label": "支持",
+          "impact": "support",
+          "impact_label": "支持",
+          "detail": "已收錄分部合計 QoQ +8.0%、YoY +28.0%；只代表本表已收錄且同口徑項目。"
+        },
+        {
+          "id": "ad_margin",
+          "title": "核心廣告業務可負擔 AI 與 Reality Labs 投資",
+          "metric": "operating_margin",
+          "thesis_status": "invalidated",
+          "thesis_label": "失效",
+          "impact": "pressure",
+          "impact_label": "形成壓力",
+          "detail": "分部利益率最大變化 -9.3pp、最小變化 -69.7pp。"
+        },
+        {
+          "id": "cash_per_share",
+          "title": "高現金流能轉化為每股價值",
+          "metric": "cash_dilution",
+          "thesis_status": "supported",
+          "thesis_label": "支持",
+          "impact": "not_applicable",
+          "impact_label": "不直接驗證",
+          "detail": "分部營收／利益資料不能直接驗證 FCF、稀釋、資本支出或每股價值。"
+        }
+      ],
+      "next_checks": [
+        "下一季先確認分部名稱與 basis_id 是否相同；不同即切斷趨勢。",
+        "核對主要成長驅動、分部占比與利益率是否連續兩期同向；單季變化不直接升降投資評等。"
+      ],
+      "fingerprint": "6aea83ad5f8c0617f985"
+    },
+    {
+      "ticker": "AAPL",
+      "name": "Apple",
+      "period": "FY2026 Q3",
+      "period_end": "2026-06-27",
+      "basis_id": "product_service",
+      "basis": "產品／服務營收類別（非營業利益分部）",
+      "source_date": "2026-07-30",
+      "source_url": "https://www.apple.com/newsroom/pdfs/fy2026q3/FY26_Q3_Consolidated_Financial_Statements.pdf",
+      "signal": "mixed",
+      "label": "分部訊號混合／未達門檻",
+      "score": 0,
+      "alignment": "對既有論點形成壓力",
+      "conclusion": "分部訊號混合／未達門檻；對既有論點形成壓力。分部證據分數 +0/8，只調整 SEC 證據權重，不直接改寫投資論點總狀態。",
+      "comparable": true,
+      "pending_review": false,
+      "latest_change_summary": "服務 → Mac。",
+      "events": [
+        {
+          "ticker": "AAPL",
+          "from_period": "FY2026 Q2",
+          "to_period": "FY2026 Q3",
+          "from_period_end": "2026-03-28",
+          "to_period_end": "2026-06-27",
+          "id": "AAPL:2026-06-27:driver_change:mac",
+          "type": "driver_change",
+          "severity": "attention",
+          "comparable": true,
+          "label": "主要季增驅動更換",
+          "detail": "服務 → Mac。"
+        }
+      ],
+      "evidence": [
+        "FY2026 Q3 已收錄分部合計 QoQ -1.6%、YoY +16.4%。",
+        "主要季增驅動更換：服務 → Mac。"
+      ],
+      "linked_theses": [
+        {
+          "id": "ecosystem_growth",
+          "title": "裝置生態與服務收入維持成長",
+          "metric": "revenue_growth",
+          "thesis_status": "invalidated",
+          "thesis_label": "失效",
+          "impact": "pressure",
+          "impact_label": "形成壓力",
+          "detail": "已收錄分部合計 QoQ -1.6%、YoY +16.4%；只代表本表已收錄且同口徑項目。"
+        },
+        {
+          "id": "premium_mix",
+          "title": "高價品牌與服務組合維持毛利率",
+          "metric": "gross_margin",
+          "thesis_status": "supported",
+          "thesis_label": "支持",
+          "impact": "monitor",
+          "impact_label": "持續觀察",
+          "detail": "本期分部表未提供可比較的分部利益率；不能用分部營收替代利益率。"
+        },
+        {
+          "id": "buyback_per_share",
+          "title": "FCF 與回購持續提升每股價值",
+          "metric": "cash_dilution",
+          "thesis_status": "supported",
+          "thesis_label": "支持",
+          "impact": "not_applicable",
+          "impact_label": "不直接驗證",
+          "detail": "分部營收／利益資料不能直接驗證 FCF、稀釋、資本支出或每股價值。"
+        }
+      ],
+      "next_checks": [
+        "下一季先確認分部名稱與 basis_id 是否相同；不同即切斷趨勢。",
+        "核對主要成長驅動、分部占比與利益率是否連續兩期同向；單季變化不直接升降投資評等。"
+      ],
+      "fingerprint": "a89749e94e4bdfec3cfd"
+    },
+    {
+      "ticker": "AMZN",
+      "name": "Amazon",
+      "period": "2026 Q2",
+      "period_end": "2026-06-30",
+      "basis_id": "reportable_segments",
+      "basis": "可報導分部",
+      "source_date": "2026-07-30",
+      "source_url": "https://ir.aboutamazon.com/news-release/news-release-details/2026/Amazon-com-Announces-Second-Quarter-Results/default.aspx",
+      "signal": "support",
+      "label": "分部趨勢提供支持",
+      "score": 4,
+      "alignment": "支持既有論點",
+      "conclusion": "分部趨勢提供支持；支持既有論點。分部證據分數 +4/8，只調整 SEC 證據權重，不直接改寫投資論點總狀態。",
+      "comparable": true,
+      "pending_review": false,
+      "latest_change_summary": "AWS → North America。",
+      "events": [
+        {
+          "ticker": "AMZN",
+          "from_period": "2026 Q1",
+          "to_period": "2026 Q2",
+          "from_period_end": "2026-03-31",
+          "to_period_end": "2026-06-30",
+          "id": "AMZN:2026-06-30:driver_change:north_america",
+          "type": "driver_change",
+          "severity": "attention",
+          "comparable": true,
+          "label": "主要季增驅動更換",
+          "detail": "AWS → North America。"
+        }
+      ],
+      "evidence": [
+        "2026 Q2 已收錄分部合計 QoQ +10.5%、YoY +19.6%。",
+        "主要季增驅動更換：AWS → North America。"
+      ],
+      "linked_theses": [
+        {
+          "id": "aws_commerce_growth",
+          "title": "AWS、廣告與零售共同推動雙位數成長",
+          "metric": "revenue_growth",
+          "thesis_status": "supported",
+          "thesis_label": "支持",
+          "impact": "support",
+          "impact_label": "支持",
+          "detail": "已收錄分部合計 QoQ +10.5%、YoY +19.6%；只代表本表已收錄且同口徑項目。"
+        },
+        {
+          "id": "operating_leverage",
+          "title": "規模經濟帶動營業利益率提升",
+          "metric": "operating_margin",
+          "thesis_status": "supported",
+          "thesis_label": "支持",
+          "impact": "monitor",
+          "impact_label": "持續觀察",
+          "detail": "分部利益率最大變化 +1.7pp、最小變化 +0.0pp。"
+        },
+        {
+          "id": "cash_reinvestment",
+          "title": "再投資後仍能維持正向自由現金流",
+          "metric": "cash_dilution",
+          "thesis_status": "verify",
+          "thesis_label": "待驗證",
+          "impact": "not_applicable",
+          "impact_label": "不直接驗證",
+          "detail": "分部營收／利益資料不能直接驗證 FCF、稀釋、資本支出或每股價值。"
+        }
+      ],
+      "next_checks": [
+        "下一季先確認分部名稱與 basis_id 是否相同；不同即切斷趨勢。",
+        "核對主要成長驅動、分部占比與利益率是否連續兩期同向；單季變化不直接升降投資評等。"
+      ],
+      "fingerprint": "9d2c67441e2e5dc24225"
+    },
+    {
+      "ticker": "ARM",
+      "name": "Arm",
+      "period": "FY2027 Q1",
+      "period_end": "2026-06-30",
+      "basis_id": "revenue_source",
+      "basis": "營收來源（非可報導分部）",
+      "source_date": "2026-07-29",
+      "source_url": "https://investors.arm.com/node/8356/html",
+      "signal": "pressure",
+      "label": "分部趨勢形成壓力",
+      "score": -5,
+      "alignment": "對既有論點形成壓力",
+      "conclusion": "分部趨勢形成壓力；對既有論點形成壓力。分部證據分數 -5/8，只調整 SEC 證據權重，不直接改寫投資論點總狀態。",
+      "comparable": true,
+      "pending_review": false,
+      "latest_change_summary": "License and other revenue → Royalty revenue；QoQ +20.0% → -13.5%；Royalty revenue 占比季增 +10.5pp 至 55.5%。",
+      "events": [
+        {
+          "ticker": "ARM",
+          "from_period": "FY2026 Q4",
+          "to_period": "FY2027 Q1",
+          "from_period_end": "2026-03-31",
+          "to_period_end": "2026-06-30",
+          "id": "ARM:2026-06-30:driver_change:royalty",
+          "type": "driver_change",
+          "severity": "attention",
+          "comparable": true,
+          "label": "主要季增驅動更換",
+          "detail": "License and other revenue → Royalty revenue。"
+        },
+        {
+          "ticker": "ARM",
+          "from_period": "FY2026 Q4",
+          "to_period": "FY2027 Q1",
+          "from_period_end": "2026-03-31",
+          "to_period_end": "2026-06-30",
+          "id": "ARM:2026-06-30:qoq_direction_reversal:-",
+          "type": "qoq_direction_reversal",
+          "severity": "warning",
+          "comparable": true,
+          "label": "合計營收由季增轉季減",
+          "detail": "QoQ +20.0% → -13.5%。"
+        },
+        {
+          "ticker": "ARM",
+          "from_period": "FY2026 Q4",
+          "to_period": "FY2027 Q1",
+          "from_period_end": "2026-03-31",
+          "to_period_end": "2026-06-30",
+          "id": "ARM:2026-06-30:concentration_jump:royalty",
+          "type": "concentration_jump",
+          "severity": "warning",
+          "comparable": true,
+          "label": "單一項目占比明顯上升",
+          "detail": "Royalty revenue 占比季增 +10.5pp 至 55.5%。"
+        }
+      ],
+      "evidence": [
+        "FY2027 Q1 已收錄分部合計 QoQ -13.5%、YoY +22.4%。",
+        "主要季增驅動更換：License and other revenue → Royalty revenue。",
+        "合計營收由季增轉季減：QoQ +20.0% → -13.5%。",
+        "單一項目占比明顯上升：Royalty revenue 占比季增 +10.5pp 至 55.5%。"
+      ],
+      "linked_theses": [
+        {
+          "id": "royalty_growth",
+          "title": "授權與版稅模式維持高成長",
+          "metric": "revenue_growth",
+          "thesis_status": "supported",
+          "thesis_label": "支持",
+          "impact": "pressure",
+          "impact_label": "形成壓力",
+          "detail": "已收錄分部合計 QoQ -13.5%、YoY +22.4%；只代表本表已收錄且同口徑項目。"
+        },
+        {
+          "id": "asset_light_moat",
+          "title": "資產輕量 IP 模式維持極高毛利率",
+          "metric": "gross_margin",
+          "thesis_status": "supported",
+          "thesis_label": "支持",
+          "impact": "monitor",
+          "impact_label": "持續觀察",
+          "detail": "本期分部表未提供可比較的分部利益率；不能用分部營收替代利益率。"
+        },
+        {
+          "id": "cash_scaling",
+          "title": "成長能轉化為穩定 FCF 且避免稀釋",
+          "metric": "cash_dilution",
+          "thesis_status": "supported",
+          "thesis_label": "支持",
+          "impact": "not_applicable",
+          "impact_label": "不直接驗證",
+          "detail": "分部營收／利益資料不能直接驗證 FCF、稀釋、資本支出或每股價值。"
+        }
+      ],
+      "next_checks": [
+        "下一季先確認分部名稱與 basis_id 是否相同；不同即切斷趨勢。",
+        "核對主要成長驅動、分部占比與利益率是否連續兩期同向；單季變化不直接升降投資評等。"
+      ],
+      "fingerprint": "3507923548ce2ba5e871"
+    },
+    {
+      "ticker": "ONDS",
+      "name": "Ondas",
+      "period": "2026 Q2",
+      "period_end": "2026-06-30",
+      "basis_id": "revenue_type",
+      "basis": "營收類型（非可報導分部）",
+      "source_date": "2026-08-13",
+      "source_url": "https://ir.ondas.com/all-sec-filings/content/0001193125-26-349288/onds-20260630.htm",
+      "signal": "support",
+      "label": "分部趨勢提供支持",
+      "score": 3,
+      "alignment": "支持既有論點",
+      "conclusion": "分部趨勢提供支持；支持既有論點。分部證據分數 +3/8，只調整 SEC 證據權重，不直接改寫投資論點總狀態。",
+      "comparable": true,
+      "pending_review": false,
+      "latest_change_summary": "Product revenue → Development revenue；Development revenue 占比季增 +15.1pp 至 20.0%；Service revenue 占比季增 +9.6pp 至 28.2%。",
+      "events": [
+        {
+          "ticker": "ONDS",
+          "from_period": "2026 Q1",
+          "to_period": "2026 Q2",
+          "from_period_end": "2026-03-31",
+          "to_period_end": "2026-06-30",
+          "id": "ONDS:2026-06-30:driver_change:development",
+          "type": "driver_change",
+          "severity": "attention",
+          "comparable": true,
+          "label": "主要季增驅動更換",
+          "detail": "Product revenue → Development revenue。"
+        },
+        {
+          "ticker": "ONDS",
+          "from_period": "2026 Q1",
+          "to_period": "2026 Q2",
+          "from_period_end": "2026-03-31",
+          "to_period_end": "2026-06-30",
+          "id": "ONDS:2026-06-30:concentration_jump:development",
+          "type": "concentration_jump",
+          "severity": "warning",
+          "comparable": true,
+          "label": "單一項目占比明顯上升",
+          "detail": "Development revenue 占比季增 +15.1pp 至 20.0%。"
+        },
+        {
+          "ticker": "ONDS",
+          "from_period": "2026 Q1",
+          "to_period": "2026 Q2",
+          "from_period_end": "2026-03-31",
+          "to_period_end": "2026-06-30",
+          "id": "ONDS:2026-06-30:concentration_jump:service",
+          "type": "concentration_jump",
+          "severity": "warning",
+          "comparable": true,
+          "label": "單一項目占比明顯上升",
+          "detail": "Service revenue 占比季增 +9.6pp 至 28.2%。"
+        }
+      ],
+      "evidence": [
+        "2026 Q2 已收錄分部合計 QoQ +67.1%、YoY +1,235.4%。",
+        "主要季增驅動更換：Product revenue → Development revenue。",
+        "單一項目占比明顯上升：Development revenue 占比季增 +15.1pp 至 20.0%。",
+        "單一項目占比明顯上升：Service revenue 占比季增 +9.6pp 至 28.2%。"
+      ],
+      "linked_theses": [
+        {
+          "id": "autonomous_growth",
+          "title": "自主無人機與反無人機業務進入規模成長",
+          "metric": "revenue_growth",
+          "thesis_status": "supported",
+          "thesis_label": "支持",
+          "impact": "support",
+          "impact_label": "支持",
+          "detail": "已收錄分部合計 QoQ +67.1%、YoY +1,235.4%；只代表本表已收錄且同口徑項目。"
+        },
+        {
+          "id": "commercial_profitability",
+          "title": "商業化最終能轉化為營業獲利",
+          "metric": "operating_margin",
+          "thesis_status": "invalidated",
+          "thesis_label": "失效",
+          "impact": "monitor",
+          "impact_label": "持續觀察",
+          "detail": "本期分部表未提供可比較的分部利益率；不能用分部營收替代利益率。"
+        },
+        {
+          "id": "funding_per_share",
+          "title": "成長資金需求不會持續傷害每股價值",
+          "metric": "cash_dilution",
+          "thesis_status": "invalidated",
+          "thesis_label": "失效",
+          "impact": "not_applicable",
+          "impact_label": "不直接驗證",
+          "detail": "分部營收／利益資料不能直接驗證 FCF、稀釋、資本支出或每股價值。"
+        }
+      ],
+      "next_checks": [
+        "下一季先確認分部名稱與 basis_id 是否相同；不同即切斷趨勢。",
+        "核對主要成長驅動、分部占比與利益率是否連續兩期同向；單季變化不直接升降投資評等。"
+      ],
+      "fingerprint": "4c68b424d404d051fccc"
+    },
+    {
+      "ticker": "TSLA",
+      "name": "Tesla",
+      "period": "2026 Q2",
+      "period_end": "2026-06-30",
+      "basis_id": "revenue_categories",
+      "basis": "營收類別（非純可報導分部）",
+      "source_date": "2026-07-23",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026049213/exhibit991.htm",
+      "signal": "support",
+      "label": "分部趨勢提供支持",
+      "score": 5,
+      "alignment": "支持既有論點",
+      "conclusion": "分部趨勢提供支持；支持既有論點。分部證據分數 +5/8，只調整 SEC 證據權重，不直接改寫投資論點總狀態。",
+      "comparable": true,
+      "pending_review": false,
+      "latest_change_summary": "Services and other → Total automotive revenues。",
+      "events": [
+        {
+          "ticker": "TSLA",
+          "from_period": "2026 Q1",
+          "to_period": "2026 Q2",
+          "from_period_end": "2026-03-31",
+          "to_period_end": "2026-06-30",
+          "id": "TSLA:2026-06-30:driver_change:automotive",
+          "type": "driver_change",
+          "severity": "attention",
+          "comparable": true,
+          "label": "主要季增驅動更換",
+          "detail": "Services and other → Total automotive revenues。"
+        }
+      ],
+      "evidence": [
+        "2026 Q2 已收錄分部合計 QoQ +26.1%、YoY +25.5%。",
+        "主要季增驅動更換：Services and other → Total automotive revenues。"
+      ],
+      "linked_theses": [
+        {
+          "id": "ev_energy_growth",
+          "title": "車輛、儲能與軟體維持成長",
+          "metric": "revenue_growth",
+          "thesis_status": "supported",
+          "thesis_label": "支持",
+          "impact": "support",
+          "impact_label": "支持",
+          "detail": "已收錄分部合計 QoQ +26.1%、YoY +25.5%；只代表本表已收錄且同口徑項目。"
+        },
+        {
+          "id": "margin_recovery",
+          "title": "降價與新產品週期後毛利率能回升",
+          "metric": "gross_margin",
+          "thesis_status": "verify",
+          "thesis_label": "待驗證",
+          "impact": "monitor",
+          "impact_label": "持續觀察",
+          "detail": "本期分部表未提供可比較的分部利益率；不能用分部營收替代利益率。"
+        },
+        {
+          "id": "self_funded_options",
+          "title": "Robotaxi、AI 與產能投資可由自身現金支應",
+          "metric": "cash_dilution",
+          "thesis_status": "verify",
+          "thesis_label": "待驗證",
+          "impact": "not_applicable",
+          "impact_label": "不直接驗證",
+          "detail": "分部營收／利益資料不能直接驗證 FCF、稀釋、資本支出或每股價值。"
+        }
+      ],
+      "next_checks": [
+        "下一季先確認分部名稱與 basis_id 是否相同；不同即切斷趨勢。",
+        "核對主要成長驅動、分部占比與利益率是否連續兩期同向；單季變化不直接升降投資評等。"
+      ],
+      "fingerprint": "c988b29e6244a123d0a8"
+    },
+    {
+      "ticker": "GOOG",
+      "name": "Alphabet",
+      "period": "2026 Q2",
+      "period_end": "2026-06-30",
+      "basis_id": "reportable_segments",
+      "basis": "可報導分部",
+      "source_date": "2026-07-23",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/goog-20260630.htm",
+      "signal": "support",
+      "label": "分部趨勢提供支持",
+      "score": 3,
+      "alignment": "支持既有論點",
+      "conclusion": "分部趨勢提供支持；支持既有論點。分部證據分數 +3/8，只調整 SEC 證據權重，不直接改寫投資論點總狀態。",
+      "comparable": true,
+      "pending_review": false,
+      "latest_change_summary": "Google Cloud → Google Services。",
+      "events": [
+        {
+          "ticker": "GOOG",
+          "from_period": "2026 Q1",
+          "to_period": "2026 Q2",
+          "from_period_end": "2026-03-31",
+          "to_period_end": "2026-06-30",
+          "id": "GOOG:2026-06-30:driver_change:services",
+          "type": "driver_change",
+          "severity": "attention",
+          "comparable": true,
+          "label": "主要季增驅動更換",
+          "detail": "Google Cloud → Google Services。"
+        }
+      ],
+      "evidence": [
+        "2026 Q2 已收錄分部合計 QoQ +8.7%、YoY +24.0%。",
+        "主要季增驅動更換：Google Cloud → Google Services。"
+      ],
+      "linked_theses": [
+        {
+          "id": "search_cloud_ai",
+          "title": "搜尋、Cloud 與 AI 產品維持成長",
+          "metric": "revenue_growth",
+          "thesis_status": "supported",
+          "thesis_label": "支持",
+          "impact": "support",
+          "impact_label": "支持",
+          "detail": "已收錄分部合計 QoQ +8.7%、YoY +24.0%；只代表本表已收錄且同口徑項目。"
+        },
+        {
+          "id": "advertising_moat",
+          "title": "廣告與雲端組合維持高營業利益率",
+          "metric": "operating_margin",
+          "thesis_status": "supported",
+          "thesis_label": "支持",
+          "impact": "monitor",
+          "impact_label": "持續觀察",
+          "detail": "本期分部表未提供可比較的分部利益率；不能用分部營收替代利益率。"
+        },
+        {
+          "id": "cash_per_share",
+          "title": "高 FCF 與回購持續累積每股價值",
+          "metric": "cash_dilution",
+          "thesis_status": "verify",
+          "thesis_label": "待驗證",
+          "impact": "not_applicable",
+          "impact_label": "不直接驗證",
+          "detail": "分部營收／利益資料不能直接驗證 FCF、稀釋、資本支出或每股價值。"
+        }
+      ],
+      "next_checks": [
+        "下一季先確認分部名稱與 basis_id 是否相同；不同即切斷趨勢。",
+        "核對主要成長驅動、分部占比與利益率是否連續兩期同向；單季變化不直接升降投資評等。"
+      ],
+      "fingerprint": "cfac3b43703af1607bff"
+    },
+    {
+      "ticker": "COHR",
+      "name": "Coherent",
+      "period": "FY2026 Q4",
+      "period_end": "2026-06-30",
+      "basis_id": "new_reportable_segments",
+      "basis": "可報導分部（新口徑）",
+      "source_date": "2026-08-12",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/820318/000119312526346860/d128030dex991.htm",
+      "signal": "mixed",
+      "label": "分部訊號混合／未達門檻",
+      "score": 2,
+      "alignment": "支持既有論點",
+      "conclusion": "分部訊號混合／未達門檻；支持既有論點。分部證據分數 +2/8，只調整 SEC 證據權重，不直接改寫投資論點總狀態。",
+      "comparable": true,
+      "pending_review": false,
+      "latest_change_summary": "Datacenter & Communications 占合計季增 105.6%；高於 100% 代表其他項目合計衰退。",
+      "events": [
+        {
+          "ticker": "COHR",
+          "from_period": "FY2026 Q3",
+          "to_period": "FY2026 Q4",
+          "from_period_end": "2026-03-31",
+          "to_period_end": "2026-06-30",
+          "id": "COHR:2026-06-30:offsetting_growth:datacenter",
+          "type": "offsetting_growth",
+          "severity": "attention",
+          "comparable": true,
+          "label": "其他項目抵銷主要成長",
+          "detail": "Datacenter & Communications 占合計季增 105.6%；高於 100% 代表其他項目合計衰退。"
+        }
+      ],
+      "evidence": [
+        "FY2026 Q4 已收錄分部合計 QoQ +13.3%、YoY —。",
+        "其他項目抵銷主要成長：Datacenter & Communications 占合計季增 105.6%；高於 100% 代表其他項目合計衰退。"
+      ],
+      "linked_theses": [
+        {
+          "id": "ai_optics_growth",
+          "title": "AI 光通訊需求推動營收成長",
+          "metric": "revenue_growth",
+          "thesis_status": "supported",
+          "thesis_label": "支持",
+          "impact": "support",
+          "impact_label": "支持",
+          "detail": "已收錄分部合計 QoQ +13.3%、YoY —；只代表本表已收錄且同口徑項目。"
+        },
+        {
+          "id": "margin_recovery",
+          "title": "產品組合與整併綜效帶動毛利率改善",
+          "metric": "gross_margin",
+          "thesis_status": "supported",
+          "thesis_label": "支持",
+          "impact": "monitor",
+          "impact_label": "持續觀察",
+          "detail": "本期分部表未提供可比較的分部利益率；不能用分部營收替代利益率。"
+        },
+        {
+          "id": "cash_deleveraging",
+          "title": "獲利改善能轉化為 FCF 與每股價值",
+          "metric": "cash_dilution",
+          "thesis_status": "invalidated",
+          "thesis_label": "失效",
+          "impact": "not_applicable",
+          "impact_label": "不直接驗證",
+          "detail": "分部營收／利益資料不能直接驗證 FCF、稀釋、資本支出或每股價值。"
+        }
+      ],
+      "next_checks": [
+        "下一季先確認分部名稱與 basis_id 是否相同；不同即切斷趨勢。",
+        "核對主要成長驅動、分部占比與利益率是否連續兩期同向；單季變化不直接升降投資評等。"
+      ],
+      "fingerprint": "db344b2dc8f4b6e0db46"
+    },
+    {
+      "ticker": "MRVL",
+      "name": "Marvell",
+      "period": "FY2027 Q2",
+      "period_end": "2026-08-01",
+      "basis_id": "end_market",
+      "basis": "終端市場營收（非可報導分部）",
+      "source_date": "2026-08-27",
+      "source_url": "https://investor.marvell.com/news-events/press-releases/detail/1031/marvell-technology-inc-reports-second-quarter-of-fiscal-year-2027-financial-results",
+      "signal": "support",
+      "label": "分部趨勢提供支持",
+      "score": 4,
+      "alignment": "支持既有論點",
+      "conclusion": "分部趨勢提供支持；支持既有論點。分部證據分數 +4/8，只調整 SEC 證據權重，不直接改寫投資論點總狀態。",
+      "comparable": true,
+      "pending_review": false,
+      "latest_change_summary": "Data center 占合計季增 105.4%；高於 100% 代表其他項目合計衰退。",
+      "events": [
+        {
+          "ticker": "MRVL",
+          "from_period": "FY2027 Q1",
+          "to_period": "FY2027 Q2",
+          "from_period_end": "2026-05-02",
+          "to_period_end": "2026-08-01",
+          "id": "MRVL:2026-08-01:offsetting_growth:datacenter",
+          "type": "offsetting_growth",
+          "severity": "attention",
+          "comparable": true,
+          "label": "其他項目抵銷主要成長",
+          "detail": "Data center 占合計季增 105.4%；高於 100% 代表其他項目合計衰退。"
+        }
+      ],
+      "evidence": [
+        "FY2027 Q2 已收錄分部合計 QoQ +13.3%、YoY +36.5%。",
+        "其他項目抵銷主要成長：Data center 占合計季增 105.4%；高於 100% 代表其他項目合計衰退。"
+      ],
+      "linked_theses": [
+        {
+          "id": "data_center_growth",
+          "title": "資料中心與客製 AI 晶片維持成長",
+          "metric": "revenue_growth",
+          "thesis_status": "supported",
+          "thesis_label": "支持",
+          "impact": "support",
+          "impact_label": "支持",
+          "detail": "已收錄分部合計 QoQ +13.3%、YoY +36.5%；只代表本表已收錄且同口徑項目。"
+        },
+        {
+          "id": "mix_margin",
+          "title": "高價值資料中心組合維持毛利率",
+          "metric": "gross_margin",
+          "thesis_status": "supported",
+          "thesis_label": "支持",
+          "impact": "monitor",
+          "impact_label": "持續觀察",
+          "detail": "本期分部表未提供可比較的分部利益率；不能用分部營收替代利益率。"
+        },
+        {
+          "id": "cash_scaling",
+          "title": "AI 成長能轉化為正向 FCF",
+          "metric": "cash_dilution",
+          "thesis_status": "verify",
+          "thesis_label": "待驗證",
+          "impact": "not_applicable",
+          "impact_label": "不直接驗證",
+          "detail": "分部營收／利益資料不能直接驗證 FCF、稀釋、資本支出或每股價值。"
+        }
+      ],
+      "next_checks": [
+        "下一季先確認分部名稱與 basis_id 是否相同；不同即切斷趨勢。",
+        "核對主要成長驅動、分部占比與利益率是否連續兩期同向；單季變化不直接升降投資評等。"
+      ],
+      "fingerprint": "0ea946b0cc030b7b8a76"
+    },
+    {
+      "ticker": "INTC",
+      "name": "Intel",
+      "period": "2026 Q2",
+      "period_end": "2026-06-27",
+      "basis_id": "operating_segments_internal",
+      "basis": "營運分部；含內部交易與合併沖銷",
+      "source_date": "2026-07-24",
+      "source_url": "https://www.intc.com/filings-reports/quarterly-reports/content/0000050863-26-000157/0000050863-26-000157.pdf",
+      "signal": "support",
+      "label": "分部趨勢提供支持",
+      "score": 3,
+      "alignment": "支持既有論點",
+      "conclusion": "分部趨勢提供支持；支持既有論點。分部證據分數 +3/8，只調整 SEC 證據權重，不直接改寫投資論點總狀態。",
+      "comparable": true,
+      "pending_review": false,
+      "latest_change_summary": "Intel Foundry → DCAI。",
+      "events": [
+        {
+          "ticker": "INTC",
+          "from_period": "2026 Q1",
+          "to_period": "2026 Q2",
+          "from_period_end": "2026-03-28",
+          "to_period_end": "2026-06-27",
+          "id": "INTC:2026-06-27:driver_change:dcai",
+          "type": "driver_change",
+          "severity": "attention",
+          "comparable": true,
+          "label": "主要季增驅動更換",
+          "detail": "Intel Foundry → DCAI。"
+        }
+      ],
+      "evidence": [
+        "2026 Q2 已收錄分部合計 QoQ +18.8%、YoY —。",
+        "主要季增驅動更換：Intel Foundry → DCAI。"
+      ],
+      "linked_theses": [
+        {
+          "id": "turnaround_growth",
+          "title": "產品與晶圓代工轉型恢復營收成長",
+          "metric": "revenue_growth",
+          "thesis_status": "supported",
+          "thesis_label": "支持",
+          "impact": "support",
+          "impact_label": "支持",
+          "detail": "已收錄分部合計 QoQ +18.8%、YoY —；只代表本表已收錄且同口徑項目。"
+        },
+        {
+          "id": "manufacturing_recovery",
+          "title": "製程與產能利用率帶動毛利率復甦",
+          "metric": "gross_margin",
+          "thesis_status": "supported",
+          "thesis_label": "支持",
+          "impact": "monitor",
+          "impact_label": "持續觀察",
+          "detail": "本期分部表未提供可比較的分部利益率；不能用分部營收替代利益率。"
+        },
+        {
+          "id": "foundry_funding",
+          "title": "轉型資本支出不造成長期現金流失血",
+          "metric": "cash_dilution",
+          "thesis_status": "invalidated",
+          "thesis_label": "失效",
+          "impact": "not_applicable",
+          "impact_label": "不直接驗證",
+          "detail": "分部營收／利益資料不能直接驗證 FCF、稀釋、資本支出或每股價值。"
+        }
+      ],
+      "next_checks": [
+        "下一季先確認分部名稱與 basis_id 是否相同；不同即切斷趨勢。",
+        "核對主要成長驅動、分部占比與利益率是否連續兩期同向；單季變化不直接升降投資評等。"
+      ],
+      "fingerprint": "f17575578facd04fcf1f"
+    },
+    {
+      "ticker": "NOK",
+      "name": "Nokia",
+      "period": "2026 Q2",
+      "period_end": "2026-06-30",
+      "basis_id": "recast_2026_segments",
+      "basis": "營運分部（依 2026 停業單位重編）",
+      "source_date": "2026-07-23",
+      "source_url": "https://www.nokia.com/newsroom/nokia-corporation-report-for-q2-and-half-year-2026/",
+      "signal": "mixed",
+      "label": "分部訊號混合／未達門檻",
+      "score": 0,
+      "alignment": "對既有論點形成壓力",
+      "conclusion": "分部訊號混合／未達門檻；對既有論點形成壓力。分部證據分數 +0/8，只調整 SEC 證據權重，不直接改寫投資論點總狀態。",
+      "comparable": true,
+      "pending_review": false,
+      "latest_change_summary": "Portfolio Businesses 利益率季減 -3.0pp 至 0.0%。",
+      "events": [
+        {
+          "ticker": "NOK",
+          "from_period": "2026 Q1",
+          "to_period": "2026 Q2",
+          "from_period_end": "2026-03-31",
+          "to_period_end": "2026-06-30",
+          "id": "NOK:2026-06-30:margin_drop:portfolio",
+          "type": "margin_drop",
+          "severity": "warning",
+          "comparable": true,
+          "label": "分部利益率明顯下降",
+          "detail": "Portfolio Businesses 利益率季減 -3.0pp 至 0.0%。"
+        }
+      ],
+      "evidence": [
+        "2026 Q2 已收錄分部合計 QoQ +8.6%、YoY +8.2%。",
+        "分部利益率明顯下降：Portfolio Businesses 利益率季減 -3.0pp 至 0.0%。"
+      ],
+      "linked_theses": [
+        {
+          "id": "network_growth",
+          "title": "網路基礎設施與企業市場恢復成長",
+          "metric": "revenue_growth",
+          "thesis_status": "supported",
+          "thesis_label": "支持",
+          "impact": "support",
+          "impact_label": "支持",
+          "detail": "已收錄分部合計 QoQ +8.6%、YoY +8.2%；只代表本表已收錄且同口徑項目。"
+        },
+        {
+          "id": "portfolio_margin",
+          "title": "產品組合調整能維持正向營業利益率",
+          "metric": "operating_margin",
+          "thesis_status": "invalidated",
+          "thesis_label": "失效",
+          "impact": "pressure",
+          "impact_label": "形成壓力",
+          "detail": "分部利益率最大變化 +2.7pp、最小變化 -3.0pp。"
+        },
+        {
+          "id": "cash_shareholder",
+          "title": "現金流足以支撐研發與股東回報",
+          "metric": "cash_dilution",
+          "thesis_status": "verify",
+          "thesis_label": "待驗證",
+          "impact": "not_applicable",
+          "impact_label": "不直接驗證",
+          "detail": "分部營收／利益資料不能直接驗證 FCF、稀釋、資本支出或每股價值。"
+        }
+      ],
+      "next_checks": [
+        "下一季先確認分部名稱與 basis_id 是否相同；不同即切斷趨勢。",
+        "核對主要成長驅動、分部占比與利益率是否連續兩期同向；單季變化不直接升降投資評等。"
+      ],
+      "fingerprint": "e83cc3b5162319acc4c8"
+    }
+  ]
+}

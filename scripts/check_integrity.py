@@ -1996,6 +1996,81 @@ def c37():
     return not bad and not missing, f"資料問題：{bad or '無'}；缺自動化／畫面：{missing or '無'}"
 
 
+@check("C-38", "分部趨勢只連結可驗證論點且每日不重複列出")
+def c38():
+    data = load("segment_thesis_linkage.json")
+    dashboard = read("dashboard.html")
+    expected = {"NVDA", "TSM", "MSFT", "META", "AAPL", "AMZN", "ARM",
+                "ONDS", "TSLA", "GOOG", "COHR", "MRVL", "INTC", "NOK"}
+    companies = data.get("companies") or []
+    bad = []
+    if data.get("schema_version") != 1 or data.get("tracked_count") != 14:
+        bad.append("schema_version／追蹤家數錯誤")
+    if {row.get("ticker") for row in companies} != expected:
+        bad.append("公司範圍不是 14 家個股")
+    expected_counts = {
+        signal: sum(row.get("signal") == signal for row in companies)
+        for signal in ("support", "pressure", "mixed", "needs_review")
+    }
+    if data.get("counts") != expected_counts:
+        bad.append("訊號分類計數無法勾稽")
+    fingerprints = []
+    for company in companies:
+        ticker = company.get("ticker") or "未知"
+        if not -8 <= int(company.get("score", 99)) <= 8:
+            bad.append(f"{ticker} 分部證據分數超出 ±8")
+        if not company.get("fingerprint") or not company.get("source_url", "").startswith("https://"):
+            bad.append(f"{ticker} 缺 fingerprint 或官方來源")
+        fingerprints.append(company.get("fingerprint"))
+        linked = company.get("linked_theses") or []
+        if len(linked) != 3:
+            bad.append(f"{ticker} 不是三項論點")
+        cash = next((row for row in linked if row.get("metric") == "cash_dilution"), None)
+        if not cash or cash.get("impact") != "not_applicable":
+            bad.append(f"{ticker} 錯用分部資料判斷 FCF／稀釋")
+        if (company.get("pending_review") or not company.get("comparable")) and company.get("score") != 0:
+            bad.append(f"{ticker} 待覆核／跨口徑仍改變分數")
+    if len(fingerprints) != len(set(fingerprints)):
+        bad.append("公司 linkage fingerprint 重複")
+
+    with tempfile.TemporaryDirectory() as temp_dir:
+        temp = pathlib.Path(temp_dir)
+        result = subprocess.run([
+            sys.executable, str(REPO_ROOT / "scripts/build_segment_thesis_linkage.py"),
+            "--output", str(temp / "linkage.json"), "--markdown", str(temp / "linkage.md"),
+        ], cwd=REPO_ROOT, text=True, capture_output=True, check=False)
+        if result.returncode:
+            bad.append(f"分部論點聯動重建失敗：{result.stderr.strip() or result.stdout.strip()}")
+        elif json.loads((temp / "linkage.json").read_text()) != data:
+            bad.append("分部論點聯動無法由現有資料確定性重建")
+        elif (temp / "linkage.md").read_text() != read("60_SEC_Filing_Radar/Segment_Thesis_Linkage.md"):
+            bad.append("分部論點聯動筆記無法確定性重建")
+
+    markers = {
+        "dashboard": (dashboard, (
+            "segment_thesis_linkage.json", "segmentThesisLinkage", "分部趨勢 × 投資論點",
+            "分部同口徑趨勢最多 ±8", "不能代替 FCF、稀釋或估值",
+        )),
+        "候選產生器": (read("scripts/generate_sec_daily_change_candidates.py"), (
+            "segment_thesis_candidates", "segment_thesis_fingerprint", "same_reviewed_period",
+            "同一 fingerprint", "segment_thesis_change",
+        )),
+        "價格 workflow": (read(".github/workflows/update-prices.yml"), (
+            "build_segment_thesis_linkage.py", "segment_thesis_linkage", "Segment_Thesis_Linkage",
+        )),
+        "SEC workflow": (read(".github/workflows/sec-filing-alerts.yml"), (
+            "build_segment_thesis_linkage.py", "segment_thesis_linkage.json", "Segment_Thesis_Linkage.md",
+        )),
+        "維護 SOP": (read("00_Meta/Sec_kb_資料維護SOP.md"), (
+            "build_segment_thesis_linkage.py", "linkage fingerprint", "不得用分部表判斷 FCF",
+        )),
+        "00_Home": (read("00_Home.md"), ("Segment_Thesis_Linkage",)),
+    }
+    missing = [f"{label}:{marker}" for label, (text, required) in markers.items()
+               for marker in required if marker not in text]
+    return not bad and not missing, f"資料問題：{bad or '無'}；缺自動化／畫面：{missing or '無'}"
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--quiet", action="store_true", help="只印出失敗項")

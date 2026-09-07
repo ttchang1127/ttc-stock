@@ -41,6 +41,8 @@ SEC 申報雷達另由 `.github/workflows/sec-filing-alerts.yml` 於台北時間
 Form 144＋3／4／5、併購與 SEC 執法／停牌雷達。完整 13F 另以
 `.github/workflows/sec-13f-radar.yml` 每月檢查 SEC 新季度資料集。分部資料另由每日兩條
 管線偵測新季度／Exhibit 99.1；完整同口徑表會安全滾入最近 8 期，無法勾稽者列入待覆核。
+通過勾稽的分部趨勢會再連動投資論點與單公司 SEC 綜合判讀；每日候選只列 fingerprint
+相較最近 AI 覆核真正改變的項目，同一分部結論不重複提醒。
 
 ---
 

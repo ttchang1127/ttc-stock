@@ -2987,7 +2987,7 @@
         </nav>
 
         <section id="secCompanyBrief" class="sec-company-brief" aria-live="polite" aria-label="單公司 SEC 綜合判讀">
-          <p class="sec-company-brief-placeholder">先點選上方一家公司，即可查看財務、重要申報、內部人交易、稀釋、大股東與會計／執法的綜合判讀。</p>
+          <p class="sec-company-brief-placeholder">先點選上方一家公司，即可查看財務、重要申報、內部人交易、稀釋、大股東、會計／執法，以及分部趨勢與投資論點的綜合判讀。</p>
         </section>
 
         <section id="secThesisTracker" class="sec-thesis-tracker" aria-live="polite" aria-label="投資論點與失效條件追蹤卡">
@@ -4461,12 +4461,15 @@
           fetch('segment_driver_update_candidates.json', { cache: 'no-cache' })
             .then(r => { if (!r.ok) throw new Error(`分部自動更新狀態 HTTP ${r.status}`); return r.json(); })
             .catch(error => { console.warn('segment_driver_update_candidates.json 載入失敗', error); return null; }),
+          fetch('segment_thesis_linkage.json', { cache: 'no-cache' })
+            .then(r => { if (!r.ok) throw new Error(`分部論點聯動 HTTP ${r.status}`); return r.json(); })
+            .catch(error => { console.warn('segment_thesis_linkage.json 載入失敗', error); return null; }),
           loadPortfolioHoldings(),
           fetch('valuation.json', { cache: 'no-cache' })
             .then(r => { if (!r.ok) throw new Error(`估值資料 HTTP ${r.status}`); return r.json(); })
             .catch(error => { console.warn('valuation.json 載入失敗，跨公司估值排名將顯示缺值', error); return null; }),
-        ]).then(([alerts, details, quarterlyFinancials, advanced, thirteenF, textChanges, thesisTracking, thesisStatus, exhibit991, earningsCalls, editorial, changeCandidates, candidateReviews, candidateCalibration, positionImpact, eventCalendar, earningsVerification, earningsVerificationHistory, segmentDrivers, segmentDriverHistory, segmentDriverUpdates, holdingsPayload, valuation]) => {
-          secDailyData = { alerts, details, quarterlyFinancials, advanced, thirteenF, textChanges, thesisTracking, thesisStatus, exhibit991, earningsCalls, editorial, changeCandidates, candidateReviews, candidateCalibration, positionImpact, eventCalendar, earningsVerification, earningsVerificationHistory, segmentDrivers, segmentDriverHistory, segmentDriverUpdates, holdingsPayload, valuation };
+        ]).then(([alerts, details, quarterlyFinancials, advanced, thirteenF, textChanges, thesisTracking, thesisStatus, exhibit991, earningsCalls, editorial, changeCandidates, candidateReviews, candidateCalibration, positionImpact, eventCalendar, earningsVerification, earningsVerificationHistory, segmentDrivers, segmentDriverHistory, segmentDriverUpdates, segmentThesisLinkage, holdingsPayload, valuation]) => {
+          secDailyData = { alerts, details, quarterlyFinancials, advanced, thirteenF, textChanges, thesisTracking, thesisStatus, exhibit991, earningsCalls, editorial, changeCandidates, candidateReviews, candidateCalibration, positionImpact, eventCalendar, earningsVerification, earningsVerificationHistory, segmentDrivers, segmentDriverHistory, segmentDriverUpdates, segmentThesisLinkage, holdingsPayload, valuation };
           renderSecDaily();
         }).catch(error => {
           secDailyPromise = null;
@@ -6261,7 +6264,7 @@
       const brief = document.getElementById('secCompanyBrief');
       if (!brief || !secDailyData) return;
       if (!secCoreTicker) {
-        brief.innerHTML = '<p class="sec-company-brief-placeholder">先點選上方一家公司，即可查看財務、重要申報、內部人交易、稀釋、大股東與會計／執法的綜合判讀。</p>';
+        brief.innerHTML = '<p class="sec-company-brief-placeholder">先點選上方一家公司，即可查看財務、重要申報、內部人交易、稀釋、大股東、會計／執法，以及分部趨勢與投資論點的綜合判讀。</p>';
         return;
       }
 
@@ -6310,6 +6313,7 @@
       const freeCashFlow = secMetricValue(latestPeriod, 'free_cash_flow');
       const dilutedShares = secMetricValue(latestPeriod, 'diluted_shares');
       const dilutedSharesYoy = secDelta(dilutedShares, secMetricValue(yearAgo, 'diluted_shares'));
+      const segmentLink = (secDailyData.segmentThesisLinkage?.companies || []).find(row => row.ticker === ticker);
 
       const ownership = (advanced?.ownership_timeline || []).filter(row => row.ticker === dataTicker)
         .sort((a, b) => String(b.filing_date).localeCompare(String(a.filing_date)))[0];
@@ -6326,6 +6330,8 @@
       if (dilutionAlerts.length) priorityReasons.push(`${dilutionAlerts.length} 份文件涉及股票、ATM、可轉債、架上註冊或併購股票對價`);
       if (recentOwnership && ownership.importance === 'high') priorityReasons.push('近 90 日有重大 13D／13G 持股異動');
       if (enforcementRows.length) priorityReasons.push(`SEC 執法／停牌來源命中 ${enforcementRows.length} 項`);
+      if (segmentLink?.signal === 'pressure') priorityReasons.push('最新分部趨勢對既有投資論點形成壓力');
+      if (segmentLink?.signal === 'needs_review') priorityReasons.push('最新分部表口徑或數字待覆核');
       const hasRecentUpdates = companyEvents.length > 0 || recentOwnership;
       const priority = priorityReasons.length
         ? { label: '🔴 需優先閱讀', css: 'urgent' }
@@ -6374,6 +6380,15 @@
       const reviewNote = enforcementRows.length
         ? `執法／停牌命中 ${enforcementRows.length} 項，最新 ${enforcementDate || '日期未辨識'}；先核對法律實體與程序階段。`
         : '執法／停牌雷達目前 0 項；0 不代表不存在未公開調查或其他機關案件。會計信件數也不等於違規次數。';
+      const segmentFact = segmentLink
+        ? `${segmentLink.period}｜${segmentLink.label}｜分部證據 ${Number(segmentLink.score) >= 0 ? '+' : ''}${formatSecNumber(Number(segmentLink.score))}/8`
+        : '分部與投資論點聯動資料尚未載入';
+      const segmentThesisText = segmentLink
+        ? (segmentLink.linked_theses || []).map(row => `${row.title}：${row.impact_label}`).join('；')
+        : '目前無法對照投資論點。';
+      const segmentNote = segmentLink
+        ? `${segmentLink.latest_change_summary || '本期沒有新增重大分部轉折。'} 對照結果：${segmentThesisText}。`
+        : '缺少已核對的同口徑分部歷史時，不以公司總營收代替。';
 
       const positiveEvidence = [];
       const riskEvidence = [];
@@ -6506,6 +6521,14 @@
         : (activeAccountingReview ? `近一年有 ${latestAccounting.form}，代表公開審閱往來，需成對閱讀意見與回覆；不等於已認定違規。` : '目前無公開執法命中；只能解讀為公開資料未命中，不能證明不存在調查。');
       if (enforcementRows.length) riskEvidence.push(`公開執法／停牌命中 ${enforcementRows.length} 項`);
 
+      const segmentScore = Number.isFinite(Number(segmentLink?.score)) ? Number(segmentLink.score) : 0;
+      const segmentSignal = segmentLink?.signal === 'support' ? 'support'
+        : (segmentLink?.signal === 'pressure' ? 'risk'
+          : (segmentLink?.signal === 'needs_review' || !segmentLink ? 'insufficient' : 'observe'));
+      const segmentInterpretation = segmentLink?.conclusion || '資料不足，不調整既有投資論點或 SEC 證據分數。';
+      if (segmentLink?.signal === 'support') positiveEvidence.push(`分部趨勢：${segmentLink.alignment}`);
+      if (segmentLink?.signal === 'pressure') riskEvidence.push(`分部趨勢：${segmentLink.alignment}`);
+
       const dimensions = [
         { id: 'financial', signal: financialSignal, label: financialSignal === 'support' ? '支持' : (financialSignal === 'risk' ? '風險' : (financialSignal === 'insufficient' ? '資料不足' : '觀察')), text: financialInterpretation, score: financialScore },
         { id: 'filing', signal: filingSignal, label: filingSignal === 'risk' ? '風險' : '待消化', text: filingInterpretation, score: filingScore },
@@ -6513,6 +6536,7 @@
         { id: 'dilution', signal: dilutionSignal, label: dilutionSignal === 'risk' ? '風險' : '觀察', text: dilutionInterpretation, score: dilutionScore },
         { id: 'ownership', signal: ownershipSignal, label: ownershipSignal === 'support' ? '支持' : (ownershipSignal === 'risk' ? '風險' : (ownershipSignal === 'insufficient' ? '資料不足' : '觀察')), text: ownershipInterpretation, score: ownershipScore },
         { id: 'review', signal: reviewSignal, label: reviewSignal === 'risk' ? '高權重風險' : '觀察', text: reviewInterpretation, score: reviewScore },
+        { id: 'segment', signal: segmentSignal, label: segmentSignal === 'support' ? '支持' : (segmentSignal === 'risk' ? '風險' : (segmentSignal === 'insufficient' ? '待覆核' : '混合')), text: segmentInterpretation, score: segmentScore },
       ];
       const evidenceScore = Math.max(0, Math.min(100, 50 + dimensions.reduce((sum, item) => sum + item.score, 0)));
       const assessment = evidenceScore >= 70
@@ -6524,14 +6548,15 @@
             : { label: '高風險', css: 'high-risk', action: '已出現高權重或多項負向證據；在風險解除前，不宜只因價格波動增加曝險，應先核對原文與後續處置。' }));
       const assessableDimensions = dimensions.filter(item => item.signal !== 'insufficient').length;
       const ambiguousImportant = importantFilings.some(event => ['6-K', '8-K'].includes(event.form) && (!event.items_summary || event.items_summary === '未提供 Item 分類'));
-      const confidence = assessableDimensions >= 5 && financialKnown === 3 && !ambiguousImportant
-        ? '高' : (assessableDimensions >= 4 ? '中' : '低');
+      const confidence = assessableDimensions >= 6 && financialKnown === 3 && !ambiguousImportant
+        ? '高' : (assessableDimensions >= 5 ? '中' : '低');
       const positiveSummary = positiveEvidence.length ? positiveEvidence.slice(0, 3).join('；') : '目前沒有足夠的明確正向方向證據。';
-      const riskSummary = riskEvidence.length ? riskEvidence.slice(0, 3).join('；') : '目前六構面未觸發明確負向門檻，但不代表沒有其他風險。';
+      const riskSummary = riskEvidence.length ? riskEvidence.slice(0, 3).join('；') : '目前七構面未觸發明確負向門檻，但不代表沒有其他風險。';
       const nextChecks = [
         financialScore >= 0 ? '若下一季營收轉負成長、營業利益率明顯惡化或 FCF 轉負，結論會下修。' : '若營收恢復正成長、利益率止跌且 FCF 轉正，結論才有上修依據。',
         directDilution.length || convertibleDilution.length || actualDilutionScore < 0 ? '追蹤下一季稀釋股數 YoY 與募資實際發行／轉股量；增幅收斂或繼續擴大會改變風險權重。' : '若新增 ATM、股票發行或可轉債文件，需立即重估稀釋風險。',
         enforcementRows.length ? '追蹤執法案件的指控、和解或結案結果；程序狀態改變會直接影響風險權重。' : '若出現非 10b5-1 集中賣出、重大 13D／13G 減持或公開執法命中，結論會下修。',
+        segmentLink?.next_checks?.[1] || '下一季核對主要成長驅動、分部占比與利益率；只有同口徑新證據才調整分部權重。',
       ];
       const dimensionById = Object.fromEntries(dimensions.map(item => [item.id, item]));
       const interpretation = id => {
@@ -6549,7 +6574,7 @@
           <div class="sec-company-assessment-score ${assessment.css}"><strong>${formatSecNumber(evidenceScore)}</strong><span>${assessment.label}</span><small>SEC 證據分數／100</small></div>
           <div class="sec-company-assessment-body">
             <div class="sec-company-assessment-action"><strong>目前建議動作：</strong>${escapeSec(assessment.action)}</div>
-            <div class="sec-company-assessment-meta">判讀信心：${escapeSec(confidence)}｜可判讀 ${assessableDimensions}/6 構面｜分數越高代表已知 SEC／財務證據越偏正向，不代表預期報酬；不含股價估值、總體環境或個人風險承受度。</div>
+            <div class="sec-company-assessment-meta">判讀信心：${escapeSec(confidence)}｜可判讀 ${assessableDimensions}/7 構面｜分數越高代表已知 SEC／財務／分部證據越偏正向，不代表預期報酬；不含股價估值、總體環境或個人風險承受度。</div>
             <div class="sec-company-evidence-columns">
               <div class="sec-company-evidence-box positive"><strong>支持證據</strong>${escapeSec(positiveSummary)}</div>
               <div class="sec-company-evidence-box risk"><strong>風險證據</strong>${escapeSec(riskSummary)}</div>
@@ -6563,10 +6588,11 @@
           <article class="sec-company-brief-card"><h4>④ 募資與稀釋</h4><div class="sec-company-brief-fact">${escapeSec(dilutionFact)}</div><p class="sec-company-brief-note">${escapeSec(dilutionNote)} ${sourceLink(latestOffering?.event?.url, '募資原文')}</p>${interpretation('dilution')}</article>
           <article class="sec-company-brief-card"><h4>⑤ 大股東最新狀態</h4><div class="sec-company-brief-fact">${escapeSec(ownerFact)}</div><p class="sec-company-brief-note">${escapeSec(ownerNote)} ${sourceLink(ownership?.url, '13D／13G 原文')}</p>${interpretation('ownership')}</article>
           <article class="sec-company-brief-card"><h4>⑥ 會計審閱／執法</h4><div class="sec-company-brief-fact">${escapeSec(reviewFact)}</div><p class="sec-company-brief-note">${escapeSec(reviewNote)} ${sourceLink(enforcementUrl || latestAccounting?.url, '核對原文')}</p>${interpretation('review')}</article>
+          <article class="sec-company-brief-card"><h4>⑦ 分部趨勢 × 投資論點</h4><div class="sec-company-brief-fact">${escapeSec(segmentFact)}</div><p class="sec-company-brief-note">${escapeSec(segmentNote)} ${sourceLink(segmentLink?.source_url, '分部表原文')}</p>${interpretation('segment')}</article>
         </div>
         <div class="sec-company-next-check"><strong>什麼會改變結論：</strong>${nextChecks.map(item => `・${escapeSec(item)}`).join('<br>')}</div>
         <div class="sec-company-brief-conclusion"><strong>判斷邊界：</strong>這是依現有 SEC 官方申報與季度財務數字產生的證據式判讀，不是買進／賣出指令。它刻意不把「沒有新申報」、單筆內部人交易或單一大股東變動當成完整投資結論。</div>
-        <p class="sec-company-brief-method">計分基準 50 分：財務連續性最多 ±25；Form 4 最多 +6／-4，10b5-1 賣出降權；募資文件與實際稀釋股數 YoY 合計最多 -15；180 日內 13D／13G 增減最多 ±5；延遲申報 -6；公開執法／停牌 -20。重要文件本身只提高閱讀優先度，不預設多空。分數是可重算的證據尺度，不是目標價或投資評等。</p>`;
+        <p class="sec-company-brief-method">計分基準 50 分：財務連續性最多 ±25；分部同口徑趨勢最多 ±8；Form 4 最多 +6／-4，10b5-1 賣出降權；募資文件與實際稀釋股數 YoY 合計最多 -15；180 日內 13D／13G 增減最多 ±5；延遲申報 -6；公開執法／停牌 -20。分部資料只驗證營收與已揭露利益率，不能代替 FCF、稀釋或估值。重要文件本身只提高閱讀優先度，不預設多空。分數是可重算的證據尺度，不是目標價或投資評等。</p>`;
     }
 
     function renderSecThesisTracker() {

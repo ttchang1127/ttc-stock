@@ -76,6 +76,7 @@ tags:
 - 🧭 **[[Segment_Driver_Validation|分部營運與成長驅動驗證（成長貢獻、集中度與拖累）]]**
 - 📈 **[[Segment_Driver_History|分部成長驅動歷史與轉折通知（4～8 期、口徑中斷保護）]]**
 - 🔄 **[[Segment_Driver_Update_Candidates|分部資料自動更新候選（每日偵測、安全滾動 8 季）]]**
+- 🧩 **[[Segment_Thesis_Linkage|分部趨勢與投資論點聯動（只列新增變化）]]**
 - 📥 **[[Periodic_Filing_Ingest|10-Q／8-K／6-K 原文筆記與安全分段狀態]]**
 - 📊 **[[Exhibit_991_Earnings_Radar|8-K Exhibit 99.1 財報分析卡雷達]]**
 - 🎙️ **[[Earnings_Call_Radar|官方 Earnings Call／Prepared Remarks 雷達]]**

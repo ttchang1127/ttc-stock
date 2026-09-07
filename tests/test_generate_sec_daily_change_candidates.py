@@ -108,14 +108,42 @@ class DailyChangeCandidateTests(unittest.TestCase):
         quarterly = {"generated_at": "2026-09-01T00:00:00+00:00", "companies": {}}
         thesis = {"updated_at": "2026-09-01T00:00:00+00:00", "companies": {}, "change_log": []}
         first = MODULE.build_payload({**empty, "events": []}, {}, {**empty, "insiders": []},
-                                     quarterly, thesis, self.editorial)
+                                     quarterly, thesis, {**empty, "companies": []}, self.editorial)
         second = MODULE.build_payload({**empty, "events": []}, {}, {**empty, "insiders": []},
-                                      quarterly, thesis, self.editorial)
+                                      quarterly, thesis, {**empty, "companies": []}, self.editorial)
         self.assertEqual(first, second)
         self.assertEqual(first["status"], "no_new_candidates")
         markdown = MODULE.render_markdown(first)
         self.assertIn("待 AI 覆核候選", markdown)
         self.assertIn("不是最終判讀", markdown)
+
+    def test_segment_linkage_only_surfaces_a_new_fingerprint(self):
+        current = {
+            "updated_at": "2026-09-02T00:00:00+00:00",
+            "companies": [{
+                "ticker": "ARM", "fingerprint": "new-segment", "period": "FY2027 Q2",
+                "period_end": "2026-09-30", "source_date": "2026-10-28",
+                "source_url": "https://investors.arm.com/official", "signal": "pressure",
+                "label": "分部趨勢形成壓力", "score": -5, "pending_review": False,
+                "conclusion": "分部成長轉弱。", "evidence": ["QoQ 轉負。"],
+                "linked_theses": [{"title": "授權與版稅成長", "impact": "pressure",
+                                    "impact_label": "形成壓力", "detail": "QoQ -13%。"}],
+            }],
+        }
+        rows = MODULE.segment_thesis_candidates(current, self.editorial)
+        self.assertEqual(len(rows), 1)
+        self.assertEqual(rows[0]["type"], "risk")
+        self.assertEqual(rows[0]["rule_key"], "segment_thesis_change")
+        self.editorial["companies"][0]["coverage"]["segment_thesis_fingerprint"] = "new-segment"
+        self.assertEqual(MODULE.segment_thesis_candidates(current, self.editorial), [])
+
+    def test_segment_linkage_migration_baselines_same_reviewed_period(self):
+        self.editorial["companies"][0]["coverage"]["quarterly_key"] = "x|2026-06-30|y"
+        current = {"updated_at": "2026-09-02", "companies": [{
+            "ticker": "ARM", "fingerprint": "first-schema-value", "period_end": "2026-06-30",
+            "pending_review": False,
+        }]}
+        self.assertEqual(MODULE.segment_thesis_candidates(current, self.editorial), [])
 
 
 if __name__ == "__main__":

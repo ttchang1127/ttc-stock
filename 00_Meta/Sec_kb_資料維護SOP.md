@@ -211,6 +211,8 @@ python3 scripts/check_integrity.py --quiet
 
 **分部資料自動更新與滾動 8 季**由 `scripts/sync_segment_driver_history.py` 串接 `quarterly_financials.json`、已解析的 `exhibit_991_analysis.json`、人工核對的最新單期 `segment_driver_inputs.json` 與 `segment_driver_sync_config.json` 白名單。新季度或 Exhibit 99.1 會先形成 `segment_driver_update_candidates.json` 與 `60_SEC_Filing_Radar/Segment_Driver_Update_Candidates.md`。只有期末日、來源日期、HTTPS 官方來源、`basis_id` 對應、金額／占比型態、完整項目名稱及數值全部通過時，才把單期資料寫入 `segment_driver_history_inputs.json` 並由舊到新保留 8 期。新口徑、新項目、年度表、缺值或日期無法勾稽一律標成「待覆核」並建立 GitHub Issue；不得用總營收或成長率猜分部金額。`.github/workflows/update-prices.yml` 在季度 XBRL／IR 更新後執行，`.github/workflows/sec-filing-alerts.yml` 在每日 SEC 雷達後再檢查一次。
 
+**分部趨勢與投資論點聯動**由 `scripts/build_segment_thesis_linkage.py` 讀取 `segment_driver_history.json`、`segment_driver_update_candidates.json` 與 `investment_thesis_status.json`，產生 `segment_thesis_linkage.json` 與 `60_SEC_Filing_Radar/Segment_Thesis_Linkage.md`。分部證據分數限制在 -8～+8，只以同口徑 QoQ／YoY，以及既定的降速、季增轉負、利益率下降、集中上升與抵銷成長事件調整「單公司 SEC 綜合判讀」權重。分部營收只能連結營收成長論點；有正式分部利益才可連結毛利率／營業利益率論點；不得用分部表判斷 FCF、稀釋、估值或股價。新口徑或待覆核資料分數固定為 0，不改變既有論點。`generate_sec_daily_change_candidates.py` 只在 linkage fingerprint 相較最近 AI 覆核基準改變時建立候選；同一季度、同一 fingerprint 不重複列出，首次導入若該季度已被 AI 閱讀則只建立靜默基準。
+
 維護原則是**不跨口徑**計算；一旦 `basis_id` 改變，該期只能作為新基準。
 
 手動重建與驗證：
@@ -642,6 +644,7 @@ git fetch --dry-run origin main
 | `build_segment_driver_validation.py` | 由官方分部／營收來源表計算 YoY、成長貢獻、利益率與 HHI 集中度；不同揭露口徑分開標示，缺前期不反推 |
 | `build_segment_driver_history.py` | 保留 14 家個股最近 4～8 期分部歷史，切斷不同 `basis_id`，偵測最新季度的驅動更換、降速、集中與利益率轉折並避免重複通知 |
 | `sync_segment_driver_history.py` | 每日偵測新季度／Exhibit 99.1；只有完整同口徑官方分部表通過白名單才自動滾入並保留 8 期，其餘建立待覆核候選與通知 |
+| `build_segment_thesis_linkage.py` | 把最新同口徑分部轉折連結至營收／利益率投資論點，輸出 ±8 分證據權重；FCF、稀釋、估值與股價明確不適用 |
 | `configure_local_git.py` | 清除 `.git/refs` 內 0-byte Finder `Icon\r` 非法 ref，並設定 `fetch.hideRefs=refs/codex`，避免外接磁碟上的 macOS 圖示 metadata 阻斷 fetch／pull |
 | `sec_specialized_radars.py` | 產生最新 10-Q 到件表、解析 Form 4 Ownership XML、依募資文件內文判別 ATM／股權／可轉債／一般債券／架上註冊 |
 | `sec_advanced_radars.py` | 產生財報附註／附件、UPLOAD／CORRESP、13D／13G、DEF 14A、Form 144＋3／4／5、併購與 SEC 執法／停牌雷達；結果依 accession 快取 |
