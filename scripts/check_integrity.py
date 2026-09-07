@@ -1905,7 +1905,7 @@ def c36():
         )),
         "dashboard": (dashboard, (
             "segment_driver_history.json", "renderSecSegmentDriverHistory",
-            "四季分部趨勢與轉折通知", "口徑中斷", "初次回補只建立基準",
+            "滾動 8 季分部趨勢與轉折通知", "口徑中斷", "初次回補只建立基準",
         )),
         "SEC workflow": (read(".github/workflows/sec-filing-alerts.yml"), (
             "id: segment_driver", "steps.segment_driver.outputs.notify_count",
@@ -1918,6 +1918,78 @@ def c36():
             "build_segment_driver_history.py", "不跨口徑", "初次回補只建立比較基準",
         )),
         "00_Home": (read("00_Home.md"), ("Segment_Driver_History",)),
+    }
+    missing = [f"{label}:{marker}" for label, (text, required) in markers.items()
+               for marker in required if marker not in text]
+    return not bad and not missing, f"資料問題：{bad or '無'}；缺自動化／畫面：{missing or '無'}"
+
+
+@check("C-37", "分部新季度只在完整同口徑時自動滾入八期")
+def c37():
+    data = load("segment_driver_update_candidates.json")
+    config = load("segment_driver_sync_config.json")
+    history = load("segment_driver_history_inputs.json")
+    dashboard = read("dashboard.html")
+    expected = {"NVDA", "TSM", "MSFT", "META", "AAPL", "AMZN", "ARM",
+                "ONDS", "TSLA", "GOOG", "COHR", "MRVL", "INTC", "NOK"}
+    bad = []
+    companies = data.get("companies") or []
+    if data.get("schema_version") != 1 or data.get("tracked_count") != 14:
+        bad.append("schema_version／追蹤家數錯誤")
+    if {row.get("ticker") for row in companies} != expected:
+        bad.append("候選公司範圍不是 14 家個股")
+    if set((config.get("companies") or {}).keys()) != expected:
+        bad.append("同步白名單公司範圍錯誤")
+    if data.get("pending_count") != sum(row.get("status") == "pending_review" for row in companies):
+        bad.append("待覆核家數無法勾稽")
+    for row in companies:
+        if row.get("status") not in {"up_to_date", "auto_synced", "pending_review"}:
+            bad.append(f"{row.get('ticker')} 狀態不合法")
+        if not 4 <= int(row.get("period_count", 0)) <= 8:
+            bad.append(f"{row.get('ticker')} 期數不是 4～8")
+        if row.get("status") == "pending_review" and not row.get("reasons"):
+            bad.append(f"{row.get('ticker')} 待覆核但無原因")
+    for ticker, company in history.get("companies", {}).items():
+        observations = company.get("observations") or []
+        if len(observations) > 8:
+            bad.append(f"{ticker} 超過 8 期")
+        for row in observations:
+            if row.get("sync_origin") and row.get("sync_origin") != "verified_segment_driver_input":
+                bad.append(f"{ticker}:{row.get('period')} 自動寫入來源標記錯誤")
+
+    with tempfile.TemporaryDirectory() as temp_dir:
+        temp = pathlib.Path(temp_dir)
+        temp_history = temp / "history-input.json"
+        temp_history.write_text(json.dumps(history, ensure_ascii=False, indent=2) + "\n")
+        result = subprocess.run([
+            sys.executable, str(REPO_ROOT / "scripts/sync_segment_driver_history.py"),
+            "--history", str(temp_history), "--output", str(temp / "candidates.json"),
+            "--markdown", str(temp / "candidates.md"),
+        ], cwd=REPO_ROOT, text=True, capture_output=True, check=False)
+        if result.returncode:
+            bad.append(f"分部同步重建失敗：{result.stderr.strip() or result.stdout.strip()}")
+        elif json.loads((temp / "candidates.json").read_text()) != data:
+            bad.append("分部同步候選無法確定性重建")
+        elif (temp / "candidates.md").read_text() != read("60_SEC_Filing_Radar/Segment_Driver_Update_Candidates.md"):
+            bad.append("分部同步筆記無法確定性重建")
+        elif json.loads(temp_history.read_text()) != history:
+            bad.append("無新季度時仍改寫分部歷史輸入")
+
+    markers = {
+        "dashboard": (dashboard, (
+            "segment_driver_update_candidates.json", "segmentDriverUpdates", "新一期待覆核",
+            "每日監看新 10-Q／10-K／6-K", "不會猜值或跨口徑接續",
+        )),
+        "價格 workflow": (read(".github/workflows/update-prices.yml"), (
+            "sync_segment_driver_history.py", "segment_driver_update_candidates", "Segment_Driver_Update_Candidates",
+        )),
+        "SEC workflow": (read(".github/workflows/sec-filing-alerts.yml"), (
+            "id: segment_sync", "steps.segment_sync.outputs.notify_count", "segment_driver_history_inputs.json",
+        )),
+        "維護 SOP": (read("00_Meta/Sec_kb_資料維護SOP.md"), (
+            "sync_segment_driver_history.py", "完整同口徑官方分部表", "待覆核",
+        )),
+        "00_Home": (read("00_Home.md"), ("Segment_Driver_Update_Candidates",)),
     }
     missing = [f"{label}:{marker}" for label, (text, required) in markers.items()
                for marker in required if marker not in text]

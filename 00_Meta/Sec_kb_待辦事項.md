@@ -39,7 +39,8 @@ python3 scripts/build_reports.py
 SEC 申報雷達另由 `.github/workflows/sec-filing-alerts.yml` 於台北時間週二至週六中午檢查，
 並同步更新 10-Q、Form 4、募資稀釋、財報附件、會計審閱、13D／13G、治理薪酬、
 Form 144＋3／4／5、併購與 SEC 執法／停牌雷達。完整 13F 另以
-`.github/workflows/sec-13f-radar.yml` 每月檢查 SEC 新季度資料集。
+`.github/workflows/sec-13f-radar.yml` 每月檢查 SEC 新季度資料集。分部資料另由每日兩條
+管線偵測新季度／Exhibit 99.1；完整同口徑表會安全滾入最近 8 期，無法勾稽者列入待覆核。
 
 ---
 

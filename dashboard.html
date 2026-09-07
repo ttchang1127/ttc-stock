@@ -1441,6 +1441,9 @@
     .sec-segment-history-head h4 { margin: 0; color: #bae6fd; font-size: 0.8rem; }
     .sec-segment-history-head p { margin: 4px 0 0; color: #94a3b8; font-size: 0.64rem; line-height: 1.5; }
     .sec-segment-history-coverage { padding: 5px 9px; border-radius: 999px; color: #bae6fd; background: rgba(14, 116, 144, 0.22); font-size: 0.62rem; font-weight: 850; }
+    .sec-segment-sync-state { margin-top: 9px; padding: 9px 10px; border: 1px solid rgba(52, 211, 153, 0.22); border-radius: 10px; color: #a7f3d0; background: rgba(6, 78, 59, 0.16); font-size: 0.62rem; line-height: 1.55; }
+    .sec-segment-sync-state.pending { border-color: rgba(251, 191, 36, 0.4); color: #fde68a; background: rgba(120, 53, 15, 0.18); }
+    .sec-segment-sync-state strong { color: inherit; }
     .sec-segment-history-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 7px; margin-top: 10px; }
     .sec-segment-period { position: relative; min-width: 0; padding: 9px; border-radius: 10px; background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(148, 163, 184, 0.11); }
     .sec-segment-period.latest { border-color: rgba(56, 189, 248, 0.42); }
@@ -4455,12 +4458,15 @@
           fetch('segment_driver_history.json', { cache: 'no-cache' })
             .then(r => { if (!r.ok) throw new Error(`分部歷史 HTTP ${r.status}`); return r.json(); })
             .catch(error => { console.warn('segment_driver_history.json 載入失敗', error); return null; }),
+          fetch('segment_driver_update_candidates.json', { cache: 'no-cache' })
+            .then(r => { if (!r.ok) throw new Error(`分部自動更新狀態 HTTP ${r.status}`); return r.json(); })
+            .catch(error => { console.warn('segment_driver_update_candidates.json 載入失敗', error); return null; }),
           loadPortfolioHoldings(),
           fetch('valuation.json', { cache: 'no-cache' })
             .then(r => { if (!r.ok) throw new Error(`估值資料 HTTP ${r.status}`); return r.json(); })
             .catch(error => { console.warn('valuation.json 載入失敗，跨公司估值排名將顯示缺值', error); return null; }),
-        ]).then(([alerts, details, quarterlyFinancials, advanced, thirteenF, textChanges, thesisTracking, thesisStatus, exhibit991, earningsCalls, editorial, changeCandidates, candidateReviews, candidateCalibration, positionImpact, eventCalendar, earningsVerification, earningsVerificationHistory, segmentDrivers, segmentDriverHistory, holdingsPayload, valuation]) => {
-          secDailyData = { alerts, details, quarterlyFinancials, advanced, thirteenF, textChanges, thesisTracking, thesisStatus, exhibit991, earningsCalls, editorial, changeCandidates, candidateReviews, candidateCalibration, positionImpact, eventCalendar, earningsVerification, earningsVerificationHistory, segmentDrivers, segmentDriverHistory, holdingsPayload, valuation };
+        ]).then(([alerts, details, quarterlyFinancials, advanced, thirteenF, textChanges, thesisTracking, thesisStatus, exhibit991, earningsCalls, editorial, changeCandidates, candidateReviews, candidateCalibration, positionImpact, eventCalendar, earningsVerification, earningsVerificationHistory, segmentDrivers, segmentDriverHistory, segmentDriverUpdates, holdingsPayload, valuation]) => {
+          secDailyData = { alerts, details, quarterlyFinancials, advanced, thirteenF, textChanges, thesisTracking, thesisStatus, exhibit991, earningsCalls, editorial, changeCandidates, candidateReviews, candidateCalibration, positionImpact, eventCalendar, earningsVerification, earningsVerificationHistory, segmentDrivers, segmentDriverHistory, segmentDriverUpdates, holdingsPayload, valuation };
           renderSecDaily();
         }).catch(error => {
           secDailyPromise = null;
@@ -5188,8 +5194,9 @@
     function renderSecSegmentDriverHistory(ticker) {
       const payload = secDailyData?.segmentDriverHistory;
       const company = payload?.companies?.find(row => row.ticker === ticker);
+      const sync = secDailyData?.segmentDriverUpdates?.companies?.find(row => row.ticker === ticker);
       if (!company) {
-        return '<section class="sec-segment-history"><div class="sec-segment-history-head"><div><h4>📈 四季分部趨勢與轉折</h4><p>⚠️ 歷史資料尚未載入；上方單期官方表格仍可閱讀。</p></div></div></section>';
+        return '<section class="sec-segment-history"><div class="sec-segment-history-head"><div><h4>📈 滾動 8 季分部趨勢</h4><p>⚠️ 歷史資料尚未載入；上方單期官方表格仍可閱讀。</p></div></div></section>';
       }
       const history = company.history || [];
       const coverage = company.coverage || {};
@@ -5222,11 +5229,22 @@
       } else {
         transitionHtml = '<div class="sec-segment-transition"><strong>✅ 相較前季未觸發重大轉折門檻</strong><br>仍應閱讀各期數字；這不代表風險消失，也不構成股價方向判斷。</div>';
       }
-      return `<section class="sec-segment-history" aria-label="四季分部趨勢與轉折通知">
-        <div class="sec-segment-history-head"><div><h4>📈 四季分部趨勢與轉折通知</h4><p>同口徑相鄰季度才計算 QoQ；最大項目占比長條愈長，營收來源愈集中。</p></div><span class="sec-segment-history-coverage">收錄 ${formatSecNumber(coverage.period_count || 0)}/8 期｜同口徑連續 ${formatSecNumber(coverage.same_basis_run || 0)} 期</span></div>
+      const syncSource = sync?.detected_source;
+      const syncUrl = safeEventUrl(syncSource?.url);
+      const syncSourceText = syncSource ? `${escapeSec(syncSource.form || syncSource.kind || '新來源')} ${escapeSec(syncSource.filing_date || '')}` : '';
+      const syncState = !sync
+        ? '<div class="sec-segment-sync-state pending"><strong>⚠️ 自動更新狀態無法載入</strong>｜歷史數字仍可讀，但請確認更新流程。</div>'
+        : sync.status === 'pending_review'
+          ? `<div class="sec-segment-sync-state pending"><strong>⚠️ 新一期待覆核</strong>｜${(sync.reasons || []).map(escapeSec).join('；') || '資料尚未通過安全檢查'}。不會猜值或跨口徑接續。${syncUrl === '#' ? '' : `｜<a class="sec-link" href="${syncUrl}" target="_blank" rel="noopener">${syncSourceText} ↗</a>`}</div>`
+          : sync.status === 'auto_synced'
+            ? '<div class="sec-segment-sync-state"><strong>🔄 已由安全規則自動滾入</strong>｜官方期間、來源、口徑與完整項目均已勾稽；最多保留最近 8 期。</div>'
+            : '<div class="sec-segment-sync-state"><strong>✅ 已同步至最新正式季度</strong>｜系統每日檢查 SEC／IR 與 Exhibit 99.1；新口徑或缺值會先停在待覆核。</div>';
+      return `<section class="sec-segment-history" aria-label="滾動八季分部趨勢與轉折通知">
+        <div class="sec-segment-history-head"><div><h4>📈 滾動 8 季分部趨勢與轉折通知</h4><p>同口徑相鄰季度才計算 QoQ；最大項目占比長條愈長，營收來源愈集中。</p></div><span class="sec-segment-history-coverage">收錄 ${formatSecNumber(coverage.period_count || 0)}/8 期｜同口徑連續 ${formatSecNumber(coverage.same_basis_run || 0)} 期</span></div>
+        ${syncState}
         <div class="sec-segment-history-grid">${cards}</div>
         ${transitionHtml}
-        <p class="sec-segment-history-sources"><strong>通知門檻：</strong>主要季增驅動更換、整體 YoY 降速至少 10pp、合計由季增轉季減、單項占比季增至少 5pp、分部利益率季減至少 3pp，或主要驅動貢獻高於 100%。初次回補只建立基準；往後只有最新季度新增事件會通知。季增驅動是營收絕對增量，不是獲利貢獻或投資建議。</p>
+        <p class="sec-segment-history-sources"><strong>更新與通知：</strong>每日監看新 10-Q／10-K／6-K、官方 IR 季報與 Exhibit 99.1；只有完整同口徑官方表格才自動滾入，最多 8 期。轉折門檻為主要季增驅動更換、整體 YoY 降速至少 10pp、合計由季增轉季減、單項占比季增至少 5pp、分部利益率季減至少 3pp，或主要驅動貢獻高於 100%。初次回補只建立基準；往後只有最新季度新增事件會通知。季增驅動是營收絕對增量，不是獲利貢獻或投資建議。</p>
       </section>`;
     }
 

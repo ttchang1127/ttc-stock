@@ -31,6 +31,7 @@ class DashboardSecTabTests(unittest.TestCase):
         cls.earnings_verification_history = json.loads((ROOT / "earnings_verification_history.json").read_text())
         cls.segment_drivers = json.loads((ROOT / "segment_driver_validation.json").read_text())
         cls.segment_driver_history = json.loads((ROOT / "segment_driver_history.json").read_text())
+        cls.segment_driver_updates = json.loads((ROOT / "segment_driver_update_candidates.json").read_text())
         cls.holdings = json.loads((ROOT / "portfolio_holdings.json").read_text())
 
     def test_tab_defaults_to_14_days_and_allows_7_days(self):
@@ -436,8 +437,21 @@ class DashboardSecTabTests(unittest.TestCase):
         self.assertTrue(any(row["type"] == "basis_break" for row in nvda["transition_events"]))
         required_copy = [
             "fetch('segment_driver_history.json'", "function renderSecSegmentDriverHistory(ticker)",
-            "四季分部趨勢與轉折通知", "口徑中斷", "相較前季觸發的客觀轉折",
+            "滾動 8 季分部趨勢與轉折通知", "口徑中斷", "相較前季觸發的客觀轉折",
             "初次回補只建立基準", "不是獲利貢獻或投資建議",
+        ]
+        for phrase in required_copy:
+            self.assertIn(phrase, self.html)
+
+    def test_segment_driver_auto_update_is_visible_and_fail_closed(self):
+        payload = self.segment_driver_updates
+        self.assertEqual(payload["schema_version"], 1)
+        self.assertEqual(payload["tracked_count"], 14)
+        self.assertEqual(payload["pending_count"], 0)
+        required_copy = [
+            "fetch('segment_driver_update_candidates.json'", "segmentDriverUpdates",
+            "滾動 8 季分部趨勢", "新一期待覆核", "不會猜值或跨口徑接續",
+            "每日監看新 10-Q／10-K／6-K", "最多保留最近 8 期",
         ]
         for phrase in required_copy:
             self.assertIn(phrase, self.html)

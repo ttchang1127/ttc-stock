@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "methodology": "只允許已列入白名單的同口徑與完整項目集合自動寫入；任何新名稱、新口徑、缺值或期間無法勾稽都轉待覆核。",
+  "companies": {
+    "AAPL": {"basis_id": "product_service", "allowed_hosts": ["www.apple.com", "www.sec.gov"], "accepted_basis": "產品／服務營收類別（非營業利益分部）", "input_kind": "amount", "items": {"iPhone": "iphone", "Mac": "mac", "iPad": "ipad", "穿戴、家居與配件": "wearables", "服務": "services"}},
+    "AMZN": {"basis_id": "reportable_segments", "allowed_hosts": ["ir.aboutamazon.com", "www.sec.gov"], "accepted_basis": "可報導分部", "input_kind": "amount", "items": {"North America": "north_america", "International": "international", "AWS": "aws"}},
+    "ARM": {"basis_id": "revenue_source", "allowed_hosts": ["investors.arm.com", "www.sec.gov"], "accepted_basis": "營收來源（非可報導分部）", "input_kind": "amount", "items": {"Royalty revenue": "royalty", "License and other revenue": "license"}},
+    "COHR": {"basis_id": "new_reportable_segments", "allowed_hosts": ["www.sec.gov", "investor.coherent.com"], "accepted_basis": "可報導分部（年度；歷史已依新口徑重編）", "input_kind": "amount", "items": {"Datacenter & Communications": "datacenter", "Industrial": "industrial"}},
+    "GOOG": {"basis_id": "reportable_segments", "allowed_hosts": ["www.sec.gov", "abc.xyz"], "accepted_basis": "可報導分部", "input_kind": "amount", "items": {"Google Services": "services", "Google Cloud": "cloud", "Other Bets": "other_bets"}},
+    "INTC": {"basis_id": "operating_segments_internal", "allowed_hosts": ["www.intc.com", "www.sec.gov"], "accepted_basis": "營運分部；含內部交易與合併沖銷", "input_kind": "amount", "items": {"CCPG": "client", "DCAI": "dcai", "Intel Foundry": "foundry", "All Other": "other", "合併沖銷": "elimination"}},
+    "META": {"basis_id": "reportable_segments", "allowed_hosts": ["investor.atmeta.com", "www.sec.gov"], "accepted_basis": "可報導分部", "input_kind": "amount", "items": {"Family of Apps": "foa", "Reality Labs": "reality_labs"}},
+    "MRVL": {"basis_id": "end_market", "allowed_hosts": ["investor.marvell.com", "www.sec.gov"], "accepted_basis": "終端市場營收（非可報導分部）", "input_kind": "amount", "items": {"Data center": "datacenter", "Communications and other": "communications"}},
+    "MSFT": {"basis_id": "legacy_reportable_segments", "allowed_hosts": ["www.microsoft.com", "www.sec.gov"], "accepted_basis": "可報導分部", "input_kind": "amount", "items": {"Productivity and Business Processes": "productivity", "Intelligent Cloud": "cloud", "More Personal Computing": "personal"}},
+    "NOK": {"basis_id": "recast_2026_segments", "allowed_hosts": ["www.nokia.com"], "accepted_basis": "營運分部", "input_kind": "amount", "items": {"Network Infrastructure": "network", "Mobile Infrastructure": "mobile", "Portfolio Businesses": "portfolio"}},
+    "NVDA": {"basis_id": "compute_platforms", "allowed_hosts": ["nvidianews.nvidia.com", "www.sec.gov"], "accepted_basis": "運算平台營收（非營業利益分部）", "input_kind": "amount", "items": {"Data Center": "datacenter", "Edge Computing": "edge"}},
+    "ONDS": {"basis_id": "revenue_type", "allowed_hosts": ["ir.ondas.com", "www.sec.gov"], "accepted_basis": "營收類型（非可報導分部）", "input_kind": "amount", "items": {"Product revenue": "product", "Service revenue": "service", "Development revenue": "development", "Ondas Networks revenue": "networks"}},
+    "TSLA": {"basis_id": "revenue_categories", "allowed_hosts": ["www.sec.gov", "ir.tesla.com"], "accepted_basis": "營收類別（服務及其他含於汽車報導分部）", "input_kind": "amount", "items": {"Total automotive revenues": "automotive", "Energy generation and storage": "energy", "Services and other": "services"}},
+    "TSM": {"basis_id": "platform_mix", "allowed_hosts": ["investor.tsmc.com"], "accepted_basis": "平台營收占比（非可報導分部）", "input_kind": "share_of_total", "items": {"High Performance Computing": "hpc", "Smartphone": "smartphone", "Internet of Things": "iot", "Automotive": "automotive", "Digital Consumer Electronics": "dce", "Others": "others"}}
+  }
+}

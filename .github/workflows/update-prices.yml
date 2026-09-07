@@ -106,8 +106,25 @@ jobs:
       - name: Refresh rolling 30-day stock event calendar
         run: python3 scripts/build_company_event_calendar.py
 
-      - name: Build segment operating and growth-driver validation
-        run: python3 scripts/build_segment_driver_validation.py
+      - name: Detect and safely roll new segment periods
+        id: segment_sync
+        # Publishes segment_driver_update_candidates.json and
+        # Segment_Driver_Update_Candidates.md; unsafe boundaries stay pending.
+        run: |
+          python3 scripts/sync_segment_driver_history.py \
+            --alert-markdown "$RUNNER_TEMP/segment-alert.md" \
+            --summary "$GITHUB_STEP_SUMMARY" \
+            --github-output "$GITHUB_OUTPUT"
+
+      - name: Build segment operating, history, and growth-driver validation
+        id: segment_driver
+        # Publishes Segment_Driver_Validation.md and Segment_Driver_History.md.
+        run: |
+          python3 scripts/build_segment_driver_validation.py
+          python3 scripts/build_segment_driver_history.py \
+            --alert-markdown "$RUNNER_TEMP/segment-alert.md" \
+            --summary "$GITHUB_STEP_SUMMARY" \
+            --github-output "$GITHUB_OUTPUT"
 
       - name: Build pre/post earnings verification cards
         run: python3 scripts/build_earnings_verification_cards.py
@@ -144,7 +161,7 @@ jobs:
         if: steps.gate.outputs.changed == 'true'
         run: |
           unexpected=$(git status --porcelain | awk '{print $2}' | grep -Ev \
-            '^(prices|financials|quarterly_financials|fundamentals|financial_health|valuation|sec_daily_change_candidates|sec_candidate_rule_calibration|sec_position_impact_history|company_event_calendar|earnings_verification_cards|earnings_verification_history|segment_driver_validation)\.json$|^[a-z]+_report\.html$|^30_Analysis/.*_Master_Investment_Thesis_2026\.md$|^60_SEC_Filing_Radar/(SEC_(Daily_Change_Candidates|Candidate_Rule_Calibration|Position_Impact_History)|Company_Event_Calendar|Earnings_Verification_(Cards|History)|Segment_Driver_Validation)\.md$' \
+            '^(prices|financials|quarterly_financials|fundamentals|financial_health|valuation|sec_daily_change_candidates|sec_candidate_rule_calibration|sec_position_impact_history|company_event_calendar|earnings_verification_cards|earnings_verification_history|segment_driver_validation|segment_driver_history|segment_driver_history_inputs|segment_driver_update_candidates)\.json$|^[a-z]+_report\.html$|^30_Analysis/.*_Master_Investment_Thesis_2026\.md$|^60_SEC_Filing_Radar/(SEC_(Daily_Change_Candidates|Candidate_Rule_Calibration|Position_Impact_History)|Company_Event_Calendar|Earnings_Verification_(Cards|History)|Segment_Driver_(Validation|History|Update_Candidates))\.md$' \
             || true)
           if [ -n "$unexpected" ]; then
             echo "Unexpected files changed; refusing to commit:"
@@ -194,6 +211,32 @@ jobs:
               --assignee "$GITHUB_REPOSITORY_OWNER"
           else
             echo "Issue #$existing already records batch $EARNINGS_VERIFICATION_BATCH_ID; skipping duplicate."
+          fi
+
+      - name: Notify segment update candidates or transitions
+        if: steps.segment_sync.outputs.notify_count != '0' || steps.segment_driver.outputs.notify_count != '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SEGMENT_SYNC_BATCH_ID: ${{ steps.segment_sync.outputs.batch_id }}
+          SEGMENT_SYNC_CRITICAL_COUNT: ${{ steps.segment_sync.outputs.critical_count }}
+          SEGMENT_DRIVER_BATCH_ID: ${{ steps.segment_driver.outputs.batch_id }}
+          SEGMENT_DRIVER_CRITICAL_COUNT: ${{ steps.segment_driver.outputs.critical_count }}
+        run: |
+          batch_id="$SEGMENT_SYNC_BATCH_ID-$SEGMENT_DRIVER_BATCH_ID"
+          critical_count=$((SEGMENT_SYNC_CRITICAL_COUNT + SEGMENT_DRIVER_CRITICAL_COUNT))
+          title="Segment Update Alert [$batch_id]"
+          if [ "$critical_count" != "0" ]; then
+            title="🔴 $title"
+          else
+            title="🟠 $title"
+          fi
+          existing=$(gh issue list --state all --search "$batch_id in:title" \
+            --json number --jq '.[0].number // empty')
+          if [ -z "$existing" ]; then
+            gh issue create --title "$title" --body-file "$RUNNER_TEMP/segment-alert.md" \
+              --assignee "$GITHUB_REPOSITORY_OWNER"
+          else
+            echo "Issue #$existing already records batch $batch_id; skipping duplicate."
           fi
 
       - name: Commit
