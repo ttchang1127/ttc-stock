@@ -215,6 +215,8 @@ python3 scripts/check_integrity.py --quiet
 
 **分部展望驗證卡**由 `scripts/build_segment_outlook_verification.py` 讀取人工核對的 `segment_outlook_inputs.json`、已勾稽的 `segment_driver_history.json` 與 `segment_thesis_linkage.json`，產生 `segment_outlook_verification.json` 與 `60_SEC_Filing_Radar/Segment_Outlook_Verification.md`。只有公司 IR／SEC 原文中明確指向分部、目標期間與相同指標的展望才可列入；公司總營收、公司毛利率或分析師共識不得代替分部展望。區間結果分為高於／符合／低於，方向結果分為實現／未實現；目標期未到、年度結果尚未發布與 `basis_id` 改變必須分別顯示等待或不可比。自動實績只能由同目標期、同 `basis_id`、同 `segment_key` 的分部歷史帶入；未進分部歷史的次分部實績必須另附下一期官方來源與日期。展望達標只解釋管理層預測執行情況，相同實績已由分部趨勢計分，不得再加一次 SEC 證據分數。
 
+`scripts/track_segment_outlook_history.py` 接續保存 `segment_outlook_history.json` 與 `60_SEC_Filing_Radar/Segment_Outlook_History.md`。首次只建立比較基準，不補發已存在展望與既有達標結果；之後只在管理層新增、上修、下修、調整或撤回可比分部展望，等待實績轉為高於／符合／低於（或方向實現／未實現），以及 `basis_id` 或正式表格導致口徑不可比時通知。同一快照重跑的 workflow `notify_count` 固定為 0，數值修訂若仍在相同達標區間也不重複提醒。GitHub Issue 與筆記都將實際持股優先於觀察名單，並說明變化對既有投資論點是支持、形成壓力或不改變；兩條每日 workflow 都會執行。
+
 維護原則是**不跨口徑**計算；一旦 `basis_id` 改變，該期只能作為新基準。
 
 手動重建與驗證：
@@ -225,6 +227,7 @@ python3 scripts/build_segment_driver_validation.py
 python3 scripts/build_segment_driver_history.py
 python3 scripts/build_segment_thesis_linkage.py
 python3 scripts/build_segment_outlook_verification.py
+python3 scripts/track_segment_outlook_history.py
 python3 -m unittest tests.test_build_segment_driver_validation -v
 python3 -m unittest tests.test_build_segment_driver_history -v
 python3 -m unittest tests.test_build_company_event_calendar -v
@@ -650,6 +653,7 @@ git fetch --dry-run origin main
 | `sync_segment_driver_history.py` | 每日偵測新季度／Exhibit 99.1；只有完整同口徑官方分部表通過白名單才自動滾入並保留 8 期，其餘建立待覆核候選與通知 |
 | `build_segment_thesis_linkage.py` | 把最新同口徑分部轉折連結至營收／利益率投資論點，輸出 ±8 分證據權重；FCF、稀釋、估值與股價明確不適用 |
 | `build_segment_outlook_verification.py` | 將官方分部展望與下一期同口徑實績閉環核對；公司總指引不代替分部指引，年度進度不提前判定達標 |
+| `track_segment_outlook_history.py` | 保存分部展望快照，只通知新增／上修／下修／撤回、達標狀態或口徑變化；相同資料去重且實際持股優先 |
 | `configure_local_git.py` | 清除 `.git/refs` 內 0-byte Finder `Icon\r` 非法 ref，並設定 `fetch.hideRefs=refs/codex`，避免外接磁碟上的 macOS 圖示 metadata 阻斷 fetch／pull |
 | `sec_specialized_radars.py` | 產生最新 10-Q 到件表、解析 Form 4 Ownership XML、依募資文件內文判別 ATM／股權／可轉債／一般債券／架上註冊 |
 | `sec_advanced_radars.py` | 產生財報附註／附件、UPLOAD／CORRESP、13D／13G、DEF 14A、Form 144＋3／4／5、併購與 SEC 執法／停牌雷達；結果依 accession 快取 |

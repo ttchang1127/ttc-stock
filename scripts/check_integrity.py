@@ -2159,6 +2159,78 @@ def c39():
     return not bad and not missing, f"資料問題：{bad or '無'}；缺自動化／畫面：{missing or '無'}"
 
 
+@check("C-40", "分部展望變更與達標通知可去重且持股優先")
+def c40():
+    data = load("segment_outlook_history.json")
+    verification = load("segment_outlook_verification.json")
+    holdings_payload = load("portfolio_holdings.json")
+    holding_rows = holdings_payload if isinstance(holdings_payload, list) else holdings_payload.get("holdings", [])
+    holdings = {row["ticker"] for row in holding_rows if row.get("shares", 0)}
+    bad = []
+    current = data.get("current") or {}
+    companies = current.get("companies") or {}
+    if data.get("schema_version") != 1 or len(companies) != 14:
+        bad.append("schema_version／公司範圍錯誤")
+    if current.get("snapshot_id") != data.get("current_snapshot_id"):
+        bad.append("current snapshot id 無法勾稽")
+    actual_positions = {ticker for ticker, row in companies.items() if row.get("position") == "holding"}
+    if actual_positions != holdings - {"VGT", "VOO"}:
+        bad.append("實際持股分類與 portfolio_holdings.json 不一致")
+    notifications = data.get("notifications") or []
+    if data.get("notify_count") != len(notifications):
+        bad.append("notify_count 無法勾稽")
+    if data.get("critical_count") != sum(bool(row.get("critical")) for row in notifications):
+        bad.append("critical_count 無法勾稽")
+    if notifications:
+        position_order = [row.get("position") == "holding" for row in notifications]
+        if position_order != sorted(position_order, reverse=True):
+            bad.append("通知未將實際持股排在觀察名單之前")
+    if set(companies) != {row.get("ticker") for row in verification.get("companies", [])}:
+        bad.append("歷史快照與分部展望驗證公司範圍不一致")
+
+    with tempfile.TemporaryDirectory() as temp_dir:
+        temp = pathlib.Path(temp_dir)
+        github_output = temp / "github-output.txt"
+        result = subprocess.run([
+            sys.executable, str(REPO_ROOT / "scripts/track_segment_outlook_history.py"),
+            "--history", str(REPO_ROOT / "segment_outlook_history.json"),
+            "--output", str(temp / "history.json"),
+            "--markdown", str(temp / "history.md"),
+            "--github-output", str(github_output),
+            "--checked-at", current.get("captured_at") or data.get("updated_at"),
+        ], cwd=REPO_ROOT, text=True, capture_output=True, check=False)
+        if result.returncode:
+            bad.append(f"分部展望歷史重建失敗：{result.stderr.strip() or result.stdout.strip()}")
+        elif json.loads((temp / "history.json").read_text()) != data:
+            bad.append("相同快照重跑未保留完全相同的歷史")
+        elif "notify_count=0" not in github_output.read_text():
+            bad.append("相同快照重跑仍會觸發 GitHub Issue")
+        elif (temp / "history.md").read_text() != read("60_SEC_Filing_Radar/Segment_Outlook_History.md"):
+            bad.append("分部展望歷史筆記無法確定性重建")
+
+    markers = {
+        "dashboard": (read("dashboard.html"), (
+            "segment_outlook_history.json", "segmentOutlookHistory", "相較前次：",
+            "首次只建立基準", "thesis_effect",
+        )),
+        "價格 workflow": (read(".github/workflows/update-prices.yml"), (
+            "track_segment_outlook_history.py", "segment_outlook.outputs.notify_count",
+            "segment_outlook_history", "Segment_Outlook_History",
+        )),
+        "SEC workflow": (read(".github/workflows/sec-filing-alerts.yml"), (
+            "track_segment_outlook_history.py", "SEGMENT_OUTLOOK_BATCH_ID",
+            "segment_outlook_history.json", "Segment_Outlook_History.md",
+        )),
+        "維護 SOP": (read("00_Meta/Sec_kb_資料維護SOP.md"), (
+            "track_segment_outlook_history.py", "首次只建立比較基準", "實際持股優先",
+        )),
+        "00_Home": (read("00_Home.md"), ("Segment_Outlook_History",)),
+    }
+    missing = [f"{label}:{marker}" for label, (text, required) in markers.items()
+               for marker in required if marker not in text]
+    return not bad and not missing, f"資料問題：{bad or '無'}；缺自動化／畫面：{missing or '無'}"
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--quiet", action="store_true", help="只印出失敗項")

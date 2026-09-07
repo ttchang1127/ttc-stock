@@ -34,6 +34,7 @@ class DashboardSecTabTests(unittest.TestCase):
         cls.segment_driver_updates = json.loads((ROOT / "segment_driver_update_candidates.json").read_text())
         cls.segment_thesis_linkage = json.loads((ROOT / "segment_thesis_linkage.json").read_text())
         cls.segment_outlook_verification = json.loads((ROOT / "segment_outlook_verification.json").read_text())
+        cls.segment_outlook_history = json.loads((ROOT / "segment_outlook_history.json").read_text())
         cls.holdings = json.loads((ROOT / "portfolio_holdings.json").read_text())
 
     def test_tab_defaults_to_14_days_and_allows_7_days(self):
@@ -60,6 +61,7 @@ class DashboardSecTabTests(unittest.TestCase):
         self.assertIn("fetch('sec_candidate_rule_calibration.json'", self.html)
         self.assertIn("fetch('valuation.json'", self.html)
         self.assertIn("fetch('segment_outlook_verification.json'", self.html)
+        self.assertIn("fetch('segment_outlook_history.json'", self.html)
         self.assertIn("function renderSecDaily()", self.html)
         self.assertIn('id="secQuarterlyBody"', self.html)
         self.assertIn('id="secKpiQuarterly"', self.html)
@@ -265,6 +267,21 @@ class DashboardSecTabTests(unittest.TestCase):
             "等待正式實績", "公司總指引不代替分部指引",
             "季度進度不當成全年結果", "不重複加入 SEC 證據分數",
             "sec-segment-outlook-list", "sec-company-brief-card wide",
+        ]
+        for phrase in required_copy:
+            self.assertIn(phrase, self.html)
+
+    def test_segment_outlook_change_history_is_visible_and_baselined(self):
+        payload = self.segment_outlook_history
+        self.assertEqual(payload["schema_version"], 1)
+        self.assertIsNone(payload["previous_snapshot_id"])
+        self.assertEqual(payload["notify_count"], 0)
+        self.assertEqual(len(payload["current"]["companies"]), 14)
+        holdings = [row["ticker"] for row in payload["current"]["companies"].values() if row["position"] == "holding"]
+        self.assertIn("NOK", holdings)
+        required_copy = [
+            "segmentOutlookHistory", "相較前次：", "首次只建立基準",
+            "sec-segment-outlook-change", "thesis_effect",
         ]
         for phrase in required_copy:
             self.assertIn(phrase, self.html)

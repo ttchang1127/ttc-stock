@@ -78,6 +78,7 @@ tags:
 - 🔄 **[[Segment_Driver_Update_Candidates|分部資料自動更新候選（每日偵測、安全滾動 8 季）]]**
 - 🧩 **[[Segment_Thesis_Linkage|分部趨勢與投資論點聯動（只列新增變化）]]**
 - 🎯 **[[Segment_Outlook_Verification|分部展望驗證卡（管理層展望 vs. 同口徑實績）]]**
+- 🔔 **[[Segment_Outlook_History|分部展望變更與達標通知（上修／下修／撤回／達標）]]**
 - 📥 **[[Periodic_Filing_Ingest|10-Q／8-K／6-K 原文筆記與安全分段狀態]]**
 - 📊 **[[Exhibit_991_Earnings_Radar|8-K Exhibit 99.1 財報分析卡雷達]]**
 - 🎙️ **[[Earnings_Call_Radar|官方 Earnings Call／Prepared Remarks 雷達]]**

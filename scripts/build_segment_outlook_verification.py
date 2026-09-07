@@ -176,7 +176,10 @@ def build_payload(inputs: dict[str, Any], history: dict[str, Any], linkage: dict
             signal, label = "pending", "等待同口徑實績"
         else:
             signal, label = "unavailable", "沒有可比分部展望"
-        fingerprints = [(row["id"], row["outcome"], row["actual"]) for row in records]
+        fingerprints = [{key: row.get(key) for key in (
+            "id", "source_date", "target_period_end", "basis_id", "segment_key", "metric",
+            "comparison", "low", "high", "baseline", "outcome", "actual",
+        )} for row in records]
         companies.append({
             "ticker": ticker, "name": segment_company.get("name", ticker),
             "coverage_status": config.get("status"), "note": config.get("note"), "review_url": config.get("review_url"),

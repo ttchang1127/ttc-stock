@@ -125,6 +125,15 @@ jobs:
           python3 scripts/build_segment_thesis_linkage.py
           python3 scripts/build_segment_outlook_verification.py
 
+      - name: Track segment outlook revisions and outcomes
+        id: segment_outlook
+        run: |
+          python3 scripts/track_segment_outlook_history.py \
+            --checked-at "${{ steps.watch.outputs.checked_at }}" \
+            --alert-markdown "$RUNNER_TEMP/sec-alert.md" \
+            --summary "$GITHUB_STEP_SUMMARY" \
+            --github-output "$GITHUB_OUTPUT"
+
       - name: Rebuild pre/post earnings verification cards
         run: python3 scripts/build_earnings_verification_cards.py
 
@@ -160,7 +169,7 @@ jobs:
       # A deterministic batch ID prevents a retry from creating a duplicate
       # issue after the notification succeeded but the state push conflicted.
       - name: Notify with a GitHub Issue
-        if: steps.watch.outputs.notify_count != '0' || steps.thesis.outputs.notify_count != '0' || steps.ingest.outputs.pending_count != '0' || steps.exhibit991.outputs.exhibit_991_pending_count != '0' || steps.earnings_call.outputs.earnings_call_changed_count != '0' || steps.candidates.outputs.notify_count != '0' || steps.position_impact.outputs.notify_count != '0' || steps.earnings_verification.outputs.notify_count != '0' || steps.segment_sync.outputs.notify_count != '0' || steps.segment_driver.outputs.notify_count != '0'
+        if: steps.watch.outputs.notify_count != '0' || steps.thesis.outputs.notify_count != '0' || steps.ingest.outputs.pending_count != '0' || steps.exhibit991.outputs.exhibit_991_pending_count != '0' || steps.earnings_call.outputs.earnings_call_changed_count != '0' || steps.candidates.outputs.notify_count != '0' || steps.position_impact.outputs.notify_count != '0' || steps.earnings_verification.outputs.notify_count != '0' || steps.segment_sync.outputs.notify_count != '0' || steps.segment_driver.outputs.notify_count != '0' || steps.segment_outlook.outputs.notify_count != '0'
         env:
           GH_TOKEN: ${{ github.token }}
           WATCH_BATCH_ID: ${{ steps.watch.outputs.batch_id }}
@@ -180,9 +189,11 @@ jobs:
           SEGMENT_DRIVER_CRITICAL_COUNT: ${{ steps.segment_driver.outputs.critical_count }}
           SEGMENT_SYNC_BATCH_ID: ${{ steps.segment_sync.outputs.batch_id }}
           SEGMENT_SYNC_CRITICAL_COUNT: ${{ steps.segment_sync.outputs.critical_count }}
+          SEGMENT_OUTLOOK_BATCH_ID: ${{ steps.segment_outlook.outputs.batch_id }}
+          SEGMENT_OUTLOOK_CRITICAL_COUNT: ${{ steps.segment_outlook.outputs.critical_count }}
         run: |
-          batch_id="$WATCH_BATCH_ID-$THESIS_BATCH_ID-$EARNINGS_CALL_BATCH_ID-$CANDIDATE_BATCH_ID-$POSITION_IMPACT_BATCH_ID-$EARNINGS_VERIFICATION_BATCH_ID-$SEGMENT_SYNC_BATCH_ID-$SEGMENT_DRIVER_BATCH_ID"
-          critical_count=$((WATCH_CRITICAL_COUNT + THESIS_CRITICAL_COUNT + INGEST_PENDING_COUNT + EXHIBIT_991_PENDING_COUNT + EARNINGS_CALL_CHANGED_ATTENTION_COUNT + POSITION_IMPACT_CRITICAL_COUNT + EARNINGS_VERIFICATION_CRITICAL_COUNT + SEGMENT_SYNC_CRITICAL_COUNT + SEGMENT_DRIVER_CRITICAL_COUNT))
+          batch_id="$WATCH_BATCH_ID-$THESIS_BATCH_ID-$EARNINGS_CALL_BATCH_ID-$CANDIDATE_BATCH_ID-$POSITION_IMPACT_BATCH_ID-$EARNINGS_VERIFICATION_BATCH_ID-$SEGMENT_SYNC_BATCH_ID-$SEGMENT_DRIVER_BATCH_ID-$SEGMENT_OUTLOOK_BATCH_ID"
+          critical_count=$((WATCH_CRITICAL_COUNT + THESIS_CRITICAL_COUNT + INGEST_PENDING_COUNT + EXHIBIT_991_PENDING_COUNT + EARNINGS_CALL_CHANGED_ATTENTION_COUNT + POSITION_IMPACT_CRITICAL_COUNT + EARNINGS_VERIFICATION_CRITICAL_COUNT + SEGMENT_SYNC_CRITICAL_COUNT + SEGMENT_DRIVER_CRITICAL_COUNT + SEGMENT_OUTLOOK_CRITICAL_COUNT))
           title="SEC / Thesis Alert [$batch_id]"
           if [ "$critical_count" != "0" ]; then
             title="🔴 $title"
@@ -228,7 +239,7 @@ jobs:
             earnings_verification_cards.json earnings_verification_history.json \
             segment_driver_validation.json segment_driver_history.json \
             segment_driver_history_inputs.json segment_driver_update_candidates.json \
-            segment_thesis_linkage.json segment_outlook_verification.json \
+            segment_thesis_linkage.json segment_outlook_verification.json segment_outlook_history.json \
             60_SEC_Filing_Radar/SEC_Candidate_Rule_Calibration.md \
             60_SEC_Filing_Radar/SEC_Daily_Change_Candidates.md \
             60_SEC_Filing_Radar/SEC_Position_Impact_History.md \
@@ -238,7 +249,8 @@ jobs:
             60_SEC_Filing_Radar/Segment_Driver_History.md \
             60_SEC_Filing_Radar/Segment_Driver_Update_Candidates.md \
             60_SEC_Filing_Radar/Segment_Thesis_Linkage.md \
-            60_SEC_Filing_Radar/Segment_Outlook_Verification.md
+            60_SEC_Filing_Radar/Segment_Outlook_Verification.md \
+            60_SEC_Filing_Radar/Segment_Outlook_History.md
           if git diff --cached --quiet; then
             echo "No SEC radar changes to persist."
             exit 0

@@ -1722,6 +1722,11 @@
     .sec-segment-outlook-values { margin-top: 5px; color: #cbd5e1; font-size: 0.68rem; line-height: 1.45; }
     .sec-segment-outlook-note { margin-top: 4px; color: #94a3b8; font-size: 0.64rem; line-height: 1.45; }
     .sec-segment-outlook-empty { color: #94a3b8; font-size: 0.68rem; line-height: 1.5; }
+    .sec-segment-outlook-change { margin: 0 0 8px; padding: 8px 10px; border-radius: 9px; border: 1px solid rgba(148, 163, 184, 0.2); color: #cbd5e1; background: rgba(30, 41, 59, 0.54); font-size: 0.67rem; line-height: 1.5; }
+    .sec-segment-outlook-change.risk { border-color: rgba(251, 113, 133, 0.38); color: #fecdd3; }
+    .sec-segment-outlook-change.improvement { border-color: rgba(52, 211, 153, 0.34); color: #a7f3d0; }
+    .sec-segment-outlook-change.baseline { border-color: rgba(96, 165, 250, 0.28); color: #bfdbfe; }
+    .sec-segment-outlook-change ul { margin: 4px 0 0; padding-left: 18px; }
 
     .sec-company-brief-fact {
       color: #f8fafc;
@@ -4486,12 +4491,15 @@
           fetch('segment_outlook_verification.json', { cache: 'no-cache' })
             .then(r => { if (!r.ok) throw new Error(`分部展望驗證 HTTP ${r.status}`); return r.json(); })
             .catch(error => { console.warn('segment_outlook_verification.json 載入失敗', error); return null; }),
+          fetch('segment_outlook_history.json', { cache: 'no-cache' })
+            .then(r => { if (!r.ok) throw new Error(`分部展望變更歷史 HTTP ${r.status}`); return r.json(); })
+            .catch(error => { console.warn('segment_outlook_history.json 載入失敗', error); return null; }),
           loadPortfolioHoldings(),
           fetch('valuation.json', { cache: 'no-cache' })
             .then(r => { if (!r.ok) throw new Error(`估值資料 HTTP ${r.status}`); return r.json(); })
             .catch(error => { console.warn('valuation.json 載入失敗，跨公司估值排名將顯示缺值', error); return null; }),
-        ]).then(([alerts, details, quarterlyFinancials, advanced, thirteenF, textChanges, thesisTracking, thesisStatus, exhibit991, earningsCalls, editorial, changeCandidates, candidateReviews, candidateCalibration, positionImpact, eventCalendar, earningsVerification, earningsVerificationHistory, segmentDrivers, segmentDriverHistory, segmentDriverUpdates, segmentThesisLinkage, segmentOutlookVerification, holdingsPayload, valuation]) => {
-          secDailyData = { alerts, details, quarterlyFinancials, advanced, thirteenF, textChanges, thesisTracking, thesisStatus, exhibit991, earningsCalls, editorial, changeCandidates, candidateReviews, candidateCalibration, positionImpact, eventCalendar, earningsVerification, earningsVerificationHistory, segmentDrivers, segmentDriverHistory, segmentDriverUpdates, segmentThesisLinkage, segmentOutlookVerification, holdingsPayload, valuation };
+        ]).then(([alerts, details, quarterlyFinancials, advanced, thirteenF, textChanges, thesisTracking, thesisStatus, exhibit991, earningsCalls, editorial, changeCandidates, candidateReviews, candidateCalibration, positionImpact, eventCalendar, earningsVerification, earningsVerificationHistory, segmentDrivers, segmentDriverHistory, segmentDriverUpdates, segmentThesisLinkage, segmentOutlookVerification, segmentOutlookHistory, holdingsPayload, valuation]) => {
+          secDailyData = { alerts, details, quarterlyFinancials, advanced, thirteenF, textChanges, thesisTracking, thesisStatus, exhibit991, earningsCalls, editorial, changeCandidates, candidateReviews, candidateCalibration, positionImpact, eventCalendar, earningsVerification, earningsVerificationHistory, segmentDrivers, segmentDriverHistory, segmentDriverUpdates, segmentThesisLinkage, segmentOutlookVerification, segmentOutlookHistory, holdingsPayload, valuation };
           renderSecDaily();
         }).catch(error => {
           secDailyPromise = null;
@@ -6337,6 +6345,7 @@
       const dilutedSharesYoy = secDelta(dilutedShares, secMetricValue(yearAgo, 'diluted_shares'));
       const segmentLink = (secDailyData.segmentThesisLinkage?.companies || []).find(row => row.ticker === ticker);
       const segmentOutlook = (secDailyData.segmentOutlookVerification?.companies || []).find(row => row.ticker === ticker);
+      const segmentOutlookState = secDailyData.segmentOutlookHistory?.current?.companies?.[ticker];
 
       const ownership = (advanced?.ownership_timeline || []).filter(row => row.ticker === dataTicker)
         .sort((a, b) => String(b.filing_date).localeCompare(String(a.filing_date)))[0];
@@ -6600,8 +6609,13 @@
           <div class="sec-segment-outlook-note">${escapeSec(row.statement_zh)} ${escapeSec(row.verification_note)} ${escapeSec(row.thesis_note)} ${officialSourceLink(row.source_url, '展望原文')}${row.actual_source_url ? ` ${officialSourceLink(row.actual_source_url, '實績原文')}` : ''}</div>
         </div>`;
       }).join('');
+      const outlookComparison = segmentOutlookState?.comparison || {};
+      const outlookChanges = outlookComparison.changes || [];
+      const outlookComparisonClass = outlookComparison.direction || (outlookComparison.status === 'baseline' ? 'baseline' : 'neutral');
+      const outlookComparisonHtml = `<div class="sec-segment-outlook-change ${escapeSec(outlookComparisonClass)}"><strong>相較前次：${escapeSec(outlookComparison.label || '尚未建立變更基準')}</strong>${outlookChanges.length ? `<ul>${outlookChanges.map(item => `<li>${escapeSec(item.reason)} ${escapeSec(item.thesis_effect)}</li>`).join('')}</ul>` : '<div>首次只建立基準；相同資料不重複提醒。</div>'}</div>`;
       const segmentOutlookHtml = segmentOutlook
         ? `<div class="sec-segment-outlook"><div class="sec-segment-outlook-head"><strong>分部展望驗證卡</strong><span class="sec-segment-outlook-count">已驗證 ${escapeSec(segmentOutlook.counts?.completed || 0)}</span><span class="sec-segment-outlook-count">待驗證 ${escapeSec(segmentOutlook.counts?.pending || 0)}</span></div>
+            ${outlookComparisonHtml}
             ${outlookRows.length ? `<div class="sec-segment-outlook-list">${outlookCards}</div>` : `<p class="sec-segment-outlook-empty">${escapeSec(segmentOutlook.note)} 公司總指引不代替分部指引。 ${officialSourceLink(segmentOutlook.review_url, '官方展望頁')}</p>`}
             <p class="sec-segment-outlook-empty">判讀限制：只核對同分部、同期間、同指標；季度進度不當成全年結果，且相同實績不重複加入 SEC 證據分數。</p></div>`
         : '<div class="sec-segment-outlook"><p class="sec-segment-outlook-empty">分部展望驗證資料尚未載入；不以公司總指引補值。</p></div>';
