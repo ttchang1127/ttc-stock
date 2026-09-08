@@ -223,6 +223,8 @@ python3 scripts/check_integrity.py --quiet
 
 `scripts/track_capital_allocation_history.py` 保存 `capital_allocation_history.json` 與 `60_SEC_Filing_Radar/Capital_Allocation_History.md`。首次只建立比較基準；之後只通知新年度、現金創造／股東回饋／回購實效／負債承擔／再投資強度跨狀態，以及綜合結論改變。未跨門檻的數值波動不通知，相同快照重跑的 `notify_count` 為 0；實際持股在 GitHub Issue 與筆記內優先。兩條每日 workflow 都會重建卡片及歷史。
 
+**長期投資七角雷達圖**由 `scripts/build_long_term_radar.py` 讀取季度財務、財務健全度、估值、三年指引回溯、投資論點狀態與資本配置卡，產生 `long_term_radar.json`，供 `dashboard.html` 的 Tab 5／「長期投資雷達圖」sub tab 使用。七個角固定為成長持續性、獲利能力與護城河、現金流品質、財務韌性、股東價值與稀釋、管理層執行與揭露、估值安全邊際，全部採 0～100 且越高越有利。缺值不補 0 或 50，只以已知子指標計算並顯示覆蓋率；沒有一致數字指引時，管理層指引子項維持未計分。財務警示、論點失效、資本配置壓力與 DCF 可信度警語獨立顯示，不得用其他高分抵銷。兩條每日 workflow 都會在相關來源更新後重建此檔。
+
 維護原則是**不跨口徑**計算；一旦 `basis_id` 改變，該期只能作為新基準。
 
 手動重建與驗證：
@@ -664,6 +666,7 @@ git fetch --dry-run origin main
 | `track_segment_outlook_history.py` | 保存分部展望快照，只通知新增／上修／下修／撤回、達標狀態或口徑變化；相同資料去重且實際持股優先 |
 | `build_capital_allocation_cards.py` | 以 4 年 FCF、Capex、回購、股利、稀釋股數與全站一致負債口徑，判讀資本配置是否支持股東價值 |
 | `track_capital_allocation_history.py` | 保存資本配置快照，只通知新年度、五項構面跨門檻或結論改變；持股優先且相同資料去重 |
+| `build_long_term_radar.py` | 將季度財務、健全度、資本配置、管理層執行與估值整理成 14 家個股七角雷達；缺值不補中立分數，重大警示不被平均抵銷 |
 | `configure_local_git.py` | 清除 `.git/refs` 內 0-byte Finder `Icon\r` 非法 ref，並設定 `fetch.hideRefs=refs/codex`，避免外接磁碟上的 macOS 圖示 metadata 阻斷 fetch／pull |
 | `sec_specialized_radars.py` | 產生最新 10-Q 到件表、解析 Form 4 Ownership XML、依募資文件內文判別 ATM／股權／可轉債／一般債券／架上註冊 |
 | `sec_advanced_radars.py` | 產生財報附註／附件、UPLOAD／CORRESP、13D／13G、DEF 14A、Form 144＋3／4／5、併購與 SEC 執法／停牌雷達；結果依 accession 快取 |

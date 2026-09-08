@@ -700,6 +700,120 @@
       min-height: 340px;
     }
 
+    .radar-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin: -4px 0 18px;
+      padding: 12px 14px;
+      border: 1px solid rgba(192, 132, 252, 0.28);
+      border-radius: 12px;
+      background: rgba(192, 132, 252, 0.07);
+    }
+
+    .radar-toolbar label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      min-width: 0;
+      color: #cbd5e1;
+      font-weight: 700;
+    }
+    .radar-toolbar select {
+      width: min(320px, 100%);
+      min-width: 0;
+      max-width: 100%;
+      padding: 9px 12px;
+      color: #fff;
+      background: #111827;
+      border: 1px solid rgba(192, 132, 252, 0.42);
+      border-radius: 10px;
+      font-weight: 700;
+    }
+
+    .radar-score-summary {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #94a3b8;
+      font-size: 0.84rem;
+    }
+
+    .radar-score-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 58px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      color: #7dd3fc;
+      font-weight: 800;
+    }
+
+    .radar-chart-layout {
+      display: grid;
+      grid-template-columns: minmax(360px, 1.1fr) minmax(300px, 0.9fr);
+      gap: 22px;
+      align-items: start;
+    }
+
+    .radar-chart-layout > * { min-width: 0; }
+
+    .radar-chart-wrap { height: 58vh; min-height: 500px; }
+    .radar-chart-wrap canvas { max-width: 100% !important; }
+    .radar-dimension-grid { display: grid; gap: 10px; }
+    .radar-dimension-card {
+      padding: 12px 14px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.025);
+    }
+    .radar-dimension-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 7px;
+    }
+    .radar-dimension-head strong { color: #e2e8f0; }
+    .radar-dimension-score { color: #7dd3fc; font-weight: 800; white-space: nowrap; }
+    .radar-dimension-card ul {
+      margin: 0;
+      padding-left: 18px;
+      color: #94a3b8;
+      font-size: 0.78rem;
+      line-height: 1.55;
+    }
+    .radar-dimension-card li strong { color: #cbd5e1; }
+    .radar-risk-box, .radar-method-box {
+      margin-top: 18px;
+      padding: 14px 16px;
+      border-radius: 12px;
+      font-size: 0.82rem;
+      line-height: 1.6;
+    }
+    .radar-risk-box {
+      border: 1px solid rgba(251, 191, 36, 0.3);
+      background: rgba(251, 191, 36, 0.06);
+      color: #fde68a;
+    }
+    .radar-method-box {
+      border: 1px solid rgba(56, 189, 248, 0.24);
+      background: rgba(56, 189, 248, 0.06);
+      color: #cbd5e1;
+    }
+    .radar-method-box p { margin: 4px 0; }
+
+    @media (max-width: 900px) {
+      .radar-chart-layout { grid-template-columns: 1fr; }
+      .radar-chart-wrap { height: 52vh; min-height: 420px; }
+    }
+
     .macd-trend-section {
       margin-top: 26px;
       padding-top: 24px;
@@ -3257,6 +3371,7 @@
         <button class="chart-page-btn" onclick="switchChartPage('page-margin', this)">💰 毛利率 vs 淨利率</button>
         <button class="chart-page-btn" onclick="switchChartPage('page-sortino', this)">📉 Sortino Ratio</button>
         <button class="chart-page-btn" onclick="switchChartPage('page-dcf', this)">🎲 DCF 估值區間</button>
+        <button class="chart-page-btn" onclick="switchChartPage('page-radar', this)">🧭 長期投資雷達圖</button>
       </div>
 
       <div id="page-macd" class="chart-page active">
@@ -3313,6 +3428,34 @@
           <h3>美股現價 vs 蒙地卡羅 DCF 50% 核心估值區間 <span>(Valuation Range)</span></h3>
           <p id="dcfAssumptionAge" class="dcf-assumption-age">🕒 正在載入 DCF 假設日期…</p>
           <div class="chart-canvas-wrap"><canvas id="chartDCF"></canvas></div>
+        </div>
+      </div>
+
+      <div id="page-radar" class="chart-page">
+        <div class="chart-card chart-card-large">
+          <h3>長期投資七角雷達圖 <span>0～100 分；越高代表該構面對長期投資越有利</span></h3>
+          <div class="radar-toolbar">
+            <label for="longTermRadarTicker">查看公司
+              <select id="longTermRadarTicker" onchange="setLongTermRadarTicker(this.value)" aria-label="選擇長期投資雷達圖公司">
+                <option>正在載入 14 家個股…</option>
+              </select>
+            </label>
+            <div class="radar-score-summary">
+              <span id="longTermRadarMeta">正在讀取最新評分資料…</span>
+              <span id="longTermRadarScore" class="radar-score-pill">—</span>
+            </div>
+          </div>
+          <div class="radar-chart-layout">
+            <div class="chart-canvas-wrap radar-chart-wrap"><canvas id="chartLongTermRadar"></canvas></div>
+            <div id="longTermRadarDimensions" class="radar-dimension-grid" aria-live="polite">
+              <div class="radar-dimension-card">正在整理七個核心構面與評分依據…</div>
+            </div>
+          </div>
+          <div id="longTermRadarRisks" class="radar-risk-box" role="note">重大警示會獨立列示，不會被其他高分抵銷。</div>
+          <div id="longTermRadarMethod" class="radar-method-box">
+            <p><strong>七個角：</strong>成長持續性、獲利能力與護城河、現金流品質、財務韌性、股東價值與稀釋、管理層執行與揭露、估值安全邊際。</p>
+            <p>雷達圖是資料整理工具，不是買賣建議；缺值不會自動補成 0 或 50 分。</p>
+          </div>
         </div>
       </div>
     </div>
@@ -3686,6 +3829,9 @@
     let marginChart = null;
     let sortinoChart = null;
     let dcfChart = null;
+    let longTermRadarChart = null;
+    let longTermRadarData = null;
+    let longTermRadarPromise = null;
     let dcfAssumptionsDerivedAt = null;
     let dcfAssumptionsStaleAfterDays = 90;
 
@@ -7233,7 +7379,8 @@
     // pageId -> the Chart.js instance living on that page, once built.
     function chartForPage(pageId) {
       return { 'page-macd': macdSummaryChart, 'page-margin': marginChart,
-               'page-sortino': sortinoChart, 'page-dcf': dcfChart }[pageId];
+               'page-sortino': sortinoChart, 'page-dcf': dcfChart,
+               'page-radar': longTermRadarChart }[pageId];
     }
 
     // Called whenever a chart-page becomes visible. First visit: build the
@@ -7989,11 +8136,165 @@
       });
     }
 
+    function radarScoreColor(score) {
+      if (score == null) return '#64748b';
+      if (score >= 80) return '#34d399';
+      if (score >= 65) return '#7dd3fc';
+      if (score >= 50) return '#fbbf24';
+      return '#fb7185';
+    }
+
+    function loadLongTermRadar() {
+      if (!longTermRadarPromise) {
+        longTermRadarPromise = fetch('long_term_radar.json', { cache: 'no-cache' })
+          .then(response => {
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+            return response.json();
+          })
+          .then(data => { longTermRadarData = data; return data; })
+          .catch(error => {
+            longTermRadarPromise = null;
+            throw error;
+          });
+      }
+      return longTermRadarPromise;
+    }
+
+    function setLongTermRadarTicker(ticker) {
+      if (!longTermRadarData) return;
+      const company = longTermRadarData.companies.find(row => row.ticker === ticker);
+      if (company) renderLongTermRadarCompany(company);
+    }
+
+    function renderLongTermRadarCompany(company) {
+      if (!longTermRadarChart) return;
+      const dimensions = company.dimensions || [];
+      longTermRadarChart.data.labels = dimensions.map(row => row.label);
+      longTermRadarChart.data.datasets[0].label = `${company.ticker} 目前評分`;
+      longTermRadarChart.data.datasets[0].data = dimensions.map(row => row.score);
+      longTermRadarChart.data.datasets[0].pointBackgroundColor = dimensions.map(row => radarScoreColor(row.score));
+      longTermRadarChart.$company = company;
+      longTermRadarChart.update();
+
+      const score = document.getElementById('longTermRadarScore');
+      score.textContent = company.overall_score == null ? '資料不足' : `${company.overall_score} 分`;
+      score.style.color = radarScoreColor(company.overall_score);
+      score.style.borderColor = `${radarScoreColor(company.overall_score)}66`;
+      const position = company.position === 'holding' ? '💼 實際持股' : '👀 觀察名單';
+      document.getElementById('longTermRadarMeta').textContent =
+        `${company.ticker}｜${position}｜資料期 ${company.latest_period || '未知'}｜構面覆蓋 ${company.coverage.known}/${company.coverage.total}｜${company.overall_label}`;
+
+      document.getElementById('longTermRadarDimensions').innerHTML = dimensions.map(row => {
+        const scoreText = row.score == null ? '資料不足' : `${row.score} 分`;
+        const metricRows = (row.metrics || []).map(item => {
+          const metricScore = item.score == null ? '未計分' : `${item.score} 分`;
+          return `<li><strong>${escapeSec(item.label)}</strong>：${escapeSec(item.display)}｜${metricScore}<br>` +
+            `<span>${escapeSec(item.note)}｜來源：${escapeSec(item.source)}</span></li>`;
+        }).join('');
+        return `<section class="radar-dimension-card">
+          <div class="radar-dimension-head">
+            <strong>${escapeSec(row.label)}</strong>
+            <span class="radar-dimension-score" style="color:${radarScoreColor(row.score)}">${scoreText}｜${row.coverage.known}/${row.coverage.total}</span>
+          </div>
+          <ul>${metricRows}</ul>
+        </section>`;
+      }).join('');
+
+      const risks = company.red_flags || [];
+      document.getElementById('longTermRadarRisks').innerHTML = risks.length
+        ? `<strong>⚠️ 獨立警示（不納入平均抵銷）</strong><ul>${risks.map(row =>
+            `<li><strong>${escapeSec(row.label || '風險')}</strong>：${escapeSec(row.detail || '請查閱來源')} <span>(${escapeSec(row.source)})</span></li>`
+          ).join('')}</ul>`
+        : '<strong>✅ 目前資料未列出獨立重大警示</strong><br><span>這不等於公司沒有風險，仍需閱讀最新申報與風險因素。</span>';
+    }
+
+    function createLongTermRadarChart() {
+      const labels = ['成長持續性', '獲利能力與護城河', '現金流品質', '財務韌性', '股東價值與稀釋', '管理層執行與揭露', '估值安全邊際'];
+      longTermRadarChart = new Chart(document.getElementById('chartLongTermRadar'), {
+        type: 'radar',
+        data: {
+          labels,
+          datasets: [{
+            label: '正在載入評分',
+            data: labels.map(() => null),
+            borderColor: '#38bdf8',
+            backgroundColor: 'rgba(56, 189, 248, 0.18)',
+            pointBackgroundColor: '#38bdf8',
+            pointBorderColor: '#e0f2fe',
+            pointRadius: 5,
+            pointHoverRadius: 7,
+            borderWidth: 2.5,
+            spanGaps: false
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            r: {
+              min: 0,
+              max: 100,
+              beginAtZero: true,
+              ticks: { stepSize: 20, color: '#94a3b8', backdropColor: 'transparent' },
+              pointLabels: { color: '#e2e8f0', font: { size: 12, weight: '700' } },
+              grid: { color: 'rgba(148, 163, 184, 0.18)' },
+              angleLines: { color: 'rgba(148, 163, 184, 0.18)' }
+            }
+          },
+          plugins: {
+            legend: { labels: { color: '#cbd5e1' } },
+            tooltip: {
+              callbacks: {
+                label: context => {
+                  const company = longTermRadarChart.$company;
+                  const row = company && company.dimensions[context.dataIndex];
+                  if (!row || row.score == null) return '資料不足，不補 0 或 50 分';
+                  return `${row.score} 分｜子指標覆蓋 ${row.coverage.known}/${row.coverage.total}`;
+                },
+                afterLabel: context => {
+                  const company = longTermRadarChart.$company;
+                  const row = company && company.dimensions[context.dataIndex];
+                  return row ? row.metrics.filter(item => item.score != null).map(item => `${item.label}：${item.display}`) : [];
+                }
+              }
+            }
+          }
+        }
+      });
+
+      loadLongTermRadar().then(data => {
+        const selector = document.getElementById('longTermRadarTicker');
+        const holdings = data.companies.filter(row => row.position === 'holding');
+        const watchlist = data.companies.filter(row => row.position !== 'holding');
+        const options = rows => rows.map(row =>
+          `<option value="${escapeSec(row.ticker)}">${escapeSec(row.ticker)}｜${escapeSec(row.name)}</option>`).join('');
+        selector.innerHTML = `<optgroup label="實際持股">${options(holdings)}</optgroup>` +
+          `<optgroup label="觀察名單">${options(watchlist)}</optgroup>`;
+        const first = holdings[0] || data.companies[0];
+        if (first) {
+          selector.value = first.ticker;
+          renderLongTermRadarCompany(first);
+        }
+        const method = data.methodology || {};
+        document.getElementById('longTermRadarMethod').innerHTML =
+          `<p><strong>評分方向：</strong>${escapeSec(method.direction || '')}</p>` +
+          `<p><strong>缺值原則：</strong>${escapeSec(method.missing || '')}</p>` +
+          `<p><strong>比較口徑：</strong>${escapeSec(method.comparison || '')}</p>` +
+          `<p><strong>使用邊界：</strong>${escapeSec(method.boundary || '')}</p>` +
+          `<p><strong>資料產生：</strong>${escapeSec(data.generated_at || '未知')}</p>`;
+      }).catch(error => {
+        document.getElementById('longTermRadarMeta').textContent = `⚠️ 無法載入 long_term_radar.json（${error.message}）`;
+        document.getElementById('longTermRadarDimensions').innerHTML =
+          '<div class="radar-dimension-card">雷達評分資料載入失敗，請確認自動更新流程已產生並部署 long_term_radar.json。</div>';
+      });
+    }
+
     const chartPageCreators = {
       'page-macd': createMacdSummaryChart,
       'page-margin': createMarginChart,
       'page-sortino': createSortinoChart,
       'page-dcf': createDcfChart,
+      'page-radar': createLongTermRadarChart,
     };
 
     function ensureChartCreated(pageId) {

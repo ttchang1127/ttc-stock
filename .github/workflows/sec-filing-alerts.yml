@@ -144,6 +144,9 @@ jobs:
             --summary "$GITHUB_STEP_SUMMARY" \
             --github-output "$GITHUB_OUTPUT"
 
+      - name: Build seven-dimension long-term investment radar
+        run: python3 scripts/build_long_term_radar.py
+
       - name: Rebuild pre/post earnings verification cards
         run: python3 scripts/build_earnings_verification_cards.py
 
@@ -252,7 +255,7 @@ jobs:
             segment_driver_validation.json segment_driver_history.json \
             segment_driver_history_inputs.json segment_driver_update_candidates.json \
             segment_thesis_linkage.json segment_outlook_verification.json segment_outlook_history.json \
-            capital_allocation_cards.json capital_allocation_history.json \
+            capital_allocation_cards.json capital_allocation_history.json long_term_radar.json \
             60_SEC_Filing_Radar/SEC_Candidate_Rule_Calibration.md \
             60_SEC_Filing_Radar/SEC_Daily_Change_Candidates.md \
             60_SEC_Filing_Radar/SEC_Position_Impact_History.md \

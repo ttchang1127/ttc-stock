@@ -2338,6 +2338,76 @@ def c41():
     return not bad and not missing, f"資料問題：{bad or '無'}；缺自動化／畫面：{missing or '無'}"
 
 
+@check("C-42", "長期投資七角雷達可重建且缺值不補中立分數")
+def c42():
+    data = load("long_term_radar.json")
+    expected = {"NVDA", "TSM", "MSFT", "META", "AAPL", "AMZN", "ARM",
+                "ONDS", "TSLA", "GOOG", "COHR", "MRVL", "INTC", "NOK"}
+    order = ["growth", "profitability", "cash_flow", "resilience",
+             "capital_allocation", "execution", "valuation"]
+    companies = data.get("companies") or []
+    bad = []
+    if data.get("schema_version") != 1 or data.get("tracked_count") != 14:
+        bad.append("schema_version／追蹤家數錯誤")
+    if {row.get("ticker") for row in companies} != expected:
+        bad.append("公司範圍不是 14 家個股")
+    for company in companies:
+        ticker = company.get("ticker") or "未知"
+        dimensions = company.get("dimensions") or []
+        if [row.get("id") for row in dimensions] != order:
+            bad.append(f"{ticker} 不是固定七個構面")
+        for row in dimensions:
+            if row.get("score") is not None and not 0 <= row["score"] <= 100:
+                bad.append(f"{ticker}/{row.get('id')} 分數超出 0～100")
+            metrics = row.get("metrics") or []
+            known = sum(metric.get("score") is not None for metric in metrics)
+            if (row.get("coverage") or {}).get("known") != known:
+                bad.append(f"{ticker}/{row.get('id')} 覆蓋率無法勾稽")
+            for metric in metrics:
+                if metric.get("score") is not None and not 0 <= metric["score"] <= 100:
+                    bad.append(f"{ticker}/{metric.get('id')} 子分數超出 0～100")
+    aapl = next((row for row in companies if row.get("ticker") == "AAPL"), {})
+    execution = next((row for row in aapl.get("dimensions", []) if row.get("id") == "execution"), {})
+    guidance = next((row for row in execution.get("metrics", []) if row.get("id") == "guidance_delivery"), {})
+    if guidance.get("score") is not None or guidance.get("display") != "資料不足":
+        bad.append("AAPL 無一致數字指引卻被補成分數")
+    ondas = next((row for row in companies if row.get("ticker") == "ONDS"), {})
+    capital = next((row for row in ondas.get("dimensions", []) if row.get("id") == "capital_allocation"), {})
+    shares = next((row for row in capital.get("metrics", []) if row.get("id") == "share_change"), {})
+    if shares.get("score") is not None or "XBRL 縮放" not in shares.get("note", ""):
+        bad.append("ONDS 股數縮放異常未保持未計分")
+
+    with tempfile.TemporaryDirectory() as temp_dir:
+        rebuilt = pathlib.Path(temp_dir) / "long_term_radar.json"
+        result = subprocess.run([
+            sys.executable, str(REPO_ROOT / "scripts/build_long_term_radar.py"),
+            "--output", str(rebuilt),
+        ], cwd=REPO_ROOT, text=True, capture_output=True, check=False)
+        if result.returncode:
+            bad.append(f"七角雷達重建失敗：{result.stderr.strip() or result.stdout.strip()}")
+        elif json.loads(rebuilt.read_text()) != data:
+            bad.append("七角雷達無法確定性重建")
+
+    markers = {
+        "dashboard": (read("dashboard.html"), (
+            "page-radar", "chartLongTermRadar", "long_term_radar.json",
+            "缺值不會自動補成 0 或 50 分", "獨立警示（不納入平均抵銷）",
+        )),
+        "價格 workflow": (read(".github/workflows/update-prices.yml"), (
+            "build_long_term_radar.py", "long_term_radar",
+        )),
+        "SEC workflow": (read(".github/workflows/sec-filing-alerts.yml"), (
+            "build_long_term_radar.py", "long_term_radar.json",
+        )),
+        "維護 SOP": (read("00_Meta/Sec_kb_資料維護SOP.md"), (
+            "build_long_term_radar.py", "缺值不補 0 或 50", "重大警示不被平均抵銷",
+        )),
+    }
+    missing = [f"{label}:{marker}" for label, (text, required) in markers.items()
+               for marker in required if marker not in text]
+    return not bad and not missing, f"資料問題：{bad or '無'}；缺自動化／畫面：{missing or '無'}"
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--quiet", action="store_true", help="只印出失敗項")

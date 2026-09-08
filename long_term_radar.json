@@ -1,0 +1,4766 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-08-30T00:58:14+00:00",
+  "tracked_count": 14,
+  "methodology": {
+    "direction": "七個角全部統一為 0～100 分，分數越高代表該構面對長期投資越有利。",
+    "missing": "缺值不補 0 或 50；構面分數只平均已知子指標，並顯示覆蓋率。",
+    "comparison": "以公司自身最新財報、四季前、約十二季前，以及全站一致的年度健全度／估值資料計算；不是產業排名。",
+    "boundary": "雷達圖是資料整理工具，不是買賣建議；重大警示獨立列示，不會被其他高分抵銷。"
+  },
+  "dimension_order": [
+    {
+      "id": "growth",
+      "label": "成長持續性"
+    },
+    {
+      "id": "profitability",
+      "label": "獲利能力與護城河"
+    },
+    {
+      "id": "cash_flow",
+      "label": "現金流品質"
+    },
+    {
+      "id": "resilience",
+      "label": "財務韌性"
+    },
+    {
+      "id": "capital_allocation",
+      "label": "股東價值與稀釋"
+    },
+    {
+      "id": "execution",
+      "label": "管理層執行與揭露"
+    },
+    {
+      "id": "valuation",
+      "label": "估值安全邊際"
+    }
+  ],
+  "companies": [
+    {
+      "ticker": "NVDA",
+      "data_ticker": "NVDA",
+      "name": "NVIDIA CORP",
+      "position": "holding",
+      "latest_period": "2026-07-26",
+      "overall_score": 83,
+      "overall_label": "長期體質強",
+      "coverage": {
+        "known": 7,
+        "total": 7,
+        "missing": []
+      },
+      "dimensions": [
+        {
+          "id": "growth",
+          "label": "成長持續性",
+          "score": 100,
+          "coverage": {
+            "known": 3,
+            "total": 3
+          },
+          "metrics": [
+            {
+              "id": "revenue_yoy",
+              "label": "最近一季營收 YoY",
+              "value": 1.0585114348672526,
+              "display": "+105.9%",
+              "score": 100,
+              "weight": 1.5,
+              "source": "quarterly_financials.json",
+              "note": "同一公司最近季度與四季前比較。"
+            },
+            {
+              "id": "revenue_cagr_3y",
+              "label": "季度營收三年 CAGR",
+              "value": 0.9241414209659231,
+              "display": "+92.4%",
+              "score": 100,
+              "weight": 1,
+              "source": "quarterly_financials.json",
+              "note": "使用約十二季前的同季營收；不足十三期即保留缺值。"
+            },
+            {
+              "id": "positive_quarter_ratio",
+              "label": "近八季季增穩定度",
+              "value": 1.0,
+              "display": "7/7 次季增",
+              "score": 100,
+              "weight": 1,
+              "source": "quarterly_financials.json",
+              "note": "最近八季相鄰季度的營收增加比例；可能含季節性。"
+            }
+          ]
+        },
+        {
+          "id": "profitability",
+          "label": "獲利能力與護城河",
+          "score": 92,
+          "coverage": {
+            "known": 4,
+            "total": 4
+          },
+          "metrics": [
+            {
+              "id": "gross_margin",
+              "label": "最新毛利率",
+              "value": 0.7497531723844068,
+              "display": "75.0%",
+              "score": 95,
+              "weight": 1,
+              "source": "quarterly_financials.json",
+              "note": "高毛利率常反映產品組合或定價能力，但仍需同業比較。"
+            },
+            {
+              "id": "operating_margin",
+              "label": "最新營業利益率",
+              "value": 0.6623710000935347,
+              "display": "66.2%",
+              "score": 100,
+              "weight": 1.25,
+              "source": "quarterly_financials.json",
+              "note": "衡量本業扣除營業費用後的獲利能力。"
+            },
+            {
+              "id": "gross_margin_yoy",
+              "label": "毛利率 YoY 變化",
+              "value": 0.025516388266998757,
+              "display": "+2.6pp",
+              "score": 68,
+              "weight": 1,
+              "source": "quarterly_financials.json",
+              "note": "百分點變化；改善不代表絕對毛利率已足夠。"
+            },
+            {
+              "id": "roic_spread",
+              "label": "ROIC − WACC",
+              "value": 0.6216,
+              "display": "+62.2pp",
+              "score": 100,
+              "weight": 1.5,
+              "source": "financial_health.json",
+              "note": "正值表示目前估計的投入資本報酬高於資金成本。"
+            }
+          ]
+        },
+        {
+          "id": "cash_flow",
+          "label": "現金流品質",
+          "score": 72,
+          "coverage": {
+            "known": 4,
+            "total": 4
+          },
+          "metrics": [
+            {
+              "id": "quarterly_fcf_margin",
+              "label": "最新季度 FCF 利潤率",
+              "value": 0.22240467257667246,
+              "display": "22.2%",
+              "score": 75,
+              "weight": 1.5,
+              "source": "quarterly_financials.json",
+              "note": "自由現金流除以同季營收。"
+            },
+            {
+              "id": "positive_fcf_ratio",
+              "label": "近八季正 FCF",
+              "value": 1.0,
+              "display": "8/8 季為正",
+              "score": 100,
+              "weight": 1,
+              "source": "quarterly_financials.json",
+              "note": "只判斷正負，不把缺值當成負值。"
+            },
+            {
+              "id": "ocf_to_net_income",
+              "label": "營業現金流／淨利",
+              "value": 0.856,
+              "display": "0.9x",
+              "score": 71,
+              "weight": 1,
+              "source": "financial_health.json",
+              "note": "接近或高於 1 通常代表獲利有現金支撐。"
+            },
+            {
+              "id": "accrual_ratio",
+              "label": "應計比率",
+              "value": 0.109,
+              "display": "+10.9%",
+              "score": 40,
+              "weight": 1,
+              "source": "financial_health.json",
+              "note": "越低越好；過高代表淨利明顯超前營運現金流。"
+            }
+          ]
+        },
+        {
+          "id": "resilience",
+          "label": "財務韌性",
+          "score": 95,
+          "coverage": {
+            "known": 4,
+            "total": 4
+          },
+          "metrics": [
+            {
+              "id": "current_ratio",
+              "label": "流動比率",
+              "value": 3.91,
+              "display": "3.9x",
+              "score": 95,
+              "weight": 1,
+              "source": "financial_health.json",
+              "note": "衡量流動資產覆蓋流動負債的能力。"
+            },
+            {
+              "id": "interest_coverage",
+              "label": "利息保障倍數",
+              "value": 503.4,
+              "display": "503.4x",
+              "score": 100,
+              "weight": 1.25,
+              "source": "financial_health.json",
+              "note": "EBIT 除以利息費用；負值或低於 1 代表壓力較高。"
+            },
+            {
+              "id": "liabilities_to_assets",
+              "label": "負債占資產",
+              "value": 0.2394,
+              "display": "23.9%",
+              "score": 91,
+              "weight": 1,
+              "source": "financial_health.json",
+              "note": "採反向計分；不等同只有有息負債。"
+            },
+            {
+              "id": "net_debt_to_ebit",
+              "label": "淨負債／EBIT",
+              "value": -0.17,
+              "display": "-0.2x",
+              "score": 92,
+              "weight": 1,
+              "source": "financial_health.json",
+              "note": "負值代表淨現金；本站缺折舊攤銷時以 EBIT 為分母。"
+            }
+          ]
+        },
+        {
+          "id": "capital_allocation",
+          "label": "股東價值與稀釋",
+          "score": 91,
+          "coverage": {
+            "known": 3,
+            "total": 3
+          },
+          "metrics": [
+            {
+              "id": "share_change",
+              "label": "稀釋股數 YoY",
+              "value": -0.01169166263505883,
+              "display": "-1.2%",
+              "score": 86,
+              "weight": 1.75,
+              "source": "capital_allocation_cards.json",
+              "note": "稀釋加權平均股數年減 1.2%；回購／股份變動的淨效果有利。"
+            },
+            {
+              "id": "shareholder_return",
+              "label": "股東回饋品質",
+              "value": null,
+              "display": "回購加股利使用 FCF 的 42%，目前由當年 FCF 覆蓋。",
+              "score": 90,
+              "weight": 1,
+              "source": "capital_allocation_cards.json",
+              "note": "依回購、股利是否由自由現金流覆蓋評分。"
+            },
+            {
+              "id": "capital_score",
+              "label": "資本配置綜合訊號",
+              "value": 7.0,
+              "display": "+7 分（原始 -7～+7 參考區間）",
+              "score": 100,
+              "weight": 1.25,
+              "source": "capital_allocation_cards.json",
+              "note": "資本配置支持股東價值"
+            }
+          ]
+        },
+        {
+          "id": "execution",
+          "label": "管理層執行與揭露",
+          "score": 100,
+          "coverage": {
+            "known": 2,
+            "total": 2
+          },
+          "metrics": [
+            {
+              "id": "guidance_delivery",
+              "label": "歷史數字指引達成",
+              "value": 100.0,
+              "display": "12/12 次達標",
+              "score": 100,
+              "weight": 1.5,
+              "source": "guidance_history.json",
+              "note": "實績落在或高於官方區間視為達標；沒有一致數字指引即保留缺值。"
+            },
+            {
+              "id": "thesis_evidence",
+              "label": "投資論點實績證據",
+              "value": 100.0,
+              "display": "支持 3／待驗證 0／失效 0",
+              "score": 100,
+              "weight": 1,
+              "source": "investment_thesis_status.json",
+              "note": "由最新季報對既定論點與失效條件的機械式驗證結果計分。"
+            }
+          ]
+        },
+        {
+          "id": "valuation",
+          "label": "估值安全邊際",
+          "score": 29,
+          "coverage": {
+            "known": 3,
+            "total": 3
+          },
+          "metrics": [
+            {
+              "id": "dcf_margin",
+              "label": "DCF 中位數相對現價",
+              "value": -0.3375,
+              "display": "-33.8%",
+              "score": 16,
+              "weight": 1.25,
+              "source": "valuation.json",
+              "note": "正值代表 DCF 中位估值高於現價；結果高度依賴成長與 WACC 假設。"
+            },
+            {
+              "id": "fcf_yield",
+              "label": "常態化 FCF 收益率",
+              "value": 0.017262953964908404,
+              "display": "1.7%",
+              "score": 32,
+              "weight": 1.25,
+              "source": "valuation.json",
+              "note": "常態化自由現金流除以目前市值。"
+            },
+            {
+              "id": "pe",
+              "label": "本益比",
+              "value": 47.0,
+              "display": "47.0x",
+              "score": 43,
+              "weight": 1,
+              "source": "valuation.json",
+              "note": "負 EPS 不顯示本益比；高成長公司仍須搭配成長率判讀。"
+            }
+          ]
+        }
+      ],
+      "red_flags": [
+        {
+          "source": "financial_health.json",
+          "label": "現金流品質",
+          "detail": "應計比率 +10.9% 高於 10%，淨利明顯超前營運現金流"
+        },
+        {
+          "source": "financial_health.json",
+          "label": "盈餘品質",
+          "detail": "Beneish M-Score -1.17 高於 -1.78，會計型態符合模型的操縱樣本特徵，需人工查證。營收年增 65%（SGI=1.65）。SGI 在模型中權重高，高速成長本身就會把分數推向門檻，這是本模型已知的偽陽性來源"
+        }
+      ]
+    },
+    {
+      "ticker": "TSM",
+      "data_ticker": "TSM",
+      "name": "Taiwan Semiconductor Manufacturing Company Limited",
+      "position": "watchlist",
+      "latest_period": "2026-06-30",
+      "overall_score": 80,
+      "overall_label": "長期體質強",
+      "coverage": {
+        "known": 7,
+        "total": 7,
+        "missing": []
+      },
+      "dimensions": [
+        {
+          "id": "growth",
+          "label": "成長持續性",
+          "score": 86,
+          "coverage": {
+            "known": 2,
+            "total": 3
+          },
+          "metrics": [
+            {
+              "id": "revenue_yoy",
+              "label": "最近一季營收 YoY",
+              "value": 0.36045577699482756,
+              "display": "+36.0%",
+              "score": 86,
+              "weight": 1.5,
+              "source": "quarterly_financials.json",
+              "note": "同一公司最近季度與四季前比較。"
+            },
+            {
+              "id": "revenue_cagr_3y",
+              "label": "季度營收三年 CAGR",
+              "value": null,
+              "display": "資料不足",
+              "score": null,
+              "weight": 1,
+              "source": "quarterly_financials.json",
+              "note": "使用約十二季前的同季營收；不足十三期即保留缺值。"
+            },
+            {
+              "id": "positive_quarter_ratio",
+              "label": "近八季季增穩定度",
+              "value": 0.8571428571428571,
+              "display": "6/7 次季增",
+              "score": 86,
+              "weight": 1,
+              "source": "quarterly_financials.json",
+              "note": "最近八季相鄰季度的營收增加比例；可能含季節性。"
+            }
+          ]
+        },
+        {
+          "id": "profitability",
+          "label": "獲利能力與護城河",
+          "score": 93,
+          "coverage": {
+            "known": 4,
+            "total": 4
+          },
+          "metrics": [
+            {
+              "id": "gross_margin",
+              "label": "最新毛利率",
+              "value": 0.677,
+              "display": "67.7%",
+              "score": 88,
+              "weight": 1,
+              "source": "quarterly_financials.json",
+              "note": "高毛利率常反映產品組合或定價能力，但仍需同業比較。"
+            },
+            {
+              "id": "operating_margin",
+              "label": "最新營業利益率",
+              "value": 0.603,
+              "display": "60.3%",
+              "score": 100,
+              "weight": 1.25,
+              "source": "quarterly_financials.json",
+              "note": "衡量本業扣除營業費用後的獲利能力。"
+            },
+            {
+              "id": "gross_margin_yoy",
+              "label": "毛利率 YoY 變化",
+              "value": 0.09100000000000008,
+              "display": "+9.1pp",
+              "score": 96,
+              "weight": 1,
+              "source": "quarterly_financials.json",
+              "note": "百分點變化；改善不代表絕對毛利率已足夠。"
+            },
+            {
+              "id": "roic_spread",
+              "label": "ROIC − WACC",
+              "value": 0.3119,
+              "display": "+31.2pp",
+              "score": 89,
+              "weight": 1.5,
+              "source": "financial_health.json",
+              "note": "正值表示目前估計的投入資本報酬高於資金成本。"
+            }
+          ]
+        },
+        {
+          "id": "cash_flow",
+          "label": "現金流品質",
+          "score": 92,
+          "coverage": {
+            "known": 4,
+            "total": 4
+          },
+          "metrics": [
+            {
+              "id": "quarterly_fcf_margin",
+              "label": "最新季度 FCF 利潤率",
+              "value": 0.22620003463530597,
+              "display": "22.6%",
+              "score": 76,
+              "weight": 1.5,
+              "source": "quarterly_financials.json",
+              "note": "自由現金流除以同季營收。"
+            },
+            {
+              "id": "positive_fcf_ratio",
+              "label": "近八季正 FCF",
+              "value": 1.0,
+              "display": "8/8 季為正",
+              "score": 100,
+              "weight": 1,
+              "source": "quarterly_financials.json",
+              "note": "只判斷正負，不把缺值當成負值。"
+            },
+            {
+              "id": "ocf_to_net_income",
+              "label": "營業現金流／淨利",
+              "value": 1.342,
+              "display": "1.3x",
+              "score": 100,
+              "weight": 1,
+              "source": "financial_health.json",
+              "note": "接近或高於 1 通常代表獲利有現金支撐。"
+            },
+            {
+              "id": "accrual_ratio",
+              "label": "應計比率",
+              "value": -0.0809,
+              "display": "-8.1%",
+              "score": 98,
+              "weight": 1,
+              "source": "financial_health.json",
+              "note": "越低越好；過高代表淨利明顯超前營運現金流。"
+            }
+          ]
+        },
+        {
+          "id": "resilience",
+          "label": "財務韌性",
+          "score": 92,
+          "coverage": {
+            "known": 4,
+            "total": 4
+          },
+          "metrics": [
+            {
+              "id": "current_ratio",
+              "label": "流動比率",
+              "value": 2.51,
+              "display": "2.5x",
+              "score": 83,
+              "weight": 1,
+              "source": "financial_health.json",
+              "note": "衡量流動資產覆蓋流動負債的能力。"
+            },
+            {
+              "id": "interest_coverage",
+              "label": "利息保障倍數",
+              "value": 156.5,
+              "display": "156.5x",
+              "score": 100,
+              "weight": 1.25,
+              "source": "financial_health.json",
+              "note": "EBIT 除以利息費用；負值或低於 1 代表壓力較高。"
+            },
+            {
+              "id": "liabilities_to_assets",
+              "label": "負債占資產",
+              "value": 0.3198,
+              "display": "32.0%",
+              "score": 83,
+              "weight": 1,
+              "source": "financial_health.json",
+              "note": "採反向計分；不等同只有有息負債。"
+            },
+            {
+              "id": "net_debt_to_ebit",
+              "label": "淨負債／EBIT",
+              "value": -0.88,
+              "display": "-0.9x",
+              "score": 99,
+              "weight": 1,
+              "source": "financial_health.json",
+              "note": "負值代表淨現金；本站缺折舊攤銷時以 EBIT 為分母。"
+            }
+          ]
+        },
+        {
+          "id": "capital_allocation",
+          "label": "股東價值與稀釋",
+          "score": 70,
+          "coverage": {
+            "known": 1,
+            "total": 3
+          },
+          "metrics": [
+            {
+              "id": "share_change",
+              "label": "稀釋股數 YoY",
+              "value": null,
+              "display": "資料不足",
+              "score": null,
+              "weight": 1.75,
+              "source": "capital_allocation_cards.json",
+              "note": "缺本期或前期稀釋加權平均股數，無法判斷淨稀釋。"
+            },
+            {
+              "id": "shareholder_return",
+              "label": "股東回饋品質",
+              "value": null,
+              "display": "回購或股利 XBRL 標籤不完整，不把缺值當成 0。",
+              "score": null,
+              "weight": 1,
+              "source": "capital_allocation_cards.json",
+              "note": "依回購、股利是否由自由現金流覆蓋評分。"
+            },
+            {
+              "id": "capital_score",
+              "label": "資本配置綜合訊號",
+              "value": 3.0,
+              "display": "+3 分（原始 -7～+7 參考區間）",
+              "score": 70,
+              "weight": 1.25,
+              "source": "capital_allocation_cards.json",
+              "note": "資本配置支持股東價值"
+            }
+          ]
+        },
+        {
+          "id": "execution",
+          "label": "管理層執行與揭露",
+          "score": 100,
+          "coverage": {
+            "known": 2,
+            "total": 2
+          },
+          "metrics": [
+            {
+              "id": "guidance_delivery",
+              "label": "歷史數字指引達成",
+              "value": 100.0,
+              "display": "12/12 次達標",
+              "score": 100,
+              "weight": 1.5,
+              "source": "guidance_history.json",
+              "note": "實績落在或高於官方區間視為達標；沒有一致數字指引即保留缺值。"
+            },
+            {
+              "id": "thesis_evidence",
+              "label": "投資論點實績證據",
+              "value": 100.0,
+              "display": "支持 3／待驗證 0／失效 0",
+              "score": 100,
+              "weight": 1,
+              "source": "investment_thesis_status.json",
+              "note": "由最新季報對既定論點與失效條件的機械式驗證結果計分。"
+            }
+          ]
+        },
+        {
+          "id": "valuation",
+          "label": "估值安全邊際",
+          "score": 26,
+          "coverage": {
+            "known": 3,
+            "total": 3
+          },
+          "metrics": [
+            {
+              "id": "dcf_margin",
+              "label": "DCF 中位數相對現價",
+              "value": -0.4509,
+              "display": "-45.1%",
+              "score": 5,
+              "weight": 1.25,
+              "source": "valuation.json",
+              "note": "正值代表 DCF 中位估值高於現價；結果高度依賴成長與 WACC 假設。"
+            },
+            {
+              "id": "fcf_yield",
+              "label": "常態化 FCF 收益率",
+              "value": 0.012555590277335278,
+              "display": "1.3%",
+              "score": 28,
+              "weight": 1.25,
+              "source": "valuation.json",
+              "note": "常態化自由現金流除以目前市值。"
+            },
+            {
+              "id": "pe",
+              "label": "本益比",
+              "value": 41.9,
+              "display": "41.9x",
+              "score": 48,
+              "weight": 1,
+              "source": "valuation.json",
+              "note": "負 EPS 不顯示本益比；高成長公司仍須搭配成長率判讀。"
+            }
+          ]
+        }
+      ],
+      "red_flags": []
+    },
+    {
+      "ticker": "MSFT",
+      "data_ticker": "MSFT",
+      "name": "MICROSOFT CORPORATION",
+      "position": "watchlist",
+      "latest_period": "2026-06-30",
+      "overall_score": 77,
+      "overall_label": "長期體質穩健",
+      "coverage": {
+        "known": 7,
+        "total": 7,
+        "missing": []
+      },
+      "dimensions": [
+        {
+          "id": "growth",
+          "label": "成長持續性",
+          "score": 76,
+          "coverage": {
+            "known": 3,
+            "total": 3
+          },
+          "metrics": [
+            {
+              "id": "revenue_yoy",
+              "label": "最近一季營收 YoY",
+              "value": 0.17747020577962092,
+              "display": "+17.7%",
+              "score": 67,
+              "weight": 1.5,
+              "source": "quarterly_financials.json",
+              "note": "同一公司最近季度與四季前比較。"
+            },
+            {
+              "id": "revenue_cagr_3y",
+              "label": "季度營收三年 CAGR",
+              "value": 0.1700605258408987,
+              "display": "+17.0%",
+              "score": 66,
+              "weight": 1,
+              "source": "quarterly_financials.json",
+              "note": "使用約十二季前的同季營收；不足十三期即保留缺值。"
+            },
+            {
+              "id": "positive_quarter_ratio",
+              "label": "近八季季增穩定度",
+              "value": 1.0,
+              "display": "7/7 次季增",
+              "score": 100,
+              "weight": 1,
+              "source": "quarterly_financials.json",
+              "note": "最近八季相鄰季度的營收增加比例；可能含季節性。"
+            }
+          ]
+        },
+        {
+          "id": "profitability",
+          "label": "獲利能力與護城河",
+          "score": 76,
+          "coverage": {
+            "known": 4,
+            "total": 4
+          },
+          "metrics": [
+            {
+              "id": "gross_margin",
+              "label": "最新毛利率",
+              "value": 0.671969957892164,
+              "display": "67.2%",
+              "score": 87,
+              "weight": 1,
+              "source": "quarterly_financials.json",
+              "note": "高毛利率常反映產品組合或定價能力，但仍需同業比較。"
+            },
+            {
+              "id": "operating_margin",
+              "label": "最新營業利益率",
+              "value": 0.4511093581610319,
+              "display": "45.1%",
+              "score": 97,
+              "weight": 1.25,
+              "source": "quarterly_financials.json",
+              "note": "衡量本業扣除營業費用後的獲利能力。"
+            },
+            {
+              "id": "gross_margin_yoy",
+              "label": "毛利率 YoY 變化",
+              "value": -0.01387925915104582,
+              "display": "-1.4pp",
+              "score": 45,
+              "weight": 1,
+              "source": "quarterly_financials.json",
+              "note": "百分點變化；改善不代表絕對毛利率已足夠。"
+            },
+            {
+              "id": "roic_spread",
+              "label": "ROIC − WACC",
+              "value": 0.1477,
+              "display": "+14.8pp",
+              "score": 71,
+              "weight": 1.5,
+              "source": "financial_health.json",
+              "note": "正值表示目前估計的投入資本報酬高於資金成本。"
+            }
+          ]
+        },
+        {
+          "id": "cash_flow",
+          "label": "現金流品質",
+          "score": 91,
+          "coverage": {
+            "known": 4,
+            "total": 4
+          },
+          "metrics": [
+            {
+              "id": "quarterly_fcf_margin",
+              "label": "最新季度 FCF 利潤率",
+              "value": 0.21819414045574234,
+              "display": "21.8%",
+              "score": 75,
+              "weight": 1.5,
+              "source": "quarterly_financials.json",
+              "note": "自由現金流除以同季營收。"
+            },
+            {
+              "id": "positive_fcf_ratio",
+              "label": "近八季正 FCF",
+              "value": 1.0,
+              "display": "8/8 季為正",
+              "score": 100,
+              "weight": 1,
+              "source": "quarterly_financials.json",
+              "note": "只判斷正負，不把缺值當成負值。"
+            },
+            {
+              "id": "ocf_to_net_income",
+              "label": "營業現金流／淨利",
+              "value": 1.368,
+              "display": "1.4x",
+              "score": 100,
+              "weight": 1,
+              "source": "financial_health.json",
+              "note": "接近或高於 1 通常代表獲利有現金支撐。"
+            },
+            {
+              "id": "accrual_ratio",
+              "label": "應計比率",
+              "value": -0.0714,
+              "display": "-7.1%",
+              "score": 97,
+              "weight": 1,
+              "source": "financial_health.json",
+              "note": "越低越好；過高代表淨利明顯超前營運現金流。"
+            }
+          ]
+        },
+        {
+          "id": "resilience",
+          "label": "財務韌性",
+          "score": 79,
+          "coverage": {
+            "known": 4,
+            "total": 4
+          },
+          "metrics": [
+            {
+              "id": "current_ratio",
+              "label": "流動比率",
+              "value": 1.23,
+              "display": "1.2x",
+              "score": 49,
+              "weight": 1,
+              "source": "financial_health.json",
+              "note": "衡量流動資產覆蓋流動負債的能力。"
+            },
+            {
+              "id": "interest_coverage",
+              "label": "利息保障倍數",
+              "value": 50.9,
+              "display": "50.9x",
+              "score": 100,
+              "weight": 1.25,
+              "source": "financial_health.json",
+              "note": "EBIT 除以利息費用；負值或低於 1 代表壓力較高。"
+            },
+            {
+              "id": "liabilities_to_assets",
+              "label": "負債占資產",
+              "value": 0.4167,
+              "display": "41.7%",
+              "score": 70,
+              "weight": 1,
+              "source": "financial_health.json",
+              "note": "採反向計分；不等同只有有息負債。"
+            },
+            {
+              "id": "net_debt_to_ebit",
+              "label": "淨負債／EBIT",
+              "value": -0.24,
+              "display": "-0.2x",
+              "score": 92,
+              "weight": 1,
+              "source": "financial_health.json",
+              "note": "負值代表淨現金；本站缺折舊攤銷時以 EBIT 為分母。"
+            }
+          ]
+        },
+        {
+          "id": "capital_allocation",
+          "label": "股東價值與稀釋",
+          "score": 78,
+          "coverage": {
+            "known": 3,
+            "total": 3
+          },
+          "metrics": [
+            {
+              "id": "share_change",
+              "label": "稀釋股數 YoY",
+              "value": -0.0016075016744808712,
+              "display": "-0.2%",
+              "score": 72,
+              "weight": 1.75,
+              "source": "capital_allocation_cards.json",
+              "note": "稀釋加權平均股數年變動 -0.2%，大致持平。"
+            },
+            {
+              "id": "shareholder_return",
+              "label": "股東回饋品質",
+              "value": null,
+              "display": "回購加股利使用 FCF 的 73%，目前由當年 FCF 覆蓋。",
+              "score": 90,
+              "weight": 1,
+              "source": "capital_allocation_cards.json",
+              "note": "依回購、股利是否由自由現金流覆蓋評分。"
+            },
+            {
+              "id": "capital_score",
+              "label": "資本配置綜合訊號",
+              "value": 4.0,
+              "display": "+4 分（原始 -7～+7 參考區間）",
+              "score": 78,
+              "weight": 1.25,
+              "source": "capital_allocation_cards.json",
+              "note": "資本配置支持股東價值"
+            }
+          ]
+        },
+        {
+          "id": "execution",
+          "label": "管理層執行與揭露",
+          "score": 87,
+          "coverage": {
+            "known": 2,
+            "total": 2
+          },
+          "metrics": [
+            {
+              "id": "guidance_delivery",
+              "label": "歷史數字指引達成",
+              "value": 100.0,
+              "display": "12/12 次達標",
+              "score": 100,
+              "weight": 1.5,
+              "source": "guidance_history.json",
+              "note": "實績落在或高於官方區間視為達標；沒有一致數字指引即保留缺值。"
+            },
+            {
+              "id": "thesis_evidence",
+              "label": "投資論點實績證據",
+              "value": 66.66666666666667,
+              "display": "支持 2／待驗證 0／失效 1",
+              "score": 67,
+              "weight": 1,
+              "source": "investment_thesis_status.json",
+              "note": "由最新季報對既定論點與失效條件的機械式驗證結果計分。"
+            }
+          ]
+        },
+        {
+          "id": "valuation",
+          "label": "估值安全邊際",
+          "score": 54,
+          "coverage": {
+            "known": 3,
+            "total": 3
+          },
+          "metrics": [
+            {
+              "id": "dcf_margin",
+              "label": "DCF 中位數相對現價",
+              "value": 0.0168,
+              "display": "+1.7%",
+              "score": 56,
+              "weight": 1.25,
+              "source": "valuation.json",
+              "note": "正值代表 DCF 中位估值高於現價；結果高度依賴成長與 WACC 假設。"
+            },
+            {
+              "id": "fcf_yield",
+              "label": "常態化 FCF 收益率",
+              "value": 0.026468664107288722,
+              "display": "2.6%",
+              "score": 41,
+              "weight": 1.25,
+              "source": "valuation.json",
+              "note": "常態化自由現金流除以目前市值。"
+            },
+            {
+              "id": "pe",
+              "label": "本益比",
+              "value": 27.4,
+              "display": "27.4x",
+              "score": 67,
+              "weight": 1,
+              "source": "valuation.json",
+              "note": "負 EPS 不顯示本益比；高成長公司仍須搭配成長率判讀。"
+            }
+          ]
+        }
+      ],
+      "red_flags": [
+        {
+          "source": "investment_thesis_status.json",
+          "label": "論點失效",
+          "detail": "2026-06-30 營業利益率 45.1%，YoY +0.2pp；連續 4 季下降。"
+        }
+      ]
+    },
+    {
+      "ticker": "META",
+      "data_ticker": "META",
+      "name": "Meta Platforms, Inc.",
+      "position": "watchlist",
+      "latest_period": "2026-06-30",
+      "overall_score": 79,
+      "overall_label": "長期體質穩健",
+      "coverage": {
+        "known": 7,
+        "total": 7,
+        "missing": []
+      },
+      "dimensions": [
+        {
+          "id": "growth",
+          "label": "成長持續性",
+          "score": 75,
+          "coverage": {
+            "known": 3,
+            "total": 3
+          },
+          "metrics": [
+            {
+              "id": "revenue_yoy",
+              "label": "最近一季營收 YoY",
+              "value": 0.27959003283104633,
+              "display": "+28.0%",
+              "score": 78,
+              "weight": 1.5,
+              "source": "quarterly_financials.json",
+              "note": "同一公司最近季度與四季前比較。"
+            },
+            {
+              "id": "revenue_cagr_3y",
+              "label": "季度營收三年 CAGR",
+              "value": 0.23858202198705203,
+              "display": "+23.9%",
+              "score": 74,
+              "weight": 1,
+              "source": "quarterly_financials.json",
+              "note": "使用約十二季前的同季營收；不足十三期即保留缺值。"
+            },
+            {
+              "id": "positive_quarter_ratio",
+              "label": "近八季季增穩定度",
+              "value": 0.7142857142857143,
+              "display": "5/7 次季增",
+              "score": 71,
+              "weight": 1,
+              "source": "quarterly_financials.json",
+              "note": "最近八季相鄰季度的營收增加比例；可能含季節性。"
+            }
+          ]
+        },
+        {
+          "id": "profitability",
+          "label": "獲利能力與護城河",
+          "score": 76,
+          "coverage": {
+            "known": 4,
+            "total": 4
+          },
+          "metrics": [
+            {
+              "id": "gross_margin",
+              "label": "最新毛利率",
+              "value": 0.8136543806845282,
+              "display": "81.4%",
+              "score": 100,
+              "weight": 1,
+              "source": "quarterly_financials.json",
+              "note": "高毛利率常反映產品組合或定價能力，但仍需同業比較。"
+            },
+            {
+              "id": "operating_margin",
+              "label": "最新營業利益率",
+              "value": 0.3087942632522491,
+              "display": "30.9%",
+              "score": 85,
+              "weight": 1.25,
+              "source": "quarterly_financials.json",
+              "note": "衡量本業扣除營業費用後的獲利能力。"
+            },
+            {
+              "id": "gross_margin_yoy",
+              "label": "毛利率 YoY 變化",
+              "value": -0.007647917488718736,
+              "display": "-0.8pp",
+              "score": 50,
+              "weight": 1,
+              "source": "quarterly_financials.json",
+              "note": "百分點變化；改善不代表絕對毛利率已足夠。"
+            },
+            {
+              "id": "roic_spread",
+              "label": "ROIC − WACC",
+              "value": 0.1358,
+              "display": "+13.6pp",
+              "score": 70,
+              "weight": 1.5,
+              "source": "financial_health.json",
+              "note": "正值表示目前估計的投入資本報酬高於資金成本。"
+            }
+          ]
+        },
+        {
+          "id": "cash_flow",
+          "label": "現金流品質",
+          "score": 80,
+          "coverage": {
+            "known": 4,
+            "total": 4
+          },
+          "metrics": [
+            {
+              "id": "quarterly_fcf_margin",
+              "label": "最新季度 FCF 利潤率",
+              "value": 0.028716632950115954,
+              "display": "2.9%",
+              "score": 41,
+              "weight": 1.5,
+              "source": "quarterly_financials.json",
+              "note": "自由現金流除以同季營收。"
+            },
+            {
+              "id": "positive_fcf_ratio",
+              "label": "近八季正 FCF",
+              "value": 1.0,
+              "display": "8/8 季為正",
+              "score": 100,
+              "weight": 1,
+              "source": "quarterly_financials.json",
+              "note": "只判斷正負，不把缺值當成負值。"
+            },
+            {
+              "id": "ocf_to_net_income",
+              "label": "營業現金流／淨利",
+              "value": 1.915,
+              "display": "1.9x",
+              "score": 100,
+              "weight": 1,
+              "source": "financial_health.json",
+              "note": "接近或高於 1 通常代表獲利有現金支撐。"
+            },
+            {
+              "id": "accrual_ratio",
+              "label": "應計比率",
+              "value": -0.1724,
+              "display": "-17.2%",
+              "score": 100,
+              "weight": 1,
+              "source": "financial_health.json",
+              "note": "越低越好；過高代表淨利明顯超前營運現金流。"
+            }
+          ]
+        },
+        {
+          "id": "resilience",
+          "label": "財務韌性",
+          "score": 88,
+          "coverage": {
+            "known": 4,
+            "total": 4
+          },
+          "metrics": [
+            {
+              "id": "current_ratio",
+              "label": "流動比率",
+              "value": 2.6,
+              "display": "2.6x",
+              "score": 84,
+              "weight": 1,
+              "source": "financial_health.json",
+              "note": "衡量流動資產覆蓋流動負債的能力。"
+            },
+            {
+              "id": "interest_coverage",
+              "label": "利息保障倍數",
+              "value": 76.4,
+              "display": "76.4x",
+              "score": 100,
+              "weight": 1.25,
+              "source": "financial_health.json",
+              "note": "EBIT 除以利息費用；負值或低於 1 代表壓力較高。"
+            },
+            {
+              "id": "liabilities_to_assets",
+              "label": "負債占資產",
+              "value": 0.4065,
+              "display": "40.6%",
+              "score": 72,
+              "weight": 1,
+              "source": "financial_health.json",
+              "note": "採反向計分；不等同只有有息負債。"
+            },
+            {
+              "id": "net_debt_to_ebit",
+              "label": "淨負債／EBIT",
+              "value": -0.26,
+              "display": "-0.3x",
+              "score": 93,
+              "weight": 1,
+              "source": "financial_health.json",
+              "note": "負值代表淨現金；本站缺折舊攤銷時以 EBIT 為分母。"
+            }
+          ]
+        },
+        {
+          "id": "capital_allocation",
+          "label": "股東價值與稀釋",
+          "score": 89,
+          "coverage": {
+            "known": 3,
+            "total": 3
+          },
+          "metrics": [
+            {
+              "id": "share_change",
+              "label": "稀釋股數 YoY",
+              "value": -0.015302218821729108,
+              "display": "-1.5%",
+              "score": 87,
+              "weight": 1.75,
+              "source": "capital_allocation_cards.json",
+              "note": "稀釋加權平均股數年減 1.5%；回購／股份變動的淨效果有利。"
+            },
+            {
+              "id": "shareholder_return",
+              "label": "股東回饋品質",
+              "value": null,
+              "display": "回購加股利使用 FCF 的 68%，目前由當年 FCF 覆蓋。",
+              "score": 90,
+              "weight": 1,
+              "source": "capital_allocation_cards.json",
+              "note": "依回購、股利是否由自由現金流覆蓋評分。"
+            },
+            {
+              "id": "capital_score",
+              "label": "資本配置綜合訊號",
+              "value": 6.0,
+              "display": "+6 分（原始 -7～+7 參考區間）",
+              "score": 92,
+              "weight": 1.25,
+              "source": "capital_allocation_cards.json",
+              "note": "資本配置支持股東價值"
+            }
+          ]
+        },
+        {
+          "id": "execution",
+          "label": "管理層執行與揭露",
+          "score": 87,
+          "coverage": {
+            "known": 2,
+            "total": 2
+          },
+          "metrics": [
+            {
+              "id": "guidance_delivery",
+              "label": "歷史數字指引達成",
+              "value": 100.0,
+              "display": "12/12 次達標",
+              "score": 100,
+              "weight": 1.5,
+              "source": "guidance_history.json",
+              "note": "實績落在或高於官方區間視為達標；沒有一致數字指引即保留缺值。"
+            },
+            {
+              "id": "thesis_evidence",
+              "label": "投資論點實績證據",
+              "value": 66.66666666666667,
+              "display": "支持 2／待驗證 0／失效 1",
+              "score": 67,
+              "weight": 1,
+              "source": "investment_thesis_status.json",
+              "note": "由最新季報對既定論點與失效條件的機械式驗證結果計分。"
+            }
+          ]
+        },
+        {
+          "id": "valuation",
+          "label": "估值安全邊際",
+          "score": 60,
+          "coverage": {
+            "known": 2,
+            "total": 3
+          },
+          "metrics": [
+            {
+              "id": "dcf_margin",
+              "label": "DCF 中位數相對現價",
+              "value": 0.5556,
+              "display": "+55.6%",
+              "score": null,
+              "weight": 1.25,
+              "source": "valuation.json",
+              "note": "中位數 $961.69 與現價 $618.21 相差 +56%，超過 ±50% 門檻。這個幅度通常反映假設不適用，而非市場錯價 —— 請以下方的隱含成長率判讀，不要把中位數當成目標價"
+            },
+            {
+              "id": "fcf_yield",
+              "label": "常態化 FCF 收益率",
+              "value": 0.03795193642830571,
+              "display": "3.8%",
+              "score": 53,
+              "weight": 1.25,
+              "source": "valuation.json",
+              "note": "常態化自由現金流除以目前市值。"
+            },
+            {
+              "id": "pe",
+              "label": "本益比",
+              "value": 26.3,
+              "display": "26.3x",
+              "score": 68,
+              "weight": 1,
+              "source": "valuation.json",
+              "note": "負 EPS 不顯示本益比；高成長公司仍須搭配成長率判讀。"
+            }
+          ]
+        }
+      ],
+      "red_flags": [
+        {
+          "source": "investment_thesis_status.json",
+          "label": "論點失效",
+          "detail": "2026-06-30 營業利益率 30.9%，YoY -12.1pp；連續 3 季下降。"
+        },
+        {
+          "source": "valuation.json",
+          "label": "DCF 可信度",
+          "detail": "中位數 $961.69 與現價 $618.21 相差 +56%，超過 ±50% 門檻。這個幅度通常反映假設不適用，而非市場錯價 —— 請以下方的隱含成長率判讀，不要把中位數當成目標價"
+        }
+      ]
+    },
+    {
+      "ticker": "AAPL",
+      "data_ticker": "AAPL",
+      "name": "Apple Inc.",
+      "position": "watchlist",
+      "latest_period": "2026-06-27",
+      "overall_score": 64,
+      "overall_label": "優劣混合，需聚焦弱項",
+      "coverage": {
+        "known": 7,
+        "total": 7,
+        "missing": []
+      },
+      "dimensions": [
+        {
+          "id": "growth",
+          "label": "成長持續性",
+          "score": 56,
+          "coverage": {
+            "known": 3,
+            "total": 3
+          },
+          "metrics": [
+            {
+              "id": "revenue_yoy",
+              "label": "最近一季營收 YoY",
+              "value": 0.16356501765281384,
+              "display": "+16.4%",
+              "score": 65,
+              "weight": 1.5,
+              "source": "quarterly_financials.json",
+              "note": "同一公司最近季度與四季前比較。"
+            },
+            {
+              "id": "revenue_cagr_3y",
+              "label": "季度營收三年 CAGR",
+              "value": 0.10183308559676929,
+              "display": "+10.2%",
+              "score": 55,
+              "weight": 1,
+              "source": "quarterly_financials.json",
+              "note": "使用約十二季前的同季營收；不足十三期即保留缺值。"
+            },
+            {
+              "id": "positive_quarter_ratio",
+              "label": "近八季季增穩定度",
+              "value": 0.42857142857142855,
+              "display": "3/7 次季增",
+              "score": 43,
+              "weight": 1,
+              "source": "quarterly_financials.json",
+              "note": "最近八季相鄰季度的營收增加比例；可能含季節性。"
+            }
+          ]
+        },
+        {
+          "id": "profitability",
+          "label": "獲利能力與護城河",
+          "score": 84,
+          "coverage": {
+            "known": 4,
+            "total": 4
+          },
+          "metrics": [
+            {
+              "id": "gross_margin",
+              "label": "最新毛利率",
+              "value": 0.500562069879452,
+              "display": "50.1%",
+              "score": 68,
+              "weight": 1,
+              "source": "quarterly_financials.json",
+              "note": "高毛利率常反映產品組合或定價能力，但仍需同業比較。"
+            },
+            {
+              "id": "operating_margin",
+              "label": "最新營業利益率",
+              "value": 0.3262290137729969,
+              "display": "32.6%",
+              "score": 87,
+              "weight": 1.25,
+              "source": "quarterly_financials.json",
+              "note": "衡量本業扣除營業費用後的獲利能力。"
+            },
+            {
+              "id": "gross_margin_yoy",
+              "label": "毛利率 YoY 變化",
+              "value": 0.035655013007615644,
+              "display": "+3.6pp",
+              "score": 73,
+              "weight": 1,
+              "source": "quarterly_financials.json",
+              "note": "百分點變化；改善不代表絕對毛利率已足夠。"
+            },
+            {
+              "id": "roic_spread",
+              "label": "ROIC − WACC",
+              "value": 0.6517,
+              "display": "+65.2pp",
+              "score": 100,
+              "weight": 1.5,
+              "source": "financial_health.json",
+              "note": "正值表示目前估計的投入資本報酬高於資金成本。"
+            }
+          ]
+        },
+        {
+          "id": "cash_flow",
+          "label": "現金流品質",
+          "score": 89,
+          "coverage": {
+            "known": 4,
+            "total": 4
+          },
+          "metrics": [
+            {
+              "id": "quarterly_fcf_margin",
+              "label": "最新季度 FCF 利潤率",
+              "value": 0.2916731403712403,
+              "display": "29.2%",
+              "score": 84,
+              "weight": 1.5,
+              "source": "quarterly_financials.json",
+              "note": "自由現金流除以同季營收。"
+            },
+            {
+              "id": "positive_fcf_ratio",
+              "label": "近八季正 FCF",
+              "value": 1.0,
+              "display": "8/8 季為正",
+              "score": 100,
+              "weight": 1,
+              "source": "quarterly_financials.json",
+              "note": "只判斷正負，不把缺值當成負值。"
+            },
+            {
+              "id": "ocf_to_net_income",
+              "label": "營業現金流／淨利",
+              "value": 0.995,
+              "display": "1.0x",
+              "score": 84,
+              "weight": 1,
+              "source": "financial_health.json",
+              "note": "接近或高於 1 通常代表獲利有現金支撐。"
+            },
+            {
+              "id": "accrual_ratio",
+              "label": "應計比率",
+              "value": 0.0015,
+              "display": "+0.1%",
+              "score": 89,
+              "weight": 1,
+              "source": "financial_health.json",
+              "note": "越低越好；過高代表淨利明顯超前營運現金流。"
+            }
+          ]
+        },
+        {
+          "id": "resilience",
+          "label": "財務韌性",
+          "score": 47,
+          "coverage": {
+            "known": 3,
+            "total": 4
+          },
+          "metrics": [
+            {
+              "id": "current_ratio",
+              "label": "流動比率",
+              "value": 0.89,
+              "display": "0.9x",
+              "score": 33,
+              "weight": 1,
+              "source": "financial_health.json",
+              "note": "衡量流動資產覆蓋流動負債的能力。"
+            },
+            {
+              "id": "interest_coverage",
+              "label": "利息保障倍數",
+              "value": null,
+              "display": "資料不足",
+              "score": null,
+              "weight": 1.25,
+              "source": "financial_health.json",
+              "note": "EBIT 除以利息費用；負值或低於 1 代表壓力較高。"
+            },
+            {
+              "id": "liabilities_to_assets",
+              "label": "負債占資產",
+              "value": 0.7948,
+              "display": "79.5%",
+              "score": 23,
+              "weight": 1,
+              "source": "financial_health.json",
+              "note": "採反向計分；不等同只有有息負債。"
+            },
+            {
+              "id": "net_debt_to_ebit",
+              "label": "淨負債／EBIT",
+              "value": 0.28,
+              "display": "0.3x",
+              "score": 86,
+              "weight": 1,
+              "source": "financial_health.json",
+              "note": "負值代表淨現金；本站缺折舊攤銷時以 EBIT 為分母。"
+            }
+          ]
+        },
+        {
+          "id": "capital_allocation",
+          "label": "股東價值與稀釋",
+          "score": 73,
+          "coverage": {
+            "known": 3,
+            "total": 3
+          },
+          "metrics": [
+            {
+              "id": "share_change",
+              "label": "稀釋股數 YoY",
+              "value": -0.026180913344576395,
+              "display": "-2.6%",
+              "score": 91,
+              "weight": 1.75,
+              "source": "capital_allocation_cards.json",
+              "note": "稀釋加權平均股數年減 2.6%；回購／股份變動的淨效果有利。"
+            },
+            {
+              "id": "shareholder_return",
+              "label": "股東回饋品質",
+              "value": null,
+              "display": "回購加股利為 FCF 的 107%，超過當年 FCF。",
+              "score": 35,
+              "weight": 1,
+              "source": "capital_allocation_cards.json",
+              "note": "依回購、股利是否由自由現金流覆蓋評分。"
+            },
+            {
+              "id": "capital_score",
+              "label": "資本配置綜合訊號",
+              "value": 4.0,
+              "display": "+4 分（原始 -7～+7 參考區間）",
+              "score": 78,
+              "weight": 1.25,
+              "source": "capital_allocation_cards.json",
+              "note": "資本配置支持股東價值"
+            }
+          ]
+        },
+        {
+          "id": "execution",
+          "label": "管理層執行與揭露",
+          "score": 67,
+          "coverage": {
+            "known": 1,
+            "total": 2
+          },
+          "metrics": [
+            {
+              "id": "guidance_delivery",
+              "label": "歷史數字指引達成",
+              "value": null,
+              "display": "資料不足",
+              "score": null,
+              "weight": 1.5,
+              "source": "guidance_history.json",
+              "note": "實績落在或高於官方區間視為達標；沒有一致數字指引即保留缺值。"
+            },
+            {
+              "id": "thesis_evidence",
+              "label": "投資論點實績證據",
+              "value": 66.66666666666667,
+              "display": "支持 2／待驗證 0／失效 1",
+              "score": 67,
+              "weight": 1,
+              "source": "investment_thesis_status.json",
+              "note": "由最新季報對既定論點與失效條件的機械式驗證結果計分。"
+            }
+          ]
+        },
+        {
+          "id": "valuation",
+          "label": "估值安全邊際",
+          "score": 30,
+          "coverage": {
+            "known": 3,
+            "total": 3
+          },
+          "metrics": [
+            {
+              "id": "dcf_margin",
+              "label": "DCF 中位數相對現價",
+              "value": -0.417,
+              "display": "-41.7%",
+              "score": 8,
+              "weight": 1.25,
+              "source": "valuation.json",
+              "note": "正值代表 DCF 中位估值高於現價；結果高度依賴成長與 WACC 假設。"
+            },
+            {
+              "id": "fcf_yield",
+              "label": "常態化 FCF 收益率",
+              "value": 0.02366471308341268,
+              "display": "2.4%",
+              "score": 39,
+              "weight": 1.25,
+              "source": "valuation.json",
+              "note": "常態化自由現金流除以目前市值。"
+            },
+            {
+              "id": "pe",
+              "label": "本益比",
+              "value": 42.5,
+              "display": "42.5x",
+              "score": 48,
+              "weight": 1,
+              "source": "valuation.json",
+              "note": "負 EPS 不顯示本益比；高成長公司仍須搭配成長率判讀。"
+            }
+          ]
+        }
+      ],
+      "red_flags": [
+        {
+          "source": "financial_health.json",
+          "label": "流動性",
+          "detail": "流動比率 0.89 低於 1.0，流動負債大於流動資產"
+        },
+        {
+          "source": "financial_health.json",
+          "label": "償債能力",
+          "detail": "負債佔資產 79%，高於 60%"
+        },
+        {
+          "source": "financial_health.json",
+          "label": "破產風險",
+          "detail": "Altman Z'' 2.31 落在 1.1~2.6 灰色區"
+        },
+        {
+          "source": "investment_thesis_status.json",
+          "label": "論點失效",
+          "detail": "2026-06-27 營收 USD 109,417.0M，YoY +16.4%；連續 3 季下降。"
+        }
+      ]
+    },
+    {
+      "ticker": "AMZN",
+      "data_ticker": "AMZN",
+      "name": "AMAZON COM INC",
+      "position": "watchlist",
+      "latest_period": "2026-06-30",
+      "overall_score": 65,
+      "overall_label": "長期體質穩健",
+      "coverage": {
+        "known": 7,
+        "total": 7,
+        "missing": []
+      },
+      "dimensions": [
+        {
+          "id": "growth",
+          "label": "成長持續性",
+          "score": 67,
+          "coverage": {
+            "known": 3,
+            "total": 3
+          },
+          "metrics": [
+            {
+              "id": "revenue_yoy",
+              "label": "最近一季營收 YoY",
+              "value": 0.19620517346245125,
+              "display": "+19.6%",
+              "score": 69,
+              "weight": 1.5,
+              "source": "quarterly_financials.json",
+              "note": "同一公司最近季度與四季前比較。"
+            },
+            {
+              "id": "revenue_cagr_3y",
+              "label": "季度營收三年 CAGR",
+              "value": 0.14287797180223882,
+              "display": "+14.3%",
+              "score": 61,
+              "weight": 1,
+              "source": "quarterly_financials.json",
+              "note": "使用約十二季前的同季營收；不足十三期即保留缺值。"
+            },
+            {
+              "id": "positive_quarter_ratio",
+              "label": "近八季季增穩定度",
+              "value": 0.7142857142857143,
+              "display": "5/7 次季增",
+              "score": 71,
+              "weight": 1,
+              "source": "quarterly_financials.json",
+              "note": "最近八季相鄰季度的營收增加比例；可能含季節性。"
+            }
+          ]
+        },
+        {
+          "id": "profitability",
+          "label": "獲利能力與護城河",
+          "score": 56,
+          "coverage": {
+            "known": 4,
+            "total": 4
+          },
+          "metrics": [
+            {
+              "id": "gross_margin",
+              "label": "最新毛利率",
+              "value": 0.5225566533403787,
+              "display": "52.3%",
+              "score": 70,
+              "weight": 1,
+              "source": "quarterly_financials.json",
+              "note": "高毛利率常反映產品組合或定價能力，但仍需同業比較。"
+            },
+            {
+              "id": "operating_margin",
+              "label": "最新營業利益率",
+              "value": 0.1368902226254449,
+              "display": "13.7%",
+              "score": 57,
+              "weight": 1.25,
+              "source": "quarterly_financials.json",
+              "note": "衡量本業扣除營業費用後的獲利能力。"
+            },
+            {
+              "id": "gross_margin_yoy",
+              "label": "毛利率 YoY 變化",
+              "value": 0.004417334787230831,
+              "display": "+0.4pp",
+              "score": 57,
+              "weight": 1,
+              "source": "quarterly_financials.json",
+              "note": "百分點變化；改善不代表絕對毛利率已足夠。"
+            },
+            {
+              "id": "roic_spread",
+              "label": "ROIC − WACC",
+              "value": 0.0252,
+              "display": "+2.5pp",
+              "score": 46,
+              "weight": 1.5,
+              "source": "financial_health.json",
+              "note": "正值表示目前估計的投入資本報酬高於資金成本。"
+            }
+          ]
+        },
+        {
+          "id": "cash_flow",
+          "label": "現金流品質",
+          "score": 67,
+          "coverage": {
+            "known": 4,
+            "total": 4
+          },
+          "metrics": [
+            {
+              "id": "quarterly_fcf_margin",
+              "label": "最新季度 FCF 利潤率",
+              "value": -0.04397176555038234,
+              "display": "-4.4%",
+              "score": 27,
+              "weight": 1.5,
+              "source": "quarterly_financials.json",
+              "note": "自由現金流除以同季營收。"
+            },
+            {
+              "id": "positive_fcf_ratio",
+              "label": "近八季正 FCF",
+              "value": 0.625,
+              "display": "5/8 季為正",
+              "score": 62,
+              "weight": 1,
+              "source": "quarterly_financials.json",
+              "note": "只判斷正負，不把缺值當成負值。"
+            },
+            {
+              "id": "ocf_to_net_income",
+              "label": "營業現金流／淨利",
+              "value": 1.796,
+              "display": "1.8x",
+              "score": 100,
+              "weight": 1,
+              "source": "financial_health.json",
+              "note": "接近或高於 1 通常代表獲利有現金支撐。"
+            },
+            {
+              "id": "accrual_ratio",
+              "label": "應計比率",
+              "value": -0.0857,
+              "display": "-8.6%",
+              "score": 99,
+              "weight": 1,
+              "source": "financial_health.json",
+              "note": "越低越好；過高代表淨利明顯超前營運現金流。"
+            }
+          ]
+        },
+        {
+          "id": "resilience",
+          "label": "財務韌性",
+          "score": 74,
+          "coverage": {
+            "known": 4,
+            "total": 4
+          },
+          "metrics": [
+            {
+              "id": "current_ratio",
+              "label": "流動比率",
+              "value": 1.05,
+              "display": "1.1x",
+              "score": 42,
+              "weight": 1,
+              "source": "financial_health.json",
+              "note": "衡量流動資產覆蓋流動負債的能力。"
+            },
+            {
+              "id": "interest_coverage",
+              "label": "利息保障倍數",
+              "value": 35.2,
+              "display": "35.2x",
+              "score": 95,
+              "weight": 1.25,
+              "source": "financial_health.json",
+              "note": "EBIT 除以利息費用；負值或低於 1 代表壓力較高。"
+            },
+            {
+              "id": "liabilities_to_assets",
+              "label": "負債占資產",
+              "value": 0.4975,
+              "display": "49.8%",
+              "score": 60,
+              "weight": 1,
+              "source": "financial_health.json",
+              "note": "採反向計分；不等同只有有息負債。"
+            },
+            {
+              "id": "net_debt_to_ebit",
+              "label": "淨負債／EBIT",
+              "value": -0.53,
+              "display": "-0.5x",
+              "score": 95,
+              "weight": 1,
+              "source": "financial_health.json",
+              "note": "負值代表淨現金；本站缺折舊攤銷時以 EBIT 為分母。"
+            }
+          ]
+        },
+        {
+          "id": "capital_allocation",
+          "label": "股東價值與稀釋",
+          "score": 57,
+          "coverage": {
+            "known": 2,
+            "total": 3
+          },
+          "metrics": [
+            {
+              "id": "share_change",
+              "label": "稀釋股數 YoY",
+              "value": 0.009887137393899792,
+              "display": "+1.0%",
+              "score": 57,
+              "weight": 1.75,
+              "source": "capital_allocation_cards.json",
+              "note": "稀釋加權平均股數年增 1.0%；存在溫和淨稀釋。"
+            },
+            {
+              "id": "shareholder_return",
+              "label": "股東回饋品質",
+              "value": null,
+              "display": "回購或股利 XBRL 標籤不完整，不把缺值當成 0。",
+              "score": null,
+              "weight": 1,
+              "source": "capital_allocation_cards.json",
+              "note": "依回購、股利是否由自由現金流覆蓋評分。"
+            },
+            {
+              "id": "capital_score",
+              "label": "資本配置綜合訊號",
+              "value": 1.0,
+              "display": "+1 分（原始 -7～+7 參考區間）",
+              "score": 57,
+              "weight": 1.25,
+              "source": "capital_allocation_cards.json",
+              "note": "資本配置中性／需持續驗證"
+            }
+          ]
+        },
+        {
+          "id": "execution",
+          "label": "管理層執行與揭露",
+          "score": 93,
+          "coverage": {
+            "known": 2,
+            "total": 2
+          },
+          "metrics": [
+            {
+              "id": "guidance_delivery",
+              "label": "歷史數字指引達成",
+              "value": 100.0,
+              "display": "12/12 次達標",
+              "score": 100,
+              "weight": 1.5,
+              "source": "guidance_history.json",
+              "note": "實績落在或高於官方區間視為達標；沒有一致數字指引即保留缺值。"
+            },
+            {
+              "id": "thesis_evidence",
+              "label": "投資論點實績證據",
+              "value": 83.33333333333333,
+              "display": "支持 2／待驗證 1／失效 0",
+              "score": 83,
+              "weight": 1,
+              "source": "investment_thesis_status.json",
+              "note": "由最新季報對既定論點與失效條件的機械式驗證結果計分。"
+            }
+          ]
+        },
+        {
+          "id": "valuation",
+          "label": "估值安全邊際",
+          "score": 38,
+          "coverage": {
+            "known": 2,
+            "total": 3
+          },
+          "metrics": [
+            {
+              "id": "dcf_margin",
+              "label": "DCF 中位數相對現價",
+              "value": -0.7721,
+              "display": "-77.2%",
+              "score": null,
+              "weight": 1.25,
+              "source": "valuation.json",
+              "note": "中位數 $58.51 與現價 $256.79 相差 -77%，超過 ±50% 門檻。這個幅度通常反映假設不適用，而非市場錯價 —— 請以下方的隱含成長率判讀，不要把中位數當成目標價"
+            },
+            {
+              "id": "fcf_yield",
+              "label": "常態化 FCF 收益率",
+              "value": 0.00805891147236823,
+              "display": "0.8%",
+              "score": 23,
+              "weight": 1.25,
+              "source": "valuation.json",
+              "note": "常態化自由現金流除以目前市值。"
+            },
+            {
+              "id": "pe",
+              "label": "本益比",
+              "value": 35.8,
+              "display": "35.8x",
+              "score": 56,
+              "weight": 1,
+              "source": "valuation.json",
+              "note": "負 EPS 不顯示本益比；高成長公司仍須搭配成長率判讀。"
+            }
+          ]
+        }
+      ],
+      "red_flags": [
+        {
+          "source": "valuation.json",
+          "label": "DCF 可信度",
+          "detail": "中位數 $58.51 與現價 $256.79 相差 -77%，超過 ±50% 門檻。這個幅度通常反映假設不適用，而非市場錯價 —— 請以下方的隱含成長率判讀，不要把中位數當成目標價"
+        }
+      ]
+    },
+    {
+      "ticker": "ARM",
+      "data_ticker": "ARM",
+      "name": "ARM HOLDINGS PLC /UK",
+      "position": "holding",
+      "latest_period": "2026-06-30",
+      "overall_score": 71,
+      "overall_label": "長期體質穩健",
+      "coverage": {
+        "known": 7,
+        "total": 7,
+        "missing": []
+      },
+      "dimensions": [
+        {
+          "id": "growth",
+          "label": "成長持續性",
+          "score": 72,
+          "coverage": {
+            "known": 3,
+            "total": 3
+          },
+          "metrics": [
+            {
+              "id": "revenue_yoy",
+              "label": "最近一季營收 YoY",
+              "value": 0.2241215574548907,
+              "display": "+22.4%",
+              "score": 72,
+              "weight": 1.5,
+              "source": "quarterly_financials.json",
+              "note": "同一公司最近季度與四季前比較。"
+            },
+            {
+              "id": "revenue_cagr_3y",
+              "label": "季度營收三年 CAGR",
+              "value": 0.24065124255088177,
+              "display": "+24.1%",
+              "score": 74,
+              "weight": 1,
+              "source": "quarterly_financials.json",
+              "note": "使用約十二季前的同季營收；不足十三期即保留缺值。"
+            },
+            {
+              "id": "positive_quarter_ratio",
+              "label": "近八季季增穩定度",
+              "value": 0.7142857142857143,
+              "display": "5/7 次季增",
+              "score": 71,
+              "weight": 1,
+              "source": "quarterly_financials.json",
+              "note": "最近八季相鄰季度的營收增加比例；可能含季節性。"
+            }
+          ]
+        },
+        {
+          "id": "profitability",
+          "label": "獲利能力與護城河",
+          "score": 53,
+          "coverage": {
+            "known": 4,
+            "total": 4
+          },
+          "metrics": [
+            {
+              "id": "gross_margin",
+              "label": "最新毛利率",
+              "value": 0.9720713731574864,
+              "display": "97.2%",
+              "score": 100,
+              "weight": 1,
+              "source": "quarterly_financials.json",
+              "note": "高毛利率常反映產品組合或定價能力，但仍需同業比較。"
+            },
+            {
+              "id": "operating_margin",
+              "label": "最新營業利益率",
+              "value": 0.07059736229635376,
+              "display": "7.1%",
+              "score": 44,
+              "weight": 1.25,
+              "source": "quarterly_financials.json",
+              "note": "衡量本業扣除營業費用後的獲利能力。"
+            },
+            {
+              "id": "gross_margin_yoy",
+              "label": "毛利率 YoY 變化",
+              "value": 0.0005614016475148365,
+              "display": "+0.1pp",
+              "score": 55,
+              "weight": 1,
+              "source": "quarterly_financials.json",
+              "note": "百分點變化；改善不代表絕對毛利率已足夠。"
+            },
+            {
+              "id": "roic_spread",
+              "label": "ROIC − WACC",
+              "value": -0.0631,
+              "display": "-6.3pp",
+              "score": 27,
+              "weight": 1.5,
+              "source": "financial_health.json",
+              "note": "正值表示目前估計的投入資本報酬高於資金成本。"
+            }
+          ]
+        },
+        {
+          "id": "cash_flow",
+          "label": "現金流品質",
+          "score": 96,
+          "coverage": {
+            "known": 4,
+            "total": 4
+          },
+          "metrics": [
+            {
+              "id": "quarterly_fcf_margin",
+              "label": "最新季度 FCF 利潤率",
+              "value": 0.5469356089992242,
+              "display": "54.7%",
+              "score": 99,
+              "weight": 1.5,
+              "source": "quarterly_financials.json",
+              "note": "自由現金流除以同季營收。"
+            },
+            {
+              "id": "positive_fcf_ratio",
+              "label": "近八季正 FCF",
+              "value": 0.875,
+              "display": "7/8 季為正",
+              "score": 88,
+              "weight": 1,
+              "source": "quarterly_financials.json",
+              "note": "只判斷正負，不把缺值當成負值。"
+            },
+            {
+              "id": "ocf_to_net_income",
+              "label": "營業現金流／淨利",
+              "value": 1.686,
+              "display": "1.7x",
+              "score": 100,
+              "weight": 1,
+              "source": "financial_health.json",
+              "note": "接近或高於 1 通常代表獲利有現金支撐。"
+            },
+            {
+              "id": "accrual_ratio",
+              "label": "應計比率",
+              "value": -0.0632,
+              "display": "-6.3%",
+              "score": 96,
+              "weight": 1,
+              "source": "financial_health.json",
+              "note": "越低越好；過高代表淨利明顯超前營運現金流。"
+            }
+          ]
+        },
+        {
+          "id": "resilience",
+          "label": "財務韌性",
+          "score": 98,
+          "coverage": {
+            "known": 4,
+            "total": 4
+          },
+          "metrics": [
+            {
+              "id": "current_ratio",
+              "label": "流動比率",
+              "value": 6.0,
+              "display": "6.0x",
+              "score": 100,
+              "weight": 1,
+              "source": "financial_health.json",
+              "note": "衡量流動資產覆蓋流動負債的能力。"
+            },
+            {
+              "id": "interest_coverage",
+              "label": "利息保障倍數",
+              "value": 300.0,
+              "display": "300.0x",
+              "score": 100,
+              "weight": 1.25,
+              "source": "financial_health.json",
+              "note": "EBIT 除以利息費用；負值或低於 1 代表壓力較高。"
+            },
+            {
+              "id": "liabilities_to_assets",
+              "label": "負債占資產",
+              "value": 0.2258,
+              "display": "22.6%",
+              "score": 92,
+              "weight": 1,
+              "source": "financial_health.json",
+              "note": "採反向計分；不等同只有有息負債。"
+            },
+            {
+              "id": "net_debt_to_ebit",
+              "label": "淨負債／EBIT",
+              "value": -3.94,
+              "display": "-3.9x",
+              "score": 100,
+              "weight": 1,
+              "source": "financial_health.json",
+              "note": "負值代表淨現金；本站缺折舊攤銷時以 EBIT 為分母。"
+            }
+          ]
+        },
+        {
+          "id": "capital_allocation",
+          "label": "股東價值與稀釋",
+          "score": 65,
+          "coverage": {
+            "known": 2,
+            "total": 3
+          },
+          "metrics": [
+            {
+              "id": "share_change",
+              "label": "稀釋股數 YoY",
+              "value": 0.00470366886171214,
+              "display": "+0.5%",
+              "score": 61,
+              "weight": 1.75,
+              "source": "capital_allocation_cards.json",
+              "note": "稀釋加權平均股數年變動 +0.5%，大致持平。"
+            },
+            {
+              "id": "shareholder_return",
+              "label": "股東回饋品質",
+              "value": null,
+              "display": "回購或股利 XBRL 標籤不完整，不把缺值當成 0。",
+              "score": null,
+              "weight": 1,
+              "source": "capital_allocation_cards.json",
+              "note": "依回購、股利是否由自由現金流覆蓋評分。"
+            },
+            {
+              "id": "capital_score",
+              "label": "資本配置綜合訊號",
+              "value": 3.0,
+              "display": "+3 分（原始 -7～+7 參考區間）",
+              "score": 70,
+              "weight": 1.25,
+              "source": "capital_allocation_cards.json",
+              "note": "資本配置支持股東價值"
+            }
+          ]
+        },
+        {
+          "id": "execution",
+          "label": "管理層執行與揭露",
+          "score": 100,
+          "coverage": {
+            "known": 2,
+            "total": 2
+          },
+          "metrics": [
+            {
+              "id": "guidance_delivery",
+              "label": "歷史數字指引達成",
+              "value": 100.0,
+              "display": "11/11 次達標",
+              "score": 100,
+              "weight": 1.5,
+              "source": "guidance_history.json",
+              "note": "實績落在或高於官方區間視為達標；沒有一致數字指引即保留缺值。"
+            },
+            {
+              "id": "thesis_evidence",
+              "label": "投資論點實績證據",
+              "value": 100.0,
+              "display": "支持 3／待驗證 0／失效 0",
+              "score": 100,
+              "weight": 1,
+              "source": "investment_thesis_status.json",
+              "note": "由最新季報對既定論點與失效條件的機械式驗證結果計分。"
+            }
+          ]
+        },
+        {
+          "id": "valuation",
+          "label": "估值安全邊際",
+          "score": 11,
+          "coverage": {
+            "known": 2,
+            "total": 3
+          },
+          "metrics": [
+            {
+              "id": "dcf_margin",
+              "label": "DCF 中位數相對現價",
+              "value": -0.9338,
+              "display": "-93.4%",
+              "score": null,
+              "weight": 1.25,
+              "source": "valuation.json",
+              "note": "中位數 $17.09 與現價 $258.34 相差 -93%，超過 ±50% 門檻。這個幅度通常反映假設不適用，而非市場錯價 —— 請以下方的隱含成長率判讀，不要把中位數當成目標價"
+            },
+            {
+              "id": "fcf_yield",
+              "label": "常態化 FCF 收益率",
+              "value": 0.0035614500437160055,
+              "display": "0.4%",
+              "score": 19,
+              "weight": 1.25,
+              "source": "valuation.json",
+              "note": "常態化自由現金流除以目前市值。"
+            },
+            {
+              "id": "pe",
+              "label": "本益比",
+              "value": 305.2,
+              "display": "305.2x",
+              "score": 0,
+              "weight": 1,
+              "source": "valuation.json",
+              "note": "負 EPS 不顯示本益比；高成長公司仍須搭配成長率判讀。"
+            }
+          ]
+        }
+      ],
+      "red_flags": [
+        {
+          "source": "financial_health.json",
+          "label": "資本效率",
+          "detail": "ROIC 11.6% 低於 WACC 17.91%，價差 -6.3pp，投入資本未賺回其成本"
+        },
+        {
+          "source": "valuation.json",
+          "label": "DCF 可信度",
+          "detail": "中位數 $17.09 與現價 $258.34 相差 -93%，超過 ±50% 門檻。這個幅度通常反映假設不適用，而非市場錯價 —— 請以下方的隱含成長率判讀，不要把中位數當成目標價"
+        }
+      ]
+    },
+    {
+      "ticker": "ONDS",
+      "data_ticker": "ONDS",
+      "name": "Ondas Inc.",
+      "position": "watchlist",
+      "latest_period": "2026-06-30",
+      "overall_score": 38,
+      "overall_label": "長期風險偏高",
+      "coverage": {
+        "known": 7,
+        "total": 7,
+        "missing": []
+      },
+      "dimensions": [
+        {
+          "id": "growth",
+          "label": "成長持續性",
+          "score": 100,
+          "coverage": {
+            "known": 3,
+            "total": 3
+          },
+          "metrics": [
+            {
+              "id": "revenue_yoy",
+              "label": "最近一季營收 YoY",
+              "value": 12.354375896700143,
+              "display": "+1235.4%",
+              "score": 100,
+              "weight": 1.5,
+              "source": "quarterly_financials.json",
+              "note": "同一公司最近季度與四季前比較。"
+            },
+            {
+              "id": "revenue_cagr_3y",
+              "label": "季度營收三年 CAGR",
+              "value": 1.4835025284474348,
+              "display": "+148.4%",
+              "score": 100,
+              "weight": 1,
+              "source": "quarterly_financials.json",
+              "note": "使用約十二季前的同季營收；不足十三期即保留缺值。"
+            },
+            {
+              "id": "positive_quarter_ratio",
+              "label": "近八季季增穩定度",
+              "value": 1.0,
+              "display": "7/7 次季增",
+              "score": 100,
+              "weight": 1,
+              "source": "quarterly_financials.json",
+              "note": "最近八季相鄰季度的營收增加比例；可能含季節性。"
+            }
+          ]
+        },
+        {
+          "id": "profitability",
+          "label": "獲利能力與護城河",
+          "score": 12,
+          "coverage": {
+            "known": 4,
+            "total": 4
+          },
+          "metrics": [
+            {
+              "id": "gross_margin",
+              "label": "最新毛利率",
+              "value": 0.43130162822900253,
+              "display": "43.1%",
+              "score": 59,
+              "weight": 1,
+              "source": "quarterly_financials.json",
+              "note": "高毛利率常反映產品組合或定價能力，但仍需同業比較。"
+            },
+            {
+              "id": "operating_margin",
+              "label": "最新營業利益率",
+              "value": -1.945112925559853,
+              "display": "-194.5%",
+              "score": 0,
+              "weight": 1.25,
+              "source": "quarterly_financials.json",
+              "note": "衡量本業扣除營業費用後的獲利能力。"
+            },
+            {
+              "id": "gross_margin_yoy",
+              "label": "毛利率 YoY 變化",
+              "value": -0.099863683424114,
+              "display": "-10.0pp",
+              "score": 0,
+              "weight": 1,
+              "source": "quarterly_financials.json",
+              "note": "百分點變化；改善不代表絕對毛利率已足夠。"
+            },
+            {
+              "id": "roic_spread",
+              "label": "ROIC − WACC",
+              "value": -0.2882,
+              "display": "-28.8pp",
+              "score": 0,
+              "weight": 1.5,
+              "source": "financial_health.json",
+              "note": "正值表示目前估計的投入資本報酬高於資金成本。"
+            }
+          ]
+        },
+        {
+          "id": "cash_flow",
+          "label": "現金流品質",
+          "score": 29,
+          "coverage": {
+            "known": 3,
+            "total": 4
+          },
+          "metrics": [
+            {
+              "id": "quarterly_fcf_margin",
+              "label": "最新季度 FCF 利潤率",
+              "value": -1.1202072291457765,
+              "display": "-112.0%",
+              "score": 0,
+              "weight": 1.5,
+              "source": "quarterly_financials.json",
+              "note": "自由現金流除以同季營收。"
+            },
+            {
+              "id": "positive_fcf_ratio",
+              "label": "近八季正 FCF",
+              "value": 0.0,
+              "display": "0/8 季為正",
+              "score": 0,
+              "weight": 1,
+              "source": "quarterly_financials.json",
+              "note": "只判斷正負，不把缺值當成負值。"
+            },
+            {
+              "id": "ocf_to_net_income",
+              "label": "營業現金流／淨利",
+              "value": null,
+              "display": "資料不足",
+              "score": null,
+              "weight": 1,
+              "source": "financial_health.json",
+              "note": "接近或高於 1 通常代表獲利有現金支撐。"
+            },
+            {
+              "id": "accrual_ratio",
+              "label": "應計比率",
+              "value": -0.1523,
+              "display": "-15.2%",
+              "score": 100,
+              "weight": 1,
+              "source": "financial_health.json",
+              "note": "越低越好；過高代表淨利明顯超前營運現金流。"
+            }
+          ]
+        },
+        {
+          "id": "resilience",
+          "label": "財務韌性",
+          "score": 46,
+          "coverage": {
+            "known": 3,
+            "total": 4
+          },
+          "metrics": [
+            {
+              "id": "current_ratio",
+              "label": "流動比率",
+              "value": 4.84,
+              "display": "4.8x",
+              "score": 99,
+              "weight": 1,
+              "source": "financial_health.json",
+              "note": "衡量流動資產覆蓋流動負債的能力。"
+            },
+            {
+              "id": "interest_coverage",
+              "label": "利息保障倍數",
+              "value": -8.9,
+              "display": "-8.9x",
+              "score": 0,
+              "weight": 1.25,
+              "source": "financial_health.json",
+              "note": "EBIT 除以利息費用；負值或低於 1 代表壓力較高。"
+            },
+            {
+              "id": "liabilities_to_assets",
+              "label": "負債占資產",
+              "value": 0.5837,
+              "display": "58.4%",
+              "score": 50,
+              "weight": 1,
+              "source": "financial_health.json",
+              "note": "採反向計分；不等同只有有息負債。"
+            },
+            {
+              "id": "net_debt_to_ebit",
+              "label": "淨負債／EBIT",
+              "value": null,
+              "display": "資料不足",
+              "score": null,
+              "weight": 1,
+              "source": "financial_health.json",
+              "note": "負值代表淨現金；本站缺折舊攤銷時以 EBIT 為分母。"
+            }
+          ]
+        },
+        {
+          "id": "capital_allocation",
+          "label": "股東價值與稀釋",
+          "score": 33,
+          "coverage": {
+            "known": 1,
+            "total": 3
+          },
+          "metrics": [
+            {
+              "id": "share_change",
+              "label": "稀釋股數 YoY",
+              "value": null,
+              "display": "資料不足",
+              "score": null,
+              "weight": 1.75,
+              "source": "capital_allocation_cards.json",
+              "note": "2024-12-31 與 2023-12-31 的稀釋加權平均股數相差 754.3 倍，疑有拆股或 XBRL 縮放差異，停止跨期比較。"
+            },
+            {
+              "id": "shareholder_return",
+              "label": "股東回饋品質",
+              "value": null,
+              "display": "回購或股利 XBRL 標籤不完整，不把缺值當成 0。",
+              "score": null,
+              "weight": 1,
+              "source": "capital_allocation_cards.json",
+              "note": "依回購、股利是否由自由現金流覆蓋評分。"
+            },
+            {
+              "id": "capital_score",
+              "label": "資本配置綜合訊號",
+              "value": -2.0,
+              "display": "-2 分（原始 -7～+7 參考區間）",
+              "score": 33,
+              "weight": 1.25,
+              "source": "capital_allocation_cards.json",
+              "note": "資本配置中性／需持續驗證"
+            }
+          ]
+        },
+        {
+          "id": "execution",
+          "label": "管理層執行與揭露",
+          "score": 33,
+          "coverage": {
+            "known": 1,
+            "total": 2
+          },
+          "metrics": [
+            {
+              "id": "guidance_delivery",
+              "label": "歷史數字指引達成",
+              "value": null,
+              "display": "資料不足",
+              "score": null,
+              "weight": 1.5,
+              "source": "guidance_history.json",
+              "note": "實績落在或高於官方區間視為達標；沒有一致數字指引即保留缺值。"
+            },
+            {
+              "id": "thesis_evidence",
+              "label": "投資論點實績證據",
+              "value": 33.333333333333336,
+              "display": "支持 1／待驗證 0／失效 2",
+              "score": 33,
+              "weight": 1,
+              "source": "investment_thesis_status.json",
+              "note": "由最新季報對既定論點與失效條件的機械式驗證結果計分。"
+            }
+          ]
+        },
+        {
+          "id": "valuation",
+          "label": "估值安全邊際",
+          "score": 12,
+          "coverage": {
+            "known": 1,
+            "total": 3
+          },
+          "metrics": [
+            {
+              "id": "dcf_margin",
+              "label": "DCF 中位數相對現價",
+              "value": null,
+              "display": "資料不足",
+              "score": null,
+              "weight": 1.25,
+              "source": "valuation.json",
+              "note": "正值代表 DCF 中位估值高於現價；結果高度依賴成長與 WACC 假設。"
+            },
+            {
+              "id": "fcf_yield",
+              "label": "常態化 FCF 收益率",
+              "value": -0.009282294954998807,
+              "display": "-0.9%",
+              "score": 12,
+              "weight": 1.25,
+              "source": "valuation.json",
+              "note": "常態化自由現金流除以目前市值。"
+            },
+            {
+              "id": "pe",
+              "label": "本益比",
+              "value": null,
+              "display": "資料不足",
+              "score": null,
+              "weight": 1,
+              "source": "valuation.json",
+              "note": "負 EPS 不顯示本益比；高成長公司仍須搭配成長率判讀。"
+            }
+          ]
+        }
+      ],
+      "red_flags": [
+        {
+          "source": "financial_health.json",
+          "label": "償債能力",
+          "detail": "利息保障倍數 -8.9x 低於 3x（營業利益為負）"
+        },
+        {
+          "source": "financial_health.json",
+          "label": "資本效率",
+          "detail": "ROIC -13.2% 低於 WACC 15.60%，價差 -28.8pp，投入資本未賺回其成本"
+        },
+        {
+          "source": "financial_health.json",
+          "label": "現金流品質",
+          "detail": "自由現金流為負，FCF 利潤率 -80.4%"
+        },
+        {
+          "source": "financial_health.json",
+          "label": "破產風險",
+          "detail": "Altman Z'' 2.44 落在 1.1~2.6 灰色區"
+        },
+        {
+          "source": "financial_health.json",
+          "label": "盈餘品質",
+          "detail": "Beneish M-Score 2.05 高於 -1.78，會計型態符合模型的操縱樣本特徵，需人工查證。營收年增 605%（SGI=7.05）。SGI 在模型中權重高，高速成長本身就會把分數推向門檻，這是本模型已知的偽陽性來源"
+        },
+        {
+          "source": "investment_thesis_status.json",
+          "label": "論點失效",
+          "detail": "2026-06-30 營業利益率 -194.5%，YoY -47.1pp；連續 3 季下降。"
+        },
+        {
+          "source": "investment_thesis_status.json",
+          "label": "論點失效",
+          "detail": "2026-06-30 FCF USD -93.8M（連續 8 季為負）；稀釋股數 YoY +234.3%。"
+        }
+      ]
+    },
+    {
+      "ticker": "TSLA",
+      "data_ticker": "TSLA",
+      "name": "Tesla, Inc.",
+      "position": "holding",
+      "latest_period": "2026-06-30",
+      "overall_score": 55,
+      "overall_label": "優劣混合，需聚焦弱項",
+      "coverage": {
+        "known": 7,
+        "total": 7,
+        "missing": []
+      },
+      "dimensions": [
+        {
+          "id": "growth",
+          "label": "成長持續性",
+          "score": 61,
+          "coverage": {
+            "known": 3,
+            "total": 3
+          },
+          "metrics": [
+            {
+              "id": "revenue_yoy",
+              "label": "最近一季營收 YoY",
+              "value": 0.25515647226173543,
+              "display": "+25.5%",
+              "score": 76,
+              "weight": 1.5,
+              "source": "quarterly_financials.json",
+              "note": "同一公司最近季度與四季前比較。"
+            },
+            {
+              "id": "revenue_cagr_3y",
+              "label": "季度營收三年 CAGR",
+              "value": 0.04242396355621625,
+              "display": "+4.2%",
+              "score": 43,
+              "weight": 1,
+              "source": "quarterly_financials.json",
+              "note": "使用約十二季前的同季營收；不足十三期即保留缺值。"
+            },
+            {
+              "id": "positive_quarter_ratio",
+              "label": "近八季季增穩定度",
+              "value": 0.5714285714285714,
+              "display": "4/7 次季增",
+              "score": 57,
+              "weight": 1,
+              "source": "quarterly_financials.json",
+              "note": "最近八季相鄰季度的營收增加比例；可能含季節性。"
+            }
+          ]
+        },
+        {
+          "id": "profitability",
+          "label": "獲利能力與護城河",
+          "score": 33,
+          "coverage": {
+            "known": 4,
+            "total": 4
+          },
+          "metrics": [
+            {
+              "id": "gross_margin",
+              "label": "最新毛利率",
+              "value": 0.16826037682391273,
+              "display": "16.8%",
+              "score": 27,
+              "weight": 1,
+              "source": "quarterly_financials.json",
+              "note": "高毛利率常反映產品組合或定價能力，但仍需同業比較。"
+            },
+            {
+              "id": "operating_margin",
+              "label": "最新營業利益率",
+              "value": 0.014095480946309675,
+              "display": "1.4%",
+              "score": 33,
+              "weight": 1.25,
+              "source": "quarterly_financials.json",
+              "note": "衡量本業扣除營業費用後的獲利能力。"
+            },
+            {
+              "id": "gross_margin_yoy",
+              "label": "毛利率 YoY 變化",
+              "value": -0.004125825167552416,
+              "display": "-0.4pp",
+              "score": 52,
+              "weight": 1,
+              "source": "quarterly_financials.json",
+              "note": "百分點變化；改善不代表絕對毛利率已足夠。"
+            },
+            {
+              "id": "roic_spread",
+              "label": "ROIC − WACC",
+              "value": -0.0819,
+              "display": "-8.2pp",
+              "score": 24,
+              "weight": 1.5,
+              "source": "financial_health.json",
+              "note": "正值表示目前估計的投入資本報酬高於資金成本。"
+            }
+          ]
+        },
+        {
+          "id": "cash_flow",
+          "label": "現金流品質",
+          "score": 73,
+          "coverage": {
+            "known": 4,
+            "total": 4
+          },
+          "metrics": [
+            {
+              "id": "quarterly_fcf_margin",
+              "label": "最新季度 FCF 利潤率",
+              "value": -0.03867403314917127,
+              "display": "-3.9%",
+              "score": 28,
+              "weight": 1.5,
+              "source": "quarterly_financials.json",
+              "note": "自由現金流除以同季營收。"
+            },
+            {
+              "id": "positive_fcf_ratio",
+              "label": "近八季正 FCF",
+              "value": 0.875,
+              "display": "7/8 季為正",
+              "score": 88,
+              "weight": 1,
+              "source": "quarterly_financials.json",
+              "note": "只判斷正負，不把缺值當成負值。"
+            },
+            {
+              "id": "ocf_to_net_income",
+              "label": "營業現金流／淨利",
+              "value": 3.887,
+              "display": "3.9x",
+              "score": 100,
+              "weight": 1,
+              "source": "financial_health.json",
+              "note": "接近或高於 1 通常代表獲利有現金支撐。"
+            },
+            {
+              "id": "accrual_ratio",
+              "label": "應計比率",
+              "value": -0.0843,
+              "display": "-8.4%",
+              "score": 98,
+              "weight": 1,
+              "source": "financial_health.json",
+              "note": "越低越好；過高代表淨利明顯超前營運現金流。"
+            }
+          ]
+        },
+        {
+          "id": "resilience",
+          "label": "財務韌性",
+          "score": 83,
+          "coverage": {
+            "known": 4,
+            "total": 4
+          },
+          "metrics": [
+            {
+              "id": "current_ratio",
+              "label": "流動比率",
+              "value": 2.16,
+              "display": "2.2x",
+              "score": 77,
+              "weight": 1,
+              "source": "financial_health.json",
+              "note": "衡量流動資產覆蓋流動負債的能力。"
+            },
+            {
+              "id": "interest_coverage",
+              "label": "利息保障倍數",
+              "value": 12.9,
+              "display": "12.9x",
+              "score": 81,
+              "weight": 1.25,
+              "source": "financial_health.json",
+              "note": "EBIT 除以利息費用；負值或低於 1 代表壓力較高。"
+            },
+            {
+              "id": "liabilities_to_assets",
+              "label": "負債占資產",
+              "value": 0.3987,
+              "display": "39.9%",
+              "score": 73,
+              "weight": 1,
+              "source": "financial_health.json",
+              "note": "採反向計分；不等同只有有息負債。"
+            },
+            {
+              "id": "net_debt_to_ebit",
+              "label": "淨負債／EBIT",
+              "value": -8.19,
+              "display": "-8.2x",
+              "score": 100,
+              "weight": 1,
+              "source": "financial_health.json",
+              "note": "負值代表淨現金；本站缺折舊攤銷時以 EBIT 為分母。"
+            }
+          ]
+        },
+        {
+          "id": "capital_allocation",
+          "label": "股東價值與稀釋",
+          "score": 60,
+          "coverage": {
+            "known": 2,
+            "total": 3
+          },
+          "metrics": [
+            {
+              "id": "share_change",
+              "label": "稀釋股數 YoY",
+              "value": 0.00857632933104635,
+              "display": "+0.9%",
+              "score": 58,
+              "weight": 1.75,
+              "source": "capital_allocation_cards.json",
+              "note": "稀釋加權平均股數年增 0.9%；存在溫和淨稀釋。"
+            },
+            {
+              "id": "shareholder_return",
+              "label": "股東回饋品質",
+              "value": null,
+              "display": "回購或股利 XBRL 標籤不完整，不把缺值當成 0。",
+              "score": null,
+              "weight": 1,
+              "source": "capital_allocation_cards.json",
+              "note": "依回購、股利是否由自由現金流覆蓋評分。"
+            },
+            {
+              "id": "capital_score",
+              "label": "資本配置綜合訊號",
+              "value": 2.0,
+              "display": "+2 分（原始 -7～+7 參考區間）",
+              "score": 63,
+              "weight": 1.25,
+              "source": "capital_allocation_cards.json",
+              "note": "資本配置中性／需持續驗證"
+            }
+          ]
+        },
+        {
+          "id": "execution",
+          "label": "管理層執行與揭露",
+          "score": 67,
+          "coverage": {
+            "known": 1,
+            "total": 2
+          },
+          "metrics": [
+            {
+              "id": "guidance_delivery",
+              "label": "歷史數字指引達成",
+              "value": null,
+              "display": "資料不足",
+              "score": null,
+              "weight": 1.5,
+              "source": "guidance_history.json",
+              "note": "實績落在或高於官方區間視為達標；沒有一致數字指引即保留缺值。"
+            },
+            {
+              "id": "thesis_evidence",
+              "label": "投資論點實績證據",
+              "value": 66.66666666666667,
+              "display": "支持 1／待驗證 2／失效 0",
+              "score": 67,
+              "weight": 1,
+              "source": "investment_thesis_status.json",
+              "note": "由最新季報對既定論點與失效條件的機械式驗證結果計分。"
+            }
+          ]
+        },
+        {
+          "id": "valuation",
+          "label": "估值安全邊際",
+          "score": 11,
+          "coverage": {
+            "known": 2,
+            "total": 3
+          },
+          "metrics": [
+            {
+              "id": "dcf_margin",
+              "label": "DCF 中位數相對現價",
+              "value": -0.7541,
+              "display": "-75.4%",
+              "score": null,
+              "weight": 1.25,
+              "source": "valuation.json",
+              "note": "中位數 $87.97 與現價 $357.71 相差 -75%，超過 ±50% 門檻。這個幅度通常反映假設不適用，而非市場錯價 —— 請以下方的隱含成長率判讀，不要把中位數當成目標價"
+            },
+            {
+              "id": "fcf_yield",
+              "label": "常態化 FCF 收益率",
+              "value": 0.005166132396116422,
+              "display": "0.5%",
+              "score": 20,
+              "weight": 1.25,
+              "source": "valuation.json",
+              "note": "常態化自由現金流除以目前市值。"
+            },
+            {
+              "id": "pe",
+              "label": "本益比",
+              "value": 332.6,
+              "display": "332.6x",
+              "score": 0,
+              "weight": 1,
+              "source": "valuation.json",
+              "note": "負 EPS 不顯示本益比；高成長公司仍須搭配成長率判讀。"
+            }
+          ]
+        }
+      ],
+      "red_flags": [
+        {
+          "source": "financial_health.json",
+          "label": "資本效率",
+          "detail": "ROIC 5.0% 低於 WACC 13.19%，價差 -8.2pp，投入資本未賺回其成本"
+        },
+        {
+          "source": "valuation.json",
+          "label": "DCF 可信度",
+          "detail": "中位數 $87.97 與現價 $357.71 相差 -75%，超過 ±50% 門檻。這個幅度通常反映假設不適用，而非市場錯價 —— 請以下方的隱含成長率判讀，不要把中位數當成目標價"
+        }
+      ]
+    },
+    {
+      "ticker": "GOOG",
+      "data_ticker": "GOOGL",
+      "name": "Alphabet Inc.",
+      "position": "holding",
+      "latest_period": "2026-06-30",
+      "overall_score": 76,
+      "overall_label": "長期體質穩健",
+      "coverage": {
+        "known": 7,
+        "total": 7,
+        "missing": []
+      },
+      "dimensions": [
+        {
+          "id": "growth",
+          "label": "成長持續性",
+          "score": 71,
+          "coverage": {
+            "known": 3,
+            "total": 3
+          },
+          "metrics": [
+            {
+              "id": "revenue_yoy",
+              "label": "最近一季營收 YoY",
+              "value": 0.2423362508814868,
+              "display": "+24.2%",
+              "score": 74,
+              "weight": 1.5,
+              "source": "quarterly_financials.json",
+              "note": "同一公司最近季度與四季前比較。"
+            },
+            {
+              "id": "revenue_cagr_3y",
+              "label": "季度營收三年 CAGR",
+              "value": 0.1710085550529259,
+              "display": "+17.1%",
+              "score": 66,
+              "weight": 1,
+              "source": "quarterly_financials.json",
+              "note": "使用約十二季前的同季營收；不足十三期即保留缺值。"
+            },
+            {
+              "id": "positive_quarter_ratio",
+              "label": "近八季季增穩定度",
+              "value": 0.7142857142857143,
+              "display": "5/7 次季增",
+              "score": 71,
+              "weight": 1,
+              "source": "quarterly_financials.json",
+              "note": "最近八季相鄰季度的營收增加比例；可能含季節性。"
+            }
+          ]
+        },
+        {
+          "id": "profitability",
+          "label": "獲利能力與護城河",
+          "score": 79,
+          "coverage": {
+            "known": 4,
+            "total": 4
+          },
+          "metrics": [
+            {
+              "id": "gross_margin",
+              "label": "最新毛利率",
+              "value": 0.6164896991552306,
+              "display": "61.6%",
+              "score": 82,
+              "weight": 1,
+              "source": "quarterly_financials.json",
+              "note": "高毛利率常反映產品組合或定價能力，但仍需同業比較。"
+            },
+            {
+              "id": "operating_margin",
+              "label": "最新營業利益率",
+              "value": 0.3403285585495342,
+              "display": "34.0%",
+              "score": 89,
+              "weight": 1.25,
+              "source": "quarterly_financials.json",
+              "note": "衡量本業扣除營業費用後的獲利能力。"
+            },
+            {
+              "id": "gross_margin_yoy",
+              "label": "毛利率 YoY 變化",
+              "value": 0.021340987162863145,
+              "display": "+2.1pp",
+              "score": 66,
+              "weight": 1,
+              "source": "quarterly_financials.json",
+              "note": "百分點變化；改善不代表絕對毛利率已足夠。"
+            },
+            {
+              "id": "roic_spread",
+              "label": "ROIC − WACC",
+              "value": 0.1957,
+              "display": "+19.6pp",
+              "score": 78,
+              "weight": 1.5,
+              "source": "financial_health.json",
+              "note": "正值表示目前估計的投入資本報酬高於資金成本。"
+            }
+          ]
+        },
+        {
+          "id": "cash_flow",
+          "label": "現金流品質",
+          "score": 72,
+          "coverage": {
+            "known": 4,
+            "total": 4
+          },
+          "metrics": [
+            {
+              "id": "quarterly_fcf_margin",
+              "label": "最新季度 FCF 利潤率",
+              "value": -0.04887475374803833,
+              "display": "-4.9%",
+              "score": 26,
+              "weight": 1.5,
+              "source": "quarterly_financials.json",
+              "note": "自由現金流除以同季營收。"
+            },
+            {
+              "id": "positive_fcf_ratio",
+              "label": "近八季正 FCF",
+              "value": 0.875,
+              "display": "7/8 季為正",
+              "score": 88,
+              "weight": 1,
+              "source": "quarterly_financials.json",
+              "note": "只判斷正負，不把缺值當成負值。"
+            },
+            {
+              "id": "ocf_to_net_income",
+              "label": "營業現金流／淨利",
+              "value": 1.246,
+              "display": "1.2x",
+              "score": 100,
+              "weight": 1,
+              "source": "financial_health.json",
+              "note": "接近或高於 1 通常代表獲利有現金支撐。"
+            },
+            {
+              "id": "accrual_ratio",
+              "label": "應計比率",
+              "value": -0.0623,
+              "display": "-6.2%",
+              "score": 96,
+              "weight": 1,
+              "source": "financial_health.json",
+              "note": "越低越好；過高代表淨利明顯超前營運現金流。"
+            }
+          ]
+        },
+        {
+          "id": "resilience",
+          "label": "財務韌性",
+          "score": 90,
+          "coverage": {
+            "known": 4,
+            "total": 4
+          },
+          "metrics": [
+            {
+              "id": "current_ratio",
+              "label": "流動比率",
+              "value": 2.01,
+              "display": "2.0x",
+              "score": 75,
+              "weight": 1,
+              "source": "financial_health.json",
+              "note": "衡量流動資產覆蓋流動負債的能力。"
+            },
+            {
+              "id": "interest_coverage",
+              "label": "利息保障倍數",
+              "value": 175.3,
+              "display": "175.3x",
+              "score": 100,
+              "weight": 1.25,
+              "source": "financial_health.json",
+              "note": "EBIT 除以利息費用；負值或低於 1 代表壓力較高。"
+            },
+            {
+              "id": "liabilities_to_assets",
+              "label": "負債占資產",
+              "value": 0.3024,
+              "display": "30.2%",
+              "score": 85,
+              "weight": 1,
+              "source": "financial_health.json",
+              "note": "採反向計分；不等同只有有息負債。"
+            },
+            {
+              "id": "net_debt_to_ebit",
+              "label": "淨負債／EBIT",
+              "value": -0.59,
+              "display": "-0.6x",
+              "score": 96,
+              "weight": 1,
+              "source": "financial_health.json",
+              "note": "負值代表淨現金；本站缺折舊攤銷時以 EBIT 為分母。"
+            }
+          ]
+        },
+        {
+          "id": "capital_allocation",
+          "label": "股東價值與稀釋",
+          "score": 90,
+          "coverage": {
+            "known": 3,
+            "total": 3
+          },
+          "metrics": [
+            {
+              "id": "share_change",
+              "label": "稀釋股數 YoY",
+              "value": -0.017433919820036947,
+              "display": "-1.7%",
+              "score": 88,
+              "weight": 1.75,
+              "source": "capital_allocation_cards.json",
+              "note": "稀釋加權平均股數年減 1.7%；回購／股份變動的淨效果有利。"
+            },
+            {
+              "id": "shareholder_return",
+              "label": "股東回饋品質",
+              "value": null,
+              "display": "回購加股利使用 FCF 的 76%，目前由當年 FCF 覆蓋。",
+              "score": 90,
+              "weight": 1,
+              "source": "capital_allocation_cards.json",
+              "note": "依回購、股利是否由自由現金流覆蓋評分。"
+            },
+            {
+              "id": "capital_score",
+              "label": "資本配置綜合訊號",
+              "value": 6.0,
+              "display": "+6 分（原始 -7～+7 參考區間）",
+              "score": 92,
+              "weight": 1.25,
+              "source": "capital_allocation_cards.json",
+              "note": "資本配置支持股東價值"
+            }
+          ]
+        },
+        {
+          "id": "execution",
+          "label": "管理層執行與揭露",
+          "score": 83,
+          "coverage": {
+            "known": 1,
+            "total": 2
+          },
+          "metrics": [
+            {
+              "id": "guidance_delivery",
+              "label": "歷史數字指引達成",
+              "value": null,
+              "display": "資料不足",
+              "score": null,
+              "weight": 1.5,
+              "source": "guidance_history.json",
+              "note": "實績落在或高於官方區間視為達標；沒有一致數字指引即保留缺值。"
+            },
+            {
+              "id": "thesis_evidence",
+              "label": "投資論點實績證據",
+              "value": 83.33333333333333,
+              "display": "支持 2／待驗證 1／失效 0",
+              "score": 83,
+              "weight": 1,
+              "source": "investment_thesis_status.json",
+              "note": "由最新季報對既定論點與失效條件的機械式驗證結果計分。"
+            }
+          ]
+        },
+        {
+          "id": "valuation",
+          "label": "估值安全邊際",
+          "score": 48,
+          "coverage": {
+            "known": 3,
+            "total": 3
+          },
+          "metrics": [
+            {
+              "id": "dcf_margin",
+              "label": "DCF 中位數相對現價",
+              "value": -0.0584,
+              "display": "-5.8%",
+              "score": 48,
+              "weight": 1.25,
+              "source": "valuation.json",
+              "note": "正值代表 DCF 中位估值高於現價；結果高度依賴成長與 WACC 假設。"
+            },
+            {
+              "id": "fcf_yield",
+              "label": "常態化 FCF 收益率",
+              "value": 0.02170843799703508,
+              "display": "2.2%",
+              "score": 37,
+              "weight": 1.25,
+              "source": "valuation.json",
+              "note": "常態化自由現金流除以目前市值。"
+            },
+            {
+              "id": "pe",
+              "label": "本益比",
+              "value": 30.8,
+              "display": "30.8x",
+              "score": 62,
+              "weight": 1,
+              "source": "valuation.json",
+              "note": "負 EPS 不顯示本益比；高成長公司仍須搭配成長率判讀。"
+            }
+          ]
+        }
+      ],
+      "red_flags": []
+    },
+    {
+      "ticker": "COHR",
+      "data_ticker": "COHR",
+      "name": "COHERENT CORP.",
+      "position": "holding",
+      "latest_period": "2026-06-30",
+      "overall_score": 52,
+      "overall_label": "優劣混合，需聚焦弱項",
+      "coverage": {
+        "known": 7,
+        "total": 7,
+        "missing": []
+      },
+      "dimensions": [
+        {
+          "id": "growth",
+          "label": "成長持續性",
+          "score": 84,
+          "coverage": {
+            "known": 3,
+            "total": 3
+          },
+          "metrics": [
+            {
+              "id": "revenue_yoy",
+              "label": "最近一季營收 YoY",
+              "value": 0.33744269129273796,
+              "display": "+33.7%",
+              "score": 84,
+              "weight": 1.5,
+              "source": "quarterly_financials.json",
+              "note": "同一公司最近季度與四季前比較。"
+            },
+            {
+              "id": "revenue_cagr_3y",
+              "label": "季度營收三年 CAGR",
+              "value": 0.19288988012200647,
+              "display": "+19.3%",
+              "score": 69,
+              "weight": 1,
+              "source": "quarterly_financials.json",
+              "note": "使用約十二季前的同季營收；不足十三期即保留缺值。"
+            },
+            {
+              "id": "positive_quarter_ratio",
+              "label": "近八季季增穩定度",
+              "value": 1.0,
+              "display": "7/7 次季增",
+              "score": 100,
+              "weight": 1,
+              "source": "quarterly_financials.json",
+              "note": "最近八季相鄰季度的營收增加比例；可能含季節性。"
+            }
+          ]
+        },
+        {
+          "id": "profitability",
+          "label": "獲利能力與護城河",
+          "score": 61,
+          "coverage": {
+            "known": 2,
+            "total": 4
+          },
+          "metrics": [
+            {
+              "id": "gross_margin",
+              "label": "最新毛利率",
+              "value": 0.38477746386883027,
+              "display": "38.5%",
+              "score": 53,
+              "weight": 1,
+              "source": "quarterly_financials.json",
+              "note": "高毛利率常反映產品組合或定價能力，但仍需同業比較。"
+            },
+            {
+              "id": "operating_margin",
+              "label": "最新營業利益率",
+              "value": null,
+              "display": "資料不足",
+              "score": null,
+              "weight": 1.25,
+              "source": "quarterly_financials.json",
+              "note": "衡量本業扣除營業費用後的獲利能力。"
+            },
+            {
+              "id": "gross_margin_yoy",
+              "label": "毛利率 YoY 變化",
+              "value": 0.0276856993229454,
+              "display": "+2.8pp",
+              "score": 69,
+              "weight": 1,
+              "source": "quarterly_financials.json",
+              "note": "百分點變化；改善不代表絕對毛利率已足夠。"
+            },
+            {
+              "id": "roic_spread",
+              "label": "ROIC − WACC",
+              "value": null,
+              "display": "資料不足",
+              "score": null,
+              "weight": 1.5,
+              "source": "financial_health.json",
+              "note": "正值表示目前估計的投入資本報酬高於資金成本。"
+            }
+          ]
+        },
+        {
+          "id": "cash_flow",
+          "label": "現金流品質",
+          "score": 26,
+          "coverage": {
+            "known": 4,
+            "total": 4
+          },
+          "metrics": [
+            {
+              "id": "quarterly_fcf_margin",
+              "label": "最新季度 FCF 利潤率",
+              "value": -0.23770088285058222,
+              "display": "-23.8%",
+              "score": 0,
+              "weight": 1.5,
+              "source": "quarterly_financials.json",
+              "note": "自由現金流除以同季營收。"
+            },
+            {
+              "id": "positive_fcf_ratio",
+              "label": "近八季正 FCF",
+              "value": 0.375,
+              "display": "3/8 季為正",
+              "score": 38,
+              "weight": 1,
+              "source": "quarterly_financials.json",
+              "note": "只判斷正負，不把缺值當成負值。"
+            },
+            {
+              "id": "ocf_to_net_income",
+              "label": "營業現金流／淨利",
+              "value": 0.099,
+              "display": "0.1x",
+              "score": 7,
+              "weight": 1,
+              "source": "financial_health.json",
+              "note": "接近或高於 1 通常代表獲利有現金支撐。"
+            },
+            {
+              "id": "accrual_ratio",
+              "label": "應計比率",
+              "value": 0.0437,
+              "display": "+4.4%",
+              "score": 73,
+              "weight": 1,
+              "source": "financial_health.json",
+              "note": "越低越好；過高代表淨利明顯超前營運現金流。"
+            }
+          ]
+        },
+        {
+          "id": "resilience",
+          "label": "財務韌性",
+          "score": 78,
+          "coverage": {
+            "known": 2,
+            "total": 4
+          },
+          "metrics": [
+            {
+              "id": "current_ratio",
+              "label": "流動比率",
+              "value": 2.43,
+              "display": "2.4x",
+              "score": 81,
+              "weight": 1,
+              "source": "financial_health.json",
+              "note": "衡量流動資產覆蓋流動負債的能力。"
+            },
+            {
+              "id": "interest_coverage",
+              "label": "利息保障倍數",
+              "value": null,
+              "display": "資料不足",
+              "score": null,
+              "weight": 1.25,
+              "source": "financial_health.json",
+              "note": "EBIT 除以利息費用；負值或低於 1 代表壓力較高。"
+            },
+            {
+              "id": "liabilities_to_assets",
+              "label": "負債占資產",
+              "value": 0.3859,
+              "display": "38.6%",
+              "score": 74,
+              "weight": 1,
+              "source": "financial_health.json",
+              "note": "採反向計分；不等同只有有息負債。"
+            },
+            {
+              "id": "net_debt_to_ebit",
+              "label": "淨負債／EBIT",
+              "value": null,
+              "display": "資料不足",
+              "score": null,
+              "weight": 1,
+              "source": "financial_health.json",
+              "note": "負值代表淨現金；本站缺折舊攤銷時以 EBIT 為分母。"
+            }
+          ]
+        },
+        {
+          "id": "capital_allocation",
+          "label": "股東價值與稀釋",
+          "score": 5,
+          "coverage": {
+            "known": 2,
+            "total": 3
+          },
+          "metrics": [
+            {
+              "id": "share_change",
+              "label": "稀釋股數 YoY",
+              "value": 0.2625569448483087,
+              "display": "+26.3%",
+              "score": 0,
+              "weight": 1.75,
+              "source": "capital_allocation_cards.json",
+              "note": "稀釋加權平均股數年增 26.3%，淨稀釋明顯。"
+            },
+            {
+              "id": "shareholder_return",
+              "label": "股東回饋品質",
+              "value": null,
+              "display": "回購或股利 XBRL 標籤不完整，不把缺值當成 0。",
+              "score": null,
+              "weight": 1,
+              "source": "capital_allocation_cards.json",
+              "note": "依回購、股利是否由自由現金流覆蓋評分。"
+            },
+            {
+              "id": "capital_score",
+              "label": "資本配置綜合訊號",
+              "value": -5.0,
+              "display": "-5 分（原始 -7～+7 參考區間）",
+              "score": 12,
+              "weight": 1.25,
+              "source": "capital_allocation_cards.json",
+              "note": "資本配置形成壓力"
+            }
+          ]
+        },
+        {
+          "id": "execution",
+          "label": "管理層執行與揭露",
+          "score": 87,
+          "coverage": {
+            "known": 2,
+            "total": 2
+          },
+          "metrics": [
+            {
+              "id": "guidance_delivery",
+              "label": "歷史數字指引達成",
+              "value": 100.0,
+              "display": "12/12 次達標",
+              "score": 100,
+              "weight": 1.5,
+              "source": "guidance_history.json",
+              "note": "實績落在或高於官方區間視為達標；沒有一致數字指引即保留缺值。"
+            },
+            {
+              "id": "thesis_evidence",
+              "label": "投資論點實績證據",
+              "value": 66.66666666666667,
+              "display": "支持 2／待驗證 0／失效 1",
+              "score": 67,
+              "weight": 1,
+              "source": "investment_thesis_status.json",
+              "note": "由最新季報對既定論點與失效條件的機械式驗證結果計分。"
+            }
+          ]
+        },
+        {
+          "id": "valuation",
+          "label": "估值安全邊際",
+          "score": 22,
+          "coverage": {
+            "known": 2,
+            "total": 3
+          },
+          "metrics": [
+            {
+              "id": "dcf_margin",
+              "label": "DCF 中位數相對現價",
+              "value": -0.9328,
+              "display": "-93.3%",
+              "score": null,
+              "weight": 1.25,
+              "source": "valuation.json",
+              "note": "中位數 $19.44 與現價 $289.29 相差 -93%，超過 ±50% 門檻。這個幅度通常反映假設不適用，而非市場錯價 —— 請以下方的隱含成長率判讀，不要把中位數當成目標價"
+            },
+            {
+              "id": "fcf_yield",
+              "label": "常態化 FCF 收益率",
+              "value": 0.004494581429692568,
+              "display": "0.4%",
+              "score": 19,
+              "weight": 1.25,
+              "source": "valuation.json",
+              "note": "常態化自由現金流除以目前市值。"
+            },
+            {
+              "id": "pe",
+              "label": "本益比",
+              "value": 70.2,
+              "display": "70.2x",
+              "score": 25,
+              "weight": 1,
+              "source": "valuation.json",
+              "note": "負 EPS 不顯示本益比；高成長公司仍須搭配成長率判讀。"
+            }
+          ]
+        }
+      ],
+      "red_flags": [
+        {
+          "source": "financial_health.json",
+          "label": "現金流品質",
+          "detail": "自由現金流為負，FCF 利潤率 -14.4%"
+        },
+        {
+          "source": "investment_thesis_status.json",
+          "label": "論點失效",
+          "detail": "2026-06-30 FCF USD -486.2M（連續 5 季為負）；稀釋股數缺值。"
+        },
+        {
+          "source": "capital_allocation_cards.json",
+          "label": "資本配置壓力",
+          "detail": "資本配置形成壓力；依 4/5 個可判讀構面，只評估已公布現金流、股東回饋、淨股份效果、負債與資本支出，不推測管理層動機。"
+        },
+        {
+          "source": "valuation.json",
+          "label": "DCF 可信度",
+          "detail": "中位數 $19.44 與現價 $289.29 相差 -93%，超過 ±50% 門檻。這個幅度通常反映假設不適用，而非市場錯價 —— 請以下方的隱含成長率判讀，不要把中位數當成目標價"
+        }
+      ]
+    },
+    {
+      "ticker": "MRVL",
+      "data_ticker": "MRVL",
+      "name": "MARVELL TECHNOLOGY, INC",
+      "position": "holding",
+      "latest_period": "2026-08-01",
+      "overall_score": 64,
+      "overall_label": "優劣混合，需聚焦弱項",
+      "coverage": {
+        "known": 7,
+        "total": 7,
+        "missing": []
+      },
+      "dimensions": [
+        {
+          "id": "growth",
+          "label": "成長持續性",
+          "score": 88,
+          "coverage": {
+            "known": 3,
+            "total": 3
+          },
+          "metrics": [
+            {
+              "id": "revenue_yoy",
+              "label": "最近一季營收 YoY",
+              "value": 0.3654852699267235,
+              "display": "+36.5%",
+              "score": 87,
+              "weight": 1.5,
+              "source": "quarterly_financials.json",
+              "note": "同一公司最近季度與四季前比較。"
+            },
+            {
+              "id": "revenue_cagr_3y",
+              "label": "季度營收三年 CAGR",
+              "value": 0.2688620320104167,
+              "display": "+26.9%",
+              "score": 77,
+              "weight": 1,
+              "source": "quarterly_financials.json",
+              "note": "使用約十二季前的同季營收；不足十三期即保留缺值。"
+            },
+            {
+              "id": "positive_quarter_ratio",
+              "label": "近八季季增穩定度",
+              "value": 1.0,
+              "display": "7/7 次季增",
+              "score": 100,
+              "weight": 1,
+              "source": "quarterly_financials.json",
+              "note": "最近八季相鄰季度的營收增加比例；可能含季節性。"
+            }
+          ]
+        },
+        {
+          "id": "profitability",
+          "label": "獲利能力與護城河",
+          "score": 54,
+          "coverage": {
+            "known": 4,
+            "total": 4
+          },
+          "metrics": [
+            {
+              "id": "gross_margin",
+              "label": "最新毛利率",
+              "value": 0.5313766290658197,
+              "display": "53.1%",
+              "score": 71,
+              "weight": 1,
+              "source": "quarterly_financials.json",
+              "note": "高毛利率常反映產品組合或定價能力，但仍需同業比較。"
+            },
+            {
+              "id": "operating_margin",
+              "label": "最新營業利益率",
+              "value": 0.16781659548059724,
+              "display": "16.8%",
+              "score": 64,
+              "weight": 1.25,
+              "source": "quarterly_financials.json",
+              "note": "衡量本業扣除營業費用後的獲利能力。"
+            },
+            {
+              "id": "gross_margin_yoy",
+              "label": "毛利率 YoY 變化",
+              "value": 0.027613107805663173,
+              "display": "+2.8pp",
+              "score": 69,
+              "weight": 1,
+              "source": "quarterly_financials.json",
+              "note": "百分點變化；改善不代表絕對毛利率已足夠。"
+            },
+            {
+              "id": "roic_spread",
+              "label": "ROIC − WACC",
+              "value": -0.0739,
+              "display": "-7.4pp",
+              "score": 25,
+              "weight": 1.5,
+              "source": "financial_health.json",
+              "note": "正值表示目前估計的投入資本報酬高於資金成本。"
+            }
+          ]
+        },
+        {
+          "id": "cash_flow",
+          "label": "現金流品質",
+          "score": 72,
+          "coverage": {
+            "known": 4,
+            "total": 4
+          },
+          "metrics": [
+            {
+              "id": "quarterly_fcf_margin",
+              "label": "最新季度 FCF 利潤率",
+              "value": 0.17478917971744606,
+              "display": "17.5%",
+              "score": 67,
+              "weight": 1.5,
+              "source": "quarterly_financials.json",
+              "note": "自由現金流除以同季營收。"
+            },
+            {
+              "id": "positive_fcf_ratio",
+              "label": "近八季正 FCF",
+              "value": 1.0,
+              "display": "8/8 季為正",
+              "score": 100,
+              "weight": 1,
+              "source": "quarterly_financials.json",
+              "note": "只判斷正負，不把缺值當成負值。"
+            },
+            {
+              "id": "ocf_to_net_income",
+              "label": "營業現金流／淨利",
+              "value": 0.656,
+              "display": "0.7x",
+              "score": 51,
+              "weight": 1,
+              "source": "financial_health.json",
+              "note": "接近或高於 1 通常代表獲利有現金支撐。"
+            },
+            {
+              "id": "accrual_ratio",
+              "label": "應計比率",
+              "value": 0.0433,
+              "display": "+4.3%",
+              "score": 73,
+              "weight": 1,
+              "source": "financial_health.json",
+              "note": "越低越好；過高代表淨利明顯超前營運現金流。"
+            }
+          ]
+        },
+        {
+          "id": "resilience",
+          "label": "財務韌性",
+          "score": 74,
+          "coverage": {
+            "known": 4,
+            "total": 4
+          },
+          "metrics": [
+            {
+              "id": "current_ratio",
+              "label": "流動比率",
+              "value": 2.01,
+              "display": "2.0x",
+              "score": 75,
+              "weight": 1,
+              "source": "financial_health.json",
+              "note": "衡量流動資產覆蓋流動負債的能力。"
+            },
+            {
+              "id": "interest_coverage",
+              "label": "利息保障倍數",
+              "value": 7.1,
+              "display": "7.1x",
+              "score": 70,
+              "weight": 1.25,
+              "source": "financial_health.json",
+              "note": "EBIT 除以利息費用；負值或低於 1 代表壓力較高。"
+            },
+            {
+              "id": "liabilities_to_assets",
+              "label": "負債占資產",
+              "value": 0.3579,
+              "display": "35.8%",
+              "score": 78,
+              "weight": 1,
+              "source": "financial_health.json",
+              "note": "採反向計分；不等同只有有息負債。"
+            },
+            {
+              "id": "net_debt_to_ebit",
+              "label": "淨負債／EBIT",
+              "value": 1.01,
+              "display": "1.0x",
+              "score": 75,
+              "weight": 1,
+              "source": "financial_health.json",
+              "note": "負值代表淨現金；本站缺折舊攤銷時以 EBIT 為分母。"
+            }
+          ]
+        },
+        {
+          "id": "capital_allocation",
+          "label": "股東價值與稀釋",
+          "score": 47,
+          "coverage": {
+            "known": 3,
+            "total": 3
+          },
+          "metrics": [
+            {
+              "id": "share_change",
+              "label": "稀釋股數 YoY",
+              "value": 0.004852686308492116,
+              "display": "+0.5%",
+              "score": 60,
+              "weight": 1.75,
+              "source": "capital_allocation_cards.json",
+              "note": "稀釋加權平均股數年變動 +0.5%，大致持平。"
+            },
+            {
+              "id": "shareholder_return",
+              "label": "股東回饋品質",
+              "value": null,
+              "display": "回購加股利為 FCF 的 161%，明顯超過當年 FCF。",
+              "score": 10,
+              "weight": 1,
+              "source": "capital_allocation_cards.json",
+              "note": "依回購、股利是否由自由現金流覆蓋評分。"
+            },
+            {
+              "id": "capital_score",
+              "label": "資本配置綜合訊號",
+              "value": 1.0,
+              "display": "+1 分（原始 -7～+7 參考區間）",
+              "score": 57,
+              "weight": 1.25,
+              "source": "capital_allocation_cards.json",
+              "note": "資本配置中性／需持續驗證"
+            }
+          ]
+        },
+        {
+          "id": "execution",
+          "label": "管理層執行與揭露",
+          "score": 93,
+          "coverage": {
+            "known": 2,
+            "total": 2
+          },
+          "metrics": [
+            {
+              "id": "guidance_delivery",
+              "label": "歷史數字指引達成",
+              "value": 100.0,
+              "display": "12/12 次達標",
+              "score": 100,
+              "weight": 1.5,
+              "source": "guidance_history.json",
+              "note": "實績落在或高於官方區間視為達標；沒有一致數字指引即保留缺值。"
+            },
+            {
+              "id": "thesis_evidence",
+              "label": "投資論點實績證據",
+              "value": 83.33333333333333,
+              "display": "支持 2／待驗證 1／失效 0",
+              "score": 83,
+              "weight": 1,
+              "source": "investment_thesis_status.json",
+              "note": "由最新季報對既定論點與失效條件的機械式驗證結果計分。"
+            }
+          ]
+        },
+        {
+          "id": "valuation",
+          "label": "估值安全邊際",
+          "score": 23,
+          "coverage": {
+            "known": 2,
+            "total": 3
+          },
+          "metrics": [
+            {
+              "id": "dcf_margin",
+              "label": "DCF 中位數相對現價",
+              "value": -0.7609,
+              "display": "-76.1%",
+              "score": null,
+              "weight": 1.25,
+              "source": "valuation.json",
+              "note": "中位數 $53.69 與現價 $224.59 相差 -76%，超過 ±50% 門檻。這個幅度通常反映假設不適用，而非市場錯價 —— 請以下方的隱含成長率判讀，不要把中位數當成目標價"
+            },
+            {
+              "id": "fcf_yield",
+              "label": "常態化 FCF 收益率",
+              "value": 0.007711343038704568,
+              "display": "0.8%",
+              "score": 23,
+              "weight": 1.25,
+              "source": "valuation.json",
+              "note": "常態化自由現金流除以目前市值。"
+            },
+            {
+              "id": "pe",
+              "label": "本益比",
+              "value": 73.2,
+              "display": "73.2x",
+              "score": 23,
+              "weight": 1,
+              "source": "valuation.json",
+              "note": "負 EPS 不顯示本益比；高成長公司仍須搭配成長率判讀。"
+            }
+          ]
+        }
+      ],
+      "red_flags": [
+        {
+          "source": "financial_health.json",
+          "label": "資本效率",
+          "detail": "ROIC 7.1% 低於 WACC 14.45%，價差 -7.4pp，投入資本未賺回其成本"
+        },
+        {
+          "source": "financial_health.json",
+          "label": "盈餘品質",
+          "detail": "Beneish M-Score -1.60 高於 -1.78，會計型態符合模型的操縱樣本特徵，需人工查證"
+        },
+        {
+          "source": "valuation.json",
+          "label": "DCF 可信度",
+          "detail": "中位數 $53.69 與現價 $224.59 相差 -76%，超過 ±50% 門檻。這個幅度通常反映假設不適用，而非市場錯價 —— 請以下方的隱含成長率判讀，不要把中位數當成目標價"
+        }
+      ]
+    },
+    {
+      "ticker": "INTC",
+      "data_ticker": "INTC",
+      "name": "INTEL CORP",
+      "position": "holding",
+      "latest_period": "2026-06-27",
+      "overall_score": 50,
+      "overall_label": "優劣混合，需聚焦弱項",
+      "coverage": {
+        "known": 7,
+        "total": 7,
+        "missing": []
+      },
+      "dimensions": [
+        {
+          "id": "growth",
+          "label": "成長持續性",
+          "score": 67,
+          "coverage": {
+            "known": 3,
+            "total": 3
+          },
+          "metrics": [
+            {
+              "id": "revenue_yoy",
+              "label": "最近一季營收 YoY",
+              "value": 0.25421883505715837,
+              "display": "+25.4%",
+              "score": 75,
+              "weight": 1.5,
+              "source": "quarterly_financials.json",
+              "note": "同一公司最近季度與四季前比較。"
+            },
+            {
+              "id": "revenue_cagr_3y",
+              "label": "季度營收三年 CAGR",
+              "value": 0.075923585761422,
+              "display": "+7.6%",
+              "score": 50,
+              "weight": 1,
+              "source": "quarterly_financials.json",
+              "note": "使用約十二季前的同季營收；不足十三期即保留缺值。"
+            },
+            {
+              "id": "positive_quarter_ratio",
+              "label": "近八季季增穩定度",
+              "value": 0.7142857142857143,
+              "display": "5/7 次季增",
+              "score": 71,
+              "weight": 1,
+              "source": "quarterly_financials.json",
+              "note": "最近八季相鄰季度的營收增加比例；可能含季節性。"
+            }
+          ]
+        },
+        {
+          "id": "profitability",
+          "label": "獲利能力與護城河",
+          "score": 50,
+          "coverage": {
+            "known": 4,
+            "total": 4
+          },
+          "metrics": [
+            {
+              "id": "gross_margin",
+              "label": "最新毛利率",
+              "value": 0.40358382936507936,
+              "display": "40.4%",
+              "score": 55,
+              "weight": 1,
+              "source": "quarterly_financials.json",
+              "note": "高毛利率常反映產品組合或定價能力，但仍需同業比較。"
+            },
+            {
+              "id": "operating_margin",
+              "label": "最新營業利益率",
+              "value": 0.11135912698412699,
+              "display": "11.1%",
+              "score": 52,
+              "weight": 1.25,
+              "source": "quarterly_financials.json",
+              "note": "衡量本業扣除營業費用後的獲利能力。"
+            },
+            {
+              "id": "gross_margin_yoy",
+              "label": "毛利率 YoY 變化",
+              "value": 0.12813472756867217,
+              "display": "+12.8pp",
+              "score": 100,
+              "weight": 1,
+              "source": "quarterly_financials.json",
+              "note": "百分點變化；改善不代表絕對毛利率已足夠。"
+            },
+            {
+              "id": "roic_spread",
+              "label": "ROIC − WACC",
+              "value": -0.133,
+              "display": "-13.3pp",
+              "score": 13,
+              "weight": 1.5,
+              "source": "financial_health.json",
+              "note": "正值表示目前估計的投入資本報酬高於資金成本。"
+            }
+          ]
+        },
+        {
+          "id": "cash_flow",
+          "label": "現金流品質",
+          "score": 74,
+          "coverage": {
+            "known": 3,
+            "total": 4
+          },
+          "metrics": [
+            {
+              "id": "quarterly_fcf_margin",
+              "label": "最新季度 FCF 利潤率",
+              "value": 0.2759176587301587,
+              "display": "27.6%",
+              "score": 83,
+              "weight": 1.5,
+              "source": "quarterly_financials.json",
+              "note": "自由現金流除以同季營收。"
+            },
+            {
+              "id": "positive_fcf_ratio",
+              "label": "近八季正 FCF",
+              "value": 0.375,
+              "display": "3/8 季為正",
+              "score": 38,
+              "weight": 1,
+              "source": "quarterly_financials.json",
+              "note": "只判斷正負，不把缺值當成負值。"
+            },
+            {
+              "id": "ocf_to_net_income",
+              "label": "營業現金流／淨利",
+              "value": null,
+              "display": "資料不足",
+              "score": null,
+              "weight": 1,
+              "source": "financial_health.json",
+              "note": "接近或高於 1 通常代表獲利有現金支撐。"
+            },
+            {
+              "id": "accrual_ratio",
+              "label": "應計比率",
+              "value": -0.0489,
+              "display": "-4.9%",
+              "score": 95,
+              "weight": 1,
+              "source": "financial_health.json",
+              "note": "越低越好；過高代表淨利明顯超前營運現金流。"
+            }
+          ]
+        },
+        {
+          "id": "resilience",
+          "label": "財務韌性",
+          "score": 44,
+          "coverage": {
+            "known": 3,
+            "total": 4
+          },
+          "metrics": [
+            {
+              "id": "current_ratio",
+              "label": "流動比率",
+              "value": 2.02,
+              "display": "2.0x",
+              "score": 75,
+              "weight": 1,
+              "source": "financial_health.json",
+              "note": "衡量流動資產覆蓋流動負債的能力。"
+            },
+            {
+              "id": "interest_coverage",
+              "label": "利息保障倍數",
+              "value": -2.0,
+              "display": "-2.0x",
+              "score": 3,
+              "weight": 1.25,
+              "source": "financial_health.json",
+              "note": "EBIT 除以利息費用；負值或低於 1 代表壓力較高。"
+            },
+            {
+              "id": "liabilities_to_assets",
+              "label": "負債占資產",
+              "value": 0.4595,
+              "display": "46.0%",
+              "score": 65,
+              "weight": 1,
+              "source": "financial_health.json",
+              "note": "採反向計分；不等同只有有息負債。"
+            },
+            {
+              "id": "net_debt_to_ebit",
+              "label": "淨負債／EBIT",
+              "value": null,
+              "display": "資料不足",
+              "score": null,
+              "weight": 1,
+              "source": "financial_health.json",
+              "note": "負值代表淨現金；本站缺折舊攤銷時以 EBIT 為分母。"
+            }
+          ]
+        },
+        {
+          "id": "capital_allocation",
+          "label": "股東價值與稀釋",
+          "score": 18,
+          "coverage": {
+            "known": 2,
+            "total": 3
+          },
+          "metrics": [
+            {
+              "id": "share_change",
+              "label": "稀釋股數 YoY",
+              "value": 0.05841121495327095,
+              "display": "+5.8%",
+              "score": 27,
+              "weight": 1.75,
+              "source": "capital_allocation_cards.json",
+              "note": "稀釋加權平均股數年增 5.8%，淨稀釋明顯。"
+            },
+            {
+              "id": "shareholder_return",
+              "label": "股東回饋品質",
+              "value": null,
+              "display": "回購或股利 XBRL 標籤不完整，不把缺值當成 0。",
+              "score": null,
+              "weight": 1,
+              "source": "capital_allocation_cards.json",
+              "note": "依回購、股利是否由自由現金流覆蓋評分。"
+            },
+            {
+              "id": "capital_score",
+              "label": "資本配置綜合訊號",
+              "value": -6.0,
+              "display": "-6 分（原始 -7～+7 參考區間）",
+              "score": 6,
+              "weight": 1.25,
+              "source": "capital_allocation_cards.json",
+              "note": "資本配置形成壓力"
+            }
+          ]
+        },
+        {
+          "id": "execution",
+          "label": "管理層執行與揭露",
+          "score": 87,
+          "coverage": {
+            "known": 2,
+            "total": 2
+          },
+          "metrics": [
+            {
+              "id": "guidance_delivery",
+              "label": "歷史數字指引達成",
+              "value": 100.0,
+              "display": "12/12 次達標",
+              "score": 100,
+              "weight": 1.5,
+              "source": "guidance_history.json",
+              "note": "實績落在或高於官方區間視為達標；沒有一致數字指引即保留缺值。"
+            },
+            {
+              "id": "thesis_evidence",
+              "label": "投資論點實績證據",
+              "value": 66.66666666666667,
+              "display": "支持 2／待驗證 0／失效 1",
+              "score": 67,
+              "weight": 1,
+              "source": "investment_thesis_status.json",
+              "note": "由最新季報對既定論點與失效條件的機械式驗證結果計分。"
+            }
+          ]
+        },
+        {
+          "id": "valuation",
+          "label": "估值安全邊際",
+          "score": 12,
+          "coverage": {
+            "known": 1,
+            "total": 3
+          },
+          "metrics": [
+            {
+              "id": "dcf_margin",
+              "label": "DCF 中位數相對現價",
+              "value": null,
+              "display": "資料不足",
+              "score": null,
+              "weight": 1.25,
+              "source": "valuation.json",
+              "note": "正值代表 DCF 中位估值高於現價；結果高度依賴成長與 WACC 假設。"
+            },
+            {
+              "id": "fcf_yield",
+              "label": "常態化 FCF 收益率",
+              "value": -0.009687664990536323,
+              "display": "-1.0%",
+              "score": 12,
+              "weight": 1.25,
+              "source": "valuation.json",
+              "note": "常態化自由現金流除以目前市值。"
+            },
+            {
+              "id": "pe",
+              "label": "本益比",
+              "value": null,
+              "display": "資料不足",
+              "score": null,
+              "weight": 1,
+              "source": "valuation.json",
+              "note": "負 EPS 不顯示本益比；高成長公司仍須搭配成長率判讀。"
+            }
+          ]
+        }
+      ],
+      "red_flags": [
+        {
+          "source": "financial_health.json",
+          "label": "償債能力",
+          "detail": "利息保障倍數 -2.0x 低於 3x（營業利益為負）"
+        },
+        {
+          "source": "financial_health.json",
+          "label": "資本效率",
+          "detail": "ROIC -0.7% 低於 WACC 12.60%，價差 -13.3pp，投入資本未賺回其成本"
+        },
+        {
+          "source": "financial_health.json",
+          "label": "現金流品質",
+          "detail": "自由現金流為負，FCF 利潤率 -9.4%"
+        },
+        {
+          "source": "investment_thesis_status.json",
+          "label": "論點失效",
+          "detail": "2026-06-27 FCF USD 4,450.0M（連續 1 季為正）；稀釋股數 YoY +16.8%。"
+        },
+        {
+          "source": "capital_allocation_cards.json",
+          "label": "資本配置壓力",
+          "detail": "資本配置形成壓力；依 4/5 個可判讀構面，只評估已公布現金流、股東回饋、淨股份效果、負債與資本支出，不推測管理層動機。"
+        }
+      ]
+    },
+    {
+      "ticker": "NOK",
+      "data_ticker": "NOK",
+      "name": "Nokia Corporation",
+      "position": "holding",
+      "latest_period": "2026-06-30",
+      "overall_score": 56,
+      "overall_label": "優劣混合，需聚焦弱項",
+      "coverage": {
+        "known": 7,
+        "total": 7,
+        "missing": []
+      },
+      "dimensions": [
+        {
+          "id": "growth",
+          "label": "成長持續性",
+          "score": 60,
+          "coverage": {
+            "known": 2,
+            "total": 3
+          },
+          "metrics": [
+            {
+              "id": "revenue_yoy",
+              "label": "最近一季營收 YoY",
+              "value": 0.08372721134368666,
+              "display": "+8.4%",
+              "score": 52,
+              "weight": 1.5,
+              "source": "quarterly_financials.json",
+              "note": "同一公司最近季度與四季前比較。"
+            },
+            {
+              "id": "revenue_cagr_3y",
+              "label": "季度營收三年 CAGR",
+              "value": null,
+              "display": "資料不足",
+              "score": null,
+              "weight": 1,
+              "source": "quarterly_financials.json",
+              "note": "使用約十二季前的同季營收；不足十三期即保留缺值。"
+            },
+            {
+              "id": "positive_quarter_ratio",
+              "label": "近八季季增穩定度",
+              "value": 0.7142857142857143,
+              "display": "5/7 次季增",
+              "score": 71,
+              "weight": 1,
+              "source": "quarterly_financials.json",
+              "note": "最近八季相鄰季度的營收增加比例；可能含季節性。"
+            }
+          ]
+        },
+        {
+          "id": "profitability",
+          "label": "獲利能力與護城河",
+          "score": 43,
+          "coverage": {
+            "known": 4,
+            "total": 4
+          },
+          "metrics": [
+            {
+              "id": "gross_margin",
+              "label": "最新毛利率",
+              "value": 0.446,
+              "display": "44.6%",
+              "score": 61,
+              "weight": 1,
+              "source": "quarterly_financials.json",
+              "note": "高毛利率常反映產品組合或定價能力，但仍需同業比較。"
+            },
+            {
+              "id": "operating_margin",
+              "label": "最新營業利益率",
+              "value": -0.01,
+              "display": "-1.0%",
+              "score": 28,
+              "weight": 1.25,
+              "source": "quarterly_financials.json",
+              "note": "衡量本業扣除營業費用後的獲利能力。"
+            },
+            {
+              "id": "gross_margin_yoy",
+              "label": "毛利率 YoY 變化",
+              "value": 0.006000000000000005,
+              "display": "+0.6pp",
+              "score": 58,
+              "weight": 1,
+              "source": "quarterly_financials.json",
+              "note": "百分點變化；改善不代表絕對毛利率已足夠。"
+            },
+            {
+              "id": "roic_spread",
+              "label": "ROIC − WACC",
+              "value": -0.0405,
+              "display": "-4.0pp",
+              "score": 32,
+              "weight": 1.5,
+              "source": "financial_health.json",
+              "note": "正值表示目前估計的投入資本報酬高於資金成本。"
+            }
+          ]
+        },
+        {
+          "id": "cash_flow",
+          "label": "現金流品質",
+          "score": 65,
+          "coverage": {
+            "known": 4,
+            "total": 4
+          },
+          "metrics": [
+            {
+              "id": "quarterly_fcf_margin",
+              "label": "最新季度 FCF 利潤率",
+              "value": -0.15202492211838006,
+              "display": "-15.2%",
+              "score": 8,
+              "weight": 1.5,
+              "source": "quarterly_financials.json",
+              "note": "自由現金流除以同季營收。"
+            },
+            {
+              "id": "positive_fcf_ratio",
+              "label": "近八季正 FCF",
+              "value": 0.875,
+              "display": "7/8 季為正",
+              "score": 88,
+              "weight": 1,
+              "source": "quarterly_financials.json",
+              "note": "只判斷正負，不把缺值當成負值。"
+            },
+            {
+              "id": "ocf_to_net_income",
+              "label": "營業現金流／淨利",
+              "value": 3.138,
+              "display": "3.1x",
+              "score": 100,
+              "weight": 1,
+              "source": "financial_health.json",
+              "note": "接近或高於 1 通常代表獲利有現金支撐。"
+            },
+            {
+              "id": "accrual_ratio",
+              "label": "應計比率",
+              "value": -0.0368,
+              "display": "-3.7%",
+              "score": 94,
+              "weight": 1,
+              "source": "financial_health.json",
+              "note": "越低越好；過高代表淨利明顯超前營運現金流。"
+            }
+          ]
+        },
+        {
+          "id": "resilience",
+          "label": "財務韌性",
+          "score": 70,
+          "coverage": {
+            "known": 4,
+            "total": 4
+          },
+          "metrics": [
+            {
+              "id": "current_ratio",
+              "label": "流動比率",
+              "value": 1.58,
+              "display": "1.6x",
+              "score": 62,
+              "weight": 1,
+              "source": "financial_health.json",
+              "note": "衡量流動資產覆蓋流動負債的能力。"
+            },
+            {
+              "id": "interest_coverage",
+              "label": "利息保障倍數",
+              "value": 3.6,
+              "display": "3.6x",
+              "score": 53,
+              "weight": 1.25,
+              "source": "financial_health.json",
+              "note": "EBIT 除以利息費用；負值或低於 1 代表壓力較高。"
+            },
+            {
+              "id": "liabilities_to_assets",
+              "label": "負債占資產",
+              "value": 0.4399,
+              "display": "44.0%",
+              "score": 68,
+              "weight": 1,
+              "source": "financial_health.json",
+              "note": "採反向計分；不等同只有有息負債。"
+            },
+            {
+              "id": "net_debt_to_ebit",
+              "label": "淨負債／EBIT",
+              "value": -1.19,
+              "display": "-1.2x",
+              "score": 100,
+              "weight": 1,
+              "source": "financial_health.json",
+              "note": "負值代表淨現金；本站缺折舊攤銷時以 EBIT 為分母。"
+            }
+          ]
+        },
+        {
+          "id": "capital_allocation",
+          "label": "股東價值與稀釋",
+          "score": 87,
+          "coverage": {
+            "known": 2,
+            "total": 3
+          },
+          "metrics": [
+            {
+              "id": "share_change",
+              "label": "稀釋股數 YoY",
+              "value": null,
+              "display": "資料不足",
+              "score": null,
+              "weight": 1.75,
+              "source": "capital_allocation_cards.json",
+              "note": "缺本期或前期稀釋加權平均股數，無法判斷淨稀釋。"
+            },
+            {
+              "id": "shareholder_return",
+              "label": "股東回饋品質",
+              "value": null,
+              "display": "回購加股利使用 FCF 的 94%，目前由當年 FCF 覆蓋。",
+              "score": 90,
+              "weight": 1,
+              "source": "capital_allocation_cards.json",
+              "note": "依回購、股利是否由自由現金流覆蓋評分。"
+            },
+            {
+              "id": "capital_score",
+              "label": "資本配置綜合訊號",
+              "value": 5.0,
+              "display": "+5 分（原始 -7～+7 參考區間）",
+              "score": 85,
+              "weight": 1.25,
+              "source": "capital_allocation_cards.json",
+              "note": "資本配置支持股東價值"
+            }
+          ]
+        },
+        {
+          "id": "execution",
+          "label": "管理層執行與揭露",
+          "score": 50,
+          "coverage": {
+            "known": 1,
+            "total": 2
+          },
+          "metrics": [
+            {
+              "id": "guidance_delivery",
+              "label": "歷史數字指引達成",
+              "value": null,
+              "display": "資料不足",
+              "score": null,
+              "weight": 1.5,
+              "source": "guidance_history.json",
+              "note": "實績落在或高於官方區間視為達標；沒有一致數字指引即保留缺值。"
+            },
+            {
+              "id": "thesis_evidence",
+              "label": "投資論點實績證據",
+              "value": 50.0,
+              "display": "支持 1／待驗證 1／失效 1",
+              "score": 50,
+              "weight": 1,
+              "source": "investment_thesis_status.json",
+              "note": "由最新季報對既定論點與失效條件的機械式驗證結果計分。"
+            }
+          ]
+        },
+        {
+          "id": "valuation",
+          "label": "估值安全邊際",
+          "score": 19,
+          "coverage": {
+            "known": 3,
+            "total": 3
+          },
+          "metrics": [
+            {
+              "id": "dcf_margin",
+              "label": "DCF 中位數相對現價",
+              "value": -0.4671,
+              "display": "-46.7%",
+              "score": 3,
+              "weight": 1.25,
+              "source": "valuation.json",
+              "note": "正值代表 DCF 中位估值高於現價；結果高度依賴成長與 WACC 假設。"
+            },
+            {
+              "id": "fcf_yield",
+              "label": "常態化 FCF 收益率",
+              "value": 0.022030406531150636,
+              "display": "2.2%",
+              "score": 37,
+              "weight": 1.25,
+              "source": "valuation.json",
+              "note": "常態化自由現金流除以目前市值。"
+            },
+            {
+              "id": "pe",
+              "label": "本益比",
+              "value": 90.4,
+              "display": "90.4x",
+              "score": 15,
+              "weight": 1,
+              "source": "valuation.json",
+              "note": "負 EPS 不顯示本益比；高成長公司仍須搭配成長率判讀。"
+            }
+          ]
+        }
+      ],
+      "red_flags": [
+        {
+          "source": "financial_health.json",
+          "label": "資本效率",
+          "detail": "ROIC 2.7% 低於 WACC 6.71%，價差 -4.0pp，投入資本未賺回其成本"
+        },
+        {
+          "source": "investment_thesis_status.json",
+          "label": "論點失效",
+          "detail": "2026-06-30 營業利益率 -1.0%，YoY -4.3pp；連續 3 季下降。"
+        }
+      ]
+    }
+  ]
+}
