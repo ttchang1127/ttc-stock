@@ -1,0 +1,3331 @@
+{
+  "schema_version": 1,
+  "updated_at": "2026-08-30T00:52:25+00:00",
+  "tracked_count": 14,
+  "summary": {
+    "support": 8,
+    "neutral": 4,
+    "pressure": 2,
+    "insufficient": 0
+  },
+  "methodology": {
+    "scope": "14 家個股最近 4 個年度；ETF 不納入，實際持股優先。",
+    "fcf": "自由現金流＝營運現金流－資本支出；FCF conversion＝FCF ÷ 營運現金流。",
+    "payout": "股東回饋＝回購＋現金股利；任一 XBRL 標籤缺漏即不計合計，不把缺值當 0。",
+    "shares": "用稀釋加權平均股數年變化檢驗所有股份來源的淨效果；不能單獨歸因於 SBC。跨期相差逾 20 倍即停止比較。",
+    "debt": "有息負債沿用全站一致的非重疊組成；不同幣別不相加。",
+    "boundary": "資本支出高低本身不代表投資成功；未取得一致的併購現金支出時保留資料缺口，不以殘差猜測。"
+  },
+  "companies": [
+    {
+      "ticker": "NVDA",
+      "data_ticker": "NVDA",
+      "name": "NVIDIA CORP",
+      "position": "holding",
+      "currency": "USD",
+      "latest_period": "2026-01-25",
+      "status": "support",
+      "label": "資本配置支持股東價值",
+      "score": 7,
+      "coverage": {
+        "known": 5,
+        "total": 5,
+        "missing": []
+      },
+      "signals": [
+        {
+          "id": "fcf",
+          "label": "現金創造",
+          "state": "support",
+          "score": 3,
+          "evidence": "FCF 為正，且保留營運現金流的 94%。"
+        },
+        {
+          "id": "payout",
+          "label": "股東回饋",
+          "state": "support",
+          "score": 1,
+          "evidence": "回購加股利使用 FCF 的 42%，目前由當年 FCF 覆蓋。"
+        },
+        {
+          "id": "shares",
+          "label": "回購實效",
+          "state": "support",
+          "score": 2,
+          "evidence": "稀釋加權平均股數年減 1.2%；回購／股份變動的淨效果有利。"
+        },
+        {
+          "id": "debt",
+          "label": "負債承擔",
+          "state": "support",
+          "score": 1,
+          "evidence": "現金及短期投資高於有息負債，維持淨現金。"
+        },
+        {
+          "id": "capex",
+          "label": "再投資強度",
+          "state": "context",
+          "score": 0,
+          "evidence": "資本支出為營收的 2.8%；高低本身不代表投資成敗。"
+        }
+      ],
+      "latest": {
+        "fiscal_year_end": "2026-01-25",
+        "currency": "USD",
+        "revenue": 215938000000,
+        "operating_cash_flow": 102718000000,
+        "capex": 6042000000,
+        "free_cash_flow": 96676000000,
+        "fcf_margin": 0.44770258129648327,
+        "fcf_conversion": 0.9411787612687162,
+        "capex_intensity": 0.027980253591308617,
+        "buybacks": 40086000000,
+        "dividends_paid": 974000000,
+        "shareholder_returns": 41060000000,
+        "payout_complete": true,
+        "payout_to_fcf": 0.4247176134718027,
+        "diluted_shares": 24514000000,
+        "share_change": -0.01169166263505883,
+        "share_comparable": true,
+        "share_note": null,
+        "total_debt": 8468000000,
+        "debt_change": 0.0005908070424198719,
+        "debt_note": null,
+        "debt_components": {
+          "長期借款": 7469000000,
+          "一年內到期借款": 999000000
+        },
+        "cash_and_short_investments": 31032000000,
+        "net_cash": 22564000000,
+        "source": {
+          "form": "10-K",
+          "filed": "2026-02-25",
+          "accession": "0001045810-26-000021",
+          "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000021/0001045810-26-000021-index.html"
+        }
+      },
+      "years": [
+        {
+          "fiscal_year_end": "2026-01-25",
+          "currency": "USD",
+          "revenue": 215938000000,
+          "operating_cash_flow": 102718000000,
+          "capex": 6042000000,
+          "free_cash_flow": 96676000000,
+          "fcf_margin": 0.44770258129648327,
+          "fcf_conversion": 0.9411787612687162,
+          "capex_intensity": 0.027980253591308617,
+          "buybacks": 40086000000,
+          "dividends_paid": 974000000,
+          "shareholder_returns": 41060000000,
+          "payout_complete": true,
+          "payout_to_fcf": 0.4247176134718027,
+          "diluted_shares": 24514000000,
+          "share_change": -0.01169166263505883,
+          "share_comparable": true,
+          "share_note": null,
+          "total_debt": 8468000000,
+          "debt_change": 0.0005908070424198719,
+          "debt_note": null,
+          "debt_components": {
+            "長期借款": 7469000000,
+            "一年內到期借款": 999000000
+          },
+          "cash_and_short_investments": 31032000000,
+          "net_cash": 22564000000,
+          "source": {
+            "form": "10-K",
+            "filed": "2026-02-25",
+            "accession": "0001045810-26-000021",
+            "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000021/0001045810-26-000021-index.html"
+          }
+        },
+        {
+          "fiscal_year_end": "2025-01-26",
+          "currency": "USD",
+          "revenue": 130497000000,
+          "operating_cash_flow": 64089000000,
+          "capex": 3236000000,
+          "free_cash_flow": 60853000000,
+          "fcf_margin": 0.46631723334636044,
+          "fcf_conversion": 0.9495077158326702,
+          "capex_intensity": 0.024797504923484832,
+          "buybacks": 33706000000,
+          "dividends_paid": 834000000,
+          "shareholder_returns": 34540000000,
+          "payout_complete": true,
+          "payout_to_fcf": 0.5675973247005078,
+          "diluted_shares": 24804000000,
+          "share_change": -0.0054530874097834525,
+          "share_comparable": true,
+          "share_note": null,
+          "total_debt": 8463000000,
+          "debt_change": -0.12833453496755587,
+          "debt_note": null,
+          "debt_components": {
+            "長期借款": 8463000000,
+            "一年內到期借款": 0
+          },
+          "cash_and_short_investments": 43210000000,
+          "net_cash": 34747000000,
+          "source": {
+            "form": "10-K",
+            "filed": "2026-02-25",
+            "accession": "0001045810-26-000021",
+            "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000021/0001045810-26-000021-index.html"
+          }
+        },
+        {
+          "fiscal_year_end": "2024-01-28",
+          "currency": "USD",
+          "revenue": 60922000000,
+          "operating_cash_flow": 28090000000,
+          "capex": 1069000000,
+          "free_cash_flow": 27021000000,
+          "fcf_margin": 0.4435343554052723,
+          "fcf_conversion": 0.9619437522249911,
+          "capex_intensity": 0.017547027346442992,
+          "buybacks": 9533000000,
+          "dividends_paid": 395000000,
+          "shareholder_returns": 9928000000,
+          "payout_complete": true,
+          "payout_to_fcf": 0.36741793419932645,
+          "diluted_shares": 24940000000,
+          "share_change": -0.005185480654168351,
+          "share_comparable": true,
+          "share_note": null,
+          "total_debt": 9709000000,
+          "debt_change": -0.11357618917191636,
+          "debt_note": null,
+          "debt_components": {
+            "長期借款": 8459000000,
+            "一年內到期借款": 1250000000
+          },
+          "cash_and_short_investments": 25984000000,
+          "net_cash": 16275000000,
+          "source": {
+            "form": "10-K",
+            "filed": "2026-02-25",
+            "accession": "0001045810-26-000021",
+            "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000021/0001045810-26-000021-index.html"
+          }
+        },
+        {
+          "fiscal_year_end": "2023-01-29",
+          "currency": "USD",
+          "revenue": 26974000000,
+          "operating_cash_flow": 5641000000,
+          "capex": 1833000000,
+          "free_cash_flow": 3808000000,
+          "fcf_margin": 0.14117298138948617,
+          "fcf_conversion": 0.675057613898245,
+          "capex_intensity": 0.067954326388374,
+          "buybacks": 10039000000,
+          "dividends_paid": 398000000,
+          "shareholder_returns": 10437000000,
+          "payout_complete": true,
+          "payout_to_fcf": 2.7408088235294117,
+          "diluted_shares": 25070000000,
+          "share_change": null,
+          "share_comparable": false,
+          "share_note": "缺本期或前期稀釋加權平均股數，無法判斷淨稀釋。",
+          "total_debt": 10953000000,
+          "debt_change": null,
+          "debt_note": null,
+          "debt_components": {
+            "長期借款": 9703000000,
+            "一年內到期借款": 1250000000
+          },
+          "cash_and_short_investments": 13296000000,
+          "net_cash": 2343000000,
+          "source": {
+            "form": "10-K",
+            "filed": "2025-02-26",
+            "accession": "0001045810-25-000023",
+            "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581025000023/0001045810-25-000023-index.html"
+          }
+        }
+      ],
+      "conclusion": "資本配置支持股東價值；依 5/5 個可判讀構面，只評估已公布現金流、股東回饋、淨股份效果、負債與資本支出，不推測管理層動機。"
+    },
+    {
+      "ticker": "TSM",
+      "data_ticker": "TSM",
+      "name": "Taiwan Semiconductor Manufacturing Company Limited",
+      "position": "watchlist",
+      "currency": "USD",
+      "latest_period": "2025-12-31",
+      "status": "support",
+      "label": "資本配置支持股東價值",
+      "score": 3,
+      "coverage": {
+        "known": 3,
+        "total": 5,
+        "missing": [
+          "股東回饋",
+          "回購實效"
+        ]
+      },
+      "signals": [
+        {
+          "id": "fcf",
+          "label": "現金創造",
+          "state": "support",
+          "score": 2,
+          "evidence": "自由現金流為正。"
+        },
+        {
+          "id": "payout",
+          "label": "股東回饋",
+          "state": "unavailable",
+          "score": 0,
+          "evidence": "回購或股利 XBRL 標籤不完整，不把缺值當成 0。"
+        },
+        {
+          "id": "shares",
+          "label": "回購實效",
+          "state": "unavailable",
+          "score": 0,
+          "evidence": "缺本期或前期稀釋加權平均股數，無法判斷淨稀釋。"
+        },
+        {
+          "id": "debt",
+          "label": "負債承擔",
+          "state": "support",
+          "score": 1,
+          "evidence": "現金及短期投資高於有息負債，維持淨現金。"
+        },
+        {
+          "id": "capex",
+          "label": "再投資強度",
+          "state": "context",
+          "score": 0,
+          "evidence": "資本支出為營收的 33.4%；高低本身不代表投資成敗。"
+        }
+      ],
+      "latest": {
+        "fiscal_year_end": "2025-12-31",
+        "currency": "USD",
+        "revenue": 121423500000.0,
+        "operating_cash_flow": 72520700000.0,
+        "capex": 40561400000.0,
+        "free_cash_flow": 31959300000.0,
+        "fcf_margin": 0.26320522798305107,
+        "fcf_conversion": 0.44069210584012564,
+        "capex_intensity": 0.33404901028219414,
+        "buybacks": null,
+        "dividends_paid": 14879800000.0,
+        "shareholder_returns": null,
+        "payout_complete": false,
+        "payout_to_fcf": null,
+        "diluted_shares": null,
+        "share_change": null,
+        "share_comparable": false,
+        "share_note": "缺本期或前期稀釋加權平均股數，無法判斷淨稀釋。",
+        "total_debt": 33936400000.0,
+        "debt_change": 0.06278087292565071,
+        "debt_note": null,
+        "debt_components": {
+          "長期借款": 1269800000.0,
+          "一年內到期借款": 4364900000.0,
+          "長期公司債": 27294500000.0,
+          "長期融資租賃": 1007200000.0
+        },
+        "cash_and_short_investments": 88235800000.0,
+        "net_cash": 54299400000.0,
+        "source": {
+          "form": "20-F",
+          "filed": "2026-04-16",
+          "accession": "0001628280-26-025362",
+          "url": "https://www.sec.gov/Archives/edgar/data/1046179/000162828026025362/0001628280-26-025362-index.html"
+        }
+      },
+      "years": [
+        {
+          "fiscal_year_end": "2025-12-31",
+          "currency": "USD",
+          "revenue": 121423500000.0,
+          "operating_cash_flow": 72520700000.0,
+          "capex": 40561400000.0,
+          "free_cash_flow": 31959300000.0,
+          "fcf_margin": 0.26320522798305107,
+          "fcf_conversion": 0.44069210584012564,
+          "capex_intensity": 0.33404901028219414,
+          "buybacks": null,
+          "dividends_paid": 14879800000.0,
+          "shareholder_returns": null,
+          "payout_complete": false,
+          "payout_to_fcf": null,
+          "diluted_shares": null,
+          "share_change": null,
+          "share_comparable": false,
+          "share_note": "缺本期或前期稀釋加權平均股數，無法判斷淨稀釋。",
+          "total_debt": 33936400000.0,
+          "debt_change": 0.06278087292565071,
+          "debt_note": null,
+          "debt_components": {
+            "長期借款": 1269800000.0,
+            "一年內到期借款": 4364900000.0,
+            "長期公司債": 27294500000.0,
+            "長期融資租賃": 1007200000.0
+          },
+          "cash_and_short_investments": 88235800000.0,
+          "net_cash": 54299400000.0,
+          "source": {
+            "form": "20-F",
+            "filed": "2026-04-16",
+            "accession": "0001628280-26-025362",
+            "url": "https://www.sec.gov/Archives/edgar/data/1046179/000162828026025362/0001628280-26-025362-index.html"
+          }
+        },
+        {
+          "fiscal_year_end": "2024-12-31",
+          "currency": "USD",
+          "revenue": 88268000000,
+          "operating_cash_flow": 55693100000,
+          "capex": 29155400000,
+          "free_cash_flow": 26537700000,
+          "fcf_margin": 0.30064915937825715,
+          "fcf_conversion": 0.47649888406283725,
+          "capex_intensity": 0.3303054334526669,
+          "buybacks": null,
+          "dividends_paid": 11072100000,
+          "shareholder_returns": null,
+          "payout_complete": false,
+          "payout_to_fcf": null,
+          "diluted_shares": null,
+          "share_change": null,
+          "share_comparable": false,
+          "share_note": "缺本期或前期稀釋加權平均股數，無法判斷淨稀釋。",
+          "total_debt": 31931700000,
+          "debt_change": 0.02247860209992414,
+          "debt_note": "以下組成因幣別為 TWD 而未計入（本表以 USD 為準）：一年內到期公司債（TWD 57,148,000,000）、一年內到期融資租賃（TWD 3,049,000,000）。有息負債因此低估",
+          "debt_components": {
+            "長期借款": 970500000,
+            "一年內到期借款": 1825500000,
+            "長期公司債": 28258700000,
+            "長期融資租賃": 877000000
+          },
+          "cash_and_short_investments": 64892800000,
+          "net_cash": 32961100000,
+          "source": {
+            "form": "20-F",
+            "filed": "2025-04-17",
+            "accession": "0001193125-25-083423",
+            "url": "https://www.sec.gov/Archives/edgar/data/1046179/000119312525083423/0001193125-25-083423-index.html"
+          }
+        },
+        {
+          "fiscal_year_end": "2023-12-31",
+          "currency": "USD",
+          "revenue": 70598800000,
+          "operating_cash_flow": 40560700000,
+          "capex": 31019500000,
+          "free_cash_flow": 9541200000,
+          "fcf_margin": 0.1351467730329694,
+          "fcf_conversion": 0.2352326266558516,
+          "capex_intensity": 0.439377156552236,
+          "buybacks": null,
+          "dividends_paid": 9527200000,
+          "shareholder_returns": null,
+          "payout_complete": false,
+          "payout_to_fcf": null,
+          "diluted_shares": null,
+          "share_change": null,
+          "share_comparable": false,
+          "share_note": "缺本期或前期稀釋加權平均股數，無法判斷淨稀釋。",
+          "total_debt": 31229700000,
+          "debt_change": 0.08052272475642153,
+          "debt_note": "以下組成因幣別為 TWD 而未計入（本表以 USD 為準）：一年內到期公司債（TWD 6,997,700,000）、一年內到期融資租賃（TWD 2,810,600,000）。有息負債因此低估",
+          "debt_components": {
+            "長期借款": 143100000,
+            "一年內到期借款": 303500000,
+            "長期公司債": 29846400000,
+            "長期融資租賃": 936700000
+          },
+          "cash_and_short_investments": 44721500000,
+          "net_cash": 13491800000,
+          "source": {
+            "form": "20-F",
+            "filed": "2024-04-18",
+            "accession": "0001193125-24-099840",
+            "url": "https://www.sec.gov/Archives/edgar/data/1046179/000119312524099840/0001193125-24-099840-index.html"
+          }
+        },
+        {
+          "fiscal_year_end": "2022-12-31",
+          "currency": "USD",
+          "revenue": 73670400000,
+          "operating_cash_flow": 52411300000,
+          "capex": 35231800000,
+          "free_cash_flow": 17179500000,
+          "fcf_margin": 0.23319406437320825,
+          "fcf_conversion": 0.3277823675428772,
+          "capex_intensity": 0.478235492137955,
+          "buybacks": null,
+          "dividends_paid": 9282000000,
+          "shareholder_returns": null,
+          "payout_complete": false,
+          "payout_to_fcf": null,
+          "diluted_shares": null,
+          "share_change": null,
+          "share_comparable": false,
+          "share_note": "缺本期或前期稀釋加權平均股數，無法判斷淨稀釋。",
+          "total_debt": 28902400000,
+          "debt_change": null,
+          "debt_note": "以下組成因幣別為 TWD 而未計入（本表以 USD 為準）：一年內到期公司債（TWD 18,100,000,000）、一年內到期融資租賃（TWD 2,603,500,000）。有息負債因此低估",
+          "debt_components": {
+            "長期借款": 154900000,
+            "一年內到期借款": 628500000,
+            "長期公司債": 27150400000,
+            "長期融資租賃": 968600000
+          },
+          "cash_and_short_investments": 43889000000,
+          "net_cash": 14986600000,
+          "source": {
+            "form": "20-F",
+            "filed": "2023-04-20",
+            "accession": "0001193125-23-107214",
+            "url": "https://www.sec.gov/Archives/edgar/data/1046179/000119312523107214/0001193125-23-107214-index.html"
+          }
+        }
+      ],
+      "conclusion": "資本配置支持股東價值；依 3/5 個可判讀構面，只評估已公布現金流、股東回饋、淨股份效果、負債與資本支出，不推測管理層動機。"
+    },
+    {
+      "ticker": "MSFT",
+      "data_ticker": "MSFT",
+      "name": "MICROSOFT CORPORATION",
+      "position": "watchlist",
+      "currency": "USD",
+      "latest_period": "2026-06-30",
+      "status": "support",
+      "label": "資本配置支持股東價值",
+      "score": 4,
+      "coverage": {
+        "known": 5,
+        "total": 5,
+        "missing": []
+      },
+      "signals": [
+        {
+          "id": "fcf",
+          "label": "現金創造",
+          "state": "support",
+          "score": 2,
+          "evidence": "自由現金流為正。"
+        },
+        {
+          "id": "payout",
+          "label": "股東回饋",
+          "state": "support",
+          "score": 1,
+          "evidence": "回購加股利使用 FCF 的 73%，目前由當年 FCF 覆蓋。"
+        },
+        {
+          "id": "shares",
+          "label": "回購實效",
+          "state": "neutral",
+          "score": 0,
+          "evidence": "稀釋加權平均股數年變動 -0.2%，大致持平。"
+        },
+        {
+          "id": "debt",
+          "label": "負債承擔",
+          "state": "support",
+          "score": 1,
+          "evidence": "現金及短期投資高於有息負債，維持淨現金。"
+        },
+        {
+          "id": "capex",
+          "label": "再投資強度",
+          "state": "context",
+          "score": 0,
+          "evidence": "資本支出為營收的 34.9%；高低本身不代表投資成敗。"
+        }
+      ],
+      "latest": {
+        "fiscal_year_end": "2026-06-30",
+        "currency": "USD",
+        "revenue": 331839000000,
+        "operating_cash_flow": 182935000000,
+        "capex": 115948000000,
+        "free_cash_flow": 66987000000,
+        "fcf_margin": 0.20186596512164032,
+        "fcf_conversion": 0.3661792439937683,
+        "capex_intensity": 0.34941040685392616,
+        "buybacks": 22271000000,
+        "dividends_paid": 26445000000,
+        "shareholder_returns": 48716000000,
+        "payout_complete": true,
+        "payout_to_fcf": 0.7272455849642468,
+        "diluted_shares": 7453000000,
+        "share_change": -0.0016075016744808712,
+        "share_comparable": true,
+        "share_note": null,
+        "total_debt": 40294000000,
+        "debt_change": -0.06620935783643489,
+        "debt_note": null,
+        "debt_components": {
+          "長期借款": 31067000000,
+          "一年內到期借款": 9227000000
+        },
+        "cash_and_short_investments": 76843000000,
+        "net_cash": 36549000000,
+        "source": {
+          "form": "10-K",
+          "filed": "2026-07-29",
+          "accession": "0001193125-26-323660",
+          "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/0001193125-26-323660-index.html"
+        }
+      },
+      "years": [
+        {
+          "fiscal_year_end": "2026-06-30",
+          "currency": "USD",
+          "revenue": 331839000000,
+          "operating_cash_flow": 182935000000,
+          "capex": 115948000000,
+          "free_cash_flow": 66987000000,
+          "fcf_margin": 0.20186596512164032,
+          "fcf_conversion": 0.3661792439937683,
+          "capex_intensity": 0.34941040685392616,
+          "buybacks": 22271000000,
+          "dividends_paid": 26445000000,
+          "shareholder_returns": 48716000000,
+          "payout_complete": true,
+          "payout_to_fcf": 0.7272455849642468,
+          "diluted_shares": 7453000000,
+          "share_change": -0.0016075016744808712,
+          "share_comparable": true,
+          "share_note": null,
+          "total_debt": 40294000000,
+          "debt_change": -0.06620935783643489,
+          "debt_note": null,
+          "debt_components": {
+            "長期借款": 31067000000,
+            "一年內到期借款": 9227000000
+          },
+          "cash_and_short_investments": 76843000000,
+          "net_cash": 36549000000,
+          "source": {
+            "form": "10-K",
+            "filed": "2026-07-29",
+            "accession": "0001193125-26-323660",
+            "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/0001193125-26-323660-index.html"
+          }
+        },
+        {
+          "fiscal_year_end": "2025-06-30",
+          "currency": "USD",
+          "revenue": 281724000000,
+          "operating_cash_flow": 136162000000,
+          "capex": 64551000000,
+          "free_cash_flow": 71611000000,
+          "fcf_margin": 0.2541884965427156,
+          "fcf_conversion": 0.525925001101629,
+          "capex_intensity": 0.22912850875324786,
+          "buybacks": 18420000000,
+          "dividends_paid": 24082000000,
+          "shareholder_returns": 42502000000,
+          "payout_complete": true,
+          "payout_to_fcf": 0.5935121699180294,
+          "diluted_shares": 7465000000,
+          "share_change": -0.0005355469272995128,
+          "share_comparable": true,
+          "share_note": null,
+          "total_debt": 43151000000,
+          "debt_change": -0.039744531232614566,
+          "debt_note": null,
+          "debt_components": {
+            "長期借款": 40152000000,
+            "一年內到期借款": 2999000000
+          },
+          "cash_and_short_investments": 94565000000,
+          "net_cash": 51414000000,
+          "source": {
+            "form": "10-K",
+            "filed": "2026-07-29",
+            "accession": "0001193125-26-323660",
+            "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/0001193125-26-323660-index.html"
+          }
+        },
+        {
+          "fiscal_year_end": "2024-06-30",
+          "currency": "USD",
+          "revenue": 245122000000,
+          "operating_cash_flow": 118548000000,
+          "capex": 44477000000,
+          "free_cash_flow": 74071000000,
+          "fcf_margin": 0.3021801388696241,
+          "fcf_conversion": 0.6248186388635827,
+          "capex_intensity": 0.18144842160230415,
+          "buybacks": 17254000000,
+          "dividends_paid": 21771000000,
+          "shareholder_returns": 39025000000,
+          "payout_complete": true,
+          "payout_to_fcf": 0.5268593646636336,
+          "diluted_shares": 7469000000,
+          "share_change": -0.0004014989293361637,
+          "share_comparable": true,
+          "share_note": null,
+          "total_debt": 44937000000,
+          "debt_change": -0.0486906450451976,
+          "debt_note": null,
+          "debt_components": {
+            "長期借款": 42688000000,
+            "一年內到期借款": 2249000000
+          },
+          "cash_and_short_investments": 75543000000,
+          "net_cash": 30606000000,
+          "source": {
+            "form": "10-K",
+            "filed": "2026-07-29",
+            "accession": "0001193125-26-323660",
+            "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/0001193125-26-323660-index.html"
+          }
+        },
+        {
+          "fiscal_year_end": "2023-06-30",
+          "currency": "USD",
+          "revenue": 211915000000,
+          "operating_cash_flow": 87582000000,
+          "capex": 28107000000,
+          "free_cash_flow": 59475000000,
+          "fcf_margin": 0.2806549795908737,
+          "fcf_conversion": 0.6790778927176817,
+          "capex_intensity": 0.13263336715192411,
+          "buybacks": 22245000000,
+          "dividends_paid": 19800000000,
+          "shareholder_returns": 42045000000,
+          "payout_complete": true,
+          "payout_to_fcf": 0.7069356872635562,
+          "diluted_shares": 7472000000,
+          "share_change": null,
+          "share_comparable": false,
+          "share_note": "缺本期或前期稀釋加權平均股數，無法判斷淨稀釋。",
+          "total_debt": 47237000000,
+          "debt_change": null,
+          "debt_note": null,
+          "debt_components": {
+            "長期借款": 41990000000,
+            "一年內到期借款": 5247000000
+          },
+          "cash_and_short_investments": 111262000000,
+          "net_cash": 64025000000,
+          "source": {
+            "form": "10-K",
+            "filed": "2025-07-30",
+            "accession": "0000950170-25-100235",
+            "url": "https://www.sec.gov/Archives/edgar/data/789019/000095017025100235/0000950170-25-100235-index.html"
+          }
+        }
+      ],
+      "conclusion": "資本配置支持股東價值；依 5/5 個可判讀構面，只評估已公布現金流、股東回饋、淨股份效果、負債與資本支出，不推測管理層動機。"
+    },
+    {
+      "ticker": "META",
+      "data_ticker": "META",
+      "name": "Meta Platforms, Inc.",
+      "position": "watchlist",
+      "currency": "USD",
+      "latest_period": "2025-12-31",
+      "status": "support",
+      "label": "資本配置支持股東價值",
+      "score": 6,
+      "coverage": {
+        "known": 5,
+        "total": 5,
+        "missing": []
+      },
+      "signals": [
+        {
+          "id": "fcf",
+          "label": "現金創造",
+          "state": "support",
+          "score": 2,
+          "evidence": "自由現金流為正。"
+        },
+        {
+          "id": "payout",
+          "label": "股東回饋",
+          "state": "support",
+          "score": 1,
+          "evidence": "回購加股利使用 FCF 的 68%，目前由當年 FCF 覆蓋。"
+        },
+        {
+          "id": "shares",
+          "label": "回購實效",
+          "state": "support",
+          "score": 2,
+          "evidence": "稀釋加權平均股數年減 1.5%；回購／股份變動的淨效果有利。"
+        },
+        {
+          "id": "debt",
+          "label": "負債承擔",
+          "state": "support",
+          "score": 1,
+          "evidence": "現金及短期投資高於有息負債，維持淨現金。"
+        },
+        {
+          "id": "capex",
+          "label": "再投資強度",
+          "state": "context",
+          "score": 0,
+          "evidence": "資本支出為營收的 34.7%；高低本身不代表投資成敗。"
+        }
+      ],
+      "latest": {
+        "fiscal_year_end": "2025-12-31",
+        "currency": "USD",
+        "revenue": 200966000000,
+        "operating_cash_flow": 115800000000,
+        "capex": 69691000000,
+        "free_cash_flow": 46109000000,
+        "fcf_margin": 0.2294368201586338,
+        "fcf_conversion": 0.39817789291882555,
+        "capex_intensity": 0.3467800523471632,
+        "buybacks": 26248000000,
+        "dividends_paid": 5324000000,
+        "shareholder_returns": 31572000000,
+        "payout_complete": true,
+        "payout_to_fcf": 0.6847253247739054,
+        "diluted_shares": 2574000000,
+        "share_change": -0.015302218821729108,
+        "share_comparable": true,
+        "share_note": null,
+        "total_debt": 59928000000,
+        "debt_change": 1.029050279329609,
+        "debt_note": null,
+        "debt_components": {
+          "長期借款": 58744000000,
+          "長期融資租賃": 876000000,
+          "一年內到期融資租賃": 308000000
+        },
+        "cash_and_short_investments": 81592000000,
+        "net_cash": 21664000000,
+        "source": {
+          "form": "10-K",
+          "filed": "2026-01-29",
+          "accession": "0001628280-26-003942",
+          "url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026003942/0001628280-26-003942-index.html"
+        }
+      },
+      "years": [
+        {
+          "fiscal_year_end": "2025-12-31",
+          "currency": "USD",
+          "revenue": 200966000000,
+          "operating_cash_flow": 115800000000,
+          "capex": 69691000000,
+          "free_cash_flow": 46109000000,
+          "fcf_margin": 0.2294368201586338,
+          "fcf_conversion": 0.39817789291882555,
+          "capex_intensity": 0.3467800523471632,
+          "buybacks": 26248000000,
+          "dividends_paid": 5324000000,
+          "shareholder_returns": 31572000000,
+          "payout_complete": true,
+          "payout_to_fcf": 0.6847253247739054,
+          "diluted_shares": 2574000000,
+          "share_change": -0.015302218821729108,
+          "share_comparable": true,
+          "share_note": null,
+          "total_debt": 59928000000,
+          "debt_change": 1.029050279329609,
+          "debt_note": null,
+          "debt_components": {
+            "長期借款": 58744000000,
+            "長期融資租賃": 876000000,
+            "一年內到期融資租賃": 308000000
+          },
+          "cash_and_short_investments": 81592000000,
+          "net_cash": 21664000000,
+          "source": {
+            "form": "10-K",
+            "filed": "2026-01-29",
+            "accession": "0001628280-26-003942",
+            "url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026003942/0001628280-26-003942-index.html"
+          }
+        },
+        {
+          "fiscal_year_end": "2024-12-31",
+          "currency": "USD",
+          "revenue": 164501000000,
+          "operating_cash_flow": 91328000000,
+          "capex": 37256000000,
+          "free_cash_flow": 54072000000,
+          "fcf_margin": 0.3287031689776962,
+          "fcf_conversion": 0.5920637701471618,
+          "capex_intensity": 0.22647886638986997,
+          "buybacks": 30125000000,
+          "dividends_paid": 5072000000,
+          "shareholder_returns": 35197000000,
+          "payout_complete": true,
+          "payout_to_fcf": 0.650928391773931,
+          "diluted_shares": 2614000000,
+          "share_change": -0.005705591479650107,
+          "share_comparable": true,
+          "share_note": null,
+          "total_debt": 29535000000,
+          "debt_change": 0.5483617300131061,
+          "debt_note": null,
+          "debt_components": {
+            "長期借款": 28826000000,
+            "長期融資租賃": 633000000,
+            "一年內到期融資租賃": 76000000
+          },
+          "cash_and_short_investments": 77815000000,
+          "net_cash": 48280000000,
+          "source": {
+            "form": "10-K",
+            "filed": "2026-01-29",
+            "accession": "0001628280-26-003942",
+            "url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026003942/0001628280-26-003942-index.html"
+          }
+        },
+        {
+          "fiscal_year_end": "2023-12-31",
+          "currency": "USD",
+          "revenue": 134902000000,
+          "operating_cash_flow": 71113000000,
+          "capex": 27045000000,
+          "free_cash_flow": 44068000000,
+          "fcf_margin": 0.3266667655038472,
+          "fcf_conversion": 0.6196897894899667,
+          "capex_intensity": 0.2004788661398645,
+          "buybacks": 19774000000,
+          "dividends_paid": 0,
+          "shareholder_returns": 19774000000,
+          "payout_complete": true,
+          "payout_to_fcf": 0.448715621312517,
+          "diluted_shares": 2629000000,
+          "share_change": -0.0270170244263509,
+          "share_comparable": true,
+          "share_note": null,
+          "total_debt": 19075000000,
+          "debt_change": 0.7978322337417532,
+          "debt_note": null,
+          "debt_components": {
+            "長期借款": 18385000000,
+            "長期融資租賃": 600000000,
+            "一年內到期融資租賃": 90000000
+          },
+          "cash_and_short_investments": 65403000000,
+          "net_cash": 46328000000,
+          "source": {
+            "form": "10-K",
+            "filed": "2026-01-29",
+            "accession": "0001628280-26-003942",
+            "url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026003942/0001628280-26-003942-index.html"
+          }
+        },
+        {
+          "fiscal_year_end": "2022-12-31",
+          "currency": "USD",
+          "revenue": 116609000000,
+          "operating_cash_flow": 50475000000,
+          "capex": 31186000000,
+          "free_cash_flow": 19289000000,
+          "fcf_margin": 0.16541604850397482,
+          "fcf_conversion": 0.3821495789995047,
+          "capex_intensity": 0.2674407635774254,
+          "buybacks": 27956000000,
+          "dividends_paid": 0,
+          "shareholder_returns": 27956000000,
+          "payout_complete": true,
+          "payout_to_fcf": 1.4493234485976463,
+          "diluted_shares": 2702000000,
+          "share_change": null,
+          "share_comparable": false,
+          "share_note": "缺本期或前期稀釋加權平均股數，無法判斷淨稀釋。",
+          "total_debt": 10610000000,
+          "debt_change": null,
+          "debt_note": null,
+          "debt_components": {
+            "長期借款": 9923000000,
+            "長期融資租賃": 558000000,
+            "一年內到期融資租賃": 129000000
+          },
+          "cash_and_short_investments": 40738000000,
+          "net_cash": 30128000000,
+          "source": {
+            "form": "10-K",
+            "filed": "2025-01-30",
+            "accession": "0001326801-25-000017",
+            "url": "https://www.sec.gov/Archives/edgar/data/1326801/000132680125000017/0001326801-25-000017-index.html"
+          }
+        }
+      ],
+      "conclusion": "資本配置支持股東價值；依 5/5 個可判讀構面，只評估已公布現金流、股東回饋、淨股份效果、負債與資本支出，不推測管理層動機。"
+    },
+    {
+      "ticker": "AAPL",
+      "data_ticker": "AAPL",
+      "name": "Apple Inc.",
+      "position": "watchlist",
+      "currency": "USD",
+      "latest_period": "2025-09-27",
+      "status": "support",
+      "label": "資本配置支持股東價值",
+      "score": 4,
+      "coverage": {
+        "known": 5,
+        "total": 5,
+        "missing": []
+      },
+      "signals": [
+        {
+          "id": "fcf",
+          "label": "現金創造",
+          "state": "support",
+          "score": 3,
+          "evidence": "FCF 為正，且保留營運現金流的 89%。"
+        },
+        {
+          "id": "payout",
+          "label": "股東回饋",
+          "state": "attention",
+          "score": -1,
+          "evidence": "回購加股利為 FCF 的 107%，超過當年 FCF。"
+        },
+        {
+          "id": "shares",
+          "label": "回購實效",
+          "state": "support",
+          "score": 2,
+          "evidence": "稀釋加權平均股數年減 2.6%；回購／股份變動的淨效果有利。"
+        },
+        {
+          "id": "debt",
+          "label": "負債承擔",
+          "state": "neutral",
+          "score": 0,
+          "evidence": "未見 FCF 為負且負債大幅增加的組合。"
+        },
+        {
+          "id": "capex",
+          "label": "再投資強度",
+          "state": "context",
+          "score": 0,
+          "evidence": "資本支出為營收的 3.1%；高低本身不代表投資成敗。"
+        }
+      ],
+      "latest": {
+        "fiscal_year_end": "2025-09-27",
+        "currency": "USD",
+        "revenue": 416161000000,
+        "operating_cash_flow": 111482000000,
+        "capex": 12715000000,
+        "free_cash_flow": 98767000000,
+        "fcf_margin": 0.23732882225869315,
+        "fcf_conversion": 0.8859457132093074,
+        "capex_intensity": 0.030553079216937677,
+        "buybacks": 90711000000,
+        "dividends_paid": 15421000000,
+        "shareholder_returns": 106132000000,
+        "payout_complete": true,
+        "payout_to_fcf": 1.0745694412101208,
+        "diluted_shares": 15004697000,
+        "share_change": -0.026180913344576395,
+        "share_comparable": true,
+        "share_note": null,
+        "total_debt": 91908000000,
+        "debt_change": -0.05791426638512476,
+        "debt_note": null,
+        "debt_components": {
+          "長期借款": 78328000000,
+          "一年內到期借款": 12350000000,
+          "長期融資租賃": 692000000,
+          "一年內到期融資租賃": 538000000
+        },
+        "cash_and_short_investments": 54697000000,
+        "net_cash": -37211000000,
+        "source": {
+          "form": "10-K",
+          "filed": "2025-10-31",
+          "accession": "0000320193-25-000079",
+          "url": "https://www.sec.gov/Archives/edgar/data/320193/000032019325000079/0000320193-25-000079-index.html"
+        }
+      },
+      "years": [
+        {
+          "fiscal_year_end": "2025-09-27",
+          "currency": "USD",
+          "revenue": 416161000000,
+          "operating_cash_flow": 111482000000,
+          "capex": 12715000000,
+          "free_cash_flow": 98767000000,
+          "fcf_margin": 0.23732882225869315,
+          "fcf_conversion": 0.8859457132093074,
+          "capex_intensity": 0.030553079216937677,
+          "buybacks": 90711000000,
+          "dividends_paid": 15421000000,
+          "shareholder_returns": 106132000000,
+          "payout_complete": true,
+          "payout_to_fcf": 1.0745694412101208,
+          "diluted_shares": 15004697000,
+          "share_change": -0.026180913344576395,
+          "share_comparable": true,
+          "share_note": null,
+          "total_debt": 91908000000,
+          "debt_change": -0.05791426638512476,
+          "debt_note": null,
+          "debt_components": {
+            "長期借款": 78328000000,
+            "一年內到期借款": 12350000000,
+            "長期融資租賃": 692000000,
+            "一年內到期融資租賃": 538000000
+          },
+          "cash_and_short_investments": 54697000000,
+          "net_cash": -37211000000,
+          "source": {
+            "form": "10-K",
+            "filed": "2025-10-31",
+            "accession": "0000320193-25-000079",
+            "url": "https://www.sec.gov/Archives/edgar/data/320193/000032019325000079/0000320193-25-000079-index.html"
+          }
+        },
+        {
+          "fiscal_year_end": "2024-09-28",
+          "currency": "USD",
+          "revenue": 391035000000,
+          "operating_cash_flow": 118254000000,
+          "capex": 9447000000,
+          "free_cash_flow": 108807000000,
+          "fcf_margin": 0.27825386474356517,
+          "fcf_conversion": 0.9201126388959359,
+          "capex_intensity": 0.02415896275269477,
+          "buybacks": 94949000000,
+          "dividends_paid": 15234000000,
+          "shareholder_returns": 110183000000,
+          "payout_complete": true,
+          "payout_to_fcf": 1.012646245186431,
+          "diluted_shares": 15408095000,
+          "share_change": -0.025577916068802886,
+          "share_comparable": true,
+          "share_note": null,
+          "total_debt": 97558000000,
+          "debt_change": -0.08074288352634107,
+          "debt_note": null,
+          "debt_components": {
+            "長期借款": 85750000000,
+            "一年內到期借款": 10912000000,
+            "長期融資租賃": 752000000,
+            "一年內到期融資租賃": 144000000
+          },
+          "cash_and_short_investments": 65171000000,
+          "net_cash": -32387000000,
+          "source": {
+            "form": "10-K",
+            "filed": "2025-10-31",
+            "accession": "0000320193-25-000079",
+            "url": "https://www.sec.gov/Archives/edgar/data/320193/000032019325000079/0000320193-25-000079-index.html"
+          }
+        },
+        {
+          "fiscal_year_end": "2023-09-30",
+          "currency": "USD",
+          "revenue": 383285000000,
+          "operating_cash_flow": 110543000000,
+          "capex": 10959000000,
+          "free_cash_flow": 99584000000,
+          "fcf_margin": 0.25981710737440805,
+          "fcf_conversion": 0.9008621079579892,
+          "capex_intensity": 0.02859230076835775,
+          "buybacks": 77550000000,
+          "dividends_paid": 15025000000,
+          "shareholder_returns": 92575000000,
+          "payout_complete": true,
+          "payout_to_fcf": 0.9296172075835476,
+          "diluted_shares": 15812547000,
+          "share_change": -0.03143928032033183,
+          "share_comparable": true,
+          "share_note": null,
+          "total_debt": 106127000000,
+          "debt_change": -0.044142018229635815,
+          "debt_note": null,
+          "debt_components": {
+            "長期借款": 95281000000,
+            "一年內到期借款": 9822000000,
+            "長期融資租賃": 859000000,
+            "一年內到期融資租賃": 165000000
+          },
+          "cash_and_short_investments": 61555000000,
+          "net_cash": -44572000000,
+          "source": {
+            "form": "10-K",
+            "filed": "2025-10-31",
+            "accession": "0000320193-25-000079",
+            "url": "https://www.sec.gov/Archives/edgar/data/320193/000032019325000079/0000320193-25-000079-index.html"
+          }
+        },
+        {
+          "fiscal_year_end": "2022-09-24",
+          "currency": "USD",
+          "revenue": 394328000000,
+          "operating_cash_flow": 122151000000,
+          "capex": 10708000000,
+          "free_cash_flow": 111443000000,
+          "fcf_margin": 0.2826149804223895,
+          "fcf_conversion": 0.9123380078754983,
+          "capex_intensity": 0.02715505873283155,
+          "buybacks": 89402000000,
+          "dividends_paid": 14841000000,
+          "shareholder_returns": 104243000000,
+          "payout_complete": true,
+          "payout_to_fcf": 0.9353929811652594,
+          "diluted_shares": 16325819000,
+          "share_change": null,
+          "share_comparable": false,
+          "share_note": "缺本期或前期稀釋加權平均股數，無法判斷淨稀釋。",
+          "total_debt": 111028000000,
+          "debt_change": null,
+          "debt_note": null,
+          "debt_components": {
+            "長期借款": 98959000000,
+            "一年內到期借款": 11128000000,
+            "長期融資租賃": 812000000,
+            "一年內到期融資租賃": 129000000
+          },
+          "cash_and_short_investments": 48304000000,
+          "net_cash": -62724000000,
+          "source": {
+            "form": "10-K",
+            "filed": "2024-11-01",
+            "accession": "0000320193-24-000123",
+            "url": "https://www.sec.gov/Archives/edgar/data/320193/000032019324000123/0000320193-24-000123-index.html"
+          }
+        }
+      ],
+      "conclusion": "資本配置支持股東價值；依 5/5 個可判讀構面，只評估已公布現金流、股東回饋、淨股份效果、負債與資本支出，不推測管理層動機。"
+    },
+    {
+      "ticker": "AMZN",
+      "data_ticker": "AMZN",
+      "name": "AMAZON COM INC",
+      "position": "watchlist",
+      "currency": "USD",
+      "latest_period": "2025-12-31",
+      "status": "neutral",
+      "label": "資本配置中性／需持續驗證",
+      "score": 1,
+      "coverage": {
+        "known": 4,
+        "total": 5,
+        "missing": [
+          "股東回饋"
+        ]
+      },
+      "signals": [
+        {
+          "id": "fcf",
+          "label": "現金創造",
+          "state": "attention",
+          "score": 1,
+          "evidence": "FCF 為正，但資本支出後只保留營運現金流的 6%。"
+        },
+        {
+          "id": "payout",
+          "label": "股東回饋",
+          "state": "unavailable",
+          "score": 0,
+          "evidence": "回購或股利 XBRL 標籤不完整，不把缺值當成 0。"
+        },
+        {
+          "id": "shares",
+          "label": "回購實效",
+          "state": "attention",
+          "score": -1,
+          "evidence": "稀釋加權平均股數年增 1.0%；存在溫和淨稀釋。"
+        },
+        {
+          "id": "debt",
+          "label": "負債承擔",
+          "state": "support",
+          "score": 1,
+          "evidence": "現金及短期投資高於有息負債，維持淨現金。"
+        },
+        {
+          "id": "capex",
+          "label": "再投資強度",
+          "state": "context",
+          "score": 0,
+          "evidence": "資本支出為營收的 18.4%；高低本身不代表投資成敗。"
+        }
+      ],
+      "latest": {
+        "fiscal_year_end": "2025-12-31",
+        "currency": "USD",
+        "revenue": 716924000000,
+        "operating_cash_flow": 139514000000,
+        "capex": 131819000000,
+        "free_cash_flow": 7695000000,
+        "fcf_margin": 0.010733355278941701,
+        "fcf_conversion": 0.05515575497799504,
+        "capex_intensity": 0.18386746712343288,
+        "buybacks": null,
+        "dividends_paid": null,
+        "shareholder_returns": null,
+        "payout_complete": false,
+        "payout_to_fcf": null,
+        "diluted_shares": 10827000000,
+        "share_change": 0.009887137393899792,
+        "share_comparable": true,
+        "share_note": null,
+        "total_debt": 80682000000,
+        "debt_change": 0.18229242988189087,
+        "debt_note": null,
+        "debt_components": {
+          "長期借款": 65648000000,
+          "一年內到期借款": 2748000000,
+          "長期融資租賃": 10742000000,
+          "一年內到期融資租賃": 1544000000
+        },
+        "cash_and_short_investments": 123029000000,
+        "net_cash": 42347000000,
+        "source": {
+          "form": "10-K",
+          "filed": "2026-02-06",
+          "accession": "0001018724-26-000004",
+          "url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000004/0001018724-26-000004-index.html"
+        }
+      },
+      "years": [
+        {
+          "fiscal_year_end": "2025-12-31",
+          "currency": "USD",
+          "revenue": 716924000000,
+          "operating_cash_flow": 139514000000,
+          "capex": 131819000000,
+          "free_cash_flow": 7695000000,
+          "fcf_margin": 0.010733355278941701,
+          "fcf_conversion": 0.05515575497799504,
+          "capex_intensity": 0.18386746712343288,
+          "buybacks": null,
+          "dividends_paid": null,
+          "shareholder_returns": null,
+          "payout_complete": false,
+          "payout_to_fcf": null,
+          "diluted_shares": 10827000000,
+          "share_change": 0.009887137393899792,
+          "share_comparable": true,
+          "share_note": null,
+          "total_debt": 80682000000,
+          "debt_change": 0.18229242988189087,
+          "debt_note": null,
+          "debt_components": {
+            "長期借款": 65648000000,
+            "一年內到期借款": 2748000000,
+            "長期融資租賃": 10742000000,
+            "一年內到期融資租賃": 1544000000
+          },
+          "cash_and_short_investments": 123029000000,
+          "net_cash": 42347000000,
+          "source": {
+            "form": "10-K",
+            "filed": "2026-02-06",
+            "accession": "0001018724-26-000004",
+            "url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000004/0001018724-26-000004-index.html"
+          }
+        },
+        {
+          "fiscal_year_end": "2024-12-31",
+          "currency": "USD",
+          "revenue": 637959000000,
+          "operating_cash_flow": 115877000000,
+          "capex": 82999000000,
+          "free_cash_flow": 32878000000,
+          "fcf_margin": 0.05153622724971354,
+          "fcf_conversion": 0.28373188812275085,
+          "capex_intensity": 0.13010083720113674,
+          "buybacks": 0,
+          "dividends_paid": null,
+          "shareholder_returns": null,
+          "payout_complete": false,
+          "payout_to_fcf": null,
+          "diluted_shares": 10721000000,
+          "share_change": 0.021826153259626446,
+          "share_comparable": true,
+          "share_note": null,
+          "total_debt": 68242000000,
+          "debt_change": -0.1352687000266103,
+          "debt_note": null,
+          "debt_components": {
+            "長期借款": 52623000000,
+            "一年內到期借款": 5017000000,
+            "長期融資租賃": 9227000000,
+            "一年內到期融資租賃": 1375000000
+          },
+          "cash_and_short_investments": 101202000000,
+          "net_cash": 32960000000,
+          "source": {
+            "form": "10-K",
+            "filed": "2026-02-06",
+            "accession": "0001018724-26-000004",
+            "url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000004/0001018724-26-000004-index.html"
+          }
+        },
+        {
+          "fiscal_year_end": "2023-12-31",
+          "currency": "USD",
+          "revenue": 574785000000,
+          "operating_cash_flow": 84946000000,
+          "capex": 52729000000,
+          "free_cash_flow": 32217000000,
+          "fcf_margin": 0.0560505232391242,
+          "fcf_conversion": 0.37926447390106655,
+          "capex_intensity": 0.09173691032299033,
+          "buybacks": 0,
+          "dividends_paid": null,
+          "shareholder_returns": null,
+          "payout_complete": false,
+          "payout_to_fcf": null,
+          "diluted_shares": 10492000000,
+          "share_change": 0.02973795269408175,
+          "share_comparable": true,
+          "share_note": null,
+          "total_debt": 78917000000,
+          "debt_change": -0.08163431550528322,
+          "debt_note": null,
+          "debt_components": {
+            "長期借款": 58314000000,
+            "一年內到期借款": 8494000000,
+            "長期融資租賃": 10077000000,
+            "一年內到期融資租賃": 2032000000
+          },
+          "cash_and_short_investments": 86780000000,
+          "net_cash": 7863000000,
+          "source": {
+            "form": "10-K",
+            "filed": "2026-02-06",
+            "accession": "0001018724-26-000004",
+            "url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000004/0001018724-26-000004-index.html"
+          }
+        },
+        {
+          "fiscal_year_end": "2022-12-31",
+          "currency": "USD",
+          "revenue": 513983000000,
+          "operating_cash_flow": 46752000000,
+          "capex": 63645000000,
+          "free_cash_flow": -16893000000,
+          "fcf_margin": -0.032866845790619534,
+          "fcf_conversion": -0.361332135523614,
+          "capex_intensity": 0.12382705264571008,
+          "buybacks": 6000000000,
+          "dividends_paid": null,
+          "shareholder_returns": null,
+          "payout_complete": false,
+          "payout_to_fcf": null,
+          "diluted_shares": 10189000000,
+          "share_change": null,
+          "share_comparable": false,
+          "share_note": "缺本期或前期稀釋加權平均股數，無法判斷淨稀釋。",
+          "total_debt": 85932000000,
+          "debt_change": null,
+          "debt_note": null,
+          "debt_components": {
+            "長期借款": 67150000000,
+            "一年內到期借款": 2999000000,
+            "長期融資租賃": 11386000000,
+            "一年內到期融資租賃": 4397000000
+          },
+          "cash_and_short_investments": 70026000000,
+          "net_cash": -15906000000,
+          "source": {
+            "form": "10-K",
+            "filed": "2025-02-07",
+            "accession": "0001018724-25-000004",
+            "url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872425000004/0001018724-25-000004-index.html"
+          }
+        }
+      ],
+      "conclusion": "資本配置中性／需持續驗證；依 4/5 個可判讀構面，只評估已公布現金流、股東回饋、淨股份效果、負債與資本支出，不推測管理層動機。"
+    },
+    {
+      "ticker": "ARM",
+      "data_ticker": "ARM",
+      "name": "ARM HOLDINGS PLC /UK",
+      "position": "holding",
+      "currency": "USD",
+      "latest_period": "2026-03-31",
+      "status": "support",
+      "label": "資本配置支持股東價值",
+      "score": 3,
+      "coverage": {
+        "known": 4,
+        "total": 5,
+        "missing": [
+          "股東回饋"
+        ]
+      },
+      "signals": [
+        {
+          "id": "fcf",
+          "label": "現金創造",
+          "state": "support",
+          "score": 2,
+          "evidence": "自由現金流為正。"
+        },
+        {
+          "id": "payout",
+          "label": "股東回饋",
+          "state": "unavailable",
+          "score": 0,
+          "evidence": "回購或股利 XBRL 標籤不完整，不把缺值當成 0。"
+        },
+        {
+          "id": "shares",
+          "label": "回購實效",
+          "state": "neutral",
+          "score": 0,
+          "evidence": "稀釋加權平均股數年變動 +0.5%，大致持平。"
+        },
+        {
+          "id": "debt",
+          "label": "負債承擔",
+          "state": "support",
+          "score": 1,
+          "evidence": "現金及短期投資高於有息負債，維持淨現金。"
+        },
+        {
+          "id": "capex",
+          "label": "再投資強度",
+          "state": "context",
+          "score": 0,
+          "evidence": "資本支出為營收的 11.1%；高低本身不代表投資成敗。"
+        }
+      ],
+      "latest": {
+        "fiscal_year_end": "2026-03-31",
+        "currency": "USD",
+        "revenue": 4920000000,
+        "operating_cash_flow": 1524000000,
+        "capex": 545000000,
+        "free_cash_flow": 979000000,
+        "fcf_margin": 0.19898373983739837,
+        "fcf_conversion": 0.6423884514435696,
+        "capex_intensity": 0.11077235772357724,
+        "buybacks": null,
+        "dividends_paid": null,
+        "shareholder_returns": null,
+        "payout_complete": false,
+        "payout_to_fcf": null,
+        "diluted_shares": 1068000000,
+        "share_change": 0.00470366886171214,
+        "share_comparable": true,
+        "share_note": null,
+        "total_debt": 59000000,
+        "debt_change": 1.3599999999999999,
+        "debt_note": null,
+        "debt_components": {
+          "長期融資租賃": 34000000,
+          "一年內到期融資租賃": 25000000
+        },
+        "cash_and_short_investments": 3601000000,
+        "net_cash": 3542000000,
+        "source": {
+          "form": "20-F",
+          "filed": "2026-05-26",
+          "accession": "0001973239-26-000097",
+          "url": "https://www.sec.gov/Archives/edgar/data/1973239/000197323926000097/0001973239-26-000097-index.html"
+        }
+      },
+      "years": [
+        {
+          "fiscal_year_end": "2026-03-31",
+          "currency": "USD",
+          "revenue": 4920000000,
+          "operating_cash_flow": 1524000000,
+          "capex": 545000000,
+          "free_cash_flow": 979000000,
+          "fcf_margin": 0.19898373983739837,
+          "fcf_conversion": 0.6423884514435696,
+          "capex_intensity": 0.11077235772357724,
+          "buybacks": null,
+          "dividends_paid": null,
+          "shareholder_returns": null,
+          "payout_complete": false,
+          "payout_to_fcf": null,
+          "diluted_shares": 1068000000,
+          "share_change": 0.00470366886171214,
+          "share_comparable": true,
+          "share_note": null,
+          "total_debt": 59000000,
+          "debt_change": 1.3599999999999999,
+          "debt_note": null,
+          "debt_components": {
+            "長期融資租賃": 34000000,
+            "一年內到期融資租賃": 25000000
+          },
+          "cash_and_short_investments": 3601000000,
+          "net_cash": 3542000000,
+          "source": {
+            "form": "20-F",
+            "filed": "2026-05-26",
+            "accession": "0001973239-26-000097",
+            "url": "https://www.sec.gov/Archives/edgar/data/1973239/000197323926000097/0001973239-26-000097-index.html"
+          }
+        },
+        {
+          "fiscal_year_end": "2025-03-31",
+          "currency": "USD",
+          "revenue": 4007000000,
+          "operating_cash_flow": 397000000,
+          "capex": 219000000,
+          "free_cash_flow": 178000000,
+          "fcf_margin": 0.04442226104317445,
+          "fcf_conversion": 0.44836272040302266,
+          "capex_intensity": 0.054654354878961815,
+          "buybacks": null,
+          "dividends_paid": null,
+          "shareholder_returns": null,
+          "payout_complete": false,
+          "payout_to_fcf": null,
+          "diluted_shares": 1063000000,
+          "share_change": 0.01819923371647514,
+          "share_comparable": true,
+          "share_note": null,
+          "total_debt": 25000000,
+          "debt_change": 4.0,
+          "debt_note": null,
+          "debt_components": {
+            "長期融資租賃": 15000000,
+            "一年內到期融資租賃": 10000000
+          },
+          "cash_and_short_investments": 2825000000,
+          "net_cash": 2800000000,
+          "source": {
+            "form": "20-F",
+            "filed": "2026-05-26",
+            "accession": "0001973239-26-000097",
+            "url": "https://www.sec.gov/Archives/edgar/data/1973239/000197323926000097/0001973239-26-000097-index.html"
+          }
+        },
+        {
+          "fiscal_year_end": "2024-03-31",
+          "currency": "USD",
+          "revenue": 3233000000,
+          "operating_cash_flow": 1090000000,
+          "capex": 92000000,
+          "free_cash_flow": 998000000,
+          "fcf_margin": 0.3086916176925456,
+          "fcf_conversion": 0.9155963302752294,
+          "capex_intensity": 0.02845654191153727,
+          "buybacks": null,
+          "dividends_paid": null,
+          "shareholder_returns": null,
+          "payout_complete": false,
+          "payout_to_fcf": null,
+          "diluted_shares": 1044000000,
+          "share_change": 0.015564202334630295,
+          "share_comparable": true,
+          "share_note": null,
+          "total_debt": 5000000,
+          "debt_change": 1.5,
+          "debt_note": null,
+          "debt_components": {
+            "一年內到期融資租賃": 5000000
+          },
+          "cash_and_short_investments": 2923000000,
+          "net_cash": 2918000000,
+          "source": {
+            "form": "20-F",
+            "filed": "2026-05-26",
+            "accession": "0001973239-26-000097",
+            "url": "https://www.sec.gov/Archives/edgar/data/1973239/000197323926000097/0001973239-26-000097-index.html"
+          }
+        },
+        {
+          "fiscal_year_end": "2023-03-31",
+          "currency": "USD",
+          "revenue": 2679000000,
+          "operating_cash_flow": 739000000,
+          "capex": 64000000,
+          "free_cash_flow": 675000000,
+          "fcf_margin": 0.251959686450168,
+          "fcf_conversion": 0.9133964817320703,
+          "capex_intensity": 0.023889511011571482,
+          "buybacks": null,
+          "dividends_paid": null,
+          "shareholder_returns": null,
+          "payout_complete": false,
+          "payout_to_fcf": null,
+          "diluted_shares": 1028000000,
+          "share_change": null,
+          "share_comparable": false,
+          "share_note": "缺本期或前期稀釋加權平均股數，無法判斷淨稀釋。",
+          "total_debt": 2000000,
+          "debt_change": null,
+          "debt_note": null,
+          "debt_components": {
+            "一年內到期融資租賃": 2000000
+          },
+          "cash_and_short_investments": 2215000000,
+          "net_cash": 2213000000,
+          "source": {
+            "form": "20-F",
+            "filed": "2025-05-28",
+            "accession": "0001973239-25-000016",
+            "url": "https://www.sec.gov/Archives/edgar/data/1973239/000197323925000016/0001973239-25-000016-index.html"
+          }
+        }
+      ],
+      "conclusion": "資本配置支持股東價值；依 4/5 個可判讀構面，只評估已公布現金流、股東回饋、淨股份效果、負債與資本支出，不推測管理層動機。"
+    },
+    {
+      "ticker": "ONDS",
+      "data_ticker": "ONDS",
+      "name": "Ondas Inc.",
+      "position": "watchlist",
+      "currency": "USD",
+      "latest_period": "2025-12-31",
+      "status": "neutral",
+      "label": "資本配置中性／需持續驗證",
+      "score": -2,
+      "coverage": {
+        "known": 3,
+        "total": 5,
+        "missing": [
+          "股東回饋",
+          "回購實效"
+        ]
+      },
+      "signals": [
+        {
+          "id": "fcf",
+          "label": "現金創造",
+          "state": "risk",
+          "score": -3,
+          "evidence": "自由現金流為負，外部融資或現金存量的重要性提高。"
+        },
+        {
+          "id": "payout",
+          "label": "股東回饋",
+          "state": "unavailable",
+          "score": 0,
+          "evidence": "回購或股利 XBRL 標籤不完整，不把缺值當成 0。"
+        },
+        {
+          "id": "shares",
+          "label": "回購實效",
+          "state": "unavailable",
+          "score": 0,
+          "evidence": "2024-12-31 與 2023-12-31 的稀釋加權平均股數相差 754.3 倍，疑有拆股或 XBRL 縮放差異，停止跨期比較。"
+        },
+        {
+          "id": "debt",
+          "label": "負債承擔",
+          "state": "support",
+          "score": 1,
+          "evidence": "現金及短期投資高於有息負債，維持淨現金。"
+        },
+        {
+          "id": "capex",
+          "label": "再投資強度",
+          "state": "context",
+          "score": 0,
+          "evidence": "資本支出為營收的 4.0%；高低本身不代表投資成敗。"
+        }
+      ],
+      "latest": {
+        "fiscal_year_end": "2025-12-31",
+        "currency": "USD",
+        "revenue": 50731000,
+        "operating_cash_flow": -38746000,
+        "capex": 2034000,
+        "free_cash_flow": -40780000,
+        "fcf_margin": -0.8038477459541503,
+        "fcf_conversion": 1.0524957414958964,
+        "capex_intensity": 0.040093828231258996,
+        "buybacks": null,
+        "dividends_paid": null,
+        "shareholder_returns": null,
+        "payout_complete": false,
+        "payout_to_fcf": null,
+        "diluted_shares": 221769,
+        "share_change": null,
+        "share_comparable": false,
+        "share_note": "2024-12-31 與 2023-12-31 的稀釋加權平均股數相差 754.3 倍，疑有拆股或 XBRL 縮放差異，停止跨期比較。",
+        "total_debt": 8284000,
+        "debt_change": -0.8322669474366242,
+        "debt_note": null,
+        "debt_components": {
+          "一年內到期借款": 1500000,
+          "長期可轉換公司債": 3834000,
+          "一年內到期可轉換公司債": 2950000
+        },
+        "cash_and_short_investments": 550744000,
+        "net_cash": 542460000,
+        "source": {
+          "form": "10-K",
+          "filed": "2026-03-30",
+          "accession": "0001213900-26-035981",
+          "url": "https://www.sec.gov/Archives/edgar/data/1646188/000121390026035981/0001213900-26-035981-index.html"
+        }
+      },
+      "years": [
+        {
+          "fiscal_year_end": "2025-12-31",
+          "currency": "USD",
+          "revenue": 50731000,
+          "operating_cash_flow": -38746000,
+          "capex": 2034000,
+          "free_cash_flow": -40780000,
+          "fcf_margin": -0.8038477459541503,
+          "fcf_conversion": 1.0524957414958964,
+          "capex_intensity": 0.040093828231258996,
+          "buybacks": null,
+          "dividends_paid": null,
+          "shareholder_returns": null,
+          "payout_complete": false,
+          "payout_to_fcf": null,
+          "diluted_shares": 221769,
+          "share_change": null,
+          "share_comparable": false,
+          "share_note": "2024-12-31 與 2023-12-31 的稀釋加權平均股數相差 754.3 倍，疑有拆股或 XBRL 縮放差異，停止跨期比較。",
+          "total_debt": 8284000,
+          "debt_change": -0.8322669474366242,
+          "debt_note": null,
+          "debt_components": {
+            "一年內到期借款": 1500000,
+            "長期可轉換公司債": 3834000,
+            "一年內到期可轉換公司債": 2950000
+          },
+          "cash_and_short_investments": 550744000,
+          "net_cash": 542460000,
+          "source": {
+            "form": "10-K",
+            "filed": "2026-03-30",
+            "accession": "0001213900-26-035981",
+            "url": "https://www.sec.gov/Archives/edgar/data/1646188/000121390026035981/0001213900-26-035981-index.html"
+          }
+        },
+        {
+          "fiscal_year_end": "2024-12-31",
+          "currency": "USD",
+          "revenue": 7193000,
+          "operating_cash_flow": -33469000,
+          "capex": 1636000,
+          "free_cash_flow": -35105000,
+          "fcf_margin": -4.880439316001668,
+          "fcf_conversion": 1.0488810541097733,
+          "capex_intensity": 0.22744334769915195,
+          "buybacks": null,
+          "dividends_paid": null,
+          "shareholder_returns": null,
+          "payout_complete": false,
+          "payout_to_fcf": null,
+          "diluted_shares": 69917,
+          "share_change": null,
+          "share_comparable": false,
+          "share_note": "2024-12-31 與 2023-12-31 的稀釋加權平均股數相差 754.3 倍，疑有拆股或 XBRL 縮放差異，停止跨期比較。",
+          "total_debt": 49388000,
+          "debt_change": 0.9222726627862874,
+          "debt_note": null,
+          "debt_components": {
+            "長期借款": 300000,
+            "一年內到期借款": 1273000,
+            "長期可轉換公司債": 15868000,
+            "一年內到期可轉換公司債": 31947000
+          },
+          "cash_and_short_investments": 29958000,
+          "net_cash": -19430000,
+          "source": {
+            "form": "10-K",
+            "filed": "2026-03-30",
+            "accession": "0001213900-26-035981",
+            "url": "https://www.sec.gov/Archives/edgar/data/1646188/000121390026035981/0001213900-26-035981-index.html"
+          }
+        },
+        {
+          "fiscal_year_end": "2023-12-31",
+          "currency": "USD",
+          "revenue": 15691430,
+          "operating_cash_flow": -34019519,
+          "capex": 211035,
+          "free_cash_flow": -34230554,
+          "fcf_margin": -2.1814808465512705,
+          "fcf_conversion": 1.0062033504941679,
+          "capex_intensity": 0.01344906104797332,
+          "buybacks": null,
+          "dividends_paid": null,
+          "shareholder_returns": null,
+          "payout_complete": false,
+          "payout_to_fcf": null,
+          "diluted_shares": 52740215,
+          "share_change": null,
+          "share_comparable": false,
+          "share_note": "2024-12-31 與 2023-12-31 的稀釋加權平均股數相差 754.3 倍，疑有拆股或 XBRL 縮放差異，停止跨期比較。",
+          "total_debt": 25692505,
+          "debt_change": null,
+          "debt_note": null,
+          "debt_components": {
+            "一年內到期可轉換公司債": 25692505
+          },
+          "cash_and_short_investments": null,
+          "net_cash": null,
+          "source": {
+            "form": "10-K",
+            "filed": "2025-03-12",
+            "accession": "0001213900-25-022968",
+            "url": "https://www.sec.gov/Archives/edgar/data/1646188/000121390025022968/0001213900-25-022968-index.html"
+          }
+        },
+        {
+          "fiscal_year_end": "2022-12-31",
+          "currency": "USD",
+          "revenue": 2125817,
+          "operating_cash_flow": -37963076,
+          "capex": 2880900,
+          "free_cash_flow": -40843976,
+          "fcf_margin": -19.213307636546325,
+          "fcf_conversion": 1.0758868959933594,
+          "capex_intensity": 1.355196613819534,
+          "buybacks": null,
+          "dividends_paid": null,
+          "shareholder_returns": null,
+          "payout_complete": false,
+          "payout_to_fcf": null,
+          "diluted_shares": 42242525,
+          "share_change": null,
+          "share_comparable": false,
+          "share_note": "2024-12-31 與 2023-12-31 的稀釋加權平均股數相差 754.3 倍，疑有拆股或 XBRL 縮放差異，停止跨期比較。",
+          "total_debt": null,
+          "debt_change": null,
+          "debt_note": "未取得任何有息負債標籤，無法計算",
+          "debt_components": {},
+          "cash_and_short_investments": 29775096,
+          "net_cash": null,
+          "source": {
+            "form": "10-K",
+            "filed": "2024-04-01",
+            "accession": "0001213900-24-028244",
+            "url": "https://www.sec.gov/Archives/edgar/data/1646188/000121390024028244/0001213900-24-028244-index.html"
+          }
+        }
+      ],
+      "conclusion": "資本配置中性／需持續驗證；依 3/5 個可判讀構面，只評估已公布現金流、股東回饋、淨股份效果、負債與資本支出，不推測管理層動機。"
+    },
+    {
+      "ticker": "TSLA",
+      "data_ticker": "TSLA",
+      "name": "Tesla, Inc.",
+      "position": "holding",
+      "currency": "USD",
+      "latest_period": "2025-12-31",
+      "status": "neutral",
+      "label": "資本配置中性／需持續驗證",
+      "score": 2,
+      "coverage": {
+        "known": 4,
+        "total": 5,
+        "missing": [
+          "股東回饋"
+        ]
+      },
+      "signals": [
+        {
+          "id": "fcf",
+          "label": "現金創造",
+          "state": "support",
+          "score": 2,
+          "evidence": "自由現金流為正。"
+        },
+        {
+          "id": "payout",
+          "label": "股東回饋",
+          "state": "unavailable",
+          "score": 0,
+          "evidence": "回購或股利 XBRL 標籤不完整，不把缺值當成 0。"
+        },
+        {
+          "id": "shares",
+          "label": "回購實效",
+          "state": "attention",
+          "score": -1,
+          "evidence": "稀釋加權平均股數年增 0.9%；存在溫和淨稀釋。"
+        },
+        {
+          "id": "debt",
+          "label": "負債承擔",
+          "state": "support",
+          "score": 1,
+          "evidence": "現金及短期投資高於有息負債，維持淨現金。"
+        },
+        {
+          "id": "capex",
+          "label": "再投資強度",
+          "state": "context",
+          "score": 0,
+          "evidence": "資本支出為營收的 9.0%；高低本身不代表投資成敗。"
+        }
+      ],
+      "latest": {
+        "fiscal_year_end": "2025-12-31",
+        "currency": "USD",
+        "revenue": 94827000000,
+        "operating_cash_flow": 14747000000,
+        "capex": 8527000000,
+        "free_cash_flow": 6220000000,
+        "fcf_margin": 0.06559313275754795,
+        "fcf_conversion": 0.4217807011595579,
+        "capex_intensity": 0.08992164678836197,
+        "buybacks": null,
+        "dividends_paid": null,
+        "shareholder_returns": null,
+        "payout_complete": false,
+        "payout_to_fcf": null,
+        "diluted_shares": 3528000000,
+        "share_change": 0.00857632933104635,
+        "share_comparable": true,
+        "share_note": null,
+        "total_debt": 8376000000,
+        "debt_change": 0.019846584682819968,
+        "debt_note": null,
+        "debt_components": {
+          "長期借款": 6584000000,
+          "一年內到期借款": 1569000000,
+          "長期融資租賃": 152000000,
+          "一年內到期融資租賃": 71000000
+        },
+        "cash_and_short_investments": 44059000000,
+        "net_cash": 35683000000,
+        "source": {
+          "form": "10-K",
+          "filed": "2026-01-29",
+          "accession": "0001628280-26-003952",
+          "url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026003952/0001628280-26-003952-index.html"
+        }
+      },
+      "years": [
+        {
+          "fiscal_year_end": "2025-12-31",
+          "currency": "USD",
+          "revenue": 94827000000,
+          "operating_cash_flow": 14747000000,
+          "capex": 8527000000,
+          "free_cash_flow": 6220000000,
+          "fcf_margin": 0.06559313275754795,
+          "fcf_conversion": 0.4217807011595579,
+          "capex_intensity": 0.08992164678836197,
+          "buybacks": null,
+          "dividends_paid": null,
+          "shareholder_returns": null,
+          "payout_complete": false,
+          "payout_to_fcf": null,
+          "diluted_shares": 3528000000,
+          "share_change": 0.00857632933104635,
+          "share_comparable": true,
+          "share_note": null,
+          "total_debt": 8376000000,
+          "debt_change": 0.019846584682819968,
+          "debt_note": null,
+          "debt_components": {
+            "長期借款": 6584000000,
+            "一年內到期借款": 1569000000,
+            "長期融資租賃": 152000000,
+            "一年內到期融資租賃": 71000000
+          },
+          "cash_and_short_investments": 44059000000,
+          "net_cash": 35683000000,
+          "source": {
+            "form": "10-K",
+            "filed": "2026-01-29",
+            "accession": "0001628280-26-003952",
+            "url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026003952/0001628280-26-003952-index.html"
+          }
+        },
+        {
+          "fiscal_year_end": "2024-12-31",
+          "currency": "USD",
+          "revenue": 97690000000,
+          "operating_cash_flow": 14923000000,
+          "capex": 11342000000,
+          "free_cash_flow": 3581000000,
+          "fcf_margin": 0.03665677141979732,
+          "fcf_conversion": 0.23996515445955907,
+          "capex_intensity": 0.11610195516429522,
+          "buybacks": null,
+          "dividends_paid": null,
+          "shareholder_returns": null,
+          "payout_complete": false,
+          "payout_to_fcf": null,
+          "diluted_shares": 3498000000,
+          "share_change": 0.0037302725968435535,
+          "share_comparable": true,
+          "share_note": null,
+          "total_debt": 8213000000,
+          "debt_change": 0.5703632887189292,
+          "debt_note": null,
+          "debt_components": {
+            "長期借款": 5535000000,
+            "一年內到期借款": 2343000000,
+            "長期融資租賃": 222000000,
+            "一年內到期融資租賃": 113000000
+          },
+          "cash_and_short_investments": 36563000000,
+          "net_cash": 28350000000,
+          "source": {
+            "form": "10-K",
+            "filed": "2026-01-29",
+            "accession": "0001628280-26-003952",
+            "url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026003952/0001628280-26-003952-index.html"
+          }
+        },
+        {
+          "fiscal_year_end": "2023-12-31",
+          "currency": "USD",
+          "revenue": 96773000000,
+          "operating_cash_flow": 13256000000,
+          "capex": 8899000000,
+          "free_cash_flow": 4357000000,
+          "fcf_margin": 0.04502288861562626,
+          "fcf_conversion": 0.32868135184067593,
+          "capex_intensity": 0.0919574674754322,
+          "buybacks": null,
+          "dividends_paid": null,
+          "shareholder_returns": null,
+          "payout_complete": false,
+          "payout_to_fcf": null,
+          "diluted_shares": 3485000000,
+          "share_change": 0.0028776978417266452,
+          "share_comparable": true,
+          "share_note": null,
+          "total_debt": 5230000000,
+          "debt_change": 0.6876411745724427,
+          "debt_note": null,
+          "debt_components": {
+            "長期借款": 2682000000,
+            "一年內到期借款": 1975000000,
+            "長期融資租賃": 175000000,
+            "一年內到期融資租賃": 398000000
+          },
+          "cash_and_short_investments": 29094000000,
+          "net_cash": 23864000000,
+          "source": {
+            "form": "10-K",
+            "filed": "2026-01-29",
+            "accession": "0001628280-26-003952",
+            "url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026003952/0001628280-26-003952-index.html"
+          }
+        },
+        {
+          "fiscal_year_end": "2022-12-31",
+          "currency": "USD",
+          "revenue": 81462000000,
+          "operating_cash_flow": 14724000000,
+          "capex": 7158000000,
+          "free_cash_flow": 7566000000,
+          "fcf_margin": 0.09287766074979745,
+          "fcf_conversion": 0.5138549307253464,
+          "capex_intensity": 0.08786919054282978,
+          "buybacks": null,
+          "dividends_paid": null,
+          "shareholder_returns": null,
+          "payout_complete": false,
+          "payout_to_fcf": null,
+          "diluted_shares": 3475000000,
+          "share_change": null,
+          "share_comparable": false,
+          "share_note": "缺本期或前期稀釋加權平均股數，無法判斷淨稀釋。",
+          "total_debt": 3099000000,
+          "debt_change": null,
+          "debt_note": null,
+          "debt_components": {
+            "長期借款": 1029000000,
+            "一年內到期借款": 1016000000,
+            "長期融資租賃": 568000000,
+            "一年內到期融資租賃": 486000000
+          },
+          "cash_and_short_investments": 22185000000,
+          "net_cash": 19086000000,
+          "source": {
+            "form": "10-K",
+            "filed": "2025-01-30",
+            "accession": "0001628280-25-003063",
+            "url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828025003063/0001628280-25-003063-index.html"
+          }
+        }
+      ],
+      "conclusion": "資本配置中性／需持續驗證；依 4/5 個可判讀構面，只評估已公布現金流、股東回饋、淨股份效果、負債與資本支出，不推測管理層動機。"
+    },
+    {
+      "ticker": "GOOG",
+      "data_ticker": "GOOGL",
+      "name": "Alphabet Inc.",
+      "position": "holding",
+      "currency": "USD",
+      "latest_period": "2025-12-31",
+      "status": "support",
+      "label": "資本配置支持股東價值",
+      "score": 6,
+      "coverage": {
+        "known": 5,
+        "total": 5,
+        "missing": []
+      },
+      "signals": [
+        {
+          "id": "fcf",
+          "label": "現金創造",
+          "state": "support",
+          "score": 2,
+          "evidence": "自由現金流為正。"
+        },
+        {
+          "id": "payout",
+          "label": "股東回饋",
+          "state": "support",
+          "score": 1,
+          "evidence": "回購加股利使用 FCF 的 76%，目前由當年 FCF 覆蓋。"
+        },
+        {
+          "id": "shares",
+          "label": "回購實效",
+          "state": "support",
+          "score": 2,
+          "evidence": "稀釋加權平均股數年減 1.7%；回購／股份變動的淨效果有利。"
+        },
+        {
+          "id": "debt",
+          "label": "負債承擔",
+          "state": "support",
+          "score": 1,
+          "evidence": "現金及短期投資高於有息負債，維持淨現金。"
+        },
+        {
+          "id": "capex",
+          "label": "再投資強度",
+          "state": "context",
+          "score": 0,
+          "evidence": "資本支出為營收的 22.7%；高低本身不代表投資成敗。"
+        }
+      ],
+      "latest": {
+        "fiscal_year_end": "2025-12-31",
+        "currency": "USD",
+        "revenue": 402836000000,
+        "operating_cash_flow": 164713000000,
+        "capex": 91447000000,
+        "free_cash_flow": 73266000000,
+        "fcf_margin": 0.18187550268595656,
+        "fcf_conversion": 0.4448100635651102,
+        "capex_intensity": 0.22700801318650765,
+        "buybacks": 45709000000,
+        "dividends_paid": 10049000000,
+        "shareholder_returns": 55758000000,
+        "payout_complete": true,
+        "payout_to_fcf": 0.7610351322578004,
+        "diluted_shares": 12230000000,
+        "share_change": -0.017433919820036947,
+        "share_comparable": true,
+        "share_note": null,
+        "total_debt": 51043000000,
+        "debt_change": 2.7645106571281066,
+        "debt_note": null,
+        "debt_components": {
+          "長期借款": 46547000000,
+          "一年內到期借款": 1996000000,
+          "長期融資租賃": 2059000000,
+          "一年內到期融資租賃": 441000000
+        },
+        "cash_and_short_investments": 126843000000,
+        "net_cash": 75800000000,
+        "source": {
+          "form": "10-K",
+          "filed": "2026-02-05",
+          "accession": "0001652044-26-000018",
+          "url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000018/0001652044-26-000018-index.html"
+        }
+      },
+      "years": [
+        {
+          "fiscal_year_end": "2025-12-31",
+          "currency": "USD",
+          "revenue": 402836000000,
+          "operating_cash_flow": 164713000000,
+          "capex": 91447000000,
+          "free_cash_flow": 73266000000,
+          "fcf_margin": 0.18187550268595656,
+          "fcf_conversion": 0.4448100635651102,
+          "capex_intensity": 0.22700801318650765,
+          "buybacks": 45709000000,
+          "dividends_paid": 10049000000,
+          "shareholder_returns": 55758000000,
+          "payout_complete": true,
+          "payout_to_fcf": 0.7610351322578004,
+          "diluted_shares": 12230000000,
+          "share_change": -0.017433919820036947,
+          "share_comparable": true,
+          "share_note": null,
+          "total_debt": 51043000000,
+          "debt_change": 2.7645106571281066,
+          "debt_note": null,
+          "debt_components": {
+            "長期借款": 46547000000,
+            "一年內到期借款": 1996000000,
+            "長期融資租賃": 2059000000,
+            "一年內到期融資租賃": 441000000
+          },
+          "cash_and_short_investments": 126843000000,
+          "net_cash": 75800000000,
+          "source": {
+            "form": "10-K",
+            "filed": "2026-02-05",
+            "accession": "0001652044-26-000018",
+            "url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000018/0001652044-26-000018-index.html"
+          }
+        },
+        {
+          "fiscal_year_end": "2024-12-31",
+          "currency": "USD",
+          "revenue": 350018000000,
+          "operating_cash_flow": 125299000000,
+          "capex": 52535000000,
+          "free_cash_flow": 72764000000,
+          "fcf_margin": 0.20788645155392008,
+          "fcf_conversion": 0.5807229107973727,
+          "capex_intensity": 0.15009228096840735,
+          "buybacks": 62222000000,
+          "dividends_paid": 7363000000,
+          "shareholder_returns": 69585000000,
+          "payout_complete": true,
+          "payout_to_fcf": 0.9563108130394151,
+          "diluted_shares": 12447000000,
+          "share_change": -0.02161609809778342,
+          "share_comparable": true,
+          "share_note": null,
+          "total_debt": 13559000000,
+          "debt_change": -0.06721243808475508,
+          "debt_note": null,
+          "debt_components": {
+            "長期借款": 10883000000,
+            "一年內到期借款": 999000000,
+            "長期融資租賃": 1442000000,
+            "一年內到期融資租賃": 235000000
+          },
+          "cash_and_short_investments": 95657000000,
+          "net_cash": 82098000000,
+          "source": {
+            "form": "10-K",
+            "filed": "2026-02-05",
+            "accession": "0001652044-26-000018",
+            "url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000018/0001652044-26-000018-index.html"
+          }
+        },
+        {
+          "fiscal_year_end": "2023-12-31",
+          "currency": "USD",
+          "revenue": 307394000000,
+          "operating_cash_flow": 101746000000,
+          "capex": 32251000000,
+          "free_cash_flow": 69495000000,
+          "fcf_margin": 0.22607793255561268,
+          "fcf_conversion": 0.6830243940793741,
+          "capex_intensity": 0.10491746748472644,
+          "buybacks": 61504000000,
+          "dividends_paid": 0,
+          "shareholder_returns": 61504000000,
+          "payout_complete": true,
+          "payout_to_fcf": 0.8850133103100942,
+          "diluted_shares": 12722000000,
+          "share_change": -0.03320921042632419,
+          "share_comparable": true,
+          "share_note": null,
+          "total_debt": 14536000000,
+          "debt_change": -0.06880204996796924,
+          "debt_note": null,
+          "debt_components": {
+            "長期借款": 11870000000,
+            "一年內到期借款": 1000000000,
+            "長期融資租賃": 1383000000,
+            "一年內到期融資租賃": 283000000
+          },
+          "cash_and_short_investments": 110916000000,
+          "net_cash": 96380000000,
+          "source": {
+            "form": "10-K",
+            "filed": "2026-02-05",
+            "accession": "0001652044-26-000018",
+            "url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000018/0001652044-26-000018-index.html"
+          }
+        },
+        {
+          "fiscal_year_end": "2022-12-31",
+          "currency": "USD",
+          "revenue": 282836000000,
+          "operating_cash_flow": 91495000000,
+          "capex": 31485000000,
+          "free_cash_flow": 60010000000,
+          "fcf_margin": 0.21217242500954617,
+          "fcf_conversion": 0.6558828351276026,
+          "capex_intensity": 0.11131892686928113,
+          "buybacks": 59296000000,
+          "dividends_paid": 0,
+          "shareholder_returns": 59296000000,
+          "payout_complete": true,
+          "payout_to_fcf": 0.9881019830028328,
+          "diluted_shares": 13159000000,
+          "share_change": null,
+          "share_comparable": false,
+          "share_note": "缺本期或前期稀釋加權平均股數，無法判斷淨稀釋。",
+          "total_debt": 15610000000,
+          "debt_change": null,
+          "debt_note": null,
+          "debt_components": {
+            "長期借款": 15312000000,
+            "一年內到期借款": 0,
+            "一年內到期融資租賃": 298000000
+          },
+          "cash_and_short_investments": 113762000000,
+          "net_cash": 98152000000,
+          "source": {
+            "form": "10-K",
+            "filed": "2025-02-05",
+            "accession": "0001652044-25-000014",
+            "url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204425000014/0001652044-25-000014-index.html"
+          }
+        }
+      ],
+      "conclusion": "資本配置支持股東價值；依 5/5 個可判讀構面，只評估已公布現金流、股東回饋、淨股份效果、負債與資本支出，不推測管理層動機。"
+    },
+    {
+      "ticker": "COHR",
+      "data_ticker": "COHR",
+      "name": "COHERENT CORP.",
+      "position": "holding",
+      "currency": "USD",
+      "latest_period": "2026-06-30",
+      "status": "pressure",
+      "label": "資本配置形成壓力",
+      "score": -5,
+      "coverage": {
+        "known": 4,
+        "total": 5,
+        "missing": [
+          "股東回饋"
+        ]
+      },
+      "signals": [
+        {
+          "id": "fcf",
+          "label": "現金創造",
+          "state": "risk",
+          "score": -3,
+          "evidence": "自由現金流為負，外部融資或現金存量的重要性提高。"
+        },
+        {
+          "id": "payout",
+          "label": "股東回饋",
+          "state": "unavailable",
+          "score": 0,
+          "evidence": "回購或股利 XBRL 標籤不完整，不把缺值當成 0。"
+        },
+        {
+          "id": "shares",
+          "label": "回購實效",
+          "state": "risk",
+          "score": -2,
+          "evidence": "稀釋加權平均股數年增 26.3%，淨稀釋明顯。"
+        },
+        {
+          "id": "debt",
+          "label": "負債承擔",
+          "state": "neutral",
+          "score": 0,
+          "evidence": "未見 FCF 為負且負債大幅增加的組合。"
+        },
+        {
+          "id": "capex",
+          "label": "再投資強度",
+          "state": "context",
+          "score": 0,
+          "evidence": "資本支出為營收的 15.5%；高低本身不代表投資成敗。"
+        }
+      ],
+      "latest": {
+        "fiscal_year_end": "2026-06-30",
+        "currency": "USD",
+        "revenue": 7118181000,
+        "operating_cash_flow": 79514000,
+        "capex": 1102909000,
+        "free_cash_flow": -1023395000,
+        "fcf_margin": -0.1437719833198959,
+        "fcf_conversion": -12.870626556329704,
+        "capex_intensity": 0.15494253377372674,
+        "buybacks": null,
+        "dividends_paid": null,
+        "shareholder_returns": null,
+        "payout_complete": false,
+        "payout_to_fcf": null,
+        "diluted_shares": 195387000,
+        "share_change": 0.2625569448483087,
+        "share_comparable": true,
+        "share_note": null,
+        "total_debt": 3222224000,
+        "debt_change": -0.12603931573255844,
+        "debt_note": null,
+        "debt_components": {
+          "長期借款": 3214308000,
+          "一年內到期借款": 7916000
+        },
+        "cash_and_short_investments": 1987018000,
+        "net_cash": -1235206000,
+        "source": {
+          "form": "10-K",
+          "filed": "2026-08-14",
+          "accession": "0000820318-26-000020",
+          "url": "https://www.sec.gov/Archives/edgar/data/820318/000082031826000020/0000820318-26-000020-index.html"
+        }
+      },
+      "years": [
+        {
+          "fiscal_year_end": "2026-06-30",
+          "currency": "USD",
+          "revenue": 7118181000,
+          "operating_cash_flow": 79514000,
+          "capex": 1102909000,
+          "free_cash_flow": -1023395000,
+          "fcf_margin": -0.1437719833198959,
+          "fcf_conversion": -12.870626556329704,
+          "capex_intensity": 0.15494253377372674,
+          "buybacks": null,
+          "dividends_paid": null,
+          "shareholder_returns": null,
+          "payout_complete": false,
+          "payout_to_fcf": null,
+          "diluted_shares": 195387000,
+          "share_change": 0.2625569448483087,
+          "share_comparable": true,
+          "share_note": null,
+          "total_debt": 3222224000,
+          "debt_change": -0.12603931573255844,
+          "debt_note": null,
+          "debt_components": {
+            "長期借款": 3214308000,
+            "一年內到期借款": 7916000
+          },
+          "cash_and_short_investments": 1987018000,
+          "net_cash": -1235206000,
+          "source": {
+            "form": "10-K",
+            "filed": "2026-08-14",
+            "accession": "0000820318-26-000020",
+            "url": "https://www.sec.gov/Archives/edgar/data/820318/000082031826000020/0000820318-26-000020-index.html"
+          }
+        },
+        {
+          "fiscal_year_end": "2025-06-30",
+          "currency": "USD",
+          "revenue": 5810115000,
+          "operating_cash_flow": 633600000,
+          "capex": 440836000,
+          "free_cash_flow": 192764000,
+          "fcf_margin": 0.03317731232514331,
+          "fcf_conversion": 0.3042361111111111,
+          "capex_intensity": 0.07587388545665619,
+          "buybacks": null,
+          "dividends_paid": null,
+          "shareholder_returns": null,
+          "payout_complete": false,
+          "payout_to_fcf": null,
+          "diluted_shares": 154755000,
+          "share_change": 0.02052861344482393,
+          "share_comparable": true,
+          "share_note": null,
+          "total_debt": 3686921000,
+          "debt_change": -0.10079878679621423,
+          "debt_note": null,
+          "debt_components": {
+            "長期借款": 3498615000,
+            "一年內到期借款": 188306000
+          },
+          "cash_and_short_investments": 909200000,
+          "net_cash": -2777721000,
+          "source": {
+            "form": "10-K",
+            "filed": "2026-08-14",
+            "accession": "0000820318-26-000020",
+            "url": "https://www.sec.gov/Archives/edgar/data/820318/000082031826000020/0000820318-26-000020-index.html"
+          }
+        },
+        {
+          "fiscal_year_end": "2024-06-30",
+          "currency": "USD",
+          "revenue": 4707688000,
+          "operating_cash_flow": 545731000,
+          "capex": 346816000,
+          "free_cash_flow": 198915000,
+          "fcf_margin": 0.04225322493759145,
+          "fcf_conversion": 0.3644927629179944,
+          "capex_intensity": 0.07367013277005613,
+          "buybacks": null,
+          "dividends_paid": null,
+          "shareholder_returns": null,
+          "payout_complete": false,
+          "payout_to_fcf": null,
+          "diluted_shares": 151642000,
+          "share_change": 0.10222564654232502,
+          "share_comparable": true,
+          "share_note": null,
+          "total_debt": 4100218000,
+          "debt_change": -0.04862872923510564,
+          "debt_note": null,
+          "debt_components": {
+            "長期借款": 4026448000,
+            "一年內到期借款": 73770000
+          },
+          "cash_and_short_investments": 926033000,
+          "net_cash": -3174185000,
+          "source": {
+            "form": "10-K",
+            "filed": "2026-08-14",
+            "accession": "0000820318-26-000020",
+            "url": "https://www.sec.gov/Archives/edgar/data/820318/000082031826000020/0000820318-26-000020-index.html"
+          }
+        },
+        {
+          "fiscal_year_end": "2023-06-30",
+          "currency": "USD",
+          "revenue": 5160100000,
+          "operating_cash_flow": 634025000,
+          "capex": 436060000,
+          "free_cash_flow": 197965000,
+          "fcf_margin": 0.038364566578167086,
+          "fcf_conversion": 0.31223532195102716,
+          "capex_intensity": 0.08450611422259259,
+          "buybacks": null,
+          "dividends_paid": null,
+          "shareholder_returns": null,
+          "payout_complete": false,
+          "payout_to_fcf": null,
+          "diluted_shares": 137578000,
+          "share_change": null,
+          "share_comparable": false,
+          "share_note": "缺本期或前期稀釋加權平均股數，無法判斷淨稀釋。",
+          "total_debt": 4309798000,
+          "debt_change": null,
+          "debt_note": null,
+          "debt_components": {
+            "長期借款": 4234962000,
+            "一年內到期借款": 74836000
+          },
+          "cash_and_short_investments": 821310000,
+          "net_cash": -3488488000,
+          "source": {
+            "form": "10-K",
+            "filed": "2025-08-15",
+            "accession": "0000820318-25-000014",
+            "url": "https://www.sec.gov/Archives/edgar/data/820318/000082031825000014/0000820318-25-000014-index.html"
+          }
+        }
+      ],
+      "conclusion": "資本配置形成壓力；依 4/5 個可判讀構面，只評估已公布現金流、股東回饋、淨股份效果、負債與資本支出，不推測管理層動機。"
+    },
+    {
+      "ticker": "MRVL",
+      "data_ticker": "MRVL",
+      "name": "MARVELL TECHNOLOGY, INC",
+      "position": "holding",
+      "currency": "USD",
+      "latest_period": "2026-01-31",
+      "status": "neutral",
+      "label": "資本配置中性／需持續驗證",
+      "score": 1,
+      "coverage": {
+        "known": 5,
+        "total": 5,
+        "missing": []
+      },
+      "signals": [
+        {
+          "id": "fcf",
+          "label": "現金創造",
+          "state": "support",
+          "score": 3,
+          "evidence": "FCF 為正，且保留營運現金流的 80%。"
+        },
+        {
+          "id": "payout",
+          "label": "股東回饋",
+          "state": "risk",
+          "score": -2,
+          "evidence": "回購加股利為 FCF 的 161%，明顯超過當年 FCF。"
+        },
+        {
+          "id": "shares",
+          "label": "回購實效",
+          "state": "neutral",
+          "score": 0,
+          "evidence": "稀釋加權平均股數年變動 +0.5%，大致持平。"
+        },
+        {
+          "id": "debt",
+          "label": "負債承擔",
+          "state": "neutral",
+          "score": 0,
+          "evidence": "未見 FCF 為負且負債大幅增加的組合。"
+        },
+        {
+          "id": "capex",
+          "label": "再投資強度",
+          "state": "context",
+          "score": 0,
+          "evidence": "資本支出為營收的 4.3%；高低本身不代表投資成敗。"
+        }
+      ],
+      "latest": {
+        "fiscal_year_end": "2026-01-31",
+        "currency": "USD",
+        "revenue": 8194600000,
+        "operating_cash_flow": 1750500000,
+        "capex": 354100000,
+        "free_cash_flow": 1396400000,
+        "fcf_margin": 0.17040490078832402,
+        "fcf_conversion": 0.7977149385889746,
+        "capex_intensity": 0.04321138310594782,
+        "buybacks": 2040100000,
+        "dividends_paid": 205100000,
+        "shareholder_returns": 2245200000,
+        "payout_complete": true,
+        "payout_to_fcf": 1.6078487539386994,
+        "diluted_shares": 869700000,
+        "share_change": 0.004852686308492116,
+        "share_comparable": true,
+        "share_note": null,
+        "total_debt": 3970800000,
+        "debt_change": 0.00927738098263986,
+        "debt_note": null,
+        "debt_components": {
+          "長期借款": 3970800000
+        },
+        "cash_and_short_investments": 2638800000,
+        "net_cash": -1332000000,
+        "source": {
+          "form": "10-K",
+          "filed": "2026-03-11",
+          "accession": "0001835632-26-000011",
+          "url": "https://www.sec.gov/Archives/edgar/data/1835632/000183563226000011/0001835632-26-000011-index.html"
+        }
+      },
+      "years": [
+        {
+          "fiscal_year_end": "2026-01-31",
+          "currency": "USD",
+          "revenue": 8194600000,
+          "operating_cash_flow": 1750500000,
+          "capex": 354100000,
+          "free_cash_flow": 1396400000,
+          "fcf_margin": 0.17040490078832402,
+          "fcf_conversion": 0.7977149385889746,
+          "capex_intensity": 0.04321138310594782,
+          "buybacks": 2040100000,
+          "dividends_paid": 205100000,
+          "shareholder_returns": 2245200000,
+          "payout_complete": true,
+          "payout_to_fcf": 1.6078487539386994,
+          "diluted_shares": 869700000,
+          "share_change": 0.004852686308492116,
+          "share_comparable": true,
+          "share_note": null,
+          "total_debt": 3970800000,
+          "debt_change": 0.00927738098263986,
+          "debt_note": null,
+          "debt_components": {
+            "長期借款": 3970800000
+          },
+          "cash_and_short_investments": 2638800000,
+          "net_cash": -1332000000,
+          "source": {
+            "form": "10-K",
+            "filed": "2026-03-11",
+            "accession": "0001835632-26-000011",
+            "url": "https://www.sec.gov/Archives/edgar/data/1835632/000183563226000011/0001835632-26-000011-index.html"
+          }
+        },
+        {
+          "fiscal_year_end": "2025-02-01",
+          "currency": "USD",
+          "revenue": 5767300000,
+          "operating_cash_flow": 1681200000,
+          "capex": 284600000,
+          "free_cash_flow": 1396600000,
+          "fcf_margin": 0.24215837566972415,
+          "fcf_conversion": 0.83071615512729,
+          "capex_intensity": 0.0493471815234165,
+          "buybacks": 725000000,
+          "dividends_paid": 207500000,
+          "shareholder_returns": 932500000,
+          "payout_complete": true,
+          "payout_to_fcf": 0.6676929686381211,
+          "diluted_shares": 865500000,
+          "share_change": 0.004876349703935912,
+          "share_comparable": true,
+          "share_note": null,
+          "total_debt": 3934300000,
+          "debt_change": -0.030626324348297485,
+          "debt_note": null,
+          "debt_components": {
+            "長期借款": 3934300000
+          },
+          "cash_and_short_investments": 948300000,
+          "net_cash": -2986000000,
+          "source": {
+            "form": "10-K",
+            "filed": "2026-03-11",
+            "accession": "0001835632-26-000011",
+            "url": "https://www.sec.gov/Archives/edgar/data/1835632/000183563226000011/0001835632-26-000011-index.html"
+          }
+        },
+        {
+          "fiscal_year_end": "2024-02-03",
+          "currency": "USD",
+          "revenue": 5507700000,
+          "operating_cash_flow": 1370500000,
+          "capex": 336300000,
+          "free_cash_flow": 1034200000,
+          "fcf_margin": 0.18777348076329503,
+          "fcf_conversion": 0.7546151039766509,
+          "capex_intensity": 0.06105997058663326,
+          "buybacks": 150000000,
+          "dividends_paid": 206800000,
+          "shareholder_returns": 356800000,
+          "payout_complete": true,
+          "payout_to_fcf": 0.3450009669309611,
+          "diluted_shares": 861300000,
+          "share_change": 0.011627906976744207,
+          "share_comparable": true,
+          "share_note": null,
+          "total_debt": 4058600000,
+          "debt_change": -0.09650274927094227,
+          "debt_note": null,
+          "debt_components": {
+            "長期借款": 4058600000
+          },
+          "cash_and_short_investments": 950800000,
+          "net_cash": -3107800000,
+          "source": {
+            "form": "10-K",
+            "filed": "2026-03-11",
+            "accession": "0001835632-26-000011",
+            "url": "https://www.sec.gov/Archives/edgar/data/1835632/000183563226000011/0001835632-26-000011-index.html"
+          }
+        },
+        {
+          "fiscal_year_end": "2023-01-28",
+          "currency": "USD",
+          "revenue": 5919600000,
+          "operating_cash_flow": 1288800000,
+          "capex": 206200000,
+          "free_cash_flow": 1082600000,
+          "fcf_margin": 0.1828839786472059,
+          "fcf_conversion": 0.840006207324643,
+          "capex_intensity": 0.03483343469153321,
+          "buybacks": 115000000,
+          "dividends_paid": 204400000,
+          "shareholder_returns": 319400000,
+          "payout_complete": true,
+          "payout_to_fcf": 0.29503048217254757,
+          "diluted_shares": 851400000,
+          "share_change": null,
+          "share_comparable": false,
+          "share_note": "缺本期或前期稀釋加權平均股數，無法判斷淨稀釋。",
+          "total_debt": 4492100000,
+          "debt_change": null,
+          "debt_note": null,
+          "debt_components": {
+            "長期借款": 3907700000,
+            "一年內到期借款": 584400000
+          },
+          "cash_and_short_investments": 911000000,
+          "net_cash": -3581100000,
+          "source": {
+            "form": "10-K",
+            "filed": "2025-03-12",
+            "accession": "0001835632-25-000057",
+            "url": "https://www.sec.gov/Archives/edgar/data/1835632/000183563225000057/0001835632-25-000057-index.html"
+          }
+        }
+      ],
+      "conclusion": "資本配置中性／需持續驗證；依 5/5 個可判讀構面，只評估已公布現金流、股東回饋、淨股份效果、負債與資本支出，不推測管理層動機。"
+    },
+    {
+      "ticker": "INTC",
+      "data_ticker": "INTC",
+      "name": "INTEL CORP",
+      "position": "holding",
+      "currency": "USD",
+      "latest_period": "2025-12-27",
+      "status": "pressure",
+      "label": "資本配置形成壓力",
+      "score": -6,
+      "coverage": {
+        "known": 4,
+        "total": 5,
+        "missing": [
+          "股東回饋"
+        ]
+      },
+      "signals": [
+        {
+          "id": "fcf",
+          "label": "現金創造",
+          "state": "risk",
+          "score": -3,
+          "evidence": "自由現金流為負，外部融資或現金存量的重要性提高。"
+        },
+        {
+          "id": "payout",
+          "label": "股東回饋",
+          "state": "unavailable",
+          "score": 0,
+          "evidence": "回購或股利 XBRL 標籤不完整，不把缺值當成 0。"
+        },
+        {
+          "id": "shares",
+          "label": "回購實效",
+          "state": "risk",
+          "score": -2,
+          "evidence": "稀釋加權平均股數年增 5.8%，淨稀釋明顯。"
+        },
+        {
+          "id": "debt",
+          "label": "負債承擔",
+          "state": "neutral",
+          "score": 0,
+          "evidence": "未見 FCF 為負且負債大幅增加的組合。"
+        },
+        {
+          "id": "capex",
+          "label": "再投資強度",
+          "state": "attention",
+          "score": -1,
+          "evidence": "資本支出為營收的 27.7%，且 FCF 為負；高投入尚未轉為當期現金。"
+        }
+      ],
+      "latest": {
+        "fiscal_year_end": "2025-12-27",
+        "currency": "USD",
+        "revenue": 52853000000,
+        "operating_cash_flow": 9697000000,
+        "capex": 14646000000,
+        "free_cash_flow": -4949000000,
+        "fcf_margin": -0.0936370688513424,
+        "fcf_conversion": -0.5103640301124059,
+        "capex_intensity": 0.2771082057782907,
+        "buybacks": null,
+        "dividends_paid": 0,
+        "shareholder_returns": null,
+        "payout_complete": false,
+        "payout_to_fcf": null,
+        "diluted_shares": 4530000000,
+        "share_change": 0.05841121495327095,
+        "share_comparable": true,
+        "share_note": null,
+        "total_debt": 46585000000,
+        "debt_change": -0.06850492891563853,
+        "debt_note": null,
+        "debt_components": {
+          "長期借款": 44086000000,
+          "一年內到期借款": 2499000000
+        },
+        "cash_and_short_investments": 23808000000,
+        "net_cash": -22777000000,
+        "source": {
+          "form": "10-K",
+          "filed": "2026-01-23",
+          "accession": "0000050863-26-000011",
+          "url": "https://www.sec.gov/Archives/edgar/data/50863/000005086326000011/0000050863-26-000011-index.html"
+        }
+      },
+      "years": [
+        {
+          "fiscal_year_end": "2025-12-27",
+          "currency": "USD",
+          "revenue": 52853000000,
+          "operating_cash_flow": 9697000000,
+          "capex": 14646000000,
+          "free_cash_flow": -4949000000,
+          "fcf_margin": -0.0936370688513424,
+          "fcf_conversion": -0.5103640301124059,
+          "capex_intensity": 0.2771082057782907,
+          "buybacks": null,
+          "dividends_paid": 0,
+          "shareholder_returns": null,
+          "payout_complete": false,
+          "payout_to_fcf": null,
+          "diluted_shares": 4530000000,
+          "share_change": 0.05841121495327095,
+          "share_comparable": true,
+          "share_note": null,
+          "total_debt": 46585000000,
+          "debt_change": -0.06850492891563853,
+          "debt_note": null,
+          "debt_components": {
+            "長期借款": 44086000000,
+            "一年內到期借款": 2499000000
+          },
+          "cash_and_short_investments": 23808000000,
+          "net_cash": -22777000000,
+          "source": {
+            "form": "10-K",
+            "filed": "2026-01-23",
+            "accession": "0000050863-26-000011",
+            "url": "https://www.sec.gov/Archives/edgar/data/50863/000005086326000011/0000050863-26-000011-index.html"
+          }
+        },
+        {
+          "fiscal_year_end": "2024-12-28",
+          "currency": "USD",
+          "revenue": 53101000000,
+          "operating_cash_flow": 8288000000,
+          "capex": 23944000000,
+          "free_cash_flow": -15656000000,
+          "fcf_margin": -0.2948343722340446,
+          "fcf_conversion": -1.888996138996139,
+          "capex_intensity": 0.45091429539933336,
+          "buybacks": null,
+          "dividends_paid": 1599000000,
+          "shareholder_returns": null,
+          "payout_complete": false,
+          "payout_to_fcf": null,
+          "diluted_shares": 4280000000,
+          "share_change": 0.01614434947768273,
+          "share_comparable": true,
+          "share_note": null,
+          "total_debt": 50011000000,
+          "debt_change": 0.015121990825315734,
+          "debt_note": null,
+          "debt_components": {
+            "長期借款": 46282000000,
+            "一年內到期借款": 3729000000
+          },
+          "cash_and_short_investments": 13939000000,
+          "net_cash": -36072000000,
+          "source": {
+            "form": "10-K",
+            "filed": "2026-01-23",
+            "accession": "0000050863-26-000011",
+            "url": "https://www.sec.gov/Archives/edgar/data/50863/000005086326000011/0000050863-26-000011-index.html"
+          }
+        },
+        {
+          "fiscal_year_end": "2023-12-30",
+          "currency": "USD",
+          "revenue": 54228000000,
+          "operating_cash_flow": 11471000000,
+          "capex": 25750000000,
+          "free_cash_flow": -14279000000,
+          "fcf_margin": -0.26331415504905215,
+          "fcf_conversion": -1.2447912126231366,
+          "capex_intensity": 0.4748469425389098,
+          "buybacks": 0,
+          "dividends_paid": 3088000000,
+          "shareholder_returns": 3088000000,
+          "payout_complete": true,
+          "payout_to_fcf": null,
+          "diluted_shares": 4212000000,
+          "share_change": 0.021586223623575096,
+          "share_comparable": true,
+          "share_note": null,
+          "total_debt": 49266000000,
+          "debt_change": 0.29283333770698294,
+          "debt_note": null,
+          "debt_components": {
+            "長期借款": 46978000000,
+            "一年內到期借款": 2288000000
+          },
+          "cash_and_short_investments": null,
+          "net_cash": null,
+          "source": {
+            "form": "10-K",
+            "filed": "2026-01-23",
+            "accession": "0000050863-26-000011",
+            "url": "https://www.sec.gov/Archives/edgar/data/50863/000005086326000011/0000050863-26-000011-index.html"
+          }
+        },
+        {
+          "fiscal_year_end": "2022-12-31",
+          "currency": "USD",
+          "revenue": 63054000000,
+          "operating_cash_flow": 15433000000,
+          "capex": 24844000000,
+          "free_cash_flow": -9411000000,
+          "fcf_margin": -0.14925302121990675,
+          "fcf_conversion": -0.6097971878442299,
+          "capex_intensity": 0.3940114822215878,
+          "buybacks": 0,
+          "dividends_paid": 5997000000,
+          "shareholder_returns": 5997000000,
+          "payout_complete": true,
+          "payout_to_fcf": null,
+          "diluted_shares": 4123000000,
+          "share_change": null,
+          "share_comparable": false,
+          "share_note": "缺本期或前期稀釋加權平均股數，無法判斷淨稀釋。",
+          "total_debt": 38107000000,
+          "debt_change": null,
+          "debt_note": null,
+          "debt_components": {
+            "長期借款": 37684000000,
+            "一年內到期借款": 423000000
+          },
+          "cash_and_short_investments": null,
+          "net_cash": null,
+          "source": {
+            "form": "10-K",
+            "filed": "2025-01-31",
+            "accession": "0000050863-25-000009",
+            "url": "https://www.sec.gov/Archives/edgar/data/50863/000005086325000009/0000050863-25-000009-index.html"
+          }
+        }
+      ],
+      "conclusion": "資本配置形成壓力；依 4/5 個可判讀構面，只評估已公布現金流、股東回饋、淨股份效果、負債與資本支出，不推測管理層動機。"
+    },
+    {
+      "ticker": "NOK",
+      "data_ticker": "NOK",
+      "name": "Nokia Corporation",
+      "position": "holding",
+      "currency": "EUR",
+      "latest_period": "2025-12-31",
+      "status": "support",
+      "label": "資本配置支持股東價值",
+      "score": 5,
+      "coverage": {
+        "known": 4,
+        "total": 5,
+        "missing": [
+          "回購實效"
+        ]
+      },
+      "signals": [
+        {
+          "id": "fcf",
+          "label": "現金創造",
+          "state": "support",
+          "score": 3,
+          "evidence": "FCF 為正，且保留營運現金流的 71%。"
+        },
+        {
+          "id": "payout",
+          "label": "股東回饋",
+          "state": "support",
+          "score": 1,
+          "evidence": "回購加股利使用 FCF 的 94%，目前由當年 FCF 覆蓋。"
+        },
+        {
+          "id": "shares",
+          "label": "回購實效",
+          "state": "unavailable",
+          "score": 0,
+          "evidence": "缺本期或前期稀釋加權平均股數，無法判斷淨稀釋。"
+        },
+        {
+          "id": "debt",
+          "label": "負債承擔",
+          "state": "support",
+          "score": 1,
+          "evidence": "現金及短期投資高於有息負債，維持淨現金。"
+        },
+        {
+          "id": "capex",
+          "label": "再投資強度",
+          "state": "context",
+          "score": 0,
+          "evidence": "資本支出為營收的 3.0%；高低本身不代表投資成敗。"
+        }
+      ],
+      "latest": {
+        "fiscal_year_end": "2025-12-31",
+        "currency": "EUR",
+        "revenue": 19889000000,
+        "operating_cash_flow": 2071000000,
+        "capex": 606000000,
+        "free_cash_flow": 1465000000,
+        "fcf_margin": 0.07365880637538338,
+        "fcf_conversion": 0.7073877353935297,
+        "capex_intensity": 0.030469103524561315,
+        "buybacks": 624000000,
+        "dividends_paid": 759000000,
+        "shareholder_returns": 1383000000,
+        "payout_complete": true,
+        "payout_to_fcf": 0.9440273037542662,
+        "diluted_shares": null,
+        "share_change": null,
+        "share_comparable": false,
+        "share_note": "缺本期或前期稀釋加權平均股數，無法判斷淨稀釋。",
+        "total_debt": 4413000000,
+        "debt_change": -0.07094736842105265,
+        "debt_note": null,
+        "debt_components": {
+          "長期借款": 2329000000,
+          "一年內到期借款": 1084000000,
+          "長期融資租賃": 797000000,
+          "一年內到期融資租賃": 203000000
+        },
+        "cash_and_short_investments": 5462000000,
+        "net_cash": 1049000000,
+        "source": {
+          "form": "20-F",
+          "filed": "2026-03-05",
+          "accession": "0001628280-26-015034",
+          "url": "https://www.sec.gov/Archives/edgar/data/924613/000162828026015034/0001628280-26-015034-index.html"
+        }
+      },
+      "years": [
+        {
+          "fiscal_year_end": "2025-12-31",
+          "currency": "EUR",
+          "revenue": 19889000000,
+          "operating_cash_flow": 2071000000,
+          "capex": 606000000,
+          "free_cash_flow": 1465000000,
+          "fcf_margin": 0.07365880637538338,
+          "fcf_conversion": 0.7073877353935297,
+          "capex_intensity": 0.030469103524561315,
+          "buybacks": 624000000,
+          "dividends_paid": 759000000,
+          "shareholder_returns": 1383000000,
+          "payout_complete": true,
+          "payout_to_fcf": 0.9440273037542662,
+          "diluted_shares": null,
+          "share_change": null,
+          "share_comparable": false,
+          "share_note": "缺本期或前期稀釋加權平均股數，無法判斷淨稀釋。",
+          "total_debt": 4413000000,
+          "debt_change": -0.07094736842105265,
+          "debt_note": null,
+          "debt_components": {
+            "長期借款": 2329000000,
+            "一年內到期借款": 1084000000,
+            "長期融資租賃": 797000000,
+            "一年內到期融資租賃": 203000000
+          },
+          "cash_and_short_investments": 5462000000,
+          "net_cash": 1049000000,
+          "source": {
+            "form": "20-F",
+            "filed": "2026-03-05",
+            "accession": "0001628280-26-015034",
+            "url": "https://www.sec.gov/Archives/edgar/data/924613/000162828026015034/0001628280-26-015034-index.html"
+          }
+        },
+        {
+          "fiscal_year_end": "2024-12-31",
+          "currency": "EUR",
+          "revenue": 19220000000,
+          "operating_cash_flow": 2493000000,
+          "capex": 472000000,
+          "free_cash_flow": 2021000000,
+          "fcf_margin": 0.10515088449531738,
+          "fcf_conversion": 0.8106698756518251,
+          "capex_intensity": 0.024557752341311134,
+          "buybacks": 680000000,
+          "dividends_paid": 723000000,
+          "shareholder_returns": 1403000000,
+          "payout_complete": true,
+          "payout_to_fcf": 0.694210786739238,
+          "diluted_shares": null,
+          "share_change": null,
+          "share_comparable": false,
+          "share_note": "缺本期或前期稀釋加權平均股數，無法判斷淨稀釋。",
+          "total_debt": 4750000000,
+          "debt_change": -0.0844255975327679,
+          "debt_note": null,
+          "debt_components": {
+            "長期借款": 2918000000,
+            "一年內到期借款": 969000000,
+            "長期融資租賃": 664000000,
+            "一年內到期融資租賃": 199000000
+          },
+          "cash_and_short_investments": 6623000000,
+          "net_cash": 1873000000,
+          "source": {
+            "form": "20-F",
+            "filed": "2026-03-05",
+            "accession": "0001628280-26-015034",
+            "url": "https://www.sec.gov/Archives/edgar/data/924613/000162828026015034/0001628280-26-015034-index.html"
+          }
+        },
+        {
+          "fiscal_year_end": "2023-12-31",
+          "currency": "EUR",
+          "revenue": 21138000000,
+          "operating_cash_flow": 1317000000,
+          "capex": 652000000,
+          "free_cash_flow": 665000000,
+          "fcf_margin": 0.031459929983915225,
+          "fcf_conversion": 0.5049354593773728,
+          "capex_intensity": 0.030844923833853722,
+          "buybacks": 300000000,
+          "dividends_paid": 621000000,
+          "shareholder_returns": 921000000,
+          "payout_complete": true,
+          "payout_to_fcf": 1.3849624060150376,
+          "diluted_shares": null,
+          "share_change": null,
+          "share_comparable": false,
+          "share_note": "缺本期或前期稀釋加權平均股數，無法判斷淨稀釋。",
+          "total_debt": 5188000000,
+          "debt_change": -0.05997463308570394,
+          "debt_note": null,
+          "debt_components": {
+            "長期借款": 3637000000,
+            "一年內到期借款": 554000000,
+            "長期融資租賃": 799000000,
+            "一年內到期融資租賃": 198000000
+          },
+          "cash_and_short_investments": 6234000000,
+          "net_cash": 1046000000,
+          "source": {
+            "form": "20-F",
+            "filed": "2026-03-05",
+            "accession": "0001628280-26-015034",
+            "url": "https://www.sec.gov/Archives/edgar/data/924613/000162828026015034/0001628280-26-015034-index.html"
+          }
+        },
+        {
+          "fiscal_year_end": "2022-12-31",
+          "currency": "EUR",
+          "revenue": 23761000000,
+          "operating_cash_flow": 1474000000,
+          "capex": 601000000,
+          "free_cash_flow": 873000000,
+          "fcf_margin": 0.036740877909178904,
+          "fcf_conversion": 0.5922659430122117,
+          "capex_intensity": 0.02529354825133622,
+          "buybacks": 300000000,
+          "dividends_paid": 353000000,
+          "shareholder_returns": 653000000,
+          "payout_complete": true,
+          "payout_to_fcf": 0.7479954180985109,
+          "diluted_shares": null,
+          "share_change": null,
+          "share_comparable": false,
+          "share_note": "缺本期或前期稀釋加權平均股數，無法判斷淨稀釋。",
+          "total_debt": 5519000000,
+          "debt_change": null,
+          "debt_note": null,
+          "debt_components": {
+            "長期借款": 4249000000,
+            "一年內到期借款": 228000000,
+            "長期融資租賃": 858000000,
+            "一年內到期融資租賃": 184000000
+          },
+          "cash_and_short_investments": 5467000000,
+          "net_cash": -52000000,
+          "source": {
+            "form": "20-F",
+            "filed": "2025-03-13",
+            "accession": "0000924613-25-000008",
+            "url": "https://www.sec.gov/Archives/edgar/data/924613/000092461325000008/0000924613-25-000008-index.html"
+          }
+        }
+      ],
+      "conclusion": "資本配置支持股東價值；依 4/5 個可判讀構面，只評估已公布現金流、股東回饋、淨股份效果、負債與資本支出，不推測管理層動機。"
+    }
+  ]
+}

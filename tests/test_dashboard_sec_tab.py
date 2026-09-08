@@ -35,6 +35,8 @@ class DashboardSecTabTests(unittest.TestCase):
         cls.segment_thesis_linkage = json.loads((ROOT / "segment_thesis_linkage.json").read_text())
         cls.segment_outlook_verification = json.loads((ROOT / "segment_outlook_verification.json").read_text())
         cls.segment_outlook_history = json.loads((ROOT / "segment_outlook_history.json").read_text())
+        cls.capital_allocation_cards = json.loads((ROOT / "capital_allocation_cards.json").read_text())
+        cls.capital_allocation_history = json.loads((ROOT / "capital_allocation_history.json").read_text())
         cls.holdings = json.loads((ROOT / "portfolio_holdings.json").read_text())
 
     def test_tab_defaults_to_14_days_and_allows_7_days(self):
@@ -62,6 +64,8 @@ class DashboardSecTabTests(unittest.TestCase):
         self.assertIn("fetch('valuation.json'", self.html)
         self.assertIn("fetch('segment_outlook_verification.json'", self.html)
         self.assertIn("fetch('segment_outlook_history.json'", self.html)
+        self.assertIn("fetch('capital_allocation_cards.json'", self.html)
+        self.assertIn("fetch('capital_allocation_history.json'", self.html)
         self.assertIn("function renderSecDaily()", self.html)
         self.assertIn('id="secQuarterlyBody"', self.html)
         self.assertIn('id="secKpiQuarterly"', self.html)
@@ -282,6 +286,27 @@ class DashboardSecTabTests(unittest.TestCase):
         required_copy = [
             "segmentOutlookHistory", "相較前次：", "首次只建立基準",
             "sec-segment-outlook-change", "thesis_effect",
+        ]
+        for phrase in required_copy:
+            self.assertIn(phrase, self.html)
+
+    def test_capital_allocation_card_is_digested_traceable_and_not_double_counted(self):
+        cards = self.capital_allocation_cards
+        history = self.capital_allocation_history
+        self.assertEqual(cards["schema_version"], 1)
+        self.assertEqual(cards["tracked_count"], 14)
+        self.assertEqual(len(history["current"]["companies"]), 14)
+        self.assertEqual(history["notify_count"], 0)
+        self.assertIsNone(history["previous_snapshot_id"])
+        nvda = next(row for row in cards["companies"] if row["ticker"] == "NVDA")
+        self.assertEqual(nvda["position"], "holding")
+        self.assertEqual(nvda["latest"]["free_cash_flow"], nvda["latest"]["operating_cash_flow"] - nvda["latest"]["capex"])
+        ondas = next(row for row in cards["companies"] if row["ticker"] == "ONDS")
+        self.assertIsNone(ondas["latest"]["share_change"])
+        required_copy = [
+            "capitalAllocationCards", "capitalAllocationHistory", "⑧ 資本配置與股東價值",
+            "回購＋股利", "稀釋股數 YoY", "未取得一致併購現金支出時保留缺口",
+            "不能單獨歸因於 SBC", "不再加入 SEC 證據分數", "sec-capital-years",
         ]
         for phrase in required_copy:
             self.assertIn(phrase, self.html)

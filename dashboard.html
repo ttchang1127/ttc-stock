@@ -1727,6 +1727,26 @@
     .sec-segment-outlook-change.improvement { border-color: rgba(52, 211, 153, 0.34); color: #a7f3d0; }
     .sec-segment-outlook-change.baseline { border-color: rgba(96, 165, 250, 0.28); color: #bfdbfe; }
     .sec-segment-outlook-change ul { margin: 4px 0 0; padding-left: 18px; }
+    .sec-capital-head { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 9px; }
+    .sec-capital-status { padding: 3px 7px; border-radius: 999px; font-size: 0.63rem; font-weight: 850; }
+    .sec-capital-status.support { color: #a7f3d0; background: rgba(16, 185, 129, 0.14); }
+    .sec-capital-status.pressure { color: #fecdd3; background: rgba(244, 63, 94, 0.14); }
+    .sec-capital-status.neutral { color: #bae6fd; background: rgba(56, 189, 248, 0.13); }
+    .sec-capital-status.insufficient { color: #cbd5e1; background: rgba(148, 163, 184, 0.14); }
+    .sec-capital-kpis { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 7px; margin: 8px 0; }
+    .sec-capital-kpi { min-width: 0; padding: 8px; border-radius: 9px; background: rgba(15, 23, 42, 0.58); }
+    .sec-capital-kpi span { display: block; color: #94a3b8; font-size: 0.59rem; }
+    .sec-capital-kpi strong { display: block; margin-top: 3px; color: #f8fafc; font-size: 0.71rem; overflow-wrap: anywhere; }
+    .sec-capital-signals { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 7px; margin-top: 8px; }
+    .sec-capital-signal { min-width: 0; padding: 8px; border-radius: 9px; border: 1px solid rgba(148, 163, 184, 0.16); color: #cbd5e1; font-size: 0.64rem; line-height: 1.45; }
+    .sec-capital-signal.support { border-color: rgba(52, 211, 153, 0.28); }
+    .sec-capital-signal.risk { border-color: rgba(251, 113, 133, 0.36); color: #fecdd3; }
+    .sec-capital-signal.attention { border-color: rgba(251, 191, 36, 0.3); color: #fde68a; }
+    .sec-capital-signal.unavailable { color: #94a3b8; }
+    .sec-capital-signal strong { display: block; margin-bottom: 3px; color: inherit; }
+    .sec-capital-years { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 7px; margin-top: 8px; }
+    .sec-capital-year { min-width: 0; padding: 8px; border-radius: 9px; background: rgba(2, 6, 23, 0.34); color: #94a3b8; font-size: 0.62rem; line-height: 1.5; }
+    .sec-capital-year strong { display: block; color: #dbeafe; font-size: 0.66rem; }
 
     .sec-company-brief-fact {
       color: #f8fafc;
@@ -2417,7 +2437,7 @@
 
     @media (max-width: 620px) {
       .sec-daily-shell { padding: 18px; }
-      .sec-kpi-grid, .sec-reading-rank-list, .sec-position-impact-list, .sec-event-calendar-list, .sec-verify-grid, .sec-verify-kpis, .sec-segment-summary, .sec-segment-evidence, .sec-segment-history-grid, .sec-reading-guide, .sec-advanced-explainer, .sec-advanced-actual-grid, .sec-company-brief-grid, .sec-company-assessment, .sec-company-evidence-columns, .sec-segment-outlook-list, .sec-update-grid, .sec-update-detail-grid, .sec-text-diff-kpis, .sec-text-change-grid, .sec-thesis-kpis { grid-template-columns: 1fr; }
+      .sec-kpi-grid, .sec-reading-rank-list, .sec-position-impact-list, .sec-event-calendar-list, .sec-verify-grid, .sec-verify-kpis, .sec-segment-summary, .sec-segment-evidence, .sec-segment-history-grid, .sec-reading-guide, .sec-advanced-explainer, .sec-advanced-actual-grid, .sec-company-brief-grid, .sec-company-assessment, .sec-company-evidence-columns, .sec-segment-outlook-list, .sec-capital-kpis, .sec-capital-signals, .sec-capital-years, .sec-update-grid, .sec-update-detail-grid, .sec-text-diff-kpis, .sec-text-change-grid, .sec-thesis-kpis { grid-template-columns: 1fr; }
       .sec-ownership-kpis { grid-template-columns: 1fr; }
       .sec-reading-progress { grid-template-columns: 1fr; }
       .sec-reading-actions { justify-content: flex-start; }
@@ -4494,12 +4514,18 @@
           fetch('segment_outlook_history.json', { cache: 'no-cache' })
             .then(r => { if (!r.ok) throw new Error(`分部展望變更歷史 HTTP ${r.status}`); return r.json(); })
             .catch(error => { console.warn('segment_outlook_history.json 載入失敗', error); return null; }),
+          fetch('capital_allocation_cards.json', { cache: 'no-cache' })
+            .then(r => { if (!r.ok) throw new Error(`資本配置卡 HTTP ${r.status}`); return r.json(); })
+            .catch(error => { console.warn('capital_allocation_cards.json 載入失敗', error); return null; }),
+          fetch('capital_allocation_history.json', { cache: 'no-cache' })
+            .then(r => { if (!r.ok) throw new Error(`資本配置歷史 HTTP ${r.status}`); return r.json(); })
+            .catch(error => { console.warn('capital_allocation_history.json 載入失敗', error); return null; }),
           loadPortfolioHoldings(),
           fetch('valuation.json', { cache: 'no-cache' })
             .then(r => { if (!r.ok) throw new Error(`估值資料 HTTP ${r.status}`); return r.json(); })
             .catch(error => { console.warn('valuation.json 載入失敗，跨公司估值排名將顯示缺值', error); return null; }),
-        ]).then(([alerts, details, quarterlyFinancials, advanced, thirteenF, textChanges, thesisTracking, thesisStatus, exhibit991, earningsCalls, editorial, changeCandidates, candidateReviews, candidateCalibration, positionImpact, eventCalendar, earningsVerification, earningsVerificationHistory, segmentDrivers, segmentDriverHistory, segmentDriverUpdates, segmentThesisLinkage, segmentOutlookVerification, segmentOutlookHistory, holdingsPayload, valuation]) => {
-          secDailyData = { alerts, details, quarterlyFinancials, advanced, thirteenF, textChanges, thesisTracking, thesisStatus, exhibit991, earningsCalls, editorial, changeCandidates, candidateReviews, candidateCalibration, positionImpact, eventCalendar, earningsVerification, earningsVerificationHistory, segmentDrivers, segmentDriverHistory, segmentDriverUpdates, segmentThesisLinkage, segmentOutlookVerification, segmentOutlookHistory, holdingsPayload, valuation };
+        ]).then(([alerts, details, quarterlyFinancials, advanced, thirteenF, textChanges, thesisTracking, thesisStatus, exhibit991, earningsCalls, editorial, changeCandidates, candidateReviews, candidateCalibration, positionImpact, eventCalendar, earningsVerification, earningsVerificationHistory, segmentDrivers, segmentDriverHistory, segmentDriverUpdates, segmentThesisLinkage, segmentOutlookVerification, segmentOutlookHistory, capitalAllocationCards, capitalAllocationHistory, holdingsPayload, valuation]) => {
+          secDailyData = { alerts, details, quarterlyFinancials, advanced, thirteenF, textChanges, thesisTracking, thesisStatus, exhibit991, earningsCalls, editorial, changeCandidates, candidateReviews, candidateCalibration, positionImpact, eventCalendar, earningsVerification, earningsVerificationHistory, segmentDrivers, segmentDriverHistory, segmentDriverUpdates, segmentThesisLinkage, segmentOutlookVerification, segmentOutlookHistory, capitalAllocationCards, capitalAllocationHistory, holdingsPayload, valuation };
           renderSecDaily();
         }).catch(error => {
           secDailyPromise = null;
@@ -6346,6 +6372,8 @@
       const segmentLink = (secDailyData.segmentThesisLinkage?.companies || []).find(row => row.ticker === ticker);
       const segmentOutlook = (secDailyData.segmentOutlookVerification?.companies || []).find(row => row.ticker === ticker);
       const segmentOutlookState = secDailyData.segmentOutlookHistory?.current?.companies?.[ticker];
+      const capitalAllocation = (secDailyData.capitalAllocationCards?.companies || []).find(row => row.ticker === ticker);
+      const capitalAllocationState = secDailyData.capitalAllocationHistory?.current?.companies?.[ticker];
 
       const ownership = (advanced?.ownership_timeline || []).filter(row => row.ticker === dataTicker)
         .sort((a, b) => String(b.filing_date).localeCompare(String(a.filing_date)))[0];
@@ -6364,6 +6392,7 @@
       if (enforcementRows.length) priorityReasons.push(`SEC 執法／停牌來源命中 ${enforcementRows.length} 項`);
       if (segmentLink?.signal === 'pressure') priorityReasons.push('最新分部趨勢對既有投資論點形成壓力');
       if (segmentLink?.signal === 'needs_review') priorityReasons.push('最新分部表口徑或數字待覆核');
+      if (capitalAllocation?.status === 'pressure') priorityReasons.push('最新年度資本配置對股東價值形成壓力');
       const hasRecentUpdates = companyEvents.length > 0 || recentOwnership;
       const priority = priorityReasons.length
         ? { label: '🔴 需優先閱讀', css: 'urgent' }
@@ -6589,6 +6618,7 @@
         directDilution.length || convertibleDilution.length || actualDilutionScore < 0 ? '追蹤下一季稀釋股數 YoY 與募資實際發行／轉股量；增幅收斂或繼續擴大會改變風險權重。' : '若新增 ATM、股票發行或可轉債文件，需立即重估稀釋風險。',
         enforcementRows.length ? '追蹤執法案件的指控、和解或結案結果；程序狀態改變會直接影響風險權重。' : '若出現非 10b5-1 集中賣出、重大 13D／13G 減持或公開執法命中，結論會下修。',
         segmentLink?.next_checks?.[1] || '下一季核對主要成長驅動、分部占比與利益率；只有同口徑新證據才調整分部權重。',
+        capitalAllocation?.status === 'pressure' ? '下一年度／季度需確認 FCF、淨稀釋或負債壓力是否解除。' : '若 FCF 轉負、回饋超過 FCF、淨稀釋超過 2% 或負債大增，資本配置結論會下修。',
       ];
       const dimensionById = Object.fromEntries(dimensions.map(item => [item.id, item]));
       const interpretation = id => {
@@ -6619,6 +6649,25 @@
             ${outlookRows.length ? `<div class="sec-segment-outlook-list">${outlookCards}</div>` : `<p class="sec-segment-outlook-empty">${escapeSec(segmentOutlook.note)} 公司總指引不代替分部指引。 ${officialSourceLink(segmentOutlook.review_url, '官方展望頁')}</p>`}
             <p class="sec-segment-outlook-empty">判讀限制：只核對同分部、同期間、同指標；季度進度不當成全年結果，且相同實績不重複加入 SEC 證據分數。</p></div>`
         : '<div class="sec-segment-outlook"><p class="sec-segment-outlook-empty">分部展望驗證資料尚未載入；不以公司總指引補值。</p></div>';
+      const capitalPct = (value, signed = true) => value === null || value === undefined ? '—' : `${signed && value >= 0 ? '+' : ''}${formatSecNumber(Number(value) * 100, 1)}%`;
+      const capitalMoney = (value, code) => value === null || value === undefined ? '—' : `${escapeSec(code || '')} ${formatSecAmount(value, code || 'USD')}`.trim();
+      const capitalStateLabels = { support: '支持', risk: '風險', attention: '注意', neutral: '中性', context: '背景', unavailable: '資料不足' };
+      const capitalLatest = capitalAllocation?.latest || {};
+      const capitalPayout = capitalLatest.shareholder_returns;
+      const capitalComparison = capitalAllocationState?.comparison || {};
+      const capitalComparisonChanges = capitalComparison.changes || [];
+      const capitalComparisonClass = capitalComparison.direction || (capitalComparison.status === 'baseline' ? 'baseline' : 'neutral');
+      const capitalSignalHtml = (capitalAllocation?.signals || []).map(row => `<div class="sec-capital-signal ${escapeSec(row.state)}"><strong>${escapeSec(row.label)}｜${escapeSec(capitalStateLabels[row.state] || row.state)}</strong>${escapeSec(row.evidence)}</div>`).join('');
+      const capitalYearsHtml = (capitalAllocation?.years || []).map(row => `<div class="sec-capital-year"><strong>${escapeSec(row.fiscal_year_end)}</strong>FCF ${capitalMoney(row.free_cash_flow, row.currency)}<br>Capex／營收 ${capitalPct(row.capex_intensity, false)}<br>股數 YoY ${capitalPct(row.share_change)}<br>有息負債 ${capitalMoney(row.total_debt, row.currency)}</div>`).join('');
+      const capitalHtml = capitalAllocation
+        ? `<article class="sec-company-brief-card wide"><div class="sec-capital-head"><h4>⑧ 資本配置與股東價值</h4><span class="sec-capital-status ${escapeSec(capitalAllocation.status)}">${escapeSec(capitalAllocation.label)}</span><span class="sec-segment-outlook-count">可判讀 ${escapeSec(capitalAllocation.coverage?.known || 0)}/5</span></div>
+            <div class="sec-company-brief-fact">${escapeSec(capitalAllocation.latest_period)}｜資本配置規則分數 ${Number(capitalAllocation.score) >= 0 ? '+' : ''}${escapeSec(capitalAllocation.score)}（範圍 -10～+7，越高越偏支持）</div>
+            <div class="sec-capital-kpis"><div class="sec-capital-kpi"><span>自由現金流</span><strong>${capitalMoney(capitalLatest.free_cash_flow, capitalAllocation.currency)}</strong></div><div class="sec-capital-kpi"><span>Capex／營收</span><strong>${capitalPct(capitalLatest.capex_intensity, false)}</strong></div><div class="sec-capital-kpi"><span>回購＋股利</span><strong>${capitalMoney(capitalPayout, capitalAllocation.currency)}</strong></div><div class="sec-capital-kpi"><span>稀釋股數 YoY</span><strong>${capitalPct(capitalLatest.share_change)}</strong></div><div class="sec-capital-kpi"><span>淨現金</span><strong>${capitalMoney(capitalLatest.net_cash, capitalAllocation.currency)}</strong></div></div>
+            <div class="sec-segment-outlook-change ${escapeSec(capitalComparisonClass)}"><strong>相較前次：${escapeSec(capitalComparison.label || '尚未建立變更基準')}</strong>${capitalComparisonChanges.length ? `<ul>${capitalComparisonChanges.map(item => `<li>${escapeSec(item.reason)}</li>`).join('')}</ul>` : '<div>首次只建立基準；相同資料與未跨門檻的數值變化不重複提醒。</div>'}</div>
+            <div class="sec-capital-signals">${capitalSignalHtml}</div><div class="sec-capital-years">${capitalYearsHtml}</div>
+            <p class="sec-company-brief-note">${escapeSec(capitalAllocation.conclusion)} 回購實效採稀釋股數淨變化，不能單獨歸因於 SBC；缺回購或股利標籤不當成 0。未取得一致併購現金支出時保留缺口，不以殘差猜測。 ${sourceLink(capitalLatest.source?.url, '年度申報原文')}</p>
+            <p class="sec-company-brief-note">此卡與既有 FCF、稀釋及負債證據重疊，因此不再加入 SEC 證據分數。</p></article>`
+        : '<article class="sec-company-brief-card wide"><h4>⑧ 資本配置與股東價值</h4><p class="sec-company-brief-note">資本配置資料尚未載入，不以缺值推測公司用途。</p></article>';
       brief.innerHTML = `
         <div class="sec-company-brief-head">
           <div class="sec-company-brief-title-row"><h3 class="sec-company-brief-title">${escapeSec(ticker)}｜單公司 SEC 綜合判讀</h3><span class="sec-company-priority ${priority.css}">${priority.label}</span></div>
@@ -6643,6 +6692,7 @@
           <article class="sec-company-brief-card"><h4>⑤ 大股東最新狀態</h4><div class="sec-company-brief-fact">${escapeSec(ownerFact)}</div><p class="sec-company-brief-note">${escapeSec(ownerNote)} ${sourceLink(ownership?.url, '13D／13G 原文')}</p>${interpretation('ownership')}</article>
           <article class="sec-company-brief-card"><h4>⑥ 會計審閱／執法</h4><div class="sec-company-brief-fact">${escapeSec(reviewFact)}</div><p class="sec-company-brief-note">${escapeSec(reviewNote)} ${sourceLink(enforcementUrl || latestAccounting?.url, '核對原文')}</p>${interpretation('review')}</article>
           <article class="sec-company-brief-card wide"><h4>⑦ 分部趨勢 × 投資論點</h4><div class="sec-company-brief-fact">${escapeSec(segmentFact)}</div><p class="sec-company-brief-note">${escapeSec(segmentNote)} ${sourceLink(segmentLink?.source_url, '分部表原文')}</p>${interpretation('segment')}${segmentOutlookHtml}</article>
+          ${capitalHtml}
         </div>
         <div class="sec-company-next-check"><strong>什麼會改變結論：</strong>${nextChecks.map(item => `・${escapeSec(item)}`).join('<br>')}</div>
         <div class="sec-company-brief-conclusion"><strong>判斷邊界：</strong>這是依現有 SEC 官方申報與季度財務數字產生的證據式判讀，不是買進／賣出指令。它刻意不把「沒有新申報」、單筆內部人交易或單一大股東變動當成完整投資結論。</div>

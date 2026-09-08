@@ -2231,6 +2231,113 @@ def c40():
     return not bad and not missing, f"資料問題：{bad or '無'}；缺自動化／畫面：{missing or '無'}"
 
 
+@check("C-41", "資本配置卡可勾稽、缺值不補零且變更通知去重")
+def c41():
+    cards = load("capital_allocation_cards.json")
+    history = load("capital_allocation_history.json")
+    expected = {"NVDA", "TSM", "MSFT", "META", "AAPL", "AMZN", "ARM",
+                "ONDS", "TSLA", "GOOG", "COHR", "MRVL", "INTC", "NOK"}
+    companies = cards.get("companies") or []
+    bad = []
+    if cards.get("schema_version") != 1 or cards.get("tracked_count") != 14:
+        bad.append("卡片 schema_version／追蹤家數錯誤")
+    if {row.get("ticker") for row in companies} != expected:
+        bad.append("公司範圍不是 14 家個股")
+    summary = {key: sum(row.get("status") == key for row in companies)
+               for key in ("support", "neutral", "pressure", "insufficient")}
+    if cards.get("summary") != summary:
+        bad.append("綜合狀態計數無法勾稽")
+    for company in companies:
+        ticker = company.get("ticker") or "未知"
+        years = company.get("years") or []
+        if len(years) != 4:
+            bad.append(f"{ticker} 不是 4 個年度")
+            continue
+        latest = company.get("latest") or {}
+        ocf, capex, fcf = latest.get("operating_cash_flow"), latest.get("capex"), latest.get("free_cash_flow")
+        if ocf is not None and capex is not None and fcf != ocf - capex:
+            bad.append(f"{ticker} FCF 無法由 OCF－Capex 勾稽")
+        if latest.get("payout_complete"):
+            expected_payout = latest.get("buybacks") + latest.get("dividends_paid")
+            if latest.get("shareholder_returns") != expected_payout:
+                bad.append(f"{ticker} 股東回饋無法勾稽")
+        elif latest.get("shareholder_returns") is not None:
+            bad.append(f"{ticker} 回購／股利缺值卻仍計算股東回饋")
+        if latest.get("share_change") is not None and not latest.get("share_comparable"):
+            bad.append(f"{ticker} 股數不可比卻仍計算 YoY")
+        source = latest.get("source") or {}
+        if not source.get("url", "").startswith("https://www.sec.gov/Archives/"):
+            bad.append(f"{ticker} 缺 SEC 年度申報來源")
+        if len(company.get("signals") or []) != 5:
+            bad.append(f"{ticker} 不是五項資本配置構面")
+    ondas = next((row for row in companies if row.get("ticker") == "ONDS"), {})
+    if (ondas.get("latest") or {}).get("share_change") is not None or "XBRL 縮放" not in (ondas.get("latest") or {}).get("share_note", ""):
+        bad.append("ONDS 異常股數未停止比較")
+
+    current = history.get("current") or {}
+    notifications = history.get("notifications") or []
+    if history.get("schema_version") != 1 or set((current.get("companies") or {}).keys()) != expected:
+        bad.append("歷史快照公司範圍錯誤")
+    if current.get("snapshot_id") != history.get("current_snapshot_id"):
+        bad.append("歷史 current snapshot id 無法勾稽")
+    if history.get("notify_count") != len(notifications):
+        bad.append("歷史 notify_count 無法勾稽")
+    if notifications:
+        position_order = [row.get("position") == "holding" for row in notifications]
+        if position_order != sorted(position_order, reverse=True):
+            bad.append("資本配置通知未將實際持股優先")
+
+    with tempfile.TemporaryDirectory() as temp_dir:
+        temp = pathlib.Path(temp_dir)
+        build = subprocess.run([
+            sys.executable, str(REPO_ROOT / "scripts/build_capital_allocation_cards.py"),
+            "--output", str(temp / "cards.json"), "--markdown", str(temp / "cards.md"),
+        ], cwd=REPO_ROOT, text=True, capture_output=True, check=False)
+        if build.returncode:
+            bad.append(f"資本配置卡重建失敗：{build.stderr.strip() or build.stdout.strip()}")
+        elif json.loads((temp / "cards.json").read_text()) != cards:
+            bad.append("資本配置卡無法確定性重建")
+        elif (temp / "cards.md").read_text() != read("60_SEC_Filing_Radar/Capital_Allocation_Cards.md"):
+            bad.append("資本配置卡筆記無法確定性重建")
+        github_output = temp / "github-output.txt"
+        tracked = subprocess.run([
+            sys.executable, str(REPO_ROOT / "scripts/track_capital_allocation_history.py"),
+            "--history", str(REPO_ROOT / "capital_allocation_history.json"),
+            "--output", str(temp / "history.json"), "--markdown", str(temp / "history.md"),
+            "--github-output", str(github_output),
+            "--checked-at", current.get("captured_at") or history.get("updated_at"),
+        ], cwd=REPO_ROOT, text=True, capture_output=True, check=False)
+        if tracked.returncode:
+            bad.append(f"資本配置歷史重建失敗：{tracked.stderr.strip() or tracked.stdout.strip()}")
+        elif json.loads((temp / "history.json").read_text()) != history:
+            bad.append("相同資本配置快照重跑未保持歷史一致")
+        elif "notify_count=0" not in github_output.read_text():
+            bad.append("相同資本配置快照重跑仍會觸發通知")
+        elif (temp / "history.md").read_text() != read("60_SEC_Filing_Radar/Capital_Allocation_History.md"):
+            bad.append("資本配置歷史筆記無法確定性重建")
+
+    markers = {
+        "dashboard": (read("dashboard.html"), (
+            "capital_allocation_cards.json", "capitalAllocationCards", "⑧ 資本配置與股東價值",
+            "不能單獨歸因於 SBC", "不再加入 SEC 證據分數",
+        )),
+        "價格 workflow": (read(".github/workflows/update-prices.yml"), (
+            "build_capital_allocation_cards.py", "track_capital_allocation_history.py",
+            "capital_allocation.outputs.notify_count", "Capital_Allocation_History",
+        )),
+        "SEC workflow": (read(".github/workflows/sec-filing-alerts.yml"), (
+            "CAPITAL_ALLOCATION_BATCH_ID", "capital_allocation_cards.json", "Capital_Allocation_Cards.md",
+        )),
+        "維護 SOP": (read("00_Meta/Sec_kb_資料維護SOP.md"), (
+            "build_capital_allocation_cards.py", "缺值都不當成 0", "不能單獨歸因於 SBC",
+        )),
+        "00_Home": (read("00_Home.md"), ("Capital_Allocation_Cards", "Capital_Allocation_History")),
+    }
+    missing = [f"{label}:{marker}" for label, (text, required) in markers.items()
+               for marker in required if marker not in text]
+    return not bad and not missing, f"資料問題：{bad or '無'}；缺自動化／畫面：{missing or '無'}"
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--quiet", action="store_true", help="只印出失敗項")

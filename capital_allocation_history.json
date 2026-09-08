@@ -1,0 +1,1235 @@
+{
+  "schema_version": 1,
+  "updated_at": "2026-09-08T00:00:00+08:00",
+  "current_snapshot_id": "9a67192bc1947742",
+  "previous_snapshot_id": null,
+  "batch_id": "8438930096b9",
+  "notify_count": 0,
+  "critical_count": 0,
+  "notification_policy": "首次只建立基準；之後只通知新年度、五項構面跨狀態及綜合結論改變。單純數值變動但未跨門檻不通知，相同快照重跑輸出 0；實際持股優先。",
+  "notifications": [],
+  "current": {
+    "snapshot_id": "9a67192bc1947742",
+    "captured_at": "2026-09-08T00:00:00+08:00",
+    "source_date": "2026-08-30T00:52:25+00:00",
+    "companies": {
+      "NVDA": {
+        "ticker": "NVDA",
+        "position": "holding",
+        "latest_period": "2026-01-25",
+        "status": "support",
+        "label": "資本配置支持股東價值",
+        "score": 7,
+        "coverage": {
+          "known": 5,
+          "total": 5,
+          "missing": []
+        },
+        "signals": [
+          {
+            "id": "fcf",
+            "label": "現金創造",
+            "state": "support",
+            "score": 3,
+            "evidence": "FCF 為正，且保留營運現金流的 94%。"
+          },
+          {
+            "id": "payout",
+            "label": "股東回饋",
+            "state": "support",
+            "score": 1,
+            "evidence": "回購加股利使用 FCF 的 42%，目前由當年 FCF 覆蓋。"
+          },
+          {
+            "id": "shares",
+            "label": "回購實效",
+            "state": "support",
+            "score": 2,
+            "evidence": "稀釋加權平均股數年減 1.2%；回購／股份變動的淨效果有利。"
+          },
+          {
+            "id": "debt",
+            "label": "負債承擔",
+            "state": "support",
+            "score": 1,
+            "evidence": "現金及短期投資高於有息負債，維持淨現金。"
+          },
+          {
+            "id": "capex",
+            "label": "再投資強度",
+            "state": "context",
+            "score": 0,
+            "evidence": "資本支出為營收的 2.8%；高低本身不代表投資成敗。"
+          }
+        ],
+        "latest": {
+          "fiscal_year_end": "2026-01-25",
+          "currency": "USD",
+          "free_cash_flow": 96676000000,
+          "fcf_margin": 0.44770258129648327,
+          "fcf_conversion": 0.9411787612687162,
+          "capex": 6042000000,
+          "capex_intensity": 0.027980253591308617,
+          "buybacks": 40086000000,
+          "dividends_paid": 974000000,
+          "shareholder_returns": 41060000000,
+          "payout_complete": true,
+          "payout_to_fcf": 0.4247176134718027,
+          "diluted_shares": 24514000000,
+          "share_change": -0.01169166263505883,
+          "share_comparable": true,
+          "share_note": null,
+          "total_debt": 8468000000,
+          "debt_change": 0.0005908070424198719,
+          "cash_and_short_investments": 31032000000,
+          "net_cash": 22564000000,
+          "source": {
+            "form": "10-K",
+            "filed": "2026-02-25",
+            "accession": "0001045810-26-000021",
+            "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000021/0001045810-26-000021-index.html"
+          }
+        },
+        "conclusion": "資本配置支持股東價值；依 5/5 個可判讀構面，只評估已公布現金流、股東回饋、淨股份效果、負債與資本支出，不推測管理層動機。",
+        "comparison": {
+          "status": "baseline",
+          "notify": false,
+          "label": "首次建立比較基準",
+          "changes": []
+        }
+      },
+      "TSM": {
+        "ticker": "TSM",
+        "position": "watchlist",
+        "latest_period": "2025-12-31",
+        "status": "support",
+        "label": "資本配置支持股東價值",
+        "score": 3,
+        "coverage": {
+          "known": 3,
+          "total": 5,
+          "missing": [
+            "股東回饋",
+            "回購實效"
+          ]
+        },
+        "signals": [
+          {
+            "id": "fcf",
+            "label": "現金創造",
+            "state": "support",
+            "score": 2,
+            "evidence": "自由現金流為正。"
+          },
+          {
+            "id": "payout",
+            "label": "股東回饋",
+            "state": "unavailable",
+            "score": 0,
+            "evidence": "回購或股利 XBRL 標籤不完整，不把缺值當成 0。"
+          },
+          {
+            "id": "shares",
+            "label": "回購實效",
+            "state": "unavailable",
+            "score": 0,
+            "evidence": "缺本期或前期稀釋加權平均股數，無法判斷淨稀釋。"
+          },
+          {
+            "id": "debt",
+            "label": "負債承擔",
+            "state": "support",
+            "score": 1,
+            "evidence": "現金及短期投資高於有息負債，維持淨現金。"
+          },
+          {
+            "id": "capex",
+            "label": "再投資強度",
+            "state": "context",
+            "score": 0,
+            "evidence": "資本支出為營收的 33.4%；高低本身不代表投資成敗。"
+          }
+        ],
+        "latest": {
+          "fiscal_year_end": "2025-12-31",
+          "currency": "USD",
+          "free_cash_flow": 31959300000.0,
+          "fcf_margin": 0.26320522798305107,
+          "fcf_conversion": 0.44069210584012564,
+          "capex": 40561400000.0,
+          "capex_intensity": 0.33404901028219414,
+          "buybacks": null,
+          "dividends_paid": 14879800000.0,
+          "shareholder_returns": null,
+          "payout_complete": false,
+          "payout_to_fcf": null,
+          "diluted_shares": null,
+          "share_change": null,
+          "share_comparable": false,
+          "share_note": "缺本期或前期稀釋加權平均股數，無法判斷淨稀釋。",
+          "total_debt": 33936400000.0,
+          "debt_change": 0.06278087292565071,
+          "cash_and_short_investments": 88235800000.0,
+          "net_cash": 54299400000.0,
+          "source": {
+            "form": "20-F",
+            "filed": "2026-04-16",
+            "accession": "0001628280-26-025362",
+            "url": "https://www.sec.gov/Archives/edgar/data/1046179/000162828026025362/0001628280-26-025362-index.html"
+          }
+        },
+        "conclusion": "資本配置支持股東價值；依 3/5 個可判讀構面，只評估已公布現金流、股東回饋、淨股份效果、負債與資本支出，不推測管理層動機。",
+        "comparison": {
+          "status": "baseline",
+          "notify": false,
+          "label": "首次建立比較基準",
+          "changes": []
+        }
+      },
+      "MSFT": {
+        "ticker": "MSFT",
+        "position": "watchlist",
+        "latest_period": "2026-06-30",
+        "status": "support",
+        "label": "資本配置支持股東價值",
+        "score": 4,
+        "coverage": {
+          "known": 5,
+          "total": 5,
+          "missing": []
+        },
+        "signals": [
+          {
+            "id": "fcf",
+            "label": "現金創造",
+            "state": "support",
+            "score": 2,
+            "evidence": "自由現金流為正。"
+          },
+          {
+            "id": "payout",
+            "label": "股東回饋",
+            "state": "support",
+            "score": 1,
+            "evidence": "回購加股利使用 FCF 的 73%，目前由當年 FCF 覆蓋。"
+          },
+          {
+            "id": "shares",
+            "label": "回購實效",
+            "state": "neutral",
+            "score": 0,
+            "evidence": "稀釋加權平均股數年變動 -0.2%，大致持平。"
+          },
+          {
+            "id": "debt",
+            "label": "負債承擔",
+            "state": "support",
+            "score": 1,
+            "evidence": "現金及短期投資高於有息負債，維持淨現金。"
+          },
+          {
+            "id": "capex",
+            "label": "再投資強度",
+            "state": "context",
+            "score": 0,
+            "evidence": "資本支出為營收的 34.9%；高低本身不代表投資成敗。"
+          }
+        ],
+        "latest": {
+          "fiscal_year_end": "2026-06-30",
+          "currency": "USD",
+          "free_cash_flow": 66987000000,
+          "fcf_margin": 0.20186596512164032,
+          "fcf_conversion": 0.3661792439937683,
+          "capex": 115948000000,
+          "capex_intensity": 0.34941040685392616,
+          "buybacks": 22271000000,
+          "dividends_paid": 26445000000,
+          "shareholder_returns": 48716000000,
+          "payout_complete": true,
+          "payout_to_fcf": 0.7272455849642468,
+          "diluted_shares": 7453000000,
+          "share_change": -0.0016075016744808712,
+          "share_comparable": true,
+          "share_note": null,
+          "total_debt": 40294000000,
+          "debt_change": -0.06620935783643489,
+          "cash_and_short_investments": 76843000000,
+          "net_cash": 36549000000,
+          "source": {
+            "form": "10-K",
+            "filed": "2026-07-29",
+            "accession": "0001193125-26-323660",
+            "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/0001193125-26-323660-index.html"
+          }
+        },
+        "conclusion": "資本配置支持股東價值；依 5/5 個可判讀構面，只評估已公布現金流、股東回饋、淨股份效果、負債與資本支出，不推測管理層動機。",
+        "comparison": {
+          "status": "baseline",
+          "notify": false,
+          "label": "首次建立比較基準",
+          "changes": []
+        }
+      },
+      "META": {
+        "ticker": "META",
+        "position": "watchlist",
+        "latest_period": "2025-12-31",
+        "status": "support",
+        "label": "資本配置支持股東價值",
+        "score": 6,
+        "coverage": {
+          "known": 5,
+          "total": 5,
+          "missing": []
+        },
+        "signals": [
+          {
+            "id": "fcf",
+            "label": "現金創造",
+            "state": "support",
+            "score": 2,
+            "evidence": "自由現金流為正。"
+          },
+          {
+            "id": "payout",
+            "label": "股東回饋",
+            "state": "support",
+            "score": 1,
+            "evidence": "回購加股利使用 FCF 的 68%，目前由當年 FCF 覆蓋。"
+          },
+          {
+            "id": "shares",
+            "label": "回購實效",
+            "state": "support",
+            "score": 2,
+            "evidence": "稀釋加權平均股數年減 1.5%；回購／股份變動的淨效果有利。"
+          },
+          {
+            "id": "debt",
+            "label": "負債承擔",
+            "state": "support",
+            "score": 1,
+            "evidence": "現金及短期投資高於有息負債，維持淨現金。"
+          },
+          {
+            "id": "capex",
+            "label": "再投資強度",
+            "state": "context",
+            "score": 0,
+            "evidence": "資本支出為營收的 34.7%；高低本身不代表投資成敗。"
+          }
+        ],
+        "latest": {
+          "fiscal_year_end": "2025-12-31",
+          "currency": "USD",
+          "free_cash_flow": 46109000000,
+          "fcf_margin": 0.2294368201586338,
+          "fcf_conversion": 0.39817789291882555,
+          "capex": 69691000000,
+          "capex_intensity": 0.3467800523471632,
+          "buybacks": 26248000000,
+          "dividends_paid": 5324000000,
+          "shareholder_returns": 31572000000,
+          "payout_complete": true,
+          "payout_to_fcf": 0.6847253247739054,
+          "diluted_shares": 2574000000,
+          "share_change": -0.015302218821729108,
+          "share_comparable": true,
+          "share_note": null,
+          "total_debt": 59928000000,
+          "debt_change": 1.029050279329609,
+          "cash_and_short_investments": 81592000000,
+          "net_cash": 21664000000,
+          "source": {
+            "form": "10-K",
+            "filed": "2026-01-29",
+            "accession": "0001628280-26-003942",
+            "url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026003942/0001628280-26-003942-index.html"
+          }
+        },
+        "conclusion": "資本配置支持股東價值；依 5/5 個可判讀構面，只評估已公布現金流、股東回饋、淨股份效果、負債與資本支出，不推測管理層動機。",
+        "comparison": {
+          "status": "baseline",
+          "notify": false,
+          "label": "首次建立比較基準",
+          "changes": []
+        }
+      },
+      "AAPL": {
+        "ticker": "AAPL",
+        "position": "watchlist",
+        "latest_period": "2025-09-27",
+        "status": "support",
+        "label": "資本配置支持股東價值",
+        "score": 4,
+        "coverage": {
+          "known": 5,
+          "total": 5,
+          "missing": []
+        },
+        "signals": [
+          {
+            "id": "fcf",
+            "label": "現金創造",
+            "state": "support",
+            "score": 3,
+            "evidence": "FCF 為正，且保留營運現金流的 89%。"
+          },
+          {
+            "id": "payout",
+            "label": "股東回饋",
+            "state": "attention",
+            "score": -1,
+            "evidence": "回購加股利為 FCF 的 107%，超過當年 FCF。"
+          },
+          {
+            "id": "shares",
+            "label": "回購實效",
+            "state": "support",
+            "score": 2,
+            "evidence": "稀釋加權平均股數年減 2.6%；回購／股份變動的淨效果有利。"
+          },
+          {
+            "id": "debt",
+            "label": "負債承擔",
+            "state": "neutral",
+            "score": 0,
+            "evidence": "未見 FCF 為負且負債大幅增加的組合。"
+          },
+          {
+            "id": "capex",
+            "label": "再投資強度",
+            "state": "context",
+            "score": 0,
+            "evidence": "資本支出為營收的 3.1%；高低本身不代表投資成敗。"
+          }
+        ],
+        "latest": {
+          "fiscal_year_end": "2025-09-27",
+          "currency": "USD",
+          "free_cash_flow": 98767000000,
+          "fcf_margin": 0.23732882225869315,
+          "fcf_conversion": 0.8859457132093074,
+          "capex": 12715000000,
+          "capex_intensity": 0.030553079216937677,
+          "buybacks": 90711000000,
+          "dividends_paid": 15421000000,
+          "shareholder_returns": 106132000000,
+          "payout_complete": true,
+          "payout_to_fcf": 1.0745694412101208,
+          "diluted_shares": 15004697000,
+          "share_change": -0.026180913344576395,
+          "share_comparable": true,
+          "share_note": null,
+          "total_debt": 91908000000,
+          "debt_change": -0.05791426638512476,
+          "cash_and_short_investments": 54697000000,
+          "net_cash": -37211000000,
+          "source": {
+            "form": "10-K",
+            "filed": "2025-10-31",
+            "accession": "0000320193-25-000079",
+            "url": "https://www.sec.gov/Archives/edgar/data/320193/000032019325000079/0000320193-25-000079-index.html"
+          }
+        },
+        "conclusion": "資本配置支持股東價值；依 5/5 個可判讀構面，只評估已公布現金流、股東回饋、淨股份效果、負債與資本支出，不推測管理層動機。",
+        "comparison": {
+          "status": "baseline",
+          "notify": false,
+          "label": "首次建立比較基準",
+          "changes": []
+        }
+      },
+      "AMZN": {
+        "ticker": "AMZN",
+        "position": "watchlist",
+        "latest_period": "2025-12-31",
+        "status": "neutral",
+        "label": "資本配置中性／需持續驗證",
+        "score": 1,
+        "coverage": {
+          "known": 4,
+          "total": 5,
+          "missing": [
+            "股東回饋"
+          ]
+        },
+        "signals": [
+          {
+            "id": "fcf",
+            "label": "現金創造",
+            "state": "attention",
+            "score": 1,
+            "evidence": "FCF 為正，但資本支出後只保留營運現金流的 6%。"
+          },
+          {
+            "id": "payout",
+            "label": "股東回饋",
+            "state": "unavailable",
+            "score": 0,
+            "evidence": "回購或股利 XBRL 標籤不完整，不把缺值當成 0。"
+          },
+          {
+            "id": "shares",
+            "label": "回購實效",
+            "state": "attention",
+            "score": -1,
+            "evidence": "稀釋加權平均股數年增 1.0%；存在溫和淨稀釋。"
+          },
+          {
+            "id": "debt",
+            "label": "負債承擔",
+            "state": "support",
+            "score": 1,
+            "evidence": "現金及短期投資高於有息負債，維持淨現金。"
+          },
+          {
+            "id": "capex",
+            "label": "再投資強度",
+            "state": "context",
+            "score": 0,
+            "evidence": "資本支出為營收的 18.4%；高低本身不代表投資成敗。"
+          }
+        ],
+        "latest": {
+          "fiscal_year_end": "2025-12-31",
+          "currency": "USD",
+          "free_cash_flow": 7695000000,
+          "fcf_margin": 0.010733355278941701,
+          "fcf_conversion": 0.05515575497799504,
+          "capex": 131819000000,
+          "capex_intensity": 0.18386746712343288,
+          "buybacks": null,
+          "dividends_paid": null,
+          "shareholder_returns": null,
+          "payout_complete": false,
+          "payout_to_fcf": null,
+          "diluted_shares": 10827000000,
+          "share_change": 0.009887137393899792,
+          "share_comparable": true,
+          "share_note": null,
+          "total_debt": 80682000000,
+          "debt_change": 0.18229242988189087,
+          "cash_and_short_investments": 123029000000,
+          "net_cash": 42347000000,
+          "source": {
+            "form": "10-K",
+            "filed": "2026-02-06",
+            "accession": "0001018724-26-000004",
+            "url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000004/0001018724-26-000004-index.html"
+          }
+        },
+        "conclusion": "資本配置中性／需持續驗證；依 4/5 個可判讀構面，只評估已公布現金流、股東回饋、淨股份效果、負債與資本支出，不推測管理層動機。",
+        "comparison": {
+          "status": "baseline",
+          "notify": false,
+          "label": "首次建立比較基準",
+          "changes": []
+        }
+      },
+      "ARM": {
+        "ticker": "ARM",
+        "position": "holding",
+        "latest_period": "2026-03-31",
+        "status": "support",
+        "label": "資本配置支持股東價值",
+        "score": 3,
+        "coverage": {
+          "known": 4,
+          "total": 5,
+          "missing": [
+            "股東回饋"
+          ]
+        },
+        "signals": [
+          {
+            "id": "fcf",
+            "label": "現金創造",
+            "state": "support",
+            "score": 2,
+            "evidence": "自由現金流為正。"
+          },
+          {
+            "id": "payout",
+            "label": "股東回饋",
+            "state": "unavailable",
+            "score": 0,
+            "evidence": "回購或股利 XBRL 標籤不完整，不把缺值當成 0。"
+          },
+          {
+            "id": "shares",
+            "label": "回購實效",
+            "state": "neutral",
+            "score": 0,
+            "evidence": "稀釋加權平均股數年變動 +0.5%，大致持平。"
+          },
+          {
+            "id": "debt",
+            "label": "負債承擔",
+            "state": "support",
+            "score": 1,
+            "evidence": "現金及短期投資高於有息負債，維持淨現金。"
+          },
+          {
+            "id": "capex",
+            "label": "再投資強度",
+            "state": "context",
+            "score": 0,
+            "evidence": "資本支出為營收的 11.1%；高低本身不代表投資成敗。"
+          }
+        ],
+        "latest": {
+          "fiscal_year_end": "2026-03-31",
+          "currency": "USD",
+          "free_cash_flow": 979000000,
+          "fcf_margin": 0.19898373983739837,
+          "fcf_conversion": 0.6423884514435696,
+          "capex": 545000000,
+          "capex_intensity": 0.11077235772357724,
+          "buybacks": null,
+          "dividends_paid": null,
+          "shareholder_returns": null,
+          "payout_complete": false,
+          "payout_to_fcf": null,
+          "diluted_shares": 1068000000,
+          "share_change": 0.00470366886171214,
+          "share_comparable": true,
+          "share_note": null,
+          "total_debt": 59000000,
+          "debt_change": 1.3599999999999999,
+          "cash_and_short_investments": 3601000000,
+          "net_cash": 3542000000,
+          "source": {
+            "form": "20-F",
+            "filed": "2026-05-26",
+            "accession": "0001973239-26-000097",
+            "url": "https://www.sec.gov/Archives/edgar/data/1973239/000197323926000097/0001973239-26-000097-index.html"
+          }
+        },
+        "conclusion": "資本配置支持股東價值；依 4/5 個可判讀構面，只評估已公布現金流、股東回饋、淨股份效果、負債與資本支出，不推測管理層動機。",
+        "comparison": {
+          "status": "baseline",
+          "notify": false,
+          "label": "首次建立比較基準",
+          "changes": []
+        }
+      },
+      "ONDS": {
+        "ticker": "ONDS",
+        "position": "watchlist",
+        "latest_period": "2025-12-31",
+        "status": "neutral",
+        "label": "資本配置中性／需持續驗證",
+        "score": -2,
+        "coverage": {
+          "known": 3,
+          "total": 5,
+          "missing": [
+            "股東回饋",
+            "回購實效"
+          ]
+        },
+        "signals": [
+          {
+            "id": "fcf",
+            "label": "現金創造",
+            "state": "risk",
+            "score": -3,
+            "evidence": "自由現金流為負，外部融資或現金存量的重要性提高。"
+          },
+          {
+            "id": "payout",
+            "label": "股東回饋",
+            "state": "unavailable",
+            "score": 0,
+            "evidence": "回購或股利 XBRL 標籤不完整，不把缺值當成 0。"
+          },
+          {
+            "id": "shares",
+            "label": "回購實效",
+            "state": "unavailable",
+            "score": 0,
+            "evidence": "2024-12-31 與 2023-12-31 的稀釋加權平均股數相差 754.3 倍，疑有拆股或 XBRL 縮放差異，停止跨期比較。"
+          },
+          {
+            "id": "debt",
+            "label": "負債承擔",
+            "state": "support",
+            "score": 1,
+            "evidence": "現金及短期投資高於有息負債，維持淨現金。"
+          },
+          {
+            "id": "capex",
+            "label": "再投資強度",
+            "state": "context",
+            "score": 0,
+            "evidence": "資本支出為營收的 4.0%；高低本身不代表投資成敗。"
+          }
+        ],
+        "latest": {
+          "fiscal_year_end": "2025-12-31",
+          "currency": "USD",
+          "free_cash_flow": -40780000,
+          "fcf_margin": -0.8038477459541503,
+          "fcf_conversion": 1.0524957414958964,
+          "capex": 2034000,
+          "capex_intensity": 0.040093828231258996,
+          "buybacks": null,
+          "dividends_paid": null,
+          "shareholder_returns": null,
+          "payout_complete": false,
+          "payout_to_fcf": null,
+          "diluted_shares": 221769,
+          "share_change": null,
+          "share_comparable": false,
+          "share_note": "2024-12-31 與 2023-12-31 的稀釋加權平均股數相差 754.3 倍，疑有拆股或 XBRL 縮放差異，停止跨期比較。",
+          "total_debt": 8284000,
+          "debt_change": -0.8322669474366242,
+          "cash_and_short_investments": 550744000,
+          "net_cash": 542460000,
+          "source": {
+            "form": "10-K",
+            "filed": "2026-03-30",
+            "accession": "0001213900-26-035981",
+            "url": "https://www.sec.gov/Archives/edgar/data/1646188/000121390026035981/0001213900-26-035981-index.html"
+          }
+        },
+        "conclusion": "資本配置中性／需持續驗證；依 3/5 個可判讀構面，只評估已公布現金流、股東回饋、淨股份效果、負債與資本支出，不推測管理層動機。",
+        "comparison": {
+          "status": "baseline",
+          "notify": false,
+          "label": "首次建立比較基準",
+          "changes": []
+        }
+      },
+      "TSLA": {
+        "ticker": "TSLA",
+        "position": "holding",
+        "latest_period": "2025-12-31",
+        "status": "neutral",
+        "label": "資本配置中性／需持續驗證",
+        "score": 2,
+        "coverage": {
+          "known": 4,
+          "total": 5,
+          "missing": [
+            "股東回饋"
+          ]
+        },
+        "signals": [
+          {
+            "id": "fcf",
+            "label": "現金創造",
+            "state": "support",
+            "score": 2,
+            "evidence": "自由現金流為正。"
+          },
+          {
+            "id": "payout",
+            "label": "股東回饋",
+            "state": "unavailable",
+            "score": 0,
+            "evidence": "回購或股利 XBRL 標籤不完整，不把缺值當成 0。"
+          },
+          {
+            "id": "shares",
+            "label": "回購實效",
+            "state": "attention",
+            "score": -1,
+            "evidence": "稀釋加權平均股數年增 0.9%；存在溫和淨稀釋。"
+          },
+          {
+            "id": "debt",
+            "label": "負債承擔",
+            "state": "support",
+            "score": 1,
+            "evidence": "現金及短期投資高於有息負債，維持淨現金。"
+          },
+          {
+            "id": "capex",
+            "label": "再投資強度",
+            "state": "context",
+            "score": 0,
+            "evidence": "資本支出為營收的 9.0%；高低本身不代表投資成敗。"
+          }
+        ],
+        "latest": {
+          "fiscal_year_end": "2025-12-31",
+          "currency": "USD",
+          "free_cash_flow": 6220000000,
+          "fcf_margin": 0.06559313275754795,
+          "fcf_conversion": 0.4217807011595579,
+          "capex": 8527000000,
+          "capex_intensity": 0.08992164678836197,
+          "buybacks": null,
+          "dividends_paid": null,
+          "shareholder_returns": null,
+          "payout_complete": false,
+          "payout_to_fcf": null,
+          "diluted_shares": 3528000000,
+          "share_change": 0.00857632933104635,
+          "share_comparable": true,
+          "share_note": null,
+          "total_debt": 8376000000,
+          "debt_change": 0.019846584682819968,
+          "cash_and_short_investments": 44059000000,
+          "net_cash": 35683000000,
+          "source": {
+            "form": "10-K",
+            "filed": "2026-01-29",
+            "accession": "0001628280-26-003952",
+            "url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026003952/0001628280-26-003952-index.html"
+          }
+        },
+        "conclusion": "資本配置中性／需持續驗證；依 4/5 個可判讀構面，只評估已公布現金流、股東回饋、淨股份效果、負債與資本支出，不推測管理層動機。",
+        "comparison": {
+          "status": "baseline",
+          "notify": false,
+          "label": "首次建立比較基準",
+          "changes": []
+        }
+      },
+      "GOOG": {
+        "ticker": "GOOG",
+        "position": "holding",
+        "latest_period": "2025-12-31",
+        "status": "support",
+        "label": "資本配置支持股東價值",
+        "score": 6,
+        "coverage": {
+          "known": 5,
+          "total": 5,
+          "missing": []
+        },
+        "signals": [
+          {
+            "id": "fcf",
+            "label": "現金創造",
+            "state": "support",
+            "score": 2,
+            "evidence": "自由現金流為正。"
+          },
+          {
+            "id": "payout",
+            "label": "股東回饋",
+            "state": "support",
+            "score": 1,
+            "evidence": "回購加股利使用 FCF 的 76%，目前由當年 FCF 覆蓋。"
+          },
+          {
+            "id": "shares",
+            "label": "回購實效",
+            "state": "support",
+            "score": 2,
+            "evidence": "稀釋加權平均股數年減 1.7%；回購／股份變動的淨效果有利。"
+          },
+          {
+            "id": "debt",
+            "label": "負債承擔",
+            "state": "support",
+            "score": 1,
+            "evidence": "現金及短期投資高於有息負債，維持淨現金。"
+          },
+          {
+            "id": "capex",
+            "label": "再投資強度",
+            "state": "context",
+            "score": 0,
+            "evidence": "資本支出為營收的 22.7%；高低本身不代表投資成敗。"
+          }
+        ],
+        "latest": {
+          "fiscal_year_end": "2025-12-31",
+          "currency": "USD",
+          "free_cash_flow": 73266000000,
+          "fcf_margin": 0.18187550268595656,
+          "fcf_conversion": 0.4448100635651102,
+          "capex": 91447000000,
+          "capex_intensity": 0.22700801318650765,
+          "buybacks": 45709000000,
+          "dividends_paid": 10049000000,
+          "shareholder_returns": 55758000000,
+          "payout_complete": true,
+          "payout_to_fcf": 0.7610351322578004,
+          "diluted_shares": 12230000000,
+          "share_change": -0.017433919820036947,
+          "share_comparable": true,
+          "share_note": null,
+          "total_debt": 51043000000,
+          "debt_change": 2.7645106571281066,
+          "cash_and_short_investments": 126843000000,
+          "net_cash": 75800000000,
+          "source": {
+            "form": "10-K",
+            "filed": "2026-02-05",
+            "accession": "0001652044-26-000018",
+            "url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000018/0001652044-26-000018-index.html"
+          }
+        },
+        "conclusion": "資本配置支持股東價值；依 5/5 個可判讀構面，只評估已公布現金流、股東回饋、淨股份效果、負債與資本支出，不推測管理層動機。",
+        "comparison": {
+          "status": "baseline",
+          "notify": false,
+          "label": "首次建立比較基準",
+          "changes": []
+        }
+      },
+      "COHR": {
+        "ticker": "COHR",
+        "position": "holding",
+        "latest_period": "2026-06-30",
+        "status": "pressure",
+        "label": "資本配置形成壓力",
+        "score": -5,
+        "coverage": {
+          "known": 4,
+          "total": 5,
+          "missing": [
+            "股東回饋"
+          ]
+        },
+        "signals": [
+          {
+            "id": "fcf",
+            "label": "現金創造",
+            "state": "risk",
+            "score": -3,
+            "evidence": "自由現金流為負，外部融資或現金存量的重要性提高。"
+          },
+          {
+            "id": "payout",
+            "label": "股東回饋",
+            "state": "unavailable",
+            "score": 0,
+            "evidence": "回購或股利 XBRL 標籤不完整，不把缺值當成 0。"
+          },
+          {
+            "id": "shares",
+            "label": "回購實效",
+            "state": "risk",
+            "score": -2,
+            "evidence": "稀釋加權平均股數年增 26.3%，淨稀釋明顯。"
+          },
+          {
+            "id": "debt",
+            "label": "負債承擔",
+            "state": "neutral",
+            "score": 0,
+            "evidence": "未見 FCF 為負且負債大幅增加的組合。"
+          },
+          {
+            "id": "capex",
+            "label": "再投資強度",
+            "state": "context",
+            "score": 0,
+            "evidence": "資本支出為營收的 15.5%；高低本身不代表投資成敗。"
+          }
+        ],
+        "latest": {
+          "fiscal_year_end": "2026-06-30",
+          "currency": "USD",
+          "free_cash_flow": -1023395000,
+          "fcf_margin": -0.1437719833198959,
+          "fcf_conversion": -12.870626556329704,
+          "capex": 1102909000,
+          "capex_intensity": 0.15494253377372674,
+          "buybacks": null,
+          "dividends_paid": null,
+          "shareholder_returns": null,
+          "payout_complete": false,
+          "payout_to_fcf": null,
+          "diluted_shares": 195387000,
+          "share_change": 0.2625569448483087,
+          "share_comparable": true,
+          "share_note": null,
+          "total_debt": 3222224000,
+          "debt_change": -0.12603931573255844,
+          "cash_and_short_investments": 1987018000,
+          "net_cash": -1235206000,
+          "source": {
+            "form": "10-K",
+            "filed": "2026-08-14",
+            "accession": "0000820318-26-000020",
+            "url": "https://www.sec.gov/Archives/edgar/data/820318/000082031826000020/0000820318-26-000020-index.html"
+          }
+        },
+        "conclusion": "資本配置形成壓力；依 4/5 個可判讀構面，只評估已公布現金流、股東回饋、淨股份效果、負債與資本支出，不推測管理層動機。",
+        "comparison": {
+          "status": "baseline",
+          "notify": false,
+          "label": "首次建立比較基準",
+          "changes": []
+        }
+      },
+      "MRVL": {
+        "ticker": "MRVL",
+        "position": "holding",
+        "latest_period": "2026-01-31",
+        "status": "neutral",
+        "label": "資本配置中性／需持續驗證",
+        "score": 1,
+        "coverage": {
+          "known": 5,
+          "total": 5,
+          "missing": []
+        },
+        "signals": [
+          {
+            "id": "fcf",
+            "label": "現金創造",
+            "state": "support",
+            "score": 3,
+            "evidence": "FCF 為正，且保留營運現金流的 80%。"
+          },
+          {
+            "id": "payout",
+            "label": "股東回饋",
+            "state": "risk",
+            "score": -2,
+            "evidence": "回購加股利為 FCF 的 161%，明顯超過當年 FCF。"
+          },
+          {
+            "id": "shares",
+            "label": "回購實效",
+            "state": "neutral",
+            "score": 0,
+            "evidence": "稀釋加權平均股數年變動 +0.5%，大致持平。"
+          },
+          {
+            "id": "debt",
+            "label": "負債承擔",
+            "state": "neutral",
+            "score": 0,
+            "evidence": "未見 FCF 為負且負債大幅增加的組合。"
+          },
+          {
+            "id": "capex",
+            "label": "再投資強度",
+            "state": "context",
+            "score": 0,
+            "evidence": "資本支出為營收的 4.3%；高低本身不代表投資成敗。"
+          }
+        ],
+        "latest": {
+          "fiscal_year_end": "2026-01-31",
+          "currency": "USD",
+          "free_cash_flow": 1396400000,
+          "fcf_margin": 0.17040490078832402,
+          "fcf_conversion": 0.7977149385889746,
+          "capex": 354100000,
+          "capex_intensity": 0.04321138310594782,
+          "buybacks": 2040100000,
+          "dividends_paid": 205100000,
+          "shareholder_returns": 2245200000,
+          "payout_complete": true,
+          "payout_to_fcf": 1.6078487539386994,
+          "diluted_shares": 869700000,
+          "share_change": 0.004852686308492116,
+          "share_comparable": true,
+          "share_note": null,
+          "total_debt": 3970800000,
+          "debt_change": 0.00927738098263986,
+          "cash_and_short_investments": 2638800000,
+          "net_cash": -1332000000,
+          "source": {
+            "form": "10-K",
+            "filed": "2026-03-11",
+            "accession": "0001835632-26-000011",
+            "url": "https://www.sec.gov/Archives/edgar/data/1835632/000183563226000011/0001835632-26-000011-index.html"
+          }
+        },
+        "conclusion": "資本配置中性／需持續驗證；依 5/5 個可判讀構面，只評估已公布現金流、股東回饋、淨股份效果、負債與資本支出，不推測管理層動機。",
+        "comparison": {
+          "status": "baseline",
+          "notify": false,
+          "label": "首次建立比較基準",
+          "changes": []
+        }
+      },
+      "INTC": {
+        "ticker": "INTC",
+        "position": "holding",
+        "latest_period": "2025-12-27",
+        "status": "pressure",
+        "label": "資本配置形成壓力",
+        "score": -6,
+        "coverage": {
+          "known": 4,
+          "total": 5,
+          "missing": [
+            "股東回饋"
+          ]
+        },
+        "signals": [
+          {
+            "id": "fcf",
+            "label": "現金創造",
+            "state": "risk",
+            "score": -3,
+            "evidence": "自由現金流為負，外部融資或現金存量的重要性提高。"
+          },
+          {
+            "id": "payout",
+            "label": "股東回饋",
+            "state": "unavailable",
+            "score": 0,
+            "evidence": "回購或股利 XBRL 標籤不完整，不把缺值當成 0。"
+          },
+          {
+            "id": "shares",
+            "label": "回購實效",
+            "state": "risk",
+            "score": -2,
+            "evidence": "稀釋加權平均股數年增 5.8%，淨稀釋明顯。"
+          },
+          {
+            "id": "debt",
+            "label": "負債承擔",
+            "state": "neutral",
+            "score": 0,
+            "evidence": "未見 FCF 為負且負債大幅增加的組合。"
+          },
+          {
+            "id": "capex",
+            "label": "再投資強度",
+            "state": "attention",
+            "score": -1,
+            "evidence": "資本支出為營收的 27.7%，且 FCF 為負；高投入尚未轉為當期現金。"
+          }
+        ],
+        "latest": {
+          "fiscal_year_end": "2025-12-27",
+          "currency": "USD",
+          "free_cash_flow": -4949000000,
+          "fcf_margin": -0.0936370688513424,
+          "fcf_conversion": -0.5103640301124059,
+          "capex": 14646000000,
+          "capex_intensity": 0.2771082057782907,
+          "buybacks": null,
+          "dividends_paid": 0,
+          "shareholder_returns": null,
+          "payout_complete": false,
+          "payout_to_fcf": null,
+          "diluted_shares": 4530000000,
+          "share_change": 0.05841121495327095,
+          "share_comparable": true,
+          "share_note": null,
+          "total_debt": 46585000000,
+          "debt_change": -0.06850492891563853,
+          "cash_and_short_investments": 23808000000,
+          "net_cash": -22777000000,
+          "source": {
+            "form": "10-K",
+            "filed": "2026-01-23",
+            "accession": "0000050863-26-000011",
+            "url": "https://www.sec.gov/Archives/edgar/data/50863/000005086326000011/0000050863-26-000011-index.html"
+          }
+        },
+        "conclusion": "資本配置形成壓力；依 4/5 個可判讀構面，只評估已公布現金流、股東回饋、淨股份效果、負債與資本支出，不推測管理層動機。",
+        "comparison": {
+          "status": "baseline",
+          "notify": false,
+          "label": "首次建立比較基準",
+          "changes": []
+        }
+      },
+      "NOK": {
+        "ticker": "NOK",
+        "position": "holding",
+        "latest_period": "2025-12-31",
+        "status": "support",
+        "label": "資本配置支持股東價值",
+        "score": 5,
+        "coverage": {
+          "known": 4,
+          "total": 5,
+          "missing": [
+            "回購實效"
+          ]
+        },
+        "signals": [
+          {
+            "id": "fcf",
+            "label": "現金創造",
+            "state": "support",
+            "score": 3,
+            "evidence": "FCF 為正，且保留營運現金流的 71%。"
+          },
+          {
+            "id": "payout",
+            "label": "股東回饋",
+            "state": "support",
+            "score": 1,
+            "evidence": "回購加股利使用 FCF 的 94%，目前由當年 FCF 覆蓋。"
+          },
+          {
+            "id": "shares",
+            "label": "回購實效",
+            "state": "unavailable",
+            "score": 0,
+            "evidence": "缺本期或前期稀釋加權平均股數，無法判斷淨稀釋。"
+          },
+          {
+            "id": "debt",
+            "label": "負債承擔",
+            "state": "support",
+            "score": 1,
+            "evidence": "現金及短期投資高於有息負債，維持淨現金。"
+          },
+          {
+            "id": "capex",
+            "label": "再投資強度",
+            "state": "context",
+            "score": 0,
+            "evidence": "資本支出為營收的 3.0%；高低本身不代表投資成敗。"
+          }
+        ],
+        "latest": {
+          "fiscal_year_end": "2025-12-31",
+          "currency": "EUR",
+          "free_cash_flow": 1465000000,
+          "fcf_margin": 0.07365880637538338,
+          "fcf_conversion": 0.7073877353935297,
+          "capex": 606000000,
+          "capex_intensity": 0.030469103524561315,
+          "buybacks": 624000000,
+          "dividends_paid": 759000000,
+          "shareholder_returns": 1383000000,
+          "payout_complete": true,
+          "payout_to_fcf": 0.9440273037542662,
+          "diluted_shares": null,
+          "share_change": null,
+          "share_comparable": false,
+          "share_note": "缺本期或前期稀釋加權平均股數，無法判斷淨稀釋。",
+          "total_debt": 4413000000,
+          "debt_change": -0.07094736842105265,
+          "cash_and_short_investments": 5462000000,
+          "net_cash": 1049000000,
+          "source": {
+            "form": "20-F",
+            "filed": "2026-03-05",
+            "accession": "0001628280-26-015034",
+            "url": "https://www.sec.gov/Archives/edgar/data/924613/000162828026015034/0001628280-26-015034-index.html"
+          }
+        },
+        "conclusion": "資本配置支持股東價值；依 4/5 個可判讀構面，只評估已公布現金流、股東回饋、淨股份效果、負債與資本支出，不推測管理層動機。",
+        "comparison": {
+          "status": "baseline",
+          "notify": false,
+          "label": "首次建立比較基準",
+          "changes": []
+        }
+      }
+    }
+  },
+  "history": [
+    {
+      "snapshot_id": "9a67192bc1947742",
+      "captured_at": "2026-09-08T00:00:00+08:00",
+      "source_date": "2026-08-30T00:52:25+00:00",
+      "notify_count": 0,
+      "notifications": []
+    }
+  ]
+}
