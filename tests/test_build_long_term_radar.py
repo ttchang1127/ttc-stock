@@ -78,6 +78,10 @@ class LongTermRadarTests(unittest.TestCase):
         self.assertIn("page-radar", dashboard)
         self.assertIn("chartLongTermRadar", dashboard)
         self.assertIn("long_term_radar.json", dashboard)
+        self.assertIn("long-term-radar-check", dashboard)
+        self.assertIn("setLongTermRadarSelection('holdings')", dashboard)
+        self.assertIn("renderLongTermRadarComparison", dashboard)
+        self.assertNotIn('id="longTermRadarTicker"', dashboard)
         for workflow in ("update-prices.yml", "sec-filing-alerts.yml"):
             text = (ROOT / ".github" / "workflows" / workflow).read_text()
             self.assertIn("build_long_term_radar.py", text)

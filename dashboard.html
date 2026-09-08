@@ -702,7 +702,7 @@
 
     .radar-toolbar {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: space-between;
       gap: 14px;
       flex-wrap: wrap;
@@ -713,26 +713,76 @@
       background: rgba(192, 132, 252, 0.07);
     }
 
-    .radar-toolbar label {
+    .radar-selection-panel { width: 100%; min-width: 0; }
+    .radar-selection-heading {
       display: flex;
       align-items: center;
+      justify-content: space-between;
       gap: 10px;
       flex-wrap: wrap;
-      min-width: 0;
+      margin-bottom: 10px;
       color: #cbd5e1;
       font-weight: 700;
     }
-    .radar-toolbar select {
-      width: min(320px, 100%);
-      min-width: 0;
-      max-width: 100%;
-      padding: 9px 12px;
-      color: #fff;
-      background: #111827;
-      border: 1px solid rgba(192, 132, 252, 0.42);
-      border-radius: 10px;
+    .radar-quick-actions { display: flex; gap: 7px; flex-wrap: wrap; }
+    .radar-quick-btn {
+      padding: 6px 10px;
+      border: 1px solid rgba(148, 163, 184, 0.28);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.04);
+      color: #cbd5e1;
+      font-size: 0.75rem;
       font-weight: 700;
+      cursor: pointer;
     }
+    .radar-quick-btn:hover { color: #fff; border-color: rgba(56, 189, 248, 0.55); }
+    .radar-checkbox-groups { display: grid; gap: 9px; }
+    .radar-checkbox-group {
+      display: grid;
+      grid-template-columns: 82px minmax(0, 1fr);
+      align-items: start;
+      gap: 8px;
+    }
+    .radar-checkbox-group > strong { padding-top: 6px; color: #94a3b8; font-size: 0.76rem; }
+    .radar-checkbox-list { display: flex; flex-wrap: wrap; gap: 7px; min-width: 0; }
+    .radar-check-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 9px;
+      border: 1px solid rgba(148, 163, 184, 0.24);
+      border-radius: 9px;
+      background: rgba(255, 255, 255, 0.035);
+      color: #94a3b8;
+      font-size: 0.76rem;
+      font-weight: 750;
+      cursor: pointer;
+      user-select: none;
+    }
+    .radar-check-chip:has(input:checked) {
+      color: var(--radar-color, #7dd3fc);
+      border-color: var(--radar-color, #38bdf8);
+      background: rgba(56, 189, 248, 0.09);
+    }
+    .radar-check-chip input { margin: 0; accent-color: var(--radar-color, #38bdf8); }
+    .radar-comparison-row {
+      display: grid;
+      grid-template-columns: minmax(92px, 0.28fr) minmax(0, 0.72fr);
+      gap: 10px;
+      padding: 6px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      color: #94a3b8;
+      font-size: 0.76rem;
+      line-height: 1.45;
+    }
+    .radar-comparison-row:first-child { border-top: 0; }
+    .radar-comparison-row strong { color: var(--radar-color, #e2e8f0); }
+    .radar-metric-definitions { margin-top: 7px; color: #64748b; font-size: 0.74rem; }
+    .radar-metric-definitions summary { cursor: pointer; color: #94a3b8; }
+    .radar-metric-definitions ul { margin-top: 6px; }
+    .radar-risk-company { margin-top: 7px; }
+    .radar-risk-company summary { cursor: pointer; font-weight: 750; }
+    .radar-risk-company ul { margin: 5px 0 0; }
 
     .radar-score-summary {
       display: flex;
@@ -740,7 +790,9 @@
       gap: 10px;
       color: #94a3b8;
       font-size: 0.84rem;
+      width: 100%;
     }
+    #longTermRadarScores { display: flex; flex-wrap: wrap; gap: 7px; }
 
     .radar-score-pill {
       display: inline-flex;
@@ -812,6 +864,10 @@
     @media (max-width: 900px) {
       .radar-chart-layout { grid-template-columns: 1fr; }
       .radar-chart-wrap { height: 52vh; min-height: 420px; }
+      .radar-checkbox-group { grid-template-columns: 1fr; }
+      .radar-checkbox-group > strong { padding-top: 0; }
+      .radar-score-summary { align-items: flex-start; flex-direction: column; }
+      .radar-comparison-row { grid-template-columns: 1fr; gap: 2px; }
     }
 
     .macd-trend-section {
@@ -3435,14 +3491,23 @@
         <div class="chart-card chart-card-large">
           <h3>長期投資七角雷達圖 <span>0～100 分；越高代表該構面對長期投資越有利</span></h3>
           <div class="radar-toolbar">
-            <label for="longTermRadarTicker">查看公司
-              <select id="longTermRadarTicker" onchange="setLongTermRadarTicker(this.value)" aria-label="選擇長期投資雷達圖公司">
-                <option>正在載入 14 家個股…</option>
-              </select>
-            </label>
+            <div class="radar-selection-panel" aria-label="選擇雷達圖比較公司">
+              <div class="radar-selection-heading">
+                <strong>勾選要顯示的公司</strong>
+                <div class="radar-quick-actions">
+                  <button type="button" class="radar-quick-btn" onclick="setLongTermRadarSelection('holdings')">勾選實際持股</button>
+                  <button type="button" class="radar-quick-btn" onclick="setLongTermRadarSelection('all')">全部勾選</button>
+                  <button type="button" class="radar-quick-btn" onclick="setLongTermRadarSelection('clear')">全部清除</button>
+                </div>
+              </div>
+              <div class="radar-checkbox-groups">
+                <div class="radar-checkbox-group"><strong>💼 實際持股</strong><div id="longTermRadarHoldingChecks" class="radar-checkbox-list">正在載入…</div></div>
+                <div class="radar-checkbox-group"><strong>👀 觀察名單</strong><div id="longTermRadarWatchChecks" class="radar-checkbox-list">正在載入…</div></div>
+              </div>
+            </div>
             <div class="radar-score-summary">
               <span id="longTermRadarMeta">正在讀取最新評分資料…</span>
-              <span id="longTermRadarScore" class="radar-score-pill">—</span>
+              <span id="longTermRadarScores"></span>
             </div>
           </div>
           <div class="radar-chart-layout">
@@ -8144,6 +8209,17 @@
       return '#fb7185';
     }
 
+    const LONG_TERM_RADAR_COLORS = {
+      NVDA: '#76b900', ARM: '#38bdf8', TSLA: '#ef4444', GOOG: '#fbbc04',
+      COHR: '#f59e0b', MRVL: '#a78bfa', INTC: '#60a5fa', NOK: '#22d3ee',
+      TSM: '#f472b6', MSFT: '#00a4ef', META: '#818cf8', AAPL: '#e2e8f0',
+      AMZN: '#ff9900', ONDS: '#34d399'
+    };
+
+    function longTermRadarColor(ticker) {
+      return LONG_TERM_RADAR_COLORS[ticker] || '#c084fc';
+    }
+
     function loadLongTermRadar() {
       if (!longTermRadarPromise) {
         longTermRadarPromise = fetch('long_term_radar.json', { cache: 'no-cache' })
@@ -8160,52 +8236,106 @@
       return longTermRadarPromise;
     }
 
-    function setLongTermRadarTicker(ticker) {
-      if (!longTermRadarData) return;
-      const company = longTermRadarData.companies.find(row => row.ticker === ticker);
-      if (company) renderLongTermRadarCompany(company);
+    function selectedLongTermRadarTickers() {
+      return Array.from(document.querySelectorAll('.long-term-radar-check:checked')).map(input => input.value);
     }
 
-    function renderLongTermRadarCompany(company) {
-      if (!longTermRadarChart) return;
-      const dimensions = company.dimensions || [];
-      longTermRadarChart.data.labels = dimensions.map(row => row.label);
-      longTermRadarChart.data.datasets[0].label = `${company.ticker} 目前評分`;
-      longTermRadarChart.data.datasets[0].data = dimensions.map(row => row.score);
-      longTermRadarChart.data.datasets[0].pointBackgroundColor = dimensions.map(row => radarScoreColor(row.score));
-      longTermRadarChart.$company = company;
+    function setLongTermRadarSelection(mode) {
+      document.querySelectorAll('.long-term-radar-check').forEach(input => {
+        input.checked = mode === 'all' || (mode === 'holdings' && input.dataset.position === 'holding');
+      });
+      renderLongTermRadarComparison();
+    }
+
+    function toggleLongTermRadarTicker() {
+      renderLongTermRadarComparison();
+    }
+
+    function radarCheckboxHtml(company, checked = false) {
+      const color = longTermRadarColor(company.ticker);
+      return `<label class="radar-check-chip" style="--radar-color:${color}">` +
+        `<input type="checkbox" class="long-term-radar-check" value="${escapeSec(company.ticker)}" ` +
+        `data-position="${escapeSec(company.position)}" onchange="toggleLongTermRadarTicker()"${checked ? ' checked' : ''}>` +
+        `${escapeSec(company.ticker)}</label>`;
+    }
+
+    function renderLongTermRadarComparison() {
+      if (!longTermRadarChart || !longTermRadarData) return;
+      const selectedTickers = selectedLongTermRadarTickers();
+      const selected = selectedTickers.map(ticker =>
+        longTermRadarData.companies.find(row => row.ticker === ticker)).filter(Boolean);
+      const dimensionOrder = longTermRadarData.dimension_order || [];
+
+      longTermRadarChart.data.labels = dimensionOrder.map(row => row.label);
+      longTermRadarChart.data.datasets = selected.map(company => {
+        const color = longTermRadarColor(company.ticker);
+        return {
+          ticker: company.ticker,
+          label: `${company.ticker}｜${company.overall_score == null ? '資料不足' : company.overall_score + ' 分'}`,
+          data: dimensionOrder.map(definition => {
+            const row = company.dimensions.find(item => item.id === definition.id);
+            return row ? row.score : null;
+          }),
+          borderColor: color,
+          backgroundColor: `${color}14`,
+          pointBackgroundColor: color,
+          pointBorderColor: '#f8fafc',
+          pointRadius: 4,
+          pointHoverRadius: 7,
+          borderWidth: 2.3,
+          fill: true,
+          spanGaps: false
+        };
+      });
+      longTermRadarChart.$companies = selected;
       longTermRadarChart.update();
 
-      const score = document.getElementById('longTermRadarScore');
-      score.textContent = company.overall_score == null ? '資料不足' : `${company.overall_score} 分`;
-      score.style.color = radarScoreColor(company.overall_score);
-      score.style.borderColor = `${radarScoreColor(company.overall_score)}66`;
-      const position = company.position === 'holding' ? '💼 實際持股' : '👀 觀察名單';
-      document.getElementById('longTermRadarMeta').textContent =
-        `${company.ticker}｜${position}｜資料期 ${company.latest_period || '未知'}｜構面覆蓋 ${company.coverage.known}/${company.coverage.total}｜${company.overall_label}`;
-
-      document.getElementById('longTermRadarDimensions').innerHTML = dimensions.map(row => {
-        const scoreText = row.score == null ? '資料不足' : `${row.score} 分`;
-        const metricRows = (row.metrics || []).map(item => {
-          const metricScore = item.score == null ? '未計分' : `${item.score} 分`;
-          return `<li><strong>${escapeSec(item.label)}</strong>：${escapeSec(item.display)}｜${metricScore}<br>` +
-            `<span>${escapeSec(item.note)}｜來源：${escapeSec(item.source)}</span></li>`;
-        }).join('');
-        return `<section class="radar-dimension-card">
-          <div class="radar-dimension-head">
-            <strong>${escapeSec(row.label)}</strong>
-            <span class="radar-dimension-score" style="color:${radarScoreColor(row.score)}">${scoreText}｜${row.coverage.known}/${row.coverage.total}</span>
-          </div>
-          <ul>${metricRows}</ul>
-        </section>`;
+      const meta = document.getElementById('longTermRadarMeta');
+      const scores = document.getElementById('longTermRadarScores');
+      if (!selected.length) {
+        meta.textContent = '尚未勾選公司；請勾選 2～4 家進行清楚對照。';
+        scores.innerHTML = '';
+        document.getElementById('longTermRadarDimensions').innerHTML =
+          '<div class="radar-dimension-card">勾選公司後，這裡會依七個構面逐項列出分數與實際指標。</div>';
+        document.getElementById('longTermRadarRisks').innerHTML =
+          '<strong>獨立警示</strong><br><span>勾選公司後顯示；警示不會被其他構面的高分抵銷。</span>';
+        return;
+      }
+      meta.textContent = `已勾選 ${selected.length} 家｜建議同時比較 2～4 家，線條最容易辨識。`;
+      scores.innerHTML = selected.map(company => {
+        const color = longTermRadarColor(company.ticker);
+        const value = company.overall_score == null ? '資料不足' : `${company.overall_score} 分`;
+        return `<span class="radar-score-pill" style="color:${color};border-color:${color}66">${escapeSec(company.ticker)} ${value}</span>`;
       }).join('');
 
-      const risks = company.red_flags || [];
-      document.getElementById('longTermRadarRisks').innerHTML = risks.length
-        ? `<strong>⚠️ 獨立警示（不納入平均抵銷）</strong><ul>${risks.map(row =>
-            `<li><strong>${escapeSec(row.label || '風險')}</strong>：${escapeSec(row.detail || '請查閱來源')} <span>(${escapeSec(row.source)})</span></li>`
-          ).join('')}</ul>`
-        : '<strong>✅ 目前資料未列出獨立重大警示</strong><br><span>這不等於公司沒有風險，仍需閱讀最新申報與風險因素。</span>';
+      document.getElementById('longTermRadarDimensions').innerHTML = dimensionOrder.map(definition => {
+        const rows = selected.map(company => {
+          const row = company.dimensions.find(item => item.id === definition.id);
+          if (!row) return '';
+          const color = longTermRadarColor(company.ticker);
+          const values = row.metrics.map(item => `${item.label} ${item.display}`).join('｜');
+          return `<div class="radar-comparison-row" style="--radar-color:${color}">` +
+            `<strong>${escapeSec(company.ticker)}｜${row.score == null ? '資料不足' : row.score + ' 分'}｜${row.coverage.known}/${row.coverage.total}</strong>` +
+            `<span>${escapeSec(values)}</span></div>`;
+        }).join('');
+        const sample = selected.map(company =>
+          company.dimensions.find(item => item.id === definition.id)).find(Boolean);
+        const definitions = sample ? sample.metrics.map(item =>
+          `<li><strong>${escapeSec(item.label)}</strong>：${escapeSec(item.note)}｜來源：${escapeSec(item.source)}</li>`).join('') : '';
+        return `<section class="radar-dimension-card"><div class="radar-dimension-head">` +
+          `<strong>${escapeSec(definition.label)}</strong><span class="radar-dimension-score">公司對照</span></div>` +
+          `${rows}<details class="radar-metric-definitions"><summary>查看指標定義與資料來源</summary><ul>${definitions}</ul></details></section>`;
+      }).join('');
+
+      const flagged = selected.filter(company => (company.red_flags || []).length);
+      document.getElementById('longTermRadarRisks').innerHTML = flagged.length
+        ? `<strong>⚠️ 已勾選公司的獨立警示（不納入平均抵銷）</strong>` + flagged.map(company => {
+            const color = longTermRadarColor(company.ticker);
+            return `<details class="radar-risk-company"><summary style="color:${color}">${escapeSec(company.ticker)}｜${company.red_flags.length} 項</summary><ul>` +
+              company.red_flags.map(row => `<li><strong>${escapeSec(row.label || '風險')}</strong>：${escapeSec(row.detail || '請查閱來源')} (${escapeSec(row.source)})</li>`).join('') +
+              '</ul></details>';
+          }).join('')
+        : '<strong>✅ 已勾選公司目前未列出獨立重大警示</strong><br><span>這不等於沒有風險，仍需閱讀最新申報與風險因素。</span>';
     }
 
     function createLongTermRadarChart() {
@@ -8214,18 +8344,7 @@
         type: 'radar',
         data: {
           labels,
-          datasets: [{
-            label: '正在載入評分',
-            data: labels.map(() => null),
-            borderColor: '#38bdf8',
-            backgroundColor: 'rgba(56, 189, 248, 0.18)',
-            pointBackgroundColor: '#38bdf8',
-            pointBorderColor: '#e0f2fe',
-            pointRadius: 5,
-            pointHoverRadius: 7,
-            borderWidth: 2.5,
-            spanGaps: false
-          }]
+          datasets: []
         },
         options: {
           responsive: true,
@@ -8242,17 +8361,20 @@
             }
           },
           plugins: {
-            legend: { labels: { color: '#cbd5e1' } },
+            legend: {
+              onClick: () => {},
+              labels: { color: '#cbd5e1' }
+            },
             tooltip: {
               callbacks: {
                 label: context => {
-                  const company = longTermRadarChart.$company;
+                  const company = (longTermRadarChart.$companies || []).find(row => row.ticker === context.dataset.ticker);
                   const row = company && company.dimensions[context.dataIndex];
                   if (!row || row.score == null) return '資料不足，不補 0 或 50 分';
-                  return `${row.score} 分｜子指標覆蓋 ${row.coverage.known}/${row.coverage.total}`;
+                  return `${company.ticker}：${row.score} 分｜子指標覆蓋 ${row.coverage.known}/${row.coverage.total}`;
                 },
                 afterLabel: context => {
-                  const company = longTermRadarChart.$company;
+                  const company = (longTermRadarChart.$companies || []).find(row => row.ticker === context.dataset.ticker);
                   const row = company && company.dimensions[context.dataIndex];
                   return row ? row.metrics.filter(item => item.score != null).map(item => `${item.label}：${item.display}`) : [];
                 }
@@ -8263,18 +8385,14 @@
       });
 
       loadLongTermRadar().then(data => {
-        const selector = document.getElementById('longTermRadarTicker');
         const holdings = data.companies.filter(row => row.position === 'holding');
         const watchlist = data.companies.filter(row => row.position !== 'holding');
-        const options = rows => rows.map(row =>
-          `<option value="${escapeSec(row.ticker)}">${escapeSec(row.ticker)}｜${escapeSec(row.name)}</option>`).join('');
-        selector.innerHTML = `<optgroup label="實際持股">${options(holdings)}</optgroup>` +
-          `<optgroup label="觀察名單">${options(watchlist)}</optgroup>`;
         const first = holdings[0] || data.companies[0];
-        if (first) {
-          selector.value = first.ticker;
-          renderLongTermRadarCompany(first);
-        }
+        document.getElementById('longTermRadarHoldingChecks').innerHTML = holdings.map(row =>
+          radarCheckboxHtml(row, !!first && row.ticker === first.ticker)).join('');
+        document.getElementById('longTermRadarWatchChecks').innerHTML = watchlist.map(row =>
+          radarCheckboxHtml(row, false)).join('');
+        renderLongTermRadarComparison();
         const method = data.methodology || {};
         document.getElementById('longTermRadarMethod').innerHTML =
           `<p><strong>評分方向：</strong>${escapeSec(method.direction || '')}</p>` +
