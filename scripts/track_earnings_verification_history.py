@@ -296,11 +296,25 @@ def build_history(snapshot: dict[str, Any], existing: dict[str, Any] | None) -> 
         for row in legacy_history
     ]
     if previous and previous.get("snapshot_id") == snapshot["snapshot_id"]:
-        if not cycles_changed and not needs_compaction:
+        metadata_changed = previous.get("source_date") != snapshot.get("source_date")
+        if not cycles_changed and not needs_compaction and not metadata_changed:
             return existing, False
         migrated = copy.deepcopy(existing)
         migrated["history"] = compacted_history[:MAX_HISTORY]
         migrated["cycles"] = cycles
+        if metadata_changed:
+            refreshed = copy.deepcopy(snapshot)
+            for ticker, card in refreshed["companies"].items():
+                prior = (previous.get("companies") or {}).get(ticker) or {}
+                card["comparison"] = copy.deepcopy(prior.get("comparison") or {
+                    "status": "unchanged", "notify": False,
+                    "label": "沒有需通知的實質變化", "reasons": [],
+                })
+            migrated["updated_at"] = snapshot["captured_at"]
+            migrated["current"] = refreshed
+            migrated["notifications"] = []
+            migrated["notify_count"] = 0
+            migrated["critical_count"] = 0
         return migrated, True
 
     notifications = []

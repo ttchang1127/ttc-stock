@@ -4,7 +4,7 @@ call_date: 2026-04-23
 period: "2026 Q1"
 source_type: prepared_remarks
 source_url: "https://d1io3yog0oux5.cloudfront.net/_88b01b330621eb4afbd070d5caa4f035/intel/db/887/9254/prepared_remarks/1Q2026-Earnings-Call.pdf"
-source_sha256: "f78f298c6c1d150825151b5a14f42e6f11bc675103b716ac92f2a47093598f20"
+source_sha256: "423e1171369bde9b384194be948e02a82ebfc31d4372544abda80d1573d6b35c"
 parser_version: 16
 tags:
   - earnings-call
@@ -18,7 +18,7 @@ tags:
 - **會議日期**：2026-04-23
 - **文字類型**：官方 Prepared Remarks。只包含管理層事先講稿，不含即席追問，不能代替完整電話會議。
 - **官方來源**：[文字材料](https://d1io3yog0oux5.cloudfront.net/_88b01b330621eb4afbd070d5caa4f035/intel/db/887/9254/prepared_remarks/1Q2026-Earnings-Call.pdf)｜[IR 發現頁](https://www.intc.com/news-events/ir-calendar/detail/20260423-q1-2026-intel-corporation-earnings-conference-call)
-- **來源鏈驗證**：程式已在官方 IR 頁驗證材料直連
+- **來源鏈驗證**：官方頁受阻，採 180 天內人工官方連結覆核
 - **證據覆蓋**：6/7 類；這是閱讀索引，不是評分。
 - **方法限制**：每類只保留最多 22 個英文單字的短摘錄。未命中保留缺值；不把語氣關鍵字轉成投資建議。
 

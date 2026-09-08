@@ -1,6 +1,6 @@
 ---
 title: Sec_kb 待辦事項
-updated: 2026-08-30
+updated: 2026-09-08
 ---
 
 # 📋 Sec_kb 待辦事項
@@ -35,7 +35,7 @@ python3 scripts/build_reports.py
 
 ## B. 等結果，不用動手
 
-目前有 3 項分部展望等待正式實績：MSFT FY2027 Q1 的 Agents and Infra、Devices and Consumer，以及 NOK FY2026 Network Infrastructure 全年成長。前兩項會在同口徑新分部表安全滾入後自動核對；NOK 年度項目需等正式全年結果，不拿季度進度提前判定。除此之外無需手動動作。每日資料管線已自 2026-08-10 起連續在 CI 完整執行；
+目前有 3 項分部展望等待正式實績：MSFT FY2027 Q1 的 Agents and Infra、Devices and Consumer，以及 NOK FY2026 Network Infrastructure 全年成長。Microsoft 已於 2026-09-02 的 8-K／Exhibit 99.1 公布 FY25、FY26 重編基準與 FY27 Q1 機械式調整後分部指引；目前仍需等待 FY27 Q1 正式實績，不能把重編歷史當成新季度結果。NOK 年度項目需等正式全年結果，不拿季度進度提前判定。除此之外無需手動動作。每日資料管線已自 2026-08-10 起連續在 CI 完整執行；
 SEC 申報雷達另由 `.github/workflows/sec-filing-alerts.yml` 於台北時間週二至週六中午檢查，
 並同步更新 10-Q、Form 4、募資稀釋、財報附件、會計審閱、13D／13G、治理薪酬、
 Form 144＋3／4／5、併購與 SEC 執法／停牌雷達。完整 13F 另以
@@ -50,6 +50,8 @@ Form 144＋3／4／5、併購與 SEC 執法／停牌雷達。完整 13F 另以
 資本配置與股東價值卡也已建立靜默基準；後續僅在新年度、FCF／股東回饋／淨稀釋／
 負債／再投資強度跨門檻或綜合結論改變時通知。尚無一致併購現金支出的公司維持資料缺口，
 不以現金流殘差反推。
+
+2026-09-08 已重新掃描 SEC 完整 13F 資料集；官方目前仍只提供可用於本雷達的 2026 Q1 與 2025 Q4 兩期，尚無 2026 Q2 完整資料集，不需人工補值。
 
 ---
 

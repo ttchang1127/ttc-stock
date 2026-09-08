@@ -7,7 +7,7 @@
 > 儀表板網頁的維護請看 [[ttc-stock_Dashboard_維運SOP]]，那是另一條線。
 > 還沒完成的事情列在 [[Sec_kb_待辦事項]]，**已決定不做的**則在本文件第 5 節。
 
-最後更新：2026-08-30
+最後更新：2026-09-08
 
 ---
 
@@ -204,6 +204,8 @@ python3 scripts/check_integrity.py --quiet
 **財報前後驗證追蹤卡**由 `scripts/build_earnings_verification_cards.py` 每天更新 `earnings_verification_cards.json` 與 `60_SEC_Filing_Radar/Earnings_Verification_Cards.md`。它把事件日曆、八季財務、公司官方指引、近三年指引回測與投資論點狀態串成同一張卡：財報前 7 天標記準備期，申報後 14 天標記核對期。指引只採公司 IR／SEC 已建檔區間，不得拿分析師共識補值；財報後比較最新季、前季與去年同期。自由現金流的比較基期若為零，或任一期為負數，不顯示百分比成長率，以免產生無經濟意義的巨大數字。14 家個股全部建立卡片，實際持股排序優先，VGT／VOO 不納入。
 
 `scripts/track_earnings_verification_history.py` 接續保存 `earnings_verification_history.json` 與 `60_SEC_Filing_Radar/Earnings_Verification_History.md`。第一次執行只建立比較基準，不回填不存在的過往判斷；公司進入財報前 7 天時，原始指引、檢查題、KPI 基準與論點狀態會凍結成不可被每日更新覆寫的 cycle。取得不同季度的新財報後才關閉該 cycle，保存財報後數字與相較原始條件的差異。通知只涵蓋進入財報前／後階段、新季度、官方日期或指引、KPI 風險／改善、指引驗證與論點結論變化；每日倒數及未跨狀態的數值波動不通知。兩條每日 workflow 都會執行此追蹤器，`notify_count > 0` 時才建立去重的 GitHub Issue。
+
+若驗證內容完全相同、只有 `earnings_verification_cards.json.generated_at` 推進，追蹤器必須只刷新 `current.source_date` 與檢查時間、清零本次通知，不得新增語意歷史快照。這可讓每日資料日與卡片一致，同時避免把倒數日變化誤報成新事件；C-34 會強制勾稽兩者。
 
 **分部營運與成長驅動驗證**由 `scripts/build_segment_driver_validation.py` 讀取人工核對的 `segment_driver_inputs.json`，產生 `segment_driver_validation.json` 與 `60_SEC_Filing_Radar/Segment_Driver_Validation.md`。資料只可來自公司 IR、SEC 原始申報或公司正式財報表格；可報導分部、產品／服務類別、終端市場與平台占比必須分開標示。成長貢獻＝單一項目營收增量 ÷ 已收錄項目合計營收增量，負值代表抵銷成長，可能因其他分部衰退而高於 100%；它不是獲利貢獻。HHI 只用於沒有內部交易重複計算的營收口徑。沒有同口徑前期絕對值時只保留公司公布的 YoY，不得由百分比反推；收購、去合併、重編或占比四捨五入必須降低信心並顯示警語。
 

@@ -7,7 +7,7 @@ tags:
 
 # 🎯 財報前後驗證追蹤卡
 
-> 更新日 **2026-09-06**｜財報前 7 天待準備 0 家｜財報後 14 天待核對 2 家。
+> 更新日 **2026-09-08**｜財報前 7 天待準備 0 家｜財報後 14 天待核對 2 家。
 
 | 優先 | 公司 | 身分 | 下一財報日 | 階段 | 最新已核對期 | 論點狀態 |
 |---:|---|---|---|---|---|---|
@@ -28,7 +28,7 @@ tags:
 
 ## MRVL｜財報後 14 天核對期
 
-- **下一財報日**：2026-12-02（87 天後；市場預估，仍可能變動）
+- **下一財報日**：2026-12-02（85 天後；市場預估，仍可能變動）
 - **待驗證管理層指引**：
   - FY2027 Q2｜營收：2.6～2.8 USD bn｜[官方來源](https://investor.marvell.com/sec-filings/all-sec-filings/content/0001835632-26-000014/q127_8kx522026ex-991.htm)
   - FY2027 Q2｜Non-GAAP 毛利率：58.2～59.2 %｜[官方來源](https://investor.marvell.com/sec-filings/all-sec-filings/content/0001835632-26-000014/q127_8kx522026ex-991.htm)
@@ -52,7 +52,7 @@ tags:
 
 ## NVDA｜財報後 14 天核對期
 
-- **下一財報日**：2026-11-18（73 天後；市場預估，仍可能變動）
+- **下一財報日**：2026-11-18（71 天後；市場預估，仍可能變動）
 - **待驗證管理層指引**：
   - FY2027 Q2｜營收：89.2～92.8 USD bn｜[官方來源](https://nvidianews.nvidia.com/news/nvidia-announces-financial-results-for-first-quarter-fiscal-2027)
   - FY2027 Q2｜GAAP 毛利率：74.4～75.4 %｜[官方來源](https://nvidianews.nvidia.com/news/nvidia-announces-financial-results-for-first-quarter-fiscal-2027)
@@ -75,7 +75,7 @@ tags:
 
 ## NOK｜已知日期，尚未進入 30 天
 
-- **下一財報日**：2026-10-22（46 天後；市場預估，仍可能變動）
+- **下一財報日**：2026-10-22（44 天後；市場預估，仍可能變動）
 - **待驗證管理層指引**：
   - FY2026｜可比營業利益：2.1～2.6 EUR bn｜[官方來源](https://www.nokia.com/newsroom/nokia-corporation-report-for-q2-and-half-year-2026/)
   - FY2026｜自由現金流轉換率：55.0～75.0 %｜[官方來源](https://www.nokia.com/newsroom/nokia-corporation-report-for-q2-and-half-year-2026/)
@@ -99,7 +99,7 @@ tags:
 
 ## INTC｜已知日期，尚未進入 30 天
 
-- **下一財報日**：2026-10-23（47 天後；市場預估，仍可能變動）
+- **下一財報日**：2026-10-23（45 天後；市場預估，仍可能變動）
 - **待驗證管理層指引**：
   - 2026 Q3｜營收：15.8～16.8 USD bn｜[官方來源](https://newsroom.intel.com/corporate/intel-reports-second-quarter-2026-financial-results)
 - **財報前檢查題**：
@@ -121,7 +121,7 @@ tags:
 
 ## COHR｜已知日期，尚未進入 30 天
 
-- **下一財報日**：2026-11-05（60 天後；市場預估，仍可能變動）
+- **下一財報日**：2026-11-05（58 天後；市場預估，仍可能變動）
 - **待驗證管理層指引**：
   - FY2027 Q1｜營收：2.2～2.4 USD bn｜[官方來源](https://www.sec.gov/Archives/edgar/data/820318/000119312526346860/d128030dex991.htm)
   - FY2027 Q1｜Non-GAAP 毛利率：39.5～41.5 %｜[官方來源](https://www.sec.gov/Archives/edgar/data/820318/000119312526346860/d128030dex991.htm)
@@ -145,7 +145,7 @@ tags:
 
 ## TSLA｜已知日期，尚未進入 30 天
 
-- **下一財報日**：2026-10-22（46 天後；市場預估，仍可能變動）
+- **下一財報日**：2026-10-22（44 天後；市場預估，仍可能變動）
 - **待驗證管理層指引**：2026 Q2 官方發布未提供下一季營收／EPS 區間；公司彙整的分析師共識不視為管理層指引。
 - **財報前檢查題**：
   - 管理層指引：公司是否首次提供可比較的量化指引，或更新原有全年目標？（沒有量化區間時不計命中率，也不以市場共識補值。）
@@ -166,7 +166,7 @@ tags:
 
 ## GOOG｜已知日期，尚未進入 30 天
 
-- **下一財報日**：2026-10-29（53 天後；市場預估，仍可能變動）
+- **下一財報日**：2026-10-29（51 天後；市場預估，仍可能變動）
 - **待驗證管理層指引**：Alphabet 的季度展望以趨勢與投資評論為主，未提供下一季營收／EPS 區間；不以市場共識替代。
 - **財報前檢查題**：
   - 管理層指引：公司是否首次提供可比較的量化指引，或更新原有全年目標？（沒有量化區間時不計命中率，也不以市場共識補值。）
@@ -187,7 +187,7 @@ tags:
 
 ## ARM｜已知日期，尚未進入 30 天
 
-- **下一財報日**：2026-11-05（60 天後；市場預估，仍可能變動）
+- **下一財報日**：2026-11-05（58 天後；市場預估，仍可能變動）
 - **待驗證管理層指引**：
   - FY2027 Q2｜營收：1.3～1.4 USD bn｜[官方來源](https://investors.arm.com/node/8356/html)
   - FY2027 Q2｜Non-GAAP 稀釋 EPS：0.4～0.5 USD/share｜[官方來源](https://investors.arm.com/node/8356/html)
@@ -210,7 +210,7 @@ tags:
 
 ## ONDS｜已知日期，尚未進入 30 天
 
-- **下一財報日**：2026-11-12（67 天後；市場預估，仍可能變動）
+- **下一財報日**：2026-11-12（65 天後；市場預估，仍可能變動）
 - **待驗證管理層指引**：
   - FY2026｜營收（至少）：390.0 USD m｜[官方來源](https://ir.ondas.com/press-releases/detail/306/ondas-reports-record-first-quarter-2026-financial-results)
 - **財報前檢查題**：
@@ -232,7 +232,7 @@ tags:
 
 ## META｜已知日期，尚未進入 30 天
 
-- **下一財報日**：2026-10-29（53 天後；市場預估，仍可能變動）
+- **下一財報日**：2026-10-29（51 天後；市場預估，仍可能變動）
 - **待驗證管理層指引**：
   - 2026 Q3｜總營收：61.0～64.0 USD bn｜[官方來源](https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Second-Quarter-2026-Results/default.aspx)
   - FY2026｜總費用：165.0～169.0 USD bn｜[官方來源](https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Second-Quarter-2026-Results/default.aspx)
@@ -256,7 +256,7 @@ tags:
 
 ## MSFT｜已知日期，尚未進入 30 天
 
-- **下一財報日**：2026-10-29（53 天後；市場預估，仍可能變動）
+- **下一財報日**：2026-10-29（51 天後；市場預估，仍可能變動）
 - **待驗證管理層指引**：
   - FY2027 Q1｜總營收：89.8～91.0 USD bn｜[官方來源](https://www.microsoft.com/en-us/Investor/events/FY-2026/earnings-fy-2026-q4)
 - **財報前檢查題**：
@@ -278,7 +278,7 @@ tags:
 
 ## AAPL｜已知日期，尚未進入 30 天
 
-- **下一財報日**：2026-10-30（54 天後；市場預估，仍可能變動）
+- **下一財報日**：2026-10-30（52 天後；市場預估，仍可能變動）
 - **待驗證管理層指引**：2026-07-30 的 FY2026 Q3 新聞稿未提供下一季可直接核對的營收／EPS 區間。
 - **財報前檢查題**：
   - 管理層指引：公司是否首次提供可比較的量化指引，或更新原有全年目標？（沒有量化區間時不計命中率，也不以市場共識補值。）
@@ -299,7 +299,7 @@ tags:
 
 ## TSM｜已知日期，尚未進入 30 天
 
-- **下一財報日**：2026-10-15（39 天後；市場預估，仍可能變動）
+- **下一財報日**：2026-10-15（37 天後；市場預估，仍可能變動）
 - **待驗證管理層指引**：
   - 2026 Q3｜營收：44.6～45.8 USD bn｜[官方來源](https://investor.tsmc.com/english/quarterly-results/2026/q2)
   - 2026 Q3｜毛利率：65.0～67.0 %｜[官方來源](https://investor.tsmc.com/english/quarterly-results/2026/q2)
@@ -323,7 +323,7 @@ tags:
 
 ## AMZN｜已知日期，尚未進入 30 天
 
-- **下一財報日**：2026-10-30（54 天後；市場預估，仍可能變動）
+- **下一財報日**：2026-10-30（52 天後；市場預估，仍可能變動）
 - **待驗證管理層指引**：
   - 2026 Q3｜淨銷售額：197.0～202.0 USD bn｜[官方來源](https://ir.aboutamazon.com/news-release/news-release-details/2026/Amazon-com-Announces-Second-Quarter-Results/default.aspx)
   - 2026 Q3｜營業利益：22.5～26.5 USD bn｜[官方來源](https://ir.aboutamazon.com/news-release/news-release-details/2026/Amazon-com-Announces-Second-Quarter-Results/default.aspx)

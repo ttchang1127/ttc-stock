@@ -12,9 +12,9 @@ SPEC.loader.exec_module(MODULE)
 
 
 def cards(phase="scheduled_later", period="2026-06-30", state="stable", thesis="maintained",
-          days_until=40, days_since=40):
+          days_until=40, days_since=40, generated_at="2026-09-06"):
     return {
-        "generated_at": "2026-09-06",
+        "generated_at": generated_at,
         "companies": [{
             "ticker": "NVDA", "position": "holding", "phase": phase,
             "phase_label": MODULE.PHASE_LABELS[phase],
@@ -73,6 +73,23 @@ class EarningsVerificationHistoryTests(unittest.TestCase):
         same, changed = MODULE.build_history(later, payload)
         self.assertFalse(changed)
         self.assertEqual(same, payload)
+
+    def test_same_semantics_refreshes_source_date_without_new_history_or_notification(self):
+        first = MODULE.build_snapshot(cards(), "2026-09-06T00:00:00+08:00")
+        payload, _ = MODULE.build_history(first, {})
+        later = MODULE.build_snapshot(
+            cards(generated_at="2026-09-08"), "2026-09-08T00:00:00+08:00",
+        )
+
+        refreshed, changed = MODULE.build_history(later, payload)
+
+        self.assertTrue(changed)
+        self.assertEqual(refreshed["current_snapshot_id"], payload["current_snapshot_id"])
+        self.assertEqual(len(refreshed["history"]), len(payload["history"]))
+        self.assertEqual(refreshed["current"]["source_date"], "2026-09-08")
+        self.assertEqual(refreshed["updated_at"], "2026-09-08T00:00:00+08:00")
+        self.assertEqual(refreshed["notify_count"], 0)
+        self.assertEqual(refreshed["notifications"], [])
 
     def test_freezes_pre_card_then_closes_cycle_on_new_result(self):
         baseline = MODULE.build_snapshot(cards(), "2026-09-01T12:00:00+08:00")

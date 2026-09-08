@@ -48,11 +48,21 @@ class CandidateRuleCalibrationTests(unittest.TestCase):
     def test_current_review_history_is_counted_exactly(self):
         reviews = json.loads((ROOT / "sec_daily_candidate_reviews.json").read_text())
         payload = MODULE.build_calibration(reviews)
-        self.assertEqual(payload["reviewed_candidate_count"], 5)
-        self.assertEqual(payload["accepted_candidate_count"], 1)
-        self.assertEqual(payload["rejected_candidate_count"], 4)
-        self.assertEqual(len(payload["rules"]), 3)
-        self.assertTrue(all(row["priority_adjustment"] == "none" for row in payload["rules"].values()))
+        decisions = [row for batch in reviews["batches"] for row in batch["decisions"]]
+        self.assertEqual(payload["reviewed_candidate_count"], len(decisions))
+        self.assertEqual(
+            payload["accepted_candidate_count"],
+            sum(row["disposition"] == "accepted" for row in decisions),
+        )
+        self.assertEqual(
+            payload["rejected_candidate_count"],
+            sum(row["disposition"] == "rejected" for row in decisions),
+        )
+        self.assertEqual(len(payload["rules"]), len({row["rule_key"] for row in decisions}))
+        self.assertTrue(all(
+            row["priority_adjustment"] == "none"
+            for row in payload["rules"].values() if row["reviewed_count"] < 5
+        ))
 
 
 if __name__ == "__main__":

@@ -4,7 +4,7 @@ call_date: 2026-01-22
 period: "2025 Q4"
 source_type: prepared_remarks
 source_url: "https://d1io3yog0oux5.cloudfront.net/_88b01b330621eb4afbd070d5caa4f035/intel/db/887/9159/prepared_remarks/Intel-4Q2025-Earnings-Call+1+%281%29.pdf"
-source_sha256: "19f77e76c26084dbef4e91ffe1bbef8c362d111254568106095ccf6599ffcde9"
+source_sha256: "2fa6b1ae93483487b49a915a799272165143a71758d9fe4c6b298f16c29529fc"
 parser_version: 16
 tags:
   - earnings-call
@@ -18,7 +18,7 @@ tags:
 - **會議日期**：2026-01-22
 - **文字類型**：官方 Prepared Remarks。只包含管理層事先講稿，不含即席追問，不能代替完整電話會議。
 - **官方來源**：[文字材料](https://d1io3yog0oux5.cloudfront.net/_88b01b330621eb4afbd070d5caa4f035/intel/db/887/9159/prepared_remarks/Intel-4Q2025-Earnings-Call+1+%281%29.pdf)｜[IR 發現頁](https://www.intc.com/news-events/ir-calendar/detail/20260122-q4-2025-intel-corporation-earnings-conference-call)
-- **來源鏈驗證**：程式已在官方 IR 頁驗證材料直連
+- **來源鏈驗證**：官方頁受阻，採 180 天內人工官方連結覆核
 - **證據覆蓋**：6/7 類；這是閱讀索引，不是評分。
 - **方法限制**：每類只保留最多 22 個英文單字的短摘錄。未命中保留缺值；不把語氣關鍵字轉成投資建議。
 

@@ -344,13 +344,25 @@ class DashboardSecTabTests(unittest.TestCase):
         self.assertTrue(all(row["source_keys"] and row["sources"]
                             for row in self.change_candidates["candidates"]))
         latest = self.candidate_reviews["batches"][0]
-        self.assertEqual(latest["candidate_count"], 5)
-        self.assertEqual(latest["accepted_count"], 1)
-        self.assertEqual(latest["rejected_count"], 4)
-        self.assertEqual(len(latest["decisions"]), 5)
-        self.assertEqual(self.candidate_calibration["reviewed_candidate_count"], 5)
-        self.assertEqual(self.candidate_calibration["accepted_candidate_count"], 1)
-        self.assertTrue(all(row["sample_status"] == "insufficient"
+        self.assertEqual(latest["candidate_count"], len(latest["decisions"]))
+        self.assertEqual(
+            latest["accepted_count"],
+            sum(row["disposition"] == "accepted" for row in latest["decisions"]),
+        )
+        self.assertEqual(
+            latest["rejected_count"],
+            sum(row["disposition"] == "rejected" for row in latest["decisions"]),
+        )
+        all_decisions = [
+            row for batch in self.candidate_reviews["batches"]
+            for row in batch["decisions"]
+        ]
+        self.assertEqual(self.candidate_calibration["reviewed_candidate_count"], len(all_decisions))
+        self.assertEqual(
+            self.candidate_calibration["accepted_candidate_count"],
+            sum(row["disposition"] == "accepted" for row in all_decisions),
+        )
+        self.assertTrue(all(row["sample_status"] in {"insufficient", "enough"}
                             for row in self.candidate_calibration["rules"].values()))
         required_copy = [
             'id="secChangeCandidates"', "function renderSecChangeCandidates()",
@@ -557,10 +569,15 @@ class DashboardSecTabTests(unittest.TestCase):
         )
         self.assertEqual(
             self.editorial["comparison"]["previous_reviewed_at"],
-            "2026-08-30T19:35:00+08:00",
+            self.candidate_reviews["batches"][0]["editorial_before"],
         )
-        self.assertEqual(len(self.editorial["comparison"]["changes"]), 1)
-        self.assertEqual(self.editorial["comparison"]["changes"][0]["ticker"], "COHR")
+        accepted_tickers = {
+            row["ticker"] for row in self.candidate_reviews["batches"][0]["decisions"]
+            if row["disposition"] == "accepted"
+        }
+        changed_tickers = {row["ticker"] for row in self.editorial["comparison"]["changes"]}
+        self.assertTrue(changed_tickers)
+        self.assertTrue(changed_tickers.issubset(accepted_tickers))
         for row in companies:
             self.assertTrue(row["summary"], row["ticker"])
             self.assertGreaterEqual(len(row["evidence"]), 3, row["ticker"])

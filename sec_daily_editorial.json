@@ -1,22 +1,50 @@
 {
   "schema_version": 3,
-  "reviewed_at": "2026-09-01T20:46:16+08:00",
-  "window_start": "2026-08-19",
-  "window_end": "2026-09-01",
-  "last_candidate_review_id": "e7c6c19fd9e1",
+  "reviewed_at": "2026-09-08T21:51:51+08:00",
+  "window_start": "2026-09-02",
+  "window_end": "2026-09-08",
+  "last_candidate_review_id": "0e07b108ec6f",
   "title": "人工消化後的核心持股每日重點",
-  "headline": "真正需要先處理的是 ONDS 的獲利與稀釋、MRVL 的每股價值與條件式稀釋、NOK 的現金流，以及 COHR 的自由現金流；COHR 新增長期績效股獎勵的薪酬與潛在稀釋監測，其他本批內部人交易未改變結論。",
+  "headline": "核心基本面排序未變：ONDS、MRVL、NOK 與 COHR 仍是優先風險；本期新增 NVIDIA 的 Hugging Face 大型收購與董事大額減持、Apple 執行長交接、Microsoft FY27 分部重整，以及 COHR 董事主動出售監測，均尚未改變原有公司整體結論。",
   "method": "由 SEC／公司官方原文、八季財務趨勢、Form 4、13D／13G 與投資論點卡交叉閱讀後人工整理。排序是閱讀優先級，不是買賣評等。",
   "comparison": {
-    "previous_reviewed_at": "2026-08-30T19:35:00+08:00",
+    "previous_reviewed_at": "2026-09-01T20:46:16+08:00",
     "method": "只記錄相較前次人工判讀的新增風險、明確改善與足以改變結論的證據；未變項目不重複列出。",
     "changes": [
       {
         "type": "risk",
+        "ticker": "NVDA",
+        "summary": "新增 Hugging Face 大型收購的資本配置、監管與整合風險，但尚未改變 NVDA 財務與成長證據偏正向結論。",
+        "evidence": "NVIDIA 已簽署約 USD 11.9B 收購協議，另有最高約 USD 1.0B 員工股權留任計畫；預計 2027 年上半年完成，仍須監管核准。",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000078/nvda-20260902.htm"
+      },
+      {
+        "type": "risk",
+        "ticker": "NVDA",
+        "summary": "董事 Mark Stevens 三日內大額實際減持，新增內部人部位監測；公司層級流通股占比仍小，未改變基本面結論。",
+        "evidence": "Form 4 未標示 10b5-1；七列合計出售 1,848,501 股、約 USD 410.84M，約占該信託出售前持股 35.5%，但只占公司已發行股約 0.0077%。",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1045810/000119903926000012/xslF345X06/wk-form4_1788387031.xml"
+      },
+      {
+        "type": "risk",
+        "ticker": "AAPL",
+        "summary": "John Ternus 接任 CEO、Tim Cook 轉任執行董事長，新增領導交接與薪酬執行監測；目前沒有證據顯示財務結論改變。",
+        "evidence": "交接自 2026-09-01 生效；兩人的 FY27 股權獎勵目標合計 USD 100M，Ternus 75%、Cook 50% 為績效 RSU。",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126035325/ef20081427_8ka.htm"
+      },
+      {
+        "type": "risk",
+        "ticker": "MSFT",
+        "summary": "FY27 起改採兩個可報導分部並重新定義多項雲端與廣告指標，新增跨期可比性風險；公司總體指引與既有基本面結論未變。",
+        "evidence": "三分部改為 Agents and Infra、Devices and Consumer；GitHub、Security Copilot、Healthcare 與 LinkedIn 部分收入重新分類，必須改用官方重編的 FY25／FY26 基準。",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526380280/d291965dex991.htm"
+      },
+      {
+        "type": "risk",
         "ticker": "COHR",
-        "summary": "新增長期績效股獎勵的薪酬與潛在稀釋監測，但尚未改變 COHR 既有風險偏高結論。",
-        "evidence": "五名高管目標獎勵合計 USD 100M，100% 為 PSU；依四年股價與相對 TSR 門檻可取得目標數量 50%～200%，2030 年後另有一年持有期。實際 PSU 股數尚未披露。",
-        "source_url": "https://www.sec.gov/Archives/edgar/data/820318/000119312526375462/d110649d8k.htm"
+        "summary": "董事 Lisa Neal-Graves 在限制股歸屬後主動出售約 14.44% 的出售前直接持股，新增治理監測，但不改變 COHR 既有風險偏高結論。",
+        "evidence": "2026-09-02 非 10b5-1 出售 2,200 股、約 USD 590,524；交易後仍直接持有 13,033 股。",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/820318/000089914026001054/xslF345X06/form4.xml"
       }
     ]
   },
@@ -102,12 +130,13 @@
       "ticker": "COHR",
       "tone": "risk",
       "status": "風險偏高｜部分失效",
-      "summary": "AI 光通訊營收與毛利率改善，但連續負自由現金流及大型機構明顯減持仍未解除；新增長期績效股獎勵需監測薪酬成本與潛在稀釋。",
+      "summary": "AI 光通訊營收與毛利率改善，但連續負自由現金流及大型機構明顯減持仍未解除；長期績效股獎勵與一筆董事主動出售增加治理監測。",
       "evidence": [
         "營收 USD 2,045.5M，YoY +33.7%；毛利率 38.5%，連續 3 季改善。",
         "FCF USD -486.2M，已連續 5 季為負。",
         "FMR 持股降至 5.6%，減少約 11.6M 股、6.5pp；單筆 10b5-1 賣出約 USD 972K 的訊號較弱。",
-        "五名高管特殊 PSU 目標價值合計 USD 100M，100% 績效制；需同時達股價與相對 TSR 門檻，實際股數尚未披露。"
+        "五名高管特殊 PSU 目標價值合計 USD 100M，100% 績效制；需同時達股價與相對 TSR 門檻，實際股數尚未披露。",
+        "董事 Lisa Neal-Graves 非 10b5-1 出售 2,200 股、約 USD 590.5K，約占出售前直接持股 14.44%。"
       ],
       "watch": "下一季優先看 FCF、營運資金、資本支出及機構持股；並核對後續定期報告的獎勵協議、PSU 股數與稀釋影響。",
       "source_url": "https://www.sec.gov/Archives/edgar/data/820318/000082031826000020/0000820318-26-000020-index.html",
@@ -117,45 +146,48 @@
       "rank": 7,
       "ticker": "NVDA",
       "tone": "positive",
-      "status": "證據偏正向｜3 項論點全數支持",
-      "summary": "營收、定價能力與每股現金流仍是追蹤組合中最強；新增風險來自巨額供應／產能承諾、客戶保證與估值。",
+      "status": "證據偏正向｜大型併購與內部人出售待驗證",
+      "summary": "營收、定價能力與每股現金流仍是追蹤組合中最強；Hugging Face 大型收購與董事顯著降低信託部位，新增資本配置及治理監測。",
       "evidence": [
         "營收 USD 96,221.0M，YoY +105.9%；營業利益率 66.2%，FCF USD 21,400.0M。",
         "毛利率約 75.0%；稀釋股數 YoY -1.0%。",
-        "最新 10-Q 新增承諾、保證與執行風險揭露；中國 H200 出貨仍受限制。"
+        "最新 10-Q 新增承諾、保證與執行風險揭露；中國 H200 出貨仍受限制。",
+        "已簽署約 USD 11.9B 收購 Hugging Face，另有最高 USD 1.0B 股權留任計畫；Mark Stevens 非 10b5-1 出售 1,848,501 股、約占其信託出售前持股 35.5%。"
       ],
-      "watch": "核對下一季公司指引、供應承諾、資料中心電力與客戶付款條件，並另行評估估值。",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/nvda-20260726.htm",
+      "watch": "核對 Hugging Face 監管進度、收購資金與留任股權影響、Mark Stevens 後續實際出售；並持續追蹤供應承諾與估值。",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000078/nvda-20260902.htm",
       "coverage": {"ownership_accession": "0000102909-26-000426", "quarterly_key": "0001045810-26-000075|2026-07-26|2026-08-26", "thesis_fingerprint": "315aaca71a4c7136fd58", "enforcement_keys": []}
     },
     {
       "rank": 8,
       "ticker": "AAPL",
       "tone": "positive",
-      "status": "證據偏正向｜季節性校正後觀察",
-      "summary": "財務與回購紀律仍強；自動規則因連續三季季減標成部分失效，但 Apple 季節性高，不能單靠 QoQ 判定本業失效。",
+      "status": "證據偏正向｜CEO 交接待驗證",
+      "summary": "財務與回購紀律仍強；John Ternus 接任 CEO、Tim Cook 轉任執行董事長後，新增策略延續與執行交接監測。",
       "evidence": [
         "營收 USD 109,417.0M，YoY +16.4%；營業利益率 32.6%。",
         "FCF USD 31,914.0M；稀釋股數 YoY -1.6%。",
-        "Form 4 賣出約 USD 889.9K，均屬 10b5-1，訊號強度低。"
+        "John Ternus 自 2026-09-01 起任 CEO，Tim Cook 轉任執行董事長；FY27 股權獎勵目標合計 USD 100M。",
+        "近期 Form 4 賣出均屬 10b5-1，沒有新增主動減持訊號。"
       ],
-      "watch": "以 YoY、服務收入占比、毛利率與稀釋股數判讀，不以單純季減作結論。",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000020/0000320193-26-000020-index.html",
+      "watch": "追蹤新 CEO 下的產品與服務策略、管理層異動及執行連續性；財務仍以 YoY、服務收入、毛利率與稀釋股數判讀。",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126035325/ef20081427_8ka.htm",
       "coverage": {"ownership_accession": "0000102909-26-000630", "quarterly_key": "0000320193-26-000020|2026-06-27|2026-07-31", "thesis_fingerprint": "08c759a52fbe96a9380a", "enforcement_keys": []}
     },
     {
       "rank": 9,
       "ticker": "MSFT",
       "tone": "positive",
-      "status": "證據偏正向｜利潤率需校正",
-      "summary": "雲端與 AI 商業化仍支持雙位數成長；自動規則的連續季減警報需與 YoY 及 AI 折舊／資本支出共同判讀。",
+      "status": "證據偏正向｜FY27 新分部口徑待銜接",
+      "summary": "雲端與 AI 商業化仍支持雙位數成長；FY27 改採兩個分部並重新定義 Azure、Microsoft 365 與廣告指標，舊趨勢必須用官方重編資料銜接。",
       "evidence": [
         "營收 USD 90,007.0M，YoY +17.7%；營業利益率 45.1%，YoY +0.2pp。",
         "FCF USD 19,639.0M，連續 8 季為正。",
-        "近期沒有重大申報、主動 P／S 交易或新增募資文件。"
+        "FY27 起改為 Agents and Infra、Devices and Consumer；Exhibit 99.1 已提供 FY25／FY26 重編資料，總公司 FY27 Q1 指引未改。",
+        "Satya Nadella 出售 86,525 股均屬 10b5-1，不列為新增主動減持風險。"
       ],
-      "watch": "追蹤 Azure／AI 收入增速、折舊與資本支出對營業利益率及 FCF 的影響。",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/0001193125-26-323660-index.html",
+      "watch": "以官方重編 FY25／FY26 基準追蹤新分部與新 KPI，避免把分類移轉誤判為成長；並續看 AI 折舊、資本支出與 FCF。",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526380280/d291965dex991.htm",
       "coverage": {"ownership_accession": "0001086364-24-006985", "quarterly_key": "0001193125-26-323660|2026-06-30|2026-07-29", "thesis_fingerprint": "72e7c249219c8c0a42b6", "enforcement_keys": []}
     },
     {
