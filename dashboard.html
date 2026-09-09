@@ -927,6 +927,10 @@
     .radar-trend-summary .stable { color: #7dd3fc; }
     .radar-trend-summary .deteriorating { color: #fb7185; }
     .radar-trend-summary .unknown { color: #94a3b8; }
+    .radar-trend-summary .healthy { color: #34d399; }
+    .radar-trend-summary .watch { color: #fbbf24; }
+    .radar-trend-summary .risk { color: #fb7185; }
+    .radar-trend-summary-separator { color: #475569; }
     .radar-trend-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -956,6 +960,34 @@
     .radar-trend-value-row { margin-top: 8px; align-items: flex-end; }
     .radar-trend-latest { color: #f8fafc; font-size: 1.08rem; font-weight: 800; }
     .radar-trend-change { color: #94a3b8; font-size: 0.68rem; text-align: right; }
+    .radar-trend-level-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+      color: #64748b;
+      font-size: 0.67rem;
+    }
+    .radar-trend-level,
+    .radar-history-position {
+      display: inline-flex;
+      align-items: center;
+      min-height: 23px;
+      padding: 3px 7px;
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.025);
+      font-weight: 750;
+    }
+    .radar-trend-level.healthy { color: #34d399; border-color: rgba(52, 211, 153, 0.32); }
+    .radar-trend-level.watch { color: #fbbf24; border-color: rgba(251, 191, 36, 0.32); }
+    .radar-trend-level.risk { color: #fb7185; border-color: rgba(251, 113, 133, 0.34); }
+    .radar-trend-level.unknown { color: #94a3b8; }
+    .radar-history-position.favorable { color: #86efac; }
+    .radar-history-position.neutral { color: #7dd3fc; }
+    .radar-history-position.unfavorable { color: #fda4af; }
+    .radar-history-position.unknown { color: #94a3b8; }
     .radar-sparkline { display: block; width: 100%; height: 86px; margin-top: 7px; overflow: visible; }
     .radar-sparkline-frame { fill: rgba(255, 255, 255, 0.018); stroke: rgba(148, 163, 184, 0.12); }
     .radar-sparkline-zero { stroke: rgba(148, 163, 184, 0.22); stroke-dasharray: 3 3; }
@@ -3640,7 +3672,7 @@
             <div class="radar-trend-heading">
               <div>
                 <h4 id="longTermRadarTrendTitle">八季基本面趨勢</h4>
-                <p>顯示實際財務數字，不使用歷史雷達分數；箭頭代表方向，不代表絕對水準。</p>
+                <p>箭頭看改善／惡化；「目前水準」看絕對門檻；「自身位置」對照公司近八季，不使用歷史雷達分數。</p>
               </div>
               <label class="radar-trend-picker" for="longTermRadarTrendTicker">
                 趨勢公司
@@ -8500,16 +8532,28 @@
       const counts = (trends.summary || {}).counts || {};
       const strongest = (trends.summary || {}).strongest_improvement;
       const weakest = (trends.summary || {}).main_deterioration;
+      const levelCounts = (trends.summary || {}).level_counts || {};
+      const levelRisks = (trends.summary || {}).level_risks || [];
       summary.innerHTML = `<strong>${escapeSec(company.ticker)} 基本面方向</strong>` +
         `<span class="improving">↑ ${counts.improving || 0} 項改善</span>` +
         `<span class="stable">→ ${counts.stable || 0} 項持平</span>` +
         `<span class="deteriorating">↓ ${counts.deteriorating || 0} 項惡化</span>` +
         `${counts.unknown ? `<span class="unknown">? ${counts.unknown} 項資料不足</span>` : ''}` +
-        `<span>最大改善：${escapeSec(strongest || '無明顯改善')}｜主要惡化：${escapeSec(weakest || '無明顯惡化')}</span>`;
+        `<span>最大改善：${escapeSec(strongest || '無明顯改善')}｜主要惡化：${escapeSec(weakest || '無明顯惡化')}</span>` +
+        `<span class="radar-trend-summary-separator">｜目前水準</span>` +
+        `<span class="healthy">● ${levelCounts.healthy || 0} 項健康</span>` +
+        `<span class="watch">● ${levelCounts.watch || 0} 項留意</span>` +
+        `<span class="risk">● ${levelCounts.risk || 0} 項風險</span>` +
+        `${levelCounts.unknown ? `<span class="unknown">? ${levelCounts.unknown} 項資料不足</span>` : ''}` +
+        `<span>水準風險：${escapeSec(levelRisks.length ? levelRisks.join('、') : '目前沒有觸發')}</span>`;
 
       const stateIcons = { improving: '↑', stable: '→', deteriorating: '↓', unknown: '?' };
       grid.innerHTML = (trends.metrics || []).map(metric => {
         const state = ['improving', 'stable', 'deteriorating'].includes(metric.state) ? metric.state : 'unknown';
+        const currentLevel = metric.current_level || { state: 'unknown', label: '資料不足', basis: '' };
+        const levelState = ['healthy', 'watch', 'risk'].includes(currentLevel.state) ? currentLevel.state : 'unknown';
+        const historyPosition = metric.history_position || { state: 'unknown', label: '歷史資料不足' };
+        const positionState = ['favorable', 'neutral', 'unfavorable'].includes(historyPosition.state) ? historyPosition.state : 'unknown';
         const knownCount = (metric.points || []).filter(point => Number.isFinite(point.value)).length;
         const frequency = metric.frequency === 'annual' ? `最近 ${knownCount} 年` : `最近 ${knownCount} 季`;
         return `<article class="radar-trend-card">` +
@@ -8517,6 +8561,9 @@
           `<span class="radar-trend-state ${state}">${stateIcons[state]} ${escapeSec(metric.state_label)}</span></div>` +
           `<div class="radar-trend-value-row"><span class="radar-trend-latest">${escapeSec(metric.latest_display)}</span>` +
           `<span class="radar-trend-change">${escapeSec(metric.change_display)}</span></div>` +
+          `<div class="radar-trend-level-row"><span>目前水準</span>` +
+          `<span class="radar-trend-level ${levelState}" title="${escapeSec(currentLevel.basis || '')}">● ${escapeSec(currentLevel.label)}</span>` +
+          `<span class="radar-history-position ${positionState}">${escapeSec(historyPosition.label)}</span></div>` +
           radarSparklineHtml(metric) + `<p class="radar-trend-note">${escapeSec(metric.note)}</p></article>`;
       }).join('') || '<div class="radar-trend-card">目前沒有可顯示的趨勢資料。</div>';
     }

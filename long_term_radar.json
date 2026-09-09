@@ -386,7 +386,14 @@
             "unknown": 0
           },
           "strongest_improvement": "營收成長",
-          "main_deterioration": "財務壓力（年度）"
+          "main_deterioration": "財務壓力（年度）",
+          "level_counts": {
+            "healthy": 6,
+            "watch": 0,
+            "risk": 0,
+            "unknown": 0
+          },
+          "level_risks": []
         },
         "metrics": [
           {
@@ -398,6 +405,16 @@
             "latest_display": "+105.9%",
             "change_display": "較前季 YoY +20.6pp",
             "signal_strength": 10.312,
+            "current_level": {
+              "state": "healthy",
+              "label": "高成長，留意低基期",
+              "basis": "以 YoY 10%／0% 作為成長、低速與衰退的篩選線；超過 100% 另提醒低基期。"
+            },
+            "history_position": {
+              "state": "favorable",
+              "label": "近 8 季較有利位置",
+              "percentile": 100
+            },
             "note": "最多八季營收年增率；箭頭比較本季 YoY 與前季 YoY，判斷成長加速或減速。",
             "points": [
               {
@@ -451,6 +468,16 @@
             "latest_display": "75.0%",
             "change_display": "較去年同期 +2.6pp",
             "signal_strength": 2.552,
+            "current_level": {
+              "state": "healthy",
+              "label": "毛利率 ≥40%",
+              "basis": "40%／20% 是跨公司初篩線，不取代同產業比較；旁列自身歷史位置補充判讀。"
+            },
+            "history_position": {
+              "state": "favorable",
+              "label": "近 8 季較有利位置",
+              "percentile": 86
+            },
             "note": "最多八季實際比率；箭頭以最新季對去年同期的百分點變化判定。",
             "points": [
               {
@@ -504,6 +531,16 @@
             "latest_display": "66.2%",
             "change_display": "較去年同期 +5.4pp",
             "signal_strength": 5.394,
+            "current_level": {
+              "state": "healthy",
+              "label": "營業利益率 ≥15%",
+              "basis": "15%／0% 區分較強本業獲利、低利潤與營業虧損。"
+            },
+            "history_position": {
+              "state": "favorable",
+              "label": "近 8 季較有利位置",
+              "percentile": 100
+            },
             "note": "最多八季實際比率；箭頭以最新季對去年同期的百分點變化判定。",
             "points": [
               {
@@ -557,6 +594,16 @@
             "latest_display": "22.2%",
             "change_display": "較去年同期 -6.6pp",
             "signal_strength": -3.288,
+            "current_level": {
+              "state": "healthy",
+              "label": "FCF 利潤率 ≥10%",
+              "basis": "10%／0% 區分較強現金創造、低正值與現金流出。"
+            },
+            "history_position": {
+              "state": "unfavorable",
+              "label": "近 8 季較不利位置",
+              "percentile": 0
+            },
             "note": "最多八季自由現金流除以同季營收；現金流季間波動較大，以 2pp 作為方向門檻。",
             "points": [
               {
@@ -610,6 +657,16 @@
             "latest_display": "-1.0%",
             "change_display": "YoY -1.0%；股數下降較有利",
             "signal_strength": 2.014,
+            "current_level": {
+              "state": "healthy",
+              "label": "股數未增加",
+              "basis": "0%／2% 區分未稀釋、輕度稀釋與需留意的股東權益稀釋。"
+            },
+            "history_position": {
+              "state": "neutral",
+              "label": "近 6 季中段位置",
+              "percentile": 40
+            },
             "note": "最多八季稀釋加權平均股數年增率；採反向判讀，股數下降為改善。",
             "points": [
               {
@@ -663,6 +720,16 @@
             "latest_display": "淨現金 USD 22.6B",
             "change_display": "較前一年 減少 USD 12.2B",
             "signal_strength": -7.012,
+            "current_level": {
+              "state": "healthy",
+              "label": "維持淨現金",
+              "basis": "淨負債只列為留意，不能單憑正負判定風險；仍需搭配利息保障與槓桿倍數。"
+            },
+            "history_position": {
+              "state": "favorable",
+              "label": "近 4 年較有利位置",
+              "percentile": 67
+            },
             "note": "年度現金及短期投資減有息負債；受限於可靠來源頻率，不標示成季度趨勢。",
             "points": [
               {
@@ -1041,7 +1108,14 @@
             "unknown": 1
           },
           "strongest_improvement": "營業利益率",
-          "main_deterioration": null
+          "main_deterioration": null,
+          "level_counts": {
+            "healthy": 5,
+            "watch": 0,
+            "risk": 0,
+            "unknown": 1
+          },
+          "level_risks": []
         },
         "metrics": [
           {
@@ -1053,6 +1127,16 @@
             "latest_display": "+36.0%",
             "change_display": "較前季 YoY +0.9pp",
             "signal_strength": 0.457,
+            "current_level": {
+              "state": "healthy",
+              "label": "營收年增 ≥10%",
+              "basis": "以 YoY 10%／0% 作為成長、低速與衰退的篩選線；超過 100% 另提醒低基期。"
+            },
+            "history_position": {
+              "state": "favorable",
+              "label": "近 4 季較有利位置",
+              "percentile": 100
+            },
             "note": "最多八季營收年增率；箭頭比較本季 YoY 與前季 YoY，判斷成長加速或減速。",
             "points": [
               {
@@ -1106,6 +1190,16 @@
             "latest_display": "67.7%",
             "change_display": "較去年同期 +9.1pp",
             "signal_strength": 9.1,
+            "current_level": {
+              "state": "healthy",
+              "label": "毛利率 ≥40%",
+              "basis": "40%／20% 是跨公司初篩線，不取代同產業比較；旁列自身歷史位置補充判讀。"
+            },
+            "history_position": {
+              "state": "favorable",
+              "label": "近 8 季較有利位置",
+              "percentile": 100
+            },
             "note": "最多八季實際比率；箭頭以最新季對去年同期的百分點變化判定。",
             "points": [
               {
@@ -1159,6 +1253,16 @@
             "latest_display": "60.3%",
             "change_display": "較去年同期 +10.7pp",
             "signal_strength": 10.7,
+            "current_level": {
+              "state": "healthy",
+              "label": "營業利益率 ≥15%",
+              "basis": "15%／0% 區分較強本業獲利、低利潤與營業虧損。"
+            },
+            "history_position": {
+              "state": "favorable",
+              "label": "近 8 季較有利位置",
+              "percentile": 100
+            },
             "note": "最多八季實際比率；箭頭以最新季對去年同期的百分點變化判定。",
             "points": [
               {
@@ -1212,6 +1316,16 @@
             "latest_display": "22.6%",
             "change_display": "較去年同期 +1.2pp",
             "signal_strength": 0.609,
+            "current_level": {
+              "state": "healthy",
+              "label": "FCF 利潤率 ≥10%",
+              "basis": "10%／0% 區分較強現金創造、低正值與現金流出。"
+            },
+            "history_position": {
+              "state": "unfavorable",
+              "label": "近 8 季較不利位置",
+              "percentile": 29
+            },
             "note": "最多八季自由現金流除以同季營收；現金流季間波動較大，以 2pp 作為方向門檻。",
             "points": [
               {
@@ -1265,6 +1379,16 @@
             "latest_display": "資料不足",
             "change_display": "缺少去年同期股數",
             "signal_strength": null,
+            "current_level": {
+              "state": "unknown",
+              "label": "資料不足",
+              "basis": "缺少最新可比數值。"
+            },
+            "history_position": {
+              "state": "unknown",
+              "label": "歷史資料不足",
+              "percentile": null
+            },
             "note": "最多八季稀釋加權平均股數年增率；採反向判讀，股數下降為改善。",
             "points": [
               {
@@ -1318,6 +1442,16 @@
             "latest_display": "淨現金 TWD 54.3B",
             "change_display": "較前一年 增加 TWD 21.3B",
             "signal_strength": 7.859,
+            "current_level": {
+              "state": "healthy",
+              "label": "維持淨現金",
+              "basis": "淨負債只列為留意，不能單憑正負判定風險；仍需搭配利息保障與槓桿倍數。"
+            },
+            "history_position": {
+              "state": "favorable",
+              "label": "近 4 年較有利位置",
+              "percentile": 100
+            },
             "note": "年度現金及短期投資減有息負債；受限於可靠來源頻率，不標示成季度趨勢。",
             "points": [
               {
@@ -1685,7 +1819,14 @@
             "unknown": 1
           },
           "strongest_improvement": null,
-          "main_deterioration": "FCF 利潤率"
+          "main_deterioration": "FCF 利潤率",
+          "level_counts": {
+            "healthy": 5,
+            "watch": 0,
+            "risk": 0,
+            "unknown": 1
+          },
+          "level_risks": []
         },
         "metrics": [
           {
@@ -1697,6 +1838,16 @@
             "latest_display": "+17.7%",
             "change_display": "較前季 YoY -0.6pp",
             "signal_strength": -0.275,
+            "current_level": {
+              "state": "healthy",
+              "label": "營收年增 ≥10%",
+              "basis": "以 YoY 10%／0% 作為成長、低速與衰退的篩選線；超過 100% 另提醒低基期。"
+            },
+            "history_position": {
+              "state": "neutral",
+              "label": "近 8 季中段位置",
+              "percentile": 57
+            },
             "note": "最多八季營收年增率；箭頭比較本季 YoY 與前季 YoY，判斷成長加速或減速。",
             "points": [
               {
@@ -1750,6 +1901,16 @@
             "latest_display": "67.2%",
             "change_display": "較去年同期 -1.4pp",
             "signal_strength": -1.388,
+            "current_level": {
+              "state": "healthy",
+              "label": "毛利率 ≥40%",
+              "basis": "40%／20% 是跨公司初篩線，不取代同產業比較；旁列自身歷史位置補充判讀。"
+            },
+            "history_position": {
+              "state": "unfavorable",
+              "label": "近 8 季較不利位置",
+              "percentile": 0
+            },
             "note": "最多八季實際比率；箭頭以最新季對去年同期的百分點變化判定。",
             "points": [
               {
@@ -1803,6 +1964,16 @@
             "latest_display": "45.1%",
             "change_display": "較去年同期 +0.2pp",
             "signal_strength": 0.21,
+            "current_level": {
+              "state": "healthy",
+              "label": "營業利益率 ≥15%",
+              "basis": "15%／0% 區分較強本業獲利、低利潤與營業虧損。"
+            },
+            "history_position": {
+              "state": "unfavorable",
+              "label": "近 8 季較不利位置",
+              "percentile": 14
+            },
             "note": "最多八季實際比率；箭頭以最新季對去年同期的百分點變化判定。",
             "points": [
               {
@@ -1856,6 +2027,16 @@
             "latest_display": "21.8%",
             "change_display": "較去年同期 -11.6pp",
             "signal_strength": -5.814,
+            "current_level": {
+              "state": "healthy",
+              "label": "FCF 利潤率 ≥10%",
+              "basis": "10%／0% 區分較強現金創造、低正值與現金流出。"
+            },
+            "history_position": {
+              "state": "neutral",
+              "label": "近 8 季中段位置",
+              "percentile": 43
+            },
             "note": "最多八季自由現金流除以同季營收；現金流季間波動較大，以 2pp 作為方向門檻。",
             "points": [
               {
@@ -1909,6 +2090,16 @@
             "latest_display": "資料不足",
             "change_display": "缺少去年同期股數",
             "signal_strength": null,
+            "current_level": {
+              "state": "unknown",
+              "label": "資料不足",
+              "basis": "缺少最新可比數值。"
+            },
+            "history_position": {
+              "state": "unknown",
+              "label": "歷史資料不足",
+              "percentile": null
+            },
             "note": "最多八季稀釋加權平均股數年增率；採反向判讀，股數下降為改善。",
             "points": [
               {
@@ -1962,6 +2153,16 @@
             "latest_display": "淨現金 USD 36.5B",
             "change_display": "較前一年 減少 USD 14.9B",
             "signal_strength": -5.782,
+            "current_level": {
+              "state": "healthy",
+              "label": "維持淨現金",
+              "basis": "淨負債只列為留意，不能單憑正負判定風險；仍需搭配利息保障與槓桿倍數。"
+            },
+            "history_position": {
+              "state": "unfavorable",
+              "label": "近 4 年較不利位置",
+              "percentile": 33
+            },
             "note": "年度現金及短期投資減有息負債；受限於可靠來源頻率，不標示成季度趨勢。",
             "points": [
               {
@@ -2335,7 +2536,14 @@
             "unknown": 0
           },
           "strongest_improvement": null,
-          "main_deterioration": "營業利益率"
+          "main_deterioration": "營業利益率",
+          "level_counts": {
+            "healthy": 5,
+            "watch": 1,
+            "risk": 0,
+            "unknown": 0
+          },
+          "level_risks": []
         },
         "metrics": [
           {
@@ -2347,6 +2555,16 @@
             "latest_display": "+28.0%",
             "change_display": "較前季 YoY -5.1pp",
             "signal_strength": -2.56,
+            "current_level": {
+              "state": "healthy",
+              "label": "營收年增 ≥10%",
+              "basis": "以 YoY 10%／0% 作為成長、低速與衰退的篩選線；超過 100% 另提醒低基期。"
+            },
+            "history_position": {
+              "state": "favorable",
+              "label": "近 8 季較有利位置",
+              "percentile": 86
+            },
             "note": "最多八季營收年增率；箭頭比較本季 YoY 與前季 YoY，判斷成長加速或減速。",
             "points": [
               {
@@ -2400,6 +2618,16 @@
             "latest_display": "81.4%",
             "change_display": "較去年同期 -0.8pp",
             "signal_strength": -0.765,
+            "current_level": {
+              "state": "healthy",
+              "label": "毛利率 ≥40%",
+              "basis": "40%／20% 是跨公司初篩線，不取代同產業比較；旁列自身歷史位置補充判讀。"
+            },
+            "history_position": {
+              "state": "unfavorable",
+              "label": "近 8 季較不利位置",
+              "percentile": 0
+            },
             "note": "最多八季實際比率；箭頭以最新季對去年同期的百分點變化判定。",
             "points": [
               {
@@ -2453,6 +2681,16 @@
             "latest_display": "30.9%",
             "change_display": "較去年同期 -12.1pp",
             "signal_strength": -12.14,
+            "current_level": {
+              "state": "healthy",
+              "label": "營業利益率 ≥15%",
+              "basis": "15%／0% 區分較強本業獲利、低利潤與營業虧損。"
+            },
+            "history_position": {
+              "state": "unfavorable",
+              "label": "近 8 季較不利位置",
+              "percentile": 0
+            },
             "note": "最多八季實際比率；箭頭以最新季對去年同期的百分點變化判定。",
             "points": [
               {
@@ -2506,6 +2744,16 @@
             "latest_display": "2.9%",
             "change_display": "較去年同期 -16.1pp",
             "signal_strength": -8.059,
+            "current_level": {
+              "state": "watch",
+              "label": "FCF 為正但低於 10%",
+              "basis": "10%／0% 區分較強現金創造、低正值與現金流出。"
+            },
+            "history_position": {
+              "state": "unfavorable",
+              "label": "近 8 季較不利位置",
+              "percentile": 0
+            },
             "note": "最多八季自由現金流除以同季營收；現金流季間波動較大，以 2pp 作為方向門檻。",
             "points": [
               {
@@ -2559,6 +2807,16 @@
             "latest_display": "-0.2%",
             "change_display": "YoY -0.2%；股數下降較有利",
             "signal_strength": 0.311,
+            "current_level": {
+              "state": "healthy",
+              "label": "股數未增加",
+              "basis": "0%／2% 區分未稀釋、輕度稀釋與需留意的股東權益稀釋。"
+            },
+            "history_position": {
+              "state": "unfavorable",
+              "label": "近 6 季較不利位置",
+              "percentile": 0
+            },
             "note": "最多八季稀釋加權平均股數年增率；採反向判讀，股數下降為改善。",
             "points": [
               {
@@ -2612,6 +2870,16 @@
             "latest_display": "淨現金 USD 21.7B",
             "change_display": "較前一年 減少 USD 26.6B",
             "signal_strength": -11.026,
+            "current_level": {
+              "state": "healthy",
+              "label": "維持淨現金",
+              "basis": "淨負債只列為留意，不能單憑正負判定風險；仍需搭配利息保障與槓桿倍數。"
+            },
+            "history_position": {
+              "state": "unfavorable",
+              "label": "近 4 年較不利位置",
+              "percentile": 0
+            },
             "note": "年度現金及短期投資減有息負債；受限於可靠來源頻率，不標示成季度趨勢。",
             "points": [
               {
@@ -2990,7 +3258,14 @@
             "unknown": 0
           },
           "strongest_improvement": "毛利率",
-          "main_deterioration": "財務壓力（年度）"
+          "main_deterioration": "財務壓力（年度）",
+          "level_counts": {
+            "healthy": 5,
+            "watch": 1,
+            "risk": 0,
+            "unknown": 0
+          },
+          "level_risks": []
         },
         "metrics": [
           {
@@ -3002,6 +3277,16 @@
             "latest_display": "+16.4%",
             "change_display": "較前季 YoY -0.2pp",
             "signal_strength": -0.119,
+            "current_level": {
+              "state": "healthy",
+              "label": "營收年增 ≥10%",
+              "basis": "以 YoY 10%／0% 作為成長、低速與衰退的篩選線；超過 100% 另提醒低基期。"
+            },
+            "history_position": {
+              "state": "favorable",
+              "label": "近 8 季較有利位置",
+              "percentile": 86
+            },
             "note": "最多八季營收年增率；箭頭比較本季 YoY 與前季 YoY，判斷成長加速或減速。",
             "points": [
               {
@@ -3055,6 +3340,16 @@
             "latest_display": "50.1%",
             "change_display": "較去年同期 +3.6pp",
             "signal_strength": 3.566,
+            "current_level": {
+              "state": "healthy",
+              "label": "毛利率 ≥40%",
+              "basis": "40%／20% 是跨公司初篩線，不取代同產業比較；旁列自身歷史位置補充判讀。"
+            },
+            "history_position": {
+              "state": "favorable",
+              "label": "近 8 季較有利位置",
+              "percentile": 100
+            },
             "note": "最多八季實際比率；箭頭以最新季對去年同期的百分點變化判定。",
             "points": [
               {
@@ -3108,6 +3403,16 @@
             "latest_display": "32.6%",
             "change_display": "較去年同期 +2.6pp",
             "signal_strength": 2.632,
+            "current_level": {
+              "state": "healthy",
+              "label": "營業利益率 ≥15%",
+              "basis": "15%／0% 區分較強本業獲利、低利潤與營業虧損。"
+            },
+            "history_position": {
+              "state": "favorable",
+              "label": "近 8 季較有利位置",
+              "percentile": 71
+            },
             "note": "最多八季實際比率；箭頭以最新季對去年同期的百分點變化判定。",
             "points": [
               {
@@ -3161,6 +3466,16 @@
             "latest_display": "29.2%",
             "change_display": "較去年同期 +3.2pp",
             "signal_strength": 1.607,
+            "current_level": {
+              "state": "healthy",
+              "label": "FCF 利潤率 ≥10%",
+              "basis": "10%／0% 區分較強現金創造、低正值與現金流出。"
+            },
+            "history_position": {
+              "state": "favorable",
+              "label": "近 8 季較有利位置",
+              "percentile": 86
+            },
             "note": "最多八季自由現金流除以同季營收；現金流季間波動較大，以 2pp 作為方向門檻。",
             "points": [
               {
@@ -3214,6 +3529,16 @@
             "latest_display": "-1.6%",
             "change_display": "YoY -1.6%；股數下降較有利",
             "signal_strength": 3.124,
+            "current_level": {
+              "state": "healthy",
+              "label": "股數未增加",
+              "basis": "0%／2% 區分未稀釋、輕度稀釋與需留意的股東權益稀釋。"
+            },
+            "history_position": {
+              "state": "unfavorable",
+              "label": "近 6 季較不利位置",
+              "percentile": 0
+            },
             "note": "最多八季稀釋加權平均股數年增率；採反向判讀，股數下降為改善。",
             "points": [
               {
@@ -3267,6 +3592,16 @@
             "latest_display": "淨負債 USD 37.2B",
             "change_display": "較前一年 減少 USD 4.8B",
             "signal_strength": -2.593,
+            "current_level": {
+              "state": "watch",
+              "label": "處於淨負債",
+              "basis": "淨負債只列為留意，不能單憑正負判定風險；仍需搭配利息保障與槓桿倍數。"
+            },
+            "history_position": {
+              "state": "favorable",
+              "label": "近 4 年較有利位置",
+              "percentile": 67
+            },
             "note": "年度現金及短期投資減有息負債；受限於可靠來源頻率，不標示成季度趨勢。",
             "points": [
               {
@@ -3655,7 +3990,16 @@
             "unknown": 0
           },
           "strongest_improvement": "財務壓力（年度）",
-          "main_deterioration": "FCF 利潤率"
+          "main_deterioration": "FCF 利潤率",
+          "level_counts": {
+            "healthy": 3,
+            "watch": 2,
+            "risk": 1,
+            "unknown": 0
+          },
+          "level_risks": [
+            "FCF 利潤率"
+          ]
         },
         "metrics": [
           {
@@ -3667,6 +4011,16 @@
             "latest_display": "+19.6%",
             "change_display": "較前季 YoY +3.0pp",
             "signal_strength": 1.507,
+            "current_level": {
+              "state": "healthy",
+              "label": "營收年增 ≥10%",
+              "basis": "以 YoY 10%／0% 作為成長、低速與衰退的篩選線；超過 100% 另提醒低基期。"
+            },
+            "history_position": {
+              "state": "favorable",
+              "label": "近 8 季較有利位置",
+              "percentile": 100
+            },
             "note": "最多八季營收年增率；箭頭比較本季 YoY 與前季 YoY，判斷成長加速或減速。",
             "points": [
               {
@@ -3720,6 +4074,16 @@
             "latest_display": "52.3%",
             "change_display": "較去年同期 +0.4pp",
             "signal_strength": 0.442,
+            "current_level": {
+              "state": "healthy",
+              "label": "毛利率 ≥40%",
+              "basis": "40%／20% 是跨公司初篩線，不取代同產業比較；旁列自身歷史位置補充判讀。"
+            },
+            "history_position": {
+              "state": "favorable",
+              "label": "近 8 季較有利位置",
+              "percentile": 100
+            },
             "note": "最多八季實際比率；箭頭以最新季對去年同期的百分點變化判定。",
             "points": [
               {
@@ -3773,6 +4137,16 @@
             "latest_display": "13.7%",
             "change_display": "較去年同期 +2.3pp",
             "signal_strength": 2.257,
+            "current_level": {
+              "state": "watch",
+              "label": "獲利為正但低於 15%",
+              "basis": "15%／0% 區分較強本業獲利、低利潤與營業虧損。"
+            },
+            "history_position": {
+              "state": "favorable",
+              "label": "近 8 季較有利位置",
+              "percentile": 100
+            },
             "note": "最多八季實際比率；箭頭以最新季對去年同期的百分點變化判定。",
             "points": [
               {
@@ -3826,6 +4200,16 @@
             "latest_display": "-4.4%",
             "change_display": "較去年同期 -4.6pp",
             "signal_strength": -2.298,
+            "current_level": {
+              "state": "risk",
+              "label": "FCF 為負",
+              "basis": "10%／0% 區分較強現金創造、低正值與現金流出。"
+            },
+            "history_position": {
+              "state": "unfavorable",
+              "label": "近 8 季較不利位置",
+              "percentile": 29
+            },
             "note": "最多八季自由現金流除以同季營收；現金流季間波動較大，以 2pp 作為方向門檻。",
             "points": [
               {
@@ -3879,6 +4263,16 @@
             "latest_display": "+0.9%",
             "change_display": "YoY +0.9%；股數下降較有利",
             "signal_strength": -1.795,
+            "current_level": {
+              "state": "watch",
+              "label": "年稀釋不超過 2%",
+              "basis": "0%／2% 區分未稀釋、輕度稀釋與需留意的股東權益稀釋。"
+            },
+            "history_position": {
+              "state": "favorable",
+              "label": "近 6 季較有利位置",
+              "percentile": 80
+            },
             "note": "最多八季稀釋加權平均股數年增率；採反向判讀，股數下降為改善。",
             "points": [
               {
@@ -3932,6 +4326,16 @@
             "latest_display": "淨現金 USD 42.3B",
             "change_display": "較前一年 增加 USD 9.4B",
             "signal_strength": 4.433,
+            "current_level": {
+              "state": "healthy",
+              "label": "維持淨現金",
+              "basis": "淨負債只列為留意，不能單憑正負判定風險；仍需搭配利息保障與槓桿倍數。"
+            },
+            "history_position": {
+              "state": "favorable",
+              "label": "近 4 年較有利位置",
+              "percentile": 100
+            },
             "note": "年度現金及短期投資減有息負債；受限於可靠來源頻率，不標示成季度趨勢。",
             "points": [
               {
@@ -4305,7 +4709,14 @@
             "unknown": 0
           },
           "strongest_improvement": "FCF 利潤率",
-          "main_deterioration": "營業利益率"
+          "main_deterioration": "營業利益率",
+          "level_counts": {
+            "healthy": 4,
+            "watch": 2,
+            "risk": 0,
+            "unknown": 0
+          },
+          "level_risks": []
         },
         "metrics": [
           {
@@ -4317,6 +4728,16 @@
             "latest_display": "+22.4%",
             "change_display": "較前季 YoY +2.3pp",
             "signal_strength": 1.174,
+            "current_level": {
+              "state": "healthy",
+              "label": "營收年增 ≥10%",
+              "basis": "以 YoY 10%／0% 作為成長、低速與衰退的篩選線；超過 100% 另提醒低基期。"
+            },
+            "history_position": {
+              "state": "neutral",
+              "label": "近 8 季中段位置",
+              "percentile": 57
+            },
             "note": "最多八季營收年增率；箭頭比較本季 YoY 與前季 YoY，判斷成長加速或減速。",
             "points": [
               {
@@ -4370,6 +4791,16 @@
             "latest_display": "97.2%",
             "change_display": "較去年同期 +0.1pp",
             "signal_strength": 0.056,
+            "current_level": {
+              "state": "healthy",
+              "label": "毛利率 ≥40%",
+              "basis": "40%／20% 是跨公司初篩線，不取代同產業比較；旁列自身歷史位置補充判讀。"
+            },
+            "history_position": {
+              "state": "neutral",
+              "label": "近 8 季中段位置",
+              "percentile": 43
+            },
             "note": "最多八季實際比率；箭頭以最新季對去年同期的百分點變化判定。",
             "points": [
               {
@@ -4423,6 +4854,16 @@
             "latest_display": "7.1%",
             "change_display": "較去年同期 -3.8pp",
             "signal_strength": -3.766,
+            "current_level": {
+              "state": "watch",
+              "label": "獲利為正但低於 15%",
+              "basis": "15%／0% 區分較強本業獲利、低利潤與營業虧損。"
+            },
+            "history_position": {
+              "state": "unfavorable",
+              "label": "近 8 季較不利位置",
+              "percentile": 0
+            },
             "note": "最多八季實際比率；箭頭以最新季對去年同期的百分點變化判定。",
             "points": [
               {
@@ -4476,6 +4917,16 @@
             "latest_display": "54.7%",
             "change_display": "較去年同期 +37.8pp",
             "signal_strength": 18.895,
+            "current_level": {
+              "state": "healthy",
+              "label": "FCF 利潤率 ≥10%",
+              "basis": "10%／0% 區分較強現金創造、低正值與現金流出。"
+            },
+            "history_position": {
+              "state": "favorable",
+              "label": "近 8 季較有利位置",
+              "percentile": 100
+            },
             "note": "最多八季自由現金流除以同季營收；現金流季間波動較大，以 2pp 作為方向門檻。",
             "points": [
               {
@@ -4529,6 +4980,16 @@
             "latest_display": "+1.2%",
             "change_display": "YoY +1.2%；股數下降較有利",
             "signal_strength": -2.441,
+            "current_level": {
+              "state": "watch",
+              "label": "年稀釋不超過 2%",
+              "basis": "0%／2% 區分未稀釋、輕度稀釋與需留意的股東權益稀釋。"
+            },
+            "history_position": {
+              "state": "neutral",
+              "label": "近 6 季中段位置",
+              "percentile": 40
+            },
             "note": "最多八季稀釋加權平均股數年增率；採反向判讀，股數下降為改善。",
             "points": [
               {
@@ -4582,6 +5043,16 @@
             "latest_display": "淨現金 USD 3.5B",
             "change_display": "較前一年 增加 USD 742.0M",
             "signal_strength": 4.19,
+            "current_level": {
+              "state": "healthy",
+              "label": "維持淨現金",
+              "basis": "淨負債只列為留意，不能單憑正負判定風險；仍需搭配利息保障與槓桿倍數。"
+            },
+            "history_position": {
+              "state": "favorable",
+              "label": "近 4 年較有利位置",
+              "percentile": 100
+            },
             "note": "年度現金及短期投資減有息負債；受限於可靠來源頻率，不標示成季度趨勢。",
             "points": [
               {
@@ -4960,7 +5431,18 @@
             "unknown": 0
           },
           "strongest_improvement": "營收成長",
-          "main_deterioration": "稀釋股數"
+          "main_deterioration": "稀釋股數",
+          "level_counts": {
+            "healthy": 3,
+            "watch": 0,
+            "risk": 3,
+            "unknown": 0
+          },
+          "level_risks": [
+            "營業利益率",
+            "FCF 利潤率",
+            "稀釋股數"
+          ]
         },
         "metrics": [
           {
@@ -4972,6 +5454,16 @@
             "latest_display": "+1235.4%",
             "change_display": "較前季 YoY +155.5pp",
             "signal_strength": 77.771,
+            "current_level": {
+              "state": "healthy",
+              "label": "高成長，留意低基期",
+              "basis": "以 YoY 10%／0% 作為成長、低速與衰退的篩選線；超過 100% 另提醒低基期。"
+            },
+            "history_position": {
+              "state": "favorable",
+              "label": "近 8 季較有利位置",
+              "percentile": 100
+            },
             "note": "最多八季營收年增率；箭頭比較本季 YoY 與前季 YoY，判斷成長加速或減速。",
             "points": [
               {
@@ -5025,6 +5517,16 @@
             "latest_display": "43.1%",
             "change_display": "較去年同期 -10.0pp",
             "signal_strength": -9.986,
+            "current_level": {
+              "state": "healthy",
+              "label": "毛利率 ≥40%",
+              "basis": "40%／20% 是跨公司初篩線，不取代同產業比較；旁列自身歷史位置補充判讀。"
+            },
+            "history_position": {
+              "state": "favorable",
+              "label": "近 8 季較有利位置",
+              "percentile": 71
+            },
             "note": "最多八季實際比率；箭頭以最新季對去年同期的百分點變化判定。",
             "points": [
               {
@@ -5078,6 +5580,16 @@
             "latest_display": "-194.5%",
             "change_display": "較去年同期 -47.1pp",
             "signal_strength": -47.054,
+            "current_level": {
+              "state": "risk",
+              "label": "營業虧損",
+              "basis": "15%／0% 區分較強本業獲利、低利潤與營業虧損。"
+            },
+            "history_position": {
+              "state": "neutral",
+              "label": "近 8 季中段位置",
+              "percentile": 43
+            },
             "note": "最多八季實際比率；箭頭以最新季對去年同期的百分點變化判定。",
             "points": [
               {
@@ -5131,6 +5643,16 @@
             "latest_display": "-112.0%",
             "change_display": "較去年同期 +23.5pp",
             "signal_strength": 11.74,
+            "current_level": {
+              "state": "risk",
+              "label": "FCF 為負",
+              "basis": "10%／0% 區分較強現金創造、低正值與現金流出。"
+            },
+            "history_position": {
+              "state": "neutral",
+              "label": "近 8 季中段位置",
+              "percentile": 57
+            },
             "note": "最多八季自由現金流除以同季營收；現金流季間波動較大，以 2pp 作為方向門檻。",
             "points": [
               {
@@ -5184,6 +5706,16 @@
             "latest_display": "+234.3%",
             "change_display": "YoY +234.3%；股數下降較有利",
             "signal_strength": -468.547,
+            "current_level": {
+              "state": "risk",
+              "label": "年稀釋超過 2%",
+              "basis": "0%／2% 區分未稀釋、輕度稀釋與需留意的股東權益稀釋。"
+            },
+            "history_position": {
+              "state": "neutral",
+              "label": "近 4 季中段位置",
+              "percentile": 33
+            },
             "note": "最多八季稀釋加權平均股數年增率；採反向判讀，股數下降為改善。",
             "points": [
               {
@@ -5237,6 +5769,16 @@
             "latest_display": "淨現金 USD 542.5M",
             "change_display": "較前一年 增加 USD 561.9M",
             "signal_strength": 20.716,
+            "current_level": {
+              "state": "healthy",
+              "label": "維持淨現金",
+              "basis": "淨負債只列為留意，不能單憑正負判定風險；仍需搭配利息保障與槓桿倍數。"
+            },
+            "history_position": {
+              "state": "unknown",
+              "label": "歷史資料不足",
+              "percentile": null
+            },
             "note": "年度現金及短期投資減有息負債；受限於可靠來源頻率，不標示成季度趨勢。",
             "points": [
               {
@@ -5640,7 +6182,17 @@
             "unknown": 0
           },
           "strongest_improvement": "營收成長",
-          "main_deterioration": "營業利益率"
+          "main_deterioration": "營業利益率",
+          "level_counts": {
+            "healthy": 2,
+            "watch": 2,
+            "risk": 2,
+            "unknown": 0
+          },
+          "level_risks": [
+            "毛利率",
+            "FCF 利潤率"
+          ]
         },
         "metrics": [
           {
@@ -5652,6 +6204,16 @@
             "latest_display": "+25.5%",
             "change_display": "較前季 YoY +9.7pp",
             "signal_strength": 4.865,
+            "current_level": {
+              "state": "healthy",
+              "label": "營收年增 ≥10%",
+              "basis": "以 YoY 10%／0% 作為成長、低速與衰退的篩選線；超過 100% 另提醒低基期。"
+            },
+            "history_position": {
+              "state": "favorable",
+              "label": "近 8 季較有利位置",
+              "percentile": 100
+            },
             "note": "最多八季營收年增率；箭頭比較本季 YoY 與前季 YoY，判斷成長加速或減速。",
             "points": [
               {
@@ -5705,6 +6267,16 @@
             "latest_display": "16.8%",
             "change_display": "較去年同期 -0.4pp",
             "signal_strength": -0.413,
+            "current_level": {
+              "state": "risk",
+              "label": "毛利率 <20%",
+              "basis": "40%／20% 是跨公司初篩線，不取代同產業比較；旁列自身歷史位置補充判讀。"
+            },
+            "history_position": {
+              "state": "unfavorable",
+              "label": "近 8 季較不利位置",
+              "percentile": 29
+            },
             "note": "最多八季實際比率；箭頭以最新季對去年同期的百分點變化判定。",
             "points": [
               {
@@ -5758,6 +6330,16 @@
             "latest_display": "1.4%",
             "change_display": "較去年同期 -2.7pp",
             "signal_strength": -2.693,
+            "current_level": {
+              "state": "watch",
+              "label": "獲利為正但低於 15%",
+              "basis": "15%／0% 區分較強本業獲利、低利潤與營業虧損。"
+            },
+            "history_position": {
+              "state": "unfavorable",
+              "label": "近 8 季較不利位置",
+              "percentile": 0
+            },
             "note": "最多八季實際比率；箭頭以最新季對去年同期的百分點變化判定。",
             "points": [
               {
@@ -5811,6 +6393,16 @@
             "latest_display": "-3.9%",
             "change_display": "較去年同期 -4.5pp",
             "signal_strength": -2.258,
+            "current_level": {
+              "state": "risk",
+              "label": "FCF 為負",
+              "basis": "10%／0% 區分較強現金創造、低正值與現金流出。"
+            },
+            "history_position": {
+              "state": "unfavorable",
+              "label": "近 8 季較不利位置",
+              "percentile": 0
+            },
             "note": "最多八季自由現金流除以同季營收；現金流季間波動較大，以 2pp 作為方向門檻。",
             "points": [
               {
@@ -5864,6 +6456,16 @@
             "latest_display": "+0.6%",
             "change_display": "YoY +0.6%；股數下降較有利",
             "signal_strength": -1.194,
+            "current_level": {
+              "state": "watch",
+              "label": "年稀釋不超過 2%",
+              "basis": "0%／2% 區分未稀釋、輕度稀釋與需留意的股東權益稀釋。"
+            },
+            "history_position": {
+              "state": "neutral",
+              "label": "近 6 季中段位置",
+              "percentile": 60
+            },
             "note": "最多八季稀釋加權平均股數年增率；採反向判讀，股數下降為改善。",
             "points": [
               {
@@ -5917,6 +6519,16 @@
             "latest_display": "淨現金 USD 35.7B",
             "change_display": "較前一年 增加 USD 7.3B",
             "signal_strength": 4.11,
+            "current_level": {
+              "state": "healthy",
+              "label": "維持淨現金",
+              "basis": "淨負債只列為留意，不能單憑正負判定風險；仍需搭配利息保障與槓桿倍數。"
+            },
+            "history_position": {
+              "state": "favorable",
+              "label": "近 4 年較有利位置",
+              "percentile": 100
+            },
             "note": "年度現金及短期投資減有息負債；受限於可靠來源頻率，不標示成季度趨勢。",
             "points": [
               {
@@ -6295,7 +6907,16 @@
             "unknown": 0
           },
           "strongest_improvement": "毛利率",
-          "main_deterioration": "FCF 利潤率"
+          "main_deterioration": "FCF 利潤率",
+          "level_counts": {
+            "healthy": 4,
+            "watch": 1,
+            "risk": 1,
+            "unknown": 0
+          },
+          "level_risks": [
+            "FCF 利潤率"
+          ]
         },
         "metrics": [
           {
@@ -6307,6 +6928,16 @@
             "latest_display": "+24.2%",
             "change_display": "較前季 YoY +2.4pp",
             "signal_strength": 1.222,
+            "current_level": {
+              "state": "healthy",
+              "label": "營收年增 ≥10%",
+              "basis": "以 YoY 10%／0% 作為成長、低速與衰退的篩選線；超過 100% 另提醒低基期。"
+            },
+            "history_position": {
+              "state": "favorable",
+              "label": "近 8 季較有利位置",
+              "percentile": 100
+            },
             "note": "最多八季營收年增率；箭頭比較本季 YoY 與前季 YoY，判斷成長加速或減速。",
             "points": [
               {
@@ -6360,6 +6991,16 @@
             "latest_display": "61.6%",
             "change_display": "較去年同期 +2.1pp",
             "signal_strength": 2.134,
+            "current_level": {
+              "state": "healthy",
+              "label": "毛利率 ≥40%",
+              "basis": "40%／20% 是跨公司初篩線，不取代同產業比較；旁列自身歷史位置補充判讀。"
+            },
+            "history_position": {
+              "state": "favorable",
+              "label": "近 8 季較有利位置",
+              "percentile": 86
+            },
             "note": "最多八季實際比率；箭頭以最新季對去年同期的百分點變化判定。",
             "points": [
               {
@@ -6413,6 +7054,16 @@
             "latest_display": "34.0%",
             "change_display": "較去年同期 +1.6pp",
             "signal_strength": 1.603,
+            "current_level": {
+              "state": "healthy",
+              "label": "營業利益率 ≥15%",
+              "basis": "15%／0% 區分較強本業獲利、低利潤與營業虧損。"
+            },
+            "history_position": {
+              "state": "favorable",
+              "label": "近 8 季較有利位置",
+              "percentile": 86
+            },
             "note": "最多八季實際比率；箭頭以最新季對去年同期的百分點變化判定。",
             "points": [
               {
@@ -6466,6 +7117,16 @@
             "latest_display": "-4.9%",
             "change_display": "較去年同期 -10.4pp",
             "signal_strength": -5.192,
+            "current_level": {
+              "state": "risk",
+              "label": "FCF 為負",
+              "basis": "10%／0% 區分較強現金創造、低正值與現金流出。"
+            },
+            "history_position": {
+              "state": "unfavorable",
+              "label": "近 8 季較不利位置",
+              "percentile": 0
+            },
             "note": "最多八季自由現金流除以同季營收；現金流季間波動較大，以 2pp 作為方向門檻。",
             "points": [
               {
@@ -6519,6 +7180,16 @@
             "latest_display": "+0.9%",
             "change_display": "YoY +0.9%；股數下降較有利",
             "signal_strength": -1.82,
+            "current_level": {
+              "state": "watch",
+              "label": "年稀釋不超過 2%",
+              "basis": "0%／2% 區分未稀釋、輕度稀釋與需留意的股東權益稀釋。"
+            },
+            "history_position": {
+              "state": "unfavorable",
+              "label": "近 6 季較不利位置",
+              "percentile": 0
+            },
             "note": "最多八季稀釋加權平均股數年增率；採反向判讀，股數下降為改善。",
             "points": [
               {
@@ -6572,6 +7243,16 @@
             "latest_display": "淨現金 USD 75.8B",
             "change_display": "較前一年 減少 USD 6.3B",
             "signal_strength": -1.534,
+            "current_level": {
+              "state": "healthy",
+              "label": "維持淨現金",
+              "basis": "淨負債只列為留意，不能單憑正負判定風險；仍需搭配利息保障與槓桿倍數。"
+            },
+            "history_position": {
+              "state": "unfavorable",
+              "label": "近 4 年較不利位置",
+              "percentile": 0
+            },
             "note": "年度現金及短期投資減有息負債；受限於可靠來源頻率，不標示成季度趨勢。",
             "points": [
               {
@@ -6939,7 +7620,16 @@
             "unknown": 2
           },
           "strongest_improvement": "財務壓力（年度）",
-          "main_deterioration": "FCF 利潤率"
+          "main_deterioration": "FCF 利潤率",
+          "level_counts": {
+            "healthy": 1,
+            "watch": 2,
+            "risk": 1,
+            "unknown": 2
+          },
+          "level_risks": [
+            "FCF 利潤率"
+          ]
         },
         "metrics": [
           {
@@ -6951,6 +7641,16 @@
             "latest_display": "+33.7%",
             "change_display": "較前季 YoY +13.2pp",
             "signal_strength": 6.599,
+            "current_level": {
+              "state": "healthy",
+              "label": "營收年增 ≥10%",
+              "basis": "以 YoY 10%／0% 作為成長、低速與衰退的篩選線；超過 100% 另提醒低基期。"
+            },
+            "history_position": {
+              "state": "favorable",
+              "label": "近 8 季較有利位置",
+              "percentile": 100
+            },
             "note": "最多八季營收年增率；箭頭比較本季 YoY 與前季 YoY，判斷成長加速或減速。",
             "points": [
               {
@@ -7004,6 +7704,16 @@
             "latest_display": "38.5%",
             "change_display": "較去年同期 +2.8pp",
             "signal_strength": 2.769,
+            "current_level": {
+              "state": "watch",
+              "label": "毛利率 20%～40%",
+              "basis": "40%／20% 是跨公司初篩線，不取代同產業比較；旁列自身歷史位置補充判讀。"
+            },
+            "history_position": {
+              "state": "favorable",
+              "label": "近 8 季較有利位置",
+              "percentile": 100
+            },
             "note": "最多八季實際比率；箭頭以最新季對去年同期的百分點變化判定。",
             "points": [
               {
@@ -7057,6 +7767,16 @@
             "latest_display": "資料不足",
             "change_display": "缺少去年同期資料",
             "signal_strength": null,
+            "current_level": {
+              "state": "unknown",
+              "label": "資料不足",
+              "basis": "缺少最新可比數值。"
+            },
+            "history_position": {
+              "state": "unknown",
+              "label": "歷史資料不足",
+              "percentile": null
+            },
             "note": "最多八季實際比率；箭頭以最新季對去年同期的百分點變化判定。",
             "points": [
               {
@@ -7110,6 +7830,16 @@
             "latest_display": "-23.8%",
             "change_display": "較去年同期 -23.7pp",
             "signal_strength": -11.85,
+            "current_level": {
+              "state": "risk",
+              "label": "FCF 為負",
+              "basis": "10%／0% 區分較強現金創造、低正值與現金流出。"
+            },
+            "history_position": {
+              "state": "unfavorable",
+              "label": "近 8 季較不利位置",
+              "percentile": 0
+            },
             "note": "最多八季自由現金流除以同季營收；現金流季間波動較大，以 2pp 作為方向門檻。",
             "points": [
               {
@@ -7163,6 +7893,16 @@
             "latest_display": "資料不足",
             "change_display": "缺少去年同期股數",
             "signal_strength": null,
+            "current_level": {
+              "state": "unknown",
+              "label": "資料不足",
+              "basis": "缺少最新可比數值。"
+            },
+            "history_position": {
+              "state": "unknown",
+              "label": "歷史資料不足",
+              "percentile": null
+            },
             "note": "最多八季稀釋加權平均股數年增率；採反向判讀，股數下降為改善。",
             "points": [
               {
@@ -7216,6 +7956,16 @@
             "latest_display": "淨負債 USD 1.2B",
             "change_display": "較前一年 增加 USD 1.5B",
             "signal_strength": 11.106,
+            "current_level": {
+              "state": "watch",
+              "label": "處於淨負債",
+              "basis": "淨負債只列為留意，不能單憑正負判定風險；仍需搭配利息保障與槓桿倍數。"
+            },
+            "history_position": {
+              "state": "favorable",
+              "label": "近 4 年較有利位置",
+              "percentile": 100
+            },
             "note": "年度現金及短期投資減有息負債；受限於可靠來源頻率，不標示成季度趨勢。",
             "points": [
               {
@@ -7604,7 +8354,16 @@
             "unknown": 0
           },
           "strongest_improvement": "財務壓力（年度）",
-          "main_deterioration": "稀釋股數"
+          "main_deterioration": "稀釋股數",
+          "level_counts": {
+            "healthy": 4,
+            "watch": 1,
+            "risk": 1,
+            "unknown": 0
+          },
+          "level_risks": [
+            "稀釋股數"
+          ]
         },
         "metrics": [
           {
@@ -7616,6 +8375,16 @@
             "latest_display": "+36.5%",
             "change_display": "較前季 YoY +9.0pp",
             "signal_strength": 4.49,
+            "current_level": {
+              "state": "healthy",
+              "label": "營收年增 ≥10%",
+              "basis": "以 YoY 10%／0% 作為成長、低速與衰退的篩選線；超過 100% 另提醒低基期。"
+            },
+            "history_position": {
+              "state": "neutral",
+              "label": "近 8 季中段位置",
+              "percentile": 57
+            },
             "note": "最多八季營收年增率；箭頭比較本季 YoY 與前季 YoY，判斷成長加速或減速。",
             "points": [
               {
@@ -7669,6 +8438,16 @@
             "latest_display": "53.1%",
             "change_display": "較去年同期 +2.8pp",
             "signal_strength": 2.761,
+            "current_level": {
+              "state": "healthy",
+              "label": "毛利率 ≥40%",
+              "basis": "40%／20% 是跨公司初篩線，不取代同產業比較；旁列自身歷史位置補充判讀。"
+            },
+            "history_position": {
+              "state": "favorable",
+              "label": "近 8 季較有利位置",
+              "percentile": 100
+            },
             "note": "最多八季實際比率；箭頭以最新季對去年同期的百分點變化判定。",
             "points": [
               {
@@ -7722,6 +8501,16 @@
             "latest_display": "16.8%",
             "change_display": "較去年同期 +2.3pp",
             "signal_strength": 2.321,
+            "current_level": {
+              "state": "healthy",
+              "label": "營業利益率 ≥15%",
+              "basis": "15%／0% 區分較強本業獲利、低利潤與營業虧損。"
+            },
+            "history_position": {
+              "state": "favorable",
+              "label": "近 8 季較有利位置",
+              "percentile": 71
+            },
             "note": "最多八季實際比率；箭頭以最新季對去年同期的百分點變化判定。",
             "points": [
               {
@@ -7775,6 +8564,16 @@
             "latest_display": "17.5%",
             "change_display": "較去年同期 -3.2pp",
             "signal_strength": -1.582,
+            "current_level": {
+              "state": "healthy",
+              "label": "FCF 利潤率 ≥10%",
+              "basis": "10%／0% 區分較強現金創造、低正值與現金流出。"
+            },
+            "history_position": {
+              "state": "unfavorable",
+              "label": "近 8 季較不利位置",
+              "percentile": 29
+            },
             "note": "最多八季自由現金流除以同季營收；現金流季間波動較大，以 2pp 作為方向門檻。",
             "points": [
               {
@@ -7828,6 +8627,16 @@
             "latest_display": "+5.8%",
             "change_display": "YoY +5.8%；股數下降較有利",
             "signal_strength": -11.673,
+            "current_level": {
+              "state": "risk",
+              "label": "年稀釋超過 2%",
+              "basis": "0%／2% 區分未稀釋、輕度稀釋與需留意的股東權益稀釋。"
+            },
+            "history_position": {
+              "state": "unfavorable",
+              "label": "近 6 季較不利位置",
+              "percentile": 0
+            },
             "note": "最多八季稀釋加權平均股數年增率；採反向判讀，股數下降為改善。",
             "points": [
               {
@@ -7881,6 +8690,16 @@
             "latest_display": "淨負債 USD 1.3B",
             "change_display": "較前一年 增加 USD 1.7B",
             "signal_strength": 11.078,
+            "current_level": {
+              "state": "watch",
+              "label": "處於淨負債",
+              "basis": "淨負債只列為留意，不能單憑正負判定風險；仍需搭配利息保障與槓桿倍數。"
+            },
+            "history_position": {
+              "state": "favorable",
+              "label": "近 4 年較有利位置",
+              "percentile": 100
+            },
             "note": "年度現金及短期投資減有息負債；受限於可靠來源頻率，不標示成季度趨勢。",
             "points": [
               {
@@ -8264,7 +9083,16 @@
             "unknown": 0
           },
           "strongest_improvement": "營業利益率",
-          "main_deterioration": "稀釋股數"
+          "main_deterioration": "稀釋股數",
+          "level_counts": {
+            "healthy": 3,
+            "watch": 2,
+            "risk": 1,
+            "unknown": 0
+          },
+          "level_risks": [
+            "稀釋股數"
+          ]
         },
         "metrics": [
           {
@@ -8276,6 +9104,16 @@
             "latest_display": "+25.4%",
             "change_display": "較前季 YoY +18.2pp",
             "signal_strength": 9.119,
+            "current_level": {
+              "state": "healthy",
+              "label": "營收年增 ≥10%",
+              "basis": "以 YoY 10%／0% 作為成長、低速與衰退的篩選線；超過 100% 另提醒低基期。"
+            },
+            "history_position": {
+              "state": "favorable",
+              "label": "近 8 季較有利位置",
+              "percentile": 100
+            },
             "note": "最多八季營收年增率；箭頭比較本季 YoY 與前季 YoY，判斷成長加速或減速。",
             "points": [
               {
@@ -8329,6 +9167,16 @@
             "latest_display": "40.4%",
             "change_display": "較去年同期 +12.8pp",
             "signal_strength": 12.813,
+            "current_level": {
+              "state": "healthy",
+              "label": "毛利率 ≥40%",
+              "basis": "40%／20% 是跨公司初篩線，不取代同產業比較；旁列自身歷史位置補充判讀。"
+            },
+            "history_position": {
+              "state": "favorable",
+              "label": "近 8 季較有利位置",
+              "percentile": 100
+            },
             "note": "最多八季實際比率；箭頭以最新季對去年同期的百分點變化判定。",
             "points": [
               {
@@ -8382,6 +9230,16 @@
             "latest_display": "11.1%",
             "change_display": "較去年同期 +35.8pp",
             "signal_strength": 35.835,
+            "current_level": {
+              "state": "watch",
+              "label": "獲利為正但低於 15%",
+              "basis": "15%／0% 區分較強本業獲利、低利潤與營業虧損。"
+            },
+            "history_position": {
+              "state": "favorable",
+              "label": "近 8 季較有利位置",
+              "percentile": 100
+            },
             "note": "最多八季實際比率；箭頭以最新季對去年同期的百分點變化判定。",
             "points": [
               {
@@ -8435,6 +9293,16 @@
             "latest_display": "27.6%",
             "change_display": "較去年同期 +39.3pp",
             "signal_strength": 19.628,
+            "current_level": {
+              "state": "healthy",
+              "label": "FCF 利潤率 ≥10%",
+              "basis": "10%／0% 區分較強現金創造、低正值與現金流出。"
+            },
+            "history_position": {
+              "state": "favorable",
+              "label": "近 8 季較有利位置",
+              "percentile": 100
+            },
             "note": "最多八季自由現金流除以同季營收；現金流季間波動較大，以 2pp 作為方向門檻。",
             "points": [
               {
@@ -8488,6 +9356,16 @@
             "latest_display": "+16.8%",
             "change_display": "YoY +16.8%；股數下降較有利",
             "signal_strength": -33.646,
+            "current_level": {
+              "state": "risk",
+              "label": "年稀釋超過 2%",
+              "basis": "0%／2% 區分未稀釋、輕度稀釋與需留意的股東權益稀釋。"
+            },
+            "history_position": {
+              "state": "unfavorable",
+              "label": "近 6 季較不利位置",
+              "percentile": 20
+            },
             "note": "最多八季稀釋加權平均股數年增率；採反向判讀，股數下降為改善。",
             "points": [
               {
@@ -8541,6 +9419,16 @@
             "latest_display": "淨負債 USD 22.8B",
             "change_display": "較前一年 增加 USD 13.3B",
             "signal_strength": 7.371,
+            "current_level": {
+              "state": "watch",
+              "label": "處於淨負債",
+              "basis": "淨負債只列為留意，不能單憑正負判定風險；仍需搭配利息保障與槓桿倍數。"
+            },
+            "history_position": {
+              "state": "unknown",
+              "label": "歷史資料不足",
+              "percentile": null
+            },
             "note": "年度現金及短期投資減有息負債；受限於可靠來源頻率，不標示成季度趨勢。",
             "points": [
               {
@@ -8934,7 +9822,18 @@
             "unknown": 0
           },
           "strongest_improvement": "營收成長",
-          "main_deterioration": "稀釋股數"
+          "main_deterioration": "稀釋股數",
+          "level_counts": {
+            "healthy": 2,
+            "watch": 1,
+            "risk": 3,
+            "unknown": 0
+          },
+          "level_risks": [
+            "營業利益率",
+            "FCF 利潤率",
+            "稀釋股數"
+          ]
         },
         "metrics": [
           {
@@ -8946,6 +9845,16 @@
             "latest_display": "+8.4%",
             "change_display": "較前季 YoY +5.3pp",
             "signal_strength": 2.64,
+            "current_level": {
+              "state": "watch",
+              "label": "正成長但低於 10%",
+              "basis": "以 YoY 10%／0% 作為成長、低速與衰退的篩選線；超過 100% 另提醒低基期。"
+            },
+            "history_position": {
+              "state": "favorable",
+              "label": "近 4 季較有利位置",
+              "percentile": 67
+            },
             "note": "最多八季營收年增率；箭頭比較本季 YoY 與前季 YoY，判斷成長加速或減速。",
             "points": [
               {
@@ -8999,6 +9908,16 @@
             "latest_display": "44.6%",
             "change_display": "較去年同期 +0.6pp",
             "signal_strength": 0.6,
+            "current_level": {
+              "state": "healthy",
+              "label": "毛利率 ≥40%",
+              "basis": "40%／20% 是跨公司初篩線，不取代同產業比較；旁列自身歷史位置補充判讀。"
+            },
+            "history_position": {
+              "state": "neutral",
+              "label": "近 8 季中段位置",
+              "percentile": 50
+            },
             "note": "最多八季實際比率；箭頭以最新季對去年同期的百分點變化判定。",
             "points": [
               {
@@ -9052,6 +9971,16 @@
             "latest_display": "-1.0%",
             "change_display": "較去年同期 -4.3pp",
             "signal_strength": -4.3,
+            "current_level": {
+              "state": "risk",
+              "label": "營業虧損",
+              "basis": "15%／0% 區分較強本業獲利、低利潤與營業虧損。"
+            },
+            "history_position": {
+              "state": "unfavorable",
+              "label": "近 8 季較不利位置",
+              "percentile": 0
+            },
             "note": "最多八季實際比率；箭頭以最新季對去年同期的百分點變化判定。",
             "points": [
               {
@@ -9105,6 +10034,16 @@
             "latest_display": "-15.2%",
             "change_display": "較去年同期 -17.2pp",
             "signal_strength": -8.592,
+            "current_level": {
+              "state": "risk",
+              "label": "FCF 為負",
+              "basis": "10%／0% 區分較強現金創造、低正值與現金流出。"
+            },
+            "history_position": {
+              "state": "unfavorable",
+              "label": "近 8 季較不利位置",
+              "percentile": 0
+            },
             "note": "最多八季自由現金流除以同季營收；現金流季間波動較大，以 2pp 作為方向門檻。",
             "points": [
               {
@@ -9158,6 +10097,16 @@
             "latest_display": "+5.6%",
             "change_display": "YoY +5.6%；股數下降較有利",
             "signal_strength": -11.292,
+            "current_level": {
+              "state": "risk",
+              "label": "年稀釋超過 2%",
+              "basis": "0%／2% 區分未稀釋、輕度稀釋與需留意的股東權益稀釋。"
+            },
+            "history_position": {
+              "state": "neutral",
+              "label": "近 4 季中段位置",
+              "percentile": 33
+            },
             "note": "最多八季稀釋加權平均股數年增率；採反向判讀，股數下降為改善。",
             "points": [
               {
@@ -9211,6 +10160,16 @@
             "latest_display": "淨現金 EUR 1.0B",
             "change_display": "較前一年 減少 EUR 824.0M",
             "signal_strength": -8.799,
+            "current_level": {
+              "state": "healthy",
+              "label": "維持淨現金",
+              "basis": "淨負債只列為留意，不能單憑正負判定風險；仍需搭配利息保障與槓桿倍數。"
+            },
+            "history_position": {
+              "state": "favorable",
+              "label": "近 4 年較有利位置",
+              "percentile": 67
+            },
             "note": "年度現金及短期投資減有息負債；受限於可靠來源頻率，不標示成季度趨勢。",
             "points": [
               {

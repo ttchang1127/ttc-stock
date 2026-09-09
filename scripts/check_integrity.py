@@ -2384,6 +2384,13 @@ def c42():
             dates = [row.get("period") for row in points if row.get("period")]
             if dates != sorted(dates):
                 bad.append(f"{ticker}/{metric.get('id')} 趨勢日期未由舊到新")
+            if (metric.get("current_level") or {}).get("state") not in {"healthy", "watch", "risk", "unknown"}:
+                bad.append(f"{ticker}/{metric.get('id')} 目前水準分類無效")
+            if (metric.get("history_position") or {}).get("state") not in {"favorable", "neutral", "unfavorable", "unknown"}:
+                bad.append(f"{ticker}/{metric.get('id')} 自身歷史位置分類無效")
+        level_counts = ((company.get("trends") or {}).get("summary") or {}).get("level_counts") or {}
+        if sum(level_counts.values()) != 6:
+            bad.append(f"{ticker} 目前水準分類計數無法勾稽")
     aapl = next((row for row in companies if row.get("ticker") == "AAPL"), {})
     execution = next((row for row in aapl.get("dimensions", []) if row.get("id") == "execution"), {})
     guidance = next((row for row in execution.get("metrics", []) if row.get("id") == "guidance_delivery"), {})
@@ -2412,6 +2419,7 @@ def c42():
             "缺值不會自動補成 0 或 50 分", "獨立警示（不納入平均抵銷）",
             "八季基本面趨勢", "longTermRadarTrendTicker", "renderLongTermRadarTrend",
             "score_basis", "季財報截至", "股價截至", "判讀更新",
+            "目前水準", "history_position", "level_counts", "水準風險",
         )),
         "價格 workflow": (read(".github/workflows/update-prices.yml"), (
             "build_long_term_radar.py", "long_term_radar",

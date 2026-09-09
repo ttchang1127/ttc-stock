@@ -95,10 +95,25 @@ class LongTermRadarTests(unittest.TestCase):
             self.assertEqual(dates, sorted(dates))
             self.assertLessEqual(len(metric["points"]), 4 if metric["frequency"] == "annual" else 8)
             self.assertIn(metric["state"], {"improving", "stable", "deteriorating", "unknown"})
+            self.assertIn(metric["current_level"]["state"], {"healthy", "watch", "risk", "unknown"})
+            self.assertIn(metric["history_position"]["state"], {"favorable", "neutral", "unfavorable", "unknown"})
         counts = trends["summary"]["counts"]
         self.assertEqual(sum(counts.values()), 6)
+        self.assertEqual(sum(trends["summary"]["level_counts"].values()), 6)
         fcf = next(row for row in trends["metrics"] if row["id"] == "fcf_margin")
         self.assertAlmostEqual(fcf["points"][-1]["value"], 21_400_000_000 / 96_221_000_000)
+
+    def test_direction_does_not_masquerade_as_current_health(self):
+        ondas = self.company("ONDS")["trends"]
+        ondas_fcf = next(row for row in ondas["metrics"] if row["id"] == "fcf_margin")
+        self.assertEqual(ondas_fcf["state"], "improving")
+        self.assertEqual(ondas_fcf["current_level"]["state"], "risk")
+        self.assertEqual(ondas_fcf["current_level"]["label"], "FCF 為負")
+        self.assertIn("FCF 利潤率", ondas["summary"]["level_risks"])
+
+        nvda_fcf = next(row for row in self.company("NVDA")["trends"]["metrics"] if row["id"] == "fcf_margin")
+        self.assertEqual(nvda_fcf["state"], "deteriorating")
+        self.assertEqual(nvda_fcf["current_level"]["state"], "healthy")
 
     def test_generated_json_is_deterministic(self):
         expected = json.loads((ROOT / "long_term_radar.json").read_text())
@@ -116,6 +131,9 @@ class LongTermRadarTests(unittest.TestCase):
         self.assertIn("八季基本面趨勢", dashboard)
         self.assertIn("score_basis", dashboard)
         self.assertIn("renderLongTermRadarTrend", dashboard)
+        self.assertIn("目前水準", dashboard)
+        self.assertIn("history_position", dashboard)
+        self.assertIn("level_counts", dashboard)
         self.assertNotIn('id="longTermRadarTicker"', dashboard)
         for workflow in ("update-prices.yml", "sec-filing-alerts.yml"):
             text = (ROOT / ".github" / "workflows" / workflow).read_text()

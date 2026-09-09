@@ -126,10 +126,95 @@ def trend_state(signal: float | None, threshold: float) -> tuple[str, str]:
     return "stable", "持平"
 
 
+def current_level(identifier: str, value: float | None) -> dict[str, str]:
+    if value is None:
+        return {"state": "unknown", "label": "資料不足", "basis": "缺少最新可比數值。"}
+    if identifier == "revenue_yoy":
+        if value >= 1:
+            state, label = "healthy", "高成長，留意低基期"
+        elif value >= .10:
+            state, label = "healthy", "營收年增 ≥10%"
+        elif value >= 0:
+            state, label = "watch", "正成長但低於 10%"
+        else:
+            state, label = "risk", "營收年減"
+        basis = "以 YoY 10%／0% 作為成長、低速與衰退的篩選線；超過 100% 另提醒低基期。"
+    elif identifier == "gross_margin":
+        if value >= .40:
+            state, label = "healthy", "毛利率 ≥40%"
+        elif value >= .20:
+            state, label = "watch", "毛利率 20%～40%"
+        else:
+            state, label = "risk", "毛利率 <20%"
+        basis = "40%／20% 是跨公司初篩線，不取代同產業比較；旁列自身歷史位置補充判讀。"
+    elif identifier == "operating_margin":
+        if value >= .15:
+            state, label = "healthy", "營業利益率 ≥15%"
+        elif value >= 0:
+            state, label = "watch", "獲利為正但低於 15%"
+        else:
+            state, label = "risk", "營業虧損"
+        basis = "15%／0% 區分較強本業獲利、低利潤與營業虧損。"
+    elif identifier == "fcf_margin":
+        if value >= .10:
+            state, label = "healthy", "FCF 利潤率 ≥10%"
+        elif value >= 0:
+            state, label = "watch", "FCF 為正但低於 10%"
+        else:
+            state, label = "risk", "FCF 為負"
+        basis = "10%／0% 區分較強現金創造、低正值與現金流出。"
+    elif identifier == "diluted_shares_yoy":
+        if value <= 0:
+            state, label = "healthy", "股數未增加"
+        elif value <= .02:
+            state, label = "watch", "年稀釋不超過 2%"
+        else:
+            state, label = "risk", "年稀釋超過 2%"
+        basis = "0%／2% 區分未稀釋、輕度稀釋與需留意的股東權益稀釋。"
+    elif identifier == "net_cash":
+        if value >= 0:
+            state, label = "healthy", "維持淨現金"
+        else:
+            state, label = "watch", "處於淨負債"
+        basis = "淨負債只列為留意，不能單憑正負判定風險；仍需搭配利息保障與槓桿倍數。"
+    else:
+        state, label, basis = "unknown", "未設定門檻", "目前沒有一致判讀門檻。"
+    return {"state": state, "label": label, "basis": basis}
+
+
+def historical_position(points: list[dict[str, Any]], frequency: str,
+                        higher_is_better: bool = True) -> dict[str, Any]:
+    latest = finite(points[-1].get("value")) if points else None
+    values = [finite(point.get("value")) for point in points]
+    known = [value for value in values if value is not None]
+    if latest is None or len(known) < 3:
+        return {"state": "unknown", "label": "歷史資料不足", "percentile": None}
+    others = known[:-1] if finite(points[-1].get("value")) is not None else known
+    if not others:
+        return {"state": "unknown", "label": "歷史資料不足", "percentile": None}
+    lower = sum(value < latest for value in others)
+    equal = sum(value == latest for value in others)
+    percentile = (lower + equal * .5) / len(others)
+    favorable_percentile = percentile if higher_is_better else 1 - percentile
+    period_name = "年" if frequency == "annual" else "季"
+    if favorable_percentile >= 2 / 3:
+        state, band = "favorable", "較有利位置"
+    elif favorable_percentile <= 1 / 3:
+        state, band = "unfavorable", "較不利位置"
+    else:
+        state, band = "neutral", "中段位置"
+    return {
+        "state": state,
+        "label": f"近 {len(known)} {period_name}{band}",
+        "percentile": round(favorable_percentile * 100),
+    }
+
+
 def trend_metric(identifier: str, label: str, frequency: str,
                  points: list[dict[str, Any]], latest_display: str,
                  change_display: str, signal: float | None, threshold: float,
-                 note: str) -> dict[str, Any]:
+                 note: str, current_value: float | None,
+                 higher_is_better: bool = True) -> dict[str, Any]:
     state, state_label = trend_state(signal, threshold)
     strength = None if signal is None or threshold == 0 else signal / threshold
     return {
@@ -141,6 +226,8 @@ def trend_metric(identifier: str, label: str, frequency: str,
         "latest_display": latest_display,
         "change_display": change_display,
         "signal_strength": None if strength is None else round(strength, 3),
+        "current_level": current_level(identifier, current_value),
+        "history_position": historical_position(points, frequency, higher_is_better),
         "note": note,
         "points": points,
     }
@@ -177,6 +264,7 @@ def build_trends(periods: list[dict[str, Any]], capital: dict[str, Any],
         percent(revenue_yoy, signed=True), revenue_change_display,
         revenue_change, .02,
         "最多八季營收年增率；箭頭比較本季 YoY 與前季 YoY，判斷成長加速或減速。",
+        revenue_yoy,
     )]
 
     def margin_trend(identifier: str, label: str, key: str, threshold: float) -> dict[str, Any]:
@@ -194,6 +282,7 @@ def build_trends(periods: list[dict[str, Any]], capital: dict[str, Any],
         return trend_metric(
             identifier, label, "quarterly", points, percent(latest), change_display,
             change, threshold, "最多八季實際比率；箭頭以最新季對去年同期的百分點變化判定。",
+            latest,
         )
 
     trends.extend([
@@ -220,6 +309,7 @@ def build_trends(periods: list[dict[str, Any]], capital: dict[str, Any],
         "缺少去年同期資料" if fcf_change is None else f"較去年同期 {percentage_points(fcf_change, signed=True)}",
         fcf_change, .02,
         "最多八季自由現金流除以同季營收；現金流季間波動較大，以 2pp 作為方向門檻。",
+        latest_fcf_margin,
     ))
 
     share_points = []
@@ -239,6 +329,7 @@ def build_trends(periods: list[dict[str, Any]], capital: dict[str, Any],
         percent(latest_share_yoy, signed=True), share_display,
         None if latest_share_yoy is None else -latest_share_yoy, .005,
         "最多八季稀釋加權平均股數年增率；採反向判讀，股數下降為改善。",
+        latest_share_yoy, False,
     ))
 
     years = capital.get("years") or []
@@ -272,6 +363,7 @@ def build_trends(periods: list[dict[str, Any]], capital: dict[str, Any],
         "net_cash", "財務壓力（年度）", "annual", annual_points,
         latest_net_cash_display, net_cash_change_display, net_cash_signal, .05,
         "年度現金及短期投資減有息負債；受限於可靠來源頻率，不標示成季度趨勢。",
+        latest_net_cash,
     ))
 
     counts = {state: sum(row["state"] == state for row in trends)
@@ -280,12 +372,17 @@ def build_trends(periods: list[dict[str, Any]], capital: dict[str, Any],
     deteriorating = [row for row in trends if row["state"] == "deteriorating"]
     strongest = max(improving, key=lambda row: row.get("signal_strength") or 0, default=None)
     weakest = min(deteriorating, key=lambda row: row.get("signal_strength") or 0, default=None)
+    level_counts = {state: sum((row.get("current_level") or {}).get("state") == state for row in trends)
+                    for state in ("healthy", "watch", "risk", "unknown")}
+    level_risks = [row["label"] for row in trends if (row.get("current_level") or {}).get("state") == "risk"]
     return {
         "basis": "五項季度指標最多八季；財務壓力使用最多四個會計年度。這些是實際數值趨勢，不是歷史雷達分數。",
         "summary": {
             "counts": counts,
             "strongest_improvement": strongest.get("label") if strongest else None,
             "main_deterioration": weakest.get("label") if weakest else None,
+            "level_counts": level_counts,
+            "level_risks": level_risks,
         },
         "metrics": trends,
     }
