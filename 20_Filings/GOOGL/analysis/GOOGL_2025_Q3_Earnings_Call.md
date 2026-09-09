@@ -4,7 +4,7 @@ call_date: 2025-10-29
 period: "2025 Q3"
 source_type: full_transcript
 source_url: "https://s206.q4cdn.com/479360582/files/doc_events/2025/Oct/29/2025_Q3_Earnings_Transcript.pdf"
-source_sha256: "752af44b541c7e0c47941db34d5c73fa7b7e730ce8b1cf76991831d3915712ff"
+source_sha256: "e1ea8d6362401d133a98cb896969b217dbaa957856cc132e7939aaec21afdfaa"
 parser_version: 16
 tags:
   - earnings-call

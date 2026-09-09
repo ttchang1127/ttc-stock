@@ -1,6 +1,6 @@
 ---
 title: 📎 財報附註／附件雷達
-updated_at: 2026-09-08T13:43:30+00:00
+updated_at: 2026-09-09T08:34:48+00:00
 tags:
   - sec/footnotes
 ---
@@ -29,8 +29,8 @@ tags:
 | 2026-08-27 | **MRVL** | 8-K | 客戶集中、減損、訴訟／或有事項、股份薪酬、非 GAAP；重要附件 4 份 | [原文](https://www.sec.gov/Archives/edgar/data/1835632/000183563226000022/mrvl-20260827.htm) |
 | 2026-09-02 | **MSFT** | 8-K | 收入認列、非 GAAP、部門報導、XBRL 標記；重要附件 5 份 | [原文](https://www.sec.gov/Archives/edgar/data/789019/000119312526380280/d291965d8k.htm) |
 | 2026-07-29 | **MSFT** | 10-K | 收入認列、客戶集中、減損、訴訟／或有事項、關係人交易；重要附件 7 份 | [原文](https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm) |
+| 2026-09-08 | **NOK** | 6-K | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/924613/000110465926105772/tm2624968d1_6k.htm) |
 | 2026-08-27 | **NOK** | 6-K | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/924613/000110465926102322/tm2624213d1_6k.htm) |
-| 2026-08-14 | **NOK** | 6-K | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/924613/000110465926096765/tm2623269d1_6k.htm) |
 | 2026-09-03 | **NVDA** | 8-K | XBRL 標記；重要附件 3 份 | [原文](https://www.sec.gov/Archives/edgar/data/1045810/000104581026000078/nvda-20260902.htm) |
 | 2026-08-26 | **NVDA** | 10-Q | 收入認列、客戶集中、減損、訴訟／或有事項、關係人交易；重要附件 6 份 | [原文](https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/nvda-20260726.htm) |
 | 2026-08-28 | **ONDS** | 8-K | XBRL 標記；重要附件 3 份 | [原文](https://www.sec.gov/Archives/edgar/data/1646188/000121390026095097/ea0303660-8k_ondas.htm) |
@@ -40,5 +40,5 @@ tags:
 | 2026-09-01 | **TSM** | 6-K | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1046179/000104617926000552/tsm-dividendadjustmentx202.htm) |
 | 2026-08-25 | **TSM** | 6-K | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1046179/000104617926000545/tsm-monthend6kx20260825.htm) |
 
-> 最後檢查：`2026-09-08T13:43:30+00:00`。關鍵字命中是閱讀導航，不等於會計結論或利多／利空。
+> 最後檢查：`2026-09-09T08:34:48+00:00`。關鍵字命中是閱讀導航，不等於會計結論或利多／利空。
 

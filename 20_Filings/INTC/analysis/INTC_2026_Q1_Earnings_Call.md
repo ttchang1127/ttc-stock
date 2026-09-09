@@ -4,7 +4,7 @@ call_date: 2026-04-23
 period: "2026 Q1"
 source_type: prepared_remarks
 source_url: "https://d1io3yog0oux5.cloudfront.net/_88b01b330621eb4afbd070d5caa4f035/intel/db/887/9254/prepared_remarks/1Q2026-Earnings-Call.pdf"
-source_sha256: "423e1171369bde9b384194be948e02a82ebfc31d4372544abda80d1573d6b35c"
+source_sha256: "f78f298c6c1d150825151b5a14f42e6f11bc675103b716ac92f2a47093598f20"
 parser_version: 16
 tags:
   - earnings-call

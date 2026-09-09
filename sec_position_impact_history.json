@@ -1,30 +1,16 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-08T13:51:51Z",
-  "current_snapshot_id": "7d4b76c4d3715e4c",
-  "previous_snapshot_id": "8c8c5c34444b4a40",
-  "batch_id": "367c40aa841a",
-  "notify_count": 1,
+  "updated_at": "2026-09-09T08:34:48Z",
+  "current_snapshot_id": "022df77a06c80be2",
+  "previous_snapshot_id": "7d4b76c4d3715e4c",
+  "batch_id": "0d3d6f6cdabf",
+  "notify_count": 0,
   "critical_count": 0,
   "notification_policy": "只通知等級改變、SEC 訊號分數改變、總分至少變動 10 分，或持股比重／回撤跨越明確門檻；小幅價格波動不通知。",
-  "notifications": [
-    {
-      "ticker": "NVDA",
-      "label": "影響升高",
-      "previous_score": 46,
-      "current_score": 52,
-      "score_delta": 6,
-      "previous_level": "medium",
-      "current_level": "medium",
-      "reasons": [
-        "SEC 訊號 34 → 40"
-      ],
-      "event_reason": "已覆核：新增 Hugging Face 大型收購的資本配置、監管與整合風險，但尚未改變 NVDA 財務與成長證據偏正向結論。"
-    }
-  ],
+  "notifications": [],
   "current": {
-    "snapshot_id": "7d4b76c4d3715e4c",
-    "captured_at": "2026-09-08T13:51:51Z",
+    "snapshot_id": "022df77a06c80be2",
+    "captured_at": "2026-09-09T08:34:48Z",
     "as_of": "2026-09-08",
     "price_date": "2026-09-08",
     "portfolio_market_value": 96185.7,
@@ -69,7 +55,7 @@
         "price_date": "2026-09-08",
         "event_kind": "editorial",
         "event_reason": "目前綜合判讀：高風險｜部分失效",
-        "event_fingerprint": "a7f70f0bd4ac491f",
+        "event_fingerprint": "13203522780c9c69",
         "comparison": {
           "status": "unchanged",
           "notify": false,
@@ -94,17 +80,15 @@
         "price_date": "2026-09-08",
         "event_kind": "reviewed",
         "event_reason": "已覆核：新增 Hugging Face 大型收購的資本配置、監管與整合風險，但尚未改變 NVDA 財務與成長證據偏正向結論。",
-        "event_fingerprint": "2d5905f801862f4b",
+        "event_fingerprint": "5dce2289b0a8a333",
         "comparison": {
-          "status": "changed",
-          "notify": true,
-          "score_delta": 6,
-          "previous_score": 46,
+          "status": "unchanged",
+          "notify": false,
+          "score_delta": 0,
+          "previous_score": 52,
           "previous_level": "medium",
-          "label": "影響升高",
-          "reasons": [
-            "SEC 訊號 34 → 40"
-          ]
+          "label": "無實質變化",
+          "reasons": []
         }
       },
       {
@@ -171,7 +155,7 @@
         "price_date": "2026-09-08",
         "event_kind": "editorial",
         "event_reason": "目前綜合判讀：風險偏高｜需要驗證",
-        "event_fingerprint": "83711b66f93a526b",
+        "event_fingerprint": "fab9cfaa2c760393",
         "comparison": {
           "status": "unchanged",
           "notify": false,
@@ -235,6 +219,216 @@
     ]
   },
   "history": [
+    {
+      "snapshot_id": "022df77a06c80be2",
+      "captured_at": "2026-09-09T08:34:48Z",
+      "as_of": "2026-09-08",
+      "price_date": "2026-09-08",
+      "portfolio_market_value": 96185.7,
+      "missing_prices": [],
+      "rows": [
+        {
+          "ticker": "COHR",
+          "total_score": 64,
+          "event_score": 40,
+          "position_score": 12,
+          "drawdown_score": 12,
+          "level": "medium",
+          "weight_pct": 3.0076,
+          "pnl_pct": -13.9202,
+          "market_value": 2892.85,
+          "current_price": 289.285,
+          "price_date": "2026-09-08",
+          "event_kind": "reviewed",
+          "event_reason": "已覆核：董事 Lisa Neal-Graves 在限制股歸屬後主動出售約 14.44% 的出售前直接持股，新增治理監測，但不改變 COHR 既有風險偏高結論。",
+          "event_fingerprint": "17c3ca4fa7665579",
+          "comparison": {
+            "status": "unchanged",
+            "notify": false,
+            "score_delta": 0,
+            "previous_score": 64,
+            "previous_level": "medium",
+            "label": "無實質變化",
+            "reasons": []
+          }
+        },
+        {
+          "ticker": "NOK",
+          "total_score": 64,
+          "event_score": 32,
+          "position_score": 20,
+          "drawdown_score": 12,
+          "level": "medium",
+          "weight_pct": 6.4843,
+          "pnl_pct": -11.0699,
+          "market_value": 6237.0,
+          "current_price": 10.395,
+          "price_date": "2026-09-08",
+          "event_kind": "editorial",
+          "event_reason": "目前綜合判讀：高風險｜部分失效",
+          "event_fingerprint": "13203522780c9c69",
+          "comparison": {
+            "status": "unchanged",
+            "notify": false,
+            "score_delta": 0,
+            "previous_score": 64,
+            "previous_level": "medium",
+            "label": "無實質變化",
+            "reasons": []
+          }
+        },
+        {
+          "ticker": "NVDA",
+          "total_score": 52,
+          "event_score": 40,
+          "position_score": 12,
+          "drawdown_score": 0,
+          "level": "medium",
+          "weight_pct": 3.5901,
+          "pnl_pct": 8.0822,
+          "market_value": 3453.15,
+          "current_price": 230.21,
+          "price_date": "2026-09-08",
+          "event_kind": "reviewed",
+          "event_reason": "已覆核：新增 Hugging Face 大型收購的資本配置、監管與整合風險，但尚未改變 NVDA 財務與成長證據偏正向結論。",
+          "event_fingerprint": "5dce2289b0a8a333",
+          "comparison": {
+            "status": "unchanged",
+            "notify": false,
+            "score_delta": 0,
+            "previous_score": 52,
+            "previous_level": "medium",
+            "label": "無實質變化",
+            "reasons": []
+          }
+        },
+        {
+          "ticker": "GOOG",
+          "total_score": 48,
+          "event_score": 28,
+          "position_score": 20,
+          "drawdown_score": 0,
+          "level": "medium",
+          "weight_pct": 6.9133,
+          "pnl_pct": 24.7617,
+          "market_value": 6649.6,
+          "current_price": 332.48,
+          "price_date": "2026-09-08",
+          "event_kind": "financial",
+          "event_reason": "八季財務警報 1 項",
+          "event_fingerprint": "024de23098f33efa",
+          "comparison": {
+            "status": "unchanged",
+            "notify": false,
+            "score_delta": 0,
+            "previous_score": 48,
+            "previous_level": "medium",
+            "label": "無實質變化",
+            "reasons": []
+          }
+        },
+        {
+          "ticker": "MRVL",
+          "total_score": 48,
+          "event_score": 28,
+          "position_score": 20,
+          "drawdown_score": 0,
+          "level": "medium",
+          "weight_pct": 5.8374,
+          "pnl_pct": 42.6947,
+          "market_value": 5614.75,
+          "current_price": 224.59,
+          "price_date": "2026-09-08",
+          "event_kind": "important",
+          "event_reason": "重大／重要申報 2 份",
+          "event_fingerprint": "7cbe0596d78e619d",
+          "comparison": {
+            "status": "unchanged",
+            "notify": false,
+            "score_delta": 0,
+            "previous_score": 48,
+            "previous_level": "medium",
+            "label": "無實質變化",
+            "reasons": []
+          }
+        },
+        {
+          "ticker": "TSLA",
+          "total_score": 44,
+          "event_score": 32,
+          "position_score": 12,
+          "drawdown_score": 0,
+          "level": "low",
+          "weight_pct": 2.7141,
+          "pnl_pct": 58.4048,
+          "market_value": 2610.62,
+          "current_price": 357.71,
+          "price_date": "2026-09-08",
+          "event_kind": "editorial",
+          "event_reason": "目前綜合判讀：風險偏高｜需要驗證",
+          "event_fingerprint": "fab9cfaa2c760393",
+          "comparison": {
+            "status": "unchanged",
+            "notify": false,
+            "score_delta": 0,
+            "previous_score": 44,
+            "previous_level": "low",
+            "label": "無實質變化",
+            "reasons": []
+          }
+        },
+        {
+          "ticker": "INTC",
+          "total_score": 40,
+          "event_score": 28,
+          "position_score": 12,
+          "drawdown_score": 0,
+          "level": "low",
+          "weight_pct": 2.6324,
+          "pnl_pct": 44.3474,
+          "market_value": 2532.0,
+          "current_price": 101.2799,
+          "price_date": "2026-09-08",
+          "event_kind": "financial",
+          "event_reason": "八季財務警報 1 項",
+          "event_fingerprint": "4beb92e4a015c60d",
+          "comparison": {
+            "status": "unchanged",
+            "notify": false,
+            "score_delta": 0,
+            "previous_score": 40,
+            "previous_level": "low",
+            "label": "無實質變化",
+            "reasons": []
+          }
+        },
+        {
+          "ticker": "ARM",
+          "total_score": 30,
+          "event_score": 18,
+          "position_score": 12,
+          "drawdown_score": 0,
+          "level": "low",
+          "weight_pct": 4.0288,
+          "pnl_pct": 11.8171,
+          "market_value": 3875.1,
+          "current_price": 258.34,
+          "price_date": "2026-09-08",
+          "event_kind": "editorial",
+          "event_reason": "目前綜合判讀：論點維持｜估值與季減觀察",
+          "event_fingerprint": "2856c5082c6c9ca1",
+          "comparison": {
+            "status": "unchanged",
+            "notify": false,
+            "score_delta": 0,
+            "previous_score": 30,
+            "previous_level": "low",
+            "label": "無實質變化",
+            "reasons": []
+          }
+        }
+      ]
+    },
     {
       "snapshot_id": "7d4b76c4d3715e4c",
       "captured_at": "2026-09-08T13:51:51Z",

@@ -1,6 +1,6 @@
 ---
 title: Form 4 內部人交易雷達
-updated_at: 2026-09-05T08:01:03+00:00
+updated_at: 2026-09-09T08:34:48+00:00
 tags:
   - sec/form-4
   - insiders
@@ -13,6 +13,22 @@ tags:
 
 | 申報日 | 公司 | 申報人／身分 | 代碼與意義 | 股數 | 單價 | 交易金額 | 取得／處分 | 10b5-1 | SEC |
 |---|---|---|---|---:|---:|---:|---|---|---|
+| 2026-09-08 | **MSFT** | Walmsley Emma N／董事 | `A` 公司授予／獎勵 | 125 | 0.00 | 0 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/789019/000078901926000186/xslF345X06/form4.xml) |
+| 2026-09-08 | **MSFT** | STANTON JOHN W／董事 | `A` 公司授予／獎勵 | 125 | 0.00 | 0 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/789019/000078901926000185/xslF345X06/form4.xml) |
+| 2026-09-08 | **MSFT** | SCHARF CHARLES W／董事 | `A` 公司授予／獎勵 | 125 | 0.00 | 0 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/789019/000078901926000184/xslF345X06/form4.xml) |
+| 2026-09-08 | **MSFT** | Rainey John D／董事 | `A` 公司授予／獎勵 | 125 | 0.00 | 0 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/789019/000078901926000183/xslF345X06/form4.xml) |
+| 2026-09-08 | **MSFT** | PRITZKER PENNY S／董事 | `A` 公司授予／獎勵 | 200 | 0.00 | 0 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/789019/000078901926000182/xslF345X06/form4.xml) |
+| 2026-09-08 | **MSFT** | PETERSON SANDRA E／董事 | `A` 公司授予／獎勵 | 230 | 0.00 | 0 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/789019/000078901926000181/xslF345X06/form4.xml) |
+| 2026-09-08 | **MSFT** | Mason Mark／董事 | `A` 公司授予／獎勵 | 195 | 0.00 | 0 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/789019/000078901926000180/xslF345X06/form4.xml) |
+| 2026-09-08 | **MSFT** | MacGregor Catherine／董事 | `A` 公司授予／獎勵 | 205 | 0.00 | 0 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/789019/000078901926000179/xslF345X06/form4.xml) |
+| 2026-09-08 | **NVDA** | STEVENS MARK A／董事 | `S` 公開市場或私下賣出 | 197,180 | 230.40 | 45,431,041 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1045810/000119903926000014/xslF345X06/wk-form4_1788901755.xml) |
+| 2026-09-08 | **NVDA** | STEVENS MARK A／董事 | `S` 公開市場或私下賣出 | 237,820 | 231.17 | 54,976,302 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1045810/000119903926000014/xslF345X06/wk-form4_1788901755.xml) |
+| 2026-09-08 | **NVDA** | STEVENS MARK A／董事 | `S` 公開市場或私下賣出 | 182,628 | 233.46 | 42,636,607 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1045810/000119903926000014/xslF345X06/wk-form4_1788901755.xml) |
+| 2026-09-08 | **NVDA** | STEVENS MARK A／董事 | `S` 公開市場或私下賣出 | 4,611 | 234.00 | 1,078,994 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1045810/000119903926000014/xslF345X06/wk-form4_1788901755.xml) |
+| 2026-09-08 | **META** | Anderson Aaron／高階主管（Chief Accounting Officer） | `S` 公開市場或私下賣出 | 3,240 | 618.06 | 2,002,508 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000095010326013672/xslF345X06/ownership.xml) |
+| 2026-09-08 | **NVDA** | STEVENS MARK A／董事 | `S` 公開市場或私下賣出 | 198,707 | 227.70 | 45,244,670 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1045810/000119903926000014/xslF345X06/wk-form4_1788901755.xml) |
+| 2026-09-08 | **NVDA** | STEVENS MARK A／董事 | `S` 公開市場或私下賣出 | 1,293 | 228.27 | 295,153 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1045810/000119903926000014/xslF345X06/wk-form4_1788901755.xml) |
+| 2026-09-08 | **NVDA** | STEVENS MARK A／董事 | `S` 公開市場或私下賣出 | 200,000 | 229.87 | 45,974,100 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1045810/000119903926000014/xslF345X06/wk-form4_1788901755.xml) |
 | 2026-09-04 | **COHR** | Neal-Graves Lisa／董事 | `S` 公開市場或私下賣出 | 2,200 | 268.42 | 590,524 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/820318/000089914026001054/xslF345X06/form4.xml) |
 | 2026-09-04 | **NVDA** | COXE TENCH／董事 | `G` 贈與 | 500,000 | 0.00 | 0 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1045810/000119764726000009/xslF345X06/wk-form4_1788555631.xml) |
 | 2026-09-04 | **TSM** | Fang Shu-Hua／高階主管（SVP and GC） | `P` 公開市場或私下買入 | 1,000 | 77.09 | 77,090 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1046179/000104617926000596/xslF345X06/wk-form4_1788517801.xml) |
@@ -26,14 +42,6 @@ tags:
 | 2026-09-02 | **NVDA** | STEVENS MARK A／董事 | `S` 公開市場或私下賣出 | 300,000 | 224.07 | 67,221,450 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1045810/000119903926000012/xslF345X06/wk-form4_1788387031.xml) |
 | 2026-09-02 | **NVDA** | STEVENS MARK A／董事 | `S` 公開市場或私下賣出 | 300,000 | 226.27 | 67,881,120 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1045810/000119903926000012/xslF345X06/wk-form4_1788387031.xml) |
 | 2026-09-02 | **MRVL** | Koopmans Chris／高階主管（President and COO） | `S` 公開市場或私下賣出 | 10,000 | 203.27 | 2,032,700 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1835632/000162828026060112/xslF345X06/wk-form4_1788380464.xml) |
-| 2026-09-02 | **MSFT** | Nadella Satya／董事、高階主管（Chief Executive Officer） | `S` 公開市場或私下賣出 | 1,040 | 498.24 | 518,169 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/789019/000078901926000161/xslF345X06/form4.xml) |
-| 2026-09-02 | **MSFT** | Nadella Satya／董事、高階主管（Chief Executive Officer） | `S` 公開市場或私下賣出 | 5,080 | 499.45 | 2,537,182 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/789019/000078901926000161/xslF345X06/form4.xml) |
-| 2026-09-02 | **MSFT** | Nadella Satya／董事、高階主管（Chief Executive Officer） | `S` 公開市場或私下賣出 | 24,723 | 500.47 | 12,373,065 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/789019/000078901926000161/xslF345X06/form4.xml) |
-| 2026-09-02 | **MSFT** | Nadella Satya／董事、高階主管（Chief Executive Officer） | `S` 公開市場或私下賣出 | 32,901 | 501.12 | 16,487,458 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/789019/000078901926000161/xslF345X06/form4.xml) |
-| 2026-09-02 | **MSFT** | Nadella Satya／董事、高階主管（Chief Executive Officer） | `S` 公開市場或私下賣出 | 4,520 | 502.29 | 2,270,355 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/789019/000078901926000161/xslF345X06/form4.xml) |
-| 2026-09-02 | **MSFT** | Nadella Satya／董事、高階主管（Chief Executive Officer） | `S` 公開市場或私下賣出 | 7,067 | 503.44 | 3,557,791 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/789019/000078901926000161/xslF345X06/form4.xml) |
-| 2026-09-02 | **MSFT** | Nadella Satya／董事、高階主管（Chief Executive Officer） | `S` 公開市場或私下賣出 | 9,834 | 504.11 | 4,957,441 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/789019/000078901926000161/xslF345X06/form4.xml) |
-| 2026-09-02 | **MSFT** | Nadella Satya／董事、高階主管（Chief Executive Officer） | `S` 公開市場或私下賣出 | 1,360 | 505.20 | 687,072 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/789019/000078901926000161/xslF345X06/form4.xml) |
 | 2026-09-02 | **NVDA** | STEVENS MARK A／董事 | `S` 公開市場或私下賣出 | 63,501 | 220.06 | 13,973,960 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1045810/000119903926000012/xslF345X06/wk-form4_1788387031.xml) |
 | 2026-09-02 | **TSM** | Yeap Choh Fei／高階主管（SVP） | `A` 公司授予／獎勵 | 12,881 | 0.00 | 0 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1046179/000104617926000594/xslF345X06/wk-form4_1788344670.xml) |
 | 2026-09-02 | **TSM** | Yoo Chue-San／高階主管（VP） | `A` 公司授予／獎勵 | 8,175 | 0.00 | 0 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1046179/000104617926000593/xslF345X06/wk-form4_1788344662.xml) |
@@ -58,19 +66,6 @@ tags:
 | 2026-09-01 | **AAPL** | Ternus John／董事、高階主管（CEO） | `A` 公司授予／獎勵 | 7,690 | 0.00 | 0 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/320193/000114036126035362/xslF345X06/form4.xml) |
 | 2026-09-01 | **COHR** | Eng Julie Sheridan／高階主管（Chief Technology Officer） | `S` 公開市場或私下賣出 | 6,030 | 270.69 | 1,632,246 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/820318/000089914026001037/xslF345X06/form4.xml) |
 | 2026-09-01 | **COHR** | Eng Julie Sheridan／高階主管（Chief Technology Officer） | `S` 公開市場或私下賣出 | 7,047 | 276.83 | 1,950,834 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/820318/000089914026001037/xslF345X06/form4.xml) |
-| 2026-09-01 | **MSFT** | SMITH BRADFORD L／高階主管（Vice Chair and President） | `A` 公司授予／獎勵 | 27,688 | 0.00 | 0 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/789019/000078901926000159/xslF345X06/form4.xml) |
-| 2026-09-01 | **MSFT** | SMITH BRADFORD L／高階主管（Vice Chair and President） | `F` 以證券支付稅款或履約價 | 17,036 | 513.53 | 8,748,548 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/789019/000078901926000159/xslF345X06/form4.xml) |
-| 2026-09-01 | **MSFT** | Numoto Takeshi／高階主管（EVP, Chief Marketing Officer） | `A` 公司授予／獎勵 | 12,684 | 0.00 | 0 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/789019/000078901926000158/xslF345X06/form4.xml) |
-| 2026-09-01 | **MSFT** | Numoto Takeshi／高階主管（EVP, Chief Marketing Officer） | `F` 以證券支付稅款或履約價 | 7,518 | 513.53 | 3,860,825 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/789019/000078901926000158/xslF345X06/form4.xml) |
-| 2026-09-01 | **MSFT** | Nadella Satya／董事、高階主管（Chief Executive Officer） | `A` 公司授予／獎勵 | 178,622 | 0.00 | 0 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/789019/000078901926000157/xslF345X06/form4.xml) |
-| 2026-09-01 | **MSFT** | Nadella Satya／董事、高階主管（Chief Executive Officer） | `F` 以證券支付稅款或履約價 | 70,466 | 513.53 | 36,186,325 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/789019/000078901926000157/xslF345X06/form4.xml) |
-| 2026-09-01 | **MSFT** | Jolla Alice L.／高階主管（Chief Accounting Officer） | `A` 公司授予／獎勵 | 5,575 | 0.00 | 0 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/789019/000078901926000156/xslF345X06/form4.xml) |
-| 2026-09-01 | **MSFT** | Jolla Alice L.／高階主管（Chief Accounting Officer） | `F` 以證券支付稅款或履約價 | 486 | 513.53 | 249,464 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/789019/000078901926000156/xslF345X06/form4.xml) |
-| 2026-09-01 | **MSFT** | Hood Amy／高階主管（EVP, Chief Financial Officer） | `A` 公司授予／獎勵 | 31,260 | 0.00 | 0 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/789019/000078901926000155/xslF345X06/form4.xml) |
-| 2026-09-01 | **MSFT** | Hood Amy／高階主管（EVP, Chief Financial Officer） | `F` 以證券支付稅款或履約價 | 18,739 | 513.53 | 9,622,948 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/789019/000078901926000155/xslF345X06/form4.xml) |
-| 2026-09-01 | **MSFT** | Coleman Amy／高階主管（EVP, Chief Human Resources Off） | `F` 以證券支付稅款或履約價 | 836 | 513.53 | 429,429 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/789019/000078901926000154/xslF345X06/form4.xml) |
-| 2026-09-01 | **MSFT** | Althoff Judson／高階主管（EVP, Chief Commercial Officer） | `A` 公司授予／獎勵 | 29,724 | 0.00 | 0 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/789019/000078901926000153/xslF345X06/form4.xml) |
-| 2026-09-01 | **MSFT** | Althoff Judson／高階主管（EVP, Chief Commercial Officer） | `F` 以證券支付稅款或履約價 | 18,081 | 513.53 | 9,284,904 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/789019/000078901926000153/xslF345X06/form4.xml) |
 | 2026-09-01 | **COHR** | Place Jeffrey B.／高階主管（Chief Supply Chain Officer） | `A` 公司授予／獎勵 | 3,358 | 0.00 | 0 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/820318/000089914026001040/xslF345X06/form4.xml) |
 | 2026-09-01 | **COHR** | Mocciaro Ilaria／高階主管（Chief Accounting Officer） | `A` 公司授予／獎勵 | 1,612 | 0.00 | 0 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/820318/000089914026001039/xslF345X06/form4.xml) |
 | 2026-09-01 | **COHR** | Mocciaro Ilaria／高階主管（Chief Accounting Officer） | `A` 公司授予／獎勵 | 2,449 | 0.00 | 0 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/820318/000089914026001039/xslF345X06/form4.xml) |
@@ -183,20 +178,6 @@ tags:
 | 2026-08-18 | **META** | Elkann John／董事 | `M` 衍生證券行使／轉換 | 110 | 0.00 | 0 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000095010326012608/xslF345X06/ownership.xml) |
 | 2026-08-18 | **META** | Elkann John／董事 | `F` 以證券支付稅款或履約價 | 8 | 589.85 | 4,719 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000095010326012608/xslF345X06/ownership.xml) |
 | 2026-08-18 | **META** | Elkann John／董事 | `M` 衍生證券行使／轉換 | 110 | 0.00 | 0 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000095010326012608/xslF345X06/ownership.xml) |
-| 2026-08-18 | **META** | LI SUSAN J／高階主管（Chief Financial Officer） | `C` 衍生證券轉換 | 2,400 | 0.00 | 0 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000095010326012607/xslF345X06/ownership.xml) |
-| 2026-08-18 | **META** | LI SUSAN J／高階主管（Chief Financial Officer） | `C` 衍生證券轉換 | 1,888 | 0.00 | 0 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000095010326012607/xslF345X06/ownership.xml) |
-| 2026-08-18 | **META** | LI SUSAN J／高階主管（Chief Financial Officer） | `S` 公開市場或私下賣出 | 2,127 | 689.85 | 1,467,311 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000095010326012607/xslF345X06/ownership.xml) |
-| 2026-08-18 | **META** | LI SUSAN J／高階主管（Chief Financial Officer） | `M` 衍生證券行使／轉換 | 6,791 | 0.00 | 0 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000095010326012607/xslF345X06/ownership.xml) |
-| 2026-08-18 | **META** | LI SUSAN J／高階主管（Chief Financial Officer） | `M` 衍生證券行使／轉換 | 2,679 | 0.00 | 0 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000095010326012607/xslF345X06/ownership.xml) |
-| 2026-08-18 | **META** | LI SUSAN J／高階主管（Chief Financial Officer） | `M` 衍生證券行使／轉換 | 1,783 | 0.00 | 0 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000095010326012607/xslF345X06/ownership.xml) |
-| 2026-08-18 | **META** | LI SUSAN J／高階主管（Chief Financial Officer） | `M` 衍生證券行使／轉換 | 2,704 | 0.00 | 0 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000095010326012607/xslF345X06/ownership.xml) |
-| 2026-08-18 | **META** | LI SUSAN J／高階主管（Chief Financial Officer） | `F` 以證券支付稅款或履約價 | 6,922 | 589.85 | 4,082,942 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000095010326012607/xslF345X06/ownership.xml) |
-| 2026-08-18 | **META** | LI SUSAN J／高階主管（Chief Financial Officer） | `C` 衍生證券轉換 | 2,400 | 0.00 | 0 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000095010326012607/xslF345X06/ownership.xml) |
-| 2026-08-18 | **META** | LI SUSAN J／高階主管（Chief Financial Officer） | `C` 衍生證券轉換 | 1,888 | 0.00 | 0 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000095010326012607/xslF345X06/ownership.xml) |
-| 2026-08-18 | **META** | LI SUSAN J／高階主管（Chief Financial Officer） | `M` 衍生證券行使／轉換 | 6,791 | 0.00 | 0 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000095010326012607/xslF345X06/ownership.xml) |
-| 2026-08-18 | **META** | LI SUSAN J／高階主管（Chief Financial Officer） | `M` 衍生證券行使／轉換 | 2,679 | 0.00 | 0 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000095010326012607/xslF345X06/ownership.xml) |
-| 2026-08-18 | **META** | LI SUSAN J／高階主管（Chief Financial Officer） | `M` 衍生證券行使／轉換 | 1,783 | 0.00 | 0 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000095010326012607/xslF345X06/ownership.xml) |
-| 2026-08-18 | **META** | LI SUSAN J／高階主管（Chief Financial Officer） | `M` 衍生證券行使／轉換 | 2,704 | 0.00 | 0 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000095010326012607/xslF345X06/ownership.xml) |
 | 2026-08-17 | **MRVL** | MURPHY MATTHEW J／董事、高階主管（Chairman of the Board and CEO） | `S` 公開市場或私下賣出 | 7,500 | 236.08 | 1,770,600 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1835632/000162828026057525/xslF345X06/wk-form4_1787014784.xml) |
 | 2026-08-17 | **MRVL** | Scarpulla Justin／高階主管（SVP, Chief Accounting Officer） | `M` 衍生證券行使／轉換 | 3,166 | 0.00 | 0 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1835632/000162828026057399/xslF345X06/wk-form4_1786999519.xml) |
 | 2026-08-17 | **MRVL** | Scarpulla Justin／高階主管（SVP, Chief Accounting Officer） | `F` 以證券支付稅款或履約價 | 1,570 | 222.02 | 348,571 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1835632/000162828026057399/xslF345X06/wk-form4_1786999519.xml) |
@@ -213,6 +194,25 @@ tags:
 | 2026-08-14 | **ONDS** | SOOD JASPREET K／董事 | `M` 衍生證券行使／轉換 | 6,482 | 0.00 | 0 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1646188/000121390026090420/xslF345X06/ownership.xml) |
 | 2026-08-14 | **ONDS** | SOOD JASPREET K／董事 | `F` 以證券支付稅款或履約價 | 3,345 | 9.30 | 31,109 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1646188/000121390026090420/xslF345X06/ownership.xml) |
 | 2026-08-14 | **ONDS** | SOOD JASPREET K／董事 | `M` 衍生證券行使／轉換 | 2,817 | 0.00 | 0 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1646188/000121390026090420/xslF345X06/ownership.xml) |
+| 2026-08-14 | **ONDS** | SOOD JASPREET K／董事 | `F` 以證券支付稅款或履約價 | 1,345 | 9.30 | 12,509 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1646188/000121390026090420/xslF345X06/ownership.xml) |
+| 2026-08-14 | **ONDS** | SOOD JASPREET K／董事 | `M` 衍生證券行使／轉換 | 6,482 | 0.00 | 0 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1646188/000121390026090420/xslF345X06/ownership.xml) |
+| 2026-08-14 | **ONDS** | SOOD JASPREET K／董事 | `M` 衍生證券行使／轉換 | 2,817 | 0.00 | 0 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1646188/000121390026090420/xslF345X06/ownership.xml) |
+| 2026-08-14 | **ONDS** | LAIRD NEIL J／高階主管（CFO and Treasurer） | `M` 衍生證券行使／轉換 | 12,500 | 0.00 | 0 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1646188/000121390026090418/xslF345X06/ownership.xml) |
+| 2026-08-14 | **ONDS** | LAIRD NEIL J／高階主管（CFO and Treasurer） | `F` 以證券支付稅款或履約價 | 4,988 | 9.30 | 46,388 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1646188/000121390026090418/xslF345X06/ownership.xml) |
+| 2026-08-14 | **ONDS** | LAIRD NEIL J／高階主管（CFO and Treasurer） | `M` 衍生證券行使／轉換 | 12,500 | 0.00 | 0 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1646188/000121390026090418/xslF345X06/ownership.xml) |
+| 2026-08-14 | **INTC** | TAN LIP BU／董事、高階主管（CEO） | `P` 公開市場或私下買入 | 105,263 | 95.00 | 9,999,985 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/50863/000005086326000177/xslF345X06/form4.xml) |
+| 2026-08-14 | **ONDS** | Seidl Randy／董事 | `M` 衍生證券行使／轉換 | 6,482 | 0.00 | 0 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1646188/000121390026090405/xslF345X06/ownership.xml) |
+| 2026-08-14 | **ONDS** | Seidl Randy／董事 | `M` 衍生證券行使／轉換 | 2,817 | 0.00 | 0 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1646188/000121390026090405/xslF345X06/ownership.xml) |
+| 2026-08-14 | **ONDS** | Seidl Randy／董事 | `M` 衍生證券行使／轉換 | 6,482 | 0.00 | 0 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1646188/000121390026090405/xslF345X06/ownership.xml) |
+| 2026-08-14 | **ONDS** | Seidl Randy／董事 | `M` 衍生證券行使／轉換 | 2,817 | 0.00 | 0 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1646188/000121390026090405/xslF345X06/ownership.xml) |
+| 2026-08-13 | **AAPL** | Newstead Jennifer／高階主管（SVP, GC and Secretary） | `S` 公開市場或私下賣出 | 1,439 | 307.75 | 442,852 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/320193/000114036126032884/xslF345X06/form4.xml) |
+| 2026-08-12 | **NVDA** | NORA JOHNSON SUZANNE M／董事 | `A` 公司授予／獎勵 | 1,262 | 0.00 | 0 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1045810/000131026426000008/xslF345X06/wk-form4_1786569187.xml) |
+| 2026-08-12 | **NVDA** | NORA JOHNSON SUZANNE M／董事 | `A` 公司授予／獎勵 | 1,148 | 0.00 | 0 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1045810/000131026426000008/xslF345X06/wk-form4_1786569187.xml) |
+| 2026-08-11 | **ARM** | Sine Jeffrey／董事 | `G` 贈與 | 9,572 | 0.00 | 0 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1973239/000197323926000119/xslF345X06/wk-form4_1786479685.xml) |
+| 2026-08-07 | **NVDA** | COXE TENCH／董事 | `G` 贈與 | 500,000 | 0.00 | 0 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1045810/000119764726000007/xslF345X06/wk-form4_1786135642.xml) |
+| 2026-08-03 | **MRVL** | Koopmans Chris／高階主管（President and COO） | `S` 公開市場或私下賣出 | 10,000 | 180.50 | 1,805,000 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1835632/000162828026051905/xslF345X06/wk-form4_1785789180.xml) |
+| 2026-08-03 | **INTC** | Chandrasekaran Nagasubramaniyan／高階主管（EVP, CT & Ops Off, GM Foundry） | `M` 衍生證券行使／轉換 | 33,007 | — | — | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/50863/000005086326000174/xslF345X06/form4.xml) |
+| 2026-08-03 | **INTC** | Chandrasekaran Nagasubramaniyan／高階主管（EVP, CT & Ops Off, GM Foundry） | `F` 以證券支付稅款或履約價 | 14,738 | 90.04 | 1,327,010 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/50863/000005086326000174/xslF345X06/form4.xml) |
 
 ## 交易代碼速查
 
@@ -227,5 +227,5 @@ tags:
 
 > 金額只在股數與單價都由 SEC 文件提供時才計算；缺值保留為「—」，不以 0 代替。
 
-> 最後檢查：`2026-09-05T08:01:03+00:00`
+> 最後檢查：`2026-09-09T08:34:48+00:00`
 
