@@ -796,15 +796,23 @@
 
     .radar-score-pill {
       display: inline-flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: center;
-      min-width: 58px;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 142px;
       padding: 7px 10px;
-      border-radius: 999px;
+      border-radius: 10px;
       background: rgba(56, 189, 248, 0.12);
       border: 1px solid rgba(56, 189, 248, 0.3);
       color: #7dd3fc;
       font-weight: 800;
+    }
+    .radar-score-pill small {
+      color: #94a3b8;
+      font-size: 0.66rem;
+      font-weight: 650;
+      white-space: nowrap;
     }
 
     .radar-chart-layout {
@@ -861,6 +869,108 @@
     }
     .radar-method-box p { margin: 4px 0; }
 
+    .radar-trend-section {
+      margin-top: 22px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .radar-trend-heading {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+    .radar-trend-heading h4 { color: #f8fafc; font-size: 1rem; }
+    .radar-trend-heading p { margin-top: 4px; color: #94a3b8; font-size: 0.76rem; }
+    .radar-trend-picker {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #94a3b8;
+      font-size: 0.76rem;
+      font-weight: 700;
+    }
+    .radar-trend-picker select {
+      min-width: 112px;
+      padding: 7px 30px 7px 10px;
+      border: 1px solid rgba(148, 163, 184, 0.28);
+      border-radius: 8px;
+      background: #111827;
+      color: #e2e8f0;
+    }
+    .radar-date-basis {
+      margin-bottom: 12px;
+      padding: 10px 12px;
+      border: 1px solid rgba(56, 189, 248, 0.2);
+      border-radius: 10px;
+      background: rgba(56, 189, 248, 0.055);
+      color: #94a3b8;
+      font-size: 0.74rem;
+      line-height: 1.55;
+    }
+    .radar-date-basis strong { color: #7dd3fc; }
+    .radar-trend-summary {
+      display: flex;
+      align-items: center;
+      gap: 8px 14px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.035);
+      color: #cbd5e1;
+      font-size: 0.78rem;
+    }
+    .radar-trend-summary .improving { color: #34d399; }
+    .radar-trend-summary .stable { color: #7dd3fc; }
+    .radar-trend-summary .deteriorating { color: #fb7185; }
+    .radar-trend-summary .unknown { color: #94a3b8; }
+    .radar-trend-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+    .radar-trend-card {
+      min-width: 0;
+      padding: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.025);
+    }
+    .radar-trend-card-head,
+    .radar-trend-value-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .radar-trend-card-head strong { color: #e2e8f0; font-size: 0.82rem; }
+    .radar-trend-frequency { color: #64748b; font-size: 0.66rem; }
+    .radar-trend-state { font-size: 0.72rem; font-weight: 800; white-space: nowrap; }
+    .radar-trend-state.improving { color: #34d399; }
+    .radar-trend-state.stable { color: #7dd3fc; }
+    .radar-trend-state.deteriorating { color: #fb7185; }
+    .radar-trend-state.unknown { color: #94a3b8; }
+    .radar-trend-value-row { margin-top: 8px; align-items: flex-end; }
+    .radar-trend-latest { color: #f8fafc; font-size: 1.08rem; font-weight: 800; }
+    .radar-trend-change { color: #94a3b8; font-size: 0.68rem; text-align: right; }
+    .radar-sparkline { display: block; width: 100%; height: 86px; margin-top: 7px; overflow: visible; }
+    .radar-sparkline-frame { fill: rgba(255, 255, 255, 0.018); stroke: rgba(148, 163, 184, 0.12); }
+    .radar-sparkline-zero { stroke: rgba(148, 163, 184, 0.22); stroke-dasharray: 3 3; }
+    .radar-sparkline-path { fill: none; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+    .radar-sparkline-path.improving { stroke: #34d399; }
+    .radar-sparkline-path.stable { stroke: #38bdf8; }
+    .radar-sparkline-path.deteriorating { stroke: #fb7185; }
+    .radar-sparkline-path.unknown { stroke: #94a3b8; }
+    .radar-sparkline-point.improving { stroke: #34d399; fill: #34d399; }
+    .radar-sparkline-point.stable { stroke: #38bdf8; fill: #38bdf8; }
+    .radar-sparkline-point.deteriorating { stroke: #fb7185; fill: #fb7185; }
+    .radar-sparkline-point.unknown { stroke: #94a3b8; fill: #94a3b8; }
+    .radar-sparkline text { fill: #64748b; font-size: 9px; }
+    .radar-trend-note { margin-top: 5px; color: #64748b; font-size: 0.67rem; line-height: 1.45; }
+
     @media (max-width: 900px) {
       .radar-chart-layout { grid-template-columns: 1fr; }
       .radar-chart-wrap { height: 52vh; min-height: 420px; }
@@ -868,6 +978,16 @@
       .radar-checkbox-group > strong { padding-top: 0; }
       .radar-score-summary { align-items: flex-start; flex-direction: column; }
       .radar-comparison-row { grid-template-columns: 1fr; gap: 2px; }
+      .radar-trend-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 560px) {
+      .radar-score-pill { min-width: 100%; }
+      #longTermRadarScores { width: 100%; }
+      .radar-trend-grid { grid-template-columns: 1fr; }
+      .radar-trend-heading { align-items: stretch; }
+      .radar-trend-picker { justify-content: space-between; }
+      .radar-trend-picker select { flex: 1; }
     }
 
     .macd-trend-section {
@@ -3516,6 +3636,21 @@
               <div class="radar-dimension-card">正在整理七個核心構面與評分依據…</div>
             </div>
           </div>
+          <section class="radar-trend-section" aria-labelledby="longTermRadarTrendTitle">
+            <div class="radar-trend-heading">
+              <div>
+                <h4 id="longTermRadarTrendTitle">八季基本面趨勢</h4>
+                <p>顯示實際財務數字，不使用歷史雷達分數；箭頭代表方向，不代表絕對水準。</p>
+              </div>
+              <label class="radar-trend-picker" for="longTermRadarTrendTicker">
+                趨勢公司
+                <select id="longTermRadarTrendTicker" onchange="selectLongTermRadarTrendTicker(this.value)" aria-label="選擇基本面趨勢公司"></select>
+              </label>
+            </div>
+            <div id="longTermRadarDates" class="radar-date-basis">勾選公司後顯示財報、股價與判讀日期。</div>
+            <div id="longTermRadarTrendSummary" class="radar-trend-summary" aria-live="polite">正在整理趨勢方向…</div>
+            <div id="longTermRadarTrendGrid" class="radar-trend-grid"></div>
+          </section>
           <div id="longTermRadarRisks" class="radar-risk-box" role="note">重大警示會獨立列示，不會被其他高分抵銷。</div>
           <div id="longTermRadarMethod" class="radar-method-box">
             <p><strong>七個角：</strong>成長持續性、獲利能力與護城河、現金流品質、財務韌性、股東價值與稀釋、管理層執行與揭露、估值安全邊際。</p>
@@ -3897,6 +4032,7 @@
     let longTermRadarChart = null;
     let longTermRadarData = null;
     let longTermRadarPromise = null;
+    let longTermRadarTrendTicker = null;
     let dcfAssumptionsDerivedAt = null;
     let dcfAssumptionsStaleAfterDays = 90;
 
@@ -8259,6 +8395,132 @@
         `${escapeSec(company.ticker)}</label>`;
     }
 
+    function radarShortDate(value) {
+      if (!value) return '未知';
+      const text = String(value).slice(0, 10);
+      return /^\d{4}-\d{2}-\d{2}$/.test(text) ? text.slice(5) : text;
+    }
+
+    function radarTrendPeriodLabel(value, frequency) {
+      if (!value) return '未知';
+      const text = String(value).slice(0, 10);
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(text)) return text;
+      return frequency === 'annual' ? text.slice(0, 4) : `${text.slice(2, 4)}/${text.slice(5, 7)}`;
+    }
+
+    function selectLongTermRadarTrendTicker(ticker) {
+      longTermRadarTrendTicker = ticker;
+      const selected = selectedLongTermRadarTickers().map(value =>
+        longTermRadarData && longTermRadarData.companies.find(row => row.ticker === value)).filter(Boolean);
+      renderLongTermRadarTrend(selected);
+    }
+
+    function radarSparklineHtml(metric) {
+      const points = metric.points || [];
+      const known = points.map((point, index) => ({ ...point, index }))
+        .filter(point => Number.isFinite(point.value));
+      if (!known.length) return '<div class="radar-trend-note">沒有可繪製的歷史數值</div>';
+
+      let minimum = Math.min(...known.map(point => point.value));
+      let maximum = Math.max(...known.map(point => point.value));
+      if (minimum === maximum) {
+        const padding = Math.max(Math.abs(minimum) * 0.08, 1);
+        minimum -= padding;
+        maximum += padding;
+      } else {
+        const padding = (maximum - minimum) * 0.08;
+        minimum -= padding;
+        maximum += padding;
+      }
+      const left = 8;
+      const right = 272;
+      const top = 8;
+      const bottom = 64;
+      const x = index => points.length <= 1 ? (left + right) / 2 : left + index * (right - left) / (points.length - 1);
+      const y = value => bottom - (value - minimum) * (bottom - top) / (maximum - minimum);
+      const segments = [];
+      let current = [];
+      points.forEach((point, index) => {
+        if (Number.isFinite(point.value)) {
+          current.push(`${current.length ? 'L' : 'M'} ${x(index).toFixed(1)} ${y(point.value).toFixed(1)}`);
+        } else if (current.length) {
+          segments.push(current.join(' '));
+          current = [];
+        }
+      });
+      if (current.length) segments.push(current.join(' '));
+      const state = ['improving', 'stable', 'deteriorating'].includes(metric.state) ? metric.state : 'unknown';
+      const paths = segments.map(path => `<path class="radar-sparkline-path ${state}" d="${path}"></path>`).join('');
+      const circles = known.map(point =>
+        `<circle class="radar-sparkline-point ${state}" cx="${x(point.index).toFixed(1)}" cy="${y(point.value).toFixed(1)}" r="3.2">` +
+        `<title>${escapeSec(point.period)}｜${escapeSec(point.display)}</title></circle>`).join('');
+      const zero = minimum < 0 && maximum > 0
+        ? `<line class="radar-sparkline-zero" x1="${left}" x2="${right}" y1="${y(0).toFixed(1)}" y2="${y(0).toFixed(1)}"></line>` : '';
+      const first = known[0];
+      const last = known[known.length - 1];
+      return `<svg class="radar-sparkline" viewBox="0 0 280 86" role="img" ` +
+        `aria-label="${escapeSec(metric.label)}，${escapeSec(first.period)}至${escapeSec(last.period)}趨勢">` +
+        `<rect class="radar-sparkline-frame" x="1" y="1" width="278" height="69" rx="7"></rect>${zero}${paths}${circles}` +
+        `<text x="${left}" y="82">${escapeSec(radarTrendPeriodLabel(first.period, metric.frequency))}</text>` +
+        `<text x="${right}" y="82" text-anchor="end">${escapeSec(radarTrendPeriodLabel(last.period, metric.frequency))}</text></svg>`;
+    }
+
+    function renderLongTermRadarTrend(selected) {
+      const picker = document.getElementById('longTermRadarTrendTicker');
+      const dates = document.getElementById('longTermRadarDates');
+      const summary = document.getElementById('longTermRadarTrendSummary');
+      const grid = document.getElementById('longTermRadarTrendGrid');
+      if (!picker || !dates || !summary || !grid) return;
+      if (!selected.length) {
+        picker.innerHTML = '<option value="">尚未勾選公司</option>';
+        picker.disabled = true;
+        longTermRadarTrendTicker = null;
+        dates.textContent = '勾選公司後顯示財報、股價與判讀日期。';
+        summary.textContent = '勾選公司後顯示改善、持平與惡化項目。';
+        grid.innerHTML = '';
+        return;
+      }
+
+      picker.disabled = false;
+      if (!selected.some(row => row.ticker === longTermRadarTrendTicker)) {
+        longTermRadarTrendTicker = selected[0].ticker;
+      }
+      picker.innerHTML = selected.map(row =>
+        `<option value="${escapeSec(row.ticker)}"${row.ticker === longTermRadarTrendTicker ? ' selected' : ''}>${escapeSec(row.ticker)}</option>`
+      ).join('');
+      const company = selected.find(row => row.ticker === longTermRadarTrendTicker) || selected[0];
+      const basis = company.score_basis || {};
+      dates.innerHTML = `<strong>${escapeSec(company.ticker)}｜目前 ${company.overall_score == null ? '資料不足' : company.overall_score + ' 分'}</strong>` +
+        `　季財報截至 ${escapeSec(basis.quarterly_period || '未知')}` +
+        `${basis.annual_period ? `｜年度財務截至 ${escapeSec(basis.annual_period)}` : ''}` +
+        `｜股價截至 ${escapeSec(basis.price_date || '未知')}` +
+        `｜判讀更新 ${escapeSec(basis.score_updated_at || longTermRadarData.generated_at || '未知')}`;
+
+      const trends = company.trends || {};
+      const counts = (trends.summary || {}).counts || {};
+      const strongest = (trends.summary || {}).strongest_improvement;
+      const weakest = (trends.summary || {}).main_deterioration;
+      summary.innerHTML = `<strong>${escapeSec(company.ticker)} 基本面方向</strong>` +
+        `<span class="improving">↑ ${counts.improving || 0} 項改善</span>` +
+        `<span class="stable">→ ${counts.stable || 0} 項持平</span>` +
+        `<span class="deteriorating">↓ ${counts.deteriorating || 0} 項惡化</span>` +
+        `${counts.unknown ? `<span class="unknown">? ${counts.unknown} 項資料不足</span>` : ''}` +
+        `<span>最大改善：${escapeSec(strongest || '無明顯改善')}｜主要惡化：${escapeSec(weakest || '無明顯惡化')}</span>`;
+
+      const stateIcons = { improving: '↑', stable: '→', deteriorating: '↓', unknown: '?' };
+      grid.innerHTML = (trends.metrics || []).map(metric => {
+        const state = ['improving', 'stable', 'deteriorating'].includes(metric.state) ? metric.state : 'unknown';
+        const knownCount = (metric.points || []).filter(point => Number.isFinite(point.value)).length;
+        const frequency = metric.frequency === 'annual' ? `最近 ${knownCount} 年` : `最近 ${knownCount} 季`;
+        return `<article class="radar-trend-card">` +
+          `<div class="radar-trend-card-head"><div><strong>${escapeSec(metric.label)}</strong> <span class="radar-trend-frequency">${escapeSec(frequency)}</span></div>` +
+          `<span class="radar-trend-state ${state}">${stateIcons[state]} ${escapeSec(metric.state_label)}</span></div>` +
+          `<div class="radar-trend-value-row"><span class="radar-trend-latest">${escapeSec(metric.latest_display)}</span>` +
+          `<span class="radar-trend-change">${escapeSec(metric.change_display)}</span></div>` +
+          radarSparklineHtml(metric) + `<p class="radar-trend-note">${escapeSec(metric.note)}</p></article>`;
+      }).join('') || '<div class="radar-trend-card">目前沒有可顯示的趨勢資料。</div>';
+    }
+
     function renderLongTermRadarComparison() {
       if (!longTermRadarChart || !longTermRadarData) return;
       const selectedTickers = selectedLongTermRadarTickers();
@@ -8289,6 +8551,7 @@
       });
       longTermRadarChart.$companies = selected;
       longTermRadarChart.update();
+      renderLongTermRadarTrend(selected);
 
       const meta = document.getElementById('longTermRadarMeta');
       const scores = document.getElementById('longTermRadarScores');
@@ -8301,11 +8564,15 @@
           '<strong>獨立警示</strong><br><span>勾選公司後顯示；警示不會被其他構面的高分抵銷。</span>';
         return;
       }
-      meta.textContent = `已勾選 ${selected.length} 家｜建議同時比較 2～4 家，線條最容易辨識。`;
+      meta.textContent = `已勾選 ${selected.length} 家｜判讀更新 ${longTermRadarData.generated_at || '未知'}｜建議比較 2～4 家。`;
       scores.innerHTML = selected.map(company => {
         const color = longTermRadarColor(company.ticker);
         const value = company.overall_score == null ? '資料不足' : `${company.overall_score} 分`;
-        return `<span class="radar-score-pill" style="color:${color};border-color:${color}66">${escapeSec(company.ticker)} ${value}</span>`;
+        const basis = company.score_basis || {};
+        return `<span class="radar-score-pill" style="color:${color};border-color:${color}66" ` +
+          `title="季財報 ${escapeSec(basis.quarterly_period || '未知')}｜年度財務 ${escapeSec(basis.annual_period || '未知')}｜股價 ${escapeSec(basis.price_date || '未知')}｜判讀 ${escapeSec(basis.score_updated_at || '未知')}">` +
+          `<span>${escapeSec(company.ticker)} ${value}</span>` +
+          `<small>財報 ${escapeSec(radarShortDate(basis.quarterly_period))}｜股價 ${escapeSec(radarShortDate(basis.price_date))}</small></span>`;
       }).join('');
 
       document.getElementById('longTermRadarDimensions').innerHTML = dimensionOrder.map(definition => {

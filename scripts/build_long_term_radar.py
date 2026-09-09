@@ -103,6 +103,194 @@ def multiple(value: float | None) -> str:
     return "資料不足" if value is None else f"{value:.1f}x"
 
 
+def compact_amount(value: float | None, currency: str | None) -> str:
+    if value is None:
+        return "資料不足"
+    absolute = abs(value)
+    if absolute >= 1_000_000_000:
+        amount = f"{absolute / 1_000_000_000:.1f}B"
+    elif absolute >= 1_000_000:
+        amount = f"{absolute / 1_000_000:.1f}M"
+    else:
+        amount = f"{absolute:,.0f}"
+    return f"{currency or ''} {amount}".strip()
+
+
+def trend_state(signal: float | None, threshold: float) -> tuple[str, str]:
+    if signal is None:
+        return "unknown", "資料不足"
+    if signal > threshold:
+        return "improving", "改善"
+    if signal < -threshold:
+        return "deteriorating", "惡化"
+    return "stable", "持平"
+
+
+def trend_metric(identifier: str, label: str, frequency: str,
+                 points: list[dict[str, Any]], latest_display: str,
+                 change_display: str, signal: float | None, threshold: float,
+                 note: str) -> dict[str, Any]:
+    state, state_label = trend_state(signal, threshold)
+    strength = None if signal is None or threshold == 0 else signal / threshold
+    return {
+        "id": identifier,
+        "label": label,
+        "frequency": frequency,
+        "state": state,
+        "state_label": state_label,
+        "latest_display": latest_display,
+        "change_display": change_display,
+        "signal_strength": None if strength is None else round(strength, 3),
+        "note": note,
+        "points": points,
+    }
+
+
+def period_point(period: dict[str, Any], value: float | None, display: str) -> dict[str, Any]:
+    return {"period": period.get("period_end"), "value": value, "display": display}
+
+
+def build_trends(periods: list[dict[str, Any]], capital: dict[str, Any],
+                 currency: str | None) -> dict[str, Any]:
+    """Build source-value trends; these are not historical radar scores."""
+    quarter_window = periods[:8]
+
+    revenue_points = []
+    for index, period in reversed(list(enumerate(quarter_window))):
+        value = pct_change(
+            period_value(period, "revenue"),
+            period_value(periods[index + 4], "revenue") if index + 4 < len(periods) else None,
+        )
+        revenue_points.append(period_point(period, value, percent(value, signed=True)))
+    revenue_yoy = revenue_points[-1]["value"] if revenue_points else None
+    prior_revenue_yoy = revenue_points[-2]["value"] if len(revenue_points) > 1 else None
+    revenue_change = (
+        revenue_yoy - prior_revenue_yoy
+        if revenue_yoy is not None and prior_revenue_yoy is not None else None
+    )
+    revenue_change_display = (
+        "缺少前季可比 YoY"
+        if revenue_change is None else f"較前季 YoY {percentage_points(revenue_change, signed=True)}"
+    )
+    trends = [trend_metric(
+        "revenue_yoy", "營收成長", "quarterly", revenue_points,
+        percent(revenue_yoy, signed=True), revenue_change_display,
+        revenue_change, .02,
+        "最多八季營收年增率；箭頭比較本季 YoY 與前季 YoY，判斷成長加速或減速。",
+    )]
+
+    def margin_trend(identifier: str, label: str, key: str, threshold: float) -> dict[str, Any]:
+        points = [
+            period_point(period, period_value(period, key), percent(period_value(period, key)))
+            for period in reversed(quarter_window)
+        ]
+        latest = period_value(periods[0], key) if periods else None
+        year_ago = period_value(periods[4], key) if len(periods) > 4 else None
+        change = latest - year_ago if latest is not None and year_ago is not None else None
+        change_display = (
+            "缺少去年同期資料"
+            if change is None else f"較去年同期 {percentage_points(change, signed=True)}"
+        )
+        return trend_metric(
+            identifier, label, "quarterly", points, percent(latest), change_display,
+            change, threshold, "最多八季實際比率；箭頭以最新季對去年同期的百分點變化判定。",
+        )
+
+    trends.extend([
+        margin_trend("gross_margin", "毛利率", "gross_margin", .01),
+        margin_trend("operating_margin", "營業利益率", "operating_margin", .01),
+    ])
+    fcf_points = []
+    for period in reversed(quarter_window):
+        value = ratio(period_value(period, "free_cash_flow"), period_value(period, "revenue"))
+        fcf_points.append(period_point(period, value, percent(value)))
+    latest_fcf_margin = ratio(
+        period_value(periods[0], "free_cash_flow"), period_value(periods[0], "revenue")
+    ) if periods else None
+    year_ago_fcf_margin = ratio(
+        period_value(periods[4], "free_cash_flow"), period_value(periods[4], "revenue")
+    ) if len(periods) > 4 else None
+    fcf_change = (
+        latest_fcf_margin - year_ago_fcf_margin
+        if latest_fcf_margin is not None and year_ago_fcf_margin is not None else None
+    )
+    trends.append(trend_metric(
+        "fcf_margin", "FCF 利潤率", "quarterly", fcf_points,
+        percent(latest_fcf_margin),
+        "缺少去年同期資料" if fcf_change is None else f"較去年同期 {percentage_points(fcf_change, signed=True)}",
+        fcf_change, .02,
+        "最多八季自由現金流除以同季營收；現金流季間波動較大，以 2pp 作為方向門檻。",
+    ))
+
+    share_points = []
+    for index, period in reversed(list(enumerate(quarter_window))):
+        value = pct_change(
+            period_value(period, "diluted_shares"),
+            period_value(periods[index + 4], "diluted_shares") if index + 4 < len(periods) else None,
+        )
+        share_points.append(period_point(period, value, percent(value, signed=True)))
+    latest_share_yoy = share_points[-1]["value"] if share_points else None
+    share_display = (
+        "缺少去年同期股數"
+        if latest_share_yoy is None else f"YoY {percent(latest_share_yoy, signed=True)}；股數下降較有利"
+    )
+    trends.append(trend_metric(
+        "diluted_shares_yoy", "稀釋股數", "quarterly", share_points,
+        percent(latest_share_yoy, signed=True), share_display,
+        None if latest_share_yoy is None else -latest_share_yoy, .005,
+        "最多八季稀釋加權平均股數年增率；採反向判讀，股數下降為改善。",
+    ))
+
+    years = capital.get("years") or []
+    annual_points = []
+    for year in reversed(years[:4]):
+        net_cash = finite(year.get("net_cash"))
+        display = (
+            "資料不足" if net_cash is None else
+            f"{'淨現金' if net_cash >= 0 else '淨負債'} {compact_amount(net_cash, year.get('currency') or currency)}"
+        )
+        annual_points.append({
+            "period": year.get("fiscal_year_end"), "value": net_cash, "display": display,
+        })
+    latest_net_cash = annual_points[-1]["value"] if annual_points else None
+    prior_net_cash = annual_points[-2]["value"] if len(annual_points) > 1 else None
+    net_cash_change = (
+        latest_net_cash - prior_net_cash
+        if latest_net_cash is not None and prior_net_cash is not None else None
+    )
+    scale = max(abs(latest_net_cash or 0), abs(prior_net_cash or 0), 1)
+    net_cash_signal = None if net_cash_change is None else net_cash_change / scale
+    latest_net_cash_display = (
+        "資料不足" if latest_net_cash is None else
+        f"{'淨現金' if latest_net_cash >= 0 else '淨負債'} {compact_amount(latest_net_cash, currency)}"
+    )
+    net_cash_change_display = (
+        "缺少前一年度資料" if net_cash_change is None else
+        f"較前一年 {'增加' if net_cash_change >= 0 else '減少'} {compact_amount(net_cash_change, currency)}"
+    )
+    trends.append(trend_metric(
+        "net_cash", "財務壓力（年度）", "annual", annual_points,
+        latest_net_cash_display, net_cash_change_display, net_cash_signal, .05,
+        "年度現金及短期投資減有息負債；受限於可靠來源頻率，不標示成季度趨勢。",
+    ))
+
+    counts = {state: sum(row["state"] == state for row in trends)
+              for state in ("improving", "stable", "deteriorating", "unknown")}
+    improving = [row for row in trends if row["state"] == "improving"]
+    deteriorating = [row for row in trends if row["state"] == "deteriorating"]
+    strongest = max(improving, key=lambda row: row.get("signal_strength") or 0, default=None)
+    weakest = min(deteriorating, key=lambda row: row.get("signal_strength") or 0, default=None)
+    return {
+        "basis": "五項季度指標最多八季；財務壓力使用最多四個會計年度。這些是實際數值趨勢，不是歷史雷達分數。",
+        "summary": {
+            "counts": counts,
+            "strongest_improvement": strongest.get("label") if strongest else None,
+            "main_deterioration": weakest.get("label") if weakest else None,
+        },
+        "metrics": trends,
+    }
+
+
 def growth_dimension(periods: list[dict[str, Any]]) -> dict[str, Any]:
     latest = periods[0] if periods else None
     year_ago = periods[4] if len(periods) > 4 else None
@@ -287,7 +475,8 @@ def valuation_dimension(valuation: dict[str, Any]) -> dict[str, Any]:
     ])
 
 
-def build_company(ticker: str, payloads: dict[str, Any], holdings: set[str]) -> dict[str, Any]:
+def build_company(ticker: str, payloads: dict[str, Any], holdings: set[str],
+                  score_updated_at: str | None) -> dict[str, Any]:
     data_ticker = ALIASES.get(ticker, ticker)
     quarterly = payloads["quarterly"].get("companies", {}).get(data_ticker) or {}
     periods = quarterly.get("periods") or []
@@ -329,20 +518,40 @@ def build_company(ticker: str, payloads: dict[str, Any], holdings: set[str]) -> 
         "ticker": ticker, "data_ticker": data_ticker, "name": name,
         "position": "holding" if ticker in holdings else "watchlist",
         "latest_period": periods[0].get("period_end") if periods else None,
+        "score_basis": {
+            "quarterly_period": periods[0].get("period_end") if periods else None,
+            "quarterly_filed": periods[0].get("filing_date") if periods else None,
+            "annual_period": health.get("fiscal_year_end") or capital.get("latest_period"),
+            "price_date": valuation.get("price_date"),
+            "score_updated_at": score_updated_at,
+        },
         "overall_score": overall, "overall_label": overall_label,
         "coverage": {"known": len(known), "total": len(dimensions),
                      "missing": [row["label"] for row in dimensions if row["score"] is None]},
-        "dimensions": dimensions, "red_flags": flags,
+        "dimensions": dimensions,
+        "trends": build_trends(periods, capital, quarterly.get("currency") or capital.get("currency")),
+        "red_flags": flags,
     }
 
 
 def build_payload(payloads: dict[str, Any], holdings_payload: Any) -> dict[str, Any]:
     holding_rows = holdings_payload if isinstance(holdings_payload, list) else holdings_payload.get("holdings", [])
     holdings = {row.get("ticker") for row in holding_rows if finite(row.get("shares")) and row["shares"] > 0}
-    companies = [build_company(ticker, payloads, holdings) for ticker in DISPLAY_TICKERS]
+    source_dates = {
+        "quarterly_generated": payloads["quarterly"].get("generated_at"),
+        "financial_health_generated": payloads["health"].get("generated_at"),
+        "valuation_generated": payloads["valuation"].get("generated_at"),
+        "guidance_as_of": payloads["guidance"].get("as_of"),
+        "thesis_updated": payloads["thesis"].get("updated_at"),
+        "capital_allocation_updated": payloads["capital"].get("updated_at"),
+    }
+    known_source_dates = [str(value) for value in source_dates.values() if value]
+    score_updated_at = max((value[:10] for value in known_source_dates), default=None)
+    companies = [build_company(ticker, payloads, holdings, score_updated_at) for ticker in DISPLAY_TICKERS]
     return {
         "schema_version": 1,
-        "generated_at": payloads["quarterly"].get("generated_at"),
+        "generated_at": score_updated_at,
+        "source_dates": source_dates,
         "tracked_count": len(companies),
         "methodology": {
             "direction": "七個角全部統一為 0～100 分，分數越高代表該構面對長期投資越有利。",

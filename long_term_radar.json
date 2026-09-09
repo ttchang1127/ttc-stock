@@ -1,6 +1,14 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-08-30T00:58:14+00:00",
+  "generated_at": "2026-09-09",
+  "source_dates": {
+    "quarterly_generated": "2026-08-30T00:58:14+00:00",
+    "financial_health_generated": "2026-09-08T13:43:08+00:00",
+    "valuation_generated": "2026-09-08T13:43:08+00:00",
+    "guidance_as_of": "2026-08-16",
+    "thesis_updated": "2026-09-09T08:34:48+00:00",
+    "capital_allocation_updated": "2026-08-30T00:52:25+00:00"
+  },
   "tracked_count": 14,
   "methodology": {
     "direction": "七個角全部統一為 0～100 分，分數越高代表該構面對長期投資越有利。",
@@ -45,6 +53,13 @@
       "name": "NVIDIA CORP",
       "position": "holding",
       "latest_period": "2026-07-26",
+      "score_basis": {
+        "quarterly_period": "2026-07-26",
+        "quarterly_filed": "2026-08-26",
+        "annual_period": "2026-01-25",
+        "price_date": "2026-09-08",
+        "score_updated_at": "2026-09-09"
+      },
       "overall_score": 83,
       "overall_label": "長期體質強",
       "coverage": {
@@ -361,6 +376,319 @@
           ]
         }
       ],
+      "trends": {
+        "basis": "五項季度指標最多八季；財務壓力使用最多四個會計年度。這些是實際數值趨勢，不是歷史雷達分數。",
+        "summary": {
+          "counts": {
+            "improving": 4,
+            "stable": 0,
+            "deteriorating": 2,
+            "unknown": 0
+          },
+          "strongest_improvement": "營收成長",
+          "main_deterioration": "財務壓力（年度）"
+        },
+        "metrics": [
+          {
+            "id": "revenue_yoy",
+            "label": "營收成長",
+            "frequency": "quarterly",
+            "state": "improving",
+            "state_label": "改善",
+            "latest_display": "+105.9%",
+            "change_display": "較前季 YoY +20.6pp",
+            "signal_strength": 10.312,
+            "note": "最多八季營收年增率；箭頭比較本季 YoY 與前季 YoY，判斷成長加速或減速。",
+            "points": [
+              {
+                "period": "2024-10-27",
+                "value": 0.9360927152317882,
+                "display": "+93.6%"
+              },
+              {
+                "period": "2025-01-26",
+                "value": 0.7794417047459621,
+                "display": "+77.9%"
+              },
+              {
+                "period": "2025-04-27",
+                "value": 0.6918292121025955,
+                "display": "+69.2%"
+              },
+              {
+                "period": "2025-07-27",
+                "value": 0.5560252996005326,
+                "display": "+55.6%"
+              },
+              {
+                "period": "2025-10-26",
+                "value": 0.6249358645459211,
+                "display": "+62.5%"
+              },
+              {
+                "period": "2026-01-25",
+                "value": 0.7321451272533117,
+                "display": "+73.2%"
+              },
+              {
+                "period": "2026-04-26",
+                "value": 0.8522763378875222,
+                "display": "+85.2%"
+              },
+              {
+                "period": "2026-07-26",
+                "value": 1.0585114348672526,
+                "display": "+105.9%"
+              }
+            ]
+          },
+          {
+            "id": "gross_margin",
+            "label": "毛利率",
+            "frequency": "quarterly",
+            "state": "improving",
+            "state_label": "改善",
+            "latest_display": "75.0%",
+            "change_display": "較去年同期 +2.6pp",
+            "signal_strength": 2.552,
+            "note": "最多八季實際比率；箭頭以最新季對去年同期的百分點變化判定。",
+            "points": [
+              {
+                "period": "2024-10-27",
+                "value": 0.7455675275069836,
+                "display": "74.6%"
+              },
+              {
+                "period": "2025-01-26",
+                "value": 0.7302890849457171,
+                "display": "73.0%"
+              },
+              {
+                "period": "2025-04-27",
+                "value": 0.6052380736235304,
+                "display": "60.5%"
+              },
+              {
+                "period": "2025-07-27",
+                "value": 0.724236784117408,
+                "display": "72.4%"
+              },
+              {
+                "period": "2025-10-26",
+                "value": 0.7341157071185489,
+                "display": "73.4%"
+              },
+              {
+                "period": "2026-01-25",
+                "value": 0.7499669734466511,
+                "display": "75.0%"
+              },
+              {
+                "period": "2026-04-26",
+                "value": 0.749335293757275,
+                "display": "74.9%"
+              },
+              {
+                "period": "2026-07-26",
+                "value": 0.7497531723844068,
+                "display": "75.0%"
+              }
+            ]
+          },
+          {
+            "id": "operating_margin",
+            "label": "營業利益率",
+            "frequency": "quarterly",
+            "state": "improving",
+            "state_label": "改善",
+            "latest_display": "66.2%",
+            "change_display": "較去年同期 +5.4pp",
+            "signal_strength": 5.394,
+            "note": "最多八季實際比率；箭頭以最新季對去年同期的百分點變化判定。",
+            "points": [
+              {
+                "period": "2024-10-27",
+                "value": 0.6233681090017673,
+                "display": "62.3%"
+              },
+              {
+                "period": "2025-01-26",
+                "value": 0.6110701482291322,
+                "display": "61.1%"
+              },
+              {
+                "period": "2025-04-27",
+                "value": 0.49108074985248057,
+                "display": "49.1%"
+              },
+              {
+                "period": "2025-07-27",
+                "value": 0.6084333483088377,
+                "display": "60.8%"
+              },
+              {
+                "period": "2025-10-26",
+                "value": 0.6316878925025436,
+                "display": "63.2%"
+              },
+              {
+                "period": "2026-01-25",
+                "value": 0.6502414608011508,
+                "display": "65.0%"
+              },
+              {
+                "period": "2026-04-26",
+                "value": 0.6559578508852539,
+                "display": "65.6%"
+              },
+              {
+                "period": "2026-07-26",
+                "value": 0.6623710000935347,
+                "display": "66.2%"
+              }
+            ]
+          },
+          {
+            "id": "fcf_margin",
+            "label": "FCF 利潤率",
+            "frequency": "quarterly",
+            "state": "deteriorating",
+            "state_label": "惡化",
+            "latest_display": "22.2%",
+            "change_display": "較去年同期 -6.6pp",
+            "signal_strength": -3.288,
+            "note": "最多八季自由現金流除以同季營收；現金流季間波動較大，以 2pp 作為方向門檻。",
+            "points": [
+              {
+                "period": "2024-10-27",
+                "value": 0.47927712217091384,
+                "display": "47.9%"
+              },
+              {
+                "period": "2025-01-26",
+                "value": 0.3954132872289034,
+                "display": "39.5%"
+              },
+              {
+                "period": "2025-04-27",
+                "value": 0.5943216376923426,
+                "display": "59.4%"
+              },
+              {
+                "period": "2025-07-27",
+                "value": 0.2881714909184263,
+                "display": "28.8%"
+              },
+              {
+                "period": "2025-10-26",
+                "value": 0.3879416201803319,
+                "display": "38.8%"
+              },
+              {
+                "period": "2026-01-25",
+                "value": 0.5123372524843307,
+                "display": "51.2%"
+              },
+              {
+                "period": "2026-04-26",
+                "value": 0.5953194878392453,
+                "display": "59.5%"
+              },
+              {
+                "period": "2026-07-26",
+                "value": 0.22240467257667246,
+                "display": "22.2%"
+              }
+            ]
+          },
+          {
+            "id": "diluted_shares_yoy",
+            "label": "稀釋股數",
+            "frequency": "quarterly",
+            "state": "improving",
+            "state_label": "改善",
+            "latest_display": "-1.0%",
+            "change_display": "YoY -1.0%；股數下降較有利",
+            "signal_strength": 2.014,
+            "note": "最多八季稀釋加權平均股數年增率；採反向判讀，股數下降為改善。",
+            "points": [
+              {
+                "period": "2024-10-27",
+                "value": -0.006655974338412141,
+                "display": "-0.7%"
+              },
+              {
+                "period": "2025-01-26",
+                "value": null,
+                "display": "資料不足"
+              },
+              {
+                "period": "2025-04-27",
+                "value": -0.011209321012454754,
+                "display": "-1.1%"
+              },
+              {
+                "period": "2025-07-27",
+                "value": -0.012717321313586605,
+                "display": "-1.3%"
+              },
+              {
+                "period": "2025-10-26",
+                "value": -0.011746185517074403,
+                "display": "-1.2%"
+              },
+              {
+                "period": "2026-01-25",
+                "value": null,
+                "display": "資料不足"
+              },
+              {
+                "period": "2026-04-26",
+                "value": -0.008939092275811578,
+                "display": "-0.9%"
+              },
+              {
+                "period": "2026-07-26",
+                "value": -0.010068481982716482,
+                "display": "-1.0%"
+              }
+            ]
+          },
+          {
+            "id": "net_cash",
+            "label": "財務壓力（年度）",
+            "frequency": "annual",
+            "state": "deteriorating",
+            "state_label": "惡化",
+            "latest_display": "淨現金 USD 22.6B",
+            "change_display": "較前一年 減少 USD 12.2B",
+            "signal_strength": -7.012,
+            "note": "年度現金及短期投資減有息負債；受限於可靠來源頻率，不標示成季度趨勢。",
+            "points": [
+              {
+                "period": "2023-01-29",
+                "value": 2343000000.0,
+                "display": "淨現金 USD 2.3B"
+              },
+              {
+                "period": "2024-01-28",
+                "value": 16275000000.0,
+                "display": "淨現金 USD 16.3B"
+              },
+              {
+                "period": "2025-01-26",
+                "value": 34747000000.0,
+                "display": "淨現金 USD 34.7B"
+              },
+              {
+                "period": "2026-01-25",
+                "value": 22564000000.0,
+                "display": "淨現金 USD 22.6B"
+              }
+            ]
+          }
+        ]
+      },
       "red_flags": [
         {
           "source": "financial_health.json",
@@ -380,6 +708,13 @@
       "name": "Taiwan Semiconductor Manufacturing Company Limited",
       "position": "watchlist",
       "latest_period": "2026-06-30",
+      "score_basis": {
+        "quarterly_period": "2026-06-30",
+        "quarterly_filed": "2026-07-16",
+        "annual_period": "2025-12-31",
+        "price_date": "2026-09-08",
+        "score_updated_at": "2026-09-09"
+      },
       "overall_score": 80,
       "overall_label": "長期體質強",
       "coverage": {
@@ -696,6 +1031,319 @@
           ]
         }
       ],
+      "trends": {
+        "basis": "五項季度指標最多八季；財務壓力使用最多四個會計年度。這些是實際數值趨勢，不是歷史雷達分數。",
+        "summary": {
+          "counts": {
+            "improving": 3,
+            "stable": 2,
+            "deteriorating": 0,
+            "unknown": 1
+          },
+          "strongest_improvement": "營業利益率",
+          "main_deterioration": null
+        },
+        "metrics": [
+          {
+            "id": "revenue_yoy",
+            "label": "營收成長",
+            "frequency": "quarterly",
+            "state": "stable",
+            "state_label": "持平",
+            "latest_display": "+36.0%",
+            "change_display": "較前季 YoY +0.9pp",
+            "signal_strength": 0.457,
+            "note": "最多八季營收年增率；箭頭比較本季 YoY 與前季 YoY，判斷成長加速或減速。",
+            "points": [
+              {
+                "period": "2024-09-30",
+                "value": null,
+                "display": "資料不足"
+              },
+              {
+                "period": "2024-12-31",
+                "value": null,
+                "display": "資料不足"
+              },
+              {
+                "period": "2025-03-31",
+                "value": null,
+                "display": "資料不足"
+              },
+              {
+                "period": "2025-06-30",
+                "value": null,
+                "display": "資料不足"
+              },
+              {
+                "period": "2025-09-30",
+                "value": 0.30305782621858923,
+                "display": "+30.3%"
+              },
+              {
+                "period": "2025-12-31",
+                "value": 0.20453446330285785,
+                "display": "+20.5%"
+              },
+              {
+                "period": "2026-03-31",
+                "value": 0.3513255883229074,
+                "display": "+35.1%"
+              },
+              {
+                "period": "2026-06-30",
+                "value": 0.36045577699482756,
+                "display": "+36.0%"
+              }
+            ]
+          },
+          {
+            "id": "gross_margin",
+            "label": "毛利率",
+            "frequency": "quarterly",
+            "state": "improving",
+            "state_label": "改善",
+            "latest_display": "67.7%",
+            "change_display": "較去年同期 +9.1pp",
+            "signal_strength": 9.1,
+            "note": "最多八季實際比率；箭頭以最新季對去年同期的百分點變化判定。",
+            "points": [
+              {
+                "period": "2024-09-30",
+                "value": 0.578,
+                "display": "57.8%"
+              },
+              {
+                "period": "2024-12-31",
+                "value": 0.59,
+                "display": "59.0%"
+              },
+              {
+                "period": "2025-03-31",
+                "value": 0.588,
+                "display": "58.8%"
+              },
+              {
+                "period": "2025-06-30",
+                "value": 0.586,
+                "display": "58.6%"
+              },
+              {
+                "period": "2025-09-30",
+                "value": 0.595,
+                "display": "59.5%"
+              },
+              {
+                "period": "2025-12-31",
+                "value": 0.623,
+                "display": "62.3%"
+              },
+              {
+                "period": "2026-03-31",
+                "value": 0.662,
+                "display": "66.2%"
+              },
+              {
+                "period": "2026-06-30",
+                "value": 0.677,
+                "display": "67.7%"
+              }
+            ]
+          },
+          {
+            "id": "operating_margin",
+            "label": "營業利益率",
+            "frequency": "quarterly",
+            "state": "improving",
+            "state_label": "改善",
+            "latest_display": "60.3%",
+            "change_display": "較去年同期 +10.7pp",
+            "signal_strength": 10.7,
+            "note": "最多八季實際比率；箭頭以最新季對去年同期的百分點變化判定。",
+            "points": [
+              {
+                "period": "2024-09-30",
+                "value": 0.475,
+                "display": "47.5%"
+              },
+              {
+                "period": "2024-12-31",
+                "value": 0.49,
+                "display": "49.0%"
+              },
+              {
+                "period": "2025-03-31",
+                "value": 0.485,
+                "display": "48.5%"
+              },
+              {
+                "period": "2025-06-30",
+                "value": 0.496,
+                "display": "49.6%"
+              },
+              {
+                "period": "2025-09-30",
+                "value": 0.506,
+                "display": "50.6%"
+              },
+              {
+                "period": "2025-12-31",
+                "value": 0.54,
+                "display": "54.0%"
+              },
+              {
+                "period": "2026-03-31",
+                "value": 0.581,
+                "display": "58.1%"
+              },
+              {
+                "period": "2026-06-30",
+                "value": 0.603,
+                "display": "60.3%"
+              }
+            ]
+          },
+          {
+            "id": "fcf_margin",
+            "label": "FCF 利潤率",
+            "frequency": "quarterly",
+            "state": "stable",
+            "state_label": "持平",
+            "latest_display": "22.6%",
+            "change_display": "較去年同期 +1.2pp",
+            "signal_strength": 0.609,
+            "note": "最多八季自由現金流除以同季營收；現金流季間波動較大，以 2pp 作為方向門檻。",
+            "points": [
+              {
+                "period": "2024-09-30",
+                "value": 0.2434019139385802,
+                "display": "24.3%"
+              },
+              {
+                "period": "2024-12-31",
+                "value": 0.29737696612394354,
+                "display": "29.7%"
+              },
+              {
+                "period": "2025-03-31",
+                "value": 0.35119451891569853,
+                "display": "35.1%"
+              },
+              {
+                "period": "2025-06-30",
+                "value": 0.2140202829329935,
+                "display": "21.4%"
+              },
+              {
+                "period": "2025-09-30",
+                "value": 0.1407992565055762,
+                "display": "14.1%"
+              },
+              {
+                "period": "2025-12-31",
+                "value": 0.3523597396017551,
+                "display": "35.2%"
+              },
+              {
+                "period": "2026-03-31",
+                "value": 0.3070364165417512,
+                "display": "30.7%"
+              },
+              {
+                "period": "2026-06-30",
+                "value": 0.22620003463530597,
+                "display": "22.6%"
+              }
+            ]
+          },
+          {
+            "id": "diluted_shares_yoy",
+            "label": "稀釋股數",
+            "frequency": "quarterly",
+            "state": "unknown",
+            "state_label": "資料不足",
+            "latest_display": "資料不足",
+            "change_display": "缺少去年同期股數",
+            "signal_strength": null,
+            "note": "最多八季稀釋加權平均股數年增率；採反向判讀，股數下降為改善。",
+            "points": [
+              {
+                "period": "2024-09-30",
+                "value": null,
+                "display": "資料不足"
+              },
+              {
+                "period": "2024-12-31",
+                "value": null,
+                "display": "資料不足"
+              },
+              {
+                "period": "2025-03-31",
+                "value": null,
+                "display": "資料不足"
+              },
+              {
+                "period": "2025-06-30",
+                "value": null,
+                "display": "資料不足"
+              },
+              {
+                "period": "2025-09-30",
+                "value": null,
+                "display": "資料不足"
+              },
+              {
+                "period": "2025-12-31",
+                "value": null,
+                "display": "資料不足"
+              },
+              {
+                "period": "2026-03-31",
+                "value": null,
+                "display": "資料不足"
+              },
+              {
+                "period": "2026-06-30",
+                "value": null,
+                "display": "資料不足"
+              }
+            ]
+          },
+          {
+            "id": "net_cash",
+            "label": "財務壓力（年度）",
+            "frequency": "annual",
+            "state": "improving",
+            "state_label": "改善",
+            "latest_display": "淨現金 TWD 54.3B",
+            "change_display": "較前一年 增加 TWD 21.3B",
+            "signal_strength": 7.859,
+            "note": "年度現金及短期投資減有息負債；受限於可靠來源頻率，不標示成季度趨勢。",
+            "points": [
+              {
+                "period": "2022-12-31",
+                "value": 14986600000.0,
+                "display": "淨現金 USD 15.0B"
+              },
+              {
+                "period": "2023-12-31",
+                "value": 13491800000.0,
+                "display": "淨現金 USD 13.5B"
+              },
+              {
+                "period": "2024-12-31",
+                "value": 32961100000.0,
+                "display": "淨現金 USD 33.0B"
+              },
+              {
+                "period": "2025-12-31",
+                "value": 54299400000.0,
+                "display": "淨現金 USD 54.3B"
+              }
+            ]
+          }
+        ]
+      },
       "red_flags": []
     },
     {
@@ -704,6 +1352,13 @@
       "name": "MICROSOFT CORPORATION",
       "position": "watchlist",
       "latest_period": "2026-06-30",
+      "score_basis": {
+        "quarterly_period": "2026-06-30",
+        "quarterly_filed": "2026-07-29",
+        "annual_period": "2026-06-30",
+        "price_date": "2026-09-08",
+        "score_updated_at": "2026-09-09"
+      },
       "overall_score": 77,
       "overall_label": "長期體質穩健",
       "coverage": {
@@ -1020,6 +1675,319 @@
           ]
         }
       ],
+      "trends": {
+        "basis": "五項季度指標最多八季；財務壓力使用最多四個會計年度。這些是實際數值趨勢，不是歷史雷達分數。",
+        "summary": {
+          "counts": {
+            "improving": 0,
+            "stable": 2,
+            "deteriorating": 3,
+            "unknown": 1
+          },
+          "strongest_improvement": null,
+          "main_deterioration": "FCF 利潤率"
+        },
+        "metrics": [
+          {
+            "id": "revenue_yoy",
+            "label": "營收成長",
+            "frequency": "quarterly",
+            "state": "stable",
+            "state_label": "持平",
+            "latest_display": "+17.7%",
+            "change_display": "較前季 YoY -0.6pp",
+            "signal_strength": -0.275,
+            "note": "最多八季營收年增率；箭頭比較本季 YoY 與前季 YoY，判斷成長加速或減速。",
+            "points": [
+              {
+                "period": "2024-09-30",
+                "value": 0.1604472990427659,
+                "display": "+16.0%"
+              },
+              {
+                "period": "2024-12-31",
+                "value": 0.12273460174137374,
+                "display": "+12.3%"
+              },
+              {
+                "period": "2025-03-31",
+                "value": 0.13269100197225914,
+                "display": "+13.3%"
+              },
+              {
+                "period": "2025-06-30",
+                "value": 0.18097548163826538,
+                "display": "+18.1%"
+              },
+              {
+                "period": "2025-09-30",
+                "value": 0.18431043683769155,
+                "display": "+18.4%"
+              },
+              {
+                "period": "2025-12-31",
+                "value": 0.16717888327205888,
+                "display": "+16.7%"
+              },
+              {
+                "period": "2026-03-31",
+                "value": 0.18297034224873698,
+                "display": "+18.3%"
+              },
+              {
+                "period": "2026-06-30",
+                "value": 0.17747020577962092,
+                "display": "+17.7%"
+              }
+            ]
+          },
+          {
+            "id": "gross_margin",
+            "label": "毛利率",
+            "frequency": "quarterly",
+            "state": "deteriorating",
+            "state_label": "惡化",
+            "latest_display": "67.2%",
+            "change_display": "較去年同期 -1.4pp",
+            "signal_strength": -1.388,
+            "note": "最多八季實際比率；箭頭以最新季對去年同期的百分點變化判定。",
+            "points": [
+              {
+                "period": "2024-09-30",
+                "value": 0.6935427308073493,
+                "display": "69.4%"
+              },
+              {
+                "period": "2024-12-31",
+                "value": 0.6869399126838235,
+                "display": "68.7%"
+              },
+              {
+                "period": "2025-03-31",
+                "value": 0.6871663859789342,
+                "display": "68.7%"
+              },
+              {
+                "period": "2025-06-30",
+                "value": 0.6858492170432098,
+                "display": "68.6%"
+              },
+              {
+                "period": "2025-09-30",
+                "value": 0.6904587179586213,
+                "display": "69.0%"
+              },
+              {
+                "period": "2025-12-31",
+                "value": 0.6803612515841669,
+                "display": "68.0%"
+              },
+              {
+                "period": "2026-03-31",
+                "value": 0.6763265207634582,
+                "display": "67.6%"
+              },
+              {
+                "period": "2026-06-30",
+                "value": 0.671969957892164,
+                "display": "67.2%"
+              }
+            ]
+          },
+          {
+            "id": "operating_margin",
+            "label": "營業利益率",
+            "frequency": "quarterly",
+            "state": "stable",
+            "state_label": "持平",
+            "latest_display": "45.1%",
+            "change_display": "較去年同期 +0.2pp",
+            "signal_strength": 0.21,
+            "note": "最多八季實際比率；箭頭以最新季對去年同期的百分點變化判定。",
+            "points": [
+              {
+                "period": "2024-09-30",
+                "value": 0.4658382252039338,
+                "display": "46.6%"
+              },
+              {
+                "period": "2024-12-31",
+                "value": 0.4545754825367647,
+                "display": "45.5%"
+              },
+              {
+                "period": "2025-03-31",
+                "value": 0.456712242742557,
+                "display": "45.7%"
+              },
+              {
+                "period": "2025-06-30",
+                "value": 0.44901296424693554,
+                "display": "44.9%"
+              },
+              {
+                "period": "2025-09-30",
+                "value": 0.48872838695557014,
+                "display": "48.9%"
+              },
+              {
+                "period": "2025-12-31",
+                "value": 0.47094360980891564,
+                "display": "47.1%"
+              },
+              {
+                "period": "2026-03-31",
+                "value": 0.46326279468185216,
+                "display": "46.3%"
+              },
+              {
+                "period": "2026-06-30",
+                "value": 0.4511093581610319,
+                "display": "45.1%"
+              }
+            ]
+          },
+          {
+            "id": "fcf_margin",
+            "label": "FCF 利潤率",
+            "frequency": "quarterly",
+            "state": "deteriorating",
+            "state_label": "惡化",
+            "latest_display": "21.8%",
+            "change_display": "較去年同期 -11.6pp",
+            "signal_strength": -5.814,
+            "note": "最多八季自由現金流除以同季營收；現金流季間波動較大，以 2pp 作為方向門檻。",
+            "points": [
+              {
+                "period": "2024-09-30",
+                "value": 0.2936189677517725,
+                "display": "29.4%"
+              },
+              {
+                "period": "2024-12-31",
+                "value": 0.09316119025735294,
+                "display": "9.3%"
+              },
+              {
+                "period": "2025-03-31",
+                "value": 0.2897125567322239,
+                "display": "29.0%"
+              },
+              {
+                "period": "2025-06-30",
+                "value": 0.3344801873340223,
+                "display": "33.4%"
+              },
+              {
+                "period": "2025-09-30",
+                "value": 0.33039795038172853,
+                "display": "33.0%"
+              },
+              {
+                "period": "2025-12-31",
+                "value": 0.07237335892608862,
+                "display": "7.2%"
+              },
+              {
+                "period": "2026-03-31",
+                "value": 0.19065945998117897,
+                "display": "19.1%"
+              },
+              {
+                "period": "2026-06-30",
+                "value": 0.21819414045574234,
+                "display": "21.8%"
+              }
+            ]
+          },
+          {
+            "id": "diluted_shares_yoy",
+            "label": "稀釋股數",
+            "frequency": "quarterly",
+            "state": "unknown",
+            "state_label": "資料不足",
+            "latest_display": "資料不足",
+            "change_display": "缺少去年同期股數",
+            "signal_strength": null,
+            "note": "最多八季稀釋加權平均股數年增率；採反向判讀，股數下降為改善。",
+            "points": [
+              {
+                "period": "2024-09-30",
+                "value": 0.0010720986330743365,
+                "display": "+0.1%"
+              },
+              {
+                "period": "2024-12-31",
+                "value": 0.0,
+                "display": "0.0%"
+              },
+              {
+                "period": "2025-03-31",
+                "value": -0.001472162740899341,
+                "display": "-0.1%"
+              },
+              {
+                "period": "2025-06-30",
+                "value": null,
+                "display": "資料不足"
+              },
+              {
+                "period": "2025-09-30",
+                "value": -0.0005354752342704439,
+                "display": "-0.1%"
+              },
+              {
+                "period": "2025-12-31",
+                "value": -0.0010712372790573355,
+                "display": "-0.1%"
+              },
+              {
+                "period": "2026-03-31",
+                "value": -0.0021444846535316753,
+                "display": "-0.2%"
+              },
+              {
+                "period": "2026-06-30",
+                "value": null,
+                "display": "資料不足"
+              }
+            ]
+          },
+          {
+            "id": "net_cash",
+            "label": "財務壓力（年度）",
+            "frequency": "annual",
+            "state": "deteriorating",
+            "state_label": "惡化",
+            "latest_display": "淨現金 USD 36.5B",
+            "change_display": "較前一年 減少 USD 14.9B",
+            "signal_strength": -5.782,
+            "note": "年度現金及短期投資減有息負債；受限於可靠來源頻率，不標示成季度趨勢。",
+            "points": [
+              {
+                "period": "2023-06-30",
+                "value": 64025000000.0,
+                "display": "淨現金 USD 64.0B"
+              },
+              {
+                "period": "2024-06-30",
+                "value": 30606000000.0,
+                "display": "淨現金 USD 30.6B"
+              },
+              {
+                "period": "2025-06-30",
+                "value": 51414000000.0,
+                "display": "淨現金 USD 51.4B"
+              },
+              {
+                "period": "2026-06-30",
+                "value": 36549000000.0,
+                "display": "淨現金 USD 36.5B"
+              }
+            ]
+          }
+        ]
+      },
       "red_flags": [
         {
           "source": "investment_thesis_status.json",
@@ -1034,6 +2002,13 @@
       "name": "Meta Platforms, Inc.",
       "position": "watchlist",
       "latest_period": "2026-06-30",
+      "score_basis": {
+        "quarterly_period": "2026-06-30",
+        "quarterly_filed": "2026-07-30",
+        "annual_period": "2025-12-31",
+        "price_date": "2026-09-08",
+        "score_updated_at": "2026-09-09"
+      },
       "overall_score": 79,
       "overall_label": "長期體質穩健",
       "coverage": {
@@ -1350,6 +2325,319 @@
           ]
         }
       ],
+      "trends": {
+        "basis": "五項季度指標最多八季；財務壓力使用最多四個會計年度。這些是實際數值趨勢，不是歷史雷達分數。",
+        "summary": {
+          "counts": {
+            "improving": 0,
+            "stable": 2,
+            "deteriorating": 4,
+            "unknown": 0
+          },
+          "strongest_improvement": null,
+          "main_deterioration": "營業利益率"
+        },
+        "metrics": [
+          {
+            "id": "revenue_yoy",
+            "label": "營收成長",
+            "frequency": "quarterly",
+            "state": "deteriorating",
+            "state_label": "惡化",
+            "latest_display": "+28.0%",
+            "change_display": "較前季 YoY -5.1pp",
+            "signal_strength": -2.56,
+            "note": "最多八季營收年增率；箭頭比較本季 YoY 與前季 YoY，判斷成長加速或減速。",
+            "points": [
+              {
+                "period": "2024-09-30",
+                "value": 0.18868974404029748,
+                "display": "+18.9%"
+              },
+              {
+                "period": "2024-12-31",
+                "value": 0.20627757971628724,
+                "display": "+20.6%"
+              },
+              {
+                "period": "2025-03-31",
+                "value": 0.16071869428062002,
+                "display": "+16.1%"
+              },
+              {
+                "period": "2025-06-30",
+                "value": 0.21614496685521223,
+                "display": "+21.6%"
+              },
+              {
+                "period": "2025-09-30",
+                "value": 0.2624602724876197,
+                "display": "+26.2%"
+              },
+              {
+                "period": "2025-12-31",
+                "value": 0.23784230649994842,
+                "display": "+23.8%"
+              },
+              {
+                "period": "2026-03-31",
+                "value": 0.3307888642057002,
+                "display": "+33.1%"
+              },
+              {
+                "period": "2026-06-30",
+                "value": 0.27959003283104633,
+                "display": "+28.0%"
+              }
+            ]
+          },
+          {
+            "id": "gross_margin",
+            "label": "毛利率",
+            "frequency": "quarterly",
+            "state": "stable",
+            "state_label": "持平",
+            "latest_display": "81.4%",
+            "change_display": "較去年同期 -0.8pp",
+            "signal_strength": -0.765,
+            "note": "最多八季實際比率；箭頭以最新季對去年同期的百分點變化判定。",
+            "points": [
+              {
+                "period": "2024-09-30",
+                "value": 0.8183005247727216,
+                "display": "81.8%"
+              },
+              {
+                "period": "2024-12-31",
+                "value": 0.8173194171747442,
+                "display": "81.7%"
+              },
+              {
+                "period": "2025-03-31",
+                "value": 0.8210521340454696,
+                "display": "82.1%"
+              },
+              {
+                "period": "2025-06-30",
+                "value": 0.821302298173247,
+                "display": "82.1%"
+              },
+              {
+                "period": "2025-09-30",
+                "value": 0.820342687639046,
+                "display": "82.0%"
+              },
+              {
+                "period": "2025-12-31",
+                "value": 0.8179086036765565,
+                "display": "81.8%"
+              },
+              {
+                "period": "2026-03-31",
+                "value": 0.8185434462183232,
+                "display": "81.9%"
+              },
+              {
+                "period": "2026-06-30",
+                "value": 0.8136543806845282,
+                "display": "81.4%"
+              }
+            ]
+          },
+          {
+            "id": "operating_margin",
+            "label": "營業利益率",
+            "frequency": "quarterly",
+            "state": "deteriorating",
+            "state_label": "惡化",
+            "latest_display": "30.9%",
+            "change_display": "較去年同期 -12.1pp",
+            "signal_strength": -12.14,
+            "note": "最多八季實際比率；箭頭以最新季對去年同期的百分點變化判定。",
+            "points": [
+              {
+                "period": "2024-09-30",
+                "value": 0.4274557146024785,
+                "display": "42.7%"
+              },
+              {
+                "period": "2024-12-31",
+                "value": 0.48287692466673554,
+                "display": "48.3%"
+              },
+              {
+                "period": "2025-03-31",
+                "value": 0.414874509618566,
+                "display": "41.5%"
+              },
+              {
+                "period": "2025-06-30",
+                "value": 0.43019193534809325,
+                "display": "43.0%"
+              },
+              {
+                "period": "2025-09-30",
+                "value": 0.4007454822216151,
+                "display": "40.1%"
+              },
+              {
+                "period": "2025-12-31",
+                "value": 0.4131534569983137,
+                "display": "41.3%"
+              },
+              {
+                "period": "2026-03-31",
+                "value": 0.40617286143027115,
+                "display": "40.6%"
+              },
+              {
+                "period": "2026-06-30",
+                "value": 0.3087942632522491,
+                "display": "30.9%"
+              }
+            ]
+          },
+          {
+            "id": "fcf_margin",
+            "label": "FCF 利潤率",
+            "frequency": "quarterly",
+            "state": "deteriorating",
+            "state_label": "惡化",
+            "latest_display": "2.9%",
+            "change_display": "較去年同期 -16.1pp",
+            "signal_strength": -8.059,
+            "note": "最多八季自由現金流除以同季營收；現金流季間波動較大，以 2pp 作為方向門檻。",
+            "points": [
+              {
+                "period": "2024-09-30",
+                "value": 0.4056764147921851,
+                "display": "40.6%"
+              },
+              {
+                "period": "2024-12-31",
+                "value": 0.2803141469463677,
+                "display": "28.0%"
+              },
+              {
+                "period": "2025-03-31",
+                "value": 0.2619700335586331,
+                "display": "26.2%"
+              },
+              {
+                "period": "2025-06-30",
+                "value": 0.1898939304655274,
+                "display": "19.0%"
+              },
+              {
+                "period": "2025-09-30",
+                "value": 0.21798524647749892,
+                "display": "21.8%"
+              },
+              {
+                "period": "2025-12-31",
+                "value": 0.2476249311271768,
+                "display": "24.8%"
+              },
+              {
+                "period": "2026-03-31",
+                "value": 0.23492745644723056,
+                "display": "23.5%"
+              },
+              {
+                "period": "2026-06-30",
+                "value": 0.028716632950115954,
+                "display": "2.9%"
+              }
+            ]
+          },
+          {
+            "id": "diluted_shares_yoy",
+            "label": "稀釋股數",
+            "frequency": "quarterly",
+            "state": "stable",
+            "state_label": "持平",
+            "latest_display": "-0.2%",
+            "change_display": "YoY -0.2%；股數下降較有利",
+            "signal_strength": 0.311,
+            "note": "最多八季稀釋加權平均股數年增率；採反向判讀，股數下降為改善。",
+            "points": [
+              {
+                "period": "2024-09-30",
+                "value": -0.015524422567209428,
+                "display": "-1.6%"
+              },
+              {
+                "period": "2024-12-31",
+                "value": null,
+                "display": "資料不足"
+              },
+              {
+                "period": "2025-03-31",
+                "value": -0.013333333333333308,
+                "display": "-1.3%"
+              },
+              {
+                "period": "2025-06-30",
+                "value": -0.01532567049808431,
+                "display": "-1.5%"
+              },
+              {
+                "period": "2025-09-30",
+                "value": -0.010769230769230753,
+                "display": "-1.1%"
+              },
+              {
+                "period": "2025-12-31",
+                "value": null,
+                "display": "資料不足"
+              },
+              {
+                "period": "2026-03-31",
+                "value": -0.010038610038610063,
+                "display": "-1.0%"
+              },
+              {
+                "period": "2026-06-30",
+                "value": -0.0015564202334630295,
+                "display": "-0.2%"
+              }
+            ]
+          },
+          {
+            "id": "net_cash",
+            "label": "財務壓力（年度）",
+            "frequency": "annual",
+            "state": "deteriorating",
+            "state_label": "惡化",
+            "latest_display": "淨現金 USD 21.7B",
+            "change_display": "較前一年 減少 USD 26.6B",
+            "signal_strength": -11.026,
+            "note": "年度現金及短期投資減有息負債；受限於可靠來源頻率，不標示成季度趨勢。",
+            "points": [
+              {
+                "period": "2022-12-31",
+                "value": 30128000000.0,
+                "display": "淨現金 USD 30.1B"
+              },
+              {
+                "period": "2023-12-31",
+                "value": 46328000000.0,
+                "display": "淨現金 USD 46.3B"
+              },
+              {
+                "period": "2024-12-31",
+                "value": 48280000000.0,
+                "display": "淨現金 USD 48.3B"
+              },
+              {
+                "period": "2025-12-31",
+                "value": 21664000000.0,
+                "display": "淨現金 USD 21.7B"
+              }
+            ]
+          }
+        ]
+      },
       "red_flags": [
         {
           "source": "investment_thesis_status.json",
@@ -1369,6 +2657,13 @@
       "name": "Apple Inc.",
       "position": "watchlist",
       "latest_period": "2026-06-27",
+      "score_basis": {
+        "quarterly_period": "2026-06-27",
+        "quarterly_filed": "2026-07-31",
+        "annual_period": "2025-09-27",
+        "price_date": "2026-09-08",
+        "score_updated_at": "2026-09-09"
+      },
       "overall_score": 64,
       "overall_label": "優劣混合，需聚焦弱項",
       "coverage": {
@@ -1685,6 +2980,319 @@
           ]
         }
       ],
+      "trends": {
+        "basis": "五項季度指標最多八季；財務壓力使用最多四個會計年度。這些是實際數值趨勢，不是歷史雷達分數。",
+        "summary": {
+          "counts": {
+            "improving": 4,
+            "stable": 1,
+            "deteriorating": 1,
+            "unknown": 0
+          },
+          "strongest_improvement": "毛利率",
+          "main_deterioration": "財務壓力（年度）"
+        },
+        "metrics": [
+          {
+            "id": "revenue_yoy",
+            "label": "營收成長",
+            "frequency": "quarterly",
+            "state": "stable",
+            "state_label": "持平",
+            "latest_display": "+16.4%",
+            "change_display": "較前季 YoY -0.2pp",
+            "signal_strength": -0.119,
+            "note": "最多八季營收年增率；箭頭比較本季 YoY 與前季 YoY，判斷成長加速或減速。",
+            "points": [
+              {
+                "period": "2024-09-28",
+                "value": 0.060694093722764686,
+                "display": "+6.1%"
+              },
+              {
+                "period": "2024-12-28",
+                "value": 0.03951494877691819,
+                "display": "+4.0%"
+              },
+              {
+                "period": "2025-03-29",
+                "value": 0.05075314314678292,
+                "display": "+5.1%"
+              },
+              {
+                "period": "2025-06-28",
+                "value": 0.09628455180293094,
+                "display": "+9.6%"
+              },
+              {
+                "period": "2025-09-27",
+                "value": 0.07938480985989682,
+                "display": "+7.9%"
+              },
+              {
+                "period": "2025-12-27",
+                "value": 0.15652453740949324,
+                "display": "+15.7%"
+              },
+              {
+                "period": "2026-03-28",
+                "value": 0.16595182415922993,
+                "display": "+16.6%"
+              },
+              {
+                "period": "2026-06-27",
+                "value": 0.16356501765281384,
+                "display": "+16.4%"
+              }
+            ]
+          },
+          {
+            "id": "gross_margin",
+            "label": "毛利率",
+            "frequency": "quarterly",
+            "state": "improving",
+            "state_label": "改善",
+            "latest_display": "50.1%",
+            "change_display": "較去年同期 +3.6pp",
+            "signal_strength": 3.566,
+            "note": "最多八季實際比率；箭頭以最新季對去年同期的百分點變化判定。",
+            "points": [
+              {
+                "period": "2024-09-28",
+                "value": 0.4622247972190035,
+                "display": "46.2%"
+              },
+              {
+                "period": "2024-12-28",
+                "value": 0.4688254223652454,
+                "display": "46.9%"
+              },
+              {
+                "period": "2025-03-29",
+                "value": 0.47050619238876246,
+                "display": "47.1%"
+              },
+              {
+                "period": "2025-06-28",
+                "value": 0.4649070568718363,
+                "display": "46.5%"
+              },
+              {
+                "period": "2025-09-27",
+                "value": 0.47177600374758455,
+                "display": "47.2%"
+              },
+              {
+                "period": "2025-12-27",
+                "value": 0.4815868555051615,
+                "display": "48.2%"
+              },
+              {
+                "period": "2026-03-28",
+                "value": 0.4927057850050367,
+                "display": "49.3%"
+              },
+              {
+                "period": "2026-06-27",
+                "value": 0.500562069879452,
+                "display": "50.1%"
+              }
+            ]
+          },
+          {
+            "id": "operating_margin",
+            "label": "營業利益率",
+            "frequency": "quarterly",
+            "state": "improving",
+            "state_label": "改善",
+            "latest_display": "32.6%",
+            "change_display": "較去年同期 +2.6pp",
+            "signal_strength": 2.632,
+            "note": "最多八季實際比率；箭頭以最新季對去年同期的百分點變化判定。",
+            "points": [
+              {
+                "period": "2024-09-28",
+                "value": 0.31171389444854103,
+                "display": "31.2%"
+              },
+              {
+                "period": "2024-12-28",
+                "value": 0.34458567980691873,
+                "display": "34.5%"
+              },
+              {
+                "period": "2025-03-29",
+                "value": 0.31029058610094484,
+                "display": "31.0%"
+              },
+              {
+                "period": "2025-06-28",
+                "value": 0.2999064188183249,
+                "display": "30.0%"
+              },
+              {
+                "period": "2025-09-27",
+                "value": 0.3164659496808698,
+                "display": "31.6%"
+              },
+              {
+                "period": "2025-12-27",
+                "value": 0.35373827875010433,
+                "display": "35.4%"
+              },
+              {
+                "period": "2026-03-28",
+                "value": 0.32275327385235286,
+                "display": "32.3%"
+              },
+              {
+                "period": "2026-06-27",
+                "value": 0.3262290137729969,
+                "display": "32.6%"
+              }
+            ]
+          },
+          {
+            "id": "fcf_margin",
+            "label": "FCF 利潤率",
+            "frequency": "quarterly",
+            "state": "improving",
+            "state_label": "改善",
+            "latest_display": "29.2%",
+            "change_display": "較去年同期 +3.2pp",
+            "signal_strength": 1.607,
+            "note": "最多八季自由現金流除以同季營收；現金流季間波動較大，以 2pp 作為方向門檻。",
+            "points": [
+              {
+                "period": "2024-09-28",
+                "value": 0.2517960602549247,
+                "display": "25.2%"
+              },
+              {
+                "period": "2024-12-28",
+                "value": 0.21717618664521318,
+                "display": "21.7%"
+              },
+              {
+                "period": "2025-03-29",
+                "value": 0.2189725143929781,
+                "display": "21.9%"
+              },
+              {
+                "period": "2025-06-28",
+                "value": 0.25952826577055593,
+                "display": "26.0%"
+              },
+              {
+                "period": "2025-09-27",
+                "value": 0.2584857416118517,
+                "display": "25.8%"
+              },
+              {
+                "period": "2025-12-27",
+                "value": 0.3586076407245611,
+                "display": "35.9%"
+              },
+              {
+                "period": "2026-03-28",
+                "value": 0.24042128363793352,
+                "display": "24.0%"
+              },
+              {
+                "period": "2026-06-27",
+                "value": 0.2916731403712403,
+                "display": "29.2%"
+              }
+            ]
+          },
+          {
+            "id": "diluted_shares_yoy",
+            "label": "稀釋股數",
+            "frequency": "quarterly",
+            "state": "improving",
+            "state_label": "改善",
+            "latest_display": "-1.6%",
+            "change_display": "YoY -1.6%；股數下降較有利",
+            "signal_strength": 3.124,
+            "note": "最多八季稀釋加權平均股數年增率；採反向判讀，股數下降為改善。",
+            "points": [
+              {
+                "period": "2024-09-28",
+                "value": null,
+                "display": "資料不足"
+              },
+              {
+                "period": "2024-12-28",
+                "value": -0.02733426288761487,
+                "display": "-2.7%"
+              },
+              {
+                "period": "2025-03-29",
+                "value": -0.026419895776894298,
+                "display": "-2.6%"
+              },
+              {
+                "period": "2025-06-28",
+                "value": -0.026061469849021135,
+                "display": "-2.6%"
+              },
+              {
+                "period": "2025-09-27",
+                "value": null,
+                "display": "資料不足"
+              },
+              {
+                "period": "2025-12-27",
+                "value": -0.022474558383300258,
+                "display": "-2.2%"
+              },
+              {
+                "period": "2026-03-28",
+                "value": -0.021935247251070433,
+                "display": "-2.2%"
+              },
+              {
+                "period": "2026-06-27",
+                "value": -0.01562083247732049,
+                "display": "-1.6%"
+              }
+            ]
+          },
+          {
+            "id": "net_cash",
+            "label": "財務壓力（年度）",
+            "frequency": "annual",
+            "state": "deteriorating",
+            "state_label": "惡化",
+            "latest_display": "淨負債 USD 37.2B",
+            "change_display": "較前一年 減少 USD 4.8B",
+            "signal_strength": -2.593,
+            "note": "年度現金及短期投資減有息負債；受限於可靠來源頻率，不標示成季度趨勢。",
+            "points": [
+              {
+                "period": "2022-09-24",
+                "value": -62724000000.0,
+                "display": "淨負債 USD 62.7B"
+              },
+              {
+                "period": "2023-09-30",
+                "value": -44572000000.0,
+                "display": "淨負債 USD 44.6B"
+              },
+              {
+                "period": "2024-09-28",
+                "value": -32387000000.0,
+                "display": "淨負債 USD 32.4B"
+              },
+              {
+                "period": "2025-09-27",
+                "value": -37211000000.0,
+                "display": "淨負債 USD 37.2B"
+              }
+            ]
+          }
+        ]
+      },
       "red_flags": [
         {
           "source": "financial_health.json",
@@ -1714,6 +3322,13 @@
       "name": "AMAZON COM INC",
       "position": "watchlist",
       "latest_period": "2026-06-30",
+      "score_basis": {
+        "quarterly_period": "2026-06-30",
+        "quarterly_filed": "2026-07-31",
+        "annual_period": "2025-12-31",
+        "price_date": "2026-09-08",
+        "score_updated_at": "2026-09-09"
+      },
       "overall_score": 65,
       "overall_label": "長期體質穩健",
       "coverage": {
@@ -2030,6 +3645,319 @@
           ]
         }
       ],
+      "trends": {
+        "basis": "五項季度指標最多八季；財務壓力使用最多四個會計年度。這些是實際數值趨勢，不是歷史雷達分數。",
+        "summary": {
+          "counts": {
+            "improving": 3,
+            "stable": 1,
+            "deteriorating": 2,
+            "unknown": 0
+          },
+          "strongest_improvement": "財務壓力（年度）",
+          "main_deterioration": "FCF 利潤率"
+        },
+        "metrics": [
+          {
+            "id": "revenue_yoy",
+            "label": "營收成長",
+            "frequency": "quarterly",
+            "state": "improving",
+            "state_label": "改善",
+            "latest_display": "+19.6%",
+            "change_display": "較前季 YoY +3.0pp",
+            "signal_strength": 1.507,
+            "note": "最多八季營收年增率；箭頭比較本季 YoY 與前季 YoY，判斷成長加速或減速。",
+            "points": [
+              {
+                "period": "2024-09-30",
+                "value": 0.11038348371225104,
+                "display": "+11.0%"
+              },
+              {
+                "period": "2024-12-31",
+                "value": 0.10491230341078239,
+                "display": "+10.5%"
+              },
+              {
+                "period": "2025-03-31",
+                "value": 0.08620292646166083,
+                "display": "+8.6%"
+              },
+              {
+                "period": "2025-06-30",
+                "value": 0.13329774221669588,
+                "display": "+13.3%"
+              },
+              {
+                "period": "2025-09-30",
+                "value": 0.13401562214795093,
+                "display": "+13.4%"
+              },
+              {
+                "period": "2025-12-31",
+                "value": 0.136289085797052,
+                "display": "+13.6%"
+              },
+              {
+                "period": "2026-03-31",
+                "value": 0.16607244952366274,
+                "display": "+16.6%"
+              },
+              {
+                "period": "2026-06-30",
+                "value": 0.19620517346245125,
+                "display": "+19.6%"
+              }
+            ]
+          },
+          {
+            "id": "gross_margin",
+            "label": "毛利率",
+            "frequency": "quarterly",
+            "state": "stable",
+            "state_label": "持平",
+            "latest_display": "52.3%",
+            "change_display": "較去年同期 +0.4pp",
+            "signal_strength": 0.442,
+            "note": "最多八季實際比率；箭頭以最新季對去年同期的百分點變化判定。",
+            "points": [
+              {
+                "period": "2024-09-30",
+                "value": 0.4903164082906903,
+                "display": "49.0%"
+              },
+              {
+                "period": "2024-12-31",
+                "value": 0.47339077276987307,
+                "display": "47.3%"
+              },
+              {
+                "period": "2025-03-31",
+                "value": 0.5055085535148747,
+                "display": "50.6%"
+              },
+              {
+                "period": "2025-06-30",
+                "value": 0.5181393185531479,
+                "display": "51.8%"
+              },
+              {
+                "period": "2025-09-30",
+                "value": 0.5078509621522015,
+                "display": "50.8%"
+              },
+              {
+                "period": "2025-12-31",
+                "value": 0.48469440356911886,
+                "display": "48.5%"
+              },
+              {
+                "period": "2026-03-31",
+                "value": 0.5181606333221316,
+                "display": "51.8%"
+              },
+              {
+                "period": "2026-06-30",
+                "value": 0.5225566533403787,
+                "display": "52.3%"
+              }
+            ]
+          },
+          {
+            "id": "operating_margin",
+            "label": "營業利益率",
+            "frequency": "quarterly",
+            "state": "improving",
+            "state_label": "改善",
+            "latest_display": "13.7%",
+            "change_display": "較去年同期 +2.3pp",
+            "signal_strength": 2.257,
+            "note": "最多八季實際比率；箭頭以最新季對去年同期的百分點變化判定。",
+            "points": [
+              {
+                "period": "2024-09-30",
+                "value": 0.1095879202150091,
+                "display": "11.0%"
+              },
+              {
+                "period": "2024-12-31",
+                "value": 0.1129068330919315,
+                "display": "11.3%"
+              },
+              {
+                "period": "2025-03-31",
+                "value": 0.11823315153500742,
+                "display": "11.8%"
+              },
+              {
+                "period": "2025-06-30",
+                "value": 0.11431586981669867,
+                "display": "11.4%"
+              },
+              {
+                "period": "2025-09-30",
+                "value": 0.09669810011711227,
+                "display": "9.7%"
+              },
+              {
+                "period": "2025-12-31",
+                "value": 0.11705079058607407,
+                "display": "11.7%"
+              },
+              {
+                "period": "2026-03-31",
+                "value": 0.13140222235688825,
+                "display": "13.1%"
+              },
+              {
+                "period": "2026-06-30",
+                "value": 0.1368902226254449,
+                "display": "13.7%"
+              }
+            ]
+          },
+          {
+            "id": "fcf_margin",
+            "label": "FCF 利潤率",
+            "frequency": "quarterly",
+            "state": "deteriorating",
+            "state_label": "惡化",
+            "latest_display": "-4.4%",
+            "change_display": "較去年同期 -4.6pp",
+            "signal_strength": -2.298,
+            "note": "最多八季自由現金流除以同季營收；現金流季間波動較大，以 2pp 作為方向門檻。",
+            "points": [
+              {
+                "period": "2024-09-30",
+                "value": 0.02109178798693329,
+                "display": "2.1%"
+              },
+              {
+                "period": "2024-12-31",
+                "value": 0.09479637045241544,
+                "display": "9.5%"
+              },
+              {
+                "period": "2025-03-31",
+                "value": -0.05141744878490624,
+                "display": "-5.1%"
+              },
+              {
+                "period": "2025-06-30",
+                "value": 0.0019797020906131115,
+                "display": "0.2%"
+              },
+              {
+                "period": "2025-09-30",
+                "value": 0.0023866480915140783,
+                "display": "0.2%"
+              },
+              {
+                "period": "2025-12-31",
+                "value": 0.06999990627313882,
+                "display": "7.0%"
+              },
+              {
+                "period": "2026-03-31",
+                "value": -0.10010522314468458,
+                "display": "-10.0%"
+              },
+              {
+                "period": "2026-06-30",
+                "value": -0.04397176555038234,
+                "display": "-4.4%"
+              }
+            ]
+          },
+          {
+            "id": "diluted_shares_yoy",
+            "label": "稀釋股數",
+            "frequency": "quarterly",
+            "state": "deteriorating",
+            "state_label": "惡化",
+            "latest_display": "+0.9%",
+            "change_display": "YoY +0.9%；股數下降較有利",
+            "signal_strength": -1.795,
+            "note": "最多八季稀釋加權平均股數年增率；採反向判讀，股數下降為改善。",
+            "points": [
+              {
+                "period": "2024-09-30",
+                "value": 0.01676453873839745,
+                "display": "+1.7%"
+              },
+              {
+                "period": "2024-12-31",
+                "value": null,
+                "display": "資料不足"
+              },
+              {
+                "period": "2025-03-31",
+                "value": 0.011527647610121816,
+                "display": "+1.2%"
+              },
+              {
+                "period": "2025-06-30",
+                "value": 0.00915203586103841,
+                "display": "+0.9%"
+              },
+              {
+                "period": "2025-09-30",
+                "value": 0.010246856078248712,
+                "display": "+1.0%"
+              },
+              {
+                "period": "2025-12-31",
+                "value": null,
+                "display": "資料不足"
+              },
+              {
+                "period": "2026-03-31",
+                "value": 0.007504864263874644,
+                "display": "+0.8%"
+              },
+              {
+                "period": "2026-06-30",
+                "value": 0.008976494540070323,
+                "display": "+0.9%"
+              }
+            ]
+          },
+          {
+            "id": "net_cash",
+            "label": "財務壓力（年度）",
+            "frequency": "annual",
+            "state": "improving",
+            "state_label": "改善",
+            "latest_display": "淨現金 USD 42.3B",
+            "change_display": "較前一年 增加 USD 9.4B",
+            "signal_strength": 4.433,
+            "note": "年度現金及短期投資減有息負債；受限於可靠來源頻率，不標示成季度趨勢。",
+            "points": [
+              {
+                "period": "2022-12-31",
+                "value": -15906000000.0,
+                "display": "淨負債 USD 15.9B"
+              },
+              {
+                "period": "2023-12-31",
+                "value": 7863000000.0,
+                "display": "淨現金 USD 7.9B"
+              },
+              {
+                "period": "2024-12-31",
+                "value": 32960000000.0,
+                "display": "淨現金 USD 33.0B"
+              },
+              {
+                "period": "2025-12-31",
+                "value": 42347000000.0,
+                "display": "淨現金 USD 42.3B"
+              }
+            ]
+          }
+        ]
+      },
       "red_flags": [
         {
           "source": "valuation.json",
@@ -2044,6 +3972,13 @@
       "name": "ARM HOLDINGS PLC /UK",
       "position": "holding",
       "latest_period": "2026-06-30",
+      "score_basis": {
+        "quarterly_period": "2026-06-30",
+        "quarterly_filed": "2026-07-29",
+        "annual_period": "2026-03-31",
+        "price_date": "2026-09-08",
+        "score_updated_at": "2026-09-09"
+      },
       "overall_score": 71,
       "overall_label": "長期體質穩健",
       "coverage": {
@@ -2360,6 +4295,319 @@
           ]
         }
       ],
+      "trends": {
+        "basis": "五項季度指標最多八季；財務壓力使用最多四個會計年度。這些是實際數值趨勢，不是歷史雷達分數。",
+        "summary": {
+          "counts": {
+            "improving": 3,
+            "stable": 1,
+            "deteriorating": 2,
+            "unknown": 0
+          },
+          "strongest_improvement": "FCF 利潤率",
+          "main_deterioration": "營業利益率"
+        },
+        "metrics": [
+          {
+            "id": "revenue_yoy",
+            "label": "營收成長",
+            "frequency": "quarterly",
+            "state": "improving",
+            "state_label": "改善",
+            "latest_display": "+22.4%",
+            "change_display": "較前季 YoY +2.3pp",
+            "signal_strength": 1.174,
+            "note": "最多八季營收年增率；箭頭比較本季 YoY 與前季 YoY，判斷成長加速或減速。",
+            "points": [
+              {
+                "period": "2024-09-30",
+                "value": 0.04714640198511155,
+                "display": "+4.7%"
+              },
+              {
+                "period": "2024-12-31",
+                "value": 0.19296116504854366,
+                "display": "+19.3%"
+              },
+              {
+                "period": "2025-03-31",
+                "value": 0.3372844827586208,
+                "display": "+33.7%"
+              },
+              {
+                "period": "2025-06-30",
+                "value": 0.12140575079872207,
+                "display": "+12.1%"
+              },
+              {
+                "period": "2025-09-30",
+                "value": 0.34478672985782,
+                "display": "+34.5%"
+              },
+              {
+                "period": "2025-12-31",
+                "value": 0.26347914547304163,
+                "display": "+26.3%"
+              },
+              {
+                "period": "2026-03-31",
+                "value": 0.20064464141821103,
+                "display": "+20.1%"
+              },
+              {
+                "period": "2026-06-30",
+                "value": 0.2241215574548907,
+                "display": "+22.4%"
+              }
+            ]
+          },
+          {
+            "id": "gross_margin",
+            "label": "毛利率",
+            "frequency": "quarterly",
+            "state": "stable",
+            "state_label": "持平",
+            "latest_display": "97.2%",
+            "change_display": "較去年同期 +0.1pp",
+            "signal_strength": 0.056,
+            "note": "最多八季實際比率；箭頭以最新季對去年同期的百分點變化判定。",
+            "points": [
+              {
+                "period": "2024-09-30",
+                "value": 0.9620853080568721,
+                "display": "96.2%"
+              },
+              {
+                "period": "2024-12-31",
+                "value": 0.9715157680569685,
+                "display": "97.2%"
+              },
+              {
+                "period": "2025-03-31",
+                "value": 0.9774375503626108,
+                "display": "97.7%"
+              },
+              {
+                "period": "2025-06-30",
+                "value": 0.9715099715099715,
+                "display": "97.2%"
+              },
+              {
+                "period": "2025-09-30",
+                "value": 0.9744493392070485,
+                "display": "97.4%"
+              },
+              {
+                "period": "2025-12-31",
+                "value": 0.9758454106280193,
+                "display": "97.6%"
+              },
+              {
+                "period": "2026-03-31",
+                "value": 0.978523489932886,
+                "display": "97.9%"
+              },
+              {
+                "period": "2026-06-30",
+                "value": 0.9720713731574864,
+                "display": "97.2%"
+              }
+            ]
+          },
+          {
+            "id": "operating_margin",
+            "label": "營業利益率",
+            "frequency": "quarterly",
+            "state": "deteriorating",
+            "state_label": "惡化",
+            "latest_display": "7.1%",
+            "change_display": "較去年同期 -3.8pp",
+            "signal_strength": -3.766,
+            "note": "最多八季實際比率；箭頭以最新季對去年同期的百分點變化判定。",
+            "points": [
+              {
+                "period": "2024-09-30",
+                "value": 0.07582938388625593,
+                "display": "7.6%"
+              },
+              {
+                "period": "2024-12-31",
+                "value": 0.1780264496439471,
+                "display": "17.8%"
+              },
+              {
+                "period": "2025-03-31",
+                "value": 0.330378726833199,
+                "display": "33.0%"
+              },
+              {
+                "period": "2025-06-30",
+                "value": 0.10826210826210826,
+                "display": "10.8%"
+              },
+              {
+                "period": "2025-09-30",
+                "value": 0.1436123348017621,
+                "display": "14.4%"
+              },
+              {
+                "period": "2025-12-31",
+                "value": 0.14895330112721417,
+                "display": "14.9%"
+              },
+              {
+                "period": "2026-03-31",
+                "value": 0.29395973154362415,
+                "display": "29.4%"
+              },
+              {
+                "period": "2026-06-30",
+                "value": 0.07059736229635376,
+                "display": "7.1%"
+              }
+            ]
+          },
+          {
+            "id": "fcf_margin",
+            "label": "FCF 利潤率",
+            "frequency": "quarterly",
+            "state": "improving",
+            "state_label": "改善",
+            "latest_display": "54.7%",
+            "change_display": "較去年同期 +37.8pp",
+            "signal_strength": 18.895,
+            "note": "最多八季自由現金流除以同季營收；現金流季間波動較大，以 2pp 作為方向門檻。",
+            "points": [
+              {
+                "period": "2024-09-30",
+                "value": -0.05568720379146919,
+                "display": "-5.6%"
+              },
+              {
+                "period": "2024-12-31",
+                "value": 0.3662258392675483,
+                "display": "36.6%"
+              },
+              {
+                "period": "2025-03-31",
+                "value": 0.14826752618855762,
+                "display": "14.8%"
+              },
+              {
+                "period": "2025-06-30",
+                "value": 0.16904083570750236,
+                "display": "16.9%"
+              },
+              {
+                "period": "2025-09-30",
+                "value": 0.37797356828193834,
+                "display": "37.8%"
+              },
+              {
+                "period": "2025-12-31",
+                "value": 0.1497584541062802,
+                "display": "15.0%"
+              },
+              {
+                "period": "2026-03-31",
+                "value": 0.12483221476510067,
+                "display": "12.5%"
+              },
+              {
+                "period": "2026-06-30",
+                "value": 0.5469356089992242,
+                "display": "54.7%"
+              }
+            ]
+          },
+          {
+            "id": "diluted_shares_yoy",
+            "label": "稀釋股數",
+            "frequency": "quarterly",
+            "state": "deteriorating",
+            "state_label": "惡化",
+            "latest_display": "+1.2%",
+            "change_display": "YoY +1.2%；股數下降較有利",
+            "signal_strength": -2.441,
+            "note": "最多八季稀釋加權平均股數年增率；採反向判讀，股數下降為改善。",
+            "points": [
+              {
+                "period": "2024-09-30",
+                "value": 0.03707317073170735,
+                "display": "+3.7%"
+              },
+              {
+                "period": "2024-12-31",
+                "value": 0.014299332697807365,
+                "display": "+1.4%"
+              },
+              {
+                "period": "2025-03-31",
+                "value": null,
+                "display": "資料不足"
+              },
+              {
+                "period": "2025-06-30",
+                "value": 0.004716981132075526,
+                "display": "+0.5%"
+              },
+              {
+                "period": "2025-09-30",
+                "value": 0.005644402634054524,
+                "display": "+0.6%"
+              },
+              {
+                "period": "2025-12-31",
+                "value": 0.0046992481203007586,
+                "display": "+0.5%"
+              },
+              {
+                "period": "2026-03-31",
+                "value": null,
+                "display": "資料不足"
+              },
+              {
+                "period": "2026-06-30",
+                "value": 0.012206572769952961,
+                "display": "+1.2%"
+              }
+            ]
+          },
+          {
+            "id": "net_cash",
+            "label": "財務壓力（年度）",
+            "frequency": "annual",
+            "state": "improving",
+            "state_label": "改善",
+            "latest_display": "淨現金 USD 3.5B",
+            "change_display": "較前一年 增加 USD 742.0M",
+            "signal_strength": 4.19,
+            "note": "年度現金及短期投資減有息負債；受限於可靠來源頻率，不標示成季度趨勢。",
+            "points": [
+              {
+                "period": "2023-03-31",
+                "value": 2213000000.0,
+                "display": "淨現金 USD 2.2B"
+              },
+              {
+                "period": "2024-03-31",
+                "value": 2918000000.0,
+                "display": "淨現金 USD 2.9B"
+              },
+              {
+                "period": "2025-03-31",
+                "value": 2800000000.0,
+                "display": "淨現金 USD 2.8B"
+              },
+              {
+                "period": "2026-03-31",
+                "value": 3542000000.0,
+                "display": "淨現金 USD 3.5B"
+              }
+            ]
+          }
+        ]
+      },
       "red_flags": [
         {
           "source": "financial_health.json",
@@ -2379,6 +4627,13 @@
       "name": "Ondas Inc.",
       "position": "watchlist",
       "latest_period": "2026-06-30",
+      "score_basis": {
+        "quarterly_period": "2026-06-30",
+        "quarterly_filed": "2026-08-13",
+        "annual_period": "2025-12-31",
+        "price_date": "2026-09-08",
+        "score_updated_at": "2026-09-09"
+      },
       "overall_score": 38,
       "overall_label": "長期風險偏高",
       "coverage": {
@@ -2695,6 +4950,319 @@
           ]
         }
       ],
+      "trends": {
+        "basis": "五項季度指標最多八季；財務壓力使用最多四個會計年度。這些是實際數值趨勢，不是歷史雷達分數。",
+        "summary": {
+          "counts": {
+            "improving": 3,
+            "stable": 0,
+            "deteriorating": 3,
+            "unknown": 0
+          },
+          "strongest_improvement": "營收成長",
+          "main_deterioration": "稀釋股數"
+        },
+        "metrics": [
+          {
+            "id": "revenue_yoy",
+            "label": "營收成長",
+            "frequency": "quarterly",
+            "state": "improving",
+            "state_label": "改善",
+            "latest_display": "+1235.4%",
+            "change_display": "較前季 YoY +155.5pp",
+            "signal_strength": 77.771,
+            "note": "最多八季營收年增率；箭頭比較本季 YoY 與前季 YoY，判斷成長加速或減速。",
+            "points": [
+              {
+                "period": "2024-09-30",
+                "value": -0.44439533391615604,
+                "display": "-44.4%"
+              },
+              {
+                "period": "2024-12-31",
+                "value": -0.167685791080335,
+                "display": "-16.8%"
+              },
+              {
+                "period": "2025-03-31",
+                "value": 5.796702127489364,
+                "display": "+579.7%"
+              },
+              {
+                "period": "2025-06-30",
+                "value": 5.549035288369486,
+                "display": "+554.9%"
+              },
+              {
+                "period": "2025-09-30",
+                "value": 5.819533060686443,
+                "display": "+582.0%"
+              },
+              {
+                "period": "2025-12-31",
+                "value": 6.2919792664604675,
+                "display": "+629.2%"
+              },
+              {
+                "period": "2026-03-31",
+                "value": 10.798964218455744,
+                "display": "+1079.9%"
+              },
+              {
+                "period": "2026-06-30",
+                "value": 12.354375896700143,
+                "display": "+1235.4%"
+              }
+            ]
+          },
+          {
+            "id": "gross_margin",
+            "label": "毛利率",
+            "frequency": "quarterly",
+            "state": "deteriorating",
+            "state_label": "惡化",
+            "latest_display": "43.1%",
+            "change_display": "較去年同期 -10.0pp",
+            "signal_strength": -9.986,
+            "note": "最多八季實際比率；箭頭以最新季對去年同期的百分點變化判定。",
+            "points": [
+              {
+                "period": "2024-09-30",
+                "value": 0.03211794769285625,
+                "display": "3.2%"
+              },
+              {
+                "period": "2024-12-31",
+                "value": 0.21391197835590509,
+                "display": "21.4%"
+              },
+              {
+                "period": "2025-03-31",
+                "value": 0.3502824858757062,
+                "display": "35.0%"
+              },
+              {
+                "period": "2025-06-30",
+                "value": 0.5311653116531165,
+                "display": "53.1%"
+              },
+              {
+                "period": "2025-09-30",
+                "value": 0.25790404533035727,
+                "display": "25.8%"
+              },
+              {
+                "period": "2025-12-31",
+                "value": 0.4228001150405564,
+                "display": "42.3%"
+              },
+              {
+                "period": "2026-03-31",
+                "value": 0.4919596185307849,
+                "display": "49.2%"
+              },
+              {
+                "period": "2026-06-30",
+                "value": 0.43130162822900253,
+                "display": "43.1%"
+              }
+            ]
+          },
+          {
+            "id": "operating_margin",
+            "label": "營業利益率",
+            "frequency": "quarterly",
+            "state": "deteriorating",
+            "state_label": "惡化",
+            "latest_display": "-194.5%",
+            "change_display": "較去年同期 -47.1pp",
+            "signal_strength": -47.054,
+            "note": "最多八季實際比率；箭頭以最新季對去年同期的百分點變化判定。",
+            "points": [
+              {
+                "period": "2024-09-30",
+                "value": -5.848704612126483,
+                "display": "-584.9%"
+              },
+              {
+                "period": "2024-12-31",
+                "value": -2.062674301124536,
+                "display": "-206.3%"
+              },
+              {
+                "period": "2025-03-31",
+                "value": -2.427024482109228,
+                "display": "-242.7%"
+              },
+              {
+                "period": "2025-06-30",
+                "value": -1.4745735692651045,
+                "display": "-147.5%"
+              },
+              {
+                "period": "2025-09-30",
+                "value": -1.5352618408426757,
+                "display": "-153.5%"
+              },
+              {
+                "period": "2025-12-31",
+                "value": -0.7744948709978241,
+                "display": "-77.4%"
+              },
+              {
+                "period": "2026-03-31",
+                "value": -0.8513427237540402,
+                "display": "-85.1%"
+              },
+              {
+                "period": "2026-06-30",
+                "value": -1.945112925559853,
+                "display": "-194.5%"
+              }
+            ]
+          },
+          {
+            "id": "fcf_margin",
+            "label": "FCF 利潤率",
+            "frequency": "quarterly",
+            "state": "improving",
+            "state_label": "改善",
+            "latest_display": "-112.0%",
+            "change_display": "較去年同期 +23.5pp",
+            "signal_strength": 11.74,
+            "note": "最多八季自由現金流除以同季營收；現金流季間波動較大，以 2pp 作為方向門檻。",
+            "points": [
+              {
+                "period": "2024-09-30",
+                "value": -5.679425604676417,
+                "display": "-567.9%"
+              },
+              {
+                "period": "2024-12-31",
+                "value": -1.9707694774090243,
+                "display": "-197.1%"
+              },
+              {
+                "period": "2025-03-31",
+                "value": -1.6078154425612052,
+                "display": "-160.8%"
+              },
+              {
+                "period": "2025-06-30",
+                "value": -1.3550135501355014,
+                "display": "-135.5%"
+              },
+              {
+                "period": "2025-09-30",
+                "value": -1.1016618622323933,
+                "display": "-110.2%"
+              },
+              {
+                "period": "2025-12-31",
+                "value": -0.47574042413566814,
+                "display": "-47.6%"
+              },
+              {
+                "period": "2026-03-31",
+                "value": -1.050037907505686,
+                "display": "-105.0%"
+              },
+              {
+                "period": "2026-06-30",
+                "value": -1.1202072291457765,
+                "display": "-112.0%"
+              }
+            ]
+          },
+          {
+            "id": "diluted_shares_yoy",
+            "label": "稀釋股數",
+            "frequency": "quarterly",
+            "state": "deteriorating",
+            "state_label": "惡化",
+            "latest_display": "+234.3%",
+            "change_display": "YoY +234.3%；股數下降較有利",
+            "signal_strength": -468.547,
+            "note": "最多八季稀釋加權平均股數年增率；採反向判讀，股數下降為改善。",
+            "points": [
+              {
+                "period": "2024-09-30",
+                "value": 0.3126354354106504,
+                "display": "+31.3%"
+              },
+              {
+                "period": "2024-12-31",
+                "value": null,
+                "display": "資料不足"
+              },
+              {
+                "period": "2025-03-31",
+                "value": null,
+                "display": "資料不足"
+              },
+              {
+                "period": "2025-06-30",
+                "value": 1.2696393906339205,
+                "display": "+127.0%"
+              },
+              {
+                "period": "2025-09-30",
+                "value": 2.6740643017406067,
+                "display": "+267.4%"
+              },
+              {
+                "period": "2025-12-31",
+                "value": null,
+                "display": "資料不足"
+              },
+              {
+                "period": "2026-03-31",
+                "value": null,
+                "display": "資料不足"
+              },
+              {
+                "period": "2026-06-30",
+                "value": 2.342734628583566,
+                "display": "+234.3%"
+              }
+            ]
+          },
+          {
+            "id": "net_cash",
+            "label": "財務壓力（年度）",
+            "frequency": "annual",
+            "state": "improving",
+            "state_label": "改善",
+            "latest_display": "淨現金 USD 542.5M",
+            "change_display": "較前一年 增加 USD 561.9M",
+            "signal_strength": 20.716,
+            "note": "年度現金及短期投資減有息負債；受限於可靠來源頻率，不標示成季度趨勢。",
+            "points": [
+              {
+                "period": "2022-12-31",
+                "value": null,
+                "display": "資料不足"
+              },
+              {
+                "period": "2023-12-31",
+                "value": null,
+                "display": "資料不足"
+              },
+              {
+                "period": "2024-12-31",
+                "value": -19430000.0,
+                "display": "淨負債 USD 19.4M"
+              },
+              {
+                "period": "2025-12-31",
+                "value": 542460000.0,
+                "display": "淨現金 USD 542.5M"
+              }
+            ]
+          }
+        ]
+      },
       "red_flags": [
         {
           "source": "financial_health.json",
@@ -2739,6 +5307,13 @@
       "name": "Tesla, Inc.",
       "position": "holding",
       "latest_period": "2026-06-30",
+      "score_basis": {
+        "quarterly_period": "2026-06-30",
+        "quarterly_filed": "2026-07-23",
+        "annual_period": "2025-12-31",
+        "price_date": "2026-09-08",
+        "score_updated_at": "2026-09-09"
+      },
       "overall_score": 55,
       "overall_label": "優劣混合，需聚焦弱項",
       "coverage": {
@@ -3055,6 +5630,319 @@
           ]
         }
       ],
+      "trends": {
+        "basis": "五項季度指標最多八季；財務壓力使用最多四個會計年度。這些是實際數值趨勢，不是歷史雷達分數。",
+        "summary": {
+          "counts": {
+            "improving": 2,
+            "stable": 1,
+            "deteriorating": 3,
+            "unknown": 0
+          },
+          "strongest_improvement": "營收成長",
+          "main_deterioration": "營業利益率"
+        },
+        "metrics": [
+          {
+            "id": "revenue_yoy",
+            "label": "營收成長",
+            "frequency": "quarterly",
+            "state": "improving",
+            "state_label": "改善",
+            "latest_display": "+25.5%",
+            "change_display": "較前季 YoY +9.7pp",
+            "signal_strength": 4.865,
+            "note": "最多八季營收年增率；箭頭比較本季 YoY 與前季 YoY，判斷成長加速或減速。",
+            "points": [
+              {
+                "period": "2024-09-30",
+                "value": 0.07845824411134905,
+                "display": "+7.8%"
+              },
+              {
+                "period": "2024-12-31",
+                "value": 0.021456669448086885,
+                "display": "+2.1%"
+              },
+              {
+                "period": "2025-03-31",
+                "value": -0.09229613633162759,
+                "display": "-9.2%"
+              },
+              {
+                "period": "2025-06-30",
+                "value": -0.1178039215686274,
+                "display": "-11.8%"
+              },
+              {
+                "period": "2025-09-30",
+                "value": 0.11567786514176803,
+                "display": "+11.6%"
+              },
+              {
+                "period": "2025-12-31",
+                "value": -0.031353327887345905,
+                "display": "-3.1%"
+              },
+              {
+                "period": "2026-03-31",
+                "value": 0.15784846133953967,
+                "display": "+15.8%"
+              },
+              {
+                "period": "2026-06-30",
+                "value": 0.25515647226173543,
+                "display": "+25.5%"
+              }
+            ]
+          },
+          {
+            "id": "gross_margin",
+            "label": "毛利率",
+            "frequency": "quarterly",
+            "state": "stable",
+            "state_label": "持平",
+            "latest_display": "16.8%",
+            "change_display": "較去年同期 -0.4pp",
+            "signal_strength": -0.413,
+            "note": "最多八季實際比率；箭頭以最新季對去年同期的百分點變化判定。",
+            "points": [
+              {
+                "period": "2024-09-30",
+                "value": 0.19843539035819235,
+                "display": "19.8%"
+              },
+              {
+                "period": "2024-12-31",
+                "value": 0.16256272610572994,
+                "display": "16.3%"
+              },
+              {
+                "period": "2025-03-31",
+                "value": 0.1630721489526765,
+                "display": "16.3%"
+              },
+              {
+                "period": "2025-06-30",
+                "value": 0.17238620199146515,
+                "display": "17.2%"
+              },
+              {
+                "period": "2025-09-30",
+                "value": 0.1798896600818651,
+                "display": "18.0%"
+              },
+              {
+                "period": "2025-12-31",
+                "value": 0.20115658005702583,
+                "display": "20.1%"
+              },
+              {
+                "period": "2026-03-31",
+                "value": 0.21083664626792334,
+                "display": "21.1%"
+              },
+              {
+                "period": "2026-06-30",
+                "value": 0.16826037682391273,
+                "display": "16.8%"
+              }
+            ]
+          },
+          {
+            "id": "operating_margin",
+            "label": "營業利益率",
+            "frequency": "quarterly",
+            "state": "deteriorating",
+            "state_label": "惡化",
+            "latest_display": "1.4%",
+            "change_display": "較去年同期 -2.7pp",
+            "signal_strength": -2.693,
+            "note": "最多八季實際比率；箭頭以最新季對去年同期的百分點變化判定。",
+            "points": [
+              {
+                "period": "2024-09-30",
+                "value": 0.10789452783734413,
+                "display": "10.8%"
+              },
+              {
+                "period": "2024-12-31",
+                "value": 0.06157855836931575,
+                "display": "6.2%"
+              },
+              {
+                "period": "2025-03-31",
+                "value": 0.020636152055857254,
+                "display": "2.1%"
+              },
+              {
+                "period": "2025-06-30",
+                "value": 0.041029516358463726,
+                "display": "4.1%"
+              },
+              {
+                "period": "2025-09-30",
+                "value": 0.057803879693895714,
+                "display": "5.8%"
+              },
+              {
+                "period": "2025-12-31",
+                "value": 0.05658407292879804,
+                "display": "5.7%"
+              },
+              {
+                "period": "2026-03-31",
+                "value": 0.04203332291061777,
+                "display": "4.2%"
+              },
+              {
+                "period": "2026-06-30",
+                "value": 0.014095480946309675,
+                "display": "1.4%"
+              }
+            ]
+          },
+          {
+            "id": "fcf_margin",
+            "label": "FCF 利潤率",
+            "frequency": "quarterly",
+            "state": "deteriorating",
+            "state_label": "惡化",
+            "latest_display": "-3.9%",
+            "change_display": "較去年同期 -4.5pp",
+            "signal_strength": -2.258,
+            "note": "最多八季自由現金流除以同季營收；現金流季間波動較大，以 2pp 作為方向門檻。",
+            "points": [
+              {
+                "period": "2024-09-30",
+                "value": 0.10888730045270431,
+                "display": "10.9%"
+              },
+              {
+                "period": "2024-12-31",
+                "value": 0.07912241801843856,
+                "display": "7.9%"
+              },
+              {
+                "period": "2025-03-31",
+                "value": 0.0343418670804241,
+                "display": "3.4%"
+              },
+              {
+                "period": "2025-06-30",
+                "value": 0.006490042674253201,
+                "display": "0.6%"
+              },
+              {
+                "period": "2025-09-30",
+                "value": 0.1420181526962093,
+                "display": "14.2%"
+              },
+              {
+                "period": "2025-12-31",
+                "value": 0.05702582225613429,
+                "display": "5.7%"
+              },
+              {
+                "period": "2026-03-31",
+                "value": 0.06450171974806808,
+                "display": "6.5%"
+              },
+              {
+                "period": "2026-06-30",
+                "value": -0.03867403314917127,
+                "display": "-3.9%"
+              }
+            ]
+          },
+          {
+            "id": "diluted_shares_yoy",
+            "label": "稀釋股數",
+            "frequency": "quarterly",
+            "state": "deteriorating",
+            "state_label": "惡化",
+            "latest_display": "+0.6%",
+            "change_display": "YoY +0.6%；股數下降較有利",
+            "signal_strength": -1.194,
+            "note": "最多八季稀釋加權平均股數年增率；採反向判讀，股數下降為改善。",
+            "points": [
+              {
+                "period": "2024-09-30",
+                "value": 0.001145147437732641,
+                "display": "+0.1%"
+              },
+              {
+                "period": "2024-12-31",
+                "value": null,
+                "display": "資料不足"
+              },
+              {
+                "period": "2025-03-31",
+                "value": 0.010619977037887418,
+                "display": "+1.1%"
+              },
+              {
+                "period": "2025-06-30",
+                "value": 0.010916403332375646,
+                "display": "+1.1%"
+              },
+              {
+                "period": "2025-09-30",
+                "value": 0.008292822419216472,
+                "display": "+0.8%"
+              },
+              {
+                "period": "2025-12-31",
+                "value": null,
+                "display": "資料不足"
+              },
+              {
+                "period": "2026-03-31",
+                "value": 0.004828173814257264,
+                "display": "+0.5%"
+              },
+              {
+                "period": "2026-06-30",
+                "value": 0.0059676044330776445,
+                "display": "+0.6%"
+              }
+            ]
+          },
+          {
+            "id": "net_cash",
+            "label": "財務壓力（年度）",
+            "frequency": "annual",
+            "state": "improving",
+            "state_label": "改善",
+            "latest_display": "淨現金 USD 35.7B",
+            "change_display": "較前一年 增加 USD 7.3B",
+            "signal_strength": 4.11,
+            "note": "年度現金及短期投資減有息負債；受限於可靠來源頻率，不標示成季度趨勢。",
+            "points": [
+              {
+                "period": "2022-12-31",
+                "value": 19086000000.0,
+                "display": "淨現金 USD 19.1B"
+              },
+              {
+                "period": "2023-12-31",
+                "value": 23864000000.0,
+                "display": "淨現金 USD 23.9B"
+              },
+              {
+                "period": "2024-12-31",
+                "value": 28350000000.0,
+                "display": "淨現金 USD 28.4B"
+              },
+              {
+                "period": "2025-12-31",
+                "value": 35683000000.0,
+                "display": "淨現金 USD 35.7B"
+              }
+            ]
+          }
+        ]
+      },
       "red_flags": [
         {
           "source": "financial_health.json",
@@ -3074,6 +5962,13 @@
       "name": "Alphabet Inc.",
       "position": "holding",
       "latest_period": "2026-06-30",
+      "score_basis": {
+        "quarterly_period": "2026-06-30",
+        "quarterly_filed": "2026-07-23",
+        "annual_period": "2025-12-31",
+        "price_date": "2026-09-08",
+        "score_updated_at": "2026-09-09"
+      },
       "overall_score": 76,
       "overall_label": "長期體質穩健",
       "coverage": {
@@ -3390,6 +6285,319 @@
           ]
         }
       ],
+      "trends": {
+        "basis": "五項季度指標最多八季；財務壓力使用最多四個會計年度。這些是實際數值趨勢，不是歷史雷達分數。",
+        "summary": {
+          "counts": {
+            "improving": 3,
+            "stable": 0,
+            "deteriorating": 3,
+            "unknown": 0
+          },
+          "strongest_improvement": "毛利率",
+          "main_deterioration": "FCF 利潤率"
+        },
+        "metrics": [
+          {
+            "id": "revenue_yoy",
+            "label": "營收成長",
+            "frequency": "quarterly",
+            "state": "improving",
+            "state_label": "改善",
+            "latest_display": "+24.2%",
+            "change_display": "較前季 YoY +2.4pp",
+            "signal_strength": 1.222,
+            "note": "最多八季營收年增率；箭頭比較本季 YoY 與前季 YoY，判斷成長加速或減速。",
+            "points": [
+              {
+                "period": "2024-09-30",
+                "value": 0.15092642092498654,
+                "display": "+15.1%"
+              },
+              {
+                "period": "2024-12-31",
+                "value": 0.11770362646275045,
+                "display": "+11.8%"
+              },
+              {
+                "period": "2025-03-31",
+                "value": 0.12037646357665222,
+                "display": "+12.0%"
+              },
+              {
+                "period": "2025-06-30",
+                "value": 0.13790092280097244,
+                "display": "+13.8%"
+              },
+              {
+                "period": "2025-09-30",
+                "value": 0.1594915484660353,
+                "display": "+15.9%"
+              },
+              {
+                "period": "2025-12-31",
+                "value": 0.17995418217251147,
+                "display": "+18.0%"
+              },
+              {
+                "period": "2026-03-31",
+                "value": 0.21790012633818745,
+                "display": "+21.8%"
+              },
+              {
+                "period": "2026-06-30",
+                "value": 0.2423362508814868,
+                "display": "+24.2%"
+              }
+            ]
+          },
+          {
+            "id": "gross_margin",
+            "label": "毛利率",
+            "frequency": "quarterly",
+            "state": "improving",
+            "state_label": "改善",
+            "latest_display": "61.6%",
+            "change_display": "較去年同期 +2.1pp",
+            "signal_strength": 2.134,
+            "note": "最多八季實際比率；箭頭以最新季對去年同期的百分點變化判定。",
+            "points": [
+              {
+                "period": "2024-09-30",
+                "value": 0.5867811664476368,
+                "display": "58.7%"
+              },
+              {
+                "period": "2024-12-31",
+                "value": 0.5790046543449191,
+                "display": "57.9%"
+              },
+              {
+                "period": "2025-03-31",
+                "value": 0.5970365937451515,
+                "display": "59.7%"
+              },
+              {
+                "period": "2025-06-30",
+                "value": 0.5951487119923674,
+                "display": "59.5%"
+              },
+              {
+                "period": "2025-09-30",
+                "value": 0.5957927031833193,
+                "display": "59.6%"
+              },
+              {
+                "period": "2025-12-31",
+                "value": 0.597931985697845,
+                "display": "59.8%"
+              },
+              {
+                "period": "2026-03-31",
+                "value": 0.6244540292640315,
+                "display": "62.4%"
+              },
+              {
+                "period": "2026-06-30",
+                "value": 0.6164896991552306,
+                "display": "61.6%"
+              }
+            ]
+          },
+          {
+            "id": "operating_margin",
+            "label": "營業利益率",
+            "frequency": "quarterly",
+            "state": "improving",
+            "state_label": "改善",
+            "latest_display": "34.0%",
+            "change_display": "較去年同期 +1.6pp",
+            "signal_strength": 1.603,
+            "note": "最多八季實際比率；箭頭以最新季對去年同期的百分點變化判定。",
+            "points": [
+              {
+                "period": "2024-09-30",
+                "value": 0.3231182308424344,
+                "display": "32.3%"
+              },
+              {
+                "period": "2024-12-31",
+                "value": 0.3210565051985612,
+                "display": "32.1%"
+              },
+              {
+                "period": "2025-03-31",
+                "value": 0.3391847862224882,
+                "display": "33.9%"
+              },
+              {
+                "period": "2025-06-30",
+                "value": 0.3242937735927324,
+                "display": "32.4%"
+              },
+              {
+                "period": "2025-09-30",
+                "value": 0.30512184159615424,
+                "display": "30.5%"
+              },
+              {
+                "period": "2025-12-31",
+                "value": 0.315684052394381,
+                "display": "31.6%"
+              },
+              {
+                "period": "2026-03-31",
+                "value": 0.36121423891679405,
+                "display": "36.1%"
+              },
+              {
+                "period": "2026-06-30",
+                "value": 0.3403285585495342,
+                "display": "34.0%"
+              }
+            ]
+          },
+          {
+            "id": "fcf_margin",
+            "label": "FCF 利潤率",
+            "frequency": "quarterly",
+            "state": "deteriorating",
+            "state_label": "惡化",
+            "latest_display": "-4.9%",
+            "change_display": "較去年同期 -10.4pp",
+            "signal_strength": -5.192,
+            "note": "最多八季自由現金流除以同季營收；現金流季間波動較大，以 2pp 作為方向門檻。",
+            "points": [
+              {
+                "period": "2024-09-30",
+                "value": 0.19981193637558345,
+                "display": "20.0%"
+              },
+              {
+                "period": "2024-12-31",
+                "value": 0.2574609460033793,
+                "display": "25.7%"
+              },
+              {
+                "period": "2025-03-31",
+                "value": 0.2100427776669548,
+                "display": "21.0%"
+              },
+              {
+                "period": "2025-06-30",
+                "value": 0.054973659103165054,
+                "display": "5.5%"
+              },
+              {
+                "period": "2025-09-30",
+                "value": 0.2390029898579329,
+                "display": "23.9%"
+              },
+              {
+                "period": "2025-12-31",
+                "value": 0.21568317388363248,
+                "display": "21.6%"
+              },
+              {
+                "period": "2026-03-31",
+                "value": 0.09205066608429788,
+                "display": "9.2%"
+              },
+              {
+                "period": "2026-06-30",
+                "value": -0.04887475374803833,
+                "display": "-4.9%"
+              }
+            ]
+          },
+          {
+            "id": "diluted_shares_yoy",
+            "label": "稀釋股數",
+            "frequency": "quarterly",
+            "state": "deteriorating",
+            "state_label": "惡化",
+            "latest_display": "+0.9%",
+            "change_display": "YoY +0.9%；股數下降較有利",
+            "signal_strength": -1.82,
+            "note": "最多八季稀釋加權平均股數年增率；採反向判讀，股數下降為改善。",
+            "points": [
+              {
+                "period": "2024-09-30",
+                "value": -0.02181789540012602,
+                "display": "-2.2%"
+              },
+              {
+                "period": "2024-12-31",
+                "value": null,
+                "display": "資料不足"
+              },
+              {
+                "period": "2025-03-31",
+                "value": -0.018839307096671143,
+                "display": "-1.9%"
+              },
+              {
+                "period": "2025-06-30",
+                "value": -0.02376950780312126,
+                "display": "-2.4%"
+              },
+              {
+                "period": "2025-09-30",
+                "value": -0.01739270472662857,
+                "display": "-1.7%"
+              },
+              {
+                "period": "2025-12-31",
+                "value": null,
+                "display": "資料不足"
+              },
+              {
+                "period": "2026-03-31",
+                "value": -0.004312098283296706,
+                "display": "-0.4%"
+              },
+              {
+                "period": "2026-06-30",
+                "value": 0.009099852434825362,
+                "display": "+0.9%"
+              }
+            ]
+          },
+          {
+            "id": "net_cash",
+            "label": "財務壓力（年度）",
+            "frequency": "annual",
+            "state": "deteriorating",
+            "state_label": "惡化",
+            "latest_display": "淨現金 USD 75.8B",
+            "change_display": "較前一年 減少 USD 6.3B",
+            "signal_strength": -1.534,
+            "note": "年度現金及短期投資減有息負債；受限於可靠來源頻率，不標示成季度趨勢。",
+            "points": [
+              {
+                "period": "2022-12-31",
+                "value": 98152000000.0,
+                "display": "淨現金 USD 98.2B"
+              },
+              {
+                "period": "2023-12-31",
+                "value": 96380000000.0,
+                "display": "淨現金 USD 96.4B"
+              },
+              {
+                "period": "2024-12-31",
+                "value": 82098000000.0,
+                "display": "淨現金 USD 82.1B"
+              },
+              {
+                "period": "2025-12-31",
+                "value": 75800000000.0,
+                "display": "淨現金 USD 75.8B"
+              }
+            ]
+          }
+        ]
+      },
       "red_flags": []
     },
     {
@@ -3398,6 +6606,13 @@
       "name": "COHERENT CORP.",
       "position": "holding",
       "latest_period": "2026-06-30",
+      "score_basis": {
+        "quarterly_period": "2026-06-30",
+        "quarterly_filed": "2026-08-14",
+        "annual_period": "2026-06-30",
+        "price_date": "2026-09-08",
+        "score_updated_at": "2026-09-09"
+      },
       "overall_score": 52,
       "overall_label": "優劣混合，需聚焦弱項",
       "coverage": {
@@ -3714,6 +6929,319 @@
           ]
         }
       ],
+      "trends": {
+        "basis": "五項季度指標最多八季；財務壓力使用最多四個會計年度。這些是實際數值趨勢，不是歷史雷達分數。",
+        "summary": {
+          "counts": {
+            "improving": 3,
+            "stable": 0,
+            "deteriorating": 1,
+            "unknown": 2
+          },
+          "strongest_improvement": "財務壓力（年度）",
+          "main_deterioration": "FCF 利潤率"
+        },
+        "metrics": [
+          {
+            "id": "revenue_yoy",
+            "label": "營收成長",
+            "frequency": "quarterly",
+            "state": "improving",
+            "state_label": "改善",
+            "latest_display": "+33.7%",
+            "change_display": "較前季 YoY +13.2pp",
+            "signal_strength": 6.599,
+            "note": "最多八季營收年增率；箭頭比較本季 YoY 與前季 YoY，判斷成長加速或減速。",
+            "points": [
+              {
+                "period": "2024-09-30",
+                "value": 0.2801792451307257,
+                "display": "+28.0%"
+              },
+              {
+                "period": "2024-12-31",
+                "value": 0.26800591108274996,
+                "display": "+26.8%"
+              },
+              {
+                "period": "2025-03-31",
+                "value": 0.23913620762254428,
+                "display": "+23.9%"
+              },
+              {
+                "period": "2025-06-30",
+                "value": 0.16363376299679988,
+                "display": "+16.4%"
+              },
+              {
+                "period": "2025-09-30",
+                "value": 0.1730116049208721,
+                "display": "+17.3%"
+              },
+              {
+                "period": "2025-12-31",
+                "value": 0.1749286418780691,
+                "display": "+17.5%"
+              },
+              {
+                "period": "2026-03-31",
+                "value": 0.20546519445162126,
+                "display": "+20.5%"
+              },
+              {
+                "period": "2026-06-30",
+                "value": 0.33744269129273796,
+                "display": "+33.7%"
+              }
+            ]
+          },
+          {
+            "id": "gross_margin",
+            "label": "毛利率",
+            "frequency": "quarterly",
+            "state": "improving",
+            "state_label": "改善",
+            "latest_display": "38.5%",
+            "change_display": "較去年同期 +2.8pp",
+            "signal_strength": 2.769,
+            "note": "最多八季實際比率；箭頭以最新季對去年同期的百分點變化判定。",
+            "points": [
+              {
+                "period": "2024-09-30",
+                "value": 0.3413100320071803,
+                "display": "34.1%"
+              },
+              {
+                "period": "2024-12-31",
+                "value": 0.35503131393042975,
+                "display": "35.5%"
+              },
+              {
+                "period": "2025-03-31",
+                "value": 0.3522914734768296,
+                "display": "35.2%"
+              },
+              {
+                "period": "2025-06-30",
+                "value": 0.35709176454588487,
+                "display": "35.7%"
+              },
+              {
+                "period": "2025-09-30",
+                "value": 0.36626284164823336,
+                "display": "36.6%"
+              },
+              {
+                "period": "2025-12-31",
+                "value": 0.3694881851225863,
+                "display": "36.9%"
+              },
+              {
+                "period": "2026-03-31",
+                "value": 0.3765671027629523,
+                "display": "37.7%"
+              },
+              {
+                "period": "2026-06-30",
+                "value": 0.38477746386883027,
+                "display": "38.5%"
+              }
+            ]
+          },
+          {
+            "id": "operating_margin",
+            "label": "營業利益率",
+            "frequency": "quarterly",
+            "state": "unknown",
+            "state_label": "資料不足",
+            "latest_display": "資料不足",
+            "change_display": "缺少去年同期資料",
+            "signal_strength": null,
+            "note": "最多八季實際比率；箭頭以最新季對去年同期的百分點變化判定。",
+            "points": [
+              {
+                "period": "2024-09-30",
+                "value": null,
+                "display": "資料不足"
+              },
+              {
+                "period": "2024-12-31",
+                "value": null,
+                "display": "資料不足"
+              },
+              {
+                "period": "2025-03-31",
+                "value": null,
+                "display": "資料不足"
+              },
+              {
+                "period": "2025-06-30",
+                "value": null,
+                "display": "資料不足"
+              },
+              {
+                "period": "2025-09-30",
+                "value": null,
+                "display": "資料不足"
+              },
+              {
+                "period": "2025-12-31",
+                "value": null,
+                "display": "資料不足"
+              },
+              {
+                "period": "2026-03-31",
+                "value": null,
+                "display": "資料不足"
+              },
+              {
+                "period": "2026-06-30",
+                "value": null,
+                "display": "資料不足"
+              }
+            ]
+          },
+          {
+            "id": "fcf_margin",
+            "label": "FCF 利潤率",
+            "frequency": "quarterly",
+            "state": "deteriorating",
+            "state_label": "惡化",
+            "latest_display": "-23.8%",
+            "change_display": "較去年同期 -23.7pp",
+            "signal_strength": -11.85,
+            "note": "最多八季自由現金流除以同季營收；現金流季間波動較大，以 2pp 作為方向門檻。",
+            "points": [
+              {
+                "period": "2024-09-30",
+                "value": 0.04524472697467242,
+                "display": "4.5%"
+              },
+              {
+                "period": "2024-12-31",
+                "value": 0.05694430407098521,
+                "display": "5.7%"
+              },
+              {
+                "period": "2025-03-31",
+                "value": 0.03414027434792797,
+                "display": "3.4%"
+              },
+              {
+                "period": "2025-06-30",
+                "value": -0.0006969889554057836,
+                "display": "-0.1%"
+              },
+              {
+                "period": "2025-09-30",
+                "value": -0.036671181716199416,
+                "display": "-3.7%"
+              },
+              {
+                "period": "2025-12-31",
+                "value": -0.05677287232243869,
+                "display": "-5.7%"
+              },
+              {
+                "period": "2026-03-31",
+                "value": -0.21237942647514096,
+                "display": "-21.2%"
+              },
+              {
+                "period": "2026-06-30",
+                "value": -0.23770088285058222,
+                "display": "-23.8%"
+              }
+            ]
+          },
+          {
+            "id": "diluted_shares_yoy",
+            "label": "稀釋股數",
+            "frequency": "quarterly",
+            "state": "unknown",
+            "state_label": "資料不足",
+            "latest_display": "資料不足",
+            "change_display": "缺少去年同期股數",
+            "signal_strength": null,
+            "note": "最多八季稀釋加權平均股數年增率；採反向判讀，股數下降為改善。",
+            "points": [
+              {
+                "period": "2024-09-30",
+                "value": 0.021938694055664953,
+                "display": "+2.2%"
+              },
+              {
+                "period": "2024-12-31",
+                "value": 0.055587078725818806,
+                "display": "+5.6%"
+              },
+              {
+                "period": "2025-03-31",
+                "value": 0.019962139636382714,
+                "display": "+2.0%"
+              },
+              {
+                "period": "2025-06-30",
+                "value": null,
+                "display": "資料不足"
+              },
+              {
+                "period": "2025-09-30",
+                "value": 0.2412221889523909,
+                "display": "+24.1%"
+              },
+              {
+                "period": "2025-12-31",
+                "value": 0.20481408096806653,
+                "display": "+20.5%"
+              },
+              {
+                "period": "2026-03-31",
+                "value": 0.26545513130336706,
+                "display": "+26.5%"
+              },
+              {
+                "period": "2026-06-30",
+                "value": null,
+                "display": "資料不足"
+              }
+            ]
+          },
+          {
+            "id": "net_cash",
+            "label": "財務壓力（年度）",
+            "frequency": "annual",
+            "state": "improving",
+            "state_label": "改善",
+            "latest_display": "淨負債 USD 1.2B",
+            "change_display": "較前一年 增加 USD 1.5B",
+            "signal_strength": 11.106,
+            "note": "年度現金及短期投資減有息負債；受限於可靠來源頻率，不標示成季度趨勢。",
+            "points": [
+              {
+                "period": "2023-06-30",
+                "value": -3488488000.0,
+                "display": "淨負債 USD 3.5B"
+              },
+              {
+                "period": "2024-06-30",
+                "value": -3174185000.0,
+                "display": "淨負債 USD 3.2B"
+              },
+              {
+                "period": "2025-06-30",
+                "value": -2777721000.0,
+                "display": "淨負債 USD 2.8B"
+              },
+              {
+                "period": "2026-06-30",
+                "value": -1235206000.0,
+                "display": "淨負債 USD 1.2B"
+              }
+            ]
+          }
+        ]
+      },
       "red_flags": [
         {
           "source": "financial_health.json",
@@ -3743,6 +7271,13 @@
       "name": "MARVELL TECHNOLOGY, INC",
       "position": "holding",
       "latest_period": "2026-08-01",
+      "score_basis": {
+        "quarterly_period": "2026-08-01",
+        "quarterly_filed": "2026-08-28",
+        "annual_period": "2026-01-31",
+        "price_date": "2026-09-08",
+        "score_updated_at": "2026-09-09"
+      },
       "overall_score": 64,
       "overall_label": "優劣混合，需聚焦弱項",
       "coverage": {
@@ -4059,6 +7594,319 @@
           ]
         }
       ],
+      "trends": {
+        "basis": "五項季度指標最多八季；財務壓力使用最多四個會計年度。這些是實際數值趨勢，不是歷史雷達分數。",
+        "summary": {
+          "counts": {
+            "improving": 4,
+            "stable": 0,
+            "deteriorating": 2,
+            "unknown": 0
+          },
+          "strongest_improvement": "財務壓力（年度）",
+          "main_deterioration": "稀釋股數"
+        },
+        "metrics": [
+          {
+            "id": "revenue_yoy",
+            "label": "營收成長",
+            "frequency": "quarterly",
+            "state": "improving",
+            "state_label": "改善",
+            "latest_display": "+36.5%",
+            "change_display": "較前季 YoY +9.0pp",
+            "signal_strength": 4.49,
+            "note": "最多八季營收年增率；箭頭比較本季 YoY 與前季 YoY，判斷成長加速或減速。",
+            "points": [
+              {
+                "period": "2024-11-02",
+                "value": 0.06872973354011003,
+                "display": "+6.9%"
+              },
+              {
+                "period": "2025-02-01",
+                "value": 0.2740273396424815,
+                "display": "+27.4%"
+              },
+              {
+                "period": "2025-05-03",
+                "value": 0.6326126281333448,
+                "display": "+63.3%"
+              },
+              {
+                "period": "2025-08-02",
+                "value": 0.5760075418336084,
+                "display": "+57.6%"
+              },
+              {
+                "period": "2025-11-01",
+                "value": 0.36831343578919595,
+                "display": "+36.8%"
+              },
+              {
+                "period": "2026-01-31",
+                "value": 0.22080994827775946,
+                "display": "+22.1%"
+              },
+              {
+                "period": "2026-05-02",
+                "value": 0.27568195008705754,
+                "display": "+27.6%"
+              },
+              {
+                "period": "2026-08-01",
+                "value": 0.3654852699267235,
+                "display": "+36.5%"
+              }
+            ]
+          },
+          {
+            "id": "gross_margin",
+            "label": "毛利率",
+            "frequency": "quarterly",
+            "state": "improving",
+            "state_label": "改善",
+            "latest_display": "53.1%",
+            "change_display": "較去年同期 +2.8pp",
+            "signal_strength": 2.761,
+            "note": "最多八季實際比率；箭頭以最新季對去年同期的百分點變化判定。",
+            "points": [
+              {
+                "period": "2024-11-02",
+                "value": 0.23045973220763802,
+                "display": "23.0%"
+              },
+              {
+                "period": "2025-02-01",
+                "value": 0.5047870584351271,
+                "display": "50.5%"
+              },
+              {
+                "period": "2025-05-03",
+                "value": 0.502506199546246,
+                "display": "50.3%"
+              },
+              {
+                "period": "2025-08-02",
+                "value": 0.5037635212601566,
+                "display": "50.4%"
+              },
+              {
+                "period": "2025-11-01",
+                "value": 0.5156905278380333,
+                "display": "51.6%"
+              },
+              {
+                "period": "2026-01-31",
+                "value": 0.5173750394375084,
+                "display": "51.7%"
+              },
+              {
+                "period": "2026-05-02",
+                "value": 0.5214657953511457,
+                "display": "52.1%"
+              },
+              {
+                "period": "2026-08-01",
+                "value": 0.5313766290658197,
+                "display": "53.1%"
+              }
+            ]
+          },
+          {
+            "id": "operating_margin",
+            "label": "營業利益率",
+            "frequency": "quarterly",
+            "state": "improving",
+            "state_label": "改善",
+            "latest_display": "16.8%",
+            "change_display": "較去年同期 +2.3pp",
+            "signal_strength": 2.321,
+            "note": "最多八季實際比率；箭頭以最新季對去年同期的百分點變化判定。",
+            "points": [
+              {
+                "period": "2024-11-02",
+                "value": -0.46355781280918146,
+                "display": "-46.4%"
+              },
+              {
+                "period": "2025-02-01",
+                "value": 0.12941564872895345,
+                "display": "12.9%"
+              },
+              {
+                "period": "2025-05-03",
+                "value": 0.142774230992455,
+                "display": "14.3%"
+              },
+              {
+                "period": "2025-08-02",
+                "value": 0.1446089427246897,
+                "display": "14.5%"
+              },
+              {
+                "period": "2025-11-01",
+                "value": 0.17247529525186792,
+                "display": "17.2%"
+              },
+              {
+                "period": "2026-01-31",
+                "value": 0.18226889620047776,
+                "display": "18.2%"
+              },
+              {
+                "period": "2026-05-02",
+                "value": 0.14037554801886012,
+                "display": "14.0%"
+              },
+              {
+                "period": "2026-08-01",
+                "value": 0.16781659548059724,
+                "display": "16.8%"
+              }
+            ]
+          },
+          {
+            "id": "fcf_margin",
+            "label": "FCF 利潤率",
+            "frequency": "quarterly",
+            "state": "deteriorating",
+            "state_label": "惡化",
+            "latest_display": "17.5%",
+            "change_display": "較去年同期 -3.2pp",
+            "signal_strength": -1.582,
+            "note": "最多八季自由現金流除以同季營收；現金流季間波動較大，以 2pp 作為方向門檻。",
+            "points": [
+              {
+                "period": "2024-11-02",
+                "value": 0.304267528527142,
+                "display": "30.4%"
+              },
+              {
+                "period": "2025-02-01",
+                "value": 0.24436007483217784,
+                "display": "24.4%"
+              },
+              {
+                "period": "2025-05-03",
+                "value": 0.11296364691605551,
+                "display": "11.3%"
+              },
+              {
+                "period": "2025-08-02",
+                "value": 0.2064204177259359,
+                "display": "20.6%"
+              },
+              {
+                "period": "2025-11-01",
+                "value": 0.24526391901663053,
+                "display": "24.5%"
+              },
+              {
+                "period": "2026-01-31",
+                "value": 0.11691531076756659,
+                "display": "11.7%"
+              },
+              {
+                "period": "2026-05-02",
+                "value": 0.19980974439573165,
+                "display": "20.0%"
+              },
+              {
+                "period": "2026-08-01",
+                "value": 0.17478917971744606,
+                "display": "17.5%"
+              }
+            ]
+          },
+          {
+            "id": "diluted_shares_yoy",
+            "label": "稀釋股數",
+            "frequency": "quarterly",
+            "state": "deteriorating",
+            "state_label": "惡化",
+            "latest_display": "+5.8%",
+            "change_display": "YoY +5.8%；股數下降較有利",
+            "signal_strength": -11.673,
+            "note": "最多八季稀釋加權平均股數年增率；採反向判讀，股數下降為改善。",
+            "points": [
+              {
+                "period": "2024-11-02",
+                "value": 0.003593786227683804,
+                "display": "+0.4%"
+              },
+              {
+                "period": "2025-02-01",
+                "value": null,
+                "display": "資料不足"
+              },
+              {
+                "period": "2025-05-03",
+                "value": 0.012254335260115656,
+                "display": "+1.2%"
+              },
+              {
+                "period": "2025-08-02",
+                "value": 0.005429132493935507,
+                "display": "+0.5%"
+              },
+              {
+                "period": "2025-11-01",
+                "value": -0.0023102691463555702,
+                "display": "-0.2%"
+              },
+              {
+                "period": "2026-01-31",
+                "value": null,
+                "display": "資料不足"
+              },
+              {
+                "period": "2026-05-02",
+                "value": 0.0202147099132024,
+                "display": "+2.0%"
+              },
+              {
+                "period": "2026-08-01",
+                "value": 0.05836397058823528,
+                "display": "+5.8%"
+              }
+            ]
+          },
+          {
+            "id": "net_cash",
+            "label": "財務壓力（年度）",
+            "frequency": "annual",
+            "state": "improving",
+            "state_label": "改善",
+            "latest_display": "淨負債 USD 1.3B",
+            "change_display": "較前一年 增加 USD 1.7B",
+            "signal_strength": 11.078,
+            "note": "年度現金及短期投資減有息負債；受限於可靠來源頻率，不標示成季度趨勢。",
+            "points": [
+              {
+                "period": "2023-01-28",
+                "value": -3581100000.0,
+                "display": "淨負債 USD 3.6B"
+              },
+              {
+                "period": "2024-02-03",
+                "value": -3107800000.0,
+                "display": "淨負債 USD 3.1B"
+              },
+              {
+                "period": "2025-02-01",
+                "value": -2986000000.0,
+                "display": "淨負債 USD 3.0B"
+              },
+              {
+                "period": "2026-01-31",
+                "value": -1332000000.0,
+                "display": "淨負債 USD 1.3B"
+              }
+            ]
+          }
+        ]
+      },
       "red_flags": [
         {
           "source": "financial_health.json",
@@ -4083,6 +7931,13 @@
       "name": "INTEL CORP",
       "position": "holding",
       "latest_period": "2026-06-27",
+      "score_basis": {
+        "quarterly_period": "2026-06-27",
+        "quarterly_filed": "2026-07-24",
+        "annual_period": "2025-12-27",
+        "price_date": "2026-09-08",
+        "score_updated_at": "2026-09-09"
+      },
       "overall_score": 50,
       "overall_label": "優劣混合，需聚焦弱項",
       "coverage": {
@@ -4399,6 +8254,319 @@
           ]
         }
       ],
+      "trends": {
+        "basis": "五項季度指標最多八季；財務壓力使用最多四個會計年度。這些是實際數值趨勢，不是歷史雷達分數。",
+        "summary": {
+          "counts": {
+            "improving": 5,
+            "stable": 0,
+            "deteriorating": 1,
+            "unknown": 0
+          },
+          "strongest_improvement": "營業利益率",
+          "main_deterioration": "稀釋股數"
+        },
+        "metrics": [
+          {
+            "id": "revenue_yoy",
+            "label": "營收成長",
+            "frequency": "quarterly",
+            "state": "improving",
+            "state_label": "改善",
+            "latest_display": "+25.4%",
+            "change_display": "較前季 YoY +18.2pp",
+            "signal_strength": 9.119,
+            "note": "最多八季營收年增率；箭頭比較本季 YoY 與前季 YoY，判斷成長加速或減速。",
+            "points": [
+              {
+                "period": "2024-09-28",
+                "value": -0.06173188303432686,
+                "display": "-6.2%"
+              },
+              {
+                "period": "2024-12-28",
+                "value": -0.07438660262235497,
+                "display": "-7.4%"
+              },
+              {
+                "period": "2025-03-29",
+                "value": -0.0044797233574347395,
+                "display": "-0.4%"
+              },
+              {
+                "period": "2025-06-28",
+                "value": 0.0020260266500429225,
+                "display": "+0.2%"
+              },
+              {
+                "period": "2025-09-27",
+                "value": 0.02777777777777768,
+                "display": "+2.8%"
+              },
+              {
+                "period": "2025-12-27",
+                "value": -0.04109396914446006,
+                "display": "-4.1%"
+              },
+              {
+                "period": "2026-03-28",
+                "value": 0.07184021473119118,
+                "display": "+7.2%"
+              },
+              {
+                "period": "2026-06-27",
+                "value": 0.25421883505715837,
+                "display": "+25.4%"
+              }
+            ]
+          },
+          {
+            "id": "gross_margin",
+            "label": "毛利率",
+            "frequency": "quarterly",
+            "state": "improving",
+            "state_label": "改善",
+            "latest_display": "40.4%",
+            "change_display": "較去年同期 +12.8pp",
+            "signal_strength": 12.813,
+            "note": "最多八季實際比率；箭頭以最新季對去年同期的百分點變化判定。",
+            "points": [
+              {
+                "period": "2024-09-28",
+                "value": 0.15033122553447756,
+                "display": "15.0%"
+              },
+              {
+                "period": "2024-12-28",
+                "value": 0.3915848527349229,
+                "display": "39.2%"
+              },
+              {
+                "period": "2025-03-29",
+                "value": 0.36883239914739085,
+                "display": "36.9%"
+              },
+              {
+                "period": "2025-06-28",
+                "value": 0.2754491017964072,
+                "display": "27.5%"
+              },
+              {
+                "period": "2025-09-27",
+                "value": 0.3821870651138944,
+                "display": "38.2%"
+              },
+              {
+                "period": "2025-12-27",
+                "value": 0.3614889571449466,
+                "display": "36.1%"
+              },
+              {
+                "period": "2026-03-28",
+                "value": 0.39382779700964865,
+                "display": "39.4%"
+              },
+              {
+                "period": "2026-06-27",
+                "value": 0.40358382936507936,
+                "display": "40.4%"
+              }
+            ]
+          },
+          {
+            "id": "operating_margin",
+            "label": "營業利益率",
+            "frequency": "quarterly",
+            "state": "improving",
+            "state_label": "改善",
+            "latest_display": "11.1%",
+            "change_display": "較去年同期 +35.8pp",
+            "signal_strength": 35.835,
+            "note": "最多八季實際比率；箭頭以最新季對去年同期的百分點變化判定。",
+            "points": [
+              {
+                "period": "2024-09-28",
+                "value": -0.6817976513098465,
+                "display": "-68.2%"
+              },
+              {
+                "period": "2024-12-28",
+                "value": 0.028892005610098175,
+                "display": "2.9%"
+              },
+              {
+                "period": "2025-03-29",
+                "value": -0.023762532564932503,
+                "display": "-2.4%"
+              },
+              {
+                "period": "2025-06-28",
+                "value": -0.246986546387744,
+                "display": "-24.7%"
+              },
+              {
+                "period": "2025-09-27",
+                "value": 0.05002563539148905,
+                "display": "5.0%"
+              },
+              {
+                "period": "2025-12-27",
+                "value": 0.04241626444346936,
+                "display": "4.2%"
+              },
+              {
+                "period": "2026-03-28",
+                "value": -0.23097886130956766,
+                "display": "-23.1%"
+              },
+              {
+                "period": "2026-06-27",
+                "value": 0.11135912698412699,
+                "display": "11.1%"
+              }
+            ]
+          },
+          {
+            "id": "fcf_margin",
+            "label": "FCF 利潤率",
+            "frequency": "quarterly",
+            "state": "improving",
+            "state_label": "改善",
+            "latest_display": "27.6%",
+            "change_display": "較去年同期 +39.3pp",
+            "signal_strength": 19.628,
+            "note": "最多八季自由現金流除以同季營收；現金流季間波動較大，以 2pp 作為方向門檻。",
+            "points": [
+              {
+                "period": "2024-09-28",
+                "value": -0.18096958747365252,
+                "display": "-18.1%"
+              },
+              {
+                "period": "2024-12-28",
+                "value": -0.18716690042075737,
+                "display": "-18.7%"
+              },
+              {
+                "period": "2025-03-29",
+                "value": -0.34499092129154496,
+                "display": "-34.5%"
+              },
+              {
+                "period": "2025-06-28",
+                "value": -0.11664981724861964,
+                "display": "-11.7%"
+              },
+              {
+                "period": "2025-09-27",
+                "value": 0.008862521057643008,
+                "display": "0.9%"
+              },
+              {
+                "period": "2025-12-27",
+                "value": 0.05850519233581981,
+                "display": "5.9%"
+              },
+              {
+                "period": "2026-03-28",
+                "value": -0.1870810930249687,
+                "display": "-18.7%"
+              },
+              {
+                "period": "2026-06-27",
+                "value": 0.2759176587301587,
+                "display": "27.6%"
+              }
+            ]
+          },
+          {
+            "id": "diluted_shares_yoy",
+            "label": "稀釋股數",
+            "frequency": "quarterly",
+            "state": "deteriorating",
+            "state_label": "惡化",
+            "latest_display": "+16.8%",
+            "change_display": "YoY +16.8%；股數下降較有利",
+            "signal_strength": -33.646,
+            "note": "最多八季稀釋加權平均股數年增率；採反向判讀，股數下降為改善。",
+            "points": [
+              {
+                "period": "2024-09-28",
+                "value": 0.014897138803499743,
+                "display": "+1.5%"
+              },
+              {
+                "period": "2024-12-28",
+                "value": null,
+                "display": "資料不足"
+              },
+              {
+                "period": "2025-03-29",
+                "value": 0.023809523809523725,
+                "display": "+2.4%"
+              },
+              {
+                "period": "2025-06-28",
+                "value": 0.0239043824701195,
+                "display": "+2.4%"
+              },
+              {
+                "period": "2025-09-27",
+                "value": 0.05568499534016769,
+                "display": "+5.6%"
+              },
+              {
+                "period": "2025-12-27",
+                "value": null,
+                "display": "資料不足"
+              },
+              {
+                "period": "2026-03-28",
+                "value": 0.17038913193644944,
+                "display": "+17.0%"
+              },
+              {
+                "period": "2026-06-27",
+                "value": 0.16823071641107812,
+                "display": "+16.8%"
+              }
+            ]
+          },
+          {
+            "id": "net_cash",
+            "label": "財務壓力（年度）",
+            "frequency": "annual",
+            "state": "improving",
+            "state_label": "改善",
+            "latest_display": "淨負債 USD 22.8B",
+            "change_display": "較前一年 增加 USD 13.3B",
+            "signal_strength": 7.371,
+            "note": "年度現金及短期投資減有息負債；受限於可靠來源頻率，不標示成季度趨勢。",
+            "points": [
+              {
+                "period": "2022-12-31",
+                "value": null,
+                "display": "資料不足"
+              },
+              {
+                "period": "2023-12-30",
+                "value": null,
+                "display": "資料不足"
+              },
+              {
+                "period": "2024-12-28",
+                "value": -36072000000.0,
+                "display": "淨負債 USD 36.1B"
+              },
+              {
+                "period": "2025-12-27",
+                "value": -22777000000.0,
+                "display": "淨負債 USD 22.8B"
+              }
+            ]
+          }
+        ]
+      },
       "red_flags": [
         {
           "source": "financial_health.json",
@@ -4433,6 +8601,13 @@
       "name": "Nokia Corporation",
       "position": "holding",
       "latest_period": "2026-06-30",
+      "score_basis": {
+        "quarterly_period": "2026-06-30",
+        "quarterly_filed": "2026-07-23",
+        "annual_period": "2025-12-31",
+        "price_date": "2026-09-08",
+        "score_updated_at": "2026-09-09"
+      },
       "overall_score": 56,
       "overall_label": "優劣混合，需聚焦弱項",
       "coverage": {
@@ -4749,6 +8924,319 @@
           ]
         }
       ],
+      "trends": {
+        "basis": "五項季度指標最多八季；財務壓力使用最多四個會計年度。這些是實際數值趨勢，不是歷史雷達分數。",
+        "summary": {
+          "counts": {
+            "improving": 1,
+            "stable": 1,
+            "deteriorating": 4,
+            "unknown": 0
+          },
+          "strongest_improvement": "營收成長",
+          "main_deterioration": "稀釋股數"
+        },
+        "metrics": [
+          {
+            "id": "revenue_yoy",
+            "label": "營收成長",
+            "frequency": "quarterly",
+            "state": "improving",
+            "state_label": "改善",
+            "latest_display": "+8.4%",
+            "change_display": "較前季 YoY +5.3pp",
+            "signal_strength": 2.64,
+            "note": "最多八季營收年增率；箭頭比較本季 YoY 與前季 YoY，判斷成長加速或減速。",
+            "points": [
+              {
+                "period": "2024-09-30",
+                "value": null,
+                "display": "資料不足"
+              },
+              {
+                "period": "2024-12-31",
+                "value": null,
+                "display": "資料不足"
+              },
+              {
+                "period": "2025-03-31",
+                "value": null,
+                "display": "資料不足"
+              },
+              {
+                "period": "2025-06-30",
+                "value": null,
+                "display": "資料不足"
+              },
+              {
+                "period": "2025-09-30",
+                "value": 0.08645399907535833,
+                "display": "+8.6%"
+              },
+              {
+                "period": "2025-12-31",
+                "value": 0.006351328764833797,
+                "display": "+0.6%"
+              },
+              {
+                "period": "2026-03-31",
+                "value": 0.030930232558139537,
+                "display": "+3.1%"
+              },
+              {
+                "period": "2026-06-30",
+                "value": 0.08372721134368666,
+                "display": "+8.4%"
+              }
+            ]
+          },
+          {
+            "id": "gross_margin",
+            "label": "毛利率",
+            "frequency": "quarterly",
+            "state": "stable",
+            "state_label": "持平",
+            "latest_display": "44.6%",
+            "change_display": "較去年同期 +0.6pp",
+            "signal_strength": 0.6,
+            "note": "最多八季實際比率；箭頭以最新季對去年同期的百分點變化判定。",
+            "points": [
+              {
+                "period": "2024-09-30",
+                "value": 0.452,
+                "display": "45.2%"
+              },
+              {
+                "period": "2024-12-31",
+                "value": 0.461,
+                "display": "46.1%"
+              },
+              {
+                "period": "2025-03-31",
+                "value": 0.421,
+                "display": "42.1%"
+              },
+              {
+                "period": "2025-06-30",
+                "value": 0.44,
+                "display": "44.0%"
+              },
+              {
+                "period": "2025-09-30",
+                "value": 0.444,
+                "display": "44.4%"
+              },
+              {
+                "period": "2025-12-31",
+                "value": 0.455,
+                "display": "45.5%"
+              },
+              {
+                "period": "2026-03-31",
+                "value": 0.446,
+                "display": "44.6%"
+              },
+              {
+                "period": "2026-06-30",
+                "value": 0.446,
+                "display": "44.6%"
+              }
+            ]
+          },
+          {
+            "id": "operating_margin",
+            "label": "營業利益率",
+            "frequency": "quarterly",
+            "state": "deteriorating",
+            "state_label": "惡化",
+            "latest_display": "-1.0%",
+            "change_display": "較去年同期 -4.3pp",
+            "signal_strength": -4.3,
+            "note": "最多八季實際比率；箭頭以最新季對去年同期的百分點變化判定。",
+            "points": [
+              {
+                "period": "2024-09-30",
+                "value": 0.064,
+                "display": "6.4%"
+              },
+              {
+                "period": "2024-12-31",
+                "value": 0.144,
+                "display": "14.4%"
+              },
+              {
+                "period": "2025-03-31",
+                "value": 0.001,
+                "display": "0.1%"
+              },
+              {
+                "period": "2025-06-30",
+                "value": 0.033,
+                "display": "3.3%"
+              },
+              {
+                "period": "2025-09-30",
+                "value": 0.054,
+                "display": "5.4%"
+              },
+              {
+                "period": "2025-12-31",
+                "value": 0.095,
+                "display": "9.5%"
+              },
+              {
+                "period": "2026-03-31",
+                "value": 0.019,
+                "display": "1.9%"
+              },
+              {
+                "period": "2026-06-30",
+                "value": -0.01,
+                "display": "-1.0%"
+              }
+            ]
+          },
+          {
+            "id": "fcf_margin",
+            "label": "FCF 利潤率",
+            "frequency": "quarterly",
+            "state": "deteriorating",
+            "state_label": "惡化",
+            "latest_display": "-15.2%",
+            "change_display": "較去年同期 -17.2pp",
+            "signal_strength": -8.592,
+            "note": "最多八季自由現金流除以同季營收；現金流季間波動較大，以 2pp 作為方向門檻。",
+            "points": [
+              {
+                "period": "2024-09-30",
+                "value": 0.1435506241331484,
+                "display": "14.4%"
+              },
+              {
+                "period": "2024-12-31",
+                "value": 0.008524151763329433,
+                "display": "0.9%"
+              },
+              {
+                "period": "2025-03-31",
+                "value": 0.16767441860465115,
+                "display": "16.8%"
+              },
+              {
+                "period": "2025-06-30",
+                "value": 0.01980643709205492,
+                "display": "2.0%"
+              },
+              {
+                "period": "2025-09-30",
+                "value": 0.09127659574468085,
+                "display": "9.1%"
+              },
+              {
+                "period": "2025-12-31",
+                "value": 0.03753529314067431,
+                "display": "3.8%"
+              },
+              {
+                "period": "2026-03-31",
+                "value": 0.14189036769681931,
+                "display": "14.2%"
+              },
+              {
+                "period": "2026-06-30",
+                "value": -0.15202492211838006,
+                "display": "-15.2%"
+              }
+            ]
+          },
+          {
+            "id": "diluted_shares_yoy",
+            "label": "稀釋股數",
+            "frequency": "quarterly",
+            "state": "deteriorating",
+            "state_label": "惡化",
+            "latest_display": "+5.6%",
+            "change_display": "YoY +5.6%；股數下降較有利",
+            "signal_strength": -11.292,
+            "note": "最多八季稀釋加權平均股數年增率；採反向判讀，股數下降為改善。",
+            "points": [
+              {
+                "period": "2024-09-30",
+                "value": null,
+                "display": "資料不足"
+              },
+              {
+                "period": "2024-12-31",
+                "value": null,
+                "display": "資料不足"
+              },
+              {
+                "period": "2025-03-31",
+                "value": null,
+                "display": "資料不足"
+              },
+              {
+                "period": "2025-06-30",
+                "value": null,
+                "display": "資料不足"
+              },
+              {
+                "period": "2025-09-30",
+                "value": -0.007892461662461936,
+                "display": "-0.8%"
+              },
+              {
+                "period": "2025-12-31",
+                "value": 0.025003846310380107,
+                "display": "+2.5%"
+              },
+              {
+                "period": "2026-03-31",
+                "value": 0.0637703277062791,
+                "display": "+6.4%"
+              },
+              {
+                "period": "2026-06-30",
+                "value": 0.05646191563871139,
+                "display": "+5.6%"
+              }
+            ]
+          },
+          {
+            "id": "net_cash",
+            "label": "財務壓力（年度）",
+            "frequency": "annual",
+            "state": "deteriorating",
+            "state_label": "惡化",
+            "latest_display": "淨現金 EUR 1.0B",
+            "change_display": "較前一年 減少 EUR 824.0M",
+            "signal_strength": -8.799,
+            "note": "年度現金及短期投資減有息負債；受限於可靠來源頻率，不標示成季度趨勢。",
+            "points": [
+              {
+                "period": "2022-12-31",
+                "value": -52000000.0,
+                "display": "淨負債 EUR 52.0M"
+              },
+              {
+                "period": "2023-12-31",
+                "value": 1046000000.0,
+                "display": "淨現金 EUR 1.0B"
+              },
+              {
+                "period": "2024-12-31",
+                "value": 1873000000.0,
+                "display": "淨現金 EUR 1.9B"
+              },
+              {
+                "period": "2025-12-31",
+                "value": 1049000000.0,
+                "display": "淨現金 EUR 1.0B"
+              }
+            ]
+          }
+        ]
+      },
       "red_flags": [
         {
           "source": "financial_health.json",

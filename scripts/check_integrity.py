@@ -2349,10 +2349,15 @@ def c42():
     bad = []
     if data.get("schema_version") != 1 or data.get("tracked_count") != 14:
         bad.append("schema_version／追蹤家數錯誤")
+    if not data.get("generated_at") or not data.get("source_dates"):
+        bad.append("缺少雷達判讀更新日或來源日期")
     if {row.get("ticker") for row in companies} != expected:
         bad.append("公司範圍不是 14 家個股")
     for company in companies:
         ticker = company.get("ticker") or "未知"
+        basis = company.get("score_basis") or {}
+        if not basis.get("quarterly_period") or not basis.get("price_date") or not basis.get("score_updated_at"):
+            bad.append(f"{ticker} 未分開標示財報／股價／判讀日期")
         dimensions = company.get("dimensions") or []
         if [row.get("id") for row in dimensions] != order:
             bad.append(f"{ticker} 不是固定七個構面")
@@ -2366,6 +2371,19 @@ def c42():
             for metric in metrics:
                 if metric.get("score") is not None and not 0 <= metric["score"] <= 100:
                     bad.append(f"{ticker}/{metric.get('id')} 子分數超出 0～100")
+        trend_metrics = ((company.get("trends") or {}).get("metrics") or [])
+        trend_ids = [row.get("id") for row in trend_metrics]
+        if trend_ids != ["revenue_yoy", "gross_margin", "operating_margin", "fcf_margin",
+                         "diluted_shares_yoy", "net_cash"]:
+            bad.append(f"{ticker} 不是固定六項基本面趨勢")
+        for metric in trend_metrics:
+            limit = 4 if metric.get("frequency") == "annual" else 8
+            points = metric.get("points") or []
+            if len(points) > limit:
+                bad.append(f"{ticker}/{metric.get('id')} 趨勢超過 {limit} 期")
+            dates = [row.get("period") for row in points if row.get("period")]
+            if dates != sorted(dates):
+                bad.append(f"{ticker}/{metric.get('id')} 趨勢日期未由舊到新")
     aapl = next((row for row in companies if row.get("ticker") == "AAPL"), {})
     execution = next((row for row in aapl.get("dimensions", []) if row.get("id") == "execution"), {})
     guidance = next((row for row in execution.get("metrics", []) if row.get("id") == "guidance_delivery"), {})
@@ -2392,6 +2410,8 @@ def c42():
         "dashboard": (read("dashboard.html"), (
             "page-radar", "chartLongTermRadar", "long_term_radar.json",
             "缺值不會自動補成 0 或 50 分", "獨立警示（不納入平均抵銷）",
+            "八季基本面趨勢", "longTermRadarTrendTicker", "renderLongTermRadarTrend",
+            "score_basis", "季財報截至", "股價截至", "判讀更新",
         )),
         "價格 workflow": (read(".github/workflows/update-prices.yml"), (
             "build_long_term_radar.py", "long_term_radar",
