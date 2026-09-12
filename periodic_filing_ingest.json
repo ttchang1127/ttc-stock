@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "updated_at": "2026-09-09T08:35:00+00:00",
+  "updated_at": "2026-09-12T10:25:31+00:00",
   "source": "SEC filing alerts + official primary filing documents",
   "methodology": "fail-closed heading boundaries; accession-deduplicated",
   "filings": [
@@ -480,14 +480,60 @@
       "accession": "0001104659-26-105772",
       "filing_date": "2026-09-08",
       "report_date": "2026-09-08",
-      "status": "ingested",
+      "status": "already_ingested",
       "note": "20_Filings/NOK/NOK_2026-09-08_6K_105772.md",
       "expected_note": "20_Filings/NOK/NOK_2026-09-08_6K_105772.md",
       "sections": [],
       "source_url": "https://www.sec.gov/Archives/edgar/data/924613/000110465926105772/tm2624968d1_6k.htm",
       "errors": [],
+      "removed_stale_notes": []
+    },
+    {
+      "ticker": "AMZN",
+      "form": "8-K",
+      "accession": "0001018724-26-000036",
+      "filing_date": "2026-09-09",
+      "report_date": "2026-09-08",
+      "status": "ingested",
+      "note": "20_Filings/AMZN/AMZN_2026-09-08_8K_000036.md",
+      "expected_note": "20_Filings/AMZN/AMZN_2026-09-08_8K_000036.md",
+      "sections": [
+        "20_Filings/AMZN/sections/AMZN_2026-09-08_8K_000036_Item_5_02.md"
+      ],
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000036/amzn-20260908.htm",
+      "errors": [],
       "removed_stale_notes": [],
-      "source_sha256": "f0fba887450af9654150652595075f9c82e82ddab69fcfef82ff8e3b77cad6ad"
+      "source_sha256": "c61ae0e7c8962c475ae3a69af4bfbaa0f70070e2ea25b59cd1186dfa7f5af2c3"
+    },
+    {
+      "ticker": "TSM",
+      "form": "6-K",
+      "accession": "0001046179-26-000658",
+      "filing_date": "2026-09-10",
+      "report_date": "2026-08-31",
+      "status": "ingested",
+      "note": "20_Filings/TSM/TSM_2026-08-31_6K_000658.md",
+      "expected_note": "20_Filings/TSM/TSM_2026-08-31_6K_000658.md",
+      "sections": [],
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000658/tsm-revenue20260910.htm",
+      "errors": [],
+      "removed_stale_notes": [],
+      "source_sha256": "806a0c50fe923834ddc7dacf6f51d23d86e0f8bbf25a134a7aa72c5af84d4e7f"
+    },
+    {
+      "ticker": "ARM",
+      "form": "6-K",
+      "accession": "0001973239-26-000128",
+      "filing_date": "2026-09-10",
+      "report_date": "2026-09-10",
+      "status": "ingested",
+      "note": "20_Filings/ARM/ARM_2026-09-10_6K_000128.md",
+      "expected_note": "20_Filings/ARM/ARM_2026-09-10_6K_000128.md",
+      "sections": [],
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1973239/000197323926000128/arm-20260910.htm",
+      "errors": [],
+      "removed_stale_notes": [],
+      "source_sha256": "de0863dce34560b0602bbc760c5d873404b1951b1d65d03875e9938f15d67d7f"
     }
   ]
 }

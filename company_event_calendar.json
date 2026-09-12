@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-09-08",
+  "generated_at": "2026-09-12",
   "window": {
-    "start": "2026-09-08",
-    "end": "2026-10-08",
+    "start": "2026-09-12",
+    "end": "2026-10-12",
     "days": 30,
     "inclusive": true
   },
@@ -15,55 +15,10 @@
   },
   "tracked_count": 14,
   "owned_stock_count": 8,
-  "event_count": 7,
-  "holding_event_count": 4,
+  "event_count": 5,
+  "holding_event_count": 2,
   "provider_failures": {},
   "events": [
-    {
-      "ticker": "NVDA",
-      "date": "2026-09-10",
-      "type": "dividend_record",
-      "title": "季度現金股利登記日",
-      "detail": "每股 0.25 美元；預計 2026-10-01 發放。",
-      "meaning": "只有在登記日名冊上的股東具領息資格；股利金額相對股價的影響仍須另外評估。",
-      "source_label": "NVIDIA FY2027 Q2 官方財報",
-      "source_url": "https://investor.nvidia.com/news/press-release-details/2026/NVIDIA-Announces-Financial-Results-for-Second-Quarter-Fiscal-2027/default.aspx",
-      "confidence": "official",
-      "announced_at": "2026-08-26",
-      "days_until": 2,
-      "position": "holding",
-      "company_name": "NVIDIA"
-    },
-    {
-      "ticker": "NVDA",
-      "date": "2026-09-10",
-      "type": "ex_dividend",
-      "title": "除息日",
-      "detail": "第三方市場資料日期；公司尚未公告時可能變更。",
-      "meaning": "自除息日起買進通常無法取得本次股利；價格可能機械式調整，不等於基本面轉弱。",
-      "source_label": "Yahoo Finance 行事曆",
-      "source_url": "https://finance.yahoo.com/quote/NVDA/calendar/",
-      "confidence": "provider",
-      "announced_at": null,
-      "days_until": 2,
-      "position": "holding",
-      "company_name": "NVIDIA"
-    },
-    {
-      "ticker": "MSFT",
-      "date": "2026-09-10",
-      "type": "dividend_payment",
-      "title": "季度現金股利發放日",
-      "detail": "每股 0.91 美元；登記日與除息日均為 2026-08-20。",
-      "meaning": "股息在此日支付；除息調整已在 8 月發生，本日通常不代表新的基本面訊號。",
-      "source_label": "Microsoft 官方公告",
-      "source_url": "https://news.microsoft.com/source/2026/06/10/microsoft-announces-quarterly-dividend-29/",
-      "confidence": "official",
-      "announced_at": "2026-06-10",
-      "days_until": 2,
-      "position": "watchlist",
-      "company_name": "Microsoft"
-    },
     {
       "ticker": "GOOG",
       "date": "2026-09-14",
@@ -75,7 +30,7 @@
       "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/goog-20260630.htm",
       "confidence": "official",
       "announced_at": "2026-07-22",
-      "days_until": 6,
+      "days_until": 2,
       "position": "holding",
       "company_name": "Alphabet"
     },
@@ -90,9 +45,24 @@
       "source_url": "https://investor.tsmc.com/english/dividends/1q26",
       "confidence": "official",
       "announced_at": "2026-05-12",
-      "days_until": 8,
+      "days_until": 4,
       "position": "watchlist",
       "company_name": "台積電"
+    },
+    {
+      "ticker": "META",
+      "date": "2026-09-21",
+      "type": "ex_dividend",
+      "title": "除息日",
+      "detail": "第三方市場資料日期；公司尚未公告時可能變更。",
+      "meaning": "自除息日起買進通常無法取得本次股利；價格可能機械式調整，不等於基本面轉弱。",
+      "source_label": "Yahoo Finance 行事曆",
+      "source_url": "https://finance.yahoo.com/quote/META/calendar/",
+      "confidence": "provider",
+      "announced_at": null,
+      "days_until": 9,
+      "position": "watchlist",
+      "company_name": "Meta"
     },
     {
       "ticker": "NVDA",
@@ -105,7 +75,7 @@
       "source_url": "https://investor.nvidia.com/news/press-release-details/2026/NVIDIA-Announces-Financial-Results-for-Second-Quarter-Fiscal-2027/default.aspx",
       "confidence": "official",
       "announced_at": "2026-08-26",
-      "days_until": 23,
+      "days_until": 19,
       "position": "holding",
       "company_name": "NVIDIA"
     },
@@ -120,7 +90,7 @@
       "source_url": "https://investor.tsmc.com/english/dividends/1q26",
       "confidence": "official",
       "announced_at": "2026-05-12",
-      "days_until": 30,
+      "days_until": 26,
       "position": "watchlist",
       "company_name": "台積電"
     }
@@ -130,7 +100,7 @@
       "name": "NVIDIA",
       "position": "holding",
       "source_status": "fresh",
-      "last_success_at": "2026-09-08",
+      "last_success_at": "2026-09-12",
       "source_error": null,
       "next_earnings_date": "2026-11-18",
       "provider_events": [
@@ -174,36 +144,6 @@
       "events": [
         {
           "ticker": "NVDA",
-          "date": "2026-09-10",
-          "type": "dividend_record",
-          "title": "季度現金股利登記日",
-          "detail": "每股 0.25 美元；預計 2026-10-01 發放。",
-          "meaning": "只有在登記日名冊上的股東具領息資格；股利金額相對股價的影響仍須另外評估。",
-          "source_label": "NVIDIA FY2027 Q2 官方財報",
-          "source_url": "https://investor.nvidia.com/news/press-release-details/2026/NVIDIA-Announces-Financial-Results-for-Second-Quarter-Fiscal-2027/default.aspx",
-          "confidence": "official",
-          "announced_at": "2026-08-26",
-          "days_until": 2,
-          "position": "holding",
-          "company_name": "NVIDIA"
-        },
-        {
-          "ticker": "NVDA",
-          "date": "2026-09-10",
-          "type": "ex_dividend",
-          "title": "除息日",
-          "detail": "第三方市場資料日期；公司尚未公告時可能變更。",
-          "meaning": "自除息日起買進通常無法取得本次股利；價格可能機械式調整，不等於基本面轉弱。",
-          "source_label": "Yahoo Finance 行事曆",
-          "source_url": "https://finance.yahoo.com/quote/NVDA/calendar/",
-          "confidence": "provider",
-          "announced_at": null,
-          "days_until": 2,
-          "position": "holding",
-          "company_name": "NVIDIA"
-        },
-        {
-          "ticker": "NVDA",
           "date": "2026-10-01",
           "type": "dividend_payment",
           "title": "季度現金股利發放日",
@@ -213,7 +153,7 @@
           "source_url": "https://investor.nvidia.com/news/press-release-details/2026/NVIDIA-Announces-Financial-Results-for-Second-Quarter-Fiscal-2027/default.aspx",
           "confidence": "official",
           "announced_at": "2026-08-26",
-          "days_until": 23,
+          "days_until": 19,
           "position": "holding",
           "company_name": "NVIDIA"
         }
@@ -223,7 +163,7 @@
       "name": "台積電",
       "position": "watchlist",
       "source_status": "fresh",
-      "last_success_at": "2026-09-08",
+      "last_success_at": "2026-09-12",
       "source_error": null,
       "next_earnings_date": "2026-10-15",
       "provider_events": [
@@ -276,7 +216,7 @@
           "source_url": "https://investor.tsmc.com/english/dividends/1q26",
           "confidence": "official",
           "announced_at": "2026-05-12",
-          "days_until": 8,
+          "days_until": 4,
           "position": "watchlist",
           "company_name": "台積電"
         },
@@ -291,7 +231,7 @@
           "source_url": "https://investor.tsmc.com/english/dividends/1q26",
           "confidence": "official",
           "announced_at": "2026-05-12",
-          "days_until": 30,
+          "days_until": 26,
           "position": "watchlist",
           "company_name": "台積電"
         }
@@ -301,7 +241,7 @@
       "name": "Microsoft",
       "position": "watchlist",
       "source_status": "fresh",
-      "last_success_at": "2026-09-08",
+      "last_success_at": "2026-09-12",
       "source_error": null,
       "next_earnings_date": "2026-10-29",
       "provider_events": [
@@ -342,29 +282,13 @@
           "announced_at": null
         }
       ],
-      "events": [
-        {
-          "ticker": "MSFT",
-          "date": "2026-09-10",
-          "type": "dividend_payment",
-          "title": "季度現金股利發放日",
-          "detail": "每股 0.91 美元；登記日與除息日均為 2026-08-20。",
-          "meaning": "股息在此日支付；除息調整已在 8 月發生，本日通常不代表新的基本面訊號。",
-          "source_label": "Microsoft 官方公告",
-          "source_url": "https://news.microsoft.com/source/2026/06/10/microsoft-announces-quarterly-dividend-29/",
-          "confidence": "official",
-          "announced_at": "2026-06-10",
-          "days_until": 2,
-          "position": "watchlist",
-          "company_name": "Microsoft"
-        }
-      ]
+      "events": []
     },
     "META": {
       "name": "Meta",
       "position": "watchlist",
       "source_status": "fresh",
-      "last_success_at": "2026-09-08",
+      "last_success_at": "2026-09-12",
       "source_error": null,
       "next_earnings_date": "2026-10-29",
       "provider_events": [
@@ -382,7 +306,7 @@
         },
         {
           "ticker": "META",
-          "date": "2026-06-15",
+          "date": "2026-09-21",
           "type": "ex_dividend",
           "title": "除息日",
           "detail": "第三方市場資料日期；公司尚未公告時可能變更。",
@@ -405,13 +329,29 @@
           "announced_at": null
         }
       ],
-      "events": []
+      "events": [
+        {
+          "ticker": "META",
+          "date": "2026-09-21",
+          "type": "ex_dividend",
+          "title": "除息日",
+          "detail": "第三方市場資料日期；公司尚未公告時可能變更。",
+          "meaning": "自除息日起買進通常無法取得本次股利；價格可能機械式調整，不等於基本面轉弱。",
+          "source_label": "Yahoo Finance 行事曆",
+          "source_url": "https://finance.yahoo.com/quote/META/calendar/",
+          "confidence": "provider",
+          "announced_at": null,
+          "days_until": 9,
+          "position": "watchlist",
+          "company_name": "Meta"
+        }
+      ]
     },
     "AAPL": {
       "name": "Apple",
       "position": "watchlist",
       "source_status": "fresh",
-      "last_success_at": "2026-09-08",
+      "last_success_at": "2026-09-12",
       "source_error": null,
       "next_earnings_date": "2026-10-30",
       "provider_events": [
@@ -458,7 +398,7 @@
       "name": "Amazon",
       "position": "watchlist",
       "source_status": "fresh",
-      "last_success_at": "2026-09-08",
+      "last_success_at": "2026-09-12",
       "source_error": null,
       "next_earnings_date": "2026-10-30",
       "provider_events": [
@@ -481,7 +421,7 @@
       "name": "Arm",
       "position": "holding",
       "source_status": "fresh",
-      "last_success_at": "2026-09-08",
+      "last_success_at": "2026-09-12",
       "source_error": null,
       "next_earnings_date": "2026-11-05",
       "provider_events": [
@@ -504,7 +444,7 @@
       "name": "Ondas",
       "position": "watchlist",
       "source_status": "fresh",
-      "last_success_at": "2026-09-08",
+      "last_success_at": "2026-09-12",
       "source_error": null,
       "next_earnings_date": "2026-11-12",
       "provider_events": [
@@ -539,7 +479,7 @@
       "name": "Tesla",
       "position": "holding",
       "source_status": "fresh",
-      "last_success_at": "2026-09-08",
+      "last_success_at": "2026-09-12",
       "source_error": null,
       "next_earnings_date": "2026-10-22",
       "provider_events": [
@@ -562,7 +502,7 @@
       "name": "Alphabet",
       "position": "holding",
       "source_status": "fresh",
-      "last_success_at": "2026-09-08",
+      "last_success_at": "2026-09-12",
       "source_error": null,
       "next_earnings_date": "2026-10-29",
       "provider_events": [
@@ -615,7 +555,7 @@
           "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/goog-20260630.htm",
           "confidence": "official",
           "announced_at": "2026-07-22",
-          "days_until": 6,
+          "days_until": 2,
           "position": "holding",
           "company_name": "Alphabet"
         }
@@ -625,7 +565,7 @@
       "name": "Coherent",
       "position": "holding",
       "source_status": "fresh",
-      "last_success_at": "2026-09-08",
+      "last_success_at": "2026-09-12",
       "source_error": null,
       "next_earnings_date": "2026-11-05",
       "provider_events": [
@@ -648,7 +588,7 @@
       "name": "Marvell",
       "position": "holding",
       "source_status": "fresh",
-      "last_success_at": "2026-09-08",
+      "last_success_at": "2026-09-12",
       "source_error": null,
       "next_earnings_date": "2026-12-02",
       "provider_events": [
@@ -695,7 +635,7 @@
       "name": "Intel",
       "position": "holding",
       "source_status": "fresh",
-      "last_success_at": "2026-09-08",
+      "last_success_at": "2026-09-12",
       "source_error": null,
       "next_earnings_date": "2026-10-23",
       "provider_events": [
@@ -742,7 +682,7 @@
       "name": "Nokia",
       "position": "holding",
       "source_status": "fresh",
-      "last_success_at": "2026-09-08",
+      "last_success_at": "2026-09-12",
       "source_error": null,
       "next_earnings_date": "2026-10-22",
       "provider_events": [

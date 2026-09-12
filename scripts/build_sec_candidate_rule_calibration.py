@@ -98,7 +98,7 @@ def build_calibration(reviews):
         "generated_at": reviews.get("updated_at", ""),
         "minimum_samples_before_adjustment": MIN_REVIEWED_SAMPLES,
         "low_acceptance_rate_threshold": LOW_ACCEPTANCE_RATE,
-        "policy": "樣本不足時不調整；達門檻後只降低候選顯示優先級，不刪除 SEC 事件或正式原文。",
+        "policy": "樣本不足、不調整；達門檻後只降低候選顯示優先級，不刪除 SEC 事件或正式原文。",
         "reviewed_candidate_count": reviewed_total,
         "accepted_candidate_count": accepted_total,
         "rejected_candidate_count": reviewed_total - accepted_total,

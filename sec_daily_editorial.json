@@ -1,50 +1,29 @@
 {
   "schema_version": 3,
-  "reviewed_at": "2026-09-08T21:51:51+08:00",
-  "window_start": "2026-09-02",
-  "window_end": "2026-09-08",
-  "last_candidate_review_id": "0e07b108ec6f",
+  "reviewed_at": "2026-09-12T18:31:51+08:00",
+  "window_start": "2026-09-09",
+  "window_end": "2026-09-12",
+  "last_candidate_review_id": "d1eb75a4b326",
   "title": "人工消化後的核心持股每日重點",
-  "headline": "核心基本面排序未變：ONDS、MRVL、NOK 與 COHR 仍是優先風險；本期新增 NVIDIA 的 Hugging Face 大型收購與董事大額減持、Apple 執行長交接、Microsoft FY27 分部重整，以及 COHR 董事主動出售監測，均尚未改變原有公司整體結論。",
+  "headline": "核心基本面排序未變：ONDS、MRVL、NOK 與 COHR 仍是優先風險；本期 TSM 8 月營收明顯加速，NVDA 董事 Mark Stevens 的信託則延續非 10b5-1 大額減持，兩者均尚未改變原有公司整體結論。",
   "method": "由 SEC／公司官方原文、八季財務趨勢、Form 4、13D／13G 與投資論點卡交叉閱讀後人工整理。排序是閱讀優先級，不是買賣評等。",
   "comparison": {
-    "previous_reviewed_at": "2026-09-01T20:46:16+08:00",
+    "previous_reviewed_at": "2026-09-08T21:51:51+08:00",
     "method": "只記錄相較前次人工判讀的新增風險、明確改善與足以改變結論的證據；未變項目不重複列出。",
     "changes": [
       {
         "type": "risk",
         "ticker": "NVDA",
-        "summary": "新增 Hugging Face 大型收購的資本配置、監管與整合風險，但尚未改變 NVDA 財務與成長證據偏正向結論。",
-        "evidence": "NVIDIA 已簽署約 USD 11.9B 收購協議，另有最高約 USD 1.0B 員工股權留任計畫；預計 2027 年上半年完成，仍須監管核准。",
-        "source_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000078/nvda-20260902.htm"
+        "summary": "董事 Mark Stevens 的信託延續非 10b5-1 大額實際減持，治理監測強度提高；相對公司總股數仍小，未改變基本面結論。",
+        "evidence": "9 月 3 至 4 日七列合計再出售 1,022,239 股、約 USD 235.64M，約占本批出售前該信託持股 30.43%；加上前批已覆核出售，持續降低部位。",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1045810/000119903926000014/xslF345X06/wk-form4_1788901755.xml"
       },
       {
-        "type": "risk",
-        "ticker": "NVDA",
-        "summary": "董事 Mark Stevens 三日內大額實際減持，新增內部人部位監測；公司層級流通股占比仍小，未改變基本面結論。",
-        "evidence": "Form 4 未標示 10b5-1；七列合計出售 1,848,501 股、約 USD 410.84M，約占該信託出售前持股 35.5%，但只占公司已發行股約 0.0077%。",
-        "source_url": "https://www.sec.gov/Archives/edgar/data/1045810/000119903926000012/xslF345X06/wk-form4_1788387031.xml"
-      },
-      {
-        "type": "risk",
-        "ticker": "AAPL",
-        "summary": "John Ternus 接任 CEO、Tim Cook 轉任執行董事長，新增領導交接與薪酬執行監測；目前沒有證據顯示財務結論改變。",
-        "evidence": "交接自 2026-09-01 生效；兩人的 FY27 股權獎勵目標合計 USD 100M，Ternus 75%、Cook 50% 為績效 RSU。",
-        "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126035325/ef20081427_8ka.htm"
-      },
-      {
-        "type": "risk",
-        "ticker": "MSFT",
-        "summary": "FY27 起改採兩個可報導分部並重新定義多項雲端與廣告指標，新增跨期可比性風險；公司總體指引與既有基本面結論未變。",
-        "evidence": "三分部改為 Agents and Infra、Devices and Consumer；GitHub、Security Copilot、Healthcare 與 LinkedIn 部分收入重新分類，必須改用官方重編的 FY25／FY26 基準。",
-        "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526380280/d291965dex991.htm"
-      },
-      {
-        "type": "risk",
-        "ticker": "COHR",
-        "summary": "董事 Lisa Neal-Graves 在限制股歸屬後主動出售約 14.44% 的出售前直接持股，新增治理監測，但不改變 COHR 既有風險偏高結論。",
-        "evidence": "2026-09-02 非 10b5-1 出售 2,200 股、約 USD 590,524；交易後仍直接持有 13,033 股。",
-        "source_url": "https://www.sec.gov/Archives/edgar/data/820318/000089914026001054/xslF345X06/form4.xml"
+        "type": "improvement",
+        "ticker": "TSM",
+        "summary": "8 月營收月增與年增同步加速，為 AI／先進製程需求延續的新增正向證據；單月資料未改變既有偏正向結論。",
+        "evidence": "8 月合併營收 TWD 514.806B，MoM +10.1%、YoY +53.3%；1 至 8 月累計 TWD 3,386.870B，YoY +39.3%。",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000658/tsm-revenue20260910.htm"
       }
     ]
   },
@@ -147,12 +126,13 @@
       "ticker": "NVDA",
       "tone": "positive",
       "status": "證據偏正向｜大型併購與內部人出售待驗證",
-      "summary": "營收、定價能力與每股現金流仍是追蹤組合中最強；Hugging Face 大型收購與董事顯著降低信託部位，新增資本配置及治理監測。",
+      "summary": "營收、定價能力與每股現金流仍是追蹤組合中最強；Hugging Face 大型收購與董事信託連續兩批非 10b5-1 大額減持，維持資本配置及治理監測。",
       "evidence": [
         "營收 USD 96,221.0M，YoY +105.9%；營業利益率 66.2%，FCF USD 21,400.0M。",
         "毛利率約 75.0%；稀釋股數 YoY -1.0%。",
         "最新 10-Q 新增承諾、保證與執行風險揭露；中國 H200 出貨仍受限制。",
-        "已簽署約 USD 11.9B 收購 Hugging Face，另有最高 USD 1.0B 股權留任計畫；Mark Stevens 非 10b5-1 出售 1,848,501 股、約占其信託出售前持股 35.5%。"
+        "已簽署約 USD 11.9B 收購 Hugging Face，另有最高 USD 1.0B 股權留任計畫。",
+        "Mark Stevens 的信託前批非 10b5-1 出售 1,848,501 股後，本批再出售 1,022,239 股、約 USD 235.64M，約占本批出售前信託持股 30.43%。"
       ],
       "watch": "核對 Hugging Face 監管進度、收購資金與留任股權影響、Mark Stevens 後續實際出售；並持續追蹤供應承諾與估值。",
       "source_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000078/nvda-20260902.htm",
@@ -225,14 +205,15 @@
       "ticker": "TSM",
       "tone": "positive",
       "status": "證據偏正向｜3 項論點全數支持",
-      "summary": "先進製程、毛利率與自由現金流均支持長期論點；近期 6-K 是月度公司事項，未見重大基本面負面。",
+      "summary": "先進製程、毛利率與自由現金流均支持長期論點；8 月營收月增與年增同步加速，新增 AI／先進製程需求延續的正向證據。",
       "evidence": [
         "營收 TWD 1,270.4B，YoY +36.0%；營業利益率 60.3%。",
         "FCF TWD 287.4B；近期 3 列主動買入合計約 USD 174K。",
-        "最新 6-K 披露兩名副總各增加 5,000 股及發行 TWD 18.5B 無擔保債券，利率 2.03%～2.10%。"
+        "8 月合併營收 TWD 514.806B，MoM +10.1%、YoY +53.3%；1 至 8 月累計營收 YoY +39.3%。",
+        "8 筆小額 Form 4 買入合計 526 股、約 USD 40.1K，均由 ESPP 依預定條款代購，不當成主動信心訊號。"
       ],
       "watch": "追蹤先進製程需求、海外廠稀釋、資本支出與高毛利率是否維持。",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000545/tsm-monthend6kx20260825.htm",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000658/tsm-revenue20260910.htm",
       "coverage": {"ownership_accession": "0001086364-24-006327", "quarterly_key": "|2026-06-30|2026-07-16", "thesis_fingerprint": "e79393a6c13b2a1daaec", "enforcement_keys": []}
     },
     {

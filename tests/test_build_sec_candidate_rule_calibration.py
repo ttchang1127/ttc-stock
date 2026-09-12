@@ -44,6 +44,9 @@ class CandidateRuleCalibrationTests(unittest.TestCase):
         self.assertEqual(rule["acceptance_rate"], 0.2)
         self.assertEqual(rule["priority_adjustment"], "lower_priority")
         self.assertIn("不刪除", payload["policy"])
+        markdown = MODULE.render_markdown(payload)
+        self.assertIn("樣本不足、不調整", markdown)
+        self.assertIn("不刪除 SEC 事件", markdown)
 
     def test_current_review_history_is_counted_exactly(self):
         reviews = json.loads((ROOT / "sec_daily_candidate_reviews.json").read_text())

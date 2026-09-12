@@ -70,6 +70,9 @@ class EarningsVerificationHistoryTests(unittest.TestCase):
         self.assertEqual(payload["notify_count"], 0)
         self.assertIsNone(payload["previous_snapshot_id"])
         self.assertEqual(payload["current"]["companies"]["NVDA"]["comparison"]["status"], "baseline")
+        markdown = MODULE.render_markdown(payload)
+        self.assertIn("首次建立比較基準", markdown)
+        self.assertIn("不回填不存在的財報前判斷", markdown)
         same, changed = MODULE.build_history(later, payload)
         self.assertFalse(changed)
         self.assertEqual(same, payload)
@@ -90,6 +93,20 @@ class EarningsVerificationHistoryTests(unittest.TestCase):
         self.assertEqual(refreshed["updated_at"], "2026-09-08T00:00:00+08:00")
         self.assertEqual(refreshed["notify_count"], 0)
         self.assertEqual(refreshed["notifications"], [])
+
+    def test_same_snapshot_migrates_notification_policy_and_markdown(self):
+        snapshot = MODULE.build_snapshot(cards(), "2026-09-06T00:00:00+08:00")
+        payload, _ = MODULE.build_history(snapshot, {})
+        payload["notification_policy"] = "舊版說明"
+
+        migrated, changed = MODULE.build_history(snapshot, payload)
+
+        self.assertTrue(changed)
+        self.assertEqual(migrated["current_snapshot_id"], payload["current_snapshot_id"])
+        self.assertEqual(migrated["notification_policy"], MODULE.NOTIFICATION_POLICY)
+        markdown = MODULE.render_markdown(migrated)
+        self.assertIn("首次建立比較基準", markdown)
+        self.assertIn("不回填不存在的財報前判斷", markdown)
 
     def test_freezes_pre_card_then_closes_cycle_on_new_result(self):
         baseline = MODULE.build_snapshot(cards(), "2026-09-01T12:00:00+08:00")

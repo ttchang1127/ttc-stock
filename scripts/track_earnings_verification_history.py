@@ -22,6 +22,11 @@ from zoneinfo import ZoneInfo
 ROOT = Path(__file__).resolve().parents[1]
 MAX_HISTORY = 48
 MAX_CYCLES = 112
+NOTIFICATION_POLICY = (
+    "首次建立比較基準，不發通知，也不回填不存在的財報前判斷；"
+    "之後只通知財報前／後階段、新季度、官方指引、KPI 風險／改善、指引驗證與論點結論變化。"
+    "每日倒數與未跨狀態的數值波動不通知。"
+)
 PHASE_LABELS = {
     "preparation_due": "財報前 7 天準備期",
     "post_review_due": "財報後 14 天核對期",
@@ -297,11 +302,13 @@ def build_history(snapshot: dict[str, Any], existing: dict[str, Any] | None) -> 
     ]
     if previous and previous.get("snapshot_id") == snapshot["snapshot_id"]:
         metadata_changed = previous.get("source_date") != snapshot.get("source_date")
-        if not cycles_changed and not needs_compaction and not metadata_changed:
+        policy_changed = existing.get("notification_policy") != NOTIFICATION_POLICY
+        if not cycles_changed and not needs_compaction and not metadata_changed and not policy_changed:
             return existing, False
         migrated = copy.deepcopy(existing)
         migrated["history"] = compacted_history[:MAX_HISTORY]
         migrated["cycles"] = cycles
+        migrated["notification_policy"] = NOTIFICATION_POLICY
         if metadata_changed:
             refreshed = copy.deepcopy(snapshot)
             for ticker, card in refreshed["companies"].items():
@@ -336,7 +343,7 @@ def build_history(snapshot: dict[str, Any], existing: dict[str, Any] | None) -> 
         "batch_id": stable_hash({"previous": previous_id, "current": snapshot["snapshot_id"]}, 12),
         "notify_count": len(notifications),
         "critical_count": sum(bool(row.get("critical")) for row in notifications),
-        "notification_policy": "首次只建基準；之後只通知財報前／後階段、新季度、官方指引、KPI 風險／改善、指引驗證與論點結論變化。每日倒數與未跨狀態的數值波動不通知。",
+        "notification_policy": NOTIFICATION_POLICY,
         "notifications": notifications,
         "current": snapshot,
         "history": history[:MAX_HISTORY],

@@ -1,6 +1,6 @@
 ---
 title: SEC 每日 AI 候選覆核紀錄
-updated_at: 2026-09-08T21:51:51+08:00
+updated_at: 2026-09-12T18:31:51+08:00
 tags:
   - sec/daily
   - ai/reviewed
@@ -9,6 +9,33 @@ tags:
 # SEC 每日 AI 候選覆核紀錄
 
 > 本頁記錄每項規則候選的採納或駁回理由。候選不是結論；只有核對官方原文與相對規模後被採納的項目，才會寫入正式 [[SEC_Daily_Editorial|每日綜合重點]]。
+
+## 2026-09-12｜批次 `d1eb75a4b326`
+
+- 候選：**22 項**
+- 採納：**2 項**
+- 駁回：**20 項**
+- 正式整體結論改變：**0 家**
+
+### ✅ 採納｜TSM 6-K：8 月營收加速
+
+TSMC 2026 年 8 月合併營收 **TWD 514.806B**，MoM +10.1%、YoY +53.3%；1～8 月累計營收 **TWD 3,386.870B**，YoY +39.3%。這是 AI／先進製程需求延續的新增正向證據，但單月資料尚未改變既有偏正向結論。[SEC 6-K 原文](https://www.sec.gov/Archives/edgar/data/1046179/000104617926000658/tsm-revenue20260910.htm)
+
+### ✅ 採納｜NVDA Form 4：董事信託延續大額非計畫出售
+
+董事 Mark Stevens 的 Third Millennium Trust 在 9/3～9/4 非 10b5-1 再出售 **1,022,239 股、約 USD 235.64M**，約占本批出售前該信託持股 **30.43%**。這延續前批已採納的大額減持，治理監測強度提高；相對 NVIDIA 公司總股數仍小，因此不改變營運與成長結論。[SEC Form 4 原文](https://www.sec.gov/Archives/edgar/data/1045810/000119903926000014/xslF345X06/wk-form4_1788901755.xml)
+
+### ❎ 駁回｜20 項非實質、計畫性或重複候選
+
+- **COHR Robert Beard Form 4**：500 股、約 USD 154.7K，雖非 10b5-1，但只占出售前直接持股約 0.96%，不足以形成新結論。[原文](https://www.sec.gov/Archives/edgar/data/820318/000089914026001056/xslF345X06/form4.xml)
+- **TSLA Vaibhav Taneja Form 4＋Form 144**：2,605.75 股處分是 RSU 歸屬時由公司自動代扣並出售以繳稅，不是主動減持；Form 144 與同一交易重複。[Form 4](https://www.sec.gov/Archives/edgar/data/1318605/000110465926106432/xslF345X06/tm2625055d1_4seq1.xml)
+- **ARM 6-K**：2026 股東會所有議案均通過，沒有新增營運、財務或資本配置事項。[原文](https://www.sec.gov/Archives/edgar/data/1973239/000197323926000128/arm-20260910.htm)
+- **NOK 6-K**：依既有股權激勵計畫移轉 687,145 股庫藏股，移轉後仍持有 83,304,077 股；不是公開募資或新發行。[原文](https://www.sec.gov/Archives/edgar/data/924613/000110465926105772/tm2624968d1_6k.htm)
+- **COHR 兩份 Form 144**：合計擬售 5,815 股、約占申報股數 0.003%；Beard 的 500 股已有 Form 4，Digirolamo 的 5,315 股仍未證實成交。[原文](https://www.sec.gov/Archives/edgar/data/820318/000195004726009333/xsl144X01/primary_doc.xml)
+- **AMZN 8-K**：Kevin Mandia 加入董事會、審計與安全委員會，4,086 股董事 RSU 屬例行治理安排；沒有足以改變公司結論的營運證據。[原文](https://www.sec.gov/Archives/edgar/data/1018724/000101872426000036/amzn-20260908.htm)
+- **TSM 八份 Form 4**：Yeap、Yoo、Wu Yi-Huang、Wu Shien-Yang、Yuan、Mii、Wei 與 Zhang 合計 526 股、約 USD 40.1K，全部由 ESPP 管理人依發行人預定條款代購，不當成八次主動信心買入。[其中一份原文](https://www.sec.gov/Archives/edgar/data/1046179/000104617926000644/xslF345X06/wk-form4_1788948471.xml)
+- **META 三份 Form 4＋兩份 Form 144**：Cox、Olivan、Anderson 的成交全部依 10b5-1；Cox 與 Olivan 的 Form 144 與後續成交重複，列數多不代表多次獨立賣出決策。[其中一份原文](https://www.sec.gov/Archives/edgar/data/1326801/000095010326013860/xslF345X06/ownership.xml)
+- **AAPL Jennifer Newstead Form 4**：1,438 股、約 USD 456.2K，依 2026-05-05 採用的 10b5-1 計畫執行，不改變公司判讀。[原文](https://www.sec.gov/Archives/edgar/data/320193/000114036126036226/xslF345X06/form4.xml)
 
 ## 2026-09-08｜批次 `0e07b108ec6f`
 

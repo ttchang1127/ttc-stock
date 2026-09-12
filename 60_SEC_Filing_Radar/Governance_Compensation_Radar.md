@@ -1,6 +1,6 @@
 ---
 title: 🏛️ DEF 14A 治理與薪酬分析
-updated_at: 2026-09-09T08:34:48+00:00
+updated_at: 2026-09-12T10:24:45+00:00
 tags:
   - sec/governance
 ---
@@ -32,9 +32,9 @@ tags:
 | 2026-06-11 | **MRVL** | DEFA14A | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1835632/000119312526267699/d107557ddefa14a.htm) |
 | 2026-05-13 | **MRVL** | DEFA14A | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1835632/000110465926060262/tm261486d5_defa14a.htm) |
 | 2026-05-13 | **MRVL** | DEF 14A | 減損、訴訟／或有事項、關係人交易、股份薪酬、非 GAAP；重要附件 3 份 | [原文](https://www.sec.gov/Archives/edgar/data/1835632/000110465926060253/tm261486-1_def14a.htm) |
+| 2026-09-09 | **MSFT** | PX14A6G | 訴訟／或有事項 | [原文](https://www.sec.gov/Archives/edgar/data/789019/000121465926011511/o91268px14a6g.htm) |
 | 2026-07-22 | **MSFT** | PX14A6G | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/789019/000121465926008806/w721267px14a6g.htm) |
 | 2026-07-02 | **MSFT** | PX14A6G | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/789019/000121465926008121/j72261px14a6g.htm) |
-| 2025-12-04 | **MSFT** | PX14A6G | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/789019/000121465925017592/i124251px14a6g.htm) |
 | 2026-05-13 | **NVDA** | PX14A6G | 客戶集中 | [原文](https://www.sec.gov/Archives/edgar/data/1045810/000121465926006075/b513262px14a6g.htm) |
 | 2026-05-12 | **NVDA** | DEFA14A | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1045810/000104581026000037/noticeof2026annualmeeting.htm) |
 | 2026-05-12 | **NVDA** | DEF 14A | 訴訟／或有事項、關係人交易、股份薪酬、非 GAAP、部門報導；重要附件 4 份 | [原文](https://www.sec.gov/Archives/edgar/data/1045810/000104581026000036/nvda-20260512.htm) |
@@ -45,5 +45,5 @@ tags:
 | 2025-11-05 | **TSLA** | DEFA14A | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1318605/000110465925107096/tm252289d49_defa14a.htm) |
 | 2025-11-05 | **TSLA** | PX14A6G | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1318605/000109690625001748/bowy_px14a6g.htm) |
 
-> 最後檢查：`2026-09-09T08:34:48+00:00`。關鍵字命中是閱讀導航，不等於會計結論或利多／利空。
+> 最後檢查：`2026-09-12T10:24:45+00:00`。關鍵字命中是閱讀導航，不等於會計結論或利多／利空。
 
