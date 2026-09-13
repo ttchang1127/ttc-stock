@@ -98,6 +98,10 @@ class MarketRotationPageTests(unittest.TestCase):
             "trajectoryDirection", "箭頭尖端是最新交易日", "圖表分析期限",
             "路徑＝最近 10 個交易日", "60 日指標只參與下方綜合輪動分數",
             "renderTrajectoryPeriod", "sample[0].date", "Math.atan2(dy, dx)",
+            "四個象限代表什麼？", "右上｜相對強、動能加速",
+            "左上｜仍落後、動能回升", "右下｜仍領先、動能降溫",
+            "左下｜相對弱、動能惡化", "改善 → 領先 → 轉弱 → 落後",
+            "象限只描述價格相對位置與方向",
         ):
             self.assertIn(marker, self.page)
 

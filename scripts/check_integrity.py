@@ -2489,6 +2489,9 @@ def c43():
             'data-chart-preset="top3"', "全部清除",
             "trajectoryDirection", "箭頭尖端是最新交易日", "圖表分析期限",
             "60 日指標只參與下方綜合輪動分數", "renderTrajectoryPeriod",
+            "四個象限代表什麼？", "右上｜相對強、動能加速",
+            "左上｜仍落後、動能回升", "右下｜仍領先、動能降溫",
+            "左下｜相對弱、動能惡化", "象限只描述價格相對位置與方向",
         )),
         "主儀表板": (read("dashboard.html"), ("market_rotation.html", "市場族群輪動")),
         "價格 workflow": (read(".github/workflows/update-prices.yml"), (

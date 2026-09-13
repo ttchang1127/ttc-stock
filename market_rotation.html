@@ -165,6 +165,41 @@
     .period-guide span { color: #b8c7da; }
     .period-guide small { grid-column: 2; color: var(--muted); font-size: .71rem; }
     .chart-wrap { position: relative; height: 510px; }
+    .quadrant-explainer {
+      margin-top: 18px;
+      padding-top: 16px;
+      border-top: 1px solid var(--line);
+    }
+    .quadrant-explainer h3 { margin: 0; font-size: .95rem; }
+    .quadrant-explainer > p { margin: 5px 0 12px; color: var(--muted); font-size: .76rem; }
+    .quadrant-guide-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+    .quadrant-guide-card {
+      padding: 12px 13px;
+      border: 1px solid var(--line);
+      border-left: 4px solid var(--quadrant-color);
+      border-radius: 12px;
+      background: rgba(255,255,255,.025);
+    }
+    .quadrant-guide-title { display: flex; align-items: center; gap: 8px; font-weight: 800; color: var(--quadrant-color); }
+    .quadrant-coordinate {
+      padding: 2px 6px;
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--quadrant-color) 12%, transparent);
+      color: #cbd5e1;
+      font-size: .66rem;
+      font-weight: 700;
+    }
+    .quadrant-guide-card p { margin: 6px 0 0; color: #b8c7da; font-size: .76rem; line-height: 1.6; }
+    .quadrant-reading-tip {
+      margin-top: 10px;
+      padding: 11px 13px;
+      border-radius: 12px;
+      background: rgba(56,189,248,.06);
+      color: #b8c7da;
+      font-size: .76rem;
+      line-height: 1.65;
+    }
+    .quadrant-reading-tip strong { color: #7dd3fc; }
     .verdict-list { display: grid; gap: 10px; }
     .verdict {
       padding: 13px 14px;
@@ -232,6 +267,7 @@
       .asof { text-align: left; }
       .period-guide { grid-template-columns: 1fr; }
       .period-guide small { grid-column: 1; }
+      .quadrant-guide-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -292,6 +328,29 @@
           <small>20 日約為 1 個月、10 日約為 2 週、5 日約為 1 週；60 日指標只參與下方綜合輪動分數，不是本圖座標。</small>
         </div>
         <div class="chart-wrap"><canvas id="rotationChart"></canvas></div>
+        <section class="quadrant-explainer" aria-labelledby="quadrantGuideTitle">
+          <h3 id="quadrantGuideTitle">四個象限代表什麼？</h3>
+          <p>橫軸判斷近 20 日相對市場是領先或落後；縱軸判斷近 5 日相對動能正在加速或減速。</p>
+          <div class="quadrant-guide-grid">
+            <article class="quadrant-guide-card" style="--quadrant-color:#22c55e">
+              <div class="quadrant-guide-title">領先 <span class="quadrant-coordinate">右上｜相對強、動能加速</span></div>
+              <p>近 20 日已勝過市場，而且最近 5 日優勢還在擴大。通常代表目前趨勢最完整，但仍要確認 60 日趨勢、廣度與成交參與，不能直接等同買進訊號。</p>
+            </article>
+            <article class="quadrant-guide-card" style="--quadrant-color:#22d3ee">
+              <div class="quadrant-guide-title">改善 <span class="quadrant-coordinate">左上｜仍落後、動能回升</span></div>
+              <p>近 20 日仍落後市場，但最近 5 日相對動能正在改善。這是早期觀察候選；若路徑持續向右並跨過零軸，才表示相對強弱逐步轉正。</p>
+            </article>
+            <article class="quadrant-guide-card" style="--quadrant-color:#f59e0b">
+              <div class="quadrant-guide-title">轉弱 <span class="quadrant-coordinate">右下｜仍領先、動能降溫</span></div>
+              <p>近 20 日仍勝過市場，但最近 5 日優勢正在縮小。可能只是強勢整理，也可能是趨勢後段；要觀察箭頭是否繼續向左下，以及廣度是否同步惡化。</p>
+            </article>
+            <article class="quadrant-guide-card" style="--quadrant-color:#fb7185">
+              <div class="quadrant-guide-title">落後 <span class="quadrant-coordinate">左下｜相對弱、動能惡化</span></div>
+              <p>近 20 日落後市場，而且最近 5 日仍在惡化，通常是四象限中最低閱讀優先級。若箭頭開始向上，才可能進入改善階段。</p>
+            </article>
+          </div>
+          <div class="quadrant-reading-tip"><strong>怎麼看路徑：</strong>向右代表 20 日相對強弱增加，向上代表 5 日相對動能改善；「起」是最舊資料，箭頭尖端是最新交易日。改善 → 領先 → 轉弱 → 落後是常見輪動方向，但不一定照順序發生，也可能折返或跳過象限。象限只描述價格相對位置與方向，不代表實際資金流入，也不是買進／賣出建議。</div>
+        </section>
       </article>
 
       <aside>
