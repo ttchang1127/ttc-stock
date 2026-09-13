@@ -2485,7 +2485,8 @@ def c43():
         "獨立頁": (read("market_rotation.html"), (
             "market_rotation.json", "四象限輪動路徑", "最近 10 個交易日",
             "板塊內部領漲與落後個股", "不是申購贖回或資金淨流入",
-            "返回投資儀表板",
+            "返回投資儀表板", "勾選顯示", "chartSelections",
+            'data-chart-preset="top3"', "全部清除",
         )),
         "主儀表板": (read("dashboard.html"), ("market_rotation.html", "市場族群輪動")),
         "價格 workflow": (read(".github/workflows/update-prices.yml"), (

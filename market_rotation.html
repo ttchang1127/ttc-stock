@@ -114,6 +114,41 @@
     }
     select { background-color: #172033; }
     .toggle.active { color: #07111f; border-color: #67e8f9; background: #67e8f9; }
+    .series-filter {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      padding: 12px;
+      margin: -2px 0 14px;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      background: rgba(8, 13, 24, .34);
+    }
+    .series-filter-label { color: var(--muted); font-size: .75rem; font-weight: 700; margin-right: 2px; }
+    .series-option {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 9px;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      color: #afbed3;
+      background: rgba(255,255,255,.025);
+      cursor: pointer;
+      font-size: .75rem;
+      font-weight: 700;
+      user-select: none;
+    }
+    .series-option:has(input:checked) {
+      color: #e5f6ff;
+      border-color: color-mix(in srgb, var(--series-color) 65%, transparent);
+      background: color-mix(in srgb, var(--series-color) 12%, transparent);
+    }
+    .series-option input { accent-color: var(--series-color); margin: 0; cursor: pointer; }
+    .series-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--series-color); }
+    .filter-action { padding: 6px 9px; font-size: .72rem; }
+    .selection-count { margin-left: auto; color: var(--muted); font-size: .72rem; }
     .chart-wrap { position: relative; height: 510px; }
     .verdict-list { display: grid; gap: 10px; }
     .verdict {
@@ -233,6 +268,7 @@
             <button class="toggle" data-level="industries">次產業 Top 20</button>
           </div>
         </div>
+        <div class="series-filter" id="chartSeriesFilters" aria-label="選擇圖表顯示項目"></div>
         <div class="chart-wrap"><canvas id="rotationChart"></canvas></div>
       </article>
 
@@ -339,6 +375,7 @@
     let chartLevel = 'sectors';
     let tableLevel = 'sectors';
     let selectedSector = null;
+    const chartSelections = {sectors: new Set(), industries: new Set()};
 
     const COLORS = {
       leading: '#22c55e', improving: '#22d3ee', weakening: '#f59e0b', lagging: '#fb7185'
@@ -460,8 +497,8 @@
     };
 
     function renderChart() {
-      let rows = rotationData[chartLevel];
-      if (chartLevel === 'industries') rows = rows.slice(0, 20);
+      const available = chartLevel === 'industries' ? rotationData.industries.slice(0, 20) : rotationData.sectors;
+      const rows = available.filter(row => chartSelections[chartLevel].has(row.key));
       const xMax = Math.max(1, ...rows.flatMap(row => (row.trajectory || []).map(p => Math.abs(p.x || 0)))) * 1.28;
       const yMax = Math.max(1, ...rows.flatMap(row => (row.trajectory || []).map(p => Math.abs(p.y || 0)))) * 1.28;
       const datasets = rows.map(row => {
@@ -494,6 +531,33 @@
           }
         }
       });
+    }
+
+    function renderChartFilters() {
+      const available = chartLevel === 'industries' ? rotationData.industries.slice(0, 20) : rotationData.sectors;
+      const selected = chartSelections[chartLevel];
+      const filters = document.getElementById('chartSeriesFilters');
+      filters.innerHTML = `
+        <span class="series-filter-label">勾選顯示：</span>
+        ${available.map(row => `
+          <label class="series-option" style="--series-color:${COLORS[row.quadrant]}">
+            <input type="checkbox" value="${escapeHtml(row.key)}" ${selected.has(row.key) ? 'checked' : ''}>
+            <i class="series-dot"></i>${escapeHtml(row.name_zh)}
+          </label>`).join('')}
+        <button class="toggle filter-action" type="button" data-chart-preset="top3">前 3 名</button>
+        <button class="toggle filter-action" type="button" data-chart-preset="all">全選</button>
+        <button class="toggle filter-action" type="button" data-chart-preset="none">全部清除</button>
+        <span class="selection-count">已選 ${selected.size}／${available.length}${selected.size ? '' : '（請勾選要比較的項目）'}</span>`;
+      filters.querySelectorAll('input[type="checkbox"]').forEach(input => input.addEventListener('change', () => {
+        if (input.checked) selected.add(input.value); else selected.delete(input.value);
+        renderChartFilters(); renderChart();
+      }));
+      filters.querySelectorAll('[data-chart-preset]').forEach(button => button.addEventListener('click', () => {
+        selected.clear();
+        if (button.dataset.chartPreset === 'all') available.forEach(row => selected.add(row.key));
+        if (button.dataset.chartPreset === 'top3') available.slice(0, 3).forEach(row => selected.add(row.key));
+        renderChartFilters(); renderChart();
+      }));
     }
 
     function renderTable() {
@@ -550,7 +614,7 @@
     function bindControls() {
       document.querySelectorAll('[data-level]').forEach(button => button.addEventListener('click', () => {
         document.querySelectorAll('[data-level]').forEach(item => item.classList.toggle('active', item === button));
-        chartLevel = button.dataset.level; renderChart();
+        chartLevel = button.dataset.level; renderChartFilters(); renderChart();
       }));
       document.querySelectorAll('[data-table-level]').forEach(button => button.addEventListener('click', () => {
         document.querySelectorAll('[data-table-level]').forEach(item => item.classList.toggle('active', item === button));
@@ -568,9 +632,11 @@
         rotationData = await response.json();
         if (!rotationData.sectors?.length || !rotationData.industries?.length) throw new Error('資料結構不完整');
         selectedSector = rotationData.sectors[0].key;
+        rotationData.sectors.slice(0, 3).forEach(row => chartSelections.sectors.add(row.key));
+        rotationData.industries.slice(0, 3).forEach(row => chartSelections.industries.add(row.key));
         const select = document.getElementById('sectorSelect');
         select.innerHTML = rotationData.sectors.map(row => `<option value="${escapeHtml(row.key)}">${escapeHtml(row.name_zh)}</option>`).join('');
-        bindControls(); renderHeader(); renderMetrics(); renderVerdicts(); renderChart(); renderTable(); renderSectorDetail();
+        bindControls(); renderHeader(); renderMetrics(); renderVerdicts(); renderChartFilters(); renderChart(); renderTable(); renderSectorDetail();
       } catch (error) {
         setStatus('error', `<strong>載入失敗：</strong>無法讀取 market_rotation.json（${escapeHtml(error.message)}）。請確認每日資料流程已成功執行並部署。`);
       }

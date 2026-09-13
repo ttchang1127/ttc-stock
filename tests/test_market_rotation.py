@@ -93,7 +93,8 @@ class MarketRotationPageTests(unittest.TestCase):
             "市場板塊族群輪動雷達", "market_rotation.json", "四象限輪動路徑",
             "20 日相對強弱", "5 日相對動能加速度", "最近 10 個交易日",
             "不是申購贖回或資金淨流入", "板塊內部領漲與落後個股",
-            "S&amp;P 500 ＋ Nasdaq-100", "返回投資儀表板",
+            "S&amp;P 500 ＋ Nasdaq-100", "返回投資儀表板", "勾選顯示",
+            "chartSelections", "data-chart-preset=\"top3\"", "全部清除",
         ):
             self.assertIn(marker, self.page)
 
