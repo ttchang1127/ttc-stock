@@ -4,7 +4,7 @@
 > **怎麼用**：找到對應的「任務」章節，**照抄指令、照順序執行、比對預期輸出**。
 > **不要自己想辦法。** 遇到本文件沒寫到的狀況，一律停止並回報使用者。
 
-最後更新：2026-08-01
+最後更新：2026-09-13
 
 ---
 
@@ -22,6 +22,7 @@
 | 6 | `git commit` 包含 `.obsidian/` 目錄 | 那是 Obsidian 視窗狀態，與網站無關 |
 | 7 | 修改 `dashboard_mag7.html` | 那是另一個獨立頁面，不在本 SOP 範圍 |
 | 8 | 使用 `git push --force` 或 `git reset --hard` | 會毀掉遠端歷史 |
+| 9 | 手改 `market_rotation.json`／`market_rotation_universe.json` | 兩者只能由 `build_market_rotation.py` 依成分表與真實行情產生 |
 
 ---
 
@@ -42,6 +43,9 @@
 | `scripts/fetch_price_history.py` | 抓價腳本 | ⚠️ 只改 `DEFAULT_TICKERS` 那一行 |
 | `.github/workflows/update-prices.yml` | 每日自動更新與新年報提示 | ❌ 除非使用者明確要求，不要改 |
 | `dashboard_mag7.html` | 另一個獨立頁面 | ❌ 不在範圍內 |
+| `market_rotation.html` | S&P 500＋Nasdaq-100 板塊／次產業輪動獨立頁 | ⚠️ 只在使用者明確要求時 |
+| `market_rotation_universe.json` | 兩指數成分、板塊與次產業分類 | ❌ 只能由 `scripts/build_market_rotation.py` 產生 |
+| `market_rotation.json` | 輪動分數、四象限、10 日路徑與板塊內個股 | ❌ 只能由 `scripts/build_market_rotation.py` 產生 |
 
 遠端與網址：
 
@@ -67,10 +71,20 @@ fundamentals.json + financial_health.json + valuation.json
 dcf_assumptions.json 的 derived_at
         ↓ 瀏覽器依今天日期計算年齡
    DCF 圖表與公司詳情顯示假設多久未重推（90 天後提醒）
+
+S&P 500／Nasdaq-100 成分表 + Yahoo Finance 個股價量
+        ↓ scripts/build_market_rotation.py（拒絕低於 90% 覆蓋）
+   market_rotation_universe.json + market_rotation.json
+        ↓ market_rotation.html
+   11 大板塊／次產業排名、四象限與 10 個交易日路徑
 ```
 
 **為什麼不讓瀏覽器直接抓 Yahoo？**
 因為 GitHub Pages 是純靜態網站，而 Yahoo 的 API 不回傳 CORS 標頭，瀏覽器一定會被擋。**不要嘗試改回直連 Yahoo，一定會失敗。**
+
+**市場輪動的限制**：本頁是價格、廣度與成交額的市場偏好代理，不是基金申贖或逐筆
+資金淨流入。成分股低於 90% 有足夠歷史時腳本會拒絕發布；Nasdaq-100 獨有成分採 ICB
+分類並映射到最接近的 GICS 大板塊，畫面會保留這項口徑說明。
 
 ---
 

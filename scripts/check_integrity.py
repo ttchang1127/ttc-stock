@@ -2436,6 +2436,70 @@ def c42():
     return not bad and not missing, f"資料問題：{bad or '無'}；缺自動化／畫面：{missing or '無'}"
 
 
+@check("C-43", "市場板塊輪動頁具完整覆蓋、可追溯方法與每日更新")
+def c43():
+    data = load("market_rotation.json")
+    universe = load("market_rotation_universe.json")
+    sectors = data.get("sectors") or []
+    industries = data.get("industries") or []
+    coverage = data.get("coverage") or {}
+    bad = []
+    expected_sectors = {
+        "Communication Services", "Consumer Discretionary", "Consumer Staples",
+        "Energy", "Financials", "Health Care", "Industrials",
+        "Information Technology", "Materials", "Real Estate", "Utilities",
+    }
+    members = universe.get("members") or []
+    tickers = [row.get("ticker") for row in members]
+    if data.get("schema_version") != 1 or universe.get("schema_version") != 1:
+        bad.append("schema_version 錯誤")
+    if not data.get("as_of") or not data.get("generated_at"):
+        bad.append("缺少行情基準日／產生時間")
+    if len(members) < 500 or len(tickers) != len(set(tickers)):
+        bad.append("合併股票池不足 500 檔或有重複代號")
+    if coverage.get("coverage_pct", 0) < 90:
+        bad.append("足夠歷史的個股覆蓋低於 90%")
+    if {row.get("key") for row in sectors} != expected_sectors:
+        bad.append("未完整涵蓋 11 大板塊")
+    if len(industries) < 30:
+        bad.append("可比較的次產業少於 30 組")
+    if [row.get("rotation_score") for row in sectors] != sorted(
+            [row.get("rotation_score") for row in sectors], reverse=True):
+        bad.append("板塊未依輪動分數排序")
+    for label, rows in (("板塊", sectors), ("次產業", industries)):
+        for row in rows:
+            if row.get("quadrant") not in {"leading", "improving", "weakening", "lagging"}:
+                bad.append(f"{label}/{row.get('key')} 象限無效")
+            if row.get("rotation_score") is None or not 0 <= row["rotation_score"] <= 100:
+                bad.append(f"{label}/{row.get('key')} 分數超出 0～100")
+            if len(row.get("trajectory") or []) != 10:
+                bad.append(f"{label}/{row.get('key')} 不是 10 個交易日路徑")
+    if any(ticker in {"SPY", "QQQ", "VGT", "VOO"} for ticker in tickers):
+        bad.append("股票池誤納 ETF")
+    methodology = data.get("methodology") or {}
+    weights = methodology.get("score_weights") or {}
+    if sum(weights.values()) != 100 or "非實際資金淨流入" not in methodology.get("label", ""):
+        bad.append("權重無法加總至 100 或未標明代理指標限制")
+
+    markers = {
+        "獨立頁": (read("market_rotation.html"), (
+            "market_rotation.json", "四象限輪動路徑", "最近 10 個交易日",
+            "板塊內部領漲與落後個股", "不是申購贖回或資金淨流入",
+            "返回投資儀表板",
+        )),
+        "主儀表板": (read("dashboard.html"), ("market_rotation.html", "市場族群輪動")),
+        "價格 workflow": (read(".github/workflows/update-prices.yml"), (
+            "build_market_rotation.py", "market_rotation_universe", "market_rotation|",
+        )),
+        "維護 SOP": (read("00_Meta/ttc-stock_Dashboard_維運SOP.md"), (
+            "build_market_rotation.py", "低於 90%", "市場偏好代理",
+        )),
+    }
+    missing = [f"{label}:{marker}" for label, (text, required) in markers.items()
+               for marker in required if marker not in text]
+    return not bad and not missing, f"資料問題：{bad or '無'}；缺自動化／畫面：{missing or '無'}"
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--quiet", action="store_true", help="只印出失敗項")

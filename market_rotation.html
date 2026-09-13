@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="S&P 500 與 Nasdaq-100 個股板塊、次產業資金輪動代理分析。">
+  <title>市場板塊族群輪動雷達</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    :root {
+      --bg: #080d18;
+      --panel: rgba(18, 27, 47, .86);
+      --panel-2: rgba(28, 39, 64, .72);
+      --line: rgba(148, 163, 184, .18);
+      --text: #edf4ff;
+      --muted: #93a4bd;
+      --cyan: #38bdf8;
+      --green: #22c55e;
+      --teal: #2dd4bf;
+      --amber: #f59e0b;
+      --rose: #fb7185;
+      --purple: #a78bfa;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      font-family: Outfit, "Noto Sans TC", sans-serif;
+      background:
+        radial-gradient(circle at 82% -10%, rgba(14, 165, 233, .16), transparent 34%),
+        radial-gradient(circle at 12% 8%, rgba(124, 58, 237, .16), transparent 30%),
+        var(--bg);
+    }
+    button, select { font: inherit; }
+    a { color: inherit; }
+    .shell { max-width: 1560px; margin: 0 auto; padding: 24px; }
+    .topbar, .panel, .metric-card {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      box-shadow: 0 18px 60px rgba(0, 0, 0, .25);
+      backdrop-filter: blur(15px);
+    }
+    .topbar {
+      border-radius: 24px;
+      padding: 24px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 22px;
+      flex-wrap: wrap;
+    }
+    h1 { margin: 0; font-size: clamp(1.55rem, 3vw, 2.4rem); letter-spacing: -.03em; }
+    .gradient {
+      background: linear-gradient(115deg, #7dd3fc, #5eead4 45%, #c4b5fd);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+    .subtitle { margin: 6px 0 0; color: var(--muted); font-size: .95rem; }
+    .top-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .back-link, .source-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.05);
+      border-radius: 12px;
+      padding: 9px 13px;
+      color: #d9e7fb;
+      font-weight: 700;
+    }
+    .back-link:hover, .source-link:hover { border-color: rgba(56,189,248,.7); }
+    .asof { text-align: right; color: var(--muted); font-size: .82rem; }
+    .asof strong { display: block; color: var(--cyan); font-size: 1rem; }
+    .notice {
+      margin: 18px 0;
+      padding: 14px 17px;
+      border: 1px solid rgba(245,158,11,.34);
+      background: rgba(245,158,11,.08);
+      color: #fde7b2;
+      border-radius: 14px;
+      font-size: .9rem;
+    }
+    .notice strong { color: #fbbf24; }
+    .loading { border-color: rgba(56,189,248,.35); background: rgba(56,189,248,.07); color: #bae6fd; }
+    .error { border-color: rgba(251,113,133,.45); background: rgba(251,113,133,.08); color: #fecdd3; }
+    .metrics { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin-bottom: 18px; }
+    .metric-card { padding: 17px; border-radius: 17px; min-height: 118px; }
+    .metric-label { color: var(--muted); font-size: .78rem; font-weight: 700; }
+    .metric-value { margin-top: 6px; font-size: 1.45rem; font-weight: 800; }
+    .metric-note { margin-top: 5px; color: var(--muted); font-size: .78rem; }
+    .positive { color: #5eead4; }
+    .negative { color: #fda4af; }
+    .neutral { color: #cbd5e1; }
+    .grid { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(330px, .65fr); gap: 18px; }
+    .panel { border-radius: 20px; padding: 20px; margin-bottom: 18px; min-width: 0; }
+    .panel-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 14px; flex-wrap: wrap; margin-bottom: 16px; }
+    .panel h2 { margin: 0; font-size: 1.14rem; }
+    .panel-desc { color: var(--muted); font-size: .8rem; margin: 4px 0 0; }
+    .controls { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+    .toggle, select {
+      color: #cbdcf2;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.045);
+      border-radius: 10px;
+      padding: 8px 11px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: .82rem;
+    }
+    select { background-color: #172033; }
+    .toggle.active { color: #07111f; border-color: #67e8f9; background: #67e8f9; }
+    .chart-wrap { position: relative; height: 510px; }
+    .verdict-list { display: grid; gap: 10px; }
+    .verdict {
+      padding: 13px 14px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.035);
+      border-radius: 13px;
+    }
+    .verdict-kicker { font-size: .72rem; color: var(--muted); font-weight: 700; }
+    .verdict-title { margin-top: 3px; font-weight: 800; }
+    .verdict-copy { color: #b7c6db; font-size: .8rem; margin-top: 4px; }
+    .score-ring {
+      --score: 50;
+      width: 52px;
+      height: 52px;
+      flex: 0 0 auto;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      background: radial-gradient(circle at center, #152035 57%, transparent 59%),
+                  conic-gradient(var(--teal) calc(var(--score) * 1%), rgba(148,163,184,.16) 0);
+    }
+    .sector-pick { display: flex; align-items: center; gap: 12px; }
+    .score-bars { display: grid; gap: 9px; margin-top: 16px; }
+    .score-row { display: grid; grid-template-columns: 130px 1fr 42px; gap: 9px; align-items: center; font-size: .77rem; }
+    .bar { height: 8px; border-radius: 999px; background: rgba(148,163,184,.14); overflow: hidden; }
+    .bar > i { display: block; height: 100%; background: linear-gradient(90deg, #38bdf8, #2dd4bf); border-radius: inherit; }
+    .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 14px; }
+    table { width: 100%; border-collapse: collapse; min-width: 1050px; font-size: .82rem; }
+    th, td { padding: 11px 12px; text-align: right; border-bottom: 1px solid rgba(148,163,184,.12); white-space: nowrap; }
+    th { color: #9fb0c8; background: rgba(8,13,24,.62); font-size: .72rem; position: sticky; top: 0; z-index: 1; }
+    th:first-child, td:first-child { text-align: left; position: sticky; left: 0; background: #121b2f; }
+    tbody tr { cursor: pointer; }
+    tbody tr:hover td { background-color: rgba(56,189,248,.06); }
+    tbody tr:last-child td { border-bottom: 0; }
+    .rank { color: var(--muted); display: inline-block; width: 28px; }
+    .pill { display: inline-flex; padding: 3px 8px; border-radius: 999px; font-weight: 800; font-size: .7rem; }
+    .leading { color: #86efac; background: rgba(34,197,94,.13); }
+    .improving { color: #67e8f9; background: rgba(6,182,212,.13); }
+    .weakening { color: #fcd34d; background: rgba(245,158,11,.13); }
+    .lagging { color: #fda4af; background: rgba(244,63,94,.13); }
+    .leaders-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 14px; }
+    .mini-title { margin: 0 0 8px; font-size: .82rem; color: var(--muted); }
+    .stock-list { display: grid; gap: 6px; }
+    .stock-row { display: grid; grid-template-columns: 1fr auto auto; gap: 10px; padding: 9px 10px; border-radius: 10px; background: rgba(255,255,255,.035); font-size: .78rem; }
+    .stock-row strong { color: #dbeafe; }
+    details { border-top: 1px solid var(--line); margin-top: 18px; padding-top: 14px; }
+    summary { cursor: pointer; font-weight: 800; color: #cde8ff; }
+    .method-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 10px; margin-top: 13px; }
+    .method-card { border: 1px solid var(--line); border-radius: 12px; padding: 12px; background: rgba(255,255,255,.025); }
+    .method-card strong { display: block; font-size: .8rem; }
+    .method-card span { display: block; color: var(--muted); font-size: .75rem; margin-top: 3px; }
+    .footer { color: var(--muted); font-size: .76rem; text-align: center; padding: 4px 0 24px; }
+    @media (max-width: 1050px) {
+      .metrics { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .grid { grid-template-columns: 1fr; }
+      .chart-wrap { height: 440px; }
+    }
+    @media (max-width: 620px) {
+      .shell { padding: 12px; }
+      .topbar, .panel { padding: 16px; border-radius: 16px; }
+      .metrics { grid-template-columns: 1fr; }
+      .chart-wrap { height: 380px; }
+      .leaders-grid, .method-grid { grid-template-columns: 1fr; }
+      .asof { text-align: left; }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <div>
+        <h1 class="gradient">市場板塊族群輪動雷達</h1>
+        <p class="subtitle">S&amp;P 500 ＋ Nasdaq-100 個股彙整｜板塊、次產業、廣度與成交額交叉確認</p>
+      </div>
+      <div class="top-actions">
+        <a class="back-link" href="dashboard.html">← 返回投資儀表板</a>
+        <div class="asof">資料基準日<strong id="asOf">載入中…</strong><span id="coverage"></span></div>
+      </div>
+    </header>
+
+    <div id="status" class="notice loading">正在載入市場輪動資料…</div>
+
+    <section class="metrics" aria-label="市場輪動摘要">
+      <article class="metric-card">
+        <div class="metric-label">目前領先板塊</div>
+        <div class="metric-value positive" id="topSector">—</div>
+        <div class="metric-note" id="topSectorNote">等待資料</div>
+      </article>
+      <article class="metric-card">
+        <div class="metric-label">加速改善板塊</div>
+        <div class="metric-value" id="improvingSector">—</div>
+        <div class="metric-note" id="improvingNote">等待資料</div>
+      </article>
+      <article class="metric-card">
+        <div class="metric-label">20 日等權市場報酬</div>
+        <div class="metric-value" id="marketReturn">—</div>
+        <div class="metric-note">合併股票池基準；不是 S&amp;P 500 指數報酬</div>
+      </article>
+      <article class="metric-card">
+        <div class="metric-label">市場成交額變化</div>
+        <div class="metric-value" id="marketVolume">—</div>
+        <div class="metric-note">近 5 日均值相對前 20 日均值</div>
+      </article>
+    </section>
+
+    <section class="grid">
+      <article class="panel">
+        <div class="panel-head">
+          <div>
+            <h2>四象限輪動路徑</h2>
+            <p class="panel-desc">橫軸＝20 日相對強弱；縱軸＝近 5 日相對動能加速度；尾跡＝最近 10 個交易日。</p>
+          </div>
+          <div class="controls">
+            <button class="toggle active" data-level="sectors">11 大板塊</button>
+            <button class="toggle" data-level="industries">次產業 Top 20</button>
+          </div>
+        </div>
+        <div class="chart-wrap"><canvas id="rotationChart"></canvas></div>
+      </article>
+
+      <aside>
+        <article class="panel">
+          <div class="panel-head">
+            <div>
+              <h2>今天怎麼讀</h2>
+              <p class="panel-desc">只列出最值得先看的方向，不等同買賣建議。</p>
+            </div>
+          </div>
+          <div class="verdict-list" id="verdicts"></div>
+        </article>
+
+        <article class="panel">
+          <div class="panel-head">
+            <div>
+              <h2>單一板塊拆解</h2>
+              <p class="panel-desc">分數是同日橫向排名；高分不代表估值便宜。</p>
+            </div>
+            <select id="sectorSelect" aria-label="選擇板塊"></select>
+          </div>
+          <div class="sector-pick">
+            <div class="score-ring" id="scoreRing">—</div>
+            <div>
+              <strong id="sectorName">—</strong>
+              <div class="panel-desc" id="sectorState">—</div>
+            </div>
+          </div>
+          <div class="score-bars" id="scoreBars"></div>
+        </article>
+      </aside>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <div>
+          <h2>輪動排名明細</h2>
+          <p class="panel-desc">點選板塊列可同步查看右上拆解。pp＝百分點；「權重差」為成交額流動性加權與等權報酬差。</p>
+        </div>
+        <div class="controls">
+          <button class="toggle active" data-table-level="sectors">板塊排名</button>
+          <button class="toggle" data-table-level="industries">次產業排名</button>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th title="六項指標經橫向百分位加權，0 到 100。">排名／板塊</th>
+              <th title="20 日相對強弱與 5 日加速度所處象限。">階段</th>
+              <th title="綜合輪動分數相較 5 個交易日前的變化。">分數／5日變化</th>
+              <th title="該群組等權報酬減去全股票池等權報酬。">20日相對</th>
+              <th title="最近 5 日相對報酬減去再前 5 日相對報酬。">5日加速度</th>
+              <th title="60 日群組等權報酬減去全股票池等權報酬。">60日相對</th>
+              <th title="正 20 日報酬比例與站上 20 日均線比例的平均。">市場廣度</th>
+              <th title="最近 5 日成交額均值相對前 20 日均值。">成交額擴張</th>
+              <th title="最近 10 日中，群組單日報酬勝過市場的比例。">持續性</th>
+              <th title="成交額流動性加權 20 日報酬減去等權 20 日報酬。正值代表大型／高流動性股較強。">權重差</th>
+              <th>涵蓋檔數</th>
+            </tr>
+          </thead>
+          <tbody id="rankingBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <div>
+          <h2 id="leaderTitle">板塊內部領漲與落後個股</h2>
+          <p class="panel-desc">依 20 日相對全市場報酬排序；搭配成交額變化確認是否有量價共振。</p>
+        </div>
+      </div>
+      <div class="leaders-grid">
+        <div><h3 class="mini-title">領漲個股</h3><div class="stock-list" id="leaderList"></div></div>
+        <div><h3 class="mini-title">落後個股</h3><div class="stock-list" id="laggardList"></div></div>
+      </div>
+
+      <details>
+        <summary>指標意義、限制與判讀順序</summary>
+        <div class="method-grid">
+          <div class="method-card"><strong>20 日相對強弱｜20%</strong><span>辨認目前是否已勝過整體股票池；大於 0 才算相對領先。</span></div>
+          <div class="method-card"><strong>60 日相對強弱｜15%</strong><span>過濾只有幾天的短線雜訊，確認中期方向。</span></div>
+          <div class="method-card"><strong>5 日加速度｜15%</strong><span>辨認動能正在改善或降溫；改善不代表已經領先。</span></div>
+          <div class="method-card"><strong>市場廣度｜25%</strong><span>同時看正報酬與站上均線的股票比例，避免被少數權值股誤導。</span></div>
+          <div class="method-card"><strong>成交額擴張｜15%</strong><span>成交額是否放大；它是市場參與度代理，不是申購贖回或資金淨流入。</span></div>
+          <div class="method-card"><strong>相對持續性｜10%</strong><span>最近 10 日勝過市場的天數比例，用來分辨一次性跳漲。</span></div>
+          <div class="method-card"><strong>最值得留意的組合</strong><span>20／60 日相對強度為正、加速度為正、廣度與成交額同步提升。</span></div>
+          <div class="method-card"><strong>領先 → 轉弱</strong><span>仍比市場強，但加速度轉負；不是立即看空，而是先觀察是否跌破相對強勢。</span></div>
+          <div class="method-card"><strong>資料限制</strong><span>成分股存活偏誤、產業分類變動與價格資料缺漏都可能影響結果；不納入 ETF。</span></div>
+        </div>
+      </details>
+    </section>
+
+    <footer class="footer">
+      <span id="sourceText">資料來源載入中…</span>｜本頁僅為研究工具，不構成投資建議。
+    </footer>
+  </main>
+
+  <script>
+    let rotationData = null;
+    let rotationChart = null;
+    let chartLevel = 'sectors';
+    let tableLevel = 'sectors';
+    let selectedSector = null;
+
+    const COLORS = {
+      leading: '#22c55e', improving: '#22d3ee', weakening: '#f59e0b', lagging: '#fb7185'
+    };
+    const scoreParts = [
+      ['rank_relative_strength_20d', '20 日相對強弱', 20],
+      ['rank_relative_strength_60d', '60 日相對強弱', 15],
+      ['rank_acceleration_5d', '5 日加速度', 15],
+      ['rank_breadth', '市場廣度', 25],
+      ['rank_dollar_volume_expansion', '成交額擴張', 15],
+      ['rank_persistence', '相對持續性', 10]
+    ];
+
+    const escapeHtml = value => String(value ?? '').replace(/[&<>'"]/g, char => ({
+      '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'
+    }[char]));
+    const signed = (value, suffix = '%') => value == null ? '—' : `${value > 0 ? '+' : ''}${value.toFixed(2)}${suffix}`;
+    const tone = value => value > 0 ? 'positive' : value < 0 ? 'negative' : 'neutral';
+    const nameOf = row => row.name_zh === row.name ? row.name : `${row.name_zh} (${row.name})`;
+
+    function setStatus(type, html) {
+      const node = document.getElementById('status');
+      node.className = `notice ${type || ''}`;
+      node.innerHTML = html;
+    }
+
+    function renderHeader() {
+      const c = rotationData.coverage;
+      document.getElementById('asOf').textContent = rotationData.as_of;
+      document.getElementById('coverage').textContent = `涵蓋 ${c.priced_securities}/${c.universe_securities} 檔（${c.coverage_pct}%）`;
+      document.getElementById('sourceText').innerHTML =
+        `價格：Yahoo Finance；成分：<a href="${rotationData.sources.sp500_constituents}" target="_blank" rel="noopener">S&amp;P 500</a>、` +
+        `<a href="${rotationData.sources.nasdaq100_constituents}" target="_blank" rel="noopener">Nasdaq-100</a>`;
+      setStatus('', `<strong>重要：</strong>${escapeHtml(rotationData.methodology.label)}。` +
+        `本頁衡量「哪一群股票的價格、廣度與成交參與正在變強」，不能當作基金流向或真實資金淨流入。`);
+    }
+
+    function renderMetrics() {
+      const leading = rotationData.sectors.filter(row => row.quadrant === 'leading')[0] || rotationData.sectors[0];
+      const improving = rotationData.sectors
+        .filter(row => row.quadrant === 'improving')
+        .sort((a,b) => (b.score_change_5d ?? -999) - (a.score_change_5d ?? -999))[0];
+      document.getElementById('topSector').textContent = leading ? leading.name_zh : '—';
+      document.getElementById('topSectorNote').textContent = leading
+        ? `輪動 ${leading.rotation_score.toFixed(1)} 分｜20 日相對 ${signed(leading.relative_strength_20d, 'pp')}` : '資料不足';
+      document.getElementById('improvingSector').textContent = improving ? improving.name_zh : '目前無改善象限';
+      document.getElementById('improvingSector').className = `metric-value ${improving ? 'positive' : 'neutral'}`;
+      document.getElementById('improvingNote').textContent = improving
+        ? `5 日加速度 ${signed(improving.acceleration_5d, 'pp')}｜分數變化 ${signed(improving.score_change_5d, '')}` : '等待落後板塊動能翻正';
+      const marketReturn = rotationData.benchmark.return_20d;
+      const marketVolume = rotationData.benchmark.dollar_volume_expansion;
+      const marketReturnNode = document.getElementById('marketReturn');
+      const marketVolumeNode = document.getElementById('marketVolume');
+      marketReturnNode.textContent = signed(marketReturn);
+      marketVolumeNode.textContent = signed(marketVolume);
+      marketReturnNode.className = `metric-value ${tone(marketReturn)}`;
+      marketVolumeNode.className = `metric-value ${tone(marketVolume)}`;
+    }
+
+    function renderVerdicts() {
+      const rows = rotationData.sectors;
+      const lead = rows.filter(r => r.quadrant === 'leading')[0];
+      const improve = rows.filter(r => r.quadrant === 'improving').sort((a,b) => b.acceleration_5d - a.acceleration_5d)[0];
+      const weaken = rows.filter(r => r.quadrant === 'weakening').sort((a,b) => a.acceleration_5d - b.acceleration_5d)[0];
+      const broad = [...rows].sort((a,b) => b.breadth - a.breadth)[0];
+      const cards = [
+        lead && ['相對領先', nameOf(lead), `20 日相對 ${signed(lead.relative_strength_20d, 'pp')}，廣度 ${lead.breadth.toFixed(1)}%。先確認 60 日相對是否也為正。`, 'leading'],
+        improve && ['正在改善', nameOf(improve), `短線加速度 ${signed(improve.acceleration_5d, 'pp')}，但 20 日相對仍為負；屬觀察候選，不是已完成輪動。`, 'improving'],
+        weaken && ['領先但降溫', nameOf(weaken), `20 日仍勝市場 ${signed(weaken.relative_strength_20d, 'pp')}，加速度 ${signed(weaken.acceleration_5d, 'pp')}。留意是否滑向落後象限。`, 'weakening'],
+        broad && ['參與最廣', nameOf(broad), `${broad.breadth.toFixed(1)}% 的綜合廣度，較能排除少數大型股單獨拉動。`, broad.quadrant]
+      ].filter(Boolean);
+      document.getElementById('verdicts').innerHTML = cards.map(card => `
+        <div class="verdict">
+          <div class="verdict-kicker">${escapeHtml(card[0])}</div>
+          <div class="verdict-title ${card[3]}">${escapeHtml(card[1])}</div>
+          <div class="verdict-copy">${escapeHtml(card[2])}</div>
+        </div>`).join('');
+    }
+
+    const quadrantBackground = {
+      id: 'quadrantBackground',
+      beforeDraw(chart) {
+        const {ctx, chartArea, scales} = chart;
+        if (!chartArea || !scales.x || !scales.y) return;
+        const x0 = scales.x.getPixelForValue(0);
+        const y0 = scales.y.getPixelForValue(0);
+        const {left, right, top, bottom} = chartArea;
+        ctx.save();
+        const areas = [
+          [x0, top, right-x0, y0-top, 'rgba(34,197,94,.055)', '領先'],
+          [left, top, x0-left, y0-top, 'rgba(34,211,238,.045)', '改善'],
+          [x0, y0, right-x0, bottom-y0, 'rgba(245,158,11,.045)', '轉弱'],
+          [left, y0, x0-left, bottom-y0, 'rgba(251,113,133,.04)', '落後']
+        ];
+        areas.forEach(([x,y,w,h,color,label]) => {
+          ctx.fillStyle = color; ctx.fillRect(x,y,w,h);
+          ctx.fillStyle = 'rgba(203,213,225,.35)'; ctx.font = '700 12px Outfit';
+          ctx.fillText(label, x + 9, y + 17);
+        });
+        ctx.restore();
+      }
+    };
+
+    const endpointLabels = {
+      id: 'endpointLabels',
+      afterDatasetsDraw(chart) {
+        const {ctx} = chart;
+        ctx.save();
+        ctx.font = '700 11px Outfit, Noto Sans TC';
+        chart.data.datasets.forEach((dataset, index) => {
+          const meta = chart.getDatasetMeta(index);
+          const point = meta.data[meta.data.length - 1];
+          if (!point) return;
+          ctx.fillStyle = dataset.borderColor;
+          ctx.fillText(dataset.shortLabel, point.x + 7, point.y - 5);
+        });
+        ctx.restore();
+      }
+    };
+
+    function renderChart() {
+      let rows = rotationData[chartLevel];
+      if (chartLevel === 'industries') rows = rows.slice(0, 20);
+      const xMax = Math.max(1, ...rows.flatMap(row => (row.trajectory || []).map(p => Math.abs(p.x || 0)))) * 1.28;
+      const yMax = Math.max(1, ...rows.flatMap(row => (row.trajectory || []).map(p => Math.abs(p.y || 0)))) * 1.28;
+      const datasets = rows.map(row => {
+        const points = row.trajectory?.length ? row.trajectory : [{x: row.relative_strength_20d, y: row.acceleration_5d, date: rotationData.as_of}];
+        return {
+          label: nameOf(row), shortLabel: row.name_zh,
+          data: points, parsing: false, showLine: true,
+          borderColor: COLORS[row.quadrant], backgroundColor: COLORS[row.quadrant],
+          borderWidth: 1.6, pointRadius: points.map((_, i) => i === points.length - 1 ? Math.min(8, 4 + Math.max(0, row.dollar_volume_expansion || 0) / 15) : 1.8),
+          pointHoverRadius: 7, tension: .18
+        };
+      });
+      if (rotationChart) rotationChart.destroy();
+      rotationChart = new Chart(document.getElementById('rotationChart'), {
+        type: 'scatter', data: {datasets}, plugins: [quadrantBackground, endpointLabels],
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          animation: {duration: 450}, interaction: {mode: 'nearest', intersect: false},
+          scales: {
+            x: {min: -xMax, max: xMax, grid: {color: ctx => ctx.tick.value === 0 ? 'rgba(226,232,240,.5)' : 'rgba(148,163,184,.08)'}, ticks: {color: '#8fa1b9', callback: v => `${Number(v).toFixed(Math.abs(v) >= 10 ? 0 : 1)}%`}, title: {display: true, text: '20 日相對強弱（百分點）', color: '#b8c6d9'}},
+            y: {min: -yMax, max: yMax, grid: {color: ctx => ctx.tick.value === 0 ? 'rgba(226,232,240,.5)' : 'rgba(148,163,184,.08)'}, ticks: {color: '#8fa1b9', callback: v => `${Number(v).toFixed(Math.abs(v) >= 10 ? 0 : 1)}%`}, title: {display: true, text: '5 日相對動能加速度（百分點）', color: '#b8c6d9'}}
+          },
+          plugins: {
+            legend: {display: false},
+            tooltip: {callbacks: {label(context) {
+              const row = rows[context.datasetIndex];
+              const point = context.raw;
+              return [`${nameOf(row)}｜${point.date || rotationData.as_of}`, `20日相對 ${signed(point.x, 'pp')}｜加速度 ${signed(point.y, 'pp')}`, `輪動分數 ${row.rotation_score.toFixed(1)}｜廣度 ${row.breadth.toFixed(1)}%`];
+            }}}
+          }
+        }
+      });
+    }
+
+    function renderTable() {
+      const rows = rotationData[tableLevel];
+      document.getElementById('rankingBody').innerHTML = rows.map((row, index) => `
+        <tr data-key="${escapeHtml(row.key)}">
+          <td><span class="rank">${index + 1}</span><strong>${escapeHtml(nameOf(row))}</strong></td>
+          <td><span class="pill ${row.quadrant}">${escapeHtml(row.quadrant_zh)}</span></td>
+          <td><strong>${row.rotation_score.toFixed(1)}</strong> <span class="${tone(row.score_change_5d)}">(${signed(row.score_change_5d, '')})</span></td>
+          <td class="${tone(row.relative_strength_20d)}">${signed(row.relative_strength_20d, 'pp')}</td>
+          <td class="${tone(row.acceleration_5d)}">${signed(row.acceleration_5d, 'pp')}</td>
+          <td class="${tone(row.relative_strength_60d)}">${signed(row.relative_strength_60d, 'pp')}</td>
+          <td>${row.breadth?.toFixed(1) ?? '—'}%</td>
+          <td class="${tone(row.dollar_volume_expansion)}">${signed(row.dollar_volume_expansion)}</td>
+          <td>${row.persistence?.toFixed(1) ?? '—'}%</td>
+          <td class="${tone(row.leadership_gap)}">${signed(row.leadership_gap, 'pp')}</td>
+          <td>${row.member_count}</td>
+        </tr>`).join('');
+      document.querySelectorAll('#rankingBody tr').forEach(rowNode => rowNode.addEventListener('click', () => {
+        if (tableLevel !== 'sectors') return;
+        selectedSector = rowNode.dataset.key;
+        document.getElementById('sectorSelect').value = selectedSector;
+        renderSectorDetail();
+      }));
+    }
+
+    function renderSectorDetail() {
+      const row = rotationData.sectors.find(item => item.key === selectedSector) || rotationData.sectors[0];
+      if (!row) return;
+      selectedSector = row.key;
+      const ring = document.getElementById('scoreRing');
+      ring.textContent = row.rotation_score.toFixed(0);
+      ring.style.setProperty('--score', row.rotation_score);
+      document.getElementById('sectorName').textContent = nameOf(row);
+      document.getElementById('sectorState').innerHTML = `<span class="pill ${row.quadrant}">${row.quadrant_zh}</span>　5 日分數 ${signed(row.score_change_5d, '')}`;
+      document.getElementById('scoreBars').innerHTML = scoreParts.map(([key, label, weight]) => `
+        <div class="score-row" title="此項權重 ${weight}%；條形為同日橫向百分位，不是原始報酬。">
+          <span>${label} (${weight}%)</span><div class="bar"><i style="width:${row[key] || 0}%"></i></div><strong>${row[key]?.toFixed(0) ?? '—'}</strong>
+        </div>`).join('');
+      document.getElementById('leaderTitle').textContent = `${row.name_zh}｜板塊內部領漲與落後個股`;
+      renderStocks('leaderList', row.leaders || []);
+      renderStocks('laggardList', row.laggards || []);
+    }
+
+    function renderStocks(target, rows) {
+      document.getElementById(target).innerHTML = rows.length ? rows.map(row => `
+        <div class="stock-row" title="${escapeHtml(row.name)}｜20日報酬 ${signed(row.return_20d)}｜成交額 ${signed(row.dollar_volume_expansion)}">
+          <span><strong>${escapeHtml(row.ticker)}</strong> ${escapeHtml(row.name)}</span>
+          <span class="${tone(row.relative_strength_20d)}">相對 ${signed(row.relative_strength_20d, 'pp')}</span>
+          <span class="${tone(row.dollar_volume_expansion)}">量 ${signed(row.dollar_volume_expansion)}</span>
+        </div>`).join('') : '<div class="panel-desc">資料不足</div>';
+    }
+
+    function bindControls() {
+      document.querySelectorAll('[data-level]').forEach(button => button.addEventListener('click', () => {
+        document.querySelectorAll('[data-level]').forEach(item => item.classList.toggle('active', item === button));
+        chartLevel = button.dataset.level; renderChart();
+      }));
+      document.querySelectorAll('[data-table-level]').forEach(button => button.addEventListener('click', () => {
+        document.querySelectorAll('[data-table-level]').forEach(item => item.classList.toggle('active', item === button));
+        tableLevel = button.dataset.tableLevel; renderTable();
+      }));
+      document.getElementById('sectorSelect').addEventListener('change', event => {
+        selectedSector = event.target.value; renderSectorDetail();
+      });
+    }
+
+    async function init() {
+      try {
+        const response = await fetch('market_rotation.json', {cache: 'no-cache'});
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        rotationData = await response.json();
+        if (!rotationData.sectors?.length || !rotationData.industries?.length) throw new Error('資料結構不完整');
+        selectedSector = rotationData.sectors[0].key;
+        const select = document.getElementById('sectorSelect');
+        select.innerHTML = rotationData.sectors.map(row => `<option value="${escapeHtml(row.key)}">${escapeHtml(row.name_zh)}</option>`).join('');
+        bindControls(); renderHeader(); renderMetrics(); renderVerdicts(); renderChart(); renderTable(); renderSectorDetail();
+      } catch (error) {
+        setStatus('error', `<strong>載入失敗：</strong>無法讀取 market_rotation.json（${escapeHtml(error.message)}）。請確認每日資料流程已成功執行並部署。`);
+      }
+    }
+    init();
+  </script>
+</body>
+</html>
