@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-09-12",
+  "generated_at": "2026-09-13",
   "source_dates": {
-    "event_calendar": "2026-09-12",
+    "event_calendar": "2026-09-13",
     "quarterly_financials": "2026-08-30T00:58:14+00:00",
     "forward_guidance": "2026-08-16",
     "guidance_history": "2026-08-16",
@@ -20,260 +20,8 @@
   "preparation_due_count": 0,
   "post_review_due_count": 0,
   "pending_guidance_company_count": 11,
-  "default_ticker": "NOK",
+  "default_ticker": "INTC",
   "companies": [
-    {
-      "ticker": "NOK",
-      "data_ticker": "NOK",
-      "name": "Nokia",
-      "position": "holding",
-      "attention_score": 130,
-      "phase": "scheduled_later",
-      "phase_label": "已知日期，尚未進入 30 天",
-      "next_earnings": {
-        "date": "2026-10-22",
-        "days_until": 40,
-        "confidence": "estimated",
-        "source_label": "Yahoo Finance 行事曆",
-        "source_url": "https://finance.yahoo.com/quote/NOK/calendar/",
-        "source_status": "fresh",
-        "last_success_at": "2026-09-12"
-      },
-      "pre_event": {
-        "preparation_due": false,
-        "guidance": {
-          "status": "available",
-          "rows": [
-            {
-              "period": "FY2026",
-              "metric": "可比營業利益",
-              "low": 2.1,
-              "high": 2.6,
-              "unit": "EUR bn",
-              "actual": null,
-              "source_date": "2026-07-23",
-              "source_url": "https://www.nokia.com/newsroom/nokia-corporation-report-for-q2-and-half-year-2026/"
-            },
-            {
-              "period": "FY2026",
-              "metric": "自由現金流轉換率",
-              "low": 55.0,
-              "high": 75.0,
-              "unit": "%",
-              "actual": null,
-              "source_date": "2026-07-23",
-              "source_url": "https://www.nokia.com/newsroom/nokia-corporation-report-for-q2-and-half-year-2026/"
-            },
-            {
-              "period": "2026 Q3",
-              "metric": "淨銷售額季增率",
-              "low": 3.0,
-              "high": 7.0,
-              "unit": "%",
-              "actual": null,
-              "source_date": "2026-07-23",
-              "source_url": "https://www.nokia.com/newsroom/nokia-corporation-report-for-q2-and-half-year-2026/"
-            }
-          ],
-          "note": null,
-          "source_date": null,
-          "source_url": null
-        },
-        "checkpoints": [
-          {
-            "topic": "管理層指引",
-            "question": "實際結果是否落在 FY2026、2026 Q3 的官方指引區間？",
-            "why": "指引只能與相同期間、相同口徑的實績比較。"
-          },
-          {
-            "topic": "營運連續性",
-            "question": "營收、毛利率與營業利益率是否延續八季方向？",
-            "why": "單季驚喜可能只是季節性，需同時比較 QoQ 與 YoY。"
-          },
-          {
-            "topic": "現金與每股品質",
-            "question": "自由現金流是否改善，稀釋股數是否跨越 10% 風險門檻？",
-            "why": "成長若沒有轉成現金或被稀釋，股東實際受益可能下降。"
-          },
-          {
-            "topic": "論點：產品組合調整能維持正向營業利益率",
-            "question": "本季證據是否仍命中／接近失效條件：營業利益率低於 0%，或連續至少 3 季顯著下降。",
-            "why": "2026-06-30 營業利益率 -1.0%，YoY -4.3pp；連續 3 季下降。"
-          }
-        ],
-        "thesis": {
-          "status": "partial-invalidated",
-          "label": "部分失效",
-          "previous_status": "needs-validation",
-          "previous_label": "需要驗證",
-          "changed_from_previous_quarter": true,
-          "counts": {
-            "supported": 1,
-            "verify": 1,
-            "invalidated": 1
-          },
-          "items": [
-            {
-              "id": "network_growth",
-              "title": "網路基礎設施與企業市場恢復成長",
-              "status": "supported",
-              "label": "支持",
-              "previous_status": "verify",
-              "previous_label": "待驗證",
-              "changed_from_previous_quarter": true,
-              "evidence": "2026-06-30 營收 EUR 4,815.0M，YoY +8.4%；連續 2 季上升。",
-              "invalidation": "營收 YoY ≤ -5%，或營收連續至少 3 季下降。"
-            },
-            {
-              "id": "portfolio_margin",
-              "title": "產品組合調整能維持正向營業利益率",
-              "status": "invalidated",
-              "label": "失效",
-              "previous_status": "verify",
-              "previous_label": "待驗證",
-              "changed_from_previous_quarter": true,
-              "evidence": "2026-06-30 營業利益率 -1.0%，YoY -4.3pp；連續 3 季下降。",
-              "invalidation": "營業利益率低於 0%，或連續至少 3 季顯著下降。"
-            },
-            {
-              "id": "cash_shareholder",
-              "title": "現金流足以支撐研發與股東回報",
-              "status": "verify",
-              "label": "待驗證",
-              "previous_status": "verify",
-              "previous_label": "待驗證",
-              "changed_from_previous_quarter": false,
-              "evidence": "2026-06-30 FCF EUR -732.0M（連續 1 季為負）；稀釋股數 YoY +5.6%。",
-              "invalidation": "FCF 連續至少 4 季為負，或稀釋股數 YoY ≥ 8%。"
-            }
-          ],
-          "master_report": "30_Analysis/NOK_Master_Investment_Thesis_2026.md"
-        }
-      },
-      "post_event": {
-        "review_due": false,
-        "latest_result": {
-          "period_end": "2026-06-30",
-          "filing_date": "2026-07-23",
-          "form": "IFRS 季報",
-          "accession": null,
-          "source_url": "https://www.nokia.com/system/files/2026-07/nokia_results_2026_q2.pdf",
-          "quality_notes": [
-            "Nokia 自 2026 Q2 起將 Fixed Wireless Access CPE 與 Enterprise Campus Edge 列為停業單位；表內 2025 與 2026 Q1 已套用官方重編數字。"
-          ],
-          "currency": "EUR",
-          "source_basis": "Nokia 官方 IFRS reported 季報；2025 與 2026 Q1 已採 2026-07-23 停業單位重編數字，金額為 EUR。",
-          "days_since_filing": 51,
-          "review_due": false
-        },
-        "kpis": [
-          {
-            "metric": "revenue",
-            "label": "營收",
-            "display": "amount",
-            "value": 4815000000.0,
-            "qoq": 8.617189262350555,
-            "yoy": 8.372721134368666,
-            "state": "stable",
-            "interpretation": "營收 YoY +8.4%"
-          },
-          {
-            "metric": "gross_margin",
-            "label": "毛利率",
-            "display": "percent",
-            "value": 0.446,
-            "qoq": 0.0,
-            "yoy": 0.6000000000000005,
-            "state": "stable",
-            "interpretation": "毛利率 YoY +0.6pp"
-          },
-          {
-            "metric": "operating_margin",
-            "label": "營業利益率",
-            "display": "percent",
-            "value": -0.01,
-            "qoq": -2.9,
-            "yoy": -4.300000000000001,
-            "state": "risk",
-            "interpretation": "營業利益率 YoY -4.3pp"
-          },
-          {
-            "metric": "free_cash_flow",
-            "label": "自由現金流",
-            "display": "amount",
-            "value": -732000000.0,
-            "qoq": null,
-            "yoy": null,
-            "state": "risk",
-            "interpretation": "自由現金流為負"
-          },
-          {
-            "metric": "diluted_shares",
-            "label": "稀釋股數",
-            "display": "shares",
-            "value": 5801886000.0,
-            "qoq": 1.3832214286612965,
-            "yoy": 5.646191563871139,
-            "state": "stable",
-            "interpretation": "稀釋股數 YoY +5.6%"
-          }
-        ],
-        "completed_guidance": {
-          "status": "different_cadence",
-          "note": "Nokia 主要發布全年可比營業利益／自由現金流轉換率，且近期組織與口徑改變；不把年度目標與季度營收混算成命中率。",
-          "review_url": "https://www.nokia.com/about-us/investors/results-reports/",
-          "record": null
-        },
-        "thesis": {
-          "status": "partial-invalidated",
-          "label": "部分失效",
-          "previous_status": "needs-validation",
-          "previous_label": "需要驗證",
-          "changed_from_previous_quarter": true,
-          "counts": {
-            "supported": 1,
-            "verify": 1,
-            "invalidated": 1
-          },
-          "items": [
-            {
-              "id": "network_growth",
-              "title": "網路基礎設施與企業市場恢復成長",
-              "status": "supported",
-              "label": "支持",
-              "previous_status": "verify",
-              "previous_label": "待驗證",
-              "changed_from_previous_quarter": true,
-              "evidence": "2026-06-30 營收 EUR 4,815.0M，YoY +8.4%；連續 2 季上升。",
-              "invalidation": "營收 YoY ≤ -5%，或營收連續至少 3 季下降。"
-            },
-            {
-              "id": "portfolio_margin",
-              "title": "產品組合調整能維持正向營業利益率",
-              "status": "invalidated",
-              "label": "失效",
-              "previous_status": "verify",
-              "previous_label": "待驗證",
-              "changed_from_previous_quarter": true,
-              "evidence": "2026-06-30 營業利益率 -1.0%，YoY -4.3pp；連續 3 季下降。",
-              "invalidation": "營業利益率低於 0%，或連續至少 3 季顯著下降。"
-            },
-            {
-              "id": "cash_shareholder",
-              "title": "現金流足以支撐研發與股東回報",
-              "status": "verify",
-              "label": "待驗證",
-              "previous_status": "verify",
-              "previous_label": "待驗證",
-              "changed_from_previous_quarter": false,
-              "evidence": "2026-06-30 FCF EUR -732.0M（連續 1 季為負）；稀釋股數 YoY +5.6%。",
-              "invalidation": "FCF 連續至少 4 季為負，或稀釋股數 YoY ≥ 8%。"
-            }
-          ],
-          "master_report": "30_Analysis/NOK_Master_Investment_Thesis_2026.md"
-        }
-      }
-    },
     {
       "ticker": "INTC",
       "data_ticker": "INTC",
@@ -283,13 +31,13 @@
       "phase": "scheduled_later",
       "phase_label": "已知日期，尚未進入 30 天",
       "next_earnings": {
-        "date": "2026-10-23",
-        "days_until": 41,
+        "date": "2026-10-22",
+        "days_until": 39,
         "confidence": "estimated",
         "source_label": "Yahoo Finance 行事曆",
         "source_url": "https://finance.yahoo.com/quote/INTC/calendar/",
         "source_status": "fresh",
-        "last_success_at": "2026-09-12"
+        "last_success_at": "2026-09-13"
       },
       "pre_event": {
         "preparation_due": false,
@@ -393,7 +141,7 @@
           "quality_notes": [],
           "currency": "USD",
           "source_basis": "SEC Company Facts；金額為 USD。",
-          "days_since_filing": 50,
+          "days_since_filing": 51,
           "review_due": false
         },
         "kpis": [
@@ -519,6 +267,258 @@
       }
     },
     {
+      "ticker": "NOK",
+      "data_ticker": "NOK",
+      "name": "Nokia",
+      "position": "holding",
+      "attention_score": 130,
+      "phase": "scheduled_later",
+      "phase_label": "已知日期，尚未進入 30 天",
+      "next_earnings": {
+        "date": "2026-10-22",
+        "days_until": 39,
+        "confidence": "estimated",
+        "source_label": "Yahoo Finance 行事曆",
+        "source_url": "https://finance.yahoo.com/quote/NOK/calendar/",
+        "source_status": "fresh",
+        "last_success_at": "2026-09-13"
+      },
+      "pre_event": {
+        "preparation_due": false,
+        "guidance": {
+          "status": "available",
+          "rows": [
+            {
+              "period": "FY2026",
+              "metric": "可比營業利益",
+              "low": 2.1,
+              "high": 2.6,
+              "unit": "EUR bn",
+              "actual": null,
+              "source_date": "2026-07-23",
+              "source_url": "https://www.nokia.com/newsroom/nokia-corporation-report-for-q2-and-half-year-2026/"
+            },
+            {
+              "period": "FY2026",
+              "metric": "自由現金流轉換率",
+              "low": 55.0,
+              "high": 75.0,
+              "unit": "%",
+              "actual": null,
+              "source_date": "2026-07-23",
+              "source_url": "https://www.nokia.com/newsroom/nokia-corporation-report-for-q2-and-half-year-2026/"
+            },
+            {
+              "period": "2026 Q3",
+              "metric": "淨銷售額季增率",
+              "low": 3.0,
+              "high": 7.0,
+              "unit": "%",
+              "actual": null,
+              "source_date": "2026-07-23",
+              "source_url": "https://www.nokia.com/newsroom/nokia-corporation-report-for-q2-and-half-year-2026/"
+            }
+          ],
+          "note": null,
+          "source_date": null,
+          "source_url": null
+        },
+        "checkpoints": [
+          {
+            "topic": "管理層指引",
+            "question": "實際結果是否落在 FY2026、2026 Q3 的官方指引區間？",
+            "why": "指引只能與相同期間、相同口徑的實績比較。"
+          },
+          {
+            "topic": "營運連續性",
+            "question": "營收、毛利率與營業利益率是否延續八季方向？",
+            "why": "單季驚喜可能只是季節性，需同時比較 QoQ 與 YoY。"
+          },
+          {
+            "topic": "現金與每股品質",
+            "question": "自由現金流是否改善，稀釋股數是否跨越 10% 風險門檻？",
+            "why": "成長若沒有轉成現金或被稀釋，股東實際受益可能下降。"
+          },
+          {
+            "topic": "論點：產品組合調整能維持正向營業利益率",
+            "question": "本季證據是否仍命中／接近失效條件：營業利益率低於 0%，或連續至少 3 季顯著下降。",
+            "why": "2026-06-30 營業利益率 -1.0%，YoY -4.3pp；連續 3 季下降。"
+          }
+        ],
+        "thesis": {
+          "status": "partial-invalidated",
+          "label": "部分失效",
+          "previous_status": "needs-validation",
+          "previous_label": "需要驗證",
+          "changed_from_previous_quarter": true,
+          "counts": {
+            "supported": 1,
+            "verify": 1,
+            "invalidated": 1
+          },
+          "items": [
+            {
+              "id": "network_growth",
+              "title": "網路基礎設施與企業市場恢復成長",
+              "status": "supported",
+              "label": "支持",
+              "previous_status": "verify",
+              "previous_label": "待驗證",
+              "changed_from_previous_quarter": true,
+              "evidence": "2026-06-30 營收 EUR 4,815.0M，YoY +8.4%；連續 2 季上升。",
+              "invalidation": "營收 YoY ≤ -5%，或營收連續至少 3 季下降。"
+            },
+            {
+              "id": "portfolio_margin",
+              "title": "產品組合調整能維持正向營業利益率",
+              "status": "invalidated",
+              "label": "失效",
+              "previous_status": "verify",
+              "previous_label": "待驗證",
+              "changed_from_previous_quarter": true,
+              "evidence": "2026-06-30 營業利益率 -1.0%，YoY -4.3pp；連續 3 季下降。",
+              "invalidation": "營業利益率低於 0%，或連續至少 3 季顯著下降。"
+            },
+            {
+              "id": "cash_shareholder",
+              "title": "現金流足以支撐研發與股東回報",
+              "status": "verify",
+              "label": "待驗證",
+              "previous_status": "verify",
+              "previous_label": "待驗證",
+              "changed_from_previous_quarter": false,
+              "evidence": "2026-06-30 FCF EUR -732.0M（連續 1 季為負）；稀釋股數 YoY +5.6%。",
+              "invalidation": "FCF 連續至少 4 季為負，或稀釋股數 YoY ≥ 8%。"
+            }
+          ],
+          "master_report": "30_Analysis/NOK_Master_Investment_Thesis_2026.md"
+        }
+      },
+      "post_event": {
+        "review_due": false,
+        "latest_result": {
+          "period_end": "2026-06-30",
+          "filing_date": "2026-07-23",
+          "form": "IFRS 季報",
+          "accession": null,
+          "source_url": "https://www.nokia.com/system/files/2026-07/nokia_results_2026_q2.pdf",
+          "quality_notes": [
+            "Nokia 自 2026 Q2 起將 Fixed Wireless Access CPE 與 Enterprise Campus Edge 列為停業單位；表內 2025 與 2026 Q1 已套用官方重編數字。"
+          ],
+          "currency": "EUR",
+          "source_basis": "Nokia 官方 IFRS reported 季報；2025 與 2026 Q1 已採 2026-07-23 停業單位重編數字，金額為 EUR。",
+          "days_since_filing": 52,
+          "review_due": false
+        },
+        "kpis": [
+          {
+            "metric": "revenue",
+            "label": "營收",
+            "display": "amount",
+            "value": 4815000000.0,
+            "qoq": 8.617189262350555,
+            "yoy": 8.372721134368666,
+            "state": "stable",
+            "interpretation": "營收 YoY +8.4%"
+          },
+          {
+            "metric": "gross_margin",
+            "label": "毛利率",
+            "display": "percent",
+            "value": 0.446,
+            "qoq": 0.0,
+            "yoy": 0.6000000000000005,
+            "state": "stable",
+            "interpretation": "毛利率 YoY +0.6pp"
+          },
+          {
+            "metric": "operating_margin",
+            "label": "營業利益率",
+            "display": "percent",
+            "value": -0.01,
+            "qoq": -2.9,
+            "yoy": -4.300000000000001,
+            "state": "risk",
+            "interpretation": "營業利益率 YoY -4.3pp"
+          },
+          {
+            "metric": "free_cash_flow",
+            "label": "自由現金流",
+            "display": "amount",
+            "value": -732000000.0,
+            "qoq": null,
+            "yoy": null,
+            "state": "risk",
+            "interpretation": "自由現金流為負"
+          },
+          {
+            "metric": "diluted_shares",
+            "label": "稀釋股數",
+            "display": "shares",
+            "value": 5801886000.0,
+            "qoq": 1.3832214286612965,
+            "yoy": 5.646191563871139,
+            "state": "stable",
+            "interpretation": "稀釋股數 YoY +5.6%"
+          }
+        ],
+        "completed_guidance": {
+          "status": "different_cadence",
+          "note": "Nokia 主要發布全年可比營業利益／自由現金流轉換率，且近期組織與口徑改變；不把年度目標與季度營收混算成命中率。",
+          "review_url": "https://www.nokia.com/about-us/investors/results-reports/",
+          "record": null
+        },
+        "thesis": {
+          "status": "partial-invalidated",
+          "label": "部分失效",
+          "previous_status": "needs-validation",
+          "previous_label": "需要驗證",
+          "changed_from_previous_quarter": true,
+          "counts": {
+            "supported": 1,
+            "verify": 1,
+            "invalidated": 1
+          },
+          "items": [
+            {
+              "id": "network_growth",
+              "title": "網路基礎設施與企業市場恢復成長",
+              "status": "supported",
+              "label": "支持",
+              "previous_status": "verify",
+              "previous_label": "待驗證",
+              "changed_from_previous_quarter": true,
+              "evidence": "2026-06-30 營收 EUR 4,815.0M，YoY +8.4%；連續 2 季上升。",
+              "invalidation": "營收 YoY ≤ -5%，或營收連續至少 3 季下降。"
+            },
+            {
+              "id": "portfolio_margin",
+              "title": "產品組合調整能維持正向營業利益率",
+              "status": "invalidated",
+              "label": "失效",
+              "previous_status": "verify",
+              "previous_label": "待驗證",
+              "changed_from_previous_quarter": true,
+              "evidence": "2026-06-30 營業利益率 -1.0%，YoY -4.3pp；連續 3 季下降。",
+              "invalidation": "營業利益率低於 0%，或連續至少 3 季顯著下降。"
+            },
+            {
+              "id": "cash_shareholder",
+              "title": "現金流足以支撐研發與股東回報",
+              "status": "verify",
+              "label": "待驗證",
+              "previous_status": "verify",
+              "previous_label": "待驗證",
+              "changed_from_previous_quarter": false,
+              "evidence": "2026-06-30 FCF EUR -732.0M（連續 1 季為負）；稀釋股數 YoY +5.6%。",
+              "invalidation": "FCF 連續至少 4 季為負，或稀釋股數 YoY ≥ 8%。"
+            }
+          ],
+          "master_report": "30_Analysis/NOK_Master_Investment_Thesis_2026.md"
+        }
+      }
+    },
+    {
       "ticker": "COHR",
       "data_ticker": "COHR",
       "name": "Coherent",
@@ -527,13 +527,13 @@
       "phase": "scheduled_later",
       "phase_label": "已知日期，尚未進入 30 天",
       "next_earnings": {
-        "date": "2026-11-05",
-        "days_until": 54,
+        "date": "2026-11-04",
+        "days_until": 52,
         "confidence": "estimated",
         "source_label": "Yahoo Finance 行事曆",
         "source_url": "https://finance.yahoo.com/quote/COHR/calendar/",
         "source_status": "fresh",
-        "last_success_at": "2026-09-12"
+        "last_success_at": "2026-09-13"
       },
       "pre_event": {
         "preparation_due": false,
@@ -657,7 +657,7 @@
           "quality_notes": [],
           "currency": "USD",
           "source_basis": "SEC Company Facts；金額為 USD。",
-          "days_since_filing": 29,
+          "days_since_filing": 30,
           "review_due": false
         },
         "kpis": [
@@ -791,13 +791,13 @@
       "phase": "scheduled_later",
       "phase_label": "已知日期，尚未進入 30 天",
       "next_earnings": {
-        "date": "2026-10-22",
-        "days_until": 40,
+        "date": "2026-10-21",
+        "days_until": 38,
         "confidence": "estimated",
         "source_label": "Yahoo Finance 行事曆",
         "source_url": "https://finance.yahoo.com/quote/TSLA/calendar/",
         "source_status": "fresh",
-        "last_success_at": "2026-09-12"
+        "last_success_at": "2026-09-13"
       },
       "pre_event": {
         "preparation_due": false,
@@ -890,7 +890,7 @@
           "quality_notes": [],
           "currency": "USD",
           "source_basis": "SEC Company Facts；金額為 USD。",
-          "days_since_filing": 51,
+          "days_since_filing": 52,
           "review_due": false
         },
         "kpis": [
@@ -1010,13 +1010,13 @@
       "phase": "scheduled_later",
       "phase_label": "已知日期，尚未進入 30 天",
       "next_earnings": {
-        "date": "2026-10-29",
-        "days_until": 47,
+        "date": "2026-10-28",
+        "days_until": 45,
         "confidence": "estimated",
         "source_label": "Yahoo Finance 行事曆",
         "source_url": "https://finance.yahoo.com/quote/GOOG/calendar/",
         "source_status": "fresh",
-        "last_success_at": "2026-09-12"
+        "last_success_at": "2026-09-13"
       },
       "pre_event": {
         "preparation_due": false,
@@ -1109,7 +1109,7 @@
           "quality_notes": [],
           "currency": "USD",
           "source_basis": "SEC Company Facts；金額為 USD。",
-          "days_since_filing": 51,
+          "days_since_filing": 52,
           "review_due": false
         },
         "kpis": [
@@ -1229,13 +1229,13 @@
       "phase": "scheduled_later",
       "phase_label": "已知日期，尚未進入 30 天",
       "next_earnings": {
-        "date": "2026-11-05",
-        "days_until": 54,
+        "date": "2026-11-04",
+        "days_until": 52,
         "confidence": "estimated",
         "source_label": "Yahoo Finance 行事曆",
         "source_url": "https://finance.yahoo.com/quote/ARM/calendar/",
         "source_status": "fresh",
-        "last_success_at": "2026-09-12"
+        "last_success_at": "2026-09-13"
       },
       "pre_event": {
         "preparation_due": false,
@@ -1349,7 +1349,7 @@
           "quality_notes": [],
           "currency": "USD",
           "source_basis": "SEC Company Facts；金額為 USD。",
-          "days_since_filing": 45,
+          "days_since_filing": 46,
           "review_due": false
         },
         "kpis": [
@@ -1483,13 +1483,13 @@
       "phase": "scheduled_later",
       "phase_label": "已知日期，尚未進入 30 天",
       "next_earnings": {
-        "date": "2026-11-18",
-        "days_until": 67,
+        "date": "2026-11-17",
+        "days_until": 65,
         "confidence": "estimated",
         "source_label": "Yahoo Finance 行事曆",
         "source_url": "https://finance.yahoo.com/quote/NVDA/calendar/",
         "source_status": "fresh",
-        "last_success_at": "2026-09-12"
+        "last_success_at": "2026-09-13"
       },
       "pre_event": {
         "preparation_due": false,
@@ -1603,7 +1603,7 @@
           "quality_notes": [],
           "currency": "USD",
           "source_basis": "SEC Company Facts；金額為 USD。",
-          "days_since_filing": 17,
+          "days_since_filing": 18,
           "review_due": false
         },
         "kpis": [
@@ -1737,13 +1737,13 @@
       "phase": "scheduled_later",
       "phase_label": "已知日期，尚未進入 30 天",
       "next_earnings": {
-        "date": "2026-12-02",
-        "days_until": 81,
+        "date": "2026-12-01",
+        "days_until": 79,
         "confidence": "estimated",
         "source_label": "Yahoo Finance 行事曆",
         "source_url": "https://finance.yahoo.com/quote/MRVL/calendar/",
         "source_status": "fresh",
-        "last_success_at": "2026-09-12"
+        "last_success_at": "2026-09-13"
       },
       "pre_event": {
         "preparation_due": false,
@@ -1867,7 +1867,7 @@
           "quality_notes": [],
           "currency": "USD",
           "source_basis": "SEC Company Facts；金額為 USD。",
-          "days_since_filing": 15,
+          "days_since_filing": 16,
           "review_due": false
         },
         "kpis": [
@@ -2002,12 +2002,12 @@
       "phase_label": "已知日期，尚未進入 30 天",
       "next_earnings": {
         "date": "2026-11-12",
-        "days_until": 61,
+        "days_until": 60,
         "confidence": "estimated",
         "source_label": "Yahoo Finance 行事曆",
         "source_url": "https://finance.yahoo.com/quote/ONDS/calendar/",
         "source_status": "fresh",
-        "last_success_at": "2026-09-12"
+        "last_success_at": "2026-09-13"
       },
       "pre_event": {
         "preparation_due": false,
@@ -2111,7 +2111,7 @@
           "quality_notes": [],
           "currency": "USD",
           "source_basis": "SEC Company Facts；金額為 USD。",
-          "days_since_filing": 30,
+          "days_since_filing": 31,
           "review_due": false
         },
         "kpis": [
@@ -2231,13 +2231,13 @@
       "phase": "scheduled_later",
       "phase_label": "已知日期，尚未進入 30 天",
       "next_earnings": {
-        "date": "2026-10-29",
-        "days_until": 47,
+        "date": "2026-10-28",
+        "days_until": 45,
         "confidence": "estimated",
         "source_label": "Yahoo Finance 行事曆",
         "source_url": "https://finance.yahoo.com/quote/META/calendar/",
         "source_status": "fresh",
-        "last_success_at": "2026-09-12"
+        "last_success_at": "2026-09-13"
       },
       "pre_event": {
         "preparation_due": false,
@@ -2361,7 +2361,7 @@
           "quality_notes": [],
           "currency": "USD",
           "source_basis": "SEC Company Facts；金額為 USD。",
-          "days_since_filing": 44,
+          "days_since_filing": 45,
           "review_due": false
         },
         "kpis": [
@@ -2495,13 +2495,13 @@
       "phase": "scheduled_later",
       "phase_label": "已知日期，尚未進入 30 天",
       "next_earnings": {
-        "date": "2026-10-29",
-        "days_until": 47,
+        "date": "2026-10-28",
+        "days_until": 45,
         "confidence": "estimated",
         "source_label": "Yahoo Finance 行事曆",
         "source_url": "https://finance.yahoo.com/quote/MSFT/calendar/",
         "source_status": "fresh",
-        "last_success_at": "2026-09-12"
+        "last_success_at": "2026-09-13"
       },
       "pre_event": {
         "preparation_due": false,
@@ -2605,7 +2605,7 @@
           "quality_notes": [],
           "currency": "USD",
           "source_basis": "SEC Company Facts；金額為 USD。",
-          "days_since_filing": 45,
+          "days_since_filing": 46,
           "review_due": false
         },
         "kpis": [
@@ -2739,13 +2739,13 @@
       "phase": "scheduled_later",
       "phase_label": "已知日期，尚未進入 30 天",
       "next_earnings": {
-        "date": "2026-10-30",
-        "days_until": 48,
+        "date": "2026-10-29",
+        "days_until": 46,
         "confidence": "estimated",
         "source_label": "Yahoo Finance 行事曆",
         "source_url": "https://finance.yahoo.com/quote/AAPL/calendar/",
         "source_status": "fresh",
-        "last_success_at": "2026-09-12"
+        "last_success_at": "2026-09-13"
       },
       "pre_event": {
         "preparation_due": false,
@@ -2838,7 +2838,7 @@
           "quality_notes": [],
           "currency": "USD",
           "source_basis": "SEC Company Facts；金額為 USD。",
-          "days_since_filing": 43,
+          "days_since_filing": 44,
           "review_due": false
         },
         "kpis": [
@@ -2959,12 +2959,12 @@
       "phase_label": "已知日期，尚未進入 30 天",
       "next_earnings": {
         "date": "2026-10-15",
-        "days_until": 33,
+        "days_until": 32,
         "confidence": "estimated",
         "source_label": "Yahoo Finance 行事曆",
         "source_url": "https://finance.yahoo.com/quote/TSM/calendar/",
         "source_status": "fresh",
-        "last_success_at": "2026-09-12"
+        "last_success_at": "2026-09-13"
       },
       "pre_event": {
         "preparation_due": false,
@@ -3088,7 +3088,7 @@
           "quality_notes": [],
           "currency": "TWD",
           "source_basis": "TSMC 官方 TIFRS consolidated 季度管理報告；金額為新台幣。",
-          "days_since_filing": 58,
+          "days_since_filing": 59,
           "review_due": false
         },
         "kpis": [
@@ -3222,13 +3222,13 @@
       "phase": "scheduled_later",
       "phase_label": "已知日期，尚未進入 30 天",
       "next_earnings": {
-        "date": "2026-10-30",
-        "days_until": 48,
+        "date": "2026-10-29",
+        "days_until": 46,
         "confidence": "estimated",
         "source_label": "Yahoo Finance 行事曆",
         "source_url": "https://finance.yahoo.com/quote/AMZN/calendar/",
         "source_status": "fresh",
-        "last_success_at": "2026-09-12"
+        "last_success_at": "2026-09-13"
       },
       "pre_event": {
         "preparation_due": false,
@@ -3342,7 +3342,7 @@
           "quality_notes": [],
           "currency": "USD",
           "source_basis": "SEC Company Facts；金額為 USD。",
-          "days_since_filing": 43,
+          "days_since_filing": 44,
           "review_due": false
         },
         "kpis": [

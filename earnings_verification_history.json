@@ -1,18 +1,179 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-12T18:26:21+08:00",
-  "current_snapshot_id": "c0e27594b7c75ba3",
-  "previous_snapshot_id": "d70df2110d00d50b",
-  "batch_id": "70e6bb0261f3",
+  "updated_at": "2026-09-13T08:38:51+08:00",
+  "current_snapshot_id": "61c3d20a3a4a6f4c",
+  "previous_snapshot_id": "c0e27594b7c75ba3",
+  "batch_id": "5a0db45f9df0",
   "notify_count": 0,
   "critical_count": 0,
   "notification_policy": "首次建立比較基準，不發通知，也不回填不存在的財報前判斷；之後只通知財報前／後階段、新季度、官方指引、KPI 風險／改善、指引驗證與論點結論變化。每日倒數與未跨狀態的數值波動不通知。",
   "notifications": [],
   "current": {
-    "snapshot_id": "c0e27594b7c75ba3",
-    "captured_at": "2026-09-12T18:26:21+08:00",
-    "source_date": "2026-09-12",
+    "snapshot_id": "61c3d20a3a4a6f4c",
+    "captured_at": "2026-09-13T08:38:51+08:00",
+    "source_date": "2026-09-13",
     "companies": {
+      "INTC": {
+        "ticker": "INTC",
+        "position": "holding",
+        "phase": "scheduled_later",
+        "phase_label": "已知日期，尚未進入 30 天",
+        "next_earnings": {
+          "date": "2026-10-22",
+          "confidence": "estimated",
+          "source_label": "Yahoo Finance 行事曆",
+          "source_url": "https://finance.yahoo.com/quote/INTC/calendar/",
+          "source_status": "fresh"
+        },
+        "guidance": {
+          "status": "available",
+          "note": null,
+          "rows": [
+            {
+              "period": "2026 Q3",
+              "metric": "營收",
+              "low": 15.8,
+              "high": 16.8,
+              "unit": "USD bn",
+              "source_date": "2026-07-23",
+              "source_url": "https://newsroom.intel.com/corporate/intel-reports-second-quarter-2026-financial-results"
+            }
+          ]
+        },
+        "checkpoints": [
+          {
+            "topic": "管理層指引",
+            "question": "實際結果是否落在 2026 Q3 的官方指引區間？",
+            "why": "指引只能與相同期間、相同口徑的實績比較。"
+          },
+          {
+            "topic": "營運連續性",
+            "question": "營收、毛利率與營業利益率是否延續八季方向？",
+            "why": "單季驚喜可能只是季節性，需同時比較 QoQ 與 YoY。"
+          },
+          {
+            "topic": "現金與每股品質",
+            "question": "自由現金流是否改善，稀釋股數是否跨越 10% 風險門檻？",
+            "why": "成長若沒有轉成現金或被稀釋，股東實際受益可能下降。"
+          },
+          {
+            "topic": "論點：轉型資本支出不造成長期現金流失血",
+            "question": "本季證據是否仍命中／接近失效條件：FCF 連續至少 4 季為負，或稀釋股數 YoY ≥ 8%。",
+            "why": "2026-06-27 FCF USD 4,450.0M（連續 1 季為正）；稀釋股數 YoY +16.8%。"
+          }
+        ],
+        "latest_result": {
+          "period_end": "2026-06-27",
+          "filing_date": "2026-07-24",
+          "form": "10-Q",
+          "accession": "0000050863-26-000157",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/50863/000005086326000157/0000050863-26-000157-index.html",
+          "currency": "USD"
+        },
+        "kpis": [
+          {
+            "metric": "revenue",
+            "label": "營收",
+            "display": "amount",
+            "value": 16128000000.0,
+            "qoq": 18.789128673491938,
+            "yoy": 25.421883505715837,
+            "state": "improved",
+            "interpretation": "營收 YoY +25.4%"
+          },
+          {
+            "metric": "gross_margin",
+            "label": "毛利率",
+            "display": "percent",
+            "value": 0.40358382936507936,
+            "qoq": 0.975603235543071,
+            "yoy": 12.813472756867217,
+            "state": "improved",
+            "interpretation": "毛利率 YoY +12.8pp"
+          },
+          {
+            "metric": "operating_margin",
+            "label": "營業利益率",
+            "display": "percent",
+            "value": 0.11135912698412699,
+            "qoq": 34.23379882936947,
+            "yoy": 35.8345673371871,
+            "state": "improved",
+            "interpretation": "營業利益率 YoY +35.8pp"
+          },
+          {
+            "metric": "free_cash_flow",
+            "label": "自由現金流",
+            "display": "amount",
+            "value": 4450000000.0,
+            "qoq": null,
+            "yoy": null,
+            "state": "improved",
+            "interpretation": "自由現金流為正"
+          },
+          {
+            "metric": "diluted_shares",
+            "label": "稀釋股數",
+            "display": "shares",
+            "value": 5104000000.0,
+            "qoq": 0.41314184536691556,
+            "yoy": 16.823071641107813,
+            "state": "risk",
+            "interpretation": "稀釋股數 YoY +16.8%"
+          }
+        ],
+        "completed_guidance": {
+          "period": "2026 Q2",
+          "period_end": "2026-06-27",
+          "low": 13.8,
+          "high": 14.8,
+          "actual": 16.128,
+          "guidance_date": "2026-04-23",
+          "guidance_source_url": "https://www.sec.gov/Archives/edgar/data/50863/000005086326000077/q126earningsrelease.htm",
+          "metric": "營收",
+          "unit": "USD bn",
+          "comparison_basis": "公司發布的下一季營收區間；實績採 GAAP net revenue。",
+          "outcome": "above",
+          "outcome_label": "高於指引",
+          "vs_midpoint_pct": 12.783216783216789
+        },
+        "thesis": {
+          "status": "partial-invalidated",
+          "label": "部分失效",
+          "items": [
+            {
+              "id": "turnaround_growth",
+              "title": "產品與晶圓代工轉型恢復營收成長",
+              "status": "supported",
+              "label": "支持",
+              "evidence": "2026-06-27 營收 USD 16,128.0M，YoY +25.4%；連續 2 季上升。",
+              "invalidation": "營收 YoY ≤ -5%，或營收連續至少 3 季下降。"
+            },
+            {
+              "id": "manufacturing_recovery",
+              "title": "製程與產能利用率帶動毛利率復甦",
+              "status": "supported",
+              "label": "支持",
+              "evidence": "2026-06-27 毛利率 40.4%，YoY +12.8pp；連續 3 季上升。",
+              "invalidation": "毛利率低於 30%，或連續至少 3 季顯著下降。"
+            },
+            {
+              "id": "foundry_funding",
+              "title": "轉型資本支出不造成長期現金流失血",
+              "status": "invalidated",
+              "label": "失效",
+              "evidence": "2026-06-27 FCF USD 4,450.0M（連續 1 季為正）；稀釋股數 YoY +16.8%。",
+              "invalidation": "FCF 連續至少 4 季為負，或稀釋股數 YoY ≥ 8%。"
+            }
+          ]
+        },
+        "comparison": {
+          "status": "unchanged",
+          "notify": false,
+          "label": "沒有需通知的實質變化",
+          "reasons": []
+        }
+      },
       "NOK": {
         "ticker": "NOK",
         "position": "holding",
@@ -178,174 +339,13 @@
           "reasons": []
         }
       },
-      "INTC": {
-        "ticker": "INTC",
-        "position": "holding",
-        "phase": "scheduled_later",
-        "phase_label": "已知日期，尚未進入 30 天",
-        "next_earnings": {
-          "date": "2026-10-23",
-          "confidence": "estimated",
-          "source_label": "Yahoo Finance 行事曆",
-          "source_url": "https://finance.yahoo.com/quote/INTC/calendar/",
-          "source_status": "fresh"
-        },
-        "guidance": {
-          "status": "available",
-          "note": null,
-          "rows": [
-            {
-              "period": "2026 Q3",
-              "metric": "營收",
-              "low": 15.8,
-              "high": 16.8,
-              "unit": "USD bn",
-              "source_date": "2026-07-23",
-              "source_url": "https://newsroom.intel.com/corporate/intel-reports-second-quarter-2026-financial-results"
-            }
-          ]
-        },
-        "checkpoints": [
-          {
-            "topic": "管理層指引",
-            "question": "實際結果是否落在 2026 Q3 的官方指引區間？",
-            "why": "指引只能與相同期間、相同口徑的實績比較。"
-          },
-          {
-            "topic": "營運連續性",
-            "question": "營收、毛利率與營業利益率是否延續八季方向？",
-            "why": "單季驚喜可能只是季節性，需同時比較 QoQ 與 YoY。"
-          },
-          {
-            "topic": "現金與每股品質",
-            "question": "自由現金流是否改善，稀釋股數是否跨越 10% 風險門檻？",
-            "why": "成長若沒有轉成現金或被稀釋，股東實際受益可能下降。"
-          },
-          {
-            "topic": "論點：轉型資本支出不造成長期現金流失血",
-            "question": "本季證據是否仍命中／接近失效條件：FCF 連續至少 4 季為負，或稀釋股數 YoY ≥ 8%。",
-            "why": "2026-06-27 FCF USD 4,450.0M（連續 1 季為正）；稀釋股數 YoY +16.8%。"
-          }
-        ],
-        "latest_result": {
-          "period_end": "2026-06-27",
-          "filing_date": "2026-07-24",
-          "form": "10-Q",
-          "accession": "0000050863-26-000157",
-          "source_url": "https://www.sec.gov/Archives/edgar/data/50863/000005086326000157/0000050863-26-000157-index.html",
-          "currency": "USD"
-        },
-        "kpis": [
-          {
-            "metric": "revenue",
-            "label": "營收",
-            "display": "amount",
-            "value": 16128000000.0,
-            "qoq": 18.789128673491938,
-            "yoy": 25.421883505715837,
-            "state": "improved",
-            "interpretation": "營收 YoY +25.4%"
-          },
-          {
-            "metric": "gross_margin",
-            "label": "毛利率",
-            "display": "percent",
-            "value": 0.40358382936507936,
-            "qoq": 0.975603235543071,
-            "yoy": 12.813472756867217,
-            "state": "improved",
-            "interpretation": "毛利率 YoY +12.8pp"
-          },
-          {
-            "metric": "operating_margin",
-            "label": "營業利益率",
-            "display": "percent",
-            "value": 0.11135912698412699,
-            "qoq": 34.23379882936947,
-            "yoy": 35.8345673371871,
-            "state": "improved",
-            "interpretation": "營業利益率 YoY +35.8pp"
-          },
-          {
-            "metric": "free_cash_flow",
-            "label": "自由現金流",
-            "display": "amount",
-            "value": 4450000000.0,
-            "qoq": null,
-            "yoy": null,
-            "state": "improved",
-            "interpretation": "自由現金流為正"
-          },
-          {
-            "metric": "diluted_shares",
-            "label": "稀釋股數",
-            "display": "shares",
-            "value": 5104000000.0,
-            "qoq": 0.41314184536691556,
-            "yoy": 16.823071641107813,
-            "state": "risk",
-            "interpretation": "稀釋股數 YoY +16.8%"
-          }
-        ],
-        "completed_guidance": {
-          "period": "2026 Q2",
-          "period_end": "2026-06-27",
-          "low": 13.8,
-          "high": 14.8,
-          "actual": 16.128,
-          "guidance_date": "2026-04-23",
-          "guidance_source_url": "https://www.sec.gov/Archives/edgar/data/50863/000005086326000077/q126earningsrelease.htm",
-          "metric": "營收",
-          "unit": "USD bn",
-          "comparison_basis": "公司發布的下一季營收區間；實績採 GAAP net revenue。",
-          "outcome": "above",
-          "outcome_label": "高於指引",
-          "vs_midpoint_pct": 12.783216783216789
-        },
-        "thesis": {
-          "status": "partial-invalidated",
-          "label": "部分失效",
-          "items": [
-            {
-              "id": "turnaround_growth",
-              "title": "產品與晶圓代工轉型恢復營收成長",
-              "status": "supported",
-              "label": "支持",
-              "evidence": "2026-06-27 營收 USD 16,128.0M，YoY +25.4%；連續 2 季上升。",
-              "invalidation": "營收 YoY ≤ -5%，或營收連續至少 3 季下降。"
-            },
-            {
-              "id": "manufacturing_recovery",
-              "title": "製程與產能利用率帶動毛利率復甦",
-              "status": "supported",
-              "label": "支持",
-              "evidence": "2026-06-27 毛利率 40.4%，YoY +12.8pp；連續 3 季上升。",
-              "invalidation": "毛利率低於 30%，或連續至少 3 季顯著下降。"
-            },
-            {
-              "id": "foundry_funding",
-              "title": "轉型資本支出不造成長期現金流失血",
-              "status": "invalidated",
-              "label": "失效",
-              "evidence": "2026-06-27 FCF USD 4,450.0M（連續 1 季為正）；稀釋股數 YoY +16.8%。",
-              "invalidation": "FCF 連續至少 4 季為負，或稀釋股數 YoY ≥ 8%。"
-            }
-          ]
-        },
-        "comparison": {
-          "status": "unchanged",
-          "notify": false,
-          "label": "沒有需通知的實質變化",
-          "reasons": []
-        }
-      },
       "COHR": {
         "ticker": "COHR",
         "position": "holding",
         "phase": "scheduled_later",
         "phase_label": "已知日期，尚未進入 30 天",
         "next_earnings": {
-          "date": "2026-11-05",
+          "date": "2026-11-04",
           "confidence": "estimated",
           "source_label": "Yahoo Finance 行事曆",
           "source_url": "https://finance.yahoo.com/quote/COHR/calendar/",
@@ -524,7 +524,7 @@
         "phase": "scheduled_later",
         "phase_label": "已知日期，尚未進入 30 天",
         "next_earnings": {
-          "date": "2026-10-22",
+          "date": "2026-10-21",
           "confidence": "estimated",
           "source_label": "Yahoo Finance 行事曆",
           "source_url": "https://finance.yahoo.com/quote/TSLA/calendar/",
@@ -661,7 +661,7 @@
         "phase": "scheduled_later",
         "phase_label": "已知日期，尚未進入 30 天",
         "next_earnings": {
-          "date": "2026-10-29",
+          "date": "2026-10-28",
           "confidence": "estimated",
           "source_label": "Yahoo Finance 行事曆",
           "source_url": "https://finance.yahoo.com/quote/GOOG/calendar/",
@@ -798,7 +798,7 @@
         "phase": "scheduled_later",
         "phase_label": "已知日期，尚未進入 30 天",
         "next_earnings": {
-          "date": "2026-11-05",
+          "date": "2026-11-04",
           "confidence": "estimated",
           "source_label": "Yahoo Finance 行事曆",
           "source_url": "https://finance.yahoo.com/quote/ARM/calendar/",
@@ -968,7 +968,7 @@
         "phase": "scheduled_later",
         "phase_label": "已知日期，尚未進入 30 天",
         "next_earnings": {
-          "date": "2026-11-18",
+          "date": "2026-11-17",
           "confidence": "estimated",
           "source_label": "Yahoo Finance 行事曆",
           "source_url": "https://finance.yahoo.com/quote/NVDA/calendar/",
@@ -1138,7 +1138,7 @@
         "phase": "scheduled_later",
         "phase_label": "已知日期，尚未進入 30 天",
         "next_earnings": {
-          "date": "2026-12-02",
+          "date": "2026-12-01",
           "confidence": "estimated",
           "source_label": "Yahoo Finance 行事曆",
           "source_url": "https://finance.yahoo.com/quote/MRVL/calendar/",
@@ -1464,7 +1464,7 @@
         "phase": "scheduled_later",
         "phase_label": "已知日期，尚未進入 30 天",
         "next_earnings": {
-          "date": "2026-10-29",
+          "date": "2026-10-28",
           "confidence": "estimated",
           "source_label": "Yahoo Finance 行事曆",
           "source_url": "https://finance.yahoo.com/quote/META/calendar/",
@@ -1643,7 +1643,7 @@
         "phase": "scheduled_later",
         "phase_label": "已知日期，尚未進入 30 天",
         "next_earnings": {
-          "date": "2026-10-29",
+          "date": "2026-10-28",
           "confidence": "estimated",
           "source_label": "Yahoo Finance 行事曆",
           "source_url": "https://finance.yahoo.com/quote/MSFT/calendar/",
@@ -1804,7 +1804,7 @@
         "phase": "scheduled_later",
         "phase_label": "已知日期，尚未進入 30 天",
         "next_earnings": {
-          "date": "2026-10-30",
+          "date": "2026-10-29",
           "confidence": "estimated",
           "source_label": "Yahoo Finance 行事曆",
           "source_url": "https://finance.yahoo.com/quote/AAPL/calendar/",
@@ -2120,7 +2120,7 @@
         "phase": "scheduled_later",
         "phase_label": "已知日期，尚未進入 30 天",
         "next_earnings": {
-          "date": "2026-10-30",
+          "date": "2026-10-29",
           "confidence": "estimated",
           "source_label": "Yahoo Finance 行事曆",
           "source_url": "https://finance.yahoo.com/quote/AMZN/calendar/",
@@ -2287,6 +2287,13 @@
     }
   },
   "history": [
+    {
+      "snapshot_id": "61c3d20a3a4a6f4c",
+      "captured_at": "2026-09-13T08:38:51+08:00",
+      "source_date": "2026-09-13",
+      "notify_count": 0,
+      "notifications": []
+    },
     {
       "snapshot_id": "c0e27594b7c75ba3",
       "captured_at": "2026-09-12T18:26:21+08:00",
