@@ -149,6 +149,21 @@
     .series-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--series-color); }
     .filter-action { padding: 6px 9px; font-size: .72rem; }
     .selection-count { margin-left: auto; color: var(--muted); font-size: .72rem; }
+    .period-guide {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 8px 14px;
+      align-items: center;
+      margin: 0 0 14px;
+      padding: 11px 13px;
+      border: 1px solid rgba(56, 189, 248, .24);
+      border-radius: 12px;
+      background: rgba(56, 189, 248, .055);
+      font-size: .76rem;
+    }
+    .period-guide strong { color: #7dd3fc; white-space: nowrap; }
+    .period-guide span { color: #b8c7da; }
+    .period-guide small { grid-column: 2; color: var(--muted); font-size: .71rem; }
     .chart-wrap { position: relative; height: 510px; }
     .verdict-list { display: grid; gap: 10px; }
     .verdict {
@@ -215,6 +230,8 @@
       .chart-wrap { height: 380px; }
       .leaders-grid, .method-grid { grid-template-columns: 1fr; }
       .asof { text-align: left; }
+      .period-guide { grid-template-columns: 1fr; }
+      .period-guide small { grid-column: 1; }
     }
   </style>
 </head>
@@ -261,7 +278,7 @@
         <div class="panel-head">
           <div>
             <h2>四象限輪動路徑</h2>
-            <p class="panel-desc">橫軸＝20 日相對強弱；縱軸＝近 5 日相對動能加速度；尾跡＝最近 10 個交易日。</p>
+            <p class="panel-desc">這是短中期輪動圖；「起」是期間起點，箭頭尖端是最新交易日。</p>
           </div>
           <div class="controls">
             <button class="toggle active" data-level="sectors">11 大板塊</button>
@@ -269,6 +286,11 @@
           </div>
         </div>
         <div class="series-filter" id="chartSeriesFilters" aria-label="選擇圖表顯示項目"></div>
+        <div class="period-guide" aria-label="圖表分析期限">
+          <strong id="trajectoryPeriod">路徑期間：載入中…</strong>
+          <span>路徑＝最近 10 個交易日｜橫軸＝每個點向前 20 日｜縱軸＝近 5 日相對前 5 日的動能變化</span>
+          <small>20 日約為 1 個月、10 日約為 2 週、5 日約為 1 週；60 日指標只參與下方綜合輪動分數，不是本圖座標。</small>
+        </div>
         <div class="chart-wrap"><canvas id="rotationChart"></canvas></div>
       </article>
 
@@ -496,6 +518,58 @@
       }
     };
 
+    const trajectoryDirection = {
+      id: 'trajectoryDirection',
+      afterDatasetsDraw(chart) {
+        const {ctx} = chart;
+        ctx.save();
+        chart.data.datasets.forEach((dataset, index) => {
+          const points = chart.getDatasetMeta(index).data;
+          if (points.length < 2) return;
+          const start = points[0];
+          const previous = points[points.length - 2];
+          const end = points[points.length - 1];
+          const dx = end.x - previous.x;
+          const dy = end.y - previous.y;
+          if (Math.hypot(dx, dy) < 2) return;
+
+          // Hollow start ring plus a short label distinguishes the oldest
+          // observation from the current, larger endpoint marker.
+          ctx.strokeStyle = dataset.borderColor;
+          ctx.fillStyle = '#111a2d';
+          ctx.lineWidth = 2;
+          ctx.beginPath(); ctx.arc(start.x, start.y, 5, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+          ctx.font = '800 10px Outfit, Noto Sans TC';
+          ctx.fillStyle = dataset.borderColor;
+          ctx.fillText('起', start.x + 7, start.y + 3);
+
+          // Arrowhead follows the final segment, so its tip always identifies
+          // the newest trading date even when the path loops across quadrants.
+          ctx.save();
+          ctx.translate(end.x, end.y);
+          ctx.rotate(Math.atan2(dy, dx));
+          ctx.fillStyle = dataset.borderColor;
+          ctx.strokeStyle = '#e5f6ff';
+          ctx.lineWidth = 1.25;
+          ctx.beginPath();
+          ctx.moveTo(5, 0); ctx.lineTo(-14, -8); ctx.lineTo(-10, 0); ctx.lineTo(-14, 8);
+          ctx.closePath(); ctx.fill(); ctx.stroke();
+          ctx.restore();
+        });
+        ctx.restore();
+      }
+    };
+
+    function renderTrajectoryPeriod() {
+      const sample = rotationData.sectors.find(row => row.trajectory?.length)?.trajectory || [];
+      const node = document.getElementById('trajectoryPeriod');
+      if (!sample.length) {
+        node.textContent = '路徑期間：資料不足';
+        return;
+      }
+      node.textContent = `路徑期間：${sample[0].date} → ${sample[sample.length - 1].date}（${sample.length} 個交易日）`;
+    }
+
     function renderChart() {
       const available = chartLevel === 'industries' ? rotationData.industries.slice(0, 20) : rotationData.sectors;
       const rows = available.filter(row => chartSelections[chartLevel].has(row.key));
@@ -513,7 +587,7 @@
       });
       if (rotationChart) rotationChart.destroy();
       rotationChart = new Chart(document.getElementById('rotationChart'), {
-        type: 'scatter', data: {datasets}, plugins: [quadrantBackground, endpointLabels],
+        type: 'scatter', data: {datasets}, plugins: [quadrantBackground, trajectoryDirection, endpointLabels],
         options: {
           responsive: true, maintainAspectRatio: false,
           animation: {duration: 450}, interaction: {mode: 'nearest', intersect: false},
@@ -636,7 +710,7 @@
         rotationData.industries.slice(0, 3).forEach(row => chartSelections.industries.add(row.key));
         const select = document.getElementById('sectorSelect');
         select.innerHTML = rotationData.sectors.map(row => `<option value="${escapeHtml(row.key)}">${escapeHtml(row.name_zh)}</option>`).join('');
-        bindControls(); renderHeader(); renderMetrics(); renderVerdicts(); renderChartFilters(); renderChart(); renderTable(); renderSectorDetail();
+        bindControls(); renderHeader(); renderMetrics(); renderVerdicts(); renderChartFilters(); renderTrajectoryPeriod(); renderChart(); renderTable(); renderSectorDetail();
       } catch (error) {
         setStatus('error', `<strong>載入失敗：</strong>無法讀取 market_rotation.json（${escapeHtml(error.message)}）。請確認每日資料流程已成功執行並部署。`);
       }

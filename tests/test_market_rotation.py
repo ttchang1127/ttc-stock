@@ -95,6 +95,9 @@ class MarketRotationPageTests(unittest.TestCase):
             "不是申購贖回或資金淨流入", "板塊內部領漲與落後個股",
             "S&amp;P 500 ＋ Nasdaq-100", "返回投資儀表板", "勾選顯示",
             "chartSelections", "data-chart-preset=\"top3\"", "全部清除",
+            "trajectoryDirection", "箭頭尖端是最新交易日", "圖表分析期限",
+            "路徑＝最近 10 個交易日", "60 日指標只參與下方綜合輪動分數",
+            "renderTrajectoryPeriod", "sample[0].date", "Math.atan2(dy, dx)",
         ):
             self.assertIn(marker, self.page)
 

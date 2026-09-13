@@ -2487,6 +2487,8 @@ def c43():
             "板塊內部領漲與落後個股", "不是申購贖回或資金淨流入",
             "返回投資儀表板", "勾選顯示", "chartSelections",
             'data-chart-preset="top3"', "全部清除",
+            "trajectoryDirection", "箭頭尖端是最新交易日", "圖表分析期限",
+            "60 日指標只參與下方綜合輪動分數", "renderTrajectoryPeriod",
         )),
         "主儀表板": (read("dashboard.html"), ("market_rotation.html", "市場族群輪動")),
         "價格 workflow": (read(".github/workflows/update-prices.yml"), (
