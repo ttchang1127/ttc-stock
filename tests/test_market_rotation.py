@@ -3,6 +3,7 @@ import json
 import pathlib
 import tempfile
 import unittest
+from datetime import date, datetime, timezone
 
 import pandas as pd
 
@@ -80,6 +81,40 @@ class MarketRotationBuilderTests(unittest.TestCase):
             self.assertFalse(MODULE.write_if_changed(path, updated))
             self.assertEqual(json.loads(path.read_text())["generated_at"], "first")
 
+    def test_expected_session_detects_missing_monday_after_market_close(self):
+        run_time = datetime(2026, 9, 15, 1, 11, tzinfo=timezone.utc)
+        self.assertEqual(
+            MODULE.expected_latest_market_session(run_time),
+            date(2026, 9, 14),
+        )
+        with self.assertRaisesRegex(ValueError, "1 market session behind"):
+            MODULE.require_fresh_market_data(date(2026, 9, 11), date(2026, 9, 14))
+
+    def test_expected_session_respects_exchange_holidays_and_source_grace(self):
+        before_cutoff = datetime(2026, 9, 8, 19, 0, tzinfo=timezone.utc)
+        self.assertEqual(
+            MODULE.expected_latest_market_session(before_cutoff),
+            date(2026, 9, 4),
+        )
+        self.assertFalse(MODULE.is_market_session(date(2026, 9, 7)))
+        self.assertFalse(MODULE.is_market_session(date(2026, 4, 3)))
+        self.assertTrue(MODULE.is_market_session(date(2026, 9, 14)))
+
+    def test_current_or_newer_market_session_passes_freshness_gate(self):
+        MODULE.require_fresh_market_data(date(2026, 9, 14), date(2026, 9, 14))
+        MODULE.require_fresh_market_data(date(2026, 9, 15), date(2026, 9, 14))
+
+    def test_latest_session_requires_ninety_percent_cross_sectional_coverage(self):
+        expected = self.closes.index[-1].date()
+        one_missing = self.closes.copy()
+        one_missing.iloc[-1, 0] = float("nan")
+        MODULE.require_latest_session_coverage(one_missing, expected, 12)
+
+        two_missing = one_missing.copy()
+        two_missing.iloc[-1, 1] = float("nan")
+        with self.assertRaisesRegex(ValueError, "10/12 securities"):
+            MODULE.require_latest_session_coverage(two_missing, expected, 12)
+
 
 class MarketRotationPageTests(unittest.TestCase):
     @classmethod
@@ -111,6 +146,13 @@ class MarketRotationPageTests(unittest.TestCase):
 
     def test_daily_workflow_builds_and_allows_rotation_outputs(self):
         self.assertIn("python3 scripts/build_market_rotation.py", self.workflow)
+        self.assertIn("python3 scripts/check_market_source_ready.py", self.workflow)
+        self.assertIn("steps.market_source.outputs.fresh == 'true'", self.workflow)
+        self.assertIn("17 12 * * 2-6", self.workflow)
+        self.assertIn('if [ "$status" -eq 75 ]', self.workflow)
+        self.assertIn('if [ "$status" -ne 75 ]', self.workflow)
+        self.assertIn("steps.rotation_build.outputs.fresh == 'false'", self.workflow)
+        self.assertIn("preserving the prior rotation file", self.workflow)
         self.assertIn("'lxml>=5,<7'", self.workflow)
         self.assertIn("market_rotation_universe", self.workflow)
         self.assertIn("market_rotation|", self.workflow)

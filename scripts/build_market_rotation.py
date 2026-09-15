@@ -16,10 +16,12 @@ import argparse
 import io
 import json
 import math
-from datetime import date, datetime, timedelta, timezone
+import sys
+from datetime import date, datetime, time, timedelta, timezone
 from pathlib import Path
 from typing import Iterable
 from urllib.request import Request, urlopen
+from zoneinfo import ZoneInfo
 
 import pandas as pd
 import yfinance as yf
@@ -68,6 +70,133 @@ SCORE_WEIGHTS = {
     "dollar_volume_expansion": 0.15,
     "persistence": 0.10,
 }
+
+NEW_YORK = ZoneInfo("America/New_York")
+# Give Yahoo two hours after the regular 16:00 ET close before declaring the
+# current session missing.  The scheduled job normally runs later than this.
+MARKET_DATA_CUTOFF = time(18, 0)
+
+
+def observed_fixed_holiday(value: date) -> date:
+    if value.weekday() == 5:
+        return value - timedelta(days=1)
+    if value.weekday() == 6:
+        return value + timedelta(days=1)
+    return value
+
+
+def nth_weekday(year: int, month: int, weekday: int, number: int) -> date:
+    value = date(year, month, 1)
+    value += timedelta(days=(weekday - value.weekday()) % 7)
+    return value + timedelta(weeks=number - 1)
+
+
+def last_weekday(year: int, month: int, weekday: int) -> date:
+    if month == 12:
+        value = date(year + 1, 1, 1) - timedelta(days=1)
+    else:
+        value = date(year, month + 1, 1) - timedelta(days=1)
+    return value - timedelta(days=(value.weekday() - weekday) % 7)
+
+
+def easter_sunday(year: int) -> date:
+    """Return Gregorian Easter using the anonymous computus algorithm."""
+    a = year % 19
+    b, c = divmod(year, 100)
+    d, e = divmod(b, 4)
+    f = (b + 8) // 25
+    g = (b - f + 1) // 3
+    h = (19 * a + b - d - g + 15) % 30
+    i, k = divmod(c, 4)
+    length = (32 + 2 * e + 2 * i - h - k) % 7
+    m = (a + 11 * h + 22 * length) // 451
+    month = (h + length - 7 * m + 114) // 31
+    day = (h + length - 7 * m + 114) % 31 + 1
+    return date(year, month, day)
+
+
+def nyse_holidays(year: int) -> set[date]:
+    """Regular full-day NYSE holidays; exceptional closures stay explicit."""
+    holidays = {
+        observed_fixed_holiday(date(year, 1, 1)),
+        nth_weekday(year, 1, 0, 3),   # Martin Luther King Jr. Day
+        nth_weekday(year, 2, 0, 3),   # Washington's Birthday
+        easter_sunday(year) - timedelta(days=2),
+        last_weekday(year, 5, 0),     # Memorial Day
+        observed_fixed_holiday(date(year, 7, 4)),
+        nth_weekday(year, 9, 0, 1),   # Labor Day
+        nth_weekday(year, 11, 3, 4),  # Thanksgiving
+        observed_fixed_holiday(date(year, 12, 25)),
+    }
+    if year >= 2022:
+        holidays.add(observed_fixed_holiday(date(year, 6, 19)))
+    return holidays
+
+
+# Add one-off national days of mourning or emergency closures here after an
+# official exchange announcement.  Keeping the override visible is safer than
+# silently treating every federal holiday as an equity-market closure.
+EXTRA_MARKET_CLOSURES: set[date] = set()
+
+
+def is_market_session(value: date) -> bool:
+    holidays = set().union(*(
+        nyse_holidays(year) for year in range(value.year - 1, value.year + 2)
+    ))
+    return value.weekday() < 5 and value not in holidays and value not in EXTRA_MARKET_CLOSURES
+
+
+def previous_market_session(value: date) -> date:
+    candidate = value
+    while not is_market_session(candidate):
+        candidate -= timedelta(days=1)
+    return candidate
+
+
+def expected_latest_market_session(now: datetime | None = None) -> date:
+    """Latest NYSE session whose regular close should be available from Yahoo."""
+    current = now or datetime.now(timezone.utc)
+    if current.tzinfo is None:
+        raise ValueError("now must be timezone-aware")
+    market_now = current.astimezone(NEW_YORK)
+    candidate = market_now.date()
+    if market_now.timetz().replace(tzinfo=None) < MARKET_DATA_CUTOFF:
+        candidate -= timedelta(days=1)
+    return previous_market_session(candidate)
+
+
+def market_session_lag(actual: date, expected: date) -> int:
+    if actual >= expected:
+        return 0
+    lag = 0
+    candidate = actual + timedelta(days=1)
+    while candidate <= expected:
+        if is_market_session(candidate):
+            lag += 1
+        candidate += timedelta(days=1)
+    return lag
+
+
+def require_fresh_market_data(actual: date, expected: date) -> None:
+    if actual < expected:
+        lag = market_session_lag(actual, expected)
+        raise ValueError(
+            f"Market data is stale: latest session {actual.isoformat()}, expected "
+            f"{expected.isoformat()} ({lag} market session{'s' if lag != 1 else ''} behind)"
+        )
+
+
+def require_latest_session_coverage(
+    closes: pd.DataFrame, expected: date, universe_size: int, minimum: float = 0.90
+) -> None:
+    matching = [index for index in closes.index if pd.Timestamp(index).date() == expected]
+    priced = int(closes.loc[matching[-1]].notna().sum()) if matching else 0
+    required = math.ceil(universe_size * minimum)
+    if priced < required:
+        raise ValueError(
+            f"Latest-session coverage is partial: {priced}/{universe_size} securities "
+            f"have prices for {expected.isoformat()}, need at least {required} ({minimum:.0%})"
+        )
 
 
 def utc_now() -> str:
@@ -568,6 +697,16 @@ def main() -> None:
     parser.add_argument("--skip-universe-refresh", action="store_true")
     parser.add_argument("--days", type=int, default=320)
     parser.add_argument("--batch-size", type=int, default=80)
+    parser.add_argument(
+        "--expected-session",
+        type=date.fromisoformat,
+        help="Override the latest required market session (YYYY-MM-DD) for replay/testing.",
+    )
+    parser.add_argument(
+        "--allow-stale",
+        action="store_true",
+        help="Allow an explicitly requested historical/backfill output to be written.",
+    )
     args = parser.parse_args()
 
     if args.skip_universe_refresh:
@@ -578,9 +717,33 @@ def main() -> None:
     tickers = [row["yahoo_ticker"] for row in universe["members"]]
     end = date.today() + timedelta(days=1)
     start = end - timedelta(days=args.days)
+    expected_session = args.expected_session or expected_latest_market_session()
     print(f"Fetching {len(tickers)} securities from {start} through {end}...")
     closes, volumes = fetch_market_data(tickers, start, end, args.batch_size)
+    if not args.allow_stale:
+        try:
+            require_latest_session_coverage(
+                closes, expected_session, universe["counts"]["combined_securities"]
+            )
+        except ValueError as error:
+            print(
+                f"{error}; refusing to replace {args.output.name}. "
+                "Retry after the quote source publishes the adjusted closes.",
+                file=sys.stderr,
+            )
+            raise SystemExit(75) from error
     payload = build_payload(universe, closes, volumes)
+    actual_session = date.fromisoformat(payload["as_of"])
+    if not args.allow_stale:
+        try:
+            require_fresh_market_data(actual_session, expected_session)
+        except ValueError as error:
+            print(
+                f"{error}; refusing to replace {args.output.name}. "
+                "Retry after the quote source publishes the adjusted close.",
+                file=sys.stderr,
+            )
+            raise SystemExit(75) from error
     changed = write_if_changed(args.output, payload)
     print(
         f"Market rotation: {payload['as_of']}, "

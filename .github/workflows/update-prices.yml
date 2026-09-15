@@ -20,10 +20,13 @@ name: Refresh market and filing data
 
 on:
   schedule:
-    # 23:00 UTC every day keeps the rolling 30-day company calendar moving on
-    # weekends too. Market/SEC derived files are recomputed only when their
-    # underlying source files actually change.
-    - cron: '0 23 * * *'
+    # 23:17 UTC every day keeps the rolling 30-day company calendar moving on
+    # weekends too. The non-zero minute also avoids GitHub's busiest cron slot.
+    - cron: '17 23 * * *'
+    # Yahoo occasionally publishes adjusted US-equity closes hours after the
+    # first run. This Tue-Sat catch-up (20:17 Taipei) makes that recovery fully
+    # automatic. Unchanged fetches do not produce a commit.
+    - cron: '17 12 * * 2-6'
   workflow_dispatch:
 
 permissions:
@@ -47,19 +50,86 @@ jobs:
       - name: Install dependencies
         run: pip install --quiet 'yfinance>=1.2.0' pandas 'lxml>=5,<7' 'pypdf>=6,<7'
 
+      # A successful HTTP response is not enough: on 2026-09-15 Yahoo returned
+      # hundreds of valid histories whose latest adjusted close was still
+      # 2026-09-11. Probe one liquid market proxy before the expensive broad
+      # download. A stale source is retried, then market work is deferred while
+      # independent SEC/event jobs continue below.
+      - name: Wait for latest adjusted market close
+        id: market_source
+        shell: bash
+        run: |
+          for attempt in 1 2 3; do
+            echo "Market-source readiness attempt $attempt/3"
+            set +e
+            python3 scripts/check_market_source_ready.py \
+              --github-output "$GITHUB_OUTPUT"
+            status=$?
+            set -e
+            if [ "$status" -eq 0 ]; then
+              exit 0
+            fi
+            if [ "$status" -ne 75 ]; then
+              echo "::error::Market-source probe failed unexpectedly with exit code $status."
+              exit "$status"
+            fi
+            if [ "$attempt" -lt 3 ]; then
+              echo "::warning::Adjusted close is stale; retrying in 5 minutes."
+              sleep 300
+            fi
+          done
+          echo "fresh=false" >> "$GITHUB_OUTPUT"
+          echo "::warning::Market source remains stale; preserving prior market files and continuing non-market refreshes."
+
       # Read-only early warning. A new annual filing still requires a person to
       # run fetch_sec.py --split-sections and review the extracted boundaries.
       - name: Check for new 10-K or 20-F
         run: python3 scripts/check_new_annual_filings.py
 
       - name: Fetch daily closes
+        if: steps.market_source.outputs.fresh == 'true'
         run: python3 scripts/fetch_price_history.py
 
       # Kept separate from prices.json: the standalone rotation page needs
       # roughly 500 securities, while the portfolio dashboard needs only its
       # small tracked list. The builder publishes aggregates, not raw histories.
       - name: Build S&P 500 and Nasdaq-100 market rotation
-        run: python3 scripts/build_market_rotation.py
+        if: steps.market_source.outputs.fresh == 'true'
+        id: rotation_build
+        shell: bash
+        run: |
+          set +e
+          python3 scripts/build_market_rotation.py
+          status=$?
+          set -e
+          if [ "$status" -eq 75 ]; then
+            echo "fresh=false" >> "$GITHUB_OUTPUT"
+            echo "::warning::Broad-market latest-session coverage is incomplete; preserving the prior rotation file."
+            exit 0
+          fi
+          if [ "$status" -eq 0 ]; then
+            echo "fresh=true" >> "$GITHUB_OUTPUT"
+          fi
+          exit "$status"
+
+      - name: Notify if the automatic catch-up is still stale
+        if: >-
+          github.event.schedule == '17 12 * * 2-6' &&
+          (steps.market_source.outputs.fresh != 'true' || steps.rotation_build.outputs.fresh == 'false')
+        env:
+          GH_TOKEN: ${{ github.token }}
+          EXPECTED_SESSION: ${{ steps.market_source.outputs.expected_session }}
+          LATEST_SESSION: ${{ steps.market_source.outputs.latest_session }}
+          ROTATION_FRESH: ${{ steps.rotation_build.outputs.fresh }}
+        run: |
+          title="Market Data Stale [$EXPECTED_SESSION]"
+          existing=$(gh issue list --state open --search "$title in:title" \
+            --json number --jq '.[0].number // empty')
+          if [ -z "$existing" ]; then
+            gh issue create --title "🟠 $title" --body "Market data is still stale or broad-market coverage is incomplete after the evening catch-up. Expected session: $EXPECTED_SESSION. SPY latest session: $LATEST_SESSION. Rotation fresh: $ROTATION_FRESH. Prior market files were preserved; SEC and event refreshes continued."
+          else
+            echo "Issue #$existing already records stale session $EXPECTED_SESSION."
+          fi
 
       # Refuses to write on a partial fetch, so a transient SEC error cannot
       # delete a filer's history and take every derived file with it.

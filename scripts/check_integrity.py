@@ -1561,7 +1561,7 @@ def c32():
             "Form 4、8-K／6-K、臨時募資及併購多半無法事先知道",
         )),
         "每日 workflow": (read(".github/workflows/update-prices.yml"), (
-            "cron: '0 23 * * *'", "build_company_event_calendar.py",
+            "cron: '17 23 * * *'", "build_company_event_calendar.py",
             "company_event_calendar", "Company_Event_Calendar",
         )),
         "事件筆記": (read("60_SEC_Filing_Radar/Company_Event_Calendar.md"), (

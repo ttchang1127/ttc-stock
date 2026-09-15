@@ -4,7 +4,7 @@
 > **怎麼用**：找到對應的「任務」章節，**照抄指令、照順序執行、比對預期輸出**。
 > **不要自己想辦法。** 遇到本文件沒寫到的狀況，一律停止並回報使用者。
 
-最後更新：2026-09-13
+最後更新：2026-09-15
 
 ---
 
@@ -44,6 +44,7 @@
 | `.github/workflows/update-prices.yml` | 每日自動更新與新年報提示 | ❌ 除非使用者明確要求，不要改 |
 | `dashboard_mag7.html` | 另一個獨立頁面 | ❌ 不在範圍內 |
 | `market_rotation.html` | S&P 500＋Nasdaq-100 板塊／次產業輪動獨立頁 | ⚠️ 只在使用者明確要求時 |
+| `scripts/check_market_source_ready.py` | 先以 SPY 調整後收盤價確認 Yahoo 已發布最新應有交易日 | ⚠️ 新鮮度規則與 NYSE 日曆需連同測試修改 |
 | `market_rotation_universe.json` | 兩指數成分、板塊與次產業分類 | ❌ 只能由 `scripts/build_market_rotation.py` 產生 |
 | `market_rotation.json` | 輪動分數、四象限、10 日路徑與板塊內個股 | ❌ 只能由 `scripts/build_market_rotation.py` 產生 |
 
@@ -73,7 +74,8 @@ dcf_assumptions.json 的 derived_at
    DCF 圖表與公司詳情顯示假設多久未重推（90 天後提醒）
 
 S&P 500／Nasdaq-100 成分表 + Yahoo Finance 個股價量
-        ↓ scripts/build_market_rotation.py（拒絕低於 90% 覆蓋）
+        ↓ check_market_source_ready.py（最新交易日未出現就等待／延後）
+        ↓ scripts/build_market_rotation.py（拒絕低於 90% 覆蓋或交易日過期）
    market_rotation_universe.json + market_rotation.json
         ↓ market_rotation.html
    11 大板塊／次產業排名、四象限與 10 個交易日路徑
@@ -85,6 +87,12 @@ S&P 500／Nasdaq-100 成分表 + Yahoo Finance 個股價量
 **市場輪動的限制**：本頁是價格、廣度與成交額的市場偏好代理，不是基金申贖或逐筆
 資金淨流入。成分股低於 90% 有足夠歷史時腳本會拒絕發布；Nasdaq-100 獨有成分採 ICB
 分類並映射到最接近的 GICS 大板塊，畫面會保留這項口徑說明。
+
+**市場行情自動補抓**：每日排程先以 SPY 的 `Adj Close` 確認 Yahoo 已發布最新應有的
+NYSE 交易日，最多間隔 5 分鐘重試 3 次。早班仍過期時保留上一版 `prices.json` 與
+`market_rotation.json`，但 SEC、事件日曆等獨立工作繼續；台北時間 20:17 的週二至週六
+補抓排程會再自動執行。晚班仍過期才建立 GitHub Issue。`build_market_rotation.py` 本身還有
+第二層日期閘門，不能用 `generated_at` 更新掩蓋行情日沒有前進。
 
 ---
 
