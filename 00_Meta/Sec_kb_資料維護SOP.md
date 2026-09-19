@@ -225,6 +225,8 @@ python3 scripts/check_integrity.py --quiet
 
 **長期投資七角雷達圖**由 `scripts/build_long_term_radar.py` 讀取季度財務、財務健全度、估值、三年指引回溯、投資論點狀態與資本配置卡，產生 `long_term_radar.json`，供 `dashboard.html` 的 Tab 5／「長期投資雷達圖」sub tab 使用。七個角固定為成長持續性、獲利能力與護城河、現金流品質、財務韌性、股東價值與稀釋、管理層執行與揭露、估值安全邊際，全部採 0～100 且越高越有利。缺值不補 0 或 50，只以已知子指標計算並顯示覆蓋率；沒有一致數字指引時，管理層指引子項維持未計分。財務警示、論點失效、資本配置壓力與 DCF 可信度警語獨立顯示，不得用其他高分抵銷。畫面必須分開標示最新季財報期末、年度財務期末、估值股價日與判讀更新日，不能用單一 `generated_at` 混稱所有資料日期。雷達下方另顯示營收 YoY、毛利率、營業利益率、FCF 利潤率、稀釋股數 YoY 的最多八季實際趨勢，以及最多四年的淨現金／淨負債；箭頭只代表改善／持平／惡化方向，並與「目前水準」絕對篩選及公司自身歷史位置分開呈現。營收以 YoY 10%／0%、毛利率以 40%／20%、營業利益率以 15%／0%、FCF 利潤率以 10%／0%、稀釋股數以 0%／2% 為初篩線；毛利率門檻不得冒充產業比較，淨負債只能列為留意而非單獨判定風險。兩條每日 workflow 都會在相關來源更新後重建此檔。
 
+**研究證據、財報差異與同業比較**由 `scripts/build_research_synthesis.py` 讀取既有季度財務、財報驗證卡、投資論點、30 天事件日曆、估值及市場輪動，產生 `research_synthesis.json` 與 `60_SEC_Filing_Radar/Research_Synthesis.md`。每項最新財務證據保留官方 URL、申報表別、accession、來源日，以及 XBRL tag、推導公式或已核對的官方表格列；沒有可稽核的機構共識與財報前內部數值預估時必須明列「未收集」，不可從新聞摘要補猜。同業百分位只在 `research_peer_groups.json` 人工設定的研究對照組內計算，至少三家有值才顯示；跨晶片設計、IP、IDM 與代工等不同商業模式只能作方向性比較。市場輪動橋接只把 11 大板塊連回本庫已追蹤且屬於指數股票池的個股，用來安排基本面研究優先度，不得把象限或百分位轉成買賣指令。儀表板 Tab 4 預設收合此卡，避免增加每日閱讀負擔；兩條每日 workflow 都會重建。
+
 維護原則是**不跨口徑**計算；一旦 `basis_id` 改變，該期只能作為新基準。
 
 手動重建與驗證：
@@ -238,6 +240,7 @@ python3 scripts/build_segment_outlook_verification.py
 python3 scripts/track_segment_outlook_history.py
 python3 scripts/build_capital_allocation_cards.py
 python3 scripts/track_capital_allocation_history.py
+python3 scripts/build_research_synthesis.py
 python3 -m unittest tests.test_build_segment_driver_validation -v
 python3 -m unittest tests.test_build_segment_driver_history -v
 python3 -m unittest tests.test_build_company_event_calendar -v

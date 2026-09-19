@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "updated_at": "2026-09-19",
+  "methodology": {
+    "scope": "只在 sec_kb 目前追蹤的 14 家個股中建立研究對照組，不代表完整產業樣本。",
+    "selection": "依商業模式、主要收入來源與資本結構建立人工對照組；跨模式公司只作方向性比較。",
+    "minimum_sample": 3,
+    "warning": "百分位只回答公司在本對照組的位置，不是全市場排名，也不是買進或賣出建議。"
+  },
+  "primary_group_by_ticker": {
+    "AAPL": "large_platforms",
+    "AMZN": "large_platforms",
+    "ARM": "semiconductor_platforms",
+    "COHR": "connectivity_infrastructure",
+    "GOOG": "large_platforms",
+    "INTC": "semiconductor_platforms",
+    "META": "large_platforms",
+    "MRVL": "semiconductor_platforms",
+    "MSFT": "large_platforms",
+    "NOK": "connectivity_infrastructure",
+    "NVDA": "semiconductor_platforms",
+    "ONDS": null,
+    "TSLA": null,
+    "TSM": "semiconductor_platforms"
+  },
+  "groups": {
+    "semiconductor_platforms": {
+      "label": "半導體平台研究對照組",
+      "members": ["NVDA", "ARM", "MRVL", "INTC", "TSM"],
+      "comparability": "directional",
+      "caveat": "涵蓋晶片設計、IP 授權、IDM 與晶圓代工；營運百分位可作方向性對照，估值倍數不可視為完全同業。"
+    },
+    "large_platforms": {
+      "label": "大型數位平台研究對照組",
+      "members": ["AAPL", "AMZN", "GOOG", "META", "MSFT"],
+      "comparability": "directional",
+      "caveat": "收入組成涵蓋裝置、雲端、廣告與零售；用來比較成長、利潤與現金流品質，不是嚴格交易同業組。"
+    },
+    "connectivity_infrastructure": {
+      "label": "連接與網路基礎建設研究對照組",
+      "members": ["COHR", "MRVL", "NOK"],
+      "comparability": "directional",
+      "caveat": "公司分別偏光通訊、半導體與電信設備；僅比較已統一口徑的營運比率與稀釋，不以單一倍數直接下結論。"
+    }
+  }
+}

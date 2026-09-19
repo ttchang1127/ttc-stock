@@ -1,0 +1,5131 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-09-19",
+  "tracked_count": 14,
+  "methodology": {
+    "purpose": "把既有 SEC、財報、論點、事件與估值資料整理成可稽核的研究工作流，不新增無來源財務數字。",
+    "source_rule": "每項最新財務證據保留官方來源、accession，以及 XBRL tag、推導公式或已核對官方表格列；缺值保持缺值。",
+    "earnings_rule": "實際值比較前季、去年同期與公司官方指引；機構共識與內部預估沒有可靠來源時明列未收集。",
+    "peer_rule": {
+      "scope": "只在 sec_kb 目前追蹤的 14 家個股中建立研究對照組，不代表完整產業樣本。",
+      "selection": "依商業模式、主要收入來源與資本結構建立人工對照組；跨模式公司只作方向性比較。",
+      "minimum_sample": 3,
+      "warning": "百分位只回答公司在本對照組的位置，不是全市場排名，也不是買進或賣出建議。"
+    },
+    "rotation_rule": "輪動是價格、廣度與成交參與代理；基本面橋接只調整研究優先度，不產生買賣指令。"
+  },
+  "source_dates": {
+    "quarterly_financials": "2026-08-30T00:58:14+00:00",
+    "earnings_verification": "2026-09-19",
+    "thesis_status": "2026-09-12T18:26:21+08:00",
+    "event_calendar": "2026-09-19",
+    "valuation": "2026-09-19T01:25:40+00:00",
+    "market_rotation": "2026-09-18",
+    "peer_groups": "2026-09-19"
+  },
+  "companies": {
+    "NVDA": {
+      "ticker": "NVDA",
+      "data_ticker": "NVDA",
+      "evidence_ledger": {
+        "status": "available",
+        "period_end": "2026-07-26",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/0001045810-26-000075-index.html",
+        "source_form": "10-Q",
+        "source_accession": "0001045810-26-000075",
+        "source_date": "2026-08-26",
+        "quality_notes": [],
+        "claims": [
+          {
+            "claim_id": "0001045810-26-000075:revenue",
+            "metric": "revenue",
+            "label": "營收",
+            "value": 96221000000.0,
+            "unit": "USD",
+            "tag": "Revenues",
+            "derived": false,
+            "derivation": null,
+            "source_locator": "XBRL tag: Revenues",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/0001045810-26-000075-index.html",
+            "source_form": "10-Q",
+            "source_accession": "0001045810-26-000075",
+            "source_date": "2026-08-26"
+          },
+          {
+            "claim_id": "0001045810-26-000075:gross_margin",
+            "metric": "gross_margin",
+            "label": "毛利率",
+            "value": 0.7497531723844068,
+            "unit": "%",
+            "tag": null,
+            "derived": true,
+            "derivation": "毛利 ÷ 營收",
+            "source_locator": "毛利 ÷ 營收",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/0001045810-26-000075-index.html",
+            "source_form": "10-Q",
+            "source_accession": "0001045810-26-000075",
+            "source_date": "2026-08-26"
+          },
+          {
+            "claim_id": "0001045810-26-000075:operating_margin",
+            "metric": "operating_margin",
+            "label": "營業利益率",
+            "value": 0.6623710000935347,
+            "unit": "%",
+            "tag": null,
+            "derived": true,
+            "derivation": "營業利益 ÷ 營收",
+            "source_locator": "營業利益 ÷ 營收",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/0001045810-26-000075-index.html",
+            "source_form": "10-Q",
+            "source_accession": "0001045810-26-000075",
+            "source_date": "2026-08-26"
+          },
+          {
+            "claim_id": "0001045810-26-000075:free_cash_flow",
+            "metric": "free_cash_flow",
+            "label": "自由現金流",
+            "value": 21400000000.0,
+            "unit": "USD",
+            "tag": null,
+            "derived": true,
+            "derivation": "營運現金流 − 資本支出",
+            "source_locator": "營運現金流 − 資本支出",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/0001045810-26-000075-index.html",
+            "source_form": "10-Q",
+            "source_accession": "0001045810-26-000075",
+            "source_date": "2026-08-26"
+          },
+          {
+            "claim_id": "0001045810-26-000075:diluted_shares",
+            "metric": "diluted_shares",
+            "label": "稀釋股數",
+            "value": 24285000000.0,
+            "unit": "shares",
+            "tag": "WeightedAverageNumberOfDilutedSharesOutstanding",
+            "derived": false,
+            "derivation": null,
+            "source_locator": "XBRL tag: WeightedAverageNumberOfDilutedSharesOutstanding",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/0001045810-26-000075-index.html",
+            "source_form": "10-Q",
+            "source_accession": "0001045810-26-000075",
+            "source_date": "2026-08-26"
+          }
+        ],
+        "coverage": {
+          "sourced": 5,
+          "total": 5
+        }
+      },
+      "earnings_delta": {
+        "status": "available",
+        "latest_result": {
+          "period_end": "2026-07-26",
+          "filing_date": "2026-08-26",
+          "form": "10-Q",
+          "accession": "0001045810-26-000075",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/0001045810-26-000075-index.html",
+          "quality_notes": [],
+          "currency": "USD",
+          "source_basis": "SEC Company Facts；金額為 USD。",
+          "days_since_filing": 24,
+          "review_due": false
+        },
+        "metrics": [
+          {
+            "metric": "revenue",
+            "label": "營收",
+            "display": "amount",
+            "value": 96221000000.0,
+            "qoq": 17.896220057587463,
+            "yoy": 105.85114348672526,
+            "state": "improved",
+            "interpretation": "營收 YoY +105.9%",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/0001045810-26-000075-index.html",
+            "source_period": "2026-07-26"
+          },
+          {
+            "metric": "gross_margin",
+            "label": "毛利率",
+            "display": "percent",
+            "value": 0.7497531723844068,
+            "qoq": 0.04178786271317181,
+            "yoy": 2.5516388266998757,
+            "state": "improved",
+            "interpretation": "毛利率 YoY +2.6pp",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/0001045810-26-000075-index.html",
+            "source_period": "2026-07-26"
+          },
+          {
+            "metric": "operating_margin",
+            "label": "營業利益率",
+            "display": "percent",
+            "value": 0.6623710000935347,
+            "qoq": 0.6413149208280733,
+            "yoy": 5.3937651784697005,
+            "state": "improved",
+            "interpretation": "營業利益率 YoY +5.4pp",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/0001045810-26-000075-index.html",
+            "source_period": "2026-07-26"
+          },
+          {
+            "metric": "free_cash_flow",
+            "label": "自由現金流",
+            "display": "amount",
+            "value": 21400000000.0,
+            "qoq": -55.95529668429826,
+            "yoy": 58.871566443949504,
+            "state": "improved",
+            "interpretation": "自由現金流為正",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/0001045810-26-000075-index.html",
+            "source_period": "2026-07-26"
+          },
+          {
+            "metric": "diluted_shares",
+            "label": "稀釋股數",
+            "display": "shares",
+            "value": 24285000000.0,
+            "qoq": -0.4345865278176375,
+            "yoy": -1.0068481982716482,
+            "state": "stable",
+            "interpretation": "稀釋股數 YoY -1.0%",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/0001045810-26-000075-index.html",
+            "source_period": "2026-07-26"
+          }
+        ],
+        "official_guidance_comparison": {
+          "period": "FY2027 Q1",
+          "period_end": "2026-04-26",
+          "low": 76.44,
+          "high": 79.56,
+          "actual": 81.615,
+          "guidance_date": "2026-02-25",
+          "guidance_source_url": "https://nvidianews.nvidia.com/news/nvidia-announces-financial-results-for-fourth-quarter-and-fiscal-2026",
+          "metric": "營收",
+          "unit": "USD bn",
+          "comparison_basis": "公司發布的下一季營收中點 ±2%；表內已換算成上下限。",
+          "outcome": "above",
+          "outcome_label": "高於指引",
+          "vs_midpoint_pct": 4.6346153846153815
+        },
+        "prior_internal_estimate": {
+          "status": "not_collected",
+          "note": "尚未保存可追溯的財報前內部數值預估，不補猜。"
+        },
+        "consensus": {
+          "status": "not_collected",
+          "note": "目前沒有已授權且可稽核的機構共識來源，不以網路摘要補值。"
+        },
+        "conclusion": "改善項目多於風險項目，但仍需逐項核對來源與口徑。"
+      },
+      "thesis_scorecard": {
+        "status": "maintained",
+        "label": "論點維持",
+        "period": "2026-07-26",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/0001045810-26-000075-index.html",
+        "items": [
+          {
+            "id": "ai_growth",
+            "title": "AI 加速運算需求維持高成長",
+            "original_expectation": "營收成長是資料中心與加速運算需求最直接的財務代理。",
+            "invalidation": "營收 YoY ≤ -5%，或營收連續至少 3 季下降。",
+            "status": "supported",
+            "label": "支持",
+            "current_evidence": "2026-07-26 營收 USD 96,221.0M，YoY +105.9%；連續 8 季上升。",
+            "trend": "狀態未變",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/0001045810-26-000075-index.html",
+            "source_period": "2026-07-26"
+          },
+          {
+            "id": "pricing_moat",
+            "title": "平台與軟體生態維持定價能力",
+            "original_expectation": "毛利率用來觀察產品組合、供需與平台定價能力是否仍反映在財報。",
+            "invalidation": "毛利率低於 55%，或連續至少 3 季顯著下降。",
+            "status": "supported",
+            "label": "支持",
+            "current_evidence": "2026-07-26 毛利率 75.0%，YoY +2.6pp；未形成連續方向。",
+            "trend": "狀態未變",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/0001045810-26-000075-index.html",
+            "source_period": "2026-07-26"
+          },
+          {
+            "id": "cash_per_share",
+            "title": "成長能轉化為每股現金流",
+            "original_expectation": "自由現金流與稀釋股數共同檢查成長是否真正留給股東。",
+            "invalidation": "FCF 連續至少 4 季為負，或稀釋股數 YoY ≥ 10%。",
+            "status": "supported",
+            "label": "支持",
+            "current_evidence": "2026-07-26 FCF USD 21,400.0M（連續 8 季為正）；稀釋股數 YoY -1.0%。",
+            "trend": "狀態未變",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/0001045810-26-000075-index.html",
+            "source_period": "2026-07-26"
+          }
+        ],
+        "next_validation": {
+          "type": "earnings",
+          "date": "2026-11-17",
+          "days_until": 59,
+          "confidence": "estimated",
+          "source_label": "Yahoo Finance 行事曆",
+          "source_url": "https://finance.yahoo.com/quote/NVDA/calendar/",
+          "source_status": "fresh",
+          "last_success_at": "2026-09-19"
+        }
+      },
+      "catalyst_log": {
+        "upcoming": [
+          {
+            "ticker": "NVDA",
+            "date": "2026-10-01",
+            "type": "dividend_payment",
+            "title": "季度現金股利發放日",
+            "detail": "每股 0.25 美元。",
+            "meaning": "股息在此日支付；這是現金入帳事件，不等同新的營運利多。",
+            "source_label": "NVIDIA FY2027 Q2 官方財報",
+            "source_url": "https://investor.nvidia.com/news/press-release-details/2026/NVIDIA-Announces-Financial-Results-for-Second-Quarter-Fiscal-2027/default.aspx",
+            "confidence": "official",
+            "announced_at": "2026-08-26",
+            "days_until": 12,
+            "position": "holding",
+            "company_name": "NVIDIA",
+            "status": "upcoming"
+          }
+        ],
+        "completed": [
+          {
+            "status": "completed",
+            "date": "2026-04-26",
+            "type": "earnings_guidance_validation",
+            "title": "FY2027 Q1 官方指引驗證",
+            "expected": "76.44～79.56 USD bn",
+            "actual": "81.615 USD bn",
+            "outcome": "above",
+            "outcome_label": "高於指引",
+            "source_url": "https://nvidianews.nvidia.com/news/nvidia-announces-financial-results-for-fourth-quarter-and-fiscal-2026",
+            "actual_source_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000052/0001045810-26-000052-index.html"
+          }
+        ],
+        "note": "已完成事件目前只收錄可由官方指引與正式實績閉環驗證者；其他事件不猜測結果。"
+      },
+      "peer_comparison": {
+        "status": "available",
+        "group_id": "semiconductor_platforms",
+        "group_label": "半導體平台研究對照組",
+        "members": [
+          "NVDA",
+          "ARM",
+          "MRVL",
+          "INTC",
+          "TSM"
+        ],
+        "comparability": "directional",
+        "caveat": "涵蓋晶片設計、IP 授權、IDM 與晶圓代工；營運百分位可作方向性對照，估值倍數不可視為完全同業。",
+        "metrics": [
+          {
+            "id": "revenue_yoy",
+            "label": "營收 YoY",
+            "value": 105.85114348672526,
+            "unit": "%",
+            "direction": "higher",
+            "known_peer_count": 5,
+            "peer_median": 36.045577699482756,
+            "favorable_percentile": 100.0,
+            "status": "available"
+          },
+          {
+            "id": "gross_margin",
+            "label": "毛利率",
+            "value": 74.97531723844068,
+            "unit": "%",
+            "direction": "higher",
+            "known_peer_count": 5,
+            "peer_median": 67.7,
+            "favorable_percentile": 75.0,
+            "status": "available"
+          },
+          {
+            "id": "operating_margin",
+            "label": "營業利益率",
+            "value": 66.23710000935347,
+            "unit": "%",
+            "direction": "higher",
+            "known_peer_count": 5,
+            "peer_median": 16.781659548059725,
+            "favorable_percentile": 100.0,
+            "status": "available"
+          },
+          {
+            "id": "fcf_margin",
+            "label": "FCF 利潤率",
+            "value": 22.240467257667245,
+            "unit": "%",
+            "direction": "higher",
+            "known_peer_count": 5,
+            "peer_median": 22.620003463530598,
+            "favorable_percentile": 25.0,
+            "status": "available"
+          },
+          {
+            "id": "diluted_shares_yoy",
+            "label": "稀釋股數 YoY",
+            "value": -1.0068481982716482,
+            "unit": "%",
+            "direction": "lower",
+            "known_peer_count": 4,
+            "peer_median": 3.528527167909412,
+            "favorable_percentile": 100.0,
+            "status": "available"
+          },
+          {
+            "id": "pe_ratio",
+            "label": "本益比",
+            "value": 45.4,
+            "unit": "x",
+            "direction": "lower",
+            "known_peer_count": 4,
+            "peer_median": 62.5,
+            "favorable_percentile": 66.7,
+            "status": "available"
+          }
+        ],
+        "composite_percentile": 77.8,
+        "coverage": {
+          "known": 6,
+          "total": 6
+        }
+      }
+    },
+    "TSM": {
+      "ticker": "TSM",
+      "data_ticker": "TSM",
+      "evidence_ledger": {
+        "status": "available",
+        "period_end": "2026-06-30",
+        "source_url": "https://investor.tsmc.com/english/quarterly-results/2026/q2",
+        "source_form": "TIFRS 季報",
+        "source_accession": null,
+        "source_date": "2026-07-16",
+        "quality_notes": [],
+        "claims": [
+          {
+            "claim_id": "2026-06-30:revenue",
+            "metric": "revenue",
+            "label": "營收",
+            "value": 1270380000000.0,
+            "unit": "TWD",
+            "tag": null,
+            "derived": false,
+            "derivation": null,
+            "source_locator": "TIFRS 季報已核對表格列：營收",
+            "source_url": "https://investor.tsmc.com/english/quarterly-results/2026/q2",
+            "source_form": "TIFRS 季報",
+            "source_accession": null,
+            "source_date": "2026-07-16"
+          },
+          {
+            "claim_id": "2026-06-30:gross_margin",
+            "metric": "gross_margin",
+            "label": "毛利率",
+            "value": 0.677,
+            "unit": "%",
+            "tag": null,
+            "derived": true,
+            "derivation": "毛利 ÷ 營收",
+            "source_locator": "毛利 ÷ 營收",
+            "source_url": "https://investor.tsmc.com/english/quarterly-results/2026/q2",
+            "source_form": "TIFRS 季報",
+            "source_accession": null,
+            "source_date": "2026-07-16"
+          },
+          {
+            "claim_id": "2026-06-30:operating_margin",
+            "metric": "operating_margin",
+            "label": "營業利益率",
+            "value": 0.603,
+            "unit": "%",
+            "tag": null,
+            "derived": true,
+            "derivation": "營業利益 ÷ 營收",
+            "source_locator": "營業利益 ÷ 營收",
+            "source_url": "https://investor.tsmc.com/english/quarterly-results/2026/q2",
+            "source_form": "TIFRS 季報",
+            "source_accession": null,
+            "source_date": "2026-07-16"
+          },
+          {
+            "claim_id": "2026-06-30:free_cash_flow",
+            "metric": "free_cash_flow",
+            "label": "自由現金流",
+            "value": 287360000000.0,
+            "unit": "TWD",
+            "tag": null,
+            "derived": true,
+            "derivation": "營運現金流 − 資本支出",
+            "source_locator": "營運現金流 − 資本支出",
+            "source_url": "https://investor.tsmc.com/english/quarterly-results/2026/q2",
+            "source_form": "TIFRS 季報",
+            "source_accession": null,
+            "source_date": "2026-07-16"
+          },
+          {
+            "claim_id": "2026-06-30:diluted_shares",
+            "metric": "diluted_shares",
+            "label": "稀釋股數",
+            "value": 25932000000.0,
+            "unit": "TWD",
+            "tag": null,
+            "derived": false,
+            "derivation": null,
+            "source_locator": "TIFRS 季報已核對表格列：稀釋股數",
+            "source_url": "https://investor.tsmc.com/english/quarterly-results/2026/q2",
+            "source_form": "TIFRS 季報",
+            "source_accession": null,
+            "source_date": "2026-07-16"
+          }
+        ],
+        "coverage": {
+          "sourced": 5,
+          "total": 5
+        }
+      },
+      "earnings_delta": {
+        "status": "available",
+        "latest_result": {
+          "period_end": "2026-06-30",
+          "filing_date": "2026-07-16",
+          "form": "TIFRS 季報",
+          "accession": null,
+          "source_url": "https://investor.tsmc.com/english/quarterly-results/2026/q2",
+          "quality_notes": [],
+          "currency": "TWD",
+          "source_basis": "TSMC 官方 TIFRS consolidated 季度管理報告；金額為新台幣。",
+          "days_since_filing": 65,
+          "review_due": false
+        },
+        "metrics": [
+          {
+            "metric": "revenue",
+            "label": "營收",
+            "display": "amount",
+            "value": 1270380000000.0,
+            "qoq": 12.016577021426688,
+            "yoy": 36.045577699482756,
+            "state": "improved",
+            "interpretation": "營收 YoY +36.0%",
+            "source_url": "https://investor.tsmc.com/english/quarterly-results/2026/q2",
+            "source_period": "2026-06-30"
+          },
+          {
+            "metric": "gross_margin",
+            "label": "毛利率",
+            "display": "percent",
+            "value": 0.677,
+            "qoq": 1.5000000000000013,
+            "yoy": 9.100000000000009,
+            "state": "improved",
+            "interpretation": "毛利率 YoY +9.1pp",
+            "source_url": "https://investor.tsmc.com/english/quarterly-results/2026/q2",
+            "source_period": "2026-06-30"
+          },
+          {
+            "metric": "operating_margin",
+            "label": "營業利益率",
+            "display": "percent",
+            "value": 0.603,
+            "qoq": 2.200000000000002,
+            "yoy": 10.7,
+            "state": "improved",
+            "interpretation": "營業利益率 YoY +10.7pp",
+            "source_url": "https://investor.tsmc.com/english/quarterly-results/2026/q2",
+            "source_period": "2026-06-30"
+          },
+          {
+            "metric": "free_cash_flow",
+            "label": "自由現金流",
+            "display": "amount",
+            "value": 287360000000.0,
+            "qoq": -17.475086872864075,
+            "yoy": 43.7878408806605,
+            "state": "improved",
+            "interpretation": "自由現金流為正",
+            "source_url": "https://investor.tsmc.com/english/quarterly-results/2026/q2",
+            "source_period": "2026-06-30"
+          },
+          {
+            "metric": "diluted_shares",
+            "label": "稀釋股數",
+            "display": "shares",
+            "value": 25932000000.0,
+            "qoq": 0.0038563881068931494,
+            "yoy": null,
+            "state": "unknown",
+            "interpretation": "缺去年同期，不能判斷稀釋",
+            "source_url": "https://investor.tsmc.com/english/quarterly-results/2026/q2",
+            "source_period": "2026-06-30"
+          }
+        ],
+        "official_guidance_comparison": {
+          "period": "2026 Q2",
+          "period_end": "2026-06-30",
+          "low": 39.0,
+          "high": 40.2,
+          "actual": 40.2,
+          "guidance_date": "2026-04-16",
+          "guidance_source_url": "https://investor.tsmc.com/english/quarterly-results/2026/q1",
+          "metric": "營收",
+          "unit": "USD bn",
+          "comparison_basis": "公司發布的下一季美元營收區間；實績採公司季報揭露的美元換算營收。",
+          "outcome": "within",
+          "outcome_label": "落在區間",
+          "vs_midpoint_pct": 1.5151515151515138
+        },
+        "prior_internal_estimate": {
+          "status": "not_collected",
+          "note": "尚未保存可追溯的財報前內部數值預估，不補猜。"
+        },
+        "consensus": {
+          "status": "not_collected",
+          "note": "目前沒有已授權且可稽核的機構共識來源，不以網路摘要補值。"
+        },
+        "conclusion": "改善項目多於風險項目，但仍需逐項核對來源與口徑。"
+      },
+      "thesis_scorecard": {
+        "status": "maintained",
+        "label": "論點維持",
+        "period": "2026-06-30",
+        "source_url": "https://investor.tsmc.com/english/quarterly-results/2026/q2",
+        "items": [
+          {
+            "id": "advanced_node_growth",
+            "title": "先進製程與 AI 晶圓需求持續擴張",
+            "original_expectation": "原幣營收成長是先進製程需求與產能利用率的財務代理。",
+            "invalidation": "營收 YoY ≤ 0%，或營收連續至少 3 季下降。",
+            "status": "supported",
+            "label": "支持",
+            "current_evidence": "2026-06-30 營收 TWD 1,270.4B，YoY +36.0%；連續 6 季上升。",
+            "trend": "狀態未變",
+            "source_url": "https://investor.tsmc.com/english/quarterly-results/2026/q2",
+            "source_period": "2026-06-30"
+          },
+          {
+            "id": "manufacturing_moat",
+            "title": "製造領先維持高毛利率",
+            "original_expectation": "毛利率用來觀察製程領先、良率與定價能力是否持續。",
+            "invalidation": "毛利率低於 50%，或連續至少 3 季顯著下降。",
+            "status": "supported",
+            "label": "支持",
+            "current_evidence": "2026-06-30 毛利率 67.7%，YoY +9.1pp；連續 5 季上升。",
+            "trend": "狀態未變",
+            "source_url": "https://investor.tsmc.com/english/quarterly-results/2026/q2",
+            "source_period": "2026-06-30"
+          },
+          {
+            "id": "capex_returns",
+            "title": "高資本支出仍能產生正向 FCF",
+            "original_expectation": "FCF 與股數用來檢查擴產後的現金報酬與每股紀律。",
+            "invalidation": "FCF 連續至少 4 季為負，或稀釋股數 YoY ≥ 5%。",
+            "status": "supported",
+            "label": "支持",
+            "current_evidence": "2026-06-30 FCF TWD 287.4B（連續 8 季為正）；稀釋股數 YoY —。",
+            "trend": "狀態未變",
+            "source_url": "https://investor.tsmc.com/english/quarterly-results/2026/q2",
+            "source_period": "2026-06-30"
+          }
+        ],
+        "next_validation": {
+          "ticker": "TSM",
+          "date": "2026-10-15",
+          "type": "earnings",
+          "title": "預估財報公布日",
+          "detail": "第三方市場資料日期；公司尚未公告時可能變更。",
+          "meaning": "財報日可能調整；應優先核對營收、毛利率、自由現金流與管理層指引是否改變。",
+          "source_label": "Yahoo Finance 行事曆",
+          "source_url": "https://finance.yahoo.com/quote/TSM/calendar/",
+          "confidence": "estimated",
+          "announced_at": null,
+          "days_until": 26,
+          "position": "watchlist",
+          "company_name": "台積電"
+        }
+      },
+      "catalyst_log": {
+        "upcoming": [
+          {
+            "ticker": "TSM",
+            "date": "2026-10-08",
+            "type": "dividend_payment",
+            "title": "2026 Q1 現金股利發放日",
+            "detail": "每普通股約新台幣 7 元、每 ADR 約 1.11 美元。",
+            "meaning": "股息在此日支付；若已超出 30 天視窗，日曆不會顯示。",
+            "source_label": "TSMC 官方股利頁",
+            "source_url": "https://investor.tsmc.com/english/dividends/1q26",
+            "confidence": "official",
+            "announced_at": "2026-05-12",
+            "days_until": 19,
+            "position": "watchlist",
+            "company_name": "台積電",
+            "status": "upcoming"
+          },
+          {
+            "ticker": "TSM",
+            "date": "2026-10-15",
+            "type": "earnings",
+            "title": "預估財報公布日",
+            "detail": "第三方市場資料日期；公司尚未公告時可能變更。",
+            "meaning": "財報日可能調整；應優先核對營收、毛利率、自由現金流與管理層指引是否改變。",
+            "source_label": "Yahoo Finance 行事曆",
+            "source_url": "https://finance.yahoo.com/quote/TSM/calendar/",
+            "confidence": "estimated",
+            "announced_at": null,
+            "days_until": 26,
+            "position": "watchlist",
+            "company_name": "台積電",
+            "status": "upcoming"
+          }
+        ],
+        "completed": [
+          {
+            "status": "completed",
+            "date": "2026-06-30",
+            "type": "earnings_guidance_validation",
+            "title": "2026 Q2 官方指引驗證",
+            "expected": "39.0～40.2 USD bn",
+            "actual": "40.2 USD bn",
+            "outcome": "within",
+            "outcome_label": "落在區間",
+            "source_url": "https://investor.tsmc.com/english/quarterly-results/2026/q1",
+            "actual_source_url": "https://investor.tsmc.com/english/quarterly-results/2026/q2"
+          }
+        ],
+        "note": "已完成事件目前只收錄可由官方指引與正式實績閉環驗證者；其他事件不猜測結果。"
+      },
+      "peer_comparison": {
+        "status": "available",
+        "group_id": "semiconductor_platforms",
+        "group_label": "半導體平台研究對照組",
+        "members": [
+          "NVDA",
+          "ARM",
+          "MRVL",
+          "INTC",
+          "TSM"
+        ],
+        "comparability": "directional",
+        "caveat": "涵蓋晶片設計、IP 授權、IDM 與晶圓代工；營運百分位可作方向性對照，估值倍數不可視為完全同業。",
+        "metrics": [
+          {
+            "id": "revenue_yoy",
+            "label": "營收 YoY",
+            "value": 36.045577699482756,
+            "unit": "%",
+            "direction": "higher",
+            "known_peer_count": 5,
+            "peer_median": 36.045577699482756,
+            "favorable_percentile": 50.0,
+            "status": "available"
+          },
+          {
+            "id": "gross_margin",
+            "label": "毛利率",
+            "value": 67.7,
+            "unit": "%",
+            "direction": "higher",
+            "known_peer_count": 5,
+            "peer_median": 67.7,
+            "favorable_percentile": 50.0,
+            "status": "available"
+          },
+          {
+            "id": "operating_margin",
+            "label": "營業利益率",
+            "value": 60.3,
+            "unit": "%",
+            "direction": "higher",
+            "known_peer_count": 5,
+            "peer_median": 16.781659548059725,
+            "favorable_percentile": 75.0,
+            "status": "available"
+          },
+          {
+            "id": "fcf_margin",
+            "label": "FCF 利潤率",
+            "value": 22.620003463530598,
+            "unit": "%",
+            "direction": "higher",
+            "known_peer_count": 5,
+            "peer_median": 22.620003463530598,
+            "favorable_percentile": 50.0,
+            "status": "available"
+          },
+          {
+            "id": "diluted_shares_yoy",
+            "label": "稀釋股數 YoY",
+            "value": null,
+            "unit": "%",
+            "direction": "lower",
+            "known_peer_count": 4,
+            "peer_median": 3.528527167909412,
+            "favorable_percentile": null,
+            "status": "insufficient"
+          },
+          {
+            "id": "pe_ratio",
+            "label": "本益比",
+            "value": 41.7,
+            "unit": "x",
+            "direction": "lower",
+            "known_peer_count": 4,
+            "peer_median": 62.5,
+            "favorable_percentile": 100.0,
+            "status": "available"
+          }
+        ],
+        "composite_percentile": 65.0,
+        "coverage": {
+          "known": 5,
+          "total": 6
+        }
+      }
+    },
+    "MSFT": {
+      "ticker": "MSFT",
+      "data_ticker": "MSFT",
+      "evidence_ledger": {
+        "status": "available",
+        "period_end": "2026-06-30",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/0001193125-26-323660-index.html",
+        "source_form": "10-K",
+        "source_accession": "0001193125-26-323660",
+        "source_date": "2026-07-29",
+        "quality_notes": [],
+        "claims": [
+          {
+            "claim_id": "0001193125-26-323660:revenue",
+            "metric": "revenue",
+            "label": "營收",
+            "value": 90007000000.0,
+            "unit": "USD",
+            "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+            "derived": true,
+            "derivation": "年度報告全年值減同一會計年度前三季累計值",
+            "source_locator": "XBRL tag: RevenueFromContractWithCustomerExcludingAssessedTax",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/0001193125-26-323660-index.html",
+            "source_form": "10-K",
+            "source_accession": "0001193125-26-323660",
+            "source_date": "2026-07-29"
+          },
+          {
+            "claim_id": "0001193125-26-323660:gross_margin",
+            "metric": "gross_margin",
+            "label": "毛利率",
+            "value": 0.671969957892164,
+            "unit": "%",
+            "tag": null,
+            "derived": true,
+            "derivation": "毛利 ÷ 營收",
+            "source_locator": "毛利 ÷ 營收",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/0001193125-26-323660-index.html",
+            "source_form": "10-K",
+            "source_accession": "0001193125-26-323660",
+            "source_date": "2026-07-29"
+          },
+          {
+            "claim_id": "0001193125-26-323660:operating_margin",
+            "metric": "operating_margin",
+            "label": "營業利益率",
+            "value": 0.4511093581610319,
+            "unit": "%",
+            "tag": null,
+            "derived": true,
+            "derivation": "營業利益 ÷ 營收",
+            "source_locator": "營業利益 ÷ 營收",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/0001193125-26-323660-index.html",
+            "source_form": "10-K",
+            "source_accession": "0001193125-26-323660",
+            "source_date": "2026-07-29"
+          },
+          {
+            "claim_id": "0001193125-26-323660:free_cash_flow",
+            "metric": "free_cash_flow",
+            "label": "自由現金流",
+            "value": 19639000000.0,
+            "unit": "USD",
+            "tag": null,
+            "derived": true,
+            "derivation": "營運現金流 − 資本支出",
+            "source_locator": "營運現金流 − 資本支出",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/0001193125-26-323660-index.html",
+            "source_form": "10-K",
+            "source_accession": "0001193125-26-323660",
+            "source_date": "2026-07-29"
+          },
+          {
+            "claim_id": "0001193125-26-323660:diluted_shares",
+            "metric": "diluted_shares",
+            "label": "稀釋股數",
+            "value": null,
+            "unit": "USD",
+            "tag": null,
+            "derived": false,
+            "derivation": null,
+            "source_locator": "10-K已核對表格列：稀釋股數",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/0001193125-26-323660-index.html",
+            "source_form": "10-K",
+            "source_accession": "0001193125-26-323660",
+            "source_date": "2026-07-29"
+          }
+        ],
+        "coverage": {
+          "sourced": 4,
+          "total": 5
+        }
+      },
+      "earnings_delta": {
+        "status": "available",
+        "latest_result": {
+          "period_end": "2026-06-30",
+          "filing_date": "2026-07-29",
+          "form": "10-K",
+          "accession": "0001193125-26-323660",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/0001193125-26-323660-index.html",
+          "quality_notes": [],
+          "currency": "USD",
+          "source_basis": "SEC Company Facts；金額為 USD。",
+          "days_since_filing": 52,
+          "review_due": false
+        },
+        "metrics": [
+          {
+            "metric": "revenue",
+            "label": "營收",
+            "display": "amount",
+            "value": 90007000000.0,
+            "qoq": 8.591318196076546,
+            "yoy": 17.74702057796209,
+            "state": "improved",
+            "interpretation": "營收 YoY +17.7%",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/0001193125-26-323660-index.html",
+            "source_period": "2026-06-30"
+          },
+          {
+            "metric": "gross_margin",
+            "label": "毛利率",
+            "display": "percent",
+            "value": 0.671969957892164,
+            "qoq": -0.4356562871294267,
+            "yoy": -1.387925915104582,
+            "state": "stable",
+            "interpretation": "毛利率 YoY -1.4pp",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/0001193125-26-323660-index.html",
+            "source_period": "2026-06-30"
+          },
+          {
+            "metric": "operating_margin",
+            "label": "營業利益率",
+            "display": "percent",
+            "value": 0.4511093581610319,
+            "qoq": -1.2153436520820238,
+            "yoy": 0.2096393914096384,
+            "state": "stable",
+            "interpretation": "營業利益率 YoY +0.2pp",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/0001193125-26-323660-index.html",
+            "source_period": "2026-06-30"
+          },
+          {
+            "metric": "free_cash_flow",
+            "label": "自由現金流",
+            "display": "amount",
+            "value": 19639000000.0,
+            "qoq": 24.273872049610823,
+            "yoy": -23.18914267834794,
+            "state": "improved",
+            "interpretation": "自由現金流為正",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/0001193125-26-323660-index.html",
+            "source_period": "2026-06-30"
+          },
+          {
+            "metric": "diluted_shares",
+            "label": "稀釋股數",
+            "display": "shares",
+            "value": null,
+            "qoq": null,
+            "yoy": null,
+            "state": "unknown",
+            "interpretation": "缺值，不能判斷",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/0001193125-26-323660-index.html",
+            "source_period": "2026-06-30"
+          }
+        ],
+        "official_guidance_comparison": {
+          "period": "FY2026 Q4",
+          "period_end": "2026-06-30",
+          "low": 86.7,
+          "high": 87.8,
+          "actual": 90.007,
+          "guidance_date": "2026-04-29",
+          "guidance_source_url": "https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q3",
+          "metric": "總營收",
+          "unit": "USD bn",
+          "comparison_basis": "FY2024 Q1～FY2026 Q1 為官方三大分部營收指引上下限加總；FY2026 Q2 起採公司直接提供的總營收區間。",
+          "outcome": "above",
+          "outcome_label": "高於指引",
+          "vs_midpoint_pct": 3.159885386819483
+        },
+        "prior_internal_estimate": {
+          "status": "not_collected",
+          "note": "尚未保存可追溯的財報前內部數值預估，不補猜。"
+        },
+        "consensus": {
+          "status": "not_collected",
+          "note": "目前沒有已授權且可稽核的機構共識來源，不以網路摘要補值。"
+        },
+        "conclusion": "改善項目多於風險項目，但仍需逐項核對來源與口徑。"
+      },
+      "thesis_scorecard": {
+        "status": "partial-invalidated",
+        "label": "部分失效",
+        "period": "2026-06-30",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/0001193125-26-323660-index.html",
+        "items": [
+          {
+            "id": "cloud_ai_growth",
+            "title": "雲端與 AI 商業化維持雙位數成長",
+            "original_expectation": "合併營收是 Azure、Copilot 與企業軟體需求的保守財務代理。",
+            "invalidation": "營收 YoY ≤ 0%，或營收連續至少 3 季下降。",
+            "status": "supported",
+            "label": "支持",
+            "current_evidence": "2026-06-30 營收 USD 90,007.0M，YoY +17.7%；連續 6 季上升。",
+            "trend": "狀態未變",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/0001193125-26-323660-index.html",
+            "source_period": "2026-06-30"
+          },
+          {
+            "id": "software_leverage",
+            "title": "軟體規模經濟維持高營業利益率",
+            "original_expectation": "營業利益率反映 AI 基礎設施投入後是否仍保有規模經濟。",
+            "invalidation": "營業利益率低於 30%，或連續至少 3 季顯著下降。",
+            "status": "invalidated",
+            "label": "失效",
+            "current_evidence": "2026-06-30 營業利益率 45.1%，YoY +0.2pp；連續 4 季下降。",
+            "trend": "狀態未變",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/0001193125-26-323660-index.html",
+            "source_period": "2026-06-30"
+          },
+          {
+            "id": "cash_compounding",
+            "title": "現金流足以支撐再投資與股東回報",
+            "original_expectation": "FCF 與稀釋股數共同檢查資本密集度上升後的每股價值。",
+            "invalidation": "FCF 連續至少 4 季為負，或稀釋股數 YoY ≥ 5%。",
+            "status": "supported",
+            "label": "支持",
+            "current_evidence": "2026-06-30 FCF USD 19,639.0M（連續 8 季為正）；稀釋股數缺值。",
+            "trend": "狀態未變",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/0001193125-26-323660-index.html",
+            "source_period": "2026-06-30"
+          }
+        ],
+        "next_validation": {
+          "type": "earnings",
+          "date": "2026-10-28",
+          "days_until": 39,
+          "confidence": "estimated",
+          "source_label": "Yahoo Finance 行事曆",
+          "source_url": "https://finance.yahoo.com/quote/MSFT/calendar/",
+          "source_status": "fresh",
+          "last_success_at": "2026-09-19"
+        }
+      },
+      "catalyst_log": {
+        "upcoming": [],
+        "completed": [
+          {
+            "status": "completed",
+            "date": "2026-06-30",
+            "type": "earnings_guidance_validation",
+            "title": "FY2026 Q4 官方指引驗證",
+            "expected": "86.7～87.8 USD bn",
+            "actual": "90.007 USD bn",
+            "outcome": "above",
+            "outcome_label": "高於指引",
+            "source_url": "https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q3",
+            "actual_source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/0001193125-26-323660-index.html"
+          }
+        ],
+        "note": "已完成事件目前只收錄可由官方指引與正式實績閉環驗證者；其他事件不猜測結果。"
+      },
+      "peer_comparison": {
+        "status": "available",
+        "group_id": "large_platforms",
+        "group_label": "大型數位平台研究對照組",
+        "members": [
+          "AAPL",
+          "AMZN",
+          "GOOG",
+          "META",
+          "MSFT"
+        ],
+        "comparability": "directional",
+        "caveat": "收入組成涵蓋裝置、雲端、廣告與零售；用來比較成長、利潤與現金流品質，不是嚴格交易同業組。",
+        "metrics": [
+          {
+            "id": "revenue_yoy",
+            "label": "營收 YoY",
+            "value": 17.74702057796209,
+            "unit": "%",
+            "direction": "higher",
+            "known_peer_count": 5,
+            "peer_median": 19.620517346245126,
+            "favorable_percentile": 25.0,
+            "status": "available"
+          },
+          {
+            "id": "gross_margin",
+            "label": "毛利率",
+            "value": 67.1969957892164,
+            "unit": "%",
+            "direction": "higher",
+            "known_peer_count": 5,
+            "peer_median": 61.648969915523054,
+            "favorable_percentile": 75.0,
+            "status": "available"
+          },
+          {
+            "id": "operating_margin",
+            "label": "營業利益率",
+            "value": 45.11093581610319,
+            "unit": "%",
+            "direction": "higher",
+            "known_peer_count": 5,
+            "peer_median": 32.62290137729969,
+            "favorable_percentile": 100.0,
+            "status": "available"
+          },
+          {
+            "id": "fcf_margin",
+            "label": "FCF 利潤率",
+            "value": 21.819414045574234,
+            "unit": "%",
+            "direction": "higher",
+            "known_peer_count": 5,
+            "peer_median": 2.8716632950115955,
+            "favorable_percentile": 75.0,
+            "status": "available"
+          },
+          {
+            "id": "diluted_shares_yoy",
+            "label": "稀釋股數 YoY",
+            "value": null,
+            "unit": "%",
+            "direction": "lower",
+            "known_peer_count": 4,
+            "peer_median": 0.3710037153303647,
+            "favorable_percentile": null,
+            "status": "insufficient"
+          },
+          {
+            "id": "pe_ratio",
+            "label": "本益比",
+            "value": 27.5,
+            "unit": "x",
+            "direction": "lower",
+            "known_peer_count": 5,
+            "peer_median": 31.8,
+            "favorable_percentile": 100.0,
+            "status": "available"
+          }
+        ],
+        "composite_percentile": 75.0,
+        "coverage": {
+          "known": 5,
+          "total": 6
+        }
+      }
+    },
+    "META": {
+      "ticker": "META",
+      "data_ticker": "META",
+      "evidence_ledger": {
+        "status": "available",
+        "period_end": "2026-06-30",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026050705/0001628280-26-050705-index.html",
+        "source_form": "10-Q",
+        "source_accession": "0001628280-26-050705",
+        "source_date": "2026-07-30",
+        "quality_notes": [],
+        "claims": [
+          {
+            "claim_id": "0001628280-26-050705:revenue",
+            "metric": "revenue",
+            "label": "營收",
+            "value": 60801000000.0,
+            "unit": "USD",
+            "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+            "derived": false,
+            "derivation": null,
+            "source_locator": "XBRL tag: RevenueFromContractWithCustomerExcludingAssessedTax",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026050705/0001628280-26-050705-index.html",
+            "source_form": "10-Q",
+            "source_accession": "0001628280-26-050705",
+            "source_date": "2026-07-30"
+          },
+          {
+            "claim_id": "0001628280-26-050705:gross_margin",
+            "metric": "gross_margin",
+            "label": "毛利率",
+            "value": 0.8136543806845282,
+            "unit": "%",
+            "tag": null,
+            "derived": true,
+            "derivation": "毛利 ÷ 營收",
+            "source_locator": "毛利 ÷ 營收",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026050705/0001628280-26-050705-index.html",
+            "source_form": "10-Q",
+            "source_accession": "0001628280-26-050705",
+            "source_date": "2026-07-30"
+          },
+          {
+            "claim_id": "0001628280-26-050705:operating_margin",
+            "metric": "operating_margin",
+            "label": "營業利益率",
+            "value": 0.3087942632522491,
+            "unit": "%",
+            "tag": null,
+            "derived": true,
+            "derivation": "營業利益 ÷ 營收",
+            "source_locator": "營業利益 ÷ 營收",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026050705/0001628280-26-050705-index.html",
+            "source_form": "10-Q",
+            "source_accession": "0001628280-26-050705",
+            "source_date": "2026-07-30"
+          },
+          {
+            "claim_id": "0001628280-26-050705:free_cash_flow",
+            "metric": "free_cash_flow",
+            "label": "自由現金流",
+            "value": 1746000000.0,
+            "unit": "USD",
+            "tag": null,
+            "derived": true,
+            "derivation": "營運現金流 − 資本支出",
+            "source_locator": "營運現金流 − 資本支出",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026050705/0001628280-26-050705-index.html",
+            "source_form": "10-Q",
+            "source_accession": "0001628280-26-050705",
+            "source_date": "2026-07-30"
+          },
+          {
+            "claim_id": "0001628280-26-050705:diluted_shares",
+            "metric": "diluted_shares",
+            "label": "稀釋股數",
+            "value": 2566000000.0,
+            "unit": "shares",
+            "tag": "WeightedAverageNumberOfDilutedSharesOutstanding",
+            "derived": false,
+            "derivation": null,
+            "source_locator": "XBRL tag: WeightedAverageNumberOfDilutedSharesOutstanding",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026050705/0001628280-26-050705-index.html",
+            "source_form": "10-Q",
+            "source_accession": "0001628280-26-050705",
+            "source_date": "2026-07-30"
+          }
+        ],
+        "coverage": {
+          "sourced": 5,
+          "total": 5
+        }
+      },
+      "earnings_delta": {
+        "status": "available",
+        "latest_result": {
+          "period_end": "2026-06-30",
+          "filing_date": "2026-07-30",
+          "form": "10-Q",
+          "accession": "0001628280-26-050705",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026050705/0001628280-26-050705-index.html",
+          "quality_notes": [],
+          "currency": "USD",
+          "source_basis": "SEC Company Facts；金額為 USD。",
+          "days_since_filing": 51,
+          "review_due": false
+        },
+        "metrics": [
+          {
+            "metric": "revenue",
+            "label": "營收",
+            "display": "amount",
+            "value": 60801000000.0,
+            "qoq": 7.973575322761084,
+            "yoy": 27.959003283104632,
+            "state": "improved",
+            "interpretation": "營收 YoY +28.0%",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026050705/0001628280-26-050705-index.html",
+            "source_period": "2026-06-30"
+          },
+          {
+            "metric": "gross_margin",
+            "label": "毛利率",
+            "display": "percent",
+            "value": 0.8136543806845282,
+            "qoq": -0.48890655337949784,
+            "yoy": -0.7647917488718736,
+            "state": "stable",
+            "interpretation": "毛利率 YoY -0.8pp",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026050705/0001628280-26-050705-index.html",
+            "source_period": "2026-06-30"
+          },
+          {
+            "metric": "operating_margin",
+            "label": "營業利益率",
+            "display": "percent",
+            "value": 0.3087942632522491,
+            "qoq": -9.737859817802203,
+            "yoy": -12.139767209584413,
+            "state": "risk",
+            "interpretation": "營業利益率 YoY -12.1pp",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026050705/0001628280-26-050705-index.html",
+            "source_period": "2026-06-30"
+          },
+          {
+            "metric": "free_cash_flow",
+            "label": "自由現金流",
+            "display": "amount",
+            "value": 1746000000.0,
+            "qoq": -86.80172348628015,
+            "yoy": -80.64945140197274,
+            "state": "improved",
+            "interpretation": "自由現金流為正",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026050705/0001628280-26-050705-index.html",
+            "source_period": "2026-06-30"
+          },
+          {
+            "metric": "diluted_shares",
+            "label": "稀釋股數",
+            "display": "shares",
+            "value": 2566000000.0,
+            "qoq": 0.07800312012480326,
+            "yoy": -0.15564202334630295,
+            "state": "stable",
+            "interpretation": "稀釋股數 YoY -0.2%",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026050705/0001628280-26-050705-index.html",
+            "source_period": "2026-06-30"
+          }
+        ],
+        "official_guidance_comparison": {
+          "period": "2026 Q2",
+          "period_end": "2026-06-30",
+          "low": 58.0,
+          "high": 61.0,
+          "actual": 60.801,
+          "guidance_date": "2026-04-29",
+          "guidance_source_url": "https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-First-Quarter-2026-Results/",
+          "metric": "總營收",
+          "unit": "USD bn",
+          "comparison_basis": "公司發布的下一季總營收區間；實績採 GAAP total revenue。",
+          "outcome": "within",
+          "outcome_label": "落在區間",
+          "vs_midpoint_pct": 2.1865546218487353
+        },
+        "prior_internal_estimate": {
+          "status": "not_collected",
+          "note": "尚未保存可追溯的財報前內部數值預估，不補猜。"
+        },
+        "consensus": {
+          "status": "not_collected",
+          "note": "目前沒有已授權且可稽核的機構共識來源，不以網路摘要補值。"
+        },
+        "conclusion": "改善項目多於風險項目，但仍需逐項核對來源與口徑。"
+      },
+      "thesis_scorecard": {
+        "status": "partial-invalidated",
+        "label": "部分失效",
+        "period": "2026-06-30",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026050705/0001628280-26-050705-index.html",
+        "items": [
+          {
+            "id": "engagement_ads",
+            "title": "AI 推薦與廣告效率推動營收成長",
+            "original_expectation": "合併營收成長是使用者參與、廣告價格與轉換效率的財務代理。",
+            "invalidation": "營收 YoY ≤ 0%，或營收連續至少 3 季下降。",
+            "status": "supported",
+            "label": "支持",
+            "current_evidence": "2026-06-30 營收 USD 60,801.0M，YoY +28.0%；連續 2 季上升。",
+            "trend": "狀態未變",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026050705/0001628280-26-050705-index.html",
+            "source_period": "2026-06-30"
+          },
+          {
+            "id": "ad_margin",
+            "title": "核心廣告業務可負擔 AI 與 Reality Labs 投資",
+            "original_expectation": "營業利益率檢查高額基礎設施與 Reality Labs 支出是否侵蝕核心獲利。",
+            "invalidation": "營業利益率低於 25%，或連續至少 3 季顯著下降。",
+            "status": "invalidated",
+            "label": "失效",
+            "current_evidence": "2026-06-30 營業利益率 30.9%，YoY -12.1pp；連續 3 季下降。",
+            "trend": "支持 → 失效",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026050705/0001628280-26-050705-index.html",
+            "source_period": "2026-06-30"
+          },
+          {
+            "id": "cash_per_share",
+            "title": "高現金流能轉化為每股價值",
+            "original_expectation": "FCF 與稀釋股數觀察回購是否抵銷股權薪酬並留下現金。",
+            "invalidation": "FCF 連續至少 4 季為負，或稀釋股數 YoY ≥ 5%。",
+            "status": "supported",
+            "label": "支持",
+            "current_evidence": "2026-06-30 FCF USD 1,746.0M（連續 8 季為正）；稀釋股數 YoY -0.2%。",
+            "trend": "狀態未變",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026050705/0001628280-26-050705-index.html",
+            "source_period": "2026-06-30"
+          }
+        ],
+        "next_validation": {
+          "type": "earnings",
+          "date": "2026-10-28",
+          "days_until": 39,
+          "confidence": "estimated",
+          "source_label": "Yahoo Finance 行事曆",
+          "source_url": "https://finance.yahoo.com/quote/META/calendar/",
+          "source_status": "fresh",
+          "last_success_at": "2026-09-19"
+        }
+      },
+      "catalyst_log": {
+        "upcoming": [
+          {
+            "ticker": "META",
+            "date": "2026-09-21",
+            "type": "ex_dividend",
+            "title": "除息日",
+            "detail": "第三方市場資料日期；公司尚未公告時可能變更。",
+            "meaning": "自除息日起買進通常無法取得本次股利；價格可能機械式調整，不等於基本面轉弱。",
+            "source_label": "Yahoo Finance 行事曆",
+            "source_url": "https://finance.yahoo.com/quote/META/calendar/",
+            "confidence": "provider",
+            "announced_at": null,
+            "days_until": 2,
+            "position": "watchlist",
+            "company_name": "Meta",
+            "status": "upcoming"
+          },
+          {
+            "ticker": "META",
+            "date": "2026-09-28",
+            "type": "dividend_payment",
+            "title": "股利發放日",
+            "detail": "第三方市場資料日期；公司尚未公告時可能變更。",
+            "meaning": "股息支付或入帳日期；不應重複視為一筆額外投資報酬。",
+            "source_label": "Yahoo Finance 行事曆",
+            "source_url": "https://finance.yahoo.com/quote/META/calendar/",
+            "confidence": "provider",
+            "announced_at": null,
+            "days_until": 9,
+            "position": "watchlist",
+            "company_name": "Meta",
+            "status": "upcoming"
+          }
+        ],
+        "completed": [
+          {
+            "status": "completed",
+            "date": "2026-06-30",
+            "type": "earnings_guidance_validation",
+            "title": "2026 Q2 官方指引驗證",
+            "expected": "58.0～61.0 USD bn",
+            "actual": "60.801 USD bn",
+            "outcome": "within",
+            "outcome_label": "落在區間",
+            "source_url": "https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-First-Quarter-2026-Results/",
+            "actual_source_url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026050705/0001628280-26-050705-index.html"
+          }
+        ],
+        "note": "已完成事件目前只收錄可由官方指引與正式實績閉環驗證者；其他事件不猜測結果。"
+      },
+      "peer_comparison": {
+        "status": "available",
+        "group_id": "large_platforms",
+        "group_label": "大型數位平台研究對照組",
+        "members": [
+          "AAPL",
+          "AMZN",
+          "GOOG",
+          "META",
+          "MSFT"
+        ],
+        "comparability": "directional",
+        "caveat": "收入組成涵蓋裝置、雲端、廣告與零售；用來比較成長、利潤與現金流品質，不是嚴格交易同業組。",
+        "metrics": [
+          {
+            "id": "revenue_yoy",
+            "label": "營收 YoY",
+            "value": 27.959003283104632,
+            "unit": "%",
+            "direction": "higher",
+            "known_peer_count": 5,
+            "peer_median": 19.620517346245126,
+            "favorable_percentile": 100.0,
+            "status": "available"
+          },
+          {
+            "id": "gross_margin",
+            "label": "毛利率",
+            "value": 81.36543806845282,
+            "unit": "%",
+            "direction": "higher",
+            "known_peer_count": 5,
+            "peer_median": 61.648969915523054,
+            "favorable_percentile": 100.0,
+            "status": "available"
+          },
+          {
+            "id": "operating_margin",
+            "label": "營業利益率",
+            "value": 30.879426325224912,
+            "unit": "%",
+            "direction": "higher",
+            "known_peer_count": 5,
+            "peer_median": 32.62290137729969,
+            "favorable_percentile": 25.0,
+            "status": "available"
+          },
+          {
+            "id": "fcf_margin",
+            "label": "FCF 利潤率",
+            "value": 2.8716632950115955,
+            "unit": "%",
+            "direction": "higher",
+            "known_peer_count": 5,
+            "peer_median": 2.8716632950115955,
+            "favorable_percentile": 50.0,
+            "status": "available"
+          },
+          {
+            "id": "diluted_shares_yoy",
+            "label": "稀釋股數 YoY",
+            "value": -0.15564202334630295,
+            "unit": "%",
+            "direction": "lower",
+            "known_peer_count": 4,
+            "peer_median": 0.3710037153303647,
+            "favorable_percentile": 66.7,
+            "status": "available"
+          },
+          {
+            "id": "pe_ratio",
+            "label": "本益比",
+            "value": 29.0,
+            "unit": "x",
+            "direction": "lower",
+            "known_peer_count": 5,
+            "peer_median": 31.8,
+            "favorable_percentile": 75.0,
+            "status": "available"
+          }
+        ],
+        "composite_percentile": 69.5,
+        "coverage": {
+          "known": 6,
+          "total": 6
+        }
+      }
+    },
+    "AAPL": {
+      "ticker": "AAPL",
+      "data_ticker": "AAPL",
+      "evidence_ledger": {
+        "status": "available",
+        "period_end": "2026-06-27",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000020/0000320193-26-000020-index.html",
+        "source_form": "10-Q",
+        "source_accession": "0000320193-26-000020",
+        "source_date": "2026-07-31",
+        "quality_notes": [],
+        "claims": [
+          {
+            "claim_id": "0000320193-26-000020:revenue",
+            "metric": "revenue",
+            "label": "營收",
+            "value": 109417000000.0,
+            "unit": "USD",
+            "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+            "derived": false,
+            "derivation": null,
+            "source_locator": "XBRL tag: RevenueFromContractWithCustomerExcludingAssessedTax",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000020/0000320193-26-000020-index.html",
+            "source_form": "10-Q",
+            "source_accession": "0000320193-26-000020",
+            "source_date": "2026-07-31"
+          },
+          {
+            "claim_id": "0000320193-26-000020:gross_margin",
+            "metric": "gross_margin",
+            "label": "毛利率",
+            "value": 0.500562069879452,
+            "unit": "%",
+            "tag": null,
+            "derived": true,
+            "derivation": "毛利 ÷ 營收",
+            "source_locator": "毛利 ÷ 營收",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000020/0000320193-26-000020-index.html",
+            "source_form": "10-Q",
+            "source_accession": "0000320193-26-000020",
+            "source_date": "2026-07-31"
+          },
+          {
+            "claim_id": "0000320193-26-000020:operating_margin",
+            "metric": "operating_margin",
+            "label": "營業利益率",
+            "value": 0.3262290137729969,
+            "unit": "%",
+            "tag": null,
+            "derived": true,
+            "derivation": "營業利益 ÷ 營收",
+            "source_locator": "營業利益 ÷ 營收",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000020/0000320193-26-000020-index.html",
+            "source_form": "10-Q",
+            "source_accession": "0000320193-26-000020",
+            "source_date": "2026-07-31"
+          },
+          {
+            "claim_id": "0000320193-26-000020:free_cash_flow",
+            "metric": "free_cash_flow",
+            "label": "自由現金流",
+            "value": 31914000000.0,
+            "unit": "USD",
+            "tag": null,
+            "derived": true,
+            "derivation": "營運現金流 − 資本支出",
+            "source_locator": "營運現金流 − 資本支出",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000020/0000320193-26-000020-index.html",
+            "source_form": "10-Q",
+            "source_accession": "0000320193-26-000020",
+            "source_date": "2026-07-31"
+          },
+          {
+            "claim_id": "0000320193-26-000020:diluted_shares",
+            "metric": "diluted_shares",
+            "label": "稀釋股數",
+            "value": 14714676000.0,
+            "unit": "shares",
+            "tag": "WeightedAverageNumberOfDilutedSharesOutstanding",
+            "derived": false,
+            "derivation": null,
+            "source_locator": "XBRL tag: WeightedAverageNumberOfDilutedSharesOutstanding",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000020/0000320193-26-000020-index.html",
+            "source_form": "10-Q",
+            "source_accession": "0000320193-26-000020",
+            "source_date": "2026-07-31"
+          }
+        ],
+        "coverage": {
+          "sourced": 5,
+          "total": 5
+        }
+      },
+      "earnings_delta": {
+        "status": "available",
+        "latest_result": {
+          "period_end": "2026-06-27",
+          "filing_date": "2026-07-31",
+          "form": "10-Q",
+          "accession": "0000320193-26-000020",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000020/0000320193-26-000020-index.html",
+          "quality_notes": [],
+          "currency": "USD",
+          "source_basis": "SEC Company Facts；金額為 USD。",
+          "days_since_filing": 50,
+          "review_due": false
+        },
+        "metrics": [
+          {
+            "metric": "revenue",
+            "label": "營收",
+            "display": "amount",
+            "value": 109417000000.0,
+            "qoq": -1.5892574471146892,
+            "yoy": 16.356501765281383,
+            "state": "improved",
+            "interpretation": "營收 YoY +16.4%",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000020/0000320193-26-000020-index.html",
+            "source_period": "2026-06-27"
+          },
+          {
+            "metric": "gross_margin",
+            "label": "毛利率",
+            "display": "percent",
+            "value": 0.500562069879452,
+            "qoq": 0.7856284874415254,
+            "yoy": 3.5655013007615644,
+            "state": "improved",
+            "interpretation": "毛利率 YoY +3.6pp",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000020/0000320193-26-000020-index.html",
+            "source_period": "2026-06-27"
+          },
+          {
+            "metric": "operating_margin",
+            "label": "營業利益率",
+            "display": "percent",
+            "value": 0.3262290137729969,
+            "qoq": 0.34757399206440387,
+            "yoy": 2.6322594954671983,
+            "state": "improved",
+            "interpretation": "營業利益率 YoY +2.6pp",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000020/0000320193-26-000020-index.html",
+            "source_period": "2026-06-27"
+          },
+          {
+            "metric": "free_cash_flow",
+            "label": "自由現金流",
+            "display": "amount",
+            "value": 31914000000.0,
+            "qoq": 19.38947289663686,
+            "yoy": 30.768285187461576,
+            "state": "improved",
+            "interpretation": "自由現金流為正",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000020/0000320193-26-000020-index.html",
+            "source_period": "2026-06-27"
+          },
+          {
+            "metric": "diluted_shares",
+            "label": "稀釋股數",
+            "display": "shares",
+            "value": 14714676000.0,
+            "qoq": -0.07603623907390666,
+            "yoy": -1.562083247732049,
+            "state": "stable",
+            "interpretation": "稀釋股數 YoY -1.6%",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000020/0000320193-26-000020-index.html",
+            "source_period": "2026-06-27"
+          }
+        ],
+        "official_guidance_comparison": null,
+        "prior_internal_estimate": {
+          "status": "not_collected",
+          "note": "尚未保存可追溯的財報前內部數值預估，不補猜。"
+        },
+        "consensus": {
+          "status": "not_collected",
+          "note": "目前沒有已授權且可稽核的機構共識來源，不以網路摘要補值。"
+        },
+        "conclusion": "改善項目多於風險項目，但仍需逐項核對來源與口徑。"
+      },
+      "thesis_scorecard": {
+        "status": "partial-invalidated",
+        "label": "部分失效",
+        "period": "2026-06-27",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000020/0000320193-26-000020-index.html",
+        "items": [
+          {
+            "id": "ecosystem_growth",
+            "title": "裝置生態與服務收入維持成長",
+            "original_expectation": "合併營收是硬體週期與服務變現共同結果的保守代理。",
+            "invalidation": "營收 YoY ≤ -5%，或營收連續至少 3 季下降。",
+            "status": "invalidated",
+            "label": "失效",
+            "current_evidence": "2026-06-27 營收 USD 109,417.0M，YoY +16.4%；連續 3 季下降。",
+            "trend": "支持 → 失效",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000020/0000320193-26-000020-index.html",
+            "source_period": "2026-06-27"
+          },
+          {
+            "id": "premium_mix",
+            "title": "高價品牌與服務組合維持毛利率",
+            "original_expectation": "毛利率反映產品組合、服務占比與定價能力。",
+            "invalidation": "毛利率低於 40%，或連續至少 3 季顯著下降。",
+            "status": "supported",
+            "label": "支持",
+            "current_evidence": "2026-06-27 毛利率 50.1%，YoY +3.6pp；連續 5 季上升。",
+            "trend": "狀態未變",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000020/0000320193-26-000020-index.html",
+            "source_period": "2026-06-27"
+          },
+          {
+            "id": "buyback_per_share",
+            "title": "FCF 與回購持續提升每股價值",
+            "original_expectation": "正向 FCF 與不增加的稀釋股數是回購論點的量化代理。",
+            "invalidation": "FCF 連續至少 4 季為負，或稀釋股數 YoY ≥ 3%。",
+            "status": "supported",
+            "label": "支持",
+            "current_evidence": "2026-06-27 FCF USD 31,914.0M（連續 8 季為正）；稀釋股數 YoY -1.6%。",
+            "trend": "狀態未變",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000020/0000320193-26-000020-index.html",
+            "source_period": "2026-06-27"
+          }
+        ],
+        "next_validation": {
+          "type": "earnings",
+          "date": "2026-10-29",
+          "days_until": 40,
+          "confidence": "estimated",
+          "source_label": "Yahoo Finance 行事曆",
+          "source_url": "https://finance.yahoo.com/quote/AAPL/calendar/",
+          "source_status": "fresh",
+          "last_success_at": "2026-09-19"
+        }
+      },
+      "catalyst_log": {
+        "upcoming": [],
+        "completed": [],
+        "note": "已完成事件目前只收錄可由官方指引與正式實績閉環驗證者；其他事件不猜測結果。"
+      },
+      "peer_comparison": {
+        "status": "available",
+        "group_id": "large_platforms",
+        "group_label": "大型數位平台研究對照組",
+        "members": [
+          "AAPL",
+          "AMZN",
+          "GOOG",
+          "META",
+          "MSFT"
+        ],
+        "comparability": "directional",
+        "caveat": "收入組成涵蓋裝置、雲端、廣告與零售；用來比較成長、利潤與現金流品質，不是嚴格交易同業組。",
+        "metrics": [
+          {
+            "id": "revenue_yoy",
+            "label": "營收 YoY",
+            "value": 16.356501765281383,
+            "unit": "%",
+            "direction": "higher",
+            "known_peer_count": 5,
+            "peer_median": 19.620517346245126,
+            "favorable_percentile": 0.0,
+            "status": "available"
+          },
+          {
+            "id": "gross_margin",
+            "label": "毛利率",
+            "value": 50.056206987945195,
+            "unit": "%",
+            "direction": "higher",
+            "known_peer_count": 5,
+            "peer_median": 61.648969915523054,
+            "favorable_percentile": 0.0,
+            "status": "available"
+          },
+          {
+            "id": "operating_margin",
+            "label": "營業利益率",
+            "value": 32.62290137729969,
+            "unit": "%",
+            "direction": "higher",
+            "known_peer_count": 5,
+            "peer_median": 32.62290137729969,
+            "favorable_percentile": 50.0,
+            "status": "available"
+          },
+          {
+            "id": "fcf_margin",
+            "label": "FCF 利潤率",
+            "value": 29.167314037124033,
+            "unit": "%",
+            "direction": "higher",
+            "known_peer_count": 5,
+            "peer_median": 2.8716632950115955,
+            "favorable_percentile": 100.0,
+            "status": "available"
+          },
+          {
+            "id": "diluted_shares_yoy",
+            "label": "稀釋股數 YoY",
+            "value": -1.562083247732049,
+            "unit": "%",
+            "direction": "lower",
+            "known_peer_count": 4,
+            "peer_median": 0.3710037153303647,
+            "favorable_percentile": 100.0,
+            "status": "available"
+          },
+          {
+            "id": "pe_ratio",
+            "label": "本益比",
+            "value": 45.0,
+            "unit": "x",
+            "direction": "lower",
+            "known_peer_count": 5,
+            "peer_median": 31.8,
+            "favorable_percentile": 0.0,
+            "status": "available"
+          }
+        ],
+        "composite_percentile": 41.7,
+        "coverage": {
+          "known": 6,
+          "total": 6
+        }
+      }
+    },
+    "AMZN": {
+      "ticker": "AMZN",
+      "data_ticker": "AMZN",
+      "evidence_ledger": {
+        "status": "available",
+        "period_end": "2026-06-30",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/0001018724-26-000026-index.html",
+        "source_form": "10-Q",
+        "source_accession": "0001018724-26-000026",
+        "source_date": "2026-07-31",
+        "quality_notes": [],
+        "claims": [
+          {
+            "claim_id": "0001018724-26-000026:revenue",
+            "metric": "revenue",
+            "label": "營收",
+            "value": 200606000000.0,
+            "unit": "USD",
+            "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+            "derived": false,
+            "derivation": null,
+            "source_locator": "XBRL tag: RevenueFromContractWithCustomerExcludingAssessedTax",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/0001018724-26-000026-index.html",
+            "source_form": "10-Q",
+            "source_accession": "0001018724-26-000026",
+            "source_date": "2026-07-31"
+          },
+          {
+            "claim_id": "0001018724-26-000026:gross_margin",
+            "metric": "gross_margin",
+            "label": "毛利率",
+            "value": 0.5225566533403787,
+            "unit": "%",
+            "tag": null,
+            "derived": true,
+            "derivation": "毛利 ÷ 營收",
+            "source_locator": "毛利 ÷ 營收",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/0001018724-26-000026-index.html",
+            "source_form": "10-Q",
+            "source_accession": "0001018724-26-000026",
+            "source_date": "2026-07-31"
+          },
+          {
+            "claim_id": "0001018724-26-000026:operating_margin",
+            "metric": "operating_margin",
+            "label": "營業利益率",
+            "value": 0.1368902226254449,
+            "unit": "%",
+            "tag": null,
+            "derived": true,
+            "derivation": "營業利益 ÷ 營收",
+            "source_locator": "營業利益 ÷ 營收",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/0001018724-26-000026-index.html",
+            "source_form": "10-Q",
+            "source_accession": "0001018724-26-000026",
+            "source_date": "2026-07-31"
+          },
+          {
+            "claim_id": "0001018724-26-000026:free_cash_flow",
+            "metric": "free_cash_flow",
+            "label": "自由現金流",
+            "value": -8821000000.0,
+            "unit": "USD",
+            "tag": null,
+            "derived": true,
+            "derivation": "營運現金流 − 資本支出",
+            "source_locator": "營運現金流 − 資本支出",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/0001018724-26-000026-index.html",
+            "source_form": "10-Q",
+            "source_accession": "0001018724-26-000026",
+            "source_date": "2026-07-31"
+          },
+          {
+            "claim_id": "0001018724-26-000026:diluted_shares",
+            "metric": "diluted_shares",
+            "label": "稀釋股數",
+            "value": 10903000000.0,
+            "unit": "shares",
+            "tag": "WeightedAverageNumberOfDilutedSharesOutstanding",
+            "derived": false,
+            "derivation": null,
+            "source_locator": "XBRL tag: WeightedAverageNumberOfDilutedSharesOutstanding",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/0001018724-26-000026-index.html",
+            "source_form": "10-Q",
+            "source_accession": "0001018724-26-000026",
+            "source_date": "2026-07-31"
+          }
+        ],
+        "coverage": {
+          "sourced": 5,
+          "total": 5
+        }
+      },
+      "earnings_delta": {
+        "status": "available",
+        "latest_result": {
+          "period_end": "2026-06-30",
+          "filing_date": "2026-07-31",
+          "form": "10-Q",
+          "accession": "0001018724-26-000026",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/0001018724-26-000026-index.html",
+          "quality_notes": [],
+          "currency": "USD",
+          "source_basis": "SEC Company Facts；金額為 USD。",
+          "days_since_filing": 50,
+          "review_due": false
+        },
+        "metrics": [
+          {
+            "metric": "revenue",
+            "label": "營收",
+            "display": "amount",
+            "value": 200606000000.0,
+            "qoq": 10.515152683741103,
+            "yoy": 19.620517346245126,
+            "state": "improved",
+            "interpretation": "營收 YoY +19.6%",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/0001018724-26-000026-index.html",
+            "source_period": "2026-06-30"
+          },
+          {
+            "metric": "gross_margin",
+            "label": "毛利率",
+            "display": "percent",
+            "value": 0.5225566533403787,
+            "qoq": 0.43960200182471265,
+            "yoy": 0.4417334787230831,
+            "state": "stable",
+            "interpretation": "毛利率 YoY +0.4pp",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/0001018724-26-000026-index.html",
+            "source_period": "2026-06-30"
+          },
+          {
+            "metric": "operating_margin",
+            "label": "營業利益率",
+            "display": "percent",
+            "value": 0.1368902226254449,
+            "qoq": 0.5488000268556642,
+            "yoy": 2.2574352808746228,
+            "state": "improved",
+            "interpretation": "營業利益率 YoY +2.3pp",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/0001018724-26-000026-index.html",
+            "source_period": "2026-06-30"
+          },
+          {
+            "metric": "free_cash_flow",
+            "label": "自由現金流",
+            "display": "amount",
+            "value": -8821000000.0,
+            "qoq": null,
+            "yoy": null,
+            "state": "risk",
+            "interpretation": "自由現金流為負",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/0001018724-26-000026-index.html",
+            "source_period": "2026-06-30"
+          },
+          {
+            "metric": "diluted_shares",
+            "label": "稀釋股數",
+            "display": "shares",
+            "value": 10903000000.0,
+            "qoq": 0.2666911899944724,
+            "yoy": 0.8976494540070323,
+            "state": "stable",
+            "interpretation": "稀釋股數 YoY +0.9%",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/0001018724-26-000026-index.html",
+            "source_period": "2026-06-30"
+          }
+        ],
+        "official_guidance_comparison": {
+          "period": "2026 Q2",
+          "period_end": "2026-06-30",
+          "low": 194.0,
+          "high": 199.0,
+          "actual": 200.606,
+          "guidance_date": "2026-04-29",
+          "guidance_source_url": "https://ir.aboutamazon.com/news-release/news-release-details/2026/Amazon-com-Announces-First-Quarter-Results/",
+          "metric": "淨銷售額",
+          "unit": "USD bn",
+          "comparison_basis": "公司發布的下一季淨銷售額區間；實績採 GAAP net sales。",
+          "outcome": "above",
+          "outcome_label": "高於指引",
+          "vs_midpoint_pct": 2.0895674300254408
+        },
+        "prior_internal_estimate": {
+          "status": "not_collected",
+          "note": "尚未保存可追溯的財報前內部數值預估，不補猜。"
+        },
+        "consensus": {
+          "status": "not_collected",
+          "note": "目前沒有已授權且可稽核的機構共識來源，不以網路摘要補值。"
+        },
+        "conclusion": "改善項目多於風險項目，但仍需逐項核對來源與口徑。"
+      },
+      "thesis_scorecard": {
+        "status": "maintained",
+        "label": "論點維持",
+        "period": "2026-06-30",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/0001018724-26-000026-index.html",
+        "items": [
+          {
+            "id": "aws_commerce_growth",
+            "title": "AWS、廣告與零售共同推動雙位數成長",
+            "original_expectation": "合併營收成長是多引擎成長是否延續的保守代理。",
+            "invalidation": "營收 YoY ≤ 0%，或營收連續至少 3 季下降。",
+            "status": "supported",
+            "label": "支持",
+            "current_evidence": "2026-06-30 營收 USD 200,606.0M，YoY +19.6%；連續 2 季上升。",
+            "trend": "狀態未變",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/0001018724-26-000026-index.html",
+            "source_period": "2026-06-30"
+          },
+          {
+            "id": "operating_leverage",
+            "title": "規模經濟帶動營業利益率提升",
+            "original_expectation": "營業利益率反映 AWS 組合與零售履約效率能否產生營運槓桿。",
+            "invalidation": "營業利益率低於 5%，或連續至少 3 季顯著下降。",
+            "status": "supported",
+            "label": "支持",
+            "current_evidence": "2026-06-30 營業利益率 13.7%，YoY +2.3pp；連續 4 季上升。",
+            "trend": "狀態未變",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/0001018724-26-000026-index.html",
+            "source_period": "2026-06-30"
+          },
+          {
+            "id": "cash_reinvestment",
+            "title": "再投資後仍能維持正向自由現金流",
+            "original_expectation": "FCF 與股數檢查 AI、物流與內容投資後是否仍創造每股現金。",
+            "invalidation": "FCF 連續至少 4 季為負，或稀釋股數 YoY ≥ 5%。",
+            "status": "verify",
+            "label": "待驗證",
+            "current_evidence": "2026-06-30 FCF USD -8,821.0M（連續 2 季為負）；稀釋股數 YoY +0.9%。",
+            "trend": "狀態未變",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/0001018724-26-000026-index.html",
+            "source_period": "2026-06-30"
+          }
+        ],
+        "next_validation": {
+          "type": "earnings",
+          "date": "2026-10-29",
+          "days_until": 40,
+          "confidence": "estimated",
+          "source_label": "Yahoo Finance 行事曆",
+          "source_url": "https://finance.yahoo.com/quote/AMZN/calendar/",
+          "source_status": "fresh",
+          "last_success_at": "2026-09-19"
+        }
+      },
+      "catalyst_log": {
+        "upcoming": [],
+        "completed": [
+          {
+            "status": "completed",
+            "date": "2026-06-30",
+            "type": "earnings_guidance_validation",
+            "title": "2026 Q2 官方指引驗證",
+            "expected": "194.0～199.0 USD bn",
+            "actual": "200.606 USD bn",
+            "outcome": "above",
+            "outcome_label": "高於指引",
+            "source_url": "https://ir.aboutamazon.com/news-release/news-release-details/2026/Amazon-com-Announces-First-Quarter-Results/",
+            "actual_source_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/0001018724-26-000026-index.html"
+          }
+        ],
+        "note": "已完成事件目前只收錄可由官方指引與正式實績閉環驗證者；其他事件不猜測結果。"
+      },
+      "peer_comparison": {
+        "status": "available",
+        "group_id": "large_platforms",
+        "group_label": "大型數位平台研究對照組",
+        "members": [
+          "AAPL",
+          "AMZN",
+          "GOOG",
+          "META",
+          "MSFT"
+        ],
+        "comparability": "directional",
+        "caveat": "收入組成涵蓋裝置、雲端、廣告與零售；用來比較成長、利潤與現金流品質，不是嚴格交易同業組。",
+        "metrics": [
+          {
+            "id": "revenue_yoy",
+            "label": "營收 YoY",
+            "value": 19.620517346245126,
+            "unit": "%",
+            "direction": "higher",
+            "known_peer_count": 5,
+            "peer_median": 19.620517346245126,
+            "favorable_percentile": 50.0,
+            "status": "available"
+          },
+          {
+            "id": "gross_margin",
+            "label": "毛利率",
+            "value": 52.25566533403787,
+            "unit": "%",
+            "direction": "higher",
+            "known_peer_count": 5,
+            "peer_median": 61.648969915523054,
+            "favorable_percentile": 25.0,
+            "status": "available"
+          },
+          {
+            "id": "operating_margin",
+            "label": "營業利益率",
+            "value": 13.689022262544489,
+            "unit": "%",
+            "direction": "higher",
+            "known_peer_count": 5,
+            "peer_median": 32.62290137729969,
+            "favorable_percentile": 0.0,
+            "status": "available"
+          },
+          {
+            "id": "fcf_margin",
+            "label": "FCF 利潤率",
+            "value": -4.397176555038234,
+            "unit": "%",
+            "direction": "higher",
+            "known_peer_count": 5,
+            "peer_median": 2.8716632950115955,
+            "favorable_percentile": 25.0,
+            "status": "available"
+          },
+          {
+            "id": "diluted_shares_yoy",
+            "label": "稀釋股數 YoY",
+            "value": 0.8976494540070323,
+            "unit": "%",
+            "direction": "lower",
+            "known_peer_count": 4,
+            "peer_median": 0.3710037153303647,
+            "favorable_percentile": 33.3,
+            "status": "available"
+          },
+          {
+            "id": "pe_ratio",
+            "label": "本益比",
+            "value": 35.4,
+            "unit": "x",
+            "direction": "lower",
+            "known_peer_count": 5,
+            "peer_median": 31.8,
+            "favorable_percentile": 25.0,
+            "status": "available"
+          }
+        ],
+        "composite_percentile": 26.4,
+        "coverage": {
+          "known": 6,
+          "total": 6
+        }
+      }
+    },
+    "ARM": {
+      "ticker": "ARM",
+      "data_ticker": "ARM",
+      "evidence_ledger": {
+        "status": "available",
+        "period_end": "2026-06-30",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1973239/000197323926000114/0001973239-26-000114-index.html",
+        "source_form": "6-K",
+        "source_accession": "0001973239-26-000114",
+        "source_date": "2026-07-29",
+        "quality_notes": [],
+        "claims": [
+          {
+            "claim_id": "0001973239-26-000114:revenue",
+            "metric": "revenue",
+            "label": "營收",
+            "value": 1289000000.0,
+            "unit": "USD",
+            "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+            "derived": false,
+            "derivation": null,
+            "source_locator": "XBRL tag: RevenueFromContractWithCustomerExcludingAssessedTax",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1973239/000197323926000114/0001973239-26-000114-index.html",
+            "source_form": "6-K",
+            "source_accession": "0001973239-26-000114",
+            "source_date": "2026-07-29"
+          },
+          {
+            "claim_id": "0001973239-26-000114:gross_margin",
+            "metric": "gross_margin",
+            "label": "毛利率",
+            "value": 0.9720713731574864,
+            "unit": "%",
+            "tag": null,
+            "derived": true,
+            "derivation": "毛利 ÷ 營收",
+            "source_locator": "毛利 ÷ 營收",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1973239/000197323926000114/0001973239-26-000114-index.html",
+            "source_form": "6-K",
+            "source_accession": "0001973239-26-000114",
+            "source_date": "2026-07-29"
+          },
+          {
+            "claim_id": "0001973239-26-000114:operating_margin",
+            "metric": "operating_margin",
+            "label": "營業利益率",
+            "value": 0.07059736229635376,
+            "unit": "%",
+            "tag": null,
+            "derived": true,
+            "derivation": "營業利益 ÷ 營收",
+            "source_locator": "營業利益 ÷ 營收",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1973239/000197323926000114/0001973239-26-000114-index.html",
+            "source_form": "6-K",
+            "source_accession": "0001973239-26-000114",
+            "source_date": "2026-07-29"
+          },
+          {
+            "claim_id": "0001973239-26-000114:free_cash_flow",
+            "metric": "free_cash_flow",
+            "label": "自由現金流",
+            "value": 705000000.0,
+            "unit": "USD",
+            "tag": null,
+            "derived": true,
+            "derivation": "營運現金流 − 資本支出",
+            "source_locator": "營運現金流 − 資本支出",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1973239/000197323926000114/0001973239-26-000114-index.html",
+            "source_form": "6-K",
+            "source_accession": "0001973239-26-000114",
+            "source_date": "2026-07-29"
+          },
+          {
+            "claim_id": "0001973239-26-000114:diluted_shares",
+            "metric": "diluted_shares",
+            "label": "稀釋股數",
+            "value": 1078000000.0,
+            "unit": "shares",
+            "tag": "WeightedAverageNumberOfDilutedSharesOutstanding",
+            "derived": false,
+            "derivation": null,
+            "source_locator": "XBRL tag: WeightedAverageNumberOfDilutedSharesOutstanding",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1973239/000197323926000114/0001973239-26-000114-index.html",
+            "source_form": "6-K",
+            "source_accession": "0001973239-26-000114",
+            "source_date": "2026-07-29"
+          }
+        ],
+        "coverage": {
+          "sourced": 5,
+          "total": 5
+        }
+      },
+      "earnings_delta": {
+        "status": "available",
+        "latest_result": {
+          "period_end": "2026-06-30",
+          "filing_date": "2026-07-29",
+          "form": "6-K",
+          "accession": "0001973239-26-000114",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1973239/000197323926000114/0001973239-26-000114-index.html",
+          "quality_notes": [],
+          "currency": "USD",
+          "source_basis": "SEC Company Facts；金額為 USD。",
+          "days_since_filing": 52,
+          "review_due": false
+        },
+        "metrics": [
+          {
+            "metric": "revenue",
+            "label": "營收",
+            "display": "amount",
+            "value": 1289000000.0,
+            "qoq": -13.489932885906041,
+            "yoy": 22.41215574548907,
+            "state": "improved",
+            "interpretation": "營收 YoY +22.4%",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1973239/000197323926000114/0001973239-26-000114-index.html",
+            "source_period": "2026-06-30"
+          },
+          {
+            "metric": "gross_margin",
+            "label": "毛利率",
+            "display": "percent",
+            "value": 0.9720713731574864,
+            "qoq": -0.6452116775399586,
+            "yoy": 0.056140164751483645,
+            "state": "stable",
+            "interpretation": "毛利率 YoY +0.1pp",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1973239/000197323926000114/0001973239-26-000114-index.html",
+            "source_period": "2026-06-30"
+          },
+          {
+            "metric": "operating_margin",
+            "label": "營業利益率",
+            "display": "percent",
+            "value": 0.07059736229635376,
+            "qoq": -22.33623692472704,
+            "yoy": -3.7664745965754505,
+            "state": "risk",
+            "interpretation": "營業利益率 YoY -3.8pp",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1973239/000197323926000114/0001973239-26-000114-index.html",
+            "source_period": "2026-06-30"
+          },
+          {
+            "metric": "free_cash_flow",
+            "label": "自由現金流",
+            "display": "amount",
+            "value": 705000000.0,
+            "qoq": 279.03225806451616,
+            "yoy": 296.0674157303371,
+            "state": "improved",
+            "interpretation": "自由現金流為正",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1973239/000197323926000114/0001973239-26-000114-index.html",
+            "source_period": "2026-06-30"
+          },
+          {
+            "metric": "diluted_shares",
+            "label": "稀釋股數",
+            "display": "shares",
+            "value": 1078000000.0,
+            "qoq": null,
+            "yoy": 1.2206572769952961,
+            "state": "stable",
+            "interpretation": "稀釋股數 YoY +1.2%",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1973239/000197323926000114/0001973239-26-000114-index.html",
+            "source_period": "2026-06-30"
+          }
+        ],
+        "official_guidance_comparison": {
+          "period": "FY2027 Q1",
+          "period_end": "2026-06-30",
+          "low": 1.21,
+          "high": 1.31,
+          "actual": 1.289,
+          "guidance_date": "2026-05-06",
+          "guidance_source_url": "https://investors.arm.com/node/8141/html",
+          "metric": "營收",
+          "unit": "USD bn",
+          "comparison_basis": "IPO 後可取得的正式季度營收區間；因此為 11 期，不硬補上市前指引。",
+          "outcome": "within",
+          "outcome_label": "落在區間",
+          "vs_midpoint_pct": 2.3015873015872934
+        },
+        "prior_internal_estimate": {
+          "status": "not_collected",
+          "note": "尚未保存可追溯的財報前內部數值預估，不補猜。"
+        },
+        "consensus": {
+          "status": "not_collected",
+          "note": "目前沒有已授權且可稽核的機構共識來源，不以網路摘要補值。"
+        },
+        "conclusion": "改善項目多於風險項目，但仍需逐項核對來源與口徑。"
+      },
+      "thesis_scorecard": {
+        "status": "maintained",
+        "label": "論點維持",
+        "period": "2026-06-30",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1973239/000197323926000114/0001973239-26-000114-index.html",
+        "items": [
+          {
+            "id": "royalty_growth",
+            "title": "授權與版稅模式維持高成長",
+            "original_expectation": "營收成長是架構採用率、授權與版稅提升的財務代理。",
+            "invalidation": "營收 YoY ≤ 0%，或營收連續至少 3 季下降。",
+            "status": "supported",
+            "label": "支持",
+            "current_evidence": "2026-06-30 營收 USD 1,289.0M，YoY +22.4%；連續 2 季下降。",
+            "trend": "狀態未變",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1973239/000197323926000114/0001973239-26-000114-index.html",
+            "source_period": "2026-06-30"
+          },
+          {
+            "id": "asset_light_moat",
+            "title": "資產輕量 IP 模式維持極高毛利率",
+            "original_expectation": "毛利率用來檢查授權／版稅組合與 IP 定價能力。",
+            "invalidation": "毛利率低於 85%，或連續至少 3 季顯著下降。",
+            "status": "supported",
+            "label": "支持",
+            "current_evidence": "2026-06-30 毛利率 97.2%，YoY +0.1pp；連續 2 季下降。",
+            "trend": "狀態未變",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1973239/000197323926000114/0001973239-26-000114-index.html",
+            "source_period": "2026-06-30"
+          },
+          {
+            "id": "cash_scaling",
+            "title": "成長能轉化為穩定 FCF 且避免稀釋",
+            "original_expectation": "FCF 與稀釋股數檢查高估值所要求的每股現金成長。",
+            "invalidation": "FCF 連續至少 4 季為負，或稀釋股數 YoY ≥ 10%。",
+            "status": "supported",
+            "label": "支持",
+            "current_evidence": "2026-06-30 FCF USD 705.0M（連續 7 季為正）；稀釋股數 YoY +1.2%。",
+            "trend": "狀態未變",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1973239/000197323926000114/0001973239-26-000114-index.html",
+            "source_period": "2026-06-30"
+          }
+        ],
+        "next_validation": {
+          "type": "earnings",
+          "date": "2026-11-04",
+          "days_until": 46,
+          "confidence": "estimated",
+          "source_label": "Yahoo Finance 行事曆",
+          "source_url": "https://finance.yahoo.com/quote/ARM/calendar/",
+          "source_status": "fresh",
+          "last_success_at": "2026-09-19"
+        }
+      },
+      "catalyst_log": {
+        "upcoming": [],
+        "completed": [
+          {
+            "status": "completed",
+            "date": "2026-06-30",
+            "type": "earnings_guidance_validation",
+            "title": "FY2027 Q1 官方指引驗證",
+            "expected": "1.21～1.31 USD bn",
+            "actual": "1.289 USD bn",
+            "outcome": "within",
+            "outcome_label": "落在區間",
+            "source_url": "https://investors.arm.com/node/8141/html",
+            "actual_source_url": "https://www.sec.gov/Archives/edgar/data/1973239/000197323926000114/0001973239-26-000114-index.html"
+          }
+        ],
+        "note": "已完成事件目前只收錄可由官方指引與正式實績閉環驗證者；其他事件不猜測結果。"
+      },
+      "peer_comparison": {
+        "status": "available",
+        "group_id": "semiconductor_platforms",
+        "group_label": "半導體平台研究對照組",
+        "members": [
+          "NVDA",
+          "ARM",
+          "MRVL",
+          "INTC",
+          "TSM"
+        ],
+        "comparability": "directional",
+        "caveat": "涵蓋晶片設計、IP 授權、IDM 與晶圓代工；營運百分位可作方向性對照，估值倍數不可視為完全同業。",
+        "metrics": [
+          {
+            "id": "revenue_yoy",
+            "label": "營收 YoY",
+            "value": 22.41215574548907,
+            "unit": "%",
+            "direction": "higher",
+            "known_peer_count": 5,
+            "peer_median": 36.045577699482756,
+            "favorable_percentile": 0.0,
+            "status": "available"
+          },
+          {
+            "id": "gross_margin",
+            "label": "毛利率",
+            "value": 97.20713731574864,
+            "unit": "%",
+            "direction": "higher",
+            "known_peer_count": 5,
+            "peer_median": 67.7,
+            "favorable_percentile": 100.0,
+            "status": "available"
+          },
+          {
+            "id": "operating_margin",
+            "label": "營業利益率",
+            "value": 7.059736229635376,
+            "unit": "%",
+            "direction": "higher",
+            "known_peer_count": 5,
+            "peer_median": 16.781659548059725,
+            "favorable_percentile": 0.0,
+            "status": "available"
+          },
+          {
+            "id": "fcf_margin",
+            "label": "FCF 利潤率",
+            "value": 54.693560899922424,
+            "unit": "%",
+            "direction": "higher",
+            "known_peer_count": 5,
+            "peer_median": 22.620003463530598,
+            "favorable_percentile": 100.0,
+            "status": "available"
+          },
+          {
+            "id": "diluted_shares_yoy",
+            "label": "稀釋股數 YoY",
+            "value": 1.2206572769952961,
+            "unit": "%",
+            "direction": "lower",
+            "known_peer_count": 4,
+            "peer_median": 3.528527167909412,
+            "favorable_percentile": 66.7,
+            "status": "available"
+          },
+          {
+            "id": "pe_ratio",
+            "label": "本益比",
+            "value": 313.0,
+            "unit": "x",
+            "direction": "lower",
+            "known_peer_count": 4,
+            "peer_median": 62.5,
+            "favorable_percentile": 0.0,
+            "status": "available"
+          }
+        ],
+        "composite_percentile": 44.4,
+        "coverage": {
+          "known": 6,
+          "total": 6
+        }
+      }
+    },
+    "ONDS": {
+      "ticker": "ONDS",
+      "data_ticker": "ONDS",
+      "evidence_ledger": {
+        "status": "available",
+        "period_end": "2026-06-30",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1646188/000119312526349288/0001193125-26-349288-index.html",
+        "source_form": "10-Q",
+        "source_accession": "0001193125-26-349288",
+        "source_date": "2026-08-13",
+        "quality_notes": [],
+        "claims": [
+          {
+            "claim_id": "0001193125-26-349288:revenue",
+            "metric": "revenue",
+            "label": "營收",
+            "value": 83772000.0,
+            "unit": "USD",
+            "tag": "Revenues",
+            "derived": false,
+            "derivation": null,
+            "source_locator": "XBRL tag: Revenues",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1646188/000119312526349288/0001193125-26-349288-index.html",
+            "source_form": "10-Q",
+            "source_accession": "0001193125-26-349288",
+            "source_date": "2026-08-13"
+          },
+          {
+            "claim_id": "0001193125-26-349288:gross_margin",
+            "metric": "gross_margin",
+            "label": "毛利率",
+            "value": 0.43130162822900253,
+            "unit": "%",
+            "tag": null,
+            "derived": true,
+            "derivation": "毛利 ÷ 營收",
+            "source_locator": "毛利 ÷ 營收",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1646188/000119312526349288/0001193125-26-349288-index.html",
+            "source_form": "10-Q",
+            "source_accession": "0001193125-26-349288",
+            "source_date": "2026-08-13"
+          },
+          {
+            "claim_id": "0001193125-26-349288:operating_margin",
+            "metric": "operating_margin",
+            "label": "營業利益率",
+            "value": -1.945112925559853,
+            "unit": "%",
+            "tag": null,
+            "derived": true,
+            "derivation": "營業利益 ÷ 營收",
+            "source_locator": "營業利益 ÷ 營收",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1646188/000119312526349288/0001193125-26-349288-index.html",
+            "source_form": "10-Q",
+            "source_accession": "0001193125-26-349288",
+            "source_date": "2026-08-13"
+          },
+          {
+            "claim_id": "0001193125-26-349288:free_cash_flow",
+            "metric": "free_cash_flow",
+            "label": "自由現金流",
+            "value": -93842000.0,
+            "unit": "USD",
+            "tag": null,
+            "derived": true,
+            "derivation": "營運現金流 − 資本支出",
+            "source_locator": "營運現金流 − 資本支出",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1646188/000119312526349288/0001193125-26-349288-index.html",
+            "source_form": "10-Q",
+            "source_accession": "0001193125-26-349288",
+            "source_date": "2026-08-13"
+          },
+          {
+            "claim_id": "0001193125-26-349288:diluted_shares",
+            "metric": "diluted_shares",
+            "label": "稀釋股數",
+            "value": 503593000.0,
+            "unit": "shares",
+            "tag": "WeightedAverageNumberOfDilutedSharesOutstanding",
+            "derived": false,
+            "derivation": null,
+            "source_locator": "XBRL tag: WeightedAverageNumberOfDilutedSharesOutstanding",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1646188/000119312526349288/0001193125-26-349288-index.html",
+            "source_form": "10-Q",
+            "source_accession": "0001193125-26-349288",
+            "source_date": "2026-08-13"
+          }
+        ],
+        "coverage": {
+          "sourced": 5,
+          "total": 5
+        }
+      },
+      "earnings_delta": {
+        "status": "available",
+        "latest_result": {
+          "period_end": "2026-06-30",
+          "filing_date": "2026-08-13",
+          "form": "10-Q",
+          "accession": "0001193125-26-349288",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1646188/000119312526349288/0001193125-26-349288-index.html",
+          "quality_notes": [],
+          "currency": "USD",
+          "source_basis": "SEC Company Facts；金額為 USD。",
+          "days_since_filing": 37,
+          "review_due": false
+        },
+        "metrics": [
+          {
+            "metric": "revenue",
+            "label": "營收",
+            "display": "amount",
+            "value": 83772000.0,
+            "qoq": 67.1361877020071,
+            "yoy": 1235.4375896700142,
+            "state": "improved",
+            "interpretation": "營收 YoY +1235.4%",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1646188/000119312526349288/0001193125-26-349288-index.html",
+            "source_period": "2026-06-30"
+          },
+          {
+            "metric": "gross_margin",
+            "label": "毛利率",
+            "display": "percent",
+            "value": 0.43130162822900253,
+            "qoq": -6.065799030178237,
+            "yoy": -9.9863683424114,
+            "state": "risk",
+            "interpretation": "毛利率 YoY -10.0pp",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1646188/000119312526349288/0001193125-26-349288-index.html",
+            "source_period": "2026-06-30"
+          },
+          {
+            "metric": "operating_margin",
+            "label": "營業利益率",
+            "display": "percent",
+            "value": -1.945112925559853,
+            "qoq": -109.37702018058127,
+            "yoy": -47.05393562947484,
+            "state": "risk",
+            "interpretation": "營業利益率 YoY -47.1pp",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1646188/000119312526349288/0001193125-26-349288-index.html",
+            "source_period": "2026-06-30"
+          },
+          {
+            "metric": "free_cash_flow",
+            "label": "自由現金流",
+            "display": "amount",
+            "value": -93842000.0,
+            "qoq": null,
+            "yoy": null,
+            "state": "risk",
+            "interpretation": "自由現金流為負",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1646188/000119312526349288/0001193125-26-349288-index.html",
+            "source_period": "2026-06-30"
+          },
+          {
+            "metric": "diluted_shares",
+            "label": "稀釋股數",
+            "display": "shares",
+            "value": 503593000.0,
+            "qoq": null,
+            "yoy": 234.27346285835662,
+            "state": "risk",
+            "interpretation": "稀釋股數 YoY +234.3%",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1646188/000119312526349288/0001193125-26-349288-index.html",
+            "source_period": "2026-06-30"
+          }
+        ],
+        "official_guidance_comparison": null,
+        "prior_internal_estimate": {
+          "status": "not_collected",
+          "note": "尚未保存可追溯的財報前內部數值預估，不補猜。"
+        },
+        "consensus": {
+          "status": "not_collected",
+          "note": "目前沒有已授權且可稽核的機構共識來源，不以網路摘要補值。"
+        },
+        "conclusion": "風險項目多於改善項目，先查原始申報與失效條件。"
+      },
+      "thesis_scorecard": {
+        "status": "major-invalidated",
+        "label": "重大失效",
+        "period": "2026-06-30",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1646188/000119312526349288/0001193125-26-349288-index.html",
+        "items": [
+          {
+            "id": "autonomous_growth",
+            "title": "自主無人機與反無人機業務進入規模成長",
+            "original_expectation": "營收成長是訂單交付與商業化規模最直接的財務代理。",
+            "invalidation": "營收 YoY ≤ 0%，或營收連續至少 3 季下降。",
+            "status": "supported",
+            "label": "支持",
+            "current_evidence": "2026-06-30 營收 USD 83.8M，YoY +1,235.4%；連續 8 季上升。",
+            "trend": "狀態未變",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1646188/000119312526349288/0001193125-26-349288-index.html",
+            "source_period": "2026-06-30"
+          },
+          {
+            "id": "commercial_profitability",
+            "title": "商業化最終能轉化為營業獲利",
+            "original_expectation": "營業利益率直接檢查收入擴張是否跨過固定成本與研發投入。",
+            "invalidation": "營業利益率低於 -50%，或連續至少 4 季為負。",
+            "status": "invalidated",
+            "label": "失效",
+            "current_evidence": "2026-06-30 營業利益率 -194.5%，YoY -47.1pp；連續 3 季下降。",
+            "trend": "狀態未變",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1646188/000119312526349288/0001193125-26-349288-index.html",
+            "source_period": "2026-06-30"
+          },
+          {
+            "id": "funding_per_share",
+            "title": "成長資金需求不會持續傷害每股價值",
+            "original_expectation": "FCF 與稀釋股數共同檢查公司是否仍高度依賴外部股權融資。",
+            "invalidation": "FCF 連續至少 4 季為負，或稀釋股數 YoY ≥ 20%。",
+            "status": "invalidated",
+            "label": "失效",
+            "current_evidence": "2026-06-30 FCF USD -93.8M（連續 8 季為負）；稀釋股數 YoY +234.3%。",
+            "trend": "狀態未變",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1646188/000119312526349288/0001193125-26-349288-index.html",
+            "source_period": "2026-06-30"
+          }
+        ],
+        "next_validation": {
+          "type": "earnings",
+          "date": "2026-11-12",
+          "days_until": 54,
+          "confidence": "estimated",
+          "source_label": "Yahoo Finance 行事曆",
+          "source_url": "https://finance.yahoo.com/quote/ONDS/calendar/",
+          "source_status": "fresh",
+          "last_success_at": "2026-09-19"
+        }
+      },
+      "catalyst_log": {
+        "upcoming": [],
+        "completed": [],
+        "note": "已完成事件目前只收錄可由官方指引與正式實績閉環驗證者；其他事件不猜測結果。"
+      },
+      "peer_comparison": {
+        "status": "insufficient",
+        "group_id": null,
+        "group_label": null,
+        "members": [],
+        "comparability": null,
+        "caveat": "目前追蹤名單中沒有至少三家可比公司，不產生百分位。",
+        "metrics": [
+          {
+            "id": "revenue_yoy",
+            "label": "營收 YoY",
+            "value": 1235.4375896700142,
+            "unit": "%",
+            "direction": "higher",
+            "known_peer_count": 0,
+            "peer_median": null,
+            "favorable_percentile": null,
+            "status": "insufficient"
+          },
+          {
+            "id": "gross_margin",
+            "label": "毛利率",
+            "value": 43.13016282290025,
+            "unit": "%",
+            "direction": "higher",
+            "known_peer_count": 0,
+            "peer_median": null,
+            "favorable_percentile": null,
+            "status": "insufficient"
+          },
+          {
+            "id": "operating_margin",
+            "label": "營業利益率",
+            "value": -194.5112925559853,
+            "unit": "%",
+            "direction": "higher",
+            "known_peer_count": 0,
+            "peer_median": null,
+            "favorable_percentile": null,
+            "status": "insufficient"
+          },
+          {
+            "id": "fcf_margin",
+            "label": "FCF 利潤率",
+            "value": -112.02072291457765,
+            "unit": "%",
+            "direction": "higher",
+            "known_peer_count": 0,
+            "peer_median": null,
+            "favorable_percentile": null,
+            "status": "insufficient"
+          },
+          {
+            "id": "diluted_shares_yoy",
+            "label": "稀釋股數 YoY",
+            "value": 234.27346285835662,
+            "unit": "%",
+            "direction": "lower",
+            "known_peer_count": 0,
+            "peer_median": null,
+            "favorable_percentile": null,
+            "status": "insufficient"
+          },
+          {
+            "id": "pe_ratio",
+            "label": "本益比",
+            "value": null,
+            "unit": "x",
+            "direction": "lower",
+            "known_peer_count": 0,
+            "peer_median": null,
+            "favorable_percentile": null,
+            "status": "insufficient"
+          }
+        ],
+        "composite_percentile": null,
+        "coverage": {
+          "known": 0,
+          "total": 6
+        }
+      }
+    },
+    "TSLA": {
+      "ticker": "TSLA",
+      "data_ticker": "TSLA",
+      "evidence_ledger": {
+        "status": "available",
+        "period_end": "2026-06-30",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026049270/0001628280-26-049270-index.html",
+        "source_form": "10-Q",
+        "source_accession": "0001628280-26-049270",
+        "source_date": "2026-07-23",
+        "quality_notes": [],
+        "claims": [
+          {
+            "claim_id": "0001628280-26-049270:revenue",
+            "metric": "revenue",
+            "label": "營收",
+            "value": 28236000000.0,
+            "unit": "USD",
+            "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+            "derived": false,
+            "derivation": null,
+            "source_locator": "XBRL tag: RevenueFromContractWithCustomerExcludingAssessedTax",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026049270/0001628280-26-049270-index.html",
+            "source_form": "10-Q",
+            "source_accession": "0001628280-26-049270",
+            "source_date": "2026-07-23"
+          },
+          {
+            "claim_id": "0001628280-26-049270:gross_margin",
+            "metric": "gross_margin",
+            "label": "毛利率",
+            "value": 0.16826037682391273,
+            "unit": "%",
+            "tag": null,
+            "derived": true,
+            "derivation": "毛利 ÷ 營收",
+            "source_locator": "毛利 ÷ 營收",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026049270/0001628280-26-049270-index.html",
+            "source_form": "10-Q",
+            "source_accession": "0001628280-26-049270",
+            "source_date": "2026-07-23"
+          },
+          {
+            "claim_id": "0001628280-26-049270:operating_margin",
+            "metric": "operating_margin",
+            "label": "營業利益率",
+            "value": 0.014095480946309675,
+            "unit": "%",
+            "tag": null,
+            "derived": true,
+            "derivation": "營業利益 ÷ 營收",
+            "source_locator": "營業利益 ÷ 營收",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026049270/0001628280-26-049270-index.html",
+            "source_form": "10-Q",
+            "source_accession": "0001628280-26-049270",
+            "source_date": "2026-07-23"
+          },
+          {
+            "claim_id": "0001628280-26-049270:free_cash_flow",
+            "metric": "free_cash_flow",
+            "label": "自由現金流",
+            "value": -1092000000.0,
+            "unit": "USD",
+            "tag": null,
+            "derived": true,
+            "derivation": "營運現金流 − 資本支出",
+            "source_locator": "營運現金流 − 資本支出",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026049270/0001628280-26-049270-index.html",
+            "source_form": "10-Q",
+            "source_accession": "0001628280-26-049270",
+            "source_date": "2026-07-23"
+          },
+          {
+            "claim_id": "0001628280-26-049270:diluted_shares",
+            "metric": "diluted_shares",
+            "label": "稀釋股數",
+            "value": 3540000000.0,
+            "unit": "shares",
+            "tag": "WeightedAverageNumberOfDilutedSharesOutstanding",
+            "derived": false,
+            "derivation": null,
+            "source_locator": "XBRL tag: WeightedAverageNumberOfDilutedSharesOutstanding",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026049270/0001628280-26-049270-index.html",
+            "source_form": "10-Q",
+            "source_accession": "0001628280-26-049270",
+            "source_date": "2026-07-23"
+          }
+        ],
+        "coverage": {
+          "sourced": 5,
+          "total": 5
+        }
+      },
+      "earnings_delta": {
+        "status": "available",
+        "latest_result": {
+          "period_end": "2026-06-30",
+          "filing_date": "2026-07-23",
+          "form": "10-Q",
+          "accession": "0001628280-26-049270",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026049270/0001628280-26-049270-index.html",
+          "quality_notes": [],
+          "currency": "USD",
+          "source_basis": "SEC Company Facts；金額為 USD。",
+          "days_since_filing": 58,
+          "review_due": false
+        },
+        "metrics": [
+          {
+            "metric": "revenue",
+            "label": "營收",
+            "display": "amount",
+            "value": 28236000000.0,
+            "qoq": 26.126770000446697,
+            "yoy": 25.51564722617354,
+            "state": "improved",
+            "interpretation": "營收 YoY +25.5%",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026049270/0001628280-26-049270-index.html",
+            "source_period": "2026-06-30"
+          },
+          {
+            "metric": "gross_margin",
+            "label": "毛利率",
+            "display": "percent",
+            "value": 0.16826037682391273,
+            "qoq": -4.257626944401061,
+            "yoy": -0.4125825167552416,
+            "state": "stable",
+            "interpretation": "毛利率 YoY -0.4pp",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026049270/0001628280-26-049270-index.html",
+            "source_period": "2026-06-30"
+          },
+          {
+            "metric": "operating_margin",
+            "label": "營業利益率",
+            "display": "percent",
+            "value": 0.014095480946309675,
+            "qoq": -2.793784196430809,
+            "yoy": -2.693403541215405,
+            "state": "risk",
+            "interpretation": "營業利益率 YoY -2.7pp",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026049270/0001628280-26-049270-index.html",
+            "source_period": "2026-06-30"
+          },
+          {
+            "metric": "free_cash_flow",
+            "label": "自由現金流",
+            "display": "amount",
+            "value": -1092000000.0,
+            "qoq": null,
+            "yoy": null,
+            "state": "risk",
+            "interpretation": "自由現金流為負",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026049270/0001628280-26-049270-index.html",
+            "source_period": "2026-06-30"
+          },
+          {
+            "metric": "diluted_shares",
+            "label": "稀釋股數",
+            "display": "shares",
+            "value": 3540000000.0,
+            "qoq": 0.056529112492942346,
+            "yoy": 0.5967604433077645,
+            "state": "stable",
+            "interpretation": "稀釋股數 YoY +0.6%",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026049270/0001628280-26-049270-index.html",
+            "source_period": "2026-06-30"
+          }
+        ],
+        "official_guidance_comparison": null,
+        "prior_internal_estimate": {
+          "status": "not_collected",
+          "note": "尚未保存可追溯的財報前內部數值預估，不補猜。"
+        },
+        "consensus": {
+          "status": "not_collected",
+          "note": "目前沒有已授權且可稽核的機構共識來源，不以網路摘要補值。"
+        },
+        "conclusion": "風險項目多於改善項目，先查原始申報與失效條件。"
+      },
+      "thesis_scorecard": {
+        "status": "needs-validation",
+        "label": "需要驗證",
+        "period": "2026-06-30",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026049270/0001628280-26-049270-index.html",
+        "items": [
+          {
+            "id": "ev_energy_growth",
+            "title": "車輛、儲能與軟體維持成長",
+            "original_expectation": "合併營收成長是 EV、能源與軟體選擇權是否轉化為規模的代理。",
+            "invalidation": "營收 YoY ≤ -10%，或營收連續至少 3 季下降。",
+            "status": "supported",
+            "label": "支持",
+            "current_evidence": "2026-06-30 營收 USD 28,236.0M，YoY +25.5%；連續 2 季上升。",
+            "trend": "失效 → 支持",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026049270/0001628280-26-049270-index.html",
+            "source_period": "2026-06-30"
+          },
+          {
+            "id": "margin_recovery",
+            "title": "降價與新產品週期後毛利率能回升",
+            "original_expectation": "毛利率觀察車價、成本、產品組合及軟體收入的淨效果。",
+            "invalidation": "毛利率低於 15%，或連續至少 3 季顯著下降。",
+            "status": "verify",
+            "label": "待驗證",
+            "current_evidence": "2026-06-30 毛利率 16.8%，YoY -0.4pp；連續 2 季下降。",
+            "trend": "支持 → 待驗證",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026049270/0001628280-26-049270-index.html",
+            "source_period": "2026-06-30"
+          },
+          {
+            "id": "self_funded_options",
+            "title": "Robotaxi、AI 與產能投資可由自身現金支應",
+            "original_expectation": "FCF 與股數檢查長期選擇權是否需要持續外部融資。",
+            "invalidation": "FCF 連續至少 4 季為負，或稀釋股數 YoY ≥ 8%。",
+            "status": "verify",
+            "label": "待驗證",
+            "current_evidence": "2026-06-30 FCF USD -1,092.0M（連續 1 季為負）；稀釋股數 YoY +0.6%。",
+            "trend": "支持 → 待驗證",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026049270/0001628280-26-049270-index.html",
+            "source_period": "2026-06-30"
+          }
+        ],
+        "next_validation": {
+          "type": "earnings",
+          "date": "2026-10-21",
+          "days_until": 32,
+          "confidence": "estimated",
+          "source_label": "Yahoo Finance 行事曆",
+          "source_url": "https://finance.yahoo.com/quote/TSLA/calendar/",
+          "source_status": "fresh",
+          "last_success_at": "2026-09-19"
+        }
+      },
+      "catalyst_log": {
+        "upcoming": [],
+        "completed": [],
+        "note": "已完成事件目前只收錄可由官方指引與正式實績閉環驗證者；其他事件不猜測結果。"
+      },
+      "peer_comparison": {
+        "status": "insufficient",
+        "group_id": null,
+        "group_label": null,
+        "members": [],
+        "comparability": null,
+        "caveat": "目前追蹤名單中沒有至少三家可比公司，不產生百分位。",
+        "metrics": [
+          {
+            "id": "revenue_yoy",
+            "label": "營收 YoY",
+            "value": 25.51564722617354,
+            "unit": "%",
+            "direction": "higher",
+            "known_peer_count": 0,
+            "peer_median": null,
+            "favorable_percentile": null,
+            "status": "insufficient"
+          },
+          {
+            "id": "gross_margin",
+            "label": "毛利率",
+            "value": 16.826037682391274,
+            "unit": "%",
+            "direction": "higher",
+            "known_peer_count": 0,
+            "peer_median": null,
+            "favorable_percentile": null,
+            "status": "insufficient"
+          },
+          {
+            "id": "operating_margin",
+            "label": "營業利益率",
+            "value": 1.4095480946309675,
+            "unit": "%",
+            "direction": "higher",
+            "known_peer_count": 0,
+            "peer_median": null,
+            "favorable_percentile": null,
+            "status": "insufficient"
+          },
+          {
+            "id": "fcf_margin",
+            "label": "FCF 利潤率",
+            "value": -3.867403314917127,
+            "unit": "%",
+            "direction": "higher",
+            "known_peer_count": 0,
+            "peer_median": null,
+            "favorable_percentile": null,
+            "status": "insufficient"
+          },
+          {
+            "id": "diluted_shares_yoy",
+            "label": "稀釋股數 YoY",
+            "value": 0.5967604433077645,
+            "unit": "%",
+            "direction": "lower",
+            "known_peer_count": 0,
+            "peer_median": null,
+            "favorable_percentile": null,
+            "status": "insufficient"
+          },
+          {
+            "id": "pe_ratio",
+            "label": "本益比",
+            "value": 338.7,
+            "unit": "x",
+            "direction": "lower",
+            "known_peer_count": 0,
+            "peer_median": null,
+            "favorable_percentile": null,
+            "status": "insufficient"
+          }
+        ],
+        "composite_percentile": null,
+        "coverage": {
+          "known": 0,
+          "total": 6
+        }
+      }
+    },
+    "GOOG": {
+      "ticker": "GOOG",
+      "data_ticker": "GOOGL",
+      "evidence_ledger": {
+        "status": "available",
+        "period_end": "2026-06-30",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/0001652044-26-000071-index.html",
+        "source_form": "10-Q",
+        "source_accession": "0001652044-26-000071",
+        "source_date": "2026-07-23",
+        "quality_notes": [],
+        "claims": [
+          {
+            "claim_id": "0001652044-26-000071:revenue",
+            "metric": "revenue",
+            "label": "營收",
+            "value": 119796000000.0,
+            "unit": "USD",
+            "tag": "Revenues",
+            "derived": false,
+            "derivation": null,
+            "source_locator": "XBRL tag: Revenues",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/0001652044-26-000071-index.html",
+            "source_form": "10-Q",
+            "source_accession": "0001652044-26-000071",
+            "source_date": "2026-07-23"
+          },
+          {
+            "claim_id": "0001652044-26-000071:gross_margin",
+            "metric": "gross_margin",
+            "label": "毛利率",
+            "value": 0.6164896991552306,
+            "unit": "%",
+            "tag": null,
+            "derived": true,
+            "derivation": "毛利 ÷ 營收",
+            "source_locator": "毛利 ÷ 營收",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/0001652044-26-000071-index.html",
+            "source_form": "10-Q",
+            "source_accession": "0001652044-26-000071",
+            "source_date": "2026-07-23"
+          },
+          {
+            "claim_id": "0001652044-26-000071:operating_margin",
+            "metric": "operating_margin",
+            "label": "營業利益率",
+            "value": 0.3403285585495342,
+            "unit": "%",
+            "tag": null,
+            "derived": true,
+            "derivation": "營業利益 ÷ 營收",
+            "source_locator": "營業利益 ÷ 營收",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/0001652044-26-000071-index.html",
+            "source_form": "10-Q",
+            "source_accession": "0001652044-26-000071",
+            "source_date": "2026-07-23"
+          },
+          {
+            "claim_id": "0001652044-26-000071:free_cash_flow",
+            "metric": "free_cash_flow",
+            "label": "自由現金流",
+            "value": -5855000000.0,
+            "unit": "USD",
+            "tag": null,
+            "derived": true,
+            "derivation": "營運現金流 − 資本支出",
+            "source_locator": "營運現金流 − 資本支出",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/0001652044-26-000071-index.html",
+            "source_form": "10-Q",
+            "source_accession": "0001652044-26-000071",
+            "source_date": "2026-07-23"
+          },
+          {
+            "claim_id": "0001652044-26-000071:diluted_shares",
+            "metric": "diluted_shares",
+            "label": "稀釋股數",
+            "value": 12309000000.0,
+            "unit": "shares",
+            "tag": "WeightedAverageNumberOfDilutedSharesOutstanding",
+            "derived": false,
+            "derivation": null,
+            "source_locator": "XBRL tag: WeightedAverageNumberOfDilutedSharesOutstanding",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/0001652044-26-000071-index.html",
+            "source_form": "10-Q",
+            "source_accession": "0001652044-26-000071",
+            "source_date": "2026-07-23"
+          }
+        ],
+        "coverage": {
+          "sourced": 5,
+          "total": 5
+        }
+      },
+      "earnings_delta": {
+        "status": "available",
+        "latest_result": {
+          "period_end": "2026-06-30",
+          "filing_date": "2026-07-23",
+          "form": "10-Q",
+          "accession": "0001652044-26-000071",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/0001652044-26-000071-index.html",
+          "quality_notes": [],
+          "currency": "USD",
+          "source_basis": "SEC Company Facts；金額為 USD。",
+          "days_since_filing": 58,
+          "review_due": false
+        },
+        "metrics": [
+          {
+            "metric": "revenue",
+            "label": "營收",
+            "display": "amount",
+            "value": 119796000000.0,
+            "qoq": 9.008517143481098,
+            "yoy": 24.23362508814868,
+            "state": "improved",
+            "interpretation": "營收 YoY +24.2%",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/0001652044-26-000071-index.html",
+            "source_period": "2026-06-30"
+          },
+          {
+            "metric": "gross_margin",
+            "label": "毛利率",
+            "display": "percent",
+            "value": 0.6164896991552306,
+            "qoq": -0.7964330108800932,
+            "yoy": 2.1340987162863145,
+            "state": "improved",
+            "interpretation": "毛利率 YoY +2.1pp",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/0001652044-26-000071-index.html",
+            "source_period": "2026-06-30"
+          },
+          {
+            "metric": "operating_margin",
+            "label": "營業利益率",
+            "display": "percent",
+            "value": 0.3403285585495342,
+            "qoq": -2.0885680367259853,
+            "yoy": 1.6034784956801773,
+            "state": "stable",
+            "interpretation": "營業利益率 YoY +1.6pp",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/0001652044-26-000071-index.html",
+            "source_period": "2026-06-30"
+          },
+          {
+            "metric": "free_cash_flow",
+            "label": "自由現金流",
+            "display": "amount",
+            "value": -5855000000.0,
+            "qoq": null,
+            "yoy": null,
+            "state": "risk",
+            "interpretation": "自由現金流為負",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/0001652044-26-000071-index.html",
+            "source_period": "2026-06-30"
+          },
+          {
+            "metric": "diluted_shares",
+            "label": "稀釋股數",
+            "display": "shares",
+            "value": 12309000000.0,
+            "qoq": 0.5801601568883763,
+            "yoy": 0.9099852434825362,
+            "state": "stable",
+            "interpretation": "稀釋股數 YoY +0.9%",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/0001652044-26-000071-index.html",
+            "source_period": "2026-06-30"
+          }
+        ],
+        "official_guidance_comparison": null,
+        "prior_internal_estimate": {
+          "status": "not_collected",
+          "note": "尚未保存可追溯的財報前內部數值預估，不補猜。"
+        },
+        "consensus": {
+          "status": "not_collected",
+          "note": "目前沒有已授權且可稽核的機構共識來源，不以網路摘要補值。"
+        },
+        "conclusion": "改善項目多於風險項目，但仍需逐項核對來源與口徑。"
+      },
+      "thesis_scorecard": {
+        "status": "maintained",
+        "label": "論點維持",
+        "period": "2026-06-30",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/0001652044-26-000071-index.html",
+        "items": [
+          {
+            "id": "search_cloud_ai",
+            "title": "搜尋、Cloud 與 AI 產品維持成長",
+            "original_expectation": "合併營收成長是搜尋韌性與 Cloud／AI 擴張的保守代理。",
+            "invalidation": "營收 YoY ≤ 0%，或營收連續至少 3 季下降。",
+            "status": "supported",
+            "label": "支持",
+            "current_evidence": "2026-06-30 營收 USD 119,796.0M，YoY +24.2%；連續 2 季上升。",
+            "trend": "狀態未變",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/0001652044-26-000071-index.html",
+            "source_period": "2026-06-30"
+          },
+          {
+            "id": "advertising_moat",
+            "title": "廣告與雲端組合維持高營業利益率",
+            "original_expectation": "營業利益率檢查 AI 資本支出與搜尋變革是否侵蝕核心經濟性。",
+            "invalidation": "營業利益率低於 20%，或連續至少 3 季顯著下降。",
+            "status": "supported",
+            "label": "支持",
+            "current_evidence": "2026-06-30 營業利益率 34.0%，YoY +1.6pp；連續 2 季下降。",
+            "trend": "狀態未變",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/0001652044-26-000071-index.html",
+            "source_period": "2026-06-30"
+          },
+          {
+            "id": "cash_per_share",
+            "title": "高 FCF 與回購持續累積每股價值",
+            "original_expectation": "FCF 與稀釋股數觀察資本支出後的股東剩餘價值。",
+            "invalidation": "FCF 連續至少 4 季為負，或稀釋股數 YoY ≥ 5%。",
+            "status": "verify",
+            "label": "待驗證",
+            "current_evidence": "2026-06-30 FCF USD -5,855.0M（連續 1 季為負）；稀釋股數 YoY +0.9%。",
+            "trend": "支持 → 待驗證",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/0001652044-26-000071-index.html",
+            "source_period": "2026-06-30"
+          }
+        ],
+        "next_validation": {
+          "type": "earnings",
+          "date": "2026-10-28",
+          "days_until": 39,
+          "confidence": "estimated",
+          "source_label": "Yahoo Finance 行事曆",
+          "source_url": "https://finance.yahoo.com/quote/GOOG/calendar/",
+          "source_status": "fresh",
+          "last_success_at": "2026-09-19"
+        }
+      },
+      "catalyst_log": {
+        "upcoming": [],
+        "completed": [],
+        "note": "已完成事件目前只收錄可由官方指引與正式實績閉環驗證者；其他事件不猜測結果。"
+      },
+      "peer_comparison": {
+        "status": "available",
+        "group_id": "large_platforms",
+        "group_label": "大型數位平台研究對照組",
+        "members": [
+          "AAPL",
+          "AMZN",
+          "GOOG",
+          "META",
+          "MSFT"
+        ],
+        "comparability": "directional",
+        "caveat": "收入組成涵蓋裝置、雲端、廣告與零售；用來比較成長、利潤與現金流品質，不是嚴格交易同業組。",
+        "metrics": [
+          {
+            "id": "revenue_yoy",
+            "label": "營收 YoY",
+            "value": 24.23362508814868,
+            "unit": "%",
+            "direction": "higher",
+            "known_peer_count": 5,
+            "peer_median": 19.620517346245126,
+            "favorable_percentile": 75.0,
+            "status": "available"
+          },
+          {
+            "id": "gross_margin",
+            "label": "毛利率",
+            "value": 61.648969915523054,
+            "unit": "%",
+            "direction": "higher",
+            "known_peer_count": 5,
+            "peer_median": 61.648969915523054,
+            "favorable_percentile": 50.0,
+            "status": "available"
+          },
+          {
+            "id": "operating_margin",
+            "label": "營業利益率",
+            "value": 34.03285585495342,
+            "unit": "%",
+            "direction": "higher",
+            "known_peer_count": 5,
+            "peer_median": 32.62290137729969,
+            "favorable_percentile": 75.0,
+            "status": "available"
+          },
+          {
+            "id": "fcf_margin",
+            "label": "FCF 利潤率",
+            "value": -4.8874753748038335,
+            "unit": "%",
+            "direction": "higher",
+            "known_peer_count": 5,
+            "peer_median": 2.8716632950115955,
+            "favorable_percentile": 0.0,
+            "status": "available"
+          },
+          {
+            "id": "diluted_shares_yoy",
+            "label": "稀釋股數 YoY",
+            "value": 0.9099852434825362,
+            "unit": "%",
+            "direction": "lower",
+            "known_peer_count": 4,
+            "peer_median": 0.3710037153303647,
+            "favorable_percentile": 0.0,
+            "status": "available"
+          },
+          {
+            "id": "pe_ratio",
+            "label": "本益比",
+            "value": 31.8,
+            "unit": "x",
+            "direction": "lower",
+            "known_peer_count": 5,
+            "peer_median": 31.8,
+            "favorable_percentile": 50.0,
+            "status": "available"
+          }
+        ],
+        "composite_percentile": 41.7,
+        "coverage": {
+          "known": 6,
+          "total": 6
+        }
+      }
+    },
+    "COHR": {
+      "ticker": "COHR",
+      "data_ticker": "COHR",
+      "evidence_ledger": {
+        "status": "available",
+        "period_end": "2026-06-30",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/820318/000082031826000020/0000820318-26-000020-index.html",
+        "source_form": "10-K",
+        "source_accession": "0000820318-26-000020",
+        "source_date": "2026-08-14",
+        "quality_notes": [],
+        "claims": [
+          {
+            "claim_id": "0000820318-26-000020:revenue",
+            "metric": "revenue",
+            "label": "營收",
+            "value": 2045533000.0,
+            "unit": "USD",
+            "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+            "derived": true,
+            "derivation": "年度報告全年值減同一會計年度前三季累計值",
+            "source_locator": "XBRL tag: RevenueFromContractWithCustomerExcludingAssessedTax",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/820318/000082031826000020/0000820318-26-000020-index.html",
+            "source_form": "10-K",
+            "source_accession": "0000820318-26-000020",
+            "source_date": "2026-08-14"
+          },
+          {
+            "claim_id": "0000820318-26-000020:gross_margin",
+            "metric": "gross_margin",
+            "label": "毛利率",
+            "value": 0.38477746386883027,
+            "unit": "%",
+            "tag": null,
+            "derived": true,
+            "derivation": "毛利 ÷ 營收",
+            "source_locator": "毛利 ÷ 營收",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/820318/000082031826000020/0000820318-26-000020-index.html",
+            "source_form": "10-K",
+            "source_accession": "0000820318-26-000020",
+            "source_date": "2026-08-14"
+          },
+          {
+            "claim_id": "0000820318-26-000020:operating_margin",
+            "metric": "operating_margin",
+            "label": "營業利益率",
+            "value": null,
+            "unit": "%",
+            "tag": null,
+            "derived": true,
+            "derivation": "營業利益 ÷ 營收",
+            "source_locator": "營業利益 ÷ 營收",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/820318/000082031826000020/0000820318-26-000020-index.html",
+            "source_form": "10-K",
+            "source_accession": "0000820318-26-000020",
+            "source_date": "2026-08-14"
+          },
+          {
+            "claim_id": "0000820318-26-000020:free_cash_flow",
+            "metric": "free_cash_flow",
+            "label": "自由現金流",
+            "value": -486225000.0,
+            "unit": "USD",
+            "tag": null,
+            "derived": true,
+            "derivation": "營運現金流 − 資本支出",
+            "source_locator": "營運現金流 − 資本支出",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/820318/000082031826000020/0000820318-26-000020-index.html",
+            "source_form": "10-K",
+            "source_accession": "0000820318-26-000020",
+            "source_date": "2026-08-14"
+          },
+          {
+            "claim_id": "0000820318-26-000020:diluted_shares",
+            "metric": "diluted_shares",
+            "label": "稀釋股數",
+            "value": null,
+            "unit": "USD",
+            "tag": null,
+            "derived": false,
+            "derivation": null,
+            "source_locator": "10-K已核對表格列：稀釋股數",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/820318/000082031826000020/0000820318-26-000020-index.html",
+            "source_form": "10-K",
+            "source_accession": "0000820318-26-000020",
+            "source_date": "2026-08-14"
+          }
+        ],
+        "coverage": {
+          "sourced": 3,
+          "total": 5
+        }
+      },
+      "earnings_delta": {
+        "status": "available",
+        "latest_result": {
+          "period_end": "2026-06-30",
+          "filing_date": "2026-08-14",
+          "form": "10-K",
+          "accession": "0000820318-26-000020",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/820318/000082031826000020/0000820318-26-000020-index.html",
+          "quality_notes": [],
+          "currency": "USD",
+          "source_basis": "SEC Company Facts；金額為 USD。",
+          "days_since_filing": 36,
+          "review_due": false
+        },
+        "metrics": [
+          {
+            "metric": "revenue",
+            "label": "營收",
+            "display": "amount",
+            "value": 2045533000.0,
+            "qoq": 13.28569743376451,
+            "yoy": 33.744269129273796,
+            "state": "improved",
+            "interpretation": "營收 YoY +33.7%",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/820318/000082031826000020/0000820318-26-000020-index.html",
+            "source_period": "2026-06-30"
+          },
+          {
+            "metric": "gross_margin",
+            "label": "毛利率",
+            "display": "percent",
+            "value": 0.38477746386883027,
+            "qoq": 0.8210361105877972,
+            "yoy": 2.76856993229454,
+            "state": "improved",
+            "interpretation": "毛利率 YoY +2.8pp",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/820318/000082031826000020/0000820318-26-000020-index.html",
+            "source_period": "2026-06-30"
+          },
+          {
+            "metric": "operating_margin",
+            "label": "營業利益率",
+            "display": "percent",
+            "value": null,
+            "qoq": null,
+            "yoy": null,
+            "state": "unknown",
+            "interpretation": "缺值，不能判斷",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/820318/000082031826000020/0000820318-26-000020-index.html",
+            "source_period": "2026-06-30"
+          },
+          {
+            "metric": "free_cash_flow",
+            "label": "自由現金流",
+            "display": "amount",
+            "value": -486225000.0,
+            "qoq": null,
+            "yoy": null,
+            "state": "risk",
+            "interpretation": "自由現金流為負",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/820318/000082031826000020/0000820318-26-000020-index.html",
+            "source_period": "2026-06-30"
+          },
+          {
+            "metric": "diluted_shares",
+            "label": "稀釋股數",
+            "display": "shares",
+            "value": null,
+            "qoq": null,
+            "yoy": null,
+            "state": "unknown",
+            "interpretation": "缺值，不能判斷",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/820318/000082031826000020/0000820318-26-000020-index.html",
+            "source_period": "2026-06-30"
+          }
+        ],
+        "official_guidance_comparison": {
+          "period": "FY2026 Q4",
+          "period_end": "2026-06-30",
+          "low": 1.91,
+          "high": 2.05,
+          "actual": 2.045533,
+          "guidance_date": "2026-05-06",
+          "guidance_source_url": "https://www.coherent.com/content/dam/coherent/site/en/documents/investors/investor-presentations/2026/may-6/investor-presentation-20260506.pdf",
+          "metric": "營收",
+          "unit": "USD bn",
+          "comparison_basis": "季度開始前公司正式發布的原始營收區間；後續修正不覆蓋原值。",
+          "outcome": "within",
+          "outcome_label": "落在區間",
+          "vs_midpoint_pct": 3.30974747474746
+        },
+        "prior_internal_estimate": {
+          "status": "not_collected",
+          "note": "尚未保存可追溯的財報前內部數值預估，不補猜。"
+        },
+        "consensus": {
+          "status": "not_collected",
+          "note": "目前沒有已授權且可稽核的機構共識來源，不以網路摘要補值。"
+        },
+        "conclusion": "改善項目多於風險項目，但仍需逐項核對來源與口徑。"
+      },
+      "thesis_scorecard": {
+        "status": "partial-invalidated",
+        "label": "部分失效",
+        "period": "2026-06-30",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/820318/000082031826000020/0000820318-26-000020-index.html",
+        "items": [
+          {
+            "id": "ai_optics_growth",
+            "title": "AI 光通訊需求推動營收成長",
+            "original_expectation": "營收成長是高速光模組、雷射與資料通訊需求的財務代理。",
+            "invalidation": "營收 YoY ≤ 0%，或營收連續至少 3 季下降。",
+            "status": "supported",
+            "label": "支持",
+            "current_evidence": "2026-06-30 營收 USD 2,045.5M，YoY +33.7%；連續 8 季上升。",
+            "trend": "狀態未變",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/820318/000082031826000020/0000820318-26-000020-index.html",
+            "source_period": "2026-06-30"
+          },
+          {
+            "id": "margin_recovery",
+            "title": "產品組合與整併綜效帶動毛利率改善",
+            "original_expectation": "毛利率檢查 AI 光通訊成長與整併綜效是否改善經濟性。",
+            "invalidation": "毛利率低於 30%，或連續至少 3 季顯著下降。",
+            "status": "supported",
+            "label": "支持",
+            "current_evidence": "2026-06-30 毛利率 38.5%，YoY +2.8pp；連續 3 季上升。",
+            "trend": "狀態未變",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/820318/000082031826000020/0000820318-26-000020-index.html",
+            "source_period": "2026-06-30"
+          },
+          {
+            "id": "cash_deleveraging",
+            "title": "獲利改善能轉化為 FCF 與每股價值",
+            "original_expectation": "FCF 與股數用來檢查資本支出、整併與償債後的股東現金。",
+            "invalidation": "FCF 連續至少 4 季為負，或稀釋股數 YoY ≥ 10%。",
+            "status": "invalidated",
+            "label": "失效",
+            "current_evidence": "2026-06-30 FCF USD -486.2M（連續 5 季為負）；稀釋股數缺值。",
+            "trend": "狀態未變",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/820318/000082031826000020/0000820318-26-000020-index.html",
+            "source_period": "2026-06-30"
+          }
+        ],
+        "next_validation": {
+          "type": "earnings",
+          "date": "2026-11-04",
+          "days_until": 46,
+          "confidence": "estimated",
+          "source_label": "Yahoo Finance 行事曆",
+          "source_url": "https://finance.yahoo.com/quote/COHR/calendar/",
+          "source_status": "fresh",
+          "last_success_at": "2026-09-19"
+        }
+      },
+      "catalyst_log": {
+        "upcoming": [],
+        "completed": [
+          {
+            "status": "completed",
+            "date": "2026-06-30",
+            "type": "earnings_guidance_validation",
+            "title": "FY2026 Q4 官方指引驗證",
+            "expected": "1.91～2.05 USD bn",
+            "actual": "2.045533 USD bn",
+            "outcome": "within",
+            "outcome_label": "落在區間",
+            "source_url": "https://www.coherent.com/content/dam/coherent/site/en/documents/investors/investor-presentations/2026/may-6/investor-presentation-20260506.pdf",
+            "actual_source_url": "https://www.sec.gov/Archives/edgar/data/820318/000082031826000020/0000820318-26-000020-index.html"
+          }
+        ],
+        "note": "已完成事件目前只收錄可由官方指引與正式實績閉環驗證者；其他事件不猜測結果。"
+      },
+      "peer_comparison": {
+        "status": "available",
+        "group_id": "connectivity_infrastructure",
+        "group_label": "連接與網路基礎建設研究對照組",
+        "members": [
+          "COHR",
+          "MRVL",
+          "NOK"
+        ],
+        "comparability": "directional",
+        "caveat": "公司分別偏光通訊、半導體與電信設備；僅比較已統一口徑的營運比率與稀釋，不以單一倍數直接下結論。",
+        "metrics": [
+          {
+            "id": "revenue_yoy",
+            "label": "營收 YoY",
+            "value": 33.744269129273796,
+            "unit": "%",
+            "direction": "higher",
+            "known_peer_count": 3,
+            "peer_median": 33.744269129273796,
+            "favorable_percentile": 50.0,
+            "status": "available"
+          },
+          {
+            "id": "gross_margin",
+            "label": "毛利率",
+            "value": 38.47774638688303,
+            "unit": "%",
+            "direction": "higher",
+            "known_peer_count": 3,
+            "peer_median": 44.6,
+            "favorable_percentile": 0.0,
+            "status": "available"
+          },
+          {
+            "id": "operating_margin",
+            "label": "營業利益率",
+            "value": null,
+            "unit": "%",
+            "direction": "higher",
+            "known_peer_count": 2,
+            "peer_median": 7.8908297740298625,
+            "favorable_percentile": null,
+            "status": "insufficient"
+          },
+          {
+            "id": "fcf_margin",
+            "label": "FCF 利潤率",
+            "value": -23.770088285058222,
+            "unit": "%",
+            "direction": "higher",
+            "known_peer_count": 3,
+            "peer_median": -15.202492211838006,
+            "favorable_percentile": 0.0,
+            "status": "available"
+          },
+          {
+            "id": "diluted_shares_yoy",
+            "label": "稀釋股數 YoY",
+            "value": null,
+            "unit": "%",
+            "direction": "lower",
+            "known_peer_count": 2,
+            "peer_median": 5.741294311347334,
+            "favorable_percentile": null,
+            "status": "insufficient"
+          },
+          {
+            "id": "pe_ratio",
+            "label": "本益比",
+            "value": 77.0,
+            "unit": "x",
+            "direction": "lower",
+            "known_peer_count": 3,
+            "peer_median": 79.6,
+            "favorable_percentile": 100.0,
+            "status": "available"
+          }
+        ],
+        "composite_percentile": 37.5,
+        "coverage": {
+          "known": 4,
+          "total": 6
+        }
+      }
+    },
+    "MRVL": {
+      "ticker": "MRVL",
+      "data_ticker": "MRVL",
+      "evidence_ledger": {
+        "status": "available",
+        "period_end": "2026-08-01",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1835632/000183563226000025/0001835632-26-000025-index.html",
+        "source_form": "10-Q",
+        "source_accession": "0001835632-26-000025",
+        "source_date": "2026-08-28",
+        "quality_notes": [],
+        "claims": [
+          {
+            "claim_id": "0001835632-26-000025:revenue",
+            "metric": "revenue",
+            "label": "營收",
+            "value": 2739300000.0,
+            "unit": "USD",
+            "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+            "derived": false,
+            "derivation": null,
+            "source_locator": "XBRL tag: RevenueFromContractWithCustomerExcludingAssessedTax",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1835632/000183563226000025/0001835632-26-000025-index.html",
+            "source_form": "10-Q",
+            "source_accession": "0001835632-26-000025",
+            "source_date": "2026-08-28"
+          },
+          {
+            "claim_id": "0001835632-26-000025:gross_margin",
+            "metric": "gross_margin",
+            "label": "毛利率",
+            "value": 0.5313766290658197,
+            "unit": "%",
+            "tag": null,
+            "derived": true,
+            "derivation": "毛利 ÷ 營收",
+            "source_locator": "毛利 ÷ 營收",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1835632/000183563226000025/0001835632-26-000025-index.html",
+            "source_form": "10-Q",
+            "source_accession": "0001835632-26-000025",
+            "source_date": "2026-08-28"
+          },
+          {
+            "claim_id": "0001835632-26-000025:operating_margin",
+            "metric": "operating_margin",
+            "label": "營業利益率",
+            "value": 0.16781659548059724,
+            "unit": "%",
+            "tag": null,
+            "derived": true,
+            "derivation": "營業利益 ÷ 營收",
+            "source_locator": "營業利益 ÷ 營收",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1835632/000183563226000025/0001835632-26-000025-index.html",
+            "source_form": "10-Q",
+            "source_accession": "0001835632-26-000025",
+            "source_date": "2026-08-28"
+          },
+          {
+            "claim_id": "0001835632-26-000025:free_cash_flow",
+            "metric": "free_cash_flow",
+            "label": "自由現金流",
+            "value": 478800000.0,
+            "unit": "USD",
+            "tag": null,
+            "derived": true,
+            "derivation": "營運現金流 − 資本支出",
+            "source_locator": "營運現金流 − 資本支出",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1835632/000183563226000025/0001835632-26-000025-index.html",
+            "source_form": "10-Q",
+            "source_accession": "0001835632-26-000025",
+            "source_date": "2026-08-28"
+          },
+          {
+            "claim_id": "0001835632-26-000025:diluted_shares",
+            "metric": "diluted_shares",
+            "label": "稀釋股數",
+            "value": 921200000.0,
+            "unit": "shares",
+            "tag": "WeightedAverageNumberOfDilutedSharesOutstanding",
+            "derived": false,
+            "derivation": null,
+            "source_locator": "XBRL tag: WeightedAverageNumberOfDilutedSharesOutstanding",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1835632/000183563226000025/0001835632-26-000025-index.html",
+            "source_form": "10-Q",
+            "source_accession": "0001835632-26-000025",
+            "source_date": "2026-08-28"
+          }
+        ],
+        "coverage": {
+          "sourced": 5,
+          "total": 5
+        }
+      },
+      "earnings_delta": {
+        "status": "available",
+        "latest_result": {
+          "period_end": "2026-08-01",
+          "filing_date": "2026-08-28",
+          "form": "10-Q",
+          "accession": "0001835632-26-000025",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1835632/000183563226000025/0001835632-26-000025-index.html",
+          "quality_notes": [],
+          "currency": "USD",
+          "source_basis": "SEC Company Facts；金額為 USD。",
+          "days_since_filing": 22,
+          "review_due": false
+        },
+        "metrics": [
+          {
+            "metric": "revenue",
+            "label": "營收",
+            "display": "amount",
+            "value": 2739300000.0,
+            "qoq": 13.297212341798325,
+            "yoy": 36.54852699267235,
+            "state": "improved",
+            "interpretation": "營收 YoY +36.5%",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1835632/000183563226000025/0001835632-26-000025-index.html",
+            "source_period": "2026-08-01"
+          },
+          {
+            "metric": "gross_margin",
+            "label": "毛利率",
+            "display": "percent",
+            "value": 0.5313766290658197,
+            "qoq": 0.991083371467405,
+            "yoy": 2.7613107805663173,
+            "state": "improved",
+            "interpretation": "毛利率 YoY +2.8pp",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1835632/000183563226000025/0001835632-26-000025-index.html",
+            "source_period": "2026-08-01"
+          },
+          {
+            "metric": "operating_margin",
+            "label": "營業利益率",
+            "display": "percent",
+            "value": 0.16781659548059724,
+            "qoq": 2.744104746173712,
+            "yoy": 2.3207652755907553,
+            "state": "improved",
+            "interpretation": "營業利益率 YoY +2.3pp",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1835632/000183563226000025/0001835632-26-000025-index.html",
+            "source_period": "2026-08-01"
+          },
+          {
+            "metric": "free_cash_flow",
+            "label": "自由現金流",
+            "display": "amount",
+            "value": 478800000.0,
+            "qoq": -0.8900848685572393,
+            "yoy": 15.624245351364397,
+            "state": "improved",
+            "interpretation": "自由現金流為正",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1835632/000183563226000025/0001835632-26-000025-index.html",
+            "source_period": "2026-08-01"
+          },
+          {
+            "metric": "diluted_shares",
+            "label": "稀釋股數",
+            "display": "shares",
+            "value": 921200000.0,
+            "qoq": 3.1232508675696824,
+            "yoy": 5.836397058823528,
+            "state": "stable",
+            "interpretation": "稀釋股數 YoY +5.8%",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1835632/000183563226000025/0001835632-26-000025-index.html",
+            "source_period": "2026-08-01"
+          }
+        ],
+        "official_guidance_comparison": {
+          "period": "FY2027 Q1",
+          "period_end": "2026-05-02",
+          "low": 2.28,
+          "high": 2.52,
+          "actual": 2.4178,
+          "guidance_date": "2026-03-05",
+          "guidance_source_url": "https://www.sec.gov/Archives/edgar/data/1835632/000183563226000006/q426_8kx1312026ex-991.htm",
+          "metric": "淨營收",
+          "unit": "USD bn",
+          "comparison_basis": "公司發布的下一季淨營收中點 ±5%；表內已換算成上下限。",
+          "outcome": "within",
+          "outcome_label": "落在區間",
+          "vs_midpoint_pct": 0.7416666666666849
+        },
+        "prior_internal_estimate": {
+          "status": "not_collected",
+          "note": "尚未保存可追溯的財報前內部數值預估，不補猜。"
+        },
+        "consensus": {
+          "status": "not_collected",
+          "note": "目前沒有已授權且可稽核的機構共識來源，不以網路摘要補值。"
+        },
+        "conclusion": "改善項目多於風險項目，但仍需逐項核對來源與口徑。"
+      },
+      "thesis_scorecard": {
+        "status": "maintained",
+        "label": "論點維持",
+        "period": "2026-08-01",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1835632/000183563226000025/0001835632-26-000025-index.html",
+        "items": [
+          {
+            "id": "data_center_growth",
+            "title": "資料中心與客製 AI 晶片維持成長",
+            "original_expectation": "營收成長是客製 ASIC、互連與資料中心需求的合併財務代理。",
+            "invalidation": "營收 YoY ≤ 0%，或營收連續至少 3 季下降。",
+            "status": "supported",
+            "label": "支持",
+            "current_evidence": "2026-08-01 營收 USD 2,739.3M，YoY +36.5%；連續 8 季上升。",
+            "trend": "狀態未變",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1835632/000183563226000025/0001835632-26-000025-index.html",
+            "source_period": "2026-08-01"
+          },
+          {
+            "id": "mix_margin",
+            "title": "高價值資料中心組合維持毛利率",
+            "original_expectation": "毛利率檢查客製晶片組合、量產爬坡與競爭定價。",
+            "invalidation": "毛利率低於 40%，或連續至少 3 季顯著下降。",
+            "status": "supported",
+            "label": "支持",
+            "current_evidence": "2026-08-01 毛利率 53.1%，YoY +2.8pp；連續 2 季上升。",
+            "trend": "狀態未變",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1835632/000183563226000025/0001835632-26-000025-index.html",
+            "source_period": "2026-08-01"
+          },
+          {
+            "id": "cash_scaling",
+            "title": "AI 成長能轉化為正向 FCF",
+            "original_expectation": "FCF 與股數檢查成長、收購與股權薪酬後的每股現金。",
+            "invalidation": "FCF 連續至少 4 季為負，或稀釋股數 YoY ≥ 8%。",
+            "status": "verify",
+            "label": "待驗證",
+            "current_evidence": "2026-08-01 FCF USD 478.8M（連續 8 季為正）；稀釋股數 YoY +5.8%。",
+            "trend": "狀態未變",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1835632/000183563226000025/0001835632-26-000025-index.html",
+            "source_period": "2026-08-01"
+          }
+        ],
+        "next_validation": {
+          "type": "earnings",
+          "date": "2026-12-01",
+          "days_until": 73,
+          "confidence": "estimated",
+          "source_label": "Yahoo Finance 行事曆",
+          "source_url": "https://finance.yahoo.com/quote/MRVL/calendar/",
+          "source_status": "fresh",
+          "last_success_at": "2026-09-19"
+        }
+      },
+      "catalyst_log": {
+        "upcoming": [],
+        "completed": [
+          {
+            "status": "completed",
+            "date": "2026-05-02",
+            "type": "earnings_guidance_validation",
+            "title": "FY2027 Q1 官方指引驗證",
+            "expected": "2.28～2.52 USD bn",
+            "actual": "2.4178 USD bn",
+            "outcome": "within",
+            "outcome_label": "落在區間",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1835632/000183563226000006/q426_8kx1312026ex-991.htm",
+            "actual_source_url": "https://www.sec.gov/Archives/edgar/data/1835632/000183563226000019/0001835632-26-000019-index.html"
+          }
+        ],
+        "note": "已完成事件目前只收錄可由官方指引與正式實績閉環驗證者；其他事件不猜測結果。"
+      },
+      "peer_comparison": {
+        "status": "available",
+        "group_id": "semiconductor_platforms",
+        "group_label": "半導體平台研究對照組",
+        "members": [
+          "NVDA",
+          "ARM",
+          "MRVL",
+          "INTC",
+          "TSM"
+        ],
+        "comparability": "directional",
+        "caveat": "涵蓋晶片設計、IP 授權、IDM 與晶圓代工；營運百分位可作方向性對照，估值倍數不可視為完全同業。",
+        "metrics": [
+          {
+            "id": "revenue_yoy",
+            "label": "營收 YoY",
+            "value": 36.54852699267235,
+            "unit": "%",
+            "direction": "higher",
+            "known_peer_count": 5,
+            "peer_median": 36.045577699482756,
+            "favorable_percentile": 75.0,
+            "status": "available"
+          },
+          {
+            "id": "gross_margin",
+            "label": "毛利率",
+            "value": 53.13766290658197,
+            "unit": "%",
+            "direction": "higher",
+            "known_peer_count": 5,
+            "peer_median": 67.7,
+            "favorable_percentile": 25.0,
+            "status": "available"
+          },
+          {
+            "id": "operating_margin",
+            "label": "營業利益率",
+            "value": 16.781659548059725,
+            "unit": "%",
+            "direction": "higher",
+            "known_peer_count": 5,
+            "peer_median": 16.781659548059725,
+            "favorable_percentile": 50.0,
+            "status": "available"
+          },
+          {
+            "id": "fcf_margin",
+            "label": "FCF 利潤率",
+            "value": 17.478917971744607,
+            "unit": "%",
+            "direction": "higher",
+            "known_peer_count": 5,
+            "peer_median": 22.620003463530598,
+            "favorable_percentile": 0.0,
+            "status": "available"
+          },
+          {
+            "id": "diluted_shares_yoy",
+            "label": "稀釋股數 YoY",
+            "value": 5.836397058823528,
+            "unit": "%",
+            "direction": "lower",
+            "known_peer_count": 4,
+            "peer_median": 3.528527167909412,
+            "favorable_percentile": 33.3,
+            "status": "available"
+          },
+          {
+            "id": "pe_ratio",
+            "label": "本益比",
+            "value": 79.6,
+            "unit": "x",
+            "direction": "lower",
+            "known_peer_count": 4,
+            "peer_median": 62.5,
+            "favorable_percentile": 33.3,
+            "status": "available"
+          }
+        ],
+        "composite_percentile": 36.1,
+        "coverage": {
+          "known": 6,
+          "total": 6
+        }
+      }
+    },
+    "INTC": {
+      "ticker": "INTC",
+      "data_ticker": "INTC",
+      "evidence_ledger": {
+        "status": "available",
+        "period_end": "2026-06-27",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/50863/000005086326000157/0000050863-26-000157-index.html",
+        "source_form": "10-Q",
+        "source_accession": "0000050863-26-000157",
+        "source_date": "2026-07-24",
+        "quality_notes": [],
+        "claims": [
+          {
+            "claim_id": "0000050863-26-000157:revenue",
+            "metric": "revenue",
+            "label": "營收",
+            "value": 16128000000.0,
+            "unit": "USD",
+            "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+            "derived": false,
+            "derivation": null,
+            "source_locator": "XBRL tag: RevenueFromContractWithCustomerExcludingAssessedTax",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/50863/000005086326000157/0000050863-26-000157-index.html",
+            "source_form": "10-Q",
+            "source_accession": "0000050863-26-000157",
+            "source_date": "2026-07-24"
+          },
+          {
+            "claim_id": "0000050863-26-000157:gross_margin",
+            "metric": "gross_margin",
+            "label": "毛利率",
+            "value": 0.40358382936507936,
+            "unit": "%",
+            "tag": null,
+            "derived": true,
+            "derivation": "毛利 ÷ 營收",
+            "source_locator": "毛利 ÷ 營收",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/50863/000005086326000157/0000050863-26-000157-index.html",
+            "source_form": "10-Q",
+            "source_accession": "0000050863-26-000157",
+            "source_date": "2026-07-24"
+          },
+          {
+            "claim_id": "0000050863-26-000157:operating_margin",
+            "metric": "operating_margin",
+            "label": "營業利益率",
+            "value": 0.11135912698412699,
+            "unit": "%",
+            "tag": null,
+            "derived": true,
+            "derivation": "營業利益 ÷ 營收",
+            "source_locator": "營業利益 ÷ 營收",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/50863/000005086326000157/0000050863-26-000157-index.html",
+            "source_form": "10-Q",
+            "source_accession": "0000050863-26-000157",
+            "source_date": "2026-07-24"
+          },
+          {
+            "claim_id": "0000050863-26-000157:free_cash_flow",
+            "metric": "free_cash_flow",
+            "label": "自由現金流",
+            "value": 4450000000.0,
+            "unit": "USD",
+            "tag": null,
+            "derived": true,
+            "derivation": "營運現金流 − 資本支出",
+            "source_locator": "營運現金流 − 資本支出",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/50863/000005086326000157/0000050863-26-000157-index.html",
+            "source_form": "10-Q",
+            "source_accession": "0000050863-26-000157",
+            "source_date": "2026-07-24"
+          },
+          {
+            "claim_id": "0000050863-26-000157:diluted_shares",
+            "metric": "diluted_shares",
+            "label": "稀釋股數",
+            "value": 5104000000.0,
+            "unit": "shares",
+            "tag": "WeightedAverageNumberOfDilutedSharesOutstanding",
+            "derived": false,
+            "derivation": null,
+            "source_locator": "XBRL tag: WeightedAverageNumberOfDilutedSharesOutstanding",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/50863/000005086326000157/0000050863-26-000157-index.html",
+            "source_form": "10-Q",
+            "source_accession": "0000050863-26-000157",
+            "source_date": "2026-07-24"
+          }
+        ],
+        "coverage": {
+          "sourced": 5,
+          "total": 5
+        }
+      },
+      "earnings_delta": {
+        "status": "available",
+        "latest_result": {
+          "period_end": "2026-06-27",
+          "filing_date": "2026-07-24",
+          "form": "10-Q",
+          "accession": "0000050863-26-000157",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/50863/000005086326000157/0000050863-26-000157-index.html",
+          "quality_notes": [],
+          "currency": "USD",
+          "source_basis": "SEC Company Facts；金額為 USD。",
+          "days_since_filing": 57,
+          "review_due": false
+        },
+        "metrics": [
+          {
+            "metric": "revenue",
+            "label": "營收",
+            "display": "amount",
+            "value": 16128000000.0,
+            "qoq": 18.789128673491938,
+            "yoy": 25.421883505715837,
+            "state": "improved",
+            "interpretation": "營收 YoY +25.4%",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/50863/000005086326000157/0000050863-26-000157-index.html",
+            "source_period": "2026-06-27"
+          },
+          {
+            "metric": "gross_margin",
+            "label": "毛利率",
+            "display": "percent",
+            "value": 0.40358382936507936,
+            "qoq": 0.975603235543071,
+            "yoy": 12.813472756867217,
+            "state": "improved",
+            "interpretation": "毛利率 YoY +12.8pp",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/50863/000005086326000157/0000050863-26-000157-index.html",
+            "source_period": "2026-06-27"
+          },
+          {
+            "metric": "operating_margin",
+            "label": "營業利益率",
+            "display": "percent",
+            "value": 0.11135912698412699,
+            "qoq": 34.23379882936947,
+            "yoy": 35.8345673371871,
+            "state": "improved",
+            "interpretation": "營業利益率 YoY +35.8pp",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/50863/000005086326000157/0000050863-26-000157-index.html",
+            "source_period": "2026-06-27"
+          },
+          {
+            "metric": "free_cash_flow",
+            "label": "自由現金流",
+            "display": "amount",
+            "value": 4450000000.0,
+            "qoq": null,
+            "yoy": null,
+            "state": "improved",
+            "interpretation": "自由現金流為正",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/50863/000005086326000157/0000050863-26-000157-index.html",
+            "source_period": "2026-06-27"
+          },
+          {
+            "metric": "diluted_shares",
+            "label": "稀釋股數",
+            "display": "shares",
+            "value": 5104000000.0,
+            "qoq": 0.41314184536691556,
+            "yoy": 16.823071641107813,
+            "state": "risk",
+            "interpretation": "稀釋股數 YoY +16.8%",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/50863/000005086326000157/0000050863-26-000157-index.html",
+            "source_period": "2026-06-27"
+          }
+        ],
+        "official_guidance_comparison": {
+          "period": "2026 Q2",
+          "period_end": "2026-06-27",
+          "low": 13.8,
+          "high": 14.8,
+          "actual": 16.128,
+          "guidance_date": "2026-04-23",
+          "guidance_source_url": "https://www.sec.gov/Archives/edgar/data/50863/000005086326000077/q126earningsrelease.htm",
+          "metric": "營收",
+          "unit": "USD bn",
+          "comparison_basis": "公司發布的下一季營收區間；實績採 GAAP net revenue。",
+          "outcome": "above",
+          "outcome_label": "高於指引",
+          "vs_midpoint_pct": 12.783216783216789
+        },
+        "prior_internal_estimate": {
+          "status": "not_collected",
+          "note": "尚未保存可追溯的財報前內部數值預估，不補猜。"
+        },
+        "consensus": {
+          "status": "not_collected",
+          "note": "目前沒有已授權且可稽核的機構共識來源，不以網路摘要補值。"
+        },
+        "conclusion": "改善項目多於風險項目，但仍需逐項核對來源與口徑。"
+      },
+      "thesis_scorecard": {
+        "status": "partial-invalidated",
+        "label": "部分失效",
+        "period": "2026-06-27",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/50863/000005086326000157/0000050863-26-000157-index.html",
+        "items": [
+          {
+            "id": "turnaround_growth",
+            "title": "產品與晶圓代工轉型恢復營收成長",
+            "original_expectation": "合併營收成長是產品競爭力、18A 與外部代工進度的保守代理。",
+            "invalidation": "營收 YoY ≤ -5%，或營收連續至少 3 季下降。",
+            "status": "supported",
+            "label": "支持",
+            "current_evidence": "2026-06-27 營收 USD 16,128.0M，YoY +25.4%；連續 2 季上升。",
+            "trend": "狀態未變",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/50863/000005086326000157/0000050863-26-000157-index.html",
+            "source_period": "2026-06-27"
+          },
+          {
+            "id": "manufacturing_recovery",
+            "title": "製程與產能利用率帶動毛利率復甦",
+            "original_expectation": "毛利率用來檢查製程良率、折舊負擔與產品組合的整體結果。",
+            "invalidation": "毛利率低於 30%，或連續至少 3 季顯著下降。",
+            "status": "supported",
+            "label": "支持",
+            "current_evidence": "2026-06-27 毛利率 40.4%，YoY +12.8pp；連續 3 季上升。",
+            "trend": "待驗證 → 支持",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/50863/000005086326000157/0000050863-26-000157-index.html",
+            "source_period": "2026-06-27"
+          },
+          {
+            "id": "foundry_funding",
+            "title": "轉型資本支出不造成長期現金流失血",
+            "original_expectation": "FCF 與股數檢查晶圓廠投資能否由營運與資產負債表承擔。",
+            "invalidation": "FCF 連續至少 4 季為負，或稀釋股數 YoY ≥ 8%。",
+            "status": "invalidated",
+            "label": "失效",
+            "current_evidence": "2026-06-27 FCF USD 4,450.0M（連續 1 季為正）；稀釋股數 YoY +16.8%。",
+            "trend": "狀態未變",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/50863/000005086326000157/0000050863-26-000157-index.html",
+            "source_period": "2026-06-27"
+          }
+        ],
+        "next_validation": {
+          "type": "earnings",
+          "date": "2026-10-22",
+          "days_until": 33,
+          "confidence": "estimated",
+          "source_label": "Yahoo Finance 行事曆",
+          "source_url": "https://finance.yahoo.com/quote/INTC/calendar/",
+          "source_status": "fresh",
+          "last_success_at": "2026-09-19"
+        }
+      },
+      "catalyst_log": {
+        "upcoming": [],
+        "completed": [
+          {
+            "status": "completed",
+            "date": "2026-06-27",
+            "type": "earnings_guidance_validation",
+            "title": "2026 Q2 官方指引驗證",
+            "expected": "13.8～14.8 USD bn",
+            "actual": "16.128 USD bn",
+            "outcome": "above",
+            "outcome_label": "高於指引",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/50863/000005086326000077/q126earningsrelease.htm",
+            "actual_source_url": "https://www.sec.gov/Archives/edgar/data/50863/000005086326000157/0000050863-26-000157-index.html"
+          }
+        ],
+        "note": "已完成事件目前只收錄可由官方指引與正式實績閉環驗證者；其他事件不猜測結果。"
+      },
+      "peer_comparison": {
+        "status": "available",
+        "group_id": "semiconductor_platforms",
+        "group_label": "半導體平台研究對照組",
+        "members": [
+          "NVDA",
+          "ARM",
+          "MRVL",
+          "INTC",
+          "TSM"
+        ],
+        "comparability": "directional",
+        "caveat": "涵蓋晶片設計、IP 授權、IDM 與晶圓代工；營運百分位可作方向性對照，估值倍數不可視為完全同業。",
+        "metrics": [
+          {
+            "id": "revenue_yoy",
+            "label": "營收 YoY",
+            "value": 25.421883505715837,
+            "unit": "%",
+            "direction": "higher",
+            "known_peer_count": 5,
+            "peer_median": 36.045577699482756,
+            "favorable_percentile": 25.0,
+            "status": "available"
+          },
+          {
+            "id": "gross_margin",
+            "label": "毛利率",
+            "value": 40.35838293650794,
+            "unit": "%",
+            "direction": "higher",
+            "known_peer_count": 5,
+            "peer_median": 67.7,
+            "favorable_percentile": 0.0,
+            "status": "available"
+          },
+          {
+            "id": "operating_margin",
+            "label": "營業利益率",
+            "value": 11.1359126984127,
+            "unit": "%",
+            "direction": "higher",
+            "known_peer_count": 5,
+            "peer_median": 16.781659548059725,
+            "favorable_percentile": 25.0,
+            "status": "available"
+          },
+          {
+            "id": "fcf_margin",
+            "label": "FCF 利潤率",
+            "value": 27.591765873015873,
+            "unit": "%",
+            "direction": "higher",
+            "known_peer_count": 5,
+            "peer_median": 22.620003463530598,
+            "favorable_percentile": 75.0,
+            "status": "available"
+          },
+          {
+            "id": "diluted_shares_yoy",
+            "label": "稀釋股數 YoY",
+            "value": 16.823071641107813,
+            "unit": "%",
+            "direction": "lower",
+            "known_peer_count": 4,
+            "peer_median": 3.528527167909412,
+            "favorable_percentile": 0.0,
+            "status": "available"
+          },
+          {
+            "id": "pe_ratio",
+            "label": "本益比",
+            "value": null,
+            "unit": "x",
+            "direction": "lower",
+            "known_peer_count": 4,
+            "peer_median": 62.5,
+            "favorable_percentile": null,
+            "status": "insufficient"
+          }
+        ],
+        "composite_percentile": 25.0,
+        "coverage": {
+          "known": 5,
+          "total": 6
+        }
+      }
+    },
+    "NOK": {
+      "ticker": "NOK",
+      "data_ticker": "NOK",
+      "evidence_ledger": {
+        "status": "available",
+        "period_end": "2026-06-30",
+        "source_url": "https://www.nokia.com/system/files/2026-07/nokia_results_2026_q2.pdf",
+        "source_form": "IFRS 季報",
+        "source_accession": null,
+        "source_date": "2026-07-23",
+        "quality_notes": [
+          "Nokia 自 2026 Q2 起將 Fixed Wireless Access CPE 與 Enterprise Campus Edge 列為停業單位；表內 2025 與 2026 Q1 已套用官方重編數字。"
+        ],
+        "claims": [
+          {
+            "claim_id": "2026-06-30:revenue",
+            "metric": "revenue",
+            "label": "營收",
+            "value": 4815000000.0,
+            "unit": "EUR",
+            "tag": null,
+            "derived": false,
+            "derivation": null,
+            "source_locator": "IFRS 季報已核對表格列：營收",
+            "source_url": "https://www.nokia.com/system/files/2026-07/nokia_results_2026_q2.pdf",
+            "source_form": "IFRS 季報",
+            "source_accession": null,
+            "source_date": "2026-07-23"
+          },
+          {
+            "claim_id": "2026-06-30:gross_margin",
+            "metric": "gross_margin",
+            "label": "毛利率",
+            "value": 0.446,
+            "unit": "%",
+            "tag": null,
+            "derived": true,
+            "derivation": "毛利 ÷ 營收",
+            "source_locator": "毛利 ÷ 營收",
+            "source_url": "https://www.nokia.com/system/files/2026-07/nokia_results_2026_q2.pdf",
+            "source_form": "IFRS 季報",
+            "source_accession": null,
+            "source_date": "2026-07-23"
+          },
+          {
+            "claim_id": "2026-06-30:operating_margin",
+            "metric": "operating_margin",
+            "label": "營業利益率",
+            "value": -0.01,
+            "unit": "%",
+            "tag": null,
+            "derived": true,
+            "derivation": "營業利益 ÷ 營收",
+            "source_locator": "營業利益 ÷ 營收",
+            "source_url": "https://www.nokia.com/system/files/2026-07/nokia_results_2026_q2.pdf",
+            "source_form": "IFRS 季報",
+            "source_accession": null,
+            "source_date": "2026-07-23"
+          },
+          {
+            "claim_id": "2026-06-30:free_cash_flow",
+            "metric": "free_cash_flow",
+            "label": "自由現金流",
+            "value": -732000000.0,
+            "unit": "EUR",
+            "tag": null,
+            "derived": true,
+            "derivation": "營運現金流 − 資本支出",
+            "source_locator": "營運現金流 − 資本支出",
+            "source_url": "https://www.nokia.com/system/files/2026-07/nokia_results_2026_q2.pdf",
+            "source_form": "IFRS 季報",
+            "source_accession": null,
+            "source_date": "2026-07-23"
+          },
+          {
+            "claim_id": "2026-06-30:diluted_shares",
+            "metric": "diluted_shares",
+            "label": "稀釋股數",
+            "value": 5801886000.0,
+            "unit": "EUR",
+            "tag": null,
+            "derived": false,
+            "derivation": null,
+            "source_locator": "IFRS 季報已核對表格列：稀釋股數",
+            "source_url": "https://www.nokia.com/system/files/2026-07/nokia_results_2026_q2.pdf",
+            "source_form": "IFRS 季報",
+            "source_accession": null,
+            "source_date": "2026-07-23"
+          }
+        ],
+        "coverage": {
+          "sourced": 5,
+          "total": 5
+        }
+      },
+      "earnings_delta": {
+        "status": "available",
+        "latest_result": {
+          "period_end": "2026-06-30",
+          "filing_date": "2026-07-23",
+          "form": "IFRS 季報",
+          "accession": null,
+          "source_url": "https://www.nokia.com/system/files/2026-07/nokia_results_2026_q2.pdf",
+          "quality_notes": [
+            "Nokia 自 2026 Q2 起將 Fixed Wireless Access CPE 與 Enterprise Campus Edge 列為停業單位；表內 2025 與 2026 Q1 已套用官方重編數字。"
+          ],
+          "currency": "EUR",
+          "source_basis": "Nokia 官方 IFRS reported 季報；2025 與 2026 Q1 已採 2026-07-23 停業單位重編數字，金額為 EUR。",
+          "days_since_filing": 58,
+          "review_due": false
+        },
+        "metrics": [
+          {
+            "metric": "revenue",
+            "label": "營收",
+            "display": "amount",
+            "value": 4815000000.0,
+            "qoq": 8.617189262350555,
+            "yoy": 8.372721134368666,
+            "state": "stable",
+            "interpretation": "營收 YoY +8.4%",
+            "source_url": "https://www.nokia.com/system/files/2026-07/nokia_results_2026_q2.pdf",
+            "source_period": "2026-06-30"
+          },
+          {
+            "metric": "gross_margin",
+            "label": "毛利率",
+            "display": "percent",
+            "value": 0.446,
+            "qoq": 0.0,
+            "yoy": 0.6000000000000005,
+            "state": "stable",
+            "interpretation": "毛利率 YoY +0.6pp",
+            "source_url": "https://www.nokia.com/system/files/2026-07/nokia_results_2026_q2.pdf",
+            "source_period": "2026-06-30"
+          },
+          {
+            "metric": "operating_margin",
+            "label": "營業利益率",
+            "display": "percent",
+            "value": -0.01,
+            "qoq": -2.9,
+            "yoy": -4.300000000000001,
+            "state": "risk",
+            "interpretation": "營業利益率 YoY -4.3pp",
+            "source_url": "https://www.nokia.com/system/files/2026-07/nokia_results_2026_q2.pdf",
+            "source_period": "2026-06-30"
+          },
+          {
+            "metric": "free_cash_flow",
+            "label": "自由現金流",
+            "display": "amount",
+            "value": -732000000.0,
+            "qoq": null,
+            "yoy": null,
+            "state": "risk",
+            "interpretation": "自由現金流為負",
+            "source_url": "https://www.nokia.com/system/files/2026-07/nokia_results_2026_q2.pdf",
+            "source_period": "2026-06-30"
+          },
+          {
+            "metric": "diluted_shares",
+            "label": "稀釋股數",
+            "display": "shares",
+            "value": 5801886000.0,
+            "qoq": 1.3832214286612965,
+            "yoy": 5.646191563871139,
+            "state": "stable",
+            "interpretation": "稀釋股數 YoY +5.6%",
+            "source_url": "https://www.nokia.com/system/files/2026-07/nokia_results_2026_q2.pdf",
+            "source_period": "2026-06-30"
+          }
+        ],
+        "official_guidance_comparison": null,
+        "prior_internal_estimate": {
+          "status": "not_collected",
+          "note": "尚未保存可追溯的財報前內部數值預估，不補猜。"
+        },
+        "consensus": {
+          "status": "not_collected",
+          "note": "目前沒有已授權且可稽核的機構共識來源，不以網路摘要補值。"
+        },
+        "conclusion": "風險項目多於改善項目，先查原始申報與失效條件。"
+      },
+      "thesis_scorecard": {
+        "status": "partial-invalidated",
+        "label": "部分失效",
+        "period": "2026-06-30",
+        "source_url": "https://www.nokia.com/system/files/2026-07/nokia_results_2026_q2.pdf",
+        "items": [
+          {
+            "id": "network_growth",
+            "title": "網路基礎設施與企業市場恢復成長",
+            "original_expectation": "原幣營收成長是電信 CapEx、企業網路與產品需求的財務代理。",
+            "invalidation": "營收 YoY ≤ -5%，或營收連續至少 3 季下降。",
+            "status": "supported",
+            "label": "支持",
+            "current_evidence": "2026-06-30 營收 EUR 4,815.0M，YoY +8.4%；連續 2 季上升。",
+            "trend": "待驗證 → 支持",
+            "source_url": "https://www.nokia.com/system/files/2026-07/nokia_results_2026_q2.pdf",
+            "source_period": "2026-06-30"
+          },
+          {
+            "id": "portfolio_margin",
+            "title": "產品組合調整能維持正向營業利益率",
+            "original_expectation": "營業利益率反映網路設備定價、成本控制與事業組合調整。",
+            "invalidation": "營業利益率低於 0%，或連續至少 3 季顯著下降。",
+            "status": "invalidated",
+            "label": "失效",
+            "current_evidence": "2026-06-30 營業利益率 -1.0%，YoY -4.3pp；連續 3 季下降。",
+            "trend": "待驗證 → 失效",
+            "source_url": "https://www.nokia.com/system/files/2026-07/nokia_results_2026_q2.pdf",
+            "source_period": "2026-06-30"
+          },
+          {
+            "id": "cash_shareholder",
+            "title": "現金流足以支撐研發與股東回報",
+            "original_expectation": "FCF 與股數檢查景氣循環中是否仍能維持每股財務韌性。",
+            "invalidation": "FCF 連續至少 4 季為負，或稀釋股數 YoY ≥ 8%。",
+            "status": "verify",
+            "label": "待驗證",
+            "current_evidence": "2026-06-30 FCF EUR -732.0M（連續 1 季為負）；稀釋股數 YoY +5.6%。",
+            "trend": "狀態未變",
+            "source_url": "https://www.nokia.com/system/files/2026-07/nokia_results_2026_q2.pdf",
+            "source_period": "2026-06-30"
+          }
+        ],
+        "next_validation": {
+          "type": "earnings",
+          "date": "2026-10-22",
+          "days_until": 33,
+          "confidence": "estimated",
+          "source_label": "Yahoo Finance 行事曆",
+          "source_url": "https://finance.yahoo.com/quote/NOK/calendar/",
+          "source_status": "fresh",
+          "last_success_at": "2026-09-19"
+        }
+      },
+      "catalyst_log": {
+        "upcoming": [],
+        "completed": [],
+        "note": "已完成事件目前只收錄可由官方指引與正式實績閉環驗證者；其他事件不猜測結果。"
+      },
+      "peer_comparison": {
+        "status": "available",
+        "group_id": "connectivity_infrastructure",
+        "group_label": "連接與網路基礎建設研究對照組",
+        "members": [
+          "COHR",
+          "MRVL",
+          "NOK"
+        ],
+        "comparability": "directional",
+        "caveat": "公司分別偏光通訊、半導體與電信設備；僅比較已統一口徑的營運比率與稀釋，不以單一倍數直接下結論。",
+        "metrics": [
+          {
+            "id": "revenue_yoy",
+            "label": "營收 YoY",
+            "value": 8.372721134368666,
+            "unit": "%",
+            "direction": "higher",
+            "known_peer_count": 3,
+            "peer_median": 33.744269129273796,
+            "favorable_percentile": 0.0,
+            "status": "available"
+          },
+          {
+            "id": "gross_margin",
+            "label": "毛利率",
+            "value": 44.6,
+            "unit": "%",
+            "direction": "higher",
+            "known_peer_count": 3,
+            "peer_median": 44.6,
+            "favorable_percentile": 50.0,
+            "status": "available"
+          },
+          {
+            "id": "operating_margin",
+            "label": "營業利益率",
+            "value": -1.0,
+            "unit": "%",
+            "direction": "higher",
+            "known_peer_count": 2,
+            "peer_median": 7.8908297740298625,
+            "favorable_percentile": null,
+            "status": "insufficient"
+          },
+          {
+            "id": "fcf_margin",
+            "label": "FCF 利潤率",
+            "value": -15.202492211838006,
+            "unit": "%",
+            "direction": "higher",
+            "known_peer_count": 3,
+            "peer_median": -15.202492211838006,
+            "favorable_percentile": 50.0,
+            "status": "available"
+          },
+          {
+            "id": "diluted_shares_yoy",
+            "label": "稀釋股數 YoY",
+            "value": 5.646191563871139,
+            "unit": "%",
+            "direction": "lower",
+            "known_peer_count": 2,
+            "peer_median": 5.741294311347334,
+            "favorable_percentile": null,
+            "status": "insufficient"
+          },
+          {
+            "id": "pe_ratio",
+            "label": "本益比",
+            "value": 92.9,
+            "unit": "x",
+            "direction": "lower",
+            "known_peer_count": 3,
+            "peer_median": 79.6,
+            "favorable_percentile": 0.0,
+            "status": "available"
+          }
+        ],
+        "composite_percentile": 25.0,
+        "coverage": {
+          "known": 4,
+          "total": 6
+        }
+      }
+    }
+  },
+  "market_rotation_bridge": {
+    "as_of": "2026-09-18",
+    "sectors": [
+      {
+        "sector_key": "Health Care",
+        "sector_name": "醫療保健",
+        "quadrant": "leading",
+        "quadrant_zh": "領先",
+        "rotation_score": 80.5,
+        "as_of": "2026-09-18",
+        "research_action": "價格層領先且仍加速；下一步核對基本面是否同步改善，不能只因位於右上角追價。",
+        "tracked_companies": [],
+        "coverage_note": "只連結 sec_kb 追蹤且屬於 S&P 500／Nasdaq-100 的 0 家公司，不代表整個板塊基本面。"
+      },
+      {
+        "sector_key": "Energy",
+        "sector_name": "能源",
+        "quadrant": "weakening",
+        "quadrant_zh": "轉弱",
+        "rotation_score": 79.1,
+        "as_of": "2026-09-18",
+        "research_action": "仍相對領先但動能降溫；優先檢查估值、指引與論點是否開始轉弱。",
+        "tracked_companies": [],
+        "coverage_note": "只連結 sec_kb 追蹤且屬於 S&P 500／Nasdaq-100 的 0 家公司，不代表整個板塊基本面。"
+      },
+      {
+        "sector_key": "Information Technology",
+        "sector_name": "資訊科技",
+        "quadrant": "weakening",
+        "quadrant_zh": "轉弱",
+        "rotation_score": 70.5,
+        "as_of": "2026-09-18",
+        "research_action": "仍相對領先但動能降溫；優先檢查估值、指引與論點是否開始轉弱。",
+        "tracked_companies": [
+          {
+            "ticker": "AAPL",
+            "thesis_label": "部分失效",
+            "peer_group": "大型數位平台研究對照組",
+            "peer_percentile": 41.7,
+            "evidence_period": "2026-06-27"
+          },
+          {
+            "ticker": "ARM",
+            "thesis_label": "論點維持",
+            "peer_group": "半導體平台研究對照組",
+            "peer_percentile": 44.4,
+            "evidence_period": "2026-06-30"
+          },
+          {
+            "ticker": "COHR",
+            "thesis_label": "部分失效",
+            "peer_group": "連接與網路基礎建設研究對照組",
+            "peer_percentile": 37.5,
+            "evidence_period": "2026-06-30"
+          },
+          {
+            "ticker": "INTC",
+            "thesis_label": "部分失效",
+            "peer_group": "半導體平台研究對照組",
+            "peer_percentile": 25.0,
+            "evidence_period": "2026-06-27"
+          },
+          {
+            "ticker": "MRVL",
+            "thesis_label": "論點維持",
+            "peer_group": "半導體平台研究對照組",
+            "peer_percentile": 36.1,
+            "evidence_period": "2026-08-01"
+          },
+          {
+            "ticker": "MSFT",
+            "thesis_label": "部分失效",
+            "peer_group": "大型數位平台研究對照組",
+            "peer_percentile": 75.0,
+            "evidence_period": "2026-06-30"
+          },
+          {
+            "ticker": "NVDA",
+            "thesis_label": "論點維持",
+            "peer_group": "半導體平台研究對照組",
+            "peer_percentile": 77.8,
+            "evidence_period": "2026-07-26"
+          }
+        ],
+        "coverage_note": "只連結 sec_kb 追蹤且屬於 S&P 500／Nasdaq-100 的 7 家公司，不代表整個板塊基本面。"
+      },
+      {
+        "sector_key": "Financials",
+        "sector_name": "金融",
+        "quadrant": "leading",
+        "quadrant_zh": "領先",
+        "rotation_score": 65.9,
+        "as_of": "2026-09-18",
+        "research_action": "價格層領先且仍加速；下一步核對基本面是否同步改善，不能只因位於右上角追價。",
+        "tracked_companies": [],
+        "coverage_note": "只連結 sec_kb 追蹤且屬於 S&P 500／Nasdaq-100 的 0 家公司，不代表整個板塊基本面。"
+      },
+      {
+        "sector_key": "Communication Services",
+        "sector_name": "通訊服務",
+        "quadrant": "weakening",
+        "quadrant_zh": "轉弱",
+        "rotation_score": 64.1,
+        "as_of": "2026-09-18",
+        "research_action": "仍相對領先但動能降溫；優先檢查估值、指引與論點是否開始轉弱。",
+        "tracked_companies": [
+          {
+            "ticker": "GOOG",
+            "thesis_label": "論點維持",
+            "peer_group": "大型數位平台研究對照組",
+            "peer_percentile": 41.7,
+            "evidence_period": "2026-06-30"
+          },
+          {
+            "ticker": "META",
+            "thesis_label": "部分失效",
+            "peer_group": "大型數位平台研究對照組",
+            "peer_percentile": 69.5,
+            "evidence_period": "2026-06-30"
+          }
+        ],
+        "coverage_note": "只連結 sec_kb 追蹤且屬於 S&P 500／Nasdaq-100 的 2 家公司，不代表整個板塊基本面。"
+      },
+      {
+        "sector_key": "Consumer Staples",
+        "sector_name": "必需消費",
+        "quadrant": "improving",
+        "quadrant_zh": "改善",
+        "rotation_score": 54.1,
+        "as_of": "2026-09-18",
+        "research_action": "相對仍弱但動能回升；列入研究候選，等待財報與論點證據確認。",
+        "tracked_companies": [],
+        "coverage_note": "只連結 sec_kb 追蹤且屬於 S&P 500／Nasdaq-100 的 0 家公司，不代表整個板塊基本面。"
+      },
+      {
+        "sector_key": "Materials",
+        "sector_name": "原物料",
+        "quadrant": "improving",
+        "quadrant_zh": "改善",
+        "rotation_score": 51.8,
+        "as_of": "2026-09-18",
+        "research_action": "相對仍弱但動能回升；列入研究候選，等待財報與論點證據確認。",
+        "tracked_companies": [],
+        "coverage_note": "只連結 sec_kb 追蹤且屬於 S&P 500／Nasdaq-100 的 0 家公司，不代表整個板塊基本面。"
+      },
+      {
+        "sector_key": "Industrials",
+        "sector_name": "工業",
+        "quadrant": "lagging",
+        "quadrant_zh": "落後",
+        "rotation_score": 42.3,
+        "as_of": "2026-09-18",
+        "research_action": "相對弱且動能惡化；區分市場冷卻與公司基本面失效，不由價格直接推論價值。",
+        "tracked_companies": [],
+        "coverage_note": "只連結 sec_kb 追蹤且屬於 S&P 500／Nasdaq-100 的 0 家公司，不代表整個板塊基本面。"
+      },
+      {
+        "sector_key": "Real Estate",
+        "sector_name": "房地產",
+        "quadrant": "improving",
+        "quadrant_zh": "改善",
+        "rotation_score": 39.1,
+        "as_of": "2026-09-18",
+        "research_action": "相對仍弱但動能回升；列入研究候選，等待財報與論點證據確認。",
+        "tracked_companies": [],
+        "coverage_note": "只連結 sec_kb 追蹤且屬於 S&P 500／Nasdaq-100 的 0 家公司，不代表整個板塊基本面。"
+      },
+      {
+        "sector_key": "Consumer Discretionary",
+        "sector_name": "非必需消費",
+        "quadrant": "improving",
+        "quadrant_zh": "改善",
+        "rotation_score": 31.4,
+        "as_of": "2026-09-18",
+        "research_action": "相對仍弱但動能回升；列入研究候選，等待財報與論點證據確認。",
+        "tracked_companies": [
+          {
+            "ticker": "AMZN",
+            "thesis_label": "論點維持",
+            "peer_group": "大型數位平台研究對照組",
+            "peer_percentile": 26.4,
+            "evidence_period": "2026-06-30"
+          },
+          {
+            "ticker": "TSLA",
+            "thesis_label": "需要驗證",
+            "peer_group": null,
+            "peer_percentile": null,
+            "evidence_period": "2026-06-30"
+          }
+        ],
+        "coverage_note": "只連結 sec_kb 追蹤且屬於 S&P 500／Nasdaq-100 的 2 家公司，不代表整個板塊基本面。"
+      },
+      {
+        "sector_key": "Utilities",
+        "sector_name": "公用事業",
+        "quadrant": "lagging",
+        "quadrant_zh": "落後",
+        "rotation_score": 21.4,
+        "as_of": "2026-09-18",
+        "research_action": "相對弱且動能惡化；區分市場冷卻與公司基本面失效，不由價格直接推論價值。",
+        "tracked_companies": [],
+        "coverage_note": "只連結 sec_kb 追蹤且屬於 S&P 500／Nasdaq-100 的 0 家公司，不代表整個板塊基本面。"
+      }
+    ]
+  }
+}

@@ -252,6 +252,11 @@
     .method-card { border: 1px solid var(--line); border-radius: 12px; padding: 12px; background: rgba(255,255,255,.025); }
     .method-card strong { display: block; font-size: .8rem; }
     .method-card span { display: block; color: var(--muted); font-size: .75rem; margin-top: 3px; }
+    .research-bridge-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 10px; margin-top: 12px; }
+    .research-company { padding: 12px; border: 1px solid var(--line); border-radius: 12px; background: rgba(255,255,255,.025); }
+    .research-company strong { color: #e0f2fe; }
+    .research-company span { display: block; margin-top: 4px; color: #b8c7da; font-size: .75rem; line-height: 1.5; }
+    .research-action { margin-top: 10px; padding: 12px 13px; border-left: 4px solid var(--cyan); border-radius: 10px; background: rgba(56,189,248,.06); color: #cbd5e1; font-size: .8rem; line-height: 1.6; }
     .footer { color: var(--muted); font-size: .76rem; text-align: center; padding: 4px 0 24px; }
     @media (max-width: 1050px) {
       .metrics { grid-template-columns: repeat(2, minmax(0,1fr)); }
@@ -263,7 +268,7 @@
       .topbar, .panel { padding: 16px; border-radius: 16px; }
       .metrics { grid-template-columns: 1fr; }
       .chart-wrap { height: 380px; }
-      .leaders-grid, .method-grid { grid-template-columns: 1fr; }
+      .leaders-grid, .method-grid, .research-bridge-grid { grid-template-columns: 1fr; }
       .asof { text-align: left; }
       .period-guide { grid-template-columns: 1fr; }
       .period-guide small { grid-column: 1; }
@@ -445,6 +450,17 @@
       </details>
     </section>
 
+    <section class="panel" aria-labelledby="researchBridgeTitle">
+      <div class="panel-head">
+        <div>
+          <h2 id="researchBridgeTitle">輪動 → 基本面驗證橋接</h2>
+          <p class="panel-desc">同步目前選取板塊，只連結 sec_kb 已追蹤個股；用來決定下一步研究優先度，不把價格動能當成基本面結論。</p>
+        </div>
+        <a class="back-link" href="dashboard.html">開啟投資儀表板 →</a>
+      </div>
+      <div id="researchBridge"><div class="panel-desc">正在載入研究證據…</div></div>
+    </section>
+
     <footer class="footer">
       <span id="sourceText">資料來源載入中…</span>｜本頁僅為研究工具，不構成投資建議。
     </footer>
@@ -452,6 +468,7 @@
 
   <script>
     let rotationData = null;
+    let researchData = null;
     let rotationChart = null;
     let chartLevel = 'sectors';
     let tableLevel = 'sectors';
@@ -733,6 +750,25 @@
       document.getElementById('leaderTitle').textContent = `${row.name_zh}｜板塊內部領漲與落後個股`;
       renderStocks('leaderList', row.leaders || []);
       renderStocks('laggardList', row.laggards || []);
+      renderResearchBridge(row);
+    }
+
+    function renderResearchBridge(row) {
+      const target = document.getElementById('researchBridge');
+      if (!target) return;
+      const bridge = (researchData?.market_rotation_bridge?.sectors || []).find(item => item.sector_key === row.key);
+      if (!bridge) {
+        target.innerHTML = '<div class="panel-desc">研究綜合資料尚未建立；輪動圖仍可獨立使用。</div>';
+        return;
+      }
+      const companies = bridge.tracked_companies || [];
+      target.innerHTML = `<div class="research-action"><strong>${escapeHtml(bridge.sector_name)}｜${escapeHtml(bridge.quadrant_zh)}</strong><br>${escapeHtml(bridge.research_action || '')}</div>
+        <div class="research-bridge-grid">${companies.length ? companies.map(company => `<article class="research-company">
+          <strong>${escapeHtml(company.ticker)}｜${escapeHtml(company.thesis_label || '資料不足')}</strong>
+          <span>最新證據期：${escapeHtml(company.evidence_period || '—')}</span>
+          <span>${company.peer_group ? `${escapeHtml(company.peer_group)}｜有利百分位 ${company.peer_percentile == null ? '—' : company.peer_percentile.toFixed(1)}` : '追蹤名單中可比樣本不足'}</span>
+        </article>`).join('') : '<div class="panel-desc">這個板塊目前沒有屬於 S&amp;P 500／Nasdaq-100 的 sec_kb 追蹤公司；不要由空白推論板塊基本面。</div>'}</div>
+        <p class="panel-desc">${escapeHtml(bridge.coverage_note || '')}｜輪動資料截至 ${escapeHtml(bridge.as_of || '—')}。</p>`;
     }
 
     function renderStocks(target, rows) {
@@ -760,9 +796,13 @@
 
     async function init() {
       try {
-        const response = await fetch('market_rotation.json', {cache: 'no-cache'});
+        const [response, researchResponse] = await Promise.all([
+          fetch('market_rotation.json', {cache: 'no-cache'}),
+          fetch('research_synthesis.json', {cache: 'no-cache'}).catch(() => null),
+        ]);
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         rotationData = await response.json();
+        researchData = researchResponse?.ok ? await researchResponse.json() : null;
         if (!rotationData.sectors?.length || !rotationData.industries?.length) throw new Error('資料結構不完整');
         selectedSector = rotationData.sectors[0].key;
         rotationData.sectors.slice(0, 3).forEach(row => chartSelections.sectors.add(row.key));

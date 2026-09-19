@@ -2506,6 +2506,97 @@ def c43():
     return not bad and not missing, f"資料問題：{bad or '無'}；缺自動化／畫面：{missing or '無'}"
 
 
+@check("C-44", "研究綜合驗證可追溯且不補猜共識或同業資料")
+def c44():
+    data = load("research_synthesis.json")
+    groups = load("research_peer_groups.json")
+    rotation = load("market_rotation.json")
+    expected = {"NVDA", "TSM", "MSFT", "META", "AAPL", "AMZN", "ARM",
+                "ONDS", "TSLA", "GOOG", "COHR", "MRVL", "INTC", "NOK"}
+    companies = data.get("companies") or {}
+    bad = []
+    if data.get("schema_version") != 1 or data.get("tracked_count") != 14:
+        bad.append("schema_version／追蹤家數錯誤")
+    if set(companies) != expected:
+        bad.append("公司範圍不是 14 家個股")
+    if (groups.get("methodology") or {}).get("minimum_sample") != 3:
+        bad.append("同業百分位最低樣本數不是 3")
+    for ticker, company in companies.items():
+        evidence = company.get("evidence_ledger") or {}
+        claims = evidence.get("claims") or []
+        sourced = 0
+        for claim in claims:
+            if claim.get("value") is None:
+                continue
+            if not str(claim.get("source_url") or "").startswith("https://") or not claim.get("source_date"):
+                bad.append(f"{ticker}/{claim.get('metric')} 缺官方 HTTPS 來源或來源日")
+            if not claim.get("source_locator"):
+                bad.append(f"{ticker}/{claim.get('metric')} 缺 XBRL tag、推導公式或官方表格定位")
+            sourced += bool(claim.get("source_url"))
+        coverage = evidence.get("coverage") or {}
+        if coverage.get("sourced") != sourced or coverage.get("total") != len(claims):
+            bad.append(f"{ticker} 證據覆蓋無法勾稽")
+        earnings = company.get("earnings_delta") or {}
+        if (earnings.get("consensus") or {}).get("status") != "not_collected":
+            bad.append(f"{ticker} 分析師共識沒有保持未收集")
+        if (earnings.get("prior_internal_estimate") or {}).get("status") != "not_collected":
+            bad.append(f"{ticker} 財報前內部預估沒有保持未收集")
+        peer = company.get("peer_comparison") or {}
+        for metric in peer.get("metrics") or []:
+            score = metric.get("favorable_percentile")
+            if score is not None and not 0 <= score <= 100:
+                bad.append(f"{ticker}/{metric.get('id')} 同業百分位超出 0～100")
+            if metric.get("status") == "available" and metric.get("known_peer_count", 0) < 3:
+                bad.append(f"{ticker}/{metric.get('id')} 樣本不足卻顯示百分位")
+    for ticker in ("ONDS", "TSLA"):
+        if (companies.get(ticker, {}).get("peer_comparison") or {}).get("status") != "insufficient":
+            bad.append(f"{ticker} 沒有對照組卻顯示百分位")
+    bridge = data.get("market_rotation_bridge") or {}
+    if bridge.get("as_of") != rotation.get("as_of"):
+        bad.append("輪動橋接日期與市場輪動不一致")
+    if {row.get("sector_key") for row in bridge.get("sectors") or []} != {
+            row.get("key") for row in rotation.get("sectors") or []}:
+        bad.append("輪動橋接未完整涵蓋 11 大板塊")
+
+    with tempfile.TemporaryDirectory() as temp_dir:
+        rebuilt = pathlib.Path(temp_dir) / "research_synthesis.json"
+        markdown = pathlib.Path(temp_dir) / "Research_Synthesis.md"
+        result = subprocess.run([
+            sys.executable, str(REPO_ROOT / "scripts/build_research_synthesis.py"),
+            "--output", str(rebuilt), "--markdown", str(markdown),
+        ], cwd=REPO_ROOT, text=True, capture_output=True, check=False)
+        if result.returncode:
+            bad.append(f"研究綜合驗證重建失敗：{result.stderr.strip() or result.stdout.strip()}")
+        elif json.loads(rebuilt.read_text()) != data:
+            bad.append("研究綜合驗證 JSON 無法確定性重建")
+        elif markdown.read_text() != read("60_SEC_Filing_Radar/Research_Synthesis.md"):
+            bad.append("研究綜合驗證筆記無法確定性重建")
+
+    markers = {
+        "dashboard": (read("dashboard.html"), (
+            "research_synthesis.json", "renderSecResearchSynthesis",
+            "safeResearchUrl", "investor.tsmc.com", "www.nokia.com",
+            "研究證據、財報差異與同業比較", "分析師共識／財報前內部數值預估：未收集",
+        )),
+        "輪動頁": (read("market_rotation.html"), (
+            "research_synthesis.json", "renderResearchBridge", "輪動 → 基本面驗證橋接",
+        )),
+        "價格 workflow": (read(".github/workflows/update-prices.yml"), (
+            "build_research_synthesis.py", "research_synthesis|", "Research_Synthesis",
+        )),
+        "SEC workflow": (read(".github/workflows/sec-filing-alerts.yml"), (
+            "build_research_synthesis.py", "research_synthesis.json", "Research_Synthesis.md",
+        )),
+        "維護 SOP": (read("00_Meta/Sec_kb_資料維護SOP.md"), (
+            "build_research_synthesis.py", "不可從新聞摘要補猜", "至少三家有值才顯示",
+        )),
+        "00_Home": (read("00_Home.md"), ("Research_Synthesis",)),
+    }
+    missing = [f"{label}:{marker}" for label, (text, required) in markers.items()
+               for marker in required if marker not in text]
+    return not bad and not missing, f"資料問題：{bad or '無'}；缺自動化／畫面：{missing or '無'}"
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--quiet", action="store_true", help="只印出失敗項")

@@ -47,6 +47,7 @@
 | `scripts/check_market_source_ready.py` | 先以 SPY 調整後收盤價確認 Yahoo 已發布最新應有交易日 | ⚠️ 新鮮度規則與 NYSE 日曆需連同測試修改 |
 | `market_rotation_universe.json` | 兩指數成分、板塊與次產業分類 | ❌ 只能由 `scripts/build_market_rotation.py` 產生 |
 | `market_rotation.json` | 輪動分數、四象限、10 日路徑與板塊內個股 | ❌ 只能由 `scripts/build_market_rotation.py` 產生 |
+| `research_synthesis.json` | 14 家來源台帳、財報差異、論點證據、事件閉環、同業對照與輪動基本面橋接 | ❌ 只能由 `scripts/build_research_synthesis.py` 產生 |
 
 遠端與網址：
 
@@ -79,6 +80,12 @@ S&P 500／Nasdaq-100 成分表 + Yahoo Finance 個股價量
    market_rotation_universe.json + market_rotation.json
         ↓ market_rotation.html
    11 大板塊／次產業排名、四象限與 10 個交易日路徑
+
+季度財務 + 財報驗證卡 + 投資論點 + 事件日曆 + 估值 + 市場輪動
+        ↓ scripts/build_research_synthesis.py
+   research_synthesis.json
+        ↓ dashboard.html Tab 4（預設收合）＋ market_rotation.html
+   來源台帳／財報差異／論點證據／同業百分位／輪動後基本面驗證
 ```
 
 **為什麼不讓瀏覽器直接抓 Yahoo？**

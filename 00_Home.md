@@ -77,6 +77,7 @@ tags:
 - 🗓 **[[Company_Event_Calendar|個股未來 30 天事件日曆（實際持股優先）]]**
 - 🎯 **[[Earnings_Verification_Cards|財報前後驗證追蹤卡（指引、實績與論點閉環）]]**
 - 🔔 **[[Earnings_Verification_History|財報驗證歷史與差異通知（財報前凍結、財報後結案）]]**
+- 🔬 **[[Research_Synthesis|研究證據、財報差異、論點證據與同業比較（14 家）]]**
 - 🧭 **[[Segment_Driver_Validation|分部營運與成長驅動驗證（成長貢獻、集中度與拖累）]]**
 - 📈 **[[Segment_Driver_History|分部成長驅動歷史與轉折通知（4～8 期、口徑中斷保護）]]**
 - 🔄 **[[Segment_Driver_Update_Candidates|分部資料自動更新候選（每日偵測、安全滾動 8 季）]]**

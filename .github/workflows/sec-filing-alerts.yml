@@ -159,6 +159,9 @@ jobs:
             --summary "$GITHUB_STEP_SUMMARY" \
             --github-output "$GITHUB_OUTPUT"
 
+      - name: Build evidence-led research synthesis
+        run: python3 scripts/build_research_synthesis.py
+
       - name: Build daily AI-review change candidates
         id: candidates
         run: |
@@ -256,6 +259,7 @@ jobs:
             segment_driver_history_inputs.json segment_driver_update_candidates.json \
             segment_thesis_linkage.json segment_outlook_verification.json segment_outlook_history.json \
             capital_allocation_cards.json capital_allocation_history.json long_term_radar.json \
+            research_synthesis.json \
             60_SEC_Filing_Radar/SEC_Candidate_Rule_Calibration.md \
             60_SEC_Filing_Radar/SEC_Daily_Change_Candidates.md \
             60_SEC_Filing_Radar/SEC_Position_Impact_History.md \
@@ -268,7 +272,8 @@ jobs:
             60_SEC_Filing_Radar/Segment_Outlook_Verification.md \
             60_SEC_Filing_Radar/Segment_Outlook_History.md \
             60_SEC_Filing_Radar/Capital_Allocation_Cards.md \
-            60_SEC_Filing_Radar/Capital_Allocation_History.md
+            60_SEC_Filing_Radar/Capital_Allocation_History.md \
+            60_SEC_Filing_Radar/Research_Synthesis.md
           if git diff --cached --quiet; then
             echo "No SEC radar changes to persist."
             exit 0
