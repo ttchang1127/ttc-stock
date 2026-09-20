@@ -137,6 +137,9 @@ class MarketRotationPageTests(unittest.TestCase):
             "左上｜仍落後、動能回升", "右下｜仍領先、動能降溫",
             "左下｜相對弱、動能惡化", "改善 → 領先 → 轉弱 → 落後",
             "象限只描述價格相對位置與方向",
+            "market_rotation_universe.json", "renderIndustryMembers",
+            "次產業實際納入股票", "點選查看納入的",
+            "不是整個市場所有同業",
         ):
             self.assertIn(marker, self.page)
 

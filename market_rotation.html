@@ -257,6 +257,15 @@
     .research-company strong { color: #e0f2fe; }
     .research-company span { display: block; margin-top: 4px; color: #b8c7da; font-size: .75rem; line-height: 1.5; }
     .research-action { margin-top: 10px; padding: 12px 13px; border-left: 4px solid var(--cyan); border-radius: 10px; background: rgba(56,189,248,.06); color: #cbd5e1; font-size: .8rem; line-height: 1.6; }
+    .member-hint { display: block; margin-top: 3px; color: #7dd3fc; font-size: .67rem; font-weight: 700; }
+    .industry-members { margin-top: 14px; padding: 14px; border: 1px solid rgba(56,189,248,.25); border-radius: 14px; background: rgba(56,189,248,.045); }
+    .industry-members[hidden] { display: none; }
+    .industry-members h3 { margin: 0; font-size: .92rem; }
+    .industry-member-meta { margin: 5px 0 11px; color: var(--muted); font-size: .76rem; line-height: 1.5; }
+    .industry-member-list { display: flex; flex-wrap: wrap; gap: 7px; }
+    .industry-member { display: inline-flex; align-items: baseline; gap: 6px; padding: 7px 9px; border: 1px solid var(--line); border-radius: 9px; background: rgba(8,13,24,.35); }
+    .industry-member strong { color: #e0f2fe; font-size: .75rem; }
+    .industry-member span { color: #b8c7da; font-size: .72rem; }
     .footer { color: var(--muted); font-size: .76rem; text-align: center; padding: 4px 0 24px; }
     @media (max-width: 1050px) {
       .metrics { grid-template-columns: repeat(2, minmax(0,1fr)); }
@@ -393,7 +402,7 @@
       <div class="panel-head">
         <div>
           <h2>輪動排名明細</h2>
-          <p class="panel-desc">點選板塊列可同步查看右上拆解。pp＝百分點；「權重差」為成交額流動性加權與等權報酬差。</p>
+          <p id="rankingTableHelp" class="panel-desc">點選板塊列可同步查看右上拆解。pp＝百分點；「權重差」為成交額流動性加權與等權報酬差。</p>
         </div>
         <div class="controls">
           <button class="toggle active" data-table-level="sectors">板塊排名</button>
@@ -420,6 +429,11 @@
           <tbody id="rankingBody"></tbody>
         </table>
       </div>
+      <section id="industryMembers" class="industry-members" aria-live="polite" hidden>
+        <h3 id="industryMembersTitle">次產業實際納入股票</h3>
+        <p id="industryMembersMeta" class="industry-member-meta"></p>
+        <div id="industryMemberList" class="industry-member-list"></div>
+      </section>
     </section>
 
     <section class="panel">
@@ -469,10 +483,12 @@
   <script>
     let rotationData = null;
     let researchData = null;
+    let universeData = null;
     let rotationChart = null;
     let chartLevel = 'sectors';
     let tableLevel = 'sectors';
     let selectedSector = null;
+    let selectedIndustry = null;
     const chartSelections = {sectors: new Set(), industries: new Set()};
 
     const COLORS = {
@@ -712,9 +728,13 @@
 
     function renderTable() {
       const rows = rotationData[tableLevel];
+      const isIndustry = tableLevel === 'industries';
+      document.getElementById('rankingTableHelp').textContent = isIndustry
+        ? '點選任一次產業列，即可查看該排名實際納入的完整股票名單。pp＝百分點；「權重差」為成交額流動性加權與等權報酬差。'
+        : '點選板塊列可同步查看右上拆解。pp＝百分點；「權重差」為成交額流動性加權與等權報酬差。';
       document.getElementById('rankingBody').innerHTML = rows.map((row, index) => `
         <tr data-key="${escapeHtml(row.key)}">
-          <td><span class="rank">${index + 1}</span><strong>${escapeHtml(nameOf(row))}</strong></td>
+          <td><span class="rank">${index + 1}</span><strong>${escapeHtml(nameOf(row))}</strong>${isIndustry ? `<span class="member-hint">點選查看納入的 ${row.member_count} 檔股票</span>` : ''}</td>
           <td><span class="pill ${row.quadrant}">${escapeHtml(row.quadrant_zh)}</span></td>
           <td><strong>${row.rotation_score.toFixed(1)}</strong> <span class="${tone(row.score_change_5d)}">(${signed(row.score_change_5d, '')})</span></td>
           <td class="${tone(row.relative_strength_20d)}">${signed(row.relative_strength_20d, 'pp')}</td>
@@ -727,11 +747,38 @@
           <td>${row.member_count}</td>
         </tr>`).join('');
       document.querySelectorAll('#rankingBody tr').forEach(rowNode => rowNode.addEventListener('click', () => {
-        if (tableLevel !== 'sectors') return;
-        selectedSector = rowNode.dataset.key;
-        document.getElementById('sectorSelect').value = selectedSector;
-        renderSectorDetail();
+        if (tableLevel === 'sectors') {
+          selectedSector = rowNode.dataset.key;
+          document.getElementById('sectorSelect').value = selectedSector;
+          renderSectorDetail();
+          return;
+        }
+        selectedIndustry = rowNode.dataset.key;
+        renderIndustryMembers(rows.find(row => row.key === selectedIndustry));
       }));
+      if (isIndustry) {
+        const row = rows.find(item => item.key === selectedIndustry) || rows[0];
+        selectedIndustry = row?.key || null;
+        renderIndustryMembers(row);
+      } else {
+        document.getElementById('industryMembers').hidden = true;
+      }
+    }
+
+    function renderIndustryMembers(industry) {
+      const container = document.getElementById('industryMembers');
+      if (!industry) { container.hidden = true; return; }
+      container.hidden = false;
+      const members = (universeData?.members || [])
+        .filter(member => member.industry === industry.key)
+        .sort((a, b) => String(a.ticker).localeCompare(String(b.ticker)));
+      document.getElementById('industryMembersTitle').textContent = `${industry.name_zh}｜實際納入股票`;
+      document.getElementById('industryMembersMeta').textContent = members.length
+        ? `本次排名使用 ${members.length} 檔：S&P 500 與 Nasdaq-100 合併股票池中的此分類成分；不是整個市場所有同業。`
+        : `這個次產業排名使用 ${industry.member_count} 檔，但成分名單暫時無法載入；請稍後重新整理。`;
+      document.getElementById('industryMemberList').innerHTML = members.map(member =>
+        `<div class="industry-member" title="來源指數：${escapeHtml((member.indexes || []).join('、') || '—')}｜分類：${escapeHtml(member.classification || '—')}"><strong>${escapeHtml(member.ticker)}</strong><span>${escapeHtml(member.name)}</span></div>`
+      ).join('') || '<div class="panel-desc">成分名單資料不足。</div>';
     }
 
     function renderSectorDetail() {
@@ -796,13 +843,15 @@
 
     async function init() {
       try {
-        const [response, researchResponse] = await Promise.all([
+        const [response, researchResponse, universeResponse] = await Promise.all([
           fetch('market_rotation.json', {cache: 'no-cache'}),
           fetch('research_synthesis.json', {cache: 'no-cache'}).catch(() => null),
+          fetch('market_rotation_universe.json', {cache: 'no-cache'}).catch(() => null),
         ]);
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         rotationData = await response.json();
         researchData = researchResponse?.ok ? await researchResponse.json() : null;
+        universeData = universeResponse?.ok ? await universeResponse.json() : null;
         if (!rotationData.sectors?.length || !rotationData.industries?.length) throw new Error('資料結構不完整');
         selectedSector = rotationData.sectors[0].key;
         rotationData.sectors.slice(0, 3).forEach(row => chartSelections.sectors.add(row.key));
