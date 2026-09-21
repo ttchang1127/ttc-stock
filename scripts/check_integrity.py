@@ -1208,6 +1208,7 @@ def c28():
 @check("C-29", "每日變更候選稿可重現、可追溯且不冒充 AI 判讀")
 def c29():
     data = load("sec_daily_change_candidates.json")
+    jev = load("sec_daily_jev_review.json")
     editorial = load("sec_daily_editorial.json")
     reviews = load("sec_daily_candidate_reviews.json")
     calibration = load("sec_candidate_rule_calibration.json")
@@ -1245,6 +1246,25 @@ def c29():
             bad.append(f"{ticker} 缺規則鍵或顯示優先級")
         if not isinstance(row.get("materiality"), dict) or not isinstance(row.get("rule_quality"), dict):
             bad.append(f"{ticker} 缺實質性或規則品質欄位")
+
+    expected_batch = hashlib.sha256("|".join(sorted(
+        str(row.get("id") or "") for row in candidates
+    )).encode()).hexdigest()[:12]
+    if jev.get("schema_version") != 1 or jev.get("candidate_batch_id") != expected_batch:
+        bad.append("Jev 預判 schema 或候選批次 ID 無效")
+    if jev.get("candidate_count") != len(candidates):
+        bad.append("Jev 預判候選數與規則候選不一致")
+    jev_reviews = jev.get("reviews") or []
+    if jev.get("reviewed_count") != len(jev_reviews):
+        bad.append("Jev reviewed_count 與明細不一致")
+    if not set(row.get("candidate_id") for row in jev_reviews).issubset(
+            {row.get("id") for row in candidates}):
+        bad.append("Jev 預判包含不屬於本批次的候選")
+    for row in jev_reviews:
+        if row.get("route") not in {"urgent_human_review", "normal_human_review", "low_priority_human_review"}:
+            bad.append(f"{row.get('ticker') or '未知'} Jev 閱讀路由無效")
+        if row.get("requires_human_review") is not True:
+            bad.append(f"{row.get('ticker') or '未知'} Jev 預判錯誤冒充正式覆核")
 
     if reviews.get("schema_version") != 1 or not reviews.get("batches"):
         bad.append("AI 候選覆核紀錄缺批次或 schema 無效")
@@ -1342,20 +1362,27 @@ def c29():
             "build_sec_candidate_rule_calibration.py", "candidate_batch_id",
             "sec_daily_change_candidates.json", "sec_candidate_rule_calibration.json",
             "SEC_Daily_Change_Candidates.md", "SEC_Candidate_Rule_Calibration.md",
+            "review_sec_candidates_with_jev.py", "secrets.TYPESAFE_API_KEY",
+            "sec_daily_jev_review.json", "SEC_Daily_Jev_Review.md",
         )),
         "價格 workflow": (price_workflow, (
             "generate_sec_daily_change_candidates.py", "build_sec_candidate_rule_calibration.py",
             "sec_daily_change_candidates", "sec_candidate_rule_calibration",
-            "SEC_(Daily_Change_Candidates|Candidate_Rule_Calibration|Position_Impact_History)",
+            "SEC_(Daily_Change_Candidates|Daily_Jev_Review|Candidate_Rule_Calibration|Position_Impact_History)",
+            "review_sec_candidates_with_jev.py", "sec_daily_jev_review", "Daily_Jev_Review",
         )),
         "dashboard": (dashboard, (
             "secChangeCandidates", "renderSecChangeCandidates", "sec_daily_change_candidates.json",
             "sec_daily_candidate_reviews.json", "sec_candidate_rule_calibration.json",
             "secRuleCalibrationHtml", "候選規則品質", "待 AI 閱讀官方原文的候選稿",
             "Form 144 只代表擬售意向", "查看逐項採納／駁回理由",
+            "sec_daily_jev_review.json", "⚡ Jev 預判", "Jev 不計算財務數字",
         )),
         "00_Home": (home, ("SEC_Daily_Change_Candidates", "SEC_Daily_Candidate_Reviews",
-                            "SEC_Candidate_Rule_Calibration", "SEC_Daily_Editorial")),
+                            "SEC_Daily_Jev_Review", "SEC_Candidate_Rule_Calibration", "SEC_Daily_Editorial")),
+        "Jev 預判筆記": (read("60_SEC_Filing_Radar/SEC_Daily_Jev_Review.md"), (
+            "Jev 只負責候選分類", "不是正式投資結論", "不取代 SEC 官方原文",
+        )),
         "校準筆記": (read("60_SEC_Filing_Radar/SEC_Candidate_Rule_Calibration.md"), (
             "採納率", "樣本不足、不調整", "不刪除 SEC 事件", "常見駁回原因",
         )),
@@ -1365,6 +1392,7 @@ def c29():
         "維護 SOP": (read("00_Meta/Sec_kb_資料維護SOP.md"), (
             "每日 SEC 候選 → AI 正式覆核閉環", "規則候選不是 AI 結論",
             "sec_daily_candidate_reviews.json", "build_sec_candidate_rule_calibration.py",
+            "review_sec_candidates_with_jev.py", "TYPESAFE_API_KEY", "fail-open",
         )),
     }
     missing = [f"{label}:{marker}" for label, (text, required) in markers.items()

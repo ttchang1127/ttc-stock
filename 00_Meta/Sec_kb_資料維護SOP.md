@@ -182,20 +182,22 @@ git add financials.json fundamentals.json financial_health.json valuation.json *
 
 ### 每日 SEC 候選 → AI 正式覆核閉環
 
-1. GitHub Actions 只執行 `generate_sec_daily_change_candidates.py`，把上次正式覆核後的新文件整理成 `sec_daily_change_candidates.json`，並在有新候選時發 Issue。**規則候選不是 AI 結論。**
-2. AI 必須逐項閱讀候選的 SEC 官方來源，核對：是否已成交、10b5-1 屬性、交易占持股／流通股比例、文件實際條款，以及是否足以改變既有公司判讀。
-3. 每項決策都寫入 `sec_daily_candidate_reviews.json`，保留採納／駁回、核實證據、來源鍵、官方 URL、實質性與是否改變結論；Obsidian 對照頁為 `60_SEC_Filing_Radar/SEC_Daily_Candidate_Reviews.md`。
-4. 只有採納項目才能寫進 `sec_daily_editorial.json` 與 `SEC_Daily_Editorial.md` 的「相較前次判讀」。駁回項目不得偷偷改變 tone／status，但必須保留理由，避免下次重複誤判。
-5. 正式稿更新後再次執行：
+1. GitHub Actions 先執行 `generate_sec_daily_change_candidates.py`，把上次正式覆核後的新文件整理成 `sec_daily_change_candidates.json`，並在有新候選時發 Issue。**規則候選不是 AI 結論。**
+2. `review_sec_candidates_with_jev.py` 使用 GitHub Actions Secret `TYPESAFE_API_KEY` 呼叫固定版本 `jev-1.13.0`，產生 `sec_daily_jev_review.json` 與 `SEC_Daily_Jev_Review.md`。Jev 只判斷候選方向、閱讀重要性、長期相關性、證據充分性與信心；不做財務算術、不直接採納候選，也不改寫正式結論。API 缺失或失敗時採 fail-open，SEC 擷取與原規則仍照常完成。
+3. 人工／正式 AI 覆核必須逐項閱讀候選的 SEC 官方來源，核對：是否已成交、10b5-1 屬性、交易占持股／流通股比例、文件實際條款，以及是否足以改變既有公司判讀。Jev 與規則方向不一致、信心低於 70%，或要求讀官方原文時，一律提高人工覆核優先度。
+4. 每項決策都寫入 `sec_daily_candidate_reviews.json`，保留採納／駁回、核實證據、來源鍵、官方 URL、實質性與是否改變結論；Obsidian 對照頁為 `60_SEC_Filing_Radar/SEC_Daily_Candidate_Reviews.md`。
+5. 只有採納項目才能寫進 `sec_daily_editorial.json` 與 `SEC_Daily_Editorial.md` 的「相較前次判讀」。駁回項目不得偷偷改變 tone／status，但必須保留理由，避免下次重複誤判。
+6. 正式稿更新後再次執行：
 
 ```bash
 python3 scripts/build_sec_candidate_rule_calibration.py
 python3 scripts/generate_sec_daily_change_candidates.py
+python3 scripts/review_sec_candidates_with_jev.py
 python3 scripts/build_sec_position_impact_history.py
 python3 scripts/check_integrity.py --quiet
 ```
 
-預期：已覆核候選歸零；儀表板顯示最近一次採納／駁回紀錄。GitHub Actions 沒有模型憑證，也不會自動冒充 AI 完成覆核；真正的語意判讀必須由可追溯的 AI 閱讀工作完成後 commit。
+預期：已覆核候選歸零；儀表板顯示最近一次採納／駁回紀錄。`TYPESAFE_API_KEY` 只可存在 GitHub Actions Secret 或本機環境變數，禁止寫入 `.env` 後提交；Jev 預判不得冒充正式 AI 覆核，真正的語意判讀仍必須由可追溯的官方原文閱讀工作完成後 commit。
 
 部位影響歷史由 `portfolio_holdings.json`、最新價格、SEC 申報、八季財務警報、投資論點、候選稿與正式人工判讀確定性重建。第一次執行只建立基準；之後只有等級改變、SEC 訊號分數改變、總分至少變動 10 分，或持股比重／回撤跨門檻時才通知。重跑相同快照的 `notify_count` 必須為 0，避免 GitHub Issue 重複發送。
 

@@ -23,6 +23,7 @@ class DashboardSecTabTests(unittest.TestCase):
         cls.earnings_calls = json.loads((ROOT / "earnings_call_analysis.json").read_text())
         cls.editorial = json.loads((ROOT / "sec_daily_editorial.json").read_text())
         cls.change_candidates = json.loads((ROOT / "sec_daily_change_candidates.json").read_text())
+        cls.jev_review = json.loads((ROOT / "sec_daily_jev_review.json").read_text())
         cls.candidate_reviews = json.loads((ROOT / "sec_daily_candidate_reviews.json").read_text())
         cls.candidate_calibration = json.loads((ROOT / "sec_candidate_rule_calibration.json").read_text())
         cls.position_impact = json.loads((ROOT / "sec_position_impact_history.json").read_text())
@@ -59,6 +60,7 @@ class DashboardSecTabTests(unittest.TestCase):
         self.assertIn("fetch('earnings_call_analysis.json'", self.html)
         self.assertIn("fetch('sec_daily_editorial.json'", self.html)
         self.assertIn("fetch('sec_daily_change_candidates.json'", self.html)
+        self.assertIn("fetch('sec_daily_jev_review.json'", self.html)
         self.assertIn("fetch('sec_daily_candidate_reviews.json'", self.html)
         self.assertIn("fetch('sec_candidate_rule_calibration.json'", self.html)
         self.assertIn("fetch('valuation.json'", self.html)
@@ -374,9 +376,12 @@ class DashboardSecTabTests(unittest.TestCase):
             "function secRuleCalibrationHtml()", "候選規則品質",
             "樣本不足", "降低顯示優先級", "歷史低命中",
             "常見駁回原因",
+            "⚡ Jev 預判", "Jev 不計算財務數字", "所有候選仍須人工核對 SEC 原文",
         ]
         for phrase in required_copy:
             self.assertIn(phrase, self.html)
+        self.assertEqual(self.jev_review["schema_version"], 1)
+        self.assertTrue(all(row["requires_human_review"] for row in self.jev_review["reviews"]))
 
     def test_core_holdings_have_objective_daily_reading_order(self):
         required_copy = [

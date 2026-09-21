@@ -69,6 +69,7 @@ tags:
 
 - 🚨 **[[SEC_Filing_Alerts|SEC 每日申報雷達（14 家、台北時間中午更新）]]**
 - 📝 **[[SEC_Daily_Change_Candidates|每日變更候選稿（規則自動產生、待 AI 覆核）]]**
+- ⚡ **[[SEC_Daily_Jev_Review|Jev 結構化預判（方向、重要性、證據與信心路由）]]**
 - ✅ **[[SEC_Daily_Candidate_Reviews|每日 AI 候選覆核紀錄（採納／駁回理由）]]**
 - 🎯 **[[SEC_Candidate_Rule_Calibration|候選規則品質校準（採納率／駁回原因）]]**
 - 🧠 **[[SEC_Daily_Editorial|SEC 每日人工消化重點（正式判讀）]]**

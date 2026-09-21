@@ -1486,6 +1486,8 @@
     .sec-change-candidate h4 { margin: 8px 0 5px; color: #f8fafc; font-size: 0.74rem; line-height: 1.5; }
     .sec-change-candidate ul { margin: 0 0 7px; padding-left: 18px; }
     .sec-change-candidate li, .sec-change-candidate p { color: #cbd5e1; font-size: 0.68rem; line-height: 1.52; }
+    .sec-jev-review { margin: 8px 0; padding: 8px 9px; border: 1px solid rgba(45, 212, 191, 0.22); border-radius: 9px; background: rgba(13, 148, 136, 0.08); color: #ccfbf1; font-size: 0.67rem; line-height: 1.55; }
+    .sec-jev-review strong { color: #5eead4; }
     .sec-change-method { margin: 11px 0 0; color: #94a3b8; font-size: 0.67rem; line-height: 1.55; }
     .sec-change-empty { padding: 11px 12px; border-left: 3px solid #34d399; border-radius: 9px; background: rgba(6, 78, 59, 0.15); color: #a7f3d0; font-size: 0.74rem; }
     .sec-change-review-summary { margin-top: 10px; padding: 11px 12px; border: 1px solid rgba(52, 211, 153, 0.2); border-radius: 10px; background: rgba(6, 78, 59, 0.09); }
@@ -4899,6 +4901,9 @@
           fetch('sec_daily_change_candidates.json', { cache: 'no-cache' })
             .then(r => { if (!r.ok) throw new Error(`每日變更候選稿 HTTP ${r.status}`); return r.json(); })
             .catch(error => { console.warn('sec_daily_change_candidates.json 載入失敗', error); return null; }),
+          fetch('sec_daily_jev_review.json', { cache: 'no-cache' })
+            .then(r => { if (!r.ok) throw new Error(`Jev 候選預判 HTTP ${r.status}`); return r.json(); })
+            .catch(error => { console.warn('sec_daily_jev_review.json 載入失敗', error); return null; }),
           fetch('sec_daily_candidate_reviews.json', { cache: 'no-cache' })
             .then(r => { if (!r.ok) throw new Error(`AI 候選覆核紀錄 HTTP ${r.status}`); return r.json(); })
             .catch(error => { console.warn('sec_daily_candidate_reviews.json 載入失敗', error); return null; }),
@@ -4948,8 +4953,8 @@
           fetch('research_synthesis.json', { cache: 'no-cache' })
             .then(r => { if (!r.ok) throw new Error(`研究綜合驗證 HTTP ${r.status}`); return r.json(); })
             .catch(error => { console.warn('research_synthesis.json 載入失敗', error); return null; }),
-        ]).then(([alerts, details, quarterlyFinancials, advanced, thirteenF, textChanges, thesisTracking, thesisStatus, exhibit991, earningsCalls, editorial, changeCandidates, candidateReviews, candidateCalibration, positionImpact, eventCalendar, earningsVerification, earningsVerificationHistory, segmentDrivers, segmentDriverHistory, segmentDriverUpdates, segmentThesisLinkage, segmentOutlookVerification, segmentOutlookHistory, capitalAllocationCards, capitalAllocationHistory, holdingsPayload, valuation, researchSynthesis]) => {
-          secDailyData = { alerts, details, quarterlyFinancials, advanced, thirteenF, textChanges, thesisTracking, thesisStatus, exhibit991, earningsCalls, editorial, changeCandidates, candidateReviews, candidateCalibration, positionImpact, eventCalendar, earningsVerification, earningsVerificationHistory, segmentDrivers, segmentDriverHistory, segmentDriverUpdates, segmentThesisLinkage, segmentOutlookVerification, segmentOutlookHistory, capitalAllocationCards, capitalAllocationHistory, holdingsPayload, valuation, researchSynthesis };
+        ]).then(([alerts, details, quarterlyFinancials, advanced, thirteenF, textChanges, thesisTracking, thesisStatus, exhibit991, earningsCalls, editorial, changeCandidates, jevReview, candidateReviews, candidateCalibration, positionImpact, eventCalendar, earningsVerification, earningsVerificationHistory, segmentDrivers, segmentDriverHistory, segmentDriverUpdates, segmentThesisLinkage, segmentOutlookVerification, segmentOutlookHistory, capitalAllocationCards, capitalAllocationHistory, holdingsPayload, valuation, researchSynthesis]) => {
+          secDailyData = { alerts, details, quarterlyFinancials, advanced, thirteenF, textChanges, thesisTracking, thesisStatus, exhibit991, earningsCalls, editorial, changeCandidates, jevReview, candidateReviews, candidateCalibration, positionImpact, eventCalendar, earningsVerification, earningsVerificationHistory, segmentDrivers, segmentDriverHistory, segmentDriverUpdates, segmentThesisLinkage, segmentOutlookVerification, segmentOutlookHistory, capitalAllocationCards, capitalAllocationHistory, holdingsPayload, valuation, researchSynthesis };
           renderSecDaily();
         }).catch(error => {
           secDailyPromise = null;
@@ -5136,6 +5141,7 @@
       }
       const confidenceLabels = { low: '低｜需更多佐證', medium: '中｜需讀原文', high: '高｜優先覆核' };
       const typeLabels = { risk: '🔴 新增風險候選', improvement: '🟢 改善候選', conclusion: '🟡 結論變化候選' };
+      const jevReviews = new Map((secDailyData.jevReview?.reviews || []).map(row => [row.candidate_id, row]));
       const cards = candidates.map(row => {
         const displayTicker = row.ticker === 'GOOGL' ? 'GOOG' : row.ticker;
         const owned = SEC_OWNED_TICKERS.has(displayTicker);
@@ -5147,19 +5153,25 @@
         const quality = row.rule_quality || {};
         const rate = Number.isFinite(quality.acceptance_rate) ? `${formatSecNumber(quality.acceptance_rate * 100, 0)}%` : '樣本不足';
         const lowered = row.display_priority === 'low';
+        const jev = jevReviews.get(row.id);
+        const jevConfidence = Number.isFinite(jev?.confidence_floor) ? `${formatSecNumber(jev.confidence_floor * 100, 0)}%` : '—';
+        const jevRelevance = Number.isFinite(jev?.long_term_relevance_probability) ? `${formatSecNumber(jev.long_term_relevance_probability * 100, 0)}%` : '—';
+        const jevHtml = jev ? `<div class="sec-jev-review"><strong>⚡ Jev 預判：</strong>${escapeSec(jev.route_label)}｜方向 ${escapeSec(jev.jev_direction_label)}｜重要性 ${escapeSec(jev.materiality_label)}｜長期相關 ${escapeSec(jevRelevance)}｜信心下限 ${escapeSec(jevConfidence)}｜${escapeSec(jev.source_sufficiency_label)}。所有候選仍須人工核對 SEC 原文。</div>` : '';
         return `<article class="sec-change-candidate ${escapeSec(row.type)}${lowered ? ' low-priority' : ''}">
           <div class="sec-change-candidate-title"><button type="button" onclick="setSecCoreTicker('${escapeSec(displayTicker)}')">${escapeSec(displayTicker)}</button><span>${escapeSec(typeLabels[row.type] || row.type_label || '待覆核候選')}</span><span class="sec-change-candidate-badge">${owned ? '💼 實際持股' : '👀 觀察名單'}</span><span class="sec-change-candidate-badge">證據 ${escapeSec(confidenceLabels[row.confidence] || row.confidence || '未分級')}</span>${lowered ? '<span class="sec-change-candidate-badge">⬇ 歷史低命中</span>' : ''}</div>
           <h4>${escapeSec(row.headline)}</h4>
           ${evidence ? `<ul>${evidence}</ul>` : ''}
+          ${jevHtml}
           <p><strong>列入原因：</strong>${escapeSec(row.why_candidate)}</p>
           <p><strong>規則品質：</strong>已覆核 ${formatSecNumber(quality.reviewed_count || 0)} 次、採納 ${formatSecNumber(quality.accepted_count || 0)} 次｜採納率 ${escapeSec(rate)}。${escapeSec(row.priority_reason)}</p>
           ${sources ? `<p>${sources}</p>` : ''}
         </article>`;
       }).join('');
-      container.innerHTML = `<div class="sec-change-candidates-head"><div><h3 id="secChangeCandidatesTitle">📝 每日變更候選稿</h3><p>產生 ${escapeSec(generated)}｜比較基準：正式 AI 覆核 ${escapeSec(reviewed)}</p></div><span class="sec-change-counts">風險 ${formatSecNumber(payload.counts?.risk || 0)}｜改善 ${formatSecNumber(payload.counts?.improvement || 0)}｜結論 ${formatSecNumber(payload.counts?.conclusion || 0)}</span></div>
+      const jevStatus = secDailyData.jevReview?.status === 'complete' ? `｜Jev ${escapeSec((secDailyData.jevReview.models_used || []).join('、') || secDailyData.jevReview.model_requested || '—')} 已預判 ${formatSecNumber(secDailyData.jevReview.reviewed_count || 0)} 項` : '';
+      container.innerHTML = `<div class="sec-change-candidates-head"><div><h3 id="secChangeCandidatesTitle">📝 每日變更候選稿</h3><p>產生 ${escapeSec(generated)}｜比較基準：正式 AI 覆核 ${escapeSec(reviewed)}${jevStatus}</p></div><span class="sec-change-counts">風險 ${formatSecNumber(payload.counts?.risk || 0)}｜改善 ${formatSecNumber(payload.counts?.improvement || 0)}｜結論 ${formatSecNumber(payload.counts?.conclusion || 0)}</span></div>
         <div class="sec-change-candidate-list">${cards}</div>
         ${secRuleCalibrationHtml()}
-        <p class="sec-change-method">⚠️ 這是規則自動產生、等待 AI 閱讀官方原文的候選稿，不是最終綜合判讀、利多／利空或買賣建議。Form 144 只代表擬售意向；10b5-1 賣出訊號會降低證據強度。AI 覆核後才會把真正重要的改變寫入「人工消化後的每日綜合重點」。</p>`;
+        <p class="sec-change-method">⚠️ 這是規則自動產生、等待 AI 閱讀官方原文的候選稿；Jev 先做結構化預判，但不是最終綜合判讀、利多／利空或買賣建議。Jev 不計算財務數字，也不會直接改寫正式結論；Form 144 只代表擬售意向，10b5-1 賣出訊號會降低證據強度。正式覆核後才會把真正重要的改變寫入「人工消化後的每日綜合重點」。</p>`;
     }
 
     function secReadingRankRows() {

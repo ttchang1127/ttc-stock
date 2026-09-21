@@ -12,5 +12,10 @@ Icon
 __pycache__/
 *.pyc
 
+# Local credentials (never commit API keys)
+.env
+.env.*
+!.env.example
+
 # Obsidian UI state (視窗版面配置，與內容無關)
 .obsidian/workspace.json
