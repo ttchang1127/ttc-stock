@@ -268,7 +268,8 @@ class MarketRotationBuilderTests(unittest.TestCase):
 class MarketRotationPageTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.page = (ROOT / "market_rotation.html").read_text()
+        cls.html = (ROOT / "market_rotation.html").read_text()
+        cls.page = cls.html + (ROOT / "assets/market_rotation_legacy.js").read_text()
         cls.dashboard = (ROOT / "dashboard.html").read_text()
         cls.workflow = (ROOT / ".github/workflows/update-prices.yml").read_text()
 
@@ -295,13 +296,15 @@ class MarketRotationPageTests(unittest.TestCase):
     def test_static_assets_use_relative_pages_paths(self):
         """G6: assets load from /ttc-stock/ on Pages and from a local HTTP server."""
         import re
-        refs = re.findall(r'(?:href|src)="(assets/[^"]+)"', self.page)
+        refs = re.findall(r'(?:href|src)="(assets/[^"]+)"', self.html)
         self.assertIn("assets/market_rotation.css", refs)
+        self.assertIn('<script src="assets/market_rotation_legacy.js" defer></script>', self.html)
         for ref in refs:
             self.assertTrue((ROOT / ref).is_file(), f"missing static asset {ref}")
         for forbidden in ('href="/assets', 'src="/assets', "file://", "/Volumes/"):
             self.assertNotIn(forbidden, self.page)
-        self.assertNotIn("<style", self.page, "styles live in assets/market_rotation.css")
+        self.assertNotIn("<style", self.html, "styles live in assets/market_rotation.css")
+        self.assertNotIn("<script>", self.html, "legacy code lives in assets/market_rotation_legacy.js")
 
     def test_dashboard_links_to_standalone_page(self):
         self.assertIn('href="market_rotation.html"', self.dashboard)

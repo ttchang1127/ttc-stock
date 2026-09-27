@@ -2510,7 +2510,7 @@ def c43():
         bad.append("權重無法加總至 100 或未標明代理指標限制")
 
     markers = {
-        "獨立頁": (read("market_rotation.html"), (
+        "獨立頁": (read("market_rotation.html") + read("assets/market_rotation_legacy.js"), (
             "market_rotation.json", "四象限輪動路徑", "最近 10 個交易日",
             "板塊內部領漲與落後個股", "不是申購贖回或資金淨流入",
             "返回投資儀表板", "勾選顯示", "chartSelections",
@@ -2640,7 +2640,7 @@ def c44():
             "safeResearchUrl", "investor.tsmc.com", "www.nokia.com",
             "研究證據、財報差異與同業比較", "分析師共識／財報前內部數值預估：未收集",
         )),
-        "輪動頁": (read("market_rotation.html"), (
+        "輪動頁": (read("market_rotation.html") + read("assets/market_rotation_legacy.js"), (
             "research_synthesis.json", "renderResearchBridge", "輪動 → 基本面驗證橋接",
         )),
         "價格 workflow": (read(".github/workflows/update-prices.yml"), (
