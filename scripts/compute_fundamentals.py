@@ -18,6 +18,8 @@ import json
 from datetime import datetime, timezone
 from pathlib import Path
 
+from jsonio import require_companies, write_json
+
 REPO_ROOT = Path(__file__).resolve().parent.parent
 FINANCIALS_PATH = REPO_ROOT / "financials.json"
 PRICES_PATH = REPO_ROOT / "prices.json"
@@ -396,7 +398,9 @@ def main():
         "source": "Derived from SEC XBRL Company Facts; prices from prices.json",
         "companies": results,
     }
-    OUTPUT_PATH.write_text(json.dumps(payload, indent=1, ensure_ascii=False) + "\n")
+    # Every input company must be present; a partial or NaN-bearing payload
+    # is refused and the published file stays untouched.
+    write_json(OUTPUT_PATH, payload, indent=1, validate=require_companies(len(fin)))
     print(f"\nWrote {OUTPUT_PATH.relative_to(REPO_ROOT)} ({len(results)} companies)")
 
 

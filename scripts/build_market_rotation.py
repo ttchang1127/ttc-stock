@@ -18,9 +18,7 @@ import hashlib
 import io
 import json
 import math
-import os
 import sys
-import tempfile
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 from typing import Callable, Iterable
@@ -30,6 +28,7 @@ import numpy as np
 import pandas as pd
 import yfinance as yf
 
+from jsonio import replace_texts
 from market_calendar import expected_latest_market_session, market_session_lag
 from market_rotation_contracts import (
     QUADRANTS, check_parity, compute_dataset_id, dump_json, group_slug,
@@ -257,24 +256,7 @@ def publish_artifacts(
         if validate is not None:
             validate(payload)
     plans = [(path, planned_text(path, payload)) for path, payload, _ in outputs]
-    staged: list[tuple[str, Path]] = []
-    try:
-        for path, text in plans:
-            if text is None:
-                continue
-            handle = tempfile.NamedTemporaryFile(
-                "w", dir=path.parent, prefix=f".{path.name}.", suffix=".tmp",
-                delete=False, encoding="utf-8",
-            )
-            with handle:
-                handle.write(text)
-            staged.append((handle.name, path))
-        for temporary, path in staged:
-            os.replace(temporary, path)
-    finally:
-        for temporary, _ in staged:
-            if os.path.exists(temporary):
-                os.unlink(temporary)
+    replace_texts({path: text for path, text in plans if text is not None})
     return {path: text is not None for path, text in plans}
 
 
