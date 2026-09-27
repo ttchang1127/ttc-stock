@@ -257,6 +257,44 @@
     .industry-member { display: inline-flex; align-items: baseline; gap: 6px; padding: 7px 9px; border: 1px solid var(--line); border-radius: 9px; background: rgba(8,13,24,.35); }
     .industry-member strong { color: #e0f2fe; font-size: .75rem; }
     .industry-member span { color: #b8c7da; font-size: .72rem; }
+    /* Research layer: market environment, absolute states, back-test */
+    .research-badge { display: inline-flex; margin-left: 6px; padding: 2px 8px; border-radius: 999px; font-size: .68rem; font-weight: 800; color: #c4b5fd; background: rgba(167,139,250,.14); vertical-align: middle; }
+    .env-head { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) minmax(0, .5fr); gap: 16px; align-items: start; }
+    .env-label { color: var(--muted); font-size: .74rem; font-weight: 700; }
+    .env-state { margin-top: 4px; font-size: 1.5rem; font-weight: 800; }
+    .env-state small, .state small, .state-table td small { display: block; margin-top: 3px; color: var(--muted); font-size: .7rem; font-weight: 600; }
+    .env-state small.pending, .state small.pending { color: #7dd3fc; }
+    .env-value { margin-top: 4px; font-size: 1.05rem; font-weight: 800; }
+    .env-reading { margin: 14px 0; padding: 12px 14px; border-left: 4px solid var(--purple); border-radius: 10px; background: rgba(167,139,250,.07); color: #e2e8f0; font-size: .86rem; line-height: 1.6; }
+    .env-evidence { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 8px; }
+    .env-evidence div { padding: 10px 12px; border: 1px solid var(--line); border-radius: 12px; background: rgba(255,255,255,.025); }
+    .env-evidence span { display: block; color: var(--muted); font-size: .72rem; }
+    .env-evidence strong { display: block; margin-top: 3px; font-size: .98rem; }
+    .env-checks { margin-top: 14px; }
+    .env-checks h3, .env-other h4 { margin: 0 0 6px; font-size: .84rem; }
+    .check-count { color: var(--muted); font-size: .74rem; margin-bottom: 4px; }
+    .check-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 5px; }
+    .check-list li { display: flex; justify-content: space-between; gap: 8px; padding: 6px 9px; border-radius: 8px; font-size: .75rem; background: rgba(255,255,255,.03); }
+    .check-list li::before { content: "✗"; color: #fda4af; font-weight: 800; }
+    .check-list li.ok::before { content: "✓"; color: #5eead4; }
+    .check-list li span { margin-left: auto; color: var(--muted); }
+    .env-other { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; margin-top: 12px; }
+    .state-table { min-width: 980px; }
+    .state-table tbody tr { cursor: default; }
+    .state-table td { text-align: left; vertical-align: top; }
+    .state { font-weight: 800; }
+    .state.positive, .env-state.positive { color: #86efac; }
+    .state.negative, .env-state.negative { color: #fda4af; }
+    .state.warning, .env-state.warning { color: #fcd34d; }
+    .state.info, .env-state.info { color: #67e8f9; }
+    .tags { white-space: normal; min-width: 180px; }
+    .tag { display: inline-flex; margin: 0 4px 4px 0; padding: 3px 8px; border-radius: 999px; font-size: .68rem; font-weight: 800; color: #cbd5e1; background: rgba(148,163,184,.14); }
+    .tag.warning { color: #fcd34d; background: rgba(245,158,11,.14); }
+    .tag.danger { color: #fda4af; background: rgba(244,63,94,.16); }
+    .tag.info { color: #67e8f9; background: rgba(6,182,212,.13); }
+    #backtestSummary table { min-width: 760px; }
+    #backtestSummary tbody tr { cursor: default; }
+    #backtestSummary td small { display: block; margin-top: 2px; color: var(--muted); font-size: .68rem; }
     .footer { color: var(--muted); font-size: .76rem; text-align: center; padding: 4px 0 24px; }
     @media (max-width: 1050px) {
       .metrics { grid-template-columns: repeat(2, minmax(0,1fr)); }
@@ -273,4 +311,5 @@
       .period-guide { grid-template-columns: 1fr; }
       .period-guide small { grid-column: 1; }
       .quadrant-guide-grid { grid-template-columns: 1fr; }
+      .env-head { grid-template-columns: 1fr; }
     }

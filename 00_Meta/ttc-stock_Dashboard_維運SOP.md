@@ -58,6 +58,9 @@
 | `market_rotation_summary.json`／`_groups.json`／`_stocks.json` | v2 雙寫：狀態與首頁角色／板塊與次產業／個股，三檔共用 `dataset_id` | ❌ 只能由 `scripts/build_market_rotation.py` 與 v1 同批產生 |
 | `market_rotation_registry.json` | 板塊、次產業與個股的 stable id 對照表 | ⚠️ 新名稱由產生器自動追加；只有「確認為同一分類的正式更名」可人工加入 `aliases`，不可改既有 id |
 | `scripts/market_rotation_contracts.py` | v1／v2／registry 資料契約、引用與 parity 驗證（純標準函式庫） | ⚠️ 契約變更需連同測試與 golden |
+| `market_rotation_research.json`／`scripts/market_rotation_research.py` | 研究層：市場環境、板塊絕對狀態、風險標籤與集中度；與 v2 同批、共用 `dataset_id`；輪動頁由 `assets/market_rotation_research.js` 顯示 | ❌ 只能由產生器產生；門檻是回測起點，改門檻要提高 `RULE_VERSION` 並連同測試 |
+| `market_rotation_history/` | A 級每日研究快照（月份 `.jsonl`＋`index.json`），只可追加 | ❌ 絕不手改或回填；C-46 會檢查雜湊與索引 |
+| `market_rotation_history/backtest/` | C 級回測結果（今天的成分股回算，有存活者偏誤），每月由 `market-rotation-backtest.yml` 重建 | ❌ 只能由回測排程產生；不可當成已驗證結論 |
 | `research_synthesis.json` | 14 家來源台帳、財報差異、論點證據、事件閉環、同業對照與輪動基本面橋接 | ❌ 只能由 `scripts/build_research_synthesis.py` 產生 |
 
 遠端與網址：
@@ -91,7 +94,8 @@ S&P 500／Nasdaq-100 成分表 + Yahoo Finance 個股價量
         ↓ calculate_canonical()：唯一計算來源（stable id 取自 market_rotation_registry.json）
         ↓ serialize_v1／serialize_v2 → 契約、跨檔引用、v1／v2 逐欄 parity 全部通過才整批替換
    market_rotation.json（v1）＋ market_rotation_summary／groups／stocks.json（v2）＋ registry
-        ↓ market_rotation.html（MVP-1 切換前仍只讀 v1）
+   ＋ market_rotation_research.json（研究層，同批同 dataset_id）＋ market_rotation_history/（A 級快照，只追加）
+        ↓ market_rotation.html（排名與四象限讀 v1；市場環境、絕對狀態、集中度與回測由 market_rotation_research.js 讀研究層）
    11 大板塊／次產業排名、四象限與 10 個交易日路徑
 
 季度財務 + 財報驗證卡 + 投資論點 + 事件日曆 + 估值 + 市場輪動

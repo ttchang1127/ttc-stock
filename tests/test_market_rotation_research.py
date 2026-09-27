@@ -227,5 +227,39 @@ class PublishedResearchTests(unittest.TestCase):
             self.assertEqual(written["dataset_id"], self.outputs["summary"]["dataset_id"])
 
 
+class ResearchPageTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.html = (ROOT / "market_rotation.html").read_text()
+        cls.script = (ROOT / "assets/market_rotation_research.js").read_text()
+
+    def test_page_loads_the_research_script_and_sections(self):
+        self.assertIn('<script src="assets/market_rotation_research.js" defer></script>', self.html)
+        for element in ('id="marketEnvironment"', 'id="sectorStateBody"', 'id="backtestSummary"', "研究中"):
+            self.assertIn(element, self.html)
+        for path in ("market_rotation_research.json", "market_rotation_history/backtest/sector_results.json"):
+            self.assertIn(f"'{path}'", self.script)
+
+    def test_every_missing_file_has_a_plain_message(self):
+        for message in ("市場環境研究層尚未產出", "板塊絕對狀態尚未產出", "回測尚未執行"):
+            self.assertIn(message, self.script)
+        self.assertIn("C 級歷史", self.script)
+        self.assertIn("存活者偏誤", self.script)
+
+    def test_every_code_has_a_page_mapping(self):
+        for tag in contracts.RISK_TAGS:
+            self.assertIn(f"{tag}:", self.script, f"TAG_TONE lacks {tag}")
+        for state in list(contracts.MARKET_STATES) + list(contracts.GROUP_STATES):
+            if state != "insufficient_data":
+                self.assertIn(f"{state}:", self.script, f"STATE_TONE lacks {state}")
+        row = pd.Series({"R5": 0.01, "R20": 0.01, "R60": 0.02, "B20": 0.5, "B60": 0.5, "UDVR5": 1.0,
+                         "dB20_5": 0.0, "down_share5": 0.5, "new_lows": 3, "LWGAP": 0.0})
+        checks = research.market_checks(row, pd.Series([0.01, -0.01]), pd.Series([0.01, -0.01]), None)
+        codes = {item["code"] for spec in checks.values()
+                 for item in spec["checks"] + ([spec["gate"]] if "gate" in spec else [])}
+        for code in codes:
+            self.assertIn(f"'{code}':", self.script, f"CHECK_LABELS lacks {code}")
+
+
 if __name__ == "__main__":
     unittest.main()
