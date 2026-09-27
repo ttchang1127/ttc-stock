@@ -59,6 +59,15 @@ def read(name):
     return (REPO_ROOT / name).read_text()
 
 
+def price_workflow_text():
+    """The daily workflow plus the commit allowlist it enforces from data_manifest.json."""
+    sys.path.insert(0, str(REPO_ROOT / "scripts"))
+    import data_manifest  # noqa: PLC0415
+    manifest = data_manifest.load_manifest(REPO_ROOT / "data_manifest.json")
+    return (read(".github/workflows/update-prices.yml") + "\n"
+            + data_manifest.allowlist_regex("update-prices", manifest))
+
+
 # --------------------------------------------------------------------------
 # Each check returns (ok, detail). A check that cannot run its comparison is a
 # failure, not a pass: missing inputs are exactly when a mistake slips through.
@@ -1357,7 +1366,7 @@ def c29():
             bad.append("現存規則校準無法由 AI 覆核紀錄確定性重建")
 
     sec_workflow = read(".github/workflows/sec-filing-alerts.yml")
-    price_workflow = read(".github/workflows/update-prices.yml")
+    price_workflow = price_workflow_text()
     dashboard = read("dashboard.html")
     home = read("00_Home.md")
     markers = {
@@ -1372,7 +1381,7 @@ def c29():
         "價格 workflow": (price_workflow, (
             "generate_sec_daily_change_candidates.py", "build_sec_candidate_rule_calibration.py",
             "sec_daily_change_candidates", "sec_candidate_rule_calibration",
-            "SEC_(Daily_Change_Candidates|Daily_Jev_Review|Candidate_Rule_Calibration|Position_Impact_History)",
+            "SEC_Daily_Change_Candidates", "SEC_Daily_Jev_Review", "SEC_Candidate_Rule_Calibration", "SEC_Position_Impact_History",
             "review_sec_candidates_with_jev.py", "sec_daily_jev_review", "Daily_Jev_Review",
         )),
         "dashboard": (dashboard, (
@@ -1498,7 +1507,7 @@ def c31():
             "build_sec_position_impact_history.py", "steps.position_impact.outputs.notify_count",
             "POSITION_IMPACT_BATCH_ID", "sec_position_impact_history.json", "SEC_Position_Impact_History.md",
         )),
-        "價格 workflow": (read(".github/workflows/update-prices.yml"), (
+        "價格 workflow": (price_workflow_text(), (
             "build_sec_position_impact_history.py", "Notify meaningful portfolio-impact changes",
             "steps.position_impact.outputs.notify_count", "issues: write", "Position_Impact_History",
         )),
@@ -1592,7 +1601,7 @@ def c32():
             "實際持股優先", "官方已確認", "市場預估", "ETF 不納入",
             "Form 4、8-K／6-K、臨時募資及併購多半無法事先知道",
         )),
-        "每日 workflow": (read(".github/workflows/update-prices.yml"), (
+        "每日 workflow": (price_workflow_text(), (
             "cron: '17 23 * * *'", "build_company_event_calendar.py",
             "company_event_calendar", "Company_Event_Calendar",
         )),
@@ -1673,9 +1682,9 @@ def c33():
             "財報後｜實績與論點核對", "FCF 前期為零或任一期為負數時不顯示成長率",
             "ETF 不納入",
         )),
-        "價格 workflow": (read(".github/workflows/update-prices.yml"), (
+        "價格 workflow": (price_workflow_text(), (
             "build_earnings_verification_cards.py", "earnings_verification_cards",
-            "Earnings_Verification_(Cards|History)",
+            "Earnings_Verification_Cards", "Earnings_Verification_History",
         )),
         "SEC workflow": (read(".github/workflows/sec-filing-alerts.yml"), (
             "build_earnings_verification_cards.py", "earnings_verification_cards.json",
@@ -1761,7 +1770,7 @@ def c34():
             "相較前次驗證有什麼改變", "財報前凍結／財報後結案紀錄",
             "原始條件不會被每日更新覆寫", "每日倒數及未跨狀態的數值波動不重複提醒",
         )),
-        "價格 workflow": (read(".github/workflows/update-prices.yml"), (
+        "價格 workflow": (price_workflow_text(), (
             "track_earnings_verification_history.py", "steps.earnings_verification.outputs.notify_count",
             "EARNINGS_VERIFICATION_BATCH_ID", "earnings_verification_history",
         )),
@@ -1852,7 +1861,7 @@ def c35():
             "分部營運與成長驅動驗證", "最大成長驅動", "營收集中度",
             "成長貢獻不是獲利貢獻",
         )),
-        "價格 workflow": (read(".github/workflows/update-prices.yml"), (
+        "價格 workflow": (price_workflow_text(), (
             "build_segment_driver_validation.py", "segment_driver_validation", "Segment_Driver_Validation",
         )),
         "SEC workflow": (read(".github/workflows/sec-filing-alerts.yml"), (
@@ -2012,7 +2021,7 @@ def c37():
             "segment_driver_update_candidates.json", "segmentDriverUpdates", "新一期待覆核",
             "每日監看新 10-Q／10-K／6-K", "不會猜值或跨口徑接續",
         )),
-        "價格 workflow": (read(".github/workflows/update-prices.yml"), (
+        "價格 workflow": (price_workflow_text(), (
             "sync_segment_driver_history.py", "segment_driver_update_candidates", "Segment_Driver_Update_Candidates",
         )),
         "SEC workflow": (read(".github/workflows/sec-filing-alerts.yml"), (
@@ -2087,7 +2096,7 @@ def c38():
             "segment_thesis_candidates", "segment_thesis_fingerprint", "same_reviewed_period",
             "同一 fingerprint", "segment_thesis_change",
         )),
-        "價格 workflow": (read(".github/workflows/update-prices.yml"), (
+        "價格 workflow": (price_workflow_text(), (
             "build_segment_thesis_linkage.py", "segment_thesis_linkage", "Segment_Thesis_Linkage",
         )),
         "SEC workflow": (read(".github/workflows/sec-filing-alerts.yml"), (
@@ -2174,7 +2183,7 @@ def c39():
             "segment_outlook_verification.json", "segmentOutlookVerification", "分部展望驗證卡",
             "公司總指引不代替分部指引", "不重複加入 SEC 證據分數",
         )),
-        "價格 workflow": (read(".github/workflows/update-prices.yml"), (
+        "價格 workflow": (price_workflow_text(), (
             "build_segment_outlook_verification.py", "segment_outlook_verification", "Segment_Outlook_Verification",
         )),
         "SEC workflow": (read(".github/workflows/sec-filing-alerts.yml"), (
@@ -2245,7 +2254,7 @@ def c40():
             "segment_outlook_history.json", "segmentOutlookHistory", "相較前次：",
             "首次只建立基準", "thesis_effect",
         )),
-        "價格 workflow": (read(".github/workflows/update-prices.yml"), (
+        "價格 workflow": (price_workflow_text(), (
             "track_segment_outlook_history.py", "segment_outlook.outputs.notify_count",
             "segment_outlook_history", "Segment_Outlook_History",
         )),
@@ -2353,7 +2362,7 @@ def c41():
             "capital_allocation_cards.json", "capitalAllocationCards", "⑧ 資本配置與股東價值",
             "不能單獨歸因於 SBC", "不再加入 SEC 證據分數",
         )),
-        "價格 workflow": (read(".github/workflows/update-prices.yml"), (
+        "價格 workflow": (price_workflow_text(), (
             "build_capital_allocation_cards.py", "track_capital_allocation_history.py",
             "capital_allocation.outputs.notify_count", "Capital_Allocation_History",
         )),
@@ -2453,7 +2462,7 @@ def c42():
             "score_basis", "季財報截至", "股價截至", "判讀更新",
             "目前水準", "history_position", "level_counts", "水準風險",
         )),
-        "價格 workflow": (read(".github/workflows/update-prices.yml"), (
+        "價格 workflow": (price_workflow_text(), (
             "build_long_term_radar.py", "long_term_radar",
         )),
         "SEC workflow": (read(".github/workflows/sec-filing-alerts.yml"), (
@@ -2528,7 +2537,7 @@ def c43():
             "industry-members-row", "不是整個市場所有同業",
         )),
         "主儀表板": (read("dashboard.html"), ("market_rotation.html", "市場族群輪動")),
-        "價格 workflow": (read(".github/workflows/update-prices.yml"), (
+        "價格 workflow": (price_workflow_text(), (
             "build_market_rotation.py", "market_rotation_universe", "market_rotation|",
         )),
         "維護 SOP": (read("00_Meta/ttc-stock_Dashboard_維運SOP.md"), (
@@ -2647,7 +2656,7 @@ def c44():
         "輪動頁": (read("market_rotation.html") + read("assets/market_rotation_legacy.js"), (
             "research_synthesis.json", "renderResearchBridge", "輪動 → 基本面驗證橋接",
         )),
-        "價格 workflow": (read(".github/workflows/update-prices.yml"), (
+        "價格 workflow": (price_workflow_text(), (
             "build_research_synthesis.py", "research_synthesis|", "Research_Synthesis",
         )),
         "SEC workflow": (read(".github/workflows/sec-filing-alerts.yml"), (
