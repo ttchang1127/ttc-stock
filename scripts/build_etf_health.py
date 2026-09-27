@@ -7,7 +7,9 @@ every mapped constituent, and writes the research file.  A run that cannot
 price SPY, or whose latest session is older than the file already
 published, leaves the file untouched; a rerun on the same session with the
 same numbers does not rewrite it.  Each session is also appended once to
-etf_health_history/YYYY-MM.jsonl, in the same atomic write.
+etf_health_history/YYYY-MM.jsonl, and etf_constituents.json (each ETF's
+largest holdings up to 80% of net assets, with 1-day to 6-month returns,
+for the page's weight map) is refreshed, all in the same atomic write.
 """
 
 from __future__ import annotations
@@ -27,10 +29,11 @@ from jsonio import dumps, load_json, replace_texts
 
 ROOT = Path(__file__).resolve().parent.parent
 OUTPUT = ROOT / "etf_health.json"
+CONSTITUENTS_NAME = "etf_constituents.json"  # written beside the output
 HOLDINGS_DIR = ROOT / "etf_holdings"
 FLOWS_DIR = ROOT / "etf_flows_history"
 HEALTH_HISTORY_DIR = ROOT / "etf_health_history"
-CALENDAR_DAYS = 150
+CALENDAR_DAYS = 200  # about 135 sessions: the 50-session averages and the 6-month map period
 
 
 def load_funds(holdings_dir: Path) -> dict[str, dict | None]:
@@ -80,7 +83,8 @@ def build(output: Path, holdings_dir: Path, fetch=download, today: date | None =
     except ValueError as error:
         print(f"::warning::ETF health not rebuilt: {error}", file=sys.stderr)
         raise SystemExit(75) from error
-    problems = etf_health.validate(payload)
+    detail = etf_health.constituents(funds, closes, generated_at)
+    problems = etf_health.validate(payload) + etf_health.validate_constituents(detail)
     if problems:
         raise ValueError("etf_health.json failed validation: " + "; ".join(problems))
     previous = load_json(output, None)
@@ -91,6 +95,9 @@ def build(output: Path, holdings_dir: Path, fetch=download, today: date | None =
         history_message = "::warning::" + history_message
     if not unchanged(previous, payload):
         texts[output] = dumps(payload, indent=1)
+    detail_path = output.parent / CONSTITUENTS_NAME
+    if not unchanged(load_json(detail_path, None), detail):
+        texts[detail_path] = dumps(detail)
     replace_texts(texts)
     if output not in texts:
         return False, f"{output.name} unchanged for {payload['as_of']}; {history_message}"

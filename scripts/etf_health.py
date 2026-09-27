@@ -329,6 +329,86 @@ def snapshot(payload: dict[str, Any]) -> dict:
             "etfs": etfs}
 
 
+MAP_COVERAGE_PCT = 80.0  # list holdings until they add up to this share of the fund
+MAP_PERIODS = {"1d": 1, "1w": 5, "1m": 21, "3m": 63, "6m": 126}  # label -> sessions
+
+
+def period_returns(series: pd.Series | None) -> dict[str, float | None]:
+    """Returns over each map period, only when the latest session is priced (no stale carry-forward)."""
+    if series is None or not len(series) or not np.isfinite(series.iloc[-1]):
+        return {label: None for label in MAP_PERIODS}
+    result = {}
+    for label, sessions in MAP_PERIODS.items():
+        before = series.iloc[-1 - sessions] if len(series) > sessions else np.nan
+        result[label] = pct(float(series.iloc[-1] / before - 1)) if np.isfinite(before) and before > 0 else None
+    return result
+
+
+def top_holdings(fund: dict, closes: pd.DataFrame) -> list[dict]:
+    """Largest holdings, merged by ticker, until they reach MAP_COVERAGE_PCT of net assets."""
+    merged: dict[str, dict] = {}
+    for row in fund.get("holdings", []):
+        weight = row.get("weight_pct") or 0
+        if weight <= 0 or row.get("asset_category") not in etf_holdings.EQUITY_CATEGORIES:
+            continue
+        key = row.get("ticker") or f"name:{row.get('name')}"
+        entry = merged.setdefault(key, {"ticker": row.get("ticker"), "name": row.get("name"), "weight_pct": 0.0})
+        entry["weight_pct"] += weight
+    rows, cumulative = [], 0.0
+    for entry in sorted(merged.values(), key=lambda item: -item["weight_pct"]):
+        cumulative += entry["weight_pct"]
+        ticker = entry["ticker"]
+        rows.append({"ticker": ticker, "name": entry["name"], "weight_pct": round(entry["weight_pct"], 3),
+                     "cumulative_pct": round(cumulative, 2),
+                     "returns": period_returns(closes[ticker] if ticker and ticker in closes else None)})
+        if cumulative >= MAP_COVERAGE_PCT:
+            break
+    return rows
+
+
+def constituents(funds: dict[str, dict | None], closes: pd.DataFrame, generated_at: str) -> dict:
+    """etf_constituents.json: each ETF's largest holdings with 1d-6m returns, for the page's weight map."""
+    as_of_ts = closes[BENCHMARK].dropna().index[-1]
+    closes = closes.loc[:as_of_ts]
+    etfs = {}
+    for ticker in sorted(funds):
+        fund = funds[ticker]
+        if not fund:
+            continue
+        rows = top_holdings(fund, closes)
+        etfs[ticker] = {"theme": etf_holdings.THEME_ETFS.get(ticker, ticker),
+                        "holdings_report_date": fund.get("report_date"),
+                        "returns": period_returns(closes[ticker] if ticker in closes else None),
+                        "listed_weight_pct": rows[-1]["cumulative_pct"] if rows else 0.0,
+                        "holdings": rows}
+    return {"schema_version": SCHEMA_VERSION, "label": "research", "generated_at": generated_at,
+            "as_of": as_of_ts.date().isoformat(), "etf_list_version": etf_holdings.THEME_ETF_VERSION,
+            "coverage_target_pct": MAP_COVERAGE_PCT, "periods": {label: n for label, n in MAP_PERIODS.items()},
+            "note": ("成分權重取自各 ETF 最近一次 SEC N-PORT 申報；依權重列到累積達淨資產 80% 為止。"
+                     "報酬為還原權息收盤價，最新交易日沒有報價的成分顯示為空白。"),
+            "etfs": etfs}
+
+
+def validate_constituents(payload: dict[str, Any]) -> list[str]:
+    problems = []
+    if payload.get("label") != "research":
+        problems.append("etf_constituents label must stay 'research'")
+    frozen = etf_holdings.THEME_ETF_LISTS.get(payload.get("etf_list_version"))
+    if frozen is None:
+        problems.append(f"etf_constituents: unknown etf_list_version {payload.get('etf_list_version')}")
+    elif not set(payload.get("etfs", {})) <= set(frozen):
+        problems.append("etf_constituents lists ETFs outside its frozen list")
+    for ticker, entry in payload.get("etfs", {}).items():
+        cumulative = [row["cumulative_pct"] for row in entry["holdings"]]
+        if cumulative != sorted(cumulative):
+            problems.append(f"{ticker}: holdings are not in weight order")
+        if any(row["weight_pct"] <= 0 for row in entry["holdings"]):
+            problems.append(f"{ticker}: non-positive weight")
+        if set(entry["returns"]) != set(MAP_PERIODS):
+            problems.append(f"{ticker}: returns must cover {sorted(MAP_PERIODS)}")
+    return problems
+
+
 def validate(payload: dict[str, Any]) -> list[str]:
     problems = []
     if payload.get("label") != "research":

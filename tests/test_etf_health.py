@@ -170,6 +170,45 @@ class HealthTests(unittest.TestCase):
             etf_health.compute(funds, closes.drop(columns="SPY"), "x")
 
 
+class ConstituentMapTests(unittest.TestCase):
+    def setUp(self):
+        for name, value in (("THEME_ETFS", THEMES), ("THEME_ETF_LISTS", {"test-list": tuple(THEMES)}),
+                            ("THEME_ETF_VERSION", "test-list")):
+            patcher = mock.patch.object(etf_holdings, name, value)
+            patcher.start()
+            self.addCleanup(patcher.stop)
+        self.funds, self.closes = market()
+        self.detail = etf_health.constituents(self.funds, self.closes, "x")
+
+    def test_holdings_are_listed_until_80_percent_of_the_fund(self):
+        narrow = self.detail["etfs"]["NAR"]["holdings"]
+        self.assertEqual(narrow[0]["ticker"], "N0")
+        self.assertEqual(narrow[0]["weight_pct"], 60.0)
+        self.assertGreaterEqual(narrow[-1]["cumulative_pct"], 80.0)
+        self.assertLess(narrow[-2]["cumulative_pct"], 80.0, "stops at the first holding that reaches 80%")
+        self.assertEqual(len(narrow), 7)
+        self.assertEqual(etf_health.validate_constituents(self.detail), [])
+        self.assertNotIn("NEW", self.detail["etfs"], "funds without holdings are left out")
+
+    def test_unmapped_holdings_are_listed_by_name_without_returns(self):
+        thin = self.detail["etfs"]["THN"]["holdings"]
+        self.assertIsNone(thin[0]["ticker"], "the 60% foreign line comes first")
+        self.assertEqual(thin[0]["returns"]["1d"], None)
+        self.assertEqual(thin[1]["ticker"][0], "T")
+
+    def test_period_returns_need_enough_sessions_and_a_current_price(self):
+        row = self.detail["etfs"]["BRD"]["holdings"][0]
+        close = self.closes[row["ticker"]]
+        self.assertEqual(row["returns"]["1m"], round((close.iloc[-1] / close.iloc[-22] - 1) * 100, 2))
+        self.assertEqual(row["returns"]["1d"], round((close.iloc[-1] / close.iloc[-2] - 1) * 100, 2))
+        self.assertIsNone(row["returns"]["6m"], "100 sessions cannot give a 126-session return")
+        stale = self.closes.copy()
+        stale.iloc[-1, stale.columns.get_loc(row["ticker"])] = np.nan
+        self.assertEqual(etf_health.period_returns(stale[row["ticker"]])["1d"], None,
+                         "a missing latest close is not carried forward")
+        self.assertEqual(set(self.detail["etfs"]["BRD"]["returns"]), set(etf_health.MAP_PERIODS))
+
+
 class BuildTests(unittest.TestCase):
     def setUp(self):
         for name, value in (("THEME_ETFS", THEMES), ("THEME_ETF_LISTS", {"test-list": tuple(THEMES)}),
@@ -210,6 +249,9 @@ class BuildTests(unittest.TestCase):
         self.assertFalse(written)
         self.assertIn("unchanged", message)
         self.assertEqual(self.output.read_text(), first)
+        detail = json.loads((self.root / "etf_constituents.json").read_text())
+        self.assertEqual(detail["as_of"], "2026-09-25")
+        self.assertIn("NAR", detail["etfs"])
         lines = (self.root / "history" / "2026-09.jsonl").read_text().splitlines()
         self.assertEqual(len(lines), 1, "one snapshot per session, even across reruns")
         record = json.loads(lines[0])
