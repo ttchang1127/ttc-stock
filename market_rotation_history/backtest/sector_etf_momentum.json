@@ -1,0 +1,429 @@
+{
+ "version": "etf-momentum-1",
+ "status": "research",
+ "history_quality": "etf_prices",
+ "history_quality_meaning": "actual sector ETF total-return series (Adj Close); every tested ETF still trades, so the tested set has no survivorship bias; ETFs enter the ranking only once they have a full look-back",
+ "method": {
+  "top_n": 3,
+  "minimum_eligible_etfs": 6,
+  "cost_per_dollar_traded": 0.001,
+  "benchmark": "equal weight of every sector ETF priced that month, rebalanced monthly",
+  "holdout_from": "2016-01",
+  "bootstrap": {
+   "block_months": 12,
+   "draws": 2000,
+   "seed": 20260927,
+   "interval": "5th-95th"
+  },
+  "recessions": [
+   [
+    "2001-03",
+    "2001-11"
+   ],
+   [
+    "2007-12",
+    "2009-06"
+   ],
+   [
+    "2020-02",
+    "2020-04"
+   ]
+  ]
+ },
+ "verdicts": {
+  "supported": "校準期與樣本外都勝過等權，區間不含 0，回撤沒有明顯更差",
+  "partial": "校準期勝過等權，但樣本外、區間或回撤至少一項未通過",
+  "not_supported": "校準期就沒有勝過等權"
+ },
+ "variants": [
+  {
+   "id": "m12_1_monthly",
+   "label": "12 減 1 個月動能，每月調整（主要）",
+   "lookback": 12,
+   "rebalance": 1,
+   "absolute_filter": false,
+   "all": {
+    "months": 320,
+    "start": "2000-01",
+    "end": "2026-08",
+    "strategy_cagr": 8.78,
+    "equal_weight_cagr": 8.69,
+    "excess_cagr_pp": 0.09,
+    "mean_monthly_excess_pp": 0.012,
+    "tracking_error": 7.41,
+    "information_ratio": 0.02,
+    "hit_rate": 54.7,
+    "strategy_max_drawdown": -41.42,
+    "equal_weight_max_drawdown": -49.12,
+    "annual_turnover": 5.29,
+    "spy_cagr": 8.28
+   },
+   "calibration": {
+    "months": 192,
+    "start": "2000-01",
+    "end": "2015-12",
+    "strategy_cagr": 5.77,
+    "equal_weight_cagr": 6.1,
+    "excess_cagr_pp": -0.33,
+    "mean_monthly_excess_pp": -0.019,
+    "tracking_error": 7.49,
+    "information_ratio": -0.03,
+    "hit_rate": 55.2,
+    "strategy_max_drawdown": -41.42,
+    "equal_weight_max_drawdown": -49.12,
+    "annual_turnover": 5.35,
+    "spy_cagr": 3.98
+   },
+   "holdout": {
+    "months": 128,
+    "start": "2016-01",
+    "end": "2026-08",
+    "strategy_cagr": 13.45,
+    "equal_weight_cagr": 12.69,
+    "excess_cagr_pp": 0.76,
+    "mean_monthly_excess_pp": 0.058,
+    "tracking_error": 7.32,
+    "information_ratio": 0.1,
+    "hit_rate": 53.9,
+    "strategy_max_drawdown": -15.94,
+    "equal_weight_max_drawdown": -22.64,
+    "annual_turnover": 5.19,
+    "spy_cagr": 15.05
+   },
+   "calibration_mean_excess_interval_pp": [
+    -0.275,
+    0.205
+   ],
+   "by_business_cycle": {
+    "recession": {
+     "months": 31,
+     "mean_monthly_excess_pp": 0.32,
+     "hit_rate": 64.5
+    },
+    "expansion": {
+     "months": 289,
+     "mean_monthly_excess_pp": -0.021,
+     "hit_rate": 53.6
+    }
+   },
+   "criteria": {
+    "calibration_beats_equal_weight": false,
+    "holdout_beats_equal_weight": true,
+    "interval_excludes_zero": false,
+    "drawdown_not_much_worse": true
+   },
+   "verdict": "not_supported"
+  },
+  {
+   "id": "m6_1_monthly",
+   "label": "6 減 1 個月動能，每月調整",
+   "lookback": 6,
+   "rebalance": 1,
+   "absolute_filter": false,
+   "all": {
+    "months": 326,
+    "start": "1999-07",
+    "end": "2026-08",
+    "strategy_cagr": 8.21,
+    "equal_weight_cagr": 8.6,
+    "excess_cagr_pp": -0.4,
+    "mean_monthly_excess_pp": -0.034,
+    "tracking_error": 7.29,
+    "information_ratio": -0.06,
+    "hit_rate": 49.1,
+    "strategy_max_drawdown": -40.41,
+    "equal_weight_max_drawdown": -49.12,
+    "annual_turnover": 7.5,
+    "spy_cagr": 8.42
+   },
+   "calibration": {
+    "months": 198,
+    "start": "1999-07",
+    "end": "2015-12",
+    "strategy_cagr": 6.11,
+    "equal_weight_cagr": 6.04,
+    "excess_cagr_pp": 0.07,
+    "mean_monthly_excess_pp": 0.0,
+    "tracking_error": 7.4,
+    "information_ratio": 0.0,
+    "hit_rate": 50.0,
+    "strategy_max_drawdown": -40.41,
+    "equal_weight_max_drawdown": -49.12,
+    "annual_turnover": 7.21,
+    "spy_cagr": 4.33
+   },
+   "holdout": {
+    "months": 128,
+    "start": "2016-01",
+    "end": "2026-08",
+    "strategy_cagr": 11.53,
+    "equal_weight_cagr": 12.69,
+    "excess_cagr_pp": -1.16,
+    "mean_monthly_excess_pp": -0.087,
+    "tracking_error": 7.14,
+    "information_ratio": -0.15,
+    "hit_rate": 47.7,
+    "strategy_max_drawdown": -20.66,
+    "equal_weight_max_drawdown": -22.64,
+    "annual_turnover": 7.94,
+    "spy_cagr": 15.05
+   },
+   "calibration_mean_excess_interval_pp": [
+    -0.181,
+    0.182
+   ],
+   "by_business_cycle": {
+    "recession": {
+     "months": 31,
+     "mean_monthly_excess_pp": -0.016,
+     "hit_rate": 58.1
+    },
+    "expansion": {
+     "months": 295,
+     "mean_monthly_excess_pp": -0.036,
+     "hit_rate": 48.1
+    }
+   },
+   "criteria": {
+    "calibration_beats_equal_weight": false,
+    "holdout_beats_equal_weight": false,
+    "interval_excludes_zero": false,
+    "drawdown_not_much_worse": true
+   },
+   "verdict": "not_supported"
+  },
+  {
+   "id": "m12_1_quarterly",
+   "label": "12 減 1 個月動能，每季調整",
+   "lookback": 12,
+   "rebalance": 3,
+   "absolute_filter": false,
+   "all": {
+    "months": 320,
+    "start": "2000-01",
+    "end": "2026-08",
+    "strategy_cagr": 8.88,
+    "equal_weight_cagr": 8.69,
+    "excess_cagr_pp": 0.19,
+    "mean_monthly_excess_pp": 0.024,
+    "tracking_error": 7.44,
+    "information_ratio": 0.04,
+    "hit_rate": 54.1,
+    "strategy_max_drawdown": -40.35,
+    "equal_weight_max_drawdown": -49.12,
+    "annual_turnover": 2.71,
+    "spy_cagr": 8.28
+   },
+   "calibration": {
+    "months": 192,
+    "start": "2000-01",
+    "end": "2015-12",
+    "strategy_cagr": 6.18,
+    "equal_weight_cagr": 6.1,
+    "excess_cagr_pp": 0.08,
+    "mean_monthly_excess_pp": 0.013,
+    "tracking_error": 7.73,
+    "information_ratio": 0.02,
+    "hit_rate": 52.6,
+    "strategy_max_drawdown": -40.35,
+    "equal_weight_max_drawdown": -49.12,
+    "annual_turnover": 2.6,
+    "spy_cagr": 3.98
+   },
+   "holdout": {
+    "months": 128,
+    "start": "2016-01",
+    "end": "2026-08",
+    "strategy_cagr": 13.07,
+    "equal_weight_cagr": 12.69,
+    "excess_cagr_pp": 0.38,
+    "mean_monthly_excess_pp": 0.041,
+    "tracking_error": 7.0,
+    "information_ratio": 0.07,
+    "hit_rate": 56.2,
+    "strategy_max_drawdown": -24.04,
+    "equal_weight_max_drawdown": -22.64,
+    "annual_turnover": 2.88,
+    "spy_cagr": 15.05
+   },
+   "calibration_mean_excess_interval_pp": [
+    -0.264,
+    0.234
+   ],
+   "by_business_cycle": {
+    "recession": {
+     "months": 31,
+     "mean_monthly_excess_pp": 0.181,
+     "hit_rate": 51.6
+    },
+    "expansion": {
+     "months": 289,
+     "mean_monthly_excess_pp": 0.007,
+     "hit_rate": 54.3
+    }
+   },
+   "criteria": {
+    "calibration_beats_equal_weight": true,
+    "holdout_beats_equal_weight": true,
+    "interval_excludes_zero": false,
+    "drawdown_not_much_worse": true
+   },
+   "verdict": "partial"
+  },
+  {
+   "id": "m12_1_absolute",
+   "label": "12 減 1 個月動能，每月調整，輸給國庫券就改持有全部等權",
+   "lookback": 12,
+   "rebalance": 1,
+   "absolute_filter": true,
+   "all": {
+    "months": 320,
+    "start": "2000-01",
+    "end": "2026-08",
+    "strategy_cagr": 8.66,
+    "equal_weight_cagr": 8.69,
+    "excess_cagr_pp": -0.03,
+    "mean_monthly_excess_pp": 0.009,
+    "tracking_error": 6.73,
+    "information_ratio": 0.02,
+    "hit_rate": 50.0,
+    "strategy_max_drawdown": -50.44,
+    "equal_weight_max_drawdown": -49.12,
+    "annual_turnover": 5.82,
+    "spy_cagr": 8.28
+   },
+   "calibration": {
+    "months": 192,
+    "start": "2000-01",
+    "end": "2015-12",
+    "strategy_cagr": 5.51,
+    "equal_weight_cagr": 6.1,
+    "excess_cagr_pp": -0.59,
+    "mean_monthly_excess_pp": -0.029,
+    "tracking_error": 6.34,
+    "information_ratio": -0.06,
+    "hit_rate": 47.9,
+    "strategy_max_drawdown": -50.44,
+    "equal_weight_max_drawdown": -49.12,
+    "annual_turnover": 5.69,
+    "spy_cagr": 3.98
+   },
+   "holdout": {
+    "months": 128,
+    "start": "2016-01",
+    "end": "2026-08",
+    "strategy_cagr": 13.57,
+    "equal_weight_cagr": 12.69,
+    "excess_cagr_pp": 0.88,
+    "mean_monthly_excess_pp": 0.067,
+    "tracking_error": 7.3,
+    "information_ratio": 0.11,
+    "hit_rate": 53.1,
+    "strategy_max_drawdown": -15.94,
+    "equal_weight_max_drawdown": -22.64,
+    "annual_turnover": 6.02,
+    "spy_cagr": 15.05
+   },
+   "calibration_mean_excess_interval_pp": [
+    -0.264,
+    0.144
+   ],
+   "by_business_cycle": {
+    "recession": {
+     "months": 31,
+     "mean_monthly_excess_pp": 0.166,
+     "hit_rate": 45.2
+    },
+    "expansion": {
+     "months": 289,
+     "mean_monthly_excess_pp": -0.007,
+     "hit_rate": 50.5
+    }
+   },
+   "criteria": {
+    "calibration_beats_equal_weight": false,
+    "holdout_beats_equal_weight": true,
+    "interval_excludes_zero": false,
+    "drawdown_not_much_worse": true
+   },
+   "verdict": "not_supported"
+  }
+ ],
+ "latest_ranking": {
+  "as_of": "2026-08-31",
+  "lookback_months": 12,
+  "rows": [
+   {
+    "ticker": "XLE",
+    "sector": "Energy",
+    "momentum_pct": 35.87,
+    "rank": 1
+   },
+   {
+    "ticker": "XLK",
+    "sector": "Information Technology",
+    "momentum_pct": 34.33,
+    "rank": 2
+   },
+   {
+    "ticker": "XLV",
+    "sector": "Health Care",
+    "momentum_pct": 20.34,
+    "rank": 3
+   },
+   {
+    "ticker": "XLI",
+    "sector": "Industrials",
+    "momentum_pct": 19.83,
+    "rank": 4
+   },
+   {
+    "ticker": "XLB",
+    "sector": "Materials",
+    "momentum_pct": 11.29,
+    "rank": 5
+   },
+   {
+    "ticker": "XLRE",
+    "sector": "Real Estate",
+    "momentum_pct": 10.2,
+    "rank": 6
+   },
+   {
+    "ticker": "XLP",
+    "sector": "Consumer Staples",
+    "momentum_pct": 8.21,
+    "rank": 7
+   },
+   {
+    "ticker": "XLU",
+    "sector": "Utilities",
+    "momentum_pct": 8.13,
+    "rank": 8
+   },
+   {
+    "ticker": "XLF",
+    "sector": "Financials",
+    "momentum_pct": 7.1,
+    "rank": 9
+   },
+   {
+    "ticker": "XLY",
+    "sector": "Consumer Discretionary",
+    "momentum_pct": 0.97,
+    "rank": 10
+   },
+   {
+    "ticker": "XLC",
+    "sector": "Communication Services",
+    "momentum_pct": -1.61,
+    "rank": 11
+   }
+  ]
+ },
+ "generated_at": "2026-09-27T09:43:11+00:00",
+ "period": {
+  "first_month": "1998-12",
+  "last_month": "2026-08"
+ }
+}
