@@ -210,6 +210,8 @@ python3 scripts/check_integrity.py --quiet
 - `portfolio_equity_exposure.json`：直接個股（排除 `portfolio_classification.json` 列的 VGT、VOO）的市值權重、板塊與次產業曝險，以及所屬族群的輪動狀態與研究優先度（立即覆核／持續觀察／資料阻擋）。
 - `market_rotation_daily_digest.json`：相較前一交易日 A 級快照的確認變化，P1／P2 由每日行情排程開 `📈 Market Rotation Changes [batch]` issue，P3 待確認只在頁面顯示。
 
+**含基金看穿**：`scripts/refresh_etf_holdings.py`（SEC 排程）從 SEC N-PORT 抓 VGT、VOO 的完整持股到 `etf_holdings/`（每季申報、延遲約 60 天；只有 SEC 有新申報才改寫，解析不合理時保留上一版並在 `etf_holdings/index.json` 記錄錯誤）。曝險檔的 `look_through` 把基金拆成成分股，和直接個股合併成占總資產的權重；同公司雙股別（GOOG／GOOGL）合併；對不到代號的成分依 `portfolio_classification.json` 的 `fund_sectors` 歸類。
+
 **修改 `portfolio_holdings.json` 後必須重跑** `python3 scripts/build_market_rotation_digest.py`，否則 C-47 會失敗；不在 S&P 500／Nasdaq-100 的新個股要先在 `portfolio_classification.json` 補上板塊、次產業、來源、原因與覆核日。研究優先度只決定先讀哪一檔，不是買賣或調整部位的指令。
 
 個股未來 **30 天事件日曆**由 `scripts/build_company_event_calendar.py` 每天更新 `company_event_calendar.json` 與 `60_SEC_Filing_Radar/Company_Event_Calendar.md`。14 家個股中實際持股優先，VGT／VOO 不納入；公司 IR／SEC 原文透過 `company_event_overrides.json` 覆蓋同日同類型的市場資料，Yahoo Finance 只補充日期探索且不得標成官方。單一 ticker 抓取失敗時保留上次成功資料並標示 stale，不可把舊資料冒充本次更新。Form 4、8-K／6-K、臨時募資和併購無法可靠事前排程，應於送件後由 SEC 雷達接手。

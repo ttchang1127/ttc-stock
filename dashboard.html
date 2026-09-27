@@ -4355,7 +4355,10 @@
         if (sectors && sectors.length) {
           const top = sectors[0];
           const review = exposure.positions.filter(p => p.research_priority === 'review_now').map(p => p.ticker);
+          const look = exposure.look_through;
+          const lookTop = look && look.available && look.sectors.length ? look.sectors[0] : null;
           holdings.textContent = `你的直接個股：${top.name_zh} ${top.weight.toFixed(1)}%（${top.rotation.state_label}）` +
+            (lookTop ? `｜含基金看穿：${lookTop.name_zh} ${lookTop.weight.toFixed(1)}%` : '') +
             (review.length ? `｜需覆核 ${review.join('、')}` : '');
         }
       });

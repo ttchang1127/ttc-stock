@@ -114,8 +114,10 @@ def research_action(position: dict) -> tuple[str, list[str]]:
 
 def build_exposure(holdings: dict, prices: dict, universe: dict, overrides: dict, registry: dict,
                    research: dict | None, previous: dict | None = None,
-                   names: dict[str, str] | None = None) -> dict:
-    """``names`` maps group ids to display names (the v2 groups file's name_zh)."""
+                   names: dict[str, str] | None = None,
+                   fund_holdings: dict[str, dict] | None = None) -> dict:
+    """``names`` maps group ids to display names (the v2 groups file's name_zh);
+    ``fund_holdings`` maps fund tickers to their N-PORT holdings for the look-through view."""
     names = names or {}
     classes = classify(universe, overrides)
     funds = set(overrides.get("funds_excluded", {}))
@@ -216,9 +218,103 @@ def build_exposure(holdings: dict, prices: dict, universe: dict, overrides: dict
                                                       -(p["market_value"] or 0), p["ticker"])),
         "needs_review": review,
         "changes": weight_changes(previous, positions, sectors),
+        "look_through": look_through_view(holdings, series, overrides, classes, ids, names, fund_holdings or {},
+                                          {p["ticker"]: p["market_value"] for p in priced}, issuer_keys(universe)),
         "not_an_action": NOT_AN_ACTION,
     }
     return result
+
+
+UNMAPPED = "__unmapped__"
+BUCKET_NAMES = {"Cash & other": "現金與其他", "Unclassified": "未分類"}
+
+
+def issuer_keys(universe: dict) -> dict[str, str]:
+    """Ticker -> display key per issuer, so GOOG and GOOGL count as one company ('GOOG/GOOGL')."""
+    by_name: dict[str, list[str]] = {}
+    for row in universe["members"]:
+        by_name.setdefault(row.get("name") or row["ticker"], []).append(row["ticker"])
+    return {ticker: "/".join(sorted(tickers)) for tickers in by_name.values() for ticker in tickers}
+
+
+def look_through_view(holdings: dict, series: dict, overrides: dict, classes: dict, ids: dict,
+                      names: dict[str, str], fund_holdings: dict[str, dict], direct: dict[str, float],
+                      issuers: dict[str, str] | None = None) -> dict:
+    """Direct equities plus each fund's N-PORT holdings, as shares of total assets.
+
+    Fund weights are those of the N-PORT report date (quarterly, lagged); the
+    residual to 100% (cash, futures, other) stays visible as its own bucket.
+    """
+    funds = overrides.get("funds_excluded", {})
+    fund_sectors = overrides.get("fund_sectors", {})
+    issuers = issuers or {}
+    fund_rows, exposure, missing = [], {}, []
+    for ticker, value in direct.items():
+        exposure.setdefault(issuers.get(ticker, ticker), {"direct": 0.0, "via": {}})["direct"] += value
+    for row in holdings["holdings"]:
+        fund = row["ticker"]
+        if fund not in funds:
+            continue
+        data, parsed = series.get(fund), fund_holdings.get(fund)
+        if not data or not data["closes"] or parsed is None:
+            missing.append(fund)
+            continue
+        value = row["shares"] * data["closes"][-1]
+        listed = 0.0
+        for item in parsed["holdings"]:
+            weight = (item["weight_pct"] or 0) / 100
+            listed += weight
+            key = issuers.get(item["ticker"], item["ticker"]) if item["ticker"] else f"{UNMAPPED}:{fund}"
+            slot = exposure.setdefault(key, {"direct": 0.0, "via": {}})
+            slot["via"][fund] = slot["via"].get(fund, 0.0) + value * weight
+        if listed < 1:
+            slot = exposure.setdefault(f"__other__:{fund}", {"direct": 0.0, "via": {}})
+            slot["via"][fund] = value * (1 - listed)
+        fund_rows.append({"ticker": fund, "value": round(value, 2), "report_date": parsed["report_date"],
+                          "accession": parsed["accession"], "source_url": parsed.get("source_url"),
+                          "mapped_weight_pct": parsed["summary"]["mapped_weight_pct"],
+                          "top10_weight_pct": parsed["summary"]["top10_weight_pct"]})
+    if not fund_rows:
+        return {"available": False, "missing_funds": sorted(missing),
+                "reason": "尚無基金持股資料（SEC N-PORT 由每日 SEC 排程抓取）"}
+    total = sum(slot["direct"] + sum(slot["via"].values()) for slot in exposure.values())
+
+    def sector_of(key: str) -> str:
+        if key.startswith(f"{UNMAPPED}:") or key.startswith("__other__:"):
+            fund = key.split(":", 1)[1]
+            if key.startswith("__other__:"):
+                return "Cash & other"
+            return fund_sectors.get(fund, "Unclassified")
+        klass = classes.get(key.split("/")[0])
+        return klass["sector"] if klass else "Unclassified"
+
+    sectors: dict[str, float] = {}
+    for key, slot in exposure.items():
+        sectors[sector_of(key)] = sectors.get(sector_of(key), 0.0) + slot["direct"] + sum(slot["via"].values())
+    sector_rows = [{"name": name, "name_zh": names.get(ids.get(("sector", name)), BUCKET_NAMES.get(name, name)),
+                    "weight": pct(value / total)} for name, value in sorted(sectors.items(), key=lambda kv: -kv[1])]
+    tickers = sorted((key for key in exposure if not key.startswith("__")),
+                     key=lambda key: -(exposure[key]["direct"] + sum(exposure[key]["via"].values())))
+    top = []
+    for key in tickers[:15]:
+        slot = exposure[key]
+        amount = slot["direct"] + sum(slot["via"].values())
+        top.append({"ticker": key, "weight": pct(amount / total), "direct_weight": pct(slot["direct"] / total),
+                    "via_weight": {fund: pct(value / total) for fund, value in sorted(slot["via"].items())},
+                    "overlap": bool(slot["direct"]) and bool(slot["via"])})
+    unmapped = sum(sum(slot["via"].values()) for key, slot in exposure.items() if key.startswith(UNMAPPED))
+    direct_total = sum(direct.values())
+    return {
+        "available": True,
+        "total_value": round(total, 2),
+        "direct_share_pct": pct(direct_total / total),
+        "funds": fund_rows,
+        "missing_funds": sorted(missing),
+        "sectors": sector_rows,
+        "top_positions": top,
+        "unmapped_weight_pct": pct(unmapped / total),
+        "note": "基金成分權重取自 SEC N-PORT 申報日，之後的價格變動與調倉不反映；未對應代號的成分依基金預設板塊歸類",
+    }
 
 
 def weight_changes(previous: dict | None, positions: list[dict], sectors: list[dict]) -> list[dict]:
