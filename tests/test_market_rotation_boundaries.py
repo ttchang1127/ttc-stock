@@ -115,14 +115,12 @@ class QuadrantAndOrderingTests(unittest.TestCase):
         self.assertEqual(rows["y-negative"]["quadrant"], "weakening", "MR-EDGE-004 x=0")
         self.assertEqual(rows["both-negative"]["quadrant"], "lagging")
 
-    @unittest.expectedFailure  # MR-EDGE-005: fixed in "fix: harden rotation data quality"
     def test_mr_edge_005_ties_use_stable_group_id(self):
         rows = MODULE.score_rows([raw_row("Utilities"), raw_row("Energy"), raw_row("Materials")])
         self.assertEqual(len({row["rotation_score"] for row in rows}), 1, "fixture must tie")
         self.assertEqual([row["key"] for row in rows], ["Energy", "Materials", "Utilities"],
                          "MR-EDGE-005 tie order must follow stable group id, not input order")
 
-    @unittest.expectedFailure  # MR-CALC-008: fixed in "fix: harden rotation data quality"
     def test_mr_calc_008_zero_relative_strength_is_not_missing(self):
         rows = MODULE.rank_stock_rows([
             {"ticker": "LOW", "relative_strength_20d": -1.0},
@@ -135,7 +133,6 @@ class QuadrantAndOrderingTests(unittest.TestCase):
 
 
 class DataQualityTests(BoundaryCase):
-    @unittest.expectedFailure  # MR-DATA-001: fixed in "fix: harden rotation data quality"
     def test_mr_data_001_zero_prior_volume_is_missing_not_infinite(self):
         prior = self.volumes.index[-25:-5]
         semis = ["TEC0", "TEC1", "TEC2"]
@@ -153,7 +150,6 @@ class DataQualityTests(BoundaryCase):
                 if item["ticker"] in semis:
                     self.assertIsNone(item["dollar_volume_expansion"], item["ticker"])
 
-    @unittest.expectedFailure  # MR-DATA-002: fixed in "fix: harden rotation data quality"
     def test_mr_data_002_non_positive_and_non_finite_prices_never_reach_json(self):
         latest = self.closes.index[-1]
         self.closes.loc[latest, "TEC0"] = 0.0
@@ -169,7 +165,6 @@ class DataQualityTests(BoundaryCase):
         for ticker in ("TEC0", "IND0", "HLT0"):
             self.assertNotIn(ticker, listed, f"MR-DATA-002 {ticker} has no valid latest price")
 
-    @unittest.expectedFailure  # MR-DATA-003: fixed in "fix: harden rotation data quality"
     def test_mr_data_003_missing_latest_price_is_excluded_from_breadth(self):
         # TEC0 is below its moving average in the fixture only if counted as
         # a failure; without a latest price it must leave the denominator.

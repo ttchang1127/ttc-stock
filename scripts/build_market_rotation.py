@@ -16,6 +16,7 @@ import argparse
 import io
 import json
 import math
+import re
 import sys
 from datetime import date, datetime, time, timedelta, timezone
 from pathlib import Path
@@ -23,6 +24,7 @@ from typing import Iterable
 from urllib.request import Request, urlopen
 from zoneinfo import ZoneInfo
 
+import numpy as np
 import pandas as pd
 import yfinance as yf
 
@@ -455,8 +457,12 @@ def raw_group_metrics(
         group_previous5 = float(previous5[tickers].mean())
         rel5 = group_r5 - benchmark["return_5d"]
         previous_rel5 = group_previous5 - benchmark["previous_5d"]
-        above_ma = (closes.iloc[-1][tickers] > sma20[tickers]).dropna()
-        positive20 = (r20[tickers] > 0).dropna()
+        latest_close = closes.iloc[-1][tickers]
+        has_ma = latest_close.notna() & sma20[tickers].notna()
+        # Securities without a latest close or moving average leave the
+        # denominator; counting them as "below" would understate breadth.
+        above_ma = latest_close[has_ma] > sma20[tickers][has_ma]
+        positive20 = r20[tickers].dropna() > 0
         group_daily = daily_returns[tickers].mean(axis=1)
         universe_daily = daily_returns.mean(axis=1)
         persistence = float((group_daily.iloc[-10:] > universe_daily.iloc[-10:]).mean())
@@ -491,7 +497,29 @@ def raw_group_metrics(
     return rows, benchmark
 
 
+def group_slug(name: str) -> str:
+    return re.sub(r"[^a-z0-9]+", "-", name.lower()).strip("-")
+
+
+def missing_components(row: dict) -> list[str]:
+    return [metric for metric in SCORE_WEIGHTS if finite(row.get(metric)) is None]
+
+
+def unranked_groups(rows: list[dict], group_type: str) -> list[dict]:
+    """Groups left out of the ranking because a score component is missing.
+
+    Missing weight is never redistributed to the remaining components, so the
+    same score always means the same formula.
+    """
+    return [
+        {"type": group_type, "key": row["key"], "missing_components": missing}
+        for row in sorted(rows, key=lambda item: group_slug(item["key"]))
+        if (missing := missing_components(row))
+    ]
+
+
 def score_rows(rows: list[dict]) -> list[dict]:
+    rows = [row for row in rows if not missing_components(row)]
     frame = pd.DataFrame(rows)
     if frame.empty:
         return []
@@ -500,7 +528,10 @@ def score_rows(rows: list[dict]) -> list[dict]:
     frame["rotation_score"] = sum(
         frame[f"rank_{metric}"] * weight for metric, weight in SCORE_WEIGHTS.items()
     )
-    return sorted(frame_to_clean_records(frame, rows), key=lambda item: item["rotation_score"], reverse=True)
+    return sorted(
+        frame_to_clean_records(frame, rows),
+        key=lambda item: (-item["rotation_score"], group_slug(item["key"])),
+    )
 
 
 def frame_to_clean_records(frame: pd.DataFrame, source_rows: list[dict]) -> list[dict]:
@@ -581,6 +612,15 @@ def add_trajectories(
         row["trajectory"] = trails[row["key"]]
 
 
+def rank_stock_rows(rows: list[dict]) -> list[dict]:
+    """Strongest relative return first; missing values last; ticker breaks ties."""
+    return sorted(rows, key=lambda item: (
+        item["relative_strength_20d"] is None,
+        -(item["relative_strength_20d"] or 0.0),
+        item["ticker"],
+    ))
+
+
 def add_stock_leaders(
     sectors: list[dict], closes: pd.DataFrame, volumes: pd.DataFrame,
     metadata: pd.DataFrame, benchmark_20d: float,
@@ -607,13 +647,19 @@ def add_stock_leaders(
                 "relative_strength_20d": pct(r20.get(ticker) - benchmark_20d),
                 "dollar_volume_expansion": pct(expansion.get(ticker)),
             })
-        rows.sort(key=lambda item: item["relative_strength_20d"] or -999, reverse=True)
-        sector["leaders"] = rows[:5]
-        sector["laggards"] = list(reversed(rows[-5:]))
+        ranked = [row for row in rank_stock_rows(rows) if row["relative_strength_20d"] is not None]
+        sector["leaders"] = ranked[:5]
+        sector["laggards"] = list(reversed(ranked[-5:]))
 
 
 def build_payload(universe: dict, closes: pd.DataFrame, volumes: pd.DataFrame) -> dict:
     yahoo_to_member = {row["yahoo_ticker"]: row for row in universe["members"]}
+    # Zero, negative or infinite quotes are source errors, not prices.  Treat
+    # them as missing before any return, breadth or volume calculation.
+    closes = closes.apply(pd.to_numeric, errors="coerce")
+    closes = closes.where(np.isfinite(closes) & (closes > 0))
+    volumes = volumes.apply(pd.to_numeric, errors="coerce")
+    volumes = volumes.where(np.isfinite(volumes) & (volumes >= 0))
     usable = [ticker for ticker in closes if closes[ticker].notna().sum() >= 75]
     closes = closes[usable].dropna(how="all")
     volumes = volumes.reindex(index=closes.index, columns=usable)
@@ -633,6 +679,7 @@ def build_payload(universe: dict, closes: pd.DataFrame, volumes: pd.DataFrame) -
     industry_raw, _ = raw_group_metrics(closes, volumes, metadata, "industry", 3)
     sectors = score_rows(sector_raw)
     industries = score_rows(industry_raw)
+    unranked = unranked_groups(sector_raw, "sector") + unranked_groups(industry_raw, "industry")
     sector_previous = metrics_for_date(closes, volumes, metadata, "sector", 5, -6)
     industry_previous = metrics_for_date(closes, volumes, metadata, "industry", 3, -6)
     add_score_changes(sectors, sector_previous)
@@ -674,6 +721,7 @@ def build_payload(universe: dict, closes: pd.DataFrame, volumes: pd.DataFrame) -
             "priced_securities": len(closes.columns),
             "coverage_pct": round(len(closes.columns) / universe["counts"]["combined_securities"] * 100, 1),
             "unavailable_tickers": unavailable,
+            "unranked_groups": unranked,
             "start": closes.index[0].strftime("%Y-%m-%d"),
             "end": latest,
         },
