@@ -590,6 +590,18 @@
       "note": "stable id 對照表：新名稱由產生器追加；人工只能加入確認為同一分類的 aliases"
     },
     {
+      "path": "market_rotation_research.json",
+      "kind": "generated",
+      "producer": "scripts/build_market_rotation.py",
+      "edit": "never",
+      "cadence": "market_daily",
+      "committed_by": [
+        "update-prices"
+      ],
+      "note": "研究層：市場環境、板塊絕對狀態、集中度；與 v2 同批產生、共用 dataset_id；門檻為回測起點，非正式規則",
+      "awaiting_first_run": true
+    },
+    {
       "path": "market_rotation_stocks.json",
       "kind": "generated",
       "producer": "scripts/build_market_rotation.py",
@@ -957,6 +969,26 @@
         "sec-filing-alerts"
       ],
       "note": "SEC 原文筆記；年度 10-K／20-F 由 fetch_sec.py 人工觸發"
+    },
+    {
+      "pattern": "^market_rotation_history/backtest/",
+      "kind": "generated",
+      "producer": "scripts/backtest_market_rotation.py",
+      "edit": "never",
+      "committed_by": [
+        "market-rotation-backtest"
+      ],
+      "note": "C 級回測結果（今天的成分股回算過去，有存活者偏誤）；只由每月回測排程重建"
+    },
+    {
+      "pattern": "^market_rotation_history/",
+      "kind": "generated",
+      "producer": "scripts/build_market_rotation.py",
+      "edit": "never",
+      "committed_by": [
+        "update-prices"
+      ],
+      "note": "A 級每日研究快照（月份 .jsonl＋index.json）；只可追加，過去月份不可改寫"
     }
   ]
 }

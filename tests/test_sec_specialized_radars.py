@@ -1,9 +1,11 @@
 import importlib.util
 import pathlib
+import sys
 import unittest
 
 
 SCRIPT = pathlib.Path(__file__).resolve().parents[1] / "scripts" / "sec_specialized_radars.py"
+sys.path.insert(0, str(SCRIPT.parent))
 SPEC = importlib.util.spec_from_file_location("sec_specialized_radars", SCRIPT)
 radars = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(radars)

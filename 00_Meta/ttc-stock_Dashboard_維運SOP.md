@@ -45,6 +45,8 @@
 | `.github/workflows/update-prices.yml` | 每日自動更新與新年報提示 | ❌ 除非使用者明確要求，不要改 |
 | `data_manifest.json` | **所有資料檔的總清單**：由哪支腳本產生、哪條排程提交、能不能手改、多久更新 | ⚠️ 新增或改名資料檔時必須同步更新；測試會擋下漏列的檔案 |
 | `requirements.txt` | 所有 workflow、雲端 SessionStart hook 與本機共用的唯一套件清單 | ⚠️ 新增 import 時必須同步加入，否則測試會擋下 |
+| `scripts/jsonio.py` | 所有產生器共用的 JSON 讀寫：禁止 NaN、先驗證再整批替換（JSON 與同步產生的 Markdown 一起換上） | ⚠️ 新腳本必須用它讀寫資料檔；測試會擋下自寫的 `load_json` 或直接 `write_text(json.dumps(...))` |
+| `scripts/sec_http.py` | 所有 SEC 連線共用：User-Agent（`SEC_USER_AGENT` 變數優先）、每秒最多 9 次請求、429／5xx／斷線才重試 | ⚠️ 新的 SEC 抓取一律經由它；測試會擋下自行 `urlopen` 的排程腳本 |
 | `.github/workflows/tests.yml` | 每個 PR 自動跑全部測試與完整性檢查（離線、唯讀） | ❌ 除非使用者明確要求，不要改 |
 | `.github/workflows/data-freshness.yml`／`scripts/check_data_freshness.py` | 每日 13:37（台北）巡檢行情與 SEC 監看是否仍在前進 | ⚠️ 門檻變更需連同測試 |
 | `.github/scripts/workflow-alert.sh`／`issue-alert.sh` | 排程失敗開 issue、恢復後自動關閉 | ⚠️ 需連同 `tests/test_workflow_alerts.py` 修改 |
@@ -56,6 +58,9 @@
 | `market_rotation_summary.json`／`_groups.json`／`_stocks.json` | v2 雙寫：狀態與首頁角色／板塊與次產業／個股，三檔共用 `dataset_id` | ❌ 只能由 `scripts/build_market_rotation.py` 與 v1 同批產生 |
 | `market_rotation_registry.json` | 板塊、次產業與個股的 stable id 對照表 | ⚠️ 新名稱由產生器自動追加；只有「確認為同一分類的正式更名」可人工加入 `aliases`，不可改既有 id |
 | `scripts/market_rotation_contracts.py` | v1／v2／registry 資料契約、引用與 parity 驗證（純標準函式庫） | ⚠️ 契約變更需連同測試與 golden |
+| `market_rotation_research.json`／`scripts/market_rotation_research.py` | 研究層：市場環境、板塊絕對狀態、風險標籤與集中度；與 v2 同批、共用 `dataset_id`；輪動頁由 `assets/market_rotation_research.js` 顯示 | ❌ 只能由產生器產生；門檻是回測起點，改門檻要提高 `RULE_VERSION` 並連同測試 |
+| `market_rotation_history/` | A 級每日研究快照（月份 `.jsonl`＋`index.json`），只可追加 | ❌ 絕不手改或回填；C-46 會檢查雜湊與索引 |
+| `market_rotation_history/backtest/` | C 級回測結果（今天的成分股回算，有存活者偏誤），每月由 `market-rotation-backtest.yml` 重建 | ❌ 只能由回測排程產生；不可當成已驗證結論 |
 | `research_synthesis.json` | 14 家來源台帳、財報差異、論點證據、事件閉環、同業對照與輪動基本面橋接 | ❌ 只能由 `scripts/build_research_synthesis.py` 產生 |
 
 遠端與網址：
@@ -89,7 +94,8 @@ S&P 500／Nasdaq-100 成分表 + Yahoo Finance 個股價量
         ↓ calculate_canonical()：唯一計算來源（stable id 取自 market_rotation_registry.json）
         ↓ serialize_v1／serialize_v2 → 契約、跨檔引用、v1／v2 逐欄 parity 全部通過才整批替換
    market_rotation.json（v1）＋ market_rotation_summary／groups／stocks.json（v2）＋ registry
-        ↓ market_rotation.html（MVP-1 切換前仍只讀 v1）
+   ＋ market_rotation_research.json（研究層，同批同 dataset_id）＋ market_rotation_history/（A 級快照，只追加）
+        ↓ market_rotation.html（排名與四象限讀 v1；市場環境、絕對狀態、集中度與回測由 market_rotation_research.js 讀研究層）
    11 大板塊／次產業排名、四象限與 10 個交易日路徑
 
 季度財務 + 財報驗證卡 + 投資論點 + 事件日曆 + 估值 + 市場輪動

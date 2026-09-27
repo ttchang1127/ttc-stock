@@ -4,11 +4,11 @@
 from __future__ import annotations
 
 import argparse
-import json
 from pathlib import Path
 from typing import Any
 
 from compute_financial_health import total_debt
+from jsonio import dumps, load_json, replace_texts
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -21,10 +21,6 @@ DIMENSION_LABELS = {
     "fcf": "現金創造", "payout": "股東回饋", "shares": "回購實效",
     "debt": "負債承擔", "capex": "再投資強度",
 }
-
-
-def load_json(path: Path) -> Any:
-    return json.loads(path.read_text())
 
 
 def value(period: dict[str, Any], key: str) -> float | None:
@@ -324,9 +320,7 @@ def main() -> int:
     parser.add_argument("--markdown", type=Path, default=ROOT / "60_SEC_Filing_Radar/Capital_Allocation_Cards.md")
     args = parser.parse_args()
     payload = build_payload(load_json(args.financials), load_json(args.holdings))
-    args.output.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n")
-    args.markdown.parent.mkdir(parents=True, exist_ok=True)
-    args.markdown.write_text(render_markdown(payload))
+    replace_texts({args.output: dumps(payload, indent=2), args.markdown: render_markdown(payload)})
     print(f"資本配置卡：{payload['tracked_count']} 家；{payload['summary']}")
     return 0
 

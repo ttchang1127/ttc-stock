@@ -19,7 +19,9 @@ import urllib.error
 import urllib.request
 from pathlib import Path
 
-from fetch_xbrl_financials import DEFAULT_TICKERS, SEC_HEADERS
+from fetch_xbrl_financials import DEFAULT_TICKERS
+
+import sec_http
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 ANNUAL_FORMS = {"10-K", "20-F"}
@@ -44,9 +46,7 @@ def company_ciks():
 
 def latest_annual_filing(cik):
     url = f"https://data.sec.gov/submissions/CIK{cik}.json"
-    req = urllib.request.Request(url, headers=SEC_HEADERS)
-    with urllib.request.urlopen(req, timeout=30) as response:
-        recent = json.loads(response.read().decode("utf-8"))["filings"]["recent"]
+    recent = sec_http.get_json(url, timeout=30)["filings"]["recent"]
     for form, accession, filed, report, document in zip(
             recent["form"], recent["accessionNumber"], recent["filingDate"],
             recent["reportDate"], recent["primaryDocument"]):

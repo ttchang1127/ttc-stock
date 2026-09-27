@@ -26,6 +26,16 @@
 
     <div id="status" class="notice loading">正在載入市場輪動資料…</div>
 
+    <section class="panel research-panel" aria-labelledby="marketEnvTitle">
+      <div class="panel-head">
+        <div>
+          <h2 id="marketEnvTitle">市場環境 <span class="research-badge">研究中</span></h2>
+          <p class="panel-desc">先看整體市場本身在擴張還是退潮，再看下方的板塊相對排名：大盤全面下跌時，排名第一只代表跌得最少。門檻是回測起點，不是已驗證規則；新狀態連續 2 個交易日成立才切換。</p>
+        </div>
+      </div>
+      <div id="marketEnvironment"><div class="panel-desc">正在載入市場環境…</div></div>
+    </section>
+
     <section class="metrics" aria-label="市場輪動摘要">
       <article class="metric-card">
         <div class="metric-label">目前領先板塊</div>
@@ -157,6 +167,41 @@
       </div>
     </section>
 
+    <section class="panel research-panel" aria-labelledby="sectorStateTitle">
+      <div class="panel-head">
+        <div>
+          <h2 id="sectorStateTitle">板塊絕對狀態與集中度 <span class="research-badge">研究中</span></h2>
+          <p class="panel-desc">相對排名每天都會有第一名；絕對狀態還要求 20／60 日趨勢、廣度與持續性。集中度檢查「移除貢獻最大的一家公司後，板塊還強不強」，用來分辨整個板塊在漲，還是只有一檔在撐。廣度與集中度以發行公司計算，雙股別只算一次。</p>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table class="state-table">
+          <thead>
+            <tr>
+              <th>相對排名／板塊</th>
+              <th title="已確認狀態與持續交易日；→ 表示新狀態待確認。">絕對狀態</th>
+              <th title="20 日相對市場（pp），以及板塊本身 20 日報酬。">20 日相對／本身</th>
+              <th title="20 日正報酬公司比例／站上 20 日均線比例；持續性＝10 日中勝過市場的天數比例。">廣度</th>
+              <th>風險標籤</th>
+              <th title="成分公司 20 日相對報酬中位數；移除最大貢獻公司前後的平均相對報酬。">集中度</th>
+              <th title="父板塊下至少 6 家公司的正式次產業中，已確認領先或早期改善的比例。">次產業結構</th>
+            </tr>
+          </thead>
+          <tbody id="sectorStateBody"><tr><td colspan="7" class="panel-desc">正在載入…</td></tr></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="panel research-panel" aria-labelledby="backtestTitle">
+      <div class="panel-head">
+        <div>
+          <h2 id="backtestTitle">歷史回測：這種狀態出現後表現如何 <span class="research-badge">研究中</span></h2>
+          <p class="panel-desc">板塊「確認進入」某狀態後，接下來 60 個交易日相對等權市場的超額報酬。同時列出最差 10% 與 MAE（期間內最大不利變動），不能只看勝率。每日 A 級快照另外累積在 market_rotation_history/。</p>
+        </div>
+      </div>
+      <div id="backtestSummary"><div class="panel-desc">正在載入回測結果…</div></div>
+    </section>
+
     <section class="panel">
       <div class="panel-head">
         <div>
@@ -202,5 +247,6 @@
   </main>
 
   <script src="assets/market_rotation_legacy.js" defer></script>
+  <script src="assets/market_rotation_research.js" defer></script>
 </body>
 </html>

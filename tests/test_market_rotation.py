@@ -331,7 +331,8 @@ class MarketRotationPageTests(unittest.TestCase):
         import data_manifest
         manifest = data_manifest.load_manifest()
         for name in ("market_rotation", "market_rotation_universe", "market_rotation_summary",
-                     "market_rotation_groups", "market_rotation_stocks", "market_rotation_registry"):
+                     "market_rotation_groups", "market_rotation_stocks", "market_rotation_registry",
+                     "market_rotation_research"):
             self.assertTrue(data_manifest.may_commit(f"{name}.json", "update-prices", manifest),
                             f"daily commit allowlist must accept {name}.json")
 
@@ -356,7 +357,7 @@ class MainDualWriteTests(unittest.TestCase):
             finally:
                 MODULE.fetch_market_data, sys.argv = original_fetch, original_argv
             names = ["market_rotation.json", "market_rotation_registry.json"] + [
-                f"market_rotation_{name}.json" for name in ("summary", "groups", "stocks")]
+                f"market_rotation_{name}.json" for name in ("summary", "groups", "stocks", "research")]
             self.assertEqual(sorted(path.name for path in folder.glob("market_rotation*.json")), sorted(names))
             v1 = json.loads((folder / "market_rotation.json").read_text())
             summary = json.loads((folder / "market_rotation_summary.json").read_text())
@@ -364,6 +365,8 @@ class MainDualWriteTests(unittest.TestCase):
                 fixture.stable(json.loads(fixture.GOLDEN_V1.read_text())), fixture.stable(v1)), [])
             self.assertEqual(summary["as_of"], as_of)
             self.assertEqual(summary["generated_at"], v1["generated_at"])
+            research = json.loads((folder / "market_rotation_research.json").read_text())
+            self.assertEqual(research["dataset_id"], summary["dataset_id"])
 
 
 class PagesDeployGateTests(unittest.TestCase):

@@ -18,6 +18,8 @@ from pathlib import Path
 from typing import Any
 from zoneinfo import ZoneInfo
 
+from jsonio import dumps, load_json, replace_texts
+
 
 ROOT = Path(__file__).resolve().parents[1]
 MAX_HISTORY = 48
@@ -34,10 +36,6 @@ PHASE_LABELS = {
     "scheduled_later": "已知日期，尚未進入 30 天",
     "date_unavailable": "財報日期待公告",
 }
-
-
-def load_json(path: Path, default: Any = None) -> Any:
-    return json.loads(path.read_text()) if path.is_file() else default
 
 
 def stable_hash(value: Any, length: int = 16) -> str:
@@ -438,11 +436,12 @@ def main() -> int:
     checked_at = normalize_checked_at(args.checked_at or cards.get("generated_at"))
     snapshot = build_snapshot(cards, checked_at)
     payload, is_new = build_history(snapshot, load_json(args.output, {}))
+    texts = {}
     if is_new or not args.output.is_file():
-        args.output.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n")
+        texts[args.output] = dumps(payload, indent=2)
     if is_new or not args.markdown.is_file():
-        args.markdown.parent.mkdir(parents=True, exist_ok=True)
-        args.markdown.write_text(render_markdown(payload))
+        texts[args.markdown] = render_markdown(payload)
+    replace_texts(texts)
     if args.alert_markdown and is_new:
         append_alert(args.alert_markdown, payload)
     if args.summary:

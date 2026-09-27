@@ -17,6 +17,8 @@ from pathlib import Path
 
 import yfinance as yf
 
+from jsonio import write_json
+
 REPO_ROOT = Path(__file__).resolve().parent.parent
 OUTPUT_PATH = REPO_ROOT / "prices.json"
 
@@ -155,7 +157,7 @@ def main():
         "fx_usdtwd": fx_usdtwd,
         "series": series,
     }
-    OUTPUT_PATH.write_text(json.dumps(payload, separators=(",", ":")) + "\n")
+    write_json(OUTPUT_PATH, payload, indent=None)
 
     size_kb = OUTPUT_PATH.stat().st_size / 1024
     print(f"\nWrote {OUTPUT_PATH.relative_to(REPO_ROOT)} "

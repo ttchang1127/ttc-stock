@@ -101,7 +101,9 @@ jobs:
         shell: bash
         run: |
           set +e
-          python3 scripts/build_market_rotation.py
+          # --write-history appends this session's frozen research snapshot
+          # (market_rotation_history/) in the same atomic batch as the page files.
+          python3 scripts/build_market_rotation.py --write-history
           status=$?
           set -e
           if [ "$status" -eq 75 ]; then

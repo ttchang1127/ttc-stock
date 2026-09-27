@@ -17,7 +17,6 @@ import io
 import json
 import os
 import re
-import tempfile
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -27,6 +26,8 @@ from html.parser import HTMLParser
 from pathlib import Path
 
 from pypdf import PdfReader
+
+from jsonio import dumps, load_json, replace_texts
 
 try:
     from curl_cffi import requests as curl_requests
@@ -175,20 +176,6 @@ EXHIBIT_CATEGORY_MAP = {
 
 def now_utc() -> str:
     return datetime.now(timezone.utc).replace(microsecond=0).isoformat()
-
-
-def load_json(path: Path, default):
-    if not path.exists():
-        return default
-    return json.loads(path.read_text())
-
-
-def atomic_write(path: Path, content: str) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    with tempfile.NamedTemporaryFile("w", encoding="utf-8", dir=path.parent, delete=False) as handle:
-        handle.write(content)
-        temporary = handle.name
-    os.replace(temporary, path)
 
 
 def request_headers() -> dict[str, str]:
@@ -847,7 +834,7 @@ def analyze_company(
         if previous.get("source_sha256") == row["source_sha256"] and previous.get("last_verified_at")
         else now_utc()
     )
-    atomic_write(path, render_card(row))
+    replace_texts({path: render_card(row)})
     row["card"] = str(path.relative_to(root))
     return row
 
@@ -988,8 +975,7 @@ def main() -> int:
         "categories": {key: {"label": value["label"], "meaning": value["meaning"]} for key, value in CATEGORIES.items()},
         "companies": persisted_results,
     }
-    atomic_write(args.output, json.dumps(status, ensure_ascii=False, indent=2) + "\n")
-    atomic_write(args.radar, render_radar(status))
+    replace_texts({args.output: dumps(status, indent=2), args.radar: render_radar(status)})
 
     pending = [row for row in results.values() if row["status"] not in {"analyzed", "replay_only"}]
     pending = [row for row in pending if row["status"] not in ANALYZABLE_STATUSES]

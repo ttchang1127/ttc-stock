@@ -1,5 +1,6 @@
 import json
 import pathlib
+import re
 import sys
 import tempfile
 import unittest
@@ -32,8 +33,13 @@ class JsonIoTests(unittest.TestCase):
 
     def test_load_json_default_for_missing_file(self):
         self.assertEqual(jsonio.load_json(self.path, {"empty": True}), {"empty": True})
+        self.assertIsNone(jsonio.load_json(self.path, None))
         self.path.write_text('{"x": 1}')
         self.assertEqual(jsonio.load_json(self.path), {"x": 1})
+
+    def test_load_json_without_default_requires_the_file(self):
+        with self.assertRaises(FileNotFoundError):
+            jsonio.load_json(self.path)
 
     def test_write_json_replaces_file_without_leftovers(self):
         jsonio.write_json(self.path, {"generated_at": "t", "companies": {"A": {}}})
@@ -73,6 +79,40 @@ class GeneratorAdoptionTests(unittest.TestCase):
             self.assertIn(f"write_json(OUTPUT_PATH, payload, indent=1, validate=require_companies(len({source})))",
                           text, name)
             self.assertNotIn("OUTPUT_PATH.write_text", text, f"{name} must not write unvalidated output")
+
+
+def scheduled_scripts():
+    """Every scripts/*.py a GitHub Actions workflow runs."""
+    names = set()
+    for workflow in (ROOT / ".github/workflows").glob("*.yml"):
+        names.update(re.findall(r"python3? scripts/(\w+)\.py", workflow.read_text()))
+    return sorted(names)
+
+
+class ScheduledWriterTests(unittest.TestCase):
+    # Its reader deliberately falls back on unreadable JSON, not only missing files.
+    OWN_LOADER = {"build_company_event_calendar"}
+    # Read-only checker; its JSON writes go to scratch copies it builds itself.
+    CHECKERS = {"check_integrity"}
+
+    def test_scheduled_scripts_publish_through_jsonio(self):
+        scripts = scheduled_scripts()
+        self.assertIn("watch_sec_filings", scripts)
+        for name in sorted(set(scripts) - self.CHECKERS):
+            text = (ROOT / f"scripts/{name}.py").read_text()
+            with self.subTest(script=name):
+                self.assertIsNone(re.search(r"write_text\(\s*json\.dumps", text),
+                                  "write JSON with jsonio.write_json/replace_texts")
+                self.assertNotIn("def atomic_write", text)
+                if name not in self.OWN_LOADER:
+                    self.assertNotIn("def load_json", text, "import load_json from jsonio")
+
+    def test_sec_watcher_advances_state_and_events_together(self):
+        text = (ROOT / "scripts/watch_sec_filings.py").read_text()
+        batch = re.search(r"replace_texts\(\{(.*?)\}\)", text, re.S)
+        self.assertIsNotNone(batch)
+        for target in ("args.state", "args.events", "args.note"):
+            self.assertIn(target, batch.group(1))
 
 
 if __name__ == "__main__":

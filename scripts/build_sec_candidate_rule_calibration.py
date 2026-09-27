@@ -7,9 +7,10 @@ of 20% or less.  Official events remain available in the underlying radars.
 """
 
 import argparse
-import json
 from collections import Counter, defaultdict
 from pathlib import Path
+
+from jsonio import dumps, load_json, replace_texts
 
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -40,10 +41,6 @@ REJECTION_REASON_LABELS = {
     "immaterial_relative_size": "相對持股／流通股規模過低",
     "insufficient_thesis_evidence": "不足以改變營運或投資論點",
 }
-
-
-def load_json(path):
-    return json.loads(Path(path).read_text())
 
 
 def build_calibration(reviews):
@@ -146,8 +143,7 @@ def main():
     parser.add_argument("--markdown", type=Path, default=DEFAULT_MARKDOWN)
     args = parser.parse_args()
     payload = build_calibration(load_json(args.reviews))
-    args.output.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n")
-    args.markdown.write_text(render_markdown(payload))
+    replace_texts({args.output: dumps(payload, indent=2), args.markdown: render_markdown(payload)})
     print(
         f"候選規則校準：{payload['reviewed_candidate_count']} 項已覆核，"
         f"{len(payload['rules'])} 類規則，"

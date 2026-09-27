@@ -9,6 +9,8 @@ import json
 from pathlib import Path
 from typing import Any
 
+from jsonio import dumps, load_json, replace_texts
+
 
 ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_INPUT = ROOT / "segment_outlook_inputs.json"
@@ -26,10 +28,6 @@ OUTCOME_LABELS = {
     "met": "方向實現", "missed": "方向未實現", "pending": "等待實績",
     "not_comparable": "口徑不可比",
 }
-
-
-def load_json(path: Path) -> dict[str, Any]:
-    return json.loads(path.read_text())
 
 
 def stable_hash(value: Any) -> str:
@@ -241,9 +239,7 @@ def main() -> int:
     parser.add_argument("--markdown", type=Path, default=DEFAULT_MARKDOWN)
     args = parser.parse_args()
     payload = build_payload(load_json(args.inputs), load_json(args.history), load_json(args.linkage))
-    args.output.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n")
-    args.markdown.parent.mkdir(parents=True, exist_ok=True)
-    args.markdown.write_text(render_markdown(payload))
+    replace_texts({args.output: dumps(payload, indent=2), args.markdown: render_markdown(payload)})
     counts = payload["counts"]
     print(f"分部展望驗證：{payload['tracked_count']} 家；可比 {counts['available_companies']} 家；已驗證 {counts['completed_records']}；待驗證 {counts['pending_records']}；未實現 {counts['miss_records']}")
     return 0

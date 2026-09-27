@@ -33,7 +33,14 @@ class ManifestTests(unittest.TestCase):
         self.assertEqual(missing, [], "add these files to data_manifest.json")
 
     def test_every_described_file_exists(self):
-        self.assertEqual(sorted(path for path in self.files if not (ROOT / path).exists()), [])
+        missing = sorted(path for path, row in self.files.items()
+                         if not (ROOT / path).exists() and not row.get("awaiting_first_run"))
+        self.assertEqual(missing, [])
+
+    def test_awaiting_first_run_flag_is_removed_once_the_file_exists(self):
+        stale = sorted(path for path, row in self.files.items()
+                       if row.get("awaiting_first_run") and (ROOT / path).exists())
+        self.assertEqual(stale, [], "the producer has run: drop awaiting_first_run from these entries")
 
     def test_entries_use_known_values(self):
         policies = set(self.manifest["edit_policies"])

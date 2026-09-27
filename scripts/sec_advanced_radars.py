@@ -3,7 +3,6 @@
 
 import argparse
 import json
-import os
 import re
 import time
 import urllib.parse
@@ -12,6 +11,9 @@ from datetime import datetime, timedelta, timezone
 from html import unescape
 from pathlib import Path
 from xml.etree import ElementTree
+
+from jsonio import dumps, replace_texts
+import sec_http
 
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -72,15 +74,7 @@ def utc_now():
 
 
 def fetch(url, accept="*/*", max_bytes=None):
-    headers = {
-        "User-Agent": os.environ.get("SEC_USER_AGENT", "SecKBResearch user@example.com"),
-        "Accept": accept,
-    }
-    if max_bytes:
-        headers["Range"] = f"bytes=0-{max_bytes - 1}"
-    request = urllib.request.Request(url, headers=headers)
-    with urllib.request.urlopen(request, timeout=45) as response:
-        return response.read(max_bytes) if max_bytes else response.read()
+    return sec_http.get(url, accept=accept, max_bytes=max_bytes)
 
 
 def html_text(raw):
@@ -1290,12 +1284,11 @@ def refresh_merger_excerpts(output=DEFAULT_OUTPUT, radar_dir=DEFAULT_DIR):
     payload["merger_deals"] = deals
     payload["merger_window"] = window
     payload["merger_excerpts_updated_at"] = utc_now()
-    output.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n")
     radar_dir = Path(radar_dir)
-    radar_dir.mkdir(parents=True, exist_ok=True)
-    (radar_dir / "Mergers_Tender_Radar.md").write_text(
-        render_merger_note(deals, window, checked_at) + "\n"
-    )
+    replace_texts({
+        output: dumps(payload, indent=2),
+        radar_dir / "Mergers_Tender_Radar.md": render_merger_note(deals, window, checked_at) + "\n",
+    })
     return {"documents": len(relevant), "deals": len(deals), "updated": updated, "errors": errors}
 
 
@@ -1325,13 +1318,12 @@ def refresh_ownership_facts(output=DEFAULT_OUTPUT, radar_dir=DEFAULT_DIR):
         item for item in payload.get("errors", [])
         if not item.startswith(("13D/G ", "13D/G facts "))
     ] + errors
-    output.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n")
     radar_dir = Path(radar_dir)
-    radar_dir.mkdir(parents=True, exist_ok=True)
     checked_at = payload["ownership_facts_updated_at"]
-    (radar_dir / "Schedule13DG_Ownership_Radar.md").write_text(
-        render_ownership_note(rows, checked_at, snapshot, timeline) + "\n"
-    )
+    replace_texts({
+        output: dumps(payload, indent=2),
+        radar_dir / "Schedule13DG_Ownership_Radar.md": render_ownership_note(rows, checked_at, snapshot, timeline) + "\n",
+    })
     parsed = sum(row.get("ownership", {}).get("data_status") in {"parsed", "threshold_exit"} for row in rows)
     return {"documents": len(rows), "parsed": parsed, "errors": errors}
 
@@ -1347,13 +1339,12 @@ def rebuild_ownership_views(output=DEFAULT_OUTPUT, radar_dir=DEFAULT_DIR):
     payload["ownership_13dg"] = rows
     payload["ownership_snapshot"] = snapshot
     payload["ownership_timeline"] = timeline
-    output.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n")
     checked_at = payload.get("ownership_facts_updated_at", payload.get("updated_at", ""))
     radar_dir = Path(radar_dir)
-    radar_dir.mkdir(parents=True, exist_ok=True)
-    (radar_dir / "Schedule13DG_Ownership_Radar.md").write_text(
-        render_ownership_note(rows, checked_at, snapshot, timeline) + "\n"
-    )
+    replace_texts({
+        output: dumps(payload, indent=2),
+        radar_dir / "Schedule13DG_Ownership_Radar.md": render_ownership_note(rows, checked_at, snapshot, timeline) + "\n",
+    })
     return {"documents": len(rows), "holders": len(snapshot), "events": len(timeline)}
 
 
@@ -1471,9 +1462,7 @@ def update_radars(fetched, output=DEFAULT_OUTPUT, radar_dir=DEFAULT_DIR, checked
                   "governance": governance, "insiders": insiders, "mergers": mergers,
                   "merger_deals": merger_deals, "merger_window": merger_window,
                   "enforcement": enforcement, "errors": errors})
-    output.write_text(json.dumps(cache, ensure_ascii=False, indent=2) + "\n")
     radar_dir = Path(radar_dir)
-    radar_dir.mkdir(parents=True, exist_ok=True)
     notes = {
         "Footnotes_Attachments_Radar.md": render_simple_note("📎 財報附註／附件雷達", "sec/footnotes", "索引財報主文的風險關鍵字與 EX-2／10／19／21／97／99 等重要附件。", footnotes, checked_at),
         "Accounting_Review_Radar.md": render_simple_note("🧮 UPLOAD／CORRESP 會計審閱雷達", "sec/accounting-review", "UPLOAD 是 SEC 意見函，CORRESP 是公司回覆；兩者成對閱讀才能看出審閱問題與解法。", accounting, checked_at),
@@ -1485,8 +1474,7 @@ def update_radars(fetched, output=DEFAULT_OUTPUT, radar_dir=DEFAULT_DIR, checked
         "Insider_Forms_345144_Radar.md": render_insider_note(insiders, checked_at),
         "SEC_Enforcement_Radar.md": render_enforcement_note(enforcement, checked_at),
     }
-    for filename, content in notes.items():
-        (radar_dir / filename).write_text(content + "\n")
+    replace_texts({output: dumps(cache, indent=2), **{radar_dir / name: text + "\n" for name, text in notes.items()}})
     counts = {key: len(cache[key]) for key in ("footnotes", "accounting_review", "ownership_13dg", "governance", "insiders", "enforcement")}
     counts["mergers"] = len(merger_deals)
     counts["merger_documents"] = len(mergers)

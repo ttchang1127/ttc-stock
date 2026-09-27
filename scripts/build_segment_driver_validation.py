@@ -11,9 +11,10 @@ remain missing; reported growth rates are never used to reverse-engineer them.
 from __future__ import annotations
 
 import argparse
-import json
 from pathlib import Path
 from typing import Any
+
+from jsonio import dumps, load_json, replace_texts
 
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -25,10 +26,6 @@ DISPLAY_TICKERS = [
     "NVDA", "TSM", "MSFT", "META", "AAPL", "AMZN", "ARM",
     "ONDS", "TSLA", "GOOG", "COHR", "MRVL", "INTC", "NOK",
 ]
-
-
-def load_json(path: Path) -> dict[str, Any]:
-    return json.loads(path.read_text())
 
 
 def round_or_none(value: float | None, digits: int = 2) -> float | None:
@@ -366,9 +363,7 @@ def main() -> int:
     parser.add_argument("--markdown", type=Path, default=DEFAULT_MARKDOWN)
     args = parser.parse_args()
     payload = build_payload(load_json(args.input))
-    args.output.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n")
-    args.markdown.parent.mkdir(parents=True, exist_ok=True)
-    args.markdown.write_text(render_markdown(payload))
+    replace_texts({args.output: dumps(payload, indent=2), args.markdown: render_markdown(payload)})
     print(
         f"分部成長驅動：{payload['tracked_count']} 家；精確貢獻 "
         f"{payload['exact_growth_contribution_count']}；約數 {payload['approximate_growth_contribution_count']}；"

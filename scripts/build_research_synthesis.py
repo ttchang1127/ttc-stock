@@ -11,9 +11,10 @@ number to make a table look complete.
 from __future__ import annotations
 
 import argparse
-import json
 from pathlib import Path
 from typing import Any
+
+from jsonio import dumps, load_json, replace_texts
 
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -34,10 +35,6 @@ METRIC_DEFINITIONS = [
     ("diluted_shares_yoy", "稀釋股數 YoY", "lower", "%"),
     ("pe_ratio", "本益比", "lower", "x"),
 ]
-
-
-def load_json(path: Path) -> dict[str, Any]:
-    return json.loads(path.read_text())
 
 
 def metric_value(period: dict[str, Any] | None, metric: str) -> float | None:
@@ -418,11 +415,7 @@ def main() -> int:
         "groups": load_json(args.groups),
     }
     payload = build_payload(inputs)
-    serialized = json.dumps(payload, ensure_ascii=False, indent=2) + "\n"
-    args.output.parent.mkdir(parents=True, exist_ok=True)
-    args.output.write_text(serialized)
-    args.markdown.parent.mkdir(parents=True, exist_ok=True)
-    args.markdown.write_text(render_markdown(payload))
+    replace_texts({args.output: dumps(payload, indent=2), args.markdown: render_markdown(payload)})
     print(f"Wrote {args.output.name} ({payload['tracked_count']} companies)")
     print(f"Wrote {args.markdown}")
     return 0

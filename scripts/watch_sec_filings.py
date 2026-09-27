@@ -20,6 +20,9 @@ import urllib.request
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
+from jsonio import dumps, load_json, replace_texts
+import sec_http
+
 REPO_ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_STATE = REPO_ROOT / ".github" / "sec-filing-state.json"
 DEFAULT_EVENTS = REPO_ROOT / "sec_filing_alerts.json"
@@ -90,22 +93,7 @@ def company_ciks(path=DEFAULT_FINANCIALS):
 
 
 def fetch_submissions(cik, attempts=3):
-    user_agent = os.environ.get(
-        "SEC_USER_AGENT",
-        "SecKBResearch user@example.com",
-    )
-    request = urllib.request.Request(
-        f"https://data.sec.gov/submissions/CIK{cik}.json",
-        headers={"User-Agent": user_agent, "Accept": "application/json"},
-    )
-    for attempt in range(attempts):
-        try:
-            with urllib.request.urlopen(request, timeout=30) as response:
-                return json.loads(response.read().decode("utf-8"))
-        except (urllib.error.URLError, TimeoutError, json.JSONDecodeError):
-            if attempt + 1 == attempts:
-                raise
-            time.sleep(1.5 * (attempt + 1))
+    return sec_http.get_json(f"https://data.sec.gov/submissions/CIK{cik}.json", timeout=30, attempts=attempts)
 
 
 def normalize_items(raw):
@@ -181,13 +169,6 @@ def extract_filings(ticker, cik, payload):
             ),
         })
     return rows
-
-
-def load_json(path, fallback):
-    path = Path(path)
-    if not path.exists():
-        return fallback
-    return json.loads(path.read_text())
 
 
 def pipe(value):
@@ -525,14 +506,16 @@ def main():
     state["schema_version"] = 3
     state["updated_at"] = checked_at
     state["source"] = "SEC submissions API"
-    args.state.parent.mkdir(parents=True, exist_ok=True)
-    args.state.write_text(json.dumps(state, indent=2, ensure_ascii=False) + "\n")
     history["schema_version"] = 3
     history["updated_at"] = checked_at
     history["source"] = "SEC submissions API; accession-number deduplicated; watcher-run deltas"
-    args.events.write_text(json.dumps(history, indent=2, ensure_ascii=False) + "\n")
-    args.note.parent.mkdir(parents=True, exist_ok=True)
-    args.note.write_text(render_note(history, checked_at, len(ciks)))
+    # One batch: the seen-accession state must never advance without the
+    # events it marks as seen, or a crash in between would drop filings.
+    replace_texts({
+        args.state: dumps(state, indent=2),
+        args.events: dumps(history, indent=2),
+        args.note: render_note(history, checked_at, len(ciks)),
+    })
 
     alert = render_alert(new_events, errors, checked_at)
     if args.alert_markdown:

@@ -4,10 +4,11 @@
 from __future__ import annotations
 
 import argparse
-import json
 import math
 from pathlib import Path
 from typing import Any
+
+from jsonio import load_json, write_json
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -16,10 +17,6 @@ DISPLAY_TICKERS = [
     "ONDS", "TSLA", "GOOG", "COHR", "MRVL", "INTC", "NOK",
 ]
 ALIASES = {"GOOG": "GOOGL"}
-
-
-def load_json(path: Path) -> Any:
-    return json.loads(path.read_text())
 
 
 def finite(value: Any) -> float | None:
@@ -686,7 +683,7 @@ def main() -> int:
         "thesis": load_json(args.thesis), "capital": load_json(args.capital),
     }
     payload = build_payload(payloads, load_json(args.holdings))
-    args.output.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n")
+    write_json(args.output, payload, indent=2)
     print(f"長期投資雷達：{payload['tracked_count']} 家，資料日期 {payload['generated_at']}")
     return 0
 
