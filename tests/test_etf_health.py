@@ -155,6 +155,10 @@ class HealthTests(unittest.TestCase):
         self.assertEqual(etf_health.implied_flows(by_assets * 1, "BRD")["sessions_recorded"], 2)
         flows = etf_health.implied_flows(by_assets + [day(3, None, 11.0, 1150.0)] * 4, "BRD")
         self.assertEqual(flows["flow_5d_pct"], round(50 / 1150 * 100, 2), "asset growth beyond the price move")
+        stale = [day(n, 12.5e6, 106.0, 15.7e9 + n * 1e8) for n in range(1, 7)]
+        # IGV 2026-09-25: 12.5m shares x $106 is $1.3bn, but assets were $15.7bn.
+        self.assertEqual(etf_health.implied_flows(stale, "BRD")["flow_5d_pct"], round(5e8 / 16.3e9 * 100, 2),
+                         "stale share counts fall back to assets")
         gap = history[:3] + [day(4, None)] + history[4:]
         self.assertIsNone(etf_health.implied_flows(gap, "BRD")["flow_5d_pct"], "a missing day is not a zero")
 

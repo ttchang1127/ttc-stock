@@ -125,13 +125,30 @@ def constituent_table(fund: dict, closes: pd.DataFrame) -> tuple[pd.DataFrame, d
     return table, coverage
 
 
+SHARES_ASSETS_TOLERANCE = 0.2  # shares x close must be within 20% of reported assets to be trusted
+
+
+def consistent_shares(point: dict) -> float | None:
+    """Shares outstanding, unless they disagree with the reported assets (Yahoo keeps stale counts)."""
+    shares, close, assets = point.get("shares_outstanding"), point.get("close"), point.get("total_assets")
+    if not shares or not close:
+        return None
+    if assets and abs(shares * close / assets - 1) > SHARES_ASSETS_TOLERANCE:
+        return None
+    return shares
+
+
 def implied_flows(history: list[dict], ticker: str) -> dict:
     """Estimated net flow over the last 5/20 recorded sessions, as % of the latest assets.
 
-    Shares outstanding times the close when both days have shares; else the
-    change in total assets beyond what the price change explains.
+    Shares outstanding times the close when both days have shares that agree
+    with the reported assets; else the change in total assets beyond what
+    the price change explains.  (2026-09-25: Yahoo showed 12.5m IGV shares,
+    $1.3bn at the close, against $15.7bn of assets.)
     """
-    points = [row["etfs"].get(ticker) or {} for row in history]
+    points = [{**(row["etfs"].get(ticker) or {})} for row in history]
+    for point in points:
+        point["shares_outstanding"] = consistent_shares(point)
     flows: list[float | None] = []
     for before, after in zip(points, points[1:]):
         if before.get("shares_outstanding") and after.get("shares_outstanding") and after.get("close"):
