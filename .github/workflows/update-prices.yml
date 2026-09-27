@@ -134,6 +134,9 @@ jobs:
         if: steps.rotation_build.outputs.fresh == 'true'
         shell: bash
         run: |
+          # Append-only daily record of Yahoo's shares outstanding / assets
+          # (estimated flows); a failure only warns.
+          python3 scripts/record_etf_flows.py || echo "::warning::ETF flow record skipped this run."
           set +e
           python3 scripts/build_etf_health.py
           status=$?

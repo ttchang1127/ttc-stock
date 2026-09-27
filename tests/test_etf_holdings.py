@@ -36,7 +36,7 @@ def holding(name, weight, ticker=None, isin=None):
             "<assetCat>EC</assetCat></invstOrSec>")
 
 
-def nport(series="S000001", rows=None, filler=60, report="2026-06-30"):
+def nport(series="S000001", rows=None, filler=60, report="2026-06-30", flows=""):
     rows = rows if rows is not None else [
         holding("NVIDIA CORP", 20.0, ticker="NVDA US"), holding("Apple Inc", 15.0),
         holding("MICROSOFT CORP", 10.0, ticker="MSFT"), holding("Tiny Software Co", 4.0)]
@@ -47,7 +47,7 @@ def nport(series="S000001", rows=None, filler=60, report="2026-06-30"):
             "<headerData><seriesClassInfo><seriesId>" + series + "</seriesId></seriesClassInfo></headerData>"
             "<formData><genInfo><regName>Test Trust</regName><seriesName>Test IT Fund</seriesName>"
             f"<seriesId>{series}</seriesId><repPdEnd>2026-09-30</repPdEnd><repPdDate>{report}</repPdDate>"
-            "</genInfo><fundInfo><totAssets>1000</totAssets><netAssets>990</netAssets></fundInfo>"
+            "</genInfo><fundInfo><totAssets>1000</totAssets><netAssets>990</netAssets>" + flows + "</fundInfo>"
             "<invstOrSecs>" + "".join(rows) + "</invstOrSecs></formData></edgarSubmission>")
 
 
@@ -98,6 +98,18 @@ class ParseTests(unittest.TestCase):
         self.assertEqual(got["Unknown Plc"], (None, None))
         summary = etf_holdings.summarise(parsed)
         self.assertEqual(summary["mapped_by"]["sec_name"], 14.0)
+
+    def test_monthly_flows_from_item_b6(self):
+        flows = ('<mon1Flow sales="500" reinvestment="0" redemption="200"/>'
+                 '<mon2Flow><sales>100</sales><reinvestment>5</reinvestment><redemption>300</redemption></mon2Flow>'
+                 '<mon3Flow sales="N/A" reinvestment="0" redemption="10"/>')
+        parsed = etf_holdings.parse_nport(nport(flows=flows, report="2026-02-28"), UNIVERSE)
+        self.assertEqual([row["month"] for row in parsed["monthly_flows"]], ["2025-12", "2026-01", "2026-02"],
+                         "month 3 ends on the report date, across the year boundary")
+        self.assertEqual(parsed["monthly_flows"][0]["net_usd"], 300.0)
+        self.assertEqual(parsed["monthly_flows"][1]["net_usd"], -195.0, "attributes or child elements")
+        self.assertIsNone(parsed["monthly_flows"][2]["net_usd"], "a missing figure is not read as zero")
+        self.assertEqual(etf_holdings.parse_nport(nport(), UNIVERSE)["monthly_flows"], [])
 
     def test_securities_lending_collateral_does_not_fail_validation(self):
         rows = [holding("NVIDIA CORP", 20.0, ticker="NVDA US"),
@@ -190,6 +202,46 @@ class FetchTests(unittest.TestCase):
             etf_holdings.fetch_latest("VGT", UNIVERSE, FUND_INDEX)
 
 
+class HistoryTests(unittest.TestCase):
+    def feed(self, accessions):
+        entries = "".join(f"<entry><content><accession-number>{acc}</accession-number><filing-date>{filed}"
+                          "</filing-date><filing-type>NPORT-P</filing-type></content></entry>"
+                          for acc, filed in accessions)
+        return f'<feed xmlns="http://www.w3.org/2005/Atom">{entries}</feed>'
+
+    def test_history_reads_only_unknown_filings_and_records_bad_ones(self):
+        feed = self.feed([("0000-26-000003", "2026-08-28"), ("0000-26-000002", "2026-05-28"),
+                          ("0000-25-000001", "2025-11-26")])
+        docs = {"000026000003": nport(report="2026-06-30"), "000026000002": nport(filler=2, report="2026-03-31")}
+        fetched = []
+
+        def get_text(url, **kwargs):
+            if "browse-edgar" in url:
+                return feed
+            fetched.append(url.split("/")[-2])
+            return docs[url.split("/")[-2]]
+        with mock.patch.object(etf_holdings.sec_http, "get_text", get_text):
+            entries, skipped = etf_holdings.fetch_history("VGT", UNIVERSE, FUND_INDEX, {}, {"0000-25-000001"})
+        self.assertEqual(fetched, ["000026000003", "000026000002"], "a known accession is not downloaded")
+        self.assertEqual([row["report_date"] for row in entries], ["2026-06-30"])
+        self.assertEqual(entries[0]["weights"]["NVDA"], 20.0)
+        self.assertNotIn(None, entries[0]["weights"])
+        self.assertEqual([row["accession"] for row in skipped], ["0000-26-000002"])
+
+    def test_merge_only_appends(self):
+        history = {"etf": "SMH", "filings": [{"accession": "A2", "report_date": "2026-06-30", "filed": "2026-08-28",
+                                              "weights": {"NVDA": 20.0}}], "skipped": []}
+        merged = etf_holdings.merge_history(history, [
+            {"accession": "A2", "report_date": "2026-06-30", "filed": "2026-08-28", "weights": {"NVDA": 99.0}},
+            {"accession": "A1", "report_date": "2026-03-31", "filed": "2026-05-28", "weights": {"NVDA": 18.0}}],
+            [{"accession": "X", "filed": "2026-01-01", "reason": "bad"}])
+        self.assertEqual([row["accession"] for row in merged["filings"]], ["A1", "A2"])
+        self.assertEqual(merged["filings"][1]["weights"]["NVDA"], 20.0, "a recorded filing is never replaced")
+        self.assertEqual(etf_holdings.validate_history(merged), [])
+        broken = {**merged, "filings": merged["filings"][::-1]}
+        self.assertTrue(etf_holdings.validate_history(broken))
+
+
 class RefreshTests(unittest.TestCase):
     def setUp(self):
         patcher = mock.patch.object(etf_holdings, "THEME_ETFS", {})
@@ -252,9 +304,17 @@ class RefreshTests(unittest.TestCase):
         def fetch(ticker, universe, index, known, sec_names):
             seen[ticker] = known
             return None if known else self.record(ticker, "A2")
+        history_calls = []
+
+        def history_fetch(ticker, universe, index, sec_names, known):
+            history_calls.append((ticker, set(known)))
+            return [{"accession": "OLD", "report_date": "2026-03-31", "filed": "2026-05-28", "weights": {}}], []
         with mock.patch.object(etf_holdings, "THEME_ETFS", {"SMH": "半導體"}):
             self.assertEqual(refresh_etf_holdings.fund_list(self.root), ["SMH", "VGT", "VOO"])
-            texts, _ = refresh_etf_holdings.refresh(self.root, self.folder, fetch, FUND_INDEX, {})
+            texts, _ = refresh_etf_holdings.refresh(self.root, self.folder, fetch, FUND_INDEX, {}, history_fetch)
+        self.assertEqual(history_calls, [("SMH", {"A2"})], "history only for research ETFs; the new filing is known")
+        history = json.loads(texts[self.folder / "history" / "SMH.json"])
+        self.assertEqual([row["accession"] for row in history["filings"]], ["OLD", "A2"])
         self.assertEqual(seen, {"SMH": None, "VGT": None, "VOO": "A1"})
         self.assertIn(self.folder / "SMH.json", texts)
         self.assertIn(self.folder / "VGT.json", texts, "re-mapped under the current rules")

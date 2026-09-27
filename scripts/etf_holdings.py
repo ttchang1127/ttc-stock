@@ -21,6 +21,13 @@ Steps:
    never guessed: a foreign listing's local code (``"CCO CN"``) is not
    read as a US ticker, which would name a different company.
 
+Each filing also reports the fund's monthly sales, reinvestments and
+redemptions for the three months of the period (N-PORT item B.6): real
+creations and redemptions in dollars, not an estimate.  For the research
+ETFs every past filing EDGAR lists is kept in a compact append-only history
+(``etf_holdings/history/``: point-in-time weights and monthly flows), so a
+back-test can use only what was public on each date.
+
 Research funds (``THEME_ETFS``) are a frozen list: a new candidate needs a
 new ``THEME_ETF_VERSION`` so earlier results stay comparable.
 
@@ -40,15 +47,17 @@ TICKERS_URL = "https://www.sec.gov/files/company_tickers_mf.json"
 SUBMISSIONS_URL = "https://data.sec.gov/submissions/CIK{cik:010d}.json"
 SEC_TICKERS_URL = "https://www.sec.gov/files/company_tickers.json"
 SERIES_FEED_URL = ("https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK={series_id}"
-                   "&type=NPORT-P&dateb=&owner=include&count=40&output=atom")
+                   "&type=NPORT-P&dateb=&owner=include&count=100&output=atom")
 DOCUMENT_URL = "https://www.sec.gov/Archives/edgar/data/{cik}/{accession}/primary_doc.xml"
 HEADER_URL = "https://www.sec.gov/Archives/edgar/data/{cik}/{accession}/{dashed}-index-headers.html"
 MAX_FILINGS_SCANNED = 400
-MAPPING_VERSION = 2  # bump when mapping rules change so unchanged filings are re-mapped
+MAPPING_VERSION = 3  # bump when mapping or parsed fields change so unchanged filings are re-read (3: flows)
 MIN_HOLDINGS = 15
 WEIGHT_RANGE = (90.0, 130.0)  # all positions, % of net assets; securities-lending collateral can push past 100
 EQUITY_WEIGHT_RANGE = (80.0, 102.0)  # common stock positions, % of net assets
 EQUITY_CATEGORIES = {"EC"}
+FLOW_FIELDS = ("sales", "reinvestment", "redemption")
+HISTORY_SCHEMA_VERSION = 1
 US_EXCHANGE_CODES = {"US", "UN", "UW", "UQ", "UA", "UP", "UR", "UV", "UF"}
 NAME_NOISE = re.compile(r"\b(inc|incorporated|corp|corporation|co|cos|company|companies|ltd|plc|holdings?|group|"
                         r"class [a-z]|the|n\.?v|s\.?a|ag|se)\b")
@@ -159,6 +168,31 @@ def ticker_from_identifier(value: str | None) -> str | None:
     return symbol if re.fullmatch(r"[A-Z][A-Z0-9.\-]{0,9}", symbol) else None
 
 
+def shift_month(period: str, months: int) -> str:
+    year, month = map(int, period[:7].split("-"))
+    index = year * 12 + month - 1 - months
+    return f"{index // 12:04d}-{index % 12 + 1:02d}"
+
+
+def monthly_flows(fund: ET.Element | None, report_date: str | None) -> list[dict]:
+    """Item B.6: sales, reinvestment and redemptions for months 1-3 (month 3 ends on the report date)."""
+    if fund is None or not report_date:
+        return []
+    rows = []
+    for index in (1, 2, 3):
+        node = next((item for item in fund.iter() if local(item.tag) == f"mon{index}Flow"), None)
+        if node is None:
+            continue
+        values = {field: number(node.get(field) or text(node, field)) for field in FLOW_FIELDS}
+        net = None
+        if values["sales"] is not None and values["redemption"] is not None:
+            net = values["sales"] + (values["reinvestment"] or 0) - values["redemption"]
+        rows.append({"month": shift_month(report_date, 3 - index), "sales_usd": values["sales"],
+                     "reinvestment_usd": values["reinvestment"], "redemptions_usd": values["redemption"],
+                     "net_usd": net})
+    return rows
+
+
 def parse_nport(xml_text: str, universe: dict, sec_names: dict[str, str] | None = None) -> dict:
     root = ET.fromstring(xml_text)
     gen = next((node for node in root.iter() if local(node.tag) == "genInfo"), None)
@@ -207,6 +241,7 @@ def parse_nport(xml_text: str, universe: dict, sec_names: dict[str, str] | None 
         "report_date": text(gen, "repPdDate"),
         "period_end": text(gen, "repPdEnd"),
         "net_assets_usd": number(text(fund, "netAssets")),
+        "monthly_flows": monthly_flows(fund, text(gen, "repPdDate")),
         "holdings": holdings,
     }
 
@@ -265,6 +300,35 @@ def candidate_filings(ids: dict) -> tuple[list[dict], str]:
     return nport_filings(submissions)[:MAX_FILINGS_SCANNED], "trust_scan"
 
 
+def read_filing(ticker: str, ids: dict, filing: dict, lookup: str, universe: dict,
+                sec_names: dict[str, str] | None) -> dict | None:
+    """The validated holdings record of one filing; None when it reports another series."""
+    url = DOCUMENT_URL.format(cik=ids["cik"], accession=filing["accession"].replace("-", ""))
+    document = sec_http.get_text(url, accept="application/xml,text/xml,*/*")
+    if series_of(ET.fromstring(document)) != ids["series_id"]:
+        return None
+    parsed = parse_nport(document, universe, sec_names)
+    problems = validate(parsed, ids["series_id"])
+    if problems:
+        raise ValueError(f"{ticker} N-PORT {filing['accession']}: " + "; ".join(problems))
+    return {
+        "schema_version": 1,
+        "etf": ticker,
+        "source": "SEC Form N-PORT (NPORT-P)",
+        "cik": ids["cik"],
+        "series_id": ids["series_id"],
+        "accession": filing["accession"],
+        "filed": filing["filed"],
+        "source_url": url,
+        "lookup": lookup,
+        "mapping_version": MAPPING_VERSION,
+        **{key: parsed[key] for key in ("fund_name", "registrant", "report_date", "period_end",
+                                       "net_assets_usd", "monthly_flows")},
+        "summary": summarise(parsed),
+        "holdings": parsed["holdings"],
+    }
+
+
 def fetch_latest(ticker: str, universe: dict, fund_index: dict, known_accession: str | None = None,
                  sec_names: dict[str, str] | None = None) -> dict | None:
     """Newest validated N-PORT holdings for ``ticker``; None when ``known_accession`` is still the newest."""
@@ -279,31 +343,81 @@ def fetch_latest(ticker: str, universe: dict, fund_index: dict, known_accession:
                 continue
         if filing["accession"] == known_accession:
             return None
-        url = DOCUMENT_URL.format(cik=ids["cik"], accession=filing["accession"].replace("-", ""))
-        document = sec_http.get_text(url, accept="application/xml,text/xml,*/*")
-        if series_of(ET.fromstring(document)) != ids["series_id"]:
-            continue
-        parsed = parse_nport(document, universe, sec_names)
-        problems = validate(parsed, ids["series_id"])
-        if problems:
-            raise ValueError(f"{ticker} N-PORT {filing['accession']}: " + "; ".join(problems))
-        return {
-            "schema_version": 1,
-            "etf": ticker,
-            "source": "SEC Form N-PORT (NPORT-P)",
-            "cik": ids["cik"],
-            "series_id": ids["series_id"],
-            "accession": filing["accession"],
-            "filed": filing["filed"],
-            "source_url": url,
-            "lookup": lookup,
-            "mapping_version": MAPPING_VERSION,
-            **{key: parsed[key] for key in ("fund_name", "registrant", "report_date", "period_end",
-                                           "net_assets_usd")},
-            "summary": summarise(parsed),
-            "holdings": parsed["holdings"],
-        }
+        record = read_filing(ticker, ids, filing, lookup, universe, sec_names)
+        if record is not None:
+            return record
     raise LookupError(f"no NPORT-P for {ticker} ({ids['series_id']}) via {lookup}")
+
+
+def history_record(record: dict) -> dict:
+    """Compact point-in-time entry: mapped common-stock weights and monthly flows of one filing."""
+    weights: dict[str, float] = {}
+    for row in record["holdings"]:
+        if row.get("ticker") and row.get("asset_category") in EQUITY_CATEGORIES and row.get("weight_pct"):
+            weights[row["ticker"]] = round(weights.get(row["ticker"], 0.0) + row["weight_pct"], 4)
+    summary = record.get("summary") or {}
+    return {
+        "accession": record["accession"],
+        "report_date": record["report_date"],
+        "filed": record["filed"],
+        "net_assets_usd": record.get("net_assets_usd"),
+        "monthly_flows": record.get("monthly_flows", []),
+        "equity_weight_pct": summary.get("equity_weight_pct"),
+        "equity_mapped_weight_pct": summary.get("equity_mapped_weight_pct"),
+        "weights": dict(sorted(weights.items())),
+    }
+
+
+def fetch_history(ticker: str, universe: dict, fund_index: dict, sec_names: dict[str, str] | None,
+                  known: set[str]) -> tuple[list[dict], list[dict]]:
+    """(new history entries, skipped filings) for every listed NPORT-P not in ``known``.
+
+    Only the per-series filing list is used: scanning a whole trust's index
+    for years of filings would take thousands of requests.
+    """
+    ids = find_series(fund_index, ticker)
+    filings, lookup = candidate_filings(ids)
+    if lookup != "series_feed":
+        return [], []
+    entries, skipped = [], []
+    for filing in filings:
+        if filing["accession"] in known:
+            continue
+        try:
+            record = read_filing(ticker, ids, filing, lookup, universe, sec_names)
+        except (ValueError, ET.ParseError) as error:
+            skipped.append({"accession": filing["accession"], "filed": filing["filed"], "reason": str(error)[:300]})
+            continue
+        if record is None:
+            skipped.append({"accession": filing["accession"], "filed": filing["filed"], "reason": "other series"})
+            continue
+        entries.append(history_record(record))
+    return entries, skipped
+
+
+def merge_history(history: dict, entries: list[dict], skipped: list[dict]) -> dict:
+    """Append new entries (never replace an existing accession), ordered by report date then filing date."""
+    seen = {row["accession"] for row in history["filings"]}
+    filings = history["filings"] + [row for row in entries if row["accession"] not in seen]
+    seen_skipped = {row["accession"] for row in history["skipped"]}
+    kept = history["skipped"] + [row for row in skipped if row["accession"] not in seen_skipped]
+    return {**history, "filings": sorted(filings, key=lambda row: (row["report_date"], row["filed"])),
+            "skipped": sorted(kept, key=lambda row: (row["filed"], row["accession"]))}
+
+
+def validate_history(history: dict) -> list[str]:
+    problems = []
+    accessions = [row["accession"] for row in history.get("filings", [])]
+    if len(accessions) != len(set(accessions)):
+        problems.append(f"{history.get('etf')}: duplicate accession in history")
+    keys = [(row["report_date"], row["filed"]) for row in history.get("filings", [])]
+    if keys != sorted(keys):
+        problems.append(f"{history.get('etf')}: history is not ordered by report date")
+    for row in history.get("filings", []):
+        total = sum(row.get("weights", {}).values())
+        if total > 102.5:
+            problems.append(f"{history.get('etf')} {row['accession']}: weights sum to {total:.1f}%")
+    return problems
 
 
 def look_through(fund_value: float, holdings: dict[str, Any]) -> dict[str, float]:

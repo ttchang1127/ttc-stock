@@ -277,12 +277,24 @@
     narrow_decline: 'warning', broad_decline: 'negative', data_limited: 'neutral'
   };
 
+  function flowText(flows) {
+    if (!flows) return '—';
+    const nport = flows.nport || {};
+    const est = flows.estimated || {};
+    const head = nport.net_3m_pct == null ? '—'
+      : `<span class="${tone(nport.net_3m_pct)}">${signed(nport.net_3m_pct)}</span>`;
+    const estimate = est.flow_20d_pct != null
+      ? `估計 20 日 ${signed(est.flow_20d_pct)}` + (est.flow_5d_pct != null ? `｜5 日 ${signed(est.flow_5d_pct)}` : '')
+      : `每日紀錄 ${est.sessions_recorded || 0}／21 天`;
+    return `${head}<small>N-PORT ${esc(nport.months || '—')}</small><small>${estimate}</small>`;
+  }
+
   function renderEtfHealth(health) {
     const body = document.getElementById('etfHealthBody');
     const note = document.getElementById('etfHealthNote');
     if (!body) return;
     if (!health) {
-      body.innerHTML = '<tr><td colspan="7" class="panel-desc">尚未產出 etf_health.json：SEC 排程抓到主題 ETF 持股後，' +
+      body.innerHTML = '<tr><td colspan="8" class="panel-desc">尚未產出 etf_health.json：SEC 排程抓到主題 ETF 持股後，' +
         '下一次每日排程會產生。</td></tr>';
       return;
     }
@@ -303,13 +315,14 @@
           <small>等權 ${signed(row.returns.equal_weighted_r20_pct)}｜市值 ${signed(row.returns.cap_weighted_r20_pct)}</small></td>
         <td>${row.concentration.top3_share_pct == null ? '—' : plain(row.concentration.top3_share_pct, '%', 0)}
           <small>${top || '—'}</small></td>
+        <td>${flowText(row.flows)}</td>
         <td>${plain(row.constituents.coverage_pct, '%', 0)}<small>${row.constituents.priced}／${row.constituents.common_stock} 檔｜` +
           `${esc(row.holdings_report_date || '—')}</small></td>
       </tr>`;
     });
     const missing = health.unavailable.map(row =>
       `<tr><td><strong>${esc(row.ticker)}</strong><small>${esc(row.theme)}</small></td>` +
-      `<td colspan="6" class="panel-desc">${esc(row.reason)}</td></tr>`);
+      `<td colspan="7" class="panel-desc">${esc(row.reason)}</td></tr>`);
     body.innerHTML = rows.concat(missing).join('');
     if (note) {
       note.textContent = `${health.as_of} 收盤；SPY 20 日 ${signed(health.benchmark_r20_pct)}。` +

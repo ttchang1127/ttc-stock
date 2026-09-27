@@ -20,11 +20,13 @@ import pandas as pd
 
 import etf_health
 import etf_holdings
+import record_etf_flows
 from jsonio import load_json, write_json
 
 ROOT = Path(__file__).resolve().parent.parent
 OUTPUT = ROOT / "etf_health.json"
 HOLDINGS_DIR = ROOT / "etf_holdings"
+FLOWS_DIR = ROOT / "etf_flows_history"
 CALENDAR_DAYS = 150
 
 
@@ -62,7 +64,8 @@ def unchanged(previous: dict | None, payload: dict) -> bool:
     return strip(previous) == strip(payload)
 
 
-def build(output: Path, holdings_dir: Path, fetch=download, today: date | None = None) -> tuple[bool, str]:
+def build(output: Path, holdings_dir: Path, fetch=download, today: date | None = None,
+          flows_dir: Path = FLOWS_DIR) -> tuple[bool, str]:
     """(written, message); raises SystemExit(75) when the prices are unusable."""
     funds = load_funds(holdings_dir)
     tickers = tickers_to_price(funds)
@@ -70,7 +73,7 @@ def build(output: Path, holdings_dir: Path, fetch=download, today: date | None =
     closes = fetch(tickers, end - timedelta(days=CALENDAR_DAYS), end)
     generated_at = datetime.now(timezone.utc).isoformat(timespec="seconds")
     try:
-        payload = etf_health.compute(funds, closes, generated_at)
+        payload = etf_health.compute(funds, closes, generated_at, record_etf_flows.read_history(flows_dir))
     except ValueError as error:
         print(f"::warning::ETF health not rebuilt: {error}", file=sys.stderr)
         raise SystemExit(75) from error
@@ -91,8 +94,9 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     parser.add_argument("--output", type=Path, default=OUTPUT)
     parser.add_argument("--holdings-dir", type=Path, default=HOLDINGS_DIR)
+    parser.add_argument("--flows-dir", type=Path, default=FLOWS_DIR)
     args = parser.parse_args()
-    _, message = build(args.output, args.holdings_dir)
+    _, message = build(args.output, args.holdings_dir, flows_dir=args.flows_dir)
     print(message)
 
 

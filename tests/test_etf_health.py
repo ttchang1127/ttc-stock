@@ -14,6 +14,7 @@ sys.path.insert(0, str(ROOT / "scripts"))
 import build_etf_health  # noqa: E402
 import etf_health  # noqa: E402
 import etf_holdings  # noqa: E402
+import record_etf_flows  # noqa: E402
 
 DATES = pd.bdate_range(end="2026-09-25", periods=100)
 THEMES = {"BRD": "廣泛", "NAR": "集中", "DWN": "下跌", "FLT": "持平", "THN": "資料少", "NEW": "未抓"}
@@ -91,6 +92,16 @@ class HealthTests(unittest.TestCase):
         self.assertEqual(broad["breadth"]["above_ma50_equal_pct"], 100.0)
         self.assertLessEqual(broad["concentration"]["top3_share_pct"], 60)
 
+    def test_a_concentrated_fund_with_broad_participation_is_not_carried(self):
+        # SOXX on 2026-09-25: top three made 64% of the move, but 83% of holdings were above their
+        # 50-session average and equal weight matched cap weight.
+        self.assertEqual(etf_health.classify("up", 0.83, 0.64, -0.0006, False), "broad_advance")
+        self.assertEqual(etf_health.classify("up", 0.83, 0.64, -0.03, False), "narrow_advance")
+        self.assertEqual(etf_health.classify("up", 0.55, 0.30, 0.0, False), "mixed")
+        self.assertEqual(etf_health.classify("down", 0.47, 0.52, -0.038, False), "mixed")
+        self.assertEqual(etf_health.classify("down", 0.30, 0.70, 0.03, False), "narrow_decline")
+        self.assertEqual(etf_health.classify("down", 0.12, 0.54, -0.003, False), "broad_decline")
+
     def test_coverage_counts_unpriced_weight(self):
         thin = self.rows["THN"]
         self.assertEqual(thin["constituents"]["priced"], 12)
@@ -121,6 +132,31 @@ class HealthTests(unittest.TestCase):
         self.assertTrue(any("unknown state" in p for p in problems))
         self.assertTrue(any("frozen list" in p for p in problems))
         self.assertTrue(any("research" in p for p in problems))
+
+    def test_nport_flows_are_net_creations_over_net_assets(self):
+        funds, closes = market()
+        funds["BRD"]["net_assets_usd"] = 1000.0
+        funds["BRD"]["monthly_flows"] = [
+            {"month": "2026-04", "net_usd": 30.0}, {"month": "2026-05", "net_usd": -10.0},
+            {"month": "2026-06", "net_usd": None}]
+        row = next(r for r in etf_health.compute(funds, closes, "x")["etfs"] if r["ticker"] == "BRD")
+        self.assertEqual(row["flows"]["nport"], {"net_3m_pct": 2.0, "months": "2026-04～2026-05"})
+        self.assertIsNone(self.rows["NAR"]["flows"]["nport"]["net_3m_pct"])
+
+    def test_estimated_flows_need_a_full_window(self):
+        def day(n, shares, close=10.0, assets=None):
+            return {"as_of": f"2026-09-{n:02d}", "etfs": {"BRD": {"shares_outstanding": shares, "close": close,
+                                                                  "total_assets": assets}}}
+        history = [day(n, 100 + n) for n in range(1, 7)]  # five intervals, +1 share each at $10
+        flows = etf_health.implied_flows(history, "BRD")
+        self.assertEqual(flows["flow_5d_pct"], round(50 / (106 * 10) * 100, 2))
+        self.assertIsNone(flows["flow_20d_pct"], "20 sessions not recorded yet")
+        by_assets = [day(1, None, 10.0, 1000.0), day(2, None, 11.0, 1150.0)]
+        self.assertEqual(etf_health.implied_flows(by_assets * 1, "BRD")["sessions_recorded"], 2)
+        flows = etf_health.implied_flows(by_assets + [day(3, None, 11.0, 1150.0)] * 4, "BRD")
+        self.assertEqual(flows["flow_5d_pct"], round(50 / 1150 * 100, 2), "asset growth beyond the price move")
+        gap = history[:3] + [day(4, None)] + history[4:]
+        self.assertIsNone(etf_health.implied_flows(gap, "BRD")["flow_5d_pct"], "a missing day is not a zero")
 
     def test_missing_benchmark_is_an_error(self):
         funds, closes = market()
@@ -179,6 +215,40 @@ class BuildTests(unittest.TestCase):
 
     def test_yahoo_symbols_round_trip(self):
         self.assertEqual(build_etf_health.yahoo("BRK.B"), "BRK-B")
+
+
+class FlowRecordTests(unittest.TestCase):
+    def setUp(self):
+        patcher = mock.patch.object(etf_holdings, "THEME_ETFS", {"AAA": "a", "BBB": "b"})
+        patcher.start()
+        self.addCleanup(patcher.stop)
+        self.directory = tempfile.TemporaryDirectory()
+        self.addCleanup(self.directory.cleanup)
+        self.folder = pathlib.Path(self.directory.name)
+
+    def record(self, as_of, shares=100.0):
+        return record_etf_flows.snapshot(as_of, {"AAA": 10.0, "BBB": float("nan")},
+                                         {"AAA": {"sharesOutstanding": shares, "totalAssets": None}}, "t")
+
+    def write(self, texts):
+        for path, text in texts.items():
+            path.write_text(text)
+
+    def test_append_only_one_line_per_session(self):
+        first = self.record("2026-09-24")
+        self.assertEqual(first["etfs"]["BBB"], {"close": None, "shares_outstanding": None, "total_assets": None})
+        texts, status, _ = record_etf_flows.plan_append(first, self.folder)
+        self.assertEqual(status, "appended")
+        self.write(texts)
+        self.assertEqual(record_etf_flows.plan_append(first, self.folder)[1], "unchanged")
+        self.assertEqual(record_etf_flows.plan_append(self.record("2026-09-24", 101.0), self.folder)[1], "conflict")
+        texts, status, _ = record_etf_flows.plan_append(self.record("2026-10-01"), self.folder)
+        self.write(texts)
+        self.assertEqual(record_etf_flows.plan_append(self.record("2026-09-30"), self.folder)[1], "out_of_order")
+        self.assertEqual(sorted(p.name for p in self.folder.iterdir()), ["2026-09.jsonl", "2026-10.jsonl"])
+        self.assertEqual([row["as_of"] for row in record_etf_flows.read_history(self.folder)],
+                         ["2026-09-24", "2026-10-01"])
+        self.assertEqual(record_etf_flows.validate_history(self.folder), [])
 
 
 class FrozenListTests(unittest.TestCase):

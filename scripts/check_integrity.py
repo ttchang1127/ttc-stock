@@ -2651,14 +2651,22 @@ def c47():
                   f"摘要 {digest.get('status')}，{digest.get('event_count')} 項變化")
 
 
-@check("C-48", "主題 ETF 成分健康度維持研究標示、凍結清單與持股檔一致")
+@check("C-48", "主題 ETF 成分健康度維持研究標示、凍結清單與持股檔一致；資金流與 N-PORT 歷史只追加")
 def c48():
     sys.path.insert(0, str(REPO_ROOT / "scripts"))
     import etf_health  # noqa: PLC0415
+    import etf_holdings  # noqa: PLC0415
+    import record_etf_flows  # noqa: PLC0415
 
+    history_problems = record_etf_flows.validate_history(REPO_ROOT / "etf_flows_history")
+    for history_path in sorted((REPO_ROOT / "etf_holdings" / "history").glob("*.json")):
+        history_problems += etf_holdings.validate_history(json.loads(history_path.read_text()))
+    if history_problems:
+        return False, "；".join(history_problems[:5])
     workflow = read(".github/workflows/update-prices.yml")
     page = read("market_rotation.html") + read("assets/market_rotation_research.js")
-    missing = [marker for marker, text in (("build_etf_health.py", workflow), ("etf_health.json", page),
+    missing = [marker for marker, text in (("build_etf_health.py", workflow), ("record_etf_flows.py", workflow),
+                                           ("etf_health.json", page),
                                            ("etfHealthBody", page)) if marker not in text]
     if missing:
         return False, f"缺自動化／畫面：{missing}"
