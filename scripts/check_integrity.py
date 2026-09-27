@@ -2657,14 +2657,15 @@ def c47():
                   f"摘要 {digest.get('status')}，{digest.get('event_count')} 項變化")
 
 
-@check("C-48", "主題 ETF 成分健康度維持研究標示、凍結清單與持股檔一致；資金流與 N-PORT 歷史只追加")
+@check("C-48", "主題 ETF 成分健康度維持研究標示、凍結清單與持股檔一致；健康度快照、資金流與 N-PORT 歷史只追加")
 def c48():
     sys.path.insert(0, str(REPO_ROOT / "scripts"))
     import etf_health  # noqa: PLC0415
     import etf_holdings  # noqa: PLC0415
     import record_etf_flows  # noqa: PLC0415
 
-    history_problems = record_etf_flows.validate_history(REPO_ROOT / "etf_flows_history")
+    history_problems = (record_etf_flows.validate_history(REPO_ROOT / "etf_flows_history")
+                        + record_etf_flows.validate_history(REPO_ROOT / "etf_health_history"))
     for history_path in sorted((REPO_ROOT / "etf_holdings" / "history").glob("*.json")):
         history_problems += etf_holdings.validate_history(json.loads(history_path.read_text()))
     if history_problems:

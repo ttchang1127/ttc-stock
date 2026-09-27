@@ -83,6 +83,7 @@ Form 144＋3／4／5、併購與 SEC 執法／停牌雷達。完整 13F 另以
    - 板塊 ETF 中期動能回測（2026-09-27）：四個候選都沒有穩定優勢，只有回撤較小；輪動頁**不**改成月度排名，每月回測持續更新。
    - 2026-09-27 首次實跑：VGT、VOO 對應率只有 83％／85％（股票池用簡稱，對不到 Amazon.com Inc 等正式名稱），已改加 SEC 公司名稱對應並提高 `MAPPING_VERSION`。下一次 SEC 排程後檢查 `etf_holdings/index.json`：每檔的 `lookup`、`equity_mapped_weight_pct`，以及 12 檔主題 ETF 是否都抓到（`error` 欄位）。
    - 主題 ETF 成分健康度（`etf_health.json`）第一次產生後，移除 `data_manifest.json` 中該檔的 `awaiting_first_run`；TAN、URA 外國成分多，涵蓋率可能不到七成而顯示「資料不足」。
+   - 健康度每日快照（`etf_health_history/`）開始累積：約 3～6 個月後可檢驗 etf-health-2 標籤（例如「普遍上漲」之後 20／60 日相對表現），檢驗規則要事先寫好再看結果。
    - 資金流向（F-3）上線後：確認 SEC 排程已回補 `etf_holdings/history/`（每檔約 2019 年起、看 `skipped` 原因），以及 `etf_flows_history/` 每日有新增一行；Yahoo 若對某些 ETF 沒有流通股數與資產規模，估計欄會一直是空的。
    - 主題 ETF 訊號回測（F-4）：N-PORT 歷史回補完成後，到 Actions 手動觸發一次「Market rotation back-test」，看 `theme_etf_signals.json` 各訊號判定；之後每月 3 日自動更新。要加新訊號必須提高 `SIGNAL_VERSION`，舊結果保留。
 6. **市場輪動 MVP-1 後續**：WP-3 預覽頁 `market_rotation_v2.html`、WP-4 首頁一句摘要與限制提示

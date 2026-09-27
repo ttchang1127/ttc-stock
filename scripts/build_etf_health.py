@@ -6,7 +6,8 @@ workflow), downloads about 100 sessions of closes for the ETFs, SPY and
 every mapped constituent, and writes the research file.  A run that cannot
 price SPY, or whose latest session is older than the file already
 published, leaves the file untouched; a rerun on the same session with the
-same numbers does not rewrite it.
+same numbers does not rewrite it.  Each session is also appended once to
+etf_health_history/YYYY-MM.jsonl, in the same atomic write.
 """
 
 from __future__ import annotations
@@ -20,13 +21,15 @@ import pandas as pd
 
 import etf_health
 import etf_holdings
+import jsonl_history
 import record_etf_flows
-from jsonio import load_json, write_json
+from jsonio import dumps, load_json, replace_texts
 
 ROOT = Path(__file__).resolve().parent.parent
 OUTPUT = ROOT / "etf_health.json"
 HOLDINGS_DIR = ROOT / "etf_holdings"
 FLOWS_DIR = ROOT / "etf_flows_history"
+HEALTH_HISTORY_DIR = ROOT / "etf_health_history"
 CALENDAR_DAYS = 150
 
 
@@ -65,7 +68,7 @@ def unchanged(previous: dict | None, payload: dict) -> bool:
 
 
 def build(output: Path, holdings_dir: Path, fetch=download, today: date | None = None,
-          flows_dir: Path = FLOWS_DIR) -> tuple[bool, str]:
+          flows_dir: Path = FLOWS_DIR, history_dir: Path = HEALTH_HISTORY_DIR) -> tuple[bool, str]:
     """(written, message); raises SystemExit(75) when the prices are unusable."""
     funds = load_funds(holdings_dir)
     tickers = tickers_to_price(funds)
@@ -83,11 +86,16 @@ def build(output: Path, holdings_dir: Path, fetch=download, today: date | None =
     previous = load_json(output, None)
     if previous and previous.get("as_of", "") > payload["as_of"]:
         return False, f"kept {output.name}: published {previous['as_of']} is newer than {payload['as_of']}"
-    if unchanged(previous, payload):
-        return False, f"{output.name} unchanged for {payload['as_of']}"
-    write_json(output, payload, indent=1)
+    texts, status, history_message = jsonl_history.plan_append(etf_health.snapshot(payload), history_dir)
+    if status in ("conflict", "out_of_order"):
+        history_message = "::warning::" + history_message
+    if not unchanged(previous, payload):
+        texts[output] = dumps(payload, indent=1)
+    replace_texts(texts)
+    if output not in texts:
+        return False, f"{output.name} unchanged for {payload['as_of']}; {history_message}"
     states = ", ".join(f"{row['ticker']} {etf_health.STATES[row['state']]}" for row in payload["etfs"])
-    return True, f"ETF health {payload['as_of']}: {states or 'no holdings yet'}"
+    return True, f"ETF health {payload['as_of']}: {states or 'no holdings yet'}; {history_message}"
 
 
 def main() -> None:
@@ -95,8 +103,9 @@ def main() -> None:
     parser.add_argument("--output", type=Path, default=OUTPUT)
     parser.add_argument("--holdings-dir", type=Path, default=HOLDINGS_DIR)
     parser.add_argument("--flows-dir", type=Path, default=FLOWS_DIR)
+    parser.add_argument("--history-dir", type=Path, default=HEALTH_HISTORY_DIR)
     args = parser.parse_args()
-    _, message = build(args.output, args.holdings_dir, flows_dir=args.flows_dir)
+    _, message = build(args.output, args.holdings_dir, flows_dir=args.flows_dir, history_dir=args.history_dir)
     print(message)
 
 

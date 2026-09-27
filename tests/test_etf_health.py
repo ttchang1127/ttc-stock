@@ -181,6 +181,10 @@ class BuildTests(unittest.TestCase):
         self.output = self.root / "etf_health.json"
         self.requested = []
 
+    def build(self, fetch, today):
+        return build_etf_health.build(self.output, self.holdings, fetch, today, flows_dir=self.root / "flows",
+                                      history_dir=self.root / "history")
+
     def fetch(self, closes=None):
         def run(tickers, start, end):
             self.requested.append(tickers)
@@ -188,27 +192,35 @@ class BuildTests(unittest.TestCase):
         return run
 
     def test_writes_once_and_skips_an_identical_rerun(self):
-        written, message = build_etf_health.build(self.output, self.holdings, self.fetch(), date(2026, 9, 25))
+        written, message = self.build(self.fetch(), date(2026, 9, 25))
         self.assertTrue(written, message)
         self.assertIn("SPY", self.requested[0])
         self.assertIn("N0", self.requested[0])
         self.assertNotIn(None, self.requested[0])
         first = self.output.read_text()
-        written, message = build_etf_health.build(self.output, self.holdings, self.fetch(), date(2026, 9, 25))
+        written, message = self.build(self.fetch(), date(2026, 9, 25))
         self.assertFalse(written)
         self.assertIn("unchanged", message)
         self.assertEqual(self.output.read_text(), first)
+        lines = (self.root / "history" / "2026-09.jsonl").read_text().splitlines()
+        self.assertEqual(len(lines), 1, "one snapshot per session, even across reruns")
+        record = json.loads(lines[0])
+        self.assertEqual(record["as_of"], "2026-09-25")
+        self.assertEqual(record["rule_version"], etf_health.HEALTH_RULE_VERSION)
+        self.assertEqual(record["etfs"]["NAR"]["state"], "narrow_advance")
+        self.assertNotIn("NEW", record["etfs"], "funds without holdings are not recorded")
 
     def test_an_older_session_never_replaces_a_newer_file(self):
-        build_etf_health.build(self.output, self.holdings, self.fetch(), date(2026, 9, 25))
-        written, message = build_etf_health.build(self.output, self.holdings, self.fetch(self.closes.iloc[:-3]),
+        self.build(self.fetch(), date(2026, 9, 25))
+        written, message = self.build(self.fetch(self.closes.iloc[:-3]),
                                                   date(2026, 9, 25))
         self.assertFalse(written)
         self.assertIn("newer", message)
+        self.assertEqual(len((self.root / "history" / "2026-09.jsonl").read_text().splitlines()), 1)
 
     def test_unpriced_benchmark_exits_75_and_keeps_the_file(self):
         with self.assertRaises(SystemExit) as raised:
-            build_etf_health.build(self.output, self.holdings, self.fetch(self.closes.drop(columns="SPY")),
+            self.build(self.fetch(self.closes.drop(columns="SPY")),
                                    date(2026, 9, 25))
         self.assertEqual(raised.exception.code, 75)
         self.assertFalse(self.output.exists())

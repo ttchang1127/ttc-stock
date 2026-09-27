@@ -13,12 +13,12 @@ and is append-only: one line per session in ``etf_flows_history/YYYY-MM.jsonl``.
 from __future__ import annotations
 
 import argparse
-import json
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
 import etf_holdings
-from jsonio import dumps, replace_texts
+from jsonio import replace_texts
+from jsonl_history import plan_append, read_history, validate_history  # noqa: F401 - re-exported
 
 ROOT = Path(__file__).resolve().parent.parent
 FLOWS_DIR = ROOT / "etf_flows_history"
@@ -41,42 +41,6 @@ def snapshot(as_of: str, closes: dict[str, float | None], info: dict[str, dict],
                         "shares_outstanding": finite(data.get("sharesOutstanding")),
                         "total_assets": finite(data.get("totalAssets"))}
     return {"as_of": as_of, "recorded_at": recorded_at, "source": SOURCE, "etfs": etfs}
-
-
-def read_history(directory: Path) -> list[dict]:
-    rows = []
-    for path in sorted(directory.glob("*.jsonl")):
-        rows.extend(json.loads(line) for line in path.read_text().splitlines() if line.strip())
-    return rows
-
-
-def plan_append(record: dict, directory: Path) -> tuple[dict[Path, str], str, str]:
-    """(texts, status, message); status is appended / unchanged / conflict / out_of_order."""
-    history = read_history(directory)
-    same = next((row for row in history if row["as_of"] == record["as_of"]), None)
-    if same is not None:
-        if same["etfs"] == record["etfs"]:
-            return {}, "unchanged", f"flows for {record['as_of']} already recorded"
-        return {}, "conflict", f"flows for {record['as_of']} already recorded with other values; kept the first"
-    if history and history[-1]["as_of"] > record["as_of"]:
-        return {}, "out_of_order", f"{record['as_of']} is older than the last record {history[-1]['as_of']}"
-    path = directory / f"{record['as_of'][:7]}.jsonl"
-    existing = path.read_text() if path.exists() else ""
-    return {path: existing + dumps(record)}, "appended", f"flows recorded for {record['as_of']}"
-
-
-def validate_history(directory: Path) -> list[str]:
-    problems = []
-    dates = []
-    for path in sorted(directory.glob("*.jsonl")):
-        for line in path.read_text().splitlines():
-            row = json.loads(line)
-            if not row["as_of"].startswith(path.stem):
-                problems.append(f"{path.name}: {row['as_of']} is in the wrong month file")
-            dates.append(row["as_of"])
-    if dates != sorted(set(dates)):
-        problems.append("etf_flows_history dates are duplicated or out of order")
-    return problems
 
 
 def fetch(today: date) -> tuple[str, dict[str, float | None], dict[str, dict]]:

@@ -1014,6 +1014,16 @@
       "note": "SEC 原文筆記；年度 10-K／20-F 由 fetch_sec.py 人工觸發"
     },
     {
+      "pattern": "^etf_health_history/",
+      "kind": "generated",
+      "producer": "scripts/build_etf_health.py",
+      "edit": "never",
+      "committed_by": [
+        "update-prices"
+      ],
+      "note": "主題 ETF 成分健康度每日快照（月份 jsonl，一個交易日一行、只追加）；累積後用來驗證 etf-health 標籤"
+    },
+    {
       "pattern": "^etf_flows_history/",
       "kind": "generated",
       "producer": "scripts/record_etf_flows.py",

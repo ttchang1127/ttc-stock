@@ -112,9 +112,13 @@ class ParseTests(unittest.TestCase):
         self.assertEqual(etf_holdings.parse_nport(nport(), UNIVERSE)["monthly_flows"], [])
 
     def test_securities_lending_collateral_does_not_fail_validation(self):
-        rows = [holding("NVIDIA CORP", 20.0, ticker="NVDA US"),
-                holding("State Street Navigator Securities Lending", 9.0).replace("<assetCat>EC", "<assetCat>STIV")]
-        parsed = etf_holdings.parse_nport(nport(rows=rows, filler=20), UNIVERSE)
+        # TAN 2024-25: reinvested collateral took all positions to 134% of net assets.
+        collateral = holding("State Street Navigator Securities Lending", 34.0).replace("<assetCat>EC",
+                                                                                         "<assetCat>STIV")
+        document = nport(rows=[holding("NVIDIA CORP", 20.0, ticker="NVDA US")], filler=20)
+        document = document.replace("</invstOrSecs>", collateral + "</invstOrSecs>")
+        parsed = etf_holdings.parse_nport(document, UNIVERSE)
+        self.assertAlmostEqual(sum(row["weight_pct"] for row in parsed["holdings"]), 133.5, places=1)
         self.assertEqual(etf_holdings.validate(parsed, "S000001"), [])
         stock_light = etf_holdings.parse_nport(nport(rows=[
             holding("Cash Sweep", 60.0).replace("<assetCat>EC", "<assetCat>STIV")], filler=20), UNIVERSE)
@@ -238,6 +242,17 @@ class HistoryTests(unittest.TestCase):
         self.assertEqual([row["accession"] for row in merged["filings"]], ["A1", "A2"])
         self.assertEqual(merged["filings"][1]["weights"]["NVDA"], 20.0, "a recorded filing is never replaced")
         self.assertEqual(etf_holdings.validate_history(merged), [])
+        self.assertEqual(merged["skipped"], [{"accession": "X", "filed": "2026-01-01", "reason": "bad"}])
+        self.assertEqual(etf_holdings.retry_skipped(merged), {"X"}, "skipped under older rules is retried")
+        retried = etf_holdings.merge_history(merged, [
+            {"accession": "X", "report_date": "2025-12-31", "filed": "2026-01-01", "weights": {}}], [])
+        self.assertEqual([row["accession"] for row in retried["filings"]], ["X", "A1", "A2"])
+        self.assertEqual(retried["skipped"], [], "a retried filing that passes leaves the skipped list")
+        again = etf_holdings.merge_history(merged, [], [
+            {"accession": "X", "filed": "2026-01-01", "reason": "still bad",
+             "validation_version": etf_holdings.VALIDATION_VERSION}])
+        self.assertEqual(again["skipped"][0]["reason"], "still bad")
+        self.assertEqual(etf_holdings.retry_skipped(again), set())
         broken = {**merged, "filings": merged["filings"][::-1]}
         self.assertTrue(etf_holdings.validate_history(broken))
 

@@ -21,7 +21,8 @@ daily closes:
 
 The state labels are descriptive research labels, not tested signals: the
 thresholds below are frozen under ``HEALTH_RULE_VERSION`` so that the daily
-record can be tested later without moving the goalposts.
+record (``etf_health_history/``, one append-only line per session) can be
+tested later without moving the goalposts.
 
 etf-health-2 (2026-09-27, before any record accumulated): "carried by a
 few" needs the equal-weight return to lag the cap-weighted one as well as
@@ -285,6 +286,30 @@ def compute(funds: dict[str, dict | None], closes: pd.DataFrame, generated_at: s
         "etfs": rows,
         "unavailable": unavailable,
     }
+
+
+def snapshot(payload: dict[str, Any]) -> dict:
+    """Compact daily record for etf_health_history/: enough to test the labels later."""
+    etfs = {}
+    for row in payload["etfs"]:
+        flows = row.get("flows") or {}
+        etfs[row["ticker"]] = {
+            "state": row["state"],
+            "direction": row["direction"],
+            "r20_pct": row["etf"]["r20_pct"],
+            "rs20_pct": row["etf"]["rs20_pct"],
+            "above_ma50_equal_pct": row["breadth"]["above_ma50_equal_pct"],
+            "above_ma50_weighted_pct": row["breadth"]["above_ma50_weighted_pct"],
+            "equal_minus_cap_pp": row["returns"]["equal_minus_cap_pp"],
+            "top3_share_pct": row["concentration"]["top3_share_pct"],
+            "coverage_pct": row["constituents"]["coverage_pct"],
+            "holdings_report_date": row["holdings_report_date"],
+            "nport_net_3m_pct": (flows.get("nport") or {}).get("net_3m_pct"),
+            "estimated_flow_20d_pct": (flows.get("estimated") or {}).get("flow_20d_pct"),
+        }
+    return {"as_of": payload["as_of"], "rule_version": payload["rule_version"],
+            "etf_list_version": payload["etf_list_version"], "benchmark_r20_pct": payload["benchmark_r20_pct"],
+            "etfs": etfs}
 
 
 def validate(payload: dict[str, Any]) -> list[str]:
