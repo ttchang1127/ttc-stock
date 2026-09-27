@@ -41,5 +41,16 @@ class WorkflowDependencyTests(unittest.TestCase):
         self.assertNotRegex(hook, r"pip install[^\n]*'?pandas")
 
 
+class PullRequestTestWorkflowTests(unittest.TestCase):
+    def test_pull_requests_run_full_suite_and_integrity_offline(self):
+        workflow = (WORKFLOWS / "tests.yml").read_text()
+        self.assertIn("pull_request:", workflow)
+        self.assertIn("python3 -m unittest discover -s tests -v", workflow)
+        self.assertIn("python3 scripts/check_integrity.py --quiet", workflow)
+        self.assertIn("contents: read", workflow, "PR checks must not be able to push")
+        for fetcher in ("fetch_", "build_market_rotation.py", "watch_sec_filings.py"):
+            self.assertNotIn(fetcher, workflow, "PR checks must not fetch live data")
+
+
 if __name__ == "__main__":
     unittest.main()
