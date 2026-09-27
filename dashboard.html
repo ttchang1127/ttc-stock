@@ -348,6 +348,42 @@
       font-size: 0.95em;
     }
 
+    .data-health-strip {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px 12px;
+      margin: 0 0 16px;
+      padding: 8px 14px;
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      border-radius: 10px;
+      background: rgba(148, 163, 184, 0.08);
+      color: #cbd5e1;
+      font-size: 0.78rem;
+    }
+
+    .data-health-strip .health-title { font-weight: 700; color: #e2e8f0; }
+
+    .health-item {
+      display: inline-flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 6px;
+      padding: 3px 9px;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      border-radius: 8px;
+    }
+
+    .health-item[data-state="ok"] { border-color: rgba(16, 185, 129, 0.4); }
+    .health-item[data-state="stale"] {
+      border-color: rgba(251, 191, 36, 0.7);
+      background: rgba(251, 191, 36, 0.12);
+      color: #fde68a;
+    }
+    .health-item .health-label { font-weight: 600; }
+    .health-item .health-state { white-space: nowrap; }
+    .data-health-strip .health-note { flex-basis: 100%; color: #94a3b8; font-size: 0.72rem; }
+
     .macd-legend-bar {
       display: flex;
       gap: 16px;
@@ -2840,6 +2876,21 @@
       </div>
     </header>
 
+    <!-- Data freshness: how old each automatically updated source is -->
+    <section id="dataHealthStrip" class="data-health-strip" aria-label="資料更新狀態" aria-live="polite">
+      <span class="health-title">資料更新狀態</span>
+      <span class="health-item" data-health="prices" data-state="unknown">
+        <span class="health-label">股價</span><span class="health-value">載入中…</span><span class="health-state"></span>
+      </span>
+      <span class="health-item" data-health="rotation" data-state="unknown">
+        <span class="health-label">市場輪動</span><span class="health-value">載入中…</span><span class="health-state"></span>
+      </span>
+      <span class="health-item" data-health="sec" data-state="unknown">
+        <span class="health-label">SEC 申報監看</span><span class="health-value">載入中…</span><span class="health-state"></span>
+      </span>
+      <span class="health-note">此處只顯示資料距今多久；每日巡檢會依 NYSE 交易日精確判斷，過期時自動開 GitHub issue。</span>
+    </section>
+
     <!-- Navigation Tabs -->
     <div class="nav-tabs-container">
       <button class="tab-btn active" onclick="switchTab('tab-dashboard', this)">
@@ -4195,6 +4246,61 @@
       if (sessionEl && session) sessionEl.innerText = `資料涵蓋至 ${session} 收盤`;
     }
 
+    // Top-of-page freshness strip. The daily data-freshness workflow is the
+    // authoritative NYSE-calendar check and opens an issue; this strip only
+    // shows how old each source is, so a stalled pipeline is visible here too.
+    // Four calendar days covers a weekend plus a Monday holiday.
+    const DATA_HEALTH_MAX_AGE_DAYS = 4;
+    const DATA_HEALTH_STATES = {
+      ok: '✅ 正常', stale: '🟠 可能過期', unknown: '❔ 無法讀取',
+    };
+
+    function setHealthItem(key, value, detail, state) {
+      const item = document.querySelector(`#dataHealthStrip [data-health="${key}"]`);
+      if (!item) return;
+      item.dataset.state = state;
+      item.querySelector('.health-value').textContent = value;
+      item.querySelector('.health-state').textContent = DATA_HEALTH_STATES[state];
+      item.title = detail;
+    }
+
+    function renderMarketHealth(key, session, source) {
+      if (!session) {
+        setHealthItem(key, '—', `無法讀取 ${source}`, 'unknown');
+        return;
+      }
+      const age = Math.floor((Date.parse(todayET()) - Date.parse(session)) / 86400000);
+      setHealthItem(key, `${session} 收盤（${age} 天前）`,
+        `${source} 最新交易日 ${session}；超過 ${DATA_HEALTH_MAX_AGE_DAYS} 天標示為可能過期`,
+        age > DATA_HEALTH_MAX_AGE_DAYS ? 'stale' : 'ok');
+    }
+
+    function fetchJSON(path) {
+      return fetch(path, { cache: 'no-cache' }).then(res => {
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        return res.json();
+      });
+    }
+
+    function renderDataHealth() {
+      loadPriceDB()
+        .then(() => renderMarketHealth('prices', latestCoveredSession(), 'prices.json'))
+        .catch(() => renderMarketHealth('prices', null, 'prices.json'));
+      fetchJSON('market_rotation_summary.json')
+        .then(data => renderMarketHealth('rotation', data.as_of, 'market_rotation_summary.json'))
+        .catch(() => renderMarketHealth('rotation', null, 'market_rotation_summary.json'));
+      fetchJSON('sec_filing_alerts.json')
+        .then(data => {
+          const checked = Date.parse(data.updated_at);
+          if (isNaN(checked)) throw new Error('bad updated_at');
+          const hours = Math.max(0, Math.floor((Date.now() - checked) / 3600000));
+          setHealthItem('sec', `最後檢查 ${formatEasternTime(data.updated_at)}（${Math.floor(hours / 24)} 天 ${hours % 24} 小時前）`,
+            `sec_filing_alerts.json 的 updated_at 每次成功檢查都會更新；超過 ${DATA_HEALTH_MAX_AGE_DAYS} 天標示為可能過期`,
+            hours > DATA_HEALTH_MAX_AGE_DAYS * 24 ? 'stale' : 'ok');
+        })
+        .catch(() => setHealthItem('sec', '—', '無法讀取 sec_filing_alerts.json', 'unknown'));
+    }
+
     // Sortino comes from fundamentals.json rather than being recomputed here.
     // compute_fundamentals.py already implements it against prices.json, and a
     // second implementation in JS would be free to drift from the notes.
@@ -4473,7 +4579,7 @@
       { ticker: "NVDA", shares: 15, cost: 212.995333 },
       { ticker: "TSLA", shares: 7.29815, cost: 225.820242 },
       { ticker: "VGT", shares: 248, cost: 90.276935 },
-      { ticker: "VOO", shares: 45.76647, cost: 570.406675 },
+      { ticker: "VOO", shares: 48.5987, cost: 578.322054 },
     ];
     let SEC_OWNED_TICKERS = new Set(userHoldings.map(row => row.ticker).filter(ticker => SEC_CORE_TICKERS.includes(ticker)));
     let portfolioHoldingsPromise = null;
@@ -9035,6 +9141,7 @@
     loadFundamentals();
     runLiveMACDRange();
     initFxRate();
+    renderDataHealth();
   </script>
 </body>
 </html>
