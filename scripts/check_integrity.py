@@ -2588,6 +2588,22 @@ def c45():
                   f"{len(groups)} 群組、{len(v2['stocks']['data']['stocks'])} 檔逐欄一致{note}")
 
 
+@check("C-46", "市場輪動每日快照只追加、無重複、雜湊與索引一致")
+def c46():
+    sys.path.insert(0, str(REPO_ROOT / "scripts"))
+    import market_rotation_history as rotation_history  # noqa: PLC0415
+
+    index_path = REPO_ROOT / "market_rotation_history/index.json"
+    if not index_path.exists():
+        return True, "尚無快照（合併後首次每日正式執行才開始累積 A 級歷史）"
+    problems = rotation_history.validate_history()
+    if problems:
+        return False, "；".join(problems[:5])
+    index = json.loads(index_path.read_text())
+    return True, (f"{index['snapshot_count']} 筆 A 級快照；{index['a_history_effective_from']}～"
+                  f"{index['last_as_of']}；{len(index['months'])} 個月份檔")
+
+
 @check("C-44", "研究綜合驗證可追溯且不補猜共識或同業資料")
 def c44():
     data = load("research_synthesis.json")

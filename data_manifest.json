@@ -969,6 +969,16 @@
         "sec-filing-alerts"
       ],
       "note": "SEC 原文筆記；年度 10-K／20-F 由 fetch_sec.py 人工觸發"
+    },
+    {
+      "pattern": "^market_rotation_history/",
+      "kind": "generated",
+      "producer": "scripts/build_market_rotation.py",
+      "edit": "never",
+      "committed_by": [
+        "update-prices"
+      ],
+      "note": "A 級每日研究快照（月份 .jsonl＋index.json）；只可追加，過去月份不可改寫"
     }
   ]
 }

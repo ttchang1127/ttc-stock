@@ -34,6 +34,7 @@ from market_rotation_contracts import (
     QUADRANTS, RESEARCH_SCHEMA_VERSION, check_parity, compute_dataset_id, dump_json, group_slug,
     validate_canonical, validate_registry, validate_research, validate_v1, validate_v2,
 )
+from market_rotation_history import HISTORY_DIR, plan_append, snapshot_record
 from market_rotation_research import compute_research
 
 
@@ -245,19 +246,20 @@ def planned_text(path: Path, payload: dict) -> str | None:
 
 def publish_artifacts(
     outputs: list[tuple[Path, dict, Callable[[dict], None] | None]],
+    extra_texts: dict[Path, str] | None = None,
 ) -> dict[Path, bool]:
     """Validate every payload first, then replace only the files that changed.
 
     Nothing on disk is touched unless all payloads pass their contracts and
-    serialise without NaN/Infinity.  Changed files are staged beside their
-    targets and swapped in with ``os.replace`` so a reader never sees a
-    half-written file.
+    serialise without NaN/Infinity.  Changed files (and ``extra_texts``,
+    already-rendered history lines) are staged beside their targets and
+    swapped in with ``os.replace`` so a reader never sees a half-written file.
     """
     for path, payload, validate in outputs:
         if validate is not None:
             validate(payload)
     plans = [(path, planned_text(path, payload)) for path, payload, _ in outputs]
-    replace_texts({path: text for path, text in plans if text is not None})
+    replace_texts({**{path: text for path, text in plans if text is not None}, **(extra_texts or {})})
     return {path: text is not None for path, text in plans}
 
 
@@ -1026,12 +1028,14 @@ def research_path(output: Path) -> Path:
     return output.with_name("market_rotation_research.json")
 
 
-def publish_outputs(outputs: dict[str, dict], output: Path, registry_path: Path) -> dict[str, bool]:
-    """Replace v1, the three v2 files, the registry (and research) as one validated batch."""
+def publish_outputs(
+    outputs: dict[str, dict], output: Path, registry_path: Path, history_texts: dict[Path, str] | None = None,
+) -> dict[str, bool]:
+    """Replace v1, the three v2 files, the registry, research and history as one validated batch."""
     targets = {"v1": output, **v2_paths(output), "registry": registry_path}
     if "research" in outputs:
         targets["research"] = research_path(output)
-    changed = publish_artifacts([(targets[name], outputs[name], None) for name in targets])
+    changed = publish_artifacts([(targets[name], outputs[name], None) for name in targets], history_texts)
     return {name: changed[path] for name, path in targets.items()}
 
 
@@ -1062,7 +1066,15 @@ def main() -> None:
         action="store_true",
         help="Allow an explicitly requested historical/backfill output to be written.",
     )
+    parser.add_argument(
+        "--write-history",
+        action="store_true",
+        help="Append this session's A-quality snapshot (production daily run only).",
+    )
+    parser.add_argument("--history-dir", type=Path, default=HISTORY_DIR)
     args = parser.parse_args()
+    if args.write_history and args.allow_stale:
+        parser.error("--write-history records forward snapshots; it cannot be combined with --allow-stale")
 
     if args.skip_universe_refresh:
         universe = json.loads(args.universe.read_text())
@@ -1102,7 +1114,12 @@ def main() -> None:
             )
             raise SystemExit(75) from error
     outputs = build_outputs(canonical, registry, utc_now(), research)
-    changed = publish_outputs(outputs, args.output, args.registry)
+    history_texts: dict[Path, str] = {}
+    if args.write_history:
+        record = snapshot_record(outputs["research"], outputs["groups"], outputs["summary"], universe)
+        history_texts, status, message = plan_append(record, args.history_dir)
+        print(f"{'::warning::' if status in ('conflict', 'out_of_order') else ''}History: {message}")
+    changed = publish_outputs(outputs, args.output, args.registry, history_texts)
     payload = outputs["v1"]
     print(
         f"Market rotation: {payload['as_of']}, "
