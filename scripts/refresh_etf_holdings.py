@@ -11,7 +11,8 @@ For the research ETFs, every NPORT-P that EDGAR lists for the series is
 also kept in ``etf_holdings/history/{ETF}.json`` (point-in-time weights and
 monthly flows).  The history only grows: an accession already recorded is
 never re-read or replaced, and a filing that fails validation is listed
-under ``skipped`` so it is not downloaded again every run.
+under ``skipped`` so it is not downloaded again every run (until
+``VALIDATION_VERSION`` changes, when it is retried once).
 Standard library only.
 """
 
@@ -43,7 +44,8 @@ def refresh_history(ticker: str, holdings_dir: Path, universe: dict, fund_index:
     path = holdings_dir / "history" / f"{ticker}.json"
     history = load_json(path, None) or empty_history(ticker)
     entries = [etf_holdings.history_record(fresh)] if fresh else []
-    known = ({row["accession"] for row in history["filings"]} | {row["accession"] for row in history["skipped"]}
+    known = ({row["accession"] for row in history["filings"]}
+             | ({row["accession"] for row in history["skipped"]} - etf_holdings.retry_skipped(history))
              | {row["accession"] for row in entries})
     try:
         more, skipped = history_fetch(ticker, universe, fund_index, sec_names, known)

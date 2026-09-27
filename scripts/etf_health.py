@@ -21,7 +21,8 @@ daily closes:
 
 The state labels are descriptive research labels, not tested signals: the
 thresholds below are frozen under ``HEALTH_RULE_VERSION`` so that the daily
-record can be tested later without moving the goalposts.
+record (``etf_health_history/``, one append-only line per session) can be
+tested later without moving the goalposts.
 
 etf-health-2 (2026-09-27, before any record accumulated): "carried by a
 few" needs the equal-weight return to lag the cap-weighted one as well as
@@ -124,13 +125,30 @@ def constituent_table(fund: dict, closes: pd.DataFrame) -> tuple[pd.DataFrame, d
     return table, coverage
 
 
+SHARES_ASSETS_TOLERANCE = 0.2  # shares x close must be within 20% of reported assets to be trusted
+
+
+def consistent_shares(point: dict) -> float | None:
+    """Shares outstanding, unless they disagree with the reported assets (Yahoo keeps stale counts)."""
+    shares, close, assets = point.get("shares_outstanding"), point.get("close"), point.get("total_assets")
+    if not shares or not close:
+        return None
+    if assets and abs(shares * close / assets - 1) > SHARES_ASSETS_TOLERANCE:
+        return None
+    return shares
+
+
 def implied_flows(history: list[dict], ticker: str) -> dict:
     """Estimated net flow over the last 5/20 recorded sessions, as % of the latest assets.
 
-    Shares outstanding times the close when both days have shares; else the
-    change in total assets beyond what the price change explains.
+    Shares outstanding times the close when both days have shares that agree
+    with the reported assets; else the change in total assets beyond what
+    the price change explains.  (2026-09-25: Yahoo showed 12.5m IGV shares,
+    $1.3bn at the close, against $15.7bn of assets.)
     """
-    points = [row["etfs"].get(ticker) or {} for row in history]
+    points = [{**(row["etfs"].get(ticker) or {})} for row in history]
+    for point in points:
+        point["shares_outstanding"] = consistent_shares(point)
     flows: list[float | None] = []
     for before, after in zip(points, points[1:]):
         if before.get("shares_outstanding") and after.get("shares_outstanding") and after.get("close"):
@@ -285,6 +303,30 @@ def compute(funds: dict[str, dict | None], closes: pd.DataFrame, generated_at: s
         "etfs": rows,
         "unavailable": unavailable,
     }
+
+
+def snapshot(payload: dict[str, Any]) -> dict:
+    """Compact daily record for etf_health_history/: enough to test the labels later."""
+    etfs = {}
+    for row in payload["etfs"]:
+        flows = row.get("flows") or {}
+        etfs[row["ticker"]] = {
+            "state": row["state"],
+            "direction": row["direction"],
+            "r20_pct": row["etf"]["r20_pct"],
+            "rs20_pct": row["etf"]["rs20_pct"],
+            "above_ma50_equal_pct": row["breadth"]["above_ma50_equal_pct"],
+            "above_ma50_weighted_pct": row["breadth"]["above_ma50_weighted_pct"],
+            "equal_minus_cap_pp": row["returns"]["equal_minus_cap_pp"],
+            "top3_share_pct": row["concentration"]["top3_share_pct"],
+            "coverage_pct": row["constituents"]["coverage_pct"],
+            "holdings_report_date": row["holdings_report_date"],
+            "nport_net_3m_pct": (flows.get("nport") or {}).get("net_3m_pct"),
+            "estimated_flow_20d_pct": (flows.get("estimated") or {}).get("flow_20d_pct"),
+        }
+    return {"as_of": payload["as_of"], "rule_version": payload["rule_version"],
+            "etf_list_version": payload["etf_list_version"], "benchmark_r20_pct": payload["benchmark_r20_pct"],
+            "etfs": etfs}
 
 
 def validate(payload: dict[str, Any]) -> list[str]:

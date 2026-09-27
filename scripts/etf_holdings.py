@@ -53,11 +53,15 @@ HEADER_URL = "https://www.sec.gov/Archives/edgar/data/{cik}/{accession}/{dashed}
 MAX_FILINGS_SCANNED = 400
 MAPPING_VERSION = 3  # bump when mapping or parsed fields change so unchanged filings are re-read (3: flows)
 MIN_HOLDINGS = 15
-WEIGHT_RANGE = (90.0, 130.0)  # all positions, % of net assets; securities-lending collateral can push past 100
+# All positions, % of net assets.  Reinvested securities-lending collateral is
+# reported as a holding: TAN reached 134% in 2024-25, so only a gross error is
+# caught here; the common-stock range below is the real check.
+WEIGHT_RANGE = (90.0, 175.0)
 EQUITY_WEIGHT_RANGE = (80.0, 102.0)  # common stock positions, % of net assets
 EQUITY_CATEGORIES = {"EC"}
 FLOW_FIELDS = ("sales", "reinvestment", "redemption")
 HISTORY_SCHEMA_VERSION = 1
+VALIDATION_VERSION = 2  # bump when validate() loosens, so filings skipped under older rules are retried
 US_EXCHANGE_CODES = {"US", "UN", "UW", "UQ", "UA", "UP", "UR", "UV", "UF"}
 NAME_NOISE = re.compile(r"\b(inc|incorporated|corp|corporation|co|cos|company|companies|ltd|plc|holdings?|group|"
                         r"class [a-z]|the|n\.?v|s\.?a|ag|se)\b")
@@ -386,21 +390,35 @@ def fetch_history(ticker: str, universe: dict, fund_index: dict, sec_names: dict
         try:
             record = read_filing(ticker, ids, filing, lookup, universe, sec_names)
         except (ValueError, ET.ParseError) as error:
-            skipped.append({"accession": filing["accession"], "filed": filing["filed"], "reason": str(error)[:300]})
+            skipped.append({"accession": filing["accession"], "filed": filing["filed"], "reason": str(error)[:300],
+                            "validation_version": VALIDATION_VERSION})
             continue
         if record is None:
-            skipped.append({"accession": filing["accession"], "filed": filing["filed"], "reason": "other series"})
+            skipped.append({"accession": filing["accession"], "filed": filing["filed"], "reason": "other series",
+                            "validation_version": VALIDATION_VERSION})
             continue
         entries.append(history_record(record))
     return entries, skipped
 
 
+def retry_skipped(history: dict) -> set[str]:
+    """Skipped accessions judged under an older VALIDATION_VERSION, to be read again."""
+    return {row["accession"] for row in history.get("skipped", [])
+            if row.get("validation_version", 1) != VALIDATION_VERSION}
+
+
 def merge_history(history: dict, entries: list[dict], skipped: list[dict]) -> dict:
-    """Append new entries (never replace an existing accession), ordered by report date then filing date."""
+    """Append new entries (never replace an existing accession), ordered by report date then filing date.
+
+    ``skipped`` is bookkeeping, not data: a retried filing that now passes
+    leaves it, and one that fails again is recorded under the current rules.
+    """
     seen = {row["accession"] for row in history["filings"]}
     filings = history["filings"] + [row for row in entries if row["accession"] not in seen]
-    seen_skipped = {row["accession"] for row in history["skipped"]}
-    kept = history["skipped"] + [row for row in skipped if row["accession"] not in seen_skipped]
+    recorded = {row["accession"] for row in filings}
+    fresh = {row["accession"]: row for row in skipped if row["accession"] not in recorded}
+    kept = [row for row in history["skipped"] if row["accession"] not in recorded and row["accession"] not in fresh]
+    kept += list(fresh.values())
     return {**history, "filings": sorted(filings, key=lambda row: (row["report_date"], row["filed"])),
             "skipped": sorted(kept, key=lambda row: (row["filed"], row["accession"]))}
 
