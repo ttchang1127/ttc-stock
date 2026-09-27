@@ -328,11 +328,12 @@ class MarketRotationPageTests(unittest.TestCase):
         self.assertIn("preserving the prior rotation file", self.workflow)
         self.assertIn("pip install --quiet -r requirements.txt", self.workflow)
         self.assertIn("lxml>=5,<7", (ROOT / "requirements.txt").read_text())
-        self.assertIn("market_rotation_universe", self.workflow)
-        self.assertIn("market_rotation|", self.workflow)
-        for name in ("summary", "groups", "stocks", "registry"):
-            self.assertIn(f"market_rotation_{name}|", self.workflow,
-                          f"daily commit allowlist must accept market_rotation_{name}.json")
+        import data_manifest
+        manifest = data_manifest.load_manifest()
+        for name in ("market_rotation", "market_rotation_universe", "market_rotation_summary",
+                     "market_rotation_groups", "market_rotation_stocks", "market_rotation_registry"):
+            self.assertTrue(data_manifest.may_commit(f"{name}.json", "update-prices", manifest),
+                            f"daily commit allowlist must accept {name}.json")
 
 
 class MainDualWriteTests(unittest.TestCase):

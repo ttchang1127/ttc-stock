@@ -1,0 +1,962 @@
+{
+  "schema_version": 1,
+  "description": "每個資料檔由誰產生、誰會提交、能不能手改。每日 workflow 的提交白名單與測試都以此為準。",
+  "edit_policies": {
+    "never": "只能由 producer 腳本產生；手改會被覆蓋或讓完整性檢查失敗",
+    "human": "人工維護；依 note 與維護 SOP 的規則修改",
+    "review_record": "AI／人工覆核紀錄；依 SEC 候選覆核流程寫入，不可刪除既有決策",
+    "aliases_only": "產生器自動追加新項目；人工只能加入 aliases，不可改既有 id",
+    "partial": "部分章節由腳本改寫，其餘為人工敘述"
+  },
+  "cadence_values": {
+    "market_daily": "每日行情排程（台北 07:17，週二至週六 20:17 補抓）",
+    "sec_weekdays": "SEC 申報排程（台北週二至週六 12:00）",
+    "monthly": "每月 20 日 13F 排程",
+    "daily": "每日行情排程，每次都重算",
+    "on_change": "上游資料變動時才重寫",
+    "follows_producer": "隨 producer 一起更新",
+    "manual": "人工更新"
+  },
+  "files": [
+    {
+      "path": ".github/sec-filing-state.json",
+      "kind": "generated",
+      "producer": "scripts/watch_sec_filings.py",
+      "edit": "never",
+      "cadence": "sec_weekdays",
+      "committed_by": [
+        "sec-filing-alerts"
+      ],
+      "note": "accession 去重狀態；updated_at 為心跳"
+    },
+    {
+      "path": "60_SEC_Filing_Radar/Accounting_Review_Radar.md",
+      "kind": "generated",
+      "producer": "scripts/sec_advanced_radars.py",
+      "edit": "never",
+      "cadence": "follows_producer",
+      "committed_by": [
+        "sec-filing-alerts"
+      ]
+    },
+    {
+      "path": "60_SEC_Filing_Radar/Capital_Allocation_Cards.md",
+      "kind": "generated",
+      "producer": "scripts/build_capital_allocation_cards.py",
+      "edit": "never",
+      "cadence": "follows_producer",
+      "committed_by": [
+        "update-prices",
+        "sec-filing-alerts"
+      ]
+    },
+    {
+      "path": "60_SEC_Filing_Radar/Capital_Allocation_History.md",
+      "kind": "generated",
+      "producer": "scripts/track_capital_allocation_history.py",
+      "edit": "never",
+      "cadence": "follows_producer",
+      "committed_by": [
+        "update-prices",
+        "sec-filing-alerts"
+      ]
+    },
+    {
+      "path": "60_SEC_Filing_Radar/Company_Event_Calendar.md",
+      "kind": "generated",
+      "producer": "scripts/build_company_event_calendar.py",
+      "edit": "never",
+      "cadence": "follows_producer",
+      "committed_by": [
+        "update-prices"
+      ]
+    },
+    {
+      "path": "60_SEC_Filing_Radar/Dilution_Offering_Radar.md",
+      "kind": "generated",
+      "producer": "scripts/sec_specialized_radars.py",
+      "edit": "never",
+      "cadence": "follows_producer",
+      "committed_by": [
+        "sec-filing-alerts"
+      ]
+    },
+    {
+      "path": "60_SEC_Filing_Radar/Earnings_Call_Radar.md",
+      "kind": "generated",
+      "producer": "scripts/track_earnings_calls.py",
+      "edit": "never",
+      "cadence": "follows_producer",
+      "committed_by": [
+        "sec-filing-alerts"
+      ]
+    },
+    {
+      "path": "60_SEC_Filing_Radar/Earnings_Verification_Cards.md",
+      "kind": "generated",
+      "producer": "scripts/build_earnings_verification_cards.py",
+      "edit": "never",
+      "cadence": "follows_producer",
+      "committed_by": [
+        "update-prices",
+        "sec-filing-alerts"
+      ]
+    },
+    {
+      "path": "60_SEC_Filing_Radar/Earnings_Verification_History.md",
+      "kind": "generated",
+      "producer": "scripts/track_earnings_verification_history.py",
+      "edit": "never",
+      "cadence": "follows_producer",
+      "committed_by": [
+        "update-prices",
+        "sec-filing-alerts"
+      ]
+    },
+    {
+      "path": "60_SEC_Filing_Radar/Exhibit_991_Earnings_Radar.md",
+      "kind": "generated",
+      "producer": "scripts/analyze_exhibit_991.py",
+      "edit": "never",
+      "cadence": "follows_producer",
+      "committed_by": [
+        "sec-filing-alerts"
+      ]
+    },
+    {
+      "path": "60_SEC_Filing_Radar/Footnotes_Attachments_Radar.md",
+      "kind": "generated",
+      "producer": "scripts/sec_advanced_radars.py",
+      "edit": "never",
+      "cadence": "follows_producer",
+      "committed_by": [
+        "sec-filing-alerts"
+      ]
+    },
+    {
+      "path": "60_SEC_Filing_Radar/Form13F_Stock_Radar.md",
+      "kind": "generated",
+      "producer": "scripts/sec_13f_stock_radar.py",
+      "edit": "never",
+      "cadence": "follows_producer",
+      "committed_by": [
+        "sec-13f-radar"
+      ]
+    },
+    {
+      "path": "60_SEC_Filing_Radar/Form4_Insider_Radar.md",
+      "kind": "generated",
+      "producer": "scripts/sec_specialized_radars.py",
+      "edit": "never",
+      "cadence": "follows_producer",
+      "committed_by": [
+        "sec-filing-alerts"
+      ]
+    },
+    {
+      "path": "60_SEC_Filing_Radar/Governance_Compensation_Radar.md",
+      "kind": "generated",
+      "producer": "scripts/sec_advanced_radars.py",
+      "edit": "never",
+      "cadence": "follows_producer",
+      "committed_by": [
+        "sec-filing-alerts"
+      ]
+    },
+    {
+      "path": "60_SEC_Filing_Radar/Insider_Forms_345144_Radar.md",
+      "kind": "generated",
+      "producer": "scripts/sec_advanced_radars.py",
+      "edit": "never",
+      "cadence": "follows_producer",
+      "committed_by": [
+        "sec-filing-alerts"
+      ]
+    },
+    {
+      "path": "60_SEC_Filing_Radar/Mergers_Tender_Radar.md",
+      "kind": "generated",
+      "producer": "scripts/sec_advanced_radars.py",
+      "edit": "never",
+      "cadence": "follows_producer",
+      "committed_by": [
+        "sec-filing-alerts"
+      ]
+    },
+    {
+      "path": "60_SEC_Filing_Radar/Periodic_Filing_Ingest.md",
+      "kind": "generated",
+      "producer": "scripts/ingest_periodic_filings.py",
+      "edit": "never",
+      "cadence": "follows_producer",
+      "committed_by": [
+        "sec-filing-alerts"
+      ]
+    },
+    {
+      "path": "60_SEC_Filing_Radar/Quarterly_10Q_Radar.md",
+      "kind": "generated",
+      "producer": "scripts/sec_specialized_radars.py",
+      "edit": "never",
+      "cadence": "follows_producer",
+      "committed_by": [
+        "sec-filing-alerts"
+      ]
+    },
+    {
+      "path": "60_SEC_Filing_Radar/Research_Synthesis.md",
+      "kind": "generated",
+      "producer": "scripts/build_research_synthesis.py",
+      "edit": "never",
+      "cadence": "follows_producer",
+      "committed_by": [
+        "update-prices",
+        "sec-filing-alerts"
+      ]
+    },
+    {
+      "path": "60_SEC_Filing_Radar/SEC_Candidate_Rule_Calibration.md",
+      "kind": "generated",
+      "producer": "scripts/build_sec_candidate_rule_calibration.py",
+      "edit": "never",
+      "cadence": "follows_producer",
+      "committed_by": [
+        "update-prices",
+        "sec-filing-alerts"
+      ]
+    },
+    {
+      "path": "60_SEC_Filing_Radar/SEC_Daily_Change_Candidates.md",
+      "kind": "generated",
+      "producer": "scripts/generate_sec_daily_change_candidates.py",
+      "edit": "never",
+      "cadence": "follows_producer",
+      "committed_by": [
+        "update-prices",
+        "sec-filing-alerts"
+      ]
+    },
+    {
+      "path": "60_SEC_Filing_Radar/SEC_Daily_Jev_Review.md",
+      "kind": "generated",
+      "producer": "scripts/review_sec_candidates_with_jev.py",
+      "edit": "never",
+      "cadence": "follows_producer",
+      "committed_by": [
+        "update-prices",
+        "sec-filing-alerts"
+      ]
+    },
+    {
+      "path": "60_SEC_Filing_Radar/SEC_Enforcement_Radar.md",
+      "kind": "generated",
+      "producer": "scripts/sec_advanced_radars.py",
+      "edit": "never",
+      "cadence": "follows_producer",
+      "committed_by": [
+        "sec-filing-alerts"
+      ]
+    },
+    {
+      "path": "60_SEC_Filing_Radar/SEC_Filing_Alerts.md",
+      "kind": "generated",
+      "producer": "scripts/watch_sec_filings.py",
+      "edit": "never",
+      "cadence": "follows_producer",
+      "committed_by": [
+        "sec-filing-alerts"
+      ]
+    },
+    {
+      "path": "60_SEC_Filing_Radar/SEC_Position_Impact_History.md",
+      "kind": "generated",
+      "producer": "scripts/build_sec_position_impact_history.py",
+      "edit": "never",
+      "cadence": "follows_producer",
+      "committed_by": [
+        "update-prices",
+        "sec-filing-alerts"
+      ]
+    },
+    {
+      "path": "60_SEC_Filing_Radar/Schedule13DG_Ownership_Radar.md",
+      "kind": "generated",
+      "producer": "scripts/sec_advanced_radars.py",
+      "edit": "never",
+      "cadence": "follows_producer",
+      "committed_by": [
+        "sec-filing-alerts"
+      ]
+    },
+    {
+      "path": "60_SEC_Filing_Radar/Segment_Driver_History.md",
+      "kind": "generated",
+      "producer": "scripts/build_segment_driver_history.py",
+      "edit": "never",
+      "cadence": "follows_producer",
+      "committed_by": [
+        "update-prices",
+        "sec-filing-alerts"
+      ]
+    },
+    {
+      "path": "60_SEC_Filing_Radar/Segment_Driver_Update_Candidates.md",
+      "kind": "generated",
+      "producer": "scripts/sync_segment_driver_history.py",
+      "edit": "never",
+      "cadence": "follows_producer",
+      "committed_by": [
+        "update-prices",
+        "sec-filing-alerts"
+      ]
+    },
+    {
+      "path": "60_SEC_Filing_Radar/Segment_Driver_Validation.md",
+      "kind": "generated",
+      "producer": "scripts/build_segment_driver_validation.py",
+      "edit": "never",
+      "cadence": "follows_producer",
+      "committed_by": [
+        "update-prices",
+        "sec-filing-alerts"
+      ]
+    },
+    {
+      "path": "60_SEC_Filing_Radar/Segment_Outlook_History.md",
+      "kind": "generated",
+      "producer": "scripts/track_segment_outlook_history.py",
+      "edit": "never",
+      "cadence": "follows_producer",
+      "committed_by": [
+        "update-prices",
+        "sec-filing-alerts"
+      ]
+    },
+    {
+      "path": "60_SEC_Filing_Radar/Segment_Outlook_Verification.md",
+      "kind": "generated",
+      "producer": "scripts/build_segment_outlook_verification.py",
+      "edit": "never",
+      "cadence": "follows_producer",
+      "committed_by": [
+        "update-prices",
+        "sec-filing-alerts"
+      ]
+    },
+    {
+      "path": "60_SEC_Filing_Radar/Segment_Thesis_Linkage.md",
+      "kind": "generated",
+      "producer": "scripts/build_segment_thesis_linkage.py",
+      "edit": "never",
+      "cadence": "follows_producer",
+      "committed_by": [
+        "update-prices",
+        "sec-filing-alerts"
+      ]
+    },
+    {
+      "path": "capital_allocation_cards.json",
+      "kind": "generated",
+      "producer": "scripts/build_capital_allocation_cards.py",
+      "edit": "never",
+      "cadence": "on_change",
+      "committed_by": [
+        "update-prices",
+        "sec-filing-alerts"
+      ]
+    },
+    {
+      "path": "capital_allocation_history.json",
+      "kind": "generated",
+      "producer": "scripts/track_capital_allocation_history.py",
+      "edit": "never",
+      "cadence": "on_change",
+      "committed_by": [
+        "update-prices",
+        "sec-filing-alerts"
+      ]
+    },
+    {
+      "path": "company_event_calendar.json",
+      "kind": "generated",
+      "producer": "scripts/build_company_event_calendar.py",
+      "edit": "never",
+      "cadence": "daily",
+      "committed_by": [
+        "update-prices"
+      ],
+      "note": "滾動 30 天"
+    },
+    {
+      "path": "company_event_overrides.json",
+      "kind": "human",
+      "producer": null,
+      "edit": "human",
+      "cadence": "manual",
+      "committed_by": [],
+      "note": "官方公布但資料源缺漏的事件日期"
+    },
+    {
+      "path": "dcf_assumptions.json",
+      "kind": "human",
+      "producer": null,
+      "edit": "human",
+      "cadence": "manual",
+      "committed_by": [],
+      "note": "DCF 假設；derived_at 記錄推導日（estimate_dcf_inputs.py 可產生建議值）"
+    },
+    {
+      "path": "earnings_call_analysis.json",
+      "kind": "generated",
+      "producer": "scripts/track_earnings_calls.py",
+      "edit": "never",
+      "cadence": "on_change",
+      "committed_by": [
+        "sec-filing-alerts"
+      ]
+    },
+    {
+      "path": "earnings_call_sources.json",
+      "kind": "human",
+      "producer": null,
+      "edit": "human",
+      "cadence": "manual",
+      "committed_by": [
+        "sec-filing-alerts"
+      ],
+      "note": "官方 Earnings Call／講稿來源設定"
+    },
+    {
+      "path": "earnings_verification_cards.json",
+      "kind": "generated",
+      "producer": "scripts/build_earnings_verification_cards.py",
+      "edit": "never",
+      "cadence": "daily",
+      "committed_by": [
+        "update-prices",
+        "sec-filing-alerts"
+      ]
+    },
+    {
+      "path": "earnings_verification_history.json",
+      "kind": "generated",
+      "producer": "scripts/track_earnings_verification_history.py",
+      "edit": "never",
+      "cadence": "on_change",
+      "committed_by": [
+        "update-prices",
+        "sec-filing-alerts"
+      ]
+    },
+    {
+      "path": "exhibit_991_analysis.json",
+      "kind": "generated",
+      "producer": "scripts/analyze_exhibit_991.py",
+      "edit": "never",
+      "cadence": "on_change",
+      "committed_by": [
+        "sec-filing-alerts"
+      ]
+    },
+    {
+      "path": "filing_text_changes.json",
+      "kind": "generated",
+      "producer": "scripts/diff_periodic_filings.py",
+      "edit": "never",
+      "cadence": "on_change",
+      "committed_by": [
+        "sec-filing-alerts"
+      ]
+    },
+    {
+      "path": "financial_health.json",
+      "kind": "generated",
+      "producer": "scripts/compute_financial_health.py",
+      "edit": "never",
+      "cadence": "on_change",
+      "committed_by": [
+        "update-prices"
+      ]
+    },
+    {
+      "path": "financials.json",
+      "kind": "generated",
+      "producer": "scripts/fetch_xbrl_financials.py",
+      "edit": "never",
+      "cadence": "on_change",
+      "committed_by": [
+        "update-prices"
+      ],
+      "note": "SEC XBRL 年度財報"
+    },
+    {
+      "path": "foreign_quarterly_financials.json",
+      "kind": "human",
+      "producer": null,
+      "edit": "human",
+      "cadence": "manual",
+      "committed_by": [],
+      "note": "外國發行人官方 IR 季報，保留原幣別"
+    },
+    {
+      "path": "forward_looking_inputs.json",
+      "kind": "human",
+      "producer": null,
+      "edit": "human",
+      "cadence": "manual",
+      "committed_by": [],
+      "note": "只能加入附 source_url、source_date 的官方指引／分部揭露"
+    },
+    {
+      "path": "fundamentals.json",
+      "kind": "generated",
+      "producer": "scripts/compute_fundamentals.py",
+      "edit": "never",
+      "cadence": "on_change",
+      "committed_by": [
+        "update-prices"
+      ]
+    },
+    {
+      "path": "guidance_history.json",
+      "kind": "human",
+      "producer": null,
+      "edit": "human",
+      "cadence": "manual",
+      "committed_by": [],
+      "note": "近 3 年官方指引逐期核對"
+    },
+    {
+      "path": "investment_thesis_status.json",
+      "kind": "generated",
+      "producer": "scripts/track_investment_thesis_status.py",
+      "edit": "never",
+      "cadence": "on_change",
+      "committed_by": [
+        "sec-filing-alerts"
+      ]
+    },
+    {
+      "path": "investment_thesis_tracking.json",
+      "kind": "human",
+      "producer": null,
+      "edit": "human",
+      "cadence": "manual",
+      "committed_by": [],
+      "note": "投資論點追蹤設定"
+    },
+    {
+      "path": "long_term_radar.json",
+      "kind": "generated",
+      "producer": "scripts/build_long_term_radar.py",
+      "edit": "never",
+      "cadence": "on_change",
+      "committed_by": [
+        "update-prices",
+        "sec-filing-alerts"
+      ]
+    },
+    {
+      "path": "market_rotation.json",
+      "kind": "generated",
+      "producer": "scripts/build_market_rotation.py",
+      "edit": "never",
+      "cadence": "market_daily",
+      "committed_by": [
+        "update-prices"
+      ],
+      "note": "v1；正式頁讀取"
+    },
+    {
+      "path": "market_rotation_groups.json",
+      "kind": "generated",
+      "producer": "scripts/build_market_rotation.py",
+      "edit": "never",
+      "cadence": "market_daily",
+      "committed_by": [
+        "update-prices"
+      ],
+      "note": "v2；與 v1 同批產生"
+    },
+    {
+      "path": "market_rotation_registry.json",
+      "kind": "mixed",
+      "producer": "scripts/build_market_rotation.py",
+      "edit": "aliases_only",
+      "cadence": "on_change",
+      "committed_by": [
+        "update-prices"
+      ],
+      "note": "stable id 對照表：新名稱由產生器追加；人工只能加入確認為同一分類的 aliases"
+    },
+    {
+      "path": "market_rotation_stocks.json",
+      "kind": "generated",
+      "producer": "scripts/build_market_rotation.py",
+      "edit": "never",
+      "cadence": "market_daily",
+      "committed_by": [
+        "update-prices"
+      ],
+      "note": "v2；與 v1 同批產生"
+    },
+    {
+      "path": "market_rotation_summary.json",
+      "kind": "generated",
+      "producer": "scripts/build_market_rotation.py",
+      "edit": "never",
+      "cadence": "market_daily",
+      "committed_by": [
+        "update-prices"
+      ],
+      "note": "v2；與 v1 同批產生"
+    },
+    {
+      "path": "market_rotation_universe.json",
+      "kind": "generated",
+      "producer": "scripts/build_market_rotation.py",
+      "edit": "never",
+      "cadence": "on_change",
+      "committed_by": [
+        "update-prices"
+      ],
+      "note": "S&P 500＋Nasdaq-100 成分"
+    },
+    {
+      "path": "periodic_filing_ingest.json",
+      "kind": "generated",
+      "producer": "scripts/ingest_periodic_filings.py",
+      "edit": "never",
+      "cadence": "on_change",
+      "committed_by": [
+        "sec-filing-alerts"
+      ]
+    },
+    {
+      "path": "portfolio_holdings.json",
+      "kind": "human",
+      "producer": null,
+      "edit": "human",
+      "cadence": "manual",
+      "committed_by": [
+        "sec-filing-alerts"
+      ],
+      "note": "個人持股；同步修改 dashboard.html 的備援持股（C-31）"
+    },
+    {
+      "path": "prices.json",
+      "kind": "generated",
+      "producer": "scripts/fetch_price_history.py",
+      "edit": "never",
+      "cadence": "market_daily",
+      "committed_by": [
+        "update-prices"
+      ],
+      "note": "調整後收盤價；含無風險利率與匯率序列"
+    },
+    {
+      "path": "quarterly_financials.json",
+      "kind": "generated",
+      "producer": "scripts/fetch_quarterly_financials.py",
+      "edit": "never",
+      "cadence": "on_change",
+      "committed_by": [
+        "update-prices"
+      ],
+      "note": "SEC 單季財務；外國發行人讀 foreign_quarterly_financials.json"
+    },
+    {
+      "path": "research_peer_groups.json",
+      "kind": "human",
+      "producer": null,
+      "edit": "human",
+      "cadence": "manual",
+      "committed_by": [],
+      "note": "人工研究對照組"
+    },
+    {
+      "path": "research_synthesis.json",
+      "kind": "generated",
+      "producer": "scripts/build_research_synthesis.py",
+      "edit": "never",
+      "cadence": "on_change",
+      "committed_by": [
+        "update-prices",
+        "sec-filing-alerts"
+      ]
+    },
+    {
+      "path": "risk_changes.json",
+      "kind": "generated",
+      "producer": "scripts/diff_risk_factors.py",
+      "edit": "never",
+      "cadence": "on_change",
+      "committed_by": [],
+      "note": "只在抓進新年度原文後重算"
+    },
+    {
+      "path": "risk_zh.json",
+      "kind": "human",
+      "producer": null,
+      "edit": "human",
+      "cadence": "manual",
+      "committed_by": [],
+      "note": "只能改 zh 欄；鍵是原文雜湊"
+    },
+    {
+      "path": "sec_13f_stock_radar.json",
+      "kind": "generated",
+      "producer": "scripts/sec_13f_stock_radar.py",
+      "edit": "never",
+      "cadence": "monthly",
+      "committed_by": [
+        "sec-13f-radar"
+      ],
+      "note": "SEC 13F 季度資料集"
+    },
+    {
+      "path": "sec_advanced_radars.json",
+      "kind": "generated",
+      "producer": "scripts/sec_advanced_radars.py",
+      "edit": "never",
+      "cadence": "sec_weekdays",
+      "committed_by": [
+        "sec-filing-alerts"
+      ],
+      "note": "由 watch_sec_filings.py 呼叫"
+    },
+    {
+      "path": "sec_candidate_rule_calibration.json",
+      "kind": "generated",
+      "producer": "scripts/build_sec_candidate_rule_calibration.py",
+      "edit": "never",
+      "cadence": "on_change",
+      "committed_by": [
+        "update-prices",
+        "sec-filing-alerts"
+      ]
+    },
+    {
+      "path": "sec_daily_candidate_reviews.json",
+      "kind": "human",
+      "producer": null,
+      "edit": "review_record",
+      "cadence": "manual",
+      "committed_by": [],
+      "note": "每項候選的採納／駁回紀錄與理由"
+    },
+    {
+      "path": "sec_daily_change_candidates.json",
+      "kind": "generated",
+      "producer": "scripts/generate_sec_daily_change_candidates.py",
+      "edit": "never",
+      "cadence": "sec_weekdays",
+      "committed_by": [
+        "update-prices",
+        "sec-filing-alerts"
+      ],
+      "note": "待 AI 覆核的規則候選"
+    },
+    {
+      "path": "sec_daily_editorial.json",
+      "kind": "human",
+      "producer": null,
+      "edit": "review_record",
+      "cadence": "manual",
+      "committed_by": [],
+      "note": "正式人工／AI 判讀；只寫入已採納的候選"
+    },
+    {
+      "path": "sec_daily_jev_review.json",
+      "kind": "generated",
+      "producer": "scripts/review_sec_candidates_with_jev.py",
+      "edit": "never",
+      "cadence": "sec_weekdays",
+      "committed_by": [
+        "update-prices",
+        "sec-filing-alerts"
+      ]
+    },
+    {
+      "path": "sec_filing_alerts.json",
+      "kind": "generated",
+      "producer": "scripts/watch_sec_filings.py",
+      "edit": "never",
+      "cadence": "sec_weekdays",
+      "committed_by": [
+        "sec-filing-alerts"
+      ],
+      "note": "updated_at 每次成功檢查都更新（心跳）"
+    },
+    {
+      "path": "sec_filing_details.json",
+      "kind": "generated",
+      "producer": "scripts/sec_specialized_radars.py",
+      "edit": "never",
+      "cadence": "sec_weekdays",
+      "committed_by": [
+        "sec-filing-alerts"
+      ],
+      "note": "由 watch_sec_filings.py 呼叫"
+    },
+    {
+      "path": "sec_position_impact_history.json",
+      "kind": "generated",
+      "producer": "scripts/build_sec_position_impact_history.py",
+      "edit": "never",
+      "cadence": "on_change",
+      "committed_by": [
+        "update-prices",
+        "sec-filing-alerts"
+      ]
+    },
+    {
+      "path": "segment_driver_history.json",
+      "kind": "generated",
+      "producer": "scripts/build_segment_driver_history.py",
+      "edit": "never",
+      "cadence": "on_change",
+      "committed_by": [
+        "update-prices",
+        "sec-filing-alerts"
+      ]
+    },
+    {
+      "path": "segment_driver_history_inputs.json",
+      "kind": "generated",
+      "producer": "scripts/sync_segment_driver_history.py",
+      "edit": "never",
+      "cadence": "on_change",
+      "committed_by": [
+        "update-prices",
+        "sec-filing-alerts"
+      ],
+      "note": "只在同口徑表通過勾稽時安全滾入"
+    },
+    {
+      "path": "segment_driver_inputs.json",
+      "kind": "human",
+      "producer": null,
+      "edit": "human",
+      "cadence": "manual",
+      "committed_by": [],
+      "note": "分部營運基準資料（人工核對）"
+    },
+    {
+      "path": "segment_driver_sync_config.json",
+      "kind": "human",
+      "producer": null,
+      "edit": "human",
+      "cadence": "manual",
+      "committed_by": [],
+      "note": "分部自動滾動設定"
+    },
+    {
+      "path": "segment_driver_update_candidates.json",
+      "kind": "generated",
+      "producer": "scripts/sync_segment_driver_history.py",
+      "edit": "never",
+      "cadence": "on_change",
+      "committed_by": [
+        "update-prices",
+        "sec-filing-alerts"
+      ]
+    },
+    {
+      "path": "segment_driver_validation.json",
+      "kind": "generated",
+      "producer": "scripts/build_segment_driver_validation.py",
+      "edit": "never",
+      "cadence": "on_change",
+      "committed_by": [
+        "update-prices",
+        "sec-filing-alerts"
+      ]
+    },
+    {
+      "path": "segment_outlook_history.json",
+      "kind": "generated",
+      "producer": "scripts/track_segment_outlook_history.py",
+      "edit": "never",
+      "cadence": "on_change",
+      "committed_by": [
+        "update-prices",
+        "sec-filing-alerts"
+      ]
+    },
+    {
+      "path": "segment_outlook_inputs.json",
+      "kind": "human",
+      "producer": null,
+      "edit": "human",
+      "cadence": "manual",
+      "committed_by": [],
+      "note": "管理層分部展望（附官方來源）"
+    },
+    {
+      "path": "segment_outlook_verification.json",
+      "kind": "generated",
+      "producer": "scripts/build_segment_outlook_verification.py",
+      "edit": "never",
+      "cadence": "on_change",
+      "committed_by": [
+        "update-prices",
+        "sec-filing-alerts"
+      ]
+    },
+    {
+      "path": "segment_thesis_linkage.json",
+      "kind": "generated",
+      "producer": "scripts/build_segment_thesis_linkage.py",
+      "edit": "never",
+      "cadence": "on_change",
+      "committed_by": [
+        "update-prices",
+        "sec-filing-alerts"
+      ]
+    },
+    {
+      "path": "valuation.json",
+      "kind": "generated",
+      "producer": "scripts/compute_valuation.py",
+      "edit": "never",
+      "cadence": "on_change",
+      "committed_by": [
+        "update-prices"
+      ],
+      "note": "DCF；假設來自 dcf_assumptions.json"
+    }
+  ],
+  "patterns": [
+    {
+      "pattern": "^[a-z]+_report\\.html$",
+      "kind": "generated",
+      "producer": "scripts/build_reports.py",
+      "edit": "never",
+      "committed_by": [
+        "update-prices"
+      ],
+      "note": "個股網頁報告；手改會被下次產生覆蓋"
+    },
+    {
+      "pattern": "^30_Analysis/.*_Master_Investment_Thesis_2026\\.md$",
+      "kind": "mixed",
+      "producer": "scripts/update_thesis_financials.py",
+      "edit": "partial",
+      "committed_by": [
+        "update-prices"
+      ],
+      "note": "第二～五章由腳本改寫；第一章敘述只在使用者明確要求時人工修改"
+    },
+    {
+      "pattern": "^20_Filings/",
+      "kind": "generated",
+      "producer": "scripts/ingest_periodic_filings.py",
+      "edit": "never",
+      "committed_by": [
+        "sec-filing-alerts"
+      ],
+      "note": "SEC 原文筆記；年度 10-K／20-F 由 fetch_sec.py 人工觸發"
+    }
+  ]
+}

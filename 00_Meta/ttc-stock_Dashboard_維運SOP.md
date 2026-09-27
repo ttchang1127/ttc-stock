@@ -43,6 +43,7 @@
 | `dcf_assumptions.json` | DCF 假設與整批推導日期 `derived_at` | ⚠️ 人類審核後維護 |
 | `scripts/fetch_price_history.py` | 抓價腳本 | ⚠️ 只改 `DEFAULT_TICKERS` 那一行 |
 | `.github/workflows/update-prices.yml` | 每日自動更新與新年報提示 | ❌ 除非使用者明確要求，不要改 |
+| `data_manifest.json` | **所有資料檔的總清單**：由哪支腳本產生、哪條排程提交、能不能手改、多久更新 | ⚠️ 新增或改名資料檔時必須同步更新；測試會擋下漏列的檔案 |
 | `requirements.txt` | 所有 workflow、雲端 SessionStart hook 與本機共用的唯一套件清單 | ⚠️ 新增 import 時必須同步加入，否則測試會擋下 |
 | `.github/workflows/tests.yml` | 每個 PR 自動跑全部測試與完整性檢查（離線、唯讀） | ❌ 除非使用者明確要求，不要改 |
 | `.github/workflows/data-freshness.yml`／`scripts/check_data_freshness.py` | 每日 13:37（台北）巡檢行情與 SEC 監看是否仍在前進 | ⚠️ 門檻變更需連同測試 |
@@ -297,6 +298,7 @@ cd "/Volumes/Crucial X8/Jarvis Obsidian/Sec_kb" && grep -c "Math.sin\|Math.rando
 | 出現「🔴 排程失敗：SEC filing alerts」且失敗步驟是 `Require manual review for unsafe filing boundaries` | 新申報需要人工確認章節切分，是設計上的停止點 | 依同批「SEC / Thesis Alert」issue 處理，不是程式壞掉 |
 | 儀表板頂端「資料更新狀態」出現 🟠 可能過期或 ❔ 無法讀取 | 該資料超過 4 個日曆天沒更新，或檔案讀不到 | 以「🟠 資料新鮮度警示」issue 的交易日判斷為準；到 Actions 查對應排程，不要手改資料 |
 | 出現「🟠 資料新鮮度警示」 | 行情落後超過 1 個 NYSE 交易日，或 SEC 監看超過 4 天沒有成功執行 | 到 Actions 看對應排程最近的執行紀錄；不要手改資料檔。資料恢復後 issue 會自動關閉 |
+| 每日排程在 `Fail if anything unexpected changed` 失敗 | 有檔案被改動但 `data_manifest.json` 沒允許這條排程提交 | 看錯誤列出的檔案；若是新的產生檔，把它加進 `data_manifest.json`；若不該被改動，找出是哪支腳本改到的 |
 | PR 上的 `Tests` 檢查失敗 | 程式或資料未通過測試／完整性檢查 | 修正後再推送；不要為了變綠而更新 golden 或刪測試 |
 | Actions 的 push 步驟 403 | repo 權限設定問題 | 回報使用者：需到 Settings → Actions → General 開啟寫入權限 |
 | 排程突然完全不跑 | GitHub 對 60 天無活動的 repo 自動停用排程 | 回報使用者到 Actions 分頁手動重新啟用 |

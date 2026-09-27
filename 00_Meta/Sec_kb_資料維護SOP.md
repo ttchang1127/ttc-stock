@@ -81,6 +81,9 @@ sec_filing_alerts.json（8-K／8-K-A 且 SEC metadata 含 Item 2.02）
 `compute_financial_health.py` 和 `compute_valuation.py` 都只依賴 `fundamentals.json`，
 彼此不相依，先跑哪個都可以。
 
+> 📋 完整清單以根目錄的 `data_manifest.json` 為準：每個資料檔的產生腳本、提交排程、能否手改與更新頻率都記在那裡，
+> 可用 `python3 scripts/data_manifest.py explain <檔名>` 查詢。下表只列本任務最常用的檔案。
+
 | 檔案 | 由誰產生 | 你可以改嗎 |
 |---|---|---|
 | `financials.json` | `fetch_xbrl_financials.py` | ❌ |
