@@ -295,6 +295,7 @@ cd "/Volumes/Crucial X8/Jarvis Obsidian/Sec_kb" && grep -c "Math.sin\|Math.rando
 | 網頁顯示「資料庫中沒有代號 XXX」 | 該股票不在追蹤清單 | 這是**正常行為**，不是錯誤。要加請走任務 B |
 | GitHub Actions 顯示紅色失敗 | 看自動開出的「🔴 排程失敗：<workflow>」issue 列出的失敗步驟 | Yahoo 暫時故障通常隔天自動恢復，issue 也會在下次成功時自動關閉；同一個 issue 連續三天有新留言才需回報 |
 | 出現「🔴 排程失敗：SEC filing alerts」且失敗步驟是 `Require manual review for unsafe filing boundaries` | 新申報需要人工確認章節切分，是設計上的停止點 | 依同批「SEC / Thesis Alert」issue 處理，不是程式壞掉 |
+| 儀表板頂端「資料更新狀態」出現 🟠 可能過期或 ❔ 無法讀取 | 該資料超過 4 個日曆天沒更新，或檔案讀不到 | 以「🟠 資料新鮮度警示」issue 的交易日判斷為準；到 Actions 查對應排程，不要手改資料 |
 | 出現「🟠 資料新鮮度警示」 | 行情落後超過 1 個 NYSE 交易日，或 SEC 監看超過 4 天沒有成功執行 | 到 Actions 看對應排程最近的執行紀錄；不要手改資料檔。資料恢復後 issue 會自動關閉 |
 | PR 上的 `Tests` 檢查失敗 | 程式或資料未通過測試／完整性檢查 | 修正後再推送；不要為了變綠而更新 golden 或刪測試 |
 | Actions 的 push 步驟 403 | repo 權限設定問題 | 回報使用者：需到 Settings → Actions → General 開啟寫入權限 |
