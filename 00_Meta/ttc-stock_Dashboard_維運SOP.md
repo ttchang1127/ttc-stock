@@ -43,6 +43,10 @@
 | `dcf_assumptions.json` | DCF 假設與整批推導日期 `derived_at` | ⚠️ 人類審核後維護 |
 | `scripts/fetch_price_history.py` | 抓價腳本 | ⚠️ 只改 `DEFAULT_TICKERS` 那一行 |
 | `.github/workflows/update-prices.yml` | 每日自動更新與新年報提示 | ❌ 除非使用者明確要求，不要改 |
+| `requirements.txt` | 所有 workflow、雲端 SessionStart hook 與本機共用的唯一套件清單 | ⚠️ 新增 import 時必須同步加入，否則測試會擋下 |
+| `.github/workflows/tests.yml` | 每個 PR 自動跑全部測試與完整性檢查（離線、唯讀） | ❌ 除非使用者明確要求，不要改 |
+| `.github/workflows/data-freshness.yml`／`scripts/check_data_freshness.py` | 每日 13:37（台北）巡檢行情與 SEC 監看是否仍在前進 | ⚠️ 門檻變更需連同測試 |
+| `.github/scripts/workflow-alert.sh`／`issue-alert.sh` | 排程失敗開 issue、恢復後自動關閉 | ⚠️ 需連同 `tests/test_workflow_alerts.py` 修改 |
 | `dashboard_mag7.html` | 另一個獨立頁面 | ❌ 不在範圍內 |
 | `market_rotation.html` | S&P 500＋Nasdaq-100 板塊／次產業輪動獨立頁 | ⚠️ 只在使用者明確要求時 |
 | `scripts/check_market_source_ready.py` | 先以 SPY 調整後收盤價確認 Yahoo 已發布最新應有交易日 | ⚠️ 新鮮度規則與 NYSE 日曆需連同測試修改 |
@@ -289,7 +293,10 @@ cd "/Volumes/Crucial X8/Jarvis Obsidian/Sec_kb" && grep -c "Math.sin\|Math.rando
 |---|---|---|
 | 網頁顯示紅色橫幅「無法載入 prices.json」 | 檔案沒推上去或路徑錯 | 執行 C-1，若 404 則重跑任務 A |
 | 網頁顯示「資料庫中沒有代號 XXX」 | 該股票不在追蹤清單 | 這是**正常行為**，不是錯誤。要加請走任務 B |
-| GitHub Actions 顯示紅色失敗 | 多半是 Yahoo 暫時故障 | 隔天會自動再跑一次。連續失敗三天才需回報 |
+| GitHub Actions 顯示紅色失敗 | 看自動開出的「🔴 排程失敗：<workflow>」issue 列出的失敗步驟 | Yahoo 暫時故障通常隔天自動恢復，issue 也會在下次成功時自動關閉；同一個 issue 連續三天有新留言才需回報 |
+| 出現「🔴 排程失敗：SEC filing alerts」且失敗步驟是 `Require manual review for unsafe filing boundaries` | 新申報需要人工確認章節切分，是設計上的停止點 | 依同批「SEC / Thesis Alert」issue 處理，不是程式壞掉 |
+| 出現「🟠 資料新鮮度警示」 | 行情落後超過 1 個 NYSE 交易日，或 SEC 監看超過 4 天沒有成功執行 | 到 Actions 看對應排程最近的執行紀錄；不要手改資料檔。資料恢復後 issue 會自動關閉 |
+| PR 上的 `Tests` 檢查失敗 | 程式或資料未通過測試／完整性檢查 | 修正後再推送；不要為了變綠而更新 golden 或刪測試 |
 | Actions 的 push 步驟 403 | repo 權限設定問題 | 回報使用者：需到 Settings → Actions → General 開啟寫入權限 |
 | 排程突然完全不跑 | GitHub 對 60 天無活動的 repo 自動停用排程 | 回報使用者到 Actions 分頁手動重新啟用 |
 | 圖表柱體大小很奇怪 | 可能有人改動了計算公式 | 執行 C-3，並比對第 6 章規則 |
