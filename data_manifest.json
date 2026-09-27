@@ -981,7 +981,7 @@
       "note": "C 級回測結果（今天的成分股回算過去，有存活者偏誤）；只由每月回測排程重建"
     },
     {
-      "pattern": "^market_rotation_history/",
+      "pattern": "^market_rotation_history/(?!backtest/)",
       "kind": "generated",
       "producer": "scripts/build_market_rotation.py",
       "edit": "never",
