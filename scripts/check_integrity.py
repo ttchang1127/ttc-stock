@@ -1186,12 +1186,16 @@ def c28():
     required = (
         "track_earnings_calls.py", "earnings_call_analysis.json", "earnings_call_sources.json",
         "Earnings_Call_Radar.md", "earnings_call_changed_count",
-        "earnings_call_changed_attention_count", "pypdf>=6,<7", "curl_cffi>=0.13,<0.14",
+        "earnings_call_changed_attention_count",
     )
     missing = [f"workflow:{marker}" for marker in required if marker not in workflow]
-    for workflow_path in (".github/workflows/update-prices.yml", ".github/workflows/sec-13f-radar.yml"):
-        if "pypdf>=6,<7" not in read(workflow_path):
-            missing.append(f"{workflow_path}:pypdf>=6,<7")
+    requirements = read("requirements.txt")
+    missing += [f"requirements.txt:{pin}" for pin in ("pypdf>=6,<7", "curl_cffi>=0.13,<0.14")
+                if pin not in requirements]
+    for workflow_path in (".github/workflows/sec-filing-alerts.yml",
+                          ".github/workflows/update-prices.yml", ".github/workflows/sec-13f-radar.yml"):
+        if "pip install --quiet -r requirements.txt" not in read(workflow_path):
+            missing.append(f"{workflow_path}:-r requirements.txt")
     if "Earnings_Call_Radar" not in read("00_Home.md"):
         missing.append("00_Home:Earnings_Call_Radar")
     page = read("dashboard.html")
@@ -2510,7 +2514,7 @@ def c43():
         bad.append("權重無法加總至 100 或未標明代理指標限制")
 
     markers = {
-        "獨立頁": (read("market_rotation.html"), (
+        "獨立頁": (read("market_rotation.html") + read("assets/market_rotation_legacy.js"), (
             "market_rotation.json", "四象限輪動路徑", "最近 10 個交易日",
             "板塊內部領漲與落後個股", "不是申購贖回或資金淨流入",
             "返回投資儀表板", "勾選顯示", "chartSelections",
@@ -2534,6 +2538,38 @@ def c43():
     missing = [f"{label}:{marker}" for label, (text, required) in markers.items()
                for marker in required if marker not in text]
     return not bad and not missing, f"資料問題：{bad or '無'}；缺自動化／畫面：{missing or '無'}"
+
+
+@check("C-45", "市場輪動 v1／v2 同批次、契約、引用與逐欄一致")
+def c45():
+    sys.path.insert(0, str(REPO_ROOT / "scripts"))
+    import market_rotation_contracts as contracts  # noqa: PLC0415
+
+    registry = load("market_rotation_registry.json")
+    names = ("summary", "groups", "stocks")
+    present = [name for name in names if (REPO_ROOT / f"market_rotation_{name}.json").exists()]
+    try:
+        contracts.validate_registry(registry)
+        if not present:
+            return True, "穩定 id 對照表通過；v2 三檔尚未產出（合併後首次每日正式執行才開始雙寫）"
+        if len(present) != len(names):
+            return False, f"v2 檔案不完整：只有 {present}，不可混用不同批次"
+        v1 = load("market_rotation.json")
+        v2 = {name: load(f"market_rotation_{name}.json") for name in names}
+        contracts.validate_v1(v1)
+        contracts.validate_v2(v2["summary"], v2["groups"], v2["stocks"])
+        contracts.check_parity(v1, v2["summary"], v2["groups"], v2["stocks"])
+    except contracts.ContractError as error:
+        return False, "；".join(error.errors[:5])
+    known_groups = {row["group_id"] for row in registry["groups"]}
+    known_stocks = {row["stock_id"] for row in registry["securities"]}
+    groups = v2["groups"]["data"]["sectors"] + v2["groups"]["data"]["industries"]
+    unknown = sorted({g["group_id"] for g in groups} - known_groups) + sorted(
+        {s["stock_id"] for s in v2["stocks"]["data"]["stocks"]} - known_stocks)
+    if unknown:
+        return False, f"v2 使用了對照表沒有的 id：{unknown[:5]}"
+    return True, (f"dataset {v2['summary']['dataset_id'][7:19]}；as_of {v1['as_of']}；"
+                  f"{len(groups)} 群組、{len(v2['stocks']['data']['stocks'])} 檔逐欄一致")
 
 
 @check("C-44", "研究綜合驗證可追溯且不補猜共識或同業資料")
@@ -2608,7 +2644,7 @@ def c44():
             "safeResearchUrl", "investor.tsmc.com", "www.nokia.com",
             "研究證據、財報差異與同業比較", "分析師共識／財報前內部數值預估：未收集",
         )),
-        "輪動頁": (read("market_rotation.html"), (
+        "輪動頁": (read("market_rotation.html") + read("assets/market_rotation_legacy.js"), (
             "research_synthesis.json", "renderResearchBridge", "輪動 → 基本面驗證橋接",
         )),
         "價格 workflow": (read(".github/workflows/update-prices.yml"), (

@@ -16,7 +16,7 @@ from pathlib import Path
 import pandas as pd
 import yfinance as yf
 
-from build_market_rotation import expected_latest_market_session, market_session_lag
+from market_calendar import expected_latest_market_session, market_session_lag
 
 
 TEMPORARILY_STALE = 75

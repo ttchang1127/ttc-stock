@@ -46,9 +46,11 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+          cache: pip
+          cache-dependency-path: requirements.txt
 
       - name: Install dependencies
-        run: pip install --quiet 'yfinance>=1.2.0' pandas 'lxml>=5,<7' 'pypdf>=6,<7'
+        run: python3 -m pip install --quiet -r requirements.txt
 
       # A successful HTTP response is not enough: on 2026-09-15 Yahoo returned
       # hundreds of valid histories whose latest adjusted close was still
@@ -272,7 +274,7 @@ jobs:
         if: steps.gate.outputs.changed == 'true'
         run: |
           unexpected=$(git status --porcelain | awk '{print $2}' | grep -Ev \
-            '^(prices|financials|quarterly_financials|fundamentals|financial_health|valuation|long_term_radar|market_rotation|market_rotation_universe|research_synthesis|sec_daily_change_candidates|sec_daily_jev_review|sec_candidate_rule_calibration|sec_position_impact_history|company_event_calendar|earnings_verification_cards|earnings_verification_history|segment_driver_validation|segment_driver_history|segment_driver_history_inputs|segment_driver_update_candidates|segment_thesis_linkage|segment_outlook_verification|segment_outlook_history|capital_allocation_cards|capital_allocation_history)\.json$|^[a-z]+_report\.html$|^30_Analysis/.*_Master_Investment_Thesis_2026\.md$|^60_SEC_Filing_Radar/(Research_Synthesis|SEC_(Daily_Change_Candidates|Daily_Jev_Review|Candidate_Rule_Calibration|Position_Impact_History)|Company_Event_Calendar|Earnings_Verification_(Cards|History)|Segment_Driver_(Validation|History|Update_Candidates)|Segment_Thesis_Linkage|Segment_Outlook_Verification|Segment_Outlook_History|Capital_Allocation_Cards|Capital_Allocation_History)\.md$' \
+            '^(prices|financials|quarterly_financials|fundamentals|financial_health|valuation|long_term_radar|market_rotation|market_rotation_universe|market_rotation_summary|market_rotation_groups|market_rotation_stocks|market_rotation_registry|research_synthesis|sec_daily_change_candidates|sec_daily_jev_review|sec_candidate_rule_calibration|sec_position_impact_history|company_event_calendar|earnings_verification_cards|earnings_verification_history|segment_driver_validation|segment_driver_history|segment_driver_history_inputs|segment_driver_update_candidates|segment_thesis_linkage|segment_outlook_verification|segment_outlook_history|capital_allocation_cards|capital_allocation_history)\.json$|^[a-z]+_report\.html$|^30_Analysis/.*_Master_Investment_Thesis_2026\.md$|^60_SEC_Filing_Radar/(Research_Synthesis|SEC_(Daily_Change_Candidates|Daily_Jev_Review|Candidate_Rule_Calibration|Position_Impact_History)|Company_Event_Calendar|Earnings_Verification_(Cards|History)|Segment_Driver_(Validation|History|Update_Candidates)|Segment_Thesis_Linkage|Segment_Outlook_Verification|Segment_Outlook_History|Capital_Allocation_Cards|Capital_Allocation_History)\.md$' \
             || true)
           if [ -n "$unexpected" ]; then
             echo "Unexpected files changed; refusing to commit:"
@@ -382,3 +384,25 @@ jobs:
           git add -A
           git commit -m "chore: refresh market and filing data ($(date -u +%Y-%m-%d))"
           git push
+
+  # Separate job with its own checkout, so a failure anywhere in the jobs
+  # above (even checkout or runner loss) is reported, and a later success
+  # closes the issue again.
+  alert:
+    needs: [refresh]
+    if: always()
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      issues: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: .github/scripts
+
+      - name: Open or close the workflow failure issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RESULTS: ${{ join(needs.*.result, ' ') }}
+        run: bash .github/scripts/workflow-alert.sh "$RESULTS"

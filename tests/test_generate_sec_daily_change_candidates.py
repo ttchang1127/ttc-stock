@@ -63,6 +63,18 @@ class DailyChangeCandidateTests(unittest.TestCase):
         self.assertIn("不等於已成交", " ".join(form144["evidence"]))
         self.assertEqual(form144["materiality"]["planned_shares_outstanding_percent"], 0.1)
 
+    def test_form4_totals_do_not_depend_on_python_float_summation(self):
+        # Real NVDA 10b5-1 rows: Python 3.11 sum() gives 6786532.591899999 while
+        # 3.12 gives 6786532.5919, which made the C-29 rebuild check fail locally.
+        alerts = {"events": [{"ticker": "NVDA", "form": "4", "accession": "nvda", "filing_date": "2026-09-24",
+                              "detected_at": "2026-09-25T01:00:00+00:00", "url": "https://www.sec.gov/nvda"}]}
+        values = [2773637.7155999998, 3006253.0742, 1006641.8021]
+        details = {"form4": {"nvda": {"transactions": [
+            {"code": "S", "value": value, "rule_10b5_1": True, "shares": 10, "shares_after": 990,
+             "acquired_disposed": "D"} for value in values]}}}
+        rows, _ = MODULE.filing_candidates(alerts, details, {"insiders": []}, self.editorial)
+        self.assertEqual(rows[0]["materiality"]["transaction_value_usd"], 6786532.5919)
+
     def test_calibration_only_lowers_display_priority_after_rule_marks_it(self):
         candidate = MODULE.make_candidate(
             "risk", "NVDA", ["accession"], "headline", ["evidence"], "reason",

@@ -26,12 +26,14 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+          cache: pip
+          cache-dependency-path: requirements.txt
 
-      # The full test suite below also covers the market-rotation builder,
-      # which imports pandas and yfinance. Without them every run failed at
-      # test import from 2026-09-13 and no SEC radar was refreshed.
-      - name: Install earnings-call parser and test dependencies
-        run: python3 -m pip install 'pypdf>=6,<7' 'curl_cffi>=0.13,<0.14' pandas 'yfinance>=1.2.0'
+      # The full test suite below imports pandas and yfinance. A workflow that
+      # listed its own subset failed at test import from 2026-09-13 and froze
+      # every SEC radar, so all workflows install the one requirements file.
+      - name: Install dependencies
+        run: python3 -m pip install --quiet -r requirements.txt
 
       - name: Verify filing watcher
         run: python3 -m unittest discover -s tests -v
@@ -298,3 +300,25 @@ jobs:
         run: |
           echo "Periodic filings pending: ${{ steps.ingest.outputs.pending_count }}; Exhibit 99.1 cards pending: ${{ steps.exhibit991.outputs.exhibit_991_pending_count }}."
           exit 1
+
+  # Separate job with its own checkout, so a failure anywhere in the jobs
+  # above (even checkout or runner loss) is reported, and a later success
+  # closes the issue again.
+  alert:
+    needs: [watch]
+    if: always()
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      issues: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: .github/scripts
+
+      - name: Open or close the workflow failure issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RESULTS: ${{ join(needs.*.result, ' ') }}
+        run: bash .github/scripts/workflow-alert.sh "$RESULTS"

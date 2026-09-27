@@ -13,23 +13,34 @@ so a partial Yahoo response cannot silently look complete.
 from __future__ import annotations
 
 import argparse
+import copy
+import hashlib
 import io
 import json
 import math
+import os
 import sys
-from datetime import date, datetime, time, timedelta, timezone
+import tempfile
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
-from typing import Iterable
+from typing import Callable, Iterable
 from urllib.request import Request, urlopen
-from zoneinfo import ZoneInfo
 
+import numpy as np
 import pandas as pd
 import yfinance as yf
+
+from market_calendar import expected_latest_market_session, market_session_lag
+from market_rotation_contracts import (
+    QUADRANTS, check_parity, compute_dataset_id, dump_json, group_slug,
+    validate_canonical, validate_registry, validate_v1, validate_v2,
+)
 
 
 ROOT = Path(__file__).resolve().parent.parent
 UNIVERSE_PATH = ROOT / "market_rotation_universe.json"
 OUTPUT_PATH = ROOT / "market_rotation.json"
+REGISTRY_PATH = ROOT / "market_rotation_registry.json"
 
 SP500_URL = "https://en.wikipedia.org/wiki/List_of_S%26P_500_companies"
 NASDAQ100_URL = "https://en.wikipedia.org/wiki/List_of_NASDAQ-100_companies"
@@ -71,111 +82,31 @@ SCORE_WEIGHTS = {
     "persistence": 0.10,
 }
 
-NEW_YORK = ZoneInfo("America/New_York")
-# Give Yahoo two hours after the regular 16:00 ET close before declaring the
-# current session missing.  The scheduled job normally runs later than this.
-MARKET_DATA_CUTOFF = time(18, 0)
-
-
-def observed_fixed_holiday(value: date) -> date:
-    if value.weekday() == 5:
-        return value - timedelta(days=1)
-    if value.weekday() == 6:
-        return value + timedelta(days=1)
-    return value
-
-
-def nth_weekday(year: int, month: int, weekday: int, number: int) -> date:
-    value = date(year, month, 1)
-    value += timedelta(days=(weekday - value.weekday()) % 7)
-    return value + timedelta(weeks=number - 1)
-
-
-def last_weekday(year: int, month: int, weekday: int) -> date:
-    if month == 12:
-        value = date(year + 1, 1, 1) - timedelta(days=1)
-    else:
-        value = date(year, month + 1, 1) - timedelta(days=1)
-    return value - timedelta(days=(value.weekday() - weekday) % 7)
-
-
-def easter_sunday(year: int) -> date:
-    """Return Gregorian Easter using the anonymous computus algorithm."""
-    a = year % 19
-    b, c = divmod(year, 100)
-    d, e = divmod(b, 4)
-    f = (b + 8) // 25
-    g = (b - f + 1) // 3
-    h = (19 * a + b - d - g + 15) % 30
-    i, k = divmod(c, 4)
-    length = (32 + 2 * e + 2 * i - h - k) % 7
-    m = (a + 11 * h + 22 * length) // 451
-    month = (h + length - 7 * m + 114) // 31
-    day = (h + length - 7 * m + 114) % 31 + 1
-    return date(year, month, day)
-
-
-def nyse_holidays(year: int) -> set[date]:
-    """Regular full-day NYSE holidays; exceptional closures stay explicit."""
-    holidays = {
-        observed_fixed_holiday(date(year, 1, 1)),
-        nth_weekday(year, 1, 0, 3),   # Martin Luther King Jr. Day
-        nth_weekday(year, 2, 0, 3),   # Washington's Birthday
-        easter_sunday(year) - timedelta(days=2),
-        last_weekday(year, 5, 0),     # Memorial Day
-        observed_fixed_holiday(date(year, 7, 4)),
-        nth_weekday(year, 9, 0, 1),   # Labor Day
-        nth_weekday(year, 11, 3, 4),  # Thanksgiving
-        observed_fixed_holiday(date(year, 12, 25)),
-    }
-    if year >= 2022:
-        holidays.add(observed_fixed_holiday(date(year, 6, 19)))
-    return holidays
-
-
-# Add one-off national days of mourning or emergency closures here after an
-# official exchange announcement.  Keeping the override visible is safer than
-# silently treating every federal holiday as an equity-market closure.
-EXTRA_MARKET_CLOSURES: set[date] = set()
-
-
-def is_market_session(value: date) -> bool:
-    holidays = set().union(*(
-        nyse_holidays(year) for year in range(value.year - 1, value.year + 2)
-    ))
-    return value.weekday() < 5 and value not in holidays and value not in EXTRA_MARKET_CLOSURES
-
-
-def previous_market_session(value: date) -> date:
-    candidate = value
-    while not is_market_session(candidate):
-        candidate -= timedelta(days=1)
-    return candidate
-
-
-def expected_latest_market_session(now: datetime | None = None) -> date:
-    """Latest NYSE session whose regular close should be available from Yahoo."""
-    current = now or datetime.now(timezone.utc)
-    if current.tzinfo is None:
-        raise ValueError("now must be timezone-aware")
-    market_now = current.astimezone(NEW_YORK)
-    candidate = market_now.date()
-    if market_now.timetz().replace(tzinfo=None) < MARKET_DATA_CUTOFF:
-        candidate -= timedelta(days=1)
-    return previous_market_session(candidate)
-
-
-def market_session_lag(actual: date, expected: date) -> int:
-    if actual >= expected:
-        return 0
-    lag = 0
-    candidate = actual + timedelta(days=1)
-    while candidate <= expected:
-        if is_market_session(candidate):
-            lag += 1
-        candidate += timedelta(days=1)
-    return lag
-
+# Schema version 2 changes the file layout only; the formula stays v1.
+VERSIONS = {
+    "calculation": "rotation-score-v1",
+    "classification": "gics-current-v1",
+    "universe": "union-deduped-v1",
+}
+MIN_MEMBERS = {"sector": 5, "industry": 3}
+GROUP_METRICS = (
+    "return_5d", "return_20d", "return_60d", "relative_strength_5d",
+    "relative_strength_20d", "relative_strength_60d", "acceleration_5d",
+    "breadth_positive_20d", "breadth_above_ma20", "breadth",
+    "dollar_volume_expansion", "persistence", "liquidity_weighted_return_20d",
+    "leadership_gap",
+)
+STOCK_METRICS = (
+    "return_5d", "return_20d", "return_60d", "relative_strength_20d", "dollar_volume_expansion",
+)
+ROLE_EVIDENCE = {
+    "leader": ("metrics.relative_strength_20d", "metrics.acceleration_5d", "rotation_score"),
+    "improver": ("metrics.acceleration_5d", "metrics.relative_strength_20d", "rotation_score"),
+    "weakening": ("rotation_score", "metrics.acceleration_5d", "metrics.relative_strength_20d"),
+    "broadest": ("metrics.breadth", "quadrant", "rotation_score"),
+}
+DEFAULT_CHART_SECTORS = 3
+TOP_INDUSTRIES = 20
 
 def require_fresh_market_data(actual: date, expected: date) -> None:
     if actual < expected:
@@ -293,25 +224,62 @@ def stable_payload(payload: dict) -> dict:
     return value
 
 
-def write_if_changed(path: Path, payload: dict) -> bool:
-    if path.exists():
-        try:
-            previous = json.loads(path.read_text())
-        except (OSError, json.JSONDecodeError):
-            previous = None
-        if previous is not None and stable_payload(previous) == stable_payload(payload):
-            # Generated market files are intentionally minified.  Hundreds of
-            # constituents and trajectory points otherwise turn a small data
-            # change into thousands of diff lines and waste review context.
-            compact_previous = json.dumps(
-                previous, ensure_ascii=False, separators=(",", ":")
-            ) + "\n"
-            if path.read_text() != compact_previous:
-                path.write_text(compact_previous)
-                return True
-            return False
-    path.write_text(json.dumps(payload, ensure_ascii=False, separators=(",", ":")) + "\n")
-    return True
+def planned_text(path: Path, payload: dict) -> str | None:
+    """Text to write, or None when only ``generated_at`` would change."""
+    text = dump_json(payload)
+    if not path.exists():
+        return text
+    try:
+        current = path.read_text()
+        previous = json.loads(current)
+    except (OSError, json.JSONDecodeError):
+        return text
+    if stable_payload(previous) != stable_payload(payload):
+        return text
+    # Generated market files are intentionally minified.  Hundreds of
+    # constituents and trajectory points otherwise turn a small data change
+    # into thousands of diff lines and waste review context.
+    compact_previous = dump_json(previous)
+    return compact_previous if current != compact_previous else None
+
+
+def publish_artifacts(
+    outputs: list[tuple[Path, dict, Callable[[dict], None] | None]],
+) -> dict[Path, bool]:
+    """Validate every payload first, then replace only the files that changed.
+
+    Nothing on disk is touched unless all payloads pass their contracts and
+    serialise without NaN/Infinity.  Changed files are staged beside their
+    targets and swapped in with ``os.replace`` so a reader never sees a
+    half-written file.
+    """
+    for path, payload, validate in outputs:
+        if validate is not None:
+            validate(payload)
+    plans = [(path, planned_text(path, payload)) for path, payload, _ in outputs]
+    staged: list[tuple[str, Path]] = []
+    try:
+        for path, text in plans:
+            if text is None:
+                continue
+            handle = tempfile.NamedTemporaryFile(
+                "w", dir=path.parent, prefix=f".{path.name}.", suffix=".tmp",
+                delete=False, encoding="utf-8",
+            )
+            with handle:
+                handle.write(text)
+            staged.append((handle.name, path))
+        for temporary, path in staged:
+            os.replace(temporary, path)
+    finally:
+        for temporary, _ in staged:
+            if os.path.exists(temporary):
+                os.unlink(temporary)
+    return {path: text is not None for path, text in plans}
+
+
+def write_if_changed(path: Path, payload: dict, validate=None) -> bool:
+    return publish_artifacts([(path, payload, validate)])[path]
 
 
 def refresh_universe(path: Path = UNIVERSE_PATH) -> dict:
@@ -388,7 +356,8 @@ def fetch_market_data(
 def finite(value, digits: int = 4):
     if value is None or pd.isna(value) or not math.isfinite(float(value)):
         return None
-    return round(float(value), digits)
+    # "+ 0.0" folds -0.0 into 0.0 so a rounded zero never prints as "-0.0".
+    return round(float(value), digits) + 0.0
 
 
 def pct(value):
@@ -437,6 +406,7 @@ def raw_group_metrics(
 
     sma20 = closes.rolling(20, min_periods=15).mean().iloc[-1]
     daily_returns = closes.pct_change(fill_method=None)
+    universe_daily = daily_returns.mean(axis=1).iloc[-10:]
     dollar_volume = closes * volumes
     current_weights = dollar_volume.iloc[-20:].mean()
     volume_recent = dollar_volume.iloc[-5:].sum(axis=1).mean()
@@ -455,11 +425,14 @@ def raw_group_metrics(
         group_previous5 = float(previous5[tickers].mean())
         rel5 = group_r5 - benchmark["return_5d"]
         previous_rel5 = group_previous5 - benchmark["previous_5d"]
-        above_ma = (closes.iloc[-1][tickers] > sma20[tickers]).dropna()
-        positive20 = (r20[tickers] > 0).dropna()
-        group_daily = daily_returns[tickers].mean(axis=1)
-        universe_daily = daily_returns.mean(axis=1)
-        persistence = float((group_daily.iloc[-10:] > universe_daily.iloc[-10:]).mean())
+        latest_close = closes.iloc[-1][tickers]
+        has_ma = latest_close.notna() & sma20[tickers].notna()
+        # Securities without a latest close or moving average leave the
+        # denominator; counting them as "below" would understate breadth.
+        above_ma = latest_close[has_ma] > sma20[tickers][has_ma]
+        positive20 = r20[tickers].dropna() > 0
+        group_daily = daily_returns[tickers].iloc[-10:].mean(axis=1)
+        persistence = float((group_daily > universe_daily).mean())
         group_recent = dollar_volume[tickers].iloc[-5:].sum(axis=1).mean()
         group_prior = dollar_volume[tickers].iloc[-25:-5].sum(axis=1).mean()
         volume_expansion = (group_recent / group_prior - 1) if group_prior else None
@@ -491,7 +464,26 @@ def raw_group_metrics(
     return rows, benchmark
 
 
-def score_rows(rows: list[dict]) -> list[dict]:
+def missing_components(row: dict) -> list[str]:
+    return [metric for metric in SCORE_WEIGHTS if finite(row.get(metric)) is None]
+
+
+def unranked_groups(rows: list[dict], group_type: str, id_of: Callable[[str], str]) -> list[dict]:
+    """Groups left out of the ranking because a score component is missing.
+
+    Missing weight is never redistributed to the remaining components, so the
+    same score always means the same formula.
+    """
+    found = [
+        {"group_id": id_of(row["key"]), "group_type": group_type, "name_en": row["key"],
+         "missing_components": missing}
+        for row in rows if (missing := missing_components(row))
+    ]
+    return sorted(found, key=lambda item: item["group_id"])
+
+
+def score_rows(rows: list[dict], tie_key: Callable[[str], str] = group_slug) -> list[dict]:
+    rows = [row for row in rows if not missing_components(row)]
     frame = pd.DataFrame(rows)
     if frame.empty:
         return []
@@ -500,7 +492,10 @@ def score_rows(rows: list[dict]) -> list[dict]:
     frame["rotation_score"] = sum(
         frame[f"rank_{metric}"] * weight for metric, weight in SCORE_WEIGHTS.items()
     )
-    return sorted(frame_to_clean_records(frame, rows), key=lambda item: item["rotation_score"], reverse=True)
+    return sorted(
+        frame_to_clean_records(frame, rows),
+        key=lambda item: (-item["rotation_score"], tie_key(item["key"])),
+    )
 
 
 def frame_to_clean_records(frame: pd.DataFrame, source_rows: list[dict]) -> list[dict]:
@@ -514,6 +509,17 @@ def frame_to_clean_records(frame: pd.DataFrame, source_rows: list[dict]) -> list
         for metric in SCORE_WEIGHTS:
             source[f"rank_{metric}"] = finite(scored[f"rank_{metric}"], 1)
         source["rotation_score"] = finite(scored["rotation_score"], 1)
+        source["quadrant"], source["quadrant_zh"] = None, None
+        for metric in (
+            "return_5d", "return_20d", "return_60d", "relative_strength_5d",
+            "relative_strength_20d", "relative_strength_60d", "acceleration_5d",
+            "breadth_positive_20d", "breadth_above_ma20", "breadth",
+            "dollar_volume_expansion", "persistence", "liquidity_weighted_return_20d",
+            "leadership_gap",
+        ):
+            source[metric] = pct(source.get(metric))
+        # Classify on the published (rounded) axes so a point drawn at 0.00
+        # always carries the non-negative quadrant the page explains.
         x = source["relative_strength_20d"]
         y = source["acceleration_5d"]
         if x >= 0 and y >= 0:
@@ -524,14 +530,6 @@ def frame_to_clean_records(frame: pd.DataFrame, source_rows: list[dict]) -> list
             source["quadrant"], source["quadrant_zh"] = "weakening", "轉弱"
         else:
             source["quadrant"], source["quadrant_zh"] = "lagging", "落後"
-        for metric in (
-            "return_5d", "return_20d", "return_60d", "relative_strength_5d",
-            "relative_strength_20d", "relative_strength_60d", "acceleration_5d",
-            "breadth_positive_20d", "breadth_above_ma20", "breadth",
-            "dollar_volume_expansion", "persistence", "liquidity_weighted_return_20d",
-            "leadership_gap",
-        ):
-            source[metric] = pct(source.get(metric))
         source["score_change_5d"] = None
         result.append(source)
     return result
@@ -581,39 +579,85 @@ def add_trajectories(
         row["trajectory"] = trails[row["key"]]
 
 
-def add_stock_leaders(
-    sectors: list[dict], closes: pd.DataFrame, volumes: pd.DataFrame,
-    metadata: pd.DataFrame, benchmark_20d: float,
-) -> None:
-    r5 = horizon_return(closes, 5)
-    r20 = horizon_return(closes, 20)
-    r60 = horizon_return(closes, 60)
-    dv = closes * volumes
-    recent = dv.iloc[-5:].mean()
-    prior = dv.iloc[-25:-5].mean()
-    expansion = recent / prior - 1
-    for sector in sectors:
-        candidates = metadata[metadata["sector"] == sector["key"]]
-        rows = []
-        for ticker, meta in candidates.iterrows():
-            if ticker not in closes or pd.isna(r20.get(ticker)):
-                continue
-            rows.append({
-                "ticker": ticker,
-                "name": meta["name"],
-                "return_5d": pct(r5.get(ticker)),
-                "return_20d": pct(r20.get(ticker)),
-                "return_60d": pct(r60.get(ticker)),
-                "relative_strength_20d": pct(r20.get(ticker) - benchmark_20d),
-                "dollar_volume_expansion": pct(expansion.get(ticker)),
-            })
-        rows.sort(key=lambda item: item["relative_strength_20d"] or -999, reverse=True)
-        sector["leaders"] = rows[:5]
-        sector["laggards"] = list(reversed(rows[-5:]))
+def rank_stock_rows(rows: list[dict]) -> list[dict]:
+    """Strongest relative return first; missing values last; ticker breaks ties."""
+    return sorted(rows, key=lambda item: (
+        item["relative_strength_20d"] is None,
+        -(item["relative_strength_20d"] or 0.0),
+        item["ticker"],
+    ))
 
 
-def build_payload(universe: dict, closes: pd.DataFrame, volumes: pd.DataFrame) -> dict:
+class Registry:
+    """Committed stable ids for groups and securities.
+
+    Ids come from this version-controlled table, not from today's names: a
+    known name or alias always resolves to its recorded id, and only unseen
+    names get a new slug id (with a short hash if the slug is taken).
+    """
+
+    def __init__(self, data: dict | None = None):
+        self.data = copy.deepcopy(data) if data else {"schema_version": 1, "groups": [], "securities": []}
+        self.group_ids = {
+            (row["group_type"], name): row["group_id"]
+            for row in self.data["groups"] for name in (row["name_en"], *row["aliases"])
+        }
+        self.stock_ids = {
+            name: row["stock_id"]
+            for row in self.data["securities"] for name in (row["ticker"], *row["aliases"])
+        }
+
+    @staticmethod
+    def new_id(prefix: str, name: str, taken: set[str]) -> str:
+        base = f"{prefix}:{group_slug(name) or 'unnamed'}"
+        digest = hashlib.sha256(name.encode("utf-8")).hexdigest()
+        candidate, length = base, 6
+        while candidate in taken:
+            candidate, length = f"{base}-{digest[:length]}", length + 2
+        return candidate
+
+    def group_id(self, group_type: str, name: str) -> str:
+        key = (group_type, name)
+        if key not in self.group_ids:
+            identifier = self.new_id(group_type, name, {row["group_id"] for row in self.data["groups"]})
+            self.data["groups"].append(
+                {"group_id": identifier, "group_type": group_type, "name_en": name, "aliases": []})
+            self.group_ids[key] = identifier
+        return self.group_ids[key]
+
+    def stock_id(self, ticker: str) -> str:
+        if ticker not in self.stock_ids:
+            identifier = self.new_id("security", ticker, {row["stock_id"] for row in self.data["securities"]})
+            self.data["securities"].append({"stock_id": identifier, "ticker": ticker, "aliases": []})
+            self.stock_ids[ticker] = identifier
+        return self.stock_ids[ticker]
+
+    def register_universe(self, members: list[dict]) -> None:
+        # Sorted so new ids (and any collision suffix) never depend on row order.
+        for group_type in ("sector", "industry"):
+            for name in sorted({row[group_type] for row in members}):
+                self.group_id(group_type, name)
+        for ticker in sorted(row["ticker"] for row in members):
+            self.stock_id(ticker)
+
+    def payload(self) -> dict:
+        return {
+            "schema_version": 1,
+            "groups": sorted(self.data["groups"], key=lambda row: row["group_id"]),
+            "securities": sorted(self.data["securities"], key=lambda row: row["stock_id"]),
+        }
+
+
+def prepare_market_data(
+    universe: dict, closes: pd.DataFrame, volumes: pd.DataFrame,
+) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, list[str]]:
     yahoo_to_member = {row["yahoo_ticker"]: row for row in universe["members"]}
+    # Zero, negative or infinite quotes are source errors, not prices.  Treat
+    # them as missing before any return, breadth or volume calculation.
+    closes = closes.apply(pd.to_numeric, errors="coerce")
+    closes = closes.where(np.isfinite(closes) & (closes > 0))
+    volumes = volumes.apply(pd.to_numeric, errors="coerce")
+    volumes = volumes.where(np.isfinite(volumes) & (volumes >= 0))
     usable = [ticker for ticker in closes if closes[ticker].notna().sum() >= 75]
     closes = closes[usable].dropna(how="all")
     volumes = volumes.reindex(index=closes.index, columns=usable)
@@ -628,27 +672,156 @@ def build_payload(universe: dict, closes: pd.DataFrame, volumes: pd.DataFrame) -
             f"Only {len(closes.columns)}/{universe['counts']['combined_securities']} securities "
             "have 75 sessions; refusing to publish partial rotation data"
         )
-
-    sector_raw, benchmark = raw_group_metrics(closes, volumes, metadata, "sector", 5)
-    industry_raw, _ = raw_group_metrics(closes, volumes, metadata, "industry", 3)
-    sectors = score_rows(sector_raw)
-    industries = score_rows(industry_raw)
-    sector_previous = metrics_for_date(closes, volumes, metadata, "sector", 5, -6)
-    industry_previous = metrics_for_date(closes, volumes, metadata, "industry", 3, -6)
-    add_score_changes(sectors, sector_previous)
-    add_score_changes(industries, industry_previous)
-    add_trajectories(sectors, closes, volumes, metadata, "sector", 5)
-    add_trajectories(industries, closes, volumes, metadata, "industry", 3)
-    add_stock_leaders(sectors, closes, volumes, metadata, benchmark["return_20d"])
-
     unavailable = sorted(
         row["ticker"] for row in universe["members"] if row["ticker"] not in metadata.index
     )
+    return closes, volumes, metadata, unavailable
+
+
+def stock_records(
+    closes: pd.DataFrame, volumes: pd.DataFrame, metadata: pd.DataFrame,
+    benchmark_20d: float, registry: Registry,
+) -> list[dict]:
+    r5 = horizon_return(closes, 5)
+    r20 = horizon_return(closes, 20)
+    r60 = horizon_return(closes, 60)
+    dv = closes * volumes
+    recent = dv.iloc[-5:].mean()
+    prior = dv.iloc[-25:-5].mean()
+    expansion = recent / prior - 1
+    records = []
+    for ticker, meta in metadata.iterrows():
+        metrics = {
+            "return_5d": pct(r5.get(ticker)),
+            "return_20d": pct(r20.get(ticker)),
+            "return_60d": pct(r60.get(ticker)),
+            "relative_strength_20d": pct(r20.get(ticker) - benchmark_20d),
+            "dollar_volume_expansion": pct(expansion.get(ticker)),
+        }
+        flags = []
+        if metrics["relative_strength_20d"] is None:
+            flags.append("missing_return_20d")
+        if metrics["dollar_volume_expansion"] is None:
+            flags.append("missing_volume")
+        records.append({
+            "stock_id": registry.stock_id(ticker),
+            "ticker": ticker,
+            "yahoo_ticker": meta["yahoo_ticker"],
+            "name": meta["name"],
+            "sector_id": registry.group_id("sector", meta["sector"]),
+            "sector_name_en": meta["sector"],
+            "industry_id": registry.group_id("industry", meta["industry"]),
+            "industry_name_en": meta["industry"],
+            "indexes": list(meta["indexes"]),
+            "classification": meta["classification"],
+            "metrics": metrics,
+            "quality_flags": flags,
+        })
+    return sorted(records, key=lambda row: row["stock_id"])
+
+
+def stock_selection(stocks: list[dict], sector_id: str) -> tuple[list[str], list[str]]:
+    candidates = [
+        {"stock_id": row["stock_id"], "ticker": row["ticker"],
+         "relative_strength_20d": row["metrics"]["relative_strength_20d"]}
+        for row in stocks if row["sector_id"] == sector_id
+    ]
+    ranked = [row for row in rank_stock_rows(candidates) if row["relative_strength_20d"] is not None]
+    return ([row["stock_id"] for row in ranked[:5]],
+            [row["stock_id"] for row in reversed(ranked[-5:])])
+
+
+def industry_parents(metadata: pd.DataFrame, registry: Registry) -> dict[str, str]:
+    parents = {}
+    for industry, sectors in metadata.groupby("industry")["sector"]:
+        counts = sectors.value_counts()
+        top = sorted(counts[counts == counts.max()].index, key=lambda name: registry.group_id("sector", name))
+        parents[industry] = registry.group_id("sector", top[0])
+    return parents
+
+
+def group_record(
+    row: dict, rank: int, group_type: str, registry: Registry,
+    parent: str | None, selection: tuple[list[str], list[str]] | None,
+) -> dict:
+    return {
+        "group_id": registry.group_id(group_type, row["key"]),
+        "group_type": group_type,
+        "parent_group_id": parent,
+        "name_en": row["name"],
+        "name_zh": row["name_zh"],
+        "member_count": row["member_count"],
+        "rank": rank,
+        "metrics": {metric: row[metric] for metric in GROUP_METRICS},
+        "ranks": {metric: row[f"rank_{metric}"] for metric in SCORE_WEIGHTS},
+        "rotation_score": row["rotation_score"],
+        "score_change_5d": row["score_change_5d"],
+        "quadrant": row["quadrant"],
+        "trajectory": row["trajectory"],
+        "leader_stock_ids": selection[0] if selection else None,
+        "laggard_stock_ids": selection[1] if selection else None,
+    }
+
+
+def select_roles(sectors: list[dict]) -> dict[str, str | None]:
+    """Fixed, testable home-page roles; an empty quadrant yields None, never a stand-in."""
+    def best(rows, key):
+        return min(rows, key=key)["group_id"] if rows else None
+
+    in_quadrant = {name: [g for g in sectors if g["quadrant"] == name] for name in QUADRANTS}
+    return {
+        "leader": best(in_quadrant["leading"], lambda g: (-g["rotation_score"], g["group_id"])),
+        "improver": best(in_quadrant["improving"], lambda g: (
+            -g["metrics"]["acceleration_5d"], -g["rotation_score"], g["group_id"])),
+        "weakening": best(in_quadrant["weakening"], lambda g: (-g["rotation_score"], g["group_id"])),
+        "broadest": best(sectors, lambda g: (
+            -g["metrics"]["breadth"], -g["rotation_score"], g["group_id"])),
+    }
+
+
+def calculate_canonical(
+    universe: dict, closes: pd.DataFrame, volumes: pd.DataFrame, registry_data: dict | None = None,
+) -> tuple[dict, dict]:
+    """The only place rotation numbers are calculated.
+
+    Returns the in-memory canonical model and the (possibly extended) id
+    registry.  Serialisers may rename, split or reference fields but never
+    recompute them.
+    """
+    registry = Registry(registry_data)
+    registry.register_universe(universe["members"])
+    sector_id = lambda name: registry.group_id("sector", name)  # noqa: E731
+    industry_id = lambda name: registry.group_id("industry", name)  # noqa: E731
+
+    closes, volumes, metadata, unavailable = prepare_market_data(universe, closes, volumes)
+    sector_raw, benchmark = raw_group_metrics(closes, volumes, metadata, "sector", MIN_MEMBERS["sector"])
+    industry_raw, _ = raw_group_metrics(closes, volumes, metadata, "industry", MIN_MEMBERS["industry"])
+    sectors = score_rows(sector_raw, tie_key=sector_id)
+    industries = score_rows(industry_raw, tie_key=industry_id)
+    sector_previous = metrics_for_date(closes, volumes, metadata, "sector", MIN_MEMBERS["sector"], -6)
+    industry_previous = metrics_for_date(closes, volumes, metadata, "industry", MIN_MEMBERS["industry"], -6)
+    add_score_changes(sectors, sector_previous)
+    add_score_changes(industries, industry_previous)
+    add_trajectories(sectors, closes, volumes, metadata, "sector", MIN_MEMBERS["sector"])
+    add_trajectories(industries, closes, volumes, metadata, "industry", MIN_MEMBERS["industry"])
+
+    stocks = stock_records(closes, volumes, metadata, benchmark["return_20d"], registry)
+    parents = industry_parents(metadata, registry)
+    groups = [
+        group_record(row, rank, "sector", registry, None, stock_selection(stocks, sector_id(row["key"])))
+        for rank, row in enumerate(sectors, start=1)
+    ] + [
+        group_record(row, rank, "industry", registry, parents[row["key"]], None)
+        for rank, row in enumerate(industries, start=1)
+    ]
     latest = closes.index[-1].strftime("%Y-%m-%d")
-    payload = {
-        "schema_version": 1,
-        "generated_at": utc_now(),
+    canonical = {
         "as_of": latest,
+        "versions": dict(VERSIONS),
+        "universe": {
+            "description": "S&P 500 + Nasdaq-100 securities, overlapping tickers de-duplicated",
+            "counts": dict(universe["counts"]),
+        },
         "methodology": {
             "label": "價格與成交額市場偏好代理指標（非實際資金淨流入）",
             "universe": "S&P 500 + Nasdaq-100 securities, overlapping tickers de-duplicated",
@@ -674,6 +847,8 @@ def build_payload(universe: dict, closes: pd.DataFrame, volumes: pd.DataFrame) -
             "priced_securities": len(closes.columns),
             "coverage_pct": round(len(closes.columns) / universe["counts"]["combined_securities"] * 100, 1),
             "unavailable_tickers": unavailable,
+            "unranked_groups": (unranked_groups(sector_raw, "sector", sector_id)
+                                + unranked_groups(industry_raw, "industry", industry_id)),
             "start": closes.index[0].strftime("%Y-%m-%d"),
             "end": latest,
         },
@@ -684,16 +859,164 @@ def build_payload(universe: dict, closes: pd.DataFrame, volumes: pd.DataFrame) -
             "return_60d": pct(benchmark["return_60d"]),
             "dollar_volume_expansion": pct(benchmark["dollar_volume_expansion"]),
         },
-        "sectors": sectors,
-        "industries": industries,
+        "groups": groups,
+        "stocks": stocks,
+        "roles": select_roles([g for g in groups if g["group_type"] == "sector"]),
     }
-    return payload
+    validate_canonical(canonical)
+    return canonical, registry.payload()
+
+
+def serialize_v1(canonical: dict, generated_at: str) -> dict:
+    """Rebuild the legacy market_rotation.json shape; no stable ids or envelope."""
+    stocks = {row["stock_id"]: row for row in canonical["stocks"]}
+
+    def stock_row(stock_id: str) -> dict:
+        stock = stocks[stock_id]
+        return {"ticker": stock["ticker"], "name": stock["name"],
+                **{metric: stock["metrics"][metric] for metric in STOCK_METRICS}}
+
+    def group_row(group: dict) -> dict:
+        row = {"key": group["name_en"], "name": group["name_en"], "name_zh": group["name_zh"],
+               "member_count": group["member_count"]}
+        row.update({metric: group["metrics"][metric] for metric in GROUP_METRICS})
+        row.update({f"rank_{metric}": group["ranks"][metric] for metric in SCORE_WEIGHTS})
+        row.update({
+            "rotation_score": group["rotation_score"],
+            "quadrant": group["quadrant"],
+            "quadrant_zh": QUADRANTS[group["quadrant"]],
+            "score_change_5d": group["score_change_5d"],
+            "trajectory": copy.deepcopy(group["trajectory"]),
+        })
+        if group["group_type"] == "sector":
+            row["leaders"] = [stock_row(ref) for ref in group["leader_stock_ids"]]
+            row["laggards"] = [stock_row(ref) for ref in group["laggard_stock_ids"]]
+        return row
+
+    coverage = copy.deepcopy(canonical["coverage"])
+    coverage["unranked_groups"] = [
+        {"type": row["group_type"], "key": row["name_en"], "missing_components": row["missing_components"]}
+        for row in coverage["unranked_groups"]
+    ]
+    groups = canonical["groups"]
+    return {
+        "schema_version": 1,
+        "generated_at": generated_at,
+        "as_of": canonical["as_of"],
+        "methodology": copy.deepcopy(canonical["methodology"]),
+        "sources": copy.deepcopy(canonical["sources"]),
+        "coverage": coverage,
+        "benchmark": copy.deepcopy(canonical["benchmark"]),
+        "sectors": [group_row(g) for g in groups if g["group_type"] == "sector"],
+        "industries": [group_row(g) for g in groups if g["group_type"] == "industry"],
+    }
+
+
+def role_cards(roles: dict[str, str | None]) -> list[dict]:
+    """Merge roles held by the same group into one card with at most three evidence fields.
+
+    Each role's primary evidence is taken before any role's secondary field,
+    so a merged "leader + broadest" card still shows breadth.
+    """
+    held: dict[str, list[str]] = {}
+    for role in ROLE_EVIDENCE:
+        if roles.get(role) is not None:
+            held.setdefault(roles[role], []).append(role)
+    cards = []
+    for group_id, group_roles in held.items():
+        evidence: list[dict] = []
+        for depth in range(max(len(ROLE_EVIDENCE[role]) for role in group_roles)):
+            for role in group_roles:
+                fields = ROLE_EVIDENCE[role]
+                item = {"group_id": group_id, "field": fields[depth]} if depth < len(fields) else None
+                if item and item not in evidence and len(evidence) < 3:
+                    evidence.append(item)
+        cards.append({"group_id": group_id, "roles": group_roles, "evidence": evidence})
+    return cards
+
+
+def serialize_v2(canonical: dict, generated_at: str) -> dict[str, dict]:
+    """Split the canonical model into summary / groups / stocks sharing one dataset_id."""
+    dataset_id = compute_dataset_id(canonical)
+    sectors = [g for g in canonical["groups"] if g["group_type"] == "sector"]
+    industries = [g for g in canonical["groups"] if g["group_type"] == "industry"]
+
+    def envelope(name: str, data: dict) -> dict:
+        return {
+            "schema_name": f"market-rotation-{name}",
+            "schema_version": 2,
+            "dataset_id": dataset_id,
+            "as_of": canonical["as_of"],
+            "generated_at": generated_at,
+            "versions": dict(canonical["versions"]),
+            "data": data,
+        }
+
+    summary = {
+        "status": "ready",
+        "coverage": copy.deepcopy(canonical["coverage"]),
+        "benchmark": copy.deepcopy(canonical["benchmark"]),
+        "methodology": copy.deepcopy(canonical["methodology"]),
+        "comparison_sets": {
+            "sector": {"label": f"板塊內百分位｜比較{len(sectors)}大板塊", "count": len(sectors)},
+            "industry": {"label": "次產業內百分位｜比較全部合格次產業", "count": len(industries),
+                         "display_top_n": TOP_INDUSTRIES},
+        },
+        "defaults": {
+            "chart_group_ids": [g["group_id"] for g in sectors[:DEFAULT_CHART_SECTORS]],
+            "top_industry_ids": [g["group_id"] for g in industries[:TOP_INDUSTRIES]],
+        },
+        "roles": dict(canonical["roles"]),
+        "cards": role_cards(canonical["roles"]),
+    }
+    return {
+        "summary": envelope("summary", summary),
+        "groups": envelope("groups", {"sectors": copy.deepcopy(sectors),
+                                      "industries": copy.deepcopy(industries)}),
+        "stocks": envelope("stocks", {"stocks": copy.deepcopy(canonical["stocks"])}),
+    }
+
+
+def v2_paths(output: Path) -> dict[str, Path]:
+    return {name: output.with_name(f"market_rotation_{name}.json") for name in ("summary", "groups", "stocks")}
+
+
+def build_outputs(canonical: dict, registry: dict, generated_at: str) -> dict[str, dict]:
+    """Serialise every artifact and run all batch gates before anything is written.
+
+    Returns {"v1", "summary", "groups", "stocks", "registry"} payloads that
+    already passed their contracts, cross-file references and v1/v2 parity.
+    """
+    v1 = serialize_v1(canonical, generated_at)
+    v2 = serialize_v2(canonical, generated_at)
+    validate_v1(v1)
+    validate_v2(v2["summary"], v2["groups"], v2["stocks"])
+    check_parity(v1, v2["summary"], v2["groups"], v2["stocks"])
+    validate_registry(registry)
+    return {"v1": v1, **v2, "registry": registry}
+
+
+def publish_outputs(outputs: dict[str, dict], output: Path, registry_path: Path) -> dict[str, bool]:
+    """Replace v1, the three v2 files and the registry as one validated batch."""
+    targets = {"v1": output, **v2_paths(output), "registry": registry_path}
+    changed = publish_artifacts([(targets[name], outputs[name], None) for name in targets])
+    return {name: changed[path] for name, path in targets.items()}
+
+
+def build_payload(
+    universe: dict, closes: pd.DataFrame, volumes: pd.DataFrame, registry: dict | None = None,
+) -> dict:
+    """Compatibility wrapper: the legacy v1 payload, serialised from the canonical model."""
+    canonical, _ = calculate_canonical(universe, closes, volumes, registry)
+    return serialize_v1(canonical, utc_now())
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--universe", type=Path, default=UNIVERSE_PATH)
-    parser.add_argument("--output", type=Path, default=OUTPUT_PATH)
+    parser.add_argument("--output", type=Path, default=OUTPUT_PATH,
+                        help="v1 file; v2 summary/groups/stocks are written beside it.")
+    parser.add_argument("--registry", type=Path, default=REGISTRY_PATH)
     parser.add_argument("--skip-universe-refresh", action="store_true")
     parser.add_argument("--days", type=int, default=320)
     parser.add_argument("--batch-size", type=int, default=80)
@@ -732,8 +1055,9 @@ def main() -> None:
                 file=sys.stderr,
             )
             raise SystemExit(75) from error
-    payload = build_payload(universe, closes, volumes)
-    actual_session = date.fromisoformat(payload["as_of"])
+    registry = json.loads(args.registry.read_text()) if args.registry.exists() else None
+    canonical, registry = calculate_canonical(universe, closes, volumes, registry)
+    actual_session = date.fromisoformat(canonical["as_of"])
     if not args.allow_stale:
         try:
             require_fresh_market_data(actual_session, expected_session)
@@ -744,12 +1068,15 @@ def main() -> None:
                 file=sys.stderr,
             )
             raise SystemExit(75) from error
-    changed = write_if_changed(args.output, payload)
+    outputs = build_outputs(canonical, registry, utc_now())
+    changed = publish_outputs(outputs, args.output, args.registry)
+    payload = outputs["v1"]
     print(
         f"Market rotation: {payload['as_of']}, "
         f"{payload['coverage']['priced_securities']}/{payload['coverage']['universe_securities']} "
-        f"securities, {len(payload['sectors'])} sectors, {len(payload['industries'])} industries "
-        f"({'updated' if changed else 'unchanged'})"
+        f"securities, {len(payload['sectors'])} sectors, {len(payload['industries'])} industries, "
+        f"dataset {outputs['summary']['dataset_id'][7:19]} "
+        f"({', '.join(name for name, moved in changed.items() if moved) or 'unchanged'})"
     )
 
 

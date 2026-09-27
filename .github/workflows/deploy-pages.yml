@@ -43,22 +43,54 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  deploy:
+  # Hard gate: the Pages artifact is only built after the offline market
+  # rotation tests and the committed-data integrity check pass. It never
+  # refetches market data; it validates exactly what is about to be served.
+  quality:
     # Never publish the output of a failed refresh. Push and manual dispatch
     # events do not carry workflow_run, so they continue to deploy normally.
     if: >-
       github.event_name != 'workflow_run' ||
       github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
+    outputs:
+      sha: ${{ steps.verified.outputs.sha }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - id: verified
+        run: echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      - name: Install quality-gate dependencies
+        run: python3 -m pip install --quiet -r requirements.txt
+
+      - name: Run offline market rotation tests
+        run: python3 -m unittest discover -s tests -p 'test_market_rotation*.py' -v
+
+      - name: Verify committed data integrity
+        run: python3 scripts/check_integrity.py --quiet
+
+  deploy:
+    needs: quality
+    runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       # workflow_run points at the commit that started the refresh, before its
-      # bot commit. Explicitly checkout main to package the newly pushed data.
+      # bot commit, so the quality job resolved main. Package exactly the
+      # commit it verified, even if main moved while the gate was running.
       - uses: actions/checkout@v4
         with:
-          ref: main
+          ref: ${{ needs.quality.outputs.sha }}
 
       - uses: actions/configure-pages@v5
 
@@ -68,3 +100,25 @@ jobs:
 
       - id: deployment
         uses: actions/deploy-pages@v4
+
+  # Separate job with its own checkout, so a failure anywhere in the jobs
+  # above (even checkout or runner loss) is reported, and a later success
+  # closes the issue again.
+  alert:
+    needs: [quality, deploy]
+    if: always()
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      issues: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: .github/scripts
+
+      - name: Open or close the workflow failure issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RESULTS: ${{ join(needs.*.result, ' ') }}
+        run: bash .github/scripts/workflow-alert.sh "$RESULTS"

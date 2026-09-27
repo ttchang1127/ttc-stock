@@ -9,6 +9,7 @@ human/AI reading may copy an item into sec_daily_editorial.json.
 import argparse
 import hashlib
 import json
+import math
 import os
 from datetime import datetime
 from pathlib import Path
@@ -205,7 +206,9 @@ def filing_candidates(alerts, details, advanced, editorial):
             buys = [row for row in transactions if row.get("code") == "P"]
             sells = [row for row in transactions if row.get("code") == "S"]
             if buys:
-                value = sum(float(row.get("value") or 0) for row in buys)
+                # fsum is exactly rounded, so the stored total (and the C-29
+                # rebuild check) cannot differ between Python versions.
+                value = math.fsum(float(row.get("value") or 0) for row in buys)
                 holding_percent = max_transaction_holding_percent(buys)
                 candidates.append(make_candidate(
                     "improvement", ticker, [accession],
@@ -220,7 +223,7 @@ def filing_candidates(alerts, details, advanced, editorial):
                 ))
             if sells:
                 planned = sum(row.get("rule_10b5_1") is True for row in sells)
-                value = sum(float(row.get("value") or 0) for row in sells)
+                value = math.fsum(float(row.get("value") or 0) for row in sells)
                 holding_percent = max_transaction_holding_percent(sells)
                 sell_rule = "form4_sell_10b5_1" if planned == len(sells) else (
                     "form4_sell_unplanned" if planned == 0 else "form4_sell_mixed"
@@ -279,8 +282,8 @@ def filing_candidates(alerts, details, advanced, editorial):
         accessions = [row["accession"] for row in rows]
         facts = [advanced_144.get(accession, {}) for accession in accessions]
         parsed_facts = [fact for fact in facts if fact]
-        planned_shares = sum(float(fact.get("planned_shares") or 0) for fact in parsed_facts)
-        planned_value = sum(float(fact.get("planned_value_usd") or 0) for fact in parsed_facts)
+        planned_shares = math.fsum(float(fact.get("planned_shares") or 0) for fact in parsed_facts)
+        planned_value = math.fsum(float(fact.get("planned_value_usd") or 0) for fact in parsed_facts)
         shares_outstanding = max((float(fact.get("shares_outstanding") or 0) for fact in parsed_facts), default=0) or None
         outstanding_percent = relative_percent(planned_shares, shares_outstanding)
         reporters = sorted({fact.get("reporter") for fact in parsed_facts if fact.get("reporter")})

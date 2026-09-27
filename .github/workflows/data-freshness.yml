@@ -1,0 +1,68 @@
+name: Data freshness
+
+# Independent watchdog: catches pipelines that stop advancing their data even
+# when no run reports a failure (a disabled schedule, a stale quote source,
+# a step that exits 0 without writing). Standard library only.
+on:
+  schedule:
+    # 05:37 UTC = 13:37 Asia/Taipei, after the morning market refresh and the
+    # noon SEC run.
+    - cron: '37 5 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Check published data freshness
+        id: freshness
+        run: >-
+          python3 scripts/check_data_freshness.py
+          --markdown "$RUNNER_TEMP/freshness.md"
+          --github-output "$GITHUB_OUTPUT"
+
+      - name: Open or update the stale-data issue
+        if: steps.freshness.outputs.stale == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: bash .github/scripts/issue-alert.sh open "🟠 資料新鮮度警示" "$RUNNER_TEMP/freshness.md"
+
+      - name: Close the stale-data issue once everything is fresh
+        if: steps.freshness.outputs.stale == 'false'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: >-
+          bash .github/scripts/issue-alert.sh close "🟠 資料新鮮度警示"
+          "✅ 所有監看資料已恢復正常：${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+
+  # Separate job with its own checkout, so a failure anywhere in the jobs
+  # above (even checkout or runner loss) is reported, and a later success
+  # closes the issue again.
+  alert:
+    needs: [check]
+    if: always()
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      issues: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: .github/scripts
+
+      - name: Open or close the workflow failure issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RESULTS: ${{ join(needs.*.result, ' ') }}
+        run: bash .github/scripts/workflow-alert.sh "$RESULTS"

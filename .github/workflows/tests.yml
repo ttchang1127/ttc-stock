@@ -1,0 +1,37 @@
+name: Tests
+
+# Every pull request gets the same offline checks the data workflows run
+# before they commit, so a change is known good before it reaches main.
+# Nothing here fetches market or SEC data.
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: tests-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      - name: Install dependencies
+        run: python3 -m pip install --quiet -r requirements.txt
+
+      - name: Run unit tests
+        run: python3 -m unittest discover -s tests -v
+
+      - name: Verify committed data integrity
+        run: python3 scripts/check_integrity.py --quiet
