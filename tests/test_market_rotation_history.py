@@ -98,8 +98,8 @@ class HistoryTests(unittest.TestCase):
 
 
 class BuilderHistoryTests(unittest.TestCase):
-    def run_main(self, folder, extra):
-        builder = fixture.load_builder()
+    def run_main(self, folder, extra, builder=None):
+        builder = builder or fixture.load_builder()
         universe, closes, volumes = fixture.load_fixture()
         (folder / "universe.json").write_text(json.dumps(universe))
         argv = ["build_market_rotation.py", "--skip-universe-refresh",
@@ -128,6 +128,21 @@ class BuilderHistoryTests(unittest.TestCase):
             self.run_main(folder, ["--write-history"])
             self.assertEqual(month_files[0].read_text(), first)
             self.assertEqual(history.validate_history(folder / "history"), [])
+
+    def test_research_failure_never_blocks_the_page_files(self):
+        builder = fixture.load_builder()
+
+        def broken(*args, **kwargs):
+            raise KeyError("boom")
+
+        builder.calculate_research = broken
+        with tempfile.TemporaryDirectory() as directory:
+            folder = pathlib.Path(directory)
+            self.run_main(folder, ["--write-history"], builder)
+            self.assertTrue((folder / "market_rotation.json").exists())
+            self.assertTrue((folder / "market_rotation_summary.json").exists())
+            self.assertFalse((folder / "market_rotation_research.json").exists())
+            self.assertFalse((folder / "history").exists())
 
     def test_history_is_opt_in_and_never_from_stale_replays(self):
         with tempfile.TemporaryDirectory() as directory:

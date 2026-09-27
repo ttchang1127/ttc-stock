@@ -1101,7 +1101,6 @@ def main() -> None:
             raise SystemExit(75) from error
     registry = json.loads(args.registry.read_text()) if args.registry.exists() else None
     canonical, registry = calculate_canonical(universe, closes, volumes, registry)
-    research = calculate_research(universe, closes, volumes, canonical, registry)
     actual_session = date.fromisoformat(canonical["as_of"])
     if not args.allow_stale:
         try:
@@ -1113,9 +1112,16 @@ def main() -> None:
                 file=sys.stderr,
             )
             raise SystemExit(75) from error
-    outputs = build_outputs(canonical, registry, utc_now(), research)
+    generated_at = utc_now()
+    outputs = build_outputs(canonical, registry, generated_at)
+    try:
+        research = calculate_research(universe, closes, volumes, canonical, registry)
+        outputs = build_outputs(canonical, registry, generated_at, research)
+    except Exception as error:  # noqa: BLE001 - the research layer must never block the page files
+        print(f"::warning::Research layer skipped this run ({type(error).__name__}: {error}); "
+              "v1/v2 are still published and no history snapshot is recorded.")
     history_texts: dict[Path, str] = {}
-    if args.write_history:
+    if args.write_history and "research" in outputs:
         record = snapshot_record(outputs["research"], outputs["groups"], outputs["summary"], universe)
         history_texts, status, message = plan_append(record, args.history_dir)
         print(f"{'::warning::' if status in ('conflict', 'out_of_order') else ''}History: {message}")
