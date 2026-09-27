@@ -293,10 +293,22 @@
     const body = document.getElementById('etfHealthBody');
     if (!body) return;
     body.addEventListener('click', event => {
-      const toggle = event.target.closest('.etf-toggle');
-      if (toggle) { toggleDetail(toggle); return; }
       const period = event.target.closest('.period-btn');
-      if (period) { openPanels.set(period.dataset.etf, period.dataset.period); drawDetail(period.dataset.etf); }
+      if (period) { openPanels.set(period.dataset.etf, period.dataset.period); drawDetail(period.dataset.etf); return; }
+      if (event.target.closest('.etf-detail-row')) return;  // clicks inside an open panel never close it
+      // The whole row opens the panel, not only the ticker button.
+      const toggle = event.target.closest('.etf-toggle') || event.target.closest('tr')?.querySelector('.etf-toggle');
+      if (toggle) toggleDetail(toggle);
+    });
+    // Tickers in the overview cards jump to their row and open it.
+    document.getElementById('etfOverview')?.addEventListener('click', event => {
+      const link = event.target.closest('.etf-jump');
+      if (!link) return;
+      event.preventDefault();
+      const toggle = body.querySelector(`.etf-toggle[data-etf="${link.dataset.etf}"]`);
+      if (!toggle) return;
+      if (toggle.getAttribute('aria-expanded') !== 'true') toggleDetail(toggle);
+      toggle.closest('tr').scrollIntoView({behavior: 'smooth', block: 'start'});
     });
     let timer = null;
     window.addEventListener('resize', () => {
@@ -320,7 +332,8 @@
       const rows = health.etfs.filter(row => row.state === state);
       return rows.length ? `<div class="etf-count"><span class="state ${HEALTH_TONE[state] || ''}">` +
         `${esc(health.states[state])}</span><strong>${rows.length}</strong>` +
-        `<small>${rows.map(row => esc(row.ticker)).join('、')}</small></div>` : '';
+        `<small>${rows.map(row => `<a href="#etfHealthTitle" class="etf-jump" data-etf="${esc(row.ticker)}">` +
+          `${esc(row.ticker)}</a>`).join('、')}</small></div>` : '';
     }).join('');
     const verdicts = signals ? signals.signals.filter(signal => signal.verdict === 'supported').length : null;
     const conclusion = signals == null ? '訊號回測尚未執行。'
