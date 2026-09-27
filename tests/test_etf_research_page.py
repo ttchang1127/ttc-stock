@@ -33,6 +33,14 @@ class EtfResearchPageTests(unittest.TestCase):
             self.assertNotIn(element, self.rotation_script)
         self.assertIn('href="etf_research.html"', self.rotation_html, "the rotation page links to the ETF page")
 
+    def test_each_etf_row_expands_into_a_weight_map(self):
+        self.assertIn("'etf_constituents.json'", self.script)
+        for piece in ("etf-toggle", "aria-expanded", "function squarify(", "period-btn", "成分清單（依權重，累積達 80% 為止）"):
+            self.assertIn(piece, self.script)
+        for period in ("'1d'", "'1w'", "'1m'", "'3m'", "'6m'"):
+            self.assertIn(period, self.script)
+        self.assertIn("尚未產出 etf_constituents.json", self.script)
+
     def test_pages_link_both_ways(self):
         self.assertIn('href="market_rotation.html"', self.html)
         self.assertIn('href="dashboard.html"', self.html)

@@ -216,6 +216,8 @@ python3 scripts/check_integrity.py --quiet
 
 **ETF 資金流向**：兩個來源並列，不混用。(1) N-PORT 第 B.6 項的每月申購、再投資、贖回金額，是實際數字，但落後 2～5 個月；主題 ETF 的歷次申報（EDGAR 列出的全部，約 2019 年起）保存在 `etf_holdings/history/{ETF}.json`，含當時的成分權重，只追加不改寫，驗證不過的申報列在 `skipped` 不再重抓。(2) 每日排程的 `scripts/record_etf_flows.py` 記錄 Yahoo 顯示的流通股數、資產規模與收盤到 `etf_flows_history/YYYY-MM.jsonl`（一天一行、只追加、無法回補），`etf_health.json` 用它估計近 5／20 個交易日淨流入；Yahoo 數字沒有日期、不一定每天更新，只能當估計。
 
+**ETF 權重地圖**：同一次 `build_etf_health.py` 也寫 `etf_constituents.json`：每檔主題 ETF 依 N-PORT 權重列到累積達淨資產 80% 的成分（同代號合併、無美股代號的外國成分以名稱列出），附 1 日／1 週／1 個月／3 個月／6 個月報酬（最新交易日沒有報價就留空，不沿用舊價）。ETF 研究頁點選 ETF 時才載入，畫成 finviz 式方塊地圖（面積＝權重、顏色＝所選期間漲跌）並附成分清單。
+
 **健康度每日快照**：`build_etf_health.py` 每個交易日另外追加一行到 `etf_health_history/YYYY-MM.jsonl`（狀態、方向、20 日報酬、廣度、等權差距、前三大占比、涵蓋率、資金流），和 `etf_health.json` 同一次原子寫入；同一交易日重跑不重複、數值不同時保留第一筆並警告。要驗證「普遍上漲／少數撐盤」等標籤，只能用這份往後累積的紀錄。N-PORT 歷史的 `skipped` 是記錄用：驗證規則放寬時提高 `VALIDATION_VERSION`，舊規則下被略過的申報會重抓一次（2026-09-27：TAN 因借券擔保品使總權重 130～134% 被略過 4 季，總權重上限改為 175%，普通股 80～102% 的檢查不變）。
 
 **修改 `portfolio_holdings.json` 後必須重跑** `python3 scripts/build_market_rotation_digest.py`，否則 C-47 會失敗；不在 S&P 500／Nasdaq-100 的新個股要先在 `portfolio_classification.json` 補上板塊、次產業、來源、原因與覆核日。研究優先度只決定先讀哪一檔，不是買賣或調整部位的指令。

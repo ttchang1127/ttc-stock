@@ -2674,7 +2674,7 @@ def c48():
     page = read("etf_research.html") + read("assets/etf_research.js")
     missing = [marker for marker, text in (("build_etf_health.py", workflow), ("record_etf_flows.py", workflow),
                                            ("etf_health.json", page),
-                                           ("etfHealthBody", page),
+                                           ("etfHealthBody", page), ("etf_constituents.json", page),
                                            ("etf_research.html", read("market_rotation.html")),
                                            ("etf_research.html", read("dashboard.html"))) if marker not in text]
     if missing:
@@ -2684,6 +2684,9 @@ def c48():
         return True, "尚無 etf_health.json（SEC 排程抓到主題 ETF 持股後，下一次每日排程產生）"
     payload = json.loads(path.read_text())
     problems = etf_health.validate(payload)
+    detail_path = REPO_ROOT / "etf_constituents.json"
+    if detail_path.exists():
+        problems += etf_health.validate_constituents(json.loads(detail_path.read_text()))
     for row in payload.get("etfs", []):
         holdings_path = REPO_ROOT / "etf_holdings" / f"{row['ticker']}.json"
         if not holdings_path.exists():
