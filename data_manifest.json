@@ -568,6 +568,17 @@
       "note": "v1；正式頁讀取"
     },
     {
+      "path": "market_rotation_daily_digest.json",
+      "kind": "generated",
+      "producer": "scripts/build_market_rotation_digest.py",
+      "edit": "never",
+      "cadence": "market_daily",
+      "committed_by": [
+        "update-prices"
+      ],
+      "note": "每日輪動變化摘要（只列相較前一交易日的確認變化）與首頁一句話；P1／P2 會開 GitHub issue"
+    },
+    {
       "path": "market_rotation_groups.json",
       "kind": "generated",
       "producer": "scripts/build_market_rotation.py",
@@ -654,6 +665,26 @@
         "sec-filing-alerts"
       ],
       "note": "個人持股；同步修改 dashboard.html 的備援持股（C-31）"
+    },
+    {
+      "path": "portfolio_classification.json",
+      "kind": "human",
+      "producer": null,
+      "edit": "human",
+      "cadence": "manual",
+      "committed_by": [],
+      "note": "持股曝險的人工分類（不在股票池的個股，如 NOK）與排除的基金（VGT、VOO）；每筆要有來源、原因、覆核日"
+    },
+    {
+      "path": "portfolio_equity_exposure.json",
+      "kind": "generated",
+      "producer": "scripts/build_market_rotation_digest.py",
+      "edit": "never",
+      "cadence": "market_daily",
+      "committed_by": [
+        "update-prices"
+      ],
+      "note": "直接個股的板塊／次產業曝險與所屬族群輪動狀態；持股變更後要重跑產生器（C-47）"
     },
     {
       "path": "prices.json",
@@ -981,7 +1012,7 @@
       "note": "C 級回測結果（今天的成分股回算過去，有存活者偏誤）；只由每月回測排程重建"
     },
     {
-      "pattern": "^market_rotation_history/",
+      "pattern": "^market_rotation_history/(?!backtest/)",
       "kind": "generated",
       "producer": "scripts/build_market_rotation.py",
       "edit": "never",

@@ -78,7 +78,7 @@ Form 144＋3／4／5、併購與 SEC 執法／停牌雷達。完整 13F 另以
      SEC 連線。尚未改的只有不在排程裡的舊手動腳本（`fetch_sec.py`、`fetch_form8k_events.py`、
      `fetch_insider_institutional.py`），以及同時抓 SEC 與公司 IR 網站的 `track_earnings_calls.py`。
    - 拆分 `check_integrity.py`：依領域分模組，逐步把 HTML 字串比對換成資料與行為測試。
-4. **市場輪動研究層上線後**：合併後第一次每日排程會產生 `market_rotation_research.json` 與第一筆 A 級快照——屆時移除 `data_manifest.json` 中該檔的 `awaiting_first_run`（測試會提醒）；到 Actions 手動觸發一次「Market rotation back-test」產生第一份回測。之後依回測結果檢討門檻（計畫第 15.10～15.11 節），不看單次結果調參。
+4. **市場輪動研究層上線後**：合併後第一次每日排程會產生 `market_rotation_research.json` 與第一筆 A 級快照——屆時移除 `data_manifest.json` 中該檔的 `awaiting_first_run`（測試會提醒）；到 Actions 手動觸發一次「Market rotation back-test」產生第一份回測（2026-09-27 已執行：暫定規則在 20／60 日幾乎沒有辨識力，見計畫進度表）。之後依回測結果檢討門檻（計畫第 15.10～15.11 節），不看單次結果調參。規則敏感度（`market_rotation_history/backtest/sensitivity.json`）隨每月回測產生；要加新候選規則必須提高 `SENSITIVITY_VERSION`，舊結果照樣保留。
 5. **市場輪動 MVP-1 後續**：WP-3 預覽頁 `market_rotation_v2.html`、WP-4 首頁一句摘要與限制提示
    （計畫第 35.8～35.9 節）、WP-5 板塊下鑽、WP-6 手機卡片與無障礙、WP-7 切換前閘門。
 6. **架構改善第三優先**：`dashboard.html` 的 `titansData` 改由 `fundamentals.json`／`valuation.json` 產生；

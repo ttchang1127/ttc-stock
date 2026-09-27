@@ -2593,11 +2593,12 @@ def c46():
     sys.path.insert(0, str(REPO_ROOT / "scripts"))
     import market_rotation_history as rotation_history  # noqa: PLC0415
 
-    backtest_path = REPO_ROOT / "market_rotation_history/backtest/sector_results.json"
-    if backtest_path.exists():
-        method = json.loads(backtest_path.read_text()).get("methodology") or {}
-        if method.get("history_quality") != "C" or method.get("status") != "research":
-            return False, "回測結果必須標示 C 級歷史與 research 狀態，不能冒充已驗證結論"
+    for name in ("sector_results.json", "sensitivity.json"):
+        backtest_path = REPO_ROOT / "market_rotation_history/backtest" / name
+        if backtest_path.exists():
+            method = json.loads(backtest_path.read_text()).get("methodology") or {}
+            if method.get("history_quality") != "C" or method.get("status") != "research":
+                return False, f"{name} 必須標示 C 級歷史與 research 狀態，不能冒充已驗證結論"
     index_path = REPO_ROOT / "market_rotation_history/index.json"
     if not index_path.exists():
         return True, "尚無快照（合併後首次每日正式執行才開始累積 A 級歷史）"
@@ -2607,6 +2608,37 @@ def c46():
     index = json.loads(index_path.read_text())
     return True, (f"{index['snapshot_count']} 筆 A 級快照；{index['a_history_effective_from']}～"
                   f"{index['last_as_of']}；{len(index['months'])} 個月份檔")
+
+
+@check("C-47", "持股曝險與持股檔一致、權重可重算，輪動摘要不給買賣指令")
+def c47():
+    exposure = load("portfolio_equity_exposure.json")
+    digest = load("market_rotation_daily_digest.json")
+    holdings = load("portfolio_holdings.json")
+    funds = set(load("portfolio_classification.json").get("funds_excluded", {}))
+    bad = []
+    expected = {row["ticker"]: row["shares"] for row in holdings["holdings"] if row["ticker"] not in funds}
+    actual = {row["ticker"]: row["shares"] for row in exposure.get("positions", [])}
+    if actual != expected:
+        bad.append("曝險持股與 portfolio_holdings.json 不一致：修改持股後請重跑 scripts/build_market_rotation_digest.py")
+    if set(exposure.get("excluded_funds", [])) & set(actual):
+        bad.append("基金被算進直接個股")
+    weights = [row["weight"] for row in exposure.get("positions", []) if row.get("weight") is not None]
+    if weights and abs(sum(weights) - 100) > 0.1:
+        bad.append(f"個股權重合計 {sum(weights):.2f}%，不是 100%")
+    trade = re.compile(r"買進|賣出|加碼|減碼|停損|目標權重")
+    texts = [reason for row in exposure.get("positions", []) for reason in row.get("reasons", [])]
+    texts += [event.get("text", "") for event in digest.get("events", [])] + [digest.get("headline") or ""]
+    if any(trade.search(text) for text in texts):
+        bad.append("摘要或研究動作出現交易指令用語")
+    if digest.get("status") not in {"awaiting_history", "baseline", "baseline_after_rule_change",
+                                    "no_change", "changes_detected"}:
+        bad.append(f"摘要狀態不明：{digest.get('status')}")
+    if bad:
+        return False, "；".join(bad)
+    top = (exposure.get("sector_concentration", {}).get("sectors") or [{}])[0]
+    return True, (f"{len(actual)} 檔直接個股；最大板塊 {top.get('name_zh')} {top.get('weight')}%；"
+                  f"摘要 {digest.get('status')}，{digest.get('event_count')} 項變化")
 
 
 @check("C-44", "研究綜合驗證可追溯且不補猜共識或同業資料")

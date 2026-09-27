@@ -59,6 +59,9 @@
 | `market_rotation_registry.json` | 板塊、次產業與個股的 stable id 對照表 | ⚠️ 新名稱由產生器自動追加；只有「確認為同一分類的正式更名」可人工加入 `aliases`，不可改既有 id |
 | `scripts/market_rotation_contracts.py` | v1／v2／registry 資料契約、引用與 parity 驗證（純標準函式庫） | ⚠️ 契約變更需連同測試與 golden |
 | `market_rotation_research.json`／`scripts/market_rotation_research.py` | 研究層：市場環境、板塊絕對狀態、風險標籤與集中度；與 v2 同批、共用 `dataset_id`；輪動頁由 `assets/market_rotation_research.js` 顯示 | ❌ 只能由產生器產生；門檻是回測起點，改門檻要提高 `RULE_VERSION` 並連同測試 |
+| `market_rotation_daily_digest.json` | 每日輪動變化摘要與首頁一句話（首頁「📈 市場輪動」列、輪動頁「今日變化與我的持股」） | ❌ 只能由 `scripts/build_market_rotation_digest.py` 產生 |
+| `portfolio_equity_exposure.json` | 直接個股的板塊／次產業曝險與所屬族群輪動狀態 | ❌ 只能由 `scripts/build_market_rotation_digest.py` 產生；修改持股後要重跑（C-47） |
+| `portfolio_classification.json` | 不在股票池的持股（NOK）人工分類與排除的基金（VGT、VOO） | ⚠️ 人工維護；每筆要有來源、原因、覆核日 |
 | `market_rotation_history/` | A 級每日研究快照（月份 `.jsonl`＋`index.json`），只可追加 | ❌ 絕不手改或回填；C-46 會檢查雜湊與索引 |
 | `market_rotation_history/backtest/` | C 級回測結果（今天的成分股回算，有存活者偏誤），每月由 `market-rotation-backtest.yml` 重建 | ❌ 只能由回測排程產生；不可當成已驗證結論 |
 | `research_synthesis.json` | 14 家來源台帳、財報差異、論點證據、事件閉環、同業對照與輪動基本面橋接 | ❌ 只能由 `scripts/build_research_synthesis.py` 產生 |

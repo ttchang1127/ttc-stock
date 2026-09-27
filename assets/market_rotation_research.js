@@ -185,6 +185,53 @@
     }).join('');
   }
 
+  const CRITERIA = {
+    enough_events: '校準期領先與落後事件各 ≥ 30',
+    expected_direction: '領先勝過基準、落後輸給基準',
+    holds_out_of_sample: '最後 6 個月（樣本外）方向一致',
+    downside_not_worse: '領先的最差 10% 不比基準差',
+    interval_excludes_zero: '領先優勢的 90% 區間不含 0',
+    more_than_one_horizon: '20／60／120 日至少兩個期間成立'
+  };
+  const VERDICT_TONE = {
+    supported_pending_a_b_history: 'positive', partial_not_adoptable: 'warning',
+    not_supported: 'negative', insufficient_sample: 'neutral'
+  };
+
+  function renderSensitivity(result) {
+    const target = document.getElementById('sensitivitySummary');
+    if (!target) return;
+    if (!result) {
+      target.innerHTML = '<div class="panel-desc">規則敏感度研究尚未執行：會隨每月回測一起產生。</div>';
+      return;
+    }
+    const rows = result.variants.map(variant => {
+      const cal = variant.samples.calibration['60d'];
+      const hold = variant.samples.holdout['60d'];
+      const interval = cal.leading_edge_interval_pp;
+      const marks = Object.entries(variant.criteria).map(([key, value]) =>
+        `<li class="${value === true ? 'ok' : value === null ? 'na' : 'fail'}">${esc(CRITERIA[key] || key)}` +
+        `<span>${value === null ? '無法檢查' : value ? '符合' : '不符合'}</span></li>`).join('');
+      return `<tr>
+        <td><strong>${esc(variant.label)}</strong></td>
+        <td class="state ${VERDICT_TONE[variant.verdict] || ''}">${esc(result.verdicts[variant.verdict] || variant.verdict)}</td>
+        <td class="${tone(cal.leading_edge_pp)}">${signed(cal.leading_edge_pp, 'pp')}<small>${cal.leading_events} 次` +
+          `${interval ? `｜區間 ${signed(interval[0], '')}～${signed(interval[1], '')}` : ''}</small></td>
+        <td class="${tone(cal.lagging_edge_pp)}">${signed(cal.lagging_edge_pp, 'pp')}<small>${cal.lagging_events} 次</small></td>
+        <td class="${tone(hold.leading_edge_pp)}">${signed(hold.leading_edge_pp, 'pp')}<small>領先 ${hold.leading_events}／落後 ${hold.lagging_events} 次</small></td>
+        <td class="criteria"><ul class="check-list">${marks}</ul></td>
+      </tr>`;
+    }).join('');
+    target.innerHTML = `
+      <h3 class="exposure-title">規則敏感度：換一種規則會不會比較有用？</h3>
+      <p class="panel-desc">候選規則在看到結果前就固定（版本 ${esc(result.version)}），失敗的也一併公開。` +
+      '「優勢」＝狀態之後 60 日的中位超額，減去同一期間任一板塊任一天的中位超額；落後的優勢＝基準減狀態' +
+      '（正值表示落後板塊確實表現較差）。校準期不使用最後 6 個月的價格。</p>' +
+      `<div class="table-wrap"><table class="state-table sensitivity-table"><thead><tr>` +
+      '<th>候選規則</th><th>判定</th><th>已確認領先優勢（校準）</th><th>明確落後優勢（校準）</th>' +
+      `<th>領先優勢（樣本外）</th><th>檢查項目</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+  }
+
   function renderBacktest(result, labels) {
     const target = document.getElementById('backtestSummary');
     if (!target) return;
@@ -222,12 +269,122 @@
       `樣本外自 ${esc(result.period.holdout_start)}。</p>`;
   }
 
+  const PRIORITY = {
+    review_now: ['立即覆核', 'danger'], monitor: ['持續觀察', 'info'], data_blocked: ['資料阻擋', 'warning']
+  };
+  const DIGEST_STATUS = {
+    awaiting_history: '每日快照尚未開始累積：合併後第一次每日排程會建立第一筆，之後才能比較變化。',
+    baseline: '今天是第一筆快照，已建立比較基準；下一個交易日起列出變化。',
+    baseline_after_rule_change: '規則版本更新，今天重新建立比較基準，不把重新分類當成變化。'
+  };
+
+  function eventCard(event) {
+    const holders = event.related_holdings.length
+      ? `<span class="tag danger">你的持股：${esc(event.related_holdings.join('、'))}</span>` : '';
+    const ev = event.evidence || {};
+    const facts = ['RS20', 'RS60', 'A5', 'BPOS20'].filter(key => ev[key] != null)
+      .map(key => `${key} ${key === 'BPOS20' ? plain(ev[key], '%', 0) : signed(ev[key], 'pp')}`).join('｜');
+    return `<li class="digest-event ${event.priority.toLowerCase()}"><span class="digest-priority">${esc(event.priority)}</span>
+      <div><strong>${esc(event.text)}</strong>${holders}${facts ? `<small>${esc(facts)}</small>` : ''}</div></li>`;
+  }
+
+  function renderDigest(digest) {
+    const target = document.getElementById('rotationDigest');
+    if (!target) return;
+    if (!digest) {
+      target.innerHTML = '<div class="panel-desc">每日變化摘要尚未產出。</div>';
+      return;
+    }
+    const events = digest.events || [];
+    const notable = events.filter(e => e.priority !== 'P3');
+    const pending = events.filter(e => e.priority === 'P3');
+    const shown = notable.slice(0, 5);
+    let body = digest.headline ? `<p class="env-reading">${esc(digest.headline)}</p>` : '';
+    body += `<div class="panel-desc">資料截至 ${esc(digest.as_of || '—')}｜比較 ${esc(digest.compared_with || '—')}` +
+      `｜規則 ${esc(digest.rule_version || '—')}</div>`;
+    if (DIGEST_STATUS[digest.status]) {
+      body += `<p class="digest-quiet">${esc(DIGEST_STATUS[digest.status])}</p>`;
+    } else if (!notable.length) {
+      body += `<p class="digest-quiet">已讀已記錄：相較 ${esc(digest.compared_with)}，沒有新增風險、確認改善或結論變化。` +
+        '排名與原始數字已更新，但不重複列入重點。</p>';
+    } else {
+      body += `<ul class="digest-list">${shown.map(eventCard).join('')}</ul>`;
+      if (notable.length > shown.length) {
+        body += `<details><summary>另有 ${notable.length - shown.length} 項變化</summary>` +
+          `<ul class="digest-list">${notable.slice(5).map(eventCard).join('')}</ul></details>`;
+      }
+    }
+    if (pending.length) {
+      body += `<details><summary>待確認線索 ${pending.length} 項（不通知）</summary>` +
+        `<ul class="digest-list">${pending.map(eventCard).join('')}</ul></details>`;
+    }
+    target.innerHTML = body;
+  }
+
+  function stateCell(view) {
+    if (!view || !view.state) return '<small>無研究資料</small>';
+    const pending = view.pending ? `<small class="pending">→ ${esc(view.pending_label)} 待確認</small>` : '';
+    return `<small class="state ${STATE_TONE[view.state] || ''}">${esc(view.state_label)}</small>${pending}`;
+  }
+
+  function renderExposure(exposure) {
+    const target = document.getElementById('portfolioExposure');
+    if (!target) return;
+    if (!exposure) {
+      target.innerHTML = '<div class="panel-desc">持股曝險尚未產出。</div>';
+      return;
+    }
+    const issuer = exposure.issuer_concentration || {};
+    const sectors = exposure.sector_concentration.sectors || [];
+    const palette = ['#38bdf8', '#a78bfa', '#2dd4bf', '#f59e0b', '#fb7185', '#94a3b8'];
+    const bar = sectors.map((row, index) =>
+      `<span style="width:${row.weight}%;background:${palette[index % palette.length]}" ` +
+      `title="${esc(row.name_zh)} ${plain(row.weight)}">${row.weight >= 12 ? esc(row.name_zh) : ''}</span>`).join('');
+    const legend = sectors.map((row, index) =>
+      `<li><i style="background:${palette[index % palette.length]}"></i>${esc(row.name_zh)} ${plain(row.weight)}` +
+      `<small>${esc(row.tickers.join('、'))}｜${esc(row.rotation.state_label)}</small></li>`).join('');
+    const rows = exposure.positions.map(p => {
+      const [label, cls] = PRIORITY[p.research_priority] || [p.research_priority, ''];
+      return `<tr>
+        <td><strong>${esc(p.ticker)}</strong><small>${plain(p.weight)}</small></td>
+        <td>${esc(p.sector_zh)}${stateCell(p.sector_rotation)}</td>
+        <td>${esc(p.industry)}${stateCell(p.industry_rotation)}</td>
+        <td><span class="tag ${cls}">${esc(label)}</span></td>
+        <td class="reasons">${p.reasons.map(r => `<div>${esc(r)}</div>`).join('')}</td>
+      </tr>`;
+    }).join('');
+    const coverage = exposure.coverage;
+    target.innerHTML = `
+      <h3 class="exposure-title">我的直接個股曝險</h3>
+      <div class="env-evidence">
+        <div><span>直接個股</span><strong>${coverage.priced_positions}／${coverage.total_positions} 檔</strong></div>
+        <div><span>最大單一公司</span><strong>${esc(issuer.top1 ? issuer.top1.ticker : '—')} ${plain(issuer.top1 && issuer.top1.weight)}</strong></div>
+        <div><span>前三大合計</span><strong>${plain(issuer.top3_weight)}</strong></div>
+        <div><span>相當於幾檔等權個股</span><strong>${issuer.effective_positions ?? '—'}</strong></div>
+        <div><span>相當於幾個等權板塊</span><strong>${exposure.sector_concentration.effective_sectors ?? '—'}</strong></div>
+      </div>
+      ${(exposure.needs_review || []).map(text => `<p class="notice">需要覆核：${esc(text)}</p>`).join('')}
+      <div class="sector-bar" role="img" aria-label="直接個股的板塊權重">${bar}</div>
+      <ul class="sector-legend">${legend}</ul>
+      <div class="table-wrap"><table class="state-table exposure-table"><thead><tr>
+        <th>持股／權重</th><th>板塊與狀態</th><th>次產業與狀態</th><th>研究優先度</th><th>原因</th>
+      </tr></thead><tbody>${rows}</tbody></table></div>
+      <p class="panel-desc">權重用最新市值計算（不是成本），股價截至 ${esc(exposure.price_as_of || '—')}；排除 ` +
+      `${esc((exposure.excluded_funds || []).join('、') || '—')}。${esc(exposure.not_an_action)}。</p>`;
+  }
+
   async function init() {
-    const [research, rotation, backtest] = await Promise.all([
+    const [research, rotation, backtest, digest, exposure, sensitivity] = await Promise.all([
       getJSON('market_rotation_research.json'),
       getJSON('market_rotation.json'),
-      getJSON('market_rotation_history/backtest/sector_results.json')
+      getJSON('market_rotation_history/backtest/sector_results.json'),
+      getJSON('market_rotation_daily_digest.json'),
+      getJSON('portfolio_equity_exposure.json'),
+      getJSON('market_rotation_history/backtest/sensitivity.json')
     ]);
+    renderSensitivity(sensitivity);
+    renderDigest(digest);
+    renderExposure(exposure);
     const names = new Map(((rotation && rotation.sectors) || []).map(row => [row.key, row.name_zh]));
     renderMarket(research, name => names.get(name) || name);
     renderSectors(research, rotation);

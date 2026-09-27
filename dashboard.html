@@ -384,6 +384,31 @@
     .health-item .health-state { white-space: nowrap; }
     .data-health-strip .health-note { flex-basis: 100%; color: #94a3b8; font-size: 0.72rem; }
 
+    .rotation-brief {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 6px 12px;
+      margin: -6px 0 16px;
+      padding: 9px 14px;
+      border: 1px solid rgba(167, 139, 250, 0.35);
+      border-radius: 10px;
+      background: rgba(167, 139, 250, 0.08);
+      color: #e2e8f0;
+      font-size: 0.82rem;
+      line-height: 1.55;
+      text-decoration: none;
+    }
+    .rotation-brief:hover { border-color: rgba(167, 139, 250, 0.75); }
+    .rotation-brief .brief-title { font-weight: 700; white-space: nowrap; }
+    .rotation-brief .brief-badge {
+      margin-left: 6px; padding: 1px 7px; border-radius: 999px;
+      font-size: 0.68rem; color: #c4b5fd; background: rgba(167, 139, 250, 0.16);
+    }
+    .rotation-brief .brief-text { flex: 1 1 420px; }
+    .rotation-brief .brief-portfolio { color: #fde68a; }
+    .rotation-brief .brief-more { color: #c4b5fd; white-space: nowrap; }
+
     .macd-legend-bar {
       display: flex;
       gap: 16px;
@@ -2891,6 +2916,14 @@
       <span class="health-note">此處只顯示資料距今多久；每日巡檢會依 NYSE 交易日精確判斷，過期時自動開 GitHub issue。</span>
     </section>
 
+    <!-- Market rotation briefing: one deterministic sentence plus the direct-equity link -->
+    <a id="rotationBriefing" class="rotation-brief" href="market_rotation.html" aria-live="polite">
+      <span class="brief-title">📈 市場輪動<span class="brief-badge">研究中</span></span>
+      <span class="brief-text" id="rotationBriefText">載入中…</span>
+      <span class="brief-portfolio" id="rotationBriefPortfolio"></span>
+      <span class="brief-more">查看輪動頁 →</span>
+    </a>
+
     <!-- Navigation Tabs -->
     <div class="nav-tabs-container">
       <button class="tab-btn active" onclick="switchTab('tab-dashboard', this)">
@@ -4299,6 +4332,33 @@
             hours > DATA_HEALTH_MAX_AGE_DAYS * 24 ? 'stale' : 'ok');
         })
         .catch(() => setHealthItem('sec', '—', '無法讀取 sec_filing_alerts.json', 'unknown'));
+      renderRotationBriefing();
+    }
+
+    // One sentence from market_rotation_daily_digest.json (built by
+    // build_market_rotation_digest.py with a fixed template) plus where the
+    // direct equities sit.  Research only: never a buy or sell signal.
+    function renderRotationBriefing() {
+      const text = document.getElementById('rotationBriefText');
+      const holdings = document.getElementById('rotationBriefPortfolio');
+      if (!text || !holdings) return;
+      Promise.all([
+        fetchJSON('market_rotation_daily_digest.json').catch(() => null),
+        fetchJSON('portfolio_equity_exposure.json').catch(() => null),
+      ]).then(([digest, exposure]) => {
+        const changes = digest && digest.status === 'changes_detected'
+          ? `今日確認變化 ${digest.headline_count} 項。` : '';
+        text.textContent = digest && digest.headline
+          ? `${digest.headline}${changes ? ' ' + changes : ''}`
+          : '市場環境研究層尚未產出：下一次每日排程後開始顯示。';
+        const sectors = exposure && exposure.sector_concentration && exposure.sector_concentration.sectors;
+        if (sectors && sectors.length) {
+          const top = sectors[0];
+          const review = exposure.positions.filter(p => p.research_priority === 'review_now').map(p => p.ticker);
+          holdings.textContent = `你的直接個股：${top.name_zh} ${top.weight.toFixed(1)}%（${top.rotation.state_label}）` +
+            (review.length ? `｜需覆核 ${review.join('、')}` : '');
+        }
+      });
     }
 
     // Sortino comes from fundamentals.json rather than being recomputed here.
