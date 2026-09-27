@@ -18,6 +18,9 @@ jobs:
   check:
     runs-on: ubuntu-latest
     steps:
+      - name: Deliberate failure to test the alert job (temporary branch)
+        run: exit 1
+
       - uses: actions/checkout@v4
 
       - uses: actions/setup-python@v5
