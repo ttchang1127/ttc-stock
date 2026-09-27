@@ -13,6 +13,12 @@
      types, new outward-facing messages).
 - Never merge on red or pending CI, and never skip, disable or weaken a test to get green.
 
+## Talking to the owner
+
+- The owner is in Taiwan and writes in Traditional Chinese: reply in Traditional Chinese.
+- **Report every time in Taiwan time (UTC+8)**, e.g. 「台灣時間 21:59」, never UTC alone. Workflow crons
+  are written in UTC; convert them when mentioning schedules (daily refresh 23:17 UTC = 07:17 台灣時間).
+
 ## Checks to run before pushing
 
 ```bash
