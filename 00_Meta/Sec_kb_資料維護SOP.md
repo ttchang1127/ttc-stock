@@ -197,12 +197,20 @@ python3 scripts/build_sec_candidate_rule_calibration.py
 python3 scripts/generate_sec_daily_change_candidates.py
 python3 scripts/review_sec_candidates_with_jev.py
 python3 scripts/build_sec_position_impact_history.py
+python3 scripts/build_market_rotation_digest.py
 python3 scripts/check_integrity.py --quiet
 ```
 
 預期：已覆核候選歸零；儀表板顯示最近一次採納／駁回紀錄。`TYPESAFE_API_KEY` 只可存在 GitHub Actions Secret 或本機環境變數，禁止寫入 `.env` 後提交；Jev 預判不得冒充正式 AI 覆核，真正的語意判讀仍必須由可追溯的官方原文閱讀工作完成後 commit。
 
 部位影響歷史由 `portfolio_holdings.json`、最新價格、SEC 申報、八季財務警報、投資論點、候選稿與正式人工判讀確定性重建。第一次執行只建立基準；之後只有等級改變、SEC 訊號分數改變、總分至少變動 10 分，或持股比重／回撤跨門檻時才通知。重跑相同快照的 `notify_count` 必須為 0，避免 GitHub Issue 重複發送。
+
+**市場輪動 × 持股**由 `scripts/build_market_rotation_digest.py` 產生兩個檔案：
+
+- `portfolio_equity_exposure.json`：直接個股（排除 `portfolio_classification.json` 列的 VGT、VOO）的市值權重、板塊與次產業曝險，以及所屬族群的輪動狀態與研究優先度（立即覆核／持續觀察／資料阻擋）。
+- `market_rotation_daily_digest.json`：相較前一交易日 A 級快照的確認變化，P1／P2 由每日行情排程開 `📈 Market Rotation Changes [batch]` issue，P3 待確認只在頁面顯示。
+
+**修改 `portfolio_holdings.json` 後必須重跑** `python3 scripts/build_market_rotation_digest.py`，否則 C-47 會失敗；不在 S&P 500／Nasdaq-100 的新個股要先在 `portfolio_classification.json` 補上板塊、次產業、來源、原因與覆核日。研究優先度只決定先讀哪一檔，不是買賣或調整部位的指令。
 
 個股未來 **30 天事件日曆**由 `scripts/build_company_event_calendar.py` 每天更新 `company_event_calendar.json` 與 `60_SEC_Filing_Radar/Company_Event_Calendar.md`。14 家個股中實際持股優先，VGT／VOO 不納入；公司 IR／SEC 原文透過 `company_event_overrides.json` 覆蓋同日同類型的市場資料，Yahoo Finance 只補充日期探索且不得標成官方。單一 ticker 抓取失敗時保留上次成功資料並標示 stale，不可把舊資料冒充本次更新。Form 4、8-K／6-K、臨時募資和併購無法可靠事前排程，應於送件後由 SEC 雷達接手。
 

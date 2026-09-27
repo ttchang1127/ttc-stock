@@ -295,6 +295,26 @@
     #backtestSummary table { min-width: 760px; }
     #backtestSummary tbody tr { cursor: default; }
     #backtestSummary td small { display: block; margin-top: 2px; color: var(--muted); font-size: .68rem; }
+    .digest-list { list-style: none; margin: 10px 0 0; padding: 0; display: grid; gap: 8px; }
+    .digest-event { display: grid; grid-template-columns: 38px 1fr; gap: 10px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 12px; background: rgba(255,255,255,.03); font-size: .82rem; }
+    .digest-event strong { display: block; }
+    .digest-event small { display: block; margin-top: 4px; color: var(--muted); font-size: .72rem; }
+    .digest-event .tag { margin-top: 5px; }
+    .digest-priority { font-weight: 800; color: var(--muted); }
+    .digest-event.p1 { border-color: rgba(251,113,133,.5); }
+    .digest-event.p1 .digest-priority { color: #fda4af; }
+    .digest-event.p2 .digest-priority { color: #fcd34d; }
+    .digest-quiet { margin: 10px 0 0; color: #cbd5e1; font-size: .84rem; }
+    .exposure-title { margin: 20px 0 10px; font-size: .95rem; }
+    .sector-bar { display: flex; height: 26px; margin: 14px 0 8px; border-radius: 8px; overflow: hidden; background: rgba(148,163,184,.12); }
+    .sector-bar span { display: flex; align-items: center; justify-content: center; color: #08111f; font-size: .7rem; font-weight: 800; white-space: nowrap; overflow: hidden; }
+    .sector-legend { list-style: none; margin: 0 0 12px; padding: 0; display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: .78rem; }
+    .sector-legend i { display: inline-block; width: 10px; height: 10px; margin-right: 6px; border-radius: 3px; }
+    .sector-legend small { margin-left: 6px; color: var(--muted); }
+    .exposure-table { min-width: 860px; }
+    .exposure-table td small { display: block; margin-top: 3px; font-size: .72rem; }
+    .exposure-table td small.state { font-weight: 800; }
+    .exposure-table .reasons { white-space: normal; min-width: 300px; color: #cbd5e1; font-size: .76rem; line-height: 1.5; }
     .footer { color: var(--muted); font-size: .76rem; text-align: center; padding: 4px 0 24px; }
     @media (max-width: 1050px) {
       .metrics { grid-template-columns: repeat(2, minmax(0,1fr)); }

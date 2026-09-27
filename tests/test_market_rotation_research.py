@@ -235,13 +235,16 @@ class ResearchPageTests(unittest.TestCase):
 
     def test_page_loads_the_research_script_and_sections(self):
         self.assertIn('<script src="assets/market_rotation_research.js" defer></script>', self.html)
-        for element in ('id="marketEnvironment"', 'id="sectorStateBody"', 'id="backtestSummary"', "研究中"):
+        for element in ('id="marketEnvironment"', 'id="sectorStateBody"', 'id="backtestSummary"', "研究中",
+                        'id="rotationDigest"', 'id="portfolioExposure"', "不是買賣或調整部位的指令"):
             self.assertIn(element, self.html)
-        for path in ("market_rotation_research.json", "market_rotation_history/backtest/sector_results.json"):
+        for path in ("market_rotation_research.json", "market_rotation_history/backtest/sector_results.json",
+                     "market_rotation_daily_digest.json", "portfolio_equity_exposure.json"):
             self.assertIn(f"'{path}'", self.script)
 
     def test_every_missing_file_has_a_plain_message(self):
-        for message in ("市場環境研究層尚未產出", "板塊絕對狀態尚未產出", "回測尚未執行"):
+        for message in ("市場環境研究層尚未產出", "板塊絕對狀態尚未產出", "回測尚未執行",
+                        "每日變化摘要尚未產出", "持股曝險尚未產出", "每日快照尚未開始累積"):
             self.assertIn(message, self.script)
         self.assertIn("C 級歷史", self.script)
         self.assertIn("存活者偏誤", self.script)

@@ -30,6 +30,16 @@ class DashboardDataHealthTests(unittest.TestCase):
         self.assertIn("const DATA_HEALTH_MAX_AGE_DAYS = 4;", self.page)
         self.assertIn("每日巡檢會依 NYSE 交易日精確判斷", self.page)
 
+    def test_rotation_briefing_sits_before_the_tabs_and_links_the_page(self):
+        briefing = self.page.index('id="rotationBriefing"')
+        self.assertLess(self.page.index('id="dataHealthStrip"'), briefing)
+        self.assertLess(briefing, self.page.index("<!-- Navigation Tabs -->"))
+        self.assertIn('<a id="rotationBriefing" class="rotation-brief" href="market_rotation.html"', self.page)
+        self.assertIn("fetchJSON('market_rotation_daily_digest.json')", self.page)
+        self.assertIn("fetchJSON('portfolio_equity_exposure.json')", self.page)
+        self.assertIn("市場環境研究層尚未產出", self.page)
+        self.assertIn("研究中", self.page)
+
     def test_no_fake_data_generators(self):
         self.assertEqual(len(re.findall(r"Math\.sin|Math\.random|seedMap", self.page)), 0)
 
