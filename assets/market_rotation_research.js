@@ -357,14 +357,19 @@
     const coverage = result.holdings_coverage || {};
     target.innerHTML = `
       <h3 class="exposure-title">主題 ETF 訊號：哪一種訊號能排出下個月的強勢族群</h3>
-      <p class="panel-desc">每月底用各訊號替 12 檔主題 ETF 排名，和下個月相對等權平均的報酬比較排名相關（IC，` +
+      <p class="panel-desc">每月底用各訊號替 ${result.etfs.length} 檔主題 ETF（清單 ${esc(result.etf_list_version)}）排名，` +
+      `和下個月相對等權平均的報酬比較排名相關（IC，` +
       '正值代表排名靠前的下個月較強）。持股類訊號只用當時已申報的 N-PORT（以申報日為準，不偷看未來）。' +
       `規則版本 ${esc(result.version)}，候選事先固定。</p>` +
       `<div class="table-wrap"><table class="state-table sensitivity-table"><thead><tr>` +
       '<th>訊號</th><th>判定</th><th>平均 IC（校準）</th><th>平均 IC（樣本外）</th><th>前三名</th>' +
       `</tr></thead><tbody>${rows}</tbody></table></div>` +
       `<p class="panel-desc">持股涵蓋：${coverage.etf_months_usable ?? 0}／${coverage.etf_months ?? 0} 個 ETF 月份達 ` +
-      `${result.min_coverage_pct}%。限制：${esc((result.limitations || []).join('；'))}。</p>`;
+      `${result.min_coverage_pct}%。限制：${esc((result.limitations || []).join('；'))}。</p>` +
+      (result.earlier_lists || []).map(list => `<p class="panel-desc">較早的清單 ${esc(list.etf_list_version)}` +
+        `（${list.etfs.length} 檔）照樣重算：` + list.signals.map(signal =>
+          `${esc(signal.label)} ${esc(result.verdicts[signal.verdict] || signal.verdict)}` +
+          `（IC ${signal.calibration.mean_ic ?? '—'}／${signal.holdout.mean_ic ?? '—'}）`).join('；') + '。</p>').join('');
   }
 
   function renderBacktest(result, labels) {
