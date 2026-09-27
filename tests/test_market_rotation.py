@@ -1,6 +1,8 @@
+import hashlib
 import importlib.util
 import json
 import pathlib
+import sys
 import tempfile
 import unittest
 from datetime import date, datetime, timezone
@@ -9,11 +11,157 @@ import pandas as pd
 
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "tests"))
+import market_rotation_fixture as fixture  # noqa: E402
+
 SPEC = importlib.util.spec_from_file_location(
     "build_market_rotation", ROOT / "scripts/build_market_rotation.py"
 )
 MODULE = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(MODULE)
+
+# Locked specification values: changing either is a formula change that needs
+# a golden update and an explanation in the commit message.
+SPEC_WEIGHTS = {
+    "relative_strength_20d": 20, "relative_strength_60d": 15, "acceleration_5d": 15,
+    "breadth": 25, "dollar_volume_expansion": 15, "persistence": 10,
+}
+FIXTURE_QUADRANTS = {
+    "Information Technology": "leading", "Industrials": "improving",
+    "Health Care": "weakening", "Energy": "lagging",
+}
+
+
+def percentile_ranks(values: dict) -> dict:
+    """Average-rank percentile, written independently of pandas.rank."""
+    ordered = sorted(values.values())
+    result = {}
+    for key, value in values.items():
+        below = sum(1 for item in ordered if item < value)
+        equal = sum(1 for item in ordered if item == value)
+        result[key] = (below + (equal + 1) / 2) / len(ordered) * 100
+    return result
+
+
+class MarketRotationFixtureTests(unittest.TestCase):
+    """Current-behaviour locks on the deterministic ``quadrants`` fixture."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.universe, cls.closes, cls.volumes = fixture.load_fixture()
+        cls.payload = MODULE.build_payload(cls.universe, cls.closes, cls.volumes)
+        cls.sectors = {row["key"]: row for row in cls.payload["sectors"]}
+        cls.sector_of = {row["ticker"]: row["sector"] for row in cls.universe["members"]}
+
+    def sector_tickers(self, sector):
+        return [ticker for ticker, value in self.sector_of.items() if value == sector]
+
+    def test_golden_v1_output_is_unchanged(self):
+        """MR-CALC golden: only generated_at may differ from expected_v1.json."""
+        expected = json.loads(fixture.GOLDEN_V1.read_text())
+        changed = fixture.differences(fixture.stable(expected), fixture.stable(self.payload))
+        self.assertEqual(changed, [], "Golden v1 drift (run tests/market_rotation_fixture.py "
+                         "to review):\n" + "\n".join(changed))
+
+    def test_repeated_builds_are_byte_identical(self):
+        first = fixture.canonical_json(fixture.build_fixture_v1())
+        second = fixture.canonical_json(fixture.build_fixture_v1())
+        self.assertEqual(hashlib.sha256(first.encode()).hexdigest(),
+                         hashlib.sha256(second.encode()).hexdigest())
+        self.assertEqual(first, fixture.GOLDEN_V1.read_text())
+
+    def test_mr_calc_001_quadrant_signs_and_labels(self):
+        benchmark_r20 = (self.closes.iloc[-1] / self.closes.iloc[-21] - 1).mean()
+        for name, expected_quadrant in FIXTURE_QUADRANTS.items():
+            row = self.sectors[name]
+            tickers = self.sector_tickers(name)
+            r20 = (self.closes[tickers].iloc[-1] / self.closes[tickers].iloc[-21] - 1).mean()
+            self.assertAlmostEqual(row["relative_strength_20d"],
+                                   round((r20 - benchmark_r20) * 100, 2), places=2, msg=name)
+            x, y = row["relative_strength_20d"], row["acceleration_5d"]
+            expected_signs = {
+                "leading": (True, True), "improving": (False, True),
+                "weakening": (True, False), "lagging": (False, False),
+            }[expected_quadrant]
+            self.assertEqual((x >= 0, y >= 0), expected_signs, f"MR-CALC-001 {name} x={x} y={y}")
+            self.assertEqual(row["quadrant"], expected_quadrant, f"MR-CALC-001 {name}")
+
+    def test_mr_calc_002_weighted_percentile_score_and_order(self):
+        for collection in ("sectors", "industries"):
+            rows = self.payload[collection]
+            for metric, weight in SPEC_WEIGHTS.items():
+                expected = percentile_ranks({row["key"]: row[metric] for row in rows})
+                for row in rows:
+                    self.assertEqual(row[f"rank_{metric}"], round(expected[row["key"]], 1),
+                                     f"MR-CALC-002 {collection}/{row['key']}/{metric}")
+            for row in rows:
+                score = sum(percentile_ranks({r["key"]: r[m] for r in rows})[row["key"]] * w / 100
+                            for m, w in SPEC_WEIGHTS.items())
+                self.assertEqual(row["rotation_score"], round(score, 1),
+                                 f"MR-CALC-002 {collection}/{row['key']}")
+            scores = [row["rotation_score"] for row in rows]
+            self.assertEqual(scores, sorted(scores, reverse=True), f"MR-CALC-002 {collection} order")
+
+    def test_mr_calc_003_breadth(self):
+        for name in FIXTURE_QUADRANTS:
+            tickers = self.sector_tickers(name)
+            window = self.closes[tickers]
+            positive = ((window.iloc[-1] / window.iloc[-21] - 1) > 0).mean()
+            above = (window.iloc[-1] > window.iloc[-20:].mean()).mean()
+            row = self.sectors[name]
+            self.assertEqual(row["breadth_positive_20d"], round(positive * 100, 2), name)
+            self.assertEqual(row["breadth_above_ma20"], round(above * 100, 2), name)
+            self.assertEqual(row["breadth"], round((positive + above) / 2 * 100, 2), name)
+
+    def test_mr_calc_004_dollar_volume_expansion(self):
+        for name in FIXTURE_QUADRANTS:
+            tickers = self.sector_tickers(name)
+            daily = (self.closes[tickers] * self.volumes[tickers]).sum(axis=1)
+            expected = daily.iloc[-5:].mean() / daily.iloc[-25:-5].mean() - 1
+            self.assertEqual(self.sectors[name]["dollar_volume_expansion"],
+                             round(expected * 100, 2), f"MR-CALC-004 {name}")
+        self.assertGreater(self.sectors["Information Technology"]["dollar_volume_expansion"], 0)
+        self.assertLess(self.sectors["Energy"]["dollar_volume_expansion"], 0)
+
+    def test_mr_calc_005_persistence(self):
+        returns = self.closes.pct_change()
+        universe_daily = returns.mean(axis=1).iloc[-10:]
+        for name in FIXTURE_QUADRANTS:
+            group_daily = returns[self.sector_tickers(name)].mean(axis=1).iloc[-10:]
+            share = sum(1 for g, u in zip(group_daily, universe_daily) if g > u) / 10
+            self.assertEqual(self.sectors[name]["persistence"], round(share * 100, 2), name)
+
+    def test_mr_calc_006_trajectory_is_latest_ten_sessions_oldest_first(self):
+        expected_dates = [value.strftime("%Y-%m-%d") for value in self.closes.index[-10:]]
+        for collection in ("sectors", "industries"):
+            for row in self.payload[collection]:
+                trail = row["trajectory"]
+                self.assertEqual([point["date"] for point in trail], expected_dates,
+                                 f"MR-CALC-006 {row['key']}")
+                self.assertEqual((trail[-1]["x"], trail[-1]["y"], trail[-1]["score"]),
+                                 (row["relative_strength_20d"], row["acceleration_5d"],
+                                  row["rotation_score"]), f"MR-CALC-006 {row['key']} latest point")
+
+    def test_mr_calc_007_score_change_is_five_sessions(self):
+        for collection in ("sectors", "industries"):
+            for row in self.payload[collection]:
+                five_back = row["trajectory"][-6]["score"]
+                self.assertEqual(row["score_change_5d"],
+                                 round(row["rotation_score"] - five_back, 1),
+                                 f"MR-CALC-007 {row['key']}")
+
+    def test_mr_calc_008_sector_leaders_and_laggards(self):
+        r20 = self.closes.iloc[-1] / self.closes.iloc[-21] - 1
+        benchmark = r20.mean()
+        for name in FIXTURE_QUADRANTS:
+            ranked = sorted(self.sector_tickers(name), key=lambda t: r20[t], reverse=True)
+            row = self.sectors[name]
+            self.assertEqual([item["ticker"] for item in row["leaders"]], ranked[:5], name)
+            self.assertEqual([item["ticker"] for item in row["laggards"]], ranked[::-1][:5], name)
+            for item in row["leaders"]:
+                self.assertAlmostEqual(item["relative_strength_20d"],
+                                       round((r20[item["ticker"]] - benchmark) * 100, 2),
+                                       places=2, msg=f"MR-CALC-008 {item['ticker']}")
 
 
 def synthetic_universe():
