@@ -4,7 +4,7 @@
 > **怎麼用**：找到對應的「任務」章節，**照抄指令、照順序執行、比對預期輸出**。
 > **不要自己想辦法。** 遇到本文件沒寫到的狀況，一律停止並回報使用者。
 
-最後更新：2026-09-15
+最後更新：2026-09-27
 
 ---
 
@@ -22,7 +22,8 @@
 | 6 | `git commit` 包含 `.obsidian/` 目錄 | 那是 Obsidian 視窗狀態，與網站無關 |
 | 7 | 修改 `dashboard_mag7.html` | 那是另一個獨立頁面，不在本 SOP 範圍 |
 | 8 | 使用 `git push --force` 或 `git reset --hard` | 會毀掉遠端歷史 |
-| 9 | 手改 `market_rotation.json`／`market_rotation_universe.json` | 兩者只能由 `build_market_rotation.py` 依成分表與真實行情產生 |
+| 9 | 手改 `market_rotation.json`／`market_rotation_universe.json`／`market_rotation_summary.json`／`market_rotation_groups.json`／`market_rotation_stocks.json` | 只能由 `build_market_rotation.py` 依成分表與真實行情整批產生；v2 三檔共用 `dataset_id`，手改任何一檔都會讓批次不一致 |
+| 10 | 為了讓測試變綠而更新 `tests/fixtures/market_rotation/quadrants/expected_*.json` | golden 只能在公式、schema、tie-breaker 或明確 bug 修正時以 `--update-golden` 更新，並在 commit 說明原因 |
 
 ---
 
@@ -46,7 +47,10 @@
 | `market_rotation.html` | S&P 500＋Nasdaq-100 板塊／次產業輪動獨立頁 | ⚠️ 只在使用者明確要求時 |
 | `scripts/check_market_source_ready.py` | 先以 SPY 調整後收盤價確認 Yahoo 已發布最新應有交易日 | ⚠️ 新鮮度規則與 NYSE 日曆需連同測試修改 |
 | `market_rotation_universe.json` | 兩指數成分、板塊與次產業分類 | ❌ 只能由 `scripts/build_market_rotation.py` 產生 |
-| `market_rotation.json` | 輪動分數、四象限、10 日路徑與板塊內個股 | ❌ 只能由 `scripts/build_market_rotation.py` 產生 |
+| `market_rotation.json` | v1：輪動分數、四象限、10 日路徑與板塊內個股（正式頁目前讀這份） | ❌ 只能由 `scripts/build_market_rotation.py` 產生 |
+| `market_rotation_summary.json`／`_groups.json`／`_stocks.json` | v2 雙寫：狀態與首頁角色／板塊與次產業／個股，三檔共用 `dataset_id` | ❌ 只能由 `scripts/build_market_rotation.py` 與 v1 同批產生 |
+| `market_rotation_registry.json` | 板塊、次產業與個股的 stable id 對照表 | ⚠️ 新名稱由產生器自動追加；只有「確認為同一分類的正式更名」可人工加入 `aliases`，不可改既有 id |
+| `scripts/market_rotation_contracts.py` | v1／v2／registry 資料契約、引用與 parity 驗證（純標準函式庫） | ⚠️ 契約變更需連同測試與 golden |
 | `research_synthesis.json` | 14 家來源台帳、財報差異、論點證據、事件閉環、同業對照與輪動基本面橋接 | ❌ 只能由 `scripts/build_research_synthesis.py` 產生 |
 
 遠端與網址：
@@ -77,8 +81,10 @@ dcf_assumptions.json 的 derived_at
 S&P 500／Nasdaq-100 成分表 + Yahoo Finance 個股價量
         ↓ check_market_source_ready.py（最新交易日未出現就等待／延後）
         ↓ scripts/build_market_rotation.py（拒絕低於 90% 覆蓋或交易日過期）
-   market_rotation_universe.json + market_rotation.json
-        ↓ market_rotation.html
+        ↓ calculate_canonical()：唯一計算來源（stable id 取自 market_rotation_registry.json）
+        ↓ serialize_v1／serialize_v2 → 契約、跨檔引用、v1／v2 逐欄 parity 全部通過才整批替換
+   market_rotation.json（v1）＋ market_rotation_summary／groups／stocks.json（v2）＋ registry
+        ↓ market_rotation.html（MVP-1 切換前仍只讀 v1）
    11 大板塊／次產業排名、四象限與 10 個交易日路徑
 
 季度財務 + 財報驗證卡 + 投資論點 + 事件日曆 + 估值 + 市場輪動
@@ -94,6 +100,16 @@ S&P 500／Nasdaq-100 成分表 + Yahoo Finance 個股價量
 **市場輪動的限制**：本頁是價格、廣度與成交額的市場偏好代理，不是基金申贖或逐筆
 資金淨流入。成分股低於 90% 有足夠歷史時腳本會拒絕發布；Nasdaq-100 獨有成分採 ICB
 分類並映射到最接近的 GICS 大板塊，畫面會保留這項口徑說明。
+
+**v2 雙寫與發布閘門**：產生器任何一項驗證失敗都不會碰觸既有檔案，每日 workflow 會失敗並保留上一版。
+`check_integrity.py` 的 C-45 在 v2 檔案出現後強制檢查三檔同批次、契約、引用、parity 與 stable id；
+GitHub Pages 部署前另有 quality job，先跑 `test_market_rotation*.py` 與 `check_integrity.py --quiet`，
+失敗就不打包 Pages。本機驗證：
+
+```bash
+python3 -m unittest discover -s tests -p 'test_market_rotation*.py' -v
+python3 scripts/check_integrity.py --quiet
+```
 
 **市場行情自動補抓**：每日排程先以 SPY 的 `Adj Close` 確認 Yahoo 已發布最新應有的
 NYSE 交易日，最多間隔 5 分鐘重試 3 次。早班仍過期時保留上一版 `prices.json` 與
@@ -277,6 +293,8 @@ cd "/Volumes/Crucial X8/Jarvis Obsidian/Sec_kb" && grep -c "Math.sin\|Math.rando
 | Actions 的 push 步驟 403 | repo 權限設定問題 | 回報使用者：需到 Settings → Actions → General 開啟寫入權限 |
 | 排程突然完全不跑 | GitHub 對 60 天無活動的 repo 自動停用排程 | 回報使用者到 Actions 分頁手動重新啟用 |
 | 圖表柱體大小很奇怪 | 可能有人改動了計算公式 | 執行 C-3，並比對第 6 章規則 |
+| 每日 workflow 在輪動步驟出現 `contract violation` 或 `parity` | 產生的資料未通過契約，舊檔已保留 | 不要手改 JSON；回報使用者錯誤訊息中的路徑／群組／欄位 |
+| `Deploy to GitHub Pages` 的 quality job 失敗 | 輪動測試或完整性檢查未過，Pages 沒有更新 | 看失敗的測試編號（如 MR-DATA-001）或 C 編號，回報使用者 |
 
 ---
 
