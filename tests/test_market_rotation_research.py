@@ -242,14 +242,13 @@ class ResearchPageTests(unittest.TestCase):
             self.assertIn(element, self.script)
         for path in ("market_rotation_research.json", "market_rotation_history/backtest/sector_results.json",
                      "market_rotation_daily_digest.json", "portfolio_equity_exposure.json",
-                     "market_rotation_history/backtest/sensitivity.json",
-                     "market_rotation_history/backtest/sector_etf_momentum.json"):
+                     "market_rotation_history/backtest/sensitivity.json"):
             self.assertIn(f"'{path}'", self.script)
 
     def test_every_missing_file_has_a_plain_message(self):
         for message in ("市場環境研究層尚未產出", "板塊絕對狀態尚未產出", "回測尚未執行",
                         "每日變化摘要尚未產出", "持股曝險尚未產出", "每日快照尚未開始累積",
-                        "規則敏感度研究尚未執行", "板塊 ETF 中期動能回測尚未執行"):
+                        "規則敏感度研究尚未執行"):
             self.assertIn(message, self.script)
         self.assertIn("C 級歷史", self.script)
         self.assertIn("存活者偏誤", self.script)

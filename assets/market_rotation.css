@@ -236,6 +236,10 @@
     .stock-row strong { color: #dbeafe; }
     details { border-top: 1px solid var(--line); margin-top: 18px; padding-top: 14px; }
     summary { cursor: pointer; font-weight: 800; color: #cde8ff; }
+    .etf-counts { display: grid; grid-template-columns: repeat(auto-fit,minmax(150px,1fr)); gap: 10px; margin-top: 6px; }
+    .etf-count { border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; background: rgba(255,255,255,.025); }
+    .etf-count strong { display: block; font-size: 1.4rem; margin-top: 2px; }
+    .etf-count small { display: block; color: var(--muted); font-size: .72rem; margin-top: 2px; }
     .method-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 10px; margin-top: 13px; }
     .method-card { border: 1px solid var(--line); border-radius: 12px; padding: 12px; background: rgba(255,255,255,.025); }
     .method-card strong { display: block; font-size: .8rem; }
