@@ -2549,7 +2549,7 @@ def c43():
     return not bad and not missing, f"資料問題：{bad or '無'}；缺自動化／畫面：{missing or '無'}"
 
 
-@check("C-45", "市場輪動 v1／v2 同批次、契約、引用與逐欄一致")
+@check("C-45", "市場輪動 v1／v2（及研究層）同批次、契約、引用與逐欄一致")
 def c45():
     sys.path.insert(0, str(REPO_ROOT / "scripts"))
     import market_rotation_contracts as contracts  # noqa: PLC0415
@@ -2568,17 +2568,24 @@ def c45():
         contracts.validate_v1(v1)
         contracts.validate_v2(v2["summary"], v2["groups"], v2["stocks"])
         contracts.check_parity(v1, v2["summary"], v2["groups"], v2["stocks"])
+        research = (load("market_rotation_research.json")
+                    if (REPO_ROOT / "market_rotation_research.json").exists() else None)
+        if research is not None:
+            contracts.validate_research(research, v2["groups"])
     except contracts.ContractError as error:
         return False, "；".join(error.errors[:5])
     known_groups = {row["group_id"] for row in registry["groups"]}
     known_stocks = {row["stock_id"] for row in registry["securities"]}
     groups = v2["groups"]["data"]["sectors"] + v2["groups"]["data"]["industries"]
-    unknown = sorted({g["group_id"] for g in groups} - known_groups) + sorted(
+    research_ids = {g["group_id"] for g in research["data"]["groups"]} if research else set()
+    unknown = sorted(({g["group_id"] for g in groups} | research_ids) - known_groups) + sorted(
         {s["stock_id"] for s in v2["stocks"]["data"]["stocks"]} - known_stocks)
     if unknown:
         return False, f"v2 使用了對照表沒有的 id：{unknown[:5]}"
+    note = (f"；研究層 {len(research_ids)} 群組、市場{research['data']['market']['state']['raw_label']}"
+            if research else "；研究層尚未產出")
     return True, (f"dataset {v2['summary']['dataset_id'][7:19]}；as_of {v1['as_of']}；"
-                  f"{len(groups)} 群組、{len(v2['stocks']['data']['stocks'])} 檔逐欄一致")
+                  f"{len(groups)} 群組、{len(v2['stocks']['data']['stocks'])} 檔逐欄一致{note}")
 
 
 @check("C-44", "研究綜合驗證可追溯且不補猜共識或同業資料")

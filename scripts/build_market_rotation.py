@@ -31,9 +31,10 @@ import yfinance as yf
 from jsonio import replace_texts
 from market_calendar import expected_latest_market_session, market_session_lag
 from market_rotation_contracts import (
-    QUADRANTS, check_parity, compute_dataset_id, dump_json, group_slug,
-    validate_canonical, validate_registry, validate_v1, validate_v2,
+    QUADRANTS, RESEARCH_SCHEMA_VERSION, check_parity, compute_dataset_id, dump_json, group_slug,
+    validate_canonical, validate_registry, validate_research, validate_v1, validate_v2,
 )
+from market_rotation_research import compute_research
 
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -959,15 +960,54 @@ def serialize_v2(canonical: dict, generated_at: str) -> dict[str, dict]:
     }
 
 
+def calculate_research(
+    universe: dict, closes: pd.DataFrame, volumes: pd.DataFrame, canonical: dict, registry_data: dict,
+) -> dict:
+    """Absolute market/group states and concentration, keyed by the same stable ids.
+
+    A separate layer from the relative score: it may say "neutral" or "falling
+    less" about the group the score ranks first.
+    """
+    registry = Registry(registry_data)
+    closes, volumes, metadata, _ = prepare_market_data(universe, closes, volumes)
+    sector_names = {registry.group_id("sector", name): name for name in metadata["sector"].unique()}
+    parents = {industry: sector_names[sector_id]
+               for industry, sector_id in industry_parents(metadata, registry).items()}
+    research = compute_research(closes, volumes, metadata, canonical["coverage"]["coverage_pct"], parents)
+    ranked = {group["group_id"] for group in canonical["groups"]}
+    for row in research["groups"]:
+        row["group_id"] = registry.group_id(row["group_type"], row["name_en"])
+        row["ranked"] = row["group_id"] in ranked
+    research["groups"].sort(key=lambda row: row["group_id"])
+    leadership = research["market"]["leadership"]
+    leadership["top_sector_ids"] = [registry.group_id("sector", name) for name in leadership["top_sectors"]]
+    return research
+
+
+def serialize_research(research: dict, groups_payload: dict, generated_at: str) -> dict:
+    return {
+        "schema_name": "market-rotation-research",
+        "schema_version": RESEARCH_SCHEMA_VERSION,
+        "dataset_id": groups_payload["dataset_id"],
+        "as_of": groups_payload["as_of"],
+        "generated_at": generated_at,
+        "versions": {**groups_payload["versions"], "research_rules": research["rule_version"]},
+        "data": research,
+    }
+
+
 def v2_paths(output: Path) -> dict[str, Path]:
     return {name: output.with_name(f"market_rotation_{name}.json") for name in ("summary", "groups", "stocks")}
 
 
-def build_outputs(canonical: dict, registry: dict, generated_at: str) -> dict[str, dict]:
+def build_outputs(
+    canonical: dict, registry: dict, generated_at: str, research: dict | None = None,
+) -> dict[str, dict]:
     """Serialise every artifact and run all batch gates before anything is written.
 
-    Returns {"v1", "summary", "groups", "stocks", "registry"} payloads that
-    already passed their contracts, cross-file references and v1/v2 parity.
+    Returns {"v1", "summary", "groups", "stocks", "registry"} payloads (plus
+    "research" when given) that already passed their contracts, cross-file
+    references and v1/v2 parity.
     """
     v1 = serialize_v1(canonical, generated_at)
     v2 = serialize_v2(canonical, generated_at)
@@ -975,12 +1015,22 @@ def build_outputs(canonical: dict, registry: dict, generated_at: str) -> dict[st
     validate_v2(v2["summary"], v2["groups"], v2["stocks"])
     check_parity(v1, v2["summary"], v2["groups"], v2["stocks"])
     validate_registry(registry)
-    return {"v1": v1, **v2, "registry": registry}
+    outputs = {"v1": v1, **v2, "registry": registry}
+    if research is not None:
+        outputs["research"] = serialize_research(research, v2["groups"], generated_at)
+        validate_research(outputs["research"], v2["groups"])
+    return outputs
+
+
+def research_path(output: Path) -> Path:
+    return output.with_name("market_rotation_research.json")
 
 
 def publish_outputs(outputs: dict[str, dict], output: Path, registry_path: Path) -> dict[str, bool]:
-    """Replace v1, the three v2 files and the registry as one validated batch."""
+    """Replace v1, the three v2 files, the registry (and research) as one validated batch."""
     targets = {"v1": output, **v2_paths(output), "registry": registry_path}
+    if "research" in outputs:
+        targets["research"] = research_path(output)
     changed = publish_artifacts([(targets[name], outputs[name], None) for name in targets])
     return {name: changed[path] for name, path in targets.items()}
 
@@ -1039,6 +1089,7 @@ def main() -> None:
             raise SystemExit(75) from error
     registry = json.loads(args.registry.read_text()) if args.registry.exists() else None
     canonical, registry = calculate_canonical(universe, closes, volumes, registry)
+    research = calculate_research(universe, closes, volumes, canonical, registry)
     actual_session = date.fromisoformat(canonical["as_of"])
     if not args.allow_stale:
         try:
@@ -1050,7 +1101,7 @@ def main() -> None:
                 file=sys.stderr,
             )
             raise SystemExit(75) from error
-    outputs = build_outputs(canonical, registry, utc_now())
+    outputs = build_outputs(canonical, registry, utc_now(), research)
     changed = publish_outputs(outputs, args.output, args.registry)
     payload = outputs["v1"]
     print(

@@ -37,6 +37,42 @@ MIN_MEMBERS = {"sector": 5, "industry": 3}
 TRAJECTORY_POINTS = 10
 MIN_COVERAGE_PCT = 90.0
 
+# Research-layer codes (plan sections 11, 13, 14); labels are shown verbatim on the page.
+MARKET_STATES = {
+    "insufficient_data": "資料不足",
+    "broad_expansion": "廣泛擴張",
+    "broad_retreat": "廣泛退潮",
+    "stabilizing": "止穩改善",
+    "narrow_leadership": "狹幅領漲",
+    "rotation_divergence": "輪動分化",
+    "neutral_mixed": "中性混合",
+}
+GROUP_STATES = {
+    "insufficient_data": "資料不足",
+    "small_sample_clue": "小樣本線索",
+    "confirmed_leading": "已確認領先",
+    "cooling": "強勢降溫",
+    "early_improvement": "早期改善",
+    "unconfirmed_rebound": "未確認反彈",
+    "clear_lagging": "明確落後",
+    "neutral_mixed": "中性混合",
+}
+RISK_TAGS = {
+    "relative_only": "相對抗跌：板塊本身仍在下跌",
+    "single_issuer_dominance": "單一公司主導",
+    "liquidity_concentration": "集中型領漲（流動性代理）",
+    "volume_unconfirmed": "成交未確認",
+    "small_sample": "小樣本",
+    "pending_change": "訊號待確認",
+}
+LEADERSHIP_TYPES = {
+    "growth_tech": "成長／科技主導",
+    "cyclical": "景氣循環主導",
+    "defensive": "防禦主導",
+    "financial_rate": "金融／利率敏感主導",
+    "none": "無明確領漲類型",
+}
+
 
 class ContractError(ValueError):
     def __init__(self, errors: list[str]):
@@ -625,4 +661,77 @@ def validate_registry(registry: Any) -> None:
         ids = [row.get(id_key) for row in rows if isinstance(row, dict)]
         if ids != sorted(ids):
             c.fail(f"registry.{collection}", f"must be ordered by {id_key}")
+    c.raise_if_failed()
+
+
+RESEARCH_SCHEMA_VERSION = 1
+RESEARCH_SHARE_FIELDS = ("BPOS20", "BMA20", "P10", "breadth_5d_ago", "P10_5d_ago")
+MARKET_SHARE_FIELDS = ("B20", "B60", "P20", "SBR")
+
+
+def check_state(c: Checker, path: str, state: Any, labels: dict) -> None:
+    if not isinstance(state, dict):
+        c.fail(path, "must be an object")
+        return
+    raw = c.require(state, path, "raw", str)
+    if raw is not None and raw not in labels:
+        c.fail(f"{path}.raw", f"unknown state {raw!r}")
+    for key in ("confirmed", "pending"):
+        value = c.require(state, path, key, str, nullable=True)
+        if value is not None and value not in labels:
+            c.fail(f"{path}.{key}", f"unknown state {value!r}")
+    days = c.require(state, path, "days_in_state", int, nullable=True)
+    if isinstance(days, int) and days < 1:
+        c.fail(f"{path}.days_in_state", "must be at least 1")
+    if (state.get("confirmed") is None) != (state.get("since") is None):
+        c.fail(path, "confirmed and since must be set together")
+    c.date(state, path, "since", nullable=True)
+
+
+def validate_research(research: Any, groups: Any) -> None:
+    """Research file: same dataset as the v2 groups file, known codes, bounded shares."""
+    c = Checker()
+    c.finite_everywhere(research, "research")
+    if not isinstance(research, dict) or research.get("schema_name") != "market-rotation-research":
+        raise ContractError(["research.schema_name: expected market-rotation-research"])
+    if research.get("schema_version") != RESEARCH_SCHEMA_VERSION:
+        c.fail("research.schema_version", f"expected {RESEARCH_SCHEMA_VERSION}")
+    for key in ("dataset_id", "as_of"):
+        if isinstance(groups, dict) and research.get(key) != groups.get(key):
+            c.fail(f"research.{key}", "must match the v2 groups file of the same batch")
+    data = c.require(research, "research", "data", dict) or {}
+    if data.get("rule_status") != "research":
+        c.fail("research.data.rule_status", "must stay 'research' until a back-test adopts the rules")
+    market = c.require(data, "research.data", "market", dict) or {}
+    check_state(c, "research.data.market.state", market.get("state"), MARKET_STATES)
+    evidence = c.require(market, "research.data.market", "evidence", dict) or {}
+    for key in MARKET_SHARE_FIELDS:
+        c.number(evidence, "research.data.market.evidence", key, low=0, high=100)
+    if market.get("confidence") not in ("high", "low"):
+        c.fail("research.data.market.confidence", "must be high or low")
+    lead = c.require(market, "research.data.market", "leadership", dict) or {}
+    if lead.get("type") not in LEADERSHIP_TYPES:
+        c.fail("research.data.market.leadership.type", f"unknown type {lead.get('type')!r}")
+
+    seen = set()
+    for index, row in enumerate(c.require(data, "research.data", "groups", list) or []):
+        where = f"research.data.groups[{index}]"
+        identifier = c.require(row, where, "group_id", str)
+        if isinstance(identifier, str) and not GROUP_ID.match(identifier):
+            c.fail(f"{where}.group_id", "invalid id format")
+        if identifier in seen:
+            c.fail(f"{where}.group_id", "duplicate id")
+        seen.add(identifier)
+        if isinstance(identifier, str) and row.get("group_type") != identifier.split(":")[0]:
+            c.fail(f"{where}.group_type", "must match the id prefix")
+        check_state(c, f"{where}.state", row.get("state"), GROUP_STATES)
+        for tag in c.require(row, where, "risk_tags", list) or []:
+            if tag not in RISK_TAGS:
+                c.fail(f"{where}.risk_tags", f"unknown tag {tag!r}")
+        group_evidence = c.require(row, where, "evidence", dict) or {}
+        for key in RESEARCH_SHARE_FIELDS:
+            c.number(group_evidence, f"{where}.evidence", key, low=0, high=100)
+        conc = c.require(row, where, "concentration", dict) or {}
+        if conc.get("single_issuer_dominance") and not conc.get("reasons"):
+            c.fail(f"{where}.concentration", "dominance needs at least one reason")
     c.raise_if_failed()

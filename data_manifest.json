@@ -590,6 +590,18 @@
       "note": "stable id 對照表：新名稱由產生器追加；人工只能加入確認為同一分類的 aliases"
     },
     {
+      "path": "market_rotation_research.json",
+      "kind": "generated",
+      "producer": "scripts/build_market_rotation.py",
+      "edit": "never",
+      "cadence": "market_daily",
+      "committed_by": [
+        "update-prices"
+      ],
+      "note": "研究層：市場環境、板塊絕對狀態、集中度；與 v2 同批產生、共用 dataset_id；門檻為回測起點，非正式規則",
+      "awaiting_first_run": true
+    },
+    {
       "path": "market_rotation_stocks.json",
       "kind": "generated",
       "producer": "scripts/build_market_rotation.py",
