@@ -330,6 +330,43 @@
     }
   }
 
+  const THEME_VERDICT_TONE = {
+    supported: 'positive', partial_not_adoptable: 'warning', not_supported: 'negative', insufficient_sample: 'neutral'
+  };
+
+  function renderThemeSignals(result) {
+    const target = document.getElementById('themeSignalSummary');
+    if (!target) return;
+    if (!result) {
+      target.innerHTML = '<div class="panel-desc">主題 ETF 訊號回測尚未執行：會隨每月回測一起產生。</div>';
+      return;
+    }
+    const cell = stats => stats && stats.months
+      ? `<span class="${tone(stats.mean_ic)}">${stats.mean_ic}</span>` +
+        `<small>${esc(stats.start)}～${esc(stats.end)}｜${stats.months} 個月` +
+        `${stats.mean_ic_interval ? `｜區間 ${stats.mean_ic_interval[0]}～${stats.mean_ic_interval[1]}` : ''}</small>`
+      : '—';
+    const rows = result.signals.map(signal => `<tr>
+        <td><strong>${esc(signal.label)}</strong><small>${signal.expected_sign == null ? '方向不預設' : '預期正向'}</small></td>
+        <td class="state ${THEME_VERDICT_TONE[signal.verdict] || ''}">${esc(result.verdicts[signal.verdict] || signal.verdict)}</td>
+        <td>${cell(signal.calibration)}</td>
+        <td>${cell(signal.holdout)}<small>樣本外自 ${esc(signal.holdout_start)}</small></td>
+        <td>${signal.all && signal.all.top3_minus_average_pp != null ? signed(signal.all.top3_minus_average_pp, 'pp') : '—'}` +
+          `<small>前三名每月相對平均</small></td>
+      </tr>`).join('');
+    const coverage = result.holdings_coverage || {};
+    target.innerHTML = `
+      <h3 class="exposure-title">主題 ETF 訊號：哪一種訊號能排出下個月的強勢族群</h3>
+      <p class="panel-desc">每月底用各訊號替 12 檔主題 ETF 排名，和下個月相對等權平均的報酬比較排名相關（IC，` +
+      '正值代表排名靠前的下個月較強）。持股類訊號只用當時已申報的 N-PORT（以申報日為準，不偷看未來）。' +
+      `規則版本 ${esc(result.version)}，候選事先固定。</p>` +
+      `<div class="table-wrap"><table class="state-table sensitivity-table"><thead><tr>` +
+      '<th>訊號</th><th>判定</th><th>平均 IC（校準）</th><th>平均 IC（樣本外）</th><th>前三名</th>' +
+      `</tr></thead><tbody>${rows}</tbody></table></div>` +
+      `<p class="panel-desc">持股涵蓋：${coverage.etf_months_usable ?? 0}／${coverage.etf_months ?? 0} 個 ETF 月份達 ` +
+      `${result.min_coverage_pct}%。限制：${esc((result.limitations || []).join('；'))}。</p>`;
+  }
+
   function renderBacktest(result, labels) {
     const target = document.getElementById('backtestSummary');
     if (!target) return;
@@ -492,7 +529,8 @@
   }
 
   async function init() {
-    const [research, rotation, backtest, digest, exposure, sensitivity, etfMomentum, etfHealth] = await Promise.all([
+    const [research, rotation, backtest, digest, exposure, sensitivity, etfMomentum, etfHealth, themeSignals] =
+      await Promise.all([
       getJSON('market_rotation_research.json'),
       getJSON('market_rotation.json'),
       getJSON('market_rotation_history/backtest/sector_results.json'),
@@ -500,8 +538,10 @@
       getJSON('portfolio_equity_exposure.json'),
       getJSON('market_rotation_history/backtest/sensitivity.json'),
       getJSON('market_rotation_history/backtest/sector_etf_momentum.json'),
-      getJSON('etf_health.json')
+      getJSON('etf_health.json'),
+      getJSON('market_rotation_history/backtest/theme_etf_signals.json')
     ]);
+    renderThemeSignals(themeSignals);
     renderEtfHealth(etfHealth);
     renderSensitivity(sensitivity);
     renderEtfMomentum(etfMomentum);
