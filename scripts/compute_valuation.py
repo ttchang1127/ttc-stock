@@ -24,6 +24,8 @@ import random
 from datetime import datetime, timezone
 from pathlib import Path
 
+from jsonio import require_companies, write_json
+
 # Net cash here and net debt in the health scorecard must be the same number.
 # They were not: this file summed only long_term_debt and debt_current, which
 # for TSMC picks up $2.8bn of borrowings and misses $28.3bn of bonds, so its
@@ -353,7 +355,9 @@ def main():
         "defaults": cfg,
         "companies": results,
     }
-    OUTPUT_PATH.write_text(json.dumps(payload, indent=1, ensure_ascii=False) + "\n")
+    # Every input company must be present; a partial or NaN-bearing payload
+    # is refused and the published file stays untouched.
+    write_json(OUTPUT_PATH, payload, indent=1, validate=require_companies(len(fundamentals)))
     print(f"\nWrote {OUTPUT_PATH.relative_to(REPO_ROOT)} ({len(results)} companies)")
 
 
