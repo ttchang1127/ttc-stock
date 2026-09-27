@@ -12,7 +12,6 @@ from __future__ import annotations
 import argparse
 import hashlib
 import html as html_lib
-import os
 import re
 import urllib.error
 import urllib.parse
@@ -22,6 +21,7 @@ from html.parser import HTMLParser
 from pathlib import Path
 
 from jsonio import dumps, load_json, replace_texts
+import sec_http
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_EVENTS = REPO_ROOT / "sec_filing_alerts.json"
@@ -107,14 +107,8 @@ def now_utc() -> str:
     return datetime.now(timezone.utc).replace(microsecond=0).isoformat()
 
 
-def sec_headers() -> dict[str, str]:
-    return {"User-Agent": os.environ.get("SEC_USER_AGENT", "SecKBResearch user@example.com")}
-
-
 def download(url: str) -> bytes:
-    request = urllib.request.Request(url, headers=sec_headers())
-    with urllib.request.urlopen(request, timeout=45) as response:
-        return response.read()
+    return sec_http.get(url)
 
 
 def normalize_text(value: str) -> str:

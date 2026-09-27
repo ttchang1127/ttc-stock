@@ -9,7 +9,6 @@ or investment conclusion.
 
 import argparse
 import json
-import os
 import re
 import time
 import urllib.error
@@ -20,6 +19,7 @@ from pathlib import Path
 from fetch_sec import ITEM, clean_html_to_text, heading_positions, loose
 
 from jsonio import write_json
+import sec_http
 
 ROOT = Path(__file__).resolve().parent.parent
 DETAILS_PATH = ROOT / "sec_filing_details.json"
@@ -102,19 +102,7 @@ def now_utc():
 
 
 def fetch_html(url, attempts=3):
-    headers = {
-        "User-Agent": os.environ.get("SEC_USER_AGENT", "SecKBResearch user@example.com"),
-        "Accept": "text/html,application/xhtml+xml",
-    }
-    request = urllib.request.Request(url, headers=headers)
-    for attempt in range(attempts):
-        try:
-            with urllib.request.urlopen(request, timeout=45) as response:
-                return response.read().decode("utf-8", errors="ignore")
-        except (urllib.error.URLError, TimeoutError):
-            if attempt + 1 == attempts:
-                raise
-            time.sleep(1.5 * (attempt + 1))
+    return sec_http.get_text(url, accept="text/html,application/xhtml+xml", attempts=attempts)
 
 
 def extract_section(text, start_pattern, end_pattern):

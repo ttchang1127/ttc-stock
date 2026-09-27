@@ -21,6 +21,7 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 from jsonio import dumps, load_json, replace_texts
+import sec_http
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_STATE = REPO_ROOT / ".github" / "sec-filing-state.json"
@@ -92,22 +93,7 @@ def company_ciks(path=DEFAULT_FINANCIALS):
 
 
 def fetch_submissions(cik, attempts=3):
-    user_agent = os.environ.get(
-        "SEC_USER_AGENT",
-        "SecKBResearch user@example.com",
-    )
-    request = urllib.request.Request(
-        f"https://data.sec.gov/submissions/CIK{cik}.json",
-        headers={"User-Agent": user_agent, "Accept": "application/json"},
-    )
-    for attempt in range(attempts):
-        try:
-            with urllib.request.urlopen(request, timeout=30) as response:
-                return json.loads(response.read().decode("utf-8"))
-        except (urllib.error.URLError, TimeoutError, json.JSONDecodeError):
-            if attempt + 1 == attempts:
-                raise
-            time.sleep(1.5 * (attempt + 1))
+    return sec_http.get_json(f"https://data.sec.gov/submissions/CIK{cik}.json", timeout=30, attempts=attempts)
 
 
 def normalize_items(raw):

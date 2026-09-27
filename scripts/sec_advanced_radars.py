@@ -3,7 +3,6 @@
 
 import argparse
 import json
-import os
 import re
 import time
 import urllib.parse
@@ -14,6 +13,7 @@ from pathlib import Path
 from xml.etree import ElementTree
 
 from jsonio import dumps, replace_texts
+import sec_http
 
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -74,15 +74,7 @@ def utc_now():
 
 
 def fetch(url, accept="*/*", max_bytes=None):
-    headers = {
-        "User-Agent": os.environ.get("SEC_USER_AGENT", "SecKBResearch user@example.com"),
-        "Accept": accept,
-    }
-    if max_bytes:
-        headers["Range"] = f"bytes=0-{max_bytes - 1}"
-    request = urllib.request.Request(url, headers=headers)
-    with urllib.request.urlopen(request, timeout=45) as response:
-        return response.read(max_bytes) if max_bytes else response.read()
+    return sec_http.get(url, accept=accept, max_bytes=max_bytes)
 
 
 def html_text(raw):

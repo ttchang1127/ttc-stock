@@ -74,10 +74,9 @@ Form 144＋3／4／5、併購與 SEC 執法／停牌雷達。完整 13F 另以
 2. **清理 GitHub**：刪除暫時分支 `claude/alert-live-test`（失敗通知實測用，雲端環境無權刪除）；
    關閉已看過的舊通知 issue（目前約 18 個未關閉）。
 3. **架構改善第二優先**（資料清單已完成）：
-   - 共用程式庫：`scripts/jsonio.py`（禁止寫出 NaN、先驗證再整批替換）已套用到**所有排程執行的產生器**；
-     同一步驟產生的 JSON 與 Markdown 一起替換，SEC 監看的 state 與 events 不會只更新一半。
-     `tests/test_jsonio.py` 會擋下新腳本再自寫 `load_json` 或直接 `write_text(json.dumps(...))`。
-     剩下：集中 SEC 連線（User-Agent、速率限制、重試）。
+   - ~~共用程式庫~~：已完成。`scripts/jsonio.py` 用於所有排程產生器；`scripts/sec_http.py` 集中所有排程的
+     SEC 連線。尚未改的只有不在排程裡的舊手動腳本（`fetch_sec.py`、`fetch_form8k_events.py`、
+     `fetch_insider_institutional.py`），以及同時抓 SEC 與公司 IR 網站的 `track_earnings_calls.py`。
    - 拆分 `check_integrity.py`：依領域分模組，逐步把 HTML 字串比對換成資料與行為測試。
 4. **市場輪動 MVP-1 後續**：WP-3 預覽頁 `market_rotation_v2.html`、WP-4 首頁一句摘要與限制提示
    （計畫第 35.8～35.9 節）、WP-5 板塊下鑽、WP-6 手機卡片與無障礙、WP-7 切換前閘門。

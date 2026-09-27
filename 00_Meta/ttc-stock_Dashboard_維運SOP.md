@@ -45,6 +45,8 @@
 | `.github/workflows/update-prices.yml` | 每日自動更新與新年報提示 | ❌ 除非使用者明確要求，不要改 |
 | `data_manifest.json` | **所有資料檔的總清單**：由哪支腳本產生、哪條排程提交、能不能手改、多久更新 | ⚠️ 新增或改名資料檔時必須同步更新；測試會擋下漏列的檔案 |
 | `requirements.txt` | 所有 workflow、雲端 SessionStart hook 與本機共用的唯一套件清單 | ⚠️ 新增 import 時必須同步加入，否則測試會擋下 |
+| `scripts/jsonio.py` | 所有產生器共用的 JSON 讀寫：禁止 NaN、先驗證再整批替換（JSON 與同步產生的 Markdown 一起換上） | ⚠️ 新腳本必須用它讀寫資料檔；測試會擋下自寫的 `load_json` 或直接 `write_text(json.dumps(...))` |
+| `scripts/sec_http.py` | 所有 SEC 連線共用：User-Agent（`SEC_USER_AGENT` 變數優先）、每秒最多 9 次請求、429／5xx／斷線才重試 | ⚠️ 新的 SEC 抓取一律經由它；測試會擋下自行 `urlopen` 的排程腳本 |
 | `.github/workflows/tests.yml` | 每個 PR 自動跑全部測試與完整性檢查（離線、唯讀） | ❌ 除非使用者明確要求，不要改 |
 | `.github/workflows/data-freshness.yml`／`scripts/check_data_freshness.py` | 每日 13:37（台北）巡檢行情與 SEC 監看是否仍在前進 | ⚠️ 門檻變更需連同測試 |
 | `.github/scripts/workflow-alert.sh`／`issue-alert.sh` | 排程失敗開 issue、恢復後自動關閉 | ⚠️ 需連同 `tests/test_workflow_alerts.py` 修改 |

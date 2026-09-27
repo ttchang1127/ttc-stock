@@ -7,7 +7,6 @@ writes decision-friendly Obsidian notes.  Parsed details are cached by
 accession number so routine checks do not repeatedly download old documents.
 """
 
-import os
 import re
 import time
 import urllib.error
@@ -18,6 +17,7 @@ from pathlib import Path
 from xml.etree import ElementTree
 
 from jsonio import dumps, load_json, replace_texts
+import sec_http
 
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -71,22 +71,8 @@ def utc_now():
 
 
 def fetch_document(url, attempts=3):
-    user_agent = os.environ.get("SEC_USER_AGENT", "SecKBResearch user@example.com")
-    request = urllib.request.Request(
-        url,
-        headers={
-            "User-Agent": user_agent,
-            "Accept": "text/html,application/xhtml+xml,application/xml,text/xml,*/*",
-        },
-    )
-    for attempt in range(attempts):
-        try:
-            with urllib.request.urlopen(request, timeout=30) as response:
-                return response.read()
-        except (urllib.error.URLError, TimeoutError):
-            if attempt + 1 == attempts:
-                raise
-            time.sleep(1.5 * (attempt + 1))
+    return sec_http.get(url, accept="text/html,application/xhtml+xml,application/xml,text/xml,*/*",
+                        timeout=30, attempts=attempts)
 
 
 def raw_ownership_url(url):

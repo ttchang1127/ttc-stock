@@ -14,13 +14,12 @@ file using each issuer's reporting currency and statutory reported basis.
 
 import argparse
 import json
-import os
 import time
-import urllib.request
 from datetime import date, datetime, timezone
 from pathlib import Path
 
 from jsonio import write_json
+import sec_http
 
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -61,10 +60,7 @@ def days_between(start, end):
 
 
 def sec_json(url):
-    user_agent = os.environ.get("SEC_USER_AGENT", "Sec_kb Research gibon1127@gmail.com")
-    request = urllib.request.Request(url, headers={"User-Agent": user_agent})
-    with urllib.request.urlopen(request, timeout=45) as response:
-        return json.load(response)
+    return sec_http.get_json(url)
 
 
 def filing_url(cik, accession):

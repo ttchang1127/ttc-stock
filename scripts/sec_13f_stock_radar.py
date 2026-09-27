@@ -10,7 +10,6 @@ import argparse
 import csv
 import io
 import json
-import os
 import re
 import urllib.parse
 import urllib.request
@@ -20,6 +19,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from jsonio import dumps, replace_texts
+import sec_http
 
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -48,14 +48,8 @@ SECURITY_MATCHERS = {
 }
 
 
-def user_agent():
-    return os.environ.get("SEC_USER_AGENT", "SecKBResearch user@example.com")
-
-
 def fetch(url):
-    request = urllib.request.Request(url, headers={"User-Agent": user_agent()})
-    with urllib.request.urlopen(request, timeout=120) as response:
-        return response.read()
+    return sec_http.get(url, timeout=120)
 
 
 def discover_datasets(count=2):

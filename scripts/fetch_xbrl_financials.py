@@ -21,17 +21,14 @@ import argparse
 import json
 import re
 import time
-import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
 
 from jsonio import write_json
+import sec_http
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 OUTPUT_PATH = REPO_ROOT / "financials.json"
-
-# SEC requires a genuine contact address; anonymous or fake agents get throttled.
-SEC_HEADERS = {"User-Agent": "Sec_kb Research gibon1127@gmail.com"}
 
 DEFAULT_TICKERS = [
     "AAPL", "AMZN", "ARM", "COHR", "GOOGL", "INTC", "META",
@@ -226,9 +223,7 @@ PRIMARY_STATEMENT = re.compile(
 
 
 def http_text(url):
-    req = urllib.request.Request(url, headers=SEC_HEADERS)
-    with urllib.request.urlopen(req) as resp:
-        return resp.read().decode("utf-8", "ignore")
+    return sec_http.get_text(url)
 
 
 def parse_rendered_report(html):
@@ -362,9 +357,7 @@ def agrees_with_companyfacts(parsed, raw_facts, taxonomy, exclude_end, tags_used
 
 
 def http_json(url):
-    req = urllib.request.Request(url, headers=SEC_HEADERS)
-    with urllib.request.urlopen(req) as resp:
-        return json.loads(resp.read().decode("utf-8"))
+    return sec_http.get_json(url)
 
 
 def ticker_cik_map():
