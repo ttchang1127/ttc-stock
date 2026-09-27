@@ -148,18 +148,27 @@ def durations(walks: dict[str, pd.DataFrame], warmup: int) -> dict:
     return result
 
 
-def run_backtest(closes: pd.DataFrame, volumes: pd.DataFrame, metadata: pd.DataFrame,
-                 warmup: int = WARMUP_SESSIONS, holdout: int = HOLDOUT_SESSIONS) -> dict:
-    history = state_history(closes, volumes, metadata)
+def forward_excess(levels: np.ndarray, market: np.ndarray, horizon: int) -> np.ndarray:
+    """Sessions x groups: group return minus market return from t to t+h (NaN past the end)."""
+    result = np.full(levels.shape, np.nan)
+    result[:-horizon] = levels[horizon:] / levels[:-horizon] - (market[horizon:] / market[:-horizon])[:, None]
+    return result
+
+
+def in_sample(position: int, horizon: int, sample: str, holdout_start: int, total: int) -> bool:
+    """Calibration outcomes must end before the holdout starts, so no holdout price informs them."""
+    if sample == "calibration":
+        return position + horizon < holdout_start
+    if sample == "holdout":
+        return position >= holdout_start and position + horizon < total
+    return position + horizon < total
+
+
+def collect_events(history: dict, dates: pd.DatetimeIndex, warmup: int, holdout_start: int) -> tuple[list, int]:
     panel = history["panel"]
-    dates = closes.index
-    if len(dates) < warmup + max(HORIZONS) + 20:
-        raise ValueError(f"need at least {warmup + max(HORIZONS) + 20} sessions, found {len(dates)}")
-    holdout_start = len(dates) - holdout
     sector_levels = index_levels(by_group(panel.daily, panel.metadata["sector"]))
     market_level = index_levels(history["market"]["market_daily"]).to_numpy()
     market_confirmed = history["market_walk"]["confirmed"]
-
     events, skipped = [], 0
     for sector, walk in sorted(history["sector_walks"].items()):
         found, missed = find_events(walk, warmup)
@@ -167,12 +176,44 @@ def run_backtest(closes: pd.DataFrame, volumes: pd.DataFrame, metadata: pd.DataF
         level = sector_levels[sector].to_numpy()
         for position, state in found:
             env = market_confirmed.iloc[position]
-            row = {"date": dates[position].strftime("%Y-%m-%d"), "sector": sector, "state": state,
-                   "market_state": env if isinstance(env, str) else None,
+            row = {"date": dates[position].strftime("%Y-%m-%d"), "position": position, "sector": sector,
+                   "state": state, "market_state": env if isinstance(env, str) else None,
                    "sample": "holdout" if position >= holdout_start else "calibration"}
             for horizon in HORIZONS:
                 row[f"h{horizon}"] = outcome(level, market_level, position, horizon)
             events.append(row)
+    return events, skipped
+
+
+def baseline_excess(history: dict, warmup: int, holdout_start: int, horizon: int, sample: str,
+                    market_filter: str | None = None) -> np.ndarray:
+    """Every eligible sector-day's forward excess: what a state must beat to carry information."""
+    panel = history["panel"]
+    levels = index_levels(by_group(panel.daily, panel.metadata["sector"])).to_numpy()
+    market = index_levels(history["market"]["market_daily"]).to_numpy()
+    excess = forward_excess(levels, market, horizon)
+    total = len(levels)
+    rows = [position for position in range(warmup, total)
+            if in_sample(position, horizon, sample, holdout_start, total)]
+    if market_filter:
+        confirmed = history["market_walk"]["confirmed"].to_numpy()
+        rows = [position for position in rows if confirmed[position] == market_filter]
+    values = excess[rows].ravel()
+    return values[np.isfinite(values)]
+
+
+def run_backtest(closes: pd.DataFrame, volumes: pd.DataFrame, metadata: pd.DataFrame,
+                 warmup: int = WARMUP_SESSIONS, holdout: int = HOLDOUT_SESSIONS,
+                 history: dict | None = None) -> dict:
+    dates = closes.index
+    if len(dates) < warmup + max(HORIZONS) + 20:
+        raise ValueError(f"need at least {warmup + max(HORIZONS) + 20} sessions, found {len(dates)}")
+    history = history or state_history(closes, volumes, metadata)
+    holdout_start = len(dates) - holdout
+    events, skipped = collect_events(history, dates, warmup, holdout_start)
+
+    def split(rows, horizon, sample):
+        return [e for e in rows if in_sample(e["position"], horizon, sample, holdout_start, len(dates))]
 
     by_state = {}
     for state in GROUP_STATES:
@@ -181,9 +222,8 @@ def run_backtest(closes: pd.DataFrame, volumes: pd.DataFrame, metadata: pd.DataF
             continue
         by_state[state] = {
             "all": {f"{h}d": summarise(rows, h) for h in HORIZONS},
-            "calibration": {f"{h}d": summarise([e for e in rows if e["sample"] == "calibration"], h)
-                            for h in HORIZONS},
-            "holdout": {f"{h}d": summarise([e for e in rows if e["sample"] == "holdout"], h) for h in HORIZONS},
+            "calibration": {f"{h}d": summarise(split(rows, h, "calibration"), h) for h in HORIZONS},
+            "holdout": {f"{h}d": summarise(split(rows, h, "holdout"), h) for h in HORIZONS},
             "by_market_state": {
                 env: summarise([e for e in rows if e["market_state"] == env], 60)
                 for env in MARKET_STATES if any(e["market_state"] == env for e in rows)
@@ -192,13 +232,7 @@ def run_backtest(closes: pd.DataFrame, volumes: pd.DataFrame, metadata: pd.DataF
 
     baseline = {}
     for horizon in HORIZONS:
-        excess = []
-        for sector in sector_levels.columns:
-            level = sector_levels[sector].to_numpy()
-            for position in range(warmup, len(dates) - horizon):
-                excess.append(level[position + horizon] / level[position]
-                              - market_level[position + horizon] / market_level[position])
-        values = np.array(excess)
+        values = baseline_excess(history, warmup, holdout_start, horizon, "all")
         baseline[f"{horizon}d"] = {"sector_days": len(values), "median_excess": pct(np.median(values)),
                                    "win_rate": round(float((values > 0).mean()) * 100, 1)}
 
@@ -216,6 +250,143 @@ def run_backtest(closes: pd.DataFrame, volumes: pd.DataFrame, metadata: pd.DataF
         "unconditional": baseline,
         "durations": durations(history["sector_walks"], warmup),
         "events": [compact(e) for e in events],
+    }
+
+
+# Candidate variants are frozen here before any result is seen (plan 15.10):
+# adding one later needs a new SENSITIVITY_VERSION, and every result -- also
+# the failures -- is published.
+SENSITIVITY_VERSION = "sensitivity-1"
+VARIANTS = (
+    {"id": "baseline", "label": "目前規則：合併股票池、連續 2 日確認",
+     "universe": None, "confirm": 2, "market_filter": None},
+    {"id": "confirm3", "label": "連續 3 日才確認（延遲換取較少假訊號？）",
+     "universe": None, "confirm": 3, "market_filter": None},
+    {"id": "sp500", "label": "只用 S&P 500 成分與基準（計畫第 16.3 節）",
+     "universe": "S&P 500", "confirm": 2, "market_filter": None},
+    {"id": "expansion_only", "label": "只在市場「廣泛擴張」時使用狀態訊號",
+     "universe": None, "confirm": 2, "market_filter": "broad_expansion"},
+)
+PRIMARY_HORIZON = 60
+MIN_EVENTS = 30
+MIN_HOLDOUT_EVENTS = 5
+BOOTSTRAP_DRAWS = 2000
+BOOTSTRAP_SEED = 20260927
+
+
+def bootstrap_interval(values: np.ndarray, reference: float) -> tuple[float, float] | None:
+    """90% interval of median(values) - reference, resampling independent events."""
+    if len(values) < 2:
+        return None
+    rng = np.random.default_rng(BOOTSTRAP_SEED)
+    draws = rng.choice(values, size=(BOOTSTRAP_DRAWS, len(values)), replace=True)
+    medians = np.median(draws, axis=1) - reference
+    return float(np.percentile(medians, 5)), float(np.percentile(medians, 95))
+
+
+def state_excess(events: list[dict], state: str, horizon: int, sample: str, holdout_start: int, total: int,
+                 market_filter: str | None) -> np.ndarray:
+    values = [e[f"h{horizon}"]["excess"] for e in events
+              if e["state"] == state and e[f"h{horizon}"]
+              and in_sample(e["position"], horizon, sample, holdout_start, total)
+              and (market_filter is None or e["market_state"] == market_filter)]
+    return np.array(values)
+
+
+def evaluate_variant(history: dict, dates: pd.DatetimeIndex, variant: dict, warmup: int, holdout: int) -> dict:
+    holdout_start = len(dates) - holdout
+    events, _ = collect_events(history, dates, warmup, holdout_start)
+    flt = variant["market_filter"]
+    samples = {}
+    for sample in ("calibration", "holdout"):
+        block = {}
+        for horizon in HORIZONS:
+            base = baseline_excess(history, warmup, holdout_start, horizon, sample, flt)
+            lead = state_excess(events, "confirmed_leading", horizon, sample, holdout_start, len(dates), flt)
+            lag = state_excess(events, "clear_lagging", horizon, sample, holdout_start, len(dates), flt)
+            base_median = float(np.median(base)) if len(base) else None
+            row = {
+                "baseline_sector_days": len(base),
+                "baseline_median": pct(base_median),
+                "baseline_p10": pct(np.percentile(base, 10)) if len(base) else None,
+                "leading_events": len(lead),
+                "leading_median": pct(np.median(lead)) if len(lead) else None,
+                "leading_p10": pct(np.percentile(lead, 10)) if len(lead) else None,
+                "lagging_events": len(lag),
+                "lagging_median": pct(np.median(lag)) if len(lag) else None,
+            }
+            row["leading_edge_pp"] = (round(row["leading_median"] - row["baseline_median"], 2)
+                                      if len(lead) and base_median is not None else None)
+            row["lagging_edge_pp"] = (round(row["baseline_median"] - row["lagging_median"], 2)
+                                      if len(lag) and base_median is not None else None)
+            if sample == "calibration" and horizon == PRIMARY_HORIZON:
+                interval = bootstrap_interval(lead, base_median) if base_median is not None else None
+                row["leading_edge_interval_pp"] = [pct(v) for v in interval] if interval else None
+            block[f"{horizon}d"] = row
+        samples[sample] = block
+    return {**{k: variant[k] for k in ("id", "label")}, "samples": samples,
+            **judge(samples)}
+
+
+def judge(samples: dict) -> dict:
+    """Plan 15.11 conditions that a price back-test can check; never adopts a rule by itself."""
+    cal = samples["calibration"][f"{PRIMARY_HORIZON}d"]
+    hold = samples["holdout"][f"{PRIMARY_HORIZON}d"]
+    positive = lambda value: value is not None and value > 0  # noqa: E731
+    enough_holdout = hold["leading_events"] >= MIN_HOLDOUT_EVENTS and hold["lagging_events"] >= MIN_HOLDOUT_EVENTS
+    interval = cal.get("leading_edge_interval_pp")
+    horizons = sum(positive(samples["calibration"][f"{h}d"]["leading_edge_pp"]) for h in HORIZONS)
+    criteria = {
+        "enough_events": cal["leading_events"] >= MIN_EVENTS and cal["lagging_events"] >= MIN_EVENTS,
+        "expected_direction": positive(cal["leading_edge_pp"]) and positive(cal["lagging_edge_pp"]),
+        "holds_out_of_sample": (positive(hold["leading_edge_pp"]) and positive(hold["lagging_edge_pp"])
+                                if enough_holdout else None),
+        "downside_not_worse": (cal["leading_p10"] is not None and cal["baseline_p10"] is not None
+                               and cal["leading_p10"] >= cal["baseline_p10"]),
+        "interval_excludes_zero": bool(interval and interval[0] is not None and interval[0] > 0),
+        "more_than_one_horizon": horizons >= 2,
+    }
+    if not criteria["enough_events"]:
+        verdict = "insufficient_sample"
+    elif not criteria["expected_direction"]:
+        verdict = "not_supported"
+    elif all(value is True for value in criteria.values()):
+        verdict = "supported_pending_a_b_history"
+    else:
+        verdict = "partial_not_adoptable"
+    return {"criteria": criteria, "verdict": verdict}
+
+
+def run_sensitivity(closes: pd.DataFrame, volumes: pd.DataFrame, metadata: pd.DataFrame,
+                    warmup: int = WARMUP_SESSIONS, holdout: int = HOLDOUT_SESSIONS,
+                    baseline_history: dict | None = None) -> dict:
+    results = []
+    for variant in VARIANTS:
+        if variant["universe"]:
+            members = [t for t in closes.columns if variant["universe"] in metadata.loc[t, "indexes"]]
+            data = (closes[members], volumes[members], metadata.loc[members])
+        else:
+            data = (closes, volumes, metadata)
+        reuse = baseline_history if (variant["universe"] is None and variant["confirm"] == 2) else None
+        history = reuse or state_history(*data, confirm_sessions=variant["confirm"])
+        results.append(evaluate_variant(history, closes.index, variant, warmup, holdout))
+    return {
+        "version": SENSITIVITY_VERSION,
+        "primary_horizon_sessions": PRIMARY_HORIZON,
+        "compared_states": ["confirmed_leading", "clear_lagging"],
+        "edge_definition": "leading: state median excess minus the same sample's all-sector-day median; "
+                           "lagging: all-sector-day median minus the state median (positive = the state "
+                           "separates as expected)",
+        "sample_rule": f"calibration outcomes end before the last {holdout} sessions; holdout entries start "
+                       "inside them",
+        "bootstrap": {"draws": BOOTSTRAP_DRAWS, "seed": BOOTSTRAP_SEED, "interval": "5th-95th percentile"},
+        "verdicts": {
+            "supported_pending_a_b_history": "價格回測條件都符合；仍須在 A／B 級歷史重現才可採用",
+            "partial_not_adoptable": "方向符合，但樣本外、下行風險、區間或期間一致性至少一項未通過",
+            "not_supported": "校準期方向就不符合預期",
+            "insufficient_sample": "事件數不足",
+        },
+        "variants": results,
     }
 
 
@@ -256,7 +427,9 @@ def main() -> None:
     print(f"Fetching {len(tickers)} securities for {args.days} days...")
     closes, volumes = builder.fetch_market_data(tickers, end - timedelta(days=args.days), end)
     closes, volumes, metadata, unavailable = builder.prepare_market_data(universe, closes, volumes)
-    result = run_backtest(closes, volumes, metadata)
+    history = state_history(closes, volumes, metadata)
+    result = run_backtest(closes, volumes, metadata, history=history)
+    sensitivity = run_sensitivity(closes, volumes, metadata, baseline_history=history)
     registry = json.loads(args.registry.read_text())
     ids = {row["name_en"]: row["group_id"] for row in registry["groups"] if row["group_type"] == "sector"}
     for event in result["events"]:
@@ -269,6 +442,11 @@ def main() -> None:
         **result,
     }
     write_json(args.output_dir / "sector_results.json", payload, indent=None)
+    write_json(args.output_dir / "sensitivity.json", {
+        "schema_version": 1, "generated_at": payload["generated_at"], "methodology": payload["methodology"],
+        "period": result["period"], **sensitivity}, indent=1)
+    for variant in sensitivity["variants"]:
+        print(f"  {variant['id']}: {variant['verdict']}")
     print(f"Back-test {result['period']['start']}..{result['period']['end']}: {result['event_count']} events "
           f"({result['reentries_not_counted']} re-entries not counted)")
 

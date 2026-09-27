@@ -100,5 +100,61 @@ class BacktestTests(unittest.TestCase):
                                                  "update-prices", manifest))
 
 
+class SensitivityTests(unittest.TestCase):
+    def test_candidates_are_frozen_under_a_version(self):
+        self.assertEqual(backtest.SENSITIVITY_VERSION, "sensitivity-1",
+                         "changing VARIANTS needs a new SENSITIVITY_VERSION (plan 15.10)")
+        self.assertEqual([v["id"] for v in backtest.VARIANTS], ["baseline", "confirm3", "sp500", "expansion_only"])
+
+    def test_calibration_outcomes_never_reach_into_the_holdout(self):
+        self.assertTrue(backtest.in_sample(10, 60, "calibration", holdout_start=71, total=200))
+        self.assertFalse(backtest.in_sample(11, 60, "calibration", holdout_start=71, total=200))
+        self.assertTrue(backtest.in_sample(71, 60, "holdout", holdout_start=71, total=200))
+        self.assertFalse(backtest.in_sample(150, 60, "holdout", holdout_start=71, total=200))
+
+    def test_forward_excess(self):
+        levels = np.array([[100.0], [110.0], [121.0]])
+        market = np.array([100.0, 100.0, 105.0])
+        excess = backtest.forward_excess(levels, market, 2)
+        self.assertAlmostEqual(excess[0, 0], 0.21 - 0.05)
+        self.assertTrue(np.isnan(excess[1:]).all())
+
+    def test_bootstrap_is_reproducible(self):
+        values = np.linspace(-0.05, 0.1, 40)
+        self.assertEqual(backtest.bootstrap_interval(values, 0.0), backtest.bootstrap_interval(values, 0.0))
+        low, high = backtest.bootstrap_interval(values, 0.0)
+        self.assertLess(low, np.median(values))
+        self.assertLess(np.median(values), high)
+
+    def samples(self, lead=1.0, lag=1.0, hold_lead=1.0, hold_lag=1.0, events=40, hold_events=8, p10=(-5, -6),
+                interval=(0.2, 1.8)):
+        def row(lead_edge, lag_edge, n):
+            return {"leading_events": n, "lagging_events": n, "leading_edge_pp": lead_edge,
+                    "lagging_edge_pp": lag_edge, "leading_p10": p10[0], "baseline_p10": p10[1],
+                    "leading_edge_interval_pp": list(interval)}
+        return {"calibration": {f"{h}d": row(lead, lag, events) for h in backtest.HORIZONS},
+                "holdout": {f"{h}d": row(hold_lead, hold_lag, hold_events) for h in backtest.HORIZONS}}
+
+    def test_verdicts(self):
+        judge = backtest.judge
+        self.assertEqual(judge(self.samples())["verdict"], "supported_pending_a_b_history")
+        self.assertEqual(judge(self.samples(events=12))["verdict"], "insufficient_sample")
+        self.assertEqual(judge(self.samples(lead=-0.5))["verdict"], "not_supported")
+        self.assertEqual(judge(self.samples(hold_lead=-1.0))["verdict"], "partial_not_adoptable")
+        self.assertEqual(judge(self.samples(interval=(-0.4, 2.0)))["verdict"], "partial_not_adoptable")
+        self.assertEqual(judge(self.samples(p10=(-9, -6)))["verdict"], "partial_not_adoptable")
+        few = judge(self.samples(hold_events=2))
+        self.assertIsNone(few["criteria"]["holds_out_of_sample"])
+        self.assertEqual(few["verdict"], "partial_not_adoptable", "an unchecked holdout is not a pass")
+
+    def test_every_variant_is_published_even_when_it_fails(self):
+        result = backtest.run_sensitivity(*regime_market())
+        json.dumps(result, allow_nan=False)
+        self.assertEqual([v["id"] for v in result["variants"]], [v["id"] for v in backtest.VARIANTS])
+        for variant in result["variants"]:
+            self.assertIn(variant["verdict"], result["verdicts"])
+            self.assertEqual(set(variant["samples"]), {"calibration", "holdout"})
+
+
 if __name__ == "__main__":
     unittest.main()

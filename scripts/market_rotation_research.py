@@ -367,8 +367,8 @@ def confirm(raw: pd.Series, sessions: int = CONFIRM_SESSIONS) -> pd.DataFrame:
     return frame
 
 
-def confirm_frame(raw: pd.DataFrame) -> dict[str, pd.DataFrame]:
-    return {group: confirm(raw[group]) for group in raw.columns}
+def confirm_frame(raw: pd.DataFrame, sessions: int = CONFIRM_SESSIONS) -> dict[str, pd.DataFrame]:
+    return {group: confirm(raw[group], sessions) for group in raw.columns}
 
 
 def missing(value) -> bool:
@@ -612,7 +612,8 @@ def compute_research(closes: pd.DataFrame, volumes: pd.DataFrame, metadata: pd.D
     }
 
 
-def state_history(closes: pd.DataFrame, volumes: pd.DataFrame, metadata: pd.DataFrame) -> dict:
+def state_history(closes: pd.DataFrame, volumes: pd.DataFrame, metadata: pd.DataFrame,
+                  confirm_sessions: int = CONFIRM_SESSIONS) -> dict:
     """Every session's market and sector states plus the series a back-test needs."""
     panel = Panel(closes, volumes, metadata)
     market = market_series(panel)
@@ -622,6 +623,6 @@ def state_history(closes: pd.DataFrame, volumes: pd.DataFrame, metadata: pd.Data
         "panel": panel,
         "market": market,
         "sectors": sectors,
-        "market_walk": confirm(market_raw),
-        "sector_walks": confirm_frame(group_raw_states(sectors, MIN_SECTOR_ISSUERS)),
+        "market_walk": confirm(market_raw, confirm_sessions),
+        "sector_walks": confirm_frame(group_raw_states(sectors, MIN_SECTOR_ISSUERS), confirm_sessions),
     }

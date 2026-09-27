@@ -277,6 +277,7 @@
     .check-list li { display: flex; justify-content: space-between; gap: 8px; padding: 6px 9px; border-radius: 8px; font-size: .75rem; background: rgba(255,255,255,.03); }
     .check-list li::before { content: "✗"; color: #fda4af; font-weight: 800; }
     .check-list li.ok::before { content: "✓"; color: #5eead4; }
+    .check-list li.na::before { content: "–"; color: var(--muted); }
     .check-list li span { margin-left: auto; color: var(--muted); }
     .env-other { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; margin-top: 12px; }
     .state-table { min-width: 980px; }
@@ -312,6 +313,10 @@
     .sector-legend i { display: inline-block; width: 10px; height: 10px; margin-right: 6px; border-radius: 3px; }
     .sector-legend small { margin-left: 6px; color: var(--muted); }
     .exposure-table { min-width: 860px; }
+    .sensitivity-table { min-width: 1080px; }
+    .sensitivity-table .criteria { min-width: 330px; }
+    .sensitivity-table .check-list { grid-template-columns: 1fr; }
+    .sensitivity-table td small { display: block; }
     .exposure-table td small { display: block; margin-top: 3px; font-size: .72rem; }
     .exposure-table td small.state { font-weight: 800; }
     .exposure-table .reasons { white-space: normal; min-width: 300px; color: #cbd5e1; font-size: .76rem; line-height: 1.5; }

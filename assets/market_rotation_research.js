@@ -185,6 +185,53 @@
     }).join('');
   }
 
+  const CRITERIA = {
+    enough_events: '校準期領先與落後事件各 ≥ 30',
+    expected_direction: '領先勝過基準、落後輸給基準',
+    holds_out_of_sample: '最後 6 個月（樣本外）方向一致',
+    downside_not_worse: '領先的最差 10% 不比基準差',
+    interval_excludes_zero: '領先優勢的 90% 區間不含 0',
+    more_than_one_horizon: '20／60／120 日至少兩個期間成立'
+  };
+  const VERDICT_TONE = {
+    supported_pending_a_b_history: 'positive', partial_not_adoptable: 'warning',
+    not_supported: 'negative', insufficient_sample: 'neutral'
+  };
+
+  function renderSensitivity(result) {
+    const target = document.getElementById('sensitivitySummary');
+    if (!target) return;
+    if (!result) {
+      target.innerHTML = '<div class="panel-desc">規則敏感度研究尚未執行：會隨每月回測一起產生。</div>';
+      return;
+    }
+    const rows = result.variants.map(variant => {
+      const cal = variant.samples.calibration['60d'];
+      const hold = variant.samples.holdout['60d'];
+      const interval = cal.leading_edge_interval_pp;
+      const marks = Object.entries(variant.criteria).map(([key, value]) =>
+        `<li class="${value === true ? 'ok' : value === null ? 'na' : 'fail'}">${esc(CRITERIA[key] || key)}` +
+        `<span>${value === null ? '無法檢查' : value ? '符合' : '不符合'}</span></li>`).join('');
+      return `<tr>
+        <td><strong>${esc(variant.label)}</strong></td>
+        <td class="state ${VERDICT_TONE[variant.verdict] || ''}">${esc(result.verdicts[variant.verdict] || variant.verdict)}</td>
+        <td class="${tone(cal.leading_edge_pp)}">${signed(cal.leading_edge_pp, 'pp')}<small>${cal.leading_events} 次` +
+          `${interval ? `｜區間 ${signed(interval[0], '')}～${signed(interval[1], '')}` : ''}</small></td>
+        <td class="${tone(cal.lagging_edge_pp)}">${signed(cal.lagging_edge_pp, 'pp')}<small>${cal.lagging_events} 次</small></td>
+        <td class="${tone(hold.leading_edge_pp)}">${signed(hold.leading_edge_pp, 'pp')}<small>領先 ${hold.leading_events}／落後 ${hold.lagging_events} 次</small></td>
+        <td class="criteria"><ul class="check-list">${marks}</ul></td>
+      </tr>`;
+    }).join('');
+    target.innerHTML = `
+      <h3 class="exposure-title">規則敏感度：換一種規則會不會比較有用？</h3>
+      <p class="panel-desc">候選規則在看到結果前就固定（版本 ${esc(result.version)}），失敗的也一併公開。` +
+      '「優勢」＝狀態之後 60 日的中位超額，減去同一期間任一板塊任一天的中位超額；落後的優勢＝基準減狀態' +
+      '（正值表示落後板塊確實表現較差）。校準期不使用最後 6 個月的價格。</p>' +
+      `<div class="table-wrap"><table class="state-table sensitivity-table"><thead><tr>` +
+      '<th>候選規則</th><th>判定</th><th>已確認領先優勢（校準）</th><th>明確落後優勢（校準）</th>' +
+      `<th>領先優勢（樣本外）</th><th>檢查項目</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+  }
+
   function renderBacktest(result, labels) {
     const target = document.getElementById('backtestSummary');
     if (!target) return;
@@ -327,13 +374,15 @@
   }
 
   async function init() {
-    const [research, rotation, backtest, digest, exposure] = await Promise.all([
+    const [research, rotation, backtest, digest, exposure, sensitivity] = await Promise.all([
       getJSON('market_rotation_research.json'),
       getJSON('market_rotation.json'),
       getJSON('market_rotation_history/backtest/sector_results.json'),
       getJSON('market_rotation_daily_digest.json'),
-      getJSON('portfolio_equity_exposure.json')
+      getJSON('portfolio_equity_exposure.json'),
+      getJSON('market_rotation_history/backtest/sensitivity.json')
     ]);
+    renderSensitivity(sensitivity);
     renderDigest(digest);
     renderExposure(exposure);
     const names = new Map(((rotation && rotation.sectors) || []).map(row => [row.key, row.name_zh]));
