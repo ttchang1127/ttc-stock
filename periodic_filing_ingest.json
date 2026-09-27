@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "updated_at": "2026-09-12T10:25:31+00:00",
+  "updated_at": "2026-09-27T04:01:23+00:00",
   "source": "SEC filing alerts + official primary filing documents",
   "methodology": "fail-closed heading boundaries; accession-deduplicated",
   "filings": [
@@ -494,7 +494,7 @@
       "accession": "0001018724-26-000036",
       "filing_date": "2026-09-09",
       "report_date": "2026-09-08",
-      "status": "ingested",
+      "status": "already_ingested",
       "note": "20_Filings/AMZN/AMZN_2026-09-08_8K_000036.md",
       "expected_note": "20_Filings/AMZN/AMZN_2026-09-08_8K_000036.md",
       "sections": [
@@ -502,8 +502,7 @@
       ],
       "source_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000036/amzn-20260908.htm",
       "errors": [],
-      "removed_stale_notes": [],
-      "source_sha256": "c61ae0e7c8962c475ae3a69af4bfbaa0f70070e2ea25b59cd1186dfa7f5af2c3"
+      "removed_stale_notes": []
     },
     {
       "ticker": "TSM",
@@ -511,14 +510,13 @@
       "accession": "0001046179-26-000658",
       "filing_date": "2026-09-10",
       "report_date": "2026-08-31",
-      "status": "ingested",
+      "status": "already_ingested",
       "note": "20_Filings/TSM/TSM_2026-08-31_6K_000658.md",
       "expected_note": "20_Filings/TSM/TSM_2026-08-31_6K_000658.md",
       "sections": [],
       "source_url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000658/tsm-revenue20260910.htm",
       "errors": [],
-      "removed_stale_notes": [],
-      "source_sha256": "806a0c50fe923834ddc7dacf6f51d23d86e0f8bbf25a134a7aa72c5af84d4e7f"
+      "removed_stale_notes": []
     },
     {
       "ticker": "ARM",
@@ -526,14 +524,120 @@
       "accession": "0001973239-26-000128",
       "filing_date": "2026-09-10",
       "report_date": "2026-09-10",
-      "status": "ingested",
+      "status": "already_ingested",
       "note": "20_Filings/ARM/ARM_2026-09-10_6K_000128.md",
       "expected_note": "20_Filings/ARM/ARM_2026-09-10_6K_000128.md",
       "sections": [],
       "source_url": "https://www.sec.gov/Archives/edgar/data/1973239/000197323926000128/arm-20260910.htm",
       "errors": [],
+      "removed_stale_notes": []
+    },
+    {
+      "ticker": "ONDS",
+      "form": "8-K",
+      "accession": "0001213900-26-099531",
+      "filing_date": "2026-09-14",
+      "report_date": "2026-09-14",
+      "status": "ingested",
+      "note": "20_Filings/ONDS/ONDS_2026-09-14_8K_099531.md",
+      "expected_note": "20_Filings/ONDS/ONDS_2026-09-14_8K_099531.md",
+      "sections": [
+        "20_Filings/ONDS/sections/ONDS_2026-09-14_8K_099531_Item_1_01.md",
+        "20_Filings/ONDS/sections/ONDS_2026-09-14_8K_099531_Item_2_01.md",
+        "20_Filings/ONDS/sections/ONDS_2026-09-14_8K_099531_Item_3_02.md",
+        "20_Filings/ONDS/sections/ONDS_2026-09-14_8K_099531_Item_7_01.md",
+        "20_Filings/ONDS/sections/ONDS_2026-09-14_8K_099531_Item_8_01.md",
+        "20_Filings/ONDS/sections/ONDS_2026-09-14_8K_099531_Item_9_01.md"
+      ],
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1646188/000121390026099531/ea0304980-8k_ondas.htm",
+      "errors": [],
       "removed_stale_notes": [],
-      "source_sha256": "de0863dce34560b0602bbc760c5d873404b1951b1d65d03875e9938f15d67d7f"
+      "source_sha256": "0d07e2e15a8730decf74f581e5dd018513ba68119190fd8adf66d1c2366a1fc6"
+    },
+    {
+      "ticker": "AMZN",
+      "form": "8-K",
+      "accession": "0001104659-26-107526",
+      "filing_date": "2026-09-14",
+      "report_date": "2026-09-14",
+      "status": "ingested",
+      "note": "20_Filings/AMZN/AMZN_2026-09-14_8K_107526.md",
+      "expected_note": "20_Filings/AMZN/AMZN_2026-09-14_8K_107526.md",
+      "sections": [
+        "20_Filings/AMZN/sections/AMZN_2026-09-14_8K_107526_Item_8_01.md",
+        "20_Filings/AMZN/sections/AMZN_2026-09-14_8K_107526_Item_9_01.md"
+      ],
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1018724/000110465926107526/tm2624614d5_8k.htm",
+      "errors": [],
+      "removed_stale_notes": [],
+      "source_sha256": "31424b78e7e77cddc5583f97304d10d530d2bffd0f9bca70648b8f03d19e5e6a"
+    },
+    {
+      "ticker": "ARM",
+      "form": "6-K",
+      "accession": "0001973239-26-000135",
+      "filing_date": "2026-09-18",
+      "report_date": "2026-09-18",
+      "status": "ingested",
+      "note": "20_Filings/ARM/ARM_2026-09-18_6K_000135.md",
+      "expected_note": "20_Filings/ARM/ARM_2026-09-18_6K_000135.md",
+      "sections": [],
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1973239/000197323926000135/arm-20260918.htm",
+      "errors": [],
+      "removed_stale_notes": [],
+      "source_sha256": "0e1a18ec3d667639d12e1436b2b2947df20fb1c14adab7387a2ae1a195507329"
+    },
+    {
+      "ticker": "ONDS",
+      "form": "8-K",
+      "accession": "0001213900-26-102458",
+      "filing_date": "2026-09-23",
+      "report_date": "2026-09-23",
+      "status": "ingested",
+      "note": "20_Filings/ONDS/ONDS_2026-09-23_8K_102458.md",
+      "expected_note": "20_Filings/ONDS/ONDS_2026-09-23_8K_102458.md",
+      "sections": [
+        "20_Filings/ONDS/sections/ONDS_2026-09-23_8K_102458_Item_3_02.md",
+        "20_Filings/ONDS/sections/ONDS_2026-09-23_8K_102458_Item_8_01.md",
+        "20_Filings/ONDS/sections/ONDS_2026-09-23_8K_102458_Item_9_01.md"
+      ],
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1646188/000121390026102458/ea0306273-8k_ondas.htm",
+      "errors": [],
+      "removed_stale_notes": [],
+      "source_sha256": "b0296b3615a4470cc75a384460fa4574715c76ce5ed08a66a0874bae281b99e0"
+    },
+    {
+      "ticker": "TSM",
+      "form": "6-K",
+      "accession": "0001046179-26-000660",
+      "filing_date": "2026-09-24",
+      "report_date": "2026-08-31",
+      "status": "ingested",
+      "note": "20_Filings/TSM/TSM_2026-08-31_6K_000660.md",
+      "expected_note": "20_Filings/TSM/TSM_2026-08-31_6K_000660.md",
+      "sections": [],
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000660/tsm-monthend6kx20260924.htm",
+      "errors": [],
+      "removed_stale_notes": [],
+      "source_sha256": "3e87d2abbdb0e51fe6979c9bc6e6a1c4489064f9430d3c76bda1996addbdac62"
+    },
+    {
+      "ticker": "MRVL",
+      "form": "8-K",
+      "accession": "0001628280-26-063592",
+      "filing_date": "2026-09-25",
+      "report_date": "2026-09-25",
+      "status": "ingested",
+      "note": "20_Filings/MRVL/MRVL_2026-09-25_8K_063592.md",
+      "expected_note": "20_Filings/MRVL/MRVL_2026-09-25_8K_063592.md",
+      "sections": [
+        "20_Filings/MRVL/sections/MRVL_2026-09-25_8K_063592_Item_8_01.md",
+        "20_Filings/MRVL/sections/MRVL_2026-09-25_8K_063592_Item_9_01.md"
+      ],
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1835632/000162828026063592/mrvl-20260925.htm",
+      "errors": [],
+      "removed_stale_notes": [],
+      "source_sha256": "371e1a88772c4765ecc0cbe534a7c83adf6f8cde1866cc010b88787ab8a879d6"
     }
   ]
 }
