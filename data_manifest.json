@@ -457,8 +457,7 @@
       "committed_by": [
         "update-prices"
       ],
-      "note": "研究層：12 檔主題 ETF（凍結清單 theme-etf-1）的成分廣度、等權與市值加權差距、前三大貢獻；權重取自 etf_holdings/ 的 N-PORT，標籤門檻尚未回測",
-      "awaiting_first_run": true
+      "note": "研究層：12 檔主題 ETF（凍結清單 theme-etf-1）的成分廣度、等權與市值加權差距、前三大貢獻；權重取自 etf_holdings/ 的 N-PORT，標籤門檻尚未回測"
     },
     {
       "path": "exhibit_991_analysis.json",
@@ -622,8 +621,7 @@
       "committed_by": [
         "update-prices"
       ],
-      "note": "研究層：市場環境、板塊絕對狀態、集中度；與 v2 同批產生、共用 dataset_id；門檻為回測起點，非正式規則",
-      "awaiting_first_run": true
+      "note": "研究層：市場環境、板塊絕對狀態、集中度；與 v2 同批產生、共用 dataset_id；門檻為回測起點，非正式規則"
     },
     {
       "path": "market_rotation_stocks.json",
@@ -1016,6 +1014,16 @@
       "note": "SEC 原文筆記；年度 10-K／20-F 由 fetch_sec.py 人工觸發"
     },
     {
+      "pattern": "^etf_flows_history/",
+      "kind": "generated",
+      "producer": "scripts/record_etf_flows.py",
+      "edit": "never",
+      "committed_by": [
+        "update-prices"
+      ],
+      "note": "研究用主題 ETF 每日的 Yahoo 流通股數、資產規模與收盤（月份 jsonl，只追加、無法回補）；用來估計近期資金流"
+    },
+    {
       "pattern": "^etf_holdings/",
       "kind": "generated",
       "producer": "scripts/refresh_etf_holdings.py",
@@ -1023,7 +1031,7 @@
       "committed_by": [
         "sec-filing-alerts"
       ],
-      "note": "持股 ETF（VGT、VOO）與 12 檔研究用主題 ETF 的 SEC N-PORT 持股（每季、延遲約 60 天）與 index.json；SEC 有更新的申報或對應規則改版才改寫，解析失敗保留上一版"
+      "note": "持股 ETF（VGT、VOO）與 12 檔研究用主題 ETF 的 SEC N-PORT 持股（每季、延遲約 60 天）與 index.json；SEC 有更新的申報或對應規則改版才改寫，解析失敗保留上一版；history/ 保存主題 ETF 歷次申報的時點權重與每月申購贖回，只追加"
     },
     {
       "pattern": "^market_rotation_history/backtest/",

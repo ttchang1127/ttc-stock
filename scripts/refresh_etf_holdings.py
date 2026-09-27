@@ -6,6 +6,12 @@ changes only when SEC has a newer N-PORT for its series, or when the file
 was mapped under an older ``MAPPING_VERSION``; a lookup or parsing problem
 keeps the previous file, prints a workflow warning and is recorded in
 etf_holdings/index.json, so a bad filing never replaces good data.
+
+For the research ETFs, every NPORT-P that EDGAR lists for the series is
+also kept in ``etf_holdings/history/{ETF}.json`` (point-in-time weights and
+monthly flows).  The history only grows: an accession already recorded is
+never re-read or replaced, and a filing that fails validation is listed
+under ``skipped`` so it is not downloaded again every run.
 Standard library only.
 """
 
@@ -27,8 +33,38 @@ def fund_list(root: Path = ROOT) -> list[str]:
     return sorted(set(portfolio) | set(etf_holdings.THEME_ETFS))
 
 
+def empty_history(ticker: str) -> dict:
+    return {"schema_version": etf_holdings.HISTORY_SCHEMA_VERSION, "etf": ticker,
+            "source": "SEC Form N-PORT (NPORT-P)", "filings": [], "skipped": []}
+
+
+def refresh_history(ticker: str, holdings_dir: Path, universe: dict, fund_index: dict, sec_names: dict,
+                    fresh: dict | None, history_fetch) -> tuple[dict[Path, str], list[str]]:
+    path = holdings_dir / "history" / f"{ticker}.json"
+    history = load_json(path, None) or empty_history(ticker)
+    entries = [etf_holdings.history_record(fresh)] if fresh else []
+    known = ({row["accession"] for row in history["filings"]} | {row["accession"] for row in history["skipped"]}
+             | {row["accession"] for row in entries})
+    try:
+        more, skipped = history_fetch(ticker, universe, fund_index, sec_names, known)
+    except Exception as error:  # noqa: BLE001 - history is best effort; the latest file is already handled
+        more, skipped = [], []
+        message = f"::warning::{ticker} N-PORT history not extended: {type(error).__name__}: {error}"
+    else:
+        message = None
+    merged = etf_holdings.merge_history(history, entries + more, skipped)
+    if merged == history:
+        return {}, [message] if message else []
+    added = len(merged["filings"]) - len(history["filings"])
+    messages = [f"{ticker}: history +{added} filing(s), {len(merged['filings'])} since "
+                f"{merged['filings'][0]['report_date'] if merged['filings'] else '—'}"
+                + (f", {len(skipped)} skipped" if skipped else "")]
+    return {path: dumps(merged, indent=1)}, messages + ([message] if message else [])
+
+
 def refresh(root: Path = ROOT, holdings_dir: Path = HOLDINGS_DIR, fetch=etf_holdings.fetch_latest,
-            fund_index: dict | None = None, sec_names: dict | None = None) -> tuple[dict[Path, str], list[str]]:
+            fund_index: dict | None = None, sec_names: dict | None = None,
+            history_fetch=etf_holdings.fetch_history) -> tuple[dict[Path, str], list[str]]:
     funds = fund_list(root)
     universe = load_json(root / "market_rotation_universe.json")
     index_path = holdings_dir / "index.json"
@@ -46,6 +82,7 @@ def refresh(root: Path = ROOT, holdings_dir: Path = HOLDINGS_DIR, fetch=etf_hold
         path = holdings_dir / f"{ticker}.json"
         current = load_json(path, None)
         entry = dict(index["funds"].get(ticker, {}))
+        fresh = None
         try:
             current_mapping = current and current.get("mapping_version") == etf_holdings.MAPPING_VERSION
             fresh = fetch(ticker, universe, fund_index, current["accession"] if current_mapping else None,
@@ -67,6 +104,11 @@ def refresh(root: Path = ROOT, holdings_dir: Path = HOLDINGS_DIR, fetch=etf_hold
         if entry != index["funds"].get(ticker):
             index["funds"][ticker] = entry
             texts[index_path] = dumps(index, indent=1)
+        if ticker in etf_holdings.THEME_ETFS:
+            history_texts, history_messages = refresh_history(ticker, holdings_dir, universe, fund_index,
+                                                              sec_names, fresh, history_fetch)
+            texts.update(history_texts)
+            messages.extend(history_messages)
     return texts, messages
 
 

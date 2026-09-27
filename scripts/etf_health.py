@@ -13,11 +13,22 @@ daily closes:
 * contribution: the three holdings that contributed most to the
   cap-weighted return, and their share of it;
 * the ETF's own 5/20/60-session return and its 20-session return relative
-  to SPY, which orders the table.
+  to SPY, which orders the table;
+* money flows: the last three months of real creations minus redemptions
+  from N-PORT (as % of net assets, two to five months old), and a daily
+  estimate over 5/20 sessions from the recorded Yahoo shares outstanding
+  or assets (``etf_flows_history/``).
 
 The state labels are descriptive research labels, not tested signals: the
 thresholds below are frozen under ``HEALTH_RULE_VERSION`` so that the daily
 record can be tested later without moving the goalposts.
+
+etf-health-2 (2026-09-27, before any record accumulated): "carried by a
+few" needs the equal-weight return to lag the cap-weighted one as well as
+the top three to dominate the move.  Under etf-health-1 a concentrated
+30-stock fund (SOXX, SMH) with 83% of holdings above their averages and
+equal = cap-weighted return was labelled carried, which contradicts the
+label.
 """
 
 from __future__ import annotations
@@ -31,7 +42,8 @@ import pandas as pd
 import etf_holdings
 
 SCHEMA_VERSION = 1
-HEALTH_RULE_VERSION = "etf-health-1"
+HEALTH_RULE_VERSION = "etf-health-2"
+KNOWN_RULE_VERSIONS = {"etf-health-1", HEALTH_RULE_VERSION}
 BENCHMARK = "SPY"
 WINDOW = 20
 LONG_WINDOW = 50
@@ -41,6 +53,9 @@ THRESHOLDS = {
     "broad_breadth_up": 0.60,     # ≥60% of issuers above their 50-session average
     "broad_breadth_down": 0.40,   # ≤40% of issuers above their 50-session average
     "top3_share_max": 0.60,       # top three holdings carry at most 60% of the move
+    "participation_gap": 0.02,    # equal- vs cap-weighted 20-session return gap that confirms a carried move
+    "narrow_breadth_up": 0.50,    # below 50% of issuers above their 50-session average: few are rising
+    "narrow_breadth_down": 0.50,  # above 50% still above their average: few are falling
     "min_coverage_pct": 70.0,     # priced common stock as % of the fund's common stock
     "min_priced": 10,
     "tracking_gap_pct": 3.0,      # constituent replay vs ETF 20-session return
@@ -49,7 +64,7 @@ THRESHOLDS = {
 STATES = {
     "broad_advance": "普遍上漲",
     "narrow_advance": "少數撐盤",
-    "mixed": "持平分歧",
+    "mixed": "持平或分歧",
     "narrow_decline": "少數拖累",
     "broad_decline": "普遍下跌",
     "data_limited": "資料不足",
@@ -109,20 +124,63 @@ def constituent_table(fund: dict, closes: pd.DataFrame) -> tuple[pd.DataFrame, d
     return table, coverage
 
 
-def classify(direction: str, breadth50: float | None, top3_share: float | None, limited: bool) -> str:
+def implied_flows(history: list[dict], ticker: str) -> dict:
+    """Estimated net flow over the last 5/20 recorded sessions, as % of the latest assets.
+
+    Shares outstanding times the close when both days have shares; else the
+    change in total assets beyond what the price change explains.
+    """
+    points = [row["etfs"].get(ticker) or {} for row in history]
+    flows: list[float | None] = []
+    for before, after in zip(points, points[1:]):
+        if before.get("shares_outstanding") and after.get("shares_outstanding") and after.get("close"):
+            flows.append((after["shares_outstanding"] - before["shares_outstanding"]) * after["close"])
+        elif before.get("total_assets") and after.get("total_assets") and before.get("close") and after.get("close"):
+            flows.append(after["total_assets"] - before["total_assets"] * after["close"] / before["close"])
+        else:
+            flows.append(None)
+    last = points[-1] if points else {}
+    assets = (last.get("shares_outstanding") or 0) * (last.get("close") or 0) or last.get("total_assets")
+    result = {"sessions_recorded": len(points)}
+    for window in (5, 20):
+        recent = flows[-window:]
+        known = [value for value in recent if value is not None]
+        complete = len(recent) == window and len(known) == window
+        result[f"flow_{window}d_pct"] = pct(sum(known) / assets) if complete and assets else None
+    return result
+
+
+def nport_flows(fund: dict) -> dict:
+    months = [row for row in fund.get("monthly_flows") or [] if row.get("net_usd") is not None]
+    assets = fund.get("net_assets_usd")
+    if not months or not assets:
+        return {"net_3m_pct": None, "months": None}
+    return {"net_3m_pct": pct(sum(row["net_usd"] for row in months) / assets),
+            "months": f"{months[0]['month']}～{months[-1]['month']}"}
+
+
+def classify(direction: str, breadth50: float | None, top3_share: float | None, spread: float | None,
+             limited: bool) -> str:
+    """Descriptive state; ``spread`` is the equal- minus cap-weighted 20-session constituent return."""
     if limited:
         return "data_limited"
-    if direction == "flat":
+    if direction == "flat" or breadth50 is None:
         return "mixed"
-    concentrated = top3_share is not None and top3_share > THRESHOLDS["top3_share_max"]
+    dominant = top3_share is not None and top3_share > THRESHOLDS["top3_share_max"]
+    gap = THRESHOLDS["participation_gap"]
     if direction == "up":
-        broad = breadth50 is not None and breadth50 >= THRESHOLDS["broad_breadth_up"]
-        return "broad_advance" if broad and not concentrated else "narrow_advance"
-    broad = breadth50 is not None and breadth50 <= THRESHOLDS["broad_breadth_down"]
-    return "broad_decline" if broad and not concentrated else "narrow_decline"
+        carried = dominant and spread is not None and spread <= -gap
+        if carried or breadth50 < THRESHOLDS["narrow_breadth_up"]:
+            return "narrow_advance"
+        return "broad_advance" if breadth50 >= THRESHOLDS["broad_breadth_up"] else "mixed"
+    dragged = dominant and spread is not None and spread >= gap
+    if dragged or breadth50 > THRESHOLDS["narrow_breadth_down"]:
+        return "narrow_decline"
+    return "broad_decline" if breadth50 <= THRESHOLDS["broad_breadth_down"] else "mixed"
 
 
-def fund_health(ticker: str, fund: dict, closes: pd.DataFrame, as_of: date) -> dict:
+def fund_health(ticker: str, fund: dict, closes: pd.DataFrame, as_of: date,
+                flows_history: list[dict] | None = None) -> dict:
     table, coverage = constituent_table(fund, closes)
     flags = []
     etf_series = closes[ticker] if ticker in closes else pd.Series(dtype=float)
@@ -176,7 +234,7 @@ def fund_health(ticker: str, fund: dict, closes: pd.DataFrame, as_of: date) -> d
         "fund_name": fund.get("fund_name"),
         "holdings_report_date": report,
         "holdings_accession": fund.get("accession"),
-        "state": classify(direction, breadth50, top3_share, limited),
+        "state": classify(direction, breadth50, top3_share, spread, limited),
         "direction": direction,
         "etf": {"r5_pct": pct(etf["r5"]), "r20_pct": pct(etf["r20"]), "r60_pct": pct(etf["r60"]),
                 "rs20_pct": pct(etf["rs20"]), "above_ma50": etf["above_ma50"]},
@@ -185,11 +243,13 @@ def fund_health(ticker: str, fund: dict, closes: pd.DataFrame, as_of: date) -> d
         "returns": {"cap_weighted_r20_pct": pct(cw), "equal_weighted_r20_pct": pct(ew),
                     "equal_minus_cap_pp": pct(spread), "tracking_gap_pp": pct(gap)},
         "concentration": {"top3_share_pct": pct(top3_share, 1), "top_contributors": contributors},
+        "flows": {"nport": nport_flows(fund), "estimated": implied_flows(flows_history or [], ticker)},
         "flags": sorted(flags),
     }
 
 
-def compute(funds: dict[str, dict | None], closes: pd.DataFrame, generated_at: str) -> dict:
+def compute(funds: dict[str, dict | None], closes: pd.DataFrame, generated_at: str,
+            flows_history: list[dict] | None = None) -> dict:
     """Health of every research ETF; ``funds`` maps ticker -> holdings file (None when not fetched yet)."""
     if BENCHMARK not in closes or closes[BENCHMARK].dropna().empty:
         raise ValueError(f"{BENCHMARK} has no closes")
@@ -203,7 +263,8 @@ def compute(funds: dict[str, dict | None], closes: pd.DataFrame, generated_at: s
             unavailable.append({"ticker": ticker, "theme": etf_holdings.THEME_ETFS.get(ticker, ticker),
                                 "reason": "尚無 N-PORT 持股檔"})
             continue
-        rows.append(fund_health(ticker, fund, closes, as_of))
+        usable = [row for row in flows_history or [] if row["as_of"] <= as_of.isoformat()]
+        rows.append(fund_health(ticker, fund, closes, as_of, usable))
     rows.sort(key=lambda row: (row["etf"]["rs20_pct"] is None, -(row["etf"]["rs20_pct"] or 0), row["ticker"]))
     return {
         "schema_version": SCHEMA_VERSION,
@@ -218,7 +279,9 @@ def compute(funds: dict[str, dict | None], closes: pd.DataFrame, generated_at: s
         "states": STATES,
         "flags": FLAGS,
         "note": ("描述性研究標籤，門檻尚未經回測驗證；成分權重取自各 ETF 最近一次 SEC N-PORT 申報，"
-                 "申報後的調倉不反映。外國掛牌、無美國報價的成分計入未涵蓋比例。"),
+                 "申報後的調倉不反映。外國掛牌、無美國報價的成分計入未涵蓋比例。"
+                 "資金流：N-PORT 為實際申購減贖回（落後 2～5 個月）；每日估計來自 Yahoo 流通股數或資產規模，"
+                 "Yahoo 不一定每天更新。"),
         "etfs": rows,
         "unavailable": unavailable,
     }
@@ -228,8 +291,8 @@ def validate(payload: dict[str, Any]) -> list[str]:
     problems = []
     if payload.get("label") != "research":
         problems.append("label must stay 'research'")
-    if payload.get("rule_version") != HEALTH_RULE_VERSION:
-        problems.append(f"rule_version {payload.get('rule_version')} is not {HEALTH_RULE_VERSION}")
+    if payload.get("rule_version") not in KNOWN_RULE_VERSIONS:
+        problems.append(f"unknown rule_version {payload.get('rule_version')}")
     listed = [row["ticker"] for row in payload.get("etfs", [])] + \
              [row["ticker"] for row in payload.get("unavailable", [])]
     if sorted(listed) != sorted(etf_holdings.THEME_ETFS):
