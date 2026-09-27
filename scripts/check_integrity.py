@@ -2593,6 +2593,11 @@ def c46():
     sys.path.insert(0, str(REPO_ROOT / "scripts"))
     import market_rotation_history as rotation_history  # noqa: PLC0415
 
+    momentum_path = REPO_ROOT / "market_rotation_history/backtest/sector_etf_momentum.json"
+    if momentum_path.exists():
+        momentum = json.loads(momentum_path.read_text())
+        if momentum.get("status") != "research" or momentum.get("history_quality") != "etf_prices":
+            return False, "sector_etf_momentum.json 必須標示 research 狀態與 ETF 價格歷史"
     for name in ("sector_results.json", "sensitivity.json"):
         backtest_path = REPO_ROOT / "market_rotation_history/backtest" / name
         if backtest_path.exists():
