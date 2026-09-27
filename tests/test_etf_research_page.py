@@ -13,8 +13,9 @@ class EtfResearchPageTests(unittest.TestCase):
         cls.rotation_script = (ROOT / "assets/market_rotation_research.js").read_text()
 
     def test_page_loads_its_own_script_and_the_shared_styles(self):
-        self.assertIn('src="assets/etf_research.js"', self.html)
-        self.assertIn('href="assets/market_rotation.css"', self.html)
+        # A version query so a browser holding the previous file fetches the new one after a deploy.
+        self.assertRegex(self.html, r'src="assets/etf_research\.js\?v=\w+"')
+        self.assertRegex(self.html, r'href="assets/market_rotation\.css\?v=\w+"')
         self.assertNotIn("market_rotation_legacy.js", self.html, "the ETF page does not need the rotation charts")
 
     def test_every_etf_section_lives_here(self):
@@ -40,6 +41,8 @@ class EtfResearchPageTests(unittest.TestCase):
         for period in ("'1d'", "'1w'", "'1m'", "'3m'", "'6m'"):
             self.assertIn(period, self.script)
         self.assertIn("尚未產出 etf_constituents.json", self.script)
+        self.assertIn("closest('tr')?.querySelector('.etf-toggle')", self.script, "the whole row opens the panel")
+        self.assertIn("etf-jump", self.script, "overview tickers open their row")
 
     def test_pages_link_both_ways(self):
         self.assertIn('href="market_rotation.html"', self.html)

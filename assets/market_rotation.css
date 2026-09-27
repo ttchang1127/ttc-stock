@@ -246,6 +246,10 @@
     .etf-toggle .caret { color: var(--muted); font-size: .8rem; width: 10px; }
     .etf-detail-row > td { background: rgba(8,13,24,.55); padding: 12px 10px 14px; }
     .etf-detail { position: sticky; left: 10px; }
+    #etfHealthBody > tr:not(.etf-detail-row) { cursor: pointer; }
+    #etfHealthBody > tr:not(.etf-detail-row):hover > td { background: rgba(56,189,248,.06); }
+    .etf-jump { color: inherit; text-decoration: underline dotted; text-underline-offset: 2px; }
+    .etf-jump:hover { color: #e2e8f0; }
     .etf-detail-head { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; margin-bottom: 10px; }
     .period-btns { display: inline-flex; gap: 4px; flex-wrap: wrap; }
     .period-btn { padding: 4px 10px; border: 1px solid var(--line); border-radius: 999px; background: transparent;
