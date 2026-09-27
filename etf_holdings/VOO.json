@@ -7,6 +7,8 @@
  "accession": "0000036405-26-000473",
  "filed": "2026-08-28",
  "source_url": "https://www.sec.gov/Archives/edgar/data/36405/000003640526000473/primary_doc.xml",
+ "lookup": "series_feed",
+ "mapping_version": 2,
  "fund_name": "VANGUARD 500 INDEX FUND",
  "registrant": "VANGUARD INDEX FUNDS",
  "report_date": "2026-06-30",
@@ -15,8 +17,15 @@
  "summary": {
   "holdings_count": 520,
   "weight_total_pct": 100.09,
-  "mapped_weight_pct": 85.31,
-  "unmapped_weight_pct": 14.78,
+  "equity_weight_pct": 99.75,
+  "equity_mapped_weight_pct": 97.89,
+  "mapped_by": {
+   "name_match": 86.43,
+   "nport_ticker": 0.0,
+   "sec_name": 11.55
+  },
+  "mapped_weight_pct": 97.89,
+  "unmapped_weight_pct": 2.2,
   "top10_weight_pct": 36.4,
   "effective_holdings": 51.5
  },
@@ -55,9 +64,9 @@
    "asset_category": "EC"
   },
   {
-   "ticker": null,
-   "mapping": null,
-   "in_universe": false,
+   "ticker": "AMZN",
+   "mapping": "sec_name",
+   "in_universe": true,
    "name": "Amazon.com Inc",
    "cusip": "023135106",
    "isin": "US0231351067",
@@ -132,9 +141,9 @@
    "asset_category": "EC"
   },
   {
-   "ticker": null,
-   "mapping": null,
-   "in_universe": false,
+   "ticker": "LLY",
+   "mapping": "sec_name",
+   "in_universe": true,
    "name": "Eli Lilly & Co",
    "cusip": "532457108",
    "isin": "US5324571083",
@@ -165,9 +174,9 @@
    "asset_category": "EC"
   },
   {
-   "ticker": null,
-   "mapping": null,
-   "in_universe": false,
+   "ticker": "JPM",
+   "mapping": "sec_name",
+   "in_universe": true,
    "name": "JPMorgan Chase & Co",
    "cusip": "46625H100",
    "isin": "US46625H1005",
@@ -264,9 +273,9 @@
    "asset_category": "EC"
   },
   {
-   "ticker": null,
-   "mapping": null,
-   "in_universe": false,
+   "ticker": "CSCO",
+   "mapping": "sec_name",
+   "in_universe": true,
    "name": "Cisco Systems Inc",
    "cusip": "17275R102",
    "isin": "US17275R1023",
@@ -286,9 +295,9 @@
    "asset_category": "EC"
   },
   {
-   "ticker": null,
-   "mapping": null,
-   "in_universe": false,
+   "ticker": "COST",
+   "mapping": "sec_name",
+   "in_universe": true,
    "name": "Costco Wholesale Corp",
    "cusip": "22160K105",
    "isin": "US22160K1051",
@@ -319,9 +328,9 @@
    "asset_category": "EC"
   },
   {
-   "ticker": null,
-   "mapping": null,
-   "in_universe": false,
+   "ticker": "GE",
+   "mapping": "sec_name",
+   "in_universe": true,
    "name": "General Electric Co",
    "cusip": "369604301",
    "isin": "US3696043013",
@@ -495,9 +504,9 @@
    "asset_category": "EC"
   },
   {
-   "ticker": null,
-   "mapping": null,
-   "in_universe": false,
+   "ticker": "IBM",
+   "mapping": "sec_name",
+   "in_universe": true,
    "name": "International Business Machines Corp",
    "cusip": "459200101",
    "isin": "US4592001014",
@@ -528,9 +537,9 @@
    "asset_category": "EC"
   },
   {
-   "ticker": null,
-   "mapping": null,
-   "in_universe": false,
+   "ticker": "WFC",
+   "mapping": "sec_name",
+   "in_universe": true,
    "name": "Wells Fargo & Co",
    "cusip": "949746101",
    "isin": "US9497461015",
@@ -737,9 +746,9 @@
    "asset_category": "EC"
   },
   {
-   "ticker": null,
-   "mapping": null,
-   "in_universe": false,
+   "ticker": "VZ",
+   "mapping": "sec_name",
+   "in_universe": true,
    "name": "Verizon Communications Inc",
    "cusip": "92343V104",
    "isin": "US92343V1044",
@@ -770,9 +779,9 @@
    "asset_category": "EC"
   },
   {
-   "ticker": null,
-   "mapping": null,
-   "in_universe": false,
+   "ticker": "TJX",
+   "mapping": "name_match",
+   "in_universe": true,
    "name": "TJX Cos Inc/The",
    "cusip": "872540109",
    "isin": "US8725401090",
@@ -869,9 +878,9 @@
    "asset_category": "EC"
   },
   {
-   "ticker": null,
-   "mapping": null,
-   "in_universe": false,
+   "ticker": "UBER",
+   "mapping": "sec_name",
+   "in_universe": true,
    "name": "Uber Technologies Inc",
    "cusip": "90353T100",
    "isin": "US90353T1007",
@@ -1023,9 +1032,9 @@
    "asset_category": "EC"
   },
   {
-   "ticker": null,
-   "mapping": null,
-   "in_universe": false,
+   "ticker": "COF",
+   "mapping": "sec_name",
+   "in_universe": true,
    "name": "Capital One Financial Corp",
    "cusip": "14040H105",
    "isin": "US14040H1059",
@@ -1045,9 +1054,9 @@
    "asset_category": "EC"
   },
   {
-   "ticker": null,
-   "mapping": null,
-   "in_universe": false,
+   "ticker": "LOW",
+   "mapping": "name_match",
+   "in_universe": true,
    "name": "Lowe's Cos Inc",
    "cusip": "548661107",
    "isin": "US5486611073",
@@ -1078,9 +1087,9 @@
    "asset_category": "EC"
   },
   {
-   "ticker": null,
-   "mapping": null,
-   "in_universe": false,
+   "ticker": "CB",
+   "mapping": "sec_name",
+   "in_universe": true,
    "name": "Chubb Ltd",
    "cusip": "H1467J104",
    "isin": "CH0044328745",
@@ -1254,9 +1263,9 @@
    "asset_category": "EC"
   },
   {
-   "ticker": null,
-   "mapping": null,
-   "in_universe": false,
+   "ticker": "BNY",
+   "mapping": "sec_name",
+   "in_universe": true,
    "name": "Bank of New York Mellon Corp/The",
    "cusip": "064058100",
    "isin": "US0640581007",
@@ -1320,9 +1329,9 @@
    "asset_category": "EC"
   },
   {
-   "ticker": null,
-   "mapping": null,
-   "in_universe": false,
+   "ticker": "WMB",
+   "mapping": "name_match",
+   "in_universe": true,
    "name": "Williams Cos Inc/The",
    "cusip": "969457100",
    "isin": "US9694571004",
@@ -1375,9 +1384,9 @@
    "asset_category": "EC"
   },
   {
-   "ticker": null,
-   "mapping": null,
-   "in_universe": false,
+   "ticker": "JCI",
+   "mapping": "sec_name",
+   "in_universe": true,
    "name": "Johnson Controls International plc",
    "cusip": "G51502105",
    "isin": "IE00BY7QL619",
@@ -1474,9 +1483,9 @@
    "asset_category": "EC"
   },
   {
-   "ticker": null,
-   "mapping": null,
-   "in_universe": false,
+   "ticker": "MAR",
+   "mapping": "name_match",
+   "in_universe": true,
    "name": "Marriott International Inc/MD",
    "cusip": "571903202",
    "isin": "US5719032022",
@@ -1496,9 +1505,9 @@
    "asset_category": "EC"
   },
   {
-   "ticker": null,
-   "mapping": null,
-   "in_universe": false,
+   "ticker": "MRSH",
+   "mapping": "sec_name",
+   "in_universe": true,
    "name": "Marsh & McLennan Cos Inc",
    "cusip": "571748102",
    "isin": "US5717481023",
@@ -1562,9 +1571,9 @@
    "asset_category": "EC"
   },
   {
-   "ticker": null,
-   "mapping": null,
-   "in_universe": false,
+   "ticker": "RCL",
+   "mapping": "sec_name",
+   "in_universe": true,
    "name": "Royal Caribbean Cruises Ltd",
    "cusip": "V7780T103",
    "isin": "LR0008862868",
@@ -1782,9 +1791,9 @@
    "asset_category": "EC"
   },
   {
-   "ticker": null,
-   "mapping": null,
-   "in_universe": false,
+   "ticker": "HON",
+   "mapping": "sec_name",
+   "in_universe": true,
    "name": "Honeywell International Inc",
    "cusip": "438516205",
    "isin": "US4385162056",
@@ -1848,9 +1857,9 @@
    "asset_category": "EC"
   },
   {
-   "ticker": null,
-   "mapping": null,
-   "in_universe": false,
+   "ticker": "TRV",
+   "mapping": "name_match",
+   "in_universe": true,
    "name": "Travelers Cos Inc/The",
    "cusip": "89417E109",
    "isin": "US89417E1091",
@@ -2057,9 +2066,9 @@
    "asset_category": "EC"
   },
   {
-   "ticker": null,
-   "mapping": null,
-   "in_universe": false,
+   "ticker": "APD",
+   "mapping": "sec_name",
+   "in_universe": true,
    "name": "Air Products and Chemicals Inc",
    "cusip": "009158106",
    "isin": "US0091581068",
@@ -2233,9 +2242,9 @@
    "asset_category": "EC"
   },
   {
-   "ticker": null,
-   "mapping": null,
-   "in_universe": false,
+   "ticker": "DLR",
+   "mapping": "sec_name",
+   "in_universe": true,
    "name": "Digital Realty Trust Inc",
    "cusip": "253868103",
    "isin": "US2538681030",
@@ -2442,9 +2451,9 @@
    "asset_category": "EC"
   },
   {
-   "ticker": null,
-   "mapping": null,
-   "in_universe": false,
+   "ticker": "LHX",
+   "mapping": "sec_name",
+   "in_universe": true,
    "name": "L3Harris Technologies Inc",
    "cusip": "502431109",
    "isin": "US5024311095",
@@ -2651,9 +2660,9 @@
    "asset_category": "EC"
   },
   {
-   "ticker": null,
-   "mapping": null,
-   "in_universe": false,
+   "ticker": "WAB",
+   "mapping": "sec_name",
+   "in_universe": true,
    "name": "Westinghouse Air Brake Technologies Corp",
    "cusip": "929740108",
    "isin": "US9297401088",
@@ -2728,9 +2737,9 @@
    "asset_category": "EC"
   },
   {
-   "ticker": null,
-   "mapping": null,
-   "in_universe": false,
+   "ticker": "TTWO",
+   "mapping": "sec_name",
+   "in_universe": true,
    "name": "Take-Two Interactive Software Inc",
    "cusip": "874054109",
    "isin": "US8740541094",
@@ -2772,9 +2781,9 @@
    "asset_category": "EC"
   },
   {
-   "ticker": null,
-   "mapping": null,
-   "in_universe": false,
+   "ticker": "BDX",
+   "mapping": "sec_name",
+   "in_universe": true,
    "name": "Becton Dickinson & Co",
    "cusip": "075887109",
    "isin": "US0758871091",
@@ -2882,9 +2891,9 @@
    "asset_category": "EC"
   },
   {
-   "ticker": null,
-   "mapping": null,
-   "in_universe": false,
+   "ticker": "ODFL",
+   "mapping": "sec_name",
+   "in_universe": true,
    "name": "Old Dominion Freight Line Inc",
    "cusip": "679580100",
    "isin": "US6795801009",
@@ -3091,9 +3100,9 @@
    "asset_category": "EC"
   },
   {
-   "ticker": null,
-   "mapping": null,
-   "in_universe": false,
+   "ticker": "HBAN",
+   "mapping": "name_match",
+   "in_universe": true,
    "name": "Huntington Bancshares Inc/OH",
    "cusip": "446150104",
    "isin": "US4461501045",
@@ -3223,9 +3232,9 @@
    "asset_category": "EC"
   },
   {
-   "ticker": null,
-   "mapping": null,
-   "in_universe": false,
+   "ticker": "COIN",
+   "mapping": "sec_name",
+   "in_universe": true,
    "name": "Coinbase Global Inc",
    "cusip": "19260Q107",
    "isin": "US19260Q1076",
@@ -3454,9 +3463,9 @@
    "asset_category": "EC"
   },
   {
-   "ticker": null,
-   "mapping": null,
-   "in_universe": false,
+   "ticker": "GEHC",
+   "mapping": "sec_name",
+   "in_universe": true,
    "name": "GE HealthCare Technologies Inc",
    "cusip": "36266G107",
    "isin": "US36266G1076",
@@ -3542,9 +3551,9 @@
    "asset_category": "EC"
   },
   {
-   "ticker": null,
-   "mapping": null,
-   "in_universe": false,
+   "ticker": "XYL",
+   "mapping": "name_match",
+   "in_universe": true,
    "name": "Xylem Inc/NY",
    "cusip": "98419M100",
    "isin": "US98419M1009",
@@ -3718,9 +3727,9 @@
    "asset_category": "EC"
   },
   {
-   "ticker": null,
-   "mapping": null,
-   "in_universe": false,
+   "ticker": "MTD",
+   "mapping": "sec_name",
+   "in_universe": true,
    "name": "Mettler-Toledo International Inc",
    "cusip": "592688105",
    "isin": "US5926881054",
@@ -4081,9 +4090,9 @@
    "asset_category": "EC"
   },
   {
-   "ticker": null,
-   "mapping": null,
-   "in_universe": false,
+   "ticker": "EXPD",
+   "mapping": "sec_name",
+   "in_universe": true,
    "name": "Expeditors International of Washington Inc",
    "cusip": "302130109",
    "isin": "US3021301094",
@@ -4290,9 +4299,9 @@
    "asset_category": "EC"
   },
   {
-   "ticker": null,
-   "mapping": null,
-   "in_universe": false,
+   "ticker": "EL",
+   "mapping": "sec_name",
+   "in_universe": true,
    "name": "Estee Lauder Cos Inc/The",
    "cusip": "518439104",
    "isin": "US5184391044",
@@ -4422,9 +4431,9 @@
    "asset_category": "EC"
   },
   {
-   "ticker": null,
-   "mapping": null,
-   "in_universe": false,
+   "ticker": "DD",
+   "mapping": "sec_name",
+   "in_universe": true,
    "name": "DuPont de Nemours Inc",
    "cusip": "26614N201",
    "isin": "US26614N2018",
@@ -4444,9 +4453,9 @@
    "asset_category": "EC"
   },
   {
-   "ticker": null,
-   "mapping": null,
-   "in_universe": false,
+   "ticker": "CTSH",
+   "mapping": "sec_name",
+   "in_universe": true,
    "name": "Cognizant Technology Solutions Corp",
    "cusip": "192446102",
    "isin": "US1924461023",
@@ -4466,9 +4475,9 @@
    "asset_category": "EC"
   },
   {
-   "ticker": null,
-   "mapping": null,
-   "in_universe": false,
+   "ticker": "CDW",
+   "mapping": "name_match",
+   "in_universe": true,
    "name": "CDW Corp/DE",
    "cusip": "12514G108",
    "isin": "US12514G1085",
@@ -4576,9 +4585,9 @@
    "asset_category": "EC"
   },
   {
-   "ticker": null,
-   "mapping": null,
-   "in_universe": false,
+   "ticker": "SMCI",
+   "mapping": "sec_name",
+   "in_universe": true,
    "name": "Super Micro Computer Inc",
    "cusip": "86800U302",
    "isin": "US86800U3023",
@@ -4796,9 +4805,9 @@
    "asset_category": "EC"
   },
   {
-   "ticker": null,
-   "mapping": null,
-   "in_universe": false,
+   "ticker": "DECK",
+   "mapping": "sec_name",
+   "in_universe": true,
    "name": "Deckers Outdoor Corp",
    "cusip": "243537107",
    "isin": "US2435371073",
@@ -4807,9 +4816,9 @@
    "asset_category": "EC"
   },
   {
-   "ticker": null,
-   "mapping": null,
-   "in_universe": false,
+   "ticker": "COO",
+   "mapping": "name_match",
+   "in_universe": true,
    "name": "Cooper Cos Inc/The",
    "cusip": "216648501",
    "isin": "US2166485019",
@@ -4939,9 +4948,9 @@
    "asset_category": "EC"
   },
   {
-   "ticker": null,
-   "mapping": null,
-   "in_universe": false,
+   "ticker": "MKC",
+   "mapping": "name_match",
+   "in_universe": true,
    "name": "McCormick & Co Inc/MD",
    "cusip": "579780206",
    "isin": "US5797802064",
@@ -5225,9 +5234,9 @@
    "asset_category": "EC"
   },
   {
-   "ticker": null,
-   "mapping": null,
-   "in_universe": false,
+   "ticker": "CRL",
+   "mapping": "sec_name",
+   "in_universe": true,
    "name": "Charles River Laboratories International Inc",
    "cusip": "159864107",
    "isin": "US1598641074",
@@ -5335,8 +5344,8 @@
    "asset_category": "EC"
   },
   {
-   "ticker": null,
-   "mapping": null,
+   "ticker": "BLDR",
+   "mapping": "sec_name",
    "in_universe": false,
    "name": "Builders FirstSource Inc",
    "cusip": "12008R107",
@@ -5346,9 +5355,9 @@
    "asset_category": "EC"
   },
   {
-   "ticker": null,
-   "mapping": null,
-   "in_universe": false,
+   "ticker": "MGM",
+   "mapping": "sec_name",
+   "in_universe": true,
    "name": "MGM Resorts International",
    "cusip": "552953101",
    "isin": "US5529531015",
@@ -5390,9 +5399,9 @@
    "asset_category": "EC"
   },
   {
-   "ticker": null,
-   "mapping": null,
-   "in_universe": false,
+   "ticker": "FDS",
+   "mapping": "sec_name",
+   "in_universe": true,
    "name": "FactSet Research Systems Inc",
    "cusip": "303075105",
    "isin": "US3030751057",
@@ -5445,8 +5454,8 @@
    "asset_category": "EC"
   },
   {
-   "ticker": null,
-   "mapping": null,
+   "ticker": "TTD",
+   "mapping": "sec_name",
    "in_universe": false,
    "name": "Trade Desk Inc/The",
    "cusip": "88339J105",
@@ -5511,8 +5520,8 @@
    "asset_category": "EC"
   },
   {
-   "ticker": null,
-   "mapping": null,
+   "ticker": "TAP",
+   "mapping": "sec_name",
    "in_universe": false,
    "name": "Molson Coors Beverage Co",
    "cusip": "60871R209",
@@ -5533,8 +5542,8 @@
    "asset_category": "EC"
   },
   {
-   "ticker": null,
-   "mapping": null,
+   "ticker": "CAG",
+   "mapping": "sec_name",
    "in_universe": false,
    "name": "Conagra Brands Inc",
    "cusip": "205887102",
