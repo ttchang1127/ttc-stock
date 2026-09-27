@@ -306,6 +306,12 @@ class MarketRotationPageTests(unittest.TestCase):
         self.assertNotIn("<style", self.html, "styles live in assets/market_rotation.css")
         self.assertNotIn("<script>", self.html, "legacy code lives in assets/market_rotation_legacy.js")
 
+    def test_chart_dependency_is_pinned_and_optional(self):
+        self.assertIn("https://cdn.jsdelivr.net/npm/chart.js@4.5.1/dist/chart.umd.min.js", self.html)
+        self.assertNotIn('src="https://cdn.jsdelivr.net/npm/chart.js"', self.html, "unpinned CDN version")
+        self.assertIn("typeof Chart === 'undefined'", self.page)
+        self.assertIn("圖表元件載入失敗", self.page)
+
     def test_dashboard_links_to_standalone_page(self):
         self.assertIn('href="market_rotation.html"', self.dashboard)
         self.assertIn("🧭 市場族群輪動", self.dashboard)

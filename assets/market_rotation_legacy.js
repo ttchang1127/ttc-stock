@@ -179,7 +179,23 @@
       node.textContent = `路徑期間：${sample[0].date} → ${sample[sample.length - 1].date}（${sample.length} 個交易日）`;
     }
 
+    function showChartUnavailable() {
+      const canvas = document.getElementById('rotationChart');
+      if (!canvas || document.getElementById('chartUnavailable')) return;
+      canvas.hidden = true;
+      canvas.parentElement.style.height = 'auto';
+      const note = document.createElement('p');
+      note.id = 'chartUnavailable';
+      note.className = 'notice';
+      note.setAttribute('role', 'status');
+      note.innerHTML = '<strong>圖表元件載入失敗：</strong>Chart.js 無法取得，四象限路徑圖暫不顯示；資料本身正常，下方排名、數值與個股不受影響。';
+      canvas.after(note);
+    }
+
     function renderChart() {
+      // A blocked or failed chart CDN must not stop the ranking, numbers
+      // and stock lists from rendering, nor be reported as a data failure.
+      if (typeof Chart === 'undefined') { showChartUnavailable(); return; }
       const available = chartLevel === 'industries' ? rotationData.industries.slice(0, 20) : rotationData.sectors;
       const rows = available.filter(row => chartSelections[chartLevel].has(row.key));
       const xMax = Math.max(1, ...rows.flatMap(row => (row.trajectory || []).map(p => Math.abs(p.x || 0)))) * 1.28;
