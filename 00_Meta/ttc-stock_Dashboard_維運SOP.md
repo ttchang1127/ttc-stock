@@ -52,6 +52,7 @@
 | `.github/scripts/workflow-alert.sh`／`issue-alert.sh` | 排程失敗開 issue、恢復後自動關閉 | ⚠️ 需連同 `tests/test_workflow_alerts.py` 修改 |
 | `dashboard_mag7.html` | 另一個獨立頁面 | ❌ 不在範圍內 |
 | `market_rotation.html` | S&P 500＋Nasdaq-100 板塊／次產業輪動獨立頁 | ⚠️ 只在使用者明確要求時 |
+| `etf_research.html` | 產業／主題 ETF 研究頁：成分健康度、資金流、ETF 訊號與動能回測（2026-09-27 從輪動頁拆出；由 `assets/etf_research.js` 讀 `etf_health.json` 與回測檔） | ⚠️ 只在使用者明確要求時 |
 | `scripts/check_market_source_ready.py` | 先以 SPY 調整後收盤價確認 Yahoo 已發布最新應有交易日 | ⚠️ 新鮮度規則與 NYSE 日曆需連同測試修改 |
 | `market_rotation_universe.json` | 兩指數成分、板塊與次產業分類 | ❌ 只能由 `scripts/build_market_rotation.py` 產生 |
 | `market_rotation.json` | v1：輪動分數、四象限、10 日路徑與板塊內個股（正式頁目前讀這份） | ❌ 只能由 `scripts/build_market_rotation.py` 產生 |

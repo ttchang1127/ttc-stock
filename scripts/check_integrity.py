@@ -2671,10 +2671,12 @@ def c48():
     if history_problems:
         return False, "；".join(history_problems[:5])
     workflow = read(".github/workflows/update-prices.yml")
-    page = read("market_rotation.html") + read("assets/market_rotation_research.js")
+    page = read("etf_research.html") + read("assets/etf_research.js")
     missing = [marker for marker, text in (("build_etf_health.py", workflow), ("record_etf_flows.py", workflow),
                                            ("etf_health.json", page),
-                                           ("etfHealthBody", page)) if marker not in text]
+                                           ("etfHealthBody", page),
+                                           ("etf_research.html", read("market_rotation.html")),
+                                           ("etf_research.html", read("dashboard.html"))) if marker not in text]
     if missing:
         return False, f"缺自動化／畫面：{missing}"
     path = REPO_ROOT / "etf_health.json"
