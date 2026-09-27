@@ -14,6 +14,7 @@ ROOT = pathlib.Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tests"))
 sys.path.insert(0, str(ROOT / "scripts"))
 import market_rotation_fixture as fixture  # noqa: E402
+import market_calendar  # noqa: E402
 
 SPEC = importlib.util.spec_from_file_location(
     "build_market_rotation", ROOT / "scripts/build_market_rotation.py"
@@ -245,9 +246,9 @@ class MarketRotationBuilderTests(unittest.TestCase):
             MODULE.expected_latest_market_session(before_cutoff),
             date(2026, 9, 4),
         )
-        self.assertFalse(MODULE.is_market_session(date(2026, 9, 7)))
-        self.assertFalse(MODULE.is_market_session(date(2026, 4, 3)))
-        self.assertTrue(MODULE.is_market_session(date(2026, 9, 14)))
+        self.assertFalse(market_calendar.is_market_session(date(2026, 9, 7)))
+        self.assertFalse(market_calendar.is_market_session(date(2026, 4, 3)))
+        self.assertTrue(market_calendar.is_market_session(date(2026, 9, 14)))
 
     def test_current_or_newer_market_session_passes_freshness_gate(self):
         MODULE.require_fresh_market_data(date(2026, 9, 14), date(2026, 9, 14))
