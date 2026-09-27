@@ -1,6 +1,6 @@
 """Do theme-ETF signals rank next month's winners?  A point-in-time back-test.
 
-Every month-end the twelve research ETFs (``etf_holdings.THEME_ETFS``) are
+Every month-end the research ETFs (the frozen ``etf_holdings.THEME_ETFS``) are
 ranked by each frozen signal below, and the ranking is compared with the
 next month's return relative to the equal-weight average of the ETFs
 available that month (rank correlation, "IC").  A signal that works shows a
@@ -200,45 +200,71 @@ def evaluate(signal: pd.DataFrame, outcome: pd.DataFrame, holdout_start: str, ex
             "ic_by_month": {stamp.strftime("%Y-%m"): round(float(value), 3) for stamp, value in ic.items()}}
 
 
-def run(monthly: pd.DataFrame, histories: dict[str, dict], daily: pd.DataFrame | None) -> dict:
+def evaluate_list(version: str, monthly: pd.DataFrame, histories: dict[str, dict],
+                  holdings: dict[str, pd.DataFrame], coverage: pd.DataFrame) -> dict:
+    """Every frozen signal over one frozen ETF list (columns absent from the prices are left out)."""
+    tickers = [ticker for ticker in etf_holdings.THEME_ETF_LISTS[version] if ticker in monthly.columns]
+    monthly = monthly[tickers]
     outcome = forward_relative(monthly)
     price_signals = {"momentum_12_1": momentum(monthly, 12), "momentum_6_1": momentum(monthly, 6)}
-    holdings, coverage = ({}, pd.DataFrame())
-    if daily is not None and histories:
-        holdings, coverage = holdings_signals(histories, daily, monthly.index)
     results = []
     for spec in SIGNALS:
-        frame = price_signals.get(spec["id"]) if spec["source"] == "price" else holdings.get(spec["id"])
         holdout = PRICE_HOLDOUT_START if spec["source"] == "price" else HOLDINGS_HOLDOUT_START
+        if spec["source"] == "price":
+            frame = price_signals[spec["id"]]
+        else:
+            frame = holdings[spec["id"]].reindex(columns=tickers) if spec["id"] in holdings else None
         if frame is None:
             results.append({**spec, "holdout_start": holdout, "verdict": "insufficient_sample",
                             "calibration": {"months": 0}, "holdout": {"months": 0}, "all": {"months": 0},
                             "criteria": {}, "ic_by_month": {}})
             continue
         results.append({**spec, "holdout_start": holdout, **evaluate(frame, outcome, holdout, spec["expected_sign"])})
-    covered = coverage.stack() if not coverage.empty else pd.Series(dtype=float)
+    covered = (coverage.reindex(columns=tickers).stack() if not coverage.empty else pd.Series(dtype=float))
     return {
-        "status": "research",
-        "history_quality": "point_in_time_nport",
-        "version": SIGNAL_VERSION,
-        "etf_list_version": etf_holdings.THEME_ETF_VERSION,
-        "etfs": sorted(monthly.columns),
-        "outcome": "下個月報酬減去當月可得 ETF 的等權平均（相對報酬）",
-        "min_coverage_pct": MIN_COVERAGE_PCT,
+        "etf_list_version": version,
+        "etfs": tickers,
         "holdings_coverage": {
             "etf_months": int(covered.notna().sum()),
             "etf_months_usable": int((covered >= MIN_COVERAGE_PCT).sum()),
             "median_pct": round(float(covered.median()), 1) if covered.notna().any() else None,
         },
-        "filings_per_etf": {ticker: len(history.get("filings", [])) for ticker, history in sorted(histories.items())},
+        "filings_per_etf": {ticker: len(histories[ticker].get("filings", []))
+                            for ticker in tickers if ticker in histories},
+        "signals": results,
+    }
+
+
+def run(monthly: pd.DataFrame, histories: dict[str, dict], daily: pd.DataFrame | None) -> dict:
+    """The current list in full, and every earlier frozen list re-evaluated so its result stays on record."""
+    holdings, coverage = ({}, pd.DataFrame())
+    if daily is not None and histories:
+        holdings, coverage = holdings_signals(histories, daily, monthly.index)
+    current = evaluate_list(etf_holdings.THEME_ETF_VERSION, monthly, histories, holdings, coverage)
+    earlier = []
+    for version in etf_holdings.THEME_ETF_LISTS:
+        if version == etf_holdings.THEME_ETF_VERSION:
+            continue
+        result = evaluate_list(version, monthly, histories, holdings, coverage)
+        earlier.append({"etf_list_version": version, "etfs": result["etfs"],
+                        "signals": [{key: signal[key] for key in ("id", "label", "verdict", "calibration", "holdout")}
+                                    for signal in result["signals"]]})
+    return {
+        "status": "research",
+        "history_quality": "point_in_time_nport",
+        "version": SIGNAL_VERSION,
+        **current,
+        "outcome": "下個月報酬減去當月可得 ETF 的等權平均（相對報酬）",
+        "min_coverage_pct": MIN_COVERAGE_PCT,
         "verdicts": VERDICTS,
         "limitations": [
             "ETF 清單在 2026 年選定，全是仍存在的基金（選樣偏誤）",
             "已下市成分可能抓不到報價；涵蓋率不到 70% 的月份不計",
             "成分權重與資金流以申報日為準，但 N-PORT 本身落後約 60 天",
             "N-PORT 存檔約從 2019 年開始，持股類訊號樣本期短",
+            "第二份清單是在第一份清單沒有訊號之後才擴大的；兩份結果並列，不挑較好的一份",
         ],
-        "signals": results,
+        "earlier_lists": earlier,
     }
 
 

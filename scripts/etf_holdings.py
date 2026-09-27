@@ -28,8 +28,9 @@ ETFs every past filing EDGAR lists is kept in a compact append-only history
 (``etf_holdings/history/``: point-in-time weights and monthly flows), so a
 back-test can use only what was public on each date.
 
-Research funds (``THEME_ETFS``) are a frozen list: a new candidate needs a
-new ``THEME_ETF_VERSION`` so earlier results stay comparable.
+Research funds (``THEME_ETFS``) come from a frozen list: a new candidate
+needs a new ``THEME_ETF_VERSION`` in ``THEME_ETF_LISTS`` so earlier results
+stay comparable.
 
 Parsing ignores XML namespaces so a schema-version bump does not silently
 drop holdings.  Standard library only (SEC access through sec_http).
@@ -67,12 +68,29 @@ NAME_NOISE = re.compile(r"\b(inc|incorporated|corp|corporation|co|cos|company|co
                         r"class [a-z]|the|n\.?v|s\.?a|ag|se)\b")
 NAME_SUFFIX = re.compile(r"\s*[/\\][a-z ]{1,5}[/\\]?\s*$")  # "Corp/DE", "Inc /MD/", "Corp /NEW", "Cos Inc/The"
 
-THEME_ETF_VERSION = "theme-etf-1"
-THEME_ETFS = {  # frozen research candidates: ticker -> theme label
+THEME_LABELS = {
     "SMH": "半導體", "SOXX": "半導體", "IGV": "軟體", "XBI": "生技",
     "KRE": "區域銀行", "XHB": "房屋建商", "ITA": "航太國防", "TAN": "太陽能",
     "URA": "鈾與核能", "XOP": "油氣開採", "XRT": "零售", "IYT": "運輸",
+    "XME": "金屬採礦", "GDX": "金礦", "XES": "油氣設備服務", "XPH": "製藥",
+    "IHI": "醫療器材", "KIE": "保險", "COPX": "銅礦", "LIT": "鋰電池",
+    "SKYY": "雲端運算", "CIBR": "網路資安", "JETS": "航空", "BOTZ": "機器人",
+    "PAVE": "基礎建設",
 }
+# Frozen research lists.  A list is never edited: a new candidate set gets a
+# new version, and earlier lists stay evaluable so their results remain on record.
+THEME_ETF_LISTS = {
+    # 2026-09-27: first list, twelve industry/theme ETFs.
+    "theme-etf-1": ("SMH", "SOXX", "IGV", "XBI", "KRE", "XHB", "ITA", "TAN", "URA", "XOP", "XRT", "IYT"),
+    # 2026-09-27, after theme-etf-1 found no signal: more themes give each monthly ranking more
+    # dispersion and the test more power.  Chosen for little overlap with the first list and, where
+    # possible, a price history from 2005-06; decided before any result on these funds was seen.
+    "theme-etf-2": ("SMH", "SOXX", "IGV", "XBI", "KRE", "XHB", "ITA", "TAN", "URA", "XOP", "XRT", "IYT",
+                    "XME", "GDX", "XES", "XPH", "IHI", "KIE", "COPX", "LIT", "SKYY", "CIBR", "JETS", "BOTZ",
+                    "PAVE"),
+}
+THEME_ETF_VERSION = "theme-etf-2"
+THEME_ETFS = {ticker: THEME_LABELS[ticker] for ticker in THEME_ETF_LISTS[THEME_ETF_VERSION]}
 
 
 def local(tag: str) -> str:

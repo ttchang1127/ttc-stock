@@ -97,8 +97,16 @@ class RunTests(unittest.TestCase):
         index = pd.date_range("2006-01-31", periods=240, freq="ME")
         monthly = pd.DataFrame(100 * np.exp(np.cumsum(rng.normal(0.005, 0.05, (240, len(ETFS))), axis=0)),
                                index=index, columns=ETFS)
-        with mock.patch.object(etf_holdings, "THEME_ETFS", {ticker: ticker for ticker in ETFS}):
+        lists = {"list-1": tuple(ETFS[:6]), "list-2": tuple(ETFS)}
+        with mock.patch.object(etf_holdings, "THEME_ETF_LISTS", lists), \
+                mock.patch.object(etf_holdings, "THEME_ETF_VERSION", "list-2"):
             result = bt.run(monthly, {}, None)
+        self.assertEqual(result["etf_list_version"], "list-2")
+        self.assertEqual(result["etfs"], ETFS)
+        self.assertEqual([row["etf_list_version"] for row in result["earlier_lists"]], ["list-1"],
+                         "an earlier list's result stays on record")
+        self.assertEqual(result["earlier_lists"][0]["etfs"], ETFS[:6])
+        self.assertEqual(len(result["earlier_lists"][0]["signals"]), len(bt.SIGNALS))
         self.assertEqual([row["id"] for row in result["signals"]], [spec["id"] for spec in bt.SIGNALS])
         self.assertEqual(result["status"], "research")
         by_id = {row["id"]: row for row in result["signals"]}

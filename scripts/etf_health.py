@@ -337,8 +337,11 @@ def validate(payload: dict[str, Any]) -> list[str]:
         problems.append(f"unknown rule_version {payload.get('rule_version')}")
     listed = [row["ticker"] for row in payload.get("etfs", [])] + \
              [row["ticker"] for row in payload.get("unavailable", [])]
-    if sorted(listed) != sorted(etf_holdings.THEME_ETFS):
-        problems.append(f"ETFs {sorted(listed)} are not the frozen list {sorted(etf_holdings.THEME_ETFS)}")
+    frozen = etf_holdings.THEME_ETF_LISTS.get(payload.get("etf_list_version"))
+    if frozen is None:
+        problems.append(f"unknown etf_list_version {payload.get('etf_list_version')}")
+    elif sorted(listed) != sorted(frozen):
+        problems.append(f"ETFs {sorted(listed)} are not the frozen list {payload['etf_list_version']}")
     for row in payload.get("etfs", []):
         name = row.get("ticker")
         if row.get("state") not in STATES:

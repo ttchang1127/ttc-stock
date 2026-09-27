@@ -67,9 +67,11 @@ def market():
 
 class HealthTests(unittest.TestCase):
     def setUp(self):
-        patcher = mock.patch.object(etf_holdings, "THEME_ETFS", THEMES)
-        patcher.start()
-        self.addCleanup(patcher.stop)
+        for name, value in (("THEME_ETFS", THEMES), ("THEME_ETF_LISTS", {"test-list": tuple(THEMES)}),
+                            ("THEME_ETF_VERSION", "test-list")):
+            patcher = mock.patch.object(etf_holdings, name, value)
+            patcher.start()
+            self.addCleanup(patcher.stop)
         funds, closes = market()
         self.payload = etf_health.compute(funds, closes, "2026-09-26T00:00:00+00:00")
         self.rows = {row["ticker"]: row for row in self.payload["etfs"]}
@@ -170,9 +172,11 @@ class HealthTests(unittest.TestCase):
 
 class BuildTests(unittest.TestCase):
     def setUp(self):
-        patcher = mock.patch.object(etf_holdings, "THEME_ETFS", THEMES)
-        patcher.start()
-        self.addCleanup(patcher.stop)
+        for name, value in (("THEME_ETFS", THEMES), ("THEME_ETF_LISTS", {"test-list": tuple(THEMES)}),
+                            ("THEME_ETF_VERSION", "test-list")):
+            patcher = mock.patch.object(etf_holdings, name, value)
+            patcher.start()
+            self.addCleanup(patcher.stop)
         self.directory = tempfile.TemporaryDirectory()
         self.addCleanup(self.directory.cleanup)
         self.root = pathlib.Path(self.directory.name)
@@ -268,11 +272,27 @@ class FlowRecordTests(unittest.TestCase):
 
 
 class FrozenListTests(unittest.TestCase):
-    def test_theme_list_is_frozen_under_its_version(self):
-        self.assertEqual(etf_holdings.THEME_ETF_VERSION, "theme-etf-1")
-        self.assertEqual(sorted(etf_holdings.THEME_ETFS), sorted(
-            ["SMH", "SOXX", "IGV", "XBI", "KRE", "XHB", "ITA", "TAN", "URA", "XOP", "XRT", "IYT"]),
+    def test_theme_lists_are_frozen_under_their_versions(self):
+        first = ["SMH", "SOXX", "IGV", "XBI", "KRE", "XHB", "ITA", "TAN", "URA", "XOP", "XRT", "IYT"]
+        self.assertEqual(sorted(etf_holdings.THEME_ETF_LISTS["theme-etf-1"]), sorted(first),
+                         "a published list is never edited")
+        self.assertEqual(etf_holdings.THEME_ETF_VERSION, "theme-etf-2")
+        self.assertEqual(sorted(etf_holdings.THEME_ETFS), sorted(first + [
+            "XME", "GDX", "XES", "XPH", "IHI", "KIE", "COPX", "LIT", "SKYY", "CIBR", "JETS", "BOTZ", "PAVE"]),
             "changing the list needs a new THEME_ETF_VERSION")
+        self.assertTrue(set(etf_holdings.THEME_ETF_LISTS["theme-etf-1"]) <= set(etf_holdings.THEME_ETFS),
+                        "the current list covers every earlier list, so earlier results can be rerun")
+        self.assertTrue(all(ticker in etf_holdings.THEME_LABELS for ticker in etf_holdings.THEME_ETFS))
+
+    def test_a_file_from_an_earlier_list_still_validates(self):
+        payload = {"label": "research", "rule_version": etf_health.HEALTH_RULE_VERSION,
+                   "etf_list_version": "theme-etf-1", "unavailable": [],
+                   "etfs": [{"ticker": t, "state": "mixed", "direction": "flat", "flags": [],
+                             "constituents": {"coverage_pct": 90.0}, "breadth": {}}
+                            for t in etf_holdings.THEME_ETF_LISTS["theme-etf-1"]]}
+        self.assertEqual(etf_health.validate(payload), [])
+        payload["etf_list_version"] = "theme-etf-9"
+        self.assertTrue(etf_health.validate(payload))
 
 
 if __name__ == "__main__":
