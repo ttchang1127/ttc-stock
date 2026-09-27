@@ -27,8 +27,11 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Install earnings-call parser dependency
-        run: python3 -m pip install 'pypdf>=6,<7' 'curl_cffi>=0.13,<0.14'
+      # The full test suite below also covers the market-rotation builder,
+      # which imports pandas and yfinance. Without them every run failed at
+      # test import from 2026-09-13 and no SEC radar was refreshed.
+      - name: Install earnings-call parser and test dependencies
+        run: python3 -m pip install 'pypdf>=6,<7' 'curl_cffi>=0.13,<0.14' pandas 'yfinance>=1.2.0'
 
       - name: Verify filing watcher
         run: python3 -m unittest discover -s tests -v
