@@ -2593,6 +2593,11 @@ def c46():
     sys.path.insert(0, str(REPO_ROOT / "scripts"))
     import market_rotation_history as rotation_history  # noqa: PLC0415
 
+    backtest_path = REPO_ROOT / "market_rotation_history/backtest/sector_results.json"
+    if backtest_path.exists():
+        method = json.loads(backtest_path.read_text()).get("methodology") or {}
+        if method.get("history_quality") != "C" or method.get("status") != "research":
+            return False, "回測結果必須標示 C 級歷史與 research 狀態，不能冒充已驗證結論"
     index_path = REPO_ROOT / "market_rotation_history/index.json"
     if not index_path.exists():
         return True, "尚無快照（合併後首次每日正式執行才開始累積 A 級歷史）"
