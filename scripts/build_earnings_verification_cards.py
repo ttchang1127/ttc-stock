@@ -12,11 +12,12 @@ persisted objective thesis state.
 from __future__ import annotations
 
 import argparse
-import json
 from datetime import date, datetime
 from pathlib import Path
 from typing import Any
 from zoneinfo import ZoneInfo
+
+from jsonio import dumps, load_json, replace_texts
 
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -36,10 +37,6 @@ GUIDANCE_FIELDS = [
 
 def taipei_today() -> date:
     return datetime.now(ZoneInfo("Asia/Taipei")).date()
-
-
-def load_json(path: Path) -> dict[str, Any]:
-    return json.loads(path.read_text())
 
 
 def metric_value(period: dict[str, Any] | None, metric: str) -> float | None:
@@ -519,10 +516,7 @@ def main() -> int:
         "holdings": load_json(args.holdings),
     }
     payload = build_payload(today, inputs)
-    serialized = json.dumps(payload, ensure_ascii=False, indent=2) + "\n"
-    args.output.write_text(serialized)
-    args.markdown.parent.mkdir(parents=True, exist_ok=True)
-    args.markdown.write_text(render_markdown(payload))
+    replace_texts({args.output: dumps(payload, indent=2), args.markdown: render_markdown(payload)})
     print(
         f"財報驗證卡：{payload['tracked_count']} 家；財報前待準備 "
         f"{payload['preparation_due_count']}；財報後待核對 {payload['post_review_due_count']}；"

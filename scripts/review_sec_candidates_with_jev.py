@@ -19,6 +19,8 @@ from typing import Any
 from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 
+from jsonio import dumps, load_json, replace_texts
+
 
 ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_INPUT = ROOT / "sec_daily_change_candidates.json"
@@ -44,10 +46,6 @@ ROUTE_LABELS = {
     "low_priority_human_review": "低優先人工覆核",
     "api_error": "Jev 無法判讀",
 }
-
-
-def load_json(path: Path) -> dict[str, Any]:
-    return json.loads(path.read_text())
 
 
 def batch_id(candidates: list[dict[str, Any]]) -> str:
@@ -323,9 +321,7 @@ def main() -> int:
 
     candidates = load_json(args.input)
     payload = build_payload(candidates, os.environ.get("TYPESAFE_API_KEY"), args.model, args.timeout)
-    args.output.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n")
-    args.markdown.parent.mkdir(parents=True, exist_ok=True)
-    args.markdown.write_text(render_markdown(payload))
+    replace_texts({args.output: dumps(payload, indent=2), args.markdown: render_markdown(payload)})
     print(
         f"Jev pre-screen: {payload['status']} | "
         f"{payload['reviewed_count']}/{payload['candidate_count']} reviewed | "

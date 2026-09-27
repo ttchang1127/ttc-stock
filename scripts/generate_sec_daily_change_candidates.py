@@ -8,11 +8,12 @@ human/AI reading may copy an item into sec_daily_editorial.json.
 
 import argparse
 import hashlib
-import json
 import math
 import os
 from datetime import datetime
 from pathlib import Path
+
+from jsonio import dumps, load_json, replace_texts
 
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -40,13 +41,6 @@ THESIS_RISK = {
     "partial-invalidated": 2,
     "major-invalidated": 3,
 }
-
-
-def load_json(path, fallback=None):
-    path = Path(path)
-    if not path.exists():
-        return fallback
-    return json.loads(path.read_text())
 
 
 def parse_time(value):
@@ -592,8 +586,7 @@ def main():
     payload = build_payload(*inputs, calibration)
     current_ids = {row["id"] for row in payload["candidates"]}
     new_ids = current_ids - previous_ids
-    args.output.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n")
-    args.markdown.write_text(render_markdown(payload))
+    replace_texts({args.output: dumps(payload, indent=2), args.markdown: render_markdown(payload)})
     alert = render_alert(payload, new_ids)
     append_text(args.alert_markdown, alert)
     append_text(args.summary, alert)

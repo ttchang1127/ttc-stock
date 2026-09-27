@@ -20,10 +20,11 @@ conclude anything for them.
 """
 
 import argparse
-import json
 import re
 from datetime import datetime, timezone
 from pathlib import Path
+
+from jsonio import write_json
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 FILINGS_DIR = REPO_ROOT / "20_Filings"
@@ -182,7 +183,7 @@ def main():
                        "min_paragraph_chars": MIN_PARAGRAPH},
         "companies": results,
     }
-    OUTPUT_PATH.write_text(json.dumps(payload, indent=1, ensure_ascii=False) + "\n")
+    write_json(OUTPUT_PATH, payload, indent=1)
     comparable = sum(1 for v in results.values() if v["status"] == "已比較")
     print(f"\nWrote {OUTPUT_PATH.relative_to(REPO_ROOT)} "
           f"（{comparable} / {len(results)} 家可比較）")

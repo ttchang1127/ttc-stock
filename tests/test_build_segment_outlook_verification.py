@@ -1,12 +1,14 @@
 import copy
 import importlib.util
 import json
+import sys
 import tempfile
 import unittest
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "scripts"))
 SPEC = importlib.util.spec_from_file_location(
     "build_segment_outlook_verification",
     ROOT / "scripts" / "build_segment_outlook_verification.py",

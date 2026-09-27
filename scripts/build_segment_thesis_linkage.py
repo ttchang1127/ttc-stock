@@ -14,6 +14,8 @@ import json
 from pathlib import Path
 from typing import Any
 
+from jsonio import dumps, load_json, replace_texts
+
 
 ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_HISTORY = ROOT / "segment_driver_history.json"
@@ -43,10 +45,6 @@ def normalize_summary(value: Any) -> str:
     clauses = [part.strip().rstrip("。；") for part in str(value or "").split("；")]
     clauses = [part for part in clauses if part]
     return f"{'；'.join(clauses)}。" if clauses else ""
-
-
-def load_json(path: Path) -> dict[str, Any]:
-    return json.loads(path.read_text())
 
 
 def signed(value: float | None, suffix: str = "%") -> str:
@@ -253,9 +251,7 @@ def main() -> int:
     parser.add_argument("--markdown", type=Path, default=DEFAULT_MARKDOWN)
     args = parser.parse_args()
     payload = build_payload(load_json(args.history), load_json(args.thesis), load_json(args.updates))
-    args.output.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n")
-    args.markdown.parent.mkdir(parents=True, exist_ok=True)
-    args.markdown.write_text(render_markdown(payload))
+    replace_texts({args.output: dumps(payload, indent=2), args.markdown: render_markdown(payload)})
     print(
         f"分部 × 論點聯動：{payload['tracked_count']} 家；支持 {payload['counts']['support']}；"
         f"壓力 {payload['counts']['pressure']}；混合 {payload['counts']['mixed']}；待覆核 {payload['counts']['needs_review']}"

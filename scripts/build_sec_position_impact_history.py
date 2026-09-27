@@ -10,6 +10,8 @@ from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
 
+from jsonio import dumps, load_json, replace_texts
+
 
 ROOT = Path(__file__).resolve().parents[1]
 DISPLAY_TICKER = {"GOOGL": "GOOG"}
@@ -32,12 +34,6 @@ LEVELS = {
     "medium": {"label": "中影響", "min": 45},
     "low": {"label": "低影響", "min": 0},
 }
-
-
-def load_json(path: Path, default: Any = None) -> Any:
-    if not path.is_file():
-        return default
-    return json.loads(path.read_text())
 
 
 def data_ticker(ticker: str) -> str:
@@ -482,10 +478,12 @@ def main() -> int:
     )
     existing = load_json(args.output, {})
     payload, is_new = build_history(snapshot, existing)
+    texts = {}
     if is_new or not args.output.is_file():
-        args.output.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n")
+        texts[args.output] = dumps(payload, indent=2)
     if is_new or not args.markdown.is_file():
-        args.markdown.write_text(render_markdown(payload))
+        texts[args.markdown] = render_markdown(payload)
+    replace_texts(texts)
     if args.alert_markdown and is_new:
         append_alert(args.alert_markdown, payload)
     if args.summary:

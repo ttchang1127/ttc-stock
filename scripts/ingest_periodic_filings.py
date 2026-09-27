@@ -20,11 +20,12 @@ import json
 import os
 import re
 import sys
-import tempfile
 import urllib.error
 import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
+
+from jsonio import dumps, load_json, replace_texts
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_EVENTS = REPO_ROOT / "sec_filing_alerts.json"
@@ -38,12 +39,6 @@ PARSER_VERSION = 2
 
 def now_utc() -> str:
     return datetime.now(timezone.utc).replace(microsecond=0).isoformat()
-
-
-def load_json(path: Path, default):
-    if not path.exists():
-        return default
-    return json.loads(path.read_text())
 
 
 def sec_headers() -> dict[str, str]:
@@ -361,14 +356,6 @@ tags:
 '''
 
 
-def atomic_write(path: Path, content: str) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    with tempfile.NamedTemporaryFile("w", encoding="utf-8", dir=path.parent, delete=False) as handle:
-        handle.write(content)
-        temp_name = handle.name
-    os.replace(temp_name, path)
-
-
 def selected_events(events_path: Path) -> list[dict]:
     rows = load_json(events_path, {}).get("events", [])
     by_accession = {}
@@ -491,13 +478,13 @@ def ingest_event(event: dict, company_name: str, root: Path) -> dict:
     # Write section files first and the accession-indexing main note last.  The
     # main note therefore serves as the idempotency marker for a complete set.
     for path, content in rendered_sections.items():
-        atomic_write(path, content)
+        replace_texts({path: content})
     removed = []
     for path in active_section_paths(filing_dir, stem):
         if path not in rendered_sections:
             path.unlink()
             removed.append(str(path.relative_to(root)))
-    atomic_write(main_path, render_main_note(event, company_name, stem, sections))
+    replace_texts({main_path: render_main_note(event, company_name, stem, sections)})
     return {
         "ticker": event["ticker"], "form": event["form"], "accession": event["accession"],
         "filing_date": event["filing_date"], "report_date": event.get("report_date"),
@@ -586,8 +573,7 @@ def main() -> int:
         "methodology": "fail-closed heading boundaries; accession-deduplicated",
         "filings": results,
     }
-    atomic_write(args.status, json.dumps(status, indent=2, ensure_ascii=False) + "\n")
-    atomic_write(args.note, render_status_note(status))
+    replace_texts({args.status: dumps(status, indent=2), args.note: render_status_note(status)})
     write_summary(args.summary, status)
     pending = [row for row in results if row["status"] in {"review_required", "download_failed"}]
     write_summary(args.alert_markdown, status, "SEC 定期申報入庫覆核")

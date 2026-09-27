@@ -25,6 +25,8 @@ import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
 
+from jsonio import write_json
+
 REPO_ROOT = Path(__file__).resolve().parent.parent
 OUTPUT_PATH = REPO_ROOT / "financials.json"
 
@@ -643,7 +645,7 @@ def main():
         "source": "SEC XBRL Company Facts API (data.sec.gov/api/xbrl/companyfacts)",
         "companies": companies,
     }
-    OUTPUT_PATH.write_text(json.dumps(payload, indent=1, ensure_ascii=False) + "\n")
+    write_json(OUTPUT_PATH, payload, indent=1)
     size_kb = OUTPUT_PATH.stat().st_size / 1024
     print(f"\nWrote {OUTPUT_PATH.relative_to(REPO_ROOT)} "
           f"({len(companies)} companies, {size_kb:.1f} KB)")

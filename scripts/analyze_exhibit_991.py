@@ -12,16 +12,16 @@ from __future__ import annotations
 import argparse
 import hashlib
 import html as html_lib
-import json
 import os
 import re
-import tempfile
 import urllib.error
 import urllib.parse
 import urllib.request
 from datetime import datetime, timezone
 from html.parser import HTMLParser
 from pathlib import Path
+
+from jsonio import dumps, load_json, replace_texts
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_EVENTS = REPO_ROOT / "sec_filing_alerts.json"
@@ -107,12 +107,6 @@ def now_utc() -> str:
     return datetime.now(timezone.utc).replace(microsecond=0).isoformat()
 
 
-def load_json(path: Path, default):
-    if not path.exists():
-        return default
-    return json.loads(path.read_text())
-
-
 def sec_headers() -> dict[str, str]:
     return {"User-Agent": os.environ.get("SEC_USER_AGENT", "SecKBResearch user@example.com")}
 
@@ -121,14 +115,6 @@ def download(url: str) -> bytes:
     request = urllib.request.Request(url, headers=sec_headers())
     with urllib.request.urlopen(request, timeout=45) as response:
         return response.read()
-
-
-def atomic_write(path: Path, content: str) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    with tempfile.NamedTemporaryFile("w", encoding="utf-8", dir=path.parent, delete=False) as handle:
-        handle.write(content)
-        temp_name = handle.name
-    os.replace(temp_name, path)
 
 
 def normalize_text(value: str) -> str:
@@ -410,7 +396,7 @@ def analyze_event(event: dict, company_name: str, root: Path) -> dict:
         "source_sha256": hashlib.sha256(payload).hexdigest(), "errors": [],
         "removed_stale_cards": [],
     }
-    atomic_write(path, render_card(row, company_name))
+    replace_texts({path: render_card(row, company_name)})
     row["card"] = str(path.relative_to(root))
     return row
 
@@ -491,8 +477,7 @@ def main() -> int:
         "categories": {key: {"label": row["label"], "meaning": row["meaning"]} for key, row in CATEGORIES.items()},
         "filings": results,
     }
-    atomic_write(args.output, json.dumps(status, indent=2, ensure_ascii=False) + "\n")
-    atomic_write(args.radar, render_radar(status))
+    replace_texts({args.output: dumps(status, indent=2), args.radar: render_radar(status)})
     write_summary(args.summary, status)
     write_summary(args.alert_markdown, status)
     pending = [row for row in results if row["status"] != "analyzed"]

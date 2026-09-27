@@ -12,10 +12,11 @@ from __future__ import annotations
 
 import argparse
 import hashlib
-import json
 import os
 from pathlib import Path
 from typing import Any
+
+from jsonio import dumps, load_json, replace_texts
 
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -27,10 +28,6 @@ DISPLAY_TICKERS = [
     "NVDA", "TSM", "MSFT", "META", "AAPL", "AMZN", "ARM",
     "ONDS", "TSLA", "GOOG", "COHR", "MRVL", "INTC", "NOK",
 ]
-
-
-def load_json(path: Path) -> dict[str, Any]:
-    return json.loads(path.read_text())
 
 
 def rounded(value: float | None, digits: int = 2) -> float | None:
@@ -414,9 +411,7 @@ def main() -> int:
     previous = load_json(args.output) if args.output.exists() else None
     payload = build_payload(load_json(args.input))
     alerts = newest_alerts(payload, previous)
-    args.output.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n")
-    args.markdown.parent.mkdir(parents=True, exist_ok=True)
-    args.markdown.write_text(render_markdown(payload))
+    replace_texts({args.output: dumps(payload, indent=2), args.markdown: render_markdown(payload)})
     digest = hashlib.sha256("|".join(sorted(event["id"] for event in alerts)).encode()).hexdigest()[:12] if alerts else "none"
     if alerts:
         lines = ["## 📈 分部成長驅動轉折", ""]

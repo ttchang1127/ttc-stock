@@ -19,6 +19,8 @@ from collections import defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
 
+from jsonio import dumps, replace_texts
+
 
 ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_OUTPUT = ROOT / "sec_13f_stock_radar.json"
@@ -237,9 +239,7 @@ def build(output=DEFAULT_OUTPUT, note=DEFAULT_NOTE):
         "source": "SEC Form 13F quarterly data sets; complete information-table scan",
         "dataset_urls": urls,
     })
-    Path(output).write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n")
-    Path(note).parent.mkdir(parents=True, exist_ok=True)
-    Path(note).write_text(render_note(result) + "\n")
+    replace_texts({Path(output): dumps(result, indent=2), Path(note): render_note(result) + "\n"})
     return result
 
 

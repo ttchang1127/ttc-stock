@@ -1,10 +1,12 @@
 import copy
 import importlib.util
+import sys
 import unittest
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "scripts"))
 SPEC = importlib.util.spec_from_file_location(
     "track_capital_allocation_history", ROOT / "scripts" / "track_capital_allocation_history.py"
 )

@@ -15,6 +15,8 @@ import os
 from datetime import datetime, timezone
 from pathlib import Path
 
+from jsonio import load_json, write_json
+
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_CONFIG = REPO_ROOT / "investment_thesis_tracking.json"
@@ -32,13 +34,6 @@ ITEM_LABELS = {"supported": "支持", "verify": "待驗證", "invalidated": "失
 
 def now_utc():
     return datetime.now(timezone.utc).isoformat(timespec="seconds")
-
-
-def load_json(path, fallback=None):
-    path = Path(path)
-    if not path.exists():
-        return fallback
-    return json.loads(path.read_text())
 
 
 def metric_value(period, metric):
@@ -397,13 +392,13 @@ def main():
     args = parser.parse_args()
 
     checked_at = args.checked_at or now_utc()
-    config = load_json(args.config)
-    quarterly = load_json(args.quarterly)
+    config = load_json(args.config, None)
+    quarterly = load_json(args.quarterly, None)
     if not config or not quarterly:
         raise SystemExit("缺少投資論點設定或季度財務資料")
     previous_output = {} if args.initialize else load_json(args.output, {})
     output, batch = build_status(config, quarterly, previous_output, checked_at)
-    args.output.write_text(json.dumps(output, indent=2, ensure_ascii=False) + "\n")
+    write_json(args.output, output, indent=2)
     alert = render_alert(batch)
     append_text(args.alert_markdown, alert)
     append_text(args.summary, alert)

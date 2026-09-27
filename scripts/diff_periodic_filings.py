@@ -19,6 +19,8 @@ from pathlib import Path
 
 from fetch_sec import ITEM, clean_html_to_text, heading_positions, loose
 
+from jsonio import write_json
+
 ROOT = Path(__file__).resolve().parent.parent
 DETAILS_PATH = ROOT / "sec_filing_details.json"
 OUTPUT_PATH = ROOT / "filing_text_changes.json"
@@ -330,7 +332,7 @@ def main():
         "selected_accessions": selected,
         "companies": companies,
     }
-    args.output.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n")
+    write_json(args.output, payload, indent=2)
     print(f"Wrote {args.output.relative_to(ROOT)} ({len(companies)} companies)")
     return 0
 

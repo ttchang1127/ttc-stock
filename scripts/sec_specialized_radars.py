@@ -7,7 +7,6 @@ writes decision-friendly Obsidian notes.  Parsed details are cached by
 accession number so routine checks do not repeatedly download old documents.
 """
 
-import json
 import os
 import re
 import time
@@ -17,6 +16,8 @@ from datetime import datetime, timezone
 from html.parser import HTMLParser
 from pathlib import Path
 from xml.etree import ElementTree
+
+from jsonio import dumps, load_json, replace_texts
 
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -67,13 +68,6 @@ class TextExtractor(HTMLParser):
 
 def utc_now():
     return datetime.now(timezone.utc).isoformat(timespec="seconds")
-
-
-def load_json(path, fallback):
-    path = Path(path)
-    if not path.exists():
-        return fallback
-    return json.loads(path.read_text())
 
 
 def fetch_document(url, attempts=3):
@@ -573,18 +567,12 @@ def update_radars(fetched, details_path=DEFAULT_DETAILS, radar_dir=DEFAULT_RADAR
     cache["schema_version"] = 1
     cache["updated_at"] = checked_at
     cache["source"] = "SEC primary documents; keyed by accession number"
-    details_path.parent.mkdir(parents=True, exist_ok=True)
-    details_path.write_text(json.dumps(cache, indent=2, ensure_ascii=False) + "\n")
-    radar_dir.mkdir(parents=True, exist_ok=True)
-    (radar_dir / "Quarterly_10Q_Radar.md").write_text(
-        render_quarterly_radar(fetched, checked_at) + "\n"
-    )
-    (radar_dir / "Form4_Insider_Radar.md").write_text(
-        render_form4_radar(form4_rows, form4_errors, checked_at) + "\n"
-    )
-    (radar_dir / "Dilution_Offering_Radar.md").write_text(
-        render_offering_radar(offering_rows, offering_errors, checked_at) + "\n"
-    )
+    replace_texts({
+        details_path: dumps(cache, indent=2),
+        radar_dir / "Quarterly_10Q_Radar.md": render_quarterly_radar(fetched, checked_at) + "\n",
+        radar_dir / "Form4_Insider_Radar.md": render_form4_radar(form4_rows, form4_errors, checked_at) + "\n",
+        radar_dir / "Dilution_Offering_Radar.md": render_offering_radar(offering_rows, offering_errors, checked_at) + "\n",
+    })
     return {
         "form4_transactions": len(form4_rows),
         "offering_documents": len(offering_rows),

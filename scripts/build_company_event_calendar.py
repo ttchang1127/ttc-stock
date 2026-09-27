@@ -16,6 +16,8 @@ from pathlib import Path
 from typing import Any
 from zoneinfo import ZoneInfo
 
+from jsonio import dumps, replace_texts
+
 
 ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_OUTPUT = ROOT / "company_event_calendar.json"
@@ -313,17 +315,17 @@ def main() -> int:
         provider_rows, failures = fetch_provider()
 
     payload = build_calendar(today, provider_rows, failures, overrides, holdings, previous)
-    serialized = json.dumps(payload, ensure_ascii=False, indent=2) + "\n"
+    serialized = dumps(payload, indent=2)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     if not args.output.exists() or args.output.read_text() != serialized:
-        args.output.write_text(serialized)
+        replace_texts({args.output: serialized})
         print(f"updated {args.output}: {payload['event_count']} events")
     else:
         print(f"unchanged {args.output}: {payload['event_count']} events")
     markdown = render_markdown(payload)
     args.markdown.parent.mkdir(parents=True, exist_ok=True)
     if not args.markdown.exists() or args.markdown.read_text() != markdown:
-        args.markdown.write_text(markdown)
+        replace_texts({args.markdown: markdown})
         print(f"updated {args.markdown}")
     if failures:
         print("provider fallback: " + ", ".join(sorted(failures)))

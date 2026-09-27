@@ -20,6 +20,8 @@ import urllib.request
 from datetime import date, datetime, timezone
 from pathlib import Path
 
+from jsonio import write_json
+
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 FINANCIALS_PATH = REPO_ROOT / "financials.json"
@@ -351,7 +353,7 @@ def main():
         print("No quarterly facts changed; leaving quarterly_financials.json unchanged.")
         return
     stable["generated_at"] = datetime.now(timezone.utc).isoformat(timespec="seconds")
-    OUTPUT_PATH.write_text(json.dumps(stable, ensure_ascii=False, indent=1) + "\n")
+    write_json(OUTPUT_PATH, stable, indent=1)
     print(f"Wrote {OUTPUT_PATH.name}: {len(comparable)} companies with at least four periods")
 
 

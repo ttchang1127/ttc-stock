@@ -17,12 +17,17 @@ from pathlib import Path
 from typing import Any, Callable
 
 Validator = Callable[[Any], None]
+_REQUIRED = object()
 
 
-def load_json(path: Path, default: Any = None) -> Any:
-    """Parsed JSON, or ``default`` when the file does not exist."""
+def load_json(path: Path, default: Any = _REQUIRED) -> Any:
+    """Parsed JSON, or ``default`` when the file does not exist.
+
+    Without ``default`` a missing file raises ``FileNotFoundError``, so a
+    required input never silently turns into ``None``.
+    """
     path = Path(path)
-    if not path.exists():
+    if default is not _REQUIRED and not path.is_file():
         return default
     return json.loads(path.read_text())
 

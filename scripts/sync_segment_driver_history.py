@@ -12,13 +12,14 @@ from __future__ import annotations
 import argparse
 import copy
 import hashlib
-import json
 import os
 import re
 from datetime import date
 from pathlib import Path
 from typing import Any
 from urllib.parse import urlparse
+
+from jsonio import dumps, load_json, replace_texts
 
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -36,10 +37,6 @@ DISPLAY_TICKERS = [
 ]
 ALIASES = {"GOOG": "GOOGL"}
 QUARTER_RE = re.compile(r"(?:\bQ[1-4]\b|\b[1-4]Q\b|第[一二三四1-4]季)", re.IGNORECASE)
-
-
-def load_json(path: Path) -> dict[str, Any]:
-    return json.loads(path.read_text())
 
 
 def append_text(path: Path | None, text: str) -> None:
@@ -323,10 +320,11 @@ def main() -> int:
         load_json(args.exhibits), load_json(args.config),
     )
     pending = new_pending(payload, previous)
-    args.history.write_text(json.dumps(history, ensure_ascii=False, indent=2) + "\n")
-    args.output.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n")
-    args.markdown.parent.mkdir(parents=True, exist_ok=True)
-    args.markdown.write_text(render_markdown(payload))
+    replace_texts({
+        args.history: dumps(history, indent=2),
+        args.output: dumps(payload, indent=2),
+        args.markdown: render_markdown(payload),
+    })
     if pending:
         lines = ["## ⚠️ 分部資料待覆核", ""]
         lines += [f"- **{row['ticker']}｜{row['latest_history_period']}**：{'；'.join(row['reasons'])}。{row['next_action']}" for row in pending]
