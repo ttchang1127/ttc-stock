@@ -212,6 +212,8 @@ python3 scripts/check_integrity.py --quiet
 
 **含基金看穿**：`scripts/refresh_etf_holdings.py`（SEC 排程）從 SEC N-PORT 抓 VGT、VOO 的完整持股到 `etf_holdings/`（每季申報、延遲約 60 天；只有 SEC 有新申報才改寫，解析不合理時保留上一版並在 `etf_holdings/index.json` 記錄錯誤）。曝險檔的 `look_through` 把基金拆成成分股，和直接個股合併成占總資產的權重；同公司雙股別（GOOG／GOOGL）合併；對不到代號的成分依 `portfolio_classification.json` 的 `fund_sectors` 歸類。
 
+**主題 ETF 成分健康度（研究）**：同一個 SEC 排程也抓 `etf_holdings.THEME_ETFS` 這份凍結清單（`theme-etf-1`：SMH、SOXX、IGV、XBI、KRE、XHB、ITA、TAN、URA、XOP、XRT、IYT）的 N-PORT 持股。申報先用系列代號查 EDGAR 的申報清單，查不到才掃信託的申報索引；成分代號依序用 N-PORT 美國掛牌代號、股票池名稱、SEC `company_tickers.json` 公司名稱對應，外國掛牌代號（如 `CCO CN`）不硬套成美股。對應規則改版要提高 `MAPPING_VERSION`，舊申報會重新對應。每日排程的 `scripts/build_etf_health.py` 下載成分收盤價，產生 `etf_health.json`：成分站上均線比例、等權減市值加權報酬、前三大貢獻與描述性狀態（普遍上漲／少數撐盤／持平分歧／少數拖累／普遍下跌／資料不足）。門檻凍結在 `HEALTH_RULE_VERSION`，尚未回測，不可當成買賣訊號；要改清單或門檻就提高版本號。
+
 **修改 `portfolio_holdings.json` 後必須重跑** `python3 scripts/build_market_rotation_digest.py`，否則 C-47 會失敗；不在 S&P 500／Nasdaq-100 的新個股要先在 `portfolio_classification.json` 補上板塊、次產業、來源、原因與覆核日。研究優先度只決定先讀哪一檔，不是買賣或調整部位的指令。
 
 個股未來 **30 天事件日曆**由 `scripts/build_company_event_calendar.py` 每天更新 `company_event_calendar.json` 與 `60_SEC_Filing_Radar/Company_Event_Calendar.md`。14 家個股中實際持股優先，VGT／VOO 不納入；公司 IR／SEC 原文透過 `company_event_overrides.json` 覆蓋同日同類型的市場資料，Yahoo Finance 只補充日期探索且不得標成官方。單一 ticker 抓取失敗時保留上次成功資料並標示 stale，不可把舊資料冒充本次更新。Form 4、8-K／6-K、臨時募資和併購無法可靠事前排程，應於送件後由 SEC 雷達接手。

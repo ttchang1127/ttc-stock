@@ -8,12 +8,21 @@ date and accession number; the page must show how old it is.
 Steps:
 1. ``company_tickers_mf.json`` maps the fund ticker to its trust CIK and
    series id;
-2. the trust's recent NPORT-P filings are read newest first until one
-   reports that series (a trust files one N-PORT per series);
+2. EDGAR's filing list for that series id gives its NPORT-P filings.  If
+   that list cannot be read, the trust's recent NPORT-P filings are scanned
+   newest first through their small index headers until one names the
+   series (a trust such as iShares files hundreds of N-PORTs, one per
+   series, so scanning primary documents would not reach far enough);
 3. each holding is mapped to a ticker: N-PORT's optional ``identifiers/
-   ticker`` (``"AAPL US"`` style), else an exact normalised name match
-   against the rotation universe; anything else stays unmapped and is
-   reported as such, never guessed.
+   ticker`` when it names a US listing, else an exact normalised name match
+   against the rotation universe, else against SEC's own company list
+   (``company_tickers.json``, whose conformed names follow the same style
+   as N-PORT's).  Anything else stays unmapped and is reported as such,
+   never guessed: a foreign listing's local code (``"CCO CN"``) is not
+   read as a US ticker, which would name a different company.
+
+Research funds (``THEME_ETFS``) are a frozen list: a new candidate needs a
+new ``THEME_ETF_VERSION`` so earlier results stay comparable.
 
 Parsing ignores XML namespaces so a schema-version bump does not silently
 drop holdings.  Standard library only (SEC access through sec_http).
@@ -29,12 +38,28 @@ import sec_http
 
 TICKERS_URL = "https://www.sec.gov/files/company_tickers_mf.json"
 SUBMISSIONS_URL = "https://data.sec.gov/submissions/CIK{cik:010d}.json"
+SEC_TICKERS_URL = "https://www.sec.gov/files/company_tickers.json"
+SERIES_FEED_URL = ("https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK={series_id}"
+                   "&type=NPORT-P&dateb=&owner=include&count=40&output=atom")
 DOCUMENT_URL = "https://www.sec.gov/Archives/edgar/data/{cik}/{accession}/primary_doc.xml"
-MAX_FILINGS_SCANNED = 80
-MIN_HOLDINGS = 50
-WEIGHT_RANGE = (90.0, 102.0)  # percent of net assets held in the listed positions
-NAME_NOISE = re.compile(r"\b(inc|incorporated|corp|corporation|co|company|ltd|plc|holdings?|group|class [a-z]|"
-                        r"the|n\.?v|s\.?a|ag|se|/the)\b")
+HEADER_URL = "https://www.sec.gov/Archives/edgar/data/{cik}/{accession}/{dashed}-index-headers.html"
+MAX_FILINGS_SCANNED = 400
+MAPPING_VERSION = 2  # bump when mapping rules change so unchanged filings are re-mapped
+MIN_HOLDINGS = 15
+WEIGHT_RANGE = (90.0, 130.0)  # all positions, % of net assets; securities-lending collateral can push past 100
+EQUITY_WEIGHT_RANGE = (80.0, 102.0)  # common stock positions, % of net assets
+EQUITY_CATEGORIES = {"EC"}
+US_EXCHANGE_CODES = {"US", "UN", "UW", "UQ", "UA", "UP", "UR", "UV", "UF"}
+NAME_NOISE = re.compile(r"\b(inc|incorporated|corp|corporation|co|cos|company|companies|ltd|plc|holdings?|group|"
+                        r"class [a-z]|the|n\.?v|s\.?a|ag|se)\b")
+NAME_SUFFIX = re.compile(r"\s*[/\\][a-z ]{1,5}[/\\]?\s*$")  # "Corp/DE", "Inc /MD/", "Corp /NEW", "Cos Inc/The"
+
+THEME_ETF_VERSION = "theme-etf-1"
+THEME_ETFS = {  # frozen research candidates: ticker -> theme label
+    "SMH": "半導體", "SOXX": "半導體", "IGV": "軟體", "XBI": "生技",
+    "KRE": "區域銀行", "XHB": "房屋建商", "ITA": "航太國防", "TAN": "太陽能",
+    "URA": "鈾與核能", "XOP": "油氣開採", "XRT": "零售", "IYT": "運輸",
+}
 
 
 def local(tag: str) -> str:
@@ -77,6 +102,22 @@ def nport_filings(submissions: dict) -> list[dict]:
     return sorted(rows, key=lambda row: row["filed"], reverse=True)
 
 
+def series_feed(xml_text: str) -> list[dict]:
+    """NPORT-P filings from EDGAR's Atom filing list for one series, newest first."""
+    rows = []
+    for entry in ET.fromstring(xml_text).iter():
+        if local(entry.tag) != "entry":
+            continue
+        fields = {local(node.tag): (node.text or "").strip() for node in entry.iter()}
+        terms = {node.get("term") for node in entry.iter() if local(node.tag) == "category"}
+        if fields.get("filing-type", "") != "NPORT-P" and not (terms & {"NPORT-P"}):
+            continue
+        if fields.get("accession-number"):
+            rows.append({"accession": fields["accession-number"], "filed": fields.get("filing-date", ""),
+                         "report_date": fields.get("period-of-report", "")})
+    return sorted(rows, key=lambda row: row["filed"], reverse=True)
+
+
 def series_of(document: ET.Element) -> str | None:
     for node in document.iter():
         if local(node.tag) == "seriesId" and node.text:
@@ -84,20 +125,41 @@ def series_of(document: ET.Element) -> str | None:
     return None
 
 
+def series_in_header(header_text: str) -> set[str]:
+    """Series ids named in a filing's index headers (``<SERIES-ID>``) or in an N-PORT body."""
+    return set(re.findall(r"<(?:SERIES-ID|(?:\w+:)?seriesId)>\s*(S\d+)", header_text))
+
+
 def normalise_name(name: str) -> str:
-    cleaned = re.sub(r"[^a-z0-9 ]", " ", name.lower().replace("&", " and "))
+    lowered = NAME_SUFFIX.sub("", name.lower().strip())
+    cleaned = re.sub(r"[^a-z0-9 ]", " ", lowered.replace("&", " and "))
     return re.sub(r"\s+", " ", NAME_NOISE.sub(" ", cleaned)).strip()
 
 
+def sec_name_index(company_tickers: dict) -> dict[str, str]:
+    """Normalised SEC conformed name -> ticker; the first (largest) listing wins for share classes."""
+    index: dict[str, str] = {}
+    rows = company_tickers.values() if isinstance(company_tickers, dict) else company_tickers
+    for row in rows:
+        ticker = str(row.get("ticker", "")).upper().replace("-", ".")
+        name = normalise_name(str(row.get("title", "")))
+        if ticker and name:
+            index.setdefault(name, ticker)
+    return index
+
+
 def ticker_from_identifier(value: str | None) -> str | None:
-    """'AAPL US' -> 'AAPL'; 'BRK/B US' -> 'BRK.B'; exchange suffix dropped."""
+    """'AAPL US' -> 'AAPL'; 'BRK/B US' -> 'BRK.B'; a foreign listing ('CCO CN') -> None."""
     if not value or value.strip().upper() in ("N/A", "NA", "NONE", "-", "0"):
         return None
-    symbol = value.strip().split()[0].upper().replace("/", ".")
+    parts = value.strip().upper().split()
+    if len(parts) > 1 and parts[1] not in US_EXCHANGE_CODES:
+        return None
+    symbol = parts[0].replace("/", ".")
     return symbol if re.fullmatch(r"[A-Z][A-Z0-9.\-]{0,9}", symbol) else None
 
 
-def parse_nport(xml_text: str, universe: dict) -> dict:
+def parse_nport(xml_text: str, universe: dict, sec_names: dict[str, str] | None = None) -> dict:
     root = ET.fromstring(xml_text)
     gen = next((node for node in root.iter() if local(node.tag) == "genInfo"), None)
     fund = next((node for node in root.iter() if local(node.tag) == "fundInfo"), None)
@@ -123,6 +185,9 @@ def parse_nport(xml_text: str, universe: dict) -> dict:
         if ticker is None:
             ticker = by_name.get(normalise_name(name))
             method = "name_match" if ticker else None
+        if ticker is None and sec_names:
+            ticker = sec_names.get(normalise_name(name))
+            method = "sec_name" if ticker else None
         holdings.append({
             "ticker": ticker,
             "mapping": method,
@@ -155,6 +220,9 @@ def validate(parsed: dict, series_id: str) -> list[str]:
     total = sum(row["weight_pct"] or 0 for row in parsed["holdings"])
     if not WEIGHT_RANGE[0] <= total <= WEIGHT_RANGE[1]:
         problems.append(f"holdings weights sum to {total:.1f}% of net assets")
+    equity = sum(row["weight_pct"] or 0 for row in parsed["holdings"] if row["asset_category"] in EQUITY_CATEGORIES)
+    if not EQUITY_WEIGHT_RANGE[0] <= equity <= EQUITY_WEIGHT_RANGE[1]:
+        problems.append(f"common stock weighs {equity:.1f}% of net assets")
     if not parsed["report_date"]:
         problems.append("missing report date")
     return problems
@@ -166,9 +234,17 @@ def summarise(parsed: dict) -> dict:
     top10 = sum(sorted(weights, reverse=True)[:10])
     shares = [w / 100 for w in weights if w > 0]
     hhi = sum(w * w for w in shares)
+    equity = [row for row in parsed["holdings"] if row["asset_category"] in EQUITY_CATEGORIES]
+    by_method: dict[str, float] = {}
+    for row in parsed["holdings"]:
+        if row["mapping"]:
+            by_method[row["mapping"]] = round(by_method.get(row["mapping"], 0) + (row["weight_pct"] or 0), 2)
     return {
         "holdings_count": len(parsed["holdings"]),
         "weight_total_pct": round(sum(weights), 2),
+        "equity_weight_pct": round(sum(row["weight_pct"] or 0 for row in equity), 2),
+        "equity_mapped_weight_pct": round(sum(row["weight_pct"] or 0 for row in equity if row["ticker"]), 2),
+        "mapped_by": dict(sorted(by_method.items())),
         "mapped_weight_pct": round(mapped, 2),
         "unmapped_weight_pct": round(sum(weights) - mapped, 2),
         "top10_weight_pct": round(top10, 2),
@@ -176,18 +252,38 @@ def summarise(parsed: dict) -> dict:
     }
 
 
-def fetch_latest(ticker: str, universe: dict, fund_index: dict, known_accession: str | None = None) -> dict | None:
+def candidate_filings(ids: dict) -> tuple[list[dict], str]:
+    """NPORT-P filings to try, and how they were found ('series_feed' or 'trust_scan')."""
+    try:
+        rows = series_feed(sec_http.get_text(SERIES_FEED_URL.format(series_id=ids["series_id"]),
+                                             accept="application/atom+xml,application/xml,*/*"))
+        if rows:
+            return rows, "series_feed"
+    except Exception:  # noqa: BLE001 - fall back to scanning the trust's own filing list
+        pass
+    submissions = sec_http.get_json(SUBMISSIONS_URL.format(cik=ids["cik"]))
+    return nport_filings(submissions)[:MAX_FILINGS_SCANNED], "trust_scan"
+
+
+def fetch_latest(ticker: str, universe: dict, fund_index: dict, known_accession: str | None = None,
+                 sec_names: dict[str, str] | None = None) -> dict | None:
     """Newest validated N-PORT holdings for ``ticker``; None when ``known_accession`` is still the newest."""
     ids = find_series(fund_index, ticker)
-    submissions = sec_http.get_json(SUBMISSIONS_URL.format(cik=ids["cik"]))
-    for filing in nport_filings(submissions)[:MAX_FILINGS_SCANNED]:
+    filings, lookup = candidate_filings(ids)
+    for filing in filings:
+        if lookup == "trust_scan":
+            plain = filing["accession"].replace("-", "")
+            header = sec_http.get_text(HEADER_URL.format(cik=ids["cik"], accession=plain,
+                                                         dashed=filing["accession"]))
+            if ids["series_id"] not in series_in_header(header):
+                continue
         if filing["accession"] == known_accession:
             return None
         url = DOCUMENT_URL.format(cik=ids["cik"], accession=filing["accession"].replace("-", ""))
         document = sec_http.get_text(url, accept="application/xml,text/xml,*/*")
         if series_of(ET.fromstring(document)) != ids["series_id"]:
             continue
-        parsed = parse_nport(document, universe)
+        parsed = parse_nport(document, universe, sec_names)
         problems = validate(parsed, ids["series_id"])
         if problems:
             raise ValueError(f"{ticker} N-PORT {filing['accession']}: " + "; ".join(problems))
@@ -200,12 +296,14 @@ def fetch_latest(ticker: str, universe: dict, fund_index: dict, known_accession:
             "accession": filing["accession"],
             "filed": filing["filed"],
             "source_url": url,
+            "lookup": lookup,
+            "mapping_version": MAPPING_VERSION,
             **{key: parsed[key] for key in ("fund_name", "registrant", "report_date", "period_end",
                                            "net_assets_usd")},
             "summary": summarise(parsed),
             "holdings": parsed["holdings"],
         }
-    raise LookupError(f"no NPORT-P for {ticker} ({ids['series_id']}) in the last {MAX_FILINGS_SCANNED} filings")
+    raise LookupError(f"no NPORT-P for {ticker} ({ids['series_id']}) via {lookup}")
 
 
 def look_through(fund_value: float, holdings: dict[str, Any]) -> dict[str, float]:

@@ -272,6 +272,51 @@
       `<p class="panel-desc">${esc(ranking.as_of)} 的 12 減 1 個月排名（僅供對照，研究中）：</p><div class="tags">${chips}</div>`;
   }
 
+  const HEALTH_TONE = {
+    broad_advance: 'positive', narrow_advance: 'warning', mixed: 'neutral',
+    narrow_decline: 'warning', broad_decline: 'negative', data_limited: 'neutral'
+  };
+
+  function renderEtfHealth(health) {
+    const body = document.getElementById('etfHealthBody');
+    const note = document.getElementById('etfHealthNote');
+    if (!body) return;
+    if (!health) {
+      body.innerHTML = '<tr><td colspan="7" class="panel-desc">尚未產出 etf_health.json：SEC 排程抓到主題 ETF 持股後，' +
+        '下一次每日排程會產生。</td></tr>';
+      return;
+    }
+    const rows = health.etfs.map(row => {
+      const etf = row.etf;
+      const top = row.concentration.top_contributors.map(item =>
+        `${esc(item.ticker)} ${signed(item.contribution_pp, 'pp')}`).join('、');
+      const flags = row.flags.map(flag =>
+        `<span class="tag warning" title="${esc(health.flags[flag] || flag)}">${esc(health.flags[flag] || flag)}</span>`).join('');
+      return `<tr>
+        <td><strong>${esc(row.ticker)}</strong><small>${esc(row.theme)}</small></td>
+        <td class="state ${HEALTH_TONE[row.state] || ''}">${esc(health.states[row.state] || row.state)}${flags ? `<div class="tags">${flags}</div>` : ''}</td>
+        <td><span class="${tone(etf.rs20_pct)}">${signed(etf.rs20_pct, 'pp')}</span>
+          <small>5 日 ${signed(etf.r5_pct)}｜20 日 ${signed(etf.r20_pct)}｜60 日 ${signed(etf.r60_pct)}</small></td>
+        <td>${plain(row.breadth.above_ma50_equal_pct, '%', 0)}／${plain(row.breadth.above_ma50_weighted_pct, '%', 0)}
+          <small>站上 20 日均線 ${plain(row.breadth.above_ma20_weighted_pct, '%', 0)}</small></td>
+        <td><span class="${tone(row.returns.equal_minus_cap_pp)}">${signed(row.returns.equal_minus_cap_pp, 'pp')}</span>
+          <small>等權 ${signed(row.returns.equal_weighted_r20_pct)}｜市值 ${signed(row.returns.cap_weighted_r20_pct)}</small></td>
+        <td>${row.concentration.top3_share_pct == null ? '—' : plain(row.concentration.top3_share_pct, '%', 0)}
+          <small>${top || '—'}</small></td>
+        <td>${plain(row.constituents.coverage_pct, '%', 0)}<small>${row.constituents.priced}／${row.constituents.common_stock} 檔｜` +
+          `${esc(row.holdings_report_date || '—')}</small></td>
+      </tr>`;
+    });
+    const missing = health.unavailable.map(row =>
+      `<tr><td><strong>${esc(row.ticker)}</strong><small>${esc(row.theme)}</small></td>` +
+      `<td colspan="6" class="panel-desc">${esc(row.reason)}</td></tr>`);
+    body.innerHTML = rows.concat(missing).join('');
+    if (note) {
+      note.textContent = `${health.as_of} 收盤；SPY 20 日 ${signed(health.benchmark_r20_pct)}。` +
+        `清單 ${health.etf_list_version}、規則 ${health.rule_version}。${health.note}`;
+    }
+  }
+
   function renderBacktest(result, labels) {
     const target = document.getElementById('backtestSummary');
     if (!target) return;
@@ -434,15 +479,17 @@
   }
 
   async function init() {
-    const [research, rotation, backtest, digest, exposure, sensitivity, etfMomentum] = await Promise.all([
+    const [research, rotation, backtest, digest, exposure, sensitivity, etfMomentum, etfHealth] = await Promise.all([
       getJSON('market_rotation_research.json'),
       getJSON('market_rotation.json'),
       getJSON('market_rotation_history/backtest/sector_results.json'),
       getJSON('market_rotation_daily_digest.json'),
       getJSON('portfolio_equity_exposure.json'),
       getJSON('market_rotation_history/backtest/sensitivity.json'),
-      getJSON('market_rotation_history/backtest/sector_etf_momentum.json')
+      getJSON('market_rotation_history/backtest/sector_etf_momentum.json'),
+      getJSON('etf_health.json')
     ]);
+    renderEtfHealth(etfHealth);
     renderSensitivity(sensitivity);
     renderEtfMomentum(etfMomentum);
     renderDigest(digest);
