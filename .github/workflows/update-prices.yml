@@ -126,6 +126,23 @@ jobs:
             --github-output "$GITHUB_OUTPUT" \
             --alert-markdown "$RUNNER_TEMP/rotation-digest.md"
 
+      # Research only: constituent breadth and concentration of the frozen
+      # theme-ETF list, from the N-PORT holdings the SEC workflow commits.
+      # Exit 75 (no usable SPY close) keeps the previous file; any other
+      # failure is reported but never blocks the rest of the refresh.
+      - name: Build theme ETF constituent health
+        if: steps.rotation_build.outputs.fresh == 'true'
+        shell: bash
+        run: |
+          set +e
+          python3 scripts/build_etf_health.py
+          status=$?
+          set -e
+          if [ "$status" -ne 0 ]; then
+            echo "::warning::Theme ETF health not rebuilt (exit $status); the previous etf_health.json is kept."
+            git checkout -- etf_health.json 2>/dev/null || true
+          fi
+
       - name: Notify if the automatic catch-up is still stale
         if: >-
           github.event.schedule == '17 12 * * 2-6' &&

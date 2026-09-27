@@ -203,6 +203,32 @@
       </div>
     </section>
 
+    <section class="panel research-panel" aria-labelledby="etfHealthTitle">
+      <div class="panel-head">
+        <div>
+          <h2 id="etfHealthTitle">主題 ETF 成分健康度 <span class="research-badge">研究中</span></h2>
+          <p class="panel-desc">同樣是 ETF 上漲，可能是多數成分一起漲，也可能只靠前幾大撐盤。依各 ETF 最近一次 SEC N-PORT 持股，看成分站上均線的比例、等權與市值加權報酬差距，以及前三大持股貢獻了多少漲跌。依 20 日相對 SPY 排序；狀態是描述性標籤，門檻尚未經回測驗證。</p>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table class="state-table">
+          <thead>
+            <tr>
+              <th>ETF／主題</th>
+              <th title="ETF 20 日報酬超過 ±2% 才算有方向；再依成分廣度與前三大貢獻分為普遍或少數。">狀態</th>
+              <th title="ETF 20 日相對 SPY（pp），以及 ETF 本身 5／20／60 日報酬。">20 日相對／本身</th>
+              <th title="成分站上 50 日均線的比例：依公司家數／依持股權重；以及站上 20 日均線（權重）。">成分廣度</th>
+              <th title="成分 20 日報酬：等權減市值加權。負值代表大型持股撐起報酬。">等權－市值加權</th>
+              <th title="對市值加權報酬貢獻最大的三檔，以及合計占總漲跌的比例；超過 100% 代表其餘成分合計反向。">前三大貢獻</th>
+              <th title="有報價的普通股占 ETF 普通股權重；持股申報日。">涵蓋／持股日</th>
+            </tr>
+          </thead>
+          <tbody id="etfHealthBody"><tr><td colspan="7" class="panel-desc">正在載入…</td></tr></tbody>
+        </table>
+      </div>
+      <p class="panel-desc" id="etfHealthNote"></p>
+    </section>
+
     <section class="panel research-panel" aria-labelledby="backtestTitle">
       <div class="panel-head">
         <div>

@@ -5,6 +5,7 @@ import sys
 import tempfile
 import unittest
 from unittest import mock
+from xml.sax.saxutils import escape
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
@@ -29,6 +30,7 @@ def holding(name, weight, ticker=None, isin=None):
     if ticker or isin:
         ids = "<identifiers>" + (f'<isin value="{isin}"/>' if isin else "") + \
               (f'<ticker value="{ticker}"/>' if ticker else "") + "</identifiers>"
+    name = escape(name)
     return (f"<invstOrSec><name>{name}</name><title>{name} COM</title><cusip>000000000</cusip>{ids}"
             f"<balance>10</balance><units>NS</units><valUSD>{weight * 1000}</valUSD><pctVal>{weight}</pctVal>"
             "<assetCat>EC</assetCat></invstOrSec>")
@@ -66,15 +68,51 @@ class ParseTests(unittest.TestCase):
 
     def test_identifier_formats(self):
         self.assertEqual(etf_holdings.ticker_from_identifier("BRK/B US"), "BRK.B")
+        self.assertEqual(etf_holdings.ticker_from_identifier("AAPL UW"), "AAPL")
+        self.assertIsNone(etf_holdings.ticker_from_identifier("CCO CN"), "Cameco's Toronto code is not US 'CCO'")
         self.assertEqual(etf_holdings.ticker_from_identifier("aapl"), "AAPL")
         self.assertIsNone(etf_holdings.ticker_from_identifier("N/A"))
         self.assertIsNone(etf_holdings.ticker_from_identifier(""))
+
+    def test_sec_company_names_map_what_the_universe_short_names_miss(self):
+        # Real VOO/VGT 2026 names that the universe's short names ("Amazon", "Lilly (Eli)") did not match.
+        sec = etf_holdings.sec_name_index({
+            "0": {"cik_str": 1, "ticker": "AMZN", "title": "AMAZON COM INC"},
+            "1": {"cik_str": 2, "ticker": "LLY", "title": "ELI LILLY & Co"},
+            "2": {"cik_str": 3, "ticker": "SNDK", "title": "Sandisk Corp"},
+            "3": {"cik_str": 4, "ticker": "TJX", "title": "TJX COMPANIES INC /DE/"},
+            "4": {"cik_str": 5, "ticker": "GOOGL", "title": "Alphabet Inc."},
+            "5": {"cik_str": 5, "ticker": "GOOG", "title": "Alphabet Inc."},
+            "6": {"cik_str": 6, "ticker": "BRK-B", "title": "BERKSHIRE HATHAWAY INC"}})
+        self.assertEqual(sec["alphabet"], "GOOGL", "the first listing of an issuer wins")
+        self.assertEqual(sec["berkshire hathaway"], "BRK.B")
+        rows = [holding("Amazon.com Inc", 5.0), holding("Eli Lilly & Co", 4.0), holding("Sandisk Corp/DE", 3.0),
+                holding("TJX Cos Inc/The", 2.0), holding("Apple Inc", 6.0), holding("Unknown Plc", 1.0)]
+        parsed = etf_holdings.parse_nport(nport(rows=rows), UNIVERSE, sec)
+        got = {row["name"]: (row["ticker"], row["mapping"]) for row in parsed["holdings"]}
+        self.assertEqual(got["Amazon.com Inc"], ("AMZN", "sec_name"))
+        self.assertEqual(got["Eli Lilly & Co"], ("LLY", "sec_name"))
+        self.assertEqual(got["Sandisk Corp/DE"], ("SNDK", "sec_name"))
+        self.assertEqual(got["TJX Cos Inc/The"], ("TJX", "sec_name"))
+        self.assertEqual(got["Apple Inc"], ("AAPL", "name_match"), "the universe is still tried first")
+        self.assertEqual(got["Unknown Plc"], (None, None))
+        summary = etf_holdings.summarise(parsed)
+        self.assertEqual(summary["mapped_by"]["sec_name"], 14.0)
+
+    def test_securities_lending_collateral_does_not_fail_validation(self):
+        rows = [holding("NVIDIA CORP", 20.0, ticker="NVDA US"),
+                holding("State Street Navigator Securities Lending", 9.0).replace("<assetCat>EC", "<assetCat>STIV")]
+        parsed = etf_holdings.parse_nport(nport(rows=rows, filler=20), UNIVERSE)
+        self.assertEqual(etf_holdings.validate(parsed, "S000001"), [])
+        stock_light = etf_holdings.parse_nport(nport(rows=[
+            holding("Cash Sweep", 60.0).replace("<assetCat>EC", "<assetCat>STIV")], filler=20), UNIVERSE)
+        self.assertTrue(any("common stock" in p for p in etf_holdings.validate(stock_light, "S000001")))
 
     def test_validation_rejects_wrong_series_thin_or_unbalanced_files(self):
         good = etf_holdings.parse_nport(nport(), UNIVERSE)
         self.assertEqual(etf_holdings.validate(good, "S000001"), [])
         self.assertTrue(etf_holdings.validate(good, "S999999"))
-        thin = etf_holdings.parse_nport(nport(filler=3), UNIVERSE)
+        thin = etf_holdings.parse_nport(nport(filler=3, rows=[holding("NVIDIA CORP", 20.0)]), UNIVERSE)
         self.assertTrue(any("holdings" in p for p in etf_holdings.validate(thin, "S000001")))
         half = etf_holdings.parse_nport(nport(rows=[holding("NVIDIA CORP", 20.0, ticker="NVDA")], filler=0),
                                         UNIVERSE)
@@ -113,10 +151,35 @@ class FetchTests(unittest.TestCase):
         self.assertEqual(result["source"], "SEC Form N-PORT (NPORT-P)")
 
     def test_known_accession_means_nothing_new(self):
-        get_json, get_text = self.fake_http({"000026000003": nport(series="S000777")})
+        get_json, get_text = self.fake_http({"000026000003": nport(series="S000777"),
+                                             "000026000002": nport(series="S000001")})
         with mock.patch.object(etf_holdings.sec_http, "get_json", get_json), \
                 mock.patch.object(etf_holdings.sec_http, "get_text", get_text):
             self.assertIsNone(etf_holdings.fetch_latest("VGT", UNIVERSE, FUND_INDEX, "0000-26-000002"))
+
+    def test_series_feed_is_used_before_scanning_the_trust(self):
+        feed = ('<?xml version="1.0"?><feed xmlns="http://www.w3.org/2005/Atom">'
+                '<entry><category term="NPORT-P"/><content type="text/xml"><accession-number>0000-26-000009'
+                '</accession-number><filing-date>2026-08-29</filing-date><filing-type>NPORT-P</filing-type>'
+                '</content></entry>'
+                '<entry><content><accession-number>0000-26-000008</accession-number><filing-date>2026-08-30'
+                '</filing-date><filing-type>NPORT-P/A</filing-type></content></entry></feed>')
+        self.assertEqual([row["accession"] for row in etf_holdings.series_feed(feed)], ["0000-26-000009"],
+                         "amendments are not read as the regular filing")
+        urls = []
+
+        def get_text(url, **kwargs):
+            urls.append(url)
+            return feed if "browse-edgar" in url else nport(series="S000001")
+
+        def get_json(url, **kwargs):
+            raise AssertionError("the trust list is not needed when the series feed answers")
+        with mock.patch.object(etf_holdings.sec_http, "get_json", get_json), \
+                mock.patch.object(etf_holdings.sec_http, "get_text", get_text):
+            result = etf_holdings.fetch_latest("VGT", UNIVERSE, FUND_INDEX, sec_names={})
+        self.assertEqual((result["accession"], result["lookup"]), ("0000-26-000009", "series_feed"))
+        self.assertEqual(result["mapping_version"], etf_holdings.MAPPING_VERSION)
+        self.assertIn("CIK=S000001", urls[0])
 
     def test_bad_filing_raises_instead_of_returning_partial_data(self):
         docs = {"000026000003": nport(series="S000001", filler=2)}
@@ -129,6 +192,9 @@ class FetchTests(unittest.TestCase):
 
 class RefreshTests(unittest.TestCase):
     def setUp(self):
+        patcher = mock.patch.object(etf_holdings, "THEME_ETFS", {})
+        patcher.start()
+        self.addCleanup(patcher.stop)
         self.directory = tempfile.TemporaryDirectory()
         self.root = pathlib.Path(self.directory.name)
         (self.root / "portfolio_classification.json").write_text(json.dumps(
@@ -145,11 +211,11 @@ class RefreshTests(unittest.TestCase):
                 "summary": etf_holdings.summarise(parsed), "holdings": parsed["holdings"]}
 
     def test_new_filings_are_written_and_failures_keep_the_old_file(self):
-        def fetch(ticker, universe, index, known):
+        def fetch(ticker, universe, index, known, sec_names):
             if ticker == "VOO":
                 raise LookupError("no filing")
             return self.record(ticker)
-        texts, messages = refresh_etf_holdings.refresh(self.root, self.folder, fetch, FUND_INDEX)
+        texts, messages = refresh_etf_holdings.refresh(self.root, self.folder, fetch, FUND_INDEX, {})
         self.assertIn(self.folder / "VGT.json", texts)
         self.assertNotIn(self.folder / "VOO.json", texts)
         index = json.loads(texts[self.folder / "index.json"])
@@ -164,8 +230,35 @@ class RefreshTests(unittest.TestCase):
                  **self.record("VGT")["summary"]}
         (self.folder / "index.json").write_text(json.dumps({"schema_version": 1,
                                                             "funds": {"VGT": entry, "VOO": entry}}))
-        texts, _ = refresh_etf_holdings.refresh(self.root, self.folder, lambda *a: None, FUND_INDEX)
+        texts, _ = refresh_etf_holdings.refresh(self.root, self.folder, lambda *a: None, FUND_INDEX, {})
         self.assertEqual(texts, {})
+
+    def test_without_the_sec_company_list_nothing_is_rewritten(self):
+        def fail(url, **kwargs):
+            raise OSError("down")
+        with mock.patch.object(refresh_etf_holdings.sec_http, "get_json", fail):
+            texts, messages = refresh_etf_holdings.refresh(self.root, self.folder, lambda *a: self.fail("fetched"),
+                                                           FUND_INDEX)
+        self.assertEqual(texts, {})
+        self.assertIn("SEC company list unavailable", messages[0])
+
+    def test_research_etfs_are_refreshed_and_old_mappings_are_redone(self):
+        self.folder.mkdir()
+        (self.folder / "VGT.json").write_text(json.dumps(self.record("VGT")))  # no mapping_version: v1
+        current = {**self.record("VOO"), "mapping_version": etf_holdings.MAPPING_VERSION}
+        (self.folder / "VOO.json").write_text(json.dumps(current))
+        seen = {}
+
+        def fetch(ticker, universe, index, known, sec_names):
+            seen[ticker] = known
+            return None if known else self.record(ticker, "A2")
+        with mock.patch.object(etf_holdings, "THEME_ETFS", {"SMH": "半導體"}):
+            self.assertEqual(refresh_etf_holdings.fund_list(self.root), ["SMH", "VGT", "VOO"])
+            texts, _ = refresh_etf_holdings.refresh(self.root, self.folder, fetch, FUND_INDEX, {})
+        self.assertEqual(seen, {"SMH": None, "VGT": None, "VOO": "A1"})
+        self.assertIn(self.folder / "SMH.json", texts)
+        self.assertIn(self.folder / "VGT.json", texts, "re-mapped under the current rules")
+        self.assertNotIn(self.folder / "VOO.json", texts)
 
 
 class LookThroughTests(unittest.TestCase):

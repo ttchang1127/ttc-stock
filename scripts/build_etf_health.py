@@ -1,0 +1,100 @@
+"""Build etf_health.json: constituent health of the research theme ETFs.
+
+Run by the daily market refresh after the rotation build.  Reads the
+committed N-PORT holdings (etf_holdings/{ETF}.json, refreshed by the SEC
+workflow), downloads about 100 sessions of closes for the ETFs, SPY and
+every mapped constituent, and writes the research file.  A run that cannot
+price SPY, or whose latest session is older than the file already
+published, leaves the file untouched; a rerun on the same session with the
+same numbers does not rewrite it.
+"""
+
+from __future__ import annotations
+
+import argparse
+import sys
+from datetime import date, datetime, timedelta, timezone
+from pathlib import Path
+
+import pandas as pd
+
+import etf_health
+import etf_holdings
+from jsonio import load_json, write_json
+
+ROOT = Path(__file__).resolve().parent.parent
+OUTPUT = ROOT / "etf_health.json"
+HOLDINGS_DIR = ROOT / "etf_holdings"
+CALENDAR_DAYS = 150
+
+
+def load_funds(holdings_dir: Path) -> dict[str, dict | None]:
+    return {ticker: load_json(holdings_dir / f"{ticker}.json", None) for ticker in etf_holdings.THEME_ETFS}
+
+
+def tickers_to_price(funds: dict[str, dict | None]) -> list[str]:
+    wanted = set(etf_holdings.THEME_ETFS) | {etf_health.BENCHMARK}
+    for fund in funds.values():
+        for row in (fund or {}).get("holdings", []):
+            if row.get("ticker") and row.get("asset_category") in etf_holdings.EQUITY_CATEGORIES:
+                wanted.add(row["ticker"])
+    return sorted(wanted)
+
+
+def yahoo(ticker: str) -> str:
+    return ticker.replace(".", "-")
+
+
+def download(tickers: list[str], start: date, end: date) -> pd.DataFrame:
+    from build_market_rotation import fetch_market_data  # noqa: PLC0415 - pulls in yfinance (CI only)
+
+    closes, _ = fetch_market_data([yahoo(t) for t in tickers], start, end)
+    back = {yahoo(t): t for t in tickers}
+    closes = closes.rename(columns=lambda column: back.get(column, column))
+    closes.index = pd.to_datetime(closes.index)
+    return closes.sort_index()
+
+
+def unchanged(previous: dict | None, payload: dict) -> bool:
+    if not previous:
+        return False
+    strip = lambda data: {key: value for key, value in data.items() if key != "generated_at"}  # noqa: E731
+    return strip(previous) == strip(payload)
+
+
+def build(output: Path, holdings_dir: Path, fetch=download, today: date | None = None) -> tuple[bool, str]:
+    """(written, message); raises SystemExit(75) when the prices are unusable."""
+    funds = load_funds(holdings_dir)
+    tickers = tickers_to_price(funds)
+    end = (today or date.today()) + timedelta(days=1)
+    closes = fetch(tickers, end - timedelta(days=CALENDAR_DAYS), end)
+    generated_at = datetime.now(timezone.utc).isoformat(timespec="seconds")
+    try:
+        payload = etf_health.compute(funds, closes, generated_at)
+    except ValueError as error:
+        print(f"::warning::ETF health not rebuilt: {error}", file=sys.stderr)
+        raise SystemExit(75) from error
+    problems = etf_health.validate(payload)
+    if problems:
+        raise ValueError("etf_health.json failed validation: " + "; ".join(problems))
+    previous = load_json(output, None)
+    if previous and previous.get("as_of", "") > payload["as_of"]:
+        return False, f"kept {output.name}: published {previous['as_of']} is newer than {payload['as_of']}"
+    if unchanged(previous, payload):
+        return False, f"{output.name} unchanged for {payload['as_of']}"
+    write_json(output, payload, indent=1)
+    states = ", ".join(f"{row['ticker']} {etf_health.STATES[row['state']]}" for row in payload["etfs"])
+    return True, f"ETF health {payload['as_of']}: {states or 'no holdings yet'}"
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
+    parser.add_argument("--output", type=Path, default=OUTPUT)
+    parser.add_argument("--holdings-dir", type=Path, default=HOLDINGS_DIR)
+    args = parser.parse_args()
+    _, message = build(args.output, args.holdings_dir)
+    print(message)
+
+
+if __name__ == "__main__":
+    main()

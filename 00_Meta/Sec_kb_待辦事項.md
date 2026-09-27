@@ -81,8 +81,9 @@ Form 144＋3／4／5、併購與 SEC 執法／停牌雷達。完整 13F 另以
 4. **市場輪動研究層上線後**：合併後第一次每日排程會產生 `market_rotation_research.json` 與第一筆 A 級快照——屆時移除 `data_manifest.json` 中該檔的 `awaiting_first_run`（測試會提醒）；到 Actions 手動觸發一次「Market rotation back-test」產生第一份回測（2026-09-27 已執行：暫定規則在 20／60 日幾乎沒有辨識力，見計畫進度表）。之後依回測結果檢討門檻（計畫第 15.10～15.11 節），不看單次結果調參。規則敏感度（`market_rotation_history/backtest/sensitivity.json`）隨每月回測產生；要加新候選規則必須提高 `SENSITIVITY_VERSION`，舊結果照樣保留。
 5. **ETF 研究後續**：
    - 板塊 ETF 中期動能回測（2026-09-27）：四個候選都沒有穩定優勢，只有回撤較小；輪動頁**不**改成月度排名，每月回測持續更新。
-   - 第一次 SEC 排程抓到 VGT、VOO 持股後，檢查 `etf_holdings/index.json` 的 `mapped_weight_pct`；對應率偏低時補對照（例如用 SPDR 每日持股檔的 CUSIP）。
-   - 尚未做：ETF 流通單位數（真實資金流）每日記錄、SMH／SOXX／IGV 等產業 ETF 的成分參與度與集中度。
+   - 2026-09-27 首次實跑：VGT、VOO 對應率只有 83％／85％（股票池用簡稱，對不到 Amazon.com Inc 等正式名稱），已改加 SEC 公司名稱對應並提高 `MAPPING_VERSION`。下一次 SEC 排程後檢查 `etf_holdings/index.json`：每檔的 `lookup`、`equity_mapped_weight_pct`，以及 12 檔主題 ETF 是否都抓到（`error` 欄位）。
+   - 主題 ETF 成分健康度（`etf_health.json`）第一次產生後，移除 `data_manifest.json` 中該檔的 `awaiting_first_run`；TAN、URA 外國成分多，涵蓋率可能不到七成而顯示「資料不足」。
+   - 尚未做：每日健康度紀錄的只追加歷史與回測（檢驗是否比 A1 純價格動能有用）、ETF 流通單位數（真實資金流）每日記錄。
 6. **市場輪動 MVP-1 後續**：WP-3 預覽頁 `market_rotation_v2.html`、WP-4 首頁一句摘要與限制提示
    （計畫第 35.8～35.9 節）、WP-5 板塊下鑽、WP-6 手機卡片與無障礙、WP-7 切換前閘門。
 7. **架構改善第三優先**：`dashboard.html` 的 `titansData` 改由 `fundamentals.json`／`valuation.json` 產生；

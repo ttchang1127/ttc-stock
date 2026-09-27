@@ -2651,6 +2651,30 @@ def c47():
                   f"摘要 {digest.get('status')}，{digest.get('event_count')} 項變化")
 
 
+@check("C-48", "主題 ETF 成分健康度維持研究標示、凍結清單與持股檔一致")
+def c48():
+    sys.path.insert(0, str(REPO_ROOT / "scripts"))
+    import etf_health  # noqa: PLC0415
+
+    workflow = read(".github/workflows/update-prices.yml")
+    page = read("market_rotation.html") + read("assets/market_rotation_research.js")
+    missing = [marker for marker, text in (("build_etf_health.py", workflow), ("etf_health.json", page),
+                                           ("etfHealthBody", page)) if marker not in text]
+    if missing:
+        return False, f"缺自動化／畫面：{missing}"
+    path = REPO_ROOT / "etf_health.json"
+    if not path.exists():
+        return True, "尚無 etf_health.json（SEC 排程抓到主題 ETF 持股後，下一次每日排程產生）"
+    payload = json.loads(path.read_text())
+    problems = etf_health.validate(payload)
+    for row in payload.get("etfs", []):
+        holdings_path = REPO_ROOT / "etf_holdings" / f"{row['ticker']}.json"
+        if not holdings_path.exists():
+            problems.append(f"{row['ticker']} 沒有對應的 etf_holdings 檔")
+    return not problems, "；".join(problems[:5]) or (
+        f"{payload['as_of']}：{len(payload['etfs'])} 檔有持股、{len(payload['unavailable'])} 檔尚無持股")
+
+
 @check("C-44", "研究綜合驗證可追溯且不補猜共識或同業資料")
 def c44():
     data = load("research_synthesis.json")
