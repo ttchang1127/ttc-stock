@@ -8,7 +8,7 @@
  "currency": "USD",
  "holdings_updated_at": "2026-09-27",
  "price_as_of": "2026-09-25",
- "research_as_of": null,
+ "research_as_of": "2026-09-25",
  "coverage": {
   "total_positions": 8,
   "priced_positions": 8,
@@ -40,13 +40,19 @@
      "NVDA"
     ],
     "rotation": {
-     "state": null,
-     "state_label": "無研究資料",
+     "state": "confirmed_leading",
+     "state_label": "已確認領先",
+     "confirmed": true,
+     "days_in_state": 4,
      "pending": null,
-     "risk_tags": [],
-     "relative_20d": null,
-     "own_return_20d": null,
-     "top_contributor": null
+     "pending_label": null,
+     "risk_tags": [
+      "liquidity_concentration"
+     ],
+     "relative_20d": 5.61,
+     "own_return_20d": 1.59,
+     "top_contributor": "INTC",
+     "single_issuer_dominance": false
     },
     "weight": 73.79
    },
@@ -58,13 +64,22 @@
      "GOOG"
     ],
     "rotation": {
-     "state": null,
-     "state_label": "無研究資料",
-     "pending": null,
-     "risk_tags": [],
-     "relative_20d": null,
-     "own_return_20d": null,
-     "top_contributor": null
+     "state": "cooling",
+     "state_label": "強勢降溫",
+     "confirmed": true,
+     "days_in_state": 5,
+     "pending": "neutral_mixed",
+     "pending_label": "中性混合",
+     "risk_tags": [
+      "relative_only",
+      "single_issuer_dominance",
+      "liquidity_concentration",
+      "pending_change"
+     ],
+     "relative_20d": 0.05,
+     "own_return_20d": -3.97,
+     "top_contributor": "META",
+     "single_issuer_dominance": true
     },
     "weight": 18.75
    },
@@ -76,13 +91,17 @@
      "TSLA"
     ],
     "rotation": {
-     "state": null,
-     "state_label": "無研究資料",
+     "state": "early_improvement",
+     "state_label": "早期改善",
+     "confirmed": true,
+     "days_in_state": 1,
      "pending": null,
+     "pending_label": null,
      "risk_tags": [],
-     "relative_20d": null,
-     "own_return_20d": null,
-     "top_contributor": null
+     "relative_20d": -2.68,
+     "own_return_20d": -6.7,
+     "top_contributor": null,
+     "single_issuer_dominance": false
     },
     "weight": 7.46
    }
@@ -100,13 +119,17 @@
     "NVDA"
    ],
    "rotation": {
-    "state": null,
-    "state_label": "無研究資料",
+    "state": "neutral_mixed",
+    "state_label": "中性混合",
+    "confirmed": true,
+    "days_in_state": 7,
     "pending": null,
+    "pending_label": null,
     "risk_tags": [],
-    "relative_20d": null,
-    "own_return_20d": null,
-    "top_contributor": null
+    "relative_20d": 15.39,
+    "own_return_20d": 11.37,
+    "top_contributor": "INTC",
+    "single_issuer_dominance": false
    },
    "weight": 48.52
   },
@@ -118,13 +141,21 @@
     "GOOG"
    ],
    "rotation": {
-    "state": null,
-    "state_label": "無研究資料",
+    "state": "small_sample_clue",
+    "state_label": "小樣本線索",
+    "confirmed": true,
+    "days_in_state": 158,
     "pending": null,
-    "risk_tags": [],
-    "relative_20d": null,
-    "own_return_20d": null,
-    "top_contributor": null
+    "pending_label": null,
+    "risk_tags": [
+     "single_issuer_dominance",
+     "liquidity_concentration",
+     "small_sample"
+    ],
+    "relative_20d": 11.8,
+    "own_return_20d": 7.78,
+    "top_contributor": "META",
+    "single_issuer_dominance": true
    },
    "weight": 18.75
   },
@@ -136,13 +167,22 @@
     "NOK"
    ],
    "rotation": {
-    "state": null,
-    "state_label": "無研究資料",
-    "pending": null,
-    "risk_tags": [],
-    "relative_20d": null,
-    "own_return_20d": null,
-    "top_contributor": null
+    "state": "confirmed_leading",
+    "state_label": "已確認領先",
+    "confirmed": true,
+    "days_in_state": 4,
+    "pending": "cooling",
+    "pending_label": "強勢降溫",
+    "risk_tags": [
+     "relative_only",
+     "single_issuer_dominance",
+     "liquidity_concentration",
+     "pending_change"
+    ],
+    "relative_20d": 1.98,
+    "own_return_20d": -2.04,
+    "top_contributor": "FFIV",
+    "single_issuer_dominance": true
    },
    "weight": 17.13
   },
@@ -154,13 +194,20 @@
     "COHR"
    ],
    "rotation": {
-    "state": null,
-    "state_label": "無研究資料",
+    "state": "small_sample_clue",
+    "state_label": "小樣本線索",
+    "confirmed": true,
+    "days_in_state": 158,
     "pending": null,
-    "risk_tags": [],
-    "relative_20d": null,
-    "own_return_20d": null,
-    "top_contributor": null
+    "pending_label": null,
+    "risk_tags": [
+     "volume_unconfirmed",
+     "small_sample"
+    ],
+    "relative_20d": 6.45,
+    "own_return_20d": 2.43,
+    "top_contributor": "APH",
+    "single_issuer_dominance": false
    },
    "weight": 8.13
   },
@@ -172,13 +219,23 @@
     "TSLA"
    ],
    "rotation": {
-    "state": null,
-    "state_label": "無研究資料",
+    "state": "small_sample_clue",
+    "state_label": "小樣本線索",
+    "confirmed": true,
+    "days_in_state": 158,
     "pending": null,
-    "risk_tags": [],
-    "relative_20d": null,
-    "own_return_20d": null,
-    "top_contributor": null
+    "pending_label": null,
+    "risk_tags": [
+     "relative_only",
+     "single_issuer_dominance",
+     "liquidity_concentration",
+     "volume_unconfirmed",
+     "small_sample"
+    ],
+    "relative_20d": 1.37,
+    "own_return_20d": -2.64,
+    "top_contributor": "TSLA",
+    "single_issuer_dominance": true
    },
    "weight": 7.46
   }
@@ -198,27 +255,44 @@
    "industry_id": "industry:interactive-media-services",
    "classification_source": "GICS（S&P 500／Nasdaq-100 成分）",
    "sector_rotation": {
-    "state": null,
-    "state_label": "無研究資料",
-    "pending": null,
-    "risk_tags": [],
-    "relative_20d": null,
-    "own_return_20d": null,
-    "top_contributor": null
+    "state": "cooling",
+    "state_label": "強勢降溫",
+    "confirmed": true,
+    "days_in_state": 5,
+    "pending": "neutral_mixed",
+    "pending_label": "中性混合",
+    "risk_tags": [
+     "relative_only",
+     "single_issuer_dominance",
+     "liquidity_concentration",
+     "pending_change"
+    ],
+    "relative_20d": 0.05,
+    "own_return_20d": -3.97,
+    "top_contributor": "META",
+    "single_issuer_dominance": true
    },
    "industry_rotation": {
-    "state": null,
-    "state_label": "無研究資料",
+    "state": "small_sample_clue",
+    "state_label": "小樣本線索",
+    "confirmed": true,
+    "days_in_state": 158,
     "pending": null,
-    "risk_tags": [],
-    "relative_20d": null,
-    "own_return_20d": null,
-    "top_contributor": null
+    "pending_label": null,
+    "risk_tags": [
+     "single_issuer_dominance",
+     "liquidity_concentration",
+     "small_sample"
+    ],
+    "relative_20d": 11.8,
+    "own_return_20d": 7.78,
+    "top_contributor": "META",
+    "single_issuer_dominance": true
    },
    "weight": 18.75,
-   "research_priority": "data_blocked",
+   "research_priority": "review_now",
    "reasons": [
-    "所屬板塊沒有研究層資料"
+    "所屬板塊已確認「強勢降溫」（5 個交易日）：覆核投資論點是否仍成立"
    ],
    "not_an_action": "研究優先度，不是買進、賣出或調整部位的指令"
   },
@@ -236,27 +310,37 @@
    "industry_id": "industry:semiconductors",
    "classification_source": "GICS（S&P 500／Nasdaq-100 成分）",
    "sector_rotation": {
-    "state": null,
-    "state_label": "無研究資料",
+    "state": "confirmed_leading",
+    "state_label": "已確認領先",
+    "confirmed": true,
+    "days_in_state": 4,
     "pending": null,
-    "risk_tags": [],
-    "relative_20d": null,
-    "own_return_20d": null,
-    "top_contributor": null
+    "pending_label": null,
+    "risk_tags": [
+     "liquidity_concentration"
+    ],
+    "relative_20d": 5.61,
+    "own_return_20d": 1.59,
+    "top_contributor": "INTC",
+    "single_issuer_dominance": false
    },
    "industry_rotation": {
-    "state": null,
-    "state_label": "無研究資料",
+    "state": "neutral_mixed",
+    "state_label": "中性混合",
+    "confirmed": true,
+    "days_in_state": 7,
     "pending": null,
+    "pending_label": null,
     "risk_tags": [],
-    "relative_20d": null,
-    "own_return_20d": null,
-    "top_contributor": null
+    "relative_20d": 15.39,
+    "own_return_20d": 11.37,
+    "top_contributor": "INTC",
+    "single_issuer_dominance": false
    },
    "weight": 18.0,
-   "research_priority": "data_blocked",
+   "research_priority": "monitor",
    "reasons": [
-    "所屬板塊沒有研究層資料"
+    "所屬板塊已確認領先：留意估值與追價風險，強勢不代表風險消失"
    ],
    "not_an_action": "研究優先度，不是買進、賣出或調整部位的指令"
   },
@@ -274,27 +358,44 @@
    "industry_id": "industry:communications-equipment",
    "classification_source": "人工分類（覆核 2026-09-27）：不在 S&P 500／Nasdaq-100 股票池，沒有指數分類；業務與股票池中的通訊設備公司（CSCO、ANET、CIEN）相同",
    "sector_rotation": {
-    "state": null,
-    "state_label": "無研究資料",
+    "state": "confirmed_leading",
+    "state_label": "已確認領先",
+    "confirmed": true,
+    "days_in_state": 4,
     "pending": null,
-    "risk_tags": [],
-    "relative_20d": null,
-    "own_return_20d": null,
-    "top_contributor": null
+    "pending_label": null,
+    "risk_tags": [
+     "liquidity_concentration"
+    ],
+    "relative_20d": 5.61,
+    "own_return_20d": 1.59,
+    "top_contributor": "INTC",
+    "single_issuer_dominance": false
    },
    "industry_rotation": {
-    "state": null,
-    "state_label": "無研究資料",
-    "pending": null,
-    "risk_tags": [],
-    "relative_20d": null,
-    "own_return_20d": null,
-    "top_contributor": null
+    "state": "confirmed_leading",
+    "state_label": "已確認領先",
+    "confirmed": true,
+    "days_in_state": 4,
+    "pending": "cooling",
+    "pending_label": "強勢降溫",
+    "risk_tags": [
+     "relative_only",
+     "single_issuer_dominance",
+     "liquidity_concentration",
+     "pending_change"
+    ],
+    "relative_20d": 1.98,
+    "own_return_20d": -2.04,
+    "top_contributor": "FFIV",
+    "single_issuer_dominance": true
    },
    "weight": 17.13,
-   "research_priority": "data_blocked",
+   "research_priority": "monitor",
    "reasons": [
-    "所屬板塊沒有研究層資料"
+    "所屬次產業可能轉為「強勢降溫」，待確認",
+    "所屬次產業只是跌得比大盤少，本身仍在下跌",
+    "所屬板塊已確認領先：留意估值與追價風險，強勢不代表風險消失"
    ],
    "not_an_action": "研究優先度，不是買進、賣出或調整部位的指令"
   },
@@ -312,27 +413,37 @@
    "industry_id": "industry:semiconductors",
    "classification_source": "ICB mapped to GICS sector（Nasdaq-100 成分）",
    "sector_rotation": {
-    "state": null,
-    "state_label": "無研究資料",
+    "state": "confirmed_leading",
+    "state_label": "已確認領先",
+    "confirmed": true,
+    "days_in_state": 4,
     "pending": null,
-    "risk_tags": [],
-    "relative_20d": null,
-    "own_return_20d": null,
-    "top_contributor": null
+    "pending_label": null,
+    "risk_tags": [
+     "liquidity_concentration"
+    ],
+    "relative_20d": 5.61,
+    "own_return_20d": 1.59,
+    "top_contributor": "INTC",
+    "single_issuer_dominance": false
    },
    "industry_rotation": {
-    "state": null,
-    "state_label": "無研究資料",
+    "state": "neutral_mixed",
+    "state_label": "中性混合",
+    "confirmed": true,
+    "days_in_state": 7,
     "pending": null,
+    "pending_label": null,
     "risk_tags": [],
-    "relative_20d": null,
-    "own_return_20d": null,
-    "top_contributor": null
+    "relative_20d": 15.39,
+    "own_return_20d": 11.37,
+    "top_contributor": "INTC",
+    "single_issuer_dominance": false
    },
    "weight": 12.79,
-   "research_priority": "data_blocked",
+   "research_priority": "monitor",
    "reasons": [
-    "所屬板塊沒有研究層資料"
+    "所屬板塊已確認領先：留意估值與追價風險，強勢不代表風險消失"
    ],
    "not_an_action": "研究優先度，不是買進、賣出或調整部位的指令"
   },
@@ -350,27 +461,37 @@
    "industry_id": "industry:semiconductors",
    "classification_source": "GICS（S&P 500／Nasdaq-100 成分）",
    "sector_rotation": {
-    "state": null,
-    "state_label": "無研究資料",
+    "state": "confirmed_leading",
+    "state_label": "已確認領先",
+    "confirmed": true,
+    "days_in_state": 4,
     "pending": null,
-    "risk_tags": [],
-    "relative_20d": null,
-    "own_return_20d": null,
-    "top_contributor": null
+    "pending_label": null,
+    "risk_tags": [
+     "liquidity_concentration"
+    ],
+    "relative_20d": 5.61,
+    "own_return_20d": 1.59,
+    "top_contributor": "INTC",
+    "single_issuer_dominance": false
    },
    "industry_rotation": {
-    "state": null,
-    "state_label": "無研究資料",
+    "state": "neutral_mixed",
+    "state_label": "中性混合",
+    "confirmed": true,
+    "days_in_state": 7,
     "pending": null,
+    "pending_label": null,
     "risk_tags": [],
-    "relative_20d": null,
-    "own_return_20d": null,
-    "top_contributor": null
+    "relative_20d": 15.39,
+    "own_return_20d": 11.37,
+    "top_contributor": "INTC",
+    "single_issuer_dominance": false
    },
    "weight": 9.28,
-   "research_priority": "data_blocked",
+   "research_priority": "monitor",
    "reasons": [
-    "所屬板塊沒有研究層資料"
+    "所屬板塊已確認領先：留意估值與追價風險，強勢不代表風險消失"
    ],
    "not_an_action": "研究優先度，不是買進、賣出或調整部位的指令"
   },
@@ -388,27 +509,37 @@
    "industry_id": "industry:semiconductors",
    "classification_source": "GICS（S&P 500／Nasdaq-100 成分）",
    "sector_rotation": {
-    "state": null,
-    "state_label": "無研究資料",
+    "state": "confirmed_leading",
+    "state_label": "已確認領先",
+    "confirmed": true,
+    "days_in_state": 4,
     "pending": null,
-    "risk_tags": [],
-    "relative_20d": null,
-    "own_return_20d": null,
-    "top_contributor": null
+    "pending_label": null,
+    "risk_tags": [
+     "liquidity_concentration"
+    ],
+    "relative_20d": 5.61,
+    "own_return_20d": 1.59,
+    "top_contributor": "INTC",
+    "single_issuer_dominance": false
    },
    "industry_rotation": {
-    "state": null,
-    "state_label": "無研究資料",
+    "state": "neutral_mixed",
+    "state_label": "中性混合",
+    "confirmed": true,
+    "days_in_state": 7,
     "pending": null,
+    "pending_label": null,
     "risk_tags": [],
-    "relative_20d": null,
-    "own_return_20d": null,
-    "top_contributor": null
+    "relative_20d": 15.39,
+    "own_return_20d": 11.37,
+    "top_contributor": "INTC",
+    "single_issuer_dominance": false
    },
    "weight": 8.45,
-   "research_priority": "data_blocked",
+   "research_priority": "monitor",
    "reasons": [
-    "所屬板塊沒有研究層資料"
+    "所屬板塊已確認領先：留意估值與追價風險，強勢不代表風險消失"
    ],
    "not_an_action": "研究優先度，不是買進、賣出或調整部位的指令"
   },
@@ -426,27 +557,40 @@
    "industry_id": "industry:electronic-components",
    "classification_source": "GICS（S&P 500 成分）",
    "sector_rotation": {
-    "state": null,
-    "state_label": "無研究資料",
+    "state": "confirmed_leading",
+    "state_label": "已確認領先",
+    "confirmed": true,
+    "days_in_state": 4,
     "pending": null,
-    "risk_tags": [],
-    "relative_20d": null,
-    "own_return_20d": null,
-    "top_contributor": null
+    "pending_label": null,
+    "risk_tags": [
+     "liquidity_concentration"
+    ],
+    "relative_20d": 5.61,
+    "own_return_20d": 1.59,
+    "top_contributor": "INTC",
+    "single_issuer_dominance": false
    },
    "industry_rotation": {
-    "state": null,
-    "state_label": "無研究資料",
+    "state": "small_sample_clue",
+    "state_label": "小樣本線索",
+    "confirmed": true,
+    "days_in_state": 158,
     "pending": null,
-    "risk_tags": [],
-    "relative_20d": null,
-    "own_return_20d": null,
-    "top_contributor": null
+    "pending_label": null,
+    "risk_tags": [
+     "volume_unconfirmed",
+     "small_sample"
+    ],
+    "relative_20d": 6.45,
+    "own_return_20d": 2.43,
+    "top_contributor": "APH",
+    "single_issuer_dominance": false
    },
    "weight": 8.13,
-   "research_priority": "data_blocked",
+   "research_priority": "monitor",
    "reasons": [
-    "所屬板塊沒有研究層資料"
+    "所屬板塊已確認領先：留意估值與追價風險，強勢不代表風險消失"
    ],
    "not_an_action": "研究優先度，不是買進、賣出或調整部位的指令"
   },
@@ -464,27 +608,42 @@
    "industry_id": "industry:automobile-manufacturers",
    "classification_source": "GICS（S&P 500／Nasdaq-100 成分）",
    "sector_rotation": {
-    "state": null,
-    "state_label": "無研究資料",
+    "state": "early_improvement",
+    "state_label": "早期改善",
+    "confirmed": true,
+    "days_in_state": 1,
     "pending": null,
+    "pending_label": null,
     "risk_tags": [],
-    "relative_20d": null,
-    "own_return_20d": null,
-    "top_contributor": null
+    "relative_20d": -2.68,
+    "own_return_20d": -6.7,
+    "top_contributor": null,
+    "single_issuer_dominance": false
    },
    "industry_rotation": {
-    "state": null,
-    "state_label": "無研究資料",
+    "state": "small_sample_clue",
+    "state_label": "小樣本線索",
+    "confirmed": true,
+    "days_in_state": 158,
     "pending": null,
-    "risk_tags": [],
-    "relative_20d": null,
-    "own_return_20d": null,
-    "top_contributor": null
+    "pending_label": null,
+    "risk_tags": [
+     "relative_only",
+     "single_issuer_dominance",
+     "liquidity_concentration",
+     "volume_unconfirmed",
+     "small_sample"
+    ],
+    "relative_20d": 1.37,
+    "own_return_20d": -2.64,
+    "top_contributor": "TSLA",
+    "single_issuer_dominance": true
    },
    "weight": 7.46,
-   "research_priority": "data_blocked",
+   "research_priority": "monitor",
    "reasons": [
-    "所屬板塊沒有研究層資料"
+    "本身是所屬次產業強勢的最大貢獻者：板塊強勢主要靠它，不代表同業普遍走強",
+    "所屬次產業只是跌得比大盤少，本身仍在下跌"
    ],
    "not_an_action": "研究優先度，不是買進、賣出或調整部位的指令"
   }
