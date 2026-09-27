@@ -1,9 +1,9 @@
 {
  "schema_version": 1,
  "label": "research",
- "generated_at": "2026-09-27T10:37:38+00:00",
+ "generated_at": "2026-09-27T11:03:49+00:00",
  "as_of": "2026-09-25",
- "rule_version": "etf-health-1",
+ "rule_version": "etf-health-2",
  "etf_list_version": "theme-etf-1",
  "benchmark": "SPY",
  "benchmark_r20_pct": 0.28,
@@ -12,6 +12,9 @@
   "broad_breadth_up": 0.6,
   "broad_breadth_down": 0.4,
   "top3_share_max": 0.6,
+  "participation_gap": 0.02,
+  "narrow_breadth_up": 0.5,
+  "narrow_breadth_down": 0.5,
   "min_coverage_pct": 70.0,
   "min_priced": 10,
   "tracking_gap_pct": 3.0,
@@ -20,7 +23,7 @@
  "states": {
   "broad_advance": "普遍上漲",
   "narrow_advance": "少數撐盤",
-  "mixed": "持平分歧",
+  "mixed": "持平或分歧",
   "narrow_decline": "少數拖累",
   "broad_decline": "普遍下跌",
   "data_limited": "資料不足"
@@ -31,7 +34,7 @@
   "low_coverage": "有報價的成分不到七成",
   "etf_price_missing": "ETF 本身缺少報價，方向改用成分重建報酬"
  },
- "note": "描述性研究標籤，門檻尚未經回測驗證；成分權重取自各 ETF 最近一次 SEC N-PORT 申報，申報後的調倉不反映。外國掛牌、無美國報價的成分計入未涵蓋比例。",
+ "note": "描述性研究標籤，門檻尚未經回測驗證；成分權重取自各 ETF 最近一次 SEC N-PORT 申報，申報後的調倉不反映。外國掛牌、無美國報價的成分計入未涵蓋比例。資金流：N-PORT 為實際申購減贖回（落後 2～5 個月）；每日估計來自 Yahoo 流通股數或資產規模，Yahoo 不一定每天更新。",
  "etfs": [
   {
    "ticker": "SOXX",
@@ -39,7 +42,7 @@
    "fund_name": "iShares Semiconductor ETF",
    "holdings_report_date": "2026-06-30",
    "holdings_accession": "0002071691-26-019781",
-   "state": "narrow_advance",
+   "state": "broad_advance",
    "direction": "up",
    "etf": {
     "r5_pct": 7.43,
@@ -89,6 +92,17 @@
      }
     ]
    },
+   "flows": {
+    "nport": {
+     "net_3m_pct": 13.07,
+     "months": "2026-04～2026-06"
+    },
+    "estimated": {
+     "sessions_recorded": 1,
+     "flow_5d_pct": null,
+     "flow_20d_pct": null
+    }
+   },
    "flags": []
   },
   {
@@ -97,7 +111,7 @@
    "fund_name": "VanEck Semiconductor ETF",
    "holdings_report_date": "2026-06-30",
    "holdings_accession": "0001410368-26-086937",
-   "state": "narrow_advance",
+   "state": "broad_advance",
    "direction": "up",
    "etf": {
     "r5_pct": 5.86,
@@ -146,6 +160,17 @@
       "contribution_pp": 0.9
      }
     ]
+   },
+   "flows": {
+    "nport": {
+     "net_3m_pct": 5.86,
+     "months": "2026-04～2026-06"
+    },
+    "estimated": {
+     "sessions_recorded": 1,
+     "flow_5d_pct": null,
+     "flow_20d_pct": null
+    }
    },
    "flags": []
   },
@@ -205,6 +230,17 @@
      }
     ]
    },
+   "flows": {
+    "nport": {
+     "net_3m_pct": -1.61,
+     "months": "2026-04～2026-06"
+    },
+    "estimated": {
+     "sessions_recorded": 1,
+     "flow_5d_pct": null,
+     "flow_20d_pct": null
+    }
+   },
    "flags": []
   },
   {
@@ -263,6 +299,17 @@
      }
     ]
    },
+   "flows": {
+    "nport": {
+     "net_3m_pct": 10.29,
+     "months": "2026-04～2026-06"
+    },
+    "estimated": {
+     "sessions_recorded": 1,
+     "flow_5d_pct": null,
+     "flow_20d_pct": null
+    }
+   },
    "flags": []
   },
   {
@@ -271,7 +318,7 @@
    "fund_name": "iShares Expanded Tech-Software Sector ETF",
    "holdings_report_date": "2026-06-30",
    "holdings_accession": "0002071691-26-019778",
-   "state": "narrow_decline",
+   "state": "mixed",
    "direction": "down",
    "etf": {
     "r5_pct": 1.59,
@@ -320,6 +367,17 @@
       "contribution_pp": -0.58
      }
     ]
+   },
+   "flows": {
+    "nport": {
+     "net_3m_pct": 13.31,
+     "months": "2026-04～2026-06"
+    },
+    "estimated": {
+     "sessions_recorded": 1,
+     "flow_5d_pct": null,
+     "flow_20d_pct": null
+    }
    },
    "flags": []
   },
@@ -379,6 +437,17 @@
      }
     ]
    },
+   "flows": {
+    "nport": {
+     "net_3m_pct": 31.89,
+     "months": "2026-04～2026-06"
+    },
+    "estimated": {
+     "sessions_recorded": 1,
+     "flow_5d_pct": null,
+     "flow_20d_pct": null
+    }
+   },
    "flags": []
   },
   {
@@ -436,6 +505,17 @@
       "contribution_pp": -0.48
      }
     ]
+   },
+   "flows": {
+    "nport": {
+     "net_3m_pct": -3.58,
+     "months": "2026-04～2026-06"
+    },
+    "estimated": {
+     "sessions_recorded": 1,
+     "flow_5d_pct": null,
+     "flow_20d_pct": null
+    }
    },
    "flags": []
   },
@@ -495,6 +575,17 @@
      }
     ]
    },
+   "flows": {
+    "nport": {
+     "net_3m_pct": 12.37,
+     "months": "2026-04～2026-06"
+    },
+    "estimated": {
+     "sessions_recorded": 1,
+     "flow_5d_pct": null,
+     "flow_20d_pct": null
+    }
+   },
    "flags": []
   },
   {
@@ -552,6 +643,17 @@
       "contribution_pp": -0.87
      }
     ]
+   },
+   "flows": {
+    "nport": {
+     "net_3m_pct": 4.61,
+     "months": "2026-05～2026-07"
+    },
+    "estimated": {
+     "sessions_recorded": 1,
+     "flow_5d_pct": null,
+     "flow_20d_pct": null
+    }
    },
    "flags": []
   },
@@ -611,6 +713,17 @@
      }
     ]
    },
+   "flows": {
+    "nport": {
+     "net_3m_pct": -3.34,
+     "months": "2026-04～2026-06"
+    },
+    "estimated": {
+     "sessions_recorded": 1,
+     "flow_5d_pct": null,
+     "flow_20d_pct": null
+    }
+   },
    "flags": []
   },
   {
@@ -668,6 +781,17 @@
       "contribution_pp": -1.58
      }
     ]
+   },
+   "flows": {
+    "nport": {
+     "net_3m_pct": 7.75,
+     "months": "2026-03～2026-05"
+    },
+    "estimated": {
+     "sessions_recorded": 1,
+     "flow_5d_pct": null,
+     "flow_20d_pct": null
+    }
    },
    "flags": [
     "low_coverage"
@@ -728,6 +852,17 @@
       "contribution_pp": -1.94
      }
     ]
+   },
+   "flows": {
+    "nport": {
+     "net_3m_pct": 1.83,
+     "months": "2026-02～2026-04"
+    },
+    "estimated": {
+     "sessions_recorded": 1,
+     "flow_5d_pct": null,
+     "flow_20d_pct": null
+    }
    },
    "flags": [
     "low_coverage"
