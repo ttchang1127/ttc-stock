@@ -512,6 +512,7 @@ def raw_group_metrics(
 
     sma20 = closes.rolling(20, min_periods=15).mean().iloc[-1]
     daily_returns = closes.pct_change(fill_method=None)
+    universe_daily = daily_returns.mean(axis=1).iloc[-10:]
     dollar_volume = closes * volumes
     current_weights = dollar_volume.iloc[-20:].mean()
     volume_recent = dollar_volume.iloc[-5:].sum(axis=1).mean()
@@ -536,9 +537,8 @@ def raw_group_metrics(
         # denominator; counting them as "below" would understate breadth.
         above_ma = latest_close[has_ma] > sma20[tickers][has_ma]
         positive20 = r20[tickers].dropna() > 0
-        group_daily = daily_returns[tickers].mean(axis=1)
-        universe_daily = daily_returns.mean(axis=1)
-        persistence = float((group_daily.iloc[-10:] > universe_daily.iloc[-10:]).mean())
+        group_daily = daily_returns[tickers].iloc[-10:].mean(axis=1)
+        persistence = float((group_daily > universe_daily).mean())
         group_recent = dollar_volume[tickers].iloc[-5:].sum(axis=1).mean()
         group_prior = dollar_volume[tickers].iloc[-25:-5].sum(axis=1).mean()
         volume_expansion = (group_recent / group_prior - 1) if group_prior else None
@@ -1019,19 +1019,26 @@ def serialize_v1(canonical: dict, generated_at: str) -> dict:
 
 
 def role_cards(roles: dict[str, str | None]) -> list[dict]:
-    """Merge roles held by the same group into one card with at most three evidence fields."""
-    cards: dict[str, dict] = {}
+    """Merge roles held by the same group into one card with at most three evidence fields.
+
+    Each role's primary evidence is taken before any role's secondary field,
+    so a merged "leader + broadest" card still shows breadth.
+    """
+    held: dict[str, list[str]] = {}
     for role in ROLE_EVIDENCE:
-        group_id = roles.get(role)
-        if group_id is None:
-            continue
-        card = cards.setdefault(group_id, {"group_id": group_id, "roles": [], "evidence": []})
-        card["roles"].append(role)
-        for field in ROLE_EVIDENCE[role]:
-            item = {"group_id": group_id, "field": field}
-            if item not in card["evidence"] and len(card["evidence"]) < 3:
-                card["evidence"].append(item)
-    return list(cards.values())
+        if roles.get(role) is not None:
+            held.setdefault(roles[role], []).append(role)
+    cards = []
+    for group_id, group_roles in held.items():
+        evidence: list[dict] = []
+        for depth in range(max(len(ROLE_EVIDENCE[role]) for role in group_roles)):
+            for role in group_roles:
+                fields = ROLE_EVIDENCE[role]
+                item = {"group_id": group_id, "field": fields[depth]} if depth < len(fields) else None
+                if item and item not in evidence and len(evidence) < 3:
+                    evidence.append(item)
+        cards.append({"group_id": group_id, "roles": group_roles, "evidence": evidence})
+    return cards
 
 
 def serialize_v2(canonical: dict, generated_at: str) -> dict[str, dict]:
@@ -1080,6 +1087,28 @@ def v2_paths(output: Path) -> dict[str, Path]:
     return {name: output.with_name(f"market_rotation_{name}.json") for name in ("summary", "groups", "stocks")}
 
 
+def build_outputs(canonical: dict, registry: dict, generated_at: str) -> dict[str, dict]:
+    """Serialise every artifact and run all batch gates before anything is written.
+
+    Returns {"v1", "summary", "groups", "stocks", "registry"} payloads that
+    already passed their contracts, cross-file references and v1/v2 parity.
+    """
+    v1 = serialize_v1(canonical, generated_at)
+    v2 = serialize_v2(canonical, generated_at)
+    validate_v1(v1)
+    validate_v2(v2["summary"], v2["groups"], v2["stocks"])
+    check_parity(v1, v2["summary"], v2["groups"], v2["stocks"])
+    validate_registry(registry)
+    return {"v1": v1, **v2, "registry": registry}
+
+
+def publish_outputs(outputs: dict[str, dict], output: Path, registry_path: Path) -> dict[str, bool]:
+    """Replace v1, the three v2 files and the registry as one validated batch."""
+    targets = {"v1": output, **v2_paths(output), "registry": registry_path}
+    changed = publish_artifacts([(targets[name], outputs[name], None) for name in targets])
+    return {name: changed[path] for name, path in targets.items()}
+
+
 def build_payload(
     universe: dict, closes: pd.DataFrame, volumes: pd.DataFrame, registry: dict | None = None,
 ) -> dict:
@@ -1091,7 +1120,9 @@ def build_payload(
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--universe", type=Path, default=UNIVERSE_PATH)
-    parser.add_argument("--output", type=Path, default=OUTPUT_PATH)
+    parser.add_argument("--output", type=Path, default=OUTPUT_PATH,
+                        help="v1 file; v2 summary/groups/stocks are written beside it.")
+    parser.add_argument("--registry", type=Path, default=REGISTRY_PATH)
     parser.add_argument("--skip-universe-refresh", action="store_true")
     parser.add_argument("--days", type=int, default=320)
     parser.add_argument("--batch-size", type=int, default=80)
@@ -1130,8 +1161,9 @@ def main() -> None:
                 file=sys.stderr,
             )
             raise SystemExit(75) from error
-    payload = build_payload(universe, closes, volumes)
-    actual_session = date.fromisoformat(payload["as_of"])
+    registry = json.loads(args.registry.read_text()) if args.registry.exists() else None
+    canonical, registry = calculate_canonical(universe, closes, volumes, registry)
+    actual_session = date.fromisoformat(canonical["as_of"])
     if not args.allow_stale:
         try:
             require_fresh_market_data(actual_session, expected_session)
@@ -1142,12 +1174,15 @@ def main() -> None:
                 file=sys.stderr,
             )
             raise SystemExit(75) from error
-    changed = write_if_changed(args.output, payload, validate_v1)
+    outputs = build_outputs(canonical, registry, utc_now())
+    changed = publish_outputs(outputs, args.output, args.registry)
+    payload = outputs["v1"]
     print(
         f"Market rotation: {payload['as_of']}, "
         f"{payload['coverage']['priced_securities']}/{payload['coverage']['universe_securities']} "
-        f"securities, {len(payload['sectors'])} sectors, {len(payload['industries'])} industries "
-        f"({'updated' if changed else 'unchanged'})"
+        f"securities, {len(payload['sectors'])} sectors, {len(payload['industries'])} industries, "
+        f"dataset {outputs['summary']['dataset_id'][7:19]} "
+        f"({', '.join(name for name, moved in changed.items() if moved) or 'unchanged'})"
     )
 
 

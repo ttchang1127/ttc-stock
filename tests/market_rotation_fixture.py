@@ -15,6 +15,7 @@ formula or contract change caused it.
 from __future__ import annotations
 
 import argparse
+import copy
 import importlib.util
 import json
 import pathlib
@@ -26,6 +27,12 @@ ROOT = pathlib.Path(__file__).resolve().parents[1]
 FIXTURES = ROOT / "tests/fixtures/market_rotation"
 QUADRANTS = FIXTURES / "quadrants"
 GOLDEN_V1 = QUADRANTS / "expected_v1.json"
+GOLDEN = {
+    "v1": GOLDEN_V1,
+    "summary": QUADRANTS / "expected_v2_summary.json",
+    "groups": QUADRANTS / "expected_v2_groups.json",
+    "stocks": QUADRANTS / "expected_v2_stocks.json",
+}
 VOLATILE_KEYS = ("generated_at",)
 
 
@@ -99,20 +106,43 @@ def build_fixture_v1() -> dict:
     return load_builder().build_payload(universe, closes, volumes)
 
 
+_CANONICAL_CACHE: dict = {}
+
+
+def fixture_canonical() -> tuple[dict, dict]:
+    """The unmodified quadrants fixture is built once per test process."""
+    if "quadrants" not in _CANONICAL_CACHE:
+        universe, closes, volumes = load_fixture()
+        _CANONICAL_CACHE["quadrants"] = load_builder().calculate_canonical(universe, closes, volumes)
+    canonical, registry = _CANONICAL_CACHE["quadrants"]
+    return copy.deepcopy(canonical), copy.deepcopy(registry)
+
+
+def build_fixture_outputs(generated_at: str = "2026-01-01T00:00:00+00:00") -> dict:
+    """v1, the three v2 files and the registry, after every batch gate passed."""
+    canonical, registry = fixture_canonical()
+    return load_builder().build_outputs(canonical, registry, generated_at)
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Market-rotation golden maintenance")
     parser.add_argument("--update-golden", action="store_true")
     args = parser.parse_args()
-    actual = build_fixture_v1()
-    if GOLDEN_V1.exists():
-        changed = differences(stable(json.loads(GOLDEN_V1.read_text())), stable(actual), limit=200)
-    else:
-        changed = ["(new golden file)"]
-    print("\n".join(changed) or "Golden output unchanged.")
-    if args.update_golden and changed:
-        GOLDEN_V1.write_text(canonical_json(actual))
-        print(f"Wrote {GOLDEN_V1.relative_to(ROOT)}")
-    elif changed:
+    outputs = build_fixture_outputs()
+    outputs["v1"] = build_fixture_v1()
+    any_change = False
+    for name, path in GOLDEN.items():
+        if path.exists():
+            changed = differences(stable(json.loads(path.read_text())), stable(outputs[name]), limit=200)
+        else:
+            changed = ["(new golden file)"]
+        print(f"[{name}] " + ("\n".join(changed) or "unchanged"))
+        if changed:
+            any_change = True
+            if args.update_golden:
+                path.write_text(canonical_json(outputs[name]))
+                print(f"Wrote {path.relative_to(ROOT)}")
+    if any_change and not args.update_golden:
         raise SystemExit(1)
 
 

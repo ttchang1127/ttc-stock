@@ -15,7 +15,7 @@
 
 ## Golden 更新規則
 
-`quadrants/expected_v1.json` 是目前 v1 計算的基準輸出，只忽略 `generated_at`。一般測試**不會**自動更新它。
+`quadrants/expected_v1.json` 是 v1 基準輸出；`expected_v2_summary.json`、`expected_v2_groups.json`、`expected_v2_stocks.json` 是同一輸入的 v2 三檔。四者都只忽略 `generated_at`，一般測試**不會**自動更新它們。
 
 ```bash
 python3 tests/market_rotation_fixture.py                  # 只顯示差異；有差異時以非零狀態結束

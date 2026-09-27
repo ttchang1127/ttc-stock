@@ -308,6 +308,39 @@ class MarketRotationPageTests(unittest.TestCase):
         self.assertIn("'lxml>=5,<7'", self.workflow)
         self.assertIn("market_rotation_universe", self.workflow)
         self.assertIn("market_rotation|", self.workflow)
+        for name in ("summary", "groups", "stocks", "registry"):
+            self.assertIn(f"market_rotation_{name}|", self.workflow,
+                          f"daily commit allowlist must accept market_rotation_{name}.json")
+
+
+class MainDualWriteTests(unittest.TestCase):
+    def test_main_writes_v1_v2_and_registry_offline(self):
+        universe, closes, volumes = fixture.load_fixture()
+        as_of = closes.index[-1].date().isoformat()
+        with tempfile.TemporaryDirectory() as directory:
+            folder = pathlib.Path(directory)
+            (folder / "universe.json").write_text(json.dumps(universe))
+            argv = ["build_market_rotation.py", "--skip-universe-refresh",
+                    "--universe", str(folder / "universe.json"),
+                    "--output", str(folder / "market_rotation.json"),
+                    "--registry", str(folder / "market_rotation_registry.json"),
+                    "--expected-session", as_of]
+            original_fetch, original_argv = MODULE.fetch_market_data, sys.argv
+            MODULE.fetch_market_data = lambda *args, **kwargs: (closes.copy(), volumes.copy())
+            sys.argv = argv
+            try:
+                MODULE.main()
+            finally:
+                MODULE.fetch_market_data, sys.argv = original_fetch, original_argv
+            names = ["market_rotation.json", "market_rotation_registry.json"] + [
+                f"market_rotation_{name}.json" for name in ("summary", "groups", "stocks")]
+            self.assertEqual(sorted(path.name for path in folder.glob("market_rotation*.json")), sorted(names))
+            v1 = json.loads((folder / "market_rotation.json").read_text())
+            summary = json.loads((folder / "market_rotation_summary.json").read_text())
+            self.assertEqual(fixture.differences(
+                fixture.stable(json.loads(fixture.GOLDEN_V1.read_text())), fixture.stable(v1)), [])
+            self.assertEqual(summary["as_of"], as_of)
+            self.assertEqual(summary["generated_at"], v1["generated_at"])
 
 
 class PagesDeployGateTests(unittest.TestCase):

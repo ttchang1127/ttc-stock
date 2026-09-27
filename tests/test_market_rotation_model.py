@@ -92,7 +92,9 @@ class RoleSelectionTests(unittest.TestCase):
                                    "weakening": "sector:b", "broadest": "sector:a"})
         self.assertEqual([c["group_id"] for c in cards], ["sector:a", "sector:b"])
         self.assertEqual(cards[0]["roles"], ["leader", "broadest"])
-        self.assertLessEqual(len(cards[0]["evidence"]), 3)
+        self.assertEqual([item["field"] for item in cards[0]["evidence"]],
+                         ["metrics.relative_strength_20d", "metrics.breadth", "metrics.acceleration_5d"],
+                         "each merged role keeps its primary evidence")
 
 
 class RegistryTests(unittest.TestCase):
