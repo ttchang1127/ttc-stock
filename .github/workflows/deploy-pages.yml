@@ -43,22 +43,52 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  deploy:
+  # Hard gate: the Pages artifact is only built after the offline market
+  # rotation tests and the committed-data integrity check pass. It never
+  # refetches market data; it validates exactly what is about to be served.
+  quality:
     # Never publish the output of a failed refresh. Push and manual dispatch
     # events do not carry workflow_run, so they continue to deploy normally.
     if: >-
       github.event_name != 'workflow_run' ||
       github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
+    outputs:
+      sha: ${{ steps.verified.outputs.sha }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - id: verified
+        run: echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install quality-gate dependencies
+        run: python3 -m pip install --quiet pandas 'yfinance>=1.2.0' 'lxml>=5,<7' 'pypdf>=6,<7'
+
+      - name: Run offline market rotation tests
+        run: python3 -m unittest discover -s tests -p 'test_market_rotation*.py' -v
+
+      - name: Verify committed data integrity
+        run: python3 scripts/check_integrity.py --quiet
+
+  deploy:
+    needs: quality
+    runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       # workflow_run points at the commit that started the refresh, before its
-      # bot commit. Explicitly checkout main to package the newly pushed data.
+      # bot commit, so the quality job resolved main. Package exactly the
+      # commit it verified, even if main moved while the gate was running.
       - uses: actions/checkout@v4
         with:
-          ref: main
+          ref: ${{ needs.quality.outputs.sha }}
 
       - uses: actions/configure-pages@v5
 

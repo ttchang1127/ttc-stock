@@ -310,5 +310,21 @@ class MarketRotationPageTests(unittest.TestCase):
         self.assertIn("market_rotation|", self.workflow)
 
 
+class PagesDeployGateTests(unittest.TestCase):
+    def test_mr_dep_001_pages_artifact_waits_for_quality_gate(self):
+        workflow = (ROOT / ".github/workflows/deploy-pages.yml").read_text()
+        quality = workflow[workflow.index("  quality:"):workflow.index("  deploy:")]
+        deploy = workflow[workflow.index("  deploy:"):]
+        self.assertIn("python3 -m unittest discover -s tests -p 'test_market_rotation*.py'", quality)
+        self.assertIn("python3 scripts/check_integrity.py --quiet", quality)
+        self.assertLess(quality.index("unittest discover"), quality.index("check_integrity.py"))
+        self.assertIn("needs: quality", deploy)
+        self.assertIn("ref: ${{ needs.quality.outputs.sha }}", deploy)
+        self.assertNotIn("upload-pages-artifact", quality)
+        self.assertIn("upload-pages-artifact", deploy)
+        self.assertNotIn("build_market_rotation.py", workflow, "Pages must not refetch market data")
+        self.assertNotIn("continue-on-error", workflow)
+
+
 if __name__ == "__main__":
     unittest.main()
