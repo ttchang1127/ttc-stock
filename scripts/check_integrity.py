@@ -2593,6 +2593,12 @@ def c46():
     sys.path.insert(0, str(REPO_ROOT / "scripts"))
     import market_rotation_history as rotation_history  # noqa: PLC0415
 
+    theme_path = REPO_ROOT / "market_rotation_history/backtest/theme_etf_signals.json"
+    if theme_path.exists():
+        theme = json.loads(theme_path.read_text())
+        if theme.get("status") != "research" or theme.get("history_quality") != "point_in_time_nport" \
+                or not theme.get("limitations"):
+            return False, "theme_etf_signals.json 必須標示 research、時點正確的 N-PORT 歷史與限制"
     momentum_path = REPO_ROOT / "market_rotation_history/backtest/sector_etf_momentum.json"
     if momentum_path.exists():
         momentum = json.loads(momentum_path.read_text())
