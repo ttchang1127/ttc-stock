@@ -115,6 +115,17 @@ class QuadrantAndOrderingTests(unittest.TestCase):
         self.assertEqual(rows["y-negative"]["quadrant"], "weakening", "MR-EDGE-004 x=0")
         self.assertEqual(rows["both-negative"]["quadrant"], "lagging")
 
+    def test_mr_edge_004_quadrant_uses_published_rounded_axes(self):
+        rows = {row["key"]: row for row in MODULE.score_rows([
+            raw_row("noise-below-zero", -1e-9, -1e-9), raw_row("clearly-negative", -0.01, -0.01),
+        ])}
+        noise = rows["noise-below-zero"]
+        self.assertEqual((noise["relative_strength_20d"], noise["acceleration_5d"]), (0.0, 0.0))
+        self.assertEqual(math.copysign(1, noise["acceleration_5d"]), 1.0, "no -0.0 in output")
+        self.assertEqual(noise["quadrant"], "leading",
+                         "MR-EDGE-004 a value published as 0.00 must use the non-negative quadrant")
+        self.assertEqual(rows["clearly-negative"]["quadrant"], "lagging")
+
     def test_mr_edge_005_ties_use_stable_group_id(self):
         rows = MODULE.score_rows([raw_row("Utilities"), raw_row("Energy"), raw_row("Materials")])
         self.assertEqual(len({row["rotation_score"] for row in rows}), 1, "fixture must tie")

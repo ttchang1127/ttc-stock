@@ -431,7 +431,8 @@ def fetch_market_data(
 def finite(value, digits: int = 4):
     if value is None or pd.isna(value) or not math.isfinite(float(value)):
         return None
-    return round(float(value), digits)
+    # "+ 0.0" folds -0.0 into 0.0 so a rounded zero never prints as "-0.0".
+    return round(float(value), digits) + 0.0
 
 
 def pct(value):
@@ -586,6 +587,17 @@ def frame_to_clean_records(frame: pd.DataFrame, source_rows: list[dict]) -> list
         for metric in SCORE_WEIGHTS:
             source[f"rank_{metric}"] = finite(scored[f"rank_{metric}"], 1)
         source["rotation_score"] = finite(scored["rotation_score"], 1)
+        source["quadrant"], source["quadrant_zh"] = None, None
+        for metric in (
+            "return_5d", "return_20d", "return_60d", "relative_strength_5d",
+            "relative_strength_20d", "relative_strength_60d", "acceleration_5d",
+            "breadth_positive_20d", "breadth_above_ma20", "breadth",
+            "dollar_volume_expansion", "persistence", "liquidity_weighted_return_20d",
+            "leadership_gap",
+        ):
+            source[metric] = pct(source.get(metric))
+        # Classify on the published (rounded) axes so a point drawn at 0.00
+        # always carries the non-negative quadrant the page explains.
         x = source["relative_strength_20d"]
         y = source["acceleration_5d"]
         if x >= 0 and y >= 0:
@@ -596,14 +608,6 @@ def frame_to_clean_records(frame: pd.DataFrame, source_rows: list[dict]) -> list
             source["quadrant"], source["quadrant_zh"] = "weakening", "轉弱"
         else:
             source["quadrant"], source["quadrant_zh"] = "lagging", "落後"
-        for metric in (
-            "return_5d", "return_20d", "return_60d", "relative_strength_5d",
-            "relative_strength_20d", "relative_strength_60d", "acceleration_5d",
-            "breadth_positive_20d", "breadth_above_ma20", "breadth",
-            "dollar_volume_expansion", "persistence", "liquidity_weighted_return_20d",
-            "leadership_gap",
-        ):
-            source[metric] = pct(source.get(metric))
         source["score_change_5d"] = None
         result.append(source)
     return result
