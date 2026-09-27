@@ -46,9 +46,11 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+          cache: pip
+          cache-dependency-path: requirements.txt
 
       - name: Install dependencies
-        run: pip install --quiet 'yfinance>=1.2.0' pandas 'lxml>=5,<7' 'pypdf>=6,<7'
+        run: python3 -m pip install --quiet -r requirements.txt
 
       # A successful HTTP response is not enough: on 2026-09-15 Yahoo returned
       # hundreds of valid histories whose latest adjusted close was still

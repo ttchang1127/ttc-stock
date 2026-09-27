@@ -4,26 +4,41 @@ import unittest
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 WORKFLOWS = ROOT / ".github/workflows"
+REQUIRED_PACKAGES = ("pandas", "yfinance", "pypdf", "lxml", "curl_cffi")
 
 
-class WorkflowTestDependencyTests(unittest.TestCase):
-    def test_workflows_running_full_suite_install_its_imports(self):
-        """A workflow that runs every test module must install what they import.
+class WorkflowDependencyTests(unittest.TestCase):
+    """Dependencies come from one file so no workflow can drift behind the suite.
 
-        sec-filing-alerts.yml ran `unittest discover` without pandas and failed
-        at import on every run from 2026-09-13, silently freezing SEC radars.
-        """
-        full_suite = re.compile(r"unittest discover -s tests(?! -p)")
+    sec-filing-alerts.yml once listed its own subset without pandas and failed
+    at test import on every run from 2026-09-13, silently freezing SEC radars.
+    """
+
+    def test_requirements_file_lists_what_the_code_imports(self):
+        names = {re.split(r"[<>=!~\[ ]", line.strip(), maxsplit=1)[0].lower()
+                 for line in (ROOT / "requirements.txt").read_text().splitlines()
+                 if line.strip() and not line.startswith("#")}
+        for package in REQUIRED_PACKAGES:
+            self.assertIn(package.lower(), names, f"requirements.txt is missing {package}")
+
+    def test_every_python_workflow_installs_the_requirements_file(self):
         checked = 0
         for path in sorted(WORKFLOWS.glob("*.yml")):
             text = path.read_text()
-            if not full_suite.search(text):
+            if "python3 " not in text:
                 continue
             checked += 1
-            installs = " ".join(re.findall(r"pip install[^\n]*", text))
-            for package in ("pandas", "yfinance", "pypdf"):
-                self.assertIn(package, installs, f"{path.name} runs the full suite without {package}")
-        self.assertGreater(checked, 0)
+            installs = re.findall(r"pip install[^\n]*", text)
+            self.assertTrue(installs, f"{path.name} runs Python without installing dependencies")
+            for line in installs:
+                self.assertIn("-r requirements.txt", line,
+                              f"{path.name} installs packages outside requirements.txt: {line}")
+        self.assertGreaterEqual(checked, 4)
+
+    def test_session_start_hook_installs_the_requirements_file(self):
+        hook = (ROOT / ".claude/hooks/session-start.sh").read_text()
+        self.assertIn("requirements.txt", hook)
+        self.assertNotRegex(hook, r"pip install[^\n]*'?pandas")
 
 
 if __name__ == "__main__":

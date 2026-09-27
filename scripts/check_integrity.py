@@ -1186,12 +1186,16 @@ def c28():
     required = (
         "track_earnings_calls.py", "earnings_call_analysis.json", "earnings_call_sources.json",
         "Earnings_Call_Radar.md", "earnings_call_changed_count",
-        "earnings_call_changed_attention_count", "pypdf>=6,<7", "curl_cffi>=0.13,<0.14",
+        "earnings_call_changed_attention_count",
     )
     missing = [f"workflow:{marker}" for marker in required if marker not in workflow]
-    for workflow_path in (".github/workflows/update-prices.yml", ".github/workflows/sec-13f-radar.yml"):
-        if "pypdf>=6,<7" not in read(workflow_path):
-            missing.append(f"{workflow_path}:pypdf>=6,<7")
+    requirements = read("requirements.txt")
+    missing += [f"requirements.txt:{pin}" for pin in ("pypdf>=6,<7", "curl_cffi>=0.13,<0.14")
+                if pin not in requirements]
+    for workflow_path in (".github/workflows/sec-filing-alerts.yml",
+                          ".github/workflows/update-prices.yml", ".github/workflows/sec-13f-radar.yml"):
+        if "pip install --quiet -r requirements.txt" not in read(workflow_path):
+            missing.append(f"{workflow_path}:-r requirements.txt")
     if "Earnings_Call_Radar" not in read("00_Home.md"):
         missing.append("00_Home:Earnings_Call_Radar")
     page = read("dashboard.html")

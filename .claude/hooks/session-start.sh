@@ -1,6 +1,6 @@
 #!/bin/bash
-# Install the Python packages the test suite and check_integrity.py import,
-# using the same version ranges as the GitHub Actions workflows.
+# Install the Python packages from requirements.txt, the same file every
+# GitHub Actions workflow installs, so tests and check_integrity.py run.
 set -euo pipefail
 
 if [ "${CLAUDE_CODE_REMOTE:-}" != "true" ]; then
@@ -8,4 +8,4 @@ if [ "${CLAUDE_CODE_REMOTE:-}" != "true" ]; then
 fi
 
 python3 -m pip install --quiet --disable-pip-version-check --root-user-action=ignore \
-  pandas 'yfinance>=1.2.0' 'lxml>=5,<7' 'pypdf>=6,<7'
+  -r "${CLAUDE_PROJECT_DIR:-.}/requirements.txt"

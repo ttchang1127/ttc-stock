@@ -325,7 +325,8 @@ class MarketRotationPageTests(unittest.TestCase):
         self.assertIn('if [ "$status" -ne 75 ]', self.workflow)
         self.assertIn("steps.rotation_build.outputs.fresh == 'false'", self.workflow)
         self.assertIn("preserving the prior rotation file", self.workflow)
-        self.assertIn("'lxml>=5,<7'", self.workflow)
+        self.assertIn("pip install --quiet -r requirements.txt", self.workflow)
+        self.assertIn("lxml>=5,<7", (ROOT / "requirements.txt").read_text())
         self.assertIn("market_rotation_universe", self.workflow)
         self.assertIn("market_rotation|", self.workflow)
         for name in ("summary", "groups", "stocks", "registry"):
