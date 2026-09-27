@@ -78,15 +78,15 @@ Form 144＋3／4／5、併購與 SEC 執法／停牌雷達。完整 13F 另以
      SEC 連線。尚未改的只有不在排程裡的舊手動腳本（`fetch_sec.py`、`fetch_form8k_events.py`、
      `fetch_insider_institutional.py`），以及同時抓 SEC 與公司 IR 網站的 `track_earnings_calls.py`。
    - 拆分 `check_integrity.py`：依領域分模組，逐步把 HTML 字串比對換成資料與行為測試。
-4. **市場輪動研究層上線後**：合併後第一次每日排程會產生 `market_rotation_research.json` 與第一筆 A 級快照——屆時移除 `data_manifest.json` 中該檔的 `awaiting_first_run`（測試會提醒）；到 Actions 手動觸發一次「Market rotation back-test」產生第一份回測（2026-09-27 已執行：暫定規則在 20／60 日幾乎沒有辨識力，見計畫進度表）。之後依回測結果檢討門檻（計畫第 15.10～15.11 節），不看單次結果調參。規則敏感度（`market_rotation_history/backtest/sensitivity.json`）隨每月回測產生；要加新候選規則必須提高 `SENSITIVITY_VERSION`，舊結果照樣保留。
-5. **ETF 研究後續**：
-   - 板塊 ETF 中期動能回測（2026-09-27）：四個候選都沒有穩定優勢，只有回撤較小；輪動頁**不**改成月度排名，每月回測持續更新。
-   - 2026-09-27 首次實跑：VGT、VOO 對應率只有 83％／85％（股票池用簡稱，對不到 Amazon.com Inc 等正式名稱），已改加 SEC 公司名稱對應並提高 `MAPPING_VERSION`。下一次 SEC 排程後檢查 `etf_holdings/index.json`：每檔的 `lookup`、`equity_mapped_weight_pct`，以及 12 檔主題 ETF 是否都抓到（`error` 欄位）。
-   - 主題 ETF 成分健康度（`etf_health.json`）第一次產生後，移除 `data_manifest.json` 中該檔的 `awaiting_first_run`；TAN、URA 外國成分多，涵蓋率可能不到七成而顯示「資料不足」。
-   - 健康度每日快照（`etf_health_history/`）開始累積：約 3～6 個月後可檢驗 etf-health-2 標籤（例如「普遍上漲」之後 20／60 日相對表現），檢驗規則要事先寫好再看結果。
-   - 資金流向（F-3）上線後：確認 SEC 排程已回補 `etf_holdings/history/`（每檔約 2019 年起、看 `skipped` 原因），以及 `etf_flows_history/` 每日有新增一行；Yahoo 若對某些 ETF 沒有流通股數與資產規模，估計欄會一直是空的。
-   - 清單擴大到 theme-etf-2（25 檔）後：SEC 排程會回補新增 13 檔的 N-PORT 歷史（看 `etf_holdings/index.json` 的 `error`），之後手動觸發一次回測；GDX、COPX、LIT、BOTZ 外國成分多，健康度可能顯示資料不足。
-   - 主題 ETF 訊號回測（F-4）：N-PORT 歷史回補完成後，到 Actions 手動觸發一次「Market rotation back-test」，看 `theme_etf_signals.json` 各訊號判定；之後每月 3 日自動更新。要加新訊號必須提高 `SIGNAL_VERSION`，舊結果保留。
+4. **市場輪動研究層**（2026-09-27 上線；研究檔與 A 級快照已開始每日累積）：暫定規則在 20／60 日幾乎沒有辨識力（見計畫進度表）。之後依回測結果檢討門檻（計畫第 15.10～15.11 節），不看單次結果調參。規則敏感度（`market_rotation_history/backtest/sensitivity.json`）隨每月回測產生；要加新候選規則必須提高 `SENSITIVITY_VERSION`，舊結果照樣保留。
+5. **ETF 研究後續**。2026-09-27 結論：價格動能、成分廣度、參與度、N-PORT 資金流都**不能**預測下個月的強勢族群（12 檔與 25 檔清單結果一致，見 [[Sec_kb_工作紀錄_2026-09-27#7.2 研究結論（都是負面結果，照樣公布）|工作紀錄 7.2]]）。**暫停再找新的預測訊號**，健康度表格只當描述工具。
+   - **自動累積中，不需動作**：`etf_health_history/`（健康度每日一行）、`etf_flows_history/`（Yahoo 資金流每日一行）、`etf_holdings/history/`（每季新 N-PORT 自動追加）、每月 3 日回測重算 theme-etf-1 與 theme-etf-2。
+   - **約 2026-10 下旬**：Yahoo 紀錄滿 21 個交易日後，健康度表格才有 20 日資金流估計；檢查是否多數 ETF 仍是空值（Yahoo 資產規模若不每天更新，估計就不可靠，屆時考慮拿掉這一欄）。
+   - **約 2027-03（快照滿 6 個月）**：驗證 etf-health-2 標籤。**先把檢驗規則寫進計畫再看結果**，例如「普遍上漲」之後 20／60 日相對 SPY 與其他狀態的差異、樣本數門檻與判定標準；規則寫好之前不要打開資料看。
+   - **可選 D（描述性頁面）**：每檔 ETF 的 N-PORT 每月淨申購折線圖（約 7 年資料已在 `etf_holdings/history/`）；主題輪動總覽表（動能、成分廣度、資金流並排）。不涉及預測。
+   - **可選 G（低優先）**：用 OpenFIGI 以 ISIN 補 2019～2021 年的代號對應（KRE、XBI、XOP 早期只有 47～56%）；但已下市公司在 Yahoo 也沒有報價，能改善的有限。
+   - **已知資料限制，不是 bug**：COPX（28%）、LIT（33%）、BOTZ（50%）、URA（61%）、TAN（66%）有報價的成分不到七成，健康度顯示「資料不足」；Yahoo 只有少數 ETF 有流通股數，資金流估計主要靠資產規模。
+   - **規則**：要加新訊號或新清單，必須提高 `SIGNAL_VERSION`／`THEME_ETF_VERSION`，舊結果保留並列；不為健康度或資金流新增通知（沒有預測力）。
 6. **市場輪動 MVP-1 後續**：WP-3 預覽頁 `market_rotation_v2.html`、WP-4 首頁一句摘要與限制提示
    （計畫第 35.8～35.9 節）、WP-5 板塊下鑽、WP-6 手機卡片與無障礙、WP-7 切換前閘門。
 7. **架構改善第三優先**：`dashboard.html` 的 `titansData` 改由 `fundamentals.json`／`valuation.json` 產生；
