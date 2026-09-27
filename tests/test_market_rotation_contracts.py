@@ -116,5 +116,93 @@ class V1ContractTests(unittest.TestCase):
         self.assertEqual(text, '{"b":1,"a":"資訊科技"}\n')
 
 
+class WritePathTests(unittest.TestCase):
+    """MR-IO-*: nothing on disk changes unless every new payload is valid."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.builder = fixture.load_builder()
+
+    def setUp(self):
+        import tempfile
+        self.directory = tempfile.TemporaryDirectory()
+        self.folder = pathlib.Path(self.directory.name)
+        self.path = self.folder / "market_rotation.json"
+
+    def tearDown(self):
+        self.directory.cleanup()
+
+    def leftovers(self):
+        return sorted(item.name for item in self.folder.iterdir() if item.name.endswith(".tmp"))
+
+    def test_mr_io_002_substantive_change_rewrites_compact_file(self):
+        first = golden_v1()
+        self.assertTrue(self.builder.write_if_changed(self.path, first, contracts.validate_v1))
+        changed = golden_v1()
+        changed["sectors"][0]["breadth"] = 50.0
+        self.assertTrue(self.builder.write_if_changed(self.path, changed, contracts.validate_v1))
+        text = self.path.read_text()
+        self.assertEqual(text, contracts.dump_json(changed))
+        self.assertTrue(text.endswith("}\n") and "\n" not in text[:-1])
+
+    def test_mr_io_002_reformats_pretty_file_without_touching_generated_at(self):
+        stored = dict(golden_v1(), generated_at="first")
+        self.path.write_text(json.dumps(stored, ensure_ascii=False, indent=2))
+        rerun = dict(golden_v1(), generated_at="second")
+        self.assertTrue(self.builder.write_if_changed(self.path, rerun, contracts.validate_v1))
+        self.assertEqual(json.loads(self.path.read_text())["generated_at"], "first")
+        self.assertFalse(self.builder.write_if_changed(self.path, rerun, contracts.validate_v1))
+
+    def test_mr_io_003_corrupt_file_is_repaired_by_valid_payload(self):
+        self.path.write_text('{"schema_version": 1, "sectors": [')
+        self.assertTrue(self.builder.write_if_changed(self.path, golden_v1(), contracts.validate_v1))
+        contracts.validate_v1(json.loads(self.path.read_text()))
+
+    def test_mr_io_003_corrupt_file_untouched_when_new_payload_is_invalid(self):
+        broken = '{"schema_version": 1, "sectors": ['
+        self.path.write_text(broken)
+        invalid = golden_v1()
+        invalid["sectors"][0]["quadrant"] = "bullish"
+        with self.assertRaises(contracts.ContractError):
+            self.builder.write_if_changed(self.path, invalid, contracts.validate_v1)
+        self.assertEqual(self.path.read_text(), broken)
+
+    def test_contract_failure_keeps_published_file(self):
+        self.builder.write_if_changed(self.path, golden_v1(), contracts.validate_v1)
+        before = self.path.read_bytes()
+        invalid = golden_v1()
+        del invalid["coverage"]
+        with self.assertRaises(contracts.ContractError):
+            self.builder.write_if_changed(self.path, invalid, contracts.validate_v1)
+        self.assertEqual(self.path.read_bytes(), before)
+        self.assertEqual(self.leftovers(), [])
+
+    def test_non_finite_payload_is_refused_even_without_validator(self):
+        self.builder.write_if_changed(self.path, {"value": 1})
+        before = self.path.read_bytes()
+        with self.assertRaises(ValueError):
+            self.builder.write_if_changed(self.path, {"value": float("nan")})
+        self.assertEqual(self.path.read_bytes(), before)
+
+    def test_batch_publish_replaces_nothing_when_any_file_fails(self):
+        other = self.folder / "other.json"
+        self.builder.write_if_changed(self.path, golden_v1(), contracts.validate_v1)
+        other.write_text('{"old":true}\n')
+        before = (self.path.read_bytes(), other.read_bytes())
+        changed = golden_v1()
+        changed["sectors"][0]["breadth"] = 50.0
+
+        def reject(_payload):
+            raise contracts.ContractError(["$.other: rejected for test"])
+
+        with self.assertRaises(contracts.ContractError):
+            self.builder.publish_artifacts([
+                (self.path, changed, contracts.validate_v1),
+                (other, {"new": True}, reject),
+            ])
+        self.assertEqual((self.path.read_bytes(), other.read_bytes()), before)
+        self.assertEqual(self.leftovers(), [])
+
+
 if __name__ == "__main__":
     unittest.main()

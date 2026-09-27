@@ -16,17 +16,21 @@ import argparse
 import io
 import json
 import math
+import os
 import re
 import sys
+import tempfile
 from datetime import date, datetime, time, timedelta, timezone
 from pathlib import Path
-from typing import Iterable
+from typing import Callable, Iterable
 from urllib.request import Request, urlopen
 from zoneinfo import ZoneInfo
 
 import numpy as np
 import pandas as pd
 import yfinance as yf
+
+from market_rotation_contracts import dump_json, validate_v1
 
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -295,25 +299,62 @@ def stable_payload(payload: dict) -> dict:
     return value
 
 
-def write_if_changed(path: Path, payload: dict) -> bool:
-    if path.exists():
-        try:
-            previous = json.loads(path.read_text())
-        except (OSError, json.JSONDecodeError):
-            previous = None
-        if previous is not None and stable_payload(previous) == stable_payload(payload):
-            # Generated market files are intentionally minified.  Hundreds of
-            # constituents and trajectory points otherwise turn a small data
-            # change into thousands of diff lines and waste review context.
-            compact_previous = json.dumps(
-                previous, ensure_ascii=False, separators=(",", ":")
-            ) + "\n"
-            if path.read_text() != compact_previous:
-                path.write_text(compact_previous)
-                return True
-            return False
-    path.write_text(json.dumps(payload, ensure_ascii=False, separators=(",", ":")) + "\n")
-    return True
+def planned_text(path: Path, payload: dict) -> str | None:
+    """Text to write, or None when only ``generated_at`` would change."""
+    text = dump_json(payload)
+    if not path.exists():
+        return text
+    try:
+        current = path.read_text()
+        previous = json.loads(current)
+    except (OSError, json.JSONDecodeError):
+        return text
+    if stable_payload(previous) != stable_payload(payload):
+        return text
+    # Generated market files are intentionally minified.  Hundreds of
+    # constituents and trajectory points otherwise turn a small data change
+    # into thousands of diff lines and waste review context.
+    compact_previous = dump_json(previous)
+    return compact_previous if current != compact_previous else None
+
+
+def publish_artifacts(
+    outputs: list[tuple[Path, dict, Callable[[dict], None] | None]],
+) -> dict[Path, bool]:
+    """Validate every payload first, then replace only the files that changed.
+
+    Nothing on disk is touched unless all payloads pass their contracts and
+    serialise without NaN/Infinity.  Changed files are staged beside their
+    targets and swapped in with ``os.replace`` so a reader never sees a
+    half-written file.
+    """
+    for path, payload, validate in outputs:
+        if validate is not None:
+            validate(payload)
+    plans = [(path, planned_text(path, payload)) for path, payload, _ in outputs]
+    staged: list[tuple[str, Path]] = []
+    try:
+        for path, text in plans:
+            if text is None:
+                continue
+            handle = tempfile.NamedTemporaryFile(
+                "w", dir=path.parent, prefix=f".{path.name}.", suffix=".tmp",
+                delete=False, encoding="utf-8",
+            )
+            with handle:
+                handle.write(text)
+            staged.append((handle.name, path))
+        for temporary, path in staged:
+            os.replace(temporary, path)
+    finally:
+        for temporary, _ in staged:
+            if os.path.exists(temporary):
+                os.unlink(temporary)
+    return {path: text is not None for path, text in plans}
+
+
+def write_if_changed(path: Path, payload: dict, validate=None) -> bool:
+    return publish_artifacts([(path, payload, validate)])[path]
 
 
 def refresh_universe(path: Path = UNIVERSE_PATH) -> dict:
@@ -792,7 +833,7 @@ def main() -> None:
                 file=sys.stderr,
             )
             raise SystemExit(75) from error
-    changed = write_if_changed(args.output, payload)
+    changed = write_if_changed(args.output, payload, validate_v1)
     print(
         f"Market rotation: {payload['as_of']}, "
         f"{payload['coverage']['priced_securities']}/{payload['coverage']['universe_securities']} "
