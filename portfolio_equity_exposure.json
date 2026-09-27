@@ -494,12 +494,238 @@
  ],
  "changes": [],
  "look_through": {
-  "available": false,
-  "missing_funds": [
-   "VGT",
-   "VOO"
+  "available": true,
+  "total_value": 102324.59,
+  "direct_share_pct": 35.56,
+  "funds": [
+   {
+    "ticker": "VGT",
+    "value": 31290.16,
+    "report_date": "2026-05-31",
+    "accession": "0000052848-26-000893",
+    "source_url": "https://www.sec.gov/Archives/edgar/data/52848/000005284826000893/primary_doc.xml",
+    "mapped_weight_pct": 82.89,
+    "top10_weight_pct": 59.36
+   },
+   {
+    "ticker": "VOO",
+    "value": 34543.47,
+    "report_date": "2026-06-30",
+    "accession": "0000036405-26-000473",
+    "source_url": "https://www.sec.gov/Archives/edgar/data/36405/000003640526000473/primary_doc.xml",
+    "mapped_weight_pct": 85.31,
+    "top10_weight_pct": 36.4
+   }
   ],
-  "reason": "尚無基金持股資料（SEC N-PORT 由每日 SEC 排程抓取）"
+  "missing_funds": [],
+  "sectors": [
+   {
+    "name": "Information Technology",
+    "name_zh": "資訊科技",
+    "weight": 69.06
+   },
+   {
+    "name": "Communication Services",
+    "name_zh": "通訊服務",
+    "weight": 10.04
+   },
+   {
+    "name": "Unclassified",
+    "name_zh": "未分類",
+    "weight": 4.99
+   },
+   {
+    "name": "Consumer Discretionary",
+    "name_zh": "非必需消費",
+    "weight": 4.3
+   },
+   {
+    "name": "Financials",
+    "name_zh": "金融",
+    "weight": 2.9
+   },
+   {
+    "name": "Industrials",
+    "name_zh": "工業",
+    "weight": 2.49
+   },
+   {
+    "name": "Health Care",
+    "name_zh": "醫療保健",
+    "weight": 2.44
+   },
+   {
+    "name": "Consumer Staples",
+    "name_zh": "必需消費",
+    "weight": 1.29
+   },
+   {
+    "name": "Utilities",
+    "name_zh": "公用事業",
+    "weight": 0.74
+   },
+   {
+    "name": "Energy",
+    "name_zh": "能源",
+    "weight": 0.62
+   },
+   {
+    "name": "Materials",
+    "name_zh": "原物料",
+    "weight": 0.57
+   },
+   {
+    "name": "Real Estate",
+    "name_zh": "房地產",
+    "weight": 0.56
+   }
+  ],
+  "top_positions": [
+   {
+    "ticker": "NVDA",
+    "weight": 10.98,
+    "direct_weight": 3.3,
+    "via_weight": {
+     "VGT": 5.14,
+     "VOO": 2.54
+    },
+    "overlap": true
+   },
+   {
+    "ticker": "GOOG",
+    "weight": 8.64,
+    "direct_weight": 6.67,
+    "via_weight": {
+     "VOO": 1.97
+    },
+    "overlap": true
+   },
+   {
+    "ticker": "MRVL",
+    "weight": 6.76,
+    "direct_weight": 6.4,
+    "via_weight": {
+     "VGT": 0.22,
+     "VOO": 0.14
+    },
+    "overlap": true
+   },
+   {
+    "ticker": "AAPL",
+    "weight": 6.68,
+    "direct_weight": 0.0,
+    "via_weight": {
+     "VGT": 4.45,
+     "VOO": 2.22
+    },
+    "overlap": false
+   },
+   {
+    "ticker": "NOK",
+    "weight": 6.09,
+    "direct_weight": 6.09,
+    "via_weight": {},
+    "overlap": false
+   },
+   {
+    "ticker": "ARM",
+    "weight": 4.55,
+    "direct_weight": 4.55,
+    "via_weight": {},
+    "overlap": false
+   },
+   {
+    "ticker": "MSFT",
+    "weight": 4.34,
+    "direct_weight": 0.0,
+    "via_weight": {
+     "VGT": 2.89,
+     "VOO": 1.45
+    },
+    "overlap": false
+   },
+   {
+    "ticker": "INTC",
+    "weight": 3.97,
+    "direct_weight": 3.01,
+    "via_weight": {
+     "VGT": 0.62,
+     "VOO": 0.35
+    },
+    "overlap": true
+   },
+   {
+    "ticker": "TSLA",
+    "weight": 3.27,
+    "direct_weight": 2.65,
+    "via_weight": {
+     "VOO": 0.62
+    },
+    "overlap": true
+   },
+   {
+    "ticker": "COHR",
+    "weight": 3.01,
+    "direct_weight": 2.89,
+    "via_weight": {
+     "VGT": 0.08,
+     "VOO": 0.04
+    },
+    "overlap": true
+   },
+   {
+    "ticker": "AVGO",
+    "weight": 2.22,
+    "direct_weight": 0.0,
+    "via_weight": {
+     "VGT": 1.29,
+     "VOO": 0.94
+    },
+    "overlap": false
+   },
+   {
+    "ticker": "MU",
+    "weight": 1.97,
+    "direct_weight": 0.0,
+    "via_weight": {
+     "VGT": 1.28,
+     "VOO": 0.68
+    },
+    "overlap": false
+   },
+   {
+    "ticker": "AMD",
+    "weight": 1.48,
+    "direct_weight": 0.0,
+    "via_weight": {
+     "VGT": 0.98,
+     "VOO": 0.5
+    },
+    "overlap": false
+   },
+   {
+    "ticker": "LRCX",
+    "weight": 0.76,
+    "direct_weight": 0.0,
+    "via_weight": {
+     "VGT": 0.48,
+     "VOO": 0.28
+    },
+    "overlap": false
+   },
+   {
+    "ticker": "AMAT",
+    "weight": 0.73,
+    "direct_weight": 0.0,
+    "via_weight": {
+     "VGT": 0.43,
+     "VOO": 0.3
+    },
+    "overlap": false
+   }
+  ],
+  "unmapped_weight_pct": 10.3,
+  "note": "基金成分權重取自 SEC N-PORT 申報日，之後的價格變動與調倉不反映；未對應代號的成分依基金預設板塊歸類"
  },
  "not_an_action": "研究優先度，不是買進、賣出或調整部位的指令"
 }
