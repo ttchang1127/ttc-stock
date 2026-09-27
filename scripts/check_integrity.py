@@ -2631,6 +2631,11 @@ def c47():
     weights = [row["weight"] for row in exposure.get("positions", []) if row.get("weight") is not None]
     if weights and abs(sum(weights) - 100) > 0.1:
         bad.append(f"個股權重合計 {sum(weights):.2f}%，不是 100%")
+    look = exposure.get("look_through") or {}
+    if look.get("available"):
+        total = sum(row.get("weight") or 0 for row in look.get("sectors", []))
+        if abs(total - 100) > 0.2:
+            bad.append(f"含基金看穿的板塊權重合計 {total:.2f}%，不是 100%")
     trade = re.compile(r"買進|賣出|加碼|減碼|停損|目標權重")
     texts = [reason for row in exposure.get("positions", []) for reason in row.get("reasons", [])]
     texts += [event.get("text", "") for event in digest.get("events", [])] + [digest.get("headline") or ""]

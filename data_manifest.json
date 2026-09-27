@@ -574,6 +574,7 @@
       "edit": "never",
       "cadence": "market_daily",
       "committed_by": [
+        "sec-filing-alerts",
         "update-prices"
       ],
       "note": "每日輪動變化摘要（只列相較前一交易日的確認變化）與首頁一句話；P1／P2 會開 GitHub issue"
@@ -682,6 +683,7 @@
       "edit": "never",
       "cadence": "market_daily",
       "committed_by": [
+        "sec-filing-alerts",
         "update-prices"
       ],
       "note": "直接個股的板塊／次產業曝險與所屬族群輪動狀態；持股變更後要重跑產生器（C-47）"
@@ -1000,6 +1002,16 @@
         "sec-filing-alerts"
       ],
       "note": "SEC 原文筆記；年度 10-K／20-F 由 fetch_sec.py 人工觸發"
+    },
+    {
+      "pattern": "^etf_holdings/",
+      "kind": "generated",
+      "producer": "scripts/refresh_etf_holdings.py",
+      "edit": "never",
+      "committed_by": [
+        "sec-filing-alerts"
+      ],
+      "note": "VGT、VOO 的 SEC N-PORT 持股（每季、延遲約 60 天）與 index.json；只有 SEC 有更新的申報才改寫，解析失敗保留上一版"
     },
     {
       "pattern": "^market_rotation_history/backtest/",

@@ -238,6 +238,8 @@ class ResearchPageTests(unittest.TestCase):
         for element in ('id="marketEnvironment"', 'id="sectorStateBody"', 'id="backtestSummary"', "研究中",
                         'id="rotationDigest"', 'id="portfolioExposure"', "不是買賣或調整部位的指令"):
             self.assertIn(element, self.html)
+        for element in ("含基金看穿", "SEC N-PORT", "未對應代號的權重"):
+            self.assertIn(element, self.script)
         for path in ("market_rotation_research.json", "market_rotation_history/backtest/sector_results.json",
                      "market_rotation_daily_digest.json", "portfolio_equity_exposure.json",
                      "market_rotation_history/backtest/sensitivity.json",

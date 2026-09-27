@@ -98,6 +98,16 @@ jobs:
             exit "$result"
           fi
 
+      # Fund holdings for look-through exposure (quarterly N-PORT, ~60-day lag);
+      # a lookup problem keeps the last good file and only warns.
+      - name: Refresh fund holdings from SEC N-PORT
+        env:
+          SEC_USER_AGENT: ${{ vars.SEC_USER_AGENT || 'SecKBResearch user@example.com' }}
+        run: |
+          python3 scripts/refresh_etf_holdings.py
+          # Recompute the exposure so new fund holdings show without waiting for a market session.
+          python3 scripts/build_market_rotation_digest.py
+
       - name: Compare latest periodic filing text
         env:
           SEC_USER_AGENT: ${{ vars.SEC_USER_AGENT || 'SecKBResearch user@example.com' }}
@@ -244,7 +254,8 @@ jobs:
           git config user.email 'github-actions[bot]@users.noreply.github.com'
           git add .github/sec-filing-state.json sec_filing_alerts.json \
             sec_filing_details.json filing_text_changes.json investment_thesis_status.json \
-            periodic_filing_ingest.json 20_Filings/ \
+            periodic_filing_ingest.json 20_Filings/ etf_holdings/ \
+            portfolio_equity_exposure.json market_rotation_daily_digest.json \
             exhibit_991_analysis.json \
             earnings_call_analysis.json earnings_call_sources.json \
             60_SEC_Filing_Radar/SEC_Filing_Alerts.md \

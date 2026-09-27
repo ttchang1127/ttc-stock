@@ -394,6 +394,26 @@
       </tr>`;
     }).join('');
     const coverage = exposure.coverage;
+    const look = exposure.look_through || {};
+    const lookHtml = look.available ? `
+      <h3 class="exposure-title">含基金看穿（直接個股＋${esc(look.funds.map(f => f.ticker).join('、'))}）</h3>
+      <p class="panel-desc">把基金拆成成分股後，你的總資產實際押在哪裡。直接個股占總資產 ${plain(look.direct_share_pct)}；` +
+      `基金成分取自 SEC N-PORT：${look.funds.map(f => `${esc(f.ticker)} ${esc(f.report_date)}`).join('、')}` +
+      `（每季申報、延遲約 60 天）；未對應代號的權重 ${plain(look.unmapped_weight_pct)}。</p>
+      <div class="sector-bar" role="img" aria-label="含基金的板塊權重">${look.sectors.map((row, index) =>
+        `<span style="width:${row.weight}%;background:${palette[index % palette.length]}" title="${esc(row.name_zh)} ${plain(row.weight)}">` +
+        `${row.weight >= 12 ? esc(row.name_zh) : ''}</span>`).join('')}</div>
+      <ul class="sector-legend">${look.sectors.map((row, index) =>
+        `<li><i style="background:${palette[index % palette.length]}"></i>${esc(row.name_zh)} ${plain(row.weight)}</li>`).join('')}</ul>
+      <div class="table-wrap"><table class="state-table exposure-table"><thead><tr>
+        <th>股票</th><th>占總資產</th><th>直接持有</th><th>經由基金</th></tr></thead><tbody>
+        ${look.top_positions.map(row => `<tr>
+          <td><strong>${esc(row.ticker)}</strong>${row.overlap ? '<small class="pending">直接＋基金重疊</small>' : ''}</td>
+          <td>${plain(row.weight, '%', 2)}</td><td>${plain(row.direct_weight, '%', 2)}</td>
+          <td>${Object.entries(row.via_weight).map(([fund, w]) => `${esc(fund)} ${plain(w, '%', 2)}`).join('｜') || '—'}</td>
+        </tr>`).join('')}</tbody></table></div>
+      <p class="panel-desc">${esc(look.note)}。</p>`
+      : `<p class="panel-desc">含基金看穿：${esc(look.reason || '尚無基金持股資料')}</p>`;
     target.innerHTML = `
       <h3 class="exposure-title">我的直接個股曝險</h3>
       <div class="env-evidence">
@@ -410,7 +430,7 @@
         <th>持股／權重</th><th>板塊與狀態</th><th>次產業與狀態</th><th>研究優先度</th><th>原因</th>
       </tr></thead><tbody>${rows}</tbody></table></div>
       <p class="panel-desc">權重用最新市值計算（不是成本），股價截至 ${esc(exposure.price_as_of || '—')}；排除 ` +
-      `${esc((exposure.excluded_funds || []).join('、') || '—')}。${esc(exposure.not_an_action)}。</p>`;
+      `${esc((exposure.excluded_funds || []).join('、') || '—')}。${esc(exposure.not_an_action)}。</p>` + lookHtml;
   }
 
   async function init() {

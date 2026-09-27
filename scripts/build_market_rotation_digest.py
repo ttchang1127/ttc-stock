@@ -53,11 +53,14 @@ def build(root: Path = ROOT, history_dir: Path = HISTORY_DIR) -> tuple[dict, dic
     groups = load_json(root / "market_rotation_groups.json", None)
     registry = load_json(root / "market_rotation_registry.json")
     names = display_names(groups, registry)
+    overrides = load_json(root / "portfolio_classification.json")
+    fund_holdings = {ticker: data for ticker in overrides.get("funds_excluded", {})
+                     if (data := load_json(root / "etf_holdings" / f"{ticker}.json", None))}
     exposure = build_exposure(
         load_json(root / "portfolio_holdings.json"), load_json(root / "prices.json"),
-        load_json(root / "market_rotation_universe.json"), load_json(root / "portfolio_classification.json"),
+        load_json(root / "market_rotation_universe.json"), overrides,
         registry, research, load_json(root / "portfolio_equity_exposure.json", None),
-        {group_id: row["name_zh"] for group_id, row in names.items()},
+        {group_id: row["name_zh"] for group_id, row in names.items()}, fund_holdings,
     )
     snapshots = recent_snapshots(history_dir)
     digest = build_digest(snapshots[-1] if snapshots else None, snapshots[:-1], names,
