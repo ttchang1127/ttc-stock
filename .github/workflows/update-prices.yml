@@ -116,6 +116,16 @@ jobs:
           fi
           exit "$status"
 
+      # Compares today's frozen snapshot with the previous sessions and joins
+      # the rotation states to the actual direct-equity holdings.
+      - name: Build rotation digest and portfolio exposure
+        if: steps.rotation_build.outputs.fresh == 'true'
+        id: rotation_digest
+        run: |
+          python3 scripts/build_market_rotation_digest.py \
+            --github-output "$GITHUB_OUTPUT" \
+            --alert-markdown "$RUNNER_TEMP/rotation-digest.md"
+
       - name: Notify if the automatic catch-up is still stale
         if: >-
           github.event.schedule == '17 12 * * 2-6' &&
@@ -277,6 +287,22 @@ jobs:
       - name: Fail if anything unexpected changed
         if: steps.gate.outputs.changed == 'true'
         run: python3 scripts/data_manifest.py check-changed --workflow update-prices
+
+      - name: Notify confirmed market-rotation changes
+        if: steps.rotation_digest.outputs.notify_count != '' && steps.rotation_digest.outputs.notify_count != '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ROTATION_BATCH_ID: ${{ steps.rotation_digest.outputs.batch_id }}
+        run: |
+          title="Market Rotation Changes [$ROTATION_BATCH_ID]"
+          existing=$(gh issue list --state all --search "$ROTATION_BATCH_ID in:title" \
+            --json number --jq '.[0].number // empty')
+          if [ -z "$existing" ]; then
+            gh issue create --title "📈 $title" --body-file "$RUNNER_TEMP/rotation-digest.md" \
+              --assignee "$GITHUB_REPOSITORY_OWNER"
+          else
+            echo "Issue #$existing already records batch $ROTATION_BATCH_ID; skipping duplicate."
+          fi
 
       - name: Notify meaningful portfolio-impact changes
         if: steps.source_gate.outputs.market_changed == 'true' && steps.position_impact.outputs.notify_count != '0'

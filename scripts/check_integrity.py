@@ -2609,6 +2609,37 @@ def c46():
                   f"{index['last_as_of']}；{len(index['months'])} 個月份檔")
 
 
+@check("C-47", "持股曝險與持股檔一致、權重可重算，輪動摘要不給買賣指令")
+def c47():
+    exposure = load("portfolio_equity_exposure.json")
+    digest = load("market_rotation_daily_digest.json")
+    holdings = load("portfolio_holdings.json")
+    funds = set(load("portfolio_classification.json").get("funds_excluded", {}))
+    bad = []
+    expected = {row["ticker"]: row["shares"] for row in holdings["holdings"] if row["ticker"] not in funds}
+    actual = {row["ticker"]: row["shares"] for row in exposure.get("positions", [])}
+    if actual != expected:
+        bad.append("曝險持股與 portfolio_holdings.json 不一致：修改持股後請重跑 scripts/build_market_rotation_digest.py")
+    if set(exposure.get("excluded_funds", [])) & set(actual):
+        bad.append("基金被算進直接個股")
+    weights = [row["weight"] for row in exposure.get("positions", []) if row.get("weight") is not None]
+    if weights and abs(sum(weights) - 100) > 0.1:
+        bad.append(f"個股權重合計 {sum(weights):.2f}%，不是 100%")
+    trade = re.compile(r"買進|賣出|加碼|減碼|停損|目標權重")
+    texts = [reason for row in exposure.get("positions", []) for reason in row.get("reasons", [])]
+    texts += [event.get("text", "") for event in digest.get("events", [])] + [digest.get("headline") or ""]
+    if any(trade.search(text) for text in texts):
+        bad.append("摘要或研究動作出現交易指令用語")
+    if digest.get("status") not in {"awaiting_history", "baseline", "baseline_after_rule_change",
+                                    "no_change", "changes_detected"}:
+        bad.append(f"摘要狀態不明：{digest.get('status')}")
+    if bad:
+        return False, "；".join(bad)
+    top = (exposure.get("sector_concentration", {}).get("sectors") or [{}])[0]
+    return True, (f"{len(actual)} 檔直接個股；最大板塊 {top.get('name_zh')} {top.get('weight')}%；"
+                  f"摘要 {digest.get('status')}，{digest.get('event_count')} 項變化")
+
+
 @check("C-44", "研究綜合驗證可追溯且不補猜共識或同業資料")
 def c44():
     data = load("research_synthesis.json")

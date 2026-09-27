@@ -1,0 +1,17 @@
+{
+ "schema_version": 1,
+ "description": "持股曝險用的人工分類：不在 S&P 500／Nasdaq-100 股票池的個股，以及不計入直接個股的基金。每筆都要有來源、原因與覆核日期。",
+ "funds_excluded": {
+  "VGT": "ETF（資訊科技類股基金）；直接個股曝險只看個股，基金不計入分母",
+  "VOO": "ETF（S&P 500 指數基金）；直接個股曝險只看個股，基金不計入分母"
+ },
+ "classification": {
+  "NOK": {
+   "sector": "Information Technology",
+   "industry": "Communications Equipment",
+   "source": "Nokia 20-F：主要業務為行動與固網網路設備、光網路與 IP 路由（Network Infrastructure、Mobile Networks）",
+   "reason": "不在 S&P 500／Nasdaq-100 股票池，沒有指數分類；業務與股票池中的通訊設備公司（CSCO、ANET、CIEN）相同",
+   "reviewed_at": "2026-09-27"
+  }
+ }
+}
