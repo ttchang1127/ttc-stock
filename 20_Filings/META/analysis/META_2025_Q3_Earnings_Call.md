@@ -18,7 +18,7 @@ tags:
 - **會議日期**：2025-10-29
 - **文字類型**：完整官方逐字稿。包含管理層發言與分析師問答，可分開閱讀兩種證據。
 - **官方來源**：[文字材料](https://s21.q4cdn.com/399680738/files/doc_financials/2025/q3/META-Q3-2025-Earnings-Call-Transcript.pdf)｜[IR 發現頁](https://investor.atmeta.com/investor-events/event-details/2025/Q3-2025-Earnings-Call/default.aspx)
-- **來源鏈驗證**：官方頁受阻，採 180 天內人工官方連結覆核
+- **來源鏈驗證**：程式已在官方 IR 頁驗證材料直連
 - **證據覆蓋**：6/7 類；這是閱讀索引，不是評分。
 - **方法限制**：每類只保留最多 22 個英文單字的短摘錄。未命中保留缺值；不把語氣關鍵字轉成投資建議。
 
