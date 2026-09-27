@@ -31,9 +31,12 @@ jobs:
         run: python3 -m pip install --quiet -r requirements.txt
       - name: Re-run the research states over five years of prices
         run: python3 scripts/backtest_market_rotation.py
+      - name: Test monthly medium-term momentum across the sector ETFs
+        run: python3 scripts/backtest_sector_etf_momentum.py
       - name: Verify outputs
         run: |
-          python3 -m unittest tests.test_backtest_market_rotation tests.test_market_rotation_research -v
+          python3 -m unittest tests.test_backtest_market_rotation tests.test_market_rotation_research \
+            tests.test_backtest_sector_etf_momentum -v
           python3 scripts/check_integrity.py --quiet
           python3 scripts/data_manifest.py check-changed --workflow market-rotation-backtest
       - name: Persist back-test results

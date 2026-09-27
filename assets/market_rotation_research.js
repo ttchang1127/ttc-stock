@@ -232,6 +232,46 @@
       `<th>領先優勢（樣本外）</th><th>檢查項目</th></tr></thead><tbody>${rows}</tbody></table></div>`;
   }
 
+  const ETF_VERDICT_TONE = {supported: 'positive', partial: 'warning', not_supported: 'negative'};
+
+  function renderEtfMomentum(result) {
+    const target = document.getElementById('etfMomentumSummary');
+    if (!target) return;
+    if (!result) {
+      target.innerHTML = '<div class="panel-desc">板塊 ETF 中期動能回測尚未執行：會隨每月回測一起產生。</div>';
+      return;
+    }
+    const cell = stats => stats && stats.months
+      ? `<span class="${tone(stats.excess_cagr_pp)}">${signed(stats.excess_cagr_pp, 'pp')}</span>` +
+        `<small>資訊比率 ${stats.information_ratio ?? '—'}｜勝率 ${plain(stats.hit_rate)}</small>`
+      : '—';
+    const rows = result.variants.map(variant => {
+      const cal = variant.calibration;
+      const interval = variant.calibration_mean_excess_interval_pp;
+      return `<tr>
+        <td><strong>${esc(variant.label)}</strong></td>
+        <td class="state ${ETF_VERDICT_TONE[variant.verdict] || ''}">${esc(result.verdicts[variant.verdict] || variant.verdict)}</td>
+        <td>${cell(cal)}<small>${esc(cal.start || '')}～${esc(cal.end || '')}` +
+          `${interval ? `｜月均區間 ${signed(interval[0], '')}～${signed(interval[1], '')}` : ''}</small></td>
+        <td>${cell(variant.holdout)}<small>${esc(variant.holdout.start || '')}～${esc(variant.holdout.end || '')}</small></td>
+        <td>${plain(cal.strategy_max_drawdown)}<small>等權 ${plain(cal.equal_weight_max_drawdown)}</small></td>
+        <td>${variant.all.annual_turnover ?? '—'}<small>倍／年</small></td>
+      </tr>`;
+    }).join('');
+    const ranking = result.latest_ranking;
+    const chips = ranking.rows.map(row =>
+      `<span class="tag ${row.rank <= 3 ? 'info' : ''}">#${row.rank} ${esc(row.ticker)} ${signed(row.momentum_pct)}</span>`).join('');
+    target.innerHTML = `
+      <h3 class="exposure-title">板塊 ETF 中期動能：學術研究的時間尺度</h3>
+      <p class="panel-desc">每月底依「12 個月前到 1 個月前」的報酬排名 11 檔 SPDR 板塊 ETF，持有前 3 名到下次調整，` +
+      '和「全部等權」比較；每換手 1 元扣 0.1%。ETF 價格是真實可投資的序列，沒有成分股存活者偏誤。' +
+      `2016 年起為樣本外。規則版本 ${esc(result.version)}，候選事先固定。</p>` +
+      `<div class="table-wrap"><table class="state-table sensitivity-table"><thead><tr>` +
+      '<th>候選規則</th><th>判定</th><th>年化超額（校準）</th><th>年化超額（樣本外）</th>' +
+      `<th>最大回撤（校準）</th><th>換手率</th></tr></thead><tbody>${rows}</tbody></table></div>` +
+      `<p class="panel-desc">${esc(ranking.as_of)} 的 12 減 1 個月排名（僅供對照，研究中）：</p><div class="tags">${chips}</div>`;
+  }
+
   function renderBacktest(result, labels) {
     const target = document.getElementById('backtestSummary');
     if (!target) return;
@@ -374,15 +414,17 @@
   }
 
   async function init() {
-    const [research, rotation, backtest, digest, exposure, sensitivity] = await Promise.all([
+    const [research, rotation, backtest, digest, exposure, sensitivity, etfMomentum] = await Promise.all([
       getJSON('market_rotation_research.json'),
       getJSON('market_rotation.json'),
       getJSON('market_rotation_history/backtest/sector_results.json'),
       getJSON('market_rotation_daily_digest.json'),
       getJSON('portfolio_equity_exposure.json'),
-      getJSON('market_rotation_history/backtest/sensitivity.json')
+      getJSON('market_rotation_history/backtest/sensitivity.json'),
+      getJSON('market_rotation_history/backtest/sector_etf_momentum.json')
     ]);
     renderSensitivity(sensitivity);
+    renderEtfMomentum(etfMomentum);
     renderDigest(digest);
     renderExposure(exposure);
     const names = new Map(((rotation && rotation.sectors) || []).map(row => [row.key, row.name_zh]));
