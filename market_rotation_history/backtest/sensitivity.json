@@ -1,0 +1,437 @@
+{
+ "schema_version": 1,
+ "generated_at": "2026-09-27T08:45:53+00:00",
+ "methodology": {
+  "history_quality": "C",
+  "history_quality_meaning": "current-constituent approximation: today's S&P 500 + Nasdaq-100 members replayed over past prices; survivorship bias; not a validated result",
+  "status": "research",
+  "rule_version": "research-1.0",
+  "universe_snapshot_id": "sha256:be0df11adfab20b2",
+  "group_level": "sector",
+  "benchmark": "combined-universe equal-weight index, daily rebalanced",
+  "horizons_sessions": [
+   20,
+   60,
+   120
+  ],
+  "warmup_sessions": 150,
+  "holdout_sessions": 126,
+  "reentry_gap_sessions": 10,
+  "event": "confirmed-state entry (two-session confirmation); outcomes from the confirmation close",
+  "confidence_by_events": {
+   "higher": 60,
+   "moderate": 30,
+   "exploratory": 10,
+   "insufficient": 0
+  },
+  "adoption": "a state may drop the research label only after the plan's section 15.11 conditions hold on B- or A-quality history"
+ },
+ "period": {
+  "start": "2021-07-16",
+  "end": "2026-09-25",
+  "sessions": 1305,
+  "evaluation_start": "2022-02-17",
+  "holdout_start": "2026-03-27"
+ },
+ "version": "sensitivity-1",
+ "primary_horizon_sessions": 60,
+ "compared_states": [
+  "confirmed_leading",
+  "clear_lagging"
+ ],
+ "edge_definition": "leading: state median excess minus the same sample's all-sector-day median; lagging: all-sector-day median minus the state median (positive = the state separates as expected)",
+ "sample_rule": "calibration outcomes end before the last 126 sessions; holdout entries start inside them",
+ "bootstrap": {
+  "draws": 2000,
+  "seed": 20260927,
+  "interval": "5th-95th percentile"
+ },
+ "verdicts": {
+  "supported_pending_a_b_history": "價格回測條件都符合；仍須在 A／B 級歷史重現才可採用",
+  "partial_not_adoptable": "方向符合，但樣本外、下行風險、區間或期間一致性至少一項未通過",
+  "not_supported": "校準期方向就不符合預期",
+  "insufficient_sample": "事件數不足"
+ },
+ "variants": [
+  {
+   "id": "baseline",
+   "label": "目前規則：合併股票池、連續 2 日確認",
+   "samples": {
+    "calibration": {
+     "20d": {
+      "baseline_sector_days": 11099,
+      "baseline_median": -0.2,
+      "baseline_p10": -4.29,
+      "leading_events": 131,
+      "leading_median": -0.2,
+      "leading_p10": -4.9,
+      "lagging_events": 144,
+      "lagging_median": 0.0,
+      "leading_edge_pp": 0.0,
+      "lagging_edge_pp": -0.2
+     },
+     "60d": {
+      "baseline_sector_days": 10659,
+      "baseline_median": -0.65,
+      "baseline_p10": -7.83,
+      "leading_events": 126,
+      "leading_median": 0.04,
+      "leading_p10": -7.55,
+      "lagging_events": 140,
+      "lagging_median": -0.09,
+      "leading_edge_pp": 0.69,
+      "lagging_edge_pp": -0.56,
+      "leading_edge_interval_pp": [
+       -0.02,
+       1.79
+      ]
+     },
+     "120d": {
+      "baseline_sector_days": 9999,
+      "baseline_median": -1.06,
+      "baseline_p10": -11.56,
+      "leading_events": 120,
+      "leading_median": 0.63,
+      "leading_p10": -11.73,
+      "lagging_events": 127,
+      "lagging_median": -0.94,
+      "leading_edge_pp": 1.69,
+      "lagging_edge_pp": -0.12
+     }
+    },
+    "holdout": {
+     "20d": {
+      "baseline_sector_days": 1166,
+      "baseline_median": -0.93,
+      "baseline_p10": -5.5,
+      "leading_events": 14,
+      "leading_median": -0.83,
+      "leading_p10": -7.0,
+      "lagging_events": 13,
+      "lagging_median": -0.62,
+      "leading_edge_pp": 0.1,
+      "lagging_edge_pp": -0.31
+     },
+     "60d": {
+      "baseline_sector_days": 726,
+      "baseline_median": -2.43,
+      "baseline_p10": -9.97,
+      "leading_events": 7,
+      "leading_median": -8.48,
+      "leading_p10": -10.41,
+      "lagging_events": 10,
+      "lagging_median": 0.71,
+      "leading_edge_pp": -6.05,
+      "lagging_edge_pp": -3.14
+     },
+     "120d": {
+      "baseline_sector_days": 66,
+      "baseline_median": -9.36,
+      "baseline_p10": -14.15,
+      "leading_events": 0,
+      "leading_median": null,
+      "leading_p10": null,
+      "lagging_events": 0,
+      "lagging_median": null,
+      "leading_edge_pp": null,
+      "lagging_edge_pp": null
+     }
+    }
+   },
+   "criteria": {
+    "enough_events": true,
+    "expected_direction": false,
+    "holds_out_of_sample": false,
+    "downside_not_worse": true,
+    "interval_excludes_zero": false,
+    "more_than_one_horizon": true
+   },
+   "verdict": "not_supported"
+  },
+  {
+   "id": "confirm3",
+   "label": "連續 3 日才確認（延遲換取較少假訊號？）",
+   "samples": {
+    "calibration": {
+     "20d": {
+      "baseline_sector_days": 11099,
+      "baseline_median": -0.2,
+      "baseline_p10": -4.29,
+      "leading_events": 104,
+      "leading_median": -0.36,
+      "leading_p10": -5.25,
+      "lagging_events": 106,
+      "lagging_median": -0.33,
+      "leading_edge_pp": -0.16,
+      "lagging_edge_pp": 0.13
+     },
+     "60d": {
+      "baseline_sector_days": 10659,
+      "baseline_median": -0.65,
+      "baseline_p10": -7.83,
+      "leading_events": 99,
+      "leading_median": 0.22,
+      "leading_p10": -8.33,
+      "lagging_events": 105,
+      "lagging_median": -0.12,
+      "leading_edge_pp": 0.87,
+      "lagging_edge_pp": -0.53,
+      "leading_edge_interval_pp": [
+       0.24,
+       1.57
+      ]
+     },
+     "120d": {
+      "baseline_sector_days": 9999,
+      "baseline_median": -1.06,
+      "baseline_p10": -11.56,
+      "leading_events": 94,
+      "leading_median": 0.64,
+      "leading_p10": -11.62,
+      "lagging_events": 94,
+      "lagging_median": -1.97,
+      "leading_edge_pp": 1.7,
+      "lagging_edge_pp": 0.91
+     }
+    },
+    "holdout": {
+     "20d": {
+      "baseline_sector_days": 1166,
+      "baseline_median": -0.93,
+      "baseline_p10": -5.5,
+      "leading_events": 10,
+      "leading_median": -0.94,
+      "leading_p10": -9.08,
+      "lagging_events": 8,
+      "lagging_median": -3.08,
+      "leading_edge_pp": -0.01,
+      "lagging_edge_pp": 2.15
+     },
+     "60d": {
+      "baseline_sector_days": 726,
+      "baseline_median": -2.43,
+      "baseline_p10": -9.97,
+      "leading_events": 5,
+      "leading_median": -3.42,
+      "leading_p10": -10.46,
+      "lagging_events": 6,
+      "lagging_median": -1.27,
+      "leading_edge_pp": -0.99,
+      "lagging_edge_pp": -1.16
+     },
+     "120d": {
+      "baseline_sector_days": 66,
+      "baseline_median": -9.36,
+      "baseline_p10": -14.15,
+      "leading_events": 0,
+      "leading_median": null,
+      "leading_p10": null,
+      "lagging_events": 0,
+      "lagging_median": null,
+      "leading_edge_pp": null,
+      "lagging_edge_pp": null
+     }
+    }
+   },
+   "criteria": {
+    "enough_events": true,
+    "expected_direction": false,
+    "holds_out_of_sample": false,
+    "downside_not_worse": false,
+    "interval_excludes_zero": true,
+    "more_than_one_horizon": true
+   },
+   "verdict": "not_supported"
+  },
+  {
+   "id": "sp500",
+   "label": "只用 S&P 500 成分與基準（計畫第 16.3 節）",
+   "samples": {
+    "calibration": {
+     "20d": {
+      "baseline_sector_days": 11099,
+      "baseline_median": -0.18,
+      "baseline_p10": -4.22,
+      "leading_events": 134,
+      "leading_median": -0.1,
+      "leading_p10": -5.2,
+      "lagging_events": 144,
+      "lagging_median": 0.21,
+      "leading_edge_pp": 0.08,
+      "lagging_edge_pp": -0.39
+     },
+     "60d": {
+      "baseline_sector_days": 10659,
+      "baseline_median": -0.57,
+      "baseline_p10": -7.62,
+      "leading_events": 129,
+      "leading_median": -0.09,
+      "leading_p10": -8.23,
+      "lagging_events": 140,
+      "lagging_median": -0.17,
+      "leading_edge_pp": 0.48,
+      "lagging_edge_pp": -0.4,
+      "leading_edge_interval_pp": [
+       -0.48,
+       1.25
+      ]
+     },
+     "120d": {
+      "baseline_sector_days": 9999,
+      "baseline_median": -0.87,
+      "baseline_p10": -11.16,
+      "leading_events": 122,
+      "leading_median": 0.65,
+      "leading_p10": -11.19,
+      "lagging_events": 127,
+      "lagging_median": -0.62,
+      "leading_edge_pp": 1.52,
+      "lagging_edge_pp": -0.25
+     }
+    },
+    "holdout": {
+     "20d": {
+      "baseline_sector_days": 1166,
+      "baseline_median": -0.8,
+      "baseline_p10": -5.27,
+      "leading_events": 15,
+      "leading_median": -0.98,
+      "leading_p10": -6.58,
+      "lagging_events": 14,
+      "lagging_median": -0.9,
+      "leading_edge_pp": -0.18,
+      "lagging_edge_pp": 0.1
+     },
+     "60d": {
+      "baseline_sector_days": 726,
+      "baseline_median": -2.58,
+      "baseline_p10": -9.84,
+      "leading_events": 7,
+      "leading_median": -8.37,
+      "leading_p10": -10.15,
+      "lagging_events": 10,
+      "lagging_median": 0.97,
+      "leading_edge_pp": -5.79,
+      "lagging_edge_pp": -3.55
+     },
+     "120d": {
+      "baseline_sector_days": 66,
+      "baseline_median": -8.72,
+      "baseline_p10": -13.53,
+      "leading_events": 0,
+      "leading_median": null,
+      "leading_p10": null,
+      "lagging_events": 0,
+      "lagging_median": null,
+      "leading_edge_pp": null,
+      "lagging_edge_pp": null
+     }
+    }
+   },
+   "criteria": {
+    "enough_events": true,
+    "expected_direction": false,
+    "holds_out_of_sample": false,
+    "downside_not_worse": false,
+    "interval_excludes_zero": false,
+    "more_than_one_horizon": true
+   },
+   "verdict": "not_supported"
+  },
+  {
+   "id": "expansion_only",
+   "label": "只在市場「廣泛擴張」時使用狀態訊號",
+   "samples": {
+    "calibration": {
+     "20d": {
+      "baseline_sector_days": 4719,
+      "baseline_median": -0.21,
+      "baseline_p10": -3.9,
+      "leading_events": 57,
+      "leading_median": 0.44,
+      "leading_p10": -2.83,
+      "lagging_events": 34,
+      "lagging_median": -1.23,
+      "leading_edge_pp": 0.65,
+      "lagging_edge_pp": 1.02
+     },
+     "60d": {
+      "baseline_sector_days": 4378,
+      "baseline_median": -0.4,
+      "baseline_p10": -7.25,
+      "leading_events": 52,
+      "leading_median": 1.0,
+      "leading_p10": -6.24,
+      "lagging_events": 31,
+      "lagging_median": -0.64,
+      "leading_edge_pp": 1.4,
+      "lagging_edge_pp": 0.24,
+      "leading_edge_interval_pp": [
+       0.16,
+       2.65
+      ]
+     },
+     "120d": {
+      "baseline_sector_days": 4092,
+      "baseline_median": -0.86,
+      "baseline_p10": -10.01,
+      "leading_events": 50,
+      "leading_median": 1.01,
+      "leading_p10": -9.46,
+      "lagging_events": 27,
+      "lagging_median": 0.46,
+      "leading_edge_pp": 1.87,
+      "lagging_edge_pp": -1.32
+     }
+    },
+    "holdout": {
+     "20d": {
+      "baseline_sector_days": 594,
+      "baseline_median": -0.51,
+      "baseline_p10": -5.32,
+      "leading_events": 9,
+      "leading_median": -0.24,
+      "leading_p10": -1.36,
+      "lagging_events": 5,
+      "lagging_median": 1.62,
+      "leading_edge_pp": 0.27,
+      "lagging_edge_pp": -2.13
+     },
+     "60d": {
+      "baseline_sector_days": 396,
+      "baseline_median": -2.31,
+      "baseline_p10": -8.68,
+      "leading_events": 5,
+      "leading_median": -3.24,
+      "leading_p10": -9.28,
+      "lagging_events": 5,
+      "lagging_median": 2.67,
+      "leading_edge_pp": -0.93,
+      "lagging_edge_pp": -4.98
+     },
+     "120d": {
+      "baseline_sector_days": 0,
+      "baseline_median": null,
+      "baseline_p10": null,
+      "leading_events": 0,
+      "leading_median": null,
+      "leading_p10": null,
+      "lagging_events": 0,
+      "lagging_median": null,
+      "leading_edge_pp": null,
+      "lagging_edge_pp": null
+     }
+    }
+   },
+   "criteria": {
+    "enough_events": true,
+    "expected_direction": true,
+    "holds_out_of_sample": false,
+    "downside_not_worse": true,
+    "interval_excludes_zero": true,
+    "more_than_one_horizon": true
+   },
+   "verdict": "partial_not_adoptable"
+  }
+ ]
+}
