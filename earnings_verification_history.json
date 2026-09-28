@@ -1,17 +1,17 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-27T00:25:07+08:00",
-  "current_snapshot_id": "c7cae4a2c0ad46fb",
-  "previous_snapshot_id": "93fa946af84f8768",
-  "batch_id": "39a17594ff68",
+  "updated_at": "2026-09-28T09:44:54+08:00",
+  "current_snapshot_id": "7dbbefed45a488ca",
+  "previous_snapshot_id": "c7cae4a2c0ad46fb",
+  "batch_id": "47df2ab44b87",
   "notify_count": 0,
   "critical_count": 0,
   "notification_policy": "首次建立比較基準，不發通知，也不回填不存在的財報前判斷；之後只通知財報前／後階段、新季度、官方指引、KPI 風險／改善、指引驗證與論點結論變化。每日倒數與未跨狀態的數值波動不通知。",
   "notifications": [],
   "current": {
-    "snapshot_id": "c7cae4a2c0ad46fb",
-    "captured_at": "2026-09-27T00:25:07+08:00",
-    "source_date": "2026-09-27",
+    "snapshot_id": "7dbbefed45a488ca",
+    "captured_at": "2026-09-28T09:44:54+08:00",
+    "source_date": "2026-09-28",
     "companies": {
       "INTC": {
         "ticker": "INTC",
@@ -658,8 +658,8 @@
       "GOOG": {
         "ticker": "GOOG",
         "position": "holding",
-        "phase": "scheduled_later",
-        "phase_label": "已知日期，尚未進入 30 天",
+        "phase": "upcoming",
+        "phase_label": "30 天內將公布",
         "next_earnings": {
           "date": "2026-10-28",
           "confidence": "estimated",
@@ -1461,8 +1461,8 @@
       "META": {
         "ticker": "META",
         "position": "watchlist",
-        "phase": "scheduled_later",
-        "phase_label": "已知日期，尚未進入 30 天",
+        "phase": "upcoming",
+        "phase_label": "30 天內將公布",
         "next_earnings": {
           "date": "2026-10-28",
           "confidence": "estimated",
@@ -1640,8 +1640,8 @@
       "MSFT": {
         "ticker": "MSFT",
         "position": "watchlist",
-        "phase": "scheduled_later",
-        "phase_label": "已知日期，尚未進入 30 天",
+        "phase": "upcoming",
+        "phase_label": "30 天內將公布",
         "next_earnings": {
           "date": "2026-10-28",
           "confidence": "estimated",
@@ -2287,6 +2287,13 @@
     }
   },
   "history": [
+    {
+      "snapshot_id": "7dbbefed45a488ca",
+      "captured_at": "2026-09-28T09:44:54+08:00",
+      "source_date": "2026-09-28",
+      "notify_count": 0,
+      "notifications": []
+    },
     {
       "snapshot_id": "c7cae4a2c0ad46fb",
       "captured_at": "2026-09-22T09:39:06+08:00",
