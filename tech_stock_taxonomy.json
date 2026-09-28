@@ -1,0 +1,72 @@
+{
+  "version": "tech-chain-3",
+  "minimum_market_cap_usd": 10000000000,
+  "description": "美股掛牌科技產業鏈研究池；每家公司只有一個地圖位置，題材標籤可重疊。新增股票須先指定主分類與理由。",
+  "source_urls": {
+    "vgt": "https://www.sec.gov/edgar/search/#/q=VGT&forms=NPORT-P",
+    "sox": "https://www.nasdaq.com/docs/2025/11/05/SOX.pdf",
+    "nasdaq": "https://api.nasdaq.com/api/quote/",
+    "sp500_nasdaq100": "market_rotation_universe.json"
+  },
+  "families": [
+    {"id": "semiconductor", "label": "半導體與晶片", "groups": [
+      {"id": "compute", "label": "運算晶片", "reason": "主要產品為 CPU、GPU 或 AI 加速晶片", "tickers": ["NVDA", "AMD", "CBRS"]},
+      {"id": "custom_network_chip", "label": "客製晶片與高速互連", "reason": "主要產品涉及客製 ASIC、網通晶片或高速資料互連", "tickers": ["AVGO", "MRVL", "ALAB", "CRDO", "MTSI", "RMBS"]},
+      {"id": "memory", "label": "記憶體與快閃儲存", "reason": "主要產品涉及 DRAM、NAND 或快閃儲存", "tickers": ["MU", "SNDK"]},
+      {"id": "analog_power", "label": "類比、電源與車用晶片", "reason": "主要產品為類比、電源管理、射頻或車用半導體", "tickers": ["TXN", "ADI", "ON", "NXPI", "MPWR", "MCHP", "STM", "QCOM", "QRVO", "SWKS", "ALGM", "POWI", "NVTS", "CRUS", "DIOD", "SLAB", "SMTC", "SITM"]},
+      {"id": "foundry", "label": "晶圓代工與 IDM", "reason": "主要業務含晶圓製造或自有產能的晶片設計製造", "tickers": ["TSM", "INTC", "GFS"]},
+      {"id": "semicap", "label": "半導體設備與材料", "reason": "主要產品為晶圓製造、檢測、封裝設備或製程材料", "tickers": ["ASML", "AMAT", "LRCX", "KLAC", "TER", "ENTG", "ONTO", "NVMI", "ACLS", "ACMR", "FORM", "KLIC", "UCTT", "VECO", "AMKR", "Q", "AEIS"]},
+      {"id": "chip_ip", "label": "晶片 IP 與 EDA", "reason": "主要產品為晶片設計授權或電子設計自動化軟體", "tickers": ["ARM", "SNPS", "CDNS"]},
+      {"id": "programmable", "label": "可程式邏輯晶片", "reason": "主要產品為 FPGA 等可程式邏輯半導體", "tickers": ["LSCC"]}
+    ]},
+    {"id": "software", "label": "軟體、雲端與資安", "groups": [
+      {"id": "cloud_platform", "label": "雲端與基礎軟體", "reason": "主要業務含雲端運算平台、作業系統或基礎軟體", "tickers": ["MSFT", "ORCL", "IBM", "NET", "AKAM", "DOCN", "NTNX", "CRWV", "VRSN", "GDDY"]},
+      {"id": "cyber", "label": "網路資安", "reason": "主要產品為企業安全、身分驗證或資安平台", "tickers": ["PANW", "CRWD", "FTNT", "ZS", "OKTA", "CYBR", "S", "RBRK", "QLYS", "TENB", "VRNS", "CHKP", "GEN"]},
+      {"id": "enterprise", "label": "企業應用軟體", "reason": "主要產品為企業應用、設計或工作流程軟體", "tickers": ["CRM", "NOW", "ADBE", "INTU", "WDAY", "ADSK", "TEAM", "HUBS", "SAP", "VEEV", "DOCU", "GTLB", "MANH", "GWRE", "BSY", "PCOR", "APPF", "ROP", "FICO", "PTC", "TYL"]},
+      {"id": "data_ai", "label": "資料與 AI 平台", "reason": "主要產品為資料平台、開發者工具、分析或 AI 應用軟體", "tickers": ["PLTR", "SNOW", "DDOG", "MDB", "ESTC", "DT", "IOT", "PATH", "FROG", "CFLT", "AI", "TWLO", "U", "BOX", "DBX", "CVLT"]}
+    ]},
+    {"id": "hardware", "label": "硬體、網通與光通訊", "groups": [
+      {"id": "server_storage", "label": "伺服器與儲存設備", "reason": "主要產品為企業伺服器、儲存設備或資料中心硬體", "tickers": ["DELL", "SMCI", "HPE", "NTAP", "P", "WDC", "STX"]},
+      {"id": "network", "label": "網路與通訊設備", "reason": "主要產品為資料中心交換器、電信或網路設備", "tickers": ["ANET", "CSCO", "NOK", "JNPR", "ERIC", "CIEN", "COMM", "EXTR", "MSI", "FFIV"]},
+      {"id": "optics", "label": "光通訊與光電零組件", "reason": "主要產品為光收發器、光學元件或光通訊系統零件", "tickers": ["COHR", "LITE", "AAOI", "FN", "VIAV"]},
+      {"id": "devices", "label": "消費電子與終端設備", "reason": "主要產品為消費電子、個人運算或終端設備", "tickers": ["AAPL", "HPQ", "LOGI", "SONY", "GPRO", "ZBRA"]},
+      {"id": "components", "label": "電子零組件與量測", "reason": "主要產品為電子連接器、光學材料或電子量測儀器", "tickers": ["APH", "GLW", "TEL", "KEYS", "TDY", "LFUS"]},
+      {"id": "hardware_services", "label": "電子製造與 IT 服務", "reason": "主要業務為電子製造、零組件配送或企業 IT 服務", "tickers": ["JBL", "FLEX", "CDW", "ACN", "CTSH", "EPAM", "SNX", "ARW", "AVT", "SANM", "PLXS", "TTMI", "IT"]}
+    ]},
+    {"id": "platform", "label": "數位平台", "groups": [
+      {"id": "search_social", "label": "搜尋、社群與數位廣告", "reason": "主要業務為搜尋、社群或數位廣告平台", "tickers": ["GOOGL", "META", "PINS", "RDDT", "SNAP", "APP"]},
+      {"id": "commerce", "label": "數位商務平台", "reason": "主要業務為數位商務平台；雲端等其他業務以題材標籤表示", "tickers": ["AMZN", "SHOP", "MELI", "EBAY"]}
+    ]},
+    {"id": "frontier", "label": "新興運算", "groups": [
+      {"id": "quantum", "label": "量子運算", "reason": "主要產品或研究方向為量子運算", "tickers": ["IONQ", "QBTS", "RGTI"]},
+      {"id": "space_wireless", "label": "衛星與無線技術", "reason": "主要產品為衛星通訊或相關無線技術", "tickers": ["ASTS", "VSAT", "IRDM"]}
+    ]},
+    {"id": "adjacent", "label": "科技相鄰", "groups": [
+      {"id": "mobility", "label": "電動車與數位移動", "reason": "主要業務受汽車或運輸需求影響，列為科技相鄰", "tickers": ["TSLA", "UBER", "AUR"]},
+      {"id": "industrial_tech", "label": "工業數位化", "reason": "主要產品用於測繪或工業現場，列為科技相鄰", "tickers": ["TRMB"]},
+      {"id": "entertainment", "label": "數位娛樂", "reason": "主要業務受內容與娛樂消費影響，列為科技相鄰", "tickers": ["NFLX", "SPOT"]}
+    ]}
+  ],
+  "ticker_overrides": {
+    "GOOG": {"canonical": "GOOGL", "reason": "Alphabet 雙股類合併為同一家公司，地圖使用 GOOGL 報價"},
+    "AMZN": {"tags": ["AWS 雲端", "電商"], "reason": "公司兼營零售與 AWS；主位置依整體平台業務，AWS 另列標籤"},
+    "MSFT": {"tags": ["雲端", "企業軟體", "AI"]},
+    "AVGO": {"tags": ["客製 ASIC", "企業軟體"]},
+    "AMD": {"tags": ["GPU", "CPU"]},
+    "INTC": {"tags": ["CPU", "晶圓代工"]},
+    "COHR": {"tags": ["光通訊", "資料中心"]},
+    "MRVL": {"tags": ["客製 ASIC", "網通晶片"]},
+    "NOK": {"tags": ["電信網路", "網通設備"]},
+    "NVDA": {"tags": ["AI 加速器", "資料中心"]},
+    "TSM": {"tags": ["晶圓代工", "先進製程"]}
+  },
+  "excluded_from_vgt": {
+    "MSTR": "主要風險曝險為持有比特幣，非核心科技業務",
+    "CRCL": "穩定幣與金融服務，非核心科技業務",
+    "BMNR": "加密資產與挖礦，非核心科技業務",
+    "HUT": "數位資產挖礦，非核心科技業務",
+    "FSLR": "太陽能製造，非本頁科技產業鏈"
+  },
+  "always_show": ["NVDA", "GOOGL", "MRVL", "ARM", "NOK", "INTC", "COHR", "TSLA"],
+  "reference_etfs": ["SMH", "SOXX", "IGV", "SKYY", "CIBR"]
+}

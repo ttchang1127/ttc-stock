@@ -146,6 +146,16 @@ jobs:
             git checkout -- etf_health.json 2>/dev/null || true
           fi
 
+      # The new stock map is a separate, dated research artifact. A provider
+      # outage leaves yesterday's published map intact and does not freeze the
+      # portfolio dashboard or the existing ETF history.
+      - name: Build technology stock map
+        shell: bash
+        run: |
+          if ! python3 scripts/build_tech_stock_map.py; then
+            echo "::warning::Technology map refresh failed; previous tech_stock_map.json is kept."
+          fi
+
       - name: Notify if the automatic catch-up is still stale
         if: >-
           github.event.schedule == '17 12 * * 2-6' &&

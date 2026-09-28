@@ -2671,12 +2671,15 @@ def c48():
     if history_problems:
         return False, "；".join(history_problems[:5])
     workflow = read(".github/workflows/update-prices.yml")
-    page = read("etf_research.html") + read("assets/etf_research.js")
+    page = read("etf_research_archive.html") + read("assets/etf_research.js")
     missing = [marker for marker, text in (("build_etf_health.py", workflow), ("record_etf_flows.py", workflow),
                                            ("etf_health.json", page),
                                            ("etfHealthBody", page), ("etf_constituents.json", page),
                                            ("etf_research.html", read("market_rotation.html")),
-                                           ("etf_research.html", read("dashboard.html"))) if marker not in text]
+                                           ("etf_research.html", read("dashboard.html")),
+                                           ("etf_research_archive.html", read("etf_research.html")),
+                                           ("tech_stock_map.json", read("assets/tech_stock_map.js")),
+                                           ("build_tech_stock_map.py", workflow)) if marker not in text]
     if missing:
         return False, f"缺自動化／畫面：{missing}"
     path = REPO_ROOT / "etf_health.json"
@@ -2693,6 +2696,35 @@ def c48():
             problems.append(f"{row['ticker']} 沒有對應的 etf_holdings 檔")
     return not problems, "；".join(problems[:5]) or (
         f"{payload['as_of']}：{len(payload['etfs'])} 檔有持股、{len(payload['unavailable'])} 檔尚無持股")
+
+
+@check("C-49", "科技地圖個股來源、分類與市值門檻一致，持股與 ETF 回測仍可讀")
+def c49():
+    sys.path.insert(0, str(REPO_ROOT / "scripts"))
+    from build_tech_stock_map import check_taxonomy  # noqa: PLC0415
+    config = load("tech_stock_taxonomy.json")
+    classifications = check_taxonomy(config)
+    data = load("tech_stock_map.json")
+    tickers = [row["ticker"] for row in data["stocks"]]
+    problems = []
+    if len(tickers) != len(set(tickers)) or "GOOG" in tickers:
+        problems.append("重複公司或 GOOG 雙股類")
+    if not set(config["always_show"]) <= set(tickers):
+        problems.append("觀察名單缺公司")
+    if data["taxonomy_version"] != config["version"]:
+        problems.append("分類版本不一致")
+    if data["coverage"]["visible"] != len(tickers) or data["coverage"]["priced"] < 40:
+        problems.append("涵蓋率不一致或過低")
+    if set(tickers) - classifications.keys():
+        problems.append("地圖含未分類公司")
+    for row in data["stocks"]:
+        if row["market_cap_usd"] < config["minimum_market_cap_usd"] and not row["is_watchlist"]:
+            problems.append(f"{row['ticker']} 市值未達門檻")
+        if row["quote_as_of"] != data["as_of"] and any(v is not None for v in row["returns"].values()):
+            problems.append(f"{row['ticker']} 報價日期不一致")
+        if row["group_id"] != classifications[row["ticker"]]["group_id"]:
+            problems.append(f"{row['ticker']} 分類與設定檔不一致")
+    return not problems, "；".join(problems[:5]) or f"{len(tickers)} 家公司，{data['as_of']} 報價"
 
 
 @check("C-44", "研究綜合驗證可追溯且不補猜共識或同業資料")
