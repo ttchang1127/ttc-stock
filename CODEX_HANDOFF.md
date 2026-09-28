@@ -28,6 +28,18 @@
 
 以上是研究原則，不是已定案的量化門檻或完成的功能。後續實作前，先與使用者確認預測期間、比較基準、資料來源與候選股呈現方式。
 
+### 方法論比較與分段討論（尚未定案）
+
+使用者希望先蒐集網路上既有做法並客觀比較，再依序討論三段：①題材與基本面證據分級、②候選股篩選、③驗證原則；尚未授權把討論內容實作成選股訊號。若將來涉及實際交易，估值、倉位與風險管理還需獨立處理。
+
+- [MSCI 主題曝險方法](https://www.msci.com/indexes/documents/methodology/2_MSCI_Thematic_Relevance_Score_Methodology_20220519.pdf)參考公司業務分部與營收，對直接識別及推估的題材關聯採不同處理；適合辨認經濟曝險，不等於預測股價。[S&P 指數方法概論](https://www.spglobal.com/spdji/en/research-insights/index-literacy/methodology-matters/)也強調股票池、納入條件及再平衡規則須事先明確。
+- [AAII 所追蹤的 CAN SLIM 篩選法](https://www.aaii.com/stockideas/article/454702-can-slim-seven-attributes-that-set-market-leaders-apart)結合盈餘成長、新發展、股價領先及市場方向，偏向尋找已顯現的成長領導股；[MSCI 因子指數](https://www.msci.com/indexes/factor-indexes/msci-factor-indexes)則分開衡量品質、價值、動能等通用特徵。兩類方法可借鏡，但不能直接取代新題材的受益證據，也不應混成未驗證的總分。
+- [CFA Institute 回測說明](https://www.cfainstitute.org/insights/professional-learning/refresher-readings/2026/backtesting-and-simulation)提醒前視、存活者偏誤與樣本外檢驗；方法選定後須保存所有測試及失敗結果，不能事後只挑最好看的規則。
+
+第一段「證據分級」的初步提案：先寫清楚題材的催化事件、公司在產業鏈的位置，以及從需求到訂單、營收、利潤的傳導路徑。證據成熟度暫分 A＝申報資料可量化已認列的相關營收、B＝公司正式揭露但尚未認列的訂單／backlog／展望、C＝官方資料確認產品或業務相關但尚無可量化成果、D＝只有新聞或外部推測。這是待討論的證據標籤，**不是**買入評級；SEC 收錄 8-K 附件不代表替公司說法背書，10-Q 財務報表也屬未經年度審計的季度資料。
+
+不要只用單一 A–D 級排序：另記錄題材對公司營收／利潤的可確認規模（未揭露填「未知」）、來源網址、發布日、涵蓋期間、公司原話、研究者推論、反面證據及下次重查時點。正式財報證明某業務存在，不代表該題材占比夠大；重大訂單也不等於已實現營收或確定能轉成利潤。第二段的淘汰門檻與排序條件、第三段的預測目標及驗證方法，留待逐項討論後再定。
+
 ## 在另一台電腦接續
 
 將此儲存庫複製到另一台電腦，在 Codex 中把儲存庫資料夾開成專案，開新對話並說：「先讀 `AGENTS.md` 和 `CODEX_HANDOFF.md`，再接續科技股產業鏈地圖工作。」先執行 `git pull` 取得最新提交。程式碼與這份摘要會隨 Git 同步；原 Codex 對話本身仍需透過 Remote 連線查看或接續。
