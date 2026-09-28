@@ -28,6 +28,11 @@ class TechnologyResearchPageTests(unittest.TestCase):
         self.assertIn("科技 ETF 參考指標", self.html)
         self.assertNotIn('id="etfHealthBody"', self.html)
 
+    def test_header_only_keeps_the_market_date(self):
+        self.assertNotIn('href="dashboard.html"', self.html)
+        self.assertNotIn('href="market_rotation.html"', self.html)
+        self.assertIn('id="techAsOf"', self.html)
+
     def test_old_etf_research_and_backtests_remain_available(self):
         self.assertIn('href="etf_research_archive.html"', self.html)
         for element in ("etfOverview", "etfHealthBody", "themeSignalSummary", "etfMomentumSummary"):
