@@ -471,6 +471,24 @@
       "note": "研究層：主題 ETF（凍結清單 theme-etf-2，25 檔）的成分廣度、等權與市值加權差距、前三大貢獻；權重取自 etf_holdings/ 的 N-PORT，標籤門檻尚未回測"
     },
     {
+      "path": "tech_stock_map.json",
+      "kind": "generated",
+      "producer": "scripts/build_tech_stock_map.py",
+      "edit": "never",
+      "cadence": "market_daily",
+      "committed_by": ["update-prices"],
+      "note": "科技股產業鏈地圖：Nasdaq 公司市值及未調整歷史收盤價，人工分類版本見 tech_stock_taxonomy.json；來源、持股申報日與涵蓋率隨檔公布"
+    },
+    {
+      "path": "tech_stock_taxonomy.json",
+      "kind": "human",
+      "producer": null,
+      "edit": "human",
+      "cadence": "manual",
+      "committed_by": [],
+      "note": "人工維護的科技股候選清單、主產業鏈與分類理由；改版時同步修改 version 並重建 tech_stock_map.json"
+    },
+    {
       "path": "exhibit_991_analysis.json",
       "kind": "generated",
       "producer": "scripts/analyze_exhibit_991.py",

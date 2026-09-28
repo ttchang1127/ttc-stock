@@ -1,96 +1,74 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="產業與主題 ETF 的成分健康度、資金流與訊號回測。">
-  <title>ETF 研究</title>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="美股科技產業鏈地圖：個股市值、漲跌與產業廣度。">
+  <title>科技股產業鏈地圖｜TTC Stock</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/market_rotation.css?v=20260927b">
+  <link rel="stylesheet" href="assets/market_rotation.css?v=20260928a">
+  <link rel="stylesheet" href="assets/tech_stock_map.css?v=20260928a">
 </head>
 <body>
   <main class="shell">
-    <header class="topbar">
-      <div>
-        <h1 class="gradient">ETF 研究</h1>
-        <p class="subtitle">產業與主題 ETF｜成分健康度、資金流、訊號回測</p>
-      </div>
-      <div class="top-actions">
-        <a class="back-link" href="dashboard.html">← 返回投資儀表板</a>
+    <header class="topbar"><div><h1 class="gradient">科技股產業鏈地圖</h1>
+      <p class="subtitle">看個股漲跌，也看一整條產業鏈是否一起走強</p></div>
+      <div class="top-actions"><a class="back-link" href="dashboard.html">← 返回投資儀表板</a>
         <a class="back-link" href="market_rotation.html">市場族群輪動 →</a>
-        <div class="asof">資料基準日<strong id="etfAsOf">載入中…</strong></div>
-      </div>
-    </header>
+        <div class="asof">美股收盤日<strong id="techAsOf">載入中…</strong></div></div></header>
 
-    <section class="panel research-panel" aria-labelledby="etfOverviewTitle">
-      <div class="panel-head">
-        <div>
-          <h2 id="etfOverviewTitle">現況總覽 <span class="research-badge">研究中</span></h2>
-          <p class="panel-desc">各主題 ETF 依成分健康度分組。這是描述：告訴你目前的漲跌是多數成分一起動，還是少數大型持股撐起或拖累；不是買賣訊號。</p>
-        </div>
-      </div>
-      <div id="etfOverview"><div class="panel-desc">正在載入…</div></div>
+    <section class="tech-intro" aria-label="閱讀方式">
+      <p>一個方塊代表一家公司。外框是產業鏈分類，方塊顏色是所選期間的股價漲跌；預設方塊面積按公司市值。點產業或使用選單放大，也可切換每家公司等大來觀察漲跌家數。</p>
+      <div class="tech-highlights" id="techHighlights" aria-live="polite">正在載入資料…</div>
     </section>
 
-    <section class="panel research-panel" aria-labelledby="etfHealthTitle">
-      <div class="panel-head">
-        <div>
-          <h2 id="etfHealthTitle">主題 ETF 成分健康度 <span class="research-badge">研究中</span></h2>
-          <p class="panel-desc">同樣是 ETF 上漲，可能是多數成分一起漲，也可能只靠前幾大撐盤。依各 ETF 最近一次 SEC N-PORT 持股，看成分站上均線的比例、等權與市值加權報酬差距，以及前三大持股貢獻了多少漲跌。依 20 日相對 SPY 排序；狀態是描述性標籤，門檻尚未經回測驗證。<strong>點任一列展開成分清單與權重地圖。</strong></p>
+    <section class="panel" aria-labelledby="mapTitle"><div class="panel-head"><div>
+      <h2 id="mapTitle">科技股地圖 <span class="research-badge">研究中</span></h2>
+      <p class="panel-desc" id="mapSubtitle">市值門檻：100 億美元；持股觀察名單保留。</p>
+    </div></div>
+      <div class="tech-controls">
+        <div class="period-btns" role="group" aria-label="漲跌期間">
+          <button class="period-btn" type="button" data-period="1d">1 日</button>
+          <button class="period-btn" type="button" data-period="1w">1 週</button>
+          <button class="period-btn active" type="button" data-period="1m">1 個月</button>
+          <button class="period-btn" type="button" data-period="3m">3 個月</button>
+          <button class="period-btn" type="button" data-period="6m">6 個月</button>
         </div>
+        <label class="control-label">放大範圍 <select id="techFocus"><option value="all">全部核心科技</option></select></label>
+        <label class="check-label"><input id="techAdjacent" type="checkbox"> 顯示科技相鄰</label>
+        <label class="check-label"><input id="techEqual" type="checkbox"> 每家公司等大</label>
+        <label class="control-label">搜尋 <input id="techSearch" type="search" placeholder="代號或公司名稱" autocomplete="off"></label>
       </div>
-      <div class="table-wrap">
-        <table class="state-table">
-          <thead>
-            <tr>
-              <th>ETF／主題</th>
-              <th title="ETF 20 日報酬超過 ±2% 才算有方向；再依成分廣度與前三大貢獻分為普遍或少數。">狀態</th>
-              <th title="ETF 20 日相對 SPY（pp），以及 ETF 本身 5／20／60 日報酬。">20 日相對／本身</th>
-              <th title="成分站上 50 日均線的比例：依公司家數／依持股權重；以及站上 20 日均線（權重）。">成分廣度</th>
-              <th title="成分 20 日報酬：等權減市值加權。負值代表大型持股撐起報酬。">等權－市值加權</th>
-              <th title="對市值加權報酬貢獻最大的三檔，以及合計占總漲跌的比例；超過 100% 代表其餘成分合計反向。">前三大貢獻</th>
-              <th title="N-PORT：最近三個月實際申購減贖回，占淨資產（落後 2～5 個月）。估計：依每日記錄的 Yahoo 流通股數或資產規模推算近 5／20 個交易日淨流入。">資金流</th>
-              <th title="有報價的普通股占 ETF 普通股權重；持股申報日。">涵蓋／持股日</th>
-            </tr>
-          </thead>
-          <tbody id="etfHealthBody"><tr><td colspan="8" class="panel-desc">正在載入…</td></tr></tbody>
-        </table>
-      </div>
-      <p class="panel-desc" id="etfHealthNote"></p>
+      <div class="tech-path" id="techPath" aria-live="polite"></div>
+      <div class="tech-map" id="techMap" role="group" aria-label="科技股產業鏈漲跌地圖"></div>
+      <div class="tech-map-footer"><span id="techMapNote"></span><span class="tech-legend" aria-label="漲跌顏色"><i class="down"></i> 下跌 <i class="flat"></i> 無資料／持平 <i class="up"></i> 上漲</span></div>
     </section>
 
-    <section class="panel research-panel" aria-labelledby="etfBacktestTitle">
-      <div class="panel-head">
-        <div>
-          <h2 id="etfBacktestTitle">ETF 訊號回測：能不能排出下個月的強勢族群 <span class="research-badge">研究中</span></h2>
-          <p class="panel-desc">候選訊號、ETF 清單與判定規則都在看到結果前固定並標上版本；較早的清單照樣重算，失敗的結果也一併公開。每月 3 日自動更新。</p>
-        </div>
-      </div>
-      <div id="themeSignalSummary"><div class="panel-desc">正在載入主題 ETF 訊號回測…</div></div>
-      <div id="etfMomentumSummary"><div class="panel-desc">正在載入板塊 ETF 動能回測…</div></div>
+    <section class="panel" aria-labelledby="breadthTitle"><div class="panel-head"><div>
+      <h2 id="breadthTitle">產業鏈廣度</h2>
+      <p class="panel-desc">等權報酬看一般公司，市值加權報酬看大公司；差距有助辨認是否只有少數巨頭拉動。依目前畫面範圍顯示。</p>
+      </div></div>
+      <div class="table-wrap"><table class="state-table"><thead><tr><th>產業鏈</th><th>公司／有報價</th><th>近 1 個月上漲</th><th>等權報酬</th><th>市值加權報酬</th><th>站上 50 日均線</th></tr></thead>
+      <tbody id="techBreadth"><tr><td colspan="6">載入中…</td></tr></tbody></table></div>
     </section>
 
-    <section class="panel">
-      <details>
-        <summary>資料來源與限制</summary>
-        <div class="method-grid">
-          <div class="method-card"><strong>成分與權重</strong><span>各 ETF 最近一次 SEC Form N-PORT（每季、落後約 60 天）；申報後的調倉不反映。</span></div>
-          <div class="method-card"><strong>代號對應</strong><span>N-PORT 美國掛牌代號、股票池名稱、SEC 公司名稱依序比對；外國掛牌不硬套美股代號，計入未涵蓋。</span></div>
-          <div class="method-card"><strong>資料不足</strong><span>有報價的普通股不到七成時不給狀態（例如 COPX、LIT、BOTZ、URA、TAN 外國成分多）。</span></div>
-          <div class="method-card"><strong>資金流：N-PORT</strong><span>申報中的每月申購、再投資、贖回，是實際數字但落後 2～5 個月。</span></div>
-          <div class="method-card"><strong>資金流：每日估計</strong><span>依每日記錄的 Yahoo 流通股數或資產規模推算；Yahoo 不一定每天更新，只當估計。</span></div>
-          <div class="method-card"><strong>回測紀律</strong><span>持股與資金流以申報日為準、不偷看未來；清單是 2026 年選定的現存基金（選樣偏誤）。</span></div>
-        </div>
-      </details>
-    </section>
+    <section class="panel" aria-labelledby="detailTitle"><h2 id="detailTitle">公司資訊</h2>
+      <div id="techDetail" class="detail-empty">點選地圖中的公司，查看分類依據、資料來源與各期間漲跌。</div></section>
 
-    <footer class="footer">
-      資料：SEC EDGAR N-PORT、Yahoo Finance｜本頁僅為研究工具，不構成投資建議。
-    </footer>
+    <section class="panel" aria-labelledby="etfTitle"><h2 id="etfTitle">科技 ETF 參考指標</h2>
+      <p class="panel-desc">ETF 的報酬與上述個股分組並非同一個投資組合；此處僅作相關主題對照，時間窗也略有差異。</p>
+      <div class="tech-etfs" id="techEtfs">載入中…</div></section>
+
+    <section class="panel"><details><summary>股票來源、分類與資料限制</summary><div class="method-grid">
+      <div class="method-card"><strong>股票池</strong><span>以 VGT 持股、S&P 500、Nasdaq-100、SOX 成分與人工補充找候選，再依人工產業鏈分類納入。Nasdaq-100 並非科技股指數；未分類的 VGT 成分不會自動塞進地圖。</span></div>
+      <div class="method-card"><strong>門檻與去重</strong><span>市值至少 100 億美元；觀察持股例外保留。Alphabet 的 GOOG／GOOGL 只算一家公司，以 GOOGL 顯示。跨業務公司只佔一個主位置，以題材標籤補充。</span></div>
+      <div class="method-card"><strong>價格與市值</strong><span>Nasdaq 公開報價的美元公司市值與歷史收盤價。期間為 1／5／21／63／126 個交易日；歷史收盤價未調整股息或拆股，遇拆股需另行核對。缺資料的方塊以灰色呈現。</span></div>
+      <div class="method-card"><strong>資料時差</strong><span>VGT 名單來自 SEC N-PORT，可能比當前持股落後；地圖會另標示持股申報日、報價日與價格涵蓋檔數。ETF 申購贖回資料不能直接解讀為流入某一檔股票。</span></div>
+      <div class="method-card"><strong>回測</strong><span>本頁的產業鏈分類、廣度與漲跌是現況描述，並未驗證預測能力。既有 ETF 歷史資料與每月回測繼續累積，可在<a href="etf_research_archive.html">原 ETF 研究頁</a>查閱。</span></div>
+    </div></details></section>
+    <footer class="footer">資料：Nasdaq、SEC EDGAR N-PORT、既有市場股票池｜本頁為研究工具，不構成投資建議。</footer>
   </main>
-
-  <script src="assets/etf_research.js?v=20260927b" defer></script>
+  <script src="assets/tech_stock_map.js?v=20260928a" defer></script>
 </body>
 </html>
