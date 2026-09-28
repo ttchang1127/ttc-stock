@@ -52,7 +52,7 @@
   }
 
   function currentStocks() {
-    const focus = $('techFocus').value;
+    const focus = currentFocus();
     const adjacent = $('techAdjacent').checked;
     const search = $('techSearch').value.trim().toLowerCase();
     return data.stocks.filter(stock =>
@@ -60,6 +60,19 @@
       (focus === 'all' || (focus.startsWith('family:') && stock.family_id === focus.slice(7)) ||
         (focus.startsWith('group:') && stock.group_id === focus.slice(6))) &&
       (!search || `${stock.ticker} ${stock.name} ${stock.group} ${stock.tags.join(' ')}`.toLowerCase().includes(search)));
+  }
+  function currentFocus() {
+    return $('techGroup').value || $('techFocus').value;
+  }
+  function populateGroups(selectedGroup = '') {
+    const family = $('techFocus').value;
+    const familyId = family.startsWith('family:') ? family.slice(7) : null;
+    const groups = familyId ? [...new Map(data.stocks.filter(stock => stock.family_id === familyId)
+      .map(stock => [stock.group_id, stock.group])).entries()] : [];
+    $('techGroup').innerHTML = `<option value="">${familyId ? '全部子產業' : '先選大類'}</option>` +
+      groups.map(([id, name]) => `<option value="group:${escapeHtml(id)}">${escapeHtml(name)}</option>`).join('');
+    $('techGroup').disabled = !familyId;
+    $('techGroup').value = groups.some(([id]) => selectedGroup === `group:${id}`) ? selectedGroup : '';
   }
   function size(members) {
     return $('techEqual').checked ? members.length : members.reduce((sum, row) => sum + row.market_cap_usd, 0);
@@ -113,7 +126,7 @@
       ma:ma.length ? 100 * ma.filter(row => row.above_ma50).length / ma.length : null};
   }
   function renderBreadth(stocks) {
-    const focus = $('techFocus').value;
+    const focus = currentFocus();
     const rows = focus.startsWith('group:') ? bucket(stocks, 'group') :
       focus.startsWith('family:') ? bucket(stocks, 'group') : bucket(stocks, 'family');
     $('techBreadth').innerHTML = rows.map(row => {
@@ -137,8 +150,9 @@
   }
   function render() {
     if (!data) return;
+    $('techFocus').options[0].textContent = $('techAdjacent').checked ? '全部科技（含相鄰）' : '全部核心科技';
     const stocks = currentStocks();
-    const focus = $('techFocus').value;
+    const focus = currentFocus();
     const map = $('techMap');
     const width = Math.floor(map.clientWidth), height = map.clientHeight;
     let html = '';
@@ -155,14 +169,24 @@
     map.innerHTML = html || '<p class="tech-empty">此範圍沒有符合條件的公司。</p>';
     $('techMapNote').textContent = `${stocks.length} 家公司，${stocks.filter(s => s.returns[period] != null).length} 家有本期報價；` +
       ($('techEqual').checked ? '每家公司等大' : '方塊面積按公司市值') + `。價格截至 ${data.as_of}。`;
-    $('techPath').textContent = focus === 'all' ? '全部核心科技' :
-      $('techFocus').selectedOptions[0].textContent;
+    const familyLabel = $('techFocus').selectedOptions[0].textContent;
+    $('techPath').textContent = $('techGroup').value ?
+      `${familyLabel} ／ ${$('techGroup').selectedOptions[0].textContent}` : familyLabel;
     renderBreadth(stocks);
     renderDetails();
   }
   function focusTo(value) {
-    $('techFocus').value = value;
-    if (value === 'family:adjacent') $('techAdjacent').checked = true;
+    if (value.startsWith('group:')) {
+      const stock = data.stocks.find(row => row.group_id === value.slice(6));
+      if (!stock) return;
+      $('techFocus').value = `family:${stock.family_id}`;
+      populateGroups(value);
+      if (stock.is_adjacent) $('techAdjacent').checked = true;
+    } else {
+      $('techFocus').value = value;
+      populateGroups();
+      if (value === 'family:adjacent') $('techAdjacent').checked = true;
+    }
     render();
   }
   async function init() {
@@ -176,9 +200,9 @@
         `<span>VGT 持股日 <strong>${escapeHtml(data.sources.vgt_report_date)}</strong></span>`;
       $('mapSubtitle').textContent = `分類版本 ${data.taxonomy_version}；市值門檻 ${capText(data.minimum_market_cap_usd)}。科技相鄰預設不顯示。`;
       const families = [...new Map(data.stocks.map(s => [s.family_id, s.family])).entries()];
-      const groups = [...new Map(data.stocks.map(s => [s.group_id, {name:s.group, family:s.family}])).entries()];
-      $('techFocus').insertAdjacentHTML('beforeend', families.map(([id, name]) => `<option value="family:${escapeHtml(id)}">${escapeHtml(name)}</option>`).join('') +
-        groups.map(([id, item]) => `<option value="group:${escapeHtml(id)}">${escapeHtml(item.family)} ／ ${escapeHtml(item.name)}</option>`).join(''));
+      $('techFocus').insertAdjacentHTML('beforeend', families.map(([id, name]) =>
+        `<option value="family:${escapeHtml(id)}">${escapeHtml(name)}</option>`).join(''));
+      populateGroups();
       $('techEtfs').innerHTML = (data.reference_etfs.items || []).map(etf =>
         `<div class="tech-etf"><strong>${escapeHtml(etf.ticker)}</strong><span>5 日 ${pct(etf.r5_pct)}</span><span>20 日 ${pct(etf.r20_pct)}</span><span>60 日 ${pct(etf.r60_pct)}</span></div>`).join('') +
         `<p class="panel-desc">ETF 報價日 ${escapeHtml(data.reference_etfs.as_of)}；報酬來自既有 ETF 研究資料。</p>`;
@@ -187,7 +211,17 @@
         document.querySelectorAll('[data-period]').forEach(item => item.classList.toggle('active', item === button));
         render();
       }));
-      ['techFocus', 'techAdjacent', 'techEqual'].forEach(id => $(id).addEventListener('change', render));
+      $('techFocus').addEventListener('change', () => {
+        populateGroups();
+        if ($('techFocus').value === 'family:adjacent') $('techAdjacent').checked = true;
+        render();
+      });
+      $('techGroup').addEventListener('change', render);
+      $('techAdjacent').addEventListener('change', () => {
+        if (!$('techAdjacent').checked && $('techFocus').value === 'family:adjacent') focusTo('all');
+        else render();
+      });
+      $('techEqual').addEventListener('change', render);
       $('techSearch').addEventListener('input', render);
       mapEvent();
       let timer;

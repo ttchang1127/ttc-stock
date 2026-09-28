@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/market_rotation.css?v=20260928a">
-  <link rel="stylesheet" href="assets/tech_stock_map.css?v=20260928b">
+  <link rel="stylesheet" href="assets/tech_stock_map.css?v=20260928c">
 </head>
 <body>
   <main class="shell">
@@ -34,7 +34,11 @@
           <button class="period-btn" type="button" data-period="3m">3 個月</button>
           <button class="period-btn" type="button" data-period="6m">6 個月</button>
         </div>
-        <label class="control-label">放大範圍 <select id="techFocus"><option value="all">全部核心科技</option></select></label>
+        <div class="tech-focus-controls" role="group" aria-labelledby="techFocusLabel">
+          <span id="techFocusLabel">放大範圍</span>
+          <label class="control-label">大類 <select id="techFocus"><option value="all">全部核心科技</option></select></label>
+          <label class="control-label">子產業 <select id="techGroup" disabled><option value="">先選大類</option></select></label>
+        </div>
         <label class="check-label"><input id="techAdjacent" type="checkbox"> 顯示科技相鄰</label>
         <label class="check-label"><input id="techEqual" type="checkbox"> 每家公司等大</label>
         <label class="control-label">搜尋 <input id="techSearch" type="search" placeholder="代號或公司名稱" autocomplete="off"></label>
@@ -68,6 +72,6 @@
     </div></details></section>
     <footer class="footer">資料：Nasdaq、SEC EDGAR N-PORT、既有市場股票池｜本頁為研究工具，不構成投資建議。</footer>
   </main>
-  <script src="assets/tech_stock_map.js?v=20260928a" defer></script>
+  <script src="assets/tech_stock_map.js?v=20260928b" defer></script>
 </body>
 </html>
