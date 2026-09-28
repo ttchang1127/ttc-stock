@@ -28,6 +28,7 @@
 .tech-legend .down { background: #ad5f70; } .tech-legend .flat { background: #475569; } .tech-legend .up { background: #198873; }
 .tech-table-link { background: none; border: 0; padding: 2px; cursor: pointer; color: #9fddd8; font-weight: 700; }
 .tech-table-link:hover { text-decoration: underline; }
+.tech-breadth-table th:not(:first-child), .tech-breadth-table td:not(:first-child) { text-align: right; font-variant-numeric: tabular-nums; }
 .detail-empty { color: var(--muted); padding: 18px 0 4px; }
 .tech-detail-title { display: flex; gap: 10px 20px; flex-wrap: wrap; align-items: baseline; margin: 18px 0 8px; }
 .tech-detail-title strong { font-size: 1.14rem; }
