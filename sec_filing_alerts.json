@@ -2,6 +2,42 @@
   "schema_version": 3,
   "events": [
     {
+      "ticker": "META",
+      "cik": "0001326801",
+      "accession": "0000950103-26-014647",
+      "form": "4",
+      "group": "內部人持股",
+      "severity": "medium",
+      "filing_date": "2026-09-28",
+      "accepted_at": "2026-09-28T23:47:03.000Z",
+      "report_date": "2026-09-24",
+      "items": [],
+      "items_summary": "未提供 Item 分類",
+      "primary_document": "xslF345X06/ownership.xml",
+      "url": "https://www.sec.gov/Archives/edgar/data/1326801/000095010326014647/xslF345X06/ownership.xml",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1326801/000095010326014647/0000950103-26-014647-index.html",
+      "detected_at": "2026-09-29T10:24:00+00:00",
+      "baseline": false
+    },
+    {
+      "ticker": "META",
+      "cik": "0001326801",
+      "accession": "0001921094-26-001053",
+      "form": "144",
+      "group": "內部人持股",
+      "severity": "medium",
+      "filing_date": "2026-09-28",
+      "accepted_at": "2026-09-28T20:00:59.000Z",
+      "report_date": "",
+      "items": [],
+      "items_summary": "未提供 Item 分類",
+      "primary_document": "xsl144X01/primary_doc.xml",
+      "url": "https://www.sec.gov/Archives/edgar/data/1326801/000192109426001053/xsl144X01/primary_doc.xml",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1326801/000192109426001053/0001921094-26-001053-index.html",
+      "detected_at": "2026-09-29T10:24:00+00:00",
+      "baseline": false
+    },
+    {
       "ticker": "MRVL",
       "cik": "0001835632",
       "accession": "0001628280-26-063592",
@@ -6499,9 +6535,35 @@
       "baseline": true
     }
   ],
-  "updated_at": "2026-09-27T11:38:08+00:00",
+  "updated_at": "2026-09-29T10:24:00+00:00",
   "source": "SEC submissions API; accession-number deduplicated; watcher-run deltas",
   "update_batches": [
+    {
+      "checked_at": "2026-09-29T10:24:00+00:00",
+      "previous_checked_at": "2026-09-27T11:38:08+00:00",
+      "baseline": false,
+      "new_count": 2,
+      "critical_count": 0,
+      "high_count": 0,
+      "medium_count": 2,
+      "new_accessions": [
+        "0000950103-26-014647",
+        "0001921094-26-001053"
+      ],
+      "financial_accessions": [],
+      "ownership_accessions": [],
+      "enforcement_keys": [],
+      "company_changes": [
+        {
+          "ticker": "META",
+          "new_count": 2,
+          "important_count": 0,
+          "before_priority": "urgent",
+          "after_priority": "urgent",
+          "priority_changed": false
+        }
+      ]
+    },
     {
       "checked_at": "2026-09-27T11:38:08+00:00",
       "previous_checked_at": "2026-09-27T11:18:59+00:00",

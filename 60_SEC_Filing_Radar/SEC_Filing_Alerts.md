@@ -1,6 +1,6 @@
 ---
 title: SEC 每日申報雷達
-updated_at: 2026-09-27T11:38:08+00:00
+updated_at: 2026-09-29T10:24:00+00:00
 tags:
   - sec/alerts
   - filings/daily
@@ -15,6 +15,8 @@ GitHub Actions 於台北時間週二至週六中午 12:00 檢查；重大／重�
 
 | 重要性 | 公司 | 申報 | 日期 | 事件／Item | SEC 原文 |
 |---|---|---|---|---|---|
+| 🔵 留意 | **META** | 4 | 2026-09-28 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000095010326014647/xslF345X06/ownership.xml) |
+| 🔵 留意 | **META** | 144 | 2026-09-28 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000192109426001053/xsl144X01/primary_doc.xml) |
 | 🟠 重要 | **MRVL** | 8-K | 2026-09-25 | 8.01 其他重大事項、9.01 附件／財務報表 | [原文](https://www.sec.gov/Archives/edgar/data/1835632/000162828026063592/mrvl-20260925.htm) |
 | 🔵 留意 | **ONDS** | 4 | 2026-09-24 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1646188/000121390026103173/xslF345X06/ownership.xml) |
 | 🔵 留意 | **ONDS** | 144 | 2026-09-24 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1646188/000121390026103171/xsl144X01/primary_doc.xml) |
@@ -213,8 +215,6 @@ GitHub Actions 於台北時間週二至週六中午 12:00 檢查；重大／重�
 | 🔵 留意 | **ARM** | 4 | 2026-08-31 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1973239/000197323926000122/xslF345X06/wk-form4_1788210409.xml) |
 | 🔵 留意 | **COHR** | 144 | 2026-08-31 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/820318/000195004726008866/xsl144X01/primary_doc.xml) |
 | 🔵 留意 | **COHR** | 144 | 2026-08-31 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/820318/000195004726008864/xsl144X01/primary_doc.xml) |
-| 🔵 留意 | **COHR** | 144 | 2026-08-31 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/820318/000195004726008863/xsl144X01/primary_doc.xml) |
-| 🔵 留意 | **NVDA** | 144 | 2026-08-31 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1045810/000192109426000969/xsl144X01/primary_doc.xml) |
 
 ## 監控範圍
 

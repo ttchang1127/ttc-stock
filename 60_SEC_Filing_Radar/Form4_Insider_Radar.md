@@ -1,6 +1,6 @@
 ---
 title: Form 4 內部人交易雷達
-updated_at: 2026-09-27T04:00:45+00:00
+updated_at: 2026-09-29T10:24:00+00:00
 tags:
   - sec/form-4
   - insiders
@@ -13,6 +13,18 @@ tags:
 
 | 申報日 | 公司 | 申報人／身分 | 代碼與意義 | 股數 | 單價 | 交易金額 | 取得／處分 | 10b5-1 | SEC |
 |---|---|---|---|---:|---:|---:|---|---|---|
+| 2026-09-28 | **META** | Zuckerberg Mark／董事、高階主管（COB and CEO）、10% 大股東 | `C` 衍生證券轉換 | 17,140 | 0.00 | 0 | 取得 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000095010326014647/xslF345X06/ownership.xml) |
+| 2026-09-28 | **META** | Zuckerberg Mark／董事、高階主管（COB and CEO）、10% 大股東 | `S` 公開市場或私下賣出 | 2,093 | 775.39 | 1,622,893 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000095010326014647/xslF345X06/ownership.xml) |
+| 2026-09-28 | **META** | Zuckerberg Mark／董事、高階主管（COB and CEO）、10% 大股東 | `S` 公開市場或私下賣出 | 2,516 | 776.56 | 1,953,816 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000095010326014647/xslF345X06/ownership.xml) |
+| 2026-09-28 | **META** | Zuckerberg Mark／董事、高階主管（COB and CEO）、10% 大股東 | `S` 公開市場或私下賣出 | 7,607 | 777.63 | 5,915,434 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000095010326014647/xslF345X06/ownership.xml) |
+| 2026-09-28 | **META** | Zuckerberg Mark／董事、高階主管（COB and CEO）、10% 大股東 | `S` 公開市場或私下賣出 | 4,324 | 778.36 | 3,365,609 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000095010326014647/xslF345X06/ownership.xml) |
+| 2026-09-28 | **META** | Zuckerberg Mark／董事、高階主管（COB and CEO）、10% 大股東 | `S` 公開市場或私下賣出 | 600 | 779.33 | 467,596 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000095010326014647/xslF345X06/ownership.xml) |
+| 2026-09-28 | **META** | Zuckerberg Mark／董事、高階主管（COB and CEO）、10% 大股東 | `S` 公開市場或私下賣出 | 1,133 | 775.32 | 878,436 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000095010326014647/xslF345X06/ownership.xml) |
+| 2026-09-28 | **META** | Zuckerberg Mark／董事、高階主管（COB and CEO）、10% 大股東 | `S` 公開市場或私下賣出 | 1,769 | 776.56 | 1,373,739 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000095010326014647/xslF345X06/ownership.xml) |
+| 2026-09-28 | **META** | Zuckerberg Mark／董事、高階主管（COB and CEO）、10% 大股東 | `S` 公開市場或私下賣出 | 4,810 | 777.66 | 3,740,552 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000095010326014647/xslF345X06/ownership.xml) |
+| 2026-09-28 | **META** | Zuckerberg Mark／董事、高階主管（COB and CEO）、10% 大股東 | `S` 公開市場或私下賣出 | 2,146 | 778.40 | 1,670,445 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000095010326014647/xslF345X06/ownership.xml) |
+| 2026-09-28 | **META** | Zuckerberg Mark／董事、高階主管（COB and CEO）、10% 大股東 | `S` 公開市場或私下賣出 | 476 | 779.28 | 370,936 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000095010326014647/xslF345X06/ownership.xml) |
+| 2026-09-28 | **META** | Zuckerberg Mark／董事、高階主管（COB and CEO）、10% 大股東 | `C` 衍生證券轉換 | 17,140 | 0.00 | 0 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000095010326014647/xslF345X06/ownership.xml) |
 | 2026-09-24 | **ONDS** | LAIRD NEIL J／高階主管（CFO and Treasurer） | `M` 衍生證券行使／轉換 | 12,500 | 0.00 | 0 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1646188/000121390026103173/xslF345X06/ownership.xml) |
 | 2026-09-24 | **ONDS** | LAIRD NEIL J／高階主管（CFO and Treasurer） | `S` 公開市場或私下賣出 | 4,952 | 7.74 | 38,328 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1646188/000121390026103173/xslF345X06/ownership.xml) |
 | 2026-09-24 | **ONDS** | LAIRD NEIL J／高階主管（CFO and Treasurer） | `M` 衍生證券行使／轉換 | 12,500 | 0.00 | 0 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1646188/000121390026103173/xslF345X06/ownership.xml) |
@@ -201,18 +213,6 @@ tags:
 | 2026-08-25 | **AMZN** | Zapolsky David／高階主管（Senior Vice President） | `M` 衍生證券行使／轉換 | 5,530 | 0.00 | 0 | 取得 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000155797926000008/xslF345X06/wk-form4_1787690696.xml) |
 | 2026-08-25 | **AMZN** | Zapolsky David／高階主管（Senior Vice President） | `S` 公開市場或私下賣出 | 1,138 | 257.70 | 293,265 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000155797926000008/xslF345X06/wk-form4_1787690696.xml) |
 | 2026-08-25 | **AMZN** | Zapolsky David／高階主管（Senior Vice President） | `S` 公開市場或私下賣出 | 1,782 | 258.64 | 460,889 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000155797926000008/xslF345X06/wk-form4_1787690696.xml) |
-| 2026-08-25 | **AMZN** | Zapolsky David／高階主管（Senior Vice President） | `S` 公開市場或私下賣出 | 2,133 | 259.63 | 553,798 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000155797926000008/xslF345X06/wk-form4_1787690696.xml) |
-| 2026-08-25 | **AMZN** | Zapolsky David／高階主管（Senior Vice President） | `S` 公開市場或私下賣出 | 1,119 | 260.45 | 291,442 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000155797926000008/xslF345X06/wk-form4_1787690696.xml) |
-| 2026-08-25 | **AMZN** | Zapolsky David／高階主管（Senior Vice President） | `M` 衍生證券行使／轉換 | 9,900 | 0.00 | 0 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000155797926000008/xslF345X06/wk-form4_1787690696.xml) |
-| 2026-08-25 | **AMZN** | Zapolsky David／高階主管（Senior Vice President） | `M` 衍生證券行使／轉換 | 5,530 | 0.00 | 0 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000155797926000008/xslF345X06/wk-form4_1787690696.xml) |
-| 2026-08-20 | **AAPL** | Newstead Jennifer／高階主管（SVP, GC and Secretary） | `S` 公開市場或私下賣出 | 1,439 | 307.49 | 442,478 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/320193/000114036126033928/xslF345X06/form4.xml) |
-| 2026-08-20 | **META** | Mahoney Curtis J.／高階主管（Chief Legal Officer） | `S` 公開市場或私下賣出 | 1,559 | 558.00 | 869,922 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000095010326012729/xslF345X06/ownership.xml) |
-| 2026-08-20 | **ONDS** | COHEN RICHARD M／董事 | `S` 公開市場或私下賣出 | 7,500 | 8.96 | 67,177 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1646188/000121390026092185/xslF345X06/ownership.xml) |
-| 2026-08-18 | **ARM** | Bartels Laura Kathleen／高階主管（Chief Accounting Officer） | `M` 衍生證券行使／轉換 | 862 | — | — | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1973239/000197323926000121/xslF345X06/wk-form4_1787088706.xml) |
-| 2026-08-18 | **ARM** | Bartels Laura Kathleen／高階主管（Chief Accounting Officer） | `M` 衍生證券行使／轉換 | 819 | — | — | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1973239/000197323926000121/xslF345X06/wk-form4_1787088706.xml) |
-| 2026-08-18 | **ARM** | Bartels Laura Kathleen／高階主管（Chief Accounting Officer） | `F` 以證券支付稅款或履約價 | 856 | 271.43 | 232,344 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1973239/000197323926000121/xslF345X06/wk-form4_1787088706.xml) |
-| 2026-08-18 | **ARM** | Bartels Laura Kathleen／高階主管（Chief Accounting Officer） | `M` 衍生證券行使／轉換 | 862 | 0.00 | 0 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1973239/000197323926000121/xslF345X06/wk-form4_1787088706.xml) |
-| 2026-08-18 | **ARM** | Bartels Laura Kathleen／高階主管（Chief Accounting Officer） | `M` 衍生證券行使／轉換 | 819 | 0.00 | 0 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1973239/000197323926000121/xslF345X06/wk-form4_1787088706.xml) |
 
 ## 交易代碼速查
 
@@ -227,5 +227,5 @@ tags:
 
 > 金額只在股數與單價都由 SEC 文件提供時才計算；缺值保留為「—」，不以 0 代替。
 
-> 最後檢查：`2026-09-27T04:00:45+00:00`
+> 最後檢查：`2026-09-29T10:24:00+00:00`
 

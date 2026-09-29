@@ -1,6 +1,6 @@
 ---
 title: SEC 每日變更候選稿
-generated_at: 2026-09-27T11:38:08+00:00
+generated_at: 2026-09-29T10:24:00+00:00
 editorial_reviewed_at: 2026-09-12T18:31:51+08:00
 tags:
   - sec/daily
@@ -11,11 +11,11 @@ tags:
 
 > 本頁由規則自動產生，只是待 AI 覆核候選，不是最終判讀、利多／利空或買賣建議。
 
-- 候選：**26 項／10 家**
-- 新增風險候選：**20**
+- 候選：**27 項／10 家**
+- 新增風險候選：**21**
 - 改善候選：**0**
 - 結論變化候選：**6**
-- 歷史低命中而降低顯示優先級：**17**
+- 歷史低命中而降低顯示優先級：**18**
 
 ## 1. 🔴 新增風險候選｜NVDA
 
@@ -187,7 +187,32 @@ Form 4 出現 1 列賣出，列為風險候選
 - **規則品質**：已覆核 9 次、採納 5 次；已覆核 9 個樣本，採納率 56%，維持原優先級。
 - **官方來源**：[SEC 8-K](https://www.sec.gov/Archives/edgar/data/1646188/000121390026099531/ea0304980-8k_ondas.htm)
 
-## 16. 🔴 新增風險候選｜AAPL
+## 16. 🔴 新增風險候選｜META
+
+Form 4 出現 10 列賣出，列為風險候選
+
+- 已知賣出金額合計 $21.4M；其中 10/10 列標示 10b5-1。
+- 單筆最高約占交易前直接持股 100.00%。
+- 10b5-1 是預先安排交易，訊號強度低於臨時主動賣出。
+- **為何列入**：內部人賣出需看計畫屬性、持股比例與交易規模，不直接等於看空。
+- **證據強度**：low
+- **規則品質**：已覆核 14 次、採納 0 次；已覆核 14 個樣本，採納率 0% ≤ 20%，只降低顯示優先級、不刪除事件。
+- **官方來源**：[SEC 4](https://www.sec.gov/Archives/edgar/data/1326801/000095010326014647/xslF345X06/ownership.xml)
+
+## 17. 🔴 新增風險候選｜META
+
+新增 6 份 Form 144 擬售通知，列為低強度風險候選
+
+- 已解析擬售 92,199 股、申報估值 $66.7M。
+- 約占申報所列已發行股數 0.00418%。
+- 申報人：Cox Christopher K、Olivan Javier、Zuckerberg Mark。
+- Form 144 是擬售意向，不等於已成交；需等待後續 Form 4 或市場交易確認。
+- **為何列入**：集中或大額擬售可能增加供給壓力，但證據強度低於已完成的非 10b5-1 賣出。
+- **證據強度**：low
+- **規則品質**：已覆核 9 次、採納 0 次；已覆核 9 個樣本，採納率 0% ≤ 20%，只降低顯示優先級、不刪除事件。
+- **官方來源**：[SEC Form 144](https://www.sec.gov/Archives/edgar/data/1326801/000192109426001053/xsl144X01/primary_doc.xml)｜[SEC Form 144](https://www.sec.gov/Archives/edgar/data/1326801/000192109426001050/xsl144X01/primary_doc.xml)｜[SEC Form 144](https://www.sec.gov/Archives/edgar/data/1326801/000192109426001042/xsl144X01/primary_doc.xml)｜[SEC Form 144](https://www.sec.gov/Archives/edgar/data/1326801/000192109426001039/xsl144X01/primary_doc.xml)｜[SEC Form 144](https://www.sec.gov/Archives/edgar/data/1326801/000192109426001023/xsl144X01/primary_doc.xml)｜[SEC Form 144](https://www.sec.gov/Archives/edgar/data/1326801/000192109426001013/xsl144X01/primary_doc.xml)
+
+## 18. 🔴 新增風險候選｜AAPL
 
 Form 4 出現 1 列賣出，列為風險候選
 
@@ -199,20 +224,7 @@ Form 4 出現 1 列賣出，列為風險候選
 - **規則品質**：已覆核 14 次、採納 0 次；已覆核 14 個樣本，採納率 0% ≤ 20%，只降低顯示優先級、不刪除事件。
 - **官方來源**：[SEC 4](https://www.sec.gov/Archives/edgar/data/320193/000114036126037584/xslF345X06/form4.xml)
 
-## 17. 🔴 新增風險候選｜META
-
-新增 5 份 Form 144 擬售通知，列為低強度風險候選
-
-- 已解析擬售 90,624 股、申報估值 $65.5M。
-- 約占申報所列已發行股數 0.00411%。
-- 申報人：Cox Christopher K、Olivan Javier、Zuckerberg Mark。
-- Form 144 是擬售意向，不等於已成交；需等待後續 Form 4 或市場交易確認。
-- **為何列入**：集中或大額擬售可能增加供給壓力，但證據強度低於已完成的非 10b5-1 賣出。
-- **證據強度**：low
-- **規則品質**：已覆核 9 次、採納 0 次；已覆核 9 個樣本，採納率 0% ≤ 20%，只降低顯示優先級、不刪除事件。
-- **官方來源**：[SEC Form 144](https://www.sec.gov/Archives/edgar/data/1326801/000192109426001050/xsl144X01/primary_doc.xml)｜[SEC Form 144](https://www.sec.gov/Archives/edgar/data/1326801/000192109426001042/xsl144X01/primary_doc.xml)｜[SEC Form 144](https://www.sec.gov/Archives/edgar/data/1326801/000192109426001039/xsl144X01/primary_doc.xml)｜[SEC Form 144](https://www.sec.gov/Archives/edgar/data/1326801/000192109426001023/xsl144X01/primary_doc.xml)｜[SEC Form 144](https://www.sec.gov/Archives/edgar/data/1326801/000192109426001013/xsl144X01/primary_doc.xml)
-
-## 18. 🔴 新增風險候選｜ONDS
+## 19. 🔴 新增風險候選｜ONDS
 
 新增 1 份 Form 144 擬售通知，列為低強度風險候選
 
@@ -225,7 +237,7 @@ Form 4 出現 1 列賣出，列為風險候選
 - **規則品質**：已覆核 9 次、採納 0 次；已覆核 9 個樣本，採納率 0% ≤ 20%，只降低顯示優先級、不刪除事件。
 - **官方來源**：[SEC Form 144](https://www.sec.gov/Archives/edgar/data/1646188/000121390026103171/xsl144X01/primary_doc.xml)
 
-## 19. 🔴 新增風險候選｜META
+## 20. 🔴 新增風險候選｜META
 
 Form 4 出現 2 列賣出，列為風險候選
 
@@ -237,7 +249,7 @@ Form 4 出現 2 列賣出，列為風險候選
 - **規則品質**：已覆核 14 次、採納 0 次；已覆核 14 個樣本，採納率 0% ≤ 20%，只降低顯示優先級、不刪除事件。
 - **官方來源**：[SEC 4](https://www.sec.gov/Archives/edgar/data/1326801/000095010326014403/xslF345X06/ownership.xml)
 
-## 20. 🔴 新增風險候選｜META
+## 21. 🔴 新增風險候選｜META
 
 Form 4 出現 5 列賣出，列為風險候選
 
@@ -249,7 +261,7 @@ Form 4 出現 5 列賣出，列為風險候選
 - **規則品質**：已覆核 14 次、採納 0 次；已覆核 14 個樣本，採納率 0% ≤ 20%，只降低顯示優先級、不刪除事件。
 - **官方來源**：[SEC 4](https://www.sec.gov/Archives/edgar/data/1326801/000095010326014402/xslF345X06/ownership.xml)
 
-## 21. 🔴 新增風險候選｜AAPL
+## 22. 🔴 新增風險候選｜AAPL
 
 新增 1 份 Form 144 擬售通知，列為低強度風險候選
 
@@ -262,7 +274,7 @@ Form 4 出現 5 列賣出，列為風險候選
 - **規則品質**：已覆核 9 次、採納 0 次；已覆核 9 個樣本，採納率 0% ≤ 20%，只降低顯示優先級、不刪除事件。
 - **官方來源**：[SEC Form 144](https://www.sec.gov/Archives/edgar/data/320193/000195004726009738/xsl144X01/primary_doc.xml)
 
-## 22. 🔴 新增風險候選｜AAPL
+## 23. 🔴 新增風險候選｜AAPL
 
 Form 4 出現 1 列賣出，列為風險候選
 
@@ -274,7 +286,7 @@ Form 4 出現 1 列賣出，列為風險候選
 - **規則品質**：已覆核 14 次、採納 0 次；已覆核 14 個樣本，採納率 0% ≤ 20%，只降低顯示優先級、不刪除事件。
 - **官方來源**：[SEC 4](https://www.sec.gov/Archives/edgar/data/320193/000114036126037020/xslF345X06/form4.xml)
 
-## 23. 🔴 新增風險候選｜META
+## 24. 🔴 新增風險候選｜META
 
 Form 4 出現 1 列賣出，列為風險候選
 
@@ -286,7 +298,7 @@ Form 4 出現 1 列賣出，列為風險候選
 - **規則品質**：已覆核 14 次、採納 0 次；已覆核 14 個樣本，採納率 0% ≤ 20%，只降低顯示優先級、不刪除事件。
 - **官方來源**：[SEC 4](https://www.sec.gov/Archives/edgar/data/1326801/000095010326014140/xslF345X06/ownership.xml)
 
-## 24. 🔴 新增風險候選｜META
+## 25. 🔴 新增風險候選｜META
 
 Form 4 出現 5 列賣出，列為風險候選
 
@@ -298,7 +310,7 @@ Form 4 出現 5 列賣出，列為風險候選
 - **規則品質**：已覆核 14 次、採納 0 次；已覆核 14 個樣本，採納率 0% ≤ 20%，只降低顯示優先級、不刪除事件。
 - **官方來源**：[SEC 4](https://www.sec.gov/Archives/edgar/data/1326801/000095010326014061/xslF345X06/ownership.xml)
 
-## 25. 🔴 新增風險候選｜MSFT
+## 26. 🔴 新增風險候選｜MSFT
 
 Form 4 出現 6 列賣出，列為風險候選
 
@@ -310,7 +322,7 @@ Form 4 出現 6 列賣出，列為風險候選
 - **規則品質**：已覆核 14 次、採納 0 次；已覆核 14 個樣本，採納率 0% ≤ 20%，只降低顯示優先級、不刪除事件。
 - **官方來源**：[SEC 4](https://www.sec.gov/Archives/edgar/data/789019/000078901926000212/xslF345X06/form4.xml)
 
-## 26. 🔴 新增風險候選｜MSFT
+## 27. 🔴 新增風險候選｜MSFT
 
 新增 1 份 Form 144 擬售通知，列為低強度風險候選
 

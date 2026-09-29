@@ -1,7 +1,7 @@
 {
   "schema_version": 3,
   "parser_version": 16,
-  "updated_at": "2026-09-27T11:38:59+00:00",
+  "updated_at": "2026-09-29T10:24:39+00:00",
   "source": "Official company investor-relations pages and explicitly allow-listed linked hosts",
   "methodology": "Official text only; no audio transcription; short verbatim evidence; missing stays missing; no sentiment score",
   "source_types": {
@@ -97,9 +97,8 @@
       },
       "errors": [],
       "link_check": {
-        "status": "unverified",
-        "http_status": 403,
-        "reason": "HTTP 403"
+        "status": "reachable",
+        "http_status": 200
       },
       "history": [],
       "history_coverage": {
@@ -3543,7 +3542,7 @@
           ],
           "source_type": "full_transcript",
           "source_label": "完整官方逐字稿",
-          "status": "analyzed",
+          "status": "analyzed_cached",
           "categories": {
             "demand_growth": [
               {
@@ -3601,7 +3600,9 @@
           },
           "card": "20_Filings/TSM/analysis/TSM_2025_Q4_Earnings_Call.md",
           "last_verified_at": "2026-08-30T00:29:09+00:00",
-          "errors": []
+          "errors": [
+            "本次下載失敗，保留上次已驗證卡：URLError"
+          ]
         },
         {
           "period": "2025 Q3",
@@ -3613,7 +3614,7 @@
           ],
           "source_type": "full_transcript",
           "source_label": "完整官方逐字稿",
-          "status": "analyzed",
+          "status": "analyzed_cached",
           "categories": {
             "demand_growth": [
               {
@@ -3666,7 +3667,9 @@
           },
           "card": "20_Filings/TSM/analysis/TSM_2025_Q3_Earnings_Call.md",
           "last_verified_at": "2026-08-30T00:29:09+00:00",
-          "errors": []
+          "errors": [
+            "本次下載失敗，保留上次已驗證卡：URLError"
+          ]
         }
       ],
       "history_coverage": {
