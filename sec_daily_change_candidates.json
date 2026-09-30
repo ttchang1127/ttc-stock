@@ -1,15 +1,15 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-09-29T10:24:00+00:00",
+  "generated_at": "2026-09-30T10:16:47+00:00",
   "editorial_reviewed_at": "2026-09-12T18:31:51+08:00",
   "editorial_window_end": "2026-09-12",
   "status": "pending_ai_review",
-  "candidate_count": 27,
-  "company_count": 10,
+  "candidate_count": 28,
+  "company_count": 11,
   "counts": {
     "risk": 21,
     "improvement": 0,
-    "conclusion": 6
+    "conclusion": 7
   },
   "calibration_updated_at": "2026-09-12T18:31:51+08:00",
   "lower_priority_count": 18,
@@ -94,6 +94,40 @@
         "reviewed_count": 6,
         "accepted_count": 3,
         "acceptance_rate": 0.5,
+        "sample_status": "enough"
+      }
+    },
+    {
+      "id": "c4f71814dc79ac9d",
+      "ticker": "TSLA",
+      "type": "conclusion",
+      "type_label": "🟡 結論變化候選",
+      "status": "pending_ai_review",
+      "confidence": "medium",
+      "rule_key": "major_current_report",
+      "materiality": {},
+      "display_priority": "normal",
+      "priority_reason": "已覆核 9 個樣本，採納率 56%，維持原優先級。",
+      "headline": "重大 8-K 可能改變既有結論",
+      "evidence": [
+        "1.01 重大合約、1.02 重大合約終止、2.03 新增重大債務、9.01 附件／財務報表"
+      ],
+      "why_candidate": "文件重要性只提高重讀優先級，不預設為利多或利空。",
+      "filing_date": "2026-09-29",
+      "detected_at": "2026-09-30T10:16:47+00:00",
+      "source_keys": [
+        "0001628280-26-063820"
+      ],
+      "sources": [
+        {
+          "label": "SEC 8-K",
+          "url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026063820/tsla-20260929.htm"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 9,
+        "accepted_count": 5,
+        "acceptance_rate": 0.5556,
         "sample_status": "enough"
       }
     },

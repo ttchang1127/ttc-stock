@@ -1,6 +1,6 @@
 ---
 title: 📎 財報附註／附件雷達
-updated_at: 2026-09-29T10:24:00+00:00
+updated_at: 2026-09-30T10:16:47+00:00
 tags:
   - sec/footnotes
 ---
@@ -35,10 +35,10 @@ tags:
 | 2026-08-26 | **NVDA** | 10-Q | 收入認列、客戶集中、減損、訴訟／或有事項、關係人交易；重要附件 6 份 | [原文](https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/nvda-20260726.htm) |
 | 2026-09-23 | **ONDS** | 8-K | 訴訟／或有事項、XBRL 標記；重要附件 4 份 | [原文](https://www.sec.gov/Archives/edgar/data/1646188/000121390026102458/ea0306273-8k_ondas.htm) |
 | 2026-09-14 | **ONDS** | 8-K | 客戶集中、訴訟／或有事項、債務／到期、XBRL 標記；重要附件 7 份 | [原文](https://www.sec.gov/Archives/edgar/data/1646188/000121390026099531/ea0304980-8k_ondas.htm) |
+| 2026-09-29 | **TSLA** | 8-K | 債務／到期、XBRL 標記；重要附件 3 份 | [原文](https://www.sec.gov/Archives/edgar/data/1318605/000162828026063820/tsla-20260929.htm) |
 | 2026-07-23 | **TSLA** | 10-Q | 收入認列、減損、訴訟／或有事項、關係人交易、股份薪酬；重要附件 5 份 | [原文](https://www.sec.gov/Archives/edgar/data/1318605/000162828026049270/tsla-20260630.htm) |
-| 2026-07-22 | **TSLA** | 8-K | 減損、訴訟／或有事項、股份薪酬、非 GAAP、XBRL 標記；重要附件 4 份 | [原文](https://www.sec.gov/Archives/edgar/data/1318605/000162828026049213/tsla-20260722.htm) |
 | 2026-09-24 | **TSM** | 6-K | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1046179/000104617926000660/tsm-monthend6kx20260924.htm) |
 | 2026-09-10 | **TSM** | 6-K | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1046179/000104617926000658/tsm-revenue20260910.htm) |
 
-> 最後檢查：`2026-09-29T10:24:00+00:00`。關鍵字命中是閱讀導航，不等於會計結論或利多／利空。
+> 最後檢查：`2026-09-30T10:16:47+00:00`。關鍵字命中是閱讀導航，不等於會計結論或利多／利空。
 

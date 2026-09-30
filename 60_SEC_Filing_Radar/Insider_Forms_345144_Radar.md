@@ -1,6 +1,6 @@
 ---
 title: Form 144＋3／4／5 彙總
-updated_at: 2026-09-29T10:24:00+00:00
+updated_at: 2026-09-30T10:16:47+00:00
 tags:
   - sec/insiders
 ---
@@ -9,18 +9,18 @@ tags:
 
 | 申報日 | 公司 | 表單 | 數字／意義 | SEC |
 |---|---|---|---|---|
+| 2026-09-29 | **AAPL** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/320193/000114036126038028/xslF345X06/form4.xml) |
+| 2026-09-29 | **AAPL** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/320193/000114036126038027/xslF345X06/form4.xml) |
+| 2026-09-29 | **AAPL** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/320193/000114036126038026/xslF345X06/form4.xml) |
+| 2026-09-29 | **AAPL** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/320193/000114036126038024/xslF345X06/form4.xml) |
+| 2026-09-29 | **AAPL** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/320193/000114036126038022/xslF345X06/form4.xml) |
+| 2026-09-29 | **AAPL** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/320193/000114036126038021/xslF345X06/form4.xml) |
 | 2026-09-24 | **AAPL** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/320193/000114036126037584/xslF345X06/form4.xml) |
 | 2026-09-22 | **AAPL** | 144 | JENNIFER NEWSTEAD；擬售 31,182 股／$10,570,074，約占流通股 0.000% | [原文](https://www.sec.gov/Archives/edgar/data/320193/000195004726009738/xsl144X01/primary_doc.xml) |
 | 2026-09-17 | **AAPL** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/320193/000114036126037020/xslF345X06/form4.xml) |
 | 2026-09-10 | **AAPL** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/320193/000114036126036226/xslF345X06/form4.xml) |
 | 2026-09-03 | **AAPL** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/320193/000114036126035636/xslF345X06/form4.xml) |
 | 2026-09-01 | **AAPL** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/320193/000114036126035362/xslF345X06/form4.xml) |
-| 2026-09-01 | **AAPL** | 3 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/320193/000114036126035359/xslF345X06/form3.xml) |
-| 2026-08-27 | **AAPL** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/320193/000114036126034741/xslF345X06/form4.xml) |
-| 2026-08-20 | **AAPL** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/320193/000114036126033928/xslF345X06/form4.xml) |
-| 2026-08-13 | **AAPL** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/320193/000114036126032884/xslF345X06/form4.xml) |
-| 2026-08-11 | **AAPL** | 144 | JENNIFER NEWSTEAD；擬售 8,632 股／$2,660,900，約占流通股 0.000% | [原文](https://www.sec.gov/Archives/edgar/data/320193/000195004726007959/xsl144X01/primary_doc.xml) |
-| 2026-06-17 | **AAPL** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/320193/000114036126025622/xslF345X06/form4.xml) |
 | 2026-09-09 | **AMZN** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000128432326000002/xslF345X06/wk-form4_1788987268.xml) |
 | 2026-09-09 | **AMZN** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000159560226000007/xslF345X06/wk-form4_1788986939.xml) |
 | 2026-09-09 | **AMZN** | 3 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000159560226000005/xslF345X06/wk-form3_1788986593.xml) |
@@ -57,18 +57,18 @@ tags:
 | 2026-09-01 | **COHR** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/820318/000089914026001040/xslF345X06/form4.xml) |
 | 2026-09-01 | **COHR** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/820318/000089914026001039/xslF345X06/form4.xml) |
 | 2026-09-01 | **COHR** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/820318/000089914026001038/xslF345X06/form4.xml) |
+| 2026-09-29 | **GOOGL** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526408019/xslF345X06/ownership.xml) |
+| 2026-09-29 | **GOOGL** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526408016/xslF345X06/ownership.xml) |
+| 2026-09-29 | **GOOGL** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526408014/xslF345X06/ownership.xml) |
+| 2026-09-29 | **GOOGL** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526408009/xslF345X06/ownership.xml) |
+| 2026-09-29 | **GOOGL** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526408007/xslF345X06/ownership.xml) |
+| 2026-09-29 | **GOOGL** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526408004/xslF345X06/ownership.xml) |
 | 2026-09-16 | **GOOGL** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526393517/xslF345X06/ownership.xml) |
 | 2026-09-16 | **GOOGL** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526393515/xslF345X06/ownership.xml) |
 | 2026-09-16 | **GOOGL** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526393513/xslF345X06/ownership.xml) |
 | 2026-09-16 | **GOOGL** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526393511/xslF345X06/ownership.xml) |
 | 2026-09-16 | **GOOGL** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526393509/xslF345X06/ownership.xml) |
 | 2026-09-16 | **GOOGL** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526393506/xslF345X06/ownership.xml) |
-| 2026-09-16 | **GOOGL** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526393503/xslF345X06/ownership.xml) |
-| 2026-09-16 | **GOOGL** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526393500/xslF345X06/ownership.xml) |
-| 2026-09-16 | **GOOGL** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526393497/xslF345X06/ownership.xml) |
-| 2026-09-16 | **GOOGL** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526393494/xslF345X06/ownership.xml) |
-| 2026-09-16 | **GOOGL** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526393491/xslF345X06/ownership.xml) |
-| 2026-09-16 | **GOOGL** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526393485/xslF345X06/ownership.xml) |
 | 2026-08-14 | **INTC** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/50863/000005086326000177/xslF345X06/form4.xml) |
 | 2026-08-03 | **INTC** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/50863/000005086326000174/xslF345X06/form4.xml) |
 | 2026-08-03 | **INTC** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/50863/000005086326000173/xslF345X06/form4.xml) |

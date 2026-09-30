@@ -1,6 +1,6 @@
 {
   "schema_version": 3,
-  "updated_at": "2026-09-29T10:24:00+00:00",
+  "updated_at": "2026-09-30T10:16:47+00:00",
   "source": "SEC EDGAR submissions, EFTS and enforcement RSS",
   "footnotes": [
     {
@@ -1714,6 +1714,60 @@
       "event": {
         "ticker": "TSLA",
         "cik": "0001318605",
+        "accession": "0001628280-26-063820",
+        "form": "8-K",
+        "group": "重大事件",
+        "severity": "critical",
+        "filing_date": "2026-09-29",
+        "accepted_at": "2026-09-29T16:38:50.000Z",
+        "report_date": "2026-09-29",
+        "items": [
+          "1.01",
+          "1.02",
+          "2.03",
+          "9.01"
+        ],
+        "items_summary": "1.01 重大合約、1.02 重大合約終止、2.03 新增重大債務、9.01 附件／財務報表",
+        "primary_document": "tsla-20260929.htm",
+        "url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026063820/tsla-20260929.htm",
+        "index_url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026063820/0001628280-26-063820-index.html"
+      },
+      "signals": [
+        {
+          "label": "債務／到期",
+          "snippet": "red long-term indebtedness (or in some cases, its issuer rating) from time to time and are payable quarterly. Covenants and Events of Default The Credit Agreements contain covenants that are customary for facilities of this type, including, among others, restrictions on liens and the inc"
+        },
+        {
+          "label": "XBRL 標記",
+          "snippet": "and Exhibits. (d) Exhibits. Exhibit No. Description 104 Cover Page Interactive Data File (embedded within the Inline XBRL document). SIGNATURES Pursuant to the requirements of the Securities Exchange Act of 1934, the registrant has duly caused this report to be signed on its behalf by the u"
+        }
+      ],
+      "attachments": [
+        {
+          "type": "EX-101.SCH",
+          "filename": "tsla-20260929.xsd",
+          "description": "XBRL TAXONOMY EXTENSION SCHEMA DOCUMENT",
+          "url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026063820/tsla-20260929.xsd"
+        },
+        {
+          "type": "EX-101.LAB",
+          "filename": "tsla-20260929_lab.xml",
+          "description": "XBRL TAXONOMY EXTENSION LABEL LINKBASE DOCUMENT",
+          "url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026063820/tsla-20260929_lab.xml"
+        },
+        {
+          "type": "EX-101.PRE",
+          "filename": "tsla-20260929_pre.xml",
+          "description": "XBRL TAXONOMY EXTENSION PRESENTATION LINKBASE DOCUMENT",
+          "url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026063820/tsla-20260929_pre.xml"
+        }
+      ],
+      "metrics": {}
+    },
+    {
+      "event": {
+        "ticker": "TSLA",
+        "cik": "0001318605",
         "accession": "0001628280-26-049270",
         "form": "10-Q",
         "group": "季度財報",
@@ -1795,76 +1849,6 @@
           "filename": "tsla-20260630_pre.xml",
           "description": "XBRL TAXONOMY EXTENSION PRESENTATION LINKBASE DOCUMENT",
           "url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026049270/tsla-20260630_pre.xml"
-        }
-      ],
-      "metrics": {}
-    },
-    {
-      "event": {
-        "ticker": "TSLA",
-        "cik": "0001318605",
-        "accession": "0001628280-26-049213",
-        "form": "8-K",
-        "group": "重大事件",
-        "severity": "critical",
-        "filing_date": "2026-07-22",
-        "accepted_at": "2026-07-22T20:35:52.000Z",
-        "report_date": "2026-07-22",
-        "items": [
-          "2.02",
-          "9.01"
-        ],
-        "items_summary": "2.02 財報／業績、9.01 附件／財務報表",
-        "primary_document": "tsla-20260722.htm",
-        "url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026049213/tsla-20260722.htm",
-        "index_url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026049213/0001628280-26-049213-index.html"
-      },
-      "signals": [
-        {
-          "label": "減損",
-          "snippet": "ustments to reconcile net income to net cash provided by operating activities: Depreciation, amortization and impairment 1,433 1,625 1,643 1,590 1,619 Stock-based compensation 635 663 954 1,030 1,151 Inventory and purchase commitments write-downs 136 65 49 77 110 Foreign currency transacti"
-        },
-        {
-          "label": "訴訟／或有事項",
-          "snippet": "elated timing at our facilities are “forward-looking statements” within the meaning of the Private Securities Litigation Reform Act of 1995. Forward-looking statements are based on assumptions and management’s current expectations, involve certain risks and uncertainties, and are not guara"
-        },
-        {
-          "label": "股份薪酬",
-          "snippet": "ash provided by operating activities: Depreciation, amortization and impairment 1,433 1,625 1,643 1,590 1,619 Stock-based compensation 635 663 954 1,030 1,151 Inventory and purchase commitments write-downs 136 65 49 77 110 Foreign currency transaction loss, net 24 106 292 287 312 Deferred income taxes 5"
-        },
-        {
-          "label": "非 GAAP",
-          "snippet": "current quarter unless otherwise noted. Profitability $0.4B GAAP operating income $1.1B GAAP net income $1.2B non-GAAP net income1 Q2 was a strong quarter for our core vehicle, energy and services businesses as well as our manufacturing, infrastructure and AI initiatives. Our focus remai"
-        },
-        {
-          "label": "XBRL 標記",
-          "snippet": "a, Inc. Second Quarter Update, dated July 22, 2026. 104 Cover Page Interactive Data File (embedded within the Inline XBRL document). SIGNATURES Pursuant to the requirements of the Securities Exchange Act of 1934, the registrant has duly caused this report to be signed on its behalf by the u"
-        }
-      ],
-      "attachments": [
-        {
-          "type": "EX-99.1",
-          "filename": "exhibit991.htm",
-          "description": "EX-99.1",
-          "url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026049213/exhibit991.htm"
-        },
-        {
-          "type": "EX-101.SCH",
-          "filename": "tsla-20260722.xsd",
-          "description": "XBRL TAXONOMY EXTENSION SCHEMA DOCUMENT",
-          "url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026049213/tsla-20260722.xsd"
-        },
-        {
-          "type": "EX-101.LAB",
-          "filename": "tsla-20260722_lab.xml",
-          "description": "XBRL TAXONOMY EXTENSION LABEL LINKBASE DOCUMENT",
-          "url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026049213/tsla-20260722_lab.xml"
-        },
-        {
-          "type": "EX-101.PRE",
-          "filename": "tsla-20260722_pre.xml",
-          "description": "XBRL TAXONOMY EXTENSION PRESENTATION LINKBASE DOCUMENT",
-          "url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026049213/tsla-20260722_pre.xml"
         }
       ],
       "metrics": {}
@@ -4064,6 +4048,66 @@
     {
       "ticker": "COHR",
       "form": "SCHEDULE 13G/A",
+      "filing_date": "2025-11-07",
+      "accession": "0000315066-25-002921",
+      "reporting_persons": [
+        "FMR LLC  (CIK 0000315066)"
+      ],
+      "meaning": "持股超過 5% 的被動型／免豁型受益所有權申報。",
+      "url": "https://www.sec.gov/Archives/edgar/data/820318/000031506625002921/0000315066-25-002921-index.html",
+      "ownership": {
+        "schema_version": 3,
+        "event_date": "10/31/2025",
+        "cusip": "19247G107",
+        "cusips": [
+          "19247G107"
+        ],
+        "filing_basis": "合格機構投資人",
+        "aggregate_shares": 17142547,
+        "percent_of_class": 10.9,
+        "sole_voting_power": 16961183,
+        "shared_voting_power": 0,
+        "sole_dispositive_power": 17142547,
+        "shared_dispositive_power": 0,
+        "positions": [
+          {
+            "reporting_person": "FMR LLC",
+            "aggregate_shares": 17142547,
+            "percent_of_class": 10.9,
+            "sole_voting_power": 16961183,
+            "shared_voting_power": 0,
+            "sole_dispositive_power": 17142547,
+            "shared_dispositive_power": 0,
+            "comments": ""
+          },
+          {
+            "reporting_person": "Abigail P. Johnson",
+            "aggregate_shares": 17142547,
+            "percent_of_class": 10.9,
+            "sole_voting_power": 0,
+            "shared_voting_power": 0,
+            "sole_dispositive_power": 17142547,
+            "shared_dispositive_power": 0,
+            "comments": ""
+          }
+        ],
+        "threshold_exit": false,
+        "purpose_excerpt": "",
+        "filing_comment": "",
+        "data_status": "parsed",
+        "change_from_prior": {
+          "previous_filing_date": "2025-11-05",
+          "shares": 4291338,
+          "percentage_points": 2.7,
+          "direction": "增加",
+          "shares_comparable": true,
+          "comparison_note": ""
+        }
+      }
+    },
+    {
+      "ticker": "COHR",
+      "form": "SCHEDULE 13G/A",
       "filing_date": "2026-04-24",
       "accession": "0002012383-26-001441",
       "reporting_persons": [
@@ -4166,66 +4210,6 @@
           "shares": -11605856,
           "percentage_points": -6.5,
           "direction": "減少",
-          "shares_comparable": true,
-          "comparison_note": ""
-        }
-      }
-    },
-    {
-      "ticker": "COHR",
-      "form": "SCHEDULE 13G/A",
-      "filing_date": "2025-11-07",
-      "accession": "0000315066-25-002921",
-      "reporting_persons": [
-        "FMR LLC  (CIK 0000315066)"
-      ],
-      "meaning": "持股超過 5% 的被動型／免豁型受益所有權申報。",
-      "url": "https://www.sec.gov/Archives/edgar/data/820318/000031506625002921/0000315066-25-002921-index.html",
-      "ownership": {
-        "schema_version": 3,
-        "event_date": "10/31/2025",
-        "cusip": "19247G107",
-        "cusips": [
-          "19247G107"
-        ],
-        "filing_basis": "合格機構投資人",
-        "aggregate_shares": 17142547,
-        "percent_of_class": 10.9,
-        "sole_voting_power": 16961183,
-        "shared_voting_power": 0,
-        "sole_dispositive_power": 17142547,
-        "shared_dispositive_power": 0,
-        "positions": [
-          {
-            "reporting_person": "FMR LLC",
-            "aggregate_shares": 17142547,
-            "percent_of_class": 10.9,
-            "sole_voting_power": 16961183,
-            "shared_voting_power": 0,
-            "sole_dispositive_power": 17142547,
-            "shared_dispositive_power": 0,
-            "comments": ""
-          },
-          {
-            "reporting_person": "Abigail P. Johnson",
-            "aggregate_shares": 17142547,
-            "percent_of_class": 10.9,
-            "sole_voting_power": 0,
-            "shared_voting_power": 0,
-            "sole_dispositive_power": 17142547,
-            "shared_dispositive_power": 0,
-            "comments": ""
-          }
-        ],
-        "threshold_exit": false,
-        "purpose_excerpt": "",
-        "filing_comment": "",
-        "data_status": "parsed",
-        "change_from_prior": {
-          "previous_filing_date": "2025-11-05",
-          "shares": 4291338,
-          "percentage_points": 2.7,
-          "direction": "增加",
           "shares_comparable": true,
           "comparison_note": ""
         }
@@ -4343,56 +4327,6 @@
     },
     {
       "ticker": "COHR",
-      "form": "SCHEDULE 13D/A",
-      "filing_date": "2025-11-24",
-      "accession": "0001193125-25-294132",
-      "reporting_persons": [
-        "BCPE Watson (DE) BML, LP  (CIK 0001910890)"
-      ],
-      "meaning": "持股超過 5% 且可能有影響控制意圖的受益所有權申報。",
-      "url": "https://www.sec.gov/Archives/edgar/data/820318/000119312525294132/0001193125-25-294132-index.html",
-      "ownership": {
-        "schema_version": 4,
-        "event_date": "",
-        "cusip": "19247G107",
-        "cusips": [
-          "19247G107"
-        ],
-        "filing_basis": "主動型／可能影響控制",
-        "aggregate_shares": 14868245,
-        "percent_of_class": 7.9,
-        "sole_voting_power": 0,
-        "shared_voting_power": 14868245,
-        "sole_dispositive_power": 0,
-        "shared_dispositive_power": 14868245,
-        "positions": [
-          {
-            "reporting_person": "BCPE Watson (DE) BML, LP",
-            "aggregate_shares": 14868245,
-            "percent_of_class": 7.9,
-            "sole_voting_power": 0,
-            "shared_voting_power": 14868245,
-            "sole_dispositive_power": 0,
-            "shared_dispositive_power": 14868245,
-            "comments": "Rows 8, 10 and 11: The Reporting Person holds 106,865 shares of Series B-2 Preferred Stock and 92,307 shares of Common Stock. Pursuant to the terms of the Statement with Respect to Shares, such shares of Series B-2 Preferred Stock are convertible into an aggregate of 14,775,938 shares of Common Stock at the sole discretion of the Reporting Person. In connection with the settlement of the block trade described herein, the Reporting Person intend to distribute the 92,307 shares of Common Stock to one or more members or partners of the Reporting Person in connection with certain charitable gifts to be made by such members or partners or their direct and indirect owners, for no consideration. Row 13: Based on (i) 157,153,611 shares of Common Stock outstanding, as reported by the Issuer in its Quarterly Report on Form 10-Q for the quarterly period ended September 30, 2025, filed with the Securities and Exchange Commission on November 5, 2025, (ii) 7,754,252 shares of Common Stock issued to the Reporting Person upon the conversion of 54,023 shares of Series B-1 Preferred Stock on November 7, 2025, (iii) 7,592,307 shares of Common Stock to be issued to the Reporting Person upon the conversion of 20,977 shares of Series B-1 Preferred Stock and 33,135 shares of Series B-2 Preferred Stock on November 24, 2025, and (iv) 14,775,938 shares of Common Stock issuable to the Reporting Person upon the conversion of Series B-2 Preferred Stock held by the Reporting Person."
-          }
-        ],
-        "threshold_exit": false,
-        "purpose_excerpt": "Item 4 of the Initial Statement is hereby amended and supplemented to add the following: Conversion of Convertible Preferred Stock and sale of Common Stock On November 24, 2025, the Reporting Person converted 20,977 shares of Series B-1 Convertible Preferred Stock, no par value per share and 33,135 shares of Series B-2 Convertible Preferred Stock, no par value per share held by the Reporting Person into 7,592,307 shares of Common Stock in accordance to the Statement with Respect to Shares. On November 24, 2025, the Reporting Person sold 7,500,000 shares of Common Stock in a block trade pursuant to Rule 144 of the Securities Act of 1933 at a price of $143.37 per share, for an aggregate amount of $1,075,275,000. In connection with the settlement of the block trade, the Reporting Person intends to distribute an aggregate of 92,307 shares of Common Stock to one or more members or partners of",
-        "filing_comment": "Rows 8, 10 and 11: The Reporting Person holds 106,865 shares of Series B-2 Preferred Stock and 92,307 shares of Common Stock. Pursuant to the terms of the Statement with Respect to Shares, such shares of Series B-2 Preferred Stock are convertible into an aggregate of 14,775,938 shares of Common Stock at the sole discretion of the Reporting Person. In connection with the settlement of the block trade described herein, the Reporting Person intend to distribute the 92,307 shares of Common Stock to one or more members or partners of the Reporting Person in connection with certain charitable gifts to be made by such members or partners or their direct and indirect owners, for no consideration. Row 13: Based on (i) 157,153,611 shares of Common Stock outstanding, as reported by the Issuer in its Quarterly Report on Form 10-Q for the quarterly period ended September 30, 2025, filed with the Securities and Exchange Commission on November 5, 2025, (ii) 7,754,252 shares of Common Stock issued to the Reporting Person upon the conversion of 54,023 shares of Series B-1 Preferred Stock on November 7, 2025, (iii) 7,592,307 shares of Common Stock to be issued to the Reporting Person upon the conversion of 20,977 shares of Series B-1 Preferred Stock and 33,135 shares of Series B-2 Preferred Stock on November 24, 2025, and (iv) 14,775,938 shares of Common Stock issuable to the Reporting Person upon the conversion of Series B-2 Preferred Stock held by the Reporting Person.",
-        "data_status": "parsed",
-        "change_from_prior": {
-          "previous_filing_date": "2025-11-12",
-          "shares": -7500000,
-          "percentage_points": -4.0,
-          "direction": "減少",
-          "shares_comparable": true,
-          "comparison_note": ""
-        }
-      }
-    },
-    {
-      "ticker": "COHR",
       "form": "SCHEDULE 13G/A",
       "filing_date": "2025-02-03",
       "accession": "0002012383-25-000412",
@@ -4436,6 +4370,56 @@
           "shares": 2730006,
           "percentage_points": 1.7,
           "direction": "增加",
+          "shares_comparable": true,
+          "comparison_note": ""
+        }
+      }
+    },
+    {
+      "ticker": "COHR",
+      "form": "SCHEDULE 13D/A",
+      "filing_date": "2025-11-24",
+      "accession": "0001193125-25-294132",
+      "reporting_persons": [
+        "BCPE Watson (DE) BML, LP  (CIK 0001910890)"
+      ],
+      "meaning": "持股超過 5% 且可能有影響控制意圖的受益所有權申報。",
+      "url": "https://www.sec.gov/Archives/edgar/data/820318/000119312525294132/0001193125-25-294132-index.html",
+      "ownership": {
+        "schema_version": 4,
+        "event_date": "",
+        "cusip": "19247G107",
+        "cusips": [
+          "19247G107"
+        ],
+        "filing_basis": "主動型／可能影響控制",
+        "aggregate_shares": 14868245,
+        "percent_of_class": 7.9,
+        "sole_voting_power": 0,
+        "shared_voting_power": 14868245,
+        "sole_dispositive_power": 0,
+        "shared_dispositive_power": 14868245,
+        "positions": [
+          {
+            "reporting_person": "BCPE Watson (DE) BML, LP",
+            "aggregate_shares": 14868245,
+            "percent_of_class": 7.9,
+            "sole_voting_power": 0,
+            "shared_voting_power": 14868245,
+            "sole_dispositive_power": 0,
+            "shared_dispositive_power": 14868245,
+            "comments": "Rows 8, 10 and 11: The Reporting Person holds 106,865 shares of Series B-2 Preferred Stock and 92,307 shares of Common Stock. Pursuant to the terms of the Statement with Respect to Shares, such shares of Series B-2 Preferred Stock are convertible into an aggregate of 14,775,938 shares of Common Stock at the sole discretion of the Reporting Person. In connection with the settlement of the block trade described herein, the Reporting Person intend to distribute the 92,307 shares of Common Stock to one or more members or partners of the Reporting Person in connection with certain charitable gifts to be made by such members or partners or their direct and indirect owners, for no consideration. Row 13: Based on (i) 157,153,611 shares of Common Stock outstanding, as reported by the Issuer in its Quarterly Report on Form 10-Q for the quarterly period ended September 30, 2025, filed with the Securities and Exchange Commission on November 5, 2025, (ii) 7,754,252 shares of Common Stock issued to the Reporting Person upon the conversion of 54,023 shares of Series B-1 Preferred Stock on November 7, 2025, (iii) 7,592,307 shares of Common Stock to be issued to the Reporting Person upon the conversion of 20,977 shares of Series B-1 Preferred Stock and 33,135 shares of Series B-2 Preferred Stock on November 24, 2025, and (iv) 14,775,938 shares of Common Stock issuable to the Reporting Person upon the conversion of Series B-2 Preferred Stock held by the Reporting Person."
+          }
+        ],
+        "threshold_exit": false,
+        "purpose_excerpt": "Item 4 of the Initial Statement is hereby amended and supplemented to add the following: Conversion of Convertible Preferred Stock and sale of Common Stock On November 24, 2025, the Reporting Person converted 20,977 shares of Series B-1 Convertible Preferred Stock, no par value per share and 33,135 shares of Series B-2 Convertible Preferred Stock, no par value per share held by the Reporting Person into 7,592,307 shares of Common Stock in accordance to the Statement with Respect to Shares. On November 24, 2025, the Reporting Person sold 7,500,000 shares of Common Stock in a block trade pursuant to Rule 144 of the Securities Act of 1933 at a price of $143.37 per share, for an aggregate amount of $1,075,275,000. In connection with the settlement of the block trade, the Reporting Person intends to distribute an aggregate of 92,307 shares of Common Stock to one or more members or partners of",
+        "filing_comment": "Rows 8, 10 and 11: The Reporting Person holds 106,865 shares of Series B-2 Preferred Stock and 92,307 shares of Common Stock. Pursuant to the terms of the Statement with Respect to Shares, such shares of Series B-2 Preferred Stock are convertible into an aggregate of 14,775,938 shares of Common Stock at the sole discretion of the Reporting Person. In connection with the settlement of the block trade described herein, the Reporting Person intend to distribute the 92,307 shares of Common Stock to one or more members or partners of the Reporting Person in connection with certain charitable gifts to be made by such members or partners or their direct and indirect owners, for no consideration. Row 13: Based on (i) 157,153,611 shares of Common Stock outstanding, as reported by the Issuer in its Quarterly Report on Form 10-Q for the quarterly period ended September 30, 2025, filed with the Securities and Exchange Commission on November 5, 2025, (ii) 7,754,252 shares of Common Stock issued to the Reporting Person upon the conversion of 54,023 shares of Series B-1 Preferred Stock on November 7, 2025, (iii) 7,592,307 shares of Common Stock to be issued to the Reporting Person upon the conversion of 20,977 shares of Series B-1 Preferred Stock and 33,135 shares of Series B-2 Preferred Stock on November 24, 2025, and (iv) 14,775,938 shares of Common Stock issuable to the Reporting Person upon the conversion of Series B-2 Preferred Stock held by the Reporting Person.",
+        "data_status": "parsed",
+        "change_from_prior": {
+          "previous_filing_date": "2025-11-12",
+          "shares": -7500000,
+          "percentage_points": -4.0,
+          "direction": "減少",
           "shares_comparable": true,
           "comparison_note": ""
         }
@@ -5022,56 +5006,6 @@
     {
       "ticker": "COHR",
       "form": "SCHEDULE 13G/A",
-      "filing_date": "2026-03-26",
-      "accession": "0000102909-26-000957",
-      "reporting_persons": [
-        "VANGUARD GROUP INC  (CIK 0000102909)"
-      ],
-      "meaning": "持股超過 5% 的被動型／免豁型受益所有權申報。",
-      "url": "https://www.sec.gov/Archives/edgar/data/820318/000010290926000957/0000102909-26-000957-index.html",
-      "ownership": {
-        "schema_version": 3,
-        "event_date": "03/13/2026",
-        "cusip": "19247G107",
-        "cusips": [
-          "19247G107"
-        ],
-        "filing_basis": "合格機構投資人",
-        "aggregate_shares": 0,
-        "percent_of_class": 0.0,
-        "sole_voting_power": 0,
-        "shared_voting_power": 0,
-        "sole_dispositive_power": 0,
-        "shared_dispositive_power": 0,
-        "positions": [
-          {
-            "reporting_person": "The Vanguard Group",
-            "aggregate_shares": 0,
-            "percent_of_class": 0.0,
-            "sole_voting_power": 0,
-            "shared_voting_power": 0,
-            "sole_dispositive_power": 0,
-            "shared_dispositive_power": 0,
-            "comments": "On January 12, 2026, The Vanguard Group, Inc. went through an internal realignment. In accordance with SEC Release No. 34-39538 (January 12, 1998), certain subsidiaries or business divisions of subsidiaries of The Vanguard Group, Inc., that formerly had, or were deemed to have, beneficial ownership with The Vanguard Group, Inc., will report beneficial ownership separately (on a disaggregated basis) from The Vanguard Group, Inc. in reliance on such release. These subsidiaries and/or business divisions pursue the same investment strategies as previously pursued by The Vanguard Group, Inc. prior to the realignment. Further in accordance with SEC Release No. 34-39538 (January 12, 1998), The Vanguard Group, Inc. no longer has, or is deemed to have, beneficial ownership over securities beneficially owned by such subsidiaries and/or business divisions."
-          }
-        ],
-        "threshold_exit": true,
-        "purpose_excerpt": "",
-        "filing_comment": "On January 12, 2026, The Vanguard Group, Inc. went through an internal realignment. In accordance with SEC Release No. 34-39538 (January 12, 1998), certain subsidiaries or business divisions of subsidiaries of The Vanguard Group, Inc., that formerly had, or were deemed to have, beneficial ownership with The Vanguard Group, Inc., will report beneficial ownership separately (on a disaggregated basis) from The Vanguard Group, Inc. in reliance on such release. These subsidiaries and/or business divisions pursue the same investment strategies as previously pursued by The Vanguard Group, Inc. prior to the realignment. Further in accordance with SEC Release No. 34-39538 (January 12, 1998), The Vanguard Group, Inc. no longer has, or is deemed to have, beneficial ownership over securities beneficially owned by such subsidiaries and/or business divisions.",
-        "data_status": "parsed",
-        "change_from_prior": {
-          "previous_filing_date": "2024-01-10",
-          "shares": -15224213,
-          "percentage_points": -10.05,
-          "direction": "減少",
-          "shares_comparable": false,
-          "comparison_note": "申報人註明內部重整後改由相關實體分開申報；0 股不等於整個機構集團清倉"
-        }
-      }
-    },
-    {
-      "ticker": "COHR",
-      "form": "SCHEDULE 13G/A",
       "filing_date": "2025-08-07",
       "accession": "0000914208-25-000301",
       "reporting_persons": [
@@ -5116,6 +5050,56 @@
           "direction": "減少",
           "shares_comparable": true,
           "comparison_note": "本申報已降至 5% 申報門檻以下"
+        }
+      }
+    },
+    {
+      "ticker": "COHR",
+      "form": "SCHEDULE 13G/A",
+      "filing_date": "2026-03-26",
+      "accession": "0000102909-26-000957",
+      "reporting_persons": [
+        "VANGUARD GROUP INC  (CIK 0000102909)"
+      ],
+      "meaning": "持股超過 5% 的被動型／免豁型受益所有權申報。",
+      "url": "https://www.sec.gov/Archives/edgar/data/820318/000010290926000957/0000102909-26-000957-index.html",
+      "ownership": {
+        "schema_version": 3,
+        "event_date": "03/13/2026",
+        "cusip": "19247G107",
+        "cusips": [
+          "19247G107"
+        ],
+        "filing_basis": "合格機構投資人",
+        "aggregate_shares": 0,
+        "percent_of_class": 0.0,
+        "sole_voting_power": 0,
+        "shared_voting_power": 0,
+        "sole_dispositive_power": 0,
+        "shared_dispositive_power": 0,
+        "positions": [
+          {
+            "reporting_person": "The Vanguard Group",
+            "aggregate_shares": 0,
+            "percent_of_class": 0.0,
+            "sole_voting_power": 0,
+            "shared_voting_power": 0,
+            "sole_dispositive_power": 0,
+            "shared_dispositive_power": 0,
+            "comments": "On January 12, 2026, The Vanguard Group, Inc. went through an internal realignment. In accordance with SEC Release No. 34-39538 (January 12, 1998), certain subsidiaries or business divisions of subsidiaries of The Vanguard Group, Inc., that formerly had, or were deemed to have, beneficial ownership with The Vanguard Group, Inc., will report beneficial ownership separately (on a disaggregated basis) from The Vanguard Group, Inc. in reliance on such release. These subsidiaries and/or business divisions pursue the same investment strategies as previously pursued by The Vanguard Group, Inc. prior to the realignment. Further in accordance with SEC Release No. 34-39538 (January 12, 1998), The Vanguard Group, Inc. no longer has, or is deemed to have, beneficial ownership over securities beneficially owned by such subsidiaries and/or business divisions."
+          }
+        ],
+        "threshold_exit": true,
+        "purpose_excerpt": "",
+        "filing_comment": "On January 12, 2026, The Vanguard Group, Inc. went through an internal realignment. In accordance with SEC Release No. 34-39538 (January 12, 1998), certain subsidiaries or business divisions of subsidiaries of The Vanguard Group, Inc., that formerly had, or were deemed to have, beneficial ownership with The Vanguard Group, Inc., will report beneficial ownership separately (on a disaggregated basis) from The Vanguard Group, Inc. in reliance on such release. These subsidiaries and/or business divisions pursue the same investment strategies as previously pursued by The Vanguard Group, Inc. prior to the realignment. Further in accordance with SEC Release No. 34-39538 (January 12, 1998), The Vanguard Group, Inc. no longer has, or is deemed to have, beneficial ownership over securities beneficially owned by such subsidiaries and/or business divisions.",
+        "data_status": "parsed",
+        "change_from_prior": {
+          "previous_filing_date": "2024-01-10",
+          "shares": -15224213,
+          "percentage_points": -10.05,
+          "direction": "減少",
+          "shares_comparable": false,
+          "comparison_note": "申報人註明內部重整後改由相關實體分開申報；0 股不等於整個機構集團清倉"
         }
       }
     },
@@ -7118,46 +7102,6 @@
     {
       "ticker": "NVDA",
       "form": "SC 13G/A",
-      "filing_date": "2024-02-09",
-      "accession": "0000315066-24-001331",
-      "reporting_persons": [
-        "FMR LLC  (CIK 0000315066)"
-      ],
-      "meaning": "持股超過 5% 的被動型／免豁型受益所有權申報。",
-      "url": "https://www.sec.gov/Archives/edgar/data/1045810/000031506624001331/0000315066-24-001331-index.html",
-      "ownership": {
-        "schema_version": 3,
-        "event_date": "",
-        "cusip": "67066G104",
-        "cusips": [
-          "67066G104"
-        ],
-        "filing_basis": "合格機構投資人",
-        "aggregate_shares": 127855229,
-        "percent_of_class": 5.176,
-        "sole_voting_power": 5,
-        "shared_voting_power": 0,
-        "sole_dispositive_power": 127855229,
-        "shared_dispositive_power": 0,
-        "positions": [
-          {
-            "reporting_person": "申報群組",
-            "aggregate_shares": 127855229,
-            "percent_of_class": 5.176,
-            "sole_voting_power": 5,
-            "shared_voting_power": 0,
-            "sole_dispositive_power": 127855229,
-            "shared_dispositive_power": 0
-          }
-        ],
-        "threshold_exit": false,
-        "purpose_excerpt": "",
-        "data_status": "parsed"
-      }
-    },
-    {
-      "ticker": "NVDA",
-      "form": "SC 13G/A",
       "filing_date": "2024-11-12",
       "accession": "0000315066-24-002826",
       "reporting_persons": [
@@ -7201,6 +7145,46 @@
           "shares_comparable": false,
           "comparison_note": "股數疑受拆股／併股影響，方向以持股比例判讀"
         }
+      }
+    },
+    {
+      "ticker": "NVDA",
+      "form": "SC 13G/A",
+      "filing_date": "2024-02-09",
+      "accession": "0000315066-24-001331",
+      "reporting_persons": [
+        "FMR LLC  (CIK 0000315066)"
+      ],
+      "meaning": "持股超過 5% 的被動型／免豁型受益所有權申報。",
+      "url": "https://www.sec.gov/Archives/edgar/data/1045810/000031506624001331/0000315066-24-001331-index.html",
+      "ownership": {
+        "schema_version": 3,
+        "event_date": "",
+        "cusip": "67066G104",
+        "cusips": [
+          "67066G104"
+        ],
+        "filing_basis": "合格機構投資人",
+        "aggregate_shares": 127855229,
+        "percent_of_class": 5.176,
+        "sole_voting_power": 5,
+        "shared_voting_power": 0,
+        "sole_dispositive_power": 127855229,
+        "shared_dispositive_power": 0,
+        "positions": [
+          {
+            "reporting_person": "申報群組",
+            "aggregate_shares": 127855229,
+            "percent_of_class": 5.176,
+            "sole_voting_power": 5,
+            "shared_voting_power": 0,
+            "sole_dispositive_power": 127855229,
+            "shared_dispositive_power": 0
+          }
+        ],
+        "threshold_exit": false,
+        "purpose_excerpt": "",
+        "data_status": "parsed"
       }
     },
     {
@@ -14003,6 +13987,114 @@
       "event": {
         "ticker": "AAPL",
         "cik": "0000320193",
+        "accession": "0001140361-26-038028",
+        "form": "4",
+        "group": "內部人持股",
+        "severity": "medium",
+        "filing_date": "2026-09-29",
+        "accepted_at": "2026-09-29T18:44:50.000Z",
+        "report_date": "2026-09-27",
+        "items": [],
+        "items_summary": "未提供 Item 分類",
+        "primary_document": "xslF345X06/form4.xml",
+        "url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126038028/xslF345X06/form4.xml",
+        "index_url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126038028/0001140361-26-038028-index.html"
+      }
+    },
+    {
+      "event": {
+        "ticker": "AAPL",
+        "cik": "0000320193",
+        "accession": "0001140361-26-038027",
+        "form": "4",
+        "group": "內部人持股",
+        "severity": "medium",
+        "filing_date": "2026-09-29",
+        "accepted_at": "2026-09-29T18:42:09.000Z",
+        "report_date": "2026-09-27",
+        "items": [],
+        "items_summary": "未提供 Item 分類",
+        "primary_document": "xslF345X06/form4.xml",
+        "url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126038027/xslF345X06/form4.xml",
+        "index_url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126038027/0001140361-26-038027-index.html"
+      }
+    },
+    {
+      "event": {
+        "ticker": "AAPL",
+        "cik": "0000320193",
+        "accession": "0001140361-26-038026",
+        "form": "4",
+        "group": "內部人持股",
+        "severity": "medium",
+        "filing_date": "2026-09-29",
+        "accepted_at": "2026-09-29T18:39:19.000Z",
+        "report_date": "2026-09-27",
+        "items": [],
+        "items_summary": "未提供 Item 分類",
+        "primary_document": "xslF345X06/form4.xml",
+        "url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126038026/xslF345X06/form4.xml",
+        "index_url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126038026/0001140361-26-038026-index.html"
+      }
+    },
+    {
+      "event": {
+        "ticker": "AAPL",
+        "cik": "0000320193",
+        "accession": "0001140361-26-038024",
+        "form": "4",
+        "group": "內部人持股",
+        "severity": "medium",
+        "filing_date": "2026-09-29",
+        "accepted_at": "2026-09-29T18:36:36.000Z",
+        "report_date": "2026-09-27",
+        "items": [],
+        "items_summary": "未提供 Item 分類",
+        "primary_document": "xslF345X06/form4.xml",
+        "url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126038024/xslF345X06/form4.xml",
+        "index_url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126038024/0001140361-26-038024-index.html"
+      }
+    },
+    {
+      "event": {
+        "ticker": "AAPL",
+        "cik": "0000320193",
+        "accession": "0001140361-26-038022",
+        "form": "4",
+        "group": "內部人持股",
+        "severity": "medium",
+        "filing_date": "2026-09-29",
+        "accepted_at": "2026-09-29T18:33:40.000Z",
+        "report_date": "2026-09-27",
+        "items": [],
+        "items_summary": "未提供 Item 分類",
+        "primary_document": "xslF345X06/form4.xml",
+        "url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126038022/xslF345X06/form4.xml",
+        "index_url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126038022/0001140361-26-038022-index.html"
+      }
+    },
+    {
+      "event": {
+        "ticker": "AAPL",
+        "cik": "0000320193",
+        "accession": "0001140361-26-038021",
+        "form": "4",
+        "group": "內部人持股",
+        "severity": "medium",
+        "filing_date": "2026-09-29",
+        "accepted_at": "2026-09-29T18:30:23.000Z",
+        "report_date": "2026-09-27",
+        "items": [],
+        "items_summary": "未提供 Item 分類",
+        "primary_document": "xslF345X06/form4.xml",
+        "url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126038021/xslF345X06/form4.xml",
+        "index_url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126038021/0001140361-26-038021-index.html"
+      }
+    },
+    {
+      "event": {
+        "ticker": "AAPL",
+        "cik": "0000320193",
         "accession": "0001140361-26-037584",
         "form": "4",
         "group": "內部人持股",
@@ -14114,123 +14206,6 @@
         "primary_document": "xslF345X06/form4.xml",
         "url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126035362/xslF345X06/form4.xml",
         "index_url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126035362/0001140361-26-035362-index.html"
-      }
-    },
-    {
-      "event": {
-        "ticker": "AAPL",
-        "cik": "0000320193",
-        "accession": "0001140361-26-035359",
-        "form": "3",
-        "group": "內部人持股",
-        "severity": "medium",
-        "filing_date": "2026-09-01",
-        "accepted_at": "2026-09-01T22:30:11.000Z",
-        "report_date": "2026-09-01",
-        "items": [],
-        "items_summary": "未提供 Item 分類",
-        "primary_document": "xslF345X06/form3.xml",
-        "url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126035359/xslF345X06/form3.xml",
-        "index_url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126035359/0001140361-26-035359-index.html"
-      }
-    },
-    {
-      "event": {
-        "ticker": "AAPL",
-        "cik": "0000320193",
-        "accession": "0001140361-26-034741",
-        "form": "4",
-        "group": "內部人持股",
-        "severity": "medium",
-        "filing_date": "2026-08-27",
-        "accepted_at": "2026-08-27T22:30:30.000Z",
-        "report_date": "2026-08-25",
-        "items": [],
-        "items_summary": "未提供 Item 分類",
-        "primary_document": "xslF345X06/form4.xml",
-        "url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126034741/xslF345X06/form4.xml",
-        "index_url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126034741/0001140361-26-034741-index.html"
-      }
-    },
-    {
-      "event": {
-        "ticker": "AAPL",
-        "cik": "0000320193",
-        "accession": "0001140361-26-033928",
-        "form": "4",
-        "group": "內部人持股",
-        "severity": "medium",
-        "filing_date": "2026-08-20",
-        "accepted_at": "2026-08-20T22:30:16.000Z",
-        "report_date": "2026-08-18",
-        "items": [],
-        "items_summary": "未提供 Item 分類",
-        "primary_document": "xslF345X06/form4.xml",
-        "url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126033928/xslF345X06/form4.xml",
-        "index_url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126033928/0001140361-26-033928-index.html"
-      }
-    },
-    {
-      "event": {
-        "ticker": "AAPL",
-        "cik": "0000320193",
-        "accession": "0001140361-26-032884",
-        "form": "4",
-        "group": "內部人持股",
-        "severity": "medium",
-        "filing_date": "2026-08-13",
-        "accepted_at": "2026-08-13T22:30:20.000Z",
-        "report_date": "2026-08-11",
-        "items": [],
-        "items_summary": "未提供 Item 分類",
-        "primary_document": "xslF345X06/form4.xml",
-        "url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126032884/xslF345X06/form4.xml",
-        "index_url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126032884/0001140361-26-032884-index.html"
-      }
-    },
-    {
-      "event": {
-        "ticker": "AAPL",
-        "cik": "0000320193",
-        "accession": "0001950047-26-007959",
-        "form": "144",
-        "group": "內部人持股",
-        "severity": "medium",
-        "filing_date": "2026-08-11",
-        "accepted_at": "2026-08-11T20:29:44.000Z",
-        "report_date": "",
-        "items": [],
-        "items_summary": "未提供 Item 分類",
-        "primary_document": "xsl144X01/primary_doc.xml",
-        "url": "https://www.sec.gov/Archives/edgar/data/320193/000195004726007959/xsl144X01/primary_doc.xml",
-        "index_url": "https://www.sec.gov/Archives/edgar/data/320193/000195004726007959/0001950047-26-007959-index.html"
-      },
-      "form144": {
-        "reporter": "JENNIFER NEWSTEAD",
-        "relationship": "Officer",
-        "planned_shares": 8632.0,
-        "planned_value_usd": 2660900.32,
-        "shares_outstanding": 14594180000.0,
-        "approx_sale_date": "08/11/2026",
-        "remarks": "The securities to be sold were acquired upon the vesting of restricted stock units on 03/15/2026 and 06/15/2026."
-      }
-    },
-    {
-      "event": {
-        "ticker": "AAPL",
-        "cik": "0000320193",
-        "accession": "0001140361-26-025622",
-        "form": "4",
-        "group": "內部人持股",
-        "severity": "medium",
-        "filing_date": "2026-06-17",
-        "accepted_at": "2026-06-17T22:40:43.000Z",
-        "report_date": "2026-06-15",
-        "items": [],
-        "items_summary": "未提供 Item 分類",
-        "primary_document": "xslF345X06/form4.xml",
-        "url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126025622/xslF345X06/form4.xml",
-        "index_url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126025622/0001140361-26-025622-index.html"
       }
     },
     {
@@ -14939,6 +14914,114 @@
       "event": {
         "ticker": "GOOGL",
         "cik": "0001652044",
+        "accession": "0001193125-26-408019",
+        "form": "4",
+        "group": "內部人持股",
+        "severity": "medium",
+        "filing_date": "2026-09-29",
+        "accepted_at": "2026-09-29T20:27:35.000Z",
+        "report_date": "2026-09-25",
+        "items": [],
+        "items_summary": "未提供 Item 分類",
+        "primary_document": "xslF345X06/ownership.xml",
+        "url": "https://www.sec.gov/Archives/edgar/data/1652044/000119312526408019/xslF345X06/ownership.xml",
+        "index_url": "https://www.sec.gov/Archives/edgar/data/1652044/000119312526408019/0001193125-26-408019-index.html"
+      }
+    },
+    {
+      "event": {
+        "ticker": "GOOGL",
+        "cik": "0001652044",
+        "accession": "0001193125-26-408016",
+        "form": "4",
+        "group": "內部人持股",
+        "severity": "medium",
+        "filing_date": "2026-09-29",
+        "accepted_at": "2026-09-29T20:26:26.000Z",
+        "report_date": "2026-09-25",
+        "items": [],
+        "items_summary": "未提供 Item 分類",
+        "primary_document": "xslF345X06/ownership.xml",
+        "url": "https://www.sec.gov/Archives/edgar/data/1652044/000119312526408016/xslF345X06/ownership.xml",
+        "index_url": "https://www.sec.gov/Archives/edgar/data/1652044/000119312526408016/0001193125-26-408016-index.html"
+      }
+    },
+    {
+      "event": {
+        "ticker": "GOOGL",
+        "cik": "0001652044",
+        "accession": "0001193125-26-408014",
+        "form": "4",
+        "group": "內部人持股",
+        "severity": "medium",
+        "filing_date": "2026-09-29",
+        "accepted_at": "2026-09-29T20:25:04.000Z",
+        "report_date": "2026-09-25",
+        "items": [],
+        "items_summary": "未提供 Item 分類",
+        "primary_document": "xslF345X06/ownership.xml",
+        "url": "https://www.sec.gov/Archives/edgar/data/1652044/000119312526408014/xslF345X06/ownership.xml",
+        "index_url": "https://www.sec.gov/Archives/edgar/data/1652044/000119312526408014/0001193125-26-408014-index.html"
+      }
+    },
+    {
+      "event": {
+        "ticker": "GOOGL",
+        "cik": "0001652044",
+        "accession": "0001193125-26-408009",
+        "form": "4",
+        "group": "內部人持股",
+        "severity": "medium",
+        "filing_date": "2026-09-29",
+        "accepted_at": "2026-09-29T20:23:56.000Z",
+        "report_date": "2026-09-25",
+        "items": [],
+        "items_summary": "未提供 Item 分類",
+        "primary_document": "xslF345X06/ownership.xml",
+        "url": "https://www.sec.gov/Archives/edgar/data/1652044/000119312526408009/xslF345X06/ownership.xml",
+        "index_url": "https://www.sec.gov/Archives/edgar/data/1652044/000119312526408009/0001193125-26-408009-index.html"
+      }
+    },
+    {
+      "event": {
+        "ticker": "GOOGL",
+        "cik": "0001652044",
+        "accession": "0001193125-26-408007",
+        "form": "4",
+        "group": "內部人持股",
+        "severity": "medium",
+        "filing_date": "2026-09-29",
+        "accepted_at": "2026-09-29T20:22:32.000Z",
+        "report_date": "2026-09-25",
+        "items": [],
+        "items_summary": "未提供 Item 分類",
+        "primary_document": "xslF345X06/ownership.xml",
+        "url": "https://www.sec.gov/Archives/edgar/data/1652044/000119312526408007/xslF345X06/ownership.xml",
+        "index_url": "https://www.sec.gov/Archives/edgar/data/1652044/000119312526408007/0001193125-26-408007-index.html"
+      }
+    },
+    {
+      "event": {
+        "ticker": "GOOGL",
+        "cik": "0001652044",
+        "accession": "0001193125-26-408004",
+        "form": "4",
+        "group": "內部人持股",
+        "severity": "medium",
+        "filing_date": "2026-09-29",
+        "accepted_at": "2026-09-29T20:20:42.000Z",
+        "report_date": "2026-09-25",
+        "items": [],
+        "items_summary": "未提供 Item 分類",
+        "primary_document": "xslF345X06/ownership.xml",
+        "url": "https://www.sec.gov/Archives/edgar/data/1652044/000119312526408004/xslF345X06/ownership.xml",
+        "index_url": "https://www.sec.gov/Archives/edgar/data/1652044/000119312526408004/0001193125-26-408004-index.html"
+      }
+    },
+    {
+      "event": {
+        "ticker": "GOOGL",
+        "cik": "0001652044",
         "accession": "0001193125-26-393517",
         "form": "4",
         "group": "內部人持股",
@@ -15041,114 +15124,6 @@
         "primary_document": "xslF345X06/ownership.xml",
         "url": "https://www.sec.gov/Archives/edgar/data/1652044/000119312526393506/xslF345X06/ownership.xml",
         "index_url": "https://www.sec.gov/Archives/edgar/data/1652044/000119312526393506/0001193125-26-393506-index.html"
-      }
-    },
-    {
-      "event": {
-        "ticker": "GOOGL",
-        "cik": "0001652044",
-        "accession": "0001193125-26-393503",
-        "form": "4",
-        "group": "內部人持股",
-        "severity": "medium",
-        "filing_date": "2026-09-16",
-        "accepted_at": "2026-09-16T21:39:37.000Z",
-        "report_date": "2026-09-14",
-        "items": [],
-        "items_summary": "未提供 Item 分類",
-        "primary_document": "xslF345X06/ownership.xml",
-        "url": "https://www.sec.gov/Archives/edgar/data/1652044/000119312526393503/xslF345X06/ownership.xml",
-        "index_url": "https://www.sec.gov/Archives/edgar/data/1652044/000119312526393503/0001193125-26-393503-index.html"
-      }
-    },
-    {
-      "event": {
-        "ticker": "GOOGL",
-        "cik": "0001652044",
-        "accession": "0001193125-26-393500",
-        "form": "4",
-        "group": "內部人持股",
-        "severity": "medium",
-        "filing_date": "2026-09-16",
-        "accepted_at": "2026-09-16T21:37:03.000Z",
-        "report_date": "2026-09-14",
-        "items": [],
-        "items_summary": "未提供 Item 分類",
-        "primary_document": "xslF345X06/ownership.xml",
-        "url": "https://www.sec.gov/Archives/edgar/data/1652044/000119312526393500/xslF345X06/ownership.xml",
-        "index_url": "https://www.sec.gov/Archives/edgar/data/1652044/000119312526393500/0001193125-26-393500-index.html"
-      }
-    },
-    {
-      "event": {
-        "ticker": "GOOGL",
-        "cik": "0001652044",
-        "accession": "0001193125-26-393497",
-        "form": "4",
-        "group": "內部人持股",
-        "severity": "medium",
-        "filing_date": "2026-09-16",
-        "accepted_at": "2026-09-16T21:36:00.000Z",
-        "report_date": "2026-09-14",
-        "items": [],
-        "items_summary": "未提供 Item 分類",
-        "primary_document": "xslF345X06/ownership.xml",
-        "url": "https://www.sec.gov/Archives/edgar/data/1652044/000119312526393497/xslF345X06/ownership.xml",
-        "index_url": "https://www.sec.gov/Archives/edgar/data/1652044/000119312526393497/0001193125-26-393497-index.html"
-      }
-    },
-    {
-      "event": {
-        "ticker": "GOOGL",
-        "cik": "0001652044",
-        "accession": "0001193125-26-393494",
-        "form": "4",
-        "group": "內部人持股",
-        "severity": "medium",
-        "filing_date": "2026-09-16",
-        "accepted_at": "2026-09-16T21:35:10.000Z",
-        "report_date": "2026-09-14",
-        "items": [],
-        "items_summary": "未提供 Item 分類",
-        "primary_document": "xslF345X06/ownership.xml",
-        "url": "https://www.sec.gov/Archives/edgar/data/1652044/000119312526393494/xslF345X06/ownership.xml",
-        "index_url": "https://www.sec.gov/Archives/edgar/data/1652044/000119312526393494/0001193125-26-393494-index.html"
-      }
-    },
-    {
-      "event": {
-        "ticker": "GOOGL",
-        "cik": "0001652044",
-        "accession": "0001193125-26-393491",
-        "form": "4",
-        "group": "內部人持股",
-        "severity": "medium",
-        "filing_date": "2026-09-16",
-        "accepted_at": "2026-09-16T21:33:51.000Z",
-        "report_date": "2026-09-14",
-        "items": [],
-        "items_summary": "未提供 Item 分類",
-        "primary_document": "xslF345X06/ownership.xml",
-        "url": "https://www.sec.gov/Archives/edgar/data/1652044/000119312526393491/xslF345X06/ownership.xml",
-        "index_url": "https://www.sec.gov/Archives/edgar/data/1652044/000119312526393491/0001193125-26-393491-index.html"
-      }
-    },
-    {
-      "event": {
-        "ticker": "GOOGL",
-        "cik": "0001652044",
-        "accession": "0001193125-26-393485",
-        "form": "4",
-        "group": "內部人持股",
-        "severity": "medium",
-        "filing_date": "2026-09-16",
-        "accepted_at": "2026-09-16T21:28:34.000Z",
-        "report_date": "2026-09-14",
-        "items": [],
-        "items_summary": "未提供 Item 分類",
-        "primary_document": "xslF345X06/ownership.xml",
-        "url": "https://www.sec.gov/Archives/edgar/data/1652044/000119312526393485/xslF345X06/ownership.xml",
-        "index_url": "https://www.sec.gov/Archives/edgar/data/1652044/000119312526393485/0001193125-26-393485-index.html"
       }
     },
     {
@@ -17538,8 +17513,8 @@
   ],
   "merger_window": {
     "years": 3,
-    "cutoff": "2023-09-29",
-    "as_of": "2026-09-29",
+    "cutoff": "2023-09-30",
+    "as_of": "2026-09-30",
     "document_count": 13,
     "deal_count": 2
   },
