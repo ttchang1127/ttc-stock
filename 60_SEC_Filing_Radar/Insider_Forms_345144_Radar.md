@@ -1,6 +1,6 @@
 ---
 title: Form 144＋3／4／5 彙總
-updated_at: 2026-09-30T10:16:47+00:00
+updated_at: 2026-10-01T10:43:14+00:00
 tags:
   - sec/insiders
 ---
@@ -57,6 +57,7 @@ tags:
 | 2026-09-01 | **COHR** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/820318/000089914026001040/xslF345X06/form4.xml) |
 | 2026-09-01 | **COHR** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/820318/000089914026001039/xslF345X06/form4.xml) |
 | 2026-09-01 | **COHR** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/820318/000089914026001038/xslF345X06/form4.xml) |
+| 2026-09-30 | **GOOGL** | 144 | ARNOLD FRANCES；擬售 83 股／$28,257，約占流通股 0.000% | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000192109426001058/xsl144X01/primary_doc.xml) |
 | 2026-09-29 | **GOOGL** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526408019/xslF345X06/ownership.xml) |
 | 2026-09-29 | **GOOGL** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526408016/xslF345X06/ownership.xml) |
 | 2026-09-29 | **GOOGL** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526408014/xslF345X06/ownership.xml) |
@@ -68,7 +69,6 @@ tags:
 | 2026-09-16 | **GOOGL** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526393513/xslF345X06/ownership.xml) |
 | 2026-09-16 | **GOOGL** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526393511/xslF345X06/ownership.xml) |
 | 2026-09-16 | **GOOGL** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526393509/xslF345X06/ownership.xml) |
-| 2026-09-16 | **GOOGL** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526393506/xslF345X06/ownership.xml) |
 | 2026-08-14 | **INTC** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/50863/000005086326000177/xslF345X06/form4.xml) |
 | 2026-08-03 | **INTC** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/50863/000005086326000174/xslF345X06/form4.xml) |
 | 2026-08-03 | **INTC** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/50863/000005086326000173/xslF345X06/form4.xml) |
@@ -81,6 +81,7 @@ tags:
 | 2026-05-22 | **INTC** | 3 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/50863/000005086326000135/xslF345X06/form3.xml) |
 | 2026-05-15 | **INTC** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/50863/000005086326000128/xslF345X06/form4.xml) |
 | 2026-05-15 | **INTC** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/50863/000005086326000127/xslF345X06/form4.xml) |
+| 2026-09-30 | **META** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000095010326014886/xslF345X06/ownership.xml) |
 | 2026-09-28 | **META** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000095010326014647/xslF345X06/ownership.xml) |
 | 2026-09-28 | **META** | 144 | Olivan Javier；擬售 1,575 股／$1,180,966，約占流通股 0.000% | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000192109426001053/xsl144X01/primary_doc.xml) |
 | 2026-09-24 | **META** | 144 | Zuckerberg Mark；擬售 27,474 股／$21,359,454，約占流通股 0.001% | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000192109426001050/xsl144X01/primary_doc.xml) |
@@ -92,7 +93,6 @@ tags:
 | 2026-09-16 | **META** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000095010326014061/xslF345X06/ownership.xml) |
 | 2026-09-15 | **META** | 144 | Cox Christopher K；擬售 20,000 股／$13,504,556，約占流通股 0.001% | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000192109426001023/xsl144X01/primary_doc.xml) |
 | 2026-09-14 | **META** | 144 | Olivan Javier；擬售 1,575 股／$1,035,925，約占流通股 0.000% | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000192109426001013/xsl144X01/primary_doc.xml) |
-| 2026-09-11 | **META** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000095010326013860/xslF345X06/ownership.xml) |
 | 2026-09-16 | **MRVL** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1835632/000162828026062334/xslF345X06/wk-form4_1789598794.xml) |
 | 2026-09-15 | **MRVL** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1835632/000162828026062124/xslF345X06/wk-form4_1789522603.xml) |
 | 2026-09-02 | **MRVL** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1835632/000162828026060112/xslF345X06/wk-form4_1788380464.xml) |

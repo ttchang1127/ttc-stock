@@ -1,6 +1,6 @@
 ---
 title: 官方 Earnings Call 與 Prepared Remarks 雷達
-updated_at: 2026-09-30T10:17:28+00:00
+updated_at: 2026-10-01T10:43:50+00:00
 tags:
   - earnings-call
   - investor-relations
