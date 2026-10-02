@@ -118,6 +118,39 @@ def quote(ticker: str, from_date: date, to_date: date) -> dict:
             "name": summary.get("additionalData", {}).get("CompanyName") if isinstance(summary.get("additionalData"), dict) else None}
 
 
+def fetch_quotes(tickers: list[str], from_date: date, to_date: date, workers: int,
+                 *, fetcher=quote, sleep=time.sleep) -> dict[str, dict]:
+    """Retry incomplete Nasdaq quotes slowly before rejecting a dated snapshot."""
+    def batch(symbols: list[str], concurrency: int) -> dict[str, dict]:
+        with ThreadPoolExecutor(max_workers=concurrency) as executor:
+            pending = {executor.submit(fetcher, ticker, from_date, to_date): ticker for ticker in symbols}
+            return {pending[future]: future.result() for future in as_completed(pending)}
+
+    quotes = batch(tickers, max(1, min(16, workers)))
+    for attempt in (1, 2):
+        latest = max((max(row["closes"]) for row in quotes.values() if row["closes"]), default=None)
+        incomplete = sorted(ticker for ticker, row in quotes.items()
+                            if not row["cap"] or not row["closes"]
+                            or (latest and max(row["closes"]) < latest))
+        if not incomplete:
+            break
+        print(f"Nasdaq retry {attempt}/2: {len(incomplete)} incomplete quotes", flush=True)
+        sleep(5 * attempt)
+        for ticker, refreshed in batch(incomplete, 2).items():
+            current = quotes[ticker]
+            histories = (current["closes"], refreshed["closes"])
+            quotes[ticker] = {
+                "cap": refreshed["cap"] or current["cap"],
+                "closes": max(histories, key=lambda rows: (max(rows, default=""), len(rows))),
+                "name": refreshed["name"] or current["name"],
+            }
+    latest = max((max(row["closes"]) for row in quotes.values() if row["closes"]), default="none")
+    print(f"Nasdaq coverage: {sum(bool(row['cap']) for row in quotes.values())}/{len(quotes)} caps, "
+          f"{sum(bool(row['closes']) and max(row['closes']) == latest for row in quotes.values())}/{len(quotes)} "
+          f"histories through {latest}", flush=True)
+    return quotes
+
+
 def returns(closes: dict[str, float], as_of: str) -> tuple[dict, bool | None]:
     dates = sorted(day for day in closes if day <= as_of)
     if not dates or dates[-1] != as_of:
@@ -224,7 +257,7 @@ def reclassify_existing(config: dict, previous: dict) -> dict:
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", type=Path, default=OUTPUT)
-    parser.add_argument("--workers", type=int, default=12)
+    parser.add_argument("--workers", type=int, default=4)
     parser.add_argument("--reclassify-existing", action="store_true",
                         help="Rebuild only classifications, requiring identical candidate list and threshold")
     args = parser.parse_args()
@@ -238,12 +271,7 @@ def main() -> None:
     today = date.today()
     start = today - timedelta(days=240)
     print(f"Fetching {len(tickers)} classified companies from Nasdaq", flush=True)
-    quotes = {}
-    with ThreadPoolExecutor(max_workers=max(1, min(16, args.workers))) as executor:
-        pending = {executor.submit(quote, ticker, start, today): ticker for ticker in tickers}
-        for future in as_completed(pending):
-            ticker = pending[future]
-            quotes[ticker] = future.result()
+    quotes = fetch_quotes(tickers, start, today, args.workers)
     data = build(config, quotes)
     previous = json.loads(args.output.read_text()) if args.output.exists() else None
     if previous and previous["as_of"] > data["as_of"]:
@@ -252,7 +280,9 @@ def main() -> None:
     # Temporary provider gaps must not silently remove an existing tile.
     if previous and (len(data["stocks"]) < 0.85 * len(previous["stocks"])
                      or data["coverage"]["priced"] < .85 * previous["coverage"]["priced"]):
-        raise ValueError("New map lost more than 15% of its companies or prices; keeping published data")
+        raise ValueError(f"New map lost more than 15% of its companies or prices "
+                         f"({len(previous['stocks'])}/{previous['coverage']['priced']} previous, "
+                         f"{len(data['stocks'])}/{data['coverage']['priced']} new); keeping published data")
     if previous:
         comparable = lambda item: {key: value for key, value in item.items() if key != "generated_at"}
         if comparable(previous) == comparable(data):

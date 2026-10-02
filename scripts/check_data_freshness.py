@@ -4,7 +4,8 @@ Most derived files are only rewritten when their content changes, so their
 timestamps say nothing about pipeline health.  This monitor therefore looks
 only at signals that must advance on every successful run:
 
-* the latest SPY session in prices.json and market_rotation.json ``as_of``,
+* the latest SPY session in prices.json, market_rotation.json ``as_of``, and
+  tech_stock_map.json ``as_of``,
   measured in NYSE sessions behind the session that should be available;
 * the SEC watcher heartbeat in .github/sec-filing-state.json, which is
   written on every successful run, including days without new filings.
@@ -70,6 +71,14 @@ def rotation_latest(root: Path) -> date | None:
         return None
 
 
+def tech_map_latest(root: Path) -> date | None:
+    data = load(root, "tech_stock_map.json")
+    try:
+        return date.fromisoformat(data["as_of"])
+    except (TypeError, KeyError, ValueError):
+        return None
+
+
 def sec_result(root: Path, now: datetime) -> dict:
     source = ".github/sec-filing-state.json updated_at"
     data = load(root, ".github/sec-filing-state.json")
@@ -97,6 +106,8 @@ def evaluate(root: Path, now: datetime) -> list[dict]:
                       "prices.json 的 SPY 最新交易日"),
         market_result("market_rotation", "市場板塊輪動（market_rotation.json）", rotation_latest(root), now,
                       "market_rotation.json 的 as_of"),
+        market_result("tech_stock_map", "科技股產業鏈地圖（tech_stock_map.json）", tech_map_latest(root), now,
+                      "tech_stock_map.json 的 as_of"),
         sec_result(root, now),
     ]
 

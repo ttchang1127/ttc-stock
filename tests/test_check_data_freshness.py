@@ -20,17 +20,20 @@ class FreshnessTests(unittest.TestCase):
         self.directory = tempfile.TemporaryDirectory()
         self.root = pathlib.Path(self.directory.name)
         (self.root / ".github").mkdir()
-        self.write(prices="2026-09-14", rotation="2026-09-14", sec="2026-09-12T04:10:00+00:00")
+        self.write(prices="2026-09-14", rotation="2026-09-14", map_date="2026-09-14",
+                   sec="2026-09-12T04:10:00+00:00")
 
     def tearDown(self):
         self.directory.cleanup()
 
-    def write(self, prices=None, rotation=None, sec=None):
+    def write(self, prices=None, rotation=None, map_date=None, sec=None):
         if prices:
             (self.root / "prices.json").write_text(json.dumps(
                 {"series": {"SPY": {"dates": ["2026-09-01", prices], "closes": [1, 2]}}}))
         if rotation:
             (self.root / "market_rotation.json").write_text(json.dumps({"as_of": rotation}))
+        if map_date:
+            (self.root / "tech_stock_map.json").write_text(json.dumps({"as_of": map_date}))
         if sec:
             (self.root / ".github/sec-filing-state.json").write_text(json.dumps({"updated_at": sec}))
 
@@ -39,7 +42,8 @@ class FreshnessTests(unittest.TestCase):
 
     def test_everything_current_is_fresh(self):
         self.assertEqual({key: row["status"] for key, row in self.status().items()},
-                         {"prices": "fresh", "market_rotation": "fresh", "sec_watcher": "fresh"})
+                         {"prices": "fresh", "market_rotation": "fresh", "tech_stock_map": "fresh",
+                          "sec_watcher": "fresh"})
 
     def test_one_session_behind_is_tolerated(self):
         self.write(prices="2026-09-11")
@@ -50,6 +54,12 @@ class FreshnessTests(unittest.TestCase):
         row = self.status()["market_rotation"]
         self.assertEqual(row["status"], "stale")
         self.assertIn("落後 2 個 NYSE 交易日", row["detail"])
+
+    def test_stale_technology_map_is_reported_independently(self):
+        self.write(map_date="2026-09-10")
+        row = self.status()["tech_stock_map"]
+        self.assertEqual(row["status"], "stale")
+        self.assertEqual(self.status()["prices"]["status"], "fresh")
 
     def test_exchange_holidays_do_not_count_as_lag(self):
         # Tuesday after Labor Day: Friday 09-04 is only one session behind.
@@ -73,8 +83,10 @@ class FreshnessTests(unittest.TestCase):
     def test_missing_or_corrupt_sources_are_reported(self):
         (self.root / "prices.json").unlink()
         (self.root / ".github/sec-filing-state.json").write_text("{broken")
+        (self.root / "tech_stock_map.json").write_text("{broken")
         rows = self.status()
         self.assertEqual(rows["prices"]["status"], "missing")
+        self.assertEqual(rows["tech_stock_map"]["status"], "missing")
         self.assertEqual(rows["sec_watcher"]["status"], "missing")
 
     def test_cli_reports_through_github_output_without_failing(self):

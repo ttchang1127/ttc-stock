@@ -2,6 +2,7 @@ import json
 import pathlib
 import sys
 import unittest
+from datetime import date
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
@@ -53,6 +54,37 @@ class TechnologyMapTests(unittest.TestCase):
         config["families"][1]["groups"][0]["tickers"].append("NVDA")
         with self.assertRaisesRegex(ValueError, "duplicate ticker"):
             tech.check_taxonomy(config)
+
+    def test_incomplete_nasdaq_quote_is_retried_without_losing_good_data(self):
+        calls = {"AAPL": 0, "NVDA": 0}
+
+        def fetcher(ticker, _start, _end):
+            calls[ticker] += 1
+            if ticker == "AAPL" and calls[ticker] == 1:
+                return {"cap": None, "closes": {}, "name": None}
+            return {"cap": 1_000_000_000_000, "closes": {"2026-10-01": 100.0}, "name": ticker}
+
+        quotes = tech.fetch_quotes(["AAPL", "NVDA"], date(2026, 3, 1), date(2026, 10, 2), 2,
+                                   fetcher=fetcher, sleep=lambda _: None)
+        self.assertEqual(calls, {"AAPL": 2, "NVDA": 1})
+        self.assertEqual(quotes["AAPL"]["closes"], {"2026-10-01": 100.0})
+
+    def test_retry_uses_newer_history_and_preserves_known_cap(self):
+        calls = {"AAPL": 0}
+
+        def fetcher(ticker, _start, _end):
+            if ticker == "NVDA":
+                return {"cap": 2_000_000_000_000, "closes": {"2026-10-01": 110.0}, "name": ticker}
+            calls[ticker] += 1
+            if calls[ticker] == 1:
+                return {"cap": 1_000_000_000_000, "closes": {"2026-09-25": 90.0}, "name": ticker}
+            return {"cap": None, "closes": {"2026-10-01": 100.0}, "name": None}
+
+        quotes = tech.fetch_quotes(["AAPL", "NVDA"], date(2026, 3, 1), date(2026, 10, 2), 2,
+                                   fetcher=fetcher, sleep=lambda _: None)
+        self.assertEqual(calls["AAPL"], 2)
+        self.assertEqual(quotes["AAPL"]["cap"], 1_000_000_000_000)
+        self.assertEqual(max(quotes["AAPL"]["closes"]), "2026-10-01")
 
     def test_taxonomy_only_rebuild_rejects_a_new_candidate_without_quotes(self):
         config = json.loads(json.dumps(self.config))
