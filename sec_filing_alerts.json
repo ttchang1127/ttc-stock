@@ -2,6 +2,78 @@
   "schema_version": 3,
   "events": [
     {
+      "ticker": "MRVL",
+      "cik": "0001835632",
+      "accession": "0001628280-26-064351",
+      "form": "4",
+      "group": "內部人持股",
+      "severity": "medium",
+      "filing_date": "2026-10-01",
+      "accepted_at": "2026-10-02T05:19:09.000Z",
+      "report_date": "2026-10-01",
+      "items": [],
+      "items_summary": "未提供 Item 分類",
+      "primary_document": "xslF345X06/wk-form4_1790903947.xml",
+      "url": "https://www.sec.gov/Archives/edgar/data/1835632/000162828026064351/xslF345X06/wk-form4_1790903947.xml",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1835632/000162828026064351/0001628280-26-064351-index.html",
+      "detected_at": "2026-10-02T10:18:21+00:00",
+      "baseline": false
+    },
+    {
+      "ticker": "AAPL",
+      "cik": "0000320193",
+      "accession": "0001140361-26-038307",
+      "form": "4",
+      "group": "內部人持股",
+      "severity": "medium",
+      "filing_date": "2026-10-01",
+      "accepted_at": "2026-10-02T02:30:11.000Z",
+      "report_date": "2026-09-29",
+      "items": [],
+      "items_summary": "未提供 Item 分類",
+      "primary_document": "xslF345X06/form4.xml",
+      "url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126038307/xslF345X06/form4.xml",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126038307/0001140361-26-038307-index.html",
+      "detected_at": "2026-10-02T10:18:21+00:00",
+      "baseline": false
+    },
+    {
+      "ticker": "NOK",
+      "cik": "0000924613",
+      "accession": "0001193125-26-410686",
+      "form": "3",
+      "group": "內部人持股",
+      "severity": "medium",
+      "filing_date": "2026-10-01",
+      "accepted_at": "2026-10-02T00:16:17.000Z",
+      "report_date": "2026-10-01",
+      "items": [],
+      "items_summary": "未提供 Item 分類",
+      "primary_document": "xslF345X06/ownership.xml",
+      "url": "https://www.sec.gov/Archives/edgar/data/924613/000119312526410686/xslF345X06/ownership.xml",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/924613/000119312526410686/0001193125-26-410686-index.html",
+      "detected_at": "2026-10-02T10:18:21+00:00",
+      "baseline": false
+    },
+    {
+      "ticker": "MRVL",
+      "cik": "0001835632",
+      "accession": "0001950047-26-009912",
+      "form": "144",
+      "group": "內部人持股",
+      "severity": "medium",
+      "filing_date": "2026-10-01",
+      "accepted_at": "2026-10-02T00:04:47.000Z",
+      "report_date": "",
+      "items": [],
+      "items_summary": "未提供 Item 分類",
+      "primary_document": "xsl144X01/primary_doc.xml",
+      "url": "https://www.sec.gov/Archives/edgar/data/1835632/000195004726009912/xsl144X01/primary_doc.xml",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1835632/000195004726009912/0001950047-26-009912-index.html",
+      "detected_at": "2026-10-02T10:18:21+00:00",
+      "baseline": false
+    },
+    {
       "ticker": "META",
       "cik": "0001326801",
       "accession": "0000950103-26-014886",
@@ -6810,9 +6882,53 @@
       "baseline": true
     }
   ],
-  "updated_at": "2026-10-01T10:43:14+00:00",
+  "updated_at": "2026-10-02T10:18:21+00:00",
   "source": "SEC submissions API; accession-number deduplicated; watcher-run deltas",
   "update_batches": [
+    {
+      "checked_at": "2026-10-02T10:18:21+00:00",
+      "previous_checked_at": "2026-10-01T10:43:14+00:00",
+      "baseline": false,
+      "new_count": 4,
+      "critical_count": 0,
+      "high_count": 0,
+      "medium_count": 4,
+      "new_accessions": [
+        "0001628280-26-064351",
+        "0001140361-26-038307",
+        "0001193125-26-410686",
+        "0001950047-26-009912"
+      ],
+      "financial_accessions": [],
+      "ownership_accessions": [],
+      "enforcement_keys": [],
+      "company_changes": [
+        {
+          "ticker": "AAPL",
+          "new_count": 1,
+          "important_count": 0,
+          "before_priority": "updated",
+          "after_priority": "updated",
+          "priority_changed": false
+        },
+        {
+          "ticker": "MRVL",
+          "new_count": 2,
+          "important_count": 0,
+          "before_priority": "urgent",
+          "after_priority": "urgent",
+          "priority_changed": false
+        },
+        {
+          "ticker": "NOK",
+          "new_count": 1,
+          "important_count": 0,
+          "before_priority": "quiet",
+          "after_priority": "updated",
+          "priority_changed": true
+        }
+      ]
+    },
     {
       "checked_at": "2026-10-01T10:43:14+00:00",
       "previous_checked_at": "2026-09-30T10:16:47+00:00",
