@@ -28,6 +28,7 @@ TAXONOMY = ROOT / "tech_stock_taxonomy.json"
 OUTPUT = ROOT / "tech_stock_map.json"
 HISTORY_DIR = ROOT / "tech_stock_map_history"
 PERIODS = {"1d": 1, "1w": 5, "1m": 21, "3m": 63, "6m": 126}
+BENCHMARKS = ("SPY", "VGT")  # broad market and US information technology; both are comparisons, not map members
 SOX_2026_08 = set("AMD ADI AMAT ARM ASML ALAB AVGO COHR CRDO ENTG GFS INTC KLAC LRCX MTSI MRVL MCHP MU MPWR NVMI NVDA NXPI ON QRVO QCOM RMBS SWKS TSM TER TXN".split())
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; ttc-stock research)", "Accept": "application/json"}
 
@@ -100,13 +101,10 @@ def parse_cap(value: str | None) -> int | None:
         return None
 
 
-def quote(ticker: str, from_date: date, to_date: date) -> dict:
-    base = f"https://api.nasdaq.com/api/quote/{ticker}"
-    summary = get_api(f"{base}/summary?assetclass=stocks") or {}
-    cap = parse_cap((summary.get("summaryData", {}).get("MarketCap") or {}).get("value"))
-    args = urlencode({"assetclass": "stocks", "limit": 220,
+def historical_closes(ticker: str, from_date: date, to_date: date, *, assetclass: str = "stocks") -> dict[str, float]:
+    args = urlencode({"assetclass": assetclass, "limit": 220,
                       "fromdate": from_date.isoformat(), "todate": to_date.isoformat()})
-    history = get_api(f"{base}/historical?{args}") or {}
+    history = get_api(f"https://api.nasdaq.com/api/quote/{ticker}/historical?{args}") or {}
     closes = {}
     for row in (history.get("tradesTable") or {}).get("rows") or []:
         try:
@@ -116,6 +114,14 @@ def quote(ticker: str, from_date: date, to_date: date) -> dict:
                 closes[stamp] = price
         except (KeyError, ValueError, TypeError):
             continue
+    return closes
+
+
+def quote(ticker: str, from_date: date, to_date: date) -> dict:
+    base = f"https://api.nasdaq.com/api/quote/{ticker}"
+    summary = get_api(f"{base}/summary?assetclass=stocks") or {}
+    cap = parse_cap((summary.get("summaryData", {}).get("MarketCap") or {}).get("value"))
+    closes = historical_closes(ticker, from_date, to_date)
     return {"cap": cap, "closes": closes,
             "name": summary.get("additionalData", {}).get("CompanyName") if isinstance(summary.get("additionalData"), dict) else None}
 
@@ -184,7 +190,19 @@ def aggregate(stocks: list[dict], key: str) -> list[dict]:
     return sorted(result, key=lambda row: -row["market_cap_usd"])
 
 
-def build(config: dict, quotes: dict[str, dict], *, generated_at: str | None = None) -> dict:
+def benchmark_rows(closes_by_ticker: dict[str, dict[str, float]], as_of: str) -> dict:
+    rows = {}
+    for ticker in BENCHMARKS:
+        closes = closes_by_ticker.get(ticker) or {}
+        latest = max(closes, default=None)
+        performance, _ = returns(closes, as_of)
+        rows[ticker] = {"as_of": latest, "returns": performance}
+    return {"source": "Nasdaq historical ETF raw close (not dividend- or split-adjusted)",
+            "items": rows}
+
+
+def build(config: dict, quotes: dict[str, dict], *, benchmark_closes: dict[str, dict[str, float]] | None = None,
+          generated_at: str | None = None) -> dict:
     definitions = check_taxonomy(config)
     sources, names, provenance = source_members(set(definitions), set(config.get("excluded_from_vgt", {})))
     dates = [max(q["closes"]) for q in quotes.values() if q.get("closes")]
@@ -231,6 +249,7 @@ def build(config: dict, quotes: dict[str, dict], *, generated_at: str | None = N
                          "excluded": excluded},
             "period_sessions": PERIODS, "stocks": included,
             "families": aggregate(included, "family"), "groups": aggregate(included, "group"),
+            "benchmarks": benchmark_rows(benchmark_closes or {}, as_of),
             "reference_etfs": {"as_of": health["as_of"], "items": reference}}
 
 
@@ -300,6 +319,7 @@ def history_snapshot(config: dict, quotes: dict[str, dict], data: dict) -> dict:
         "source_dates": data["sources"], "coverage": data["coverage"],
         "market_cap_observed_at": data["generated_at"],
         "price_basis": "Nasdaq raw close; splits and dividends not adjusted or verified",
+        "benchmarks": data.get("benchmarks"),
         "candidates": candidates,
     }
 
@@ -360,7 +380,9 @@ def main() -> None:
     start = today - timedelta(days=240)
     print(f"Fetching {len(tickers)} classified companies from Nasdaq", flush=True)
     quotes = fetch_quotes(tickers, start, today, args.workers)
-    data = build(config, quotes)
+    benchmark_closes = {ticker: historical_closes(ticker, start, today, assetclass="etf")
+                        for ticker in BENCHMARKS}
+    data = build(config, quotes, benchmark_closes=benchmark_closes)
     previous = json.loads(args.output.read_text()) if args.output.exists() else None
     if previous and previous["as_of"] > data["as_of"]:
         print(f"Keeping newer {args.output.name} ({previous['as_of']})")

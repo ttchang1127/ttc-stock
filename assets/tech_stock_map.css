@@ -12,7 +12,8 @@
 .check-label { border: 1px solid var(--line); border-radius: 10px; padding: 8px 10px; cursor: pointer; }
 .check-label input { accent-color: #70cdbc; }
 .control-label input[type=search] { max-width: 175px; padding: 8px 9px; background: #172033; color: #ecf3fa; border: 1px solid var(--line); border-radius: 10px; font: inherit; }
-.control-label input:focus-visible, .tech-focus-controls select:focus-visible, .tech-map button:focus-visible, .tech-table-link:focus-visible { outline: 2px solid #b8f4e5; outline-offset: -2px; }
+.control-label input:focus-visible, .control-label select:focus-visible, .tech-map button:focus-visible, .tech-table-link:focus-visible { outline: 2px solid #b8f4e5; outline-offset: -2px; }
+.tech-mode-note { margin: 0 0 7px; color: #b9d5dc; font-size: .8rem; line-height: 1.5; }
 .tech-path { font-size: .8rem; color: #aad9d9; margin: 9px 0; }
 .tech-map { position: relative; height: 700px; overflow: hidden; border-radius: 12px; background: #1a2739; border: 1px solid rgba(145,175,190,.23); }
 .tech-family, .tech-group { position: absolute; overflow: hidden; border: 1px solid #0e1928; background: #213345; }
@@ -40,6 +41,7 @@
 .detail-returns { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
 .detail-returns span { border: 1px solid var(--line); background: rgba(255,255,255,.04); padding: 9px 12px; border-radius: 10px; color: #bfd2df; }
 .detail-returns strong { margin-left: 6px; color: #f2f8fc; }
+.detail-returns small { display: block; margin-top: 4px; color: #a9dcd6; }
 .tech-etfs { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 15px; }
 .tech-etf { display: flex; gap: 10px; flex-wrap: wrap; padding: 9px 13px; border-radius: 10px; background: rgba(38,61,77,.62); border: 1px solid var(--line); font-size: .8rem; }
 .tech-etf strong { color: #9fddd8; }

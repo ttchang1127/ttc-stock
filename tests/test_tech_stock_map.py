@@ -50,6 +50,16 @@ class TechnologyMapTests(unittest.TestCase):
         self.assertIsNone(numbers["6m"])
         self.assertIsNone(above)
 
+    def test_benchmark_needs_same_close_date_and_uses_matching_period(self):
+        rows = tech.benchmark_rows({
+            "SPY": {"2026-10-01": 100.0, "2026-10-02": 102.0},
+            "VGT": {"2026-10-01": 100.0},
+        }, "2026-10-02")["items"]
+        self.assertEqual(rows["SPY"]["returns"]["1d"], 2.0)
+        self.assertIsNone(rows["SPY"]["returns"]["1w"])
+        self.assertTrue(all(value is None for value in rows["VGT"]["returns"].values()))
+        self.assertEqual(rows["VGT"]["as_of"], "2026-10-01")
+
     def test_duplicate_classification_is_rejected(self):
         config = json.loads(json.dumps(self.config))
         config["families"][1]["groups"][0]["tickers"].append("NVDA")

@@ -2701,7 +2701,7 @@ def c48():
 @check("C-49", "科技地圖個股來源、分類與市值門檻一致，持股與 ETF 回測仍可讀")
 def c49():
     sys.path.insert(0, str(REPO_ROOT / "scripts"))
-    from build_tech_stock_map import check_taxonomy, validate_history  # noqa: PLC0415
+    from build_tech_stock_map import BENCHMARKS, PERIODS, check_taxonomy, validate_history  # noqa: PLC0415
     config = load("tech_stock_taxonomy.json")
     classifications = check_taxonomy(config)
     data = load("tech_stock_map.json")
@@ -2724,6 +2724,16 @@ def c49():
             problems.append(f"{row['ticker']} 報價日期不一致")
         if row["group_id"] != classifications[row["ticker"]]["group_id"]:
             problems.append(f"{row['ticker']} 分類與設定檔不一致")
+    if "benchmarks" in data:
+        benchmarks = data["benchmarks"].get("items", {})
+        if set(benchmarks) != set(BENCHMARKS):
+            problems.append("相對基準清單不完整")
+        for ticker, row in benchmarks.items():
+            values = row.get("returns", {})
+            if set(values) != set(PERIODS):
+                problems.append(f"{ticker} 期間與地圖不同")
+            if row.get("as_of") != data["as_of"] and any(value is not None for value in values.values()):
+                problems.append(f"{ticker} 報價日不同卻有相對基準報酬")
     problems += validate_history(REPO_ROOT / "tech_stock_map_history")
     return not problems, "；".join(problems[:5]) or f"{len(tickers)} 家公司，{data['as_of']} 報價"
 

@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/market_rotation.css?v=20260928a">
-  <link rel="stylesheet" href="assets/tech_stock_map.css?v=20260928c">
+  <link rel="stylesheet" href="assets/tech_stock_map.css?v=20261004a">
 </head>
 <body>
   <main class="shell">
@@ -18,7 +18,7 @@
         <div class="asof">美股收盤日<strong id="techAsOf">載入中…</strong></div></div></header>
 
     <section class="tech-intro" aria-label="閱讀方式">
-      <p>一個方塊代表一家公司。外框是產業鏈分類，方塊顏色是所選期間的股價漲跌；預設方塊面積按公司市值。點產業或使用選單放大，也可切換每家公司等大來觀察漲跌家數。</p>
+      <p>一個方塊代表一家公司。外框是產業鏈分類；預設顏色為股價絕對漲跌，也可切換為相對 SPY／VGT 的報酬差（百分點）。相對跑贏不代表股價上漲。方塊面積預設按公司市值，亦可切換每家公司等大。</p>
       <div class="tech-highlights" id="techHighlights" aria-live="polite">正在載入資料…</div>
     </section>
 
@@ -34,6 +34,8 @@
           <button class="period-btn" type="button" data-period="3m">3 個月</button>
           <button class="period-btn" type="button" data-period="6m">6 個月</button>
         </div>
+        <label class="control-label">顏色 <select id="techReturnMode" aria-label="地圖顏色指標"><option value="absolute">絕對漲跌</option><option value="relative">相對基準</option></select></label>
+        <label class="control-label">基準 <select id="techBenchmark" aria-label="比較基準" disabled><option value="SPY">SPY 大盤</option><option value="VGT">VGT 科技</option></select></label>
         <div class="tech-focus-controls" role="group" aria-labelledby="techFocusLabel">
           <span id="techFocusLabel">放大範圍</span>
           <label class="control-label">大類 <select id="techFocus"><option value="all">全部核心科技</option></select></label>
@@ -43,16 +45,17 @@
         <label class="check-label"><input id="techEqual" type="checkbox"> 每家公司等大</label>
         <label class="control-label">搜尋 <input id="techSearch" type="search" placeholder="代號或公司名稱" autocomplete="off"></label>
       </div>
+      <p class="tech-mode-note" id="techModeNote" aria-live="polite"></p>
       <div class="tech-path" id="techPath" aria-live="polite"></div>
       <div class="tech-map" id="techMap" role="group" aria-label="科技股產業鏈漲跌地圖"></div>
-      <div class="tech-map-footer"><span id="techMapNote"></span><span class="tech-legend" aria-label="漲跌顏色"><i class="down"></i> 下跌 <i class="flat"></i> 無資料／持平 <i class="up"></i> 上漲</span></div>
+      <div class="tech-map-footer"><span id="techMapNote"></span><span class="tech-legend" aria-label="顏色圖例"><i class="down"></i> <span id="techLegendDown">下跌</span> <i class="flat"></i> <span id="techLegendFlat">無資料／持平</span> <i class="up"></i> <span id="techLegendUp">上漲</span></span></div>
     </section>
 
     <section class="panel" aria-labelledby="breadthTitle"><div class="panel-head"><div>
       <h2 id="breadthTitle">產業鏈廣度</h2>
-      <p class="panel-desc">等權報酬看一般公司，市值加權報酬看大公司；差距有助辨認是否只有少數巨頭拉動。依目前畫面範圍顯示。</p>
+      <p class="panel-desc" id="techBreadthDesc">等權報酬看一般公司，市值加權報酬看大公司；差距有助辨認是否只有少數巨頭拉動。依目前畫面範圍顯示。</p>
       </div></div>
-      <div class="table-wrap"><table class="state-table tech-breadth-table"><thead><tr><th>產業鏈</th><th>公司／有報價</th><th>近 1 個月上漲</th><th>等權報酬</th><th>市值加權報酬</th><th>站上 50 日均線</th></tr></thead>
+      <div class="table-wrap"><table class="state-table tech-breadth-table"><thead><tr><th>產業鏈</th><th>公司／有本期報價</th><th id="techBreadthUp">近 1 個月上漲</th><th id="techBreadthEqual">等權報酬</th><th id="techBreadthCap">市值加權報酬</th><th>站上 50 日均線（絕對）</th></tr></thead>
       <tbody id="techBreadth"><tr><td colspan="6">載入中…</td></tr></tbody></table></div>
     </section>
 
@@ -67,11 +70,13 @@
       <div class="method-card"><strong>股票池</strong><span>以 VGT 持股、S&P 500、Nasdaq-100、SOX 成分與人工補充找候選，再依人工產業鏈分類納入。Nasdaq-100 並非科技股指數；未分類的 VGT 成分不會自動塞進地圖。</span></div>
       <div class="method-card"><strong>門檻與去重</strong><span>市值至少 100 億美元；觀察持股例外保留。Alphabet 的 GOOG／GOOGL 只算一家公司，以 GOOGL 顯示。跨業務公司只佔一個主位置，以題材標籤補充。</span></div>
       <div class="method-card"><strong>價格與市值</strong><span>Nasdaq 公開報價的美元公司市值與歷史收盤價。期間為 1／5／21／63／126 個交易日；歷史收盤價未調整股息或拆股，遇拆股需另行核對。缺資料的方塊以灰色呈現。</span></div>
+      <div class="method-card"><strong>相對基準</strong><span>SPY 為美股大盤對照，VGT 為美國資訊科技 ETF 對照，均不是本地圖股票池。相對值＝個股原始收盤價報酬－同期間基準原始收盤價報酬，以百分點呈現；兩者收盤日不同或缺資料就不計算。這不是含息總報酬，也不是買賣訊號。</span></div>
+      <div class="method-card"><strong>廣度權重</strong><span>市值加權欄使用目前可取得的公司市值描述當下大型股影響，並非期初投資權重、ETF 持股報酬或可交易投資組合。</span></div>
       <div class="method-card"><strong>資料時差</strong><span>VGT 名單來自 SEC N-PORT，可能比當前持股落後；地圖會另標示持股申報日、報價日與價格涵蓋檔數。ETF 申購贖回資料不能直接解讀為流入某一檔股票。</span></div>
       <div class="method-card"><strong>回測</strong><span>本頁的產業鏈分類、廣度與漲跌是現況描述，並未驗證預測能力。既有 ETF 歷史資料與每月回測繼續累積，可在<a href="etf_research_archive.html">原 ETF 研究頁</a>查閱。</span></div>
     </div></details></section>
     <footer class="footer">資料：Nasdaq、SEC EDGAR N-PORT、既有市場股票池｜本頁為研究工具，不構成投資建議。</footer>
   </main>
-  <script src="assets/tech_stock_map.js?v=20260928b" defer></script>
+  <script src="assets/tech_stock_map.js?v=20261004a" defer></script>
 </body>
 </html>

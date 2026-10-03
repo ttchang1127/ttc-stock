@@ -4,11 +4,25 @@
   const SCALE = { '1d': 4, '1w': 8, '1m': 15, '3m': 30, '6m': 50 };
   const escapeHtml = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'}[c]));
   const pct = value => value == null ? '—' : `${value > 0 ? '+' : ''}${Number(value).toFixed(2)}%`;
+  const pp = value => value == null ? '—' : `${value > 0 ? '+' : ''}${Number(value).toFixed(2)} pp`;
   const capText = value => value >= 1e12 ? `$${(value / 1e12).toFixed(2)} 兆` : `$${(value / 1e8).toFixed(0)} 億`;
   const $ = id => document.getElementById(id);
   let data = null;
   let period = '1m';
+  let mode = 'absolute';
+  let benchmark = 'SPY';
   let selected = null;
+
+  function benchmarkReturn(key = period) {
+    const row = data?.benchmarks?.items?.[benchmark];
+    return row?.as_of === data?.as_of ? row.returns?.[key] ?? null : null;
+  }
+  function displayedReturn(stock, key = period) {
+    const raw = stock.returns[key];
+    if (raw == null || mode === 'relative' && benchmarkReturn(key) == null) return null;
+    return mode === 'relative' ? raw - benchmarkReturn(key) : raw;
+  }
+  function displayedText(value) { return mode === 'relative' ? pp(value) : pct(value); }
 
   function color(value) {
     if (value == null) return '#343d50';
@@ -87,11 +101,13 @@
     return [...grouped.values()].sort((a,b) => size(b.members) - size(a.members));
   }
   function leaf(stock, rect) {
-    const value = stock.returns[period];
+    const value = displayedReturn(stock);
     const style = `left:${rect.x}px;top:${rect.y}px;width:${rect.w}px;height:${rect.h}px;background:${color(value)}`;
     const label = rect.w > 37 && rect.h > 21 ? `<strong>${escapeHtml(stock.ticker)}</strong>` : '';
-    const change = rect.w > 54 && rect.h > 48 ? `<small>${pct(value)}</small>` : '';
-    const title = `${stock.ticker}｜${stock.group}｜市值 ${capText(stock.market_cap_usd)}｜${pct(value)}`;
+    const change = rect.w > 54 && rect.h > 48 ? `<small>${displayedText(value)}</small>` : '';
+    const comparison = mode === 'relative' ?
+      `本身 ${pct(stock.returns[period])}｜${benchmark} ${pct(benchmarkReturn())}｜超額 ${pp(value)}` : pct(value);
+    const title = `${stock.ticker}｜${stock.group}｜市值 ${capText(stock.market_cap_usd)}｜${comparison}`;
     return `<button type="button" class="tech-tile${selected === stock.ticker ? ' selected' : ''}" data-ticker="${escapeHtml(stock.ticker)}" ` +
       `style="${style}" aria-label="${escapeHtml(title)}" title="${escapeHtml(title)}">${label}${change}</button>`;
   }
@@ -115,17 +131,24 @@
       head + inner.map(tile => groupHtml(tile.group, tile)).join('') + '</div>';
   }
   function stat(members) {
-    const priced = members.filter(row => row.returns['1m'] != null);
+    const priced = members.filter(row => displayedReturn(row) != null);
     const count = priced.length;
     const cap = priced.reduce((total, row) => total + row.market_cap_usd, 0);
     const ma = members.filter(row => row.above_ma50 != null);
     return {count:members.length, priced:count,
-      up:count ? 100 * priced.filter(row => row.returns['1m'] > 0).length / count : null,
-      equal:count ? priced.reduce((total, row) => total + row.returns['1m'], 0) / count : null,
-      cap:cap ? priced.reduce((total, row) => total + row.returns['1m'] * row.market_cap_usd, 0) / cap : null,
+      up:count ? 100 * priced.filter(row => displayedReturn(row) > 0).length / count : null,
+      equal:count ? priced.reduce((total, row) => total + displayedReturn(row), 0) / count : null,
+      cap:cap ? priced.reduce((total, row) => total + displayedReturn(row) * row.market_cap_usd, 0) / cap : null,
       ma:ma.length ? 100 * ma.filter(row => row.above_ma50).length / ma.length : null};
   }
   function renderBreadth(stocks) {
+    const label = PERIODS.find(([id]) => id === period)[1];
+    $('techBreadthUp').textContent = mode === 'relative' ? `${label}跑贏 ${benchmark}` : `${label}上漲`;
+    $('techBreadthEqual').textContent = mode === 'relative' ? '等權超額' : '等權報酬';
+    $('techBreadthCap').textContent = mode === 'relative' ? '市值加權超額' : '市值加權報酬';
+    $('techBreadthDesc').textContent = mode === 'relative' ?
+      `依目前畫面範圍計算相對 ${benchmark} 的本期超額報酬（百分點）；站上 50 日均線仍是個股絕對價格指標。基準與個股收盤日須相同。` :
+      `依目前畫面範圍與所選期間，觀察上漲家數、等權和市值加權報酬；差距有助辨認是否只有少數巨頭拉動。`;
     const focus = currentFocus();
     const rows = focus.startsWith('group:') ? bucket(stocks, 'group') :
       focus.startsWith('family:') ? bucket(stocks, 'group') : bucket(stocks, 'family');
@@ -134,7 +157,7 @@
       const next = focus === 'all' ? `family:${row.id}` : `group:${row.id}`;
       return `<tr><td><button type="button" class="tech-table-link" data-focus="${escapeHtml(next)}">${escapeHtml(row.label)}</button></td>` +
         `<td>${s.count}／${s.priced}</td><td>${s.up == null ? '—' : s.up.toFixed(0) + '%'}</td>` +
-        `<td>${pct(s.equal)}</td><td>${pct(s.cap)}</td><td>${s.ma == null ? '—' : s.ma.toFixed(0) + '%'}</td></tr>`;
+        `<td>${displayedText(s.equal)}</td><td>${displayedText(s.cap)}</td><td>${s.ma == null ? '—' : s.ma.toFixed(0) + '%'}</td></tr>`;
     }).join('') || '<tr><td colspan="6">此範圍暫無符合條件的公司。</td></tr>';
   }
   function renderDetails() {
@@ -144,13 +167,23 @@
       `<span>${capText(stock.market_cap_usd)}${stock.below_threshold ? ' · 觀察名單門檻例外' : ''}</span></div>` +
       `<p>${escapeHtml(stock.family)} ／ ${escapeHtml(stock.group)}。${escapeHtml(stock.reason)}</p>` +
       `<p>題材：${stock.tags.length ? stock.tags.map(escapeHtml).join('、') : '—'}　來源：${stock.sources.map(escapeHtml).join('、')}</p>` +
-      `<div class="detail-returns">${PERIODS.map(([id, label]) => `<span>${label} <strong>${pct(stock.returns[id])}</strong></span>`).join('')}</div>` +
+      `<div class="detail-returns">${PERIODS.map(([id, label]) => `<span>${label} <strong>${pct(stock.returns[id])}</strong>` +
+        (mode === 'relative' ? `<small>較 ${benchmark}：${pp(displayedReturn(stock, id))}</small>` : '') + '</span>').join('')}</div>` +
       `<p class="panel-desc">報價日 ${escapeHtml(stock.quote_as_of || '無')}；歷史收盤價未調整股息或拆股。` +
       `<a href="https://www.nasdaq.com/market-activity/stocks/${encodeURIComponent(stock.ticker.toLowerCase())}" target="_blank" rel="noopener noreferrer">Nasdaq 公司報價 ↗</a></p>`;
   }
   function render() {
     if (!data) return;
     $('techFocus').options[0].textContent = $('techAdjacent').checked ? '全部科技（含相鄰）' : '全部核心科技';
+    $('techBenchmark').disabled = mode !== 'relative';
+    const reference = benchmarkReturn();
+    $('techModeNote').textContent = mode === 'relative' ?
+      (reference == null ? `${benchmark} 與地圖 ${data.as_of} 的本期同日報酬不足；相對比較暫無資料，請切回絕對漲跌。` :
+        `相對 ${benchmark}：${benchmark} 本期 ${pct(reference)}；地圖顏色是個股減基準的百分點差，跑贏不等於股價上漲。`) :
+      '目前顯示個股絕對漲跌；顏色與下方廣度表皆依所選期間更新。';
+    $('techLegendDown').textContent = mode === 'relative' ? '跑輸' : '下跌';
+    $('techLegendFlat').textContent = '無資料／持平';
+    $('techLegendUp').textContent = mode === 'relative' ? '跑贏' : '上漲';
     const stocks = currentStocks();
     const focus = currentFocus();
     const map = $('techMap');
@@ -167,7 +200,7 @@
         .map(tile => familyHtml(tile.family, tile)).join('');
     }
     map.innerHTML = html || '<p class="tech-empty">此範圍沒有符合條件的公司。</p>';
-    $('techMapNote').textContent = `${stocks.length} 家公司，${stocks.filter(s => s.returns[period] != null).length} 家有本期報價；` +
+    $('techMapNote').textContent = `${stocks.length} 家公司，${stocks.filter(s => displayedReturn(s) != null).length} 家有本期${mode === 'relative' ? '同日可比資料' : '報價'}；` +
       ($('techEqual').checked ? '每家公司等大' : '方塊面積按公司市值') + `。價格截至 ${data.as_of}。`;
     const familyLabel = $('techFocus').selectedOptions[0].textContent;
     $('techPath').textContent = $('techGroup').value ?
@@ -211,6 +244,8 @@
         document.querySelectorAll('[data-period]').forEach(item => item.classList.toggle('active', item === button));
         render();
       }));
+      $('techReturnMode').addEventListener('change', event => { mode = event.target.value; render(); });
+      $('techBenchmark').addEventListener('change', event => { benchmark = event.target.value; render(); });
       $('techFocus').addEventListener('change', () => {
         populateGroups();
         if ($('techFocus').value === 'family:adjacent') $('techAdjacent').checked = true;
