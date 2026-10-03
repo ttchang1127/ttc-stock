@@ -1,6 +1,6 @@
 ---
 title: Exhibit 99.1 財報分析卡雷達
-updated_at: 2026-10-02T10:18:31+00:00
+updated_at: 2026-10-03T09:40:09+00:00
 tags:
   - sec/exhibit991
 ---
@@ -10,7 +10,7 @@ tags:
 僅處理 SEC metadata 同時具備 **8-K／8-K/A、Item 2.02、唯一 EX-99.1** 的申報。數字與語句保留附件原文；未辨識欄位維持缺值。
 
 - 已建立：**4** 份
-- 待覆核／下載失敗：**0** 份
+- 待覆核／下載失敗：**1** 份
 
 ## 已建立分析卡
 
@@ -18,6 +18,10 @@ tags:
 - **NVDA｜2026-08-26**｜證據 3/7 類｜[[20_Filings/NVDA/analysis/NVDA_2026-08-26_8K_000073_Exhibit_99_1|分析卡]]｜[EX-99.1](https://www.sec.gov/Archives/edgar/data/1045810/000104581026000073/q2fy27pr.htm)
 - **ONDS｜2026-08-13**｜證據 6/7 類｜[[20_Filings/ONDS/analysis/ONDS_2026-08-13_8K_347973_Exhibit_99_1|分析卡]]｜[EX-99.1](https://www.sec.gov/Archives/edgar/data/1646188/000119312526347973/onds-ex99_1.htm)
 - **COHR｜2026-08-12**｜證據 6/7 類｜[[20_Filings/COHR/analysis/COHR_2026-08-12_8K_346860_Exhibit_99_1|分析卡]]｜[EX-99.1](https://www.sec.gov/Archives/edgar/data/820318/000119312526346860/d128030dex991.htm)
+
+## 待人工覆核
+
+- **TSLA｜2026-10-02**｜`0001628280-26-064366`｜附件只辨識到 4 個文字區塊，拒絕產生分析卡｜[申報索引](https://www.sec.gov/Archives/edgar/data/1318605/000162828026064366/0001628280-26-064366-index.html)
 
 ## 七類證據代表什麼
 

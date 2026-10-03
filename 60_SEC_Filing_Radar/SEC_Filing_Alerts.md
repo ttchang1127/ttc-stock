@@ -1,6 +1,6 @@
 ---
 title: SEC 每日申報雷達
-updated_at: 2026-10-02T10:18:21+00:00
+updated_at: 2026-10-03T09:39:49+00:00
 tags:
   - sec/alerts
   - filings/daily
@@ -15,6 +15,11 @@ GitHub Actions 於台北時間週二至週六中午 12:00 檢查；重大／重�
 
 | 重要性 | 公司 | 申報 | 日期 | 事件／Item | SEC 原文 |
 |---|---|---|---|---|---|
+| 🔵 留意 | **GOOGL** | 4 | 2026-10-02 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526412669/xslF345X06/ownership.xml) |
+| 🔵 留意 | **AAPL** | 144 | 2026-10-02 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/320193/000195824426000636/xsl144X01/primary_doc.xml) |
+| 🔵 留意 | **AAPL** | 144 | 2026-10-02 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/320193/000195917326007235/xsl144X01/primary_doc.xml) |
+| 🔵 留意 | **AAPL** | 144 | 2026-10-02 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/320193/000196922326001055/xsl144X01/primary_doc.xml) |
+| 🔴 重大 | **TSLA** | 8-K | 2026-10-02 | 2.02 財報／業績、9.01 附件／財務報表 | [原文](https://www.sec.gov/Archives/edgar/data/1318605/000162828026064366/tsla-20261002.htm) |
 | 🔵 留意 | **MRVL** | 4 | 2026-10-01 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1835632/000162828026064351/xslF345X06/wk-form4_1790903947.xml) |
 | 🔵 留意 | **AAPL** | 4 | 2026-10-01 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/320193/000114036126038307/xslF345X06/form4.xml) |
 | 🔵 留意 | **NOK** | 3 | 2026-10-01 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/924613/000119312526410686/xslF345X06/ownership.xml) |
@@ -210,11 +215,6 @@ GitHub Actions 於台北時間週二至週六中午 12:00 檢查；重大／重�
 | 🔵 留意 | **TSM** | 4 | 2026-09-02 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1046179/000104617926000576/xslF345X06/wk-form4_1788343736.xml) |
 | 🔵 留意 | **TSM** | 4 | 2026-09-02 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1046179/000104617926000575/xslF345X06/wk-form4_1788343728.xml) |
 | 🔵 留意 | **TSM** | 4 | 2026-09-02 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1046179/000104617926000574/xslF345X06/wk-form4_1788343720.xml) |
-| 🔵 留意 | **COHR** | 4 | 2026-09-01 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/820318/000089914026001040/xslF345X06/form4.xml) |
-| 🔵 留意 | **COHR** | 4 | 2026-09-01 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/820318/000089914026001039/xslF345X06/form4.xml) |
-| 🔵 留意 | **COHR** | 4 | 2026-09-01 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/820318/000089914026001038/xslF345X06/form4.xml) |
-| 🔵 留意 | **COHR** | 4 | 2026-09-01 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/820318/000089914026001037/xslF345X06/form4.xml) |
-| 🔵 留意 | **COHR** | 4 | 2026-09-01 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/820318/000089914026001036/xslF345X06/form4.xml) |
 
 ## 監控範圍
 

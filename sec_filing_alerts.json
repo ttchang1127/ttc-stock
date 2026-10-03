@@ -2,6 +2,99 @@
   "schema_version": 3,
   "events": [
     {
+      "ticker": "GOOGL",
+      "cik": "0001652044",
+      "accession": "0001193125-26-412669",
+      "form": "4",
+      "group": "內部人持股",
+      "severity": "medium",
+      "filing_date": "2026-10-02",
+      "accepted_at": "2026-10-03T02:05:42.000Z",
+      "report_date": "2026-09-30",
+      "items": [],
+      "items_summary": "未提供 Item 分類",
+      "primary_document": "xslF345X06/ownership.xml",
+      "url": "https://www.sec.gov/Archives/edgar/data/1652044/000119312526412669/xslF345X06/ownership.xml",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1652044/000119312526412669/0001193125-26-412669-index.html",
+      "detected_at": "2026-10-03T09:39:49+00:00",
+      "baseline": false
+    },
+    {
+      "ticker": "AAPL",
+      "cik": "0000320193",
+      "accession": "0001958244-26-000636",
+      "form": "144",
+      "group": "內部人持股",
+      "severity": "medium",
+      "filing_date": "2026-10-02",
+      "accepted_at": "2026-10-03T01:17:10.000Z",
+      "report_date": "",
+      "items": [],
+      "items_summary": "未提供 Item 分類",
+      "primary_document": "xsl144X01/primary_doc.xml",
+      "url": "https://www.sec.gov/Archives/edgar/data/320193/000195824426000636/xsl144X01/primary_doc.xml",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/320193/000195824426000636/0001958244-26-000636-index.html",
+      "detected_at": "2026-10-03T09:39:49+00:00",
+      "baseline": false
+    },
+    {
+      "ticker": "AAPL",
+      "cik": "0000320193",
+      "accession": "0001959173-26-007235",
+      "form": "144",
+      "group": "內部人持股",
+      "severity": "medium",
+      "filing_date": "2026-10-02",
+      "accepted_at": "2026-10-03T00:20:06.000Z",
+      "report_date": "",
+      "items": [],
+      "items_summary": "未提供 Item 分類",
+      "primary_document": "xsl144X01/primary_doc.xml",
+      "url": "https://www.sec.gov/Archives/edgar/data/320193/000195917326007235/xsl144X01/primary_doc.xml",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/320193/000195917326007235/0001959173-26-007235-index.html",
+      "detected_at": "2026-10-03T09:39:49+00:00",
+      "baseline": false
+    },
+    {
+      "ticker": "AAPL",
+      "cik": "0000320193",
+      "accession": "0001969223-26-001055",
+      "form": "144",
+      "group": "內部人持股",
+      "severity": "medium",
+      "filing_date": "2026-10-02",
+      "accepted_at": "2026-10-03T00:09:51.000Z",
+      "report_date": "",
+      "items": [],
+      "items_summary": "未提供 Item 分類",
+      "primary_document": "xsl144X01/primary_doc.xml",
+      "url": "https://www.sec.gov/Archives/edgar/data/320193/000196922326001055/xsl144X01/primary_doc.xml",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/320193/000196922326001055/0001969223-26-001055-index.html",
+      "detected_at": "2026-10-03T09:39:49+00:00",
+      "baseline": false
+    },
+    {
+      "ticker": "TSLA",
+      "cik": "0001318605",
+      "accession": "0001628280-26-064366",
+      "form": "8-K",
+      "group": "重大事件",
+      "severity": "critical",
+      "filing_date": "2026-10-02",
+      "accepted_at": "2026-10-02T17:04:26.000Z",
+      "report_date": "2026-10-02",
+      "items": [
+        "2.02",
+        "9.01"
+      ],
+      "items_summary": "2.02 財報／業績、9.01 附件／財務報表",
+      "primary_document": "tsla-20261002.htm",
+      "url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026064366/tsla-20261002.htm",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026064366/0001628280-26-064366-index.html",
+      "detected_at": "2026-10-03T09:39:49+00:00",
+      "baseline": false
+    },
+    {
       "ticker": "MRVL",
       "cik": "0001835632",
       "accession": "0001628280-26-064351",
@@ -6882,9 +6975,54 @@
       "baseline": true
     }
   ],
-  "updated_at": "2026-10-02T10:18:21+00:00",
+  "updated_at": "2026-10-03T09:39:49+00:00",
   "source": "SEC submissions API; accession-number deduplicated; watcher-run deltas",
   "update_batches": [
+    {
+      "checked_at": "2026-10-03T09:39:49+00:00",
+      "previous_checked_at": "2026-10-02T10:18:21+00:00",
+      "baseline": false,
+      "new_count": 5,
+      "critical_count": 1,
+      "high_count": 0,
+      "medium_count": 4,
+      "new_accessions": [
+        "0001193125-26-412669",
+        "0001958244-26-000636",
+        "0001959173-26-007235",
+        "0001969223-26-001055",
+        "0001628280-26-064366"
+      ],
+      "financial_accessions": [],
+      "ownership_accessions": [],
+      "enforcement_keys": [],
+      "company_changes": [
+        {
+          "ticker": "AAPL",
+          "new_count": 3,
+          "important_count": 0,
+          "before_priority": "updated",
+          "after_priority": "updated",
+          "priority_changed": false
+        },
+        {
+          "ticker": "GOOGL",
+          "new_count": 1,
+          "important_count": 0,
+          "before_priority": "updated",
+          "after_priority": "updated",
+          "priority_changed": false
+        },
+        {
+          "ticker": "TSLA",
+          "new_count": 1,
+          "important_count": 1,
+          "before_priority": "urgent",
+          "after_priority": "urgent",
+          "priority_changed": false
+        }
+      ]
+    },
     {
       "checked_at": "2026-10-02T10:18:21+00:00",
       "previous_checked_at": "2026-10-01T10:43:14+00:00",

@@ -1,6 +1,6 @@
 ---
 title: Form 4 內部人交易雷達
-updated_at: 2026-10-02T10:18:21+00:00
+updated_at: 2026-10-03T09:39:49+00:00
 tags:
   - sec/form-4
   - insiders
@@ -13,6 +13,7 @@ tags:
 
 | 申報日 | 公司 | 申報人／身分 | 代碼與意義 | 股數 | 單價 | 交易金額 | 取得／處分 | 10b5-1 | SEC |
 |---|---|---|---|---:|---:|---:|---|---|---|
+| 2026-10-02 | **GOOGL** | ARNOLD FRANCES／董事 | `S` 公開市場或私下賣出 | 83 | 340.45 | 28,257 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526412669/xslF345X06/ownership.xml) |
 | 2026-10-01 | **MRVL** | Koopmans Chris／高階主管（President and COO） | `S` 公開市場或私下賣出 | 10,000 | 262.05 | 2,620,500 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1835632/000162828026064351/xslF345X06/wk-form4_1790903947.xml) |
 | 2026-10-01 | **AAPL** | Newstead Jennifer／高階主管（SVP, GC and Government Affairs） | `S` 公開市場或私下賣出 | 2,399 | 336.18 | 806,496 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/320193/000114036126038307/xslF345X06/form4.xml) |
 | 2026-09-30 | **META** | Olivan Javier／高階主管（Chief Operating Officer） | `S` 公開市場或私下賣出 | 946 | 750.42 | 709,902 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000095010326014886/xslF345X06/ownership.xml) |
@@ -132,10 +133,6 @@ tags:
 | 2026-09-16 | **GOOGL** | ARNOLD FRANCES／董事 | `A` 公司授予／獎勵 | 1 | 0.00 | 0 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526393517/xslF345X06/ownership.xml) |
 | 2026-09-16 | **GOOGL** | ARNOLD FRANCES／董事 | `A` 公司授予／獎勵 | 1 | 0.00 | 0 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526393517/xslF345X06/ownership.xml) |
 | 2026-09-16 | **GOOGL** | ARNOLD FRANCES／董事 | `A` 公司授予／獎勵 | 11 | 0.00 | 0 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526393517/xslF345X06/ownership.xml) |
-| 2026-09-16 | **GOOGL** | Washington Robin L／董事 | `A` 公司授予／獎勵 | 1 | 0.00 | 0 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526393515/xslF345X06/ownership.xml) |
-| 2026-09-16 | **GOOGL** | Washington Robin L／董事 | `A` 公司授予／獎勵 | 0 | 0.00 | 0 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526393515/xslF345X06/ownership.xml) |
-| 2026-09-16 | **GOOGL** | Washington Robin L／董事 | `A` 公司授予／獎勵 | 1 | 0.00 | 0 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526393515/xslF345X06/ownership.xml) |
-| 2026-09-16 | **GOOGL** | Washington Robin L／董事 | `A` 公司授予／獎勵 | 1 | 0.00 | 0 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526393515/xslF345X06/ownership.xml) |
 | 2026-09-16 | **META** | Olivan Javier／高階主管（Chief Operating Officer） | `S` 公開市場或私下賣出 | 946 | 657.73 | 622,213 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000095010326014061/xslF345X06/ownership.xml) |
 | 2026-09-16 | **META** | Olivan Javier／高階主管（Chief Operating Officer） | `S` 公開市場或私下賣出 | 82 | 657.73 | 53,934 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000095010326014061/xslF345X06/ownership.xml) |
 | 2026-09-16 | **META** | Olivan Javier／高階主管（Chief Operating Officer） | `S` 公開市場或私下賣出 | 57 | 657.73 | 37,491 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000095010326014061/xslF345X06/ownership.xml) |
@@ -213,6 +210,9 @@ tags:
 | 2026-08-27 | **AMZN** | BEZOS JEFFREY P／董事、高階主管（Executive Chair） | `G` 贈與 | 184,943 | 0.00 | 0 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000104329826000002/xslF345X06/wk-form4_1787862279.xml) |
 | 2026-08-25 | **AMZN** | Zapolsky David／高階主管（Senior Vice President） | `S` 公開市場或私下賣出 | 9,258 | 259.77 | 2,404,951 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000155797926000008/xslF345X06/wk-form4_1787690696.xml) |
 | 2026-08-25 | **AMZN** | Jassy Andrew R／董事、高階主管（President and CEO） | `M` 衍生證券行使／轉換 | 50,000 | 0.00 | 0 | 取得 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000137454526000010/xslF345X06/wk-form4_1787692115.xml) |
+| 2026-08-25 | **AMZN** | Jassy Andrew R／董事、高階主管（President and CEO） | `S` 公開市場或私下賣出 | 3,197 | 257.63 | 823,657 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000137454526000010/xslF345X06/wk-form4_1787692115.xml) |
+| 2026-08-25 | **AMZN** | Jassy Andrew R／董事、高階主管（President and CEO） | `S` 公開市場或私下賣出 | 7,478 | 258.67 | 1,934,300 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000137454526000010/xslF345X06/wk-form4_1787692115.xml) |
+| 2026-08-25 | **AMZN** | Jassy Andrew R／董事、高階主管（President and CEO） | `S` 公開市場或私下賣出 | 7,514 | 259.61 | 1,950,685 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000137454526000010/xslF345X06/wk-form4_1787692115.xml) |
 
 ## 交易代碼速查
 
@@ -227,5 +227,5 @@ tags:
 
 > 金額只在股數與單價都由 SEC 文件提供時才計算；缺值保留為「—」，不以 0 代替。
 
-> 最後檢查：`2026-10-02T10:18:21+00:00`
+> 最後檢查：`2026-10-03T09:39:49+00:00`
 

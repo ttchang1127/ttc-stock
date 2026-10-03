@@ -1,6 +1,6 @@
 {
   "schema_version": 3,
-  "updated_at": "2026-10-02T10:18:21+00:00",
+  "updated_at": "2026-10-03T09:39:49+00:00",
   "source": "SEC EDGAR submissions, EFTS and enforcement RSS",
   "footnotes": [
     {
@@ -556,7 +556,7 @@
         "group": "重大事件",
         "severity": "high",
         "filing_date": "2026-08-10",
-        "accepted_at": "2026-08-10T20:10:48.000Z",
+        "accepted_at": "2026-08-11T00:10:48.000Z",
         "report_date": "2026-08-10",
         "items": [
           "8.01",
@@ -614,7 +614,7 @@
         "group": "季度財報",
         "severity": "critical",
         "filing_date": "2026-07-23",
-        "accepted_at": "2026-07-23T01:15:54.000Z",
+        "accepted_at": "2026-07-23T05:15:54.000Z",
         "report_date": "2026-06-30",
         "items": [],
         "items_summary": "未提供 Item 分類",
@@ -1714,12 +1714,66 @@
       "event": {
         "ticker": "TSLA",
         "cik": "0001318605",
+        "accession": "0001628280-26-064366",
+        "form": "8-K",
+        "group": "重大事件",
+        "severity": "critical",
+        "filing_date": "2026-10-02",
+        "accepted_at": "2026-10-02T17:04:26.000Z",
+        "report_date": "2026-10-02",
+        "items": [
+          "2.02",
+          "9.01"
+        ],
+        "items_summary": "2.02 財報／業績、9.01 附件／財務報表",
+        "primary_document": "tsla-20261002.htm",
+        "url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026064366/tsla-20261002.htm",
+        "index_url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026064366/0001628280-26-064366-index.html"
+      },
+      "signals": [
+        {
+          "label": "XBRL 標記",
+          "snippet": "ss release of Tesla, Inc., dated October 2 , 2026 . 104 Cover Page Interactive Data File (embedded within the Inline XBRL document). SIGNATURES Pursuant to the requirements of the Securities Exchange Act of 1934, the registrant has duly caused this report to be signed on its behalf by the u"
+        }
+      ],
+      "attachments": [
+        {
+          "type": "EX-99.1",
+          "filename": "exhibit991111111.htm",
+          "description": "EX-99.1",
+          "url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026064366/exhibit991111111.htm"
+        },
+        {
+          "type": "EX-101.SCH",
+          "filename": "tsla-20261002.xsd",
+          "description": "XBRL TAXONOMY EXTENSION SCHEMA DOCUMENT",
+          "url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026064366/tsla-20261002.xsd"
+        },
+        {
+          "type": "EX-101.LAB",
+          "filename": "tsla-20261002_lab.xml",
+          "description": "XBRL TAXONOMY EXTENSION LABEL LINKBASE DOCUMENT",
+          "url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026064366/tsla-20261002_lab.xml"
+        },
+        {
+          "type": "EX-101.PRE",
+          "filename": "tsla-20261002_pre.xml",
+          "description": "XBRL TAXONOMY EXTENSION PRESENTATION LINKBASE DOCUMENT",
+          "url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026064366/tsla-20261002_pre.xml"
+        }
+      ],
+      "metrics": {}
+    },
+    {
+      "event": {
+        "ticker": "TSLA",
+        "cik": "0001318605",
         "accession": "0001628280-26-063820",
         "form": "8-K",
         "group": "重大事件",
         "severity": "critical",
         "filing_date": "2026-09-29",
-        "accepted_at": "2026-09-29T20:38:50.000Z",
+        "accepted_at": "2026-09-30T00:38:50.000Z",
         "report_date": "2026-09-29",
         "items": [
           "1.01",
@@ -1760,95 +1814,6 @@
           "filename": "tsla-20260929_pre.xml",
           "description": "XBRL TAXONOMY EXTENSION PRESENTATION LINKBASE DOCUMENT",
           "url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026063820/tsla-20260929_pre.xml"
-        }
-      ],
-      "metrics": {}
-    },
-    {
-      "event": {
-        "ticker": "TSLA",
-        "cik": "0001318605",
-        "accession": "0001628280-26-049270",
-        "form": "10-Q",
-        "group": "季度財報",
-        "severity": "critical",
-        "filing_date": "2026-07-23",
-        "accepted_at": "2026-07-23T01:02:31.000Z",
-        "report_date": "2026-06-30",
-        "items": [],
-        "items_summary": "未提供 Item 分類",
-        "primary_document": "tsla-20260630.htm",
-        "url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026049270/tsla-20260630.htm",
-        "index_url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026049270/0001628280-26-049270-index.html"
-      },
-      "signals": [
-        {
-          "label": "收入認列",
-          "snippet": "indicative of the results to be expected for the full year or for any other future years or interim periods. Revenue Recognition Revenue by source The following table disaggregates our revenue by major source (in millions): Three Months Ended June 30, Six Months Ended June 30, 2026 2025 2026 2025"
-        },
-        {
-          "label": "減損",
-          "snippet": "ustments to reconcile net income to net cash provided by operating activities: Depreciation, amortization and impairment 3,209 2,880 Stock-based compensation 2,181 1,208 Inventory write-downs 187 248 Foreign currency transaction net unrealized loss 599 54 Deferred income taxes ( 301 ) 9 Sp"
-        },
-        {
-          "label": "訴訟／或有事項",
-          "snippet": "tative Disclosures about Market Risk 37 Item 4. Controls and Procedures 37 PART II. OTHER INFORMATION Item 1. Legal Proceedings 38 Item 1A. Risk Factors 38 Item 2. Unregistered Sales of Equity Securities and Use of Proceeds 38 Item 3. Defaults Upon Senior Securities 38 Item 4. Mine Safety Disclos"
-        },
-        {
-          "label": "關係人交易",
-          "snippet": "gains and losses are recorded to Other income, net in our consolidated statement of operations. See Note 13, Related Party Transactions , for further information regarding our equity investment. Accounts Receivable and Allowance for Doubtful Accounts Depending on the day of the week on which"
-        },
-        {
-          "label": "股份薪酬",
-          "snippet": "common stock for equity incentive awards and acquisitions, net of transaction costs — 194 1 322 — — 323 — 323 Stock-based compensation — — — 1,222 — — 1,222 — 1,222 Distributions to noncontrolling interests ( 3 ) — — — — — — ( 32 ) ( 32 ) Buy-outs of noncontrolling interests ( 2 ) — — 2 — — 2 ( 2 ) — Sh"
-        },
-        {
-          "label": "債務／到期",
-          "snippet": "ounts or deferred issuance costs. As of June 30, 2026, we were in material compliance with all financial debt covenants. 19 Table of Contents Warehouse Agreement In the first quarter of 2026, we entered into an uncommitted revolving Loan and Security Agreement (the \"Warehouse Agreement\")"
-        },
-        {
-          "label": "非 GAAP",
-          "snippet": "n, in years Share-Based Payment Arrangement, Nonvested Award, Cost Not yet Recognized, Period for Recognition Non-GAAP Measure Description Non-GAAP Measure Description [Text Block] Statement [Line Items] Statement [Line Items] Total assets Assets Milestone Number Twelve Milestone Number"
-        },
-        {
-          "label": "部門報導",
-          "snippet": "nancial Instruments , for the gain recognized on our SpaceX equity investment. 26 Table of Contents Note 14 – Segment Reporting and Information about Geographic Areas We have two operating and reportable segments: (i) automotive and (ii) energy generation and storage. The following table presents"
-        },
-        {
-          "label": "XBRL 標記",
-          "snippet": "INC DATE OF NAME CHANGE: 20050222 10-Q 1 tsla-20260630.htm 10-Q tsla-20260630 0001318605 12-31 false 2026 Q2 xbrli:shares iso4217:USD iso4217:USD xbrli:shares tsla:unit xbrli:pure tsla:tranche tsla:deliveredVehicle tsla:fsdSubscription tsla:botDelivered tsla:robotaxi tsla:consecutiv"
-        }
-      ],
-      "attachments": [
-        {
-          "type": "EX-101.SCH",
-          "filename": "tsla-20260630.xsd",
-          "description": "XBRL TAXONOMY EXTENSION SCHEMA DOCUMENT",
-          "url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026049270/tsla-20260630.xsd"
-        },
-        {
-          "type": "EX-101.CAL",
-          "filename": "tsla-20260630_cal.xml",
-          "description": "XBRL TAXONOMY EXTENSION CALCULATION LINKBASE DOCUMENT",
-          "url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026049270/tsla-20260630_cal.xml"
-        },
-        {
-          "type": "EX-101.DEF",
-          "filename": "tsla-20260630_def.xml",
-          "description": "XBRL TAXONOMY EXTENSION DEFINITION LINKBASE DOCUMENT",
-          "url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026049270/tsla-20260630_def.xml"
-        },
-        {
-          "type": "EX-101.LAB",
-          "filename": "tsla-20260630_lab.xml",
-          "description": "XBRL TAXONOMY EXTENSION LABEL LINKBASE DOCUMENT",
-          "url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026049270/tsla-20260630_lab.xml"
-        },
-        {
-          "type": "EX-101.PRE",
-          "filename": "tsla-20260630_pre.xml",
-          "description": "XBRL TAXONOMY EXTENSION PRESENTATION LINKBASE DOCUMENT",
-          "url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026049270/tsla-20260630_pre.xml"
         }
       ],
       "metrics": {}
@@ -3237,7 +3202,7 @@
         "group": "會計審閱",
         "severity": "high",
         "filing_date": "2024-01-25",
-        "accepted_at": "2024-01-25T22:36:06.000Z",
+        "accepted_at": "2024-01-26T03:36:06.000Z",
         "report_date": "",
         "items": [],
         "items_summary": "未提供 Item 分類",
@@ -3258,7 +3223,7 @@
         "group": "會計審閱",
         "severity": "high",
         "filing_date": "2023-12-15",
-        "accepted_at": "2023-12-16T01:34:49.000Z",
+        "accepted_at": "2023-12-16T06:34:49.000Z",
         "report_date": "",
         "items": [],
         "items_summary": "未提供 Item 分類",
@@ -3284,7 +3249,7 @@
         "group": "會計審閱",
         "severity": "high",
         "filing_date": "2023-11-28",
-        "accepted_at": "2023-11-29T01:49:26.000Z",
+        "accepted_at": "2023-11-29T06:49:26.000Z",
         "report_date": "",
         "items": [],
         "items_summary": "未提供 Item 分類",
@@ -3305,7 +3270,7 @@
         "group": "會計審閱",
         "severity": "high",
         "filing_date": "2023-11-22",
-        "accepted_at": "2023-11-22T18:36:06.000Z",
+        "accepted_at": "2023-11-22T23:36:06.000Z",
         "report_date": "",
         "items": [],
         "items_summary": "未提供 Item 分類",
@@ -3326,7 +3291,7 @@
         "group": "會計審閱",
         "severity": "high",
         "filing_date": "2023-10-27",
-        "accepted_at": "2023-10-27T18:56:25.000Z",
+        "accepted_at": "2023-10-27T22:56:25.000Z",
         "report_date": "",
         "items": [],
         "items_summary": "未提供 Item 分類",
@@ -3352,7 +3317,7 @@
         "group": "會計審閱",
         "severity": "high",
         "filing_date": "2023-10-02",
-        "accepted_at": "2023-10-02T23:56:56.000Z",
+        "accepted_at": "2023-10-03T03:56:56.000Z",
         "report_date": "",
         "items": [],
         "items_summary": "未提供 Item 分類",
@@ -4048,56 +4013,6 @@
     {
       "ticker": "COHR",
       "form": "SCHEDULE 13G/A",
-      "filing_date": "2026-04-24",
-      "accession": "0002012383-26-001441",
-      "reporting_persons": [
-        "BlackRock, Inc.  (CIK 0002012383)"
-      ],
-      "meaning": "持股超過 5% 的被動型／免豁型受益所有權申報。",
-      "url": "https://www.sec.gov/Archives/edgar/data/820318/000201238326001441/0002012383-26-001441-index.html",
-      "ownership": {
-        "schema_version": 3,
-        "event_date": "03/31/2026",
-        "cusip": "19247G107",
-        "cusips": [
-          "19247G107"
-        ],
-        "filing_basis": "合格機構投資人",
-        "aggregate_shares": 12978940,
-        "percent_of_class": 6.6,
-        "sole_voting_power": 12190574,
-        "shared_voting_power": 0,
-        "sole_dispositive_power": 12978940,
-        "shared_dispositive_power": 0,
-        "positions": [
-          {
-            "reporting_person": "BlackRock, Inc.",
-            "aggregate_shares": 12978940,
-            "percent_of_class": 6.6,
-            "sole_voting_power": 12190574,
-            "shared_voting_power": 0,
-            "sole_dispositive_power": 12978940,
-            "shared_dispositive_power": 0,
-            "comments": ""
-          }
-        ],
-        "threshold_exit": false,
-        "purpose_excerpt": "",
-        "filing_comment": "",
-        "data_status": "parsed",
-        "change_from_prior": {
-          "previous_filing_date": "2025-04-17",
-          "shares": -200063,
-          "percentage_points": -1.9,
-          "direction": "減少",
-          "shares_comparable": true,
-          "comparison_note": ""
-        }
-      }
-    },
-    {
-      "ticker": "COHR",
-      "form": "SCHEDULE 13G/A",
       "filing_date": "2025-11-07",
       "accession": "0000315066-25-002921",
       "reporting_persons": [
@@ -4150,6 +4065,56 @@
           "shares": 4291338,
           "percentage_points": 2.7,
           "direction": "增加",
+          "shares_comparable": true,
+          "comparison_note": ""
+        }
+      }
+    },
+    {
+      "ticker": "COHR",
+      "form": "SCHEDULE 13G/A",
+      "filing_date": "2026-04-24",
+      "accession": "0002012383-26-001441",
+      "reporting_persons": [
+        "BlackRock, Inc.  (CIK 0002012383)"
+      ],
+      "meaning": "持股超過 5% 的被動型／免豁型受益所有權申報。",
+      "url": "https://www.sec.gov/Archives/edgar/data/820318/000201238326001441/0002012383-26-001441-index.html",
+      "ownership": {
+        "schema_version": 3,
+        "event_date": "03/31/2026",
+        "cusip": "19247G107",
+        "cusips": [
+          "19247G107"
+        ],
+        "filing_basis": "合格機構投資人",
+        "aggregate_shares": 12978940,
+        "percent_of_class": 6.6,
+        "sole_voting_power": 12190574,
+        "shared_voting_power": 0,
+        "sole_dispositive_power": 12978940,
+        "shared_dispositive_power": 0,
+        "positions": [
+          {
+            "reporting_person": "BlackRock, Inc.",
+            "aggregate_shares": 12978940,
+            "percent_of_class": 6.6,
+            "sole_voting_power": 12190574,
+            "shared_voting_power": 0,
+            "sole_dispositive_power": 12978940,
+            "shared_dispositive_power": 0,
+            "comments": ""
+          }
+        ],
+        "threshold_exit": false,
+        "purpose_excerpt": "",
+        "filing_comment": "",
+        "data_status": "parsed",
+        "change_from_prior": {
+          "previous_filing_date": "2025-04-17",
+          "shares": -200063,
+          "percentage_points": -1.9,
+          "direction": "減少",
           "shares_comparable": true,
           "comparison_note": ""
         }
@@ -13246,7 +13211,7 @@
         "group": "股東會／代理委託",
         "severity": "high",
         "filing_date": "2026-06-05",
-        "accepted_at": "2026-06-05T00:01:29.000Z",
+        "accepted_at": "2026-06-05T04:01:29.000Z",
         "report_date": "",
         "items": [],
         "items_summary": "未提供 Item 分類",
@@ -13267,7 +13232,7 @@
         "group": "股東會／代理委託",
         "severity": "high",
         "filing_date": "2026-05-18",
-        "accepted_at": "2026-05-18T14:17:21.000Z",
+        "accepted_at": "2026-05-18T18:17:21.000Z",
         "report_date": "",
         "items": [],
         "items_summary": "未提供 Item 分類",
@@ -13293,7 +13258,7 @@
         "group": "股東會／代理委託",
         "severity": "high",
         "filing_date": "2026-05-05",
-        "accepted_at": "2026-05-05T19:01:38.000Z",
+        "accepted_at": "2026-05-05T23:01:38.000Z",
         "report_date": "",
         "items": [],
         "items_summary": "未提供 Item 分類",
@@ -13927,7 +13892,7 @@
         "group": "股東會／代理委託",
         "severity": "high",
         "filing_date": "2025-11-06",
-        "accepted_at": "2025-11-06T22:20:13.000Z",
+        "accepted_at": "2025-11-07T03:20:13.000Z",
         "report_date": "",
         "items": [],
         "items_summary": "未提供 Item 分類",
@@ -13948,7 +13913,7 @@
         "group": "股東會／代理委託",
         "severity": "high",
         "filing_date": "2025-11-05",
-        "accepted_at": "2025-11-05T22:05:35.000Z",
+        "accepted_at": "2025-11-06T03:05:35.000Z",
         "report_date": "",
         "items": [],
         "items_summary": "未提供 Item 分類",
@@ -13969,7 +13934,7 @@
         "group": "股東會／代理委託",
         "severity": "high",
         "filing_date": "2025-11-05",
-        "accepted_at": "2025-11-05T20:24:59.000Z",
+        "accepted_at": "2025-11-06T01:24:59.000Z",
         "report_date": "",
         "items": [],
         "items_summary": "未提供 Item 分類",
@@ -13983,6 +13948,87 @@
     }
   ],
   "insiders": [
+    {
+      "event": {
+        "ticker": "AAPL",
+        "cik": "0000320193",
+        "accession": "0001958244-26-000636",
+        "form": "144",
+        "group": "內部人持股",
+        "severity": "medium",
+        "filing_date": "2026-10-02",
+        "accepted_at": "2026-10-03T01:17:10.000Z",
+        "report_date": "",
+        "items": [],
+        "items_summary": "未提供 Item 分類",
+        "primary_document": "xsl144X01/primary_doc.xml",
+        "url": "https://www.sec.gov/Archives/edgar/data/320193/000195824426000636/xsl144X01/primary_doc.xml",
+        "index_url": "https://www.sec.gov/Archives/edgar/data/320193/000195824426000636/0001958244-26-000636-index.html"
+      },
+      "form144": {
+        "reporter": "John Ternus",
+        "relationship": "Officer",
+        "planned_shares": 25412.0,
+        "planned_value_usd": 8479730.28,
+        "shares_outstanding": 14594180000.0,
+        "approx_sale_date": "10/02/2026",
+        "remarks": "The sales of shares set forth herein are made in connection with a selling plan dated 5/21/2026, that is intended to comply with Rule 10b5-1(c). All shares will be sold by the Ternus Family Trust."
+      }
+    },
+    {
+      "event": {
+        "ticker": "AAPL",
+        "cik": "0000320193",
+        "accession": "0001959173-26-007235",
+        "form": "144",
+        "group": "內部人持股",
+        "severity": "medium",
+        "filing_date": "2026-10-02",
+        "accepted_at": "2026-10-03T00:20:06.000Z",
+        "report_date": "",
+        "items": [],
+        "items_summary": "未提供 Item 分類",
+        "primary_document": "xsl144X01/primary_doc.xml",
+        "url": "https://www.sec.gov/Archives/edgar/data/320193/000195917326007235/xsl144X01/primary_doc.xml",
+        "index_url": "https://www.sec.gov/Archives/edgar/data/320193/000195917326007235/0001959173-26-007235-index.html"
+      },
+      "form144": {
+        "reporter": "COOK TIMOTHY D",
+        "relationship": "Officer、Director",
+        "planned_shares": 218078.0,
+        "planned_value_usd": 3329584.0,
+        "shares_outstanding": 14594180000.0,
+        "approx_sale_date": "10/02/2026",
+        "remarks": "26,235 shares sold from TIM COOK FOUNDATION and 191,753 shares sold from TIMOTHY D. COOK REVOCABLE TRUST"
+      }
+    },
+    {
+      "event": {
+        "ticker": "AAPL",
+        "cik": "0000320193",
+        "accession": "0001969223-26-001055",
+        "form": "144",
+        "group": "內部人持股",
+        "severity": "medium",
+        "filing_date": "2026-10-02",
+        "accepted_at": "2026-10-03T00:09:51.000Z",
+        "report_date": "",
+        "items": [],
+        "items_summary": "未提供 Item 分類",
+        "primary_document": "xsl144X01/primary_doc.xml",
+        "url": "https://www.sec.gov/Archives/edgar/data/320193/000196922326001055/xsl144X01/primary_doc.xml",
+        "index_url": "https://www.sec.gov/Archives/edgar/data/320193/000196922326001055/0001969223-26-001055-index.html"
+      },
+      "form144": {
+        "reporter": "O'BRIEN DEIRDRE",
+        "relationship": "Officer",
+        "planned_shares": 46389.0,
+        "planned_value_usd": 15459598.14,
+        "shares_outstanding": 1459418000.0,
+        "approx_sale_date": "10/02/2026",
+        "remarks": ""
+      }
+    },
     {
       "event": {
         "ticker": "AAPL",
@@ -14152,60 +14198,6 @@
         "shares_outstanding": 14594180000.0,
         "approx_sale_date": "09/22/2026",
         "remarks": "The securities to be sold were acquired upon the vesting of restricted stock units during the period of 3/15/2026 through 9/15/2026."
-      }
-    },
-    {
-      "event": {
-        "ticker": "AAPL",
-        "cik": "0000320193",
-        "accession": "0001140361-26-037020",
-        "form": "4",
-        "group": "內部人持股",
-        "severity": "medium",
-        "filing_date": "2026-09-17",
-        "accepted_at": "2026-09-18T02:30:24.000Z",
-        "report_date": "2026-09-15",
-        "items": [],
-        "items_summary": "未提供 Item 分類",
-        "primary_document": "xslF345X06/form4.xml",
-        "url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126037020/xslF345X06/form4.xml",
-        "index_url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126037020/0001140361-26-037020-index.html"
-      }
-    },
-    {
-      "event": {
-        "ticker": "AAPL",
-        "cik": "0000320193",
-        "accession": "0001140361-26-036226",
-        "form": "4",
-        "group": "內部人持股",
-        "severity": "medium",
-        "filing_date": "2026-09-10",
-        "accepted_at": "2026-09-11T02:30:31.000Z",
-        "report_date": "2026-09-08",
-        "items": [],
-        "items_summary": "未提供 Item 分類",
-        "primary_document": "xslF345X06/form4.xml",
-        "url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126036226/xslF345X06/form4.xml",
-        "index_url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126036226/0001140361-26-036226-index.html"
-      }
-    },
-    {
-      "event": {
-        "ticker": "AAPL",
-        "cik": "0000320193",
-        "accession": "0001140361-26-035636",
-        "form": "4",
-        "group": "內部人持股",
-        "severity": "medium",
-        "filing_date": "2026-09-03",
-        "accepted_at": "2026-09-04T02:30:44.000Z",
-        "report_date": "2026-09-01",
-        "items": [],
-        "items_summary": "未提供 Item 分類",
-        "primary_document": "xslF345X06/form4.xml",
-        "url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126035636/xslF345X06/form4.xml",
-        "index_url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126035636/0001140361-26-035636-index.html"
       }
     },
     {
@@ -14914,12 +14906,30 @@
       "event": {
         "ticker": "GOOGL",
         "cik": "0001652044",
+        "accession": "0001193125-26-412669",
+        "form": "4",
+        "group": "內部人持股",
+        "severity": "medium",
+        "filing_date": "2026-10-02",
+        "accepted_at": "2026-10-03T02:05:42.000Z",
+        "report_date": "2026-09-30",
+        "items": [],
+        "items_summary": "未提供 Item 分類",
+        "primary_document": "xslF345X06/ownership.xml",
+        "url": "https://www.sec.gov/Archives/edgar/data/1652044/000119312526412669/xslF345X06/ownership.xml",
+        "index_url": "https://www.sec.gov/Archives/edgar/data/1652044/000119312526412669/0001193125-26-412669-index.html"
+      }
+    },
+    {
+      "event": {
+        "ticker": "GOOGL",
+        "cik": "0001652044",
         "accession": "0001921094-26-001058",
         "form": "144",
         "group": "內部人持股",
         "severity": "medium",
         "filing_date": "2026-09-30",
-        "accepted_at": "2026-09-30T20:05:00.000Z",
+        "accepted_at": "2026-10-01T00:05:00.000Z",
         "report_date": "",
         "items": [],
         "items_summary": "未提供 Item 分類",
@@ -14946,7 +14956,7 @@
         "group": "內部人持股",
         "severity": "medium",
         "filing_date": "2026-09-29",
-        "accepted_at": "2026-09-30T00:27:35.000Z",
+        "accepted_at": "2026-09-30T04:27:35.000Z",
         "report_date": "2026-09-25",
         "items": [],
         "items_summary": "未提供 Item 分類",
@@ -14964,7 +14974,7 @@
         "group": "內部人持股",
         "severity": "medium",
         "filing_date": "2026-09-29",
-        "accepted_at": "2026-09-30T00:26:26.000Z",
+        "accepted_at": "2026-09-30T04:26:26.000Z",
         "report_date": "2026-09-25",
         "items": [],
         "items_summary": "未提供 Item 分類",
@@ -14982,7 +14992,7 @@
         "group": "內部人持股",
         "severity": "medium",
         "filing_date": "2026-09-29",
-        "accepted_at": "2026-09-30T00:25:04.000Z",
+        "accepted_at": "2026-09-30T04:25:04.000Z",
         "report_date": "2026-09-25",
         "items": [],
         "items_summary": "未提供 Item 分類",
@@ -15000,7 +15010,7 @@
         "group": "內部人持股",
         "severity": "medium",
         "filing_date": "2026-09-29",
-        "accepted_at": "2026-09-30T00:23:56.000Z",
+        "accepted_at": "2026-09-30T04:23:56.000Z",
         "report_date": "2026-09-25",
         "items": [],
         "items_summary": "未提供 Item 分類",
@@ -15018,7 +15028,7 @@
         "group": "內部人持股",
         "severity": "medium",
         "filing_date": "2026-09-29",
-        "accepted_at": "2026-09-30T00:22:32.000Z",
+        "accepted_at": "2026-09-30T04:22:32.000Z",
         "report_date": "2026-09-25",
         "items": [],
         "items_summary": "未提供 Item 分類",
@@ -15036,7 +15046,7 @@
         "group": "內部人持股",
         "severity": "medium",
         "filing_date": "2026-09-29",
-        "accepted_at": "2026-09-30T00:20:42.000Z",
+        "accepted_at": "2026-09-30T04:20:42.000Z",
         "report_date": "2026-09-25",
         "items": [],
         "items_summary": "未提供 Item 分類",
@@ -15054,7 +15064,7 @@
         "group": "內部人持股",
         "severity": "medium",
         "filing_date": "2026-09-16",
-        "accepted_at": "2026-09-17T01:44:13.000Z",
+        "accepted_at": "2026-09-17T05:44:13.000Z",
         "report_date": "2026-09-14",
         "items": [],
         "items_summary": "未提供 Item 分類",
@@ -15072,7 +15082,7 @@
         "group": "內部人持股",
         "severity": "medium",
         "filing_date": "2026-09-16",
-        "accepted_at": "2026-09-17T01:43:49.000Z",
+        "accepted_at": "2026-09-17T05:43:49.000Z",
         "report_date": "2026-09-14",
         "items": [],
         "items_summary": "未提供 Item 分類",
@@ -15090,7 +15100,7 @@
         "group": "內部人持股",
         "severity": "medium",
         "filing_date": "2026-09-16",
-        "accepted_at": "2026-09-17T01:43:06.000Z",
+        "accepted_at": "2026-09-17T05:43:06.000Z",
         "report_date": "2026-09-14",
         "items": [],
         "items_summary": "未提供 Item 分類",
@@ -15108,31 +15118,13 @@
         "group": "內部人持股",
         "severity": "medium",
         "filing_date": "2026-09-16",
-        "accepted_at": "2026-09-17T01:42:06.000Z",
+        "accepted_at": "2026-09-17T05:42:06.000Z",
         "report_date": "2026-09-14",
         "items": [],
         "items_summary": "未提供 Item 分類",
         "primary_document": "xslF345X06/ownership.xml",
         "url": "https://www.sec.gov/Archives/edgar/data/1652044/000119312526393511/xslF345X06/ownership.xml",
         "index_url": "https://www.sec.gov/Archives/edgar/data/1652044/000119312526393511/0001193125-26-393511-index.html"
-      }
-    },
-    {
-      "event": {
-        "ticker": "GOOGL",
-        "cik": "0001652044",
-        "accession": "0001193125-26-393509",
-        "form": "4",
-        "group": "內部人持股",
-        "severity": "medium",
-        "filing_date": "2026-09-16",
-        "accepted_at": "2026-09-17T01:41:27.000Z",
-        "report_date": "2026-09-14",
-        "items": [],
-        "items_summary": "未提供 Item 分類",
-        "primary_document": "xslF345X06/ownership.xml",
-        "url": "https://www.sec.gov/Archives/edgar/data/1652044/000119312526393509/xslF345X06/ownership.xml",
-        "index_url": "https://www.sec.gov/Archives/edgar/data/1652044/000119312526393509/0001193125-26-393509-index.html"
       }
     },
     {
@@ -16638,7 +16630,7 @@
         "group": "內部人持股",
         "severity": "medium",
         "filing_date": "2026-09-09",
-        "accepted_at": "2026-09-09T23:00:10.000Z",
+        "accepted_at": "2026-09-10T03:00:10.000Z",
         "report_date": "2026-09-05",
         "items": [],
         "items_summary": "未提供 Item 分類",
@@ -16656,7 +16648,7 @@
         "group": "內部人持股",
         "severity": "medium",
         "filing_date": "2026-09-08",
-        "accepted_at": "2026-09-08T20:30:16.000Z",
+        "accepted_at": "2026-09-09T00:30:16.000Z",
         "report_date": "",
         "items": [],
         "items_summary": "未提供 Item 分類",
@@ -16683,7 +16675,7 @@
         "group": "內部人持股",
         "severity": "medium",
         "filing_date": "2026-06-17",
-        "accepted_at": "2026-06-17T21:00:37.000Z",
+        "accepted_at": "2026-06-18T01:00:37.000Z",
         "report_date": "2026-06-16",
         "items": [],
         "items_summary": "未提供 Item 分類",
@@ -16701,7 +16693,7 @@
         "group": "內部人持股",
         "severity": "medium",
         "filing_date": "2026-06-09",
-        "accepted_at": "2026-06-09T23:00:11.000Z",
+        "accepted_at": "2026-06-10T03:00:11.000Z",
         "report_date": "2026-06-05",
         "items": [],
         "items_summary": "未提供 Item 分類",
@@ -16719,7 +16711,7 @@
         "group": "內部人持股",
         "severity": "medium",
         "filing_date": "2026-06-08",
-        "accepted_at": "2026-06-08T21:30:09.000Z",
+        "accepted_at": "2026-06-09T01:30:09.000Z",
         "report_date": "",
         "items": [],
         "items_summary": "未提供 Item 分類",
@@ -16746,7 +16738,7 @@
         "group": "內部人持股",
         "severity": "medium",
         "filing_date": "2026-05-15",
-        "accepted_at": "2026-05-15T23:33:47.000Z",
+        "accepted_at": "2026-05-16T03:33:47.000Z",
         "report_date": "2026-05-13",
         "items": [],
         "items_summary": "未提供 Item 分類",
@@ -16764,7 +16756,7 @@
         "group": "內部人持股",
         "severity": "medium",
         "filing_date": "2026-05-13",
-        "accepted_at": "2026-05-13T20:29:16.000Z",
+        "accepted_at": "2026-05-14T00:29:16.000Z",
         "report_date": "",
         "items": [],
         "items_summary": "未提供 Item 分類",
@@ -16791,7 +16783,7 @@
         "group": "內部人持股",
         "severity": "medium",
         "filing_date": "2026-05-04",
-        "accepted_at": "2026-05-04T23:00:15.000Z",
+        "accepted_at": "2026-05-05T03:00:15.000Z",
         "report_date": "2026-04-30",
         "items": [],
         "items_summary": "未提供 Item 分類",
@@ -16809,7 +16801,7 @@
         "group": "內部人持股",
         "severity": "medium",
         "filing_date": "2026-04-30",
-        "accepted_at": "2026-04-30T20:25:00.000Z",
+        "accepted_at": "2026-05-01T00:25:00.000Z",
         "report_date": "",
         "items": [],
         "items_summary": "未提供 Item 分類",
@@ -16836,7 +16828,7 @@
         "group": "內部人持股",
         "severity": "medium",
         "filing_date": "2026-04-23",
-        "accepted_at": "2026-04-23T20:05:10.000Z",
+        "accepted_at": "2026-04-24T00:05:10.000Z",
         "report_date": "2026-04-21",
         "items": [],
         "items_summary": "未提供 Item 分類",
@@ -16854,7 +16846,7 @@
         "group": "內部人持股",
         "severity": "medium",
         "filing_date": "2026-04-02",
-        "accepted_at": "2026-04-03T00:08:52.000Z",
+        "accepted_at": "2026-04-03T04:08:52.000Z",
         "report_date": "2026-03-31",
         "items": [],
         "items_summary": "未提供 Item 分類",
@@ -16872,7 +16864,7 @@
         "group": "內部人持股",
         "severity": "medium",
         "filing_date": "2026-04-01",
-        "accepted_at": "2026-04-01T23:00:13.000Z",
+        "accepted_at": "2026-04-02T03:00:13.000Z",
         "report_date": "2026-03-30",
         "items": [],
         "items_summary": "未提供 Item 分類",
@@ -17549,8 +17541,8 @@
   ],
   "merger_window": {
     "years": 3,
-    "cutoff": "2023-10-02",
-    "as_of": "2026-10-02",
+    "cutoff": "2023-10-03",
+    "as_of": "2026-10-03",
     "document_count": 13,
     "deal_count": 2
   },
