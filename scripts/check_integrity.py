@@ -2701,7 +2701,7 @@ def c48():
 @check("C-49", "科技地圖個股來源、分類與市值門檻一致，持股與 ETF 回測仍可讀")
 def c49():
     sys.path.insert(0, str(REPO_ROOT / "scripts"))
-    from build_tech_stock_map import check_taxonomy  # noqa: PLC0415
+    from build_tech_stock_map import check_taxonomy, validate_history  # noqa: PLC0415
     config = load("tech_stock_taxonomy.json")
     classifications = check_taxonomy(config)
     data = load("tech_stock_map.json")
@@ -2724,6 +2724,7 @@ def c49():
             problems.append(f"{row['ticker']} 報價日期不一致")
         if row["group_id"] != classifications[row["ticker"]]["group_id"]:
             problems.append(f"{row['ticker']} 分類與設定檔不一致")
+    problems += validate_history(REPO_ROOT / "tech_stock_map_history")
     return not problems, "；".join(problems[:5]) or f"{len(tickers)} 家公司，{data['as_of']} 報價"
 
 

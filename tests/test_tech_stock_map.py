@@ -1,6 +1,7 @@
 import json
 import pathlib
 import sys
+import tempfile
 import unittest
 from datetime import date
 
@@ -91,6 +92,37 @@ class TechnologyMapTests(unittest.TestCase):
         config["families"][0]["groups"][0]["tickers"].append("NEWTECH")
         with self.assertRaisesRegex(ValueError, "fresh price"):
             tech.reclassify_existing(config, self.map)
+
+    def test_history_records_full_candidate_pool_and_observation_limits(self):
+        quotes = {"NVDA": {"cap": 1_000_000_000_000,
+                           "closes": {self.map["as_of"]: 100.0}}}
+        record = tech.history_snapshot(self.config, quotes, self.map)
+        self.assertEqual(len(record["candidates"]), self.map["coverage"]["classified"])
+        self.assertEqual(record["first_observed_at"], self.map["generated_at"])
+        self.assertEqual(record["candidates"]["NVDA"]["raw_close_usd"], 100.0)
+        self.assertEqual(record["candidates"]["NVDA"]["market_cap_usd"], 1_000_000_000_000)
+        missing = next(t for t in record["candidates"] if t not in quotes)
+        self.assertIn("market_cap", record["candidates"][missing]["missing"])
+        self.assertIn("not adjusted", record["price_basis"])
+
+    def test_history_keeps_first_observation_and_rejects_backfill(self):
+        first = {"as_of": "2026-10-02", "first_observed_at": "2026-10-03T01:00:00+00:00",
+                 "candidates": {"NVDA": {"market_cap_usd": 100}}}
+        with tempfile.TemporaryDirectory() as temporary:
+            history = pathlib.Path(temporary)
+            texts, message = tech.plan_history_snapshot(first, history)
+            self.assertIn("recorded", message)
+            for path, content in texts.items():
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_text(content)
+            rerun = {**first, "first_observed_at": "2026-10-03T02:00:00+00:00"}
+            self.assertFalse(tech.plan_history_snapshot(rerun, history)[0])
+            changed = {**first, "candidates": {"NVDA": {"market_cap_usd": 200}}}
+            self.assertIn("kept first", tech.plan_history_snapshot(changed, history)[1])
+            older = {**first, "as_of": "2026-10-01"}
+            with self.assertRaisesRegex(ValueError, "refusing to backfill"):
+                tech.plan_history_snapshot(older, history)
+            self.assertEqual(json.loads(next(history.glob("*/*.json")).read_text()), first)
 
 
 if __name__ == "__main__":

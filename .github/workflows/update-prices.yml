@@ -296,7 +296,7 @@ jobs:
       - name: Stop unless any publishable data moved
         id: gate
         run: |
-          if git diff --quiet; then
+          if [ -z "$(git status --porcelain --untracked-files=all)" ]; then
             echo "No source, derived, or event-calendar changes to publish."
             echo "changed=false" >> "$GITHUB_OUTPUT"
           else

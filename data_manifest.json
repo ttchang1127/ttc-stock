@@ -1043,6 +1043,16 @@
       "note": "SEC 原文筆記；年度 10-K／20-F 由 fetch_sec.py 人工觸發"
     },
     {
+      "pattern": "^tech_stock_map_history/[0-9]{4}-[0-9]{2}/[0-9]{4}-[0-9]{2}-[0-9]{2}\\.json$",
+      "kind": "generated",
+      "producer": "scripts/build_tech_stock_map.py",
+      "edit": "never",
+      "committed_by": [
+        "update-prices"
+      ],
+      "note": "科技股地圖首次觀測的逐交易日股票池、分類、原始收盤價、市值及缺值；每日期第一份不可覆寫，不能當作已調整拆股／股息的回測資料"
+    },
+    {
       "pattern": "^etf_health_history/",
       "kind": "generated",
       "producer": "scripts/build_etf_health.py",

@@ -63,6 +63,7 @@
 | `market_rotation_daily_digest.json` | 每日輪動變化摘要與首頁一句話（首頁「📈 市場輪動」列、輪動頁「今日變化與我的持股」） | ❌ 只能由 `scripts/build_market_rotation_digest.py` 產生 |
 | `portfolio_equity_exposure.json` | 直接個股的板塊／次產業曝險與所屬族群輪動狀態 | ❌ 只能由 `scripts/build_market_rotation_digest.py` 產生；修改持股後要重跑（C-47） |
 | `etf_holdings/` | VGT、VOO 與 25 檔研究用主題 ETF（`theme-etf-2`） 的 SEC N-PORT 完整持股與 `index.json`（每季、延遲約 60 天） | ❌ 只能由 `scripts/refresh_etf_holdings.py` 產生 |
+| `tech_stock_map_history/YYYY-MM/YYYY-MM-DD.json` | 科技股地圖當次可見的候選池、分類版本、原始收盤價、市值觀測時間與缺值；每個交易日保留首次觀測，不以日後資料回填或覆寫。原始收盤價未調整拆股／股息，不可直接作回測報酬。 | ❌ 只能由 `scripts/build_tech_stock_map.py` 產生 |
 | `etf_constituents.json` | ETF 研究頁權重地圖：各主題 ETF 累積 80% 成分與 1 日～6 個月報酬 | ❌ 只能由 `scripts/build_etf_health.py` 產生 |
 | `etf_health_history/` | 主題 ETF 成分健康度每日快照（月份 jsonl，只追加） | ❌ 只能由 `scripts/build_etf_health.py` 產生 |
 | `etf_flows_history/` | 主題 ETF 每日 Yahoo 流通股數、資產規模（月份 jsonl，只追加） | ❌ 只能由 `scripts/record_etf_flows.py` 產生 |
