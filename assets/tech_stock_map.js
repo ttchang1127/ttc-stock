@@ -14,6 +14,8 @@
   let selected = null;
   let evidence = null;
   let evidenceError = false;
+  let research = null;
+  let researchError = false;
 
   function benchmarkReturn(key = period) {
     const row = data?.benchmarks?.items?.[benchmark];
@@ -193,7 +195,36 @@
       `<p><strong>下次驗證：</strong>${escapeHtml(card.next_check)}</p>` +
       `<div class="evidence-sources"><strong>官方來源</strong>${sources.map(source =>
         `<a href="${escapeHtml(source.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(source.label)} ↗</a>` +
-        `<span>發布 ${escapeHtml(source.published_at)} · ${escapeHtml(source.period)}</span>`).join('')}</div></section>`;
+        `<span>發布 ${escapeHtml(source.published_at)} · ${escapeHtml(source.period)}</span>`).join('')}` +
+      `<a href="${escapeHtml(evidence.kb_index_url)}#${encodeURIComponent(ticker.toLowerCase())}" target="_blank" rel="noopener noreferrer">Sec_kb 來源索引（本機原文／SHA-256）↗</a></div></section>`;
+  }
+  function renderResearch() {
+    const target = $('techResearch');
+    if (researchError) { target.textContent = '研究觀察暫時無法載入；地圖與證據卡不受影響。'; return; }
+    if (!research) return;
+    const context = research.group_context;
+    const stale = data.as_of !== research.price_as_of;
+    const labels = [
+      ['leader', '價格領先觀察', '價格先走強，仍須檢查題材收入、估值與追高風險。'],
+      ['follow_on', '待驗證接棒觀察', '直接受益證據加下一個可驗證事件；落後不代表必然補漲。'],
+      ['laggard', '單純落後', '只有產業標籤或欠缺直接證據者，不列為接棒候選。']
+    ];
+    target.innerHTML = `<p class="panel-desc">人工查核 ${escapeHtml(research.reviewed_at)}；固定以 ${escapeHtml(research.price_as_of)} 收盤觀察，` +
+      `目前地圖報價日 ${escapeHtml(data.as_of)}。${stale ? '此名單已非最新行情，須重新覆核後才能更新分類。' : '此處不是每日自動排名。'}` +
+      ` 原始價格未調整股息或拆股，未驗證預測力。</p>` +
+      `<p class="research-context"><strong>${escapeHtml(context.name)}</strong>：近月 ${context.one_month_up_count}／${context.ticker_count} 家上漲；` +
+      `等權 ${pct(context.one_month_equal_pct)}、市值加權 ${pct(context.one_month_cap_weighted_pct)}、VGT ${pct(context.vgt_one_month_pct)}。` +
+      `${escapeHtml(context.note)}</p>` +
+      `<div class="research-lists">${labels.map(([key, title, intro]) => `<section class="research-list"><h3>${title}</h3><p>${intro}</p>` +
+        (research.lists[key].length ? research.lists[key].map(row => `<article class="research-row"><button type="button" data-research-ticker="${escapeHtml(row.ticker)}">${escapeHtml(row.ticker)} 查看公司與證據 ↗</button>` +
+          `<p>近月 ${pct(row.one_month_return_pct)}；較 VGT ${pp(row.one_month_vs_vgt_pp)}。題材證據：${escapeHtml(row.evidence)}</p>` +
+          `<p><strong>基本面：</strong>${escapeHtml(row.fundamentals)}</p><p><strong>估值：</strong>${escapeHtml(row.valuation)}</p>` +
+          `<p><strong>風險：</strong>${escapeHtml(row.risk)}</p><p><strong>下次驗證：</strong>${escapeHtml(row.next_check)}</p></article>`).join('') :
+          '<p class="panel-desc">目前沒有完成逐一查核的列名案例；不表示其他公司已被判定為安全或有證據。</p>') +
+        '</section>').join('')}</div>` +
+      `<p class="panel-desc">未分類：${research.lists.unclassified.map(row => `${escapeHtml(row.ticker)} — ${escapeHtml(row.reason)}`).join('；') || '無'}。` +
+      `<a href="https://github.com/ttchang1127/ttc-stock/blob/main/${escapeHtml(research.price_source)}" target="_blank" rel="noopener noreferrer">當日歷史快照 ↗</a> · ` +
+      `<a href="${escapeHtml(research.benchmark_source)}" target="_blank" rel="noopener noreferrer">基準資料快照 ↗</a></p>`;
   }
   function render() {
     if (!data) return;
@@ -281,14 +312,28 @@
       });
       $('techEqual').addEventListener('change', render);
       $('techSearch').addEventListener('input', render);
+      $('techResearch').addEventListener('click', event => {
+        const button = event.target.closest('[data-research-ticker]');
+        if (!button) return;
+        const stock = data.stocks.find(row => row.ticker === button.dataset.researchTicker);
+        if (!stock) return;
+        selected = stock.ticker;
+        $('techSearch').value = stock.ticker;
+        focusTo(`group:${stock.group_id}`);
+        $('techDetail').scrollIntoView({behavior:'smooth', block:'nearest'});
+      });
       mapEvent();
       let timer;
       window.addEventListener('resize', () => { clearTimeout(timer); timer = setTimeout(render, 130); });
       render();
       fetch('tech_stock_evidence.json', {cache:'no-cache'})
         .then(response => { if (!response.ok) throw Error(`HTTP ${response.status}`); return response.json(); })
-        .then(cards => { evidence = cards; renderDetails(); })
-        .catch(() => { evidenceError = true; renderDetails(); });
+        .then(cards => { evidence = cards; renderDetails(); renderResearch(); })
+        .catch(() => { evidenceError = true; renderDetails(); renderResearch(); });
+      fetch('tech_stock_research_notes.json', {cache:'no-cache'})
+        .then(response => { if (!response.ok) throw Error(`HTTP ${response.status}`); return response.json(); })
+        .then(notes => { research = notes; renderResearch(); })
+        .catch(() => { researchError = true; renderResearch(); });
     } catch (error) {
       $('techAsOf').textContent = '資料未就緒';
       $('techHighlights').textContent = '科技股資料尚未產出，請稍後再試。';

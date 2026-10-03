@@ -11,6 +11,8 @@ tags:
 
 > 🔧 維護相關：[[Sec_kb_資料維護SOP|資料維護 SOP]]｜[[ttc-stock_Dashboard_維運SOP|儀表板維運 SOP]]｜[[Sec_kb_待辦事項|待辦事項]]
 
+> 📚 科技股地圖題材證據的 SEC／公司 IR 原文統一查 [[Tech_Stock_Map_Evidence_Source_Index|題材證據來源索引]]；原文 HTML 快取只存本機，索引保留官方 URL 與 SHA-256。
+
 ---
 
 ## 🚀 動態 Web 儀表板與獨立網頁版投資報告 (Web Dashboards & Reports)
