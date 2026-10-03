@@ -12,6 +12,8 @@
   let mode = 'absolute';
   let benchmark = 'SPY';
   let selected = null;
+  let evidence = null;
+  let evidenceError = false;
 
   function benchmarkReturn(key = period) {
     const row = data?.benchmarks?.items?.[benchmark];
@@ -170,7 +172,28 @@
       `<div class="detail-returns">${PERIODS.map(([id, label]) => `<span>${label} <strong>${pct(stock.returns[id])}</strong>` +
         (mode === 'relative' ? `<small>較 ${benchmark}：${pp(displayedReturn(stock, id))}</small>` : '') + '</span>').join('')}</div>` +
       `<p class="panel-desc">報價日 ${escapeHtml(stock.quote_as_of || '無')}；歷史收盤價未調整股息或拆股。` +
-      `<a href="https://www.nasdaq.com/market-activity/stocks/${encodeURIComponent(stock.ticker.toLowerCase())}" target="_blank" rel="noopener noreferrer">Nasdaq 公司報價 ↗</a></p>`;
+      `<a href="https://www.nasdaq.com/market-activity/stocks/${encodeURIComponent(stock.ticker.toLowerCase())}" target="_blank" rel="noopener noreferrer">Nasdaq 公司報價 ↗</a></p>` +
+      evidenceHtml(stock.ticker);
+  }
+  function evidenceHtml(ticker) {
+    if (evidenceError) return '<p class="panel-desc">題材證據卡暫時無法載入；股價地圖不受影響。</p>';
+    if (!evidence) return '<p class="panel-desc">正在載入題材證據卡…</p>';
+    const card = evidence.cards?.[ticker];
+    if (!card) return '<p class="panel-desc">這家公司尚無人工查核的題材證據卡；不代表證據為 D 級。</p>';
+    const stages = [['需求', 'demand'], ['訂單', 'order'], ['營收', 'revenue'], ['利潤', 'profit']];
+    const sources = (card.sources || []).filter(source => /^https:\/\//.test(source.url));
+    return `<section class="tech-evidence" aria-label="${escapeHtml(ticker)} 題材證據卡">` +
+      `<h3>題材證據卡 <span class="evidence-grade">${escapeHtml(card.grade)} 級</span></h3>` +
+      `<p class="panel-desc">人工研究範例 · 查核日 ${escapeHtml(evidence.reviewed_at)} · A–D 是證據成熟度，不是買入評級；不隨每日報價自動更新。</p>` +
+      `<p><strong>題材／位置：</strong>${escapeHtml(card.theme)} ／ ${escapeHtml(card.position)}</p>` +
+      `<div class="evidence-path">${stages.map(([label, key]) => `<div><strong>${label}</strong><span>${escapeHtml(card.pathway?.[key] || '未量化')}</span></div>`).join('')}</div>` +
+      `<p><strong>已確認範圍：</strong>${escapeHtml(card.evidence_scope)}</p>` +
+      `<p><strong>研究推論：</strong>${escapeHtml(card.research_inference)}</p>` +
+      `<p><strong>限制／反面資訊：</strong>${escapeHtml(card.counterevidence)}</p>` +
+      `<p><strong>下次驗證：</strong>${escapeHtml(card.next_check)}</p>` +
+      `<div class="evidence-sources"><strong>官方來源</strong>${sources.map(source =>
+        `<a href="${escapeHtml(source.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(source.label)} ↗</a>` +
+        `<span>發布 ${escapeHtml(source.published_at)} · ${escapeHtml(source.period)}</span>`).join('')}</div></section>`;
   }
   function render() {
     if (!data) return;
@@ -262,6 +285,10 @@
       let timer;
       window.addEventListener('resize', () => { clearTimeout(timer); timer = setTimeout(render, 130); });
       render();
+      fetch('tech_stock_evidence.json', {cache:'no-cache'})
+        .then(response => { if (!response.ok) throw Error(`HTTP ${response.status}`); return response.json(); })
+        .then(cards => { evidence = cards; renderDetails(); })
+        .catch(() => { evidenceError = true; renderDetails(); });
     } catch (error) {
       $('techAsOf').textContent = '資料未就緒';
       $('techHighlights').textContent = '科技股資料尚未產出，請稍後再試。';

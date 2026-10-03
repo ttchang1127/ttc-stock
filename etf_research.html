@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/market_rotation.css?v=20260928a">
-  <link rel="stylesheet" href="assets/tech_stock_map.css?v=20261004a">
+  <link rel="stylesheet" href="assets/tech_stock_map.css?v=20261004b">
 </head>
 <body>
   <main class="shell">
@@ -59,7 +59,8 @@
       <tbody id="techBreadth"><tr><td colspan="6">載入中…</td></tr></tbody></table></div>
     </section>
 
-    <section class="panel" aria-labelledby="detailTitle"><h2 id="detailTitle">公司資訊</h2>
+    <section class="panel" aria-labelledby="detailTitle"><h2 id="detailTitle">公司資訊與題材證據</h2>
+      <p class="panel-desc">點選方塊看公司資料；部分公司另有人工作成的題材證據卡，與每日股價分開維護。未建卡不等於缺乏證據或 D 級。</p>
       <div id="techDetail" class="detail-empty">點選地圖中的公司，查看分類依據、資料來源與各期間漲跌。</div></section>
 
     <section class="panel" aria-labelledby="etfTitle"><h2 id="etfTitle">科技 ETF 參考指標</h2>
@@ -74,9 +75,10 @@
       <div class="method-card"><strong>廣度權重</strong><span>市值加權欄使用目前可取得的公司市值描述當下大型股影響，並非期初投資權重、ETF 持股報酬或可交易投資組合。</span></div>
       <div class="method-card"><strong>資料時差</strong><span>VGT 名單來自 SEC N-PORT，可能比當前持股落後；地圖會另標示持股申報日、報價日與價格涵蓋檔數。ETF 申購贖回資料不能直接解讀為流入某一檔股票。</span></div>
       <div class="method-card"><strong>回測</strong><span>本頁的產業鏈分類、廣度與漲跌是現況描述，並未驗證預測能力。既有 ETF 歷史資料與每月回測繼續累積，可在<a href="etf_research_archive.html">原 ETF 研究頁</a>查閱。</span></div>
+      <div class="method-card"><strong>題材證據卡</strong><span>目前僅少量人工查核範例。A＝已認列且可量化的相關營收；B＝公司正式揭露、尚待認列的訂單或展望；C＝官方確認產品／合作相關，但成果未量化；D＝僅外部推測。分級針對卡片所述證據，不是公司或股票評級；請看查核日、涵蓋期間、限制與原始來源。</span></div>
     </div></details></section>
     <footer class="footer">資料：Nasdaq、SEC EDGAR N-PORT、既有市場股票池｜本頁為研究工具，不構成投資建議。</footer>
   </main>
-  <script src="assets/tech_stock_map.js?v=20261004a" defer></script>
+  <script src="assets/tech_stock_map.js?v=20261004b" defer></script>
 </body>
 </html>
