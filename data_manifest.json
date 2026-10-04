@@ -498,6 +498,15 @@
       "note": "人工查核的少量科技股題材證據卡；來源、發布日、查核日、反面資訊與下次驗證點分開記錄，不隨每日行情自動更新"
     },
     {
+      "path": "tech_stock_sec_review.json",
+      "kind": "generated",
+      "producer": "scripts/build_tech_stock_sec_review.py",
+      "edit": "never",
+      "cadence": "manual",
+      "committed_by": [],
+      "note": "由本機 SEC 申報庫存與 12 批代表性 STE-Jev 筆記人工觸發匯出；僅呈現快取、單項主張檢核、逐份審閱三種不同狀態與官方來源，不隨每日行情更新"
+    },
+    {
       "path": "tech_stock_taxonomy.json",
       "kind": "human",
       "producer": null,

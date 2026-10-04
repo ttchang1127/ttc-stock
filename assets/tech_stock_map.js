@@ -14,6 +14,8 @@
   let selected = null;
   let evidence = null;
   let evidenceError = false;
+  let secReview = null;
+  let secReviewError = false;
   let research = null;
   let researchError = false;
 
@@ -175,7 +177,41 @@
         (mode === 'relative' ? `<small>較 ${benchmark}：${pp(displayedReturn(stock, id))}</small>` : '') + '</span>').join('')}</div>` +
       `<p class="panel-desc">報價日 ${escapeHtml(stock.quote_as_of || '無')}；歷史收盤價未調整股息或拆股。` +
       `<a href="https://www.nasdaq.com/market-activity/stocks/${encodeURIComponent(stock.ticker.toLowerCase())}" target="_blank" rel="noopener noreferrer">Nasdaq 公司報價 ↗</a></p>` +
-      evidenceHtml(stock.ticker);
+      secReviewHtml(stock.ticker) + evidenceHtml(stock.ticker);
+  }
+  function secSourceHtml(source) {
+    if (!source) return '';
+    const period = source.report_period ? ` · 報告期 ${escapeHtml(source.report_period)}` : '';
+    return `<a href="${escapeHtml(source.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(source.form)} ${escapeHtml(source.accession)} ↗</a>` +
+      `<span>申報 ${escapeHtml(source.filing_date)}${period}</span>`;
+  }
+  function secReviewHtml(ticker) {
+    if (secReviewError) return '<p class="panel-desc">SEC 證據狀態暫時無法載入；不能據此判定公司缺少申報。</p>';
+    if (!secReview) return '<p class="panel-desc">正在載入 SEC 證據狀態…</p>';
+    const row = secReview.companies?.[ticker];
+    if (!row) return '<p class="panel-desc">此公司不在本次 SEC 快取範圍；不能據此判定缺報。</p>';
+    const review = row.representative_review;
+    const revenue = review?.revenue;
+    return `<section class="tech-sec-review" aria-label="${escapeHtml(ticker)} SEC 證據狀態">` +
+      `<h3>SEC 證據狀態</h3>` +
+      `<p class="panel-desc">查核日 ${escapeHtml(secReview.reviewed_at)} · 已快取 ${row.cached_filings} 份申報；整份申報內容仍標未逐份審閱。</p>` +
+      (review ? `<div class="tech-sec-item"><strong>季／中期總收入：${revenue.status === 'checked' ? '代表性主張已核對' : 'SEC 季度來源缺口'}</strong>` +
+        (revenue.status === 'checked' ? `<p>${escapeHtml(revenue.claim)}</p><div class="tech-sec-source">${secSourceHtml(revenue.source)}</div>` :
+          '<p>未以年報數字或其他來源代替季度收入。</p>') + '</div>' +
+        `<div class="tech-sec-item"><strong>年報業務位置：代表性主張已核對</strong>` +
+        `<p>僅確認年報所述業務範圍，不代表題材營收已量化。</p><div class="tech-sec-source">${secSourceHtml(review.annual_business.source)}</div></div>` :
+        '<p>尚未列入本輪 113 家代表性主張檢核；快取申報不等於已完成內容審查。</p>') +
+      (row.coverage_exception ? `<p class="tech-sec-exception">來源例外：${escapeHtml(row.coverage_exception)}</p>` : '') +
+      '<p class="panel-desc">此處不是 AI 專屬營收、整份申報結論或投資評級；更多題材證據請看下方獨立人工卡片。</p></section>';
+  }
+  function renderSecSummary() {
+    if (secReviewError) { $('techSecSummary').textContent = 'SEC 審查狀態暫時無法載入。'; return; }
+    if (!secReview) return;
+    const s = secReview.scope;
+    $('techSecSummary').innerHTML = `<span>原件快取 <strong>${s.companies_cached}</strong> 家／<strong>${s.filings_cached}</strong> 份申報</span>` +
+      `<span>代表性檢核 <strong>${s.representative_companies}</strong> 家／<strong>${s.representative_claims}</strong> 項主張</span>` +
+      `<span>逐份內容審閱 <strong>${s.whole_filings_reviewed}</strong> 份</span>` +
+      `<p>代表性檢核只核對單項總營收與年報業務描述；未檢核的項目不等於零，且不隨每日股價自動更新。查核日 ${escapeHtml(secReview.reviewed_at)}。</p>`;
   }
   function evidenceHtml(ticker) {
     if (evidenceError) return '<p class="panel-desc">題材證據卡暫時無法載入；股價地圖不受影響。</p>';
@@ -334,6 +370,10 @@
         .then(response => { if (!response.ok) throw Error(`HTTP ${response.status}`); return response.json(); })
         .then(notes => { research = notes; renderResearch(); })
         .catch(() => { researchError = true; renderResearch(); });
+      fetch('tech_stock_sec_review.json', {cache:'no-cache'})
+        .then(response => { if (!response.ok) throw Error(`HTTP ${response.status}`); return response.json(); })
+        .then(review => { secReview = review; renderSecSummary(); renderDetails(); })
+        .catch(() => { secReviewError = true; renderSecSummary(); renderDetails(); });
     } catch (error) {
       $('techAsOf').textContent = '資料未就緒';
       $('techHighlights').textContent = '科技股資料尚未產出，請稍後再試。';

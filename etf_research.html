@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/market_rotation.css?v=20260928a">
-  <link rel="stylesheet" href="assets/tech_stock_map.css?v=20261004c">
+  <link rel="stylesheet" href="assets/tech_stock_map.css?v=20261004d">
 </head>
 <body>
   <main class="shell">
@@ -59,6 +59,10 @@
       <tbody id="techBreadth"><tr><td colspan="6">載入中…</td></tr></tbody></table></div>
     </section>
 
+    <section class="panel" aria-labelledby="secTitle"><h2 id="secTitle">SEC 證據狀態 <span class="research-badge">代表性檢核</span></h2>
+      <p class="panel-desc">來源快取、單項主張核對與整份申報審閱是三個不同階段；下方公司資訊可查看各自的來源與例外。</p>
+      <div id="techSecSummary" class="tech-sec-summary" aria-live="polite">正在載入 SEC 審查狀態…</div></section>
+
     <section class="panel" aria-labelledby="detailTitle"><h2 id="detailTitle">公司資訊與題材證據</h2>
       <p class="panel-desc">點選方塊看公司資料；部分公司另有人工作成的題材證據卡，與每日股價分開維護。未建卡不等於缺乏證據或 D 級。</p>
       <div id="techDetail" class="detail-empty">點選地圖中的公司，查看分類依據、資料來源與各期間漲跌。</div></section>
@@ -84,6 +88,6 @@
     </div></details></section>
     <footer class="footer">資料：Nasdaq、SEC EDGAR N-PORT、既有市場股票池｜本頁為研究工具，不構成投資建議。</footer>
   </main>
-  <script src="assets/tech_stock_map.js?v=20261004c" defer></script>
+  <script src="assets/tech_stock_map.js?v=20261004d" defer></script>
 </body>
 </html>

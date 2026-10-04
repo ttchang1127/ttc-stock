@@ -73,6 +73,37 @@ class TechnologyResearchPageTests(unittest.TestCase):
                     self.assertLessEqual(date.fromisoformat(source['published_at']), reviewed)
                     self.assertTrue(source['period'])
 
+    def test_sec_review_status_separates_claims_from_whole_filing_review(self):
+        review = json.loads((ROOT / 'tech_stock_sec_review.json').read_text())
+        stocks = {stock['ticker'] for stock in json.loads((ROOT / 'tech_stock_map.json').read_text())['stocks']}
+        self.assertIn('id="techSecSummary"', self.html)
+        self.assertIn("'tech_stock_sec_review.json'", self.script)
+        self.assertTrue(stocks <= review['companies'].keys())
+        self.assertEqual(review['scope'], {
+            'companies_cached': 182, 'filings_cached': 885,
+            'representative_companies': 113, 'representative_claims': 224,
+            'whole_filings_reviewed': 0,
+        })
+        self.assertEqual(sum(row['cached_filings'] for row in review['companies'].values()), 885)
+        self.assertEqual(sum(row['representative_review'] is not None for row in review['companies'].values()), 113)
+        for ticker, row in review['companies'].items():
+            with self.subTest(ticker=ticker):
+                self.assertEqual(row['document_review'], 'not_reviewed')
+                claim = row['representative_review']
+                if not claim:
+                    continue
+                for key in ('revenue', 'annual_business'):
+                    source = claim[key]['source']
+                    if source:
+                        self.assertTrue(source['url'].startswith('https://www.sec.gov/Archives/'))
+                        self.assertLessEqual(date.fromisoformat(source['filing_date']),
+                                             date.fromisoformat(review['reviewed_at']))
+                self.assertEqual(claim['annual_business']['status'], 'checked')
+        for ticker in ('CYBR', 'SAP'):
+            self.assertEqual(review['companies'][ticker]['representative_review']['revenue']['status'], 'source_gap')
+        self.assertIsNone(review['companies']['AVGO']['representative_review'])
+        self.assertIn('coverage_exception', review['companies']['CBRS'])
+
     def test_research_observations_match_the_frozen_price_snapshot(self):
         notes = json.loads((ROOT / 'tech_stock_research_notes.json').read_text())
         snapshot = json.loads((ROOT / notes['price_source']).read_text())
