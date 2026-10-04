@@ -2,7 +2,7 @@
   "schema_version": 1,
   "candidate_batch_id": "466c81e5fe4f",
   "candidate_generated_at": "2026-10-03T09:39:49+00:00",
-  "reviewed_at": "2026-10-03T16:21:31+00:00",
+  "reviewed_at": "2026-10-04T02:46:45+00:00",
   "model_requested": "jev-1.13.0",
   "models_used": [
     "jev-1.13.0"
@@ -19,12 +19,12 @@
       "rule_direction": "risk",
       "jev_direction": "conclusion",
       "jev_direction_label": "可能改變結論",
-      "materiality_score": 2.06,
+      "materiality_score": 2.04,
       "materiality_label": "高",
-      "long_term_relevance_probability": 0.65,
+      "long_term_relevance_probability": 0.64,
       "source_sufficiency": "sufficient_for_priority",
       "source_sufficiency_label": "足以安排閱讀優先度",
-      "confidence_floor": 0.67,
+      "confidence_floor": 0.63,
       "direction_disagrees_with_rule": false,
       "uncertain": true,
       "route": "urgent_human_review",
@@ -34,19 +34,19 @@
         "direction": {
           "no_material_change": 0.03,
           "improvement": 0.0,
-          "conclusion": 0.75,
-          "risk": 0.22
+          "risk": 0.24,
+          "conclusion": 0.73
         },
         "materiality": {
           "0": 0.01,
-          "1": 0.11,
-          "2": 0.69,
+          "1": 0.13,
+          "2": 0.67,
           "3": 0.19
         },
         "source_sufficiency": {
           "insufficient": 0.0,
-          "sufficient_for_priority": 0.95,
-          "needs_primary_source_review": 0.05
+          "needs_primary_source_review": 0.05,
+          "sufficient_for_priority": 0.95
         }
       },
       "model": "jev-1.13.0"
@@ -57,12 +57,12 @@
       "rule_direction": "risk",
       "jev_direction": "conclusion",
       "jev_direction_label": "可能改變結論",
-      "materiality_score": 1.7,
+      "materiality_score": 1.71,
       "materiality_label": "高",
       "long_term_relevance_probability": 0.63,
       "source_sufficiency": "sufficient_for_priority",
       "source_sufficiency_label": "足以安排閱讀優先度",
-      "confidence_floor": 0.6,
+      "confidence_floor": 0.63,
       "direction_disagrees_with_rule": false,
       "uncertain": true,
       "route": "normal_human_review",
@@ -72,19 +72,19 @@
         "direction": {
           "improvement": 0.0,
           "no_material_change": 0.03,
-          "conclusion": 0.78,
-          "risk": 0.19
+          "risk": 0.17,
+          "conclusion": 0.8
         },
         "materiality": {
           "0": 0.01,
-          "1": 0.33,
-          "2": 0.61,
-          "3": 0.05
+          "1": 0.32,
+          "2": 0.63,
+          "3": 0.04
         },
         "source_sufficiency": {
-          "sufficient_for_priority": 0.96,
           "insufficient": 0.0,
-          "needs_primary_source_review": 0.04
+          "sufficient_for_priority": 0.94,
+          "needs_primary_source_review": 0.06
         }
       },
       "model": "jev-1.13.0"
@@ -95,12 +95,12 @@
       "rule_direction": "conclusion",
       "jev_direction": "conclusion",
       "jev_direction_label": "可能改變結論",
-      "materiality_score": 2.16,
+      "materiality_score": 2.21,
       "materiality_label": "高",
       "long_term_relevance_probability": 0.74,
       "source_sufficiency": "sufficient_for_priority",
       "source_sufficiency_label": "足以安排閱讀優先度",
-      "confidence_floor": 0.67,
+      "confidence_floor": 0.66,
       "direction_disagrees_with_rule": false,
       "uncertain": true,
       "route": "urgent_human_review",
@@ -108,16 +108,16 @@
       "requires_human_review": true,
       "probabilities": {
         "direction": {
-          "risk": 0.0,
-          "improvement": 0.0,
+          "no_material_change": 0.02,
           "conclusion": 0.98,
-          "no_material_change": 0.02
+          "risk": 0.0,
+          "improvement": 0.0
         },
         "materiality": {
           "0": 0.01,
-          "1": 0.06,
-          "2": 0.6900000000000001,
-          "3": 0.24
+          "1": 0.05,
+          "2": 0.66,
+          "3": 0.28
         },
         "source_sufficiency": {
           "sufficient_for_priority": 0.93,
@@ -135,7 +135,7 @@
       "jev_direction_label": "可能改變結論",
       "materiality_score": 2.35,
       "materiality_label": "高",
-      "long_term_relevance_probability": 0.82,
+      "long_term_relevance_probability": 0.81,
       "source_sufficiency": "sufficient_for_priority",
       "source_sufficiency_label": "足以安排閱讀優先度",
       "confidence_floor": 0.62,
@@ -146,21 +146,21 @@
       "requires_human_review": true,
       "probabilities": {
         "direction": {
-          "no_material_change": 0.0,
-          "risk": 0.0,
           "improvement": 0.0,
-          "conclusion": 1.0
+          "conclusion": 1.0,
+          "risk": 0.0,
+          "no_material_change": 0.0
         },
         "materiality": {
           "0": 0.0,
           "1": 0.01,
-          "2": 0.63,
-          "3": 0.36
+          "2": 0.62,
+          "3": 0.37
         },
         "source_sufficiency": {
-          "sufficient_for_priority": 0.92,
-          "insufficient": 0.03,
-          "needs_primary_source_review": 0.05
+          "sufficient_for_priority": 0.91,
+          "insufficient": 0.02,
+          "needs_primary_source_review": 0.07
         }
       },
       "model": "jev-1.13.0"
@@ -171,12 +171,12 @@
       "rule_direction": "conclusion",
       "jev_direction": "conclusion",
       "jev_direction_label": "可能改變結論",
-      "materiality_score": 1.84,
+      "materiality_score": 1.9,
       "materiality_label": "高",
-      "long_term_relevance_probability": 0.54,
+      "long_term_relevance_probability": 0.58,
       "source_sufficiency": "sufficient_for_priority",
       "source_sufficiency_label": "足以安排閱讀優先度",
-      "confidence_floor": 0.59,
+      "confidence_floor": 0.61,
       "direction_disagrees_with_rule": false,
       "uncertain": true,
       "route": "normal_human_review",
@@ -184,21 +184,21 @@
       "requires_human_review": true,
       "probabilities": {
         "direction": {
-          "conclusion": 0.97,
-          "risk": 0.0,
           "improvement": 0.0,
-          "no_material_change": 0.03
+          "conclusion": 0.98,
+          "no_material_change": 0.02,
+          "risk": 0.0
         },
         "materiality": {
-          "0": 0.04,
-          "1": 0.21,
-          "2": 0.63,
-          "3": 0.12
+          "0": 0.03,
+          "1": 0.18,
+          "2": 0.65,
+          "3": 0.14
         },
         "source_sufficiency": {
           "needs_primary_source_review": 0.06,
-          "sufficient_for_priority": 0.91,
-          "insufficient": 0.03
+          "insufficient": 0.03,
+          "sufficient_for_priority": 0.91
         }
       },
       "model": "jev-1.13.0"
@@ -211,10 +211,10 @@
       "jev_direction_label": "可能改變結論",
       "materiality_score": 1.66,
       "materiality_label": "高",
-      "long_term_relevance_probability": 0.33,
+      "long_term_relevance_probability": 0.34,
       "source_sufficiency": "sufficient_for_priority",
       "source_sufficiency_label": "足以安排閱讀優先度",
-      "confidence_floor": 0.38,
+      "confidence_floor": 0.39,
       "direction_disagrees_with_rule": false,
       "uncertain": true,
       "route": "normal_human_review",
@@ -222,21 +222,21 @@
       "requires_human_review": true,
       "probabilities": {
         "direction": {
+          "conclusion": 0.96,
+          "no_material_change": 0.04,
           "improvement": 0.0,
-          "risk": 0.0,
-          "no_material_change": 0.03,
-          "conclusion": 0.97
+          "risk": 0.0
         },
         "materiality": {
-          "0": 0.1,
+          "0": 0.09,
           "1": 0.28,
-          "2": 0.48,
-          "3": 0.14
+          "2": 0.51,
+          "3": 0.12
         },
         "source_sufficiency": {
-          "needs_primary_source_review": 0.08,
-          "insufficient": 0.31,
-          "sufficient_for_priority": 0.61
+          "needs_primary_source_review": 0.1,
+          "sufficient_for_priority": 0.6,
+          "insufficient": 0.3
         }
       },
       "model": "jev-1.13.0"
@@ -247,12 +247,12 @@
       "rule_direction": "risk",
       "jev_direction": "no_material_change",
       "jev_direction_label": "無實質變化",
-      "materiality_score": 0.12,
+      "materiality_score": 0.14,
       "materiality_label": "低",
-      "long_term_relevance_probability": 0.21,
+      "long_term_relevance_probability": 0.2,
       "source_sufficiency": "sufficient_for_priority",
       "source_sufficiency_label": "足以安排閱讀優先度",
-      "confidence_floor": 0.88,
+      "confidence_floor": 0.86,
       "direction_disagrees_with_rule": true,
       "uncertain": false,
       "route": "normal_human_review",
@@ -260,21 +260,21 @@
       "requires_human_review": true,
       "probabilities": {
         "direction": {
+          "no_material_change": 0.94,
+          "conclusion": 0.06,
           "risk": 0.0,
-          "improvement": 0.0,
-          "conclusion": 0.07,
-          "no_material_change": 0.93
+          "improvement": 0.0
         },
         "materiality": {
-          "0": 0.88,
-          "1": 0.12,
+          "0": 0.86,
+          "1": 0.14,
           "2": 0.0,
           "3": 0.0
         },
         "source_sufficiency": {
           "sufficient_for_priority": 0.96,
-          "needs_primary_source_review": 0.04,
-          "insufficient": 0.0
+          "insufficient": 0.0,
+          "needs_primary_source_review": 0.04
         }
       },
       "model": "jev-1.13.0"
@@ -285,9 +285,9 @@
       "rule_direction": "risk",
       "jev_direction": "no_material_change",
       "jev_direction_label": "無實質變化",
-      "materiality_score": 0.6,
+      "materiality_score": 0.62,
       "materiality_label": "中",
-      "long_term_relevance_probability": 0.45,
+      "long_term_relevance_probability": 0.43,
       "source_sufficiency": "sufficient_for_priority",
       "source_sufficiency_label": "足以安排閱讀優先度",
       "confidence_floor": 0.57,
@@ -298,21 +298,21 @@
       "requires_human_review": true,
       "probabilities": {
         "direction": {
+          "conclusion": 0.32,
+          "no_material_change": 0.67,
           "improvement": 0.0,
-          "risk": 0.01,
-          "conclusion": 0.25,
-          "no_material_change": 0.74
+          "risk": 0.01
         },
         "materiality": {
-          "0": 0.42,
-          "1": 0.57,
-          "2": 0.01,
+          "0": 0.4,
+          "1": 0.58,
+          "2": 0.02,
           "3": 0.0
         },
         "source_sufficiency": {
           "needs_primary_source_review": 0.03,
-          "sufficient_for_priority": 0.97,
-          "insufficient": 0.0
+          "insufficient": 0.0,
+          "sufficient_for_priority": 0.97
         }
       },
       "model": "jev-1.13.0"
@@ -323,12 +323,12 @@
       "rule_direction": "risk",
       "jev_direction": "no_material_change",
       "jev_direction_label": "無實質變化",
-      "materiality_score": 0.06,
+      "materiality_score": 0.05,
       "materiality_label": "低",
       "long_term_relevance_probability": 0.22,
       "source_sufficiency": "sufficient_for_priority",
       "source_sufficiency_label": "足以安排閱讀優先度",
-      "confidence_floor": 0.89,
+      "confidence_floor": 0.9,
       "direction_disagrees_with_rule": true,
       "uncertain": false,
       "route": "normal_human_review",
@@ -336,10 +336,10 @@
       "requires_human_review": true,
       "probabilities": {
         "direction": {
-          "improvement": 0.0,
-          "no_material_change": 0.91,
           "risk": 0.01,
-          "conclusion": 0.08
+          "improvement": 0.0,
+          "conclusion": 0.07,
+          "no_material_change": 0.92
         },
         "materiality": {
           "0": 0.95,
@@ -348,9 +348,9 @@
           "3": 0.0
         },
         "source_sufficiency": {
-          "insufficient": 0.0,
-          "needs_primary_source_review": 0.03,
-          "sufficient_for_priority": 0.97
+          "sufficient_for_priority": 0.98,
+          "needs_primary_source_review": 0.02,
+          "insufficient": 0.0
         }
       },
       "model": "jev-1.13.0"
@@ -361,12 +361,12 @@
       "rule_direction": "risk",
       "jev_direction": "no_material_change",
       "jev_direction_label": "無實質變化",
-      "materiality_score": 0.01,
+      "materiality_score": 0.02,
       "materiality_label": "低",
       "long_term_relevance_probability": 0.15,
       "source_sufficiency": "sufficient_for_priority",
       "source_sufficiency_label": "足以安排閱讀優先度",
-      "confidence_floor": 0.96,
+      "confidence_floor": 0.93,
       "direction_disagrees_with_rule": true,
       "uncertain": false,
       "route": "normal_human_review",
@@ -374,10 +374,10 @@
       "requires_human_review": true,
       "probabilities": {
         "direction": {
-          "no_material_change": 0.97,
-          "risk": 0.0,
           "improvement": 0.0,
-          "conclusion": 0.03
+          "no_material_change": 0.95,
+          "risk": 0.0,
+          "conclusion": 0.05
         },
         "materiality": {
           "0": 0.99,
@@ -386,9 +386,9 @@
           "3": 0.0
         },
         "source_sufficiency": {
-          "insufficient": 0.0,
+          "sufficient_for_priority": 0.97,
           "needs_primary_source_review": 0.03,
-          "sufficient_for_priority": 0.97
+          "insufficient": 0.0
         }
       },
       "model": "jev-1.13.0"
@@ -399,12 +399,12 @@
       "rule_direction": "risk",
       "jev_direction": "no_material_change",
       "jev_direction_label": "無實質變化",
-      "materiality_score": 0.73,
+      "materiality_score": 0.77,
       "materiality_label": "中",
-      "long_term_relevance_probability": 0.44,
+      "long_term_relevance_probability": 0.48,
       "source_sufficiency": "sufficient_for_priority",
       "source_sufficiency_label": "足以安排閱讀優先度",
-      "confidence_floor": 0.51,
+      "confidence_floor": 0.41,
       "direction_disagrees_with_rule": true,
       "uncertain": true,
       "route": "normal_human_review",
@@ -412,21 +412,21 @@
       "requires_human_review": true,
       "probabilities": {
         "direction": {
-          "risk": 0.01,
+          "no_material_change": 0.55,
+          "conclusion": 0.44,
           "improvement": 0.0,
-          "conclusion": 0.36,
-          "no_material_change": 0.63
+          "risk": 0.01
         },
         "materiality": {
-          "0": 0.3,
-          "1": 0.67,
-          "2": 0.03,
+          "0": 0.28,
+          "1": 0.68,
+          "2": 0.04,
           "3": 0.0
         },
         "source_sufficiency": {
-          "sufficient_for_priority": 0.96,
           "insufficient": 0.0,
-          "needs_primary_source_review": 0.04
+          "needs_primary_source_review": 0.04,
+          "sufficient_for_priority": 0.96
         }
       },
       "model": "jev-1.13.0"
@@ -439,7 +439,7 @@
       "jev_direction_label": "無實質變化",
       "materiality_score": 0.54,
       "materiality_label": "中",
-      "long_term_relevance_probability": 0.39,
+      "long_term_relevance_probability": 0.35,
       "source_sufficiency": "sufficient_for_priority",
       "source_sufficiency_label": "足以安排閱讀優先度",
       "confidence_floor": 0.52,
@@ -451,9 +451,9 @@
       "probabilities": {
         "direction": {
           "risk": 0.0,
-          "no_material_change": 0.9,
-          "conclusion": 0.1,
-          "improvement": 0.0
+          "no_material_change": 0.85,
+          "improvement": 0.0,
+          "conclusion": 0.15
         },
         "materiality": {
           "0": 0.47,
@@ -462,9 +462,9 @@
           "3": 0.0
         },
         "source_sufficiency": {
-          "needs_primary_source_review": 0.05,
-          "sufficient_for_priority": 0.95,
-          "insufficient": 0.0
+          "sufficient_for_priority": 0.97,
+          "insufficient": 0.0,
+          "needs_primary_source_review": 0.03
         }
       },
       "model": "jev-1.13.0"
@@ -475,12 +475,12 @@
       "rule_direction": "risk",
       "jev_direction": "no_material_change",
       "jev_direction_label": "無實質變化",
-      "materiality_score": 0.07,
+      "materiality_score": 0.08,
       "materiality_label": "低",
-      "long_term_relevance_probability": 0.28,
+      "long_term_relevance_probability": 0.29,
       "source_sufficiency": "sufficient_for_priority",
       "source_sufficiency_label": "足以安排閱讀優先度",
-      "confidence_floor": 0.85,
+      "confidence_floor": 0.84,
       "direction_disagrees_with_rule": true,
       "uncertain": false,
       "route": "normal_human_review",
@@ -489,20 +489,20 @@
       "probabilities": {
         "direction": {
           "improvement": 0.0,
-          "no_material_change": 0.88,
+          "conclusion": 0.11,
           "risk": 0.01,
-          "conclusion": 0.11
+          "no_material_change": 0.88
         },
         "materiality": {
-          "0": 0.94,
-          "1": 0.06,
+          "0": 0.92,
+          "1": 0.08,
           "2": 0.0,
           "3": 0.0
         },
         "source_sufficiency": {
+          "sufficient_for_priority": 0.97,
           "insufficient": 0.0,
-          "needs_primary_source_review": 0.03,
-          "sufficient_for_priority": 0.97
+          "needs_primary_source_review": 0.03
         }
       },
       "model": "jev-1.13.0"
@@ -513,12 +513,12 @@
       "rule_direction": "risk",
       "jev_direction": "no_material_change",
       "jev_direction_label": "無實質變化",
-      "materiality_score": 0.15,
+      "materiality_score": 0.14,
       "materiality_label": "低",
-      "long_term_relevance_probability": 0.3,
+      "long_term_relevance_probability": 0.33,
       "source_sufficiency": "sufficient_for_priority",
       "source_sufficiency_label": "足以安排閱讀優先度",
-      "confidence_floor": 0.85,
+      "confidence_floor": 0.86,
       "direction_disagrees_with_rule": true,
       "uncertain": false,
       "route": "normal_human_review",
@@ -527,9 +527,9 @@
       "probabilities": {
         "direction": {
           "improvement": 0.0,
+          "no_material_change": 0.9299999999999999,
           "risk": 0.01,
-          "conclusion": 0.06,
-          "no_material_change": 0.93
+          "conclusion": 0.06
         },
         "materiality": {
           "0": 0.86,
@@ -551,12 +551,12 @@
       "rule_direction": "risk",
       "jev_direction": "no_material_change",
       "jev_direction_label": "無實質變化",
-      "materiality_score": 0.66,
+      "materiality_score": 0.67,
       "materiality_label": "中",
-      "long_term_relevance_probability": 0.41,
+      "long_term_relevance_probability": 0.45,
       "source_sufficiency": "sufficient_for_priority",
       "source_sufficiency_label": "足以安排閱讀優先度",
-      "confidence_floor": 0.6,
+      "confidence_floor": 0.62,
       "direction_disagrees_with_rule": true,
       "uncertain": true,
       "route": "normal_human_review",
@@ -564,21 +564,21 @@
       "requires_human_review": true,
       "probabilities": {
         "direction": {
-          "no_material_change": 0.79,
-          "conclusion": 0.21,
+          "improvement": 0.0,
+          "conclusion": 0.19,
           "risk": 0.0,
-          "improvement": 0.0
+          "no_material_change": 0.81
         },
         "materiality": {
-          "0": 0.37,
-          "1": 0.6,
-          "2": 0.03,
+          "0": 0.35,
+          "1": 0.63,
+          "2": 0.02,
           "3": 0.0
         },
         "source_sufficiency": {
-          "sufficient_for_priority": 0.96,
-          "insufficient": 0.0,
-          "needs_primary_source_review": 0.04
+          "needs_primary_source_review": 0.05,
+          "sufficient_for_priority": 0.95,
+          "insufficient": 0.0
         }
       },
       "model": "jev-1.13.0"
@@ -589,12 +589,12 @@
       "rule_direction": "risk",
       "jev_direction": "no_material_change",
       "jev_direction_label": "無實質變化",
-      "materiality_score": 0.47,
+      "materiality_score": 0.46,
       "materiality_label": "低",
       "long_term_relevance_probability": 0.34,
       "source_sufficiency": "sufficient_for_priority",
       "source_sufficiency_label": "足以安排閱讀優先度",
-      "confidence_floor": 0.53,
+      "confidence_floor": 0.54,
       "direction_disagrees_with_rule": true,
       "uncertain": true,
       "route": "normal_human_review",
@@ -602,21 +602,21 @@
       "requires_human_review": true,
       "probabilities": {
         "direction": {
-          "no_material_change": 0.87,
+          "no_material_change": 0.86,
+          "conclusion": 0.14,
           "risk": 0.0,
-          "improvement": 0.0,
-          "conclusion": 0.13
+          "improvement": 0.0
         },
         "materiality": {
-          "0": 0.53,
-          "1": 0.46,
-          "2": 0.01,
+          "0": 0.55,
+          "1": 0.45,
+          "2": 0.0,
           "3": 0.0
         },
         "source_sufficiency": {
           "insufficient": 0.0,
-          "needs_primary_source_review": 0.03,
-          "sufficient_for_priority": 0.97
+          "sufficient_for_priority": 0.97,
+          "needs_primary_source_review": 0.03
         }
       },
       "model": "jev-1.13.0"
@@ -627,12 +627,12 @@
       "rule_direction": "risk",
       "jev_direction": "conclusion",
       "jev_direction_label": "可能改變結論",
-      "materiality_score": 1.15,
+      "materiality_score": 1.11,
       "materiality_label": "中",
-      "long_term_relevance_probability": 0.54,
+      "long_term_relevance_probability": 0.52,
       "source_sufficiency": "sufficient_for_priority",
       "source_sufficiency_label": "足以安排閱讀優先度",
-      "confidence_floor": 0.7,
+      "confidence_floor": 0.71,
       "direction_disagrees_with_rule": false,
       "uncertain": false,
       "route": "normal_human_review",
@@ -640,21 +640,21 @@
       "requires_human_review": true,
       "probabilities": {
         "direction": {
-          "improvement": 0.0,
+          "risk": 0.12,
           "conclusion": 0.78,
-          "risk": 0.14,
-          "no_material_change": 0.08
+          "improvement": 0.0,
+          "no_material_change": 0.1
         },
         "materiality": {
-          "0": 0.07,
+          "0": 0.09,
           "1": 0.71,
-          "2": 0.21,
+          "2": 0.19,
           "3": 0.01
         },
         "source_sufficiency": {
-          "sufficient_for_priority": 0.96,
-          "needs_primary_source_review": 0.04,
-          "insufficient": 0.0
+          "needs_primary_source_review": 0.05,
+          "insufficient": 0.0,
+          "sufficient_for_priority": 0.95
         }
       },
       "model": "jev-1.13.0"
@@ -665,88 +665,12 @@
       "rule_direction": "conclusion",
       "jev_direction": "conclusion",
       "jev_direction_label": "可能改變結論",
-      "materiality_score": 1.76,
+      "materiality_score": 1.63,
       "materiality_label": "高",
-      "long_term_relevance_probability": 0.35,
+      "long_term_relevance_probability": 0.36,
       "source_sufficiency": "sufficient_for_priority",
       "source_sufficiency_label": "足以安排閱讀優先度",
-      "confidence_floor": 0.45,
-      "direction_disagrees_with_rule": false,
-      "uncertain": true,
-      "route": "normal_human_review",
-      "route_label": "一般人工覆核",
-      "requires_human_review": true,
-      "probabilities": {
-        "direction": {
-          "improvement": 0.0,
-          "conclusion": 0.97,
-          "risk": 0.0,
-          "no_material_change": 0.03
-        },
-        "materiality": {
-          "0": 0.06,
-          "1": 0.24,
-          "2": 0.57,
-          "3": 0.13
-        },
-        "source_sufficiency": {
-          "sufficient_for_priority": 0.63,
-          "insufficient": 0.28,
-          "needs_primary_source_review": 0.09
-        }
-      },
-      "model": "jev-1.13.0"
-    },
-    {
-      "candidate_id": "9454af841d9c977e",
-      "ticker": "ONDS",
-      "rule_direction": "conclusion",
-      "jev_direction": "conclusion",
-      "jev_direction_label": "可能改變結論",
-      "materiality_score": 2.07,
-      "materiality_label": "高",
-      "long_term_relevance_probability": 0.71,
-      "source_sufficiency": "sufficient_for_priority",
-      "source_sufficiency_label": "足以安排閱讀優先度",
-      "confidence_floor": 0.79,
-      "direction_disagrees_with_rule": false,
-      "uncertain": false,
-      "route": "urgent_human_review",
-      "route_label": "高優先人工覆核",
-      "requires_human_review": true,
-      "probabilities": {
-        "direction": {
-          "conclusion": 0.98,
-          "improvement": 0.0,
-          "risk": 0.01,
-          "no_material_change": 0.01
-        },
-        "materiality": {
-          "0": 0.01,
-          "1": 0.05,
-          "2": 0.8,
-          "3": 0.14
-        },
-        "source_sufficiency": {
-          "sufficient_for_priority": 0.93,
-          "insufficient": 0.02,
-          "needs_primary_source_review": 0.05
-        }
-      },
-      "model": "jev-1.13.0"
-    },
-    {
-      "candidate_id": "55c30c0df33f8183",
-      "ticker": "AMZN",
-      "rule_direction": "conclusion",
-      "jev_direction": "conclusion",
-      "jev_direction_label": "可能改變結論",
-      "materiality_score": 1.89,
-      "materiality_label": "高",
-      "long_term_relevance_probability": 0.57,
-      "source_sufficiency": "sufficient_for_priority",
-      "source_sufficiency_label": "足以安排閱讀優先度",
-      "confidence_floor": 0.6,
+      "confidence_floor": 0.42,
       "direction_disagrees_with_rule": false,
       "uncertain": true,
       "route": "normal_human_review",
@@ -760,15 +684,91 @@
           "risk": 0.0
         },
         "materiality": {
-          "0": 0.04,
-          "1": 0.18,
-          "2": 0.64,
+          "0": 0.08,
+          "1": 0.31,
+          "2": 0.5,
+          "3": 0.11
+        },
+        "source_sufficiency": {
+          "needs_primary_source_review": 0.1,
+          "sufficient_for_priority": 0.62,
+          "insufficient": 0.28
+        }
+      },
+      "model": "jev-1.13.0"
+    },
+    {
+      "candidate_id": "9454af841d9c977e",
+      "ticker": "ONDS",
+      "rule_direction": "conclusion",
+      "jev_direction": "conclusion",
+      "jev_direction_label": "可能改變結論",
+      "materiality_score": 2.08,
+      "materiality_label": "高",
+      "long_term_relevance_probability": 0.72,
+      "source_sufficiency": "sufficient_for_priority",
+      "source_sufficiency_label": "足以安排閱讀優先度",
+      "confidence_floor": 0.8,
+      "direction_disagrees_with_rule": false,
+      "uncertain": false,
+      "route": "urgent_human_review",
+      "route_label": "高優先人工覆核",
+      "requires_human_review": true,
+      "probabilities": {
+        "direction": {
+          "risk": 0.01,
+          "conclusion": 0.98,
+          "no_material_change": 0.01,
+          "improvement": 0.0
+        },
+        "materiality": {
+          "0": 0.01,
+          "1": 0.04,
+          "2": 0.8,
           "3": 0.14
         },
         "source_sufficiency": {
-          "needs_primary_source_review": 0.06,
-          "sufficient_for_priority": 0.91,
-          "insufficient": 0.03
+          "needs_primary_source_review": 0.05,
+          "insufficient": 0.02,
+          "sufficient_for_priority": 0.93
+        }
+      },
+      "model": "jev-1.13.0"
+    },
+    {
+      "candidate_id": "55c30c0df33f8183",
+      "ticker": "AMZN",
+      "rule_direction": "conclusion",
+      "jev_direction": "conclusion",
+      "jev_direction_label": "可能改變結論",
+      "materiality_score": 1.88,
+      "materiality_label": "高",
+      "long_term_relevance_probability": 0.55,
+      "source_sufficiency": "sufficient_for_priority",
+      "source_sufficiency_label": "足以安排閱讀優先度",
+      "confidence_floor": 0.59,
+      "direction_disagrees_with_rule": false,
+      "uncertain": true,
+      "route": "normal_human_review",
+      "route_label": "一般人工覆核",
+      "requires_human_review": true,
+      "probabilities": {
+        "direction": {
+          "risk": 0.0,
+          "improvement": 0.0,
+          "no_material_change": 0.03,
+          "conclusion": 0.97
+        },
+        "materiality": {
+          "0": 0.04,
+          "1": 0.19,
+          "2": 0.62,
+          "3": 0.15
+        },
+        "source_sufficiency": {
+          "needs_primary_source_review": 0.05,
+          "insufficient": 0.03,
+          "sufficient_for_priority": 0.92
         }
       },
       "model": "jev-1.13.0"
@@ -779,12 +779,12 @@
       "rule_direction": "conclusion",
       "jev_direction": "conclusion",
       "jev_direction_label": "可能改變結論",
-      "materiality_score": 2.14,
+      "materiality_score": 2.15,
       "materiality_label": "高",
-      "long_term_relevance_probability": 0.74,
+      "long_term_relevance_probability": 0.75,
       "source_sufficiency": "sufficient_for_priority",
       "source_sufficiency_label": "足以安排閱讀優先度",
-      "confidence_floor": 0.74,
+      "confidence_floor": 0.7,
       "direction_disagrees_with_rule": false,
       "uncertain": false,
       "route": "urgent_human_review",
@@ -793,20 +793,20 @@
       "probabilities": {
         "direction": {
           "risk": 0.0,
-          "no_material_change": 0.01,
           "conclusion": 0.99,
+          "no_material_change": 0.01,
           "improvement": 0.0
         },
         "materiality": {
           "0": 0.01,
           "1": 0.04,
-          "2": 0.75,
-          "3": 0.2
+          "2": 0.72,
+          "3": 0.23
         },
         "source_sufficiency": {
-          "needs_primary_source_review": 0.05,
+          "insufficient": 0.04,
           "sufficient_for_priority": 0.91,
-          "insufficient": 0.04
+          "needs_primary_source_review": 0.05
         }
       },
       "model": "jev-1.13.0"
@@ -817,12 +817,12 @@
       "rule_direction": "risk",
       "jev_direction": "no_material_change",
       "jev_direction_label": "無實質變化",
-      "materiality_score": 0.24,
+      "materiality_score": 0.26,
       "materiality_label": "低",
-      "long_term_relevance_probability": 0.33,
+      "long_term_relevance_probability": 0.34,
       "source_sufficiency": "sufficient_for_priority",
       "source_sufficiency_label": "足以安排閱讀優先度",
-      "confidence_floor": 0.76,
+      "confidence_floor": 0.74,
       "direction_disagrees_with_rule": true,
       "uncertain": false,
       "route": "normal_human_review",
@@ -830,21 +830,21 @@
       "requires_human_review": true,
       "probabilities": {
         "direction": {
-          "no_material_change": 0.93,
-          "conclusion": 0.06,
-          "improvement": 0.0,
-          "risk": 0.01
+          "no_material_change": 0.92,
+          "conclusion": 0.07,
+          "risk": 0.01,
+          "improvement": 0.0
         },
         "materiality": {
-          "0": 0.76,
-          "1": 0.23,
-          "2": 0.01,
+          "0": 0.75,
+          "1": 0.25,
+          "2": 0.0,
           "3": 0.0
         },
         "source_sufficiency": {
-          "needs_primary_source_review": 0.03,
           "insufficient": 0.0,
-          "sufficient_for_priority": 0.97
+          "sufficient_for_priority": 0.97,
+          "needs_primary_source_review": 0.03
         }
       },
       "model": "jev-1.13.0"
@@ -855,7 +855,7 @@
       "rule_direction": "risk",
       "jev_direction": "no_material_change",
       "jev_direction_label": "無實質變化",
-      "materiality_score": 0.6,
+      "materiality_score": 0.61,
       "materiality_label": "中",
       "long_term_relevance_probability": 0.39,
       "source_sufficiency": "sufficient_for_priority",
@@ -868,21 +868,21 @@
       "requires_human_review": true,
       "probabilities": {
         "direction": {
-          "no_material_change": 0.76,
+          "risk": 0.0,
+          "conclusion": 0.2,
           "improvement": 0.0,
-          "risk": 0.01,
-          "conclusion": 0.23
+          "no_material_change": 0.8
         },
         "materiality": {
-          "0": 0.42,
+          "0": 0.41,
           "1": 0.57,
-          "2": 0.01,
+          "2": 0.02,
           "3": 0.0
         },
         "source_sufficiency": {
-          "needs_primary_source_review": 0.05,
-          "sufficient_for_priority": 0.95,
-          "insufficient": 0.0
+          "sufficient_for_priority": 0.96,
+          "insufficient": 0.0,
+          "needs_primary_source_review": 0.04
         }
       },
       "model": "jev-1.13.0"
@@ -893,12 +893,12 @@
       "rule_direction": "risk",
       "jev_direction": "no_material_change",
       "jev_direction_label": "無實質變化",
-      "materiality_score": 0.83,
+      "materiality_score": 0.82,
       "materiality_label": "中",
-      "long_term_relevance_probability": 0.51,
+      "long_term_relevance_probability": 0.48,
       "source_sufficiency": "sufficient_for_priority",
       "source_sufficiency_label": "足以安排閱讀優先度",
-      "confidence_floor": 0.55,
+      "confidence_floor": 0.48,
       "direction_disagrees_with_rule": true,
       "uncertain": true,
       "route": "normal_human_review",
@@ -906,352 +906,10 @@
       "requires_human_review": true,
       "probabilities": {
         "direction": {
+          "conclusion": 0.38,
+          "no_material_change": 0.61,
           "improvement": 0.0,
-          "risk": 0.01,
-          "conclusion": 0.33,
-          "no_material_change": 0.66
-        },
-        "materiality": {
-          "0": 0.24,
-          "1": 0.69,
-          "2": 0.07,
-          "3": 0.0
-        },
-        "source_sufficiency": {
-          "sufficient_for_priority": 0.95,
-          "insufficient": 0.0,
-          "needs_primary_source_review": 0.05
-        }
-      },
-      "model": "jev-1.13.0"
-    },
-    {
-      "candidate_id": "020087bedfdd03ed",
-      "ticker": "META",
-      "rule_direction": "risk",
-      "jev_direction": "conclusion",
-      "jev_direction_label": "可能改變結論",
-      "materiality_score": 1.12,
-      "materiality_label": "中",
-      "long_term_relevance_probability": 0.55,
-      "source_sufficiency": "sufficient_for_priority",
-      "source_sufficiency_label": "足以安排閱讀優先度",
-      "confidence_floor": 0.4,
-      "direction_disagrees_with_rule": false,
-      "uncertain": true,
-      "route": "normal_human_review",
-      "route_label": "一般人工覆核",
-      "requires_human_review": true,
-      "probabilities": {
-        "direction": {
-          "risk": 0.02,
-          "no_material_change": 0.43,
-          "conclusion": 0.55,
-          "improvement": 0.0
-        },
-        "materiality": {
-          "0": 0.14,
-          "1": 0.61,
-          "2": 0.24,
-          "3": 0.01
-        },
-        "source_sufficiency": {
-          "needs_primary_source_review": 0.07,
-          "sufficient_for_priority": 0.93,
-          "insufficient": 0.0
-        }
-      },
-      "model": "jev-1.13.0"
-    },
-    {
-      "candidate_id": "db8f42e1df567aa4",
-      "ticker": "META",
-      "rule_direction": "risk",
-      "jev_direction": "no_material_change",
-      "jev_direction_label": "無實質變化",
-      "materiality_score": 0.25,
-      "materiality_label": "低",
-      "long_term_relevance_probability": 0.39,
-      "source_sufficiency": "sufficient_for_priority",
-      "source_sufficiency_label": "足以安排閱讀優先度",
-      "confidence_floor": 0.75,
-      "direction_disagrees_with_rule": true,
-      "uncertain": false,
-      "route": "normal_human_review",
-      "route_label": "一般人工覆核",
-      "requires_human_review": true,
-      "probabilities": {
-        "direction": {
-          "no_material_change": 0.89,
-          "improvement": 0.0,
-          "conclusion": 0.1,
           "risk": 0.01
-        },
-        "materiality": {
-          "0": 0.76,
-          "1": 0.24,
-          "2": 0.0,
-          "3": 0.0
-        },
-        "source_sufficiency": {
-          "sufficient_for_priority": 0.98,
-          "needs_primary_source_review": 0.02,
-          "insufficient": 0.0
-        }
-      },
-      "model": "jev-1.13.0"
-    },
-    {
-      "candidate_id": "e64de2a6cdc067f4",
-      "ticker": "AAPL",
-      "rule_direction": "risk",
-      "jev_direction": "no_material_change",
-      "jev_direction_label": "無實質變化",
-      "materiality_score": 0.61,
-      "materiality_label": "中",
-      "long_term_relevance_probability": 0.37,
-      "source_sufficiency": "sufficient_for_priority",
-      "source_sufficiency_label": "足以安排閱讀優先度",
-      "confidence_floor": 0.57,
-      "direction_disagrees_with_rule": true,
-      "uncertain": true,
-      "route": "normal_human_review",
-      "route_label": "一般人工覆核",
-      "requires_human_review": true,
-      "probabilities": {
-        "direction": {
-          "improvement": 0.0,
-          "no_material_change": 0.81,
-          "risk": 0.0,
-          "conclusion": 0.19
-        },
-        "materiality": {
-          "0": 0.41,
-          "1": 0.57,
-          "2": 0.02,
-          "3": 0.0
-        },
-        "source_sufficiency": {
-          "insufficient": 0.0,
-          "needs_primary_source_review": 0.03,
-          "sufficient_for_priority": 0.97
-        }
-      },
-      "model": "jev-1.13.0"
-    },
-    {
-      "candidate_id": "8a57903b43fa1256",
-      "ticker": "ONDS",
-      "rule_direction": "risk",
-      "jev_direction": "no_material_change",
-      "jev_direction_label": "無實質變化",
-      "materiality_score": 0.03,
-      "materiality_label": "低",
-      "long_term_relevance_probability": 0.22,
-      "source_sufficiency": "sufficient_for_priority",
-      "source_sufficiency_label": "足以安排閱讀優先度",
-      "confidence_floor": 0.89,
-      "direction_disagrees_with_rule": true,
-      "uncertain": false,
-      "route": "normal_human_review",
-      "route_label": "一般人工覆核",
-      "requires_human_review": true,
-      "probabilities": {
-        "direction": {
-          "conclusion": 0.08,
-          "improvement": 0.0,
-          "risk": 0.01,
-          "no_material_change": 0.91
-        },
-        "materiality": {
-          "0": 0.97,
-          "1": 0.03,
-          "2": 0.0,
-          "3": 0.0
-        },
-        "source_sufficiency": {
-          "insufficient": 0.0,
-          "sufficient_for_priority": 0.98,
-          "needs_primary_source_review": 0.02
-        }
-      },
-      "model": "jev-1.13.0"
-    },
-    {
-      "candidate_id": "8ab97c0a4cc47e69",
-      "ticker": "META",
-      "rule_direction": "risk",
-      "jev_direction": "no_material_change",
-      "jev_direction_label": "無實質變化",
-      "materiality_score": 1.03,
-      "materiality_label": "中",
-      "long_term_relevance_probability": 0.51,
-      "source_sufficiency": "sufficient_for_priority",
-      "source_sufficiency_label": "足以安排閱讀優先度",
-      "confidence_floor": 0.5,
-      "direction_disagrees_with_rule": true,
-      "uncertain": true,
-      "route": "normal_human_review",
-      "route_label": "一般人工覆核",
-      "requires_human_review": true,
-      "probabilities": {
-        "direction": {
-          "improvement": 0.0,
-          "risk": 0.01,
-          "conclusion": 0.37,
-          "no_material_change": 0.62
-        },
-        "materiality": {
-          "0": 0.14,
-          "1": 0.68,
-          "2": 0.17,
-          "3": 0.0
-        },
-        "source_sufficiency": {
-          "sufficient_for_priority": 0.96,
-          "insufficient": 0.0,
-          "needs_primary_source_review": 0.04
-        }
-      },
-      "model": "jev-1.13.0"
-    },
-    {
-      "candidate_id": "e320473c319576d5",
-      "ticker": "META",
-      "rule_direction": "risk",
-      "jev_direction": "no_material_change",
-      "jev_direction_label": "無實質變化",
-      "materiality_score": 0.83,
-      "materiality_label": "中",
-      "long_term_relevance_probability": 0.5,
-      "source_sufficiency": "sufficient_for_priority",
-      "source_sufficiency_label": "足以安排閱讀優先度",
-      "confidence_floor": 0.47,
-      "direction_disagrees_with_rule": true,
-      "uncertain": true,
-      "route": "normal_human_review",
-      "route_label": "一般人工覆核",
-      "requires_human_review": true,
-      "probabilities": {
-        "direction": {
-          "conclusion": 0.39,
-          "improvement": 0.0,
-          "risk": 0.01,
-          "no_material_change": 0.6
-        },
-        "materiality": {
-          "0": 0.24,
-          "1": 0.7,
-          "2": 0.06,
-          "3": 0.0
-        },
-        "source_sufficiency": {
-          "insufficient": 0.0,
-          "needs_primary_source_review": 0.05,
-          "sufficient_for_priority": 0.95
-        }
-      },
-      "model": "jev-1.13.0"
-    },
-    {
-      "candidate_id": "ba44cc91e1c646d4",
-      "ticker": "AAPL",
-      "rule_direction": "risk",
-      "jev_direction": "no_material_change",
-      "jev_direction_label": "無實質變化",
-      "materiality_score": 0.52,
-      "materiality_label": "中",
-      "long_term_relevance_probability": 0.33,
-      "source_sufficiency": "sufficient_for_priority",
-      "source_sufficiency_label": "足以安排閱讀優先度",
-      "confidence_floor": 0.5,
-      "direction_disagrees_with_rule": true,
-      "uncertain": true,
-      "route": "normal_human_review",
-      "route_label": "一般人工覆核",
-      "requires_human_review": true,
-      "probabilities": {
-        "direction": {
-          "improvement": 0.0,
-          "conclusion": 0.18,
-          "no_material_change": 0.82,
-          "risk": 0.0
-        },
-        "materiality": {
-          "0": 0.49,
-          "1": 0.5,
-          "2": 0.01,
-          "3": 0.0
-        },
-        "source_sufficiency": {
-          "needs_primary_source_review": 0.04,
-          "insufficient": 0.0,
-          "sufficient_for_priority": 0.96
-        }
-      },
-      "model": "jev-1.13.0"
-    },
-    {
-      "candidate_id": "ebd360c4148ae1f4",
-      "ticker": "META",
-      "rule_direction": "risk",
-      "jev_direction": "no_material_change",
-      "jev_direction_label": "無實質變化",
-      "materiality_score": 0.84,
-      "materiality_label": "中",
-      "long_term_relevance_probability": 0.49,
-      "source_sufficiency": "sufficient_for_priority",
-      "source_sufficiency_label": "足以安排閱讀優先度",
-      "confidence_floor": 0.49,
-      "direction_disagrees_with_rule": true,
-      "uncertain": true,
-      "route": "normal_human_review",
-      "route_label": "一般人工覆核",
-      "requires_human_review": true,
-      "probabilities": {
-        "direction": {
-          "improvement": 0.0,
-          "risk": 0.01,
-          "conclusion": 0.37,
-          "no_material_change": 0.62
-        },
-        "materiality": {
-          "0": 0.25,
-          "1": 0.66,
-          "2": 0.09,
-          "3": 0.0
-        },
-        "source_sufficiency": {
-          "sufficient_for_priority": 0.96,
-          "insufficient": 0.0,
-          "needs_primary_source_review": 0.04
-        }
-      },
-      "model": "jev-1.13.0"
-    },
-    {
-      "candidate_id": "fb3f9f4f74aa982a",
-      "ticker": "META",
-      "rule_direction": "risk",
-      "jev_direction": "no_material_change",
-      "jev_direction_label": "無實質變化",
-      "materiality_score": 0.81,
-      "materiality_label": "中",
-      "long_term_relevance_probability": 0.49,
-      "source_sufficiency": "sufficient_for_priority",
-      "source_sufficiency_label": "足以安排閱讀優先度",
-      "confidence_floor": 0.55,
-      "direction_disagrees_with_rule": true,
-      "uncertain": true,
-      "route": "normal_human_review",
-      "route_label": "一般人工覆核",
-      "requires_human_review": true,
-      "probabilities": {
-        "direction": {
-          "no_material_change": 0.66,
-          "conclusion": 0.33,
-          "risk": 0.01,
-          "improvement": 0.0
         },
         "materiality": {
           "0": 0.24,
@@ -1268,17 +926,17 @@
       "model": "jev-1.13.0"
     },
     {
-      "candidate_id": "7d25c8164154f7ab",
-      "ticker": "MSFT",
+      "candidate_id": "020087bedfdd03ed",
+      "ticker": "META",
       "rule_direction": "risk",
       "jev_direction": "no_material_change",
       "jev_direction_label": "無實質變化",
-      "materiality_score": 0.85,
+      "materiality_score": 1.14,
       "materiality_label": "中",
-      "long_term_relevance_probability": 0.44,
+      "long_term_relevance_probability": 0.56,
       "source_sufficiency": "sufficient_for_priority",
       "source_sufficiency_label": "足以安排閱讀優先度",
-      "confidence_floor": 0.67,
+      "confidence_floor": 0.41,
       "direction_disagrees_with_rule": true,
       "uncertain": true,
       "route": "normal_human_review",
@@ -1286,15 +944,281 @@
       "requires_human_review": true,
       "probabilities": {
         "direction": {
-          "conclusion": 0.25,
-          "no_material_change": 0.75,
           "improvement": 0.0,
+          "no_material_change": 0.56,
+          "conclusion": 0.43,
+          "risk": 0.01
+        },
+        "materiality": {
+          "0": 0.14,
+          "1": 0.59,
+          "2": 0.26,
+          "3": 0.01
+        },
+        "source_sufficiency": {
+          "insufficient": 0.0,
+          "needs_primary_source_review": 0.07,
+          "sufficient_for_priority": 0.93
+        }
+      },
+      "model": "jev-1.13.0"
+    },
+    {
+      "candidate_id": "db8f42e1df567aa4",
+      "ticker": "META",
+      "rule_direction": "risk",
+      "jev_direction": "no_material_change",
+      "jev_direction_label": "無實質變化",
+      "materiality_score": 0.26,
+      "materiality_label": "低",
+      "long_term_relevance_probability": 0.41,
+      "source_sufficiency": "sufficient_for_priority",
+      "source_sufficiency_label": "足以安排閱讀優先度",
+      "confidence_floor": 0.74,
+      "direction_disagrees_with_rule": true,
+      "uncertain": false,
+      "route": "normal_human_review",
+      "route_label": "一般人工覆核",
+      "requires_human_review": true,
+      "probabilities": {
+        "direction": {
+          "improvement": 0.0,
+          "risk": 0.01,
+          "no_material_change": 0.93,
+          "conclusion": 0.06
+        },
+        "materiality": {
+          "0": 0.74,
+          "1": 0.25,
+          "2": 0.01,
+          "3": 0.0
+        },
+        "source_sufficiency": {
+          "needs_primary_source_review": 0.03,
+          "insufficient": 0.0,
+          "sufficient_for_priority": 0.97
+        }
+      },
+      "model": "jev-1.13.0"
+    },
+    {
+      "candidate_id": "e64de2a6cdc067f4",
+      "ticker": "AAPL",
+      "rule_direction": "risk",
+      "jev_direction": "no_material_change",
+      "jev_direction_label": "無實質變化",
+      "materiality_score": 0.55,
+      "materiality_label": "中",
+      "long_term_relevance_probability": 0.39,
+      "source_sufficiency": "sufficient_for_priority",
+      "source_sufficiency_label": "足以安排閱讀優先度",
+      "confidence_floor": 0.53,
+      "direction_disagrees_with_rule": true,
+      "uncertain": true,
+      "route": "normal_human_review",
+      "route_label": "一般人工覆核",
+      "requires_human_review": true,
+      "probabilities": {
+        "direction": {
+          "conclusion": 0.22,
+          "improvement": 0.0,
+          "no_material_change": 0.78,
           "risk": 0.0
         },
         "materiality": {
-          "0": 0.24,
-          "1": 0.68,
+          "0": 0.46,
+          "1": 0.53,
+          "2": 0.01,
+          "3": 0.0
+        },
+        "source_sufficiency": {
+          "needs_primary_source_review": 0.04,
+          "sufficient_for_priority": 0.96,
+          "insufficient": 0.0
+        }
+      },
+      "model": "jev-1.13.0"
+    },
+    {
+      "candidate_id": "8a57903b43fa1256",
+      "ticker": "ONDS",
+      "rule_direction": "risk",
+      "jev_direction": "no_material_change",
+      "jev_direction_label": "無實質變化",
+      "materiality_score": 0.04,
+      "materiality_label": "低",
+      "long_term_relevance_probability": 0.23,
+      "source_sufficiency": "sufficient_for_priority",
+      "source_sufficiency_label": "足以安排閱讀優先度",
+      "confidence_floor": 0.9,
+      "direction_disagrees_with_rule": true,
+      "uncertain": false,
+      "route": "normal_human_review",
+      "route_label": "一般人工覆核",
+      "requires_human_review": true,
+      "probabilities": {
+        "direction": {
+          "conclusion": 0.07,
+          "no_material_change": 0.92,
+          "risk": 0.01,
+          "improvement": 0.0
+        },
+        "materiality": {
+          "0": 0.97,
+          "1": 0.03,
+          "2": 0.0,
+          "3": 0.0
+        },
+        "source_sufficiency": {
+          "insufficient": 0.0,
+          "sufficient_for_priority": 0.99,
+          "needs_primary_source_review": 0.01
+        }
+      },
+      "model": "jev-1.13.0"
+    },
+    {
+      "candidate_id": "8ab97c0a4cc47e69",
+      "ticker": "META",
+      "rule_direction": "risk",
+      "jev_direction": "no_material_change",
+      "jev_direction_label": "無實質變化",
+      "materiality_score": 0.95,
+      "materiality_label": "中",
+      "long_term_relevance_probability": 0.5,
+      "source_sufficiency": "sufficient_for_priority",
+      "source_sufficiency_label": "足以安排閱讀優先度",
+      "confidence_floor": 0.51,
+      "direction_disagrees_with_rule": true,
+      "uncertain": true,
+      "route": "normal_human_review",
+      "route_label": "一般人工覆核",
+      "requires_human_review": true,
+      "probabilities": {
+        "direction": {
+          "improvement": 0.0,
+          "risk": 0.01,
+          "conclusion": 0.36,
+          "no_material_change": 0.63
+        },
+        "materiality": {
+          "0": 0.18,
+          "1": 0.69,
+          "2": 0.13,
+          "3": 0.0
+        },
+        "source_sufficiency": {
+          "needs_primary_source_review": 0.05,
+          "sufficient_for_priority": 0.95,
+          "insufficient": 0.0
+        }
+      },
+      "model": "jev-1.13.0"
+    },
+    {
+      "candidate_id": "e320473c319576d5",
+      "ticker": "META",
+      "rule_direction": "risk",
+      "jev_direction": "no_material_change",
+      "jev_direction_label": "無實質變化",
+      "materiality_score": 0.9,
+      "materiality_label": "中",
+      "long_term_relevance_probability": 0.5,
+      "source_sufficiency": "sufficient_for_priority",
+      "source_sufficiency_label": "足以安排閱讀優先度",
+      "confidence_floor": 0.44,
+      "direction_disagrees_with_rule": true,
+      "uncertain": true,
+      "route": "normal_human_review",
+      "route_label": "一般人工覆核",
+      "requires_human_review": true,
+      "probabilities": {
+        "direction": {
+          "improvement": 0.0,
+          "no_material_change": 0.58,
+          "risk": 0.01,
+          "conclusion": 0.41
+        },
+        "materiality": {
+          "0": 0.18,
+          "1": 0.74,
           "2": 0.08,
+          "3": 0.0
+        },
+        "source_sufficiency": {
+          "sufficient_for_priority": 0.95,
+          "insufficient": 0.0,
+          "needs_primary_source_review": 0.05
+        }
+      },
+      "model": "jev-1.13.0"
+    },
+    {
+      "candidate_id": "ba44cc91e1c646d4",
+      "ticker": "AAPL",
+      "rule_direction": "risk",
+      "jev_direction": "no_material_change",
+      "jev_direction_label": "無實質變化",
+      "materiality_score": 0.53,
+      "materiality_label": "中",
+      "long_term_relevance_probability": 0.34,
+      "source_sufficiency": "sufficient_for_priority",
+      "source_sufficiency_label": "足以安排閱讀優先度",
+      "confidence_floor": 0.5,
+      "direction_disagrees_with_rule": true,
+      "uncertain": true,
+      "route": "normal_human_review",
+      "route_label": "一般人工覆核",
+      "requires_human_review": true,
+      "probabilities": {
+        "direction": {
+          "risk": 0.0,
+          "improvement": 0.0,
+          "conclusion": 0.18,
+          "no_material_change": 0.8200000000000001
+        },
+        "materiality": {
+          "0": 0.48,
+          "1": 0.51,
+          "2": 0.01,
+          "3": 0.0
+        },
+        "source_sufficiency": {
+          "insufficient": 0.0,
+          "needs_primary_source_review": 0.05,
+          "sufficient_for_priority": 0.95
+        }
+      },
+      "model": "jev-1.13.0"
+    },
+    {
+      "candidate_id": "ebd360c4148ae1f4",
+      "ticker": "META",
+      "rule_direction": "risk",
+      "jev_direction": "no_material_change",
+      "jev_direction_label": "無實質變化",
+      "materiality_score": 0.85,
+      "materiality_label": "中",
+      "long_term_relevance_probability": 0.47,
+      "source_sufficiency": "sufficient_for_priority",
+      "source_sufficiency_label": "足以安排閱讀優先度",
+      "confidence_floor": 0.6,
+      "direction_disagrees_with_rule": true,
+      "uncertain": true,
+      "route": "normal_human_review",
+      "route_label": "一般人工覆核",
+      "requires_human_review": true,
+      "probabilities": {
+        "direction": {
+          "improvement": 0.0,
+          "no_material_change": 0.71,
+          "risk": 0.0,
+          "conclusion": 0.29
+        },
+        "materiality": {
+          "0": 0.24,
+          "1": 0.67,
+          "2": 0.09,
           "3": 0.0
         },
         "source_sufficiency": {
@@ -1306,17 +1230,93 @@
       "model": "jev-1.13.0"
     },
     {
+      "candidate_id": "fb3f9f4f74aa982a",
+      "ticker": "META",
+      "rule_direction": "risk",
+      "jev_direction": "no_material_change",
+      "jev_direction_label": "無實質變化",
+      "materiality_score": 0.91,
+      "materiality_label": "中",
+      "long_term_relevance_probability": 0.49,
+      "source_sufficiency": "sufficient_for_priority",
+      "source_sufficiency_label": "足以安排閱讀優先度",
+      "confidence_floor": 0.52,
+      "direction_disagrees_with_rule": true,
+      "uncertain": true,
+      "route": "normal_human_review",
+      "route_label": "一般人工覆核",
+      "requires_human_review": true,
+      "probabilities": {
+        "direction": {
+          "risk": 0.01,
+          "improvement": 0.0,
+          "no_material_change": 0.64,
+          "conclusion": 0.35
+        },
+        "materiality": {
+          "0": 0.19,
+          "1": 0.72,
+          "2": 0.09,
+          "3": 0.0
+        },
+        "source_sufficiency": {
+          "sufficient_for_priority": 0.94,
+          "insufficient": 0.0,
+          "needs_primary_source_review": 0.06
+        }
+      },
+      "model": "jev-1.13.0"
+    },
+    {
+      "candidate_id": "7d25c8164154f7ab",
+      "ticker": "MSFT",
+      "rule_direction": "risk",
+      "jev_direction": "no_material_change",
+      "jev_direction_label": "無實質變化",
+      "materiality_score": 0.86,
+      "materiality_label": "中",
+      "long_term_relevance_probability": 0.43,
+      "source_sufficiency": "sufficient_for_priority",
+      "source_sufficiency_label": "足以安排閱讀優先度",
+      "confidence_floor": 0.68,
+      "direction_disagrees_with_rule": true,
+      "uncertain": true,
+      "route": "normal_human_review",
+      "route_label": "一般人工覆核",
+      "requires_human_review": true,
+      "probabilities": {
+        "direction": {
+          "risk": 0.01,
+          "no_material_change": 0.78,
+          "improvement": 0.0,
+          "conclusion": 0.21
+        },
+        "materiality": {
+          "0": 0.23,
+          "1": 0.68,
+          "2": 0.08,
+          "3": 0.0
+        },
+        "source_sufficiency": {
+          "needs_primary_source_review": 0.04,
+          "sufficient_for_priority": 0.96,
+          "insufficient": 0.0
+        }
+      },
+      "model": "jev-1.13.0"
+    },
+    {
       "candidate_id": "60d781af59a3c676",
       "ticker": "MSFT",
       "rule_direction": "risk",
       "jev_direction": "no_material_change",
       "jev_direction_label": "無實質變化",
-      "materiality_score": 0.13,
+      "materiality_score": 0.11,
       "materiality_label": "低",
-      "long_term_relevance_probability": 0.31,
+      "long_term_relevance_probability": 0.29,
       "source_sufficiency": "sufficient_for_priority",
       "source_sufficiency_label": "足以安排閱讀優先度",
-      "confidence_floor": 0.87,
+      "confidence_floor": 0.89,
       "direction_disagrees_with_rule": true,
       "uncertain": false,
       "route": "normal_human_review",
@@ -1324,21 +1324,21 @@
       "requires_human_review": true,
       "probabilities": {
         "direction": {
+          "risk": 0.01,
           "improvement": 0.0,
-          "no_material_change": 0.96,
-          "conclusion": 0.03,
-          "risk": 0.01
+          "conclusion": 0.06,
+          "no_material_change": 0.93
         },
         "materiality": {
-          "0": 0.87,
-          "1": 0.13,
+          "0": 0.89,
+          "1": 0.11,
           "2": 0.0,
           "3": 0.0
         },
         "source_sufficiency": {
           "sufficient_for_priority": 0.97,
-          "needs_primary_source_review": 0.03,
-          "insufficient": 0.0
+          "insufficient": 0.0,
+          "needs_primary_source_review": 0.03
         }
       },
       "model": "jev-1.13.0"
