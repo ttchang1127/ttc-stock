@@ -1,17 +1,17 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-04T00:21:34+08:00",
-  "current_snapshot_id": "16e71eef93ca6e7f",
-  "previous_snapshot_id": "7dbbefed45a488ca",
-  "batch_id": "d57902f3fbde",
+  "updated_at": "2026-10-05T10:05:45+08:00",
+  "current_snapshot_id": "3560344ca230ba48",
+  "previous_snapshot_id": "16e71eef93ca6e7f",
+  "batch_id": "e4a0b16b68d8",
   "notify_count": 0,
   "critical_count": 0,
   "notification_policy": "首次建立比較基準，不發通知，也不回填不存在的財報前判斷；之後只通知財報前／後階段、新季度、官方指引、KPI 風險／改善、指引驗證與論點結論變化。每日倒數與未跨狀態的數值波動不通知。",
   "notifications": [],
   "current": {
-    "snapshot_id": "16e71eef93ca6e7f",
-    "captured_at": "2026-10-04T00:21:34+08:00",
-    "source_date": "2026-10-04",
+    "snapshot_id": "3560344ca230ba48",
+    "captured_at": "2026-10-05T10:05:45+08:00",
+    "source_date": "2026-10-05",
     "companies": {
       "INTC": {
         "ticker": "INTC",
@@ -342,8 +342,8 @@
       "COHR": {
         "ticker": "COHR",
         "position": "holding",
-        "phase": "scheduled_later",
-        "phase_label": "已知日期，尚未進入 30 天",
+        "phase": "upcoming",
+        "phase_label": "30 天內將公布",
         "next_earnings": {
           "date": "2026-11-04",
           "confidence": "estimated",
@@ -795,8 +795,8 @@
       "ARM": {
         "ticker": "ARM",
         "position": "holding",
-        "phase": "scheduled_later",
-        "phase_label": "已知日期，尚未進入 30 天",
+        "phase": "upcoming",
+        "phase_label": "30 天內將公布",
         "next_earnings": {
           "date": "2026-11-04",
           "confidence": "estimated",
@@ -2287,6 +2287,13 @@
     }
   },
   "history": [
+    {
+      "snapshot_id": "3560344ca230ba48",
+      "captured_at": "2026-10-05T10:05:45+08:00",
+      "source_date": "2026-10-05",
+      "notify_count": 0,
+      "notifications": []
+    },
     {
       "snapshot_id": "16e71eef93ca6e7f",
       "captured_at": "2026-09-29T10:38:27+08:00",
