@@ -1,7 +1,7 @@
 {
   "schema_version": 3,
   "parser_version": 16,
-  "updated_at": "2026-10-03T09:40:38+00:00",
+  "updated_at": "2026-10-06T11:01:28+00:00",
   "source": "Official company investor-relations pages and explicitly allow-listed linked hosts",
   "methodology": "Official text only; no audio transcription; short verbatim evidence; missing stays missing; no sentiment score",
   "source_types": {
@@ -97,9 +97,8 @@
       },
       "errors": [],
       "link_check": {
-        "status": "unverified",
-        "http_status": 403,
-        "reason": "HTTP 403"
+        "status": "reachable",
+        "http_status": 200
       },
       "history": [],
       "history_coverage": {
@@ -3352,7 +3351,6 @@
         "landing_host": "investor.tsmc.com",
         "material_host": "investor.tsmc.com"
       },
-      "status": "analyzed",
       "categories": {
         "demand_growth": [
           {
@@ -3399,9 +3397,12 @@
         "call_only_topics": [],
         "meaning": "沒有同公司可比的嚴格 Exhibit 99.1 卡，因此不推測兩份資料差異。"
       },
-      "errors": [],
-      "last_verified_at": "2026-09-27T09:58:11+00:00",
       "card": "20_Filings/TSM/analysis/TSM_2026_Q2_Earnings_Call.md",
+      "last_verified_at": "2026-09-27T09:58:11+00:00",
+      "status": "analyzed_cached",
+      "errors": [
+        "本次下載失敗，保留上次已驗證卡：URLError"
+      ],
       "history": [
         {
           "period": "2026 Q2",
@@ -3413,7 +3414,7 @@
           ],
           "source_type": "full_transcript",
           "source_label": "完整官方逐字稿",
-          "status": "analyzed",
+          "status": "analyzed_cached",
           "categories": {
             "demand_growth": [
               {
@@ -3461,7 +3462,9 @@
           },
           "card": "20_Filings/TSM/analysis/TSM_2026_Q2_Earnings_Call.md",
           "last_verified_at": "2026-09-27T09:58:11+00:00",
-          "errors": []
+          "errors": [
+            "本次下載失敗，保留上次已驗證卡：URLError"
+          ]
         },
         {
           "period": "2026 Q1",
@@ -3473,7 +3476,7 @@
           ],
           "source_type": "full_transcript",
           "source_label": "完整官方逐字稿",
-          "status": "analyzed",
+          "status": "analyzed_cached",
           "categories": {
             "demand_growth": [
               {
@@ -3531,7 +3534,9 @@
           },
           "card": "20_Filings/TSM/analysis/TSM_2026_Q1_Earnings_Call.md",
           "last_verified_at": "2026-08-30T00:29:08+00:00",
-          "errors": []
+          "errors": [
+            "本次下載失敗，保留上次已驗證卡：URLError"
+          ]
         },
         {
           "period": "2025 Q4",
@@ -3801,7 +3806,8 @@
         }
       ],
       "discovery": {
-        "status": "checked",
+        "status": "unverified",
+        "reason": "URLError",
         "newer_candidates": []
       },
       "freshness": {

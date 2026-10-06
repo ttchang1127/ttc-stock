@@ -1,6 +1,6 @@
 ---
 title: Form 144＋3／4／5 彙總
-updated_at: 2026-10-03T09:39:49+00:00
+updated_at: 2026-10-06T11:00:32+00:00
 tags:
   - sec/insiders
 ---
@@ -9,6 +9,10 @@ tags:
 
 | 申報日 | 公司 | 表單 | 數字／意義 | SEC |
 |---|---|---|---|---|
+| 2026-10-05 | **AAPL** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/320193/000114036126038674/xslF345X06/form4.xml) |
+| 2026-10-05 | **AAPL** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/320193/000114036126038672/xslF345X06/form4.xml) |
+| 2026-10-05 | **AAPL** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/320193/000114036126038669/xslF345X06/form4.xml) |
+| 2026-10-05 | **AAPL** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/320193/000114036126038667/xslF345X06/form4.xml) |
 | 2026-10-02 | **AAPL** | 144 | John Ternus；擬售 25,412 股／$8,479,730，約占流通股 0.000% | [原文](https://www.sec.gov/Archives/edgar/data/320193/000195824426000636/xsl144X01/primary_doc.xml) |
 | 2026-10-02 | **AAPL** | 144 | COOK TIMOTHY D；擬售 218,078 股／$3,329,584，約占流通股 0.001% | [原文](https://www.sec.gov/Archives/edgar/data/320193/000195917326007235/xsl144X01/primary_doc.xml) |
 | 2026-10-02 | **AAPL** | 144 | O'BRIEN DEIRDRE；擬售 46,389 股／$15,459,598，約占流通股 0.003% | [原文](https://www.sec.gov/Archives/edgar/data/320193/000196922326001055/xsl144X01/primary_doc.xml) |
@@ -17,10 +21,7 @@ tags:
 | 2026-09-29 | **AAPL** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/320193/000114036126038027/xslF345X06/form4.xml) |
 | 2026-09-29 | **AAPL** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/320193/000114036126038026/xslF345X06/form4.xml) |
 | 2026-09-29 | **AAPL** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/320193/000114036126038024/xslF345X06/form4.xml) |
-| 2026-09-29 | **AAPL** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/320193/000114036126038022/xslF345X06/form4.xml) |
-| 2026-09-29 | **AAPL** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/320193/000114036126038021/xslF345X06/form4.xml) |
-| 2026-09-24 | **AAPL** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/320193/000114036126037584/xslF345X06/form4.xml) |
-| 2026-09-22 | **AAPL** | 144 | JENNIFER NEWSTEAD；擬售 31,182 股／$10,570,074，約占流通股 0.000% | [原文](https://www.sec.gov/Archives/edgar/data/320193/000195004726009738/xsl144X01/primary_doc.xml) |
+| 2026-10-05 | **AMZN** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000193600626000026/xslF345X06/wk-form4_1791230893.xml) |
 | 2026-09-09 | **AMZN** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000128432326000002/xslF345X06/wk-form4_1788987268.xml) |
 | 2026-09-09 | **AMZN** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000159560226000007/xslF345X06/wk-form4_1788986939.xml) |
 | 2026-09-09 | **AMZN** | 3 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000159560226000005/xslF345X06/wk-form3_1788986593.xml) |
@@ -32,7 +33,6 @@ tags:
 | 2026-08-25 | **AMZN** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000193600626000022/xslF345X06/wk-form4_1787691176.xml) |
 | 2026-08-25 | **AMZN** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000155797926000008/xslF345X06/wk-form4_1787690696.xml) |
 | 2026-08-25 | **AMZN** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000163990226000008/xslF345X06/wk-form4_1787690246.xml) |
-| 2026-08-25 | **AMZN** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000139733326000006/xslF345X06/wk-form4_1787689790.xml) |
 | 2026-09-23 | **ARM** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1973239/000197323926000136/xslF345X06/wk-form4_1790197563.xml) |
 | 2026-09-21 | **ARM** | 144 | Child Jason；擬售 10,400 股／$3,120,000，約占流通股 0.001% | [原文](https://www.sec.gov/Archives/edgar/data/1973239/000195917326007048/xsl144X01/primary_doc.xml) |
 | 2026-09-16 | **ARM** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1973239/000197323926000133/xslF345X06/wk-form4_1789594015.xml) |
@@ -45,6 +45,7 @@ tags:
 | 2026-06-03 | **ARM** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1973239/000197323926000105/xslF345X06/wk-form4_1780519586.xml) |
 | 2026-06-01 | **ARM** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1973239/000197323926000103/xslF345X06/wk-form4_1780345980.xml) |
 | 2026-05-26 | **ARM** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1973239/000197323926000101/xslF345X06/wk-form4_1779832863.xml) |
+| 2026-10-05 | **COHR** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/820318/000089914026001089/xslF345X06/form4.xml) |
 | 2026-09-15 | **COHR** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/820318/000089914026001064/xslF345X06/form4.xml) |
 | 2026-09-11 | **COHR** | 144 | ENRICO DIGIROLAMO；擬售 5,315 股／$1,626,310，約占流通股 0.003% | [原文](https://www.sec.gov/Archives/edgar/data/820318/000195004726009333/xsl144X01/primary_doc.xml) |
 | 2026-09-11 | **COHR** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/820318/000089914026001056/xslF345X06/form4.xml) |
@@ -56,7 +57,6 @@ tags:
 | 2026-09-02 | **COHR** | 144 | LISA NEAL-GRAVES；擬售 2,200 股／$590,524，約占流通股 0.001% | [原文](https://www.sec.gov/Archives/edgar/data/820318/000195004726008984/xsl144X01/primary_doc.xml) |
 | 2026-09-01 | **COHR** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/820318/000089914026001040/xslF345X06/form4.xml) |
 | 2026-09-01 | **COHR** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/820318/000089914026001039/xslF345X06/form4.xml) |
-| 2026-09-01 | **COHR** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/820318/000089914026001038/xslF345X06/form4.xml) |
 | 2026-10-02 | **GOOGL** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526412669/xslF345X06/ownership.xml) |
 | 2026-09-30 | **GOOGL** | 144 | ARNOLD FRANCES；擬售 83 股／$28,257，約占流通股 0.000% | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000192109426001058/xsl144X01/primary_doc.xml) |
 | 2026-09-29 | **GOOGL** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1652044/000119312526408019/xslF345X06/ownership.xml) |
@@ -81,6 +81,7 @@ tags:
 | 2026-05-22 | **INTC** | 3 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/50863/000005086326000135/xslF345X06/form3.xml) |
 | 2026-05-15 | **INTC** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/50863/000005086326000128/xslF345X06/form4.xml) |
 | 2026-05-15 | **INTC** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/50863/000005086326000127/xslF345X06/form4.xml) |
+| 2026-10-05 | **META** | 144 | Olivan Javier；擬售 1,575 股／$1,146,726，約占流通股 0.000% | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000192109426001069/xsl144X01/primary_doc.xml) |
 | 2026-09-30 | **META** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000095010326014886/xslF345X06/ownership.xml) |
 | 2026-09-28 | **META** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000095010326014647/xslF345X06/ownership.xml) |
 | 2026-09-28 | **META** | 144 | Olivan Javier；擬售 1,575 股／$1,180,966，約占流通股 0.000% | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000192109426001053/xsl144X01/primary_doc.xml) |
@@ -92,7 +93,6 @@ tags:
 | 2026-09-17 | **META** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000095010326014140/xslF345X06/ownership.xml) |
 | 2026-09-16 | **META** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000095010326014061/xslF345X06/ownership.xml) |
 | 2026-09-15 | **META** | 144 | Cox Christopher K；擬售 20,000 股／$13,504,556，約占流通股 0.001% | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000192109426001023/xsl144X01/primary_doc.xml) |
-| 2026-09-14 | **META** | 144 | Olivan Javier；擬售 1,575 股／$1,035,925，約占流通股 0.000% | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000192109426001013/xsl144X01/primary_doc.xml) |
 | 2026-10-01 | **MRVL** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1835632/000162828026064351/xslF345X06/wk-form4_1790903947.xml) |
 | 2026-10-01 | **MRVL** | 144 | KOOPMANS FAMILY TRUST U/A DTD 03/28/2013；擬售 10,000 股／$2,620,515，約占流通股 0.001% | [原文](https://www.sec.gov/Archives/edgar/data/1835632/000195004726009912/xsl144X01/primary_doc.xml) |
 | 2026-09-16 | **MRVL** | 4 | 初始持股／交易／延後申報；需搭配交易代碼判讀。 | [原文](https://www.sec.gov/Archives/edgar/data/1835632/000162828026062334/xslF345X06/wk-form4_1789598794.xml) |

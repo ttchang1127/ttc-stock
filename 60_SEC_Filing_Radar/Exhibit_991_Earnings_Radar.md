@@ -1,6 +1,6 @@
 ---
 title: Exhibit 99.1 財報分析卡雷達
-updated_at: 2026-10-03T09:40:09+00:00
+updated_at: 2026-10-06T11:01:07+00:00
 tags:
   - sec/exhibit991
 ---

@@ -1,18 +1,18 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-03T09:39:49+00:00",
+  "generated_at": "2026-10-06T11:00:32+00:00",
   "editorial_reviewed_at": "2026-09-12T18:31:51+08:00",
   "editorial_window_end": "2026-09-12",
   "status": "pending_ai_review",
-  "candidate_count": 35,
+  "candidate_count": 39,
   "company_count": 12,
   "counts": {
-    "risk": 27,
+    "risk": 31,
     "improvement": 0,
     "conclusion": 8
   },
   "calibration_updated_at": "2026-09-12T18:31:51+08:00",
-  "lower_priority_count": 24,
+  "lower_priority_count": 28,
   "method": "規則只建立候選：新風險、改善或可能改變結論；不得自動寫入正式 AI 判讀。",
   "candidates": [
     {
@@ -830,6 +830,242 @@
       }
     },
     {
+      "id": "6a2b826af09d8a6f",
+      "ticker": "AAPL",
+      "type": "risk",
+      "type_label": "🔴 新增風險候選",
+      "status": "pending_ai_review",
+      "confidence": "low",
+      "rule_key": "form4_sell_10b5_1",
+      "materiality": {
+        "transaction_value_usd": 15466923.15,
+        "max_transaction_holding_percent": 22.251213161643896,
+        "planned_transaction_count": 2,
+        "transaction_count": 2
+      },
+      "display_priority": "low",
+      "priority_reason": "已覆核 14 個樣本，採納率 0% ≤ 20%，只降低顯示優先級、不刪除事件。",
+      "headline": "Form 4 出現 2 列賣出，列為風險候選",
+      "evidence": [
+        "已知賣出金額合計 $15.5M；其中 2/2 列標示 10b5-1。",
+        "單筆最高約占交易前直接持股 22.25%。",
+        "10b5-1 是預先安排交易，訊號強度低於臨時主動賣出。"
+      ],
+      "why_candidate": "內部人賣出需看計畫屬性、持股比例與交易規模，不直接等於看空。",
+      "filing_date": "2026-10-05",
+      "detected_at": "2026-10-06T11:00:32+00:00",
+      "source_keys": [
+        "0001140361-26-038672"
+      ],
+      "sources": [
+        {
+          "label": "SEC 4",
+          "url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126038672/xslF345X06/form4.xml"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 14,
+        "accepted_count": 0,
+        "acceptance_rate": 0.0,
+        "sample_status": "enough"
+      }
+    },
+    {
+      "id": "e4aa1b7da8015b98",
+      "ticker": "AAPL",
+      "type": "risk",
+      "type_label": "🔴 新增風險候選",
+      "status": "pending_ai_review",
+      "confidence": "low",
+      "rule_key": "form4_sell_10b5_1",
+      "materiality": {
+        "transaction_value_usd": 63845841.04,
+        "max_transaction_holding_percent": 2.6003997305266933,
+        "planned_transaction_count": 4,
+        "transaction_count": 4
+      },
+      "display_priority": "low",
+      "priority_reason": "已覆核 14 個樣本，採納率 0% ≤ 20%，只降低顯示優先級、不刪除事件。",
+      "headline": "Form 4 出現 4 列賣出，列為風險候選",
+      "evidence": [
+        "已知賣出金額合計 $63.8M；其中 4/4 列標示 10b5-1。",
+        "單筆最高約占交易前直接持股 2.60%。",
+        "10b5-1 是預先安排交易，訊號強度低於臨時主動賣出。"
+      ],
+      "why_candidate": "內部人賣出需看計畫屬性、持股比例與交易規模，不直接等於看空。",
+      "filing_date": "2026-10-05",
+      "detected_at": "2026-10-06T11:00:32+00:00",
+      "source_keys": [
+        "0001140361-26-038674"
+      ],
+      "sources": [
+        {
+          "label": "SEC 4",
+          "url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126038674/xslF345X06/form4.xml"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 14,
+        "accepted_count": 0,
+        "acceptance_rate": 0.0,
+        "sample_status": "enough"
+      }
+    },
+    {
+      "id": "ee8e5dfe12ee15a8",
+      "ticker": "AAPL",
+      "type": "risk",
+      "type_label": "🔴 新增風險候選",
+      "status": "pending_ai_review",
+      "confidence": "low",
+      "rule_key": "form4_sell_10b5_1",
+      "materiality": {
+        "transaction_value_usd": 8460740.14,
+        "max_transaction_holding_percent": 16.756280647324072,
+        "planned_transaction_count": 4,
+        "transaction_count": 4
+      },
+      "display_priority": "low",
+      "priority_reason": "已覆核 14 個樣本，採納率 0% ≤ 20%，只降低顯示優先級、不刪除事件。",
+      "headline": "Form 4 出現 4 列賣出，列為風險候選",
+      "evidence": [
+        "已知賣出金額合計 $8.5M；其中 4/4 列標示 10b5-1。",
+        "單筆最高約占交易前直接持股 16.76%。",
+        "10b5-1 是預先安排交易，訊號強度低於臨時主動賣出。"
+      ],
+      "why_candidate": "內部人賣出需看計畫屬性、持股比例與交易規模，不直接等於看空。",
+      "filing_date": "2026-10-05",
+      "detected_at": "2026-10-06T11:00:32+00:00",
+      "source_keys": [
+        "0001140361-26-038669"
+      ],
+      "sources": [
+        {
+          "label": "SEC 4",
+          "url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126038669/xslF345X06/form4.xml"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 14,
+        "accepted_count": 0,
+        "acceptance_rate": 0.0,
+        "sample_status": "enough"
+      }
+    },
+    {
+      "id": "d6856938d572c33e",
+      "ticker": "AMZN",
+      "type": "risk",
+      "type_label": "🔴 新增風險候選",
+      "status": "pending_ai_review",
+      "confidence": "low",
+      "rule_key": "form4_sell_10b5_1",
+      "materiality": {
+        "transaction_value_usd": 251500.0,
+        "max_transaction_holding_percent": 0.21022491964152448,
+        "planned_transaction_count": 1,
+        "transaction_count": 1
+      },
+      "display_priority": "low",
+      "priority_reason": "已覆核 14 個樣本，採納率 0% ≤ 20%，只降低顯示優先級、不刪除事件。",
+      "headline": "Form 4 出現 1 列賣出，列為風險候選",
+      "evidence": [
+        "已知賣出金額合計 $251.5K；其中 1/1 列標示 10b5-1。",
+        "單筆最高約占交易前直接持股 0.21%。",
+        "10b5-1 是預先安排交易，訊號強度低於臨時主動賣出。"
+      ],
+      "why_candidate": "內部人賣出需看計畫屬性、持股比例與交易規模，不直接等於看空。",
+      "filing_date": "2026-10-05",
+      "detected_at": "2026-10-06T11:00:32+00:00",
+      "source_keys": [
+        "0001936006-26-000026"
+      ],
+      "sources": [
+        {
+          "label": "SEC 4",
+          "url": "https://www.sec.gov/Archives/edgar/data/1018724/000193600626000026/xslF345X06/wk-form4_1791230893.xml"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 14,
+        "accepted_count": 0,
+        "acceptance_rate": 0.0,
+        "sample_status": "enough"
+      }
+    },
+    {
+      "id": "42faddda0e5a273f",
+      "ticker": "META",
+      "type": "risk",
+      "type_label": "🔴 新增風險候選",
+      "status": "pending_ai_review",
+      "confidence": "low",
+      "rule_key": "form144_proposed_sale",
+      "materiality": {
+        "planned_shares": 92199.0,
+        "planned_value_usd": 66773386.0,
+        "shares_outstanding": 2205128509.0,
+        "planned_shares_outstanding_percent": 0.004181116865692837
+      },
+      "display_priority": "low",
+      "priority_reason": "已覆核 9 個樣本，採納率 0% ≤ 20%，只降低顯示優先級、不刪除事件。",
+      "headline": "新增 7 份 Form 144 擬售通知，列為低強度風險候選",
+      "evidence": [
+        "已解析擬售 92,199 股、申報估值 $66.8M。",
+        "約占申報所列已發行股數 0.00418%。",
+        "申報人：Cox Christopher K、Olivan Javier、Zuckerberg Mark。",
+        "Form 144 是擬售意向，不等於已成交；需等待後續 Form 4 或市場交易確認。"
+      ],
+      "why_candidate": "集中或大額擬售可能增加供給壓力，但證據強度低於已完成的非 10b5-1 賣出。",
+      "filing_date": "2026-10-05",
+      "detected_at": "2026-10-06T11:00:32+00:00",
+      "source_keys": [
+        "0001921094-26-001013",
+        "0001921094-26-001023",
+        "0001921094-26-001039",
+        "0001921094-26-001042",
+        "0001921094-26-001050",
+        "0001921094-26-001053",
+        "0001921094-26-001069"
+      ],
+      "sources": [
+        {
+          "label": "SEC Form 144",
+          "url": "https://www.sec.gov/Archives/edgar/data/1326801/000192109426001069/xsl144X01/primary_doc.xml"
+        },
+        {
+          "label": "SEC Form 144",
+          "url": "https://www.sec.gov/Archives/edgar/data/1326801/000192109426001053/xsl144X01/primary_doc.xml"
+        },
+        {
+          "label": "SEC Form 144",
+          "url": "https://www.sec.gov/Archives/edgar/data/1326801/000192109426001050/xsl144X01/primary_doc.xml"
+        },
+        {
+          "label": "SEC Form 144",
+          "url": "https://www.sec.gov/Archives/edgar/data/1326801/000192109426001042/xsl144X01/primary_doc.xml"
+        },
+        {
+          "label": "SEC Form 144",
+          "url": "https://www.sec.gov/Archives/edgar/data/1326801/000192109426001039/xsl144X01/primary_doc.xml"
+        },
+        {
+          "label": "SEC Form 144",
+          "url": "https://www.sec.gov/Archives/edgar/data/1326801/000192109426001023/xsl144X01/primary_doc.xml"
+        },
+        {
+          "label": "SEC Form 144",
+          "url": "https://www.sec.gov/Archives/edgar/data/1326801/000192109426001013/xsl144X01/primary_doc.xml"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 9,
+        "accepted_count": 0,
+        "acceptance_rate": 0.0,
+        "sample_status": "enough"
+      }
+    },
+    {
       "id": "eed9b97c3a8fb632",
       "ticker": "AAPL",
       "type": "risk",
@@ -838,18 +1074,18 @@
       "confidence": "low",
       "rule_key": "form144_proposed_sale",
       "materiality": {
-        "planned_shares": 321061.0,
-        "planned_value_usd": 37838986.78,
+        "planned_shares": 289879.0,
+        "planned_value_usd": 27268912.42,
         "shares_outstanding": 14594180000.0,
-        "planned_shares_outstanding_percent": 0.002199924901570352
+        "planned_shares_outstanding_percent": 0.00198626438758464
       },
       "display_priority": "low",
       "priority_reason": "已覆核 9 個樣本，採納率 0% ≤ 20%，只降低顯示優先級、不刪除事件。",
       "headline": "新增 4 份 Form 144 擬售通知，列為低強度風險候選",
       "evidence": [
-        "已解析擬售 321,061 股、申報估值 $37.8M。",
-        "約占申報所列已發行股數 0.00220%。",
-        "申報人：COOK TIMOTHY D、JENNIFER NEWSTEAD、John Ternus、O'BRIEN DEIRDRE。",
+        "已解析擬售 289,879 股、申報估值 $27.3M。",
+        "約占申報所列已發行股數 0.00199%。",
+        "申報人：COOK TIMOTHY D、John Ternus、O'BRIEN DEIRDRE。",
         "Form 144 是擬售意向，不等於已成交；需等待後續 Form 4 或市場交易確認。"
       ],
       "why_candidate": "集中或大額擬售可能增加供給壓力，但證據強度低於已完成的非 10b5-1 賣出。",
@@ -1004,73 +1240,6 @@
       ],
       "rule_quality": {
         "reviewed_count": 14,
-        "accepted_count": 0,
-        "acceptance_rate": 0.0,
-        "sample_status": "enough"
-      }
-    },
-    {
-      "id": "db8f42e1df567aa4",
-      "ticker": "META",
-      "type": "risk",
-      "type_label": "🔴 新增風險候選",
-      "status": "pending_ai_review",
-      "confidence": "low",
-      "rule_key": "form144_proposed_sale",
-      "materiality": {
-        "planned_shares": 92199.0,
-        "planned_value_usd": 66662585.0,
-        "shares_outstanding": 2205128509.0,
-        "planned_shares_outstanding_percent": 0.004181116865692837
-      },
-      "display_priority": "low",
-      "priority_reason": "已覆核 9 個樣本，採納率 0% ≤ 20%，只降低顯示優先級、不刪除事件。",
-      "headline": "新增 6 份 Form 144 擬售通知，列為低強度風險候選",
-      "evidence": [
-        "已解析擬售 92,199 股、申報估值 $66.7M。",
-        "約占申報所列已發行股數 0.00418%。",
-        "申報人：Cox Christopher K、Olivan Javier、Zuckerberg Mark。",
-        "Form 144 是擬售意向，不等於已成交；需等待後續 Form 4 或市場交易確認。"
-      ],
-      "why_candidate": "集中或大額擬售可能增加供給壓力，但證據強度低於已完成的非 10b5-1 賣出。",
-      "filing_date": "2026-09-28",
-      "detected_at": "2026-09-29T10:24:00+00:00",
-      "source_keys": [
-        "0001921094-26-001013",
-        "0001921094-26-001023",
-        "0001921094-26-001039",
-        "0001921094-26-001042",
-        "0001921094-26-001050",
-        "0001921094-26-001053"
-      ],
-      "sources": [
-        {
-          "label": "SEC Form 144",
-          "url": "https://www.sec.gov/Archives/edgar/data/1326801/000192109426001053/xsl144X01/primary_doc.xml"
-        },
-        {
-          "label": "SEC Form 144",
-          "url": "https://www.sec.gov/Archives/edgar/data/1326801/000192109426001050/xsl144X01/primary_doc.xml"
-        },
-        {
-          "label": "SEC Form 144",
-          "url": "https://www.sec.gov/Archives/edgar/data/1326801/000192109426001042/xsl144X01/primary_doc.xml"
-        },
-        {
-          "label": "SEC Form 144",
-          "url": "https://www.sec.gov/Archives/edgar/data/1326801/000192109426001039/xsl144X01/primary_doc.xml"
-        },
-        {
-          "label": "SEC Form 144",
-          "url": "https://www.sec.gov/Archives/edgar/data/1326801/000192109426001023/xsl144X01/primary_doc.xml"
-        },
-        {
-          "label": "SEC Form 144",
-          "url": "https://www.sec.gov/Archives/edgar/data/1326801/000192109426001013/xsl144X01/primary_doc.xml"
-        }
-      ],
-      "rule_quality": {
-        "reviewed_count": 9,
         "accepted_count": 0,
         "acceptance_rate": 0.0,
         "sample_status": "enough"
