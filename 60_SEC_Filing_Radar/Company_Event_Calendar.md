@@ -15,11 +15,11 @@ tags:
 | 2026-10-09 | **MRVL** | 除息日 | 除息日：第三方市場資料日期；公司尚未公告時可能變更。 | 實際持股 | 市場資料 | 自除息日起買進通常無法取得本次股利；價格可能機械式調整，不等於基本面轉弱。 | [Yahoo Finance 行事曆](https://finance.yahoo.com/quote/MRVL/calendar/) |
 | 2026-10-15 | **TSM** | 預估財報公布日 | 預估財報公布日：第三方市場資料日期；公司尚未公告時可能變更。 | 觀察名單 | 市場預估 | 財報日可能調整；應優先核對營收、毛利率、自由現金流與管理層指引是否改變。 | [Yahoo Finance 行事曆](https://finance.yahoo.com/quote/TSM/calendar/) |
 | 2026-10-21 | **TSLA** | 預估財報公布日 | 預估財報公布日：第三方市場資料日期；公司尚未公告時可能變更。 | 實際持股 | 市場預估 | 財報日可能調整；應優先核對營收、毛利率、自由現金流與管理層指引是否改變。 | [Yahoo Finance 行事曆](https://finance.yahoo.com/quote/TSLA/calendar/) |
-| 2026-10-22 | **INTC** | 預估財報公布日 | 預估財報公布日：第三方市場資料日期；公司尚未公告時可能變更。 | 實際持股 | 市場預估 | 財報日可能調整；應優先核對營收、毛利率、自由現金流與管理層指引是否改變。 | [Yahoo Finance 行事曆](https://finance.yahoo.com/quote/INTC/calendar/) |
 | 2026-10-22 | **NOK** | 預估財報公布日 | 預估財報公布日：第三方市場資料日期；公司尚未公告時可能變更。 | 實際持股 | 市場預估 | 財報日可能調整；應優先核對營收、毛利率、自由現金流與管理層指引是否改變。 | [Yahoo Finance 行事曆](https://finance.yahoo.com/quote/NOK/calendar/) |
 | 2026-10-28 | **GOOG** | 預估財報公布日 | 預估財報公布日：第三方市場資料日期；公司尚未公告時可能變更。 | 實際持股 | 市場預估 | 財報日可能調整；應優先核對營收、毛利率、自由現金流與管理層指引是否改變。 | [Yahoo Finance 行事曆](https://finance.yahoo.com/quote/GOOG/calendar/) |
 | 2026-10-28 | **META** | 預估財報公布日 | 預估財報公布日：第三方市場資料日期；公司尚未公告時可能變更。 | 觀察名單 | 市場預估 | 財報日可能調整；應優先核對營收、毛利率、自由現金流與管理層指引是否改變。 | [Yahoo Finance 行事曆](https://finance.yahoo.com/quote/META/calendar/) |
 | 2026-10-28 | **MSFT** | 預估財報公布日 | 預估財報公布日：第三方市場資料日期；公司尚未公告時可能變更。 | 觀察名單 | 市場預估 | 財報日可能調整；應優先核對營收、毛利率、自由現金流與管理層指引是否改變。 | [Yahoo Finance 行事曆](https://finance.yahoo.com/quote/MSFT/calendar/) |
+| 2026-10-29 | **INTC** | 預估財報公布日 | 預估財報公布日：第三方市場資料日期；公司尚未公告時可能變更。 | 實際持股 | 市場預估 | 財報日可能調整；應優先核對營收、毛利率、自由現金流與管理層指引是否改變。 | [Yahoo Finance 行事曆](https://finance.yahoo.com/quote/INTC/calendar/) |
 | 2026-10-29 | **MRVL** | 股利發放日 | 股利發放日：第三方市場資料日期；公司尚未公告時可能變更。 | 實際持股 | 市場資料 | 股息支付或入帳日期；不應重複視為一筆額外投資報酬。 | [Yahoo Finance 行事曆](https://finance.yahoo.com/quote/MRVL/calendar/) |
 | 2026-10-29 | **AAPL** | 預估財報公布日 | 預估財報公布日：第三方市場資料日期；公司尚未公告時可能變更。 | 觀察名單 | 市場預估 | 財報日可能調整；應優先核對營收、毛利率、自由現金流與管理層指引是否改變。 | [Yahoo Finance 行事曆](https://finance.yahoo.com/quote/AAPL/calendar/) |
 | 2026-10-29 | **AMZN** | 預估財報公布日 | 預估財報公布日：第三方市場資料日期；公司尚未公告時可能變更。 | 觀察名單 | 市場預估 | 財報日可能調整；應優先核對營收、毛利率、自由現金流與管理層指引是否改變。 | [Yahoo Finance 行事曆](https://finance.yahoo.com/quote/AMZN/calendar/) |
