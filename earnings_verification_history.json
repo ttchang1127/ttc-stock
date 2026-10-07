@@ -1,17 +1,32 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-07T10:30:35+08:00",
-  "current_snapshot_id": "7f39aa6e21636ba5",
-  "previous_snapshot_id": "3560344ca230ba48",
-  "batch_id": "a2350f690b2c",
-  "notify_count": 0,
+  "updated_at": "2026-10-08T03:01:29+08:00",
+  "current_snapshot_id": "9914d40bce21817f",
+  "previous_snapshot_id": "7f39aa6e21636ba5",
+  "batch_id": "786276dbd965",
+  "notify_count": 1,
   "critical_count": 0,
   "notification_policy": "首次建立比較基準，不發通知，也不回填不存在的財報前判斷；之後只通知財報前／後階段、新季度、官方指引、KPI 風險／改善、指引驗證與論點結論變化。每日倒數與未跨狀態的數值波動不通知。",
-  "notifications": [],
+  "notifications": [
+    {
+      "ticker": "TSM",
+      "status": "changed",
+      "notify": true,
+      "label": "驗證狀態更新",
+      "direction": "neutral",
+      "kinds": [
+        "preparation"
+      ],
+      "critical": false,
+      "reasons": [
+        "進入財報前 7 天準備期；預定日 2026-10-15"
+      ]
+    }
+  ],
   "current": {
-    "snapshot_id": "7f39aa6e21636ba5",
-    "captured_at": "2026-10-07T10:30:35+08:00",
-    "source_date": "2026-10-07",
+    "snapshot_id": "9914d40bce21817f",
+    "captured_at": "2026-10-08T03:01:29+08:00",
+    "source_date": "2026-10-08",
     "companies": {
       "NOK": {
         "ticker": "NOK",
@@ -653,6 +668,192 @@
           "notify": false,
           "label": "沒有需通知的實質變化",
           "reasons": []
+        }
+      },
+      "TSM": {
+        "ticker": "TSM",
+        "position": "watchlist",
+        "phase": "preparation_due",
+        "phase_label": "財報前 7 天準備期",
+        "next_earnings": {
+          "date": "2026-10-15",
+          "confidence": "estimated",
+          "source_label": "Yahoo Finance 行事曆",
+          "source_url": "https://finance.yahoo.com/quote/TSM/calendar/",
+          "source_status": "fresh"
+        },
+        "guidance": {
+          "status": "available",
+          "note": null,
+          "rows": [
+            {
+              "period": "2026 Q3",
+              "metric": "營收",
+              "low": 44.6,
+              "high": 45.8,
+              "unit": "USD bn",
+              "source_date": "2026-07-16",
+              "source_url": "https://investor.tsmc.com/english/quarterly-results/2026/q2"
+            },
+            {
+              "period": "2026 Q3",
+              "metric": "毛利率",
+              "low": 65.0,
+              "high": 67.0,
+              "unit": "%",
+              "source_date": "2026-07-16",
+              "source_url": "https://investor.tsmc.com/english/quarterly-results/2026/q2"
+            },
+            {
+              "period": "2026 Q3",
+              "metric": "營業利益率",
+              "low": 56.0,
+              "high": 58.0,
+              "unit": "%",
+              "source_date": "2026-07-16",
+              "source_url": "https://investor.tsmc.com/english/quarterly-results/2026/q2"
+            }
+          ]
+        },
+        "checkpoints": [
+          {
+            "topic": "管理層指引",
+            "question": "實際結果是否落在 2026 Q3 的官方指引區間？",
+            "why": "指引只能與相同期間、相同口徑的實績比較。"
+          },
+          {
+            "topic": "營運連續性",
+            "question": "營收、毛利率與營業利益率是否延續八季方向？",
+            "why": "單季驚喜可能只是季節性，需同時比較 QoQ 與 YoY。"
+          },
+          {
+            "topic": "現金與每股品質",
+            "question": "自由現金流是否改善，稀釋股數是否跨越 10% 風險門檻？",
+            "why": "成長若沒有轉成現金或被稀釋，股東實際受益可能下降。"
+          },
+          {
+            "topic": "論點：先進製程與 AI 晶圓需求持續擴張",
+            "question": "本季證據是否仍命中／接近失效條件：營收 YoY ≤ 0%，或營收連續至少 3 季下降。",
+            "why": "2026-06-30 營收 TWD 1,270.4B，YoY +36.0%；連續 6 季上升。"
+          }
+        ],
+        "latest_result": {
+          "period_end": "2026-06-30",
+          "filing_date": "2026-07-16",
+          "form": "TIFRS 季報",
+          "accession": null,
+          "source_url": "https://investor.tsmc.com/english/quarterly-results/2026/q2",
+          "currency": "TWD"
+        },
+        "kpis": [
+          {
+            "metric": "revenue",
+            "label": "營收",
+            "display": "amount",
+            "value": 1270380000000.0,
+            "qoq": 12.016577021426688,
+            "yoy": 36.045577699482756,
+            "state": "improved",
+            "interpretation": "營收 YoY +36.0%"
+          },
+          {
+            "metric": "gross_margin",
+            "label": "毛利率",
+            "display": "percent",
+            "value": 0.677,
+            "qoq": 1.5000000000000013,
+            "yoy": 9.100000000000009,
+            "state": "improved",
+            "interpretation": "毛利率 YoY +9.1pp"
+          },
+          {
+            "metric": "operating_margin",
+            "label": "營業利益率",
+            "display": "percent",
+            "value": 0.603,
+            "qoq": 2.200000000000002,
+            "yoy": 10.7,
+            "state": "improved",
+            "interpretation": "營業利益率 YoY +10.7pp"
+          },
+          {
+            "metric": "free_cash_flow",
+            "label": "自由現金流",
+            "display": "amount",
+            "value": 287360000000.0,
+            "qoq": -17.475086872864075,
+            "yoy": 43.7878408806605,
+            "state": "improved",
+            "interpretation": "自由現金流為正"
+          },
+          {
+            "metric": "diluted_shares",
+            "label": "稀釋股數",
+            "display": "shares",
+            "value": 25932000000.0,
+            "qoq": 0.0038563881068931494,
+            "yoy": null,
+            "state": "unknown",
+            "interpretation": "缺去年同期，不能判斷稀釋"
+          }
+        ],
+        "completed_guidance": {
+          "period": "2026 Q2",
+          "period_end": "2026-06-30",
+          "low": 39.0,
+          "high": 40.2,
+          "actual": 40.2,
+          "guidance_date": "2026-04-16",
+          "guidance_source_url": "https://investor.tsmc.com/english/quarterly-results/2026/q1",
+          "metric": "營收",
+          "unit": "USD bn",
+          "comparison_basis": "公司發布的下一季美元營收區間；實績採公司季報揭露的美元換算營收。",
+          "outcome": "within",
+          "outcome_label": "落在區間",
+          "vs_midpoint_pct": 1.5151515151515138
+        },
+        "thesis": {
+          "status": "maintained",
+          "label": "論點維持",
+          "items": [
+            {
+              "id": "advanced_node_growth",
+              "title": "先進製程與 AI 晶圓需求持續擴張",
+              "status": "supported",
+              "label": "支持",
+              "evidence": "2026-06-30 營收 TWD 1,270.4B，YoY +36.0%；連續 6 季上升。",
+              "invalidation": "營收 YoY ≤ 0%，或營收連續至少 3 季下降。"
+            },
+            {
+              "id": "manufacturing_moat",
+              "title": "製造領先維持高毛利率",
+              "status": "supported",
+              "label": "支持",
+              "evidence": "2026-06-30 毛利率 67.7%，YoY +9.1pp；連續 5 季上升。",
+              "invalidation": "毛利率低於 50%，或連續至少 3 季顯著下降。"
+            },
+            {
+              "id": "capex_returns",
+              "title": "高資本支出仍能產生正向 FCF",
+              "status": "supported",
+              "label": "支持",
+              "evidence": "2026-06-30 FCF TWD 287.4B（連續 8 季為正）；稀釋股數 YoY —。",
+              "invalidation": "FCF 連續至少 4 季為負，或稀釋股數 YoY ≥ 5%。"
+            }
+          ]
+        },
+        "comparison": {
+          "status": "changed",
+          "notify": true,
+          "label": "驗證狀態更新",
+          "direction": "neutral",
+          "kinds": [
+            "preparation"
+          ],
+          "critical": false,
+          "reasons": [
+            "進入財報前 7 天準備期；預定日 2026-10-15"
+          ]
         }
       },
       "GOOG": {
@@ -1804,7 +2005,7 @@
         "phase": "upcoming",
         "phase_label": "30 天內將公布",
         "next_earnings": {
-          "date": "2026-10-29",
+          "date": "2026-11-02",
           "confidence": "estimated",
           "source_label": "Yahoo Finance 行事曆",
           "source_url": "https://finance.yahoo.com/quote/AAPL/calendar/",
@@ -1925,185 +2126,6 @@
               "label": "支持",
               "evidence": "2026-06-27 FCF USD 31,914.0M（連續 8 季為正）；稀釋股數 YoY -1.6%。",
               "invalidation": "FCF 連續至少 4 季為負，或稀釋股數 YoY ≥ 3%。"
-            }
-          ]
-        },
-        "comparison": {
-          "status": "unchanged",
-          "notify": false,
-          "label": "沒有需通知的實質變化",
-          "reasons": []
-        }
-      },
-      "TSM": {
-        "ticker": "TSM",
-        "position": "watchlist",
-        "phase": "upcoming",
-        "phase_label": "30 天內將公布",
-        "next_earnings": {
-          "date": "2026-10-15",
-          "confidence": "estimated",
-          "source_label": "Yahoo Finance 行事曆",
-          "source_url": "https://finance.yahoo.com/quote/TSM/calendar/",
-          "source_status": "fresh"
-        },
-        "guidance": {
-          "status": "available",
-          "note": null,
-          "rows": [
-            {
-              "period": "2026 Q3",
-              "metric": "營收",
-              "low": 44.6,
-              "high": 45.8,
-              "unit": "USD bn",
-              "source_date": "2026-07-16",
-              "source_url": "https://investor.tsmc.com/english/quarterly-results/2026/q2"
-            },
-            {
-              "period": "2026 Q3",
-              "metric": "毛利率",
-              "low": 65.0,
-              "high": 67.0,
-              "unit": "%",
-              "source_date": "2026-07-16",
-              "source_url": "https://investor.tsmc.com/english/quarterly-results/2026/q2"
-            },
-            {
-              "period": "2026 Q3",
-              "metric": "營業利益率",
-              "low": 56.0,
-              "high": 58.0,
-              "unit": "%",
-              "source_date": "2026-07-16",
-              "source_url": "https://investor.tsmc.com/english/quarterly-results/2026/q2"
-            }
-          ]
-        },
-        "checkpoints": [
-          {
-            "topic": "管理層指引",
-            "question": "實際結果是否落在 2026 Q3 的官方指引區間？",
-            "why": "指引只能與相同期間、相同口徑的實績比較。"
-          },
-          {
-            "topic": "營運連續性",
-            "question": "營收、毛利率與營業利益率是否延續八季方向？",
-            "why": "單季驚喜可能只是季節性，需同時比較 QoQ 與 YoY。"
-          },
-          {
-            "topic": "現金與每股品質",
-            "question": "自由現金流是否改善，稀釋股數是否跨越 10% 風險門檻？",
-            "why": "成長若沒有轉成現金或被稀釋，股東實際受益可能下降。"
-          },
-          {
-            "topic": "論點：先進製程與 AI 晶圓需求持續擴張",
-            "question": "本季證據是否仍命中／接近失效條件：營收 YoY ≤ 0%，或營收連續至少 3 季下降。",
-            "why": "2026-06-30 營收 TWD 1,270.4B，YoY +36.0%；連續 6 季上升。"
-          }
-        ],
-        "latest_result": {
-          "period_end": "2026-06-30",
-          "filing_date": "2026-07-16",
-          "form": "TIFRS 季報",
-          "accession": null,
-          "source_url": "https://investor.tsmc.com/english/quarterly-results/2026/q2",
-          "currency": "TWD"
-        },
-        "kpis": [
-          {
-            "metric": "revenue",
-            "label": "營收",
-            "display": "amount",
-            "value": 1270380000000.0,
-            "qoq": 12.016577021426688,
-            "yoy": 36.045577699482756,
-            "state": "improved",
-            "interpretation": "營收 YoY +36.0%"
-          },
-          {
-            "metric": "gross_margin",
-            "label": "毛利率",
-            "display": "percent",
-            "value": 0.677,
-            "qoq": 1.5000000000000013,
-            "yoy": 9.100000000000009,
-            "state": "improved",
-            "interpretation": "毛利率 YoY +9.1pp"
-          },
-          {
-            "metric": "operating_margin",
-            "label": "營業利益率",
-            "display": "percent",
-            "value": 0.603,
-            "qoq": 2.200000000000002,
-            "yoy": 10.7,
-            "state": "improved",
-            "interpretation": "營業利益率 YoY +10.7pp"
-          },
-          {
-            "metric": "free_cash_flow",
-            "label": "自由現金流",
-            "display": "amount",
-            "value": 287360000000.0,
-            "qoq": -17.475086872864075,
-            "yoy": 43.7878408806605,
-            "state": "improved",
-            "interpretation": "自由現金流為正"
-          },
-          {
-            "metric": "diluted_shares",
-            "label": "稀釋股數",
-            "display": "shares",
-            "value": 25932000000.0,
-            "qoq": 0.0038563881068931494,
-            "yoy": null,
-            "state": "unknown",
-            "interpretation": "缺去年同期，不能判斷稀釋"
-          }
-        ],
-        "completed_guidance": {
-          "period": "2026 Q2",
-          "period_end": "2026-06-30",
-          "low": 39.0,
-          "high": 40.2,
-          "actual": 40.2,
-          "guidance_date": "2026-04-16",
-          "guidance_source_url": "https://investor.tsmc.com/english/quarterly-results/2026/q1",
-          "metric": "營收",
-          "unit": "USD bn",
-          "comparison_basis": "公司發布的下一季美元營收區間；實績採公司季報揭露的美元換算營收。",
-          "outcome": "within",
-          "outcome_label": "落在區間",
-          "vs_midpoint_pct": 1.5151515151515138
-        },
-        "thesis": {
-          "status": "maintained",
-          "label": "論點維持",
-          "items": [
-            {
-              "id": "advanced_node_growth",
-              "title": "先進製程與 AI 晶圓需求持續擴張",
-              "status": "supported",
-              "label": "支持",
-              "evidence": "2026-06-30 營收 TWD 1,270.4B，YoY +36.0%；連續 6 季上升。",
-              "invalidation": "營收 YoY ≤ 0%，或營收連續至少 3 季下降。"
-            },
-            {
-              "id": "manufacturing_moat",
-              "title": "製造領先維持高毛利率",
-              "status": "supported",
-              "label": "支持",
-              "evidence": "2026-06-30 毛利率 67.7%，YoY +9.1pp；連續 5 季上升。",
-              "invalidation": "毛利率低於 50%，或連續至少 3 季顯著下降。"
-            },
-            {
-              "id": "capex_returns",
-              "title": "高資本支出仍能產生正向 FCF",
-              "status": "supported",
-              "label": "支持",
-              "evidence": "2026-06-30 FCF TWD 287.4B（連續 8 季為正）；稀釋股數 YoY —。",
-              "invalidation": "FCF 連續至少 4 季為負，或稀釋股數 YoY ≥ 5%。"
             }
           ]
         },
@@ -2288,6 +2310,28 @@
   },
   "history": [
     {
+      "snapshot_id": "9914d40bce21817f",
+      "captured_at": "2026-10-08T03:01:29+08:00",
+      "source_date": "2026-10-08",
+      "notify_count": 1,
+      "notifications": [
+        {
+          "ticker": "TSM",
+          "status": "changed",
+          "notify": true,
+          "label": "驗證狀態更新",
+          "direction": "neutral",
+          "kinds": [
+            "preparation"
+          ],
+          "critical": false,
+          "reasons": [
+            "進入財報前 7 天準備期；預定日 2026-10-15"
+          ]
+        }
+      ]
+    },
+    {
       "snapshot_id": "7f39aa6e21636ba5",
       "captured_at": "2026-10-07T10:30:35+08:00",
       "source_date": "2026-10-07",
@@ -2358,5 +2402,198 @@
       "notifications": []
     }
   ],
-  "cycles": []
+  "cycles": [
+    {
+      "cycle_id": "b1bfa75690b06ab52bde",
+      "ticker": "TSM",
+      "position": "watchlist",
+      "status": "waiting_result",
+      "scheduled_earnings_date": "2026-10-15",
+      "latest_scheduled_earnings_date": "2026-10-15",
+      "schedule_revisions": [],
+      "pre": {
+        "captured_at": "2026-10-08T03:01:29+08:00",
+        "baseline_result_key": [
+          "2026-06-30",
+          null,
+          "2026-07-16"
+        ],
+        "card": {
+          "ticker": "TSM",
+          "position": "watchlist",
+          "phase": "preparation_due",
+          "phase_label": "財報前 7 天準備期",
+          "next_earnings": {
+            "date": "2026-10-15",
+            "confidence": "estimated",
+            "source_label": "Yahoo Finance 行事曆",
+            "source_url": "https://finance.yahoo.com/quote/TSM/calendar/",
+            "source_status": "fresh"
+          },
+          "guidance": {
+            "status": "available",
+            "note": null,
+            "rows": [
+              {
+                "period": "2026 Q3",
+                "metric": "營收",
+                "low": 44.6,
+                "high": 45.8,
+                "unit": "USD bn",
+                "source_date": "2026-07-16",
+                "source_url": "https://investor.tsmc.com/english/quarterly-results/2026/q2"
+              },
+              {
+                "period": "2026 Q3",
+                "metric": "毛利率",
+                "low": 65.0,
+                "high": 67.0,
+                "unit": "%",
+                "source_date": "2026-07-16",
+                "source_url": "https://investor.tsmc.com/english/quarterly-results/2026/q2"
+              },
+              {
+                "period": "2026 Q3",
+                "metric": "營業利益率",
+                "low": 56.0,
+                "high": 58.0,
+                "unit": "%",
+                "source_date": "2026-07-16",
+                "source_url": "https://investor.tsmc.com/english/quarterly-results/2026/q2"
+              }
+            ]
+          },
+          "checkpoints": [
+            {
+              "topic": "管理層指引",
+              "question": "實際結果是否落在 2026 Q3 的官方指引區間？",
+              "why": "指引只能與相同期間、相同口徑的實績比較。"
+            },
+            {
+              "topic": "營運連續性",
+              "question": "營收、毛利率與營業利益率是否延續八季方向？",
+              "why": "單季驚喜可能只是季節性，需同時比較 QoQ 與 YoY。"
+            },
+            {
+              "topic": "現金與每股品質",
+              "question": "自由現金流是否改善，稀釋股數是否跨越 10% 風險門檻？",
+              "why": "成長若沒有轉成現金或被稀釋，股東實際受益可能下降。"
+            },
+            {
+              "topic": "論點：先進製程與 AI 晶圓需求持續擴張",
+              "question": "本季證據是否仍命中／接近失效條件：營收 YoY ≤ 0%，或營收連續至少 3 季下降。",
+              "why": "2026-06-30 營收 TWD 1,270.4B，YoY +36.0%；連續 6 季上升。"
+            }
+          ],
+          "latest_result": {
+            "period_end": "2026-06-30",
+            "filing_date": "2026-07-16",
+            "form": "TIFRS 季報",
+            "accession": null,
+            "source_url": "https://investor.tsmc.com/english/quarterly-results/2026/q2",
+            "currency": "TWD"
+          },
+          "kpis": [
+            {
+              "metric": "revenue",
+              "label": "營收",
+              "display": "amount",
+              "value": 1270380000000.0,
+              "qoq": 12.016577021426688,
+              "yoy": 36.045577699482756,
+              "state": "improved",
+              "interpretation": "營收 YoY +36.0%"
+            },
+            {
+              "metric": "gross_margin",
+              "label": "毛利率",
+              "display": "percent",
+              "value": 0.677,
+              "qoq": 1.5000000000000013,
+              "yoy": 9.100000000000009,
+              "state": "improved",
+              "interpretation": "毛利率 YoY +9.1pp"
+            },
+            {
+              "metric": "operating_margin",
+              "label": "營業利益率",
+              "display": "percent",
+              "value": 0.603,
+              "qoq": 2.200000000000002,
+              "yoy": 10.7,
+              "state": "improved",
+              "interpretation": "營業利益率 YoY +10.7pp"
+            },
+            {
+              "metric": "free_cash_flow",
+              "label": "自由現金流",
+              "display": "amount",
+              "value": 287360000000.0,
+              "qoq": -17.475086872864075,
+              "yoy": 43.7878408806605,
+              "state": "improved",
+              "interpretation": "自由現金流為正"
+            },
+            {
+              "metric": "diluted_shares",
+              "label": "稀釋股數",
+              "display": "shares",
+              "value": 25932000000.0,
+              "qoq": 0.0038563881068931494,
+              "yoy": null,
+              "state": "unknown",
+              "interpretation": "缺去年同期，不能判斷稀釋"
+            }
+          ],
+          "completed_guidance": {
+            "period": "2026 Q2",
+            "period_end": "2026-06-30",
+            "low": 39.0,
+            "high": 40.2,
+            "actual": 40.2,
+            "guidance_date": "2026-04-16",
+            "guidance_source_url": "https://investor.tsmc.com/english/quarterly-results/2026/q1",
+            "metric": "營收",
+            "unit": "USD bn",
+            "comparison_basis": "公司發布的下一季美元營收區間；實績採公司季報揭露的美元換算營收。",
+            "outcome": "within",
+            "outcome_label": "落在區間",
+            "vs_midpoint_pct": 1.5151515151515138
+          },
+          "thesis": {
+            "status": "maintained",
+            "label": "論點維持",
+            "items": [
+              {
+                "id": "advanced_node_growth",
+                "title": "先進製程與 AI 晶圓需求持續擴張",
+                "status": "supported",
+                "label": "支持",
+                "evidence": "2026-06-30 營收 TWD 1,270.4B，YoY +36.0%；連續 6 季上升。",
+                "invalidation": "營收 YoY ≤ 0%，或營收連續至少 3 季下降。"
+              },
+              {
+                "id": "manufacturing_moat",
+                "title": "製造領先維持高毛利率",
+                "status": "supported",
+                "label": "支持",
+                "evidence": "2026-06-30 毛利率 67.7%，YoY +9.1pp；連續 5 季上升。",
+                "invalidation": "毛利率低於 50%，或連續至少 3 季顯著下降。"
+              },
+              {
+                "id": "capex_returns",
+                "title": "高資本支出仍能產生正向 FCF",
+                "status": "supported",
+                "label": "支持",
+                "evidence": "2026-06-30 FCF TWD 287.4B（連續 8 季為正）；稀釋股數 YoY —。",
+                "invalidation": "FCF 連續至少 4 季為負，或稀釋股數 YoY ≥ 5%。"
+              }
+            ]
+          }
+        }
+      },
+      "post": null,
+      "differences": []
+    }
+  ]
 }

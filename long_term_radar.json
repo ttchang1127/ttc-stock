@@ -3,8 +3,8 @@
   "generated_at": "2026-10-07",
   "source_dates": {
     "quarterly_generated": "2026-08-30T00:58:14+00:00",
-    "financial_health_generated": "2026-10-07T02:30:25+00:00",
-    "valuation_generated": "2026-10-07T02:30:26+00:00",
+    "financial_health_generated": "2026-10-07T19:01:19+00:00",
+    "valuation_generated": "2026-10-07T19:01:20+00:00",
     "guidance_as_of": "2026-08-16",
     "thesis_updated": "2026-10-07T10:50:49+00:00",
     "capital_allocation_updated": "2026-08-30T00:52:25+00:00"
@@ -57,7 +57,7 @@
         "quarterly_period": "2026-07-26",
         "quarterly_filed": "2026-08-26",
         "annual_period": "2026-01-25",
-        "price_date": "2026-10-06",
+        "price_date": "2026-10-07",
         "score_updated_at": "2026-10-07"
       },
       "overall_score": 83,
@@ -346,8 +346,8 @@
             {
               "id": "dcf_margin",
               "label": "DCF 中位數相對現價",
-              "value": -0.3625,
-              "display": "-36.2%",
+              "value": -0.3562,
+              "display": "-35.6%",
               "score": 14,
               "weight": 1.25,
               "source": "valuation.json",
@@ -356,7 +356,7 @@
             {
               "id": "fcf_yield",
               "label": "常態化 FCF 收益率",
-              "value": 0.016611371979023425,
+              "value": 0.0167768685927962,
               "display": "1.7%",
               "score": 32,
               "weight": 1.25,
@@ -366,9 +366,9 @@
             {
               "id": "pe",
               "label": "本益比",
-              "value": 48.8,
-              "display": "48.8x",
-              "score": 41,
+              "value": 48.4,
+              "display": "48.4x",
+              "score": 42,
               "weight": 1,
               "source": "valuation.json",
               "note": "負 EPS 不顯示本益比；高成長公司仍須搭配成長率判讀。"
@@ -779,11 +779,11 @@
         "quarterly_period": "2026-06-30",
         "quarterly_filed": "2026-07-16",
         "annual_period": "2025-12-31",
-        "price_date": "2026-10-06",
+        "price_date": "2026-10-07",
         "score_updated_at": "2026-10-07"
       },
-      "overall_score": 81,
-      "overall_label": "長期體質強",
+      "overall_score": 79,
+      "overall_label": "長期體質穩健",
       "coverage": {
         "known": 7,
         "total": 7,
@@ -1059,28 +1059,28 @@
         {
           "id": "valuation",
           "label": "估值安全邊際",
-          "score": 34,
+          "score": 23,
           "coverage": {
-            "known": 2,
+            "known": 3,
             "total": 3
           },
           "metrics": [
             {
               "id": "dcf_margin",
               "label": "DCF 中位數相對現價",
-              "value": -0.5025,
-              "display": "-50.2%",
-              "score": null,
+              "value": -0.4922,
+              "display": "-49.2%",
+              "score": 1,
               "weight": 1.25,
               "source": "valuation.json",
-              "note": "中位數 $239.96 與現價 $482.30 相差 -50%，超過 ±50% 門檻。這個幅度通常反映假設不適用，而非市場錯價 —— 請以下方的隱含成長率判讀，不要把中位數當成目標價"
+              "note": "正值代表 DCF 中位估值高於現價；結果高度依賴成長與 WACC 假設。"
             },
             {
               "id": "fcf_yield",
               "label": "常態化 FCF 收益率",
-              "value": 0.011376046849041557,
-              "display": "1.1%",
-              "score": 26,
+              "value": 0.011610274446733274,
+              "display": "1.2%",
+              "score": 27,
               "weight": 1.25,
               "source": "valuation.json",
               "note": "常態化自由現金流除以目前市值。"
@@ -1088,9 +1088,9 @@
             {
               "id": "pe",
               "label": "本益比",
-              "value": 46.3,
-              "display": "46.3x",
-              "score": 44,
+              "value": 45.4,
+              "display": "45.4x",
+              "score": 45,
               "weight": 1,
               "source": "valuation.json",
               "note": "負 EPS 不顯示本益比；高成長公司仍須搭配成長率判讀。"
@@ -1478,13 +1478,7 @@
           }
         ]
       },
-      "red_flags": [
-        {
-          "source": "valuation.json",
-          "label": "DCF 可信度",
-          "detail": "中位數 $239.96 與現價 $482.30 相差 -50%，超過 ±50% 門檻。這個幅度通常反映假設不適用，而非市場錯價 —— 請以下方的隱含成長率判讀，不要把中位數當成目標價"
-        }
-      ]
+      "red_flags": []
     },
     {
       "ticker": "MSFT",
@@ -1496,7 +1490,7 @@
         "quarterly_period": "2026-06-30",
         "quarterly_filed": "2026-07-29",
         "annual_period": "2026-06-30",
-        "price_date": "2026-10-06",
+        "price_date": "2026-10-07",
         "score_updated_at": "2026-10-07"
       },
       "overall_score": 77,
@@ -1785,8 +1779,8 @@
             {
               "id": "dcf_margin",
               "label": "DCF 中位數相對現價",
-              "value": -0.0548,
-              "display": "-5.5%",
+              "value": -0.058,
+              "display": "-5.8%",
               "score": 48,
               "weight": 1.25,
               "source": "valuation.json",
@@ -1795,7 +1789,7 @@
             {
               "id": "fcf_yield",
               "label": "常態化 FCF 收益率",
-              "value": 0.02460440603451388,
+              "value": 0.024522863921342595,
               "display": "2.5%",
               "score": 40,
               "weight": 1.25,
@@ -1805,8 +1799,8 @@
             {
               "id": "pe",
               "label": "本益比",
-              "value": 29.5,
-              "display": "29.5x",
+              "value": 29.6,
+              "display": "29.6x",
               "score": 64,
               "weight": 1,
               "source": "valuation.json",
@@ -2213,7 +2207,7 @@
         "quarterly_period": "2026-06-30",
         "quarterly_filed": "2026-07-30",
         "annual_period": "2025-12-31",
-        "price_date": "2026-10-06",
+        "price_date": "2026-10-07",
         "score_updated_at": "2026-10-07"
       },
       "overall_score": 80,
@@ -2493,7 +2487,7 @@
         {
           "id": "valuation",
           "label": "估值安全邊際",
-          "score": 62,
+          "score": 63,
           "coverage": {
             "known": 3,
             "total": 3
@@ -2502,9 +2496,9 @@
             {
               "id": "dcf_margin",
               "label": "DCF 中位數相對現價",
-              "value": 0.3016,
-              "display": "+30.2%",
-              "score": 78,
+              "value": 0.322,
+              "display": "+32.2%",
+              "score": 79,
               "weight": 1.25,
               "source": "valuation.json",
               "note": "正值代表 DCF 中位估值高於現價；結果高度依賴成長與 WACC 假設。"
@@ -2512,7 +2506,7 @@
             {
               "id": "fcf_yield",
               "label": "常態化 FCF 收益率",
-              "value": 0.031753568725179634,
+              "value": 0.03225205077895792,
               "display": "3.2%",
               "score": 47,
               "weight": 1.25,
@@ -2522,9 +2516,9 @@
             {
               "id": "pe",
               "label": "本益比",
-              "value": 31.5,
-              "display": "31.5x",
-              "score": 61,
+              "value": 31.0,
+              "display": "31.0x",
+              "score": 62,
               "weight": 1,
               "source": "valuation.json",
               "note": "負 EPS 不顯示本益比；高成長公司仍須搭配成長率判讀。"
@@ -2930,7 +2924,7 @@
         "quarterly_period": "2026-06-27",
         "quarterly_filed": "2026-07-31",
         "annual_period": "2025-09-27",
-        "price_date": "2026-10-06",
+        "price_date": "2026-10-07",
         "score_updated_at": "2026-10-07"
       },
       "overall_score": 63,
@@ -3219,8 +3213,8 @@
             {
               "id": "dcf_margin",
               "label": "DCF 中位數相對現價",
-              "value": -0.4451,
-              "display": "-44.5%",
+              "value": -0.4502,
+              "display": "-45.0%",
               "score": 5,
               "weight": 1.25,
               "source": "valuation.json",
@@ -3229,9 +3223,9 @@
             {
               "id": "fcf_yield",
               "label": "常態化 FCF 收益率",
-              "value": 0.02252449708720173,
-              "display": "2.3%",
-              "score": 38,
+              "value": 0.02231514420715974,
+              "display": "2.2%",
+              "score": 37,
               "weight": 1.25,
               "source": "valuation.json",
               "note": "常態化自由現金流除以目前市值。"
@@ -3239,8 +3233,8 @@
             {
               "id": "pe",
               "label": "本益比",
-              "value": 44.7,
-              "display": "44.7x",
+              "value": 45.1,
+              "display": "45.1x",
               "score": 45,
               "weight": 1,
               "source": "valuation.json",
@@ -3662,11 +3656,11 @@
         "quarterly_period": "2026-06-30",
         "quarterly_filed": "2026-07-31",
         "annual_period": "2025-12-31",
-        "price_date": "2026-10-06",
+        "price_date": "2026-10-07",
         "score_updated_at": "2026-10-07"
       },
-      "overall_score": 65,
-      "overall_label": "長期體質穩健",
+      "overall_score": 64,
+      "overall_label": "優劣混合，需聚焦弱項",
       "coverage": {
         "known": 7,
         "total": 7,
@@ -3942,7 +3936,7 @@
         {
           "id": "valuation",
           "label": "估值安全邊際",
-          "score": 38,
+          "score": 37,
           "coverage": {
             "known": 2,
             "total": 3
@@ -3951,17 +3945,17 @@
             {
               "id": "dcf_margin",
               "label": "DCF 中位數相對現價",
-              "value": -0.7717,
-              "display": "-77.2%",
+              "value": -0.7746,
+              "display": "-77.5%",
               "score": null,
               "weight": 1.25,
               "source": "valuation.json",
-              "note": "中位數 $58.51 與現價 $256.29 相差 -77%，超過 ±50% 門檻。這個幅度通常反映假設不適用，而非市場錯價 —— 請以下方的隱含成長率判讀，不要把中位數當成目標價"
+              "note": "中位數 $58.51 與現價 $259.63 相差 -77%，超過 ±50% 門檻。這個幅度通常反映假設不適用，而非市場錯價 —— 請以下方的隱含成長率判讀，不要把中位數當成目標價"
             },
             {
               "id": "fcf_yield",
               "label": "常態化 FCF 收益率",
-              "value": 0.008074476500964049,
+              "value": 0.007970602713215254,
               "display": "0.8%",
               "score": 23,
               "weight": 1.25,
@@ -3971,9 +3965,9 @@
             {
               "id": "pe",
               "label": "本益比",
-              "value": 35.7,
-              "display": "35.7x",
-              "score": 56,
+              "value": 36.2,
+              "display": "36.2x",
+              "score": 55,
               "weight": 1,
               "source": "valuation.json",
               "note": "負 EPS 不顯示本益比；高成長公司仍須搭配成長率判讀。"
@@ -4367,7 +4361,7 @@
         {
           "source": "valuation.json",
           "label": "DCF 可信度",
-          "detail": "中位數 $58.51 與現價 $256.29 相差 -77%，超過 ±50% 門檻。這個幅度通常反映假設不適用，而非市場錯價 —— 請以下方的隱含成長率判讀，不要把中位數當成目標價"
+          "detail": "中位數 $58.51 與現價 $259.63 相差 -77%，超過 ±50% 門檻。這個幅度通常反映假設不適用，而非市場錯價 —— 請以下方的隱含成長率判讀，不要把中位數當成目標價"
         }
       ]
     },
@@ -4381,7 +4375,7 @@
         "quarterly_period": "2026-06-30",
         "quarterly_filed": "2026-07-29",
         "annual_period": "2026-03-31",
-        "price_date": "2026-10-06",
+        "price_date": "2026-10-07",
         "score_updated_at": "2026-10-07"
       },
       "overall_score": 71,
@@ -4670,17 +4664,17 @@
             {
               "id": "dcf_margin",
               "label": "DCF 中位數相對現價",
-              "value": -0.9435,
-              "display": "-94.3%",
+              "value": -0.9424,
+              "display": "-94.2%",
               "score": null,
               "weight": 1.25,
               "source": "valuation.json",
-              "note": "中位數 $17.09 與現價 $302.56 相差 -94%，超過 ±50% 門檻。這個幅度通常反映假設不適用，而非市場錯價 —— 請以下方的隱含成長率判讀，不要把中位數當成目標價"
+              "note": "中位數 $17.09 與現價 $296.93 相差 -94%，超過 ±50% 門檻。這個幅度通常反映假設不適用，而非市場錯價 —— 請以下方的隱含成長率判讀，不要把中位數當成目標價"
             },
             {
               "id": "fcf_yield",
               "label": "常態化 FCF 收益率",
-              "value": 0.0030409340438048416,
+              "value": 0.003098592275262159,
               "display": "0.3%",
               "score": 18,
               "weight": 1.25,
@@ -4690,8 +4684,8 @@
             {
               "id": "pe",
               "label": "本益比",
-              "value": 357.4,
-              "display": "357.4x",
+              "value": 350.8,
+              "display": "350.8x",
               "score": 0,
               "weight": 1,
               "source": "valuation.json",
@@ -5089,7 +5083,7 @@
         {
           "source": "valuation.json",
           "label": "DCF 可信度",
-          "detail": "中位數 $17.09 與現價 $302.56 相差 -94%，超過 ±50% 門檻。這個幅度通常反映假設不適用，而非市場錯價 —— 請以下方的隱含成長率判讀，不要把中位數當成目標價"
+          "detail": "中位數 $17.09 與現價 $296.93 相差 -94%，超過 ±50% 門檻。這個幅度通常反映假設不適用，而非市場錯價 —— 請以下方的隱含成長率判讀，不要把中位數當成目標價"
         }
       ]
     },
@@ -5103,7 +5097,7 @@
         "quarterly_period": "2026-06-30",
         "quarterly_filed": "2026-08-13",
         "annual_period": "2025-12-31",
-        "price_date": "2026-10-06",
+        "price_date": "2026-10-07",
         "score_updated_at": "2026-10-07"
       },
       "overall_score": 38,
@@ -5402,7 +5396,7 @@
             {
               "id": "fcf_yield",
               "label": "常態化 FCF 收益率",
-              "value": -0.009645694923479935,
+              "value": -0.009996447466151933,
               "display": "-1.0%",
               "score": 12,
               "weight": 1.25,
@@ -5854,7 +5848,7 @@
         "quarterly_period": "2026-06-30",
         "quarterly_filed": "2026-07-23",
         "annual_period": "2025-12-31",
-        "price_date": "2026-10-06",
+        "price_date": "2026-10-07",
         "score_updated_at": "2026-10-07"
       },
       "overall_score": 55,
@@ -6143,17 +6137,17 @@
             {
               "id": "dcf_margin",
               "label": "DCF 中位數相對現價",
-              "value": -0.7689,
-              "display": "-76.9%",
+              "value": -0.767,
+              "display": "-76.7%",
               "score": null,
               "weight": 1.25,
               "source": "valuation.json",
-              "note": "中位數 $87.97 與現價 $380.68 相差 -77%，超過 ±50% 門檻。這個幅度通常反映假設不適用，而非市場錯價 —— 請以下方的隱含成長率判讀，不要把中位數當成目標價"
+              "note": "中位數 $87.97 與現價 $377.61 相差 -77%，超過 ±50% 門檻。這個幅度通常反映假設不適用，而非市場錯價 —— 請以下方的隱含成長率判讀，不要把中位數當成目標價"
             },
             {
               "id": "fcf_yield",
               "label": "常態化 FCF 收益率",
-              "value": 0.004854411104903871,
+              "value": 0.004893877861854308,
               "display": "0.5%",
               "score": 20,
               "weight": 1.25,
@@ -6163,8 +6157,8 @@
             {
               "id": "pe",
               "label": "本益比",
-              "value": 354.0,
-              "display": "354.0x",
+              "value": 351.1,
+              "display": "351.1x",
               "score": 0,
               "weight": 1,
               "source": "valuation.json",
@@ -6565,7 +6559,7 @@
         {
           "source": "valuation.json",
           "label": "DCF 可信度",
-          "detail": "中位數 $87.97 與現價 $380.68 相差 -77%，超過 ±50% 門檻。這個幅度通常反映假設不適用，而非市場錯價 —— 請以下方的隱含成長率判讀，不要把中位數當成目標價"
+          "detail": "中位數 $87.97 與現價 $377.61 相差 -77%，超過 ±50% 門檻。這個幅度通常反映假設不適用，而非市場錯價 —— 請以下方的隱含成長率判讀，不要把中位數當成目標價"
         }
       ]
     },
@@ -6579,7 +6573,7 @@
         "quarterly_period": "2026-06-30",
         "quarterly_filed": "2026-07-23",
         "annual_period": "2025-12-31",
-        "price_date": "2026-10-06",
+        "price_date": "2026-10-07",
         "score_updated_at": "2026-10-07"
       },
       "overall_score": 76,
@@ -6868,8 +6862,8 @@
             {
               "id": "dcf_margin",
               "label": "DCF 中位數相對現價",
-              "value": -0.0915,
-              "display": "-9.2%",
+              "value": -0.0953,
+              "display": "-9.5%",
               "score": 44,
               "weight": 1.25,
               "source": "valuation.json",
@@ -6878,7 +6872,7 @@
             {
               "id": "fcf_yield",
               "label": "常態化 FCF 收益率",
-              "value": 0.02094553372197169,
+              "value": 0.02085837514403878,
               "display": "2.1%",
               "score": 36,
               "weight": 1.25,
@@ -6888,8 +6882,8 @@
             {
               "id": "pe",
               "label": "本益比",
-              "value": 31.9,
-              "display": "31.9x",
+              "value": 32.0,
+              "display": "32.0x",
               "score": 61,
               "weight": 1,
               "source": "valuation.json",
@@ -7292,7 +7286,7 @@
         "quarterly_period": "2026-06-30",
         "quarterly_filed": "2026-08-14",
         "annual_period": "2026-06-30",
-        "price_date": "2026-10-06",
+        "price_date": "2026-10-07",
         "score_updated_at": "2026-10-07"
       },
       "overall_score": 51,
@@ -7581,17 +7575,17 @@
             {
               "id": "dcf_margin",
               "label": "DCF 中位數相對現價",
-              "value": -0.9425,
+              "value": -0.9418,
               "display": "-94.2%",
               "score": null,
               "weight": 1.25,
               "source": "valuation.json",
-              "note": "中位數 $19.44 與現價 $338.36 相差 -94%，超過 ±50% 門檻。這個幅度通常反映假設不適用，而非市場錯價 —— 請以下方的隱含成長率判讀，不要把中位數當成目標價"
+              "note": "中位數 $19.44 與現價 $334.12 相差 -94%，超過 ±50% 門檻。這個幅度通常反映假設不適用，而非市場錯價 —— 請以下方的隱含成長率判讀，不要把中位數當成目標價"
             },
             {
               "id": "fcf_yield",
               "label": "常態化 FCF 收益率",
-              "value": 0.003842697094481069,
+              "value": 0.003891461118426358,
               "display": "0.4%",
               "score": 19,
               "weight": 1.25,
@@ -7601,8 +7595,8 @@
             {
               "id": "pe",
               "label": "本益比",
-              "value": 82.1,
-              "display": "82.1x",
+              "value": 81.1,
+              "display": "81.1x",
               "score": 19,
               "weight": 1,
               "source": "valuation.json",
@@ -8012,7 +8006,7 @@
         {
           "source": "valuation.json",
           "label": "DCF 可信度",
-          "detail": "中位數 $19.44 與現價 $338.36 相差 -94%，超過 ±50% 門檻。這個幅度通常反映假設不適用，而非市場錯價 —— 請以下方的隱含成長率判讀，不要把中位數當成目標價"
+          "detail": "中位數 $19.44 與現價 $334.12 相差 -94%，超過 ±50% 門檻。這個幅度通常反映假設不適用，而非市場錯價 —— 請以下方的隱含成長率判讀，不要把中位數當成目標價"
         }
       ]
     },
@@ -8026,7 +8020,7 @@
         "quarterly_period": "2026-08-01",
         "quarterly_filed": "2026-08-28",
         "annual_period": "2026-01-31",
-        "price_date": "2026-10-06",
+        "price_date": "2026-10-07",
         "score_updated_at": "2026-10-07"
       },
       "overall_score": 64,
@@ -8306,7 +8300,7 @@
         {
           "id": "valuation",
           "label": "估值安全邊際",
-          "score": 17,
+          "score": 18,
           "coverage": {
             "known": 2,
             "total": 3
@@ -8315,17 +8309,17 @@
             {
               "id": "dcf_margin",
               "label": "DCF 中位數相對現價",
-              "value": -0.8129,
-              "display": "-81.3%",
+              "value": -0.81,
+              "display": "-81.0%",
               "score": null,
               "weight": 1.25,
               "source": "valuation.json",
-              "note": "中位數 $53.69 與現價 $287.01 相差 -81%，超過 ±50% 門檻。這個幅度通常反映假設不適用，而非市場錯價 —— 請以下方的隱含成長率判讀，不要把中位數當成目標價"
+              "note": "中位數 $53.69 與現價 $282.62 相差 -81%，超過 ±50% 門檻。這個幅度通常反映假設不適用，而非市場錯價 —— 請以下方的隱含成長率判讀，不要把中位數當成目標價"
             },
             {
               "id": "fcf_yield",
               "label": "常態化 FCF 收益率",
-              "value": 0.006034251535008045,
+              "value": 0.006127982920751039,
               "display": "0.6%",
               "score": 21,
               "weight": 1.25,
@@ -8335,9 +8329,9 @@
             {
               "id": "pe",
               "label": "本益比",
-              "value": 93.5,
-              "display": "93.5x",
-              "score": 13,
+              "value": 92.1,
+              "display": "92.1x",
+              "score": 14,
               "weight": 1,
               "source": "valuation.json",
               "note": "負 EPS 不顯示本益比；高成長公司仍須搭配成長率判讀。"
@@ -8741,7 +8735,7 @@
         {
           "source": "valuation.json",
           "label": "DCF 可信度",
-          "detail": "中位數 $53.69 與現價 $287.01 相差 -81%，超過 ±50% 門檻。這個幅度通常反映假設不適用，而非市場錯價 —— 請以下方的隱含成長率判讀，不要把中位數當成目標價"
+          "detail": "中位數 $53.69 與現價 $282.62 相差 -81%，超過 ±50% 門檻。這個幅度通常反映假設不適用，而非市場錯價 —— 請以下方的隱含成長率判讀，不要把中位數當成目標價"
         }
       ]
     },
@@ -8755,7 +8749,7 @@
         "quarterly_period": "2026-06-27",
         "quarterly_filed": "2026-07-24",
         "annual_period": "2025-12-27",
-        "price_date": "2026-10-06",
+        "price_date": "2026-10-07",
         "score_updated_at": "2026-10-07"
       },
       "overall_score": 50,
@@ -9054,7 +9048,7 @@
             {
               "id": "fcf_yield",
               "label": "常態化 FCF 收益率",
-              "value": -0.008721473257555732,
+              "value": -0.008716437093901477,
               "display": "-0.9%",
               "score": 12,
               "weight": 1.25,
@@ -9494,7 +9488,7 @@
         "quarterly_period": "2026-06-30",
         "quarterly_filed": "2026-07-23",
         "annual_period": "2025-12-31",
-        "price_date": "2026-10-06",
+        "price_date": "2026-10-07",
         "score_updated_at": "2026-10-07"
       },
       "overall_score": 56,
@@ -9774,7 +9768,7 @@
         {
           "id": "valuation",
           "label": "估值安全邊際",
-          "score": 17,
+          "score": 18,
           "coverage": {
             "known": 3,
             "total": 3
@@ -9783,9 +9777,9 @@
             {
               "id": "dcf_margin",
               "label": "DCF 中位數相對現價",
-              "value": -0.495,
-              "display": "-49.5%",
-              "score": 1,
+              "value": -0.4796,
+              "display": "-48.0%",
+              "score": 2,
               "weight": 1.25,
               "source": "valuation.json",
               "note": "正值代表 DCF 中位估值高於現價；結果高度依賴成長與 WACC 假設。"
@@ -9793,9 +9787,9 @@
             {
               "id": "fcf_yield",
               "label": "常態化 FCF 收益率",
-              "value": 0.020875667811423047,
-              "display": "2.1%",
-              "score": 36,
+              "value": 0.021513017932485754,
+              "display": "2.2%",
+              "score": 37,
               "weight": 1.25,
               "source": "valuation.json",
               "note": "常態化自由現金流除以目前市值。"
@@ -9803,9 +9797,9 @@
             {
               "id": "pe",
               "label": "本益比",
-              "value": 95.4,
-              "display": "95.4x",
-              "score": 12,
+              "value": 92.6,
+              "display": "92.6x",
+              "score": 14,
               "weight": 1,
               "source": "valuation.json",
               "note": "負 EPS 不顯示本益比；高成長公司仍須搭配成長率判讀。"
