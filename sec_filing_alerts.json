@@ -2,6 +2,24 @@
   "schema_version": 3,
   "events": [
     {
+      "ticker": "AMZN",
+      "cik": "0001018724",
+      "accession": "0001595602-26-000009",
+      "form": "3/A",
+      "group": "內部人持股",
+      "severity": "medium",
+      "filing_date": "2026-10-06",
+      "accepted_at": "2026-10-07T01:27:29.000Z",
+      "report_date": "2026-09-08",
+      "items": [],
+      "items_summary": "未提供 Item 分類",
+      "primary_document": "xslF345X06/wk-form3a_1791322046.xml",
+      "url": "https://www.sec.gov/Archives/edgar/data/1018724/000159560226000009/xslF345X06/wk-form3a_1791322046.xml",
+      "index_url": "https://www.sec.gov/Archives/edgar/data/1018724/000159560226000009/0001595602-26-000009-index.html",
+      "detected_at": "2026-10-07T10:50:49+00:00",
+      "baseline": false
+    },
+    {
       "ticker": "AAPL",
       "cik": "0000320193",
       "accession": "0001140361-26-038674",
@@ -7101,9 +7119,34 @@
       "baseline": true
     }
   ],
-  "updated_at": "2026-10-06T11:00:32+00:00",
+  "updated_at": "2026-10-07T10:50:49+00:00",
   "source": "SEC submissions API; accession-number deduplicated; watcher-run deltas",
   "update_batches": [
+    {
+      "checked_at": "2026-10-07T10:50:49+00:00",
+      "previous_checked_at": "2026-10-06T11:00:32+00:00",
+      "baseline": false,
+      "new_count": 1,
+      "critical_count": 0,
+      "high_count": 0,
+      "medium_count": 1,
+      "new_accessions": [
+        "0001595602-26-000009"
+      ],
+      "financial_accessions": [],
+      "ownership_accessions": [],
+      "enforcement_keys": [],
+      "company_changes": [
+        {
+          "ticker": "AMZN",
+          "new_count": 1,
+          "important_count": 0,
+          "before_priority": "updated",
+          "after_priority": "updated",
+          "priority_changed": false
+        }
+      ]
+    },
     {
       "checked_at": "2026-10-06T11:00:32+00:00",
       "previous_checked_at": "2026-10-03T09:39:49+00:00",

@@ -1,6 +1,6 @@
 ---
 title: SEC 每日申報雷達
-updated_at: 2026-10-06T11:00:32+00:00
+updated_at: 2026-10-07T10:50:49+00:00
 tags:
   - sec/alerts
   - filings/daily
@@ -15,6 +15,7 @@ GitHub Actions 於台北時間週二至週六中午 12:00 檢查；重大／重�
 
 | 重要性 | 公司 | 申報 | 日期 | 事件／Item | SEC 原文 |
 |---|---|---|---|---|---|
+| 🔵 留意 | **AMZN** | 3/A | 2026-10-06 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000159560226000009/xslF345X06/wk-form3a_1791322046.xml) |
 | 🔵 留意 | **AAPL** | 4 | 2026-10-05 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/320193/000114036126038674/xslF345X06/form4.xml) |
 | 🔵 留意 | **AAPL** | 4 | 2026-10-05 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/320193/000114036126038672/xslF345X06/form4.xml) |
 | 🔵 留意 | **AAPL** | 4 | 2026-10-05 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/320193/000114036126038669/xslF345X06/form4.xml) |
@@ -214,7 +215,6 @@ GitHub Actions 於台北時間週二至週六中午 12:00 檢查；重大／重�
 | 🔵 留意 | **TSM** | 4 | 2026-09-02 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1046179/000104617926000584/xslF345X06/wk-form4_1788344146.xml) |
 | 🔵 留意 | **TSM** | 4 | 2026-09-02 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1046179/000104617926000583/xslF345X06/wk-form4_1788344138.xml) |
 | 🔵 留意 | **TSM** | 4 | 2026-09-02 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1046179/000104617926000582/xslF345X06/wk-form4_1788344129.xml) |
-| 🔵 留意 | **TSM** | 4 | 2026-09-02 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1046179/000104617926000581/xslF345X06/wk-form4_1788344122.xml) |
 
 ## 監控範圍
 
