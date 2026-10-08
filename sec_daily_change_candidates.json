@@ -1,18 +1,18 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-07T10:50:49+00:00",
+  "generated_at": "2026-10-08T11:08:05+00:00",
   "editorial_reviewed_at": "2026-09-12T18:31:51+08:00",
   "editorial_window_end": "2026-09-12",
   "status": "pending_ai_review",
-  "candidate_count": 39,
+  "candidate_count": 49,
   "company_count": 12,
   "counts": {
-    "risk": 31,
-    "improvement": 0,
-    "conclusion": 8
+    "risk": 32,
+    "improvement": 8,
+    "conclusion": 9
   },
   "calibration_updated_at": "2026-09-12T18:31:51+08:00",
-  "lower_priority_count": 28,
+  "lower_priority_count": 37,
   "method": "規則只建立候選：新風險、改善或可能改變結論；不得自動寫入正式 AI 判讀。",
   "candidates": [
     {
@@ -694,6 +694,40 @@
       }
     },
     {
+      "id": "40ae3a8cfb28b875",
+      "ticker": "TSM",
+      "type": "conclusion",
+      "type_label": "🟡 結論變化候選",
+      "status": "pending_ai_review",
+      "confidence": "medium",
+      "rule_key": "major_current_report",
+      "materiality": {},
+      "display_priority": "normal",
+      "priority_reason": "已覆核 9 個樣本，採納率 56%，維持原優先級。",
+      "headline": "重大 6-K 可能改變既有結論",
+      "evidence": [
+        "未提供 Item 分類"
+      ],
+      "why_candidate": "文件重要性只提高重讀優先級，不預設為利多或利空。",
+      "filing_date": "2026-10-08",
+      "detected_at": "2026-10-08T11:08:05+00:00",
+      "source_keys": [
+        "0001046179-26-000680"
+      ],
+      "sources": [
+        {
+          "label": "SEC 6-K",
+          "url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000680/tsm-revenue20261008.htm"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 9,
+        "accepted_count": 5,
+        "acceptance_rate": 0.5556,
+        "sample_status": "enough"
+      }
+    },
+    {
       "id": "eca0b581bb71e6f7",
       "ticker": "TSM",
       "type": "conclusion",
@@ -826,6 +860,47 @@
         "reviewed_count": 9,
         "accepted_count": 5,
         "acceptance_rate": 0.5556,
+        "sample_status": "enough"
+      }
+    },
+    {
+      "id": "f1fd148ed2ac47b3",
+      "ticker": "META",
+      "type": "risk",
+      "type_label": "🔴 新增風險候選",
+      "status": "pending_ai_review",
+      "confidence": "low",
+      "rule_key": "form4_sell_10b5_1",
+      "materiality": {
+        "transaction_value_usd": 1146726.0,
+        "max_transaction_holding_percent": 10.7207615593835,
+        "planned_transaction_count": 5,
+        "transaction_count": 5
+      },
+      "display_priority": "low",
+      "priority_reason": "已覆核 14 個樣本，採納率 0% ≤ 20%，只降低顯示優先級、不刪除事件。",
+      "headline": "Form 4 出現 5 列賣出，列為風險候選",
+      "evidence": [
+        "已知賣出金額合計 $1.1M；其中 5/5 列標示 10b5-1。",
+        "單筆最高約占交易前直接持股 10.72%。",
+        "10b5-1 是預先安排交易，訊號強度低於臨時主動賣出。"
+      ],
+      "why_candidate": "內部人賣出需看計畫屬性、持股比例與交易規模，不直接等於看空。",
+      "filing_date": "2026-10-07",
+      "detected_at": "2026-10-08T11:08:05+00:00",
+      "source_keys": [
+        "0000950103-26-015324"
+      ],
+      "sources": [
+        {
+          "label": "SEC 4",
+          "url": "https://www.sec.gov/Archives/edgar/data/1326801/000095010326015324/xslF345X06/ownership.xml"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 14,
+        "accepted_count": 0,
+        "acceptance_rate": 0.0,
         "sample_status": "enough"
       }
     },
@@ -1002,17 +1077,17 @@
       "confidence": "low",
       "rule_key": "form144_proposed_sale",
       "materiality": {
-        "planned_shares": 92199.0,
-        "planned_value_usd": 66773386.0,
+        "planned_shares": 72199.0,
+        "planned_value_usd": 53268830.0,
         "shares_outstanding": 2205128509.0,
-        "planned_shares_outstanding_percent": 0.004181116865692837
+        "planned_shares_outstanding_percent": 0.0032741402464902783
       },
       "display_priority": "low",
       "priority_reason": "已覆核 9 個樣本，採納率 0% ≤ 20%，只降低顯示優先級、不刪除事件。",
       "headline": "新增 7 份 Form 144 擬售通知，列為低強度風險候選",
       "evidence": [
-        "已解析擬售 92,199 股、申報估值 $66.8M。",
-        "約占申報所列已發行股數 0.00418%。",
+        "已解析擬售 72,199 股、申報估值 $53.3M。",
+        "約占申報所列已發行股數 0.00327%。",
         "申報人：Cox Christopher K、Olivan Javier、Zuckerberg Mark。",
         "Form 144 是擬售意向，不等於已成交；需等待後續 Form 4 或市場交易確認。"
       ],
@@ -1607,6 +1682,318 @@
         {
           "label": "SEC Form 144",
           "url": "https://www.sec.gov/Archives/edgar/data/789019/000195824426000598/xsl144X01/primary_doc.xml"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 9,
+        "accepted_count": 0,
+        "acceptance_rate": 0.0,
+        "sample_status": "enough"
+      }
+    },
+    {
+      "id": "0605c9db2a99ebd7",
+      "ticker": "TSM",
+      "type": "improvement",
+      "type_label": "🟢 改善候選",
+      "status": "pending_ai_review",
+      "confidence": "medium",
+      "rule_key": "form4_buy",
+      "materiality": {
+        "transaction_value_usd": 3969.5,
+        "max_transaction_holding_percent": 0.741399762752076
+      },
+      "display_priority": "low",
+      "priority_reason": "已覆核 9 個樣本，採納率 0% ≤ 20%，只降低顯示優先級、不刪除事件。",
+      "headline": "Form 4 出現 1 列主動買入，列為改善候選",
+      "evidence": [
+        "已知買入金額合計 $4.0K。",
+        "單筆最高約占交易後直接持股 0.74%。",
+        "交易代碼 P 代表公開市場或私下買入；仍需核對占持股與薪酬規模。"
+      ],
+      "why_candidate": "內部人主動投入資金可能支持信心，但不能單獨推論股價。",
+      "filing_date": "2026-10-08",
+      "detected_at": "2026-10-08T11:08:05+00:00",
+      "source_keys": [
+        "0001046179-26-000721"
+      ],
+      "sources": [
+        {
+          "label": "SEC 4",
+          "url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000721/xslF345X06/wk-form4_1791455737.xml"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 9,
+        "accepted_count": 0,
+        "acceptance_rate": 0.0,
+        "sample_status": "enough"
+      }
+    },
+    {
+      "id": "1e8139961fc49e7c",
+      "ticker": "TSM",
+      "type": "improvement",
+      "type_label": "🟢 改善候選",
+      "status": "pending_ai_review",
+      "confidence": "medium",
+      "rule_key": "form4_buy",
+      "materiality": {
+        "transaction_value_usd": 3096.21,
+        "max_transaction_holding_percent": 19.597989949748744
+      },
+      "display_priority": "low",
+      "priority_reason": "已覆核 9 個樣本，採納率 0% ≤ 20%，只降低顯示優先級、不刪除事件。",
+      "headline": "Form 4 出現 1 列主動買入，列為改善候選",
+      "evidence": [
+        "已知買入金額合計 $3.1K。",
+        "單筆最高約占交易後直接持股 19.60%。",
+        "交易代碼 P 代表公開市場或私下買入；仍需核對占持股與薪酬規模。"
+      ],
+      "why_candidate": "內部人主動投入資金可能支持信心，但不能單獨推論股價。",
+      "filing_date": "2026-10-08",
+      "detected_at": "2026-10-08T11:08:05+00:00",
+      "source_keys": [
+        "0001046179-26-000714"
+      ],
+      "sources": [
+        {
+          "label": "SEC 4",
+          "url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000714/xslF345X06/wk-form4_1791455539.xml"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 9,
+        "accepted_count": 0,
+        "acceptance_rate": 0.0,
+        "sample_status": "enough"
+      }
+    },
+    {
+      "id": "37d852cf4fe83f70",
+      "ticker": "TSM",
+      "type": "improvement",
+      "type_label": "🟢 改善候選",
+      "status": "pending_ai_review",
+      "confidence": "medium",
+      "rule_key": "form4_buy",
+      "materiality": {
+        "transaction_value_usd": 4684.01,
+        "max_transaction_holding_percent": 0.7966513637591143
+      },
+      "display_priority": "low",
+      "priority_reason": "已覆核 9 個樣本，採納率 0% ≤ 20%，只降低顯示優先級、不刪除事件。",
+      "headline": "Form 4 出現 1 列主動買入，列為改善候選",
+      "evidence": [
+        "已知買入金額合計 $4.7K。",
+        "單筆最高約占交易後直接持股 0.80%。",
+        "交易代碼 P 代表公開市場或私下買入；仍需核對占持股與薪酬規模。"
+      ],
+      "why_candidate": "內部人主動投入資金可能支持信心，但不能單獨推論股價。",
+      "filing_date": "2026-10-08",
+      "detected_at": "2026-10-08T11:08:05+00:00",
+      "source_keys": [
+        "0001046179-26-000722"
+      ],
+      "sources": [
+        {
+          "label": "SEC 4",
+          "url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000722/xslF345X06/wk-form4_1791455743.xml"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 9,
+        "accepted_count": 0,
+        "acceptance_rate": 0.0,
+        "sample_status": "enough"
+      }
+    },
+    {
+      "id": "84137b80472f3b35",
+      "ticker": "TSM",
+      "type": "improvement",
+      "type_label": "🟢 改善候選",
+      "status": "pending_ai_review",
+      "confidence": "medium",
+      "rule_key": "form4_buy",
+      "materiality": {
+        "transaction_value_usd": 11432.16,
+        "max_transaction_holding_percent": 0.7877461706783371
+      },
+      "display_priority": "low",
+      "priority_reason": "已覆核 9 個樣本，採納率 0% ≤ 20%，只降低顯示優先級、不刪除事件。",
+      "headline": "Form 4 出現 1 列主動買入，列為改善候選",
+      "evidence": [
+        "已知買入金額合計 $11.4K。",
+        "單筆最高約占交易後直接持股 0.79%。",
+        "交易代碼 P 代表公開市場或私下買入；仍需核對占持股與薪酬規模。"
+      ],
+      "why_candidate": "內部人主動投入資金可能支持信心，但不能單獨推論股價。",
+      "filing_date": "2026-10-08",
+      "detected_at": "2026-10-08T11:08:05+00:00",
+      "source_keys": [
+        "0001046179-26-000715"
+      ],
+      "sources": [
+        {
+          "label": "SEC 4",
+          "url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000715/xslF345X06/wk-form4_1791455546.xml"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 9,
+        "accepted_count": 0,
+        "acceptance_rate": 0.0,
+        "sample_status": "enough"
+      }
+    },
+    {
+      "id": "95dfd5cc2160364b",
+      "ticker": "TSM",
+      "type": "improvement",
+      "type_label": "🟢 改善候選",
+      "status": "pending_ai_review",
+      "confidence": "medium",
+      "rule_key": "form4_buy",
+      "materiality": {
+        "transaction_value_usd": 4128.28,
+        "max_transaction_holding_percent": 98.11320754716981
+      },
+      "display_priority": "low",
+      "priority_reason": "已覆核 9 個樣本，採納率 0% ≤ 20%，只降低顯示優先級、不刪除事件。",
+      "headline": "Form 4 出現 1 列主動買入，列為改善候選",
+      "evidence": [
+        "已知買入金額合計 $4.1K。",
+        "單筆最高約占交易後直接持股 98.11%。",
+        "交易代碼 P 代表公開市場或私下買入；仍需核對占持股與薪酬規模。"
+      ],
+      "why_candidate": "內部人主動投入資金可能支持信心，但不能單獨推論股價。",
+      "filing_date": "2026-10-08",
+      "detected_at": "2026-10-08T11:08:05+00:00",
+      "source_keys": [
+        "0001046179-26-000723"
+      ],
+      "sources": [
+        {
+          "label": "SEC 4",
+          "url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000723/xslF345X06/wk-form4_1791455750.xml"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 9,
+        "accepted_count": 0,
+        "acceptance_rate": 0.0,
+        "sample_status": "enough"
+      }
+    },
+    {
+      "id": "bad2788226c99aea",
+      "ticker": "TSM",
+      "type": "improvement",
+      "type_label": "🟢 改善候選",
+      "status": "pending_ai_review",
+      "confidence": "medium",
+      "rule_key": "form4_buy",
+      "materiality": {
+        "transaction_value_usd": 4207.67,
+        "max_transaction_holding_percent": 0.7664497469269704
+      },
+      "display_priority": "low",
+      "priority_reason": "已覆核 9 個樣本，採納率 0% ≤ 20%，只降低顯示優先級、不刪除事件。",
+      "headline": "Form 4 出現 1 列主動買入，列為改善候選",
+      "evidence": [
+        "已知買入金額合計 $4.2K。",
+        "單筆最高約占交易後直接持股 0.77%。",
+        "交易代碼 P 代表公開市場或私下買入；仍需核對占持股與薪酬規模。"
+      ],
+      "why_candidate": "內部人主動投入資金可能支持信心，但不能單獨推論股價。",
+      "filing_date": "2026-10-08",
+      "detected_at": "2026-10-08T11:08:05+00:00",
+      "source_keys": [
+        "0001046179-26-000716"
+      ],
+      "sources": [
+        {
+          "label": "SEC 4",
+          "url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000716/xslF345X06/wk-form4_1791455553.xml"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 9,
+        "accepted_count": 0,
+        "acceptance_rate": 0.0,
+        "sample_status": "enough"
+      }
+    },
+    {
+      "id": "cec9887a4d01ab85",
+      "ticker": "TSM",
+      "type": "improvement",
+      "type_label": "🟢 改善候選",
+      "status": "pending_ai_review",
+      "confidence": "medium",
+      "rule_key": "form4_buy",
+      "materiality": {
+        "transaction_value_usd": 4128.28,
+        "max_transaction_holding_percent": 0.7937719432147763
+      },
+      "display_priority": "low",
+      "priority_reason": "已覆核 9 個樣本，採納率 0% ≤ 20%，只降低顯示優先級、不刪除事件。",
+      "headline": "Form 4 出現 1 列主動買入，列為改善候選",
+      "evidence": [
+        "已知買入金額合計 $4.1K。",
+        "單筆最高約占交易後直接持股 0.79%。",
+        "交易代碼 P 代表公開市場或私下買入；仍需核對占持股與薪酬規模。"
+      ],
+      "why_candidate": "內部人主動投入資金可能支持信心，但不能單獨推論股價。",
+      "filing_date": "2026-10-08",
+      "detected_at": "2026-10-08T11:08:05+00:00",
+      "source_keys": [
+        "0001046179-26-000710"
+      ],
+      "sources": [
+        {
+          "label": "SEC 4",
+          "url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000710/xslF345X06/wk-form4_1791455413.xml"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 9,
+        "accepted_count": 0,
+        "acceptance_rate": 0.0,
+        "sample_status": "enough"
+      }
+    },
+    {
+      "id": "fdd6a51927f7a6a2",
+      "ticker": "TSM",
+      "type": "improvement",
+      "type_label": "🟢 改善候選",
+      "status": "pending_ai_review",
+      "confidence": "medium",
+      "rule_key": "form4_buy",
+      "materiality": {
+        "transaction_value_usd": 3175.6,
+        "max_transaction_holding_percent": 2.982848620432513
+      },
+      "display_priority": "low",
+      "priority_reason": "已覆核 9 個樣本，採納率 0% ≤ 20%，只降低顯示優先級、不刪除事件。",
+      "headline": "Form 4 出現 1 列主動買入，列為改善候選",
+      "evidence": [
+        "已知買入金額合計 $3.2K。",
+        "單筆最高約占交易後直接持股 2.98%。",
+        "交易代碼 P 代表公開市場或私下買入；仍需核對占持股與薪酬規模。"
+      ],
+      "why_candidate": "內部人主動投入資金可能支持信心，但不能單獨推論股價。",
+      "filing_date": "2026-10-08",
+      "detected_at": "2026-10-08T11:08:05+00:00",
+      "source_keys": [
+        "0001046179-26-000724"
+      ],
+      "sources": [
+        {
+          "label": "SEC 4",
+          "url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000724/xslF345X06/wk-form4_1791455755.xml"
         }
       ],
       "rule_quality": {

@@ -1,6 +1,6 @@
 ---
 title: Form 4 內部人交易雷達
-updated_at: 2026-10-07T10:50:49+00:00
+updated_at: 2026-10-08T11:08:05+00:00
 tags:
   - sec/form-4
   - insiders
@@ -13,6 +13,22 @@ tags:
 
 | 申報日 | 公司 | 申報人／身分 | 代碼與意義 | 股數 | 單價 | 交易金額 | 取得／處分 | 10b5-1 | SEC |
 |---|---|---|---|---:|---:|---:|---|---|---|
+| 2026-10-08 | **TSM** | Yuan Lipen／高階主管（VP） | `P` 公開市場或私下買入 | 40 | 79.39 | 3,176 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1046179/000104617926000724/xslF345X06/wk-form4_1791455755.xml) |
+| 2026-10-08 | **TSM** | Yeap Choh Fei／高階主管（SVP） | `P` 公開市場或私下買入 | 52 | 79.39 | 4,128 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1046179/000104617926000723/xslF345X06/wk-form4_1791455750.xml) |
+| 2026-10-08 | **TSM** | Zhang Kevin Xiaoqiang／高階主管（SVP and Deputy Co-COO） | `P` 公開市場或私下買入 | 59 | 79.39 | 4,684 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1046179/000104617926000722/xslF345X06/wk-form4_1791455743.xml) |
+| 2026-10-08 | **TSM** | Yoo Chue-San／高階主管（VP） | `P` 公開市場或私下買入 | 50 | 79.39 | 3,970 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1046179/000104617926000721/xslF345X06/wk-form4_1791455737.xml) |
+| 2026-10-08 | **TSM** | Wu Shien-Yang／高階主管（SVP） | `P` 公開市場或私下買入 | 53 | 79.39 | 4,208 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1046179/000104617926000716/xslF345X06/wk-form4_1791455553.xml) |
+| 2026-10-08 | **TSM** | Wei Che-Chia／董事、高階主管（Chairman and CEO） | `P` 公開市場或私下買入 | 144 | 79.39 | 11,432 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1046179/000104617926000715/xslF345X06/wk-form4_1791455546.xml) |
+| 2026-10-08 | **TSM** | Wu Yi-Huang／高階主管（VP） | `P` 公開市場或私下買入 | 39 | 79.39 | 3,096 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1046179/000104617926000714/xslF345X06/wk-form4_1791455539.xml) |
+| 2026-10-08 | **TSM** | Wang Ying-Lang／高階主管（SVP） | `P` 公開市場或私下買入 | 52 | 79.39 | 4,128 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1046179/000104617926000710/xslF345X06/wk-form4_1791455413.xml) |
+| 2026-10-07 | **META** | Olivan Javier／高階主管（Chief Operating Officer） | `S` 公開市場或私下賣出 | 946 | 728.08 | 688,764 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000095010326015324/xslF345X06/ownership.xml) |
+| 2026-10-07 | **META** | Olivan Javier／高階主管（Chief Operating Officer） | `S` 公開市場或私下賣出 | 82 | 728.08 | 59,703 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000095010326015324/xslF345X06/ownership.xml) |
+| 2026-10-07 | **META** | Olivan Javier／高階主管（Chief Operating Officer） | `S` 公開市場或私下賣出 | 57 | 728.08 | 41,501 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000095010326015324/xslF345X06/ownership.xml) |
+| 2026-10-07 | **META** | Olivan Javier／高階主管（Chief Operating Officer） | `S` 公開市場或私下賣出 | 82 | 728.08 | 59,703 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000095010326015324/xslF345X06/ownership.xml) |
+| 2026-10-07 | **META** | Olivan Javier／高階主管（Chief Operating Officer） | `S` 公開市場或私下賣出 | 408 | 728.08 | 297,057 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000095010326015324/xslF345X06/ownership.xml) |
+| 2026-10-07 | **COHR** | Mocciaro Ilaria／高階主管（Chief Accounting Officer） | `F` 以證券支付稅款或履約價 | 636 | 258.93 | 164,679 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/820318/000089914026001100/xslF345X06/form4.xml) |
+| 2026-10-07 | **COHR** | PAGLIUCA STEPHEN G／董事 | `A` 公司授予／獎勵 | 279 | 0.00 | 0 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/820318/000119312526417073/xslF345X06/ownership.xml) |
+| 2026-10-07 | **COHR** | Mocciaro Ilaria／高階主管（Chief Accounting Officer） | `F` 以證券支付稅款或履約價 | 1,130 | 154.00 | 174,020 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/820318/000089914026001100/xslF345X06/form4.xml) |
 | 2026-10-05 | **AAPL** | COOK TIMOTHY D／董事、高階主管（Executive Chair） | `S` 公開市場或私下賣出 | 23,143 | 331.44 | 7,670,516 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/320193/000114036126038674/xslF345X06/form4.xml) |
 | 2026-10-05 | **AAPL** | COOK TIMOTHY D／董事、高階主管（Executive Chair） | `S` 公開市場或私下賣出 | 39,492 | 332.16 | 13,117,663 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/320193/000114036126038674/xslF345X06/form4.xml) |
 | 2026-10-05 | **AAPL** | COOK TIMOTHY D／董事、高階主管（Executive Chair） | `S` 公開市場或私下賣出 | 88,239 | 333.26 | 29,406,529 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/320193/000114036126038674/xslF345X06/form4.xml) |
@@ -172,39 +188,10 @@ tags:
 | 2026-09-11 | **META** | Cox Christopher K／高階主管（Chief Product Officer） | `S` 公開市場或私下賣出 | 1,422 | 651.15 | 925,935 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000095010326013860/xslF345X06/ownership.xml) |
 | 2026-09-11 | **NVDA** | Parker Nicholas P.／高階主管（EVP, Worldwide Field Ops） | `A` 公司授予／獎勵 | 172,507 | 0.00 | 0 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1045810/000215218826000005/xslF345X06/wk-form4_1789160684.xml) |
 | 2026-09-10 | **ARM** | Haas Rene A.／董事、高階主管（Chief Executive Officer） | `A` 公司授予／獎勵 | 425,000 | 0.00 | 0 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1973239/000197323926000130/xslF345X06/wk-form4_1789071754.xml) |
-| 2026-09-10 | **META** | Olivan Javier／高階主管（Chief Operating Officer） | `S` 公開市場或私下賣出 | 258 | 612.99 | 158,151 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000095010326013794/xslF345X06/ownership.xml) |
-| 2026-09-10 | **META** | Olivan Javier／高階主管（Chief Operating Officer） | `S` 公開市場或私下賣出 | 117 | 614.22 | 71,863 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000095010326013794/xslF345X06/ownership.xml) |
-| 2026-09-10 | **META** | Olivan Javier／高階主管（Chief Operating Officer） | `S` 公開市場或私下賣出 | 262 | 615.23 | 161,191 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000095010326013794/xslF345X06/ownership.xml) |
-| 2026-09-10 | **META** | Olivan Javier／高階主管（Chief Operating Officer） | `S` 公開市場或私下賣出 | 855 | 616.32 | 526,955 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000095010326013794/xslF345X06/ownership.xml) |
-| 2026-09-10 | **META** | Olivan Javier／高階主管（Chief Operating Officer） | `S` 公開市場或私下賣出 | 555 | 617.28 | 342,592 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000095010326013794/xslF345X06/ownership.xml) |
-| 2026-09-10 | **META** | Olivan Javier／高階主管（Chief Operating Officer） | `S` 公開市場或私下賣出 | 529 | 618.18 | 327,019 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000095010326013794/xslF345X06/ownership.xml) |
-| 2026-09-10 | **META** | Olivan Javier／高階主管（Chief Operating Officer） | `S` 公開市場或私下賣出 | 120 | 618.93 | 74,272 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000095010326013794/xslF345X06/ownership.xml) |
-| 2026-09-10 | **META** | Olivan Javier／高階主管（Chief Operating Officer） | `S` 公開市場或私下賣出 | 78 | 620.37 | 48,389 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000095010326013794/xslF345X06/ownership.xml) |
-| 2026-09-10 | **META** | Olivan Javier／高階主管（Chief Operating Officer） | `S` 公開市場或私下賣出 | 40 | 621.03 | 24,841 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000095010326013794/xslF345X06/ownership.xml) |
-| 2026-09-10 | **META** | Olivan Javier／高階主管（Chief Operating Officer） | `S` 公開市場或私下賣出 | 24 | 622.99 | 14,952 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000095010326013794/xslF345X06/ownership.xml) |
-| 2026-09-10 | **META** | Olivan Javier／高階主管（Chief Operating Officer） | `S` 公開市場或私下賣出 | 328 | 616.06 | 202,068 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000095010326013794/xslF345X06/ownership.xml) |
-| 2026-09-10 | **META** | Olivan Javier／高階主管（Chief Operating Officer） | `S` 公開市場或私下賣出 | 228 | 616.06 | 140,462 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000095010326013794/xslF345X06/ownership.xml) |
-| 2026-09-10 | **META** | Olivan Javier／高階主管（Chief Operating Officer） | `S` 公開市場或私下賣出 | 328 | 616.06 | 202,068 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000095010326013794/xslF345X06/ownership.xml) |
-| 2026-09-10 | **META** | Olivan Javier／高階主管（Chief Operating Officer） | `S` 公開市場或私下賣出 | 52 | 612.21 | 31,835 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000095010326013794/xslF345X06/ownership.xml) |
-| 2026-09-10 | **META** | Olivan Javier／高階主管（Chief Operating Officer） | `S` 公開市場或私下賣出 | 40 | 613.30 | 24,532 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000095010326013794/xslF345X06/ownership.xml) |
-| 2026-09-10 | **META** | Olivan Javier／高階主管（Chief Operating Officer） | `S` 公開市場或私下賣出 | 200 | 614.49 | 122,898 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000095010326013794/xslF345X06/ownership.xml) |
-| 2026-09-10 | **META** | Olivan Javier／高階主管（Chief Operating Officer） | `S` 公開市場或私下賣出 | 354 | 615.88 | 218,021 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000095010326013794/xslF345X06/ownership.xml) |
-| 2026-09-10 | **META** | Olivan Javier／高階主管（Chief Operating Officer） | `S` 公開市場或私下賣出 | 473 | 616.79 | 291,740 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000095010326013794/xslF345X06/ownership.xml) |
-| 2026-09-10 | **META** | Olivan Javier／高階主管（Chief Operating Officer） | `S` 公開市場或私下賣出 | 304 | 618.00 | 187,873 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000095010326013794/xslF345X06/ownership.xml) |
-| 2026-09-10 | **META** | Olivan Javier／高階主管（Chief Operating Officer） | `S` 公開市場或私下賣出 | 157 | 619.11 | 97,200 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000095010326013794/xslF345X06/ownership.xml) |
-| 2026-09-10 | **META** | Olivan Javier／高階主管（Chief Operating Officer） | `S` 公開市場或私下賣出 | 52 | 620.27 | 32,254 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000095010326013794/xslF345X06/ownership.xml) |
 | 2026-09-10 | **ARM** | Haas Rene A.／董事、高階主管（Chief Executive Officer） | `A` 公司授予／獎勵 | 64 | 108.33 | 6,933 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1973239/000197323926000130/xslF345X06/wk-form4_1789071754.xml) |
 | 2026-09-09 | **AMZN** | SMITH BRAD D／董事 | `A` 公司授予／獎勵 | 4,086 | 0.00 | 0 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000128432326000002/xslF345X06/wk-form4_1788987268.xml) |
 | 2026-09-09 | **AMZN** | Mandia Kevin R.／董事 | `A` 公司授予／獎勵 | 4,086 | 0.00 | 0 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000159560226000007/xslF345X06/wk-form4_1788986939.xml) |
 | 2026-09-09 | **TSLA** | Taneja Vaibhav／高階主管（Chief Financial Officer） | `S` 公開市場或私下賣出 | 2,606 | 360.13 | 938,419 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1318605/000110465926106432/xslF345X06/tm2625055d1_4seq1.xml) |
-| 2026-09-09 | **TSM** | Wu Yi-Huang／高階主管（VP） | `P` 公開市場或私下買入 | 40 | 76.20 | 3,048 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1046179/000104617926000656/xslF345X06/wk-form4_1788948541.xml) |
-| 2026-09-09 | **TSM** | Yoo Chue-San／高階主管（VP） | `P` 公開市場或私下買入 | 53 | 76.20 | 4,039 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1046179/000104617926000655/xslF345X06/wk-form4_1788948533.xml) |
-| 2026-09-09 | **TSM** | Yeap Choh Fei／高階主管（SVP） | `P` 公開市場或私下買入 | 54 | 76.20 | 4,115 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1046179/000104617926000654/xslF345X06/wk-form4_1788948527.xml) |
-| 2026-09-09 | **TSM** | Zhang Kevin Xiaoqiang／高階主管（SVP and Deputy Co-COO） | `P` 公開市場或私下買入 | 61 | 76.20 | 4,648 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1046179/000104617926000653/xslF345X06/wk-form4_1788948521.xml) |
-| 2026-09-09 | **TSM** | Yuan Lipen／高階主管（VP） | `P` 公開市場或私下買入 | 41 | 76.20 | 3,124 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1046179/000104617926000652/xslF345X06/wk-form4_1788948514.xml) |
-| 2026-09-09 | **TSM** | Mii Yuh-Jier／高階主管（EVP and Co-COO） | `P` 公開市場或私下買入 | 71 | 76.20 | 5,410 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1046179/000104617926000648/xslF345X06/wk-form4_1788948487.xml) |
-| 2026-09-09 | **TSM** | Wu Shien-Yang／高階主管（SVP） | `P` 公開市場或私下買入 | 57 | 76.20 | 4,343 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1046179/000104617926000646/xslF345X06/wk-form4_1788948479.xml) |
-| 2026-09-09 | **TSM** | Wei Che-Chia／董事、高階主管（Chairman and CEO） | `P` 公開市場或私下買入 | 149 | 76.20 | 11,354 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1046179/000104617926000644/xslF345X06/wk-form4_1788948471.xml) |
 | 2026-09-09 | **TSLA** | Taneja Vaibhav／高階主管（Chief Financial Officer） | `M` 衍生證券行使／轉換 | 6,539 | 0.00 | 0 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1318605/000110465926106432/xslF345X06/tm2625055d1_4seq1.xml) |
 | 2026-09-09 | **TSLA** | Taneja Vaibhav／高階主管（Chief Financial Officer） | `M` 衍生證券行使／轉換 | 6,539 | 0.00 | 0 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1318605/000110465926106432/xslF345X06/tm2625055d1_4seq1.xml) |
 | 2026-09-04 | **COHR** | Neal-Graves Lisa／董事 | `S` 公開市場或私下賣出 | 2,200 | 268.42 | 590,524 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/820318/000089914026001054/xslF345X06/form4.xml) |
@@ -212,7 +199,20 @@ tags:
 | 2026-09-02 | **MRVL** | Koopmans Chris／高階主管（President and COO） | `S` 公開市場或私下賣出 | 10,000 | 203.27 | 2,032,700 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1835632/000162828026060112/xslF345X06/wk-form4_1788380464.xml) |
 | 2026-09-02 | **COHR** | Digirolomo Enrico／董事 | `S` 公開市場或私下賣出 | 2,272 | 276.85 | 628,998 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/820318/000089914026001048/xslF345X06/form4.xml) |
 | 2026-09-02 | **COHR** | SKAGGS STEPHEN A／董事 | `S` 公開市場或私下賣出 | 2,272 | 276.88 | 629,062 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/820318/000089914026001047/xslF345X06/form4.xml) |
-| 2026-09-02 | **COHR** | Digirolomo Enrico／董事 | `M` 衍生證券行使／轉換 | 1,005 | 49.90 | 50,150 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/820318/000089914026001046/xslF345X06/form4a.xml) |
+| 2026-08-31 | **ARM** | Child Jason／高階主管（Chief Financial Officer） | `S` 公開市場或私下賣出 | 10,400 | 255.33 | 2,655,432 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1973239/000197323926000122/xslF345X06/wk-form4_1788210409.xml) |
+| 2026-08-27 | **AMZN** | BEZOS JEFFREY P／董事、高階主管（Executive Chair） | `G` 贈與 | 230,637 | 0.00 | 0 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000104329826000002/xslF345X06/wk-form4_1787862279.xml) |
+| 2026-08-27 | **AMZN** | BEZOS JEFFREY P／董事、高階主管（Executive Chair） | `G` 贈與 | 184,943 | 0.00 | 0 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000104329826000002/xslF345X06/wk-form4_1787862279.xml) |
+| 2026-08-25 | **AMZN** | Jassy Andrew R／董事、高階主管（President and CEO） | `M` 衍生證券行使／轉換 | 50,000 | 0.00 | 0 | 取得 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000137454526000010/xslF345X06/wk-form4_1787692115.xml) |
+| 2026-08-25 | **AMZN** | Jassy Andrew R／董事、高階主管（President and CEO） | `S` 公開市場或私下賣出 | 3,197 | 257.63 | 823,657 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000137454526000010/xslF345X06/wk-form4_1787692115.xml) |
+| 2026-08-25 | **AMZN** | Jassy Andrew R／董事、高階主管（President and CEO） | `S` 公開市場或私下賣出 | 7,478 | 258.67 | 1,934,300 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000137454526000010/xslF345X06/wk-form4_1787692115.xml) |
+| 2026-08-25 | **AMZN** | Jassy Andrew R／董事、高階主管（President and CEO） | `S` 公開市場或私下賣出 | 7,514 | 259.61 | 1,950,685 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000137454526000010/xslF345X06/wk-form4_1787692115.xml) |
+| 2026-08-25 | **AMZN** | Jassy Andrew R／董事、高階主管（President and CEO） | `S` 公開市場或私下賣出 | 1,811 | 260.39 | 471,571 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000137454526000010/xslF345X06/wk-form4_1787692115.xml) |
+| 2026-08-25 | **AMZN** | Jassy Andrew R／董事、高階主管（President and CEO） | `M` 衍生證券行使／轉換 | 50,000 | 0.00 | 0 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000137454526000010/xslF345X06/wk-form4_1787692115.xml) |
+| 2026-08-25 | **AMZN** | Garman Matthew S／高階主管（CEO Amazon Web Services） | `M` 衍生證券行使／轉換 | 4,860 | 0.00 | 0 | 取得 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000202481326000010/xslF345X06/wk-form4_1787691690.xml) |
+| 2026-08-25 | **AMZN** | Garman Matthew S／高階主管（CEO Amazon Web Services） | `M` 衍生證券行使／轉換 | 1,480 | 0.00 | 0 | 取得 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000202481326000010/xslF345X06/wk-form4_1787691690.xml) |
+| 2026-08-25 | **AMZN** | Garman Matthew S／高階主管（CEO Amazon Web Services） | `M` 衍生證券行使／轉換 | 4,000 | 0.00 | 0 | 取得 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000202481326000010/xslF345X06/wk-form4_1787691690.xml) |
+| 2026-08-25 | **AMZN** | Garman Matthew S／高階主管（CEO Amazon Web Services） | `M` 衍生證券行使／轉換 | 7,836 | 0.00 | 0 | 取得 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000202481326000010/xslF345X06/wk-form4_1787691690.xml) |
+| 2026-08-25 | **AMZN** | Garman Matthew S／高階主管（CEO Amazon Web Services） | `S` 公開市場或私下賣出 | 2,159 | 257.60 | 556,148 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1018724/000202481326000010/xslF345X06/wk-form4_1787691690.xml) |
 
 ## 交易代碼速查
 
@@ -227,5 +227,5 @@ tags:
 
 > 金額只在股數與單價都由 SEC 文件提供時才計算；缺值保留為「—」，不以 0 代替。
 
-> 最後檢查：`2026-10-07T10:50:49+00:00`
+> 最後檢查：`2026-10-08T11:08:05+00:00`
 

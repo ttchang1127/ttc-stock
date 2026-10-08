@@ -1,6 +1,6 @@
 {
   "schema_version": 3,
-  "updated_at": "2026-10-07T10:50:49+00:00",
+  "updated_at": "2026-10-08T11:08:05+00:00",
   "source": "SEC EDGAR submissions, EFTS and enforcement RSS",
   "footnotes": [
     {
@@ -1822,6 +1822,27 @@
       "event": {
         "ticker": "TSM",
         "cik": "0001046179",
+        "accession": "0001046179-26-000680",
+        "form": "6-K",
+        "group": "重大事件",
+        "severity": "high",
+        "filing_date": "2026-10-08",
+        "accepted_at": "2026-10-08T10:12:39.000Z",
+        "report_date": "2026-09-30",
+        "items": [],
+        "items_summary": "未提供 Item 分類",
+        "primary_document": "tsm-revenue20261008.htm",
+        "url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000680/tsm-revenue20261008.htm",
+        "index_url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000680/0001046179-26-000680-index.html"
+      },
+      "signals": [],
+      "attachments": [],
+      "metrics": {}
+    },
+    {
+      "event": {
+        "ticker": "TSM",
+        "cik": "0001046179",
         "accession": "0001046179-26-000660",
         "form": "6-K",
         "group": "重大事件",
@@ -1834,27 +1855,6 @@
         "primary_document": "tsm-monthend6kx20260924.htm",
         "url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000660/tsm-monthend6kx20260924.htm",
         "index_url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000660/0001046179-26-000660-index.html"
-      },
-      "signals": [],
-      "attachments": [],
-      "metrics": {}
-    },
-    {
-      "event": {
-        "ticker": "TSM",
-        "cik": "0001046179",
-        "accession": "0001046179-26-000658",
-        "form": "6-K",
-        "group": "重大事件",
-        "severity": "high",
-        "filing_date": "2026-09-10",
-        "accepted_at": "2026-09-10T10:15:36.000Z",
-        "report_date": "2026-08-31",
-        "items": [],
-        "items_summary": "未提供 Item 分類",
-        "primary_document": "tsm-revenue20260910.htm",
-        "url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000658/tsm-revenue20260910.htm",
-        "index_url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000658/0001046179-26-000658-index.html"
       },
       "signals": [],
       "attachments": [],
@@ -4971,48 +4971,6 @@
     {
       "ticker": "COHR",
       "form": "SCHEDULE 13G/A",
-      "filing_date": "2025-02-07",
-      "accession": "0000914208-25-000052",
-      "reporting_persons": [
-        "Invesco Ltd.  (CIK 0000914208)"
-      ],
-      "meaning": "持股超過 5% 的被動型／免豁型受益所有權申報。",
-      "url": "https://www.sec.gov/Archives/edgar/data/820318/000091420825000052/0000914208-25-000052-index.html",
-      "ownership": {
-        "schema_version": 3,
-        "event_date": "12/31/2024",
-        "cusip": "19247G107",
-        "cusips": [
-          "19247G107"
-        ],
-        "filing_basis": "合格機構投資人",
-        "aggregate_shares": 9493449,
-        "percent_of_class": 6.1,
-        "sole_voting_power": 9294259,
-        "shared_voting_power": 0,
-        "sole_dispositive_power": 9493449,
-        "shared_dispositive_power": 0,
-        "positions": [
-          {
-            "reporting_person": "Invesco Ltd.",
-            "aggregate_shares": 9493449,
-            "percent_of_class": 6.1,
-            "sole_voting_power": 9294259,
-            "shared_voting_power": 0,
-            "sole_dispositive_power": 9493449,
-            "shared_dispositive_power": 0,
-            "comments": ""
-          }
-        ],
-        "threshold_exit": false,
-        "purpose_excerpt": "",
-        "filing_comment": "",
-        "data_status": "parsed"
-      }
-    },
-    {
-      "ticker": "COHR",
-      "form": "SCHEDULE 13G/A",
       "filing_date": "2026-03-26",
       "accession": "0000102909-26-000957",
       "reporting_persons": [
@@ -5108,6 +5066,48 @@
           "shares_comparable": true,
           "comparison_note": "本申報已降至 5% 申報門檻以下"
         }
+      }
+    },
+    {
+      "ticker": "COHR",
+      "form": "SCHEDULE 13G/A",
+      "filing_date": "2025-02-07",
+      "accession": "0000914208-25-000052",
+      "reporting_persons": [
+        "Invesco Ltd.  (CIK 0000914208)"
+      ],
+      "meaning": "持股超過 5% 的被動型／免豁型受益所有權申報。",
+      "url": "https://www.sec.gov/Archives/edgar/data/820318/000091420825000052/0000914208-25-000052-index.html",
+      "ownership": {
+        "schema_version": 3,
+        "event_date": "12/31/2024",
+        "cusip": "19247G107",
+        "cusips": [
+          "19247G107"
+        ],
+        "filing_basis": "合格機構投資人",
+        "aggregate_shares": 9493449,
+        "percent_of_class": 6.1,
+        "sole_voting_power": 9294259,
+        "shared_voting_power": 0,
+        "sole_dispositive_power": 9493449,
+        "shared_dispositive_power": 0,
+        "positions": [
+          {
+            "reporting_person": "Invesco Ltd.",
+            "aggregate_shares": 9493449,
+            "percent_of_class": 6.1,
+            "sole_voting_power": 9294259,
+            "shared_voting_power": 0,
+            "sole_dispositive_power": 9493449,
+            "shared_dispositive_power": 0,
+            "comments": ""
+          }
+        ],
+        "threshold_exit": false,
+        "purpose_excerpt": "",
+        "filing_comment": "",
+        "data_status": "parsed"
       }
     },
     {
@@ -7067,6 +7067,46 @@
     {
       "ticker": "NVDA",
       "form": "SC 13G/A",
+      "filing_date": "2024-02-09",
+      "accession": "0000315066-24-001331",
+      "reporting_persons": [
+        "FMR LLC  (CIK 0000315066)"
+      ],
+      "meaning": "持股超過 5% 的被動型／免豁型受益所有權申報。",
+      "url": "https://www.sec.gov/Archives/edgar/data/1045810/000031506624001331/0000315066-24-001331-index.html",
+      "ownership": {
+        "schema_version": 3,
+        "event_date": "",
+        "cusip": "67066G104",
+        "cusips": [
+          "67066G104"
+        ],
+        "filing_basis": "合格機構投資人",
+        "aggregate_shares": 127855229,
+        "percent_of_class": 5.176,
+        "sole_voting_power": 5,
+        "shared_voting_power": 0,
+        "sole_dispositive_power": 127855229,
+        "shared_dispositive_power": 0,
+        "positions": [
+          {
+            "reporting_person": "申報群組",
+            "aggregate_shares": 127855229,
+            "percent_of_class": 5.176,
+            "sole_voting_power": 5,
+            "shared_voting_power": 0,
+            "sole_dispositive_power": 127855229,
+            "shared_dispositive_power": 0
+          }
+        ],
+        "threshold_exit": false,
+        "purpose_excerpt": "",
+        "data_status": "parsed"
+      }
+    },
+    {
+      "ticker": "NVDA",
+      "form": "SC 13G/A",
       "filing_date": "2024-11-12",
       "accession": "0000315066-24-002826",
       "reporting_persons": [
@@ -7110,46 +7150,6 @@
           "shares_comparable": false,
           "comparison_note": "股數疑受拆股／併股影響，方向以持股比例判讀"
         }
-      }
-    },
-    {
-      "ticker": "NVDA",
-      "form": "SC 13G/A",
-      "filing_date": "2024-02-09",
-      "accession": "0000315066-24-001331",
-      "reporting_persons": [
-        "FMR LLC  (CIK 0000315066)"
-      ],
-      "meaning": "持股超過 5% 的被動型／免豁型受益所有權申報。",
-      "url": "https://www.sec.gov/Archives/edgar/data/1045810/000031506624001331/0000315066-24-001331-index.html",
-      "ownership": {
-        "schema_version": 3,
-        "event_date": "",
-        "cusip": "67066G104",
-        "cusips": [
-          "67066G104"
-        ],
-        "filing_basis": "合格機構投資人",
-        "aggregate_shares": 127855229,
-        "percent_of_class": 5.176,
-        "sole_voting_power": 5,
-        "shared_voting_power": 0,
-        "sole_dispositive_power": 127855229,
-        "shared_dispositive_power": 0,
-        "positions": [
-          {
-            "reporting_person": "申報群組",
-            "aggregate_shares": 127855229,
-            "percent_of_class": 5.176,
-            "sole_voting_power": 5,
-            "shared_voting_power": 0,
-            "sole_dispositive_power": 127855229,
-            "shared_dispositive_power": 0
-          }
-        ],
-        "threshold_exit": false,
-        "purpose_excerpt": "",
-        "data_status": "parsed"
       }
     },
     {
@@ -14654,6 +14654,42 @@
       "event": {
         "ticker": "COHR",
         "cik": "0000820318",
+        "accession": "0000899140-26-001100",
+        "form": "4",
+        "group": "內部人持股",
+        "severity": "medium",
+        "filing_date": "2026-10-07",
+        "accepted_at": "2026-10-08T04:56:52.000Z",
+        "report_date": "2025-11-28",
+        "items": [],
+        "items_summary": "未提供 Item 分類",
+        "primary_document": "xslF345X06/form4.xml",
+        "url": "https://www.sec.gov/Archives/edgar/data/820318/000089914026001100/xslF345X06/form4.xml",
+        "index_url": "https://www.sec.gov/Archives/edgar/data/820318/000089914026001100/0000899140-26-001100-index.html"
+      }
+    },
+    {
+      "event": {
+        "ticker": "COHR",
+        "cik": "0000820318",
+        "accession": "0001193125-26-417073",
+        "form": "4",
+        "group": "內部人持股",
+        "severity": "medium",
+        "filing_date": "2026-10-07",
+        "accepted_at": "2026-10-08T01:15:57.000Z",
+        "report_date": "2026-02-11",
+        "items": [],
+        "items_summary": "未提供 Item 分類",
+        "primary_document": "xslF345X06/ownership.xml",
+        "url": "https://www.sec.gov/Archives/edgar/data/820318/000119312526417073/xslF345X06/ownership.xml",
+        "index_url": "https://www.sec.gov/Archives/edgar/data/820318/000119312526417073/0001193125-26-417073-index.html"
+      }
+    },
+    {
+      "event": {
+        "ticker": "COHR",
+        "cik": "0000820318",
         "accession": "0000899140-26-001089",
         "form": "4",
         "group": "內部人持股",
@@ -14855,42 +14891,6 @@
         "shares_outstanding": 195832246.0,
         "approx_sale_date": "09/02/2026",
         "remarks": ""
-      }
-    },
-    {
-      "event": {
-        "ticker": "COHR",
-        "cik": "0000820318",
-        "accession": "0000899140-26-001040",
-        "form": "4",
-        "group": "內部人持股",
-        "severity": "medium",
-        "filing_date": "2026-09-01",
-        "accepted_at": "2026-09-02T05:09:46.000Z",
-        "report_date": "2026-08-28",
-        "items": [],
-        "items_summary": "未提供 Item 分類",
-        "primary_document": "xslF345X06/form4.xml",
-        "url": "https://www.sec.gov/Archives/edgar/data/820318/000089914026001040/xslF345X06/form4.xml",
-        "index_url": "https://www.sec.gov/Archives/edgar/data/820318/000089914026001040/0000899140-26-001040-index.html"
-      }
-    },
-    {
-      "event": {
-        "ticker": "COHR",
-        "cik": "0000820318",
-        "accession": "0000899140-26-001039",
-        "form": "4",
-        "group": "內部人持股",
-        "severity": "medium",
-        "filing_date": "2026-09-01",
-        "accepted_at": "2026-09-02T05:08:09.000Z",
-        "report_date": "2026-08-28",
-        "items": [],
-        "items_summary": "未提供 Item 分類",
-        "primary_document": "xslF345X06/form4.xml",
-        "url": "https://www.sec.gov/Archives/edgar/data/820318/000089914026001039/xslF345X06/form4.xml",
-        "index_url": "https://www.sec.gov/Archives/edgar/data/820318/000089914026001039/0000899140-26-001039-index.html"
       }
     },
     {
@@ -15347,6 +15347,24 @@
       "event": {
         "ticker": "META",
         "cik": "0001326801",
+        "accession": "0000950103-26-015324",
+        "form": "4",
+        "group": "內部人持股",
+        "severity": "medium",
+        "filing_date": "2026-10-07",
+        "accepted_at": "2026-10-08T02:09:06.000Z",
+        "report_date": "2026-10-05",
+        "items": [],
+        "items_summary": "未提供 Item 分類",
+        "primary_document": "xslF345X06/ownership.xml",
+        "url": "https://www.sec.gov/Archives/edgar/data/1326801/000095010326015324/xslF345X06/ownership.xml",
+        "index_url": "https://www.sec.gov/Archives/edgar/data/1326801/000095010326015324/0000950103-26-015324-index.html"
+      }
+    },
+    {
+      "event": {
+        "ticker": "META",
+        "cik": "0001326801",
         "accession": "0001921094-26-001069",
         "form": "144",
         "group": "內部人持股",
@@ -15584,33 +15602,6 @@
         "primary_document": "xslF345X06/ownership.xml",
         "url": "https://www.sec.gov/Archives/edgar/data/1326801/000095010326014061/xslF345X06/ownership.xml",
         "index_url": "https://www.sec.gov/Archives/edgar/data/1326801/000095010326014061/0000950103-26-014061-index.html"
-      }
-    },
-    {
-      "event": {
-        "ticker": "META",
-        "cik": "0001326801",
-        "accession": "0001921094-26-001023",
-        "form": "144",
-        "group": "內部人持股",
-        "severity": "medium",
-        "filing_date": "2026-09-15",
-        "accepted_at": "2026-09-16T00:25:47.000Z",
-        "report_date": "",
-        "items": [],
-        "items_summary": "未提供 Item 分類",
-        "primary_document": "xsl144X01/primary_doc.xml",
-        "url": "https://www.sec.gov/Archives/edgar/data/1326801/000192109426001023/xsl144X01/primary_doc.xml",
-        "index_url": "https://www.sec.gov/Archives/edgar/data/1326801/000192109426001023/0001921094-26-001023-index.html"
-      },
-      "form144": {
-        "reporter": "Cox Christopher K",
-        "relationship": "Officer",
-        "planned_shares": 20000.0,
-        "planned_value_usd": 13504556.0,
-        "shares_outstanding": 2205128509.0,
-        "approx_sale_date": "09/15/2026",
-        "remarks": "The Shares reported on this Form 144 will be sold pursuant to a Rule 10b5-1 trading plan. The shares were sold in the account CHRISTOPHER K. COX REVOCABLE TRUST."
       }
     },
     {
@@ -16868,216 +16859,216 @@
       "event": {
         "ticker": "TSM",
         "cik": "0001046179",
-        "accession": "0001046179-26-000656",
+        "accession": "0001046179-26-000724",
         "form": "4",
         "group": "內部人持股",
         "severity": "medium",
-        "filing_date": "2026-09-09",
-        "accepted_at": "2026-09-09T10:09:04.000Z",
-        "report_date": "2026-09-07",
+        "filing_date": "2026-10-08",
+        "accepted_at": "2026-10-08T10:35:58.000Z",
+        "report_date": "2026-10-07",
         "items": [],
         "items_summary": "未提供 Item 分類",
-        "primary_document": "xslF345X06/wk-form4_1788948541.xml",
-        "url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000656/xslF345X06/wk-form4_1788948541.xml",
-        "index_url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000656/0001046179-26-000656-index.html"
+        "primary_document": "xslF345X06/wk-form4_1791455755.xml",
+        "url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000724/xslF345X06/wk-form4_1791455755.xml",
+        "index_url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000724/0001046179-26-000724-index.html"
       }
     },
     {
       "event": {
         "ticker": "TSM",
         "cik": "0001046179",
-        "accession": "0001046179-26-000655",
+        "accession": "0001046179-26-000723",
         "form": "4",
         "group": "內部人持股",
         "severity": "medium",
-        "filing_date": "2026-09-09",
-        "accepted_at": "2026-09-09T10:08:58.000Z",
-        "report_date": "2026-09-07",
+        "filing_date": "2026-10-08",
+        "accepted_at": "2026-10-08T10:35:53.000Z",
+        "report_date": "2026-10-07",
         "items": [],
         "items_summary": "未提供 Item 分類",
-        "primary_document": "xslF345X06/wk-form4_1788948533.xml",
-        "url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000655/xslF345X06/wk-form4_1788948533.xml",
-        "index_url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000655/0001046179-26-000655-index.html"
+        "primary_document": "xslF345X06/wk-form4_1791455750.xml",
+        "url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000723/xslF345X06/wk-form4_1791455750.xml",
+        "index_url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000723/0001046179-26-000723-index.html"
       }
     },
     {
       "event": {
         "ticker": "TSM",
         "cik": "0001046179",
-        "accession": "0001046179-26-000654",
+        "accession": "0001046179-26-000722",
         "form": "4",
         "group": "內部人持股",
         "severity": "medium",
-        "filing_date": "2026-09-09",
-        "accepted_at": "2026-09-09T10:08:51.000Z",
-        "report_date": "2026-09-07",
+        "filing_date": "2026-10-08",
+        "accepted_at": "2026-10-08T10:35:46.000Z",
+        "report_date": "2026-10-07",
         "items": [],
         "items_summary": "未提供 Item 分類",
-        "primary_document": "xslF345X06/wk-form4_1788948527.xml",
-        "url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000654/xslF345X06/wk-form4_1788948527.xml",
-        "index_url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000654/0001046179-26-000654-index.html"
+        "primary_document": "xslF345X06/wk-form4_1791455743.xml",
+        "url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000722/xslF345X06/wk-form4_1791455743.xml",
+        "index_url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000722/0001046179-26-000722-index.html"
       }
     },
     {
       "event": {
         "ticker": "TSM",
         "cik": "0001046179",
-        "accession": "0001046179-26-000653",
+        "accession": "0001046179-26-000721",
         "form": "4",
         "group": "內部人持股",
         "severity": "medium",
-        "filing_date": "2026-09-09",
-        "accepted_at": "2026-09-09T10:08:45.000Z",
-        "report_date": "2026-09-07",
+        "filing_date": "2026-10-08",
+        "accepted_at": "2026-10-08T10:35:40.000Z",
+        "report_date": "2026-10-07",
         "items": [],
         "items_summary": "未提供 Item 分類",
-        "primary_document": "xslF345X06/wk-form4_1788948521.xml",
-        "url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000653/xslF345X06/wk-form4_1788948521.xml",
-        "index_url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000653/0001046179-26-000653-index.html"
+        "primary_document": "xslF345X06/wk-form4_1791455737.xml",
+        "url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000721/xslF345X06/wk-form4_1791455737.xml",
+        "index_url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000721/0001046179-26-000721-index.html"
       }
     },
     {
       "event": {
         "ticker": "TSM",
         "cik": "0001046179",
-        "accession": "0001046179-26-000652",
+        "accession": "0001046179-26-000716",
         "form": "4",
         "group": "內部人持股",
         "severity": "medium",
-        "filing_date": "2026-09-09",
-        "accepted_at": "2026-09-09T10:08:38.000Z",
-        "report_date": "2026-09-07",
+        "filing_date": "2026-10-08",
+        "accepted_at": "2026-10-08T10:32:36.000Z",
+        "report_date": "2026-10-07",
         "items": [],
         "items_summary": "未提供 Item 分類",
-        "primary_document": "xslF345X06/wk-form4_1788948514.xml",
-        "url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000652/xslF345X06/wk-form4_1788948514.xml",
-        "index_url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000652/0001046179-26-000652-index.html"
+        "primary_document": "xslF345X06/wk-form4_1791455553.xml",
+        "url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000716/xslF345X06/wk-form4_1791455553.xml",
+        "index_url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000716/0001046179-26-000716-index.html"
       }
     },
     {
       "event": {
         "ticker": "TSM",
         "cik": "0001046179",
-        "accession": "0001046179-26-000648",
+        "accession": "0001046179-26-000715",
         "form": "4",
         "group": "內部人持股",
         "severity": "medium",
-        "filing_date": "2026-09-09",
-        "accepted_at": "2026-09-09T10:08:11.000Z",
-        "report_date": "2026-09-07",
+        "filing_date": "2026-10-08",
+        "accepted_at": "2026-10-08T10:32:29.000Z",
+        "report_date": "2026-10-07",
         "items": [],
         "items_summary": "未提供 Item 分類",
-        "primary_document": "xslF345X06/wk-form4_1788948487.xml",
-        "url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000648/xslF345X06/wk-form4_1788948487.xml",
-        "index_url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000648/0001046179-26-000648-index.html"
+        "primary_document": "xslF345X06/wk-form4_1791455546.xml",
+        "url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000715/xslF345X06/wk-form4_1791455546.xml",
+        "index_url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000715/0001046179-26-000715-index.html"
       }
     },
     {
       "event": {
         "ticker": "TSM",
         "cik": "0001046179",
-        "accession": "0001046179-26-000646",
+        "accession": "0001046179-26-000714",
         "form": "4",
         "group": "內部人持股",
         "severity": "medium",
-        "filing_date": "2026-09-09",
-        "accepted_at": "2026-09-09T10:08:03.000Z",
-        "report_date": "2026-09-07",
+        "filing_date": "2026-10-08",
+        "accepted_at": "2026-10-08T10:32:22.000Z",
+        "report_date": "2026-10-07",
         "items": [],
         "items_summary": "未提供 Item 分類",
-        "primary_document": "xslF345X06/wk-form4_1788948479.xml",
-        "url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000646/xslF345X06/wk-form4_1788948479.xml",
-        "index_url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000646/0001046179-26-000646-index.html"
+        "primary_document": "xslF345X06/wk-form4_1791455539.xml",
+        "url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000714/xslF345X06/wk-form4_1791455539.xml",
+        "index_url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000714/0001046179-26-000714-index.html"
       }
     },
     {
       "event": {
         "ticker": "TSM",
         "cik": "0001046179",
-        "accession": "0001046179-26-000644",
+        "accession": "0001046179-26-000710",
         "form": "4",
         "group": "內部人持股",
         "severity": "medium",
-        "filing_date": "2026-09-09",
-        "accepted_at": "2026-09-09T10:07:55.000Z",
-        "report_date": "2026-09-07",
+        "filing_date": "2026-10-08",
+        "accepted_at": "2026-10-08T10:30:17.000Z",
+        "report_date": "2026-10-07",
         "items": [],
         "items_summary": "未提供 Item 分類",
-        "primary_document": "xslF345X06/wk-form4_1788948471.xml",
-        "url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000644/xslF345X06/wk-form4_1788948471.xml",
-        "index_url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000644/0001046179-26-000644-index.html"
+        "primary_document": "xslF345X06/wk-form4_1791455413.xml",
+        "url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000710/xslF345X06/wk-form4_1791455413.xml",
+        "index_url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000710/0001046179-26-000710-index.html"
       }
     },
     {
       "event": {
         "ticker": "TSM",
         "cik": "0001046179",
-        "accession": "0001046179-26-000643",
+        "accession": "0001046179-26-000709",
         "form": "4",
         "group": "內部人持股",
         "severity": "medium",
-        "filing_date": "2026-09-09",
-        "accepted_at": "2026-09-09T10:07:47.000Z",
-        "report_date": "2026-09-07",
+        "filing_date": "2026-10-08",
+        "accepted_at": "2026-10-08T10:30:10.000Z",
+        "report_date": "2026-10-07",
         "items": [],
         "items_summary": "未提供 Item 分類",
-        "primary_document": "xslF345X06/wk-form4_1788948463.xml",
-        "url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000643/xslF345X06/wk-form4_1788948463.xml",
-        "index_url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000643/0001046179-26-000643-index.html"
+        "primary_document": "xslF345X06/wk-form4_1791455406.xml",
+        "url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000709/xslF345X06/wk-form4_1791455406.xml",
+        "index_url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000709/0001046179-26-000709-index.html"
       }
     },
     {
       "event": {
         "ticker": "TSM",
         "cik": "0001046179",
-        "accession": "0001046179-26-000642",
+        "accession": "0001046179-26-000708",
         "form": "4",
         "group": "內部人持股",
         "severity": "medium",
-        "filing_date": "2026-09-09",
-        "accepted_at": "2026-09-09T10:07:39.000Z",
-        "report_date": "2026-09-07",
+        "filing_date": "2026-10-08",
+        "accepted_at": "2026-10-08T10:30:04.000Z",
+        "report_date": "2026-10-07",
         "items": [],
         "items_summary": "未提供 Item 分類",
-        "primary_document": "xslF345X06/wk-form4_1788948455.xml",
-        "url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000642/xslF345X06/wk-form4_1788948455.xml",
-        "index_url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000642/0001046179-26-000642-index.html"
+        "primary_document": "xslF345X06/wk-form4_1791455401.xml",
+        "url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000708/xslF345X06/wk-form4_1791455401.xml",
+        "index_url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000708/0001046179-26-000708-index.html"
       }
     },
     {
       "event": {
         "ticker": "TSM",
         "cik": "0001046179",
-        "accession": "0001046179-26-000640",
+        "accession": "0001046179-26-000704",
         "form": "4",
         "group": "內部人持股",
         "severity": "medium",
-        "filing_date": "2026-09-09",
-        "accepted_at": "2026-09-09T10:07:04.000Z",
-        "report_date": "2026-09-07",
+        "filing_date": "2026-10-08",
+        "accepted_at": "2026-10-08T10:27:28.000Z",
+        "report_date": "2026-10-07",
         "items": [],
         "items_summary": "未提供 Item 分類",
-        "primary_document": "xslF345X06/wk-form4_1788948418.xml",
-        "url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000640/xslF345X06/wk-form4_1788948418.xml",
-        "index_url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000640/0001046179-26-000640-index.html"
+        "primary_document": "xslF345X06/wk-form4_1791455244.xml",
+        "url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000704/xslF345X06/wk-form4_1791455244.xml",
+        "index_url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000704/0001046179-26-000704-index.html"
       }
     },
     {
       "event": {
         "ticker": "TSM",
         "cik": "0001046179",
-        "accession": "0001046179-26-000637",
+        "accession": "0001046179-26-000703",
         "form": "4",
         "group": "內部人持股",
         "severity": "medium",
-        "filing_date": "2026-09-09",
-        "accepted_at": "2026-09-09T10:06:55.000Z",
-        "report_date": "2026-09-07",
+        "filing_date": "2026-10-08",
+        "accepted_at": "2026-10-08T10:27:22.000Z",
+        "report_date": "2026-10-07",
         "items": [],
         "items_summary": "未提供 Item 分類",
-        "primary_document": "xslF345X06/wk-form4_1788948410.xml",
-        "url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000637/xslF345X06/wk-form4_1788948410.xml",
-        "index_url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000637/0001046179-26-000637-index.html"
+        "primary_document": "xslF345X06/wk-form4_1791455238.xml",
+        "url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000703/xslF345X06/wk-form4_1791455238.xml",
+        "index_url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000703/0001046179-26-000703-index.html"
       }
     }
   ],
@@ -17532,8 +17523,8 @@
   ],
   "merger_window": {
     "years": 3,
-    "cutoff": "2023-10-07",
-    "as_of": "2026-10-07",
+    "cutoff": "2023-10-08",
+    "as_of": "2026-10-08",
     "document_count": 13,
     "deal_count": 2
   },
