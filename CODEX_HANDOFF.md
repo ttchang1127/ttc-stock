@@ -17,6 +17,8 @@ SEC 證據狀態另由 `tech_stock_sec_review.json` 提供，使用 `scripts/bui
 
 證據卡的原始文件統一由 Mac mini `Sec_kb` 管理；公開可查的登記表是 `30_Analysis/Tech_Stock_Map_Evidence_Source_Index.md`，列出官方 URL、SEC accession、原文快取相對位置與 SHA-256。`20_Filings/*/raw/*.html` 只在本機保存且不進 Git；公司 IR 文件須明標非 SEC。網站卡片連回索引及原始來源，不以本地檔案網址當公開連結。
 
+前瞻驗證先導樣本於 2026-10-10 凍結在 `tech_stock_validation_20261010.json`，規則見 `30_Analysis/Tech_Stock_Forward_Validation_2026-10-10.md`。8 張卡與當時 144 檔可見池僅供後續觀察；10-02～10-09 的原始收盤價未驗證公司行為調整，沒有卡片發布後 20／60 日成果，不得回填歷史卡片或發布勝率。起算與價格動能對照仍待下個共同交易日及調整後資料核實，並須在結果成熟前保存。
+
 地圖下方的 `tech_stock_research_notes.json` 只是一份固定行情日的人工觀察樣本，顯示價格領先、待驗證接棒與單純落後三欄，並保留未分類個股；須分別呈現題材證據、基本面、估值、風險與下一個驗證事件。行情日與查核日不同，若地圖後續刷新，介面必須提示舊樣本待重新覆核。它不是每日自動選股、補漲預測或已驗證的回測規則。
 
 股票候選來自 VGT 持股、S&P 500、Nasdaq-100、SOX 與人工補充，再以人工產業鏈分類。資料來源、時差、股息與拆股限制，請以頁面底部「股票來源、分類與資料限制」為準。`tech_stock_map.json` 是產出資料，不應手動修改；資料產出規則另見 `data_manifest.json`。
