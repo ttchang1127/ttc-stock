@@ -222,7 +222,7 @@
     const sources = (card.sources || []).filter(source => /^https:\/\//.test(source.url));
     return `<section class="tech-evidence" aria-label="${escapeHtml(ticker)} 題材證據卡">` +
       `<h3>題材證據卡 <span class="evidence-grade">${escapeHtml(card.grade)} 級</span></h3>` +
-      `<p class="panel-desc">人工研究範例 · 查核日 ${escapeHtml(evidence.reviewed_at)} · A–D 是證據成熟度，不是買入評級；不隨每日報價自動更新。</p>` +
+      `<p class="panel-desc">人工研究範例 · 查核日 ${escapeHtml(card.reviewed_at || evidence.reviewed_at)} · A–D 是證據成熟度，不是買入評級；不隨每日報價自動更新。</p>` +
       `<p><strong>題材／位置：</strong>${escapeHtml(card.theme)} ／ ${escapeHtml(card.position)}</p>` +
       `<div class="evidence-path">${stages.map(([label, key]) => `<div><strong>${label}</strong><span>${escapeHtml(card.pathway?.[key] || '未量化')}</span></div>`).join('')}</div>` +
       `<p><strong>已確認範圍：</strong>${escapeHtml(card.evidence_scope)}</p>` +
