@@ -4,7 +4,7 @@
 
 ## 為什麼現在沒有勝率
 
-地圖逐日快照目前僅有 2026-10-02 至 10-09 六個交易日，且價格尚未驗證拆股／股息調整。卡片是 10 月才建立，部分在 10-10 才公開；不能把這些卡片套回過去行情，也沒有卡片出現後的 20／60 個交易日結果。依 [CFA Institute 的回測說明](https://www.cfainstitute.org/insights/professional-learning/refresher-readings/2026/backtesting-and-simulation)，前視與存活者偏誤必須處理。因此目前只凍結研究設計，成果欄維持 `null`。
+地圖逐日快照目前僅有 2026-10-02 至 10-09 六個交易日，且是未調整的原始收盤價。另有[調整後價格來源核查](Tech_Stock_Validation_Price_Source_2026-10-10.md)，但尚無凍結後入場收盤。卡片是 10 月才建立，部分在 10-10 才公開；不能把這些卡片套回過去行情，也沒有卡片出現後的 20／60 個交易日結果。依 [CFA Institute 的回測說明](https://www.cfainstitute.org/insights/professional-learning/refresher-readings/2026/backtesting-and-simulation)，前視與存活者偏誤必須處理。因此成果欄維持 `null`。
 
 ## 固定規則
 
