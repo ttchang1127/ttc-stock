@@ -240,6 +240,10 @@
     if (!research) return;
     const context = research.group_context;
     const stale = data.as_of !== research.price_as_of;
+    const officialSources = row => (row.official_sources || [])
+      .filter(source => /^https:\/\//.test(source.url))
+      .map(source => `<a href="${escapeHtml(source.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(source.label)}（${escapeHtml(source.published_at)}）↗</a>`)
+      .join(' · ');
     const labels = [
       ['leader', '價格領先觀察', '價格先走強，仍須檢查題材收入、估值與追高風險。'],
       ['follow_on', '待驗證接棒觀察', '直接受益證據加下一個可驗證事件；落後不代表必然補漲。'],
@@ -254,11 +258,13 @@
       `<div class="research-lists">${labels.map(([key, title, intro]) => `<section class="research-list"><h3>${title}</h3><p>${intro}</p>` +
         (research.lists[key].length ? research.lists[key].map(row => `<article class="research-row"><button type="button" data-research-ticker="${escapeHtml(row.ticker)}">${escapeHtml(row.ticker)} 查看公司與證據 ↗</button>` +
           `<p>近月 ${pct(row.one_month_return_pct)}；較 VGT ${pp(row.one_month_vs_vgt_pp)}。題材證據：${escapeHtml(row.evidence)}</p>` +
+          `<p><strong>分類理由：</strong>${escapeHtml(row.decision || '—')}</p>` +
           `<p><strong>基本面：</strong>${escapeHtml(row.fundamentals)}</p><p><strong>估值：</strong>${escapeHtml(row.valuation)}</p>` +
-          `<p><strong>風險：</strong>${escapeHtml(row.risk)}</p><p><strong>下次驗證：</strong>${escapeHtml(row.next_check)}</p></article>`).join('') :
+          `<p><strong>風險：</strong>${escapeHtml(row.risk)}</p><p><strong>下次驗證：</strong>${escapeHtml(row.next_check)}</p>` +
+          `<p><strong>官方來源：</strong>${officialSources(row)}</p></article>`).join('') :
           '<p class="panel-desc">目前沒有完成逐一查核的列名案例；不表示其他公司已被判定為安全或有證據。</p>') +
         '</section>').join('')}</div>` +
-      `<p class="panel-desc">未分類：${research.lists.unclassified.map(row => `${escapeHtml(row.ticker)} — ${escapeHtml(row.reason)}`).join('；') || '無'}。` +
+      `<p class="panel-desc">未分類：${research.lists.unclassified.map(row => `${escapeHtml(row.ticker)} — ${escapeHtml(row.reason)}（${officialSources(row)}）`).join('；') || '無'}。` +
       `<a href="https://github.com/ttchang1127/ttc-stock/blob/main/${escapeHtml(research.price_source)}" target="_blank" rel="noopener noreferrer">當日歷史快照 ↗</a> · ` +
       `<a href="${escapeHtml(research.benchmark_source)}" target="_blank" rel="noopener noreferrer">基準資料快照 ↗</a></p>`;
   }

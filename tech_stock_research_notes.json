@@ -1,49 +1,82 @@
 {
   "schema_version": 1,
-  "price_as_of": "2026-10-02",
-  "reviewed_at": "2026-10-04",
-  "price_source": "tech_stock_map_history/2026-10/2026-10-02.json",
-  "benchmark_source": "https://github.com/ttchang1127/ttc-stock/blob/93023c477633e547f8fff81614bd60bc4c5450df/tech_stock_map.json",
-  "method": "人工研究觀察；使用同一收盤日的未調整原始收盤價，未設定自動篩選門檻，未驗證預測能力。",
+  "price_as_of": "2026-10-09",
+  "reviewed_at": "2026-10-10",
+  "price_source": "tech_stock_map_history/2026-10/2026-10-09.json",
+  "benchmark_source": "https://github.com/ttchang1127/ttc-stock/blob/fb4d4e38f93a7fc0a07367c0c305ac2999963f6d/tech_stock_map.json",
+  "method": "固定 2026-10-09 收盤的人工觀察；股價與 VGT 採同源同期未調整原始收盤價，官方公司資料截至 2026-10-09；未設定自動選股門檻，未驗證預測能力。",
   "group_context": {
     "name": "客製晶片與高速互連",
     "ticker_count": 6,
-    "one_month_up_count": 5,
-    "one_month_equal_pct": 24.29,
-    "one_month_cap_weighted_pct": 2.92,
-    "vgt_one_month_pct": 7.71,
-    "note": "多數公司上漲，但市值加權仍落後 VGT；不能稱整組已全面領先。"
+    "one_month_up_count": 6,
+    "one_month_equal_pct": 20.65,
+    "one_month_cap_weighted_pct": 4.25,
+    "vgt_one_month_pct": 6.98,
+    "note": "6 家近月皆上漲，但市值加權仍落後 VGT；價格強弱與題材營收不可互相替代。"
   },
   "lists": {
     "leader": [
       {
         "ticker": "MRVL",
-        "one_month_return_pct": 31.87,
-        "one_month_vs_vgt_pp": 24.16,
-        "evidence": "官方 8-K 證實 Google 客製半導體合作；合作營收仍未量化。",
-        "fundamentals": "合作對營收與利潤的實際貢獻未知。",
-        "valuation": "尚未依一致方法核對估值，不能據價格強勢判斷買入價值。",
-        "risk": "近月原始漲幅大；價格未調整公司行為，追高風險與合作實際採購額需分開核對。",
-        "next_check": "10/6 投資人日與後續財報是否揭露出貨、營收或量化展望。"
+        "one_month_return_pct": 21.29,
+        "one_month_vs_vgt_pp": 14.31,
+        "evidence": "8-K 揭露 Google 客製半導體合作；10/06 投資人日簡報將 FY29 客製業務營收目標提高至 120 億美元以上（展望，非實績）。",
+        "fundamentals": "客製業務目標提供後續驗證尺度；Google 合作個別營收與利潤貢獻仍未量化。",
+        "valuation": "尚未依一致方法核對估值，不能由價格領先推論買入價值。",
+        "risk": "近月已上漲 21.29%；長期目標依賴出貨、客戶採購與執行，原始價格未調整公司行為。",
+        "next_check": "後續季度財報核對客製業務實際營收、出貨節奏及 FY29 目標是否維持。",
+        "decision": "維持價格領先：近月漲幅仍高於 VGT，且有 Google 合作及公司新展望；但尚不能把目標當作已認列營收。",
+        "official_sources": [
+          {
+            "label": "Marvell 10/06 投資人日簡報",
+            "url": "https://www.marvell.com/company/events/investor-day-2026.html",
+            "published_at": "2026-10-06"
+          },
+          {
+            "label": "Marvell／Google 合作 8-K",
+            "url": "https://investor.marvell.com/sec-filings/all-sec-filings/content/0001193125-26-356217/d412696d8k.htm",
+            "published_at": "2026-08-19"
+          }
+        ]
       }
     ],
     "follow_on": [
       {
         "ticker": "AVGO",
-        "one_month_return_pct": -3.29,
-        "one_month_vs_vgt_pp": -11.00,
-        "evidence": "公司 8-K 財報附件已揭露可量化 AI 半導體營收。",
-        "fundamentals": "題材營收已認列，但 AI 半導體獨立利潤未揭露。",
-        "valuation": "估值及股價落後的公司自身原因尚未完成核對。",
-        "risk": "當時股價低於 50 日均線；落後也可能反映風險，不預設會補漲。",
-        "next_check": "下季財報的 AI 半導體實際營收、利潤資訊及落後原因。"
+        "one_month_return_pct": 0.2,
+        "one_month_vs_vgt_pp": -6.78,
+        "evidence": "9/02 官方財報揭露 FY26 Q3 AI 半導體營收 167 億美元；10/08 OCP 公告是產品展示計畫，不是新增認列營收。",
+        "fundamentals": "已認列 AI 半導體營收；公司預估 Q4 相關營收 217 億美元，仍待實際財報核對，獨立利潤未揭露。",
+        "valuation": "估值及相對落後原因尚未依一致方法核對。",
+        "risk": "近月僅上漲 0.20%、落後 VGT 6.78 百分點，且仍低於 50 日均線；不可單靠落後幅度推論接棒。",
+        "next_check": "下一季財報核對 AI 半導體實際營收是否達成展望、利潤資訊與股價落後原因。",
+        "decision": "維持待驗證接棒：AI 半導體營收已量化，但近月相對 VGT 仍落後；落後不代表必然補漲。",
+        "official_sources": [
+          {
+            "label": "Broadcom FY26 Q3 財報",
+            "url": "https://investors.broadcom.com/news-releases/news-release-details/broadcom-inc-announces-third-quarter-fiscal-year-2026-financial",
+            "published_at": "2026-09-02"
+          },
+          {
+            "label": "Broadcom 10/08 OCP 公告",
+            "url": "https://investors.broadcom.com/news-releases/news-release-details/broadcom-redefines-ai-infrastructure-industry-leading-networking",
+            "published_at": "2026-10-08"
+          }
+        ]
       }
     ],
     "laggard": [],
     "unclassified": [
       {
         "ticker": "CRWV",
-        "reason": "雖有官方 backlog 證據，現有雲端大組涵蓋不同商業模式；尚無足夠同題材板塊與估值核對，不以一個月漲幅直接歸入領先或接棒。"
+        "reason": "維持未分類：近月下跌 7.90%、相對 VGT 落後 14.88 百分點；10/07 公布印度 240 MW 規劃，首期預計 2028 年中才可用，不能視為當期營收。現有雲端大組商業模式混雜，且融資／執行風險尚未完成同業與估值比較。",
+        "official_sources": [
+          {
+            "label": "CoreWeave 10/07 印度擴張公告",
+            "url": "https://investors.coreweave.com/news/news-details/2026/CoreWeave-Enters-India-Expanding-AI-Cloud-Platform-With-AdaniConneX/default.aspx",
+            "published_at": "2026-10-07"
+          }
+        ]
       }
     ]
   }
