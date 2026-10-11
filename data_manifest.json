@@ -667,6 +667,24 @@
       "note": "v2；與 v1 同批產生"
     },
     {
+      "path": "market_rotation_forward_protocol.json",
+      "kind": "human",
+      "producer": null,
+      "edit": "human",
+      "cadence": "manual",
+      "committed_by": [],
+      "note": "已凍結的市場輪動前瞻規則與 10/09 基線；看到結果後不得改寫"
+    },
+    {
+      "path": "market_rotation_forward_status.json",
+      "kind": "generated",
+      "producer": "scripts/market_rotation_forward.py",
+      "edit": "never",
+      "cadence": "market_daily",
+      "committed_by": ["update-prices"],
+      "note": "A 級快照後的板塊狀態事件與 20／60 日 ETF 代理結果；保留缺值"
+    },
+    {
       "path": "market_rotation_registry.json",
       "kind": "mixed",
       "producer": "scripts/build_market_rotation.py",

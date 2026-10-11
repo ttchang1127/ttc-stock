@@ -1,0 +1,45 @@
+{
+  "version": "rotation-forward-2026-10-11-v1",
+  "frozen_at_utc": "2026-10-11T11:49:21Z",
+  "baseline_as_of": "2026-10-09",
+  "baseline_record_sha256": "e8e72a736a794ba93a1240a0324f7499001278e120b98c03fd10ae60a7baf75f",
+  "baseline_states": {
+    "sector:communication-services": "early_improvement",
+    "sector:consumer-discretionary": "clear_lagging",
+    "sector:consumer-staples": "early_improvement",
+    "sector:energy": "early_improvement",
+    "sector:financials": "early_improvement",
+    "sector:health-care": "neutral_mixed",
+    "sector:industrials": "neutral_mixed",
+    "sector:information-technology": "confirmed_leading",
+    "sector:materials": "early_improvement",
+    "sector:real-estate": "early_improvement",
+    "sector:utilities": "early_improvement"
+  },
+  "sector_etfs": {
+    "sector:communication-services": "XLC",
+    "sector:consumer-discretionary": "XLY",
+    "sector:consumer-staples": "XLP",
+    "sector:energy": "XLE",
+    "sector:financials": "XLF",
+    "sector:health-care": "XLV",
+    "sector:industrials": "XLI",
+    "sector:information-technology": "XLK",
+    "sector:materials": "XLB",
+    "sector:real-estate": "XLRE",
+    "sector:utilities": "XLU"
+  },
+  "research_rules": "research-1.0",
+  "signal": "All confirmed_state transitions for the frozen 11 sectors after baseline, including unfavorable states and every repeat transition; no post-hoc selection",
+  "entry": "A-grade state transition is recorded in one committed daily run; eligibility is confirmed on a later daily run. Entry is the first SPY trading close strictly after both signal as_of and that later confirmation date in America/New_York. Missing ETF price stays missing; never shift entry.",
+  "horizons_trading_days": [
+    20,
+    60
+  ],
+  "price_source": "Yahoo Finance adjusted Close via yfinance auto_adjust=True; sector ETF proxy versus SPY, not original equal-weight constituent basket",
+  "metric": "ETF absolute return, ETF minus SPY percentage-point excess, minimum intraperiod excess including zero",
+  "missing": "No forward fill or date shifting; missing ETF entry or any horizon price is reported missing; all state transitions remain counted",
+  "costs": "Gross adjusted-close research proxy; no trading costs; not an executable strategy or selection rule",
+  "preprotocol_history": "2026-09-25 through 2026-10-09 A snapshots are baseline/context only, not prospective events because they lack independent publication timestamps",
+  "historical_replay": "C-quality backtest remains separate and not validated"
+}

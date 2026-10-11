@@ -116,6 +116,10 @@ jobs:
           fi
           exit "$status"
 
+      - name: Update prospective rotation validation
+        if: steps.rotation_build.outputs.fresh == 'true'
+        run: python3 scripts/market_rotation_forward.py
+
       # Compares today's frozen snapshot with the previous sessions and joins
       # the rotation states to the actual direct-equity holdings.
       - name: Build rotation digest and portfolio exposure

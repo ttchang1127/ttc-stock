@@ -269,6 +269,24 @@
       `樣本外自 ${esc(result.period.holdout_start)}。</p>`;
   }
 
+  function renderForward(status, protocol, sensitivity) {
+    const target = document.getElementById('forwardSummary');
+    if (!target) return;
+    if (!status || !protocol) {
+      target.innerHTML = '<p class="notice warn">前瞻追蹤檔尚未就緒；不能將下方 C 級回測當成前瞻結果。</p>';
+      return;
+    }
+    const rejected = sensitivity && sensitivity.variants &&
+      sensitivity.variants.every(row => row.verdict !== 'supported_pending_a_b_history');
+    target.innerHTML = `<p class="notice warn"><strong>前瞻結果尚未成熟：</strong>` +
+      `A 級快照 ${esc(status.a_snapshot_count)} 筆（截至 ${esc(status.history_as_of)}）；` +
+      `凍結後狀態切換 ${esc(status.event_count)} 次；` +
+      `20 日成熟 ${esc(status.matured_20d)} 次、60 日成熟 ${esc(status.matured_60d)} 次。` +
+      `${rejected ? '下方 C 級歷史候選規則目前沒有可採用結論。' : ''}</p>` +
+      `<p class="panel-desc">基線 ${esc(protocol.baseline_as_of)}；新事件的第一次觀測時間、入場日與缺價紀錄保留在完整事件檔。` +
+      '樣本數與報酬尚不足時，不計算勝率或聲稱訊號有效。</p>';
+  }
+
   const PRIORITY = {
     review_now: ['立即覆核', 'danger'], monitor: ['持續觀察', 'info'], data_blocked: ['資料阻擋', 'warning']
   };
@@ -394,13 +412,15 @@
   }
 
   async function init() {
-    const [research, rotation, backtest, digest, exposure, sensitivity] = await Promise.all([
+    const [research, rotation, backtest, digest, exposure, sensitivity, forward, forwardProtocol] = await Promise.all([
       getJSON('market_rotation_research.json'),
       getJSON('market_rotation.json'),
       getJSON('market_rotation_history/backtest/sector_results.json'),
       getJSON('market_rotation_daily_digest.json'),
       getJSON('portfolio_equity_exposure.json'),
-      getJSON('market_rotation_history/backtest/sensitivity.json')
+      getJSON('market_rotation_history/backtest/sensitivity.json'),
+      getJSON('market_rotation_forward_status.json'),
+      getJSON('market_rotation_forward_protocol.json')
     ]);
     renderSensitivity(sensitivity);
     renderDigest(digest);
@@ -409,6 +429,7 @@
     renderMarket(research, name => names.get(name) || name);
     renderSectors(research, rotation);
     renderBacktest(backtest, research && research.data.labels);
+    renderForward(forward, forwardProtocol, sensitivity);
   }
 
   if (document.readyState === 'loading') {
