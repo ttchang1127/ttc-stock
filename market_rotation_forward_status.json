@@ -1,13 +1,35 @@
 {
   "schema_version": 1,
   "protocol_version": "rotation-forward-2026-10-11-v1",
-  "history_as_of": "2026-10-09",
-  "a_snapshot_count": 11,
+  "history_as_of": "2026-10-12",
+  "a_snapshot_count": 12,
   "baseline_as_of": "2026-10-09",
-  "events": [],
-  "event_count": 0,
+  "events": [
+    {
+      "id": "2026-10-12:sector:consumer-discretionary:early_improvement",
+      "signal_as_of": "2026-10-12",
+      "sector": "sector:consumer-discretionary",
+      "from_state": "clear_lagging",
+      "state": "early_improvement",
+      "etf": "XLY",
+      "dataset_id": "sha256:cffb551854a3e6ceef8e1cff70312f3723dfb4cbef919d0125d2515d046abe36",
+      "first_seen_at_utc": "2026-10-13T03:37:32Z",
+      "entry": {
+        "status": "pending"
+      },
+      "outcomes": {
+        "20d": {
+          "status": "pending"
+        },
+        "60d": {
+          "status": "pending"
+        }
+      }
+    }
+  ],
+  "event_count": 1,
   "matured_20d": 0,
   "matured_60d": 0,
   "status": "pending_outcomes",
-  "price_source_status": "not_needed"
+  "price_source_status": "available"
 }
