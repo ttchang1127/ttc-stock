@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "protocol_version": "rotation-forward-2026-10-11-v1",
-  "history_as_of": "2026-10-12",
-  "a_snapshot_count": 12,
+  "history_as_of": "2026-10-13",
+  "a_snapshot_count": 13,
   "baseline_as_of": "2026-10-09",
   "events": [
     {
@@ -24,10 +24,116 @@
         "60d": {
           "status": "pending"
         }
+      },
+      "eligibility_confirmed_at_utc": "2026-10-13T19:19:16Z"
+    },
+    {
+      "id": "2026-10-13:sector:communication-services:neutral_mixed",
+      "signal_as_of": "2026-10-13",
+      "sector": "sector:communication-services",
+      "from_state": "early_improvement",
+      "state": "neutral_mixed",
+      "etf": "XLC",
+      "dataset_id": "sha256:aafefb2c8850aedd8b5a8ef0020b25f66c72b41fc925c219bbb4a2b0f8e22dff",
+      "first_seen_at_utc": "2026-10-13T19:19:16Z",
+      "entry": {
+        "status": "pending"
+      },
+      "outcomes": {
+        "20d": {
+          "status": "pending"
+        },
+        "60d": {
+          "status": "pending"
+        }
+      }
+    },
+    {
+      "id": "2026-10-13:sector:energy:confirmed_leading",
+      "signal_as_of": "2026-10-13",
+      "sector": "sector:energy",
+      "from_state": "early_improvement",
+      "state": "confirmed_leading",
+      "etf": "XLE",
+      "dataset_id": "sha256:aafefb2c8850aedd8b5a8ef0020b25f66c72b41fc925c219bbb4a2b0f8e22dff",
+      "first_seen_at_utc": "2026-10-13T19:19:16Z",
+      "entry": {
+        "status": "pending"
+      },
+      "outcomes": {
+        "20d": {
+          "status": "pending"
+        },
+        "60d": {
+          "status": "pending"
+        }
+      }
+    },
+    {
+      "id": "2026-10-13:sector:health-care:confirmed_leading",
+      "signal_as_of": "2026-10-13",
+      "sector": "sector:health-care",
+      "from_state": "neutral_mixed",
+      "state": "confirmed_leading",
+      "etf": "XLV",
+      "dataset_id": "sha256:aafefb2c8850aedd8b5a8ef0020b25f66c72b41fc925c219bbb4a2b0f8e22dff",
+      "first_seen_at_utc": "2026-10-13T19:19:16Z",
+      "entry": {
+        "status": "pending"
+      },
+      "outcomes": {
+        "20d": {
+          "status": "pending"
+        },
+        "60d": {
+          "status": "pending"
+        }
+      }
+    },
+    {
+      "id": "2026-10-13:sector:information-technology:cooling",
+      "signal_as_of": "2026-10-13",
+      "sector": "sector:information-technology",
+      "from_state": "confirmed_leading",
+      "state": "cooling",
+      "etf": "XLK",
+      "dataset_id": "sha256:aafefb2c8850aedd8b5a8ef0020b25f66c72b41fc925c219bbb4a2b0f8e22dff",
+      "first_seen_at_utc": "2026-10-13T19:19:16Z",
+      "entry": {
+        "status": "pending"
+      },
+      "outcomes": {
+        "20d": {
+          "status": "pending"
+        },
+        "60d": {
+          "status": "pending"
+        }
+      }
+    },
+    {
+      "id": "2026-10-13:sector:utilities:neutral_mixed",
+      "signal_as_of": "2026-10-13",
+      "sector": "sector:utilities",
+      "from_state": "early_improvement",
+      "state": "neutral_mixed",
+      "etf": "XLU",
+      "dataset_id": "sha256:aafefb2c8850aedd8b5a8ef0020b25f66c72b41fc925c219bbb4a2b0f8e22dff",
+      "first_seen_at_utc": "2026-10-13T19:19:16Z",
+      "entry": {
+        "status": "pending"
+      },
+      "outcomes": {
+        "20d": {
+          "status": "pending"
+        },
+        "60d": {
+          "status": "pending"
+        }
       }
     }
   ],
-  "event_count": 1,
+  "event_count": 6,
   "matured_20d": 0,
   "matured_60d": 0,
   "status": "pending_outcomes",
