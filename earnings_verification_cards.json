@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-14",
+  "generated_at": "2026-10-15",
   "source_dates": {
-    "event_calendar": "2026-10-14",
+    "event_calendar": "2026-10-15",
     "quarterly_financials": "2026-10-09T18:24:36+00:00",
     "forward_guidance": "2026-08-16",
     "guidance_history": "2026-08-16",
@@ -17,249 +17,30 @@
   },
   "tracked_count": 14,
   "holding_count": 8,
-  "preparation_due_count": 3,
+  "preparation_due_count": 4,
   "post_review_due_count": 0,
   "pending_guidance_company_count": 11,
-  "default_ticker": "TSLA",
+  "default_ticker": "NOK",
   "companies": [
-    {
-      "ticker": "TSLA",
-      "data_ticker": "TSLA",
-      "name": "Tesla",
-      "position": "holding",
-      "attention_score": 213,
-      "phase": "preparation_due",
-      "phase_label": "財報前 7 天準備期",
-      "next_earnings": {
-        "date": "2026-10-21",
-        "days_until": 7,
-        "confidence": "estimated",
-        "source_label": "Yahoo Finance 行事曆",
-        "source_url": "https://finance.yahoo.com/quote/TSLA/calendar/",
-        "source_status": "fresh",
-        "last_success_at": "2026-10-14"
-      },
-      "pre_event": {
-        "preparation_due": true,
-        "guidance": {
-          "status": "no_comparable_numeric_guidance",
-          "rows": [],
-          "note": "2026 Q2 官方發布未提供下一季營收／EPS 區間；公司彙整的分析師共識不視為管理層指引。",
-          "source_date": "2026-07-22",
-          "source_url": "https://ir.tesla.com/press-release/tesla-releases-second-quarter-2026-financial-results"
-        },
-        "checkpoints": [
-          {
-            "topic": "管理層指引",
-            "question": "公司是否首次提供可比較的量化指引，或更新原有全年目標？",
-            "why": "沒有量化區間時不計命中率，也不以市場共識補值。"
-          },
-          {
-            "topic": "營運連續性",
-            "question": "營收、毛利率與營業利益率是否延續八季方向？",
-            "why": "單季驚喜可能只是季節性，需同時比較 QoQ 與 YoY。"
-          },
-          {
-            "topic": "現金與每股品質",
-            "question": "自由現金流是否改善，稀釋股數是否跨越 10% 風險門檻？",
-            "why": "成長若沒有轉成現金或被稀釋，股東實際受益可能下降。"
-          },
-          {
-            "topic": "論點：車輛、儲能與軟體維持成長",
-            "question": "本季證據是否仍命中／接近失效條件：營收 YoY ≤ -10%，或營收連續至少 3 季下降。",
-            "why": "2026-06-30 營收 USD 28,236.0M，YoY +25.5%；連續 2 季上升。"
-          }
-        ],
-        "thesis": {
-          "status": "needs-validation",
-          "label": "需要驗證",
-          "previous_status": "partial-invalidated",
-          "previous_label": "部分失效",
-          "changed_from_previous_quarter": true,
-          "counts": {
-            "supported": 1,
-            "verify": 2,
-            "invalidated": 0
-          },
-          "items": [
-            {
-              "id": "ev_energy_growth",
-              "title": "車輛、儲能與軟體維持成長",
-              "status": "supported",
-              "label": "支持",
-              "previous_status": "invalidated",
-              "previous_label": "失效",
-              "changed_from_previous_quarter": true,
-              "evidence": "2026-06-30 營收 USD 28,236.0M，YoY +25.5%；連續 2 季上升。",
-              "invalidation": "營收 YoY ≤ -10%，或營收連續至少 3 季下降。"
-            },
-            {
-              "id": "margin_recovery",
-              "title": "降價與新產品週期後毛利率能回升",
-              "status": "verify",
-              "label": "待驗證",
-              "previous_status": "supported",
-              "previous_label": "支持",
-              "changed_from_previous_quarter": true,
-              "evidence": "2026-06-30 毛利率 16.8%，YoY -0.4pp；連續 2 季下降。",
-              "invalidation": "毛利率低於 15%，或連續至少 3 季顯著下降。"
-            },
-            {
-              "id": "self_funded_options",
-              "title": "Robotaxi、AI 與產能投資可由自身現金支應",
-              "status": "verify",
-              "label": "待驗證",
-              "previous_status": "supported",
-              "previous_label": "支持",
-              "changed_from_previous_quarter": true,
-              "evidence": "2026-06-30 FCF USD -1,092.0M（連續 1 季為負）；稀釋股數 YoY +0.6%。",
-              "invalidation": "FCF 連續至少 4 季為負，或稀釋股數 YoY ≥ 8%。"
-            }
-          ],
-          "master_report": "30_Analysis/TSLA_Master_Investment_Thesis_2026.md"
-        }
-      },
-      "post_event": {
-        "review_due": false,
-        "latest_result": {
-          "period_end": "2026-06-30",
-          "filing_date": "2026-07-23",
-          "form": "10-Q",
-          "accession": "0001628280-26-049270",
-          "source_url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026049270/0001628280-26-049270-index.html",
-          "quality_notes": [],
-          "currency": "USD",
-          "source_basis": "SEC Company Facts；金額為 USD。",
-          "days_since_filing": 83,
-          "review_due": false
-        },
-        "kpis": [
-          {
-            "metric": "revenue",
-            "label": "營收",
-            "display": "amount",
-            "value": 28236000000.0,
-            "qoq": 26.126770000446697,
-            "yoy": 25.51564722617354,
-            "state": "improved",
-            "interpretation": "營收 YoY +25.5%"
-          },
-          {
-            "metric": "gross_margin",
-            "label": "毛利率",
-            "display": "percent",
-            "value": 0.16826037682391273,
-            "qoq": -4.257626944401061,
-            "yoy": -0.4125825167552416,
-            "state": "stable",
-            "interpretation": "毛利率 YoY -0.4pp"
-          },
-          {
-            "metric": "operating_margin",
-            "label": "營業利益率",
-            "display": "percent",
-            "value": 0.014095480946309675,
-            "qoq": -2.793784196430809,
-            "yoy": -2.693403541215405,
-            "state": "risk",
-            "interpretation": "營業利益率 YoY -2.7pp"
-          },
-          {
-            "metric": "free_cash_flow",
-            "label": "自由現金流",
-            "display": "amount",
-            "value": -1092000000.0,
-            "qoq": null,
-            "yoy": null,
-            "state": "risk",
-            "interpretation": "自由現金流為負"
-          },
-          {
-            "metric": "diluted_shares",
-            "label": "稀釋股數",
-            "display": "shares",
-            "value": 3540000000.0,
-            "qoq": 0.056529112492942346,
-            "yoy": 0.5967604433077645,
-            "state": "stable",
-            "interpretation": "稀釋股數 YoY +0.6%"
-          }
-        ],
-        "completed_guidance": {
-          "status": "no_consistent_numeric_guidance",
-          "note": "Tesla 最近三年未持續提供下一季總營收／EPS 區間；長期交付量敘述與公司彙整的分析師共識不列入季度命中率。",
-          "review_url": "https://ir.tesla.com/",
-          "record": null
-        },
-        "thesis": {
-          "status": "needs-validation",
-          "label": "需要驗證",
-          "previous_status": "partial-invalidated",
-          "previous_label": "部分失效",
-          "changed_from_previous_quarter": true,
-          "counts": {
-            "supported": 1,
-            "verify": 2,
-            "invalidated": 0
-          },
-          "items": [
-            {
-              "id": "ev_energy_growth",
-              "title": "車輛、儲能與軟體維持成長",
-              "status": "supported",
-              "label": "支持",
-              "previous_status": "invalidated",
-              "previous_label": "失效",
-              "changed_from_previous_quarter": true,
-              "evidence": "2026-06-30 營收 USD 28,236.0M，YoY +25.5%；連續 2 季上升。",
-              "invalidation": "營收 YoY ≤ -10%，或營收連續至少 3 季下降。"
-            },
-            {
-              "id": "margin_recovery",
-              "title": "降價與新產品週期後毛利率能回升",
-              "status": "verify",
-              "label": "待驗證",
-              "previous_status": "supported",
-              "previous_label": "支持",
-              "changed_from_previous_quarter": true,
-              "evidence": "2026-06-30 毛利率 16.8%，YoY -0.4pp；連續 2 季下降。",
-              "invalidation": "毛利率低於 15%，或連續至少 3 季顯著下降。"
-            },
-            {
-              "id": "self_funded_options",
-              "title": "Robotaxi、AI 與產能投資可由自身現金支應",
-              "status": "verify",
-              "label": "待驗證",
-              "previous_status": "supported",
-              "previous_label": "支持",
-              "changed_from_previous_quarter": true,
-              "evidence": "2026-06-30 FCF USD -1,092.0M（連續 1 季為負）；稀釋股數 YoY +0.6%。",
-              "invalidation": "FCF 連續至少 4 季為負，或稀釋股數 YoY ≥ 8%。"
-            }
-          ],
-          "master_report": "30_Analysis/TSLA_Master_Investment_Thesis_2026.md"
-        }
-      }
-    },
     {
       "ticker": "NOK",
       "data_ticker": "NOK",
       "name": "Nokia",
       "position": "holding",
-      "attention_score": 152,
-      "phase": "upcoming",
-      "phase_label": "30 天內將公布",
+      "attention_score": 243,
+      "phase": "preparation_due",
+      "phase_label": "財報前 7 天準備期",
       "next_earnings": {
         "date": "2026-10-22",
-        "days_until": 8,
+        "days_until": 7,
         "confidence": "estimated",
         "source_label": "Yahoo Finance 行事曆",
         "source_url": "https://finance.yahoo.com/quote/NOK/calendar/",
         "source_status": "fresh",
-        "last_success_at": "2026-10-14"
+        "last_success_at": "2026-10-15"
       },
       "pre_event": {
-        "preparation_due": false,
+        "preparation_due": true,
         "guidance": {
           "status": "available",
           "rows": [
@@ -382,7 +163,7 @@
           ],
           "currency": "EUR",
           "source_basis": "Nokia 官方 IFRS reported 季報；2025 與 2026 Q1 已採 2026-07-23 停業單位重編數字，金額為 EUR。",
-          "days_since_filing": 83,
+          "days_since_filing": 84,
           "review_due": false
         },
         "kpis": [
@@ -494,21 +275,240 @@
       }
     },
     {
+      "ticker": "TSLA",
+      "data_ticker": "TSLA",
+      "name": "Tesla",
+      "position": "holding",
+      "attention_score": 214,
+      "phase": "preparation_due",
+      "phase_label": "財報前 7 天準備期",
+      "next_earnings": {
+        "date": "2026-10-21",
+        "days_until": 6,
+        "confidence": "estimated",
+        "source_label": "Yahoo Finance 行事曆",
+        "source_url": "https://finance.yahoo.com/quote/TSLA/calendar/",
+        "source_status": "fresh",
+        "last_success_at": "2026-10-15"
+      },
+      "pre_event": {
+        "preparation_due": true,
+        "guidance": {
+          "status": "no_comparable_numeric_guidance",
+          "rows": [],
+          "note": "2026 Q2 官方發布未提供下一季營收／EPS 區間；公司彙整的分析師共識不視為管理層指引。",
+          "source_date": "2026-07-22",
+          "source_url": "https://ir.tesla.com/press-release/tesla-releases-second-quarter-2026-financial-results"
+        },
+        "checkpoints": [
+          {
+            "topic": "管理層指引",
+            "question": "公司是否首次提供可比較的量化指引，或更新原有全年目標？",
+            "why": "沒有量化區間時不計命中率，也不以市場共識補值。"
+          },
+          {
+            "topic": "營運連續性",
+            "question": "營收、毛利率與營業利益率是否延續八季方向？",
+            "why": "單季驚喜可能只是季節性，需同時比較 QoQ 與 YoY。"
+          },
+          {
+            "topic": "現金與每股品質",
+            "question": "自由現金流是否改善，稀釋股數是否跨越 10% 風險門檻？",
+            "why": "成長若沒有轉成現金或被稀釋，股東實際受益可能下降。"
+          },
+          {
+            "topic": "論點：車輛、儲能與軟體維持成長",
+            "question": "本季證據是否仍命中／接近失效條件：營收 YoY ≤ -10%，或營收連續至少 3 季下降。",
+            "why": "2026-06-30 營收 USD 28,236.0M，YoY +25.5%；連續 2 季上升。"
+          }
+        ],
+        "thesis": {
+          "status": "needs-validation",
+          "label": "需要驗證",
+          "previous_status": "partial-invalidated",
+          "previous_label": "部分失效",
+          "changed_from_previous_quarter": true,
+          "counts": {
+            "supported": 1,
+            "verify": 2,
+            "invalidated": 0
+          },
+          "items": [
+            {
+              "id": "ev_energy_growth",
+              "title": "車輛、儲能與軟體維持成長",
+              "status": "supported",
+              "label": "支持",
+              "previous_status": "invalidated",
+              "previous_label": "失效",
+              "changed_from_previous_quarter": true,
+              "evidence": "2026-06-30 營收 USD 28,236.0M，YoY +25.5%；連續 2 季上升。",
+              "invalidation": "營收 YoY ≤ -10%，或營收連續至少 3 季下降。"
+            },
+            {
+              "id": "margin_recovery",
+              "title": "降價與新產品週期後毛利率能回升",
+              "status": "verify",
+              "label": "待驗證",
+              "previous_status": "supported",
+              "previous_label": "支持",
+              "changed_from_previous_quarter": true,
+              "evidence": "2026-06-30 毛利率 16.8%，YoY -0.4pp；連續 2 季下降。",
+              "invalidation": "毛利率低於 15%，或連續至少 3 季顯著下降。"
+            },
+            {
+              "id": "self_funded_options",
+              "title": "Robotaxi、AI 與產能投資可由自身現金支應",
+              "status": "verify",
+              "label": "待驗證",
+              "previous_status": "supported",
+              "previous_label": "支持",
+              "changed_from_previous_quarter": true,
+              "evidence": "2026-06-30 FCF USD -1,092.0M（連續 1 季為負）；稀釋股數 YoY +0.6%。",
+              "invalidation": "FCF 連續至少 4 季為負，或稀釋股數 YoY ≥ 8%。"
+            }
+          ],
+          "master_report": "30_Analysis/TSLA_Master_Investment_Thesis_2026.md"
+        }
+      },
+      "post_event": {
+        "review_due": false,
+        "latest_result": {
+          "period_end": "2026-06-30",
+          "filing_date": "2026-07-23",
+          "form": "10-Q",
+          "accession": "0001628280-26-049270",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026049270/0001628280-26-049270-index.html",
+          "quality_notes": [],
+          "currency": "USD",
+          "source_basis": "SEC Company Facts；金額為 USD。",
+          "days_since_filing": 84,
+          "review_due": false
+        },
+        "kpis": [
+          {
+            "metric": "revenue",
+            "label": "營收",
+            "display": "amount",
+            "value": 28236000000.0,
+            "qoq": 26.126770000446697,
+            "yoy": 25.51564722617354,
+            "state": "improved",
+            "interpretation": "營收 YoY +25.5%"
+          },
+          {
+            "metric": "gross_margin",
+            "label": "毛利率",
+            "display": "percent",
+            "value": 0.16826037682391273,
+            "qoq": -4.257626944401061,
+            "yoy": -0.4125825167552416,
+            "state": "stable",
+            "interpretation": "毛利率 YoY -0.4pp"
+          },
+          {
+            "metric": "operating_margin",
+            "label": "營業利益率",
+            "display": "percent",
+            "value": 0.014095480946309675,
+            "qoq": -2.793784196430809,
+            "yoy": -2.693403541215405,
+            "state": "risk",
+            "interpretation": "營業利益率 YoY -2.7pp"
+          },
+          {
+            "metric": "free_cash_flow",
+            "label": "自由現金流",
+            "display": "amount",
+            "value": -1092000000.0,
+            "qoq": null,
+            "yoy": null,
+            "state": "risk",
+            "interpretation": "自由現金流為負"
+          },
+          {
+            "metric": "diluted_shares",
+            "label": "稀釋股數",
+            "display": "shares",
+            "value": 3540000000.0,
+            "qoq": 0.056529112492942346,
+            "yoy": 0.5967604433077645,
+            "state": "stable",
+            "interpretation": "稀釋股數 YoY +0.6%"
+          }
+        ],
+        "completed_guidance": {
+          "status": "no_consistent_numeric_guidance",
+          "note": "Tesla 最近三年未持續提供下一季總營收／EPS 區間；長期交付量敘述與公司彙整的分析師共識不列入季度命中率。",
+          "review_url": "https://ir.tesla.com/",
+          "record": null
+        },
+        "thesis": {
+          "status": "needs-validation",
+          "label": "需要驗證",
+          "previous_status": "partial-invalidated",
+          "previous_label": "部分失效",
+          "changed_from_previous_quarter": true,
+          "counts": {
+            "supported": 1,
+            "verify": 2,
+            "invalidated": 0
+          },
+          "items": [
+            {
+              "id": "ev_energy_growth",
+              "title": "車輛、儲能與軟體維持成長",
+              "status": "supported",
+              "label": "支持",
+              "previous_status": "invalidated",
+              "previous_label": "失效",
+              "changed_from_previous_quarter": true,
+              "evidence": "2026-06-30 營收 USD 28,236.0M，YoY +25.5%；連續 2 季上升。",
+              "invalidation": "營收 YoY ≤ -10%，或營收連續至少 3 季下降。"
+            },
+            {
+              "id": "margin_recovery",
+              "title": "降價與新產品週期後毛利率能回升",
+              "status": "verify",
+              "label": "待驗證",
+              "previous_status": "supported",
+              "previous_label": "支持",
+              "changed_from_previous_quarter": true,
+              "evidence": "2026-06-30 毛利率 16.8%，YoY -0.4pp；連續 2 季下降。",
+              "invalidation": "毛利率低於 15%，或連續至少 3 季顯著下降。"
+            },
+            {
+              "id": "self_funded_options",
+              "title": "Robotaxi、AI 與產能投資可由自身現金支應",
+              "status": "verify",
+              "label": "待驗證",
+              "previous_status": "supported",
+              "previous_label": "支持",
+              "changed_from_previous_quarter": true,
+              "evidence": "2026-06-30 FCF USD -1,092.0M（連續 1 季為負）；稀釋股數 YoY +0.6%。",
+              "invalidation": "FCF 連續至少 4 季為負，或稀釋股數 YoY ≥ 8%。"
+            }
+          ],
+          "master_report": "30_Analysis/TSLA_Master_Investment_Thesis_2026.md"
+        }
+      }
+    },
+    {
       "ticker": "INTC",
       "data_ticker": "INTC",
       "name": "Intel",
       "position": "holding",
-      "attention_score": 145,
+      "attention_score": 146,
       "phase": "upcoming",
       "phase_label": "30 天內將公布",
       "next_earnings": {
         "date": "2026-10-29",
-        "days_until": 15,
+        "days_until": 14,
         "confidence": "estimated",
         "source_label": "Yahoo Finance 行事曆",
         "source_url": "https://finance.yahoo.com/quote/INTC/calendar/",
         "source_status": "fresh",
-        "last_success_at": "2026-10-14"
+        "last_success_at": "2026-10-15"
       },
       "pre_event": {
         "preparation_due": false,
@@ -612,7 +612,7 @@
           "quality_notes": [],
           "currency": "USD",
           "source_basis": "SEC Company Facts；金額為 USD。",
-          "days_since_filing": 82,
+          "days_since_filing": 83,
           "review_due": false
         },
         "kpis": [
@@ -742,17 +742,17 @@
       "data_ticker": "META",
       "name": "Meta",
       "position": "watchlist",
-      "attention_score": 143,
+      "attention_score": 144,
       "phase": "preparation_due",
       "phase_label": "財報前 7 天準備期",
       "next_earnings": {
         "date": "2026-10-21",
-        "days_until": 7,
+        "days_until": 6,
         "confidence": "estimated",
         "source_label": "Yahoo Finance 行事曆",
         "source_url": "https://finance.yahoo.com/quote/META/calendar/",
         "source_status": "fresh",
-        "last_success_at": "2026-10-14"
+        "last_success_at": "2026-10-15"
       },
       "pre_event": {
         "preparation_due": true,
@@ -876,7 +876,7 @@
           "quality_notes": [],
           "currency": "USD",
           "source_basis": "SEC Company Facts；金額為 USD。",
-          "days_since_filing": 76,
+          "days_since_filing": 77,
           "review_due": false
         },
         "kpis": [
@@ -1006,17 +1006,17 @@
       "data_ticker": "COHR",
       "name": "Coherent",
       "position": "holding",
-      "attention_score": 139,
+      "attention_score": 140,
       "phase": "upcoming",
       "phase_label": "30 天內將公布",
       "next_earnings": {
         "date": "2026-11-04",
-        "days_until": 21,
+        "days_until": 20,
         "confidence": "estimated",
         "source_label": "Yahoo Finance 行事曆",
         "source_url": "https://finance.yahoo.com/quote/COHR/calendar/",
         "source_status": "fresh",
-        "last_success_at": "2026-10-14"
+        "last_success_at": "2026-10-15"
       },
       "pre_event": {
         "preparation_due": false,
@@ -1140,7 +1140,7 @@
           "quality_notes": [],
           "currency": "USD",
           "source_basis": "SEC Company Facts；金額為 USD。",
-          "days_since_filing": 61,
+          "days_since_filing": 62,
           "review_due": false
         },
         "kpis": [
@@ -1270,17 +1270,17 @@
       "data_ticker": "TSM",
       "name": "台積電",
       "position": "watchlist",
-      "attention_score": 119,
+      "attention_score": 120,
       "phase": "preparation_due",
       "phase_label": "財報前 7 天準備期",
       "next_earnings": {
         "date": "2026-10-15",
-        "days_until": 1,
+        "days_until": 0,
         "confidence": "estimated",
         "source_label": "Yahoo Finance 行事曆",
         "source_url": "https://finance.yahoo.com/quote/TSM/calendar/",
         "source_status": "fresh",
-        "last_success_at": "2026-10-14"
+        "last_success_at": "2026-10-15"
       },
       "pre_event": {
         "preparation_due": true,
@@ -1404,7 +1404,7 @@
           "quality_notes": [],
           "currency": "TWD",
           "source_basis": "TSMC 官方 TIFRS consolidated 季度管理報告；金額為新台幣。",
-          "days_since_filing": 90,
+          "days_since_filing": 91,
           "review_due": false
         },
         "kpis": [
@@ -1534,17 +1534,17 @@
       "data_ticker": "GOOGL",
       "name": "Alphabet",
       "position": "holding",
-      "attention_score": 116,
+      "attention_score": 117,
       "phase": "upcoming",
       "phase_label": "30 天內將公布",
       "next_earnings": {
         "date": "2026-10-28",
-        "days_until": 14,
+        "days_until": 13,
         "confidence": "estimated",
         "source_label": "Yahoo Finance 行事曆",
         "source_url": "https://finance.yahoo.com/quote/GOOG/calendar/",
         "source_status": "fresh",
-        "last_success_at": "2026-10-14"
+        "last_success_at": "2026-10-15"
       },
       "pre_event": {
         "preparation_due": false,
@@ -1637,7 +1637,7 @@
           "quality_notes": [],
           "currency": "USD",
           "source_basis": "SEC Company Facts；金額為 USD。",
-          "days_since_filing": 83,
+          "days_since_filing": 84,
           "review_due": false
         },
         "kpis": [
@@ -1753,17 +1753,17 @@
       "data_ticker": "ARM",
       "name": "Arm",
       "position": "holding",
-      "attention_score": 109,
+      "attention_score": 110,
       "phase": "upcoming",
       "phase_label": "30 天內將公布",
       "next_earnings": {
         "date": "2026-11-04",
-        "days_until": 21,
+        "days_until": 20,
         "confidence": "estimated",
         "source_label": "Yahoo Finance 行事曆",
         "source_url": "https://finance.yahoo.com/quote/ARM/calendar/",
         "source_status": "fresh",
-        "last_success_at": "2026-10-14"
+        "last_success_at": "2026-10-15"
       },
       "pre_event": {
         "preparation_due": false,
@@ -1877,7 +1877,7 @@
           "quality_notes": [],
           "currency": "USD",
           "source_basis": "SEC Company Facts；金額為 USD。",
-          "days_since_filing": 77,
+          "days_since_filing": 78,
           "review_due": false
         },
         "kpis": [
@@ -2012,12 +2012,12 @@
       "phase_label": "已知日期，尚未進入 30 天",
       "next_earnings": {
         "date": "2026-11-17",
-        "days_until": 34,
+        "days_until": 33,
         "confidence": "estimated",
         "source_label": "Yahoo Finance 行事曆",
         "source_url": "https://finance.yahoo.com/quote/NVDA/calendar/",
         "source_status": "fresh",
-        "last_success_at": "2026-10-14"
+        "last_success_at": "2026-10-15"
       },
       "pre_event": {
         "preparation_due": false,
@@ -2131,7 +2131,7 @@
           "quality_notes": [],
           "currency": "USD",
           "source_basis": "SEC Company Facts；金額為 USD。",
-          "days_since_filing": 49,
+          "days_since_filing": 50,
           "review_due": false
         },
         "kpis": [
@@ -2266,12 +2266,12 @@
       "phase_label": "已知日期，尚未進入 30 天",
       "next_earnings": {
         "date": "2026-12-01",
-        "days_until": 48,
+        "days_until": 47,
         "confidence": "estimated",
         "source_label": "Yahoo Finance 行事曆",
         "source_url": "https://finance.yahoo.com/quote/MRVL/calendar/",
         "source_status": "fresh",
-        "last_success_at": "2026-10-14"
+        "last_success_at": "2026-10-15"
       },
       "pre_event": {
         "preparation_due": false,
@@ -2395,7 +2395,7 @@
           "quality_notes": [],
           "currency": "USD",
           "source_basis": "SEC Company Facts；金額為 USD。",
-          "days_since_filing": 47,
+          "days_since_filing": 48,
           "review_due": false
         },
         "kpis": [
@@ -2525,17 +2525,17 @@
       "data_ticker": "ONDS",
       "name": "Ondas",
       "position": "watchlist",
-      "attention_score": 51,
+      "attention_score": 52,
       "phase": "upcoming",
       "phase_label": "30 天內將公布",
       "next_earnings": {
         "date": "2026-11-12",
-        "days_until": 29,
+        "days_until": 28,
         "confidence": "estimated",
         "source_label": "Yahoo Finance 行事曆",
         "source_url": "https://finance.yahoo.com/quote/ONDS/calendar/",
         "source_status": "fresh",
-        "last_success_at": "2026-10-14"
+        "last_success_at": "2026-10-15"
       },
       "pre_event": {
         "preparation_due": false,
@@ -2639,7 +2639,7 @@
           "quality_notes": [],
           "currency": "USD",
           "source_basis": "SEC Company Facts；金額為 USD。",
-          "days_since_filing": 62,
+          "days_since_filing": 63,
           "review_due": false
         },
         "kpis": [
@@ -2755,17 +2755,17 @@
       "data_ticker": "MSFT",
       "name": "Microsoft",
       "position": "watchlist",
-      "attention_score": 46,
+      "attention_score": 47,
       "phase": "upcoming",
       "phase_label": "30 天內將公布",
       "next_earnings": {
         "date": "2026-10-28",
-        "days_until": 14,
+        "days_until": 13,
         "confidence": "estimated",
         "source_label": "Yahoo Finance 行事曆",
         "source_url": "https://finance.yahoo.com/quote/MSFT/calendar/",
         "source_status": "fresh",
-        "last_success_at": "2026-10-14"
+        "last_success_at": "2026-10-15"
       },
       "pre_event": {
         "preparation_due": false,
@@ -2869,7 +2869,7 @@
           "quality_notes": [],
           "currency": "USD",
           "source_basis": "SEC Company Facts；金額為 USD。",
-          "days_since_filing": 77,
+          "days_since_filing": 78,
           "review_due": false
         },
         "kpis": [
@@ -2999,17 +2999,17 @@
       "data_ticker": "AAPL",
       "name": "Apple",
       "position": "watchlist",
-      "attention_score": 41,
+      "attention_score": 42,
       "phase": "upcoming",
       "phase_label": "30 天內將公布",
       "next_earnings": {
         "date": "2026-11-02",
-        "days_until": 19,
+        "days_until": 18,
         "confidence": "estimated",
         "source_label": "Yahoo Finance 行事曆",
         "source_url": "https://finance.yahoo.com/quote/AAPL/calendar/",
         "source_status": "fresh",
-        "last_success_at": "2026-10-14"
+        "last_success_at": "2026-10-15"
       },
       "pre_event": {
         "preparation_due": false,
@@ -3102,7 +3102,7 @@
           "quality_notes": [],
           "currency": "USD",
           "source_basis": "SEC Company Facts；金額為 USD。",
-          "days_since_filing": 75,
+          "days_since_filing": 76,
           "review_due": false
         },
         "kpis": [
@@ -3218,17 +3218,17 @@
       "data_ticker": "AMZN",
       "name": "Amazon",
       "position": "watchlist",
-      "attention_score": 15,
+      "attention_score": 16,
       "phase": "upcoming",
       "phase_label": "30 天內將公布",
       "next_earnings": {
         "date": "2026-10-29",
-        "days_until": 15,
+        "days_until": 14,
         "confidence": "estimated",
         "source_label": "Yahoo Finance 行事曆",
         "source_url": "https://finance.yahoo.com/quote/AMZN/calendar/",
         "source_status": "fresh",
-        "last_success_at": "2026-10-14"
+        "last_success_at": "2026-10-15"
       },
       "pre_event": {
         "preparation_due": false,
@@ -3342,7 +3342,7 @@
           "quality_notes": [],
           "currency": "USD",
           "source_basis": "SEC Company Facts；金額為 USD。",
-          "days_since_filing": 75,
+          "days_since_filing": 76,
           "review_due": false
         },
         "kpis": [
