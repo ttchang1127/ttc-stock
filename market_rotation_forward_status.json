@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "protocol_version": "rotation-forward-2026-10-11-v1",
-  "history_as_of": "2026-10-14",
-  "a_snapshot_count": 14,
+  "history_as_of": "2026-10-15",
+  "a_snapshot_count": 15,
   "baseline_as_of": "2026-10-09",
   "events": [
     {
@@ -154,9 +154,51 @@
         }
       },
       "eligibility_confirmed_at_utc": "2026-10-14T01:58:27Z"
+    },
+    {
+      "id": "2026-10-15:sector:consumer-staples:neutral_mixed",
+      "signal_as_of": "2026-10-15",
+      "sector": "sector:consumer-staples",
+      "from_state": "early_improvement",
+      "state": "neutral_mixed",
+      "etf": "XLP",
+      "dataset_id": "sha256:9cc97765af464b2c92483694b57119d86b23ed3f6ab12da1e0a6c09b6dccf533",
+      "first_seen_at_utc": "2026-10-15T17:02:48Z",
+      "entry": {
+        "status": "pending"
+      },
+      "outcomes": {
+        "20d": {
+          "status": "pending"
+        },
+        "60d": {
+          "status": "pending"
+        }
+      }
+    },
+    {
+      "id": "2026-10-15:sector:industrials:early_improvement",
+      "signal_as_of": "2026-10-15",
+      "sector": "sector:industrials",
+      "from_state": "neutral_mixed",
+      "state": "early_improvement",
+      "etf": "XLI",
+      "dataset_id": "sha256:9cc97765af464b2c92483694b57119d86b23ed3f6ab12da1e0a6c09b6dccf533",
+      "first_seen_at_utc": "2026-10-15T17:02:48Z",
+      "entry": {
+        "status": "pending"
+      },
+      "outcomes": {
+        "20d": {
+          "status": "pending"
+        },
+        "60d": {
+          "status": "pending"
+        }
+      }
     }
   ],
-  "event_count": 6,
+  "event_count": 8,
   "matured_20d": 0,
   "matured_60d": 0,
   "status": "pending_outcomes",
