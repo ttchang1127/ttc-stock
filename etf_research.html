@@ -18,7 +18,7 @@
         <div class="asof">美股收盤日<strong id="techAsOf">載入中…</strong></div></div></header>
 
     <section class="tech-intro" aria-label="閱讀方式">
-      <p>一個方塊代表一家公司。外框是產業鏈分類；預設顏色為股價絕對漲跌，也可切換為相對 SPY／VGT 的報酬差（百分點）。相對跑贏不代表股價上漲。方塊面積預設按公司市值，亦可切換每家公司等大。</p>
+      <p>一個方塊代表一家公司。外框是產業鏈分類；預設顏色為股價絕對漲跌，也可切換為相對 SPY／VGT 的報酬差（百分點）。相對跑贏不代表股價上漲。方塊面積預設每家公司等大，亦可切換為按公司市值顯示。</p>
       <div class="tech-highlights" id="techHighlights" aria-live="polite">正在載入資料…</div>
     </section>
 
@@ -42,7 +42,7 @@
           <label class="control-label">子產業 <select id="techGroup" disabled><option value="">先選大類</option></select></label>
         </div>
         <label class="check-label"><input id="techAdjacent" type="checkbox"> 顯示科技相鄰</label>
-        <label class="check-label"><input id="techEqual" type="checkbox"> 每家公司等大</label>
+        <label class="check-label"><input id="techEqual" type="checkbox" checked> 每家公司等大</label>
         <label class="control-label">搜尋 <input id="techSearch" type="search" placeholder="代號或公司名稱" autocomplete="off"></label>
       </div>
       <p class="tech-mode-note" id="techModeNote" aria-live="polite"></p>
