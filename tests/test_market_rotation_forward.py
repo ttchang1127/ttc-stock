@@ -15,7 +15,10 @@ class ForwardTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.protocol = json.loads((ROOT / "market_rotation_forward_protocol.json").read_text())
-        cls.index, cls.rows = forward.read_snapshots(ROOT / "market_rotation_history")
+        cls.index, history_rows = forward.read_snapshots(ROOT / "market_rotation_history")
+        # These cases exercise the frozen baseline and a synthetic next session.
+        # Later real snapshots must not change their expected event counts.
+        cls.rows = [row for row in history_rows if row["as_of"] <= cls.protocol["baseline_as_of"]]
 
     def test_preprotocol_snapshots_are_not_events(self):
         result = forward.build(self.protocol, self.index, self.rows, {}, "2026-10-11T12:00:00Z")
