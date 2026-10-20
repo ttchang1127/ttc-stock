@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "protocol_version": "rotation-forward-2026-10-11-v1",
-  "history_as_of": "2026-10-16",
-  "a_snapshot_count": 16,
+  "history_as_of": "2026-10-19",
+  "a_snapshot_count": 17,
   "baseline_as_of": "2026-10-09",
   "events": [
     {
@@ -165,7 +165,10 @@
       "dataset_id": "sha256:9cc97765af464b2c92483694b57119d86b23ed3f6ab12da1e0a6c09b6dccf533",
       "first_seen_at_utc": "2026-10-15T17:02:48Z",
       "entry": {
-        "status": "pending"
+        "status": "fixed",
+        "date": "2026-10-19",
+        "etf_adj_close": 87.20999908447266,
+        "spy_adj_close": 766.47998046875
       },
       "outcomes": {
         "20d": {
@@ -187,7 +190,10 @@
       "dataset_id": "sha256:9cc97765af464b2c92483694b57119d86b23ed3f6ab12da1e0a6c09b6dccf533",
       "first_seen_at_utc": "2026-10-15T17:02:48Z",
       "entry": {
-        "status": "pending"
+        "status": "fixed",
+        "date": "2026-10-19",
+        "etf_adj_close": 166.67999267578125,
+        "spy_adj_close": 766.47998046875
       },
       "outcomes": {
         "20d": {
@@ -209,7 +215,10 @@
       "dataset_id": "sha256:1f57a37044351b20b8658e3a4a5b8f0713be1956f596803512f05fd137f62e3b",
       "first_seen_at_utc": "2026-10-16T16:41:16Z",
       "entry": {
-        "status": "pending"
+        "status": "fixed",
+        "date": "2026-10-19",
+        "etf_adj_close": 114.45999908447266,
+        "spy_adj_close": 766.47998046875
       },
       "outcomes": {
         "20d": {
@@ -220,9 +229,72 @@
         }
       },
       "eligibility_confirmed_at_utc": "2026-10-17T15:36:42Z"
+    },
+    {
+      "id": "2026-10-19:sector:communication-services:early_improvement",
+      "signal_as_of": "2026-10-19",
+      "sector": "sector:communication-services",
+      "from_state": "neutral_mixed",
+      "state": "early_improvement",
+      "etf": "XLC",
+      "dataset_id": "sha256:06083d7235b18d2544049efe347d736b99e0f9396354d5a8b67d9ccdfd7fdad7",
+      "first_seen_at_utc": "2026-10-20T01:53:40Z",
+      "entry": {
+        "status": "pending"
+      },
+      "outcomes": {
+        "20d": {
+          "status": "pending"
+        },
+        "60d": {
+          "status": "pending"
+        }
+      }
+    },
+    {
+      "id": "2026-10-19:sector:consumer-staples:confirmed_leading",
+      "signal_as_of": "2026-10-19",
+      "sector": "sector:consumer-staples",
+      "from_state": "neutral_mixed",
+      "state": "confirmed_leading",
+      "etf": "XLP",
+      "dataset_id": "sha256:06083d7235b18d2544049efe347d736b99e0f9396354d5a8b67d9ccdfd7fdad7",
+      "first_seen_at_utc": "2026-10-20T01:53:40Z",
+      "entry": {
+        "status": "pending"
+      },
+      "outcomes": {
+        "20d": {
+          "status": "pending"
+        },
+        "60d": {
+          "status": "pending"
+        }
+      }
+    },
+    {
+      "id": "2026-10-19:sector:information-technology:neutral_mixed",
+      "signal_as_of": "2026-10-19",
+      "sector": "sector:information-technology",
+      "from_state": "cooling",
+      "state": "neutral_mixed",
+      "etf": "XLK",
+      "dataset_id": "sha256:06083d7235b18d2544049efe347d736b99e0f9396354d5a8b67d9ccdfd7fdad7",
+      "first_seen_at_utc": "2026-10-20T01:53:40Z",
+      "entry": {
+        "status": "pending"
+      },
+      "outcomes": {
+        "20d": {
+          "status": "pending"
+        },
+        "60d": {
+          "status": "pending"
+        }
+      }
     }
   ],
-  "event_count": 9,
+  "event_count": 12,
   "matured_20d": 0,
   "matured_60d": 0,
   "status": "pending_outcomes",
