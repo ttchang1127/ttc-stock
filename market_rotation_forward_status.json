@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "protocol_version": "rotation-forward-2026-10-11-v1",
-  "history_as_of": "2026-10-19",
-  "a_snapshot_count": 17,
+  "history_as_of": "2026-10-20",
+  "a_snapshot_count": 18,
   "baseline_as_of": "2026-10-09",
   "events": [
     {
@@ -249,7 +249,8 @@
         "60d": {
           "status": "pending"
         }
-      }
+      },
+      "eligibility_confirmed_at_utc": "2026-10-20T17:10:44Z"
     },
     {
       "id": "2026-10-19:sector:consumer-staples:confirmed_leading",
@@ -270,7 +271,8 @@
         "60d": {
           "status": "pending"
         }
-      }
+      },
+      "eligibility_confirmed_at_utc": "2026-10-20T17:10:44Z"
     },
     {
       "id": "2026-10-19:sector:information-technology:neutral_mixed",
@@ -291,10 +293,53 @@
         "60d": {
           "status": "pending"
         }
+      },
+      "eligibility_confirmed_at_utc": "2026-10-20T17:10:44Z"
+    },
+    {
+      "id": "2026-10-20:sector:financials:neutral_mixed",
+      "signal_as_of": "2026-10-20",
+      "sector": "sector:financials",
+      "from_state": "early_improvement",
+      "state": "neutral_mixed",
+      "etf": "XLF",
+      "dataset_id": "sha256:5e04fe65ed2264c9dfc2583dd534b59f9a7fd8ca31f66297b86c231e8f4494d5",
+      "first_seen_at_utc": "2026-10-20T17:10:44Z",
+      "entry": {
+        "status": "pending"
+      },
+      "outcomes": {
+        "20d": {
+          "status": "pending"
+        },
+        "60d": {
+          "status": "pending"
+        }
+      }
+    },
+    {
+      "id": "2026-10-20:sector:real-estate:neutral_mixed",
+      "signal_as_of": "2026-10-20",
+      "sector": "sector:real-estate",
+      "from_state": "early_improvement",
+      "state": "neutral_mixed",
+      "etf": "XLRE",
+      "dataset_id": "sha256:5e04fe65ed2264c9dfc2583dd534b59f9a7fd8ca31f66297b86c231e8f4494d5",
+      "first_seen_at_utc": "2026-10-20T17:10:44Z",
+      "entry": {
+        "status": "pending"
+      },
+      "outcomes": {
+        "20d": {
+          "status": "pending"
+        },
+        "60d": {
+          "status": "pending"
+        }
       }
     }
   ],
-  "event_count": 12,
+  "event_count": 14,
   "matured_20d": 0,
   "matured_60d": 0,
   "status": "pending_outcomes",
