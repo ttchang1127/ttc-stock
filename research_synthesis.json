@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-21",
+  "generated_at": "2026-10-22",
   "tracked_count": 14,
   "methodology": {
     "purpose": "把既有 SEC、財報、論點、事件與估值資料整理成可稽核的研究工作流，不新增無來源財務數字。",
@@ -16,11 +16,11 @@
   },
   "source_dates": {
     "quarterly_financials": "2026-10-20T01:58:49+00:00",
-    "earnings_verification": "2026-10-21",
+    "earnings_verification": "2026-10-22",
     "thesis_status": "2026-10-08T11:08:05+00:00",
-    "event_calendar": "2026-10-21",
-    "valuation": "2026-10-21T01:44:15+00:00",
-    "market_rotation": "2026-10-20",
+    "event_calendar": "2026-10-22",
+    "valuation": "2026-10-21T17:15:53+00:00",
+    "market_rotation": "2026-10-21",
     "peer_groups": "2026-09-19"
   },
   "companies": {
@@ -128,7 +128,7 @@
           "quality_notes": [],
           "currency": "USD",
           "source_basis": "SEC Company Facts；金額為 USD。",
-          "days_since_filing": 56,
+          "days_since_filing": 57,
           "review_due": false
         },
         "metrics": [
@@ -272,7 +272,7 @@
           "source_url": "https://finance.yahoo.com/quote/NVDA/calendar/",
           "confidence": "estimated",
           "announced_at": null,
-          "days_until": 27,
+          "days_until": 26,
           "position": "holding",
           "company_name": "NVIDIA"
         }
@@ -290,7 +290,7 @@
             "source_url": "https://finance.yahoo.com/quote/NVDA/calendar/",
             "confidence": "estimated",
             "announced_at": null,
-            "days_until": 27,
+            "days_until": 26,
             "position": "holding",
             "company_name": "NVIDIA",
             "status": "upcoming"
@@ -384,11 +384,11 @@
           {
             "id": "pe_ratio",
             "label": "本益比",
-            "value": 44.2,
+            "value": 45.3,
             "unit": "x",
             "direction": "lower",
             "known_peer_count": 4,
-            "peer_median": 61.25,
+            "peer_median": 62.6,
             "favorable_percentile": 66.7,
             "status": "available"
           }
@@ -504,7 +504,7 @@
           "quality_notes": [],
           "currency": "TWD",
           "source_basis": "TSMC 官方 TIFRS consolidated 季度管理報告；金額為新台幣。",
-          "days_since_filing": 97,
+          "days_since_filing": 98,
           "review_due": false
         },
         "metrics": [
@@ -640,12 +640,12 @@
         "next_validation": {
           "type": "earnings",
           "date": "2027-01-14",
-          "days_until": 85,
+          "days_until": 84,
           "confidence": "estimated",
           "source_label": "Yahoo Finance 行事曆",
           "source_url": "https://finance.yahoo.com/quote/TSM/calendar/",
           "source_status": "fresh",
-          "last_success_at": "2026-10-21"
+          "last_success_at": "2026-10-22"
         }
       },
       "catalyst_log": {
@@ -738,11 +738,11 @@
           {
             "id": "pe_ratio",
             "label": "本益比",
-            "value": 40.8,
+            "value": 41.2,
             "unit": "x",
             "direction": "lower",
             "known_peer_count": 4,
-            "peer_median": 61.25,
+            "peer_median": 62.6,
             "favorable_percentile": 100.0,
             "status": "available"
           }
@@ -858,7 +858,7 @@
           "quality_notes": [],
           "currency": "USD",
           "source_basis": "SEC Company Facts；金額為 USD。",
-          "days_since_filing": 84,
+          "days_since_filing": 85,
           "review_due": false
         },
         "metrics": [
@@ -1002,7 +1002,7 @@
           "source_url": "https://finance.yahoo.com/quote/MSFT/calendar/",
           "confidence": "estimated",
           "announced_at": null,
-          "days_until": 7,
+          "days_until": 6,
           "position": "watchlist",
           "company_name": "Microsoft"
         }
@@ -1020,7 +1020,7 @@
             "source_url": "https://finance.yahoo.com/quote/MSFT/calendar/",
             "confidence": "estimated",
             "announced_at": null,
-            "days_until": 7,
+            "days_until": 6,
             "position": "watchlist",
             "company_name": "Microsoft",
             "status": "upcoming"
@@ -1036,7 +1036,7 @@
             "source_url": "https://finance.yahoo.com/quote/MSFT/calendar/",
             "confidence": "provider",
             "announced_at": null,
-            "days_until": 29,
+            "days_until": 28,
             "position": "watchlist",
             "company_name": "Microsoft",
             "status": "upcoming"
@@ -1130,16 +1130,16 @@
           {
             "id": "pe_ratio",
             "label": "本益比",
-            "value": 29.6,
+            "value": 29.7,
             "unit": "x",
             "direction": "lower",
             "known_peer_count": 5,
-            "peer_median": 31.1,
-            "favorable_percentile": 87.5,
+            "peer_median": 30.6,
+            "favorable_percentile": 100.0,
             "status": "available"
           }
         ],
-        "composite_percentile": 72.5,
+        "composite_percentile": 75.0,
         "coverage": {
           "known": 5,
           "total": 6
@@ -1250,7 +1250,7 @@
           "quality_notes": [],
           "currency": "USD",
           "source_basis": "SEC Company Facts；金額為 USD。",
-          "days_since_filing": 83,
+          "days_since_filing": 84,
           "review_due": false
         },
         "metrics": [
@@ -1384,40 +1384,18 @@
           }
         ],
         "next_validation": {
-          "ticker": "META",
-          "date": "2026-10-21",
           "type": "earnings",
-          "title": "預估財報公布日",
-          "detail": "第三方市場資料日期；公司尚未公告時可能變更。",
-          "meaning": "財報日可能調整；應優先核對營收、毛利率、自由現金流與管理層指引是否改變。",
+          "date": "2026-10-21",
+          "days_until": -1,
+          "confidence": "estimated",
           "source_label": "Yahoo Finance 行事曆",
           "source_url": "https://finance.yahoo.com/quote/META/calendar/",
-          "confidence": "estimated",
-          "announced_at": null,
-          "days_until": 0,
-          "position": "watchlist",
-          "company_name": "Meta"
+          "source_status": "fresh",
+          "last_success_at": "2026-10-22"
         }
       },
       "catalyst_log": {
-        "upcoming": [
-          {
-            "ticker": "META",
-            "date": "2026-10-21",
-            "type": "earnings",
-            "title": "預估財報公布日",
-            "detail": "第三方市場資料日期；公司尚未公告時可能變更。",
-            "meaning": "財報日可能調整；應優先核對營收、毛利率、自由現金流與管理層指引是否改變。",
-            "source_label": "Yahoo Finance 行事曆",
-            "source_url": "https://finance.yahoo.com/quote/META/calendar/",
-            "confidence": "estimated",
-            "announced_at": null,
-            "days_until": 0,
-            "position": "watchlist",
-            "company_name": "Meta",
-            "status": "upcoming"
-          }
-        ],
+        "upcoming": [],
         "completed": [
           {
             "status": "completed",
@@ -1506,16 +1484,16 @@
           {
             "id": "pe_ratio",
             "label": "本益比",
-            "value": 29.6,
+            "value": 30.2,
             "unit": "x",
             "direction": "lower",
             "known_peer_count": 5,
-            "peer_median": 31.1,
-            "favorable_percentile": 87.5,
+            "peer_median": 30.6,
+            "favorable_percentile": 75.0,
             "status": "available"
           }
         ],
-        "composite_percentile": 71.5,
+        "composite_percentile": 69.5,
         "coverage": {
           "known": 6,
           "total": 6
@@ -1626,7 +1604,7 @@
           "quality_notes": [],
           "currency": "USD",
           "source_basis": "SEC Company Facts；金額為 USD。",
-          "days_since_filing": 82,
+          "days_since_filing": 83,
           "review_due": false
         },
         "metrics": [
@@ -1756,7 +1734,7 @@
           "source_url": "https://finance.yahoo.com/quote/AAPL/calendar/",
           "confidence": "estimated",
           "announced_at": null,
-          "days_until": 12,
+          "days_until": 11,
           "position": "watchlist",
           "company_name": "Apple"
         }
@@ -1774,7 +1752,7 @@
             "source_url": "https://finance.yahoo.com/quote/AAPL/calendar/",
             "confidence": "estimated",
             "announced_at": null,
-            "days_until": 12,
+            "days_until": 11,
             "position": "watchlist",
             "company_name": "Apple",
             "status": "upcoming"
@@ -1855,11 +1833,11 @@
           {
             "id": "pe_ratio",
             "label": "本益比",
-            "value": 45.5,
+            "value": 46.1,
             "unit": "x",
             "direction": "lower",
             "known_peer_count": 5,
-            "peer_median": 31.1,
+            "peer_median": 30.6,
             "favorable_percentile": 0.0,
             "status": "available"
           }
@@ -1975,7 +1953,7 @@
           "quality_notes": [],
           "currency": "USD",
           "source_basis": "SEC Company Facts；金額為 USD。",
-          "days_since_filing": 82,
+          "days_since_filing": 83,
           "review_due": false
         },
         "metrics": [
@@ -2119,7 +2097,7 @@
           "source_url": "https://finance.yahoo.com/quote/AMZN/calendar/",
           "confidence": "estimated",
           "announced_at": null,
-          "days_until": 8,
+          "days_until": 7,
           "position": "watchlist",
           "company_name": "Amazon"
         }
@@ -2137,7 +2115,7 @@
             "source_url": "https://finance.yahoo.com/quote/AMZN/calendar/",
             "confidence": "estimated",
             "announced_at": null,
-            "days_until": 8,
+            "days_until": 7,
             "position": "watchlist",
             "company_name": "Amazon",
             "status": "upcoming"
@@ -2231,11 +2209,11 @@
           {
             "id": "pe_ratio",
             "label": "本益比",
-            "value": 36.6,
+            "value": 36.8,
             "unit": "x",
             "direction": "lower",
             "known_peer_count": 5,
-            "peer_median": 31.1,
+            "peer_median": 30.6,
             "favorable_percentile": 25.0,
             "status": "available"
           }
@@ -2351,7 +2329,7 @@
           "quality_notes": [],
           "currency": "USD",
           "source_basis": "SEC Company Facts；金額為 USD。",
-          "days_since_filing": 84,
+          "days_since_filing": 85,
           "review_due": false
         },
         "metrics": [
@@ -2495,7 +2473,7 @@
           "source_url": "https://finance.yahoo.com/quote/ARM/calendar/",
           "confidence": "estimated",
           "announced_at": null,
-          "days_until": 14,
+          "days_until": 13,
           "position": "holding",
           "company_name": "Arm"
         }
@@ -2513,7 +2491,7 @@
             "source_url": "https://finance.yahoo.com/quote/ARM/calendar/",
             "confidence": "estimated",
             "announced_at": null,
-            "days_until": 14,
+            "days_until": 13,
             "position": "holding",
             "company_name": "Arm",
             "status": "upcoming"
@@ -2607,11 +2585,11 @@
           {
             "id": "pe_ratio",
             "label": "本益比",
-            "value": 261.2,
+            "value": 267.0,
             "unit": "x",
             "direction": "lower",
             "known_peer_count": 4,
-            "peer_median": 61.25,
+            "peer_median": 62.6,
             "favorable_percentile": 0.0,
             "status": "available"
           }
@@ -2727,7 +2705,7 @@
           "quality_notes": [],
           "currency": "USD",
           "source_basis": "SEC Company Facts；金額為 USD。",
-          "days_since_filing": 69,
+          "days_since_filing": 70,
           "review_due": false
         },
         "metrics": [
@@ -2857,7 +2835,7 @@
           "source_url": "https://finance.yahoo.com/quote/ONDS/calendar/",
           "confidence": "estimated",
           "announced_at": null,
-          "days_until": 22,
+          "days_until": 21,
           "position": "watchlist",
           "company_name": "Ondas"
         }
@@ -2875,7 +2853,7 @@
             "source_url": "https://finance.yahoo.com/quote/ONDS/calendar/",
             "confidence": "estimated",
             "announced_at": null,
-            "days_until": 22,
+            "days_until": 21,
             "position": "watchlist",
             "company_name": "Ondas",
             "status": "upcoming"
@@ -3070,7 +3048,7 @@
           "quality_notes": [],
           "currency": "USD",
           "source_basis": "SEC Company Facts；金額為 USD。",
-          "days_since_filing": 90,
+          "days_since_filing": 91,
           "review_due": false
         },
         "metrics": [
@@ -3190,40 +3168,18 @@
           }
         ],
         "next_validation": {
-          "ticker": "TSLA",
-          "date": "2026-10-21",
           "type": "earnings",
-          "title": "預估財報公布日",
-          "detail": "第三方市場資料日期；公司尚未公告時可能變更。",
-          "meaning": "財報日可能調整；應優先核對營收、毛利率、自由現金流與管理層指引是否改變。",
+          "date": "2026-10-21",
+          "days_until": -1,
+          "confidence": "estimated",
           "source_label": "Yahoo Finance 行事曆",
           "source_url": "https://finance.yahoo.com/quote/TSLA/calendar/",
-          "confidence": "estimated",
-          "announced_at": null,
-          "days_until": 0,
-          "position": "holding",
-          "company_name": "Tesla"
+          "source_status": "fresh",
+          "last_success_at": "2026-10-22"
         }
       },
       "catalyst_log": {
-        "upcoming": [
-          {
-            "ticker": "TSLA",
-            "date": "2026-10-21",
-            "type": "earnings",
-            "title": "預估財報公布日",
-            "detail": "第三方市場資料日期；公司尚未公告時可能變更。",
-            "meaning": "財報日可能調整；應優先核對營收、毛利率、自由現金流與管理層指引是否改變。",
-            "source_label": "Yahoo Finance 行事曆",
-            "source_url": "https://finance.yahoo.com/quote/TSLA/calendar/",
-            "confidence": "estimated",
-            "announced_at": null,
-            "days_until": 0,
-            "position": "holding",
-            "company_name": "Tesla",
-            "status": "upcoming"
-          }
-        ],
+        "upcoming": [],
         "completed": [],
         "note": "已完成事件目前只收錄可由官方指引與正式實績閉環驗證者；其他事件不猜測結果。"
       },
@@ -3293,7 +3249,7 @@
           {
             "id": "pe_ratio",
             "label": "本益比",
-            "value": 342.0,
+            "value": 354.0,
             "unit": "x",
             "direction": "lower",
             "known_peer_count": 0,
@@ -3413,7 +3369,7 @@
           "quality_notes": [],
           "currency": "USD",
           "source_basis": "SEC Company Facts；金額為 USD。",
-          "days_since_filing": 90,
+          "days_since_filing": 91,
           "review_due": false
         },
         "metrics": [
@@ -3543,7 +3499,7 @@
           "source_url": "https://finance.yahoo.com/quote/GOOG/calendar/",
           "confidence": "estimated",
           "announced_at": null,
-          "days_until": 7,
+          "days_until": 6,
           "position": "holding",
           "company_name": "Alphabet"
         }
@@ -3561,7 +3517,7 @@
             "source_url": "https://finance.yahoo.com/quote/GOOG/calendar/",
             "confidence": "estimated",
             "announced_at": null,
-            "days_until": 7,
+            "days_until": 6,
             "position": "holding",
             "company_name": "Alphabet",
             "status": "upcoming"
@@ -3642,11 +3598,11 @@
           {
             "id": "pe_ratio",
             "label": "本益比",
-            "value": 31.1,
+            "value": 30.6,
             "unit": "x",
             "direction": "lower",
             "known_peer_count": 5,
-            "peer_median": 31.1,
+            "peer_median": 30.6,
             "favorable_percentile": 50.0,
             "status": "available"
           }
@@ -3762,7 +3718,7 @@
           "quality_notes": [],
           "currency": "USD",
           "source_basis": "SEC Company Facts；金額為 USD。",
-          "days_since_filing": 68,
+          "days_since_filing": 69,
           "review_due": false
         },
         "metrics": [
@@ -3906,7 +3862,7 @@
           "source_url": "https://finance.yahoo.com/quote/COHR/calendar/",
           "confidence": "estimated",
           "announced_at": null,
-          "days_until": 14,
+          "days_until": 13,
           "position": "holding",
           "company_name": "Coherent"
         }
@@ -3924,7 +3880,7 @@
             "source_url": "https://finance.yahoo.com/quote/COHR/calendar/",
             "confidence": "estimated",
             "announced_at": null,
-            "days_until": 14,
+            "days_until": 13,
             "position": "holding",
             "company_name": "Coherent",
             "status": "upcoming"
@@ -4016,11 +3972,11 @@
           {
             "id": "pe_ratio",
             "label": "本益比",
-            "value": 57.6,
+            "value": 58.9,
             "unit": "x",
             "direction": "lower",
             "known_peer_count": 3,
-            "peer_median": 78.3,
+            "peer_median": 79.9,
             "favorable_percentile": 100.0,
             "status": "available"
           }
@@ -4136,7 +4092,7 @@
           "quality_notes": [],
           "currency": "USD",
           "source_basis": "SEC Company Facts；金額為 USD。",
-          "days_since_filing": 54,
+          "days_since_filing": 55,
           "review_due": false
         },
         "metrics": [
@@ -4272,12 +4228,12 @@
         "next_validation": {
           "type": "earnings",
           "date": "2026-12-01",
-          "days_until": 41,
+          "days_until": 40,
           "confidence": "estimated",
           "source_label": "Yahoo Finance 行事曆",
           "source_url": "https://finance.yahoo.com/quote/MRVL/calendar/",
           "source_status": "fresh",
-          "last_success_at": "2026-10-21"
+          "last_success_at": "2026-10-22"
         }
       },
       "catalyst_log": {
@@ -4293,7 +4249,7 @@
             "source_url": "https://finance.yahoo.com/quote/MRVL/calendar/",
             "confidence": "provider",
             "announced_at": null,
-            "days_until": 8,
+            "days_until": 7,
             "position": "holding",
             "company_name": "Marvell",
             "status": "upcoming"
@@ -4387,11 +4343,11 @@
           {
             "id": "pe_ratio",
             "label": "本益比",
-            "value": 78.3,
+            "value": 79.9,
             "unit": "x",
             "direction": "lower",
             "known_peer_count": 4,
-            "peer_median": 61.25,
+            "peer_median": 62.6,
             "favorable_percentile": 33.3,
             "status": "available"
           }
@@ -4507,7 +4463,7 @@
           "quality_notes": [],
           "currency": "USD",
           "source_basis": "SEC Company Facts；金額為 USD。",
-          "days_since_filing": 89,
+          "days_since_filing": 90,
           "review_due": false
         },
         "metrics": [
@@ -4651,7 +4607,7 @@
           "source_url": "https://finance.yahoo.com/quote/INTC/calendar/",
           "confidence": "estimated",
           "announced_at": null,
-          "days_until": 8,
+          "days_until": 7,
           "position": "holding",
           "company_name": "Intel"
         }
@@ -4669,7 +4625,7 @@
             "source_url": "https://finance.yahoo.com/quote/INTC/calendar/",
             "confidence": "estimated",
             "announced_at": null,
-            "days_until": 8,
+            "days_until": 7,
             "position": "holding",
             "company_name": "Intel",
             "status": "upcoming"
@@ -4767,7 +4723,7 @@
             "unit": "x",
             "direction": "lower",
             "known_peer_count": 4,
-            "peer_median": 61.25,
+            "peer_median": 62.6,
             "favorable_percentile": null,
             "status": "insufficient"
           }
@@ -4887,7 +4843,7 @@
           ],
           "currency": "EUR",
           "source_basis": "Nokia 官方 IFRS reported 季報；2025 與 2026 Q1 已採 2026-07-23 停業單位重編數字，金額為 EUR。",
-          "days_since_filing": 90,
+          "days_since_filing": 91,
           "review_due": false
         },
         "metrics": [
@@ -5017,7 +4973,7 @@
           "source_url": "https://finance.yahoo.com/quote/NOK/calendar/",
           "confidence": "estimated",
           "announced_at": null,
-          "days_until": 1,
+          "days_until": 0,
           "position": "holding",
           "company_name": "Nokia"
         }
@@ -5035,7 +4991,7 @@
             "source_url": "https://finance.yahoo.com/quote/NOK/calendar/",
             "confidence": "estimated",
             "announced_at": null,
-            "days_until": 1,
+            "days_until": 0,
             "position": "holding",
             "company_name": "Nokia",
             "status": "upcoming"
@@ -5114,11 +5070,11 @@
           {
             "id": "pe_ratio",
             "label": "本益比",
-            "value": 78.5,
+            "value": 80.2,
             "unit": "x",
             "direction": "lower",
             "known_peer_count": 3,
-            "peer_median": 78.3,
+            "peer_median": 79.9,
             "favorable_percentile": 0.0,
             "status": "available"
           }
@@ -5132,27 +5088,60 @@
     }
   },
   "market_rotation_bridge": {
-    "as_of": "2026-10-20",
+    "as_of": "2026-10-21",
     "sectors": [
       {
         "sector_key": "Health Care",
         "sector_name": "醫療保健",
-        "quadrant": "leading",
-        "quadrant_zh": "領先",
-        "rotation_score": 85.9,
-        "as_of": "2026-10-20",
-        "research_action": "價格層領先且仍加速；下一步核對基本面是否同步改善，不能只因位於右上角追價。",
+        "quadrant": "weakening",
+        "quadrant_zh": "轉弱",
+        "rotation_score": 75.5,
+        "as_of": "2026-10-21",
+        "research_action": "仍相對領先但動能降溫；優先檢查估值、指引與論點是否開始轉弱。",
+        "tracked_companies": [],
+        "coverage_note": "只連結 sec_kb 追蹤且屬於 S&P 500／Nasdaq-100 的 0 家公司，不代表整個板塊基本面。"
+      },
+      {
+        "sector_key": "Energy",
+        "sector_name": "能源",
+        "quadrant": "weakening",
+        "quadrant_zh": "轉弱",
+        "rotation_score": 65.5,
+        "as_of": "2026-10-21",
+        "research_action": "仍相對領先但動能降溫；優先檢查估值、指引與論點是否開始轉弱。",
         "tracked_companies": [],
         "coverage_note": "只連結 sec_kb 追蹤且屬於 S&P 500／Nasdaq-100 的 0 家公司，不代表整個板塊基本面。"
       },
       {
         "sector_key": "Consumer Staples",
         "sector_name": "必需消費",
+        "quadrant": "weakening",
+        "quadrant_zh": "轉弱",
+        "rotation_score": 65.0,
+        "as_of": "2026-10-21",
+        "research_action": "仍相對領先但動能降溫；優先檢查估值、指引與論點是否開始轉弱。",
+        "tracked_companies": [],
+        "coverage_note": "只連結 sec_kb 追蹤且屬於 S&P 500／Nasdaq-100 的 0 家公司，不代表整個板塊基本面。"
+      },
+      {
+        "sector_key": "Financials",
+        "sector_name": "金融",
         "quadrant": "leading",
         "quadrant_zh": "領先",
-        "rotation_score": 81.8,
-        "as_of": "2026-10-20",
+        "rotation_score": 63.2,
+        "as_of": "2026-10-21",
         "research_action": "價格層領先且仍加速；下一步核對基本面是否同步改善，不能只因位於右上角追價。",
+        "tracked_companies": [],
+        "coverage_note": "只連結 sec_kb 追蹤且屬於 S&P 500／Nasdaq-100 的 0 家公司，不代表整個板塊基本面。"
+      },
+      {
+        "sector_key": "Utilities",
+        "sector_name": "公用事業",
+        "quadrant": "weakening",
+        "quadrant_zh": "轉弱",
+        "rotation_score": 62.7,
+        "as_of": "2026-10-21",
+        "research_action": "仍相對領先但動能降溫；優先檢查估值、指引與論點是否開始轉弱。",
         "tracked_companies": [],
         "coverage_note": "只連結 sec_kb 追蹤且屬於 S&P 500／Nasdaq-100 的 0 家公司，不代表整個板塊基本面。"
       },
@@ -5161,8 +5150,8 @@
         "sector_name": "非必需消費",
         "quadrant": "leading",
         "quadrant_zh": "領先",
-        "rotation_score": 62.7,
-        "as_of": "2026-10-20",
+        "rotation_score": 60.5,
+        "as_of": "2026-10-21",
         "research_action": "價格層領先且仍加速；下一步核對基本面是否同步改善，不能只因位於右上角追價。",
         "tracked_companies": [
           {
@@ -5185,65 +5174,10 @@
       {
         "sector_key": "Materials",
         "sector_name": "原物料",
-        "quadrant": "improving",
-        "quadrant_zh": "改善",
-        "rotation_score": 62.3,
-        "as_of": "2026-10-20",
-        "research_action": "相對仍弱但動能回升；列入研究候選，等待財報與論點證據確認。",
-        "tracked_companies": [],
-        "coverage_note": "只連結 sec_kb 追蹤且屬於 S&P 500／Nasdaq-100 的 0 家公司，不代表整個板塊基本面。"
-      },
-      {
-        "sector_key": "Energy",
-        "sector_name": "能源",
-        "quadrant": "weakening",
-        "quadrant_zh": "轉弱",
-        "rotation_score": 61.4,
-        "as_of": "2026-10-20",
-        "research_action": "仍相對領先但動能降溫；優先檢查估值、指引與論點是否開始轉弱。",
-        "tracked_companies": [],
-        "coverage_note": "只連結 sec_kb 追蹤且屬於 S&P 500／Nasdaq-100 的 0 家公司，不代表整個板塊基本面。"
-      },
-      {
-        "sector_key": "Utilities",
-        "sector_name": "公用事業",
-        "quadrant": "weakening",
-        "quadrant_zh": "轉弱",
-        "rotation_score": 58.6,
-        "as_of": "2026-10-20",
-        "research_action": "仍相對領先但動能降溫；優先檢查估值、指引與論點是否開始轉弱。",
-        "tracked_companies": [],
-        "coverage_note": "只連結 sec_kb 追蹤且屬於 S&P 500／Nasdaq-100 的 0 家公司，不代表整個板塊基本面。"
-      },
-      {
-        "sector_key": "Financials",
-        "sector_name": "金融",
-        "quadrant": "leading",
-        "quadrant_zh": "領先",
-        "rotation_score": 57.7,
-        "as_of": "2026-10-20",
-        "research_action": "價格層領先且仍加速；下一步核對基本面是否同步改善，不能只因位於右上角追價。",
-        "tracked_companies": [],
-        "coverage_note": "只連結 sec_kb 追蹤且屬於 S&P 500／Nasdaq-100 的 0 家公司，不代表整個板塊基本面。"
-      },
-      {
-        "sector_key": "Industrials",
-        "sector_name": "工業",
-        "quadrant": "improving",
-        "quadrant_zh": "改善",
-        "rotation_score": 35.9,
-        "as_of": "2026-10-20",
-        "research_action": "相對仍弱但動能回升；列入研究候選，等待財報與論點證據確認。",
-        "tracked_companies": [],
-        "coverage_note": "只連結 sec_kb 追蹤且屬於 S&P 500／Nasdaq-100 的 0 家公司，不代表整個板塊基本面。"
-      },
-      {
-        "sector_key": "Real Estate",
-        "sector_name": "房地產",
         "quadrant": "lagging",
         "quadrant_zh": "落後",
-        "rotation_score": 35.5,
-        "as_of": "2026-10-20",
+        "rotation_score": 51.4,
+        "as_of": "2026-10-21",
         "research_action": "相對弱且動能惡化；區分市場冷卻與公司基本面失效，不由價格直接推論價值。",
         "tracked_companies": [],
         "coverage_note": "只連結 sec_kb 追蹤且屬於 S&P 500／Nasdaq-100 的 0 家公司，不代表整個板塊基本面。"
@@ -5251,11 +5185,11 @@
       {
         "sector_key": "Communication Services",
         "sector_name": "通訊服務",
-        "quadrant": "lagging",
-        "quadrant_zh": "落後",
-        "rotation_score": 31.4,
-        "as_of": "2026-10-20",
-        "research_action": "相對弱且動能惡化；區分市場冷卻與公司基本面失效，不由價格直接推論價值。",
+        "quadrant": "improving",
+        "quadrant_zh": "改善",
+        "rotation_score": 40.5,
+        "as_of": "2026-10-21",
+        "research_action": "相對仍弱但動能回升；列入研究候選，等待財報與論點證據確認。",
         "tracked_companies": [
           {
             "ticker": "GOOG",
@@ -5268,20 +5202,31 @@
             "ticker": "META",
             "thesis_label": "部分失效",
             "peer_group": "大型數位平台研究對照組",
-            "peer_percentile": 71.5,
+            "peer_percentile": 69.5,
             "evidence_period": "2026-06-30"
           }
         ],
         "coverage_note": "只連結 sec_kb 追蹤且屬於 S&P 500／Nasdaq-100 的 2 家公司，不代表整個板塊基本面。"
       },
       {
-        "sector_key": "Information Technology",
-        "sector_name": "資訊科技",
+        "sector_key": "Industrials",
+        "sector_name": "工業",
         "quadrant": "lagging",
         "quadrant_zh": "落後",
-        "rotation_score": 26.8,
-        "as_of": "2026-10-20",
+        "rotation_score": 39.1,
+        "as_of": "2026-10-21",
         "research_action": "相對弱且動能惡化；區分市場冷卻與公司基本面失效，不由價格直接推論價值。",
+        "tracked_companies": [],
+        "coverage_note": "只連結 sec_kb 追蹤且屬於 S&P 500／Nasdaq-100 的 0 家公司，不代表整個板塊基本面。"
+      },
+      {
+        "sector_key": "Information Technology",
+        "sector_name": "資訊科技",
+        "quadrant": "improving",
+        "quadrant_zh": "改善",
+        "rotation_score": 39.1,
+        "as_of": "2026-10-21",
+        "research_action": "相對仍弱但動能回升；列入研究候選，等待財報與論點證據確認。",
         "tracked_companies": [
           {
             "ticker": "AAPL",
@@ -5322,7 +5267,7 @@
             "ticker": "MSFT",
             "thesis_label": "部分失效",
             "peer_group": "大型數位平台研究對照組",
-            "peer_percentile": 72.5,
+            "peer_percentile": 75.0,
             "evidence_period": "2026-06-30"
           },
           {
@@ -5334,6 +5279,17 @@
           }
         ],
         "coverage_note": "只連結 sec_kb 追蹤且屬於 S&P 500／Nasdaq-100 的 7 家公司，不代表整個板塊基本面。"
+      },
+      {
+        "sector_key": "Real Estate",
+        "sector_name": "房地產",
+        "quadrant": "lagging",
+        "quadrant_zh": "落後",
+        "rotation_score": 37.7,
+        "as_of": "2026-10-21",
+        "research_action": "相對弱且動能惡化；區分市場冷卻與公司基本面失效，不由價格直接推論價值。",
+        "tracked_companies": [],
+        "coverage_note": "只連結 sec_kb 追蹤且屬於 S&P 500／Nasdaq-100 的 0 家公司，不代表整個板塊基本面。"
       }
     ]
   }
