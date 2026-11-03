@@ -335,7 +335,10 @@ jobs:
           git config user.email 'github-actions[bot]@users.noreply.github.com'
           git add -A
           git commit -m "chore: refresh market and filing data ($(date -u +%Y-%m-%d))"
-          git push
+          # A code change may land while this long refresh runs. Rebase the
+          # validated data commit rather than dropping it on a non-fast-forward.
+          git pull --rebase origin main
+          git push origin main
 
       - name: Notify confirmed market-rotation changes
         if: steps.rotation_digest.outputs.notify_count != '' && steps.rotation_digest.outputs.notify_count != '0'
