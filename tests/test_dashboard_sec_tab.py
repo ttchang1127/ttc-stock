@@ -299,7 +299,7 @@ class DashboardSecTabTests(unittest.TestCase):
         self.assertEqual(cards["tracked_count"], 14)
         self.assertEqual(len(history["current"]["companies"]), 14)
         self.assertEqual(history["notify_count"], len(history["notifications"]))
-        self.assertEqual(history["critical_count"], sum(row.get("severity") == "critical" for row in history["notifications"]))
+        self.assertEqual(history["critical_count"], sum(bool(row["critical"]) for row in history["notifications"]))
         nvda = next(row for row in cards["companies"] if row["ticker"] == "NVDA")
         self.assertEqual(nvda["position"], "holding")
         self.assertEqual(nvda["latest"]["free_cash_flow"], nvda["latest"]["operating_cash_flow"] - nvda["latest"]["capex"])
