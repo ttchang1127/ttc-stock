@@ -1,20 +1,131 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-03T13:46:09+00:00",
+  "generated_at": "2026-11-03T13:54:02+00:00",
   "editorial_reviewed_at": "2026-09-12T18:31:51+08:00",
   "editorial_window_end": "2026-09-12",
   "status": "pending_ai_review",
-  "candidate_count": 63,
-  "company_count": 13,
+  "candidate_count": 112,
+  "company_count": 14,
   "counts": {
-    "risk": 39,
-    "improvement": 8,
-    "conclusion": 16
+    "risk": 64,
+    "improvement": 11,
+    "conclusion": 37
   },
   "calibration_updated_at": "2026-09-12T18:31:51+08:00",
-  "lower_priority_count": 37,
+  "lower_priority_count": 52,
   "method": "規則只建立候選：新風險、改善或可能改變結論；不得自動寫入正式 AI 判讀。",
   "candidates": [
+    {
+      "id": "e461df9d962dafcb",
+      "ticker": "TSLA",
+      "type": "risk",
+      "type_label": "🔴 新增風險候選",
+      "status": "pending_ai_review",
+      "confidence": "medium",
+      "rule_key": "ownership_change",
+      "materiality": {},
+      "display_priority": "normal",
+      "priority_reason": "目前規則樣本不足或採納率未達降級門檻，維持原顯示優先級。",
+      "headline": "SCHEDULE 13G/A 大股東狀態出現新變化",
+      "evidence": [
+        "降至 5% 以下",
+        "最新申報已低於 5% 門檻；這不一定代表完全清倉，也不應把申報主體調整當成賣出。"
+      ],
+      "why_candidate": "持股比例也可能受流通股數變化影響，需讀取原表與前次申報。",
+      "filing_date": "2026-10-27",
+      "detected_at": "2026-11-03T13:54:02+00:00",
+      "source_keys": [
+        "0002012383-26-003852"
+      ],
+      "sources": [
+        {
+          "label": "SEC SCHEDULE 13G/A",
+          "url": "https://www.sec.gov/Archives/edgar/data/1318605/000201238326003852/0002012383-26-003852-index.html"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 0,
+        "accepted_count": 0,
+        "acceptance_rate": null,
+        "sample_status": "insufficient"
+      }
+    },
+    {
+      "id": "d559b6181e98f81a",
+      "ticker": "MRVL",
+      "type": "risk",
+      "type_label": "🔴 新增風險候選",
+      "status": "pending_ai_review",
+      "confidence": "medium",
+      "rule_key": "form4_sell_unplanned",
+      "materiality": {
+        "transaction_value_usd": 300949.0,
+        "max_transaction_holding_percent": 54.7536087605774,
+        "planned_transaction_count": 0,
+        "transaction_count": 1
+      },
+      "display_priority": "normal",
+      "priority_reason": "已覆核 6 個樣本，採納率 50%，維持原優先級。",
+      "headline": "Form 4 出現 1 列賣出，列為風險候選",
+      "evidence": [
+        "已知賣出金額合計 $300.9K；其中 0/1 列標示 10b5-1。",
+        "單筆最高約占交易前直接持股 54.75%。",
+        "10b5-1 是預先安排交易，訊號強度低於臨時主動賣出。"
+      ],
+      "why_candidate": "內部人賣出需看計畫屬性、持股比例與交易規模，不直接等於看空。",
+      "filing_date": "2026-10-09",
+      "detected_at": "2026-11-03T13:54:02+00:00",
+      "source_keys": [
+        "0001628280-26-065570"
+      ],
+      "sources": [
+        {
+          "label": "SEC 4",
+          "url": "https://www.sec.gov/Archives/edgar/data/1835632/000162828026065570/xslF345X06/wk-form4_1791591056.xml"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 6,
+        "accepted_count": 3,
+        "acceptance_rate": 0.5,
+        "sample_status": "enough"
+      }
+    },
+    {
+      "id": "d0fa84a8010f06ca",
+      "ticker": "GOOG",
+      "type": "risk",
+      "type_label": "🔴 新增風險候選",
+      "status": "pending_ai_review",
+      "confidence": "high",
+      "rule_key": "thesis_fingerprint",
+      "materiality": {},
+      "display_priority": "normal",
+      "priority_reason": "目前規則樣本不足或採納率未達降級門檻，維持原顯示優先級。",
+      "headline": "投資論點狀態或量化證據指紋已改變",
+      "evidence": [
+        "綜合狀態：論點維持 → 部分失效。",
+        "廣告與雲端組合維持高營業利益率：支持 → 失效；2026-09-30 營業利益率 31.8%，YoY +1.3pp；連續 3 季下降。"
+      ],
+      "why_candidate": "需由 AI 讀取最新季度證據後，決定是否改寫正式綜合結論。",
+      "filing_date": "2026-09-30",
+      "detected_at": "2026-11-03T13:54:02+00:00",
+      "source_keys": [
+        "0572bbdd5dc543e56c4e"
+      ],
+      "sources": [
+        {
+          "label": "最新季度原文",
+          "url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000084/0001652044-26-000084-index.html"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 0,
+        "accepted_count": 0,
+        "acceptance_rate": null,
+        "sample_status": "insufficient"
+      }
+    },
     {
       "id": "0695fbcd7dcb5bd7",
       "ticker": "NVDA",
@@ -98,6 +209,49 @@
       }
     },
     {
+      "id": "a61a5e645564d25d",
+      "ticker": "MRVL",
+      "type": "risk",
+      "type_label": "🔴 新增風險候選",
+      "status": "pending_ai_review",
+      "confidence": "high",
+      "rule_key": "segment_thesis_change",
+      "materiality": {
+        "segment_score": 0,
+        "segment_signal": "needs_review",
+        "period_end": "2026-08-01"
+      },
+      "display_priority": "normal",
+      "priority_reason": "目前規則樣本不足或採納率未達降級門檻，維持原顯示優先級。",
+      "headline": "分部趨勢與投資論點聯動更新：新一期待覆核",
+      "evidence": [
+        "新一期待覆核；先完成口徑／數字覆核，不改變既有論點。分部證據分數 +0/8，只調整 SEC 證據權重，不直接改寫投資論點總狀態。",
+        "新一期尚未通過安全勾稽：Exhibit 99.1 已出現，但季度期末尚未確認。",
+        "FY2027 Q2 已收錄分部合計 QoQ +13.3%、YoY +36.5%。",
+        "其他項目抵銷主要成長：Data center 占合計季增 105.4%；高於 100% 代表其他項目合計衰退。",
+        "資料中心與客製 AI 晶片維持成長：支持；已收錄分部合計 QoQ +13.3%、YoY +36.5%；只代表本表已收錄且同口徑項目。",
+        "高價值資料中心組合維持毛利率：持續觀察；本期分部表未提供可比較的分部利益率；不能用分部營收替代利益率。"
+      ],
+      "why_candidate": "只有分部 linkage fingerprint 相較最近 AI 覆核改變才列入；需讀官方分部表後決定是否改寫正式結論。",
+      "filing_date": "2026-08-27",
+      "detected_at": "2026-11-03T13:54:02+00:00",
+      "source_keys": [
+        "47ef4059aafdd34daf7d"
+      ],
+      "sources": [
+        {
+          "label": "官方分部表",
+          "url": "https://investor.marvell.com/news-events/press-releases/detail/1031/marvell-technology-inc-reports-second-quarter-of-fiscal-year-2027-financial-results"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 0,
+        "accepted_count": 0,
+        "acceptance_rate": null,
+        "sample_status": "insufficient"
+      }
+    },
+    {
       "id": "c56972160c337f1e",
       "ticker": "INTC",
       "type": "risk",
@@ -123,7 +277,7 @@
       ],
       "why_candidate": "只有分部 linkage fingerprint 相較最近 AI 覆核改變才列入；需讀官方分部表後決定是否改寫正式結論。",
       "filing_date": "2026-07-24",
-      "detected_at": "2026-11-03T13:46:09+00:00",
+      "detected_at": "2026-11-03T13:54:02+00:00",
       "source_keys": [
         "de565697fcf0e93a99e9"
       ],
@@ -166,7 +320,7 @@
       ],
       "why_candidate": "只有分部 linkage fingerprint 相較最近 AI 覆核改變才列入；需讀官方分部表後決定是否改寫正式結論。",
       "filing_date": "2026-07-23",
-      "detected_at": "2026-11-03T13:46:09+00:00",
+      "detected_at": "2026-11-03T13:54:02+00:00",
       "source_keys": [
         "46cfbfa304521a6bbd25"
       ],
@@ -209,7 +363,7 @@
       ],
       "why_candidate": "只有分部 linkage fingerprint 相較最近 AI 覆核改變才列入；需讀官方分部表後決定是否改寫正式結論。",
       "filing_date": "2026-07-23",
-      "detected_at": "2026-11-03T13:46:09+00:00",
+      "detected_at": "2026-11-03T13:54:02+00:00",
       "source_keys": [
         "beb22f050d3c353632f1"
       ],
@@ -227,32 +381,98 @@
       }
     },
     {
+      "id": "3467e21bed17f1d0",
+      "ticker": "MRVL",
+      "type": "conclusion",
+      "type_label": "🟡 結論變化候選",
+      "status": "pending_ai_review",
+      "confidence": "medium",
+      "rule_key": "major_current_report",
+      "materiality": {},
+      "display_priority": "normal",
+      "priority_reason": "已覆核 9 個樣本，採納率 56%，維持原優先級。",
+      "headline": "重大 8-K 可能改變既有結論",
+      "evidence": [
+        "1.01 重大合約、9.01 附件／財務報表"
+      ],
+      "why_candidate": "文件重要性只提高重讀優先級，不預設為利多或利空。",
+      "filing_date": "2026-11-02",
+      "detected_at": "2026-11-03T13:54:02+00:00",
+      "source_keys": [
+        "0001193125-26-442717"
+      ],
+      "sources": [
+        {
+          "label": "SEC 8-K",
+          "url": "https://www.sec.gov/Archives/edgar/data/1835632/000119312526442717/d352474d8k.htm"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 9,
+        "accepted_count": 5,
+        "acceptance_rate": 0.5556,
+        "sample_status": "enough"
+      }
+    },
+    {
+      "id": "ee4da1208b0b35a5",
+      "ticker": "MRVL",
+      "type": "conclusion",
+      "type_label": "🟡 結論變化候選",
+      "status": "pending_ai_review",
+      "confidence": "medium",
+      "rule_key": "major_current_report",
+      "materiality": {},
+      "display_priority": "normal",
+      "priority_reason": "已覆核 9 個樣本，採納率 56%，維持原優先級。",
+      "headline": "重大 8-K 可能改變既有結論",
+      "evidence": [
+        "2.02 財報／業績、7.01 Reg FD／簡報、9.01 附件／財務報表"
+      ],
+      "why_candidate": "文件重要性只提高重讀優先級，不預設為利多或利空。",
+      "filing_date": "2026-11-02",
+      "detected_at": "2026-11-03T13:54:02+00:00",
+      "source_keys": [
+        "0001193125-26-442714"
+      ],
+      "sources": [
+        {
+          "label": "SEC 8-K",
+          "url": "https://www.sec.gov/Archives/edgar/data/1835632/000119312526442714/d81187d8k.htm"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 9,
+        "accepted_count": 5,
+        "acceptance_rate": 0.5556,
+        "sample_status": "enough"
+      }
+    },
+    {
       "id": "1b02dde5ce16760d",
       "ticker": "INTC",
       "type": "conclusion",
       "type_label": "🟡 結論變化候選",
       "status": "pending_ai_review",
       "confidence": "high",
-      "rule_key": "quarterly_fingerprint",
+      "rule_key": "periodic_filing",
       "materiality": {},
       "display_priority": "normal",
       "priority_reason": "目前規則樣本不足或採納率未達降級門檻，維持原顯示優先級。",
-      "headline": "最新季度數字已變更，需要重算財務連續性與結論",
+      "headline": "新 10-Q 需要重讀財務與風險結論",
       "evidence": [
-        "財報期末 2026-09-26；營收 YoY +20.9%。",
-        "毛利率 +43.0%；FCF 為正。",
-        "稀釋股數 YoY +17.1%。"
+        "未提供 Item 分類"
       ],
-      "why_candidate": "季度指紋與上次 AI 覆核基準不同；規則只列候選，不自行改寫結論。",
+      "why_candidate": "新定期財報可能同時改變營收、利潤、現金流、稀釋與風險結論。",
       "filing_date": "2026-10-30",
-      "detected_at": "2026-11-03T13:46:09+00:00",
+      "detected_at": "2026-11-03T13:54:02+00:00",
       "source_keys": [
         "0000050863-26-000191"
       ],
       "sources": [
         {
-          "label": "10-Q 原文",
-          "url": "https://www.sec.gov/Archives/edgar/data/50863/000005086326000191/0000050863-26-000191-index.html"
+          "label": "SEC 10-Q",
+          "url": "https://www.sec.gov/Archives/edgar/data/50863/000005086326000191/intc-20260926.htm"
         }
       ],
       "rule_quality": {
@@ -269,26 +489,24 @@
       "type_label": "🟡 結論變化候選",
       "status": "pending_ai_review",
       "confidence": "high",
-      "rule_key": "quarterly_fingerprint",
+      "rule_key": "periodic_filing",
       "materiality": {},
       "display_priority": "normal",
       "priority_reason": "目前規則樣本不足或採納率未達降級門檻，維持原顯示優先級。",
-      "headline": "最新季度數字已變更，需要重算財務連續性與結論",
+      "headline": "新 10-Q 需要重讀財務與風險結論",
       "evidence": [
-        "財報期末 2026-09-30；營收 YoY +24.7%。",
-        "毛利率 +59.7%；FCF 為負。",
-        "稀釋股數 YoY +1.4%。"
+        "未提供 Item 分類"
       ],
-      "why_candidate": "季度指紋與上次 AI 覆核基準不同；規則只列候選，不自行改寫結論。",
+      "why_candidate": "新定期財報可能同時改變營收、利潤、現金流、稀釋與風險結論。",
       "filing_date": "2026-10-29",
-      "detected_at": "2026-11-03T13:46:09+00:00",
+      "detected_at": "2026-11-03T13:54:02+00:00",
       "source_keys": [
         "0001652044-26-000084"
       ],
       "sources": [
         {
-          "label": "10-Q 原文",
-          "url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000084/0001652044-26-000084-index.html"
+          "label": "SEC 10-Q",
+          "url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000084/goog-20260930.htm"
         }
       ],
       "rule_quality": {
@@ -299,32 +517,166 @@
       }
     },
     {
+      "id": "c4ebabbe93d20fc5",
+      "ticker": "INTC",
+      "type": "conclusion",
+      "type_label": "🟡 結論變化候選",
+      "status": "pending_ai_review",
+      "confidence": "medium",
+      "rule_key": "major_current_report",
+      "materiality": {},
+      "display_priority": "normal",
+      "priority_reason": "已覆核 9 個樣本，採納率 56%，維持原優先級。",
+      "headline": "重大 8-K 可能改變既有結論",
+      "evidence": [
+        "2.02 財報／業績、9.01 附件／財務報表"
+      ],
+      "why_candidate": "文件重要性只提高重讀優先級，不預設為利多或利空。",
+      "filing_date": "2026-10-29",
+      "detected_at": "2026-11-03T13:54:02+00:00",
+      "source_keys": [
+        "0000050863-26-000188"
+      ],
+      "sources": [
+        {
+          "label": "SEC 8-K",
+          "url": "https://www.sec.gov/Archives/edgar/data/50863/000005086326000188/intc-20261029.htm"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 9,
+        "accepted_count": 5,
+        "acceptance_rate": 0.5556,
+        "sample_status": "enough"
+      }
+    },
+    {
+      "id": "213337788a6af837",
+      "ticker": "GOOG",
+      "type": "conclusion",
+      "type_label": "🟡 結論變化候選",
+      "status": "pending_ai_review",
+      "confidence": "medium",
+      "rule_key": "major_current_report",
+      "materiality": {},
+      "display_priority": "normal",
+      "priority_reason": "已覆核 9 個樣本，採納率 56%，維持原優先級。",
+      "headline": "重大 8-K 可能改變既有結論",
+      "evidence": [
+        "2.02 財報／業績、9.01 附件／財務報表"
+      ],
+      "why_candidate": "文件重要性只提高重讀優先級，不預設為利多或利空。",
+      "filing_date": "2026-10-28",
+      "detected_at": "2026-11-03T13:54:02+00:00",
+      "source_keys": [
+        "0001652044-26-000080"
+      ],
+      "sources": [
+        {
+          "label": "SEC 8-K",
+          "url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000080/goog-20261028.htm"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 9,
+        "accepted_count": 5,
+        "acceptance_rate": 0.5556,
+        "sample_status": "enough"
+      }
+    },
+    {
+      "id": "70904adc887ec95c",
+      "ticker": "MRVL",
+      "type": "conclusion",
+      "type_label": "🟡 結論變化候選",
+      "status": "pending_ai_review",
+      "confidence": "medium",
+      "rule_key": "major_current_report",
+      "materiality": {},
+      "display_priority": "normal",
+      "priority_reason": "已覆核 9 個樣本，採納率 56%，維持原優先級。",
+      "headline": "重大 8-K 可能改變既有結論",
+      "evidence": [
+        "1.01 重大合約、9.01 附件／財務報表"
+      ],
+      "why_candidate": "文件重要性只提高重讀優先級，不預設為利多或利空。",
+      "filing_date": "2026-10-23",
+      "detected_at": "2026-11-03T13:54:02+00:00",
+      "source_keys": [
+        "0001193125-26-430424"
+      ],
+      "sources": [
+        {
+          "label": "SEC 8-K",
+          "url": "https://www.sec.gov/Archives/edgar/data/1835632/000119312526430424/d147430d8k.htm"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 9,
+        "accepted_count": 5,
+        "acceptance_rate": 0.5556,
+        "sample_status": "enough"
+      }
+    },
+    {
+      "id": "9fe0501bf160dc18",
+      "ticker": "NOK",
+      "type": "conclusion",
+      "type_label": "🟡 結論變化候選",
+      "status": "pending_ai_review",
+      "confidence": "medium",
+      "rule_key": "major_current_report",
+      "materiality": {},
+      "display_priority": "normal",
+      "priority_reason": "已覆核 9 個樣本，採納率 56%，維持原優先級。",
+      "headline": "重大 6-K 可能改變既有結論",
+      "evidence": [
+        "未提供 Item 分類"
+      ],
+      "why_candidate": "文件重要性只提高重讀優先級，不預設為利多或利空。",
+      "filing_date": "2026-10-22",
+      "detected_at": "2026-11-03T13:54:02+00:00",
+      "source_keys": [
+        "0001104659-26-117972"
+      ],
+      "sources": [
+        {
+          "label": "SEC 6-K",
+          "url": "https://www.sec.gov/Archives/edgar/data/924613/000110465926117972/tm2628115d1_6k.htm"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 9,
+        "accepted_count": 5,
+        "acceptance_rate": 0.5556,
+        "sample_status": "enough"
+      }
+    },
+    {
       "id": "d43a5a6de5941603",
       "ticker": "TSLA",
       "type": "conclusion",
       "type_label": "🟡 結論變化候選",
       "status": "pending_ai_review",
       "confidence": "high",
-      "rule_key": "quarterly_fingerprint",
+      "rule_key": "periodic_filing",
       "materiality": {},
       "display_priority": "normal",
       "priority_reason": "目前規則樣本不足或採納率未達降級門檻，維持原顯示優先級。",
-      "headline": "最新季度數字已變更，需要重算財務連續性與結論",
+      "headline": "新 10-Q 需要重讀財務與風險結論",
       "evidence": [
-        "財報期末 2026-09-30；營收 YoY -0.2%。",
-        "毛利率 +19.6%；FCF 為正。",
-        "稀釋股數 YoY +0.4%。"
+        "未提供 Item 分類"
       ],
-      "why_candidate": "季度指紋與上次 AI 覆核基準不同；規則只列候選，不自行改寫結論。",
+      "why_candidate": "新定期財報可能同時改變營收、利潤、現金流、稀釋與風險結論。",
       "filing_date": "2026-10-22",
-      "detected_at": "2026-11-03T13:46:09+00:00",
+      "detected_at": "2026-11-03T13:54:02+00:00",
       "source_keys": [
         "0001628280-26-066775"
       ],
       "sources": [
         {
-          "label": "10-Q 原文",
-          "url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026066775/0001628280-26-066775-index.html"
+          "label": "SEC 10-Q",
+          "url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026066775/tsla-20260930.htm"
         }
       ],
       "rule_quality": {
@@ -332,6 +684,74 @@
         "accepted_count": 0,
         "acceptance_rate": null,
         "sample_status": "insufficient"
+      }
+    },
+    {
+      "id": "8db56181ee16b2ed",
+      "ticker": "TSLA",
+      "type": "conclusion",
+      "type_label": "🟡 結論變化候選",
+      "status": "pending_ai_review",
+      "confidence": "medium",
+      "rule_key": "major_current_report",
+      "materiality": {},
+      "display_priority": "normal",
+      "priority_reason": "已覆核 9 個樣本，採納率 56%，維持原優先級。",
+      "headline": "重大 8-K 可能改變既有結論",
+      "evidence": [
+        "2.02 財報／業績、9.01 附件／財務報表"
+      ],
+      "why_candidate": "文件重要性只提高重讀優先級，不預設為利多或利空。",
+      "filing_date": "2026-10-21",
+      "detected_at": "2026-11-03T13:54:02+00:00",
+      "source_keys": [
+        "0001628280-26-066738"
+      ],
+      "sources": [
+        {
+          "label": "SEC 8-K",
+          "url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026066738/tsla-20261021.htm"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 9,
+        "accepted_count": 5,
+        "acceptance_rate": 0.5556,
+        "sample_status": "enough"
+      }
+    },
+    {
+      "id": "991553ecb70de728",
+      "ticker": "NOK",
+      "type": "conclusion",
+      "type_label": "🟡 結論變化候選",
+      "status": "pending_ai_review",
+      "confidence": "medium",
+      "rule_key": "major_current_report",
+      "materiality": {},
+      "display_priority": "normal",
+      "priority_reason": "已覆核 9 個樣本，採納率 56%，維持原優先級。",
+      "headline": "重大 6-K 可能改變既有結論",
+      "evidence": [
+        "未提供 Item 分類"
+      ],
+      "why_candidate": "文件重要性只提高重讀優先級，不預設為利多或利空。",
+      "filing_date": "2026-10-15",
+      "detected_at": "2026-11-03T13:54:02+00:00",
+      "source_keys": [
+        "0001104659-26-116141"
+      ],
+      "sources": [
+        {
+          "label": "SEC 6-K",
+          "url": "https://www.sec.gov/Archives/edgar/data/924613/000110465926116141/tm2627676d1_6k.htm"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 9,
+        "accepted_count": 5,
+        "acceptance_rate": 0.5556,
+        "sample_status": "enough"
       }
     },
     {
@@ -369,6 +789,41 @@
       }
     },
     {
+      "id": "d3282097a44e0bbb",
+      "ticker": "TSLA",
+      "type": "conclusion",
+      "type_label": "🟡 結論變化候選",
+      "status": "pending_ai_review",
+      "confidence": "high",
+      "rule_key": "thesis_fingerprint",
+      "materiality": {},
+      "display_priority": "normal",
+      "priority_reason": "目前規則樣本不足或採納率未達降級門檻，維持原顯示優先級。",
+      "headline": "投資論點狀態或量化證據指紋已改變",
+      "evidence": [
+        "綜合狀態：需要驗證 → 需要驗證。",
+        "車輛、儲能與軟體維持成長：支持 → 待驗證；2026-09-30 營收 USD 28,046.0M，YoY -0.2%；未形成連續方向。"
+      ],
+      "why_candidate": "需由 AI 讀取最新季度證據後，決定是否改寫正式綜合結論。",
+      "filing_date": "2026-09-30",
+      "detected_at": "2026-11-03T13:54:02+00:00",
+      "source_keys": [
+        "fd62c270b2f87317c28a"
+      ],
+      "sources": [
+        {
+          "label": "最新季度原文",
+          "url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026066775/0001628280-26-066775-index.html"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 0,
+        "accepted_count": 0,
+        "acceptance_rate": null,
+        "sample_status": "insufficient"
+      }
+    },
+    {
       "id": "c4f71814dc79ac9d",
       "ticker": "TSLA",
       "type": "conclusion",
@@ -400,6 +855,40 @@
         "accepted_count": 5,
         "acceptance_rate": 0.5556,
         "sample_status": "enough"
+      }
+    },
+    {
+      "id": "4f777189fc90e46f",
+      "ticker": "INTC",
+      "type": "conclusion",
+      "type_label": "🟡 結論變化候選",
+      "status": "pending_ai_review",
+      "confidence": "medium",
+      "rule_key": "thesis_fingerprint",
+      "materiality": {},
+      "display_priority": "normal",
+      "priority_reason": "目前規則樣本不足或採納率未達降級門檻，維持原顯示優先級。",
+      "headline": "投資論點狀態或量化證據指紋已改變",
+      "evidence": [
+        "目前規則化狀態：部分失效；期末 2026-09-26。"
+      ],
+      "why_candidate": "需由 AI 讀取最新季度證據後，決定是否改寫正式綜合結論。",
+      "filing_date": "2026-09-26",
+      "detected_at": "2026-11-03T13:54:02+00:00",
+      "source_keys": [
+        "2f7fcb22e66da5e65511"
+      ],
+      "sources": [
+        {
+          "label": "最新季度原文",
+          "url": "https://www.sec.gov/Archives/edgar/data/50863/000005086326000191/0000050863-26-000191-index.html"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 0,
+        "accepted_count": 0,
+        "acceptance_rate": null,
+        "sample_status": "insufficient"
       }
     },
     {
@@ -467,6 +956,233 @@
         "reviewed_count": 9,
         "accepted_count": 5,
         "acceptance_rate": 0.5556,
+        "sample_status": "enough"
+      }
+    },
+    {
+      "id": "030d7cc99376e740",
+      "ticker": "MRVL",
+      "type": "risk",
+      "type_label": "🔴 新增風險候選",
+      "status": "pending_ai_review",
+      "confidence": "low",
+      "rule_key": "form144_proposed_sale",
+      "materiality": {
+        "planned_shares": 24785.0,
+        "planned_value_usd": 5657002.45,
+        "shares_outstanding": 876900000.0,
+        "planned_shares_outstanding_percent": 0.0028264340289656745
+      },
+      "display_priority": "low",
+      "priority_reason": "已覆核 9 個樣本，採納率 0% ≤ 20%，只降低顯示優先級、不刪除事件。",
+      "headline": "新增 4 份 Form 144 擬售通知，列為低強度風險候選",
+      "evidence": [
+        "已解析擬售 24,785 股、申報估值 $5.7M。",
+        "約占申報所列已發行股數 0.00283%。",
+        "申報人：JUSTIN SCARPULLA、KOOPMANS FAMILY TRUST U/A DTD 03/28/2013、SANDEEP BHARATHI。",
+        "Form 144 是擬售意向，不等於已成交；需等待後續 Form 4 或市場交易確認。"
+      ],
+      "why_candidate": "集中或大額擬售可能增加供給壓力，但證據強度低於已完成的非 10b5-1 賣出。",
+      "filing_date": "2026-11-02",
+      "detected_at": "2026-11-03T13:54:02+00:00",
+      "source_keys": [
+        "0001950047-26-009912",
+        "0001950047-26-010117",
+        "0001950047-26-010292",
+        "0001950047-26-010538"
+      ],
+      "sources": [
+        {
+          "label": "SEC Form 144",
+          "url": "https://www.sec.gov/Archives/edgar/data/1835632/000195004726010538/xsl144X01/primary_doc.xml"
+        },
+        {
+          "label": "SEC Form 144",
+          "url": "https://www.sec.gov/Archives/edgar/data/1835632/000195004726010292/xsl144X01/primary_doc.xml"
+        },
+        {
+          "label": "SEC Form 144",
+          "url": "https://www.sec.gov/Archives/edgar/data/1835632/000195004726010117/xsl144X01/primary_doc.xml"
+        },
+        {
+          "label": "SEC Form 144",
+          "url": "https://www.sec.gov/Archives/edgar/data/1835632/000195004726009912/xsl144X01/primary_doc.xml"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 9,
+        "accepted_count": 0,
+        "acceptance_rate": 0.0,
+        "sample_status": "enough"
+      }
+    },
+    {
+      "id": "2f96475b434e419e",
+      "ticker": "GOOG",
+      "type": "risk",
+      "type_label": "🔴 新增風險候選",
+      "status": "pending_ai_review",
+      "confidence": "low",
+      "rule_key": "form4_sell_10b5_1",
+      "materiality": {
+        "transaction_value_usd": 23288.0,
+        "max_transaction_holding_percent": 0.42621757887624095,
+        "planned_transaction_count": 1,
+        "transaction_count": 1
+      },
+      "display_priority": "low",
+      "priority_reason": "已覆核 14 個樣本，採納率 0% ≤ 20%，只降低顯示優先級、不刪除事件。",
+      "headline": "Form 4 出現 1 列賣出，列為風險候選",
+      "evidence": [
+        "已知賣出金額合計 $23.3K；其中 1/1 列標示 10b5-1。",
+        "單筆最高約占交易前直接持股 0.43%。",
+        "10b5-1 是預先安排交易，訊號強度低於臨時主動賣出。"
+      ],
+      "why_candidate": "內部人賣出需看計畫屬性、持股比例與交易規模，不直接等於看空。",
+      "filing_date": "2026-10-30",
+      "detected_at": "2026-11-03T13:54:02+00:00",
+      "source_keys": [
+        "0001193125-26-442116"
+      ],
+      "sources": [
+        {
+          "label": "SEC 4",
+          "url": "https://www.sec.gov/Archives/edgar/data/1652044/000119312526442116/xslF345X06/ownership.xml"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 14,
+        "accepted_count": 0,
+        "acceptance_rate": 0.0,
+        "sample_status": "enough"
+      }
+    },
+    {
+      "id": "9bd794f89b533d85",
+      "ticker": "GOOG",
+      "type": "risk",
+      "type_label": "🔴 新增風險候選",
+      "status": "pending_ai_review",
+      "confidence": "low",
+      "rule_key": "form144_proposed_sale",
+      "materiality": {
+        "planned_shares": 165.0,
+        "planned_value_usd": 51545.0,
+        "shares_outstanding": 5579000000.0,
+        "planned_shares_outstanding_percent": 2.9575192686861446e-06
+      },
+      "display_priority": "low",
+      "priority_reason": "已覆核 9 個樣本，採納率 0% ≤ 20%，只降低顯示優先級、不刪除事件。",
+      "headline": "新增 2 份 Form 144 擬售通知，列為低強度風險候選",
+      "evidence": [
+        "已解析擬售 165 股、申報估值 $51.5K。",
+        "約占申報所列已發行股數 0.00000%。",
+        "申報人：ARNOLD FRANCES。",
+        "Form 144 是擬售意向，不等於已成交；需等待後續 Form 4 或市場交易確認。"
+      ],
+      "why_candidate": "集中或大額擬售可能增加供給壓力，但證據強度低於已完成的非 10b5-1 賣出。",
+      "filing_date": "2026-10-29",
+      "detected_at": "2026-11-03T13:54:02+00:00",
+      "source_keys": [
+        "0001921094-26-001058",
+        "0001921094-26-001121"
+      ],
+      "sources": [
+        {
+          "label": "SEC Form 144",
+          "url": "https://www.sec.gov/Archives/edgar/data/1652044/000192109426001121/xsl144X01/primary_doc.xml"
+        },
+        {
+          "label": "SEC Form 144",
+          "url": "https://www.sec.gov/Archives/edgar/data/1652044/000192109426001058/xsl144X01/primary_doc.xml"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 9,
+        "accepted_count": 0,
+        "acceptance_rate": 0.0,
+        "sample_status": "enough"
+      }
+    },
+    {
+      "id": "305481be0ca65f87",
+      "ticker": "MRVL",
+      "type": "risk",
+      "type_label": "🔴 新增風險候選",
+      "status": "pending_ai_review",
+      "confidence": "low",
+      "rule_key": "form4_sell_10b5_1",
+      "materiality": {
+        "transaction_value_usd": 865864.45,
+        "max_transaction_holding_percent": 5.90232729486009,
+        "planned_transaction_count": 1,
+        "transaction_count": 1
+      },
+      "display_priority": "low",
+      "priority_reason": "已覆核 14 個樣本，採納率 0% ≤ 20%，只降低顯示優先級、不刪除事件。",
+      "headline": "Form 4 出現 1 列賣出，列為風險候選",
+      "evidence": [
+        "已知賣出金額合計 $865.9K；其中 1/1 列標示 10b5-1。",
+        "單筆最高約占交易前直接持股 5.90%。",
+        "10b5-1 是預先安排交易，訊號強度低於臨時主動賣出。"
+      ],
+      "why_candidate": "內部人賣出需看計畫屬性、持股比例與交易規模，不直接等於看空。",
+      "filing_date": "2026-10-16",
+      "detected_at": "2026-11-03T13:54:02+00:00",
+      "source_keys": [
+        "0001628280-26-066137"
+      ],
+      "sources": [
+        {
+          "label": "SEC 4",
+          "url": "https://www.sec.gov/Archives/edgar/data/1835632/000162828026066137/xslF345X06/wk-form4_1792183215.xml"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 14,
+        "accepted_count": 0,
+        "acceptance_rate": 0.0,
+        "sample_status": "enough"
+      }
+    },
+    {
+      "id": "cd4f64fb27418ea2",
+      "ticker": "MRVL",
+      "type": "risk",
+      "type_label": "🔴 新增風險候選",
+      "status": "pending_ai_review",
+      "confidence": "low",
+      "rule_key": "form4_sell_10b5_1",
+      "materiality": {
+        "transaction_value_usd": 1766025.0,
+        "max_transaction_holding_percent": 0.9668860853489685,
+        "planned_transaction_count": 1,
+        "transaction_count": 1
+      },
+      "display_priority": "low",
+      "priority_reason": "已覆核 14 個樣本，採納率 0% ≤ 20%，只降低顯示優先級、不刪除事件。",
+      "headline": "Form 4 出現 1 列賣出，列為風險候選",
+      "evidence": [
+        "已知賣出金額合計 $1.8M；其中 1/1 列標示 10b5-1。",
+        "單筆最高約占交易前直接持股 0.97%。",
+        "10b5-1 是預先安排交易，訊號強度低於臨時主動賣出。"
+      ],
+      "why_candidate": "內部人賣出需看計畫屬性、持股比例與交易規模，不直接等於看空。",
+      "filing_date": "2026-10-16",
+      "detected_at": "2026-11-03T13:54:02+00:00",
+      "source_keys": [
+        "0001628280-26-066130"
+      ],
+      "sources": [
+        {
+          "label": "SEC 4",
+          "url": "https://www.sec.gov/Archives/edgar/data/1835632/000162828026066130/xslF345X06/wk-form4_1792182379.xml"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 14,
+        "accepted_count": 0,
+        "acceptance_rate": 0.0,
         "sample_status": "enough"
       }
     },
@@ -547,90 +1263,6 @@
       ],
       "rule_quality": {
         "reviewed_count": 14,
-        "accepted_count": 0,
-        "acceptance_rate": 0.0,
-        "sample_status": "enough"
-      }
-    },
-    {
-      "id": "705a87353aa3fe1f",
-      "ticker": "MRVL",
-      "type": "risk",
-      "type_label": "🔴 新增風險候選",
-      "status": "pending_ai_review",
-      "confidence": "low",
-      "rule_key": "form144_proposed_sale",
-      "materiality": {
-        "planned_shares": 10000.0,
-        "planned_value_usd": 2620515.0,
-        "shares_outstanding": 876900000.0,
-        "planned_shares_outstanding_percent": 0.0011403808872163302
-      },
-      "display_priority": "low",
-      "priority_reason": "已覆核 9 個樣本，採納率 0% ≤ 20%，只降低顯示優先級、不刪除事件。",
-      "headline": "新增 1 份 Form 144 擬售通知，列為低強度風險候選",
-      "evidence": [
-        "已解析擬售 10,000 股、申報估值 $2.6M。",
-        "約占申報所列已發行股數 0.00114%。",
-        "申報人：KOOPMANS FAMILY TRUST U/A DTD 03/28/2013。",
-        "Form 144 是擬售意向，不等於已成交；需等待後續 Form 4 或市場交易確認。"
-      ],
-      "why_candidate": "集中或大額擬售可能增加供給壓力，但證據強度低於已完成的非 10b5-1 賣出。",
-      "filing_date": "2026-10-01",
-      "detected_at": "2026-10-02T10:18:21+00:00",
-      "source_keys": [
-        "0001950047-26-009912"
-      ],
-      "sources": [
-        {
-          "label": "SEC Form 144",
-          "url": "https://www.sec.gov/Archives/edgar/data/1835632/000195004726009912/xsl144X01/primary_doc.xml"
-        }
-      ],
-      "rule_quality": {
-        "reviewed_count": 9,
-        "accepted_count": 0,
-        "acceptance_rate": 0.0,
-        "sample_status": "enough"
-      }
-    },
-    {
-      "id": "57a7210284c02e35",
-      "ticker": "GOOG",
-      "type": "risk",
-      "type_label": "🔴 新增風險候選",
-      "status": "pending_ai_review",
-      "confidence": "low",
-      "rule_key": "form144_proposed_sale",
-      "materiality": {
-        "planned_shares": 83.0,
-        "planned_value_usd": 28257.0,
-        "shares_outstanding": 5527000000.0,
-        "planned_shares_outstanding_percent": 1.501718834810928e-06
-      },
-      "display_priority": "low",
-      "priority_reason": "已覆核 9 個樣本，採納率 0% ≤ 20%，只降低顯示優先級、不刪除事件。",
-      "headline": "新增 1 份 Form 144 擬售通知，列為低強度風險候選",
-      "evidence": [
-        "已解析擬售 83 股、申報估值 $28.3K。",
-        "約占申報所列已發行股數 0.00000%。",
-        "申報人：ARNOLD FRANCES。",
-        "Form 144 是擬售意向，不等於已成交；需等待後續 Form 4 或市場交易確認。"
-      ],
-      "why_candidate": "集中或大額擬售可能增加供給壓力，但證據強度低於已完成的非 10b5-1 賣出。",
-      "filing_date": "2026-09-30",
-      "detected_at": "2026-10-01T10:43:14+00:00",
-      "source_keys": [
-        "0001921094-26-001058"
-      ],
-      "sources": [
-        {
-          "label": "SEC Form 144",
-          "url": "https://www.sec.gov/Archives/edgar/data/1652044/000192109426001058/xsl144X01/primary_doc.xml"
-        }
-      ],
-      "rule_quality": {
-        "reviewed_count": 9,
         "accepted_count": 0,
         "acceptance_rate": 0.0,
         "sample_status": "enough"
@@ -890,6 +1522,251 @@
       }
     },
     {
+      "id": "20f59b56e5d81a8e",
+      "ticker": "META",
+      "type": "risk",
+      "type_label": "🔴 新增風險候選",
+      "status": "pending_ai_review",
+      "confidence": "high",
+      "rule_key": "dilution_filing",
+      "materiality": {},
+      "display_priority": "normal",
+      "priority_reason": "目前規則樣本不足或採納率未達降級門檻，維持原顯示優先級。",
+      "headline": "424B5 被分類為「可轉債募資」",
+      "evidence": [
+        "潛在股權稀釋",
+        "若轉換為股票，可能增加流通股數並稀釋每股價值"
+      ],
+      "why_candidate": "這是潛在稀釋文件；是否真正稀釋仍取決於發行、轉股或交易完成條件。",
+      "filing_date": "2026-11-03",
+      "detected_at": "2026-11-03T13:54:02+00:00",
+      "source_keys": [
+        "0001193125-26-444440"
+      ],
+      "sources": [
+        {
+          "label": "SEC 424B5",
+          "url": "https://www.sec.gov/Archives/edgar/data/1326801/000119312526444440/d135326d424b5.htm"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 0,
+        "accepted_count": 0,
+        "acceptance_rate": null,
+        "sample_status": "insufficient"
+      }
+    },
+    {
+      "id": "78e1e38160dbefee",
+      "ticker": "ONDS",
+      "type": "risk",
+      "type_label": "🔴 新增風險候選",
+      "status": "pending_ai_review",
+      "confidence": "medium",
+      "rule_key": "ownership_change",
+      "materiality": {},
+      "display_priority": "normal",
+      "priority_reason": "目前規則樣本不足或採納率未達降級門檻，維持原顯示優先級。",
+      "headline": "SCHEDULE 13G/A 大股東狀態出現新變化",
+      "evidence": [
+        "降至 5% 以下",
+        "最新申報已低於 5% 門檻；這不一定代表完全清倉，也不應把申報主體調整當成賣出。"
+      ],
+      "why_candidate": "持股比例也可能受流通股數變化影響，需讀取原表與前次申報。",
+      "filing_date": "2026-10-30",
+      "detected_at": "2026-11-03T13:54:02+00:00",
+      "source_keys": [
+        "0002100119-26-001654"
+      ],
+      "sources": [
+        {
+          "label": "SEC SCHEDULE 13G/A",
+          "url": "https://www.sec.gov/Archives/edgar/data/1646188/000210011926001654/0002100119-26-001654-index.html"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 0,
+        "accepted_count": 0,
+        "acceptance_rate": null,
+        "sample_status": "insufficient"
+      }
+    },
+    {
+      "id": "0f7d24a2f6b11277",
+      "ticker": "META",
+      "type": "risk",
+      "type_label": "🔴 新增風險候選",
+      "status": "pending_ai_review",
+      "confidence": "high",
+      "rule_key": "dilution_filing",
+      "materiality": {},
+      "display_priority": "normal",
+      "priority_reason": "目前規則樣本不足或採納率未達降級門檻，維持原顯示優先級。",
+      "headline": "424B5 被分類為「可轉債募資」",
+      "evidence": [
+        "潛在股權稀釋",
+        "若轉換為股票，可能增加流通股數並稀釋每股價值"
+      ],
+      "why_candidate": "這是潛在稀釋文件；是否真正稀釋仍取決於發行、轉股或交易完成條件。",
+      "filing_date": "2026-10-28",
+      "detected_at": "2026-11-03T13:54:02+00:00",
+      "source_keys": [
+        "0001193125-26-436410"
+      ],
+      "sources": [
+        {
+          "label": "SEC 424B5",
+          "url": "https://www.sec.gov/Archives/edgar/data/1326801/000119312526436410/d94886d424b5.htm"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 0,
+        "accepted_count": 0,
+        "acceptance_rate": null,
+        "sample_status": "insufficient"
+      }
+    },
+    {
+      "id": "469a16ea46b7850a",
+      "ticker": "META",
+      "type": "risk",
+      "type_label": "🔴 新增風險候選",
+      "status": "pending_ai_review",
+      "confidence": "high",
+      "rule_key": "dilution_filing",
+      "materiality": {},
+      "display_priority": "normal",
+      "priority_reason": "目前規則樣本不足或採納率未達降級門檻，維持原顯示優先級。",
+      "headline": "424B5 被分類為「可轉債募資」",
+      "evidence": [
+        "潛在股權稀釋",
+        "若轉換為股票，可能增加流通股數並稀釋每股價值"
+      ],
+      "why_candidate": "這是潛在稀釋文件；是否真正稀釋仍取決於發行、轉股或交易完成條件。",
+      "filing_date": "2026-10-28",
+      "detected_at": "2026-11-03T13:54:02+00:00",
+      "source_keys": [
+        "0001193125-26-436405"
+      ],
+      "sources": [
+        {
+          "label": "SEC 424B5",
+          "url": "https://www.sec.gov/Archives/edgar/data/1326801/000119312526436405/d133631d424b5.htm"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 0,
+        "accepted_count": 0,
+        "acceptance_rate": null,
+        "sample_status": "insufficient"
+      }
+    },
+    {
+      "id": "3e32b19d30188d94",
+      "ticker": "META",
+      "type": "risk",
+      "type_label": "🔴 新增風險候選",
+      "status": "pending_ai_review",
+      "confidence": "high",
+      "rule_key": "dilution_filing",
+      "materiality": {},
+      "display_priority": "normal",
+      "priority_reason": "目前規則樣本不足或採納率未達降級門檻，維持原顯示優先級。",
+      "headline": "S-3ASR 被分類為「架上註冊」",
+      "evidence": [
+        "可能稀釋，尚未發生",
+        "先取得未來募資彈性，不代表立即發行；可能包含股權或債券"
+      ],
+      "why_candidate": "這是潛在稀釋文件；是否真正稀釋仍取決於發行、轉股或交易完成條件。",
+      "filing_date": "2026-10-26",
+      "detected_at": "2026-11-03T13:54:02+00:00",
+      "source_keys": [
+        "0001193125-26-431009"
+      ],
+      "sources": [
+        {
+          "label": "SEC S-3ASR",
+          "url": "https://www.sec.gov/Archives/edgar/data/1326801/000119312526431009/d127909ds3asr.htm"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 0,
+        "accepted_count": 0,
+        "acceptance_rate": null,
+        "sample_status": "insufficient"
+      }
+    },
+    {
+      "id": "6c6256bbd54f94b3",
+      "ticker": "META",
+      "type": "risk",
+      "type_label": "🔴 新增風險候選",
+      "status": "pending_ai_review",
+      "confidence": "high",
+      "rule_key": "dilution_filing",
+      "materiality": {},
+      "display_priority": "normal",
+      "priority_reason": "目前規則樣本不足或採納率未達降級門檻，維持原顯示優先級。",
+      "headline": "424B5 被分類為「可轉債募資」",
+      "evidence": [
+        "潛在股權稀釋",
+        "若轉換為股票，可能增加流通股數並稀釋每股價值"
+      ],
+      "why_candidate": "這是潛在稀釋文件；是否真正稀釋仍取決於發行、轉股或交易完成條件。",
+      "filing_date": "2026-10-26",
+      "detected_at": "2026-11-03T13:54:02+00:00",
+      "source_keys": [
+        "0001193125-26-431040"
+      ],
+      "sources": [
+        {
+          "label": "SEC 424B5",
+          "url": "https://www.sec.gov/Archives/edgar/data/1326801/000119312526431040/d94886d424b5.htm"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 0,
+        "accepted_count": 0,
+        "acceptance_rate": null,
+        "sample_status": "insufficient"
+      }
+    },
+    {
+      "id": "849e4795e9e9a5bf",
+      "ticker": "META",
+      "type": "risk",
+      "type_label": "🔴 新增風險候選",
+      "status": "pending_ai_review",
+      "confidence": "high",
+      "rule_key": "dilution_filing",
+      "materiality": {},
+      "display_priority": "normal",
+      "priority_reason": "目前規則樣本不足或採納率未達降級門檻，維持原顯示優先級。",
+      "headline": "424B5 被分類為「可轉債募資」",
+      "evidence": [
+        "潛在股權稀釋",
+        "若轉換為股票，可能增加流通股數並稀釋每股價值"
+      ],
+      "why_candidate": "這是潛在稀釋文件；是否真正稀釋仍取決於發行、轉股或交易完成條件。",
+      "filing_date": "2026-10-26",
+      "detected_at": "2026-11-03T13:54:02+00:00",
+      "source_keys": [
+        "0001193125-26-431043"
+      ],
+      "sources": [
+        {
+          "label": "SEC 424B5",
+          "url": "https://www.sec.gov/Archives/edgar/data/1326801/000119312526431043/d133631d424b5.htm"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 0,
+        "accepted_count": 0,
+        "acceptance_rate": null,
+        "sample_status": "insufficient"
+      }
+    },
+    {
       "id": "44e348d5351efc93",
       "ticker": "ONDS",
       "type": "risk",
@@ -956,7 +1833,7 @@
       ],
       "why_candidate": "只有分部 linkage fingerprint 相較最近 AI 覆核改變才列入；需讀官方分部表後決定是否改寫正式結論。",
       "filing_date": "2026-07-30",
-      "detected_at": "2026-11-03T13:46:09+00:00",
+      "detected_at": "2026-11-03T13:54:02+00:00",
       "source_keys": [
         "3022c43c787c6c960f91"
       ],
@@ -999,7 +1876,7 @@
       ],
       "why_candidate": "只有分部 linkage fingerprint 相較最近 AI 覆核改變才列入；需讀官方分部表後決定是否改寫正式結論。",
       "filing_date": "2026-07-30",
-      "detected_at": "2026-11-03T13:46:09+00:00",
+      "detected_at": "2026-11-03T13:54:02+00:00",
       "source_keys": [
         "24eee0fba02590f8fb78"
       ],
@@ -1043,7 +1920,7 @@
       ],
       "why_candidate": "只有分部 linkage fingerprint 相較最近 AI 覆核改變才列入；需讀官方分部表後決定是否改寫正式結論。",
       "filing_date": "2026-07-29",
-      "detected_at": "2026-11-03T13:46:09+00:00",
+      "detected_at": "2026-11-03T13:54:02+00:00",
       "source_keys": [
         "13cf79032ad77af56d0d"
       ],
@@ -1086,7 +1963,7 @@
       ],
       "why_candidate": "只有分部 linkage fingerprint 相較最近 AI 覆核改變才列入；需讀官方分部表後決定是否改寫正式結論。",
       "filing_date": "2026-07-29",
-      "detected_at": "2026-11-03T13:46:09+00:00",
+      "detected_at": "2026-11-03T13:54:02+00:00",
       "source_keys": [
         "cbac7ccb51e004dd6d32"
       ],
@@ -1110,26 +1987,24 @@
       "type_label": "🟡 結論變化候選",
       "status": "pending_ai_review",
       "confidence": "high",
-      "rule_key": "quarterly_fingerprint",
+      "rule_key": "periodic_filing",
       "materiality": {},
       "display_priority": "normal",
       "priority_reason": "目前規則樣本不足或採納率未達降級門檻，維持原顯示優先級。",
-      "headline": "最新季度數字已變更，需要重算財務連續性與結論",
+      "headline": "新 10-K 需要重讀財務與風險結論",
       "evidence": [
-        "財報期末 2026-09-26；營收 YoY +11.7%。",
-        "毛利率 +47.9%；FCF 為正。",
-        "稀釋股數 YoY —。"
+        "未提供 Item 分類"
       ],
-      "why_candidate": "季度指紋與上次 AI 覆核基準不同；規則只列候選，不自行改寫結論。",
+      "why_candidate": "新定期財報可能同時改變營收、利潤、現金流、稀釋與風險結論。",
       "filing_date": "2026-11-03",
-      "detected_at": "2026-11-03T13:46:09+00:00",
+      "detected_at": "2026-11-03T13:54:02+00:00",
       "source_keys": [
         "0000320193-26-000026"
       ],
       "sources": [
         {
-          "label": "10-K 原文",
-          "url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000026/0000320193-26-000026-index.html"
+          "label": "SEC 10-K",
+          "url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000026/aapl-20260926.htm"
         }
       ],
       "rule_quality": {
@@ -1137,6 +2012,40 @@
         "accepted_count": 0,
         "acceptance_rate": null,
         "sample_status": "insufficient"
+      }
+    },
+    {
+      "id": "12e9656b71a6e3c6",
+      "ticker": "AAPL",
+      "type": "conclusion",
+      "type_label": "🟡 結論變化候選",
+      "status": "pending_ai_review",
+      "confidence": "medium",
+      "rule_key": "major_current_report",
+      "materiality": {},
+      "display_priority": "normal",
+      "priority_reason": "已覆核 9 個樣本，採納率 56%，維持原優先級。",
+      "headline": "重大 8-K 可能改變既有結論",
+      "evidence": [
+        "2.02 財報／業績、9.01 附件／財務報表"
+      ],
+      "why_candidate": "文件重要性只提高重讀優先級，不預設為利多或利空。",
+      "filing_date": "2026-11-02",
+      "detected_at": "2026-11-03T13:54:02+00:00",
+      "source_keys": [
+        "0000320193-26-000024"
+      ],
+      "sources": [
+        {
+          "label": "SEC 8-K",
+          "url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000024/aapl-20261102.htm"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 9,
+        "accepted_count": 5,
+        "acceptance_rate": 0.5556,
+        "sample_status": "enough"
       }
     },
     {
@@ -1146,26 +2055,24 @@
       "type_label": "🟡 結論變化候選",
       "status": "pending_ai_review",
       "confidence": "high",
-      "rule_key": "quarterly_fingerprint",
+      "rule_key": "periodic_filing",
       "materiality": {},
       "display_priority": "normal",
       "priority_reason": "目前規則樣本不足或採納率未達降級門檻，維持原顯示優先級。",
-      "headline": "最新季度數字已變更，需要重算財務連續性與結論",
+      "headline": "新 10-Q 需要重讀財務與風險結論",
       "evidence": [
-        "財報期末 2026-09-30；營收 YoY +12.1%。",
-        "毛利率 +53.2%；FCF 為負。",
-        "稀釋股數 YoY +0.8%。"
+        "未提供 Item 分類"
       ],
-      "why_candidate": "季度指紋與上次 AI 覆核基準不同；規則只列候選，不自行改寫結論。",
+      "why_candidate": "新定期財報可能同時改變營收、利潤、現金流、稀釋與風險結論。",
       "filing_date": "2026-10-30",
-      "detected_at": "2026-11-03T13:46:09+00:00",
+      "detected_at": "2026-11-03T13:54:02+00:00",
       "source_keys": [
         "0001018724-26-000040"
       ],
       "sources": [
         {
-          "label": "10-Q 原文",
-          "url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000040/0001018724-26-000040-index.html"
+          "label": "SEC 10-Q",
+          "url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000040/amzn-20260930.htm"
         }
       ],
       "rule_quality": {
@@ -1176,32 +2083,166 @@
       }
     },
     {
+      "id": "9cfc899dde121a24",
+      "ticker": "AMZN",
+      "type": "conclusion",
+      "type_label": "🟡 結論變化候選",
+      "status": "pending_ai_review",
+      "confidence": "medium",
+      "rule_key": "major_current_report",
+      "materiality": {},
+      "display_priority": "normal",
+      "priority_reason": "已覆核 9 個樣本，採納率 56%，維持原優先級。",
+      "headline": "重大 8-K 可能改變既有結論",
+      "evidence": [
+        "2.02 財報／業績、9.01 附件／財務報表"
+      ],
+      "why_candidate": "文件重要性只提高重讀優先級，不預設為利多或利空。",
+      "filing_date": "2026-10-29",
+      "detected_at": "2026-11-03T13:54:02+00:00",
+      "source_keys": [
+        "0001018724-26-000038"
+      ],
+      "sources": [
+        {
+          "label": "SEC 8-K",
+          "url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000038/amzn-20261029.htm"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 9,
+        "accepted_count": 5,
+        "acceptance_rate": 0.5556,
+        "sample_status": "enough"
+      }
+    },
+    {
+      "id": "c621c1dd535f077e",
+      "ticker": "META",
+      "type": "conclusion",
+      "type_label": "🟡 結論變化候選",
+      "status": "pending_ai_review",
+      "confidence": "medium",
+      "rule_key": "major_current_report",
+      "materiality": {},
+      "display_priority": "normal",
+      "priority_reason": "已覆核 9 個樣本，採納率 56%，維持原優先級。",
+      "headline": "重大 8-K 可能改變既有結論",
+      "evidence": [
+        "1.01 重大合約、3.03 股東權利變更、5.03 章程修訂、9.01 附件／財務報表"
+      ],
+      "why_candidate": "文件重要性只提高重讀優先級，不預設為利多或利空。",
+      "filing_date": "2026-10-29",
+      "detected_at": "2026-11-03T13:54:02+00:00",
+      "source_keys": [
+        "0001193125-26-438017"
+      ],
+      "sources": [
+        {
+          "label": "SEC 8-K",
+          "url": "https://www.sec.gov/Archives/edgar/data/1326801/000119312526438017/d183592d8k.htm"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 9,
+        "accepted_count": 5,
+        "acceptance_rate": 0.5556,
+        "sample_status": "enough"
+      }
+    },
+    {
+      "id": "144ef87634e297ef",
+      "ticker": "MSFT",
+      "type": "conclusion",
+      "type_label": "🟡 結論變化候選",
+      "status": "pending_ai_review",
+      "confidence": "medium",
+      "rule_key": "major_current_report",
+      "materiality": {},
+      "display_priority": "normal",
+      "priority_reason": "已覆核 9 個樣本，採納率 56%，維持原優先級。",
+      "headline": "重大 8-K 可能改變既有結論",
+      "evidence": [
+        "8.01 其他重大事項、9.01 附件／財務報表"
+      ],
+      "why_candidate": "文件重要性只提高重讀優先級，不預設為利多或利空。",
+      "filing_date": "2026-10-28",
+      "detected_at": "2026-11-03T13:54:02+00:00",
+      "source_keys": [
+        "0001193125-26-436149"
+      ],
+      "sources": [
+        {
+          "label": "SEC 8-K",
+          "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526436149/msft-20261028.htm"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 9,
+        "accepted_count": 5,
+        "acceptance_rate": 0.5556,
+        "sample_status": "enough"
+      }
+    },
+    {
+      "id": "aa5502b22893104a",
+      "ticker": "MSFT",
+      "type": "conclusion",
+      "type_label": "🟡 結論變化候選",
+      "status": "pending_ai_review",
+      "confidence": "medium",
+      "rule_key": "major_current_report",
+      "materiality": {},
+      "display_priority": "normal",
+      "priority_reason": "已覆核 9 個樣本，採納率 56%，維持原優先級。",
+      "headline": "重大 8-K 可能改變既有結論",
+      "evidence": [
+        "2.02 財報／業績、9.01 附件／財務報表"
+      ],
+      "why_candidate": "文件重要性只提高重讀優先級，不預設為利多或利空。",
+      "filing_date": "2026-10-28",
+      "detected_at": "2026-11-03T13:54:02+00:00",
+      "source_keys": [
+        "0001193125-26-436122"
+      ],
+      "sources": [
+        {
+          "label": "SEC 8-K",
+          "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526436122/msft-20261028.htm"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 9,
+        "accepted_count": 5,
+        "acceptance_rate": 0.5556,
+        "sample_status": "enough"
+      }
+    },
+    {
       "id": "ecb660592a2f81dc",
       "ticker": "MSFT",
       "type": "conclusion",
       "type_label": "🟡 結論變化候選",
       "status": "pending_ai_review",
       "confidence": "high",
-      "rule_key": "quarterly_fingerprint",
+      "rule_key": "periodic_filing",
       "materiality": {},
       "display_priority": "normal",
       "priority_reason": "目前規則樣本不足或採納率未達降級門檻，維持原顯示優先級。",
-      "headline": "最新季度數字已變更，需要重算財務連續性與結論",
+      "headline": "新 10-Q 需要重讀財務與風險結論",
       "evidence": [
-        "財報期末 2026-09-30；營收 YoY +18.8%。",
-        "毛利率 +67.8%；FCF 為正。",
-        "稀釋股數 YoY -0.3%。"
+        "未提供 Item 分類"
       ],
-      "why_candidate": "季度指紋與上次 AI 覆核基準不同；規則只列候選，不自行改寫結論。",
+      "why_candidate": "新定期財報可能同時改變營收、利潤、現金流、稀釋與風險結論。",
       "filing_date": "2026-10-28",
-      "detected_at": "2026-11-03T13:46:09+00:00",
+      "detected_at": "2026-11-03T13:54:02+00:00",
       "source_keys": [
         "0001193125-26-436133"
       ],
       "sources": [
         {
-          "label": "10-Q 原文",
-          "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526436133/0001193125-26-436133-index.html"
+          "label": "SEC 10-Q",
+          "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526436133/msft-20260930.htm"
         }
       ],
       "rule_quality": {
@@ -1218,26 +2259,24 @@
       "type_label": "🟡 結論變化候選",
       "status": "pending_ai_review",
       "confidence": "high",
-      "rule_key": "quarterly_fingerprint",
+      "rule_key": "periodic_filing",
       "materiality": {},
       "display_priority": "normal",
       "priority_reason": "目前規則樣本不足或採納率未達降級門檻，維持原顯示優先級。",
-      "headline": "最新季度數字已變更，需要重算財務連續性與結論",
+      "headline": "新 10-Q 需要重讀財務與風險結論",
       "evidence": [
-        "財報期末 2026-09-30；營收 YoY +26.1%。",
-        "毛利率 +79.3%；FCF 為負。",
-        "稀釋股數 YoY +0.0%。"
+        "未提供 Item 分類"
       ],
-      "why_candidate": "季度指紋與上次 AI 覆核基準不同；規則只列候選，不自行改寫結論。",
+      "why_candidate": "新定期財報可能同時改變營收、利潤、現金流、稀釋與風險結論。",
       "filing_date": "2026-10-22",
-      "detected_at": "2026-11-03T13:46:09+00:00",
+      "detected_at": "2026-11-03T13:54:02+00:00",
       "source_keys": [
         "0001628280-26-066773"
       ],
       "sources": [
         {
-          "label": "10-Q 原文",
-          "url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026066773/0001628280-26-066773-index.html"
+          "label": "SEC 10-Q",
+          "url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026066773/meta-20260930.htm"
         }
       ],
       "rule_quality": {
@@ -1245,6 +2284,142 @@
         "accepted_count": 0,
         "acceptance_rate": null,
         "sample_status": "insufficient"
+      }
+    },
+    {
+      "id": "c250bd57db52ddae",
+      "ticker": "TSM",
+      "type": "conclusion",
+      "type_label": "🟡 結論變化候選",
+      "status": "pending_ai_review",
+      "confidence": "medium",
+      "rule_key": "major_current_report",
+      "materiality": {},
+      "display_priority": "normal",
+      "priority_reason": "已覆核 9 個樣本，採納率 56%，維持原優先級。",
+      "headline": "重大 6-K 可能改變既有結論",
+      "evidence": [
+        "未提供 Item 分類"
+      ],
+      "why_candidate": "文件重要性只提高重讀優先級，不預設為利多或利空。",
+      "filing_date": "2026-10-22",
+      "detected_at": "2026-11-03T13:54:02+00:00",
+      "source_keys": [
+        "0001046179-26-000728"
+      ],
+      "sources": [
+        {
+          "label": "SEC 6-K",
+          "url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000728/tsm-monthend6kx20261022.htm"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 9,
+        "accepted_count": 5,
+        "acceptance_rate": 0.5556,
+        "sample_status": "enough"
+      }
+    },
+    {
+      "id": "ebebe31042559ed3",
+      "ticker": "META",
+      "type": "conclusion",
+      "type_label": "🟡 結論變化候選",
+      "status": "pending_ai_review",
+      "confidence": "medium",
+      "rule_key": "major_current_report",
+      "materiality": {},
+      "display_priority": "normal",
+      "priority_reason": "已覆核 9 個樣本，採納率 56%，維持原優先級。",
+      "headline": "重大 8-K 可能改變既有結論",
+      "evidence": [
+        "1.01 重大合約、2.02 財報／業績、8.01 其他重大事項、9.01 附件／財務報表"
+      ],
+      "why_candidate": "文件重要性只提高重讀優先級，不預設為利多或利空。",
+      "filing_date": "2026-10-21",
+      "detected_at": "2026-11-03T13:54:02+00:00",
+      "source_keys": [
+        "0001628280-26-066700"
+      ],
+      "sources": [
+        {
+          "label": "SEC 8-K",
+          "url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026066700/meta-20261019.htm"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 9,
+        "accepted_count": 5,
+        "acceptance_rate": 0.5556,
+        "sample_status": "enough"
+      }
+    },
+    {
+      "id": "7e0fb7fa57aa61bf",
+      "ticker": "TSM",
+      "type": "conclusion",
+      "type_label": "🟡 結論變化候選",
+      "status": "pending_ai_review",
+      "confidence": "medium",
+      "rule_key": "major_current_report",
+      "materiality": {},
+      "display_priority": "normal",
+      "priority_reason": "已覆核 9 個樣本，採納率 56%，維持原優先級。",
+      "headline": "重大 6-K 可能改變既有結論",
+      "evidence": [
+        "未提供 Item 分類"
+      ],
+      "why_candidate": "文件重要性只提高重讀優先級，不預設為利多或利空。",
+      "filing_date": "2026-10-15",
+      "detected_at": "2026-11-03T13:54:02+00:00",
+      "source_keys": [
+        "0001046179-26-000726"
+      ],
+      "sources": [
+        {
+          "label": "SEC 6-K",
+          "url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000726/tsm-20261015x6k.htm"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 9,
+        "accepted_count": 5,
+        "acceptance_rate": 0.5556,
+        "sample_status": "enough"
+      }
+    },
+    {
+      "id": "7969fb9d7b09bf5e",
+      "ticker": "ONDS",
+      "type": "conclusion",
+      "type_label": "🟡 結論變化候選",
+      "status": "pending_ai_review",
+      "confidence": "medium",
+      "rule_key": "major_current_report",
+      "materiality": {},
+      "display_priority": "normal",
+      "priority_reason": "已覆核 9 個樣本，採納率 56%，維持原優先級。",
+      "headline": "重大 8-K 可能改變既有結論",
+      "evidence": [
+        "7.01 Reg FD／簡報、8.01 其他重大事項、9.01 附件／財務報表"
+      ],
+      "why_candidate": "文件重要性只提高重讀優先級，不預設為利多或利空。",
+      "filing_date": "2026-10-13",
+      "detected_at": "2026-11-03T13:54:02+00:00",
+      "source_keys": [
+        "0001213900-26-108757"
+      ],
+      "sources": [
+        {
+          "label": "SEC 8-K",
+          "url": "https://www.sec.gov/Archives/edgar/data/1646188/000121390026108757/ea0308390-8k_ondas.htm"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 9,
+        "accepted_count": 5,
+        "acceptance_rate": 0.5556,
+        "sample_status": "enough"
       }
     },
     {
@@ -1279,6 +2454,75 @@
         "accepted_count": 5,
         "acceptance_rate": 0.5556,
         "sample_status": "enough"
+      }
+    },
+    {
+      "id": "a7435d3a9d93637f",
+      "ticker": "AMZN",
+      "type": "conclusion",
+      "type_label": "🟡 結論變化候選",
+      "status": "pending_ai_review",
+      "confidence": "medium",
+      "rule_key": "thesis_fingerprint",
+      "materiality": {},
+      "display_priority": "normal",
+      "priority_reason": "目前規則樣本不足或採納率未達降級門檻，維持原顯示優先級。",
+      "headline": "投資論點狀態或量化證據指紋已改變",
+      "evidence": [
+        "目前規則化狀態：論點維持；期末 2026-09-30。"
+      ],
+      "why_candidate": "需由 AI 讀取最新季度證據後，決定是否改寫正式綜合結論。",
+      "filing_date": "2026-09-30",
+      "detected_at": "2026-11-03T13:54:02+00:00",
+      "source_keys": [
+        "d88d5876b47cd1d40715"
+      ],
+      "sources": [
+        {
+          "label": "最新季度原文",
+          "url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000040/0001018724-26-000040-index.html"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 0,
+        "accepted_count": 0,
+        "acceptance_rate": null,
+        "sample_status": "insufficient"
+      }
+    },
+    {
+      "id": "e4ca91ff30ced783",
+      "ticker": "META",
+      "type": "conclusion",
+      "type_label": "🟡 結論變化候選",
+      "status": "pending_ai_review",
+      "confidence": "high",
+      "rule_key": "thesis_fingerprint",
+      "materiality": {},
+      "display_priority": "normal",
+      "priority_reason": "目前規則樣本不足或採納率未達降級門檻，維持原顯示優先級。",
+      "headline": "投資論點狀態或量化證據指紋已改變",
+      "evidence": [
+        "綜合狀態：部分失效 → 部分失效。",
+        "高現金流能轉化為每股價值：支持 → 待驗證；2026-09-30 FCF USD -1,157.0M（連續 1 季為負）；稀釋股數 YoY +0.0%。"
+      ],
+      "why_candidate": "需由 AI 讀取最新季度證據後，決定是否改寫正式綜合結論。",
+      "filing_date": "2026-09-30",
+      "detected_at": "2026-11-03T13:54:02+00:00",
+      "source_keys": [
+        "b6c95c97741daa2c5354"
+      ],
+      "sources": [
+        {
+          "label": "最新季度原文",
+          "url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026066773/0001628280-26-066773-index.html"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 0,
+        "accepted_count": 0,
+        "acceptance_rate": null,
+        "sample_status": "insufficient"
       }
     },
     {
@@ -1414,6 +2658,691 @@
         "reviewed_count": 9,
         "accepted_count": 5,
         "acceptance_rate": 0.5556,
+        "sample_status": "enough"
+      }
+    },
+    {
+      "id": "ba27fffb6b32bc2f",
+      "ticker": "MSFT",
+      "type": "improvement",
+      "type_label": "🟢 改善候選",
+      "status": "pending_ai_review",
+      "confidence": "high",
+      "rule_key": "thesis_fingerprint",
+      "materiality": {},
+      "display_priority": "normal",
+      "priority_reason": "目前規則樣本不足或採納率未達降級門檻，維持原顯示優先級。",
+      "headline": "投資論點狀態或量化證據指紋已改變",
+      "evidence": [
+        "綜合狀態：部分失效 → 論點維持。",
+        "軟體規模經濟維持高營業利益率：失效 → 支持；2026-09-30 營業利益率 49.8%，YoY +0.9pp；連續 2 季上升。"
+      ],
+      "why_candidate": "需由 AI 讀取最新季度證據後，決定是否改寫正式綜合結論。",
+      "filing_date": "2026-09-30",
+      "detected_at": "2026-11-03T13:54:02+00:00",
+      "source_keys": [
+        "5895c7cdd9bdcb5f5be3"
+      ],
+      "sources": [
+        {
+          "label": "最新季度原文",
+          "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526436133/0001193125-26-436133-index.html"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 0,
+        "accepted_count": 0,
+        "acceptance_rate": null,
+        "sample_status": "insufficient"
+      }
+    },
+    {
+      "id": "4a0fe3615ac6802d",
+      "ticker": "AAPL",
+      "type": "improvement",
+      "type_label": "🟢 改善候選",
+      "status": "pending_ai_review",
+      "confidence": "high",
+      "rule_key": "thesis_fingerprint",
+      "materiality": {},
+      "display_priority": "normal",
+      "priority_reason": "目前規則樣本不足或採納率未達降級門檻，維持原顯示優先級。",
+      "headline": "投資論點狀態或量化證據指紋已改變",
+      "evidence": [
+        "綜合狀態：部分失效 → 論點維持。",
+        "裝置生態與服務收入維持成長：失效 → 支持；2026-09-26 營收 USD 114,477.0M，YoY +11.7%；連續 2 季上升。"
+      ],
+      "why_candidate": "需由 AI 讀取最新季度證據後，決定是否改寫正式綜合結論。",
+      "filing_date": "2026-09-26",
+      "detected_at": "2026-11-03T13:54:02+00:00",
+      "source_keys": [
+        "c9487632254f111c5e80"
+      ],
+      "sources": [
+        {
+          "label": "最新季度原文",
+          "url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000026/0000320193-26-000026-index.html"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 0,
+        "accepted_count": 0,
+        "acceptance_rate": null,
+        "sample_status": "insufficient"
+      }
+    },
+    {
+      "id": "ec39ac707b5b51e2",
+      "ticker": "META",
+      "type": "risk",
+      "type_label": "🔴 新增風險候選",
+      "status": "pending_ai_review",
+      "confidence": "low",
+      "rule_key": "form144_proposed_sale",
+      "materiality": {
+        "planned_shares": 29216.0,
+        "planned_value_usd": 18412319.0,
+        "shares_outstanding": 2214472367.0,
+        "planned_shares_outstanding_percent": 0.0013193210461948384
+      },
+      "display_priority": "low",
+      "priority_reason": "已覆核 9 個樣本，採納率 0% ≤ 20%，只降低顯示優先級、不刪除事件。",
+      "headline": "新增 13 份 Form 144 擬售通知，列為低強度風險候選",
+      "evidence": [
+        "已解析擬售 29,216 股、申報估值 $18.4M。",
+        "約占申報所列已發行股數 0.00132%。",
+        "申報人：Alford Peggy、Andreessen Horowitz Fund VIII, L.P.、Olivan Javier。",
+        "Form 144 是擬售意向，不等於已成交；需等待後續 Form 4 或市場交易確認。"
+      ],
+      "why_candidate": "集中或大額擬售可能增加供給壓力，但證據強度低於已完成的非 10b5-1 賣出。",
+      "filing_date": "2026-11-02",
+      "detected_at": "2026-11-03T13:54:02+00:00",
+      "source_keys": [
+        "0001921094-26-001013",
+        "0001921094-26-001023",
+        "0001921094-26-001039",
+        "0001921094-26-001042",
+        "0001921094-26-001050",
+        "0001921094-26-001053",
+        "0001921094-26-001069",
+        "0001921094-26-001084",
+        "0001921094-26-001104",
+        "0001921094-26-001116",
+        "0001921094-26-001117",
+        "0001921094-26-001133",
+        "0001974078-26-000395"
+      ],
+      "sources": [
+        {
+          "label": "SEC Form 144",
+          "url": "https://www.sec.gov/Archives/edgar/data/1326801/000197407826000395/xsl144X01/primary_doc.xml"
+        },
+        {
+          "label": "SEC Form 144",
+          "url": "https://www.sec.gov/Archives/edgar/data/1326801/000192109426001133/xsl144X01/primary_doc.xml"
+        },
+        {
+          "label": "SEC Form 144",
+          "url": "https://www.sec.gov/Archives/edgar/data/1326801/000192109426001117/xsl144X01/primary_doc.xml"
+        },
+        {
+          "label": "SEC Form 144",
+          "url": "https://www.sec.gov/Archives/edgar/data/1326801/000192109426001116/xsl144X01/primary_doc.xml"
+        },
+        {
+          "label": "SEC Form 144",
+          "url": "https://www.sec.gov/Archives/edgar/data/1326801/000192109426001104/xsl144X01/primary_doc.xml"
+        },
+        {
+          "label": "SEC Form 144",
+          "url": "https://www.sec.gov/Archives/edgar/data/1326801/000192109426001084/xsl144X01/primary_doc.xml"
+        },
+        {
+          "label": "SEC Form 144",
+          "url": "https://www.sec.gov/Archives/edgar/data/1326801/000192109426001069/xsl144X01/primary_doc.xml"
+        },
+        {
+          "label": "SEC Form 144",
+          "url": "https://www.sec.gov/Archives/edgar/data/1326801/000192109426001053/xsl144X01/primary_doc.xml"
+        },
+        {
+          "label": "SEC Form 144",
+          "url": "https://www.sec.gov/Archives/edgar/data/1326801/000192109426001050/xsl144X01/primary_doc.xml"
+        },
+        {
+          "label": "SEC Form 144",
+          "url": "https://www.sec.gov/Archives/edgar/data/1326801/000192109426001042/xsl144X01/primary_doc.xml"
+        },
+        {
+          "label": "SEC Form 144",
+          "url": "https://www.sec.gov/Archives/edgar/data/1326801/000192109426001039/xsl144X01/primary_doc.xml"
+        },
+        {
+          "label": "SEC Form 144",
+          "url": "https://www.sec.gov/Archives/edgar/data/1326801/000192109426001023/xsl144X01/primary_doc.xml"
+        },
+        {
+          "label": "SEC Form 144",
+          "url": "https://www.sec.gov/Archives/edgar/data/1326801/000192109426001013/xsl144X01/primary_doc.xml"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 9,
+        "accepted_count": 0,
+        "acceptance_rate": 0.0,
+        "sample_status": "enough"
+      }
+    },
+    {
+      "id": "8e586002a360efcc",
+      "ticker": "AAPL",
+      "type": "risk",
+      "type_label": "🔴 新增風險候選",
+      "status": "pending_ai_review",
+      "confidence": "low",
+      "rule_key": "form4_sell_10b5_1",
+      "materiality": {
+        "transaction_value_usd": 823720.64,
+        "max_transaction_holding_percent": 6.894668774249174,
+        "planned_transaction_count": 1,
+        "transaction_count": 1
+      },
+      "display_priority": "low",
+      "priority_reason": "已覆核 14 個樣本，採納率 0% ≤ 20%，只降低顯示優先級、不刪除事件。",
+      "headline": "Form 4 出現 1 列賣出，列為風險候選",
+      "evidence": [
+        "已知賣出金額合計 $823.7K；其中 1/1 列標示 10b5-1。",
+        "單筆最高約占交易前直接持股 6.89%。",
+        "10b5-1 是預先安排交易，訊號強度低於臨時主動賣出。"
+      ],
+      "why_candidate": "內部人賣出需看計畫屬性、持股比例與交易規模，不直接等於看空。",
+      "filing_date": "2026-10-29",
+      "detected_at": "2026-11-03T13:54:02+00:00",
+      "source_keys": [
+        "0001140361-26-041201"
+      ],
+      "sources": [
+        {
+          "label": "SEC 4",
+          "url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126041201/xslF345X06/form4.xml"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 14,
+        "accepted_count": 0,
+        "acceptance_rate": 0.0,
+        "sample_status": "enough"
+      }
+    },
+    {
+      "id": "870641389dc447eb",
+      "ticker": "META",
+      "type": "risk",
+      "type_label": "🔴 新增風險候選",
+      "status": "pending_ai_review",
+      "confidence": "low",
+      "rule_key": "form4_sell_10b5_1",
+      "materiality": {
+        "transaction_value_usd": 1008000.0,
+        "max_transaction_holding_percent": 15.803541597059805,
+        "planned_transaction_count": 5,
+        "transaction_count": 5
+      },
+      "display_priority": "low",
+      "priority_reason": "已覆核 14 個樣本，採納率 0% ≤ 20%，只降低顯示優先級、不刪除事件。",
+      "headline": "Form 4 出現 5 列賣出，列為風險候選",
+      "evidence": [
+        "已知賣出金額合計 $1.0M；其中 5/5 列標示 10b5-1。",
+        "單筆最高約占交易前直接持股 15.80%。",
+        "10b5-1 是預先安排交易，訊號強度低於臨時主動賣出。"
+      ],
+      "why_candidate": "內部人賣出需看計畫屬性、持股比例與交易規模，不直接等於看空。",
+      "filing_date": "2026-10-28",
+      "detected_at": "2026-11-03T13:54:02+00:00",
+      "source_keys": [
+        "0000950103-26-016313"
+      ],
+      "sources": [
+        {
+          "label": "SEC 4",
+          "url": "https://www.sec.gov/Archives/edgar/data/1326801/000095010326016313/xslF345X06/ownership.xml"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 14,
+        "accepted_count": 0,
+        "acceptance_rate": 0.0,
+        "sample_status": "enough"
+      }
+    },
+    {
+      "id": "b72735e25bd19d64",
+      "ticker": "META",
+      "type": "risk",
+      "type_label": "🔴 新增風險候選",
+      "status": "pending_ai_review",
+      "confidence": "low",
+      "rule_key": "form4_sell_10b5_1",
+      "materiality": {
+        "transaction_value_usd": 249600.0,
+        "max_transaction_holding_percent": 13.732394366197184,
+        "planned_transaction_count": 1,
+        "transaction_count": 1
+      },
+      "display_priority": "low",
+      "priority_reason": "已覆核 14 個樣本，採納率 0% ≤ 20%，只降低顯示優先級、不刪除事件。",
+      "headline": "Form 4 出現 1 列賣出，列為風險候選",
+      "evidence": [
+        "已知賣出金額合計 $249.6K；其中 1/1 列標示 10b5-1。",
+        "單筆最高約占交易前直接持股 13.73%。",
+        "10b5-1 是預先安排交易，訊號強度低於臨時主動賣出。"
+      ],
+      "why_candidate": "內部人賣出需看計畫屬性、持股比例與交易規模，不直接等於看空。",
+      "filing_date": "2026-10-28",
+      "detected_at": "2026-11-03T13:54:02+00:00",
+      "source_keys": [
+        "0000950103-26-016314"
+      ],
+      "sources": [
+        {
+          "label": "SEC 4",
+          "url": "https://www.sec.gov/Archives/edgar/data/1326801/000095010326016314/xslF345X06/ownership.xml"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 14,
+        "accepted_count": 0,
+        "acceptance_rate": 0.0,
+        "sample_status": "enough"
+      }
+    },
+    {
+      "id": "c1f2b5af889702d0",
+      "ticker": "AAPL",
+      "type": "risk",
+      "type_label": "🔴 新增風險候選",
+      "status": "pending_ai_review",
+      "confidence": "low",
+      "rule_key": "form4_sell_10b5_1",
+      "materiality": {
+        "transaction_value_usd": 814748.38,
+        "max_transaction_holding_percent": 6.4499650481260415,
+        "planned_transaction_count": 1,
+        "transaction_count": 1
+      },
+      "display_priority": "low",
+      "priority_reason": "已覆核 14 個樣本，採納率 0% ≤ 20%，只降低顯示優先級、不刪除事件。",
+      "headline": "Form 4 出現 1 列賣出，列為風險候選",
+      "evidence": [
+        "已知賣出金額合計 $814.7K；其中 1/1 列標示 10b5-1。",
+        "單筆最高約占交易前直接持股 6.45%。",
+        "10b5-1 是預先安排交易，訊號強度低於臨時主動賣出。"
+      ],
+      "why_candidate": "內部人賣出需看計畫屬性、持股比例與交易規模，不直接等於看空。",
+      "filing_date": "2026-10-22",
+      "detected_at": "2026-11-03T13:54:02+00:00",
+      "source_keys": [
+        "0001140361-26-040540"
+      ],
+      "sources": [
+        {
+          "label": "SEC 4",
+          "url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126040540/xslF345X06/form4.xml"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 14,
+        "accepted_count": 0,
+        "acceptance_rate": 0.0,
+        "sample_status": "enough"
+      }
+    },
+    {
+      "id": "49da02a2c5a55b3b",
+      "ticker": "META",
+      "type": "risk",
+      "type_label": "🔴 新增風險候選",
+      "status": "pending_ai_review",
+      "confidence": "low",
+      "rule_key": "form4_sell_10b5_1",
+      "materiality": {
+        "transaction_value_usd": 1113840.0,
+        "max_transaction_holding_percent": 13.646855164454703,
+        "planned_transaction_count": 5,
+        "transaction_count": 5
+      },
+      "display_priority": "low",
+      "priority_reason": "已覆核 14 個樣本，採納率 0% ≤ 20%，只降低顯示優先級、不刪除事件。",
+      "headline": "Form 4 出現 5 列賣出，列為風險候選",
+      "evidence": [
+        "已知賣出金額合計 $1.1M；其中 5/5 列標示 10b5-1。",
+        "單筆最高約占交易前直接持股 13.65%。",
+        "10b5-1 是預先安排交易，訊號強度低於臨時主動賣出。"
+      ],
+      "why_candidate": "內部人賣出需看計畫屬性、持股比例與交易規模，不直接等於看空。",
+      "filing_date": "2026-10-21",
+      "detected_at": "2026-11-03T13:54:02+00:00",
+      "source_keys": [
+        "0000950103-26-015980"
+      ],
+      "sources": [
+        {
+          "label": "SEC 4",
+          "url": "https://www.sec.gov/Archives/edgar/data/1326801/000095010326015980/xslF345X06/ownership.xml"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 14,
+        "accepted_count": 0,
+        "acceptance_rate": 0.0,
+        "sample_status": "enough"
+      }
+    },
+    {
+      "id": "55623940e5db10f1",
+      "ticker": "AAPL",
+      "type": "risk",
+      "type_label": "🔴 新增風險候選",
+      "status": "pending_ai_review",
+      "confidence": "low",
+      "rule_key": "form4_sell_10b5_1",
+      "materiality": {
+        "transaction_value_usd": 480315.36000000004,
+        "max_transaction_holding_percent": 4.7467500943955985,
+        "planned_transaction_count": 5,
+        "transaction_count": 5
+      },
+      "display_priority": "low",
+      "priority_reason": "已覆核 14 個樣本，採納率 0% ≤ 20%，只降低顯示優先級、不刪除事件。",
+      "headline": "Form 4 出現 5 列賣出，列為風險候選",
+      "evidence": [
+        "已知賣出金額合計 $480.3K；其中 5/5 列標示 10b5-1。",
+        "單筆最高約占交易前直接持股 4.75%。",
+        "10b5-1 是預先安排交易，訊號強度低於臨時主動賣出。"
+      ],
+      "why_candidate": "內部人賣出需看計畫屬性、持股比例與交易規模，不直接等於看空。",
+      "filing_date": "2026-10-19",
+      "detected_at": "2026-11-03T13:54:02+00:00",
+      "source_keys": [
+        "0001140361-26-040126"
+      ],
+      "sources": [
+        {
+          "label": "SEC 4",
+          "url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126040126/xslF345X06/form4.xml"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 14,
+        "accepted_count": 0,
+        "acceptance_rate": 0.0,
+        "sample_status": "enough"
+      }
+    },
+    {
+      "id": "f1b848ae26301ae6",
+      "ticker": "AAPL",
+      "type": "risk",
+      "type_label": "🔴 新增風險候選",
+      "status": "pending_ai_review",
+      "confidence": "low",
+      "rule_key": "form4_sell_10b5_1",
+      "materiality": {
+        "transaction_value_usd": 442107.54,
+        "max_transaction_holding_percent": 2.463329689605206,
+        "planned_transaction_count": 5,
+        "transaction_count": 5
+      },
+      "display_priority": "low",
+      "priority_reason": "已覆核 14 個樣本，採納率 0% ≤ 20%，只降低顯示優先級、不刪除事件。",
+      "headline": "Form 4 出現 5 列賣出，列為風險候選",
+      "evidence": [
+        "已知賣出金額合計 $442.1K；其中 5/5 列標示 10b5-1。",
+        "單筆最高約占交易前直接持股 2.46%。",
+        "10b5-1 是預先安排交易，訊號強度低於臨時主動賣出。"
+      ],
+      "why_candidate": "內部人賣出需看計畫屬性、持股比例與交易規模，不直接等於看空。",
+      "filing_date": "2026-10-19",
+      "detected_at": "2026-11-03T13:54:02+00:00",
+      "source_keys": [
+        "0001140361-26-040127"
+      ],
+      "sources": [
+        {
+          "label": "SEC 4",
+          "url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126040127/xslF345X06/form4.xml"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 14,
+        "accepted_count": 0,
+        "acceptance_rate": 0.0,
+        "sample_status": "enough"
+      }
+    },
+    {
+      "id": "871636ed567d9f1f",
+      "ticker": "AAPL",
+      "type": "risk",
+      "type_label": "🔴 新增風險候選",
+      "status": "pending_ai_review",
+      "confidence": "low",
+      "rule_key": "form144_proposed_sale",
+      "materiality": {
+        "planned_shares": 26804.0,
+        "planned_value_usd": 8955794.28,
+        "shares_outstanding": 14594180000.0,
+        "planned_shares_outstanding_percent": 0.0001836622544055233
+      },
+      "display_priority": "low",
+      "priority_reason": "已覆核 9 個樣本，採納率 0% ≤ 20%，只降低顯示優先級、不刪除事件。",
+      "headline": "新增 5 份 Form 144 擬售通知，列為低強度風險候選",
+      "evidence": [
+        "已解析擬售 26,804 股、申報估值 $9.0M。",
+        "約占申報所列已發行股數 0.00018%。",
+        "申報人：John Ternus、KEVAN PAREKH。",
+        "Form 144 是擬售意向，不等於已成交；需等待後續 Form 4 或市場交易確認。"
+      ],
+      "why_candidate": "集中或大額擬售可能增加供給壓力，但證據強度低於已完成的非 10b5-1 賣出。",
+      "filing_date": "2026-10-16",
+      "detected_at": "2026-11-03T13:54:02+00:00",
+      "source_keys": [
+        "0001950047-26-009738",
+        "0001950047-26-010286",
+        "0001958244-26-000636",
+        "0001959173-26-007235",
+        "0001969223-26-001055"
+      ],
+      "sources": [
+        {
+          "label": "SEC Form 144",
+          "url": "https://www.sec.gov/Archives/edgar/data/320193/000195004726010286/xsl144X01/primary_doc.xml"
+        },
+        {
+          "label": "SEC Form 144",
+          "url": "https://www.sec.gov/Archives/edgar/data/320193/000195824426000636/xsl144X01/primary_doc.xml"
+        },
+        {
+          "label": "SEC Form 144",
+          "url": "https://www.sec.gov/Archives/edgar/data/320193/000195917326007235/xsl144X01/primary_doc.xml"
+        },
+        {
+          "label": "SEC Form 144",
+          "url": "https://www.sec.gov/Archives/edgar/data/320193/000196922326001055/xsl144X01/primary_doc.xml"
+        },
+        {
+          "label": "SEC Form 144",
+          "url": "https://www.sec.gov/Archives/edgar/data/320193/000195004726009738/xsl144X01/primary_doc.xml"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 9,
+        "accepted_count": 0,
+        "acceptance_rate": 0.0,
+        "sample_status": "enough"
+      }
+    },
+    {
+      "id": "58348d6e6496ed5d",
+      "ticker": "AAPL",
+      "type": "risk",
+      "type_label": "🔴 新增風險候選",
+      "status": "pending_ai_review",
+      "confidence": "low",
+      "rule_key": "form4_sell_10b5_1",
+      "materiality": {
+        "transaction_value_usd": 827655.0,
+        "max_transaction_holding_percent": 6.0591518702801,
+        "planned_transaction_count": 1,
+        "transaction_count": 1
+      },
+      "display_priority": "low",
+      "priority_reason": "已覆核 14 個樣本，採納率 0% ≤ 20%，只降低顯示優先級、不刪除事件。",
+      "headline": "Form 4 出現 1 列賣出，列為風險候選",
+      "evidence": [
+        "已知賣出金額合計 $827.7K；其中 1/1 列標示 10b5-1。",
+        "單筆最高約占交易前直接持股 6.06%。",
+        "10b5-1 是預先安排交易，訊號強度低於臨時主動賣出。"
+      ],
+      "why_candidate": "內部人賣出需看計畫屬性、持股比例與交易規模，不直接等於看空。",
+      "filing_date": "2026-10-15",
+      "detected_at": "2026-11-03T13:54:02+00:00",
+      "source_keys": [
+        "0001140361-26-039785"
+      ],
+      "sources": [
+        {
+          "label": "SEC 4",
+          "url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126039785/xslF345X06/form4.xml"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 14,
+        "accepted_count": 0,
+        "acceptance_rate": 0.0,
+        "sample_status": "enough"
+      }
+    },
+    {
+      "id": "dd8525e86f4bb958",
+      "ticker": "META",
+      "type": "risk",
+      "type_label": "🔴 新增風險候選",
+      "status": "pending_ai_review",
+      "confidence": "low",
+      "rule_key": "form4_sell_10b5_1",
+      "materiality": {
+        "transaction_value_usd": 1146757.5,
+        "max_transaction_holding_percent": 12.008123889312008,
+        "planned_transaction_count": 5,
+        "transaction_count": 5
+      },
+      "display_priority": "low",
+      "priority_reason": "已覆核 14 個樣本，採納率 0% ≤ 20%，只降低顯示優先級、不刪除事件。",
+      "headline": "Form 4 出現 5 列賣出，列為風險候選",
+      "evidence": [
+        "已知賣出金額合計 $1.1M；其中 5/5 列標示 10b5-1。",
+        "單筆最高約占交易前直接持股 12.01%。",
+        "10b5-1 是預先安排交易，訊號強度低於臨時主動賣出。"
+      ],
+      "why_candidate": "內部人賣出需看計畫屬性、持股比例與交易規模，不直接等於看空。",
+      "filing_date": "2026-10-14",
+      "detected_at": "2026-11-03T13:54:02+00:00",
+      "source_keys": [
+        "0000950103-26-015598"
+      ],
+      "sources": [
+        {
+          "label": "SEC 4",
+          "url": "https://www.sec.gov/Archives/edgar/data/1326801/000095010326015598/xslF345X06/ownership.xml"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 14,
+        "accepted_count": 0,
+        "acceptance_rate": 0.0,
+        "sample_status": "enough"
+      }
+    },
+    {
+      "id": "70765c792e2aaf11",
+      "ticker": "MSFT",
+      "type": "risk",
+      "type_label": "🔴 新增風險候選",
+      "status": "pending_ai_review",
+      "confidence": "low",
+      "rule_key": "form4_sell_10b5_1",
+      "materiality": {
+        "transaction_value_usd": 3984302.9925,
+        "max_transaction_holding_percent": 0.6019177911201565,
+        "planned_transaction_count": 3,
+        "transaction_count": 3
+      },
+      "display_priority": "low",
+      "priority_reason": "已覆核 14 個樣本，採納率 0% ≤ 20%，只降低顯示優先級、不刪除事件。",
+      "headline": "Form 4 出現 3 列賣出，列為風險候選",
+      "evidence": [
+        "已知賣出金額合計 $4.0M；其中 3/3 列標示 10b5-1。",
+        "單筆最高約占交易前直接持股 0.60%。",
+        "10b5-1 是預先安排交易，訊號強度低於臨時主動賣出。"
+      ],
+      "why_candidate": "內部人賣出需看計畫屬性、持股比例與交易規模，不直接等於看空。",
+      "filing_date": "2026-10-14",
+      "detected_at": "2026-11-03T13:54:02+00:00",
+      "source_keys": [
+        "0000789019-26-000226"
+      ],
+      "sources": [
+        {
+          "label": "SEC 4",
+          "url": "https://www.sec.gov/Archives/edgar/data/789019/000078901926000226/xslF345X06/form4.xml"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 14,
+        "accepted_count": 0,
+        "acceptance_rate": 0.0,
+        "sample_status": "enough"
+      }
+    },
+    {
+      "id": "8d6ad1fb8b1f831b",
+      "ticker": "AAPL",
+      "type": "risk",
+      "type_label": "🔴 新增風險候選",
+      "status": "pending_ai_review",
+      "confidence": "low",
+      "rule_key": "form4_sell_10b5_1",
+      "materiality": {
+        "transaction_value_usd": 796491.99,
+        "max_transaction_holding_percent": 5.712992951038293,
+        "planned_transaction_count": 1,
+        "transaction_count": 1
+      },
+      "display_priority": "low",
+      "priority_reason": "已覆核 14 個樣本，採納率 0% ≤ 20%，只降低顯示優先級、不刪除事件。",
+      "headline": "Form 4 出現 1 列賣出，列為風險候選",
+      "evidence": [
+        "已知賣出金額合計 $796.5K；其中 1/1 列標示 10b5-1。",
+        "單筆最高約占交易前直接持股 5.71%。",
+        "10b5-1 是預先安排交易，訊號強度低於臨時主動賣出。"
+      ],
+      "why_candidate": "內部人賣出需看計畫屬性、持股比例與交易規模，不直接等於看空。",
+      "filing_date": "2026-10-08",
+      "detected_at": "2026-11-03T13:54:02+00:00",
+      "source_keys": [
+        "0001140361-26-039158"
+      ],
+      "sources": [
+        {
+          "label": "SEC 4",
+          "url": "https://www.sec.gov/Archives/edgar/data/320193/000114036126039158/xslF345X06/form4.xml"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 14,
+        "accepted_count": 0,
+        "acceptance_rate": 0.0,
         "sample_status": "enough"
       }
     },
@@ -1617,135 +3546,6 @@
       ],
       "rule_quality": {
         "reviewed_count": 14,
-        "accepted_count": 0,
-        "acceptance_rate": 0.0,
-        "sample_status": "enough"
-      }
-    },
-    {
-      "id": "42faddda0e5a273f",
-      "ticker": "META",
-      "type": "risk",
-      "type_label": "🔴 新增風險候選",
-      "status": "pending_ai_review",
-      "confidence": "low",
-      "rule_key": "form144_proposed_sale",
-      "materiality": {
-        "planned_shares": 72199.0,
-        "planned_value_usd": 53268830.0,
-        "shares_outstanding": 2205128509.0,
-        "planned_shares_outstanding_percent": 0.0032741402464902783
-      },
-      "display_priority": "low",
-      "priority_reason": "已覆核 9 個樣本，採納率 0% ≤ 20%，只降低顯示優先級、不刪除事件。",
-      "headline": "新增 7 份 Form 144 擬售通知，列為低強度風險候選",
-      "evidence": [
-        "已解析擬售 72,199 股、申報估值 $53.3M。",
-        "約占申報所列已發行股數 0.00327%。",
-        "申報人：Cox Christopher K、Olivan Javier、Zuckerberg Mark。",
-        "Form 144 是擬售意向，不等於已成交；需等待後續 Form 4 或市場交易確認。"
-      ],
-      "why_candidate": "集中或大額擬售可能增加供給壓力，但證據強度低於已完成的非 10b5-1 賣出。",
-      "filing_date": "2026-10-05",
-      "detected_at": "2026-10-06T11:00:32+00:00",
-      "source_keys": [
-        "0001921094-26-001013",
-        "0001921094-26-001023",
-        "0001921094-26-001039",
-        "0001921094-26-001042",
-        "0001921094-26-001050",
-        "0001921094-26-001053",
-        "0001921094-26-001069"
-      ],
-      "sources": [
-        {
-          "label": "SEC Form 144",
-          "url": "https://www.sec.gov/Archives/edgar/data/1326801/000192109426001069/xsl144X01/primary_doc.xml"
-        },
-        {
-          "label": "SEC Form 144",
-          "url": "https://www.sec.gov/Archives/edgar/data/1326801/000192109426001053/xsl144X01/primary_doc.xml"
-        },
-        {
-          "label": "SEC Form 144",
-          "url": "https://www.sec.gov/Archives/edgar/data/1326801/000192109426001050/xsl144X01/primary_doc.xml"
-        },
-        {
-          "label": "SEC Form 144",
-          "url": "https://www.sec.gov/Archives/edgar/data/1326801/000192109426001042/xsl144X01/primary_doc.xml"
-        },
-        {
-          "label": "SEC Form 144",
-          "url": "https://www.sec.gov/Archives/edgar/data/1326801/000192109426001039/xsl144X01/primary_doc.xml"
-        },
-        {
-          "label": "SEC Form 144",
-          "url": "https://www.sec.gov/Archives/edgar/data/1326801/000192109426001023/xsl144X01/primary_doc.xml"
-        },
-        {
-          "label": "SEC Form 144",
-          "url": "https://www.sec.gov/Archives/edgar/data/1326801/000192109426001013/xsl144X01/primary_doc.xml"
-        }
-      ],
-      "rule_quality": {
-        "reviewed_count": 9,
-        "accepted_count": 0,
-        "acceptance_rate": 0.0,
-        "sample_status": "enough"
-      }
-    },
-    {
-      "id": "eed9b97c3a8fb632",
-      "ticker": "AAPL",
-      "type": "risk",
-      "type_label": "🔴 新增風險候選",
-      "status": "pending_ai_review",
-      "confidence": "low",
-      "rule_key": "form144_proposed_sale",
-      "materiality": {
-        "planned_shares": 289879.0,
-        "planned_value_usd": 27268912.42,
-        "shares_outstanding": 14594180000.0,
-        "planned_shares_outstanding_percent": 0.00198626438758464
-      },
-      "display_priority": "low",
-      "priority_reason": "已覆核 9 個樣本，採納率 0% ≤ 20%，只降低顯示優先級、不刪除事件。",
-      "headline": "新增 4 份 Form 144 擬售通知，列為低強度風險候選",
-      "evidence": [
-        "已解析擬售 289,879 股、申報估值 $27.3M。",
-        "約占申報所列已發行股數 0.00199%。",
-        "申報人：COOK TIMOTHY D、John Ternus、O'BRIEN DEIRDRE。",
-        "Form 144 是擬售意向，不等於已成交；需等待後續 Form 4 或市場交易確認。"
-      ],
-      "why_candidate": "集中或大額擬售可能增加供給壓力，但證據強度低於已完成的非 10b5-1 賣出。",
-      "filing_date": "2026-10-02",
-      "detected_at": "2026-10-03T09:39:49+00:00",
-      "source_keys": [
-        "0001950047-26-009738",
-        "0001958244-26-000636",
-        "0001959173-26-007235",
-        "0001969223-26-001055"
-      ],
-      "sources": [
-        {
-          "label": "SEC Form 144",
-          "url": "https://www.sec.gov/Archives/edgar/data/320193/000195824426000636/xsl144X01/primary_doc.xml"
-        },
-        {
-          "label": "SEC Form 144",
-          "url": "https://www.sec.gov/Archives/edgar/data/320193/000195917326007235/xsl144X01/primary_doc.xml"
-        },
-        {
-          "label": "SEC Form 144",
-          "url": "https://www.sec.gov/Archives/edgar/data/320193/000196922326001055/xsl144X01/primary_doc.xml"
-        },
-        {
-          "label": "SEC Form 144",
-          "url": "https://www.sec.gov/Archives/edgar/data/320193/000195004726009738/xsl144X01/primary_doc.xml"
-        }
-      ],
-      "rule_quality": {
-        "reviewed_count": 9,
         "accepted_count": 0,
         "acceptance_rate": 0.0,
         "sample_status": "enough"
@@ -2236,6 +4036,45 @@
         {
           "label": "SEC Form 144",
           "url": "https://www.sec.gov/Archives/edgar/data/789019/000195824426000598/xsl144X01/primary_doc.xml"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 9,
+        "accepted_count": 0,
+        "acceptance_rate": 0.0,
+        "sample_status": "enough"
+      }
+    },
+    {
+      "id": "7573407b4469c6d8",
+      "ticker": "TSM",
+      "type": "improvement",
+      "type_label": "🟢 改善候選",
+      "status": "pending_ai_review",
+      "confidence": "medium",
+      "rule_key": "form4_buy",
+      "materiality": {
+        "transaction_value_usd": 71490.0,
+        "max_transaction_holding_percent": 12.5
+      },
+      "display_priority": "low",
+      "priority_reason": "已覆核 9 個樣本，採納率 0% ≤ 20%，只降低顯示優先級、不刪除事件。",
+      "headline": "Form 4 出現 1 列主動買入，列為改善候選",
+      "evidence": [
+        "已知買入金額合計 $71.5K。",
+        "單筆最高約占交易後直接持股 12.50%。",
+        "交易代碼 P 代表公開市場或私下買入；仍需核對占持股與薪酬規模。"
+      ],
+      "why_candidate": "內部人主動投入資金可能支持信心，但不能單獨推論股價。",
+      "filing_date": "2026-11-03",
+      "detected_at": "2026-11-03T13:54:02+00:00",
+      "source_keys": [
+        "0001046179-26-000732"
+      ],
+      "sources": [
+        {
+          "label": "SEC 4",
+          "url": "https://www.sec.gov/Archives/edgar/data/1046179/000104617926000732/xslF345X06/wk-form4_1793707033.xml"
         }
       ],
       "rule_quality": {

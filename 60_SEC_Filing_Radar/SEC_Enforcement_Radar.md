@@ -1,6 +1,6 @@
 ---
 title: SEC 執法與停牌通知
-updated_at: 2026-10-08T11:08:05+00:00
+updated_at: 2026-11-03T13:54:02+00:00
 tags:
   - sec/enforcement
 ---

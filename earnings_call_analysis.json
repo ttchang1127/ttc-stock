@@ -1,7 +1,7 @@
 {
   "schema_version": 3,
   "parser_version": 16,
-  "updated_at": "2026-10-08T11:08:40+00:00",
+  "updated_at": "2026-11-03T13:56:08+00:00",
   "source": "Official company investor-relations pages and explicitly allow-listed linked hosts",
   "methodology": "Official text only; no audio transcription; short verbatim evidence; missing stays missing; no sentiment score",
   "source_types": {
@@ -97,8 +97,9 @@
       },
       "errors": [],
       "link_check": {
-        "status": "reachable",
-        "http_status": 200
+        "status": "unverified",
+        "http_status": 403,
+        "reason": "HTTP 403"
       },
       "history": [],
       "history_coverage": {
@@ -113,11 +114,11 @@
         "newer_candidates": []
       },
       "freshness": {
-        "status": "current",
-        "latest_financial_period": "2026-06-27",
-        "latest_financial_filing_date": "2026-07-31",
-        "meaning": "法說會日期未落後最新財務申報超過 45 天。",
-        "lag_days": 1
+        "status": "stale",
+        "latest_financial_period": "2026-09-26",
+        "latest_financial_filing_date": "2026-11-03",
+        "meaning": "法說會來源比最新財務申報早超過 45 天，可能仍是上一期；請更新官方來源後再當作最新卡閱讀。",
+        "lag_days": 96
       }
     },
     "AMZN": {
@@ -164,11 +165,11 @@
         "newer_candidates": []
       },
       "freshness": {
-        "status": "current",
-        "latest_financial_period": "2026-06-30",
-        "latest_financial_filing_date": "2026-07-31",
-        "meaning": "法說會日期未落後最新財務申報超過 45 天。",
-        "lag_days": 1
+        "status": "stale",
+        "latest_financial_period": "2026-09-30",
+        "latest_financial_filing_date": "2026-10-30",
+        "meaning": "法說會來源比最新財務申報早超過 45 天，可能仍是上一期；請更新官方來源後再當作最新卡閱讀。",
+        "lag_days": 92
       }
     },
     "ARM": {
@@ -782,10 +783,21 @@
       "q_and_a_available": true,
       "source_sha256": "cc0962ef5a53d57285567a64a67d2ad85e263564a779ffa4b8447aca5153b03f",
       "exhibit_comparison": {
-        "status": "unavailable",
-        "overlap_topics": [],
-        "call_only_topics": [],
-        "meaning": "沒有同公司可比的嚴格 Exhibit 99.1 卡，因此不推測兩份資料差異。"
+        "status": "topic_coverage_only",
+        "exhibit_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000080/googexhibit991q32026.htm",
+        "filing_date": "2026-10-28",
+        "overlap_topics": [
+          "demand_growth"
+        ],
+        "call_only_topics": [
+          "margin_cost",
+          "capital_supply",
+          "guidance",
+          "confidence",
+          "risks",
+          "analyst_questions"
+        ],
+        "meaning": "只比較兩份來源是否覆蓋同類主題；不代表內容一致、相反、利多或利空。"
       },
       "errors": [],
       "last_verified_at": "2026-09-27T04:01:29+00:00",
@@ -1177,11 +1189,11 @@
         "newer_candidates": []
       },
       "freshness": {
-        "status": "current",
-        "latest_financial_period": "2026-06-30",
-        "latest_financial_filing_date": "2026-07-23",
-        "meaning": "法說會日期未落後最新財務申報超過 45 天。",
-        "lag_days": 1
+        "status": "stale",
+        "latest_financial_period": "2026-09-30",
+        "latest_financial_filing_date": "2026-10-29",
+        "meaning": "法說會來源比最新財務申報早超過 45 天，可能仍是上一期；請更新官方來源後再當作最新卡閱讀。",
+        "lag_days": 99
       }
     },
     "INTC": {
@@ -1254,10 +1266,20 @@
       "q_and_a_available": false,
       "source_sha256": "6367250fec3eba1fc9ad8c3357f7c8d07e5c988c08a488fb631947a246d6c091",
       "exhibit_comparison": {
-        "status": "unavailable",
-        "overlap_topics": [],
-        "call_only_topics": [],
-        "meaning": "沒有同公司可比的嚴格 Exhibit 99.1 卡，因此不推測兩份資料差異。"
+        "status": "topic_coverage_only",
+        "exhibit_url": "https://www.sec.gov/Archives/edgar/data/50863/000005086326000188/q326earningsrelease.htm",
+        "filing_date": "2026-10-29",
+        "overlap_topics": [
+          "demand_growth",
+          "margin_cost",
+          "guidance"
+        ],
+        "call_only_topics": [
+          "capital_supply",
+          "confidence",
+          "risks"
+        ],
+        "meaning": "只比較兩份來源是否覆蓋同類主題；不代表內容一致、相反、利多或利空。"
       },
       "errors": [],
       "last_verified_at": "2026-08-30T00:29:00+00:00",
@@ -1672,11 +1694,11 @@
         "newer_candidates": []
       },
       "freshness": {
-        "status": "current",
-        "latest_financial_period": "2026-06-27",
-        "latest_financial_filing_date": "2026-07-24",
-        "meaning": "法說會日期未落後最新財務申報超過 45 天。",
-        "lag_days": 1
+        "status": "stale",
+        "latest_financial_period": "2026-09-26",
+        "latest_financial_filing_date": "2026-10-30",
+        "meaning": "法說會來源比最新財務申報早超過 45 天，可能仍是上一期；請更新官方來源後再當作最新卡閱讀。",
+        "lag_days": 99
       }
     },
     "META": {
@@ -1747,10 +1769,20 @@
       "q_and_a_available": true,
       "source_sha256": "2904d91d791f0b66936d2916e4d4e768e62f263ed7e23dc071cfc192821479b7",
       "exhibit_comparison": {
-        "status": "unavailable",
-        "overlap_topics": [],
-        "call_only_topics": [],
-        "meaning": "沒有同公司可比的嚴格 Exhibit 99.1 卡，因此不推測兩份資料差異。"
+        "status": "topic_coverage_only",
+        "exhibit_url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026066700/meta-09302026xexhibit991.htm",
+        "filing_date": "2026-10-21",
+        "overlap_topics": [
+          "demand_growth"
+        ],
+        "call_only_topics": [
+          "margin_cost",
+          "capital_supply",
+          "guidance",
+          "confidence",
+          "risks"
+        ],
+        "meaning": "只比較兩份來源是否覆蓋同類主題；不代表內容一致、相反、利多或利空。"
       },
       "errors": [],
       "last_verified_at": "2026-08-30T00:29:03+00:00",
@@ -2162,11 +2194,11 @@
         "newer_candidates": []
       },
       "freshness": {
-        "status": "current",
-        "latest_financial_period": "2026-06-30",
-        "latest_financial_filing_date": "2026-07-30",
-        "meaning": "法說會日期未落後最新財務申報超過 45 天。",
-        "lag_days": 1
+        "status": "stale",
+        "latest_financial_period": "2026-09-30",
+        "latest_financial_filing_date": "2026-10-22",
+        "meaning": "法說會來源比最新財務申報早超過 45 天，可能仍是上一期；請更新官方來源後再當作最新卡閱讀。",
+        "lag_days": 85
       }
     },
     "MRVL": {
@@ -2287,10 +2319,20 @@
       "q_and_a_available": true,
       "source_sha256": "96c66d2d6926bd3cbbc956fa62a9b459e9364b9c4d686da3a9381bc8ff47b957",
       "exhibit_comparison": {
-        "status": "unavailable",
-        "overlap_topics": [],
-        "call_only_topics": [],
-        "meaning": "沒有同公司可比的嚴格 Exhibit 99.1 卡，因此不推測兩份資料差異。"
+        "status": "topic_coverage_only",
+        "exhibit_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526436122/msft-ex99_1.htm",
+        "filing_date": "2026-10-28",
+        "overlap_topics": [
+          "demand_growth",
+          "margin_cost",
+          "confidence"
+        ],
+        "call_only_topics": [
+          "capital_supply",
+          "guidance",
+          "analyst_questions"
+        ],
+        "meaning": "只比較兩份來源是否覆蓋同類主題；不代表內容一致、相反、利多或利空。"
       },
       "errors": [],
       "last_verified_at": "2026-08-30T00:29:03+00:00",
@@ -2683,11 +2725,11 @@
         "newer_candidates": []
       },
       "freshness": {
-        "status": "current",
-        "latest_financial_period": "2026-06-30",
-        "latest_financial_filing_date": "2026-07-29",
-        "meaning": "法說會日期未落後最新財務申報超過 45 天。",
-        "lag_days": 0
+        "status": "stale",
+        "latest_financial_period": "2026-09-30",
+        "latest_financial_filing_date": "2026-10-28",
+        "meaning": "法說會來源比最新財務申報早超過 45 天，可能仍是上一期；請更新官方來源後再當作最新卡閱讀。",
+        "lag_days": 91
       }
     },
     "NOK": {
@@ -3324,11 +3366,11 @@
         "newer_candidates": []
       },
       "freshness": {
-        "status": "current",
-        "latest_financial_period": "2026-06-30",
-        "latest_financial_filing_date": "2026-07-23",
-        "meaning": "法說會日期未落後最新財務申報超過 45 天。",
-        "lag_days": 1
+        "status": "stale",
+        "latest_financial_period": "2026-09-30",
+        "latest_financial_filing_date": "2026-10-22",
+        "meaning": "法說會來源比最新財務申報早超過 45 天，可能仍是上一期；請更新官方來源後再當作最新卡閱讀。",
+        "lag_days": 92
       }
     },
     "TSM": {
@@ -3351,6 +3393,7 @@
         "landing_host": "investor.tsmc.com",
         "material_host": "investor.tsmc.com"
       },
+      "status": "analyzed",
       "categories": {
         "demand_growth": [
           {
@@ -3397,12 +3440,9 @@
         "call_only_topics": [],
         "meaning": "沒有同公司可比的嚴格 Exhibit 99.1 卡，因此不推測兩份資料差異。"
       },
-      "card": "20_Filings/TSM/analysis/TSM_2026_Q2_Earnings_Call.md",
+      "errors": [],
       "last_verified_at": "2026-09-27T09:58:11+00:00",
-      "status": "analyzed_cached",
-      "errors": [
-        "本次下載失敗，保留上次已驗證卡：URLError"
-      ],
+      "card": "20_Filings/TSM/analysis/TSM_2026_Q2_Earnings_Call.md",
       "history": [
         {
           "period": "2026 Q2",
@@ -3414,7 +3454,7 @@
           ],
           "source_type": "full_transcript",
           "source_label": "完整官方逐字稿",
-          "status": "analyzed_cached",
+          "status": "analyzed",
           "categories": {
             "demand_growth": [
               {
@@ -3462,9 +3502,7 @@
           },
           "card": "20_Filings/TSM/analysis/TSM_2026_Q2_Earnings_Call.md",
           "last_verified_at": "2026-09-27T09:58:11+00:00",
-          "errors": [
-            "本次下載失敗，保留上次已驗證卡：URLError"
-          ]
+          "errors": []
         },
         {
           "period": "2026 Q1",
@@ -3804,8 +3842,7 @@
         }
       ],
       "discovery": {
-        "status": "unverified",
-        "reason": "URLError",
+        "status": "checked",
         "newer_candidates": []
       },
       "freshness": {

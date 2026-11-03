@@ -1,6 +1,6 @@
 ---
 title: 官方 Earnings Call 與 Prepared Remarks 雷達
-updated_at: 2026-10-08T11:08:40+00:00
+updated_at: 2026-11-03T13:56:08+00:00
 tags:
   - earnings-call
   - investor-relations
@@ -19,20 +19,20 @@ tags:
 
 | 公司 | 期間／日期 | 官方資料型態 | 四季文字 | 狀態 | 入口 |
 |---|---|---|---|---|---|
-| **AAPL** | FY2026 Q3／2026-07-30 | 僅官方影音／回放 | 不適用（僅影音） | 🎧 僅影音 | [官方來源](https://www.apple.com/newsroom/2026/07/apple-reports-third-quarter-results/) |
-| **AMZN** | 2026 Q2／2026-07-30 | 僅官方影音／回放 | 不適用（僅影音） | 🎧 僅影音 | [官方來源](https://ir.aboutamazon.com/events/event-details/default.aspx) |
+| **AAPL** | FY2026 Q3／2026-07-30 | 僅官方影音／回放 | 不適用（僅影音） | 🎧 僅影音；⏳ 來源可能過期 | [官方來源](https://www.apple.com/newsroom/2026/07/apple-reports-third-quarter-results/) |
+| **AMZN** | 2026 Q2／2026-07-30 | 僅官方影音／回放 | 不適用（僅影音） | 🎧 僅影音；⏳ 來源可能過期 | [官方來源](https://ir.aboutamazon.com/events/event-details/default.aspx) |
 | **ARM** | FY2027 Q1／2026-07-29 | 完整官方逐字稿 | 4/4 季 | ✅ 已建立文字卡 | [[20_Filings/ARM/analysis/ARM_FY2027_Q1_Earnings_Call|閱讀卡]] |
 | **COHR** | FY2026 Q4／2026-08-12 | 僅官方影音／回放 | 不適用（僅影音） | 🎧 僅影音 | [官方來源](https://ir.coherent.com/events/event-details/fourth-quarter-and-fiscal-year-end-2026-conference-call) |
-| **GOOGL** | 2026 Q2／2026-07-22 | 完整官方逐字稿 | 4/4 季 | ✅ 已建立文字卡 | [[20_Filings/GOOGL/analysis/GOOGL_2026_Q2_Earnings_Call|閱讀卡]] |
-| **INTC** | 2026 Q2／2026-07-23 | 官方 Prepared Remarks | 4/4 季 | ✅ 已建立文字卡 | [[20_Filings/INTC/analysis/INTC_2026_Q2_Earnings_Call|閱讀卡]] |
-| **META** | 2026 Q2／2026-07-29 | 完整官方逐字稿 | 4/4 季 | ✅ 已建立文字卡 | [[20_Filings/META/analysis/META_2026_Q2_Earnings_Call|閱讀卡]] |
+| **GOOGL** | 2026 Q2／2026-07-22 | 完整官方逐字稿 | 4/4 季 | ✅ 已建立文字卡；⏳ 來源可能過期 | [[20_Filings/GOOGL/analysis/GOOGL_2026_Q2_Earnings_Call|閱讀卡]] |
+| **INTC** | 2026 Q2／2026-07-23 | 官方 Prepared Remarks | 4/4 季 | ✅ 已建立文字卡；⏳ 來源可能過期 | [[20_Filings/INTC/analysis/INTC_2026_Q2_Earnings_Call|閱讀卡]] |
+| **META** | 2026 Q2／2026-07-29 | 完整官方逐字稿 | 4/4 季 | ✅ 已建立文字卡；⏳ 來源可能過期 | [[20_Filings/META/analysis/META_2026_Q2_Earnings_Call|閱讀卡]] |
 | **MRVL** | FY2027 Q2／2026-08-27 | 僅官方影音／回放 | 不適用（僅影音） | 🎧 僅影音 | [官方來源](https://investor.marvell.com/news-events/press-releases/detail/1031/marvell-technology-inc-reports-second-quarter-of-fiscal-year-2027-financial-results) |
-| **MSFT** | FY2026 Q4／2026-07-29 | 完整官方逐字稿 | 4/4 季 | ✅ 已建立文字卡 | [[20_Filings/MSFT/analysis/MSFT_FY2026_Q4_Earnings_Call|閱讀卡]] |
+| **MSFT** | FY2026 Q4／2026-07-29 | 完整官方逐字稿 | 4/4 季 | ✅ 已建立文字卡；⏳ 來源可能過期 | [[20_Filings/MSFT/analysis/MSFT_FY2026_Q4_Earnings_Call|閱讀卡]] |
 | **NOK** | 2026 Q2／2026-07-23 | 僅官方影音／回放 | 不適用（僅影音） | 🎧 僅影音 | [官方來源](https://www.nokia.com/about-us/investors/results-reports/) |
 | **NVDA** | FY2027 Q2／2026-08-26 | 完整官方逐字稿 | 4/4 季 | ✅ 已建立文字卡 | [[20_Filings/NVDA/analysis/NVDA_FY2027_Q2_Earnings_Call|閱讀卡]] |
 | **ONDS** | 2026 Q2／2026-08-13 | 僅官方影音／回放 | 不適用（僅影音） | 🎧 僅影音 | [官方來源](https://ir.ondas.com/) |
-| **TSLA** | 2026 Q2／2026-07-22 | 僅官方影音／回放 | 不適用（僅影音） | 🎧 僅影音 | [官方來源](https://ir.tesla.com/webcast-2026-07-22) |
-| **TSM** | 2026 Q2／2026-07-16 | 完整官方逐字稿 | 4/4 季 | ⚠️ 本次下載失敗；顯示上次驗證卡 | [[20_Filings/TSM/analysis/TSM_2026_Q2_Earnings_Call|閱讀卡]] |
+| **TSLA** | 2026 Q2／2026-07-22 | 僅官方影音／回放 | 不適用（僅影音） | 🎧 僅影音；⏳ 來源可能過期 | [官方來源](https://ir.tesla.com/webcast-2026-07-22) |
+| **TSM** | 2026 Q2／2026-07-16 | 完整官方逐字稿 | 4/4 季 | ✅ 已建立文字卡 | [[20_Filings/TSM/analysis/TSM_2026_Q2_Earnings_Call|閱讀卡]] |
 
 ## 每個欄位怎麼讀
 

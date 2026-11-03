@@ -2,7 +2,7 @@
   "schema_version": 1,
   "updated_at": "2026-11-03T13:46:09+00:00",
   "tracked_count": 14,
-  "pending_count": 7,
+  "pending_count": 8,
   "auto_synced_count": 0,
   "methodology": {
     "detection": "監看 SEC／IR 季度資料與已解析 Exhibit 99.1；新期先建立候選。",
@@ -257,18 +257,29 @@
     {
       "ticker": "MRVL",
       "name": "Marvell",
-      "status": "up_to_date",
-      "candidate_id": "MRVL:2026-08-01:up_to_date",
+      "status": "pending_review",
+      "candidate_id": "MRVL:2026-11-02:pending_review",
       "latest_history_period": "FY2027 Q2",
       "latest_history_period_end": "2026-08-01",
       "period_count": 4,
       "max_periods": 8,
       "current_input_period": "FY2027 Q2",
       "current_input_source_date": "2026-08-27",
-      "detected_source": null,
-      "reason_codes": [],
-      "reasons": [],
-      "next_action": "無需處理；等待下一份正式季度結果或 Exhibit 99.1。"
+      "detected_source": {
+        "kind": "exhibit_99_1",
+        "form": "8-K",
+        "filing_date": "2026-11-02",
+        "period_end": null,
+        "accession": "0001193125-26-442714",
+        "url": "https://www.sec.gov/Archives/edgar/data/1835632/000119312526442714/d81187dex991.htm"
+      },
+      "reason_codes": [
+        "awaiting_period_match"
+      ],
+      "reasons": [
+        "Exhibit 99.1 已出現，但季度期末尚未確認"
+      ],
+      "next_action": "核對官方分部表、期間與口徑後更新單期輸入；系統會在下次執行自動寫入。"
     },
     {
       "ticker": "INTC",
