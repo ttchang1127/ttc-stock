@@ -1,15 +1,15 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-20T01:58:49+00:00",
+  "generated_at": "2026-11-03T13:46:09+00:00",
   "editorial_reviewed_at": "2026-09-12T18:31:51+08:00",
   "editorial_window_end": "2026-09-12",
   "status": "pending_ai_review",
-  "candidate_count": 49,
-  "company_count": 12,
+  "candidate_count": 63,
+  "company_count": 13,
   "counts": {
-    "risk": 32,
+    "risk": 39,
     "improvement": 8,
-    "conclusion": 9
+    "conclusion": 16
   },
   "calibration_updated_at": "2026-09-12T18:31:51+08:00",
   "lower_priority_count": 37,
@@ -95,6 +95,243 @@
         "accepted_count": 3,
         "acceptance_rate": 0.5,
         "sample_status": "enough"
+      }
+    },
+    {
+      "id": "c56972160c337f1e",
+      "ticker": "INTC",
+      "type": "risk",
+      "type_label": "🔴 新增風險候選",
+      "status": "pending_ai_review",
+      "confidence": "high",
+      "rule_key": "segment_thesis_change",
+      "materiality": {
+        "segment_score": 0,
+        "segment_signal": "needs_review",
+        "period_end": "2026-06-27"
+      },
+      "display_priority": "normal",
+      "priority_reason": "目前規則樣本不足或採納率未達降級門檻，維持原顯示優先級。",
+      "headline": "分部趨勢與投資論點聯動更新：新一期待覆核",
+      "evidence": [
+        "新一期待覆核；先完成口徑／數字覆核，不改變既有論點。分部證據分數 +0/8，只調整 SEC 證據權重，不直接改寫投資論點總狀態。",
+        "新一期尚未通過安全勾稽：單期分部輸入尚未更新到新季度。",
+        "2026 Q2 已收錄分部合計 QoQ +18.8%、YoY —。",
+        "主要季增驅動更換：Intel Foundry → DCAI。",
+        "產品與晶圓代工轉型恢復營收成長：支持；已收錄分部合計 QoQ +18.8%、YoY —；只代表本表已收錄且同口徑項目。",
+        "製程與產能利用率帶動毛利率復甦：持續觀察；本期分部表未提供可比較的分部利益率；不能用分部營收替代利益率。"
+      ],
+      "why_candidate": "只有分部 linkage fingerprint 相較最近 AI 覆核改變才列入；需讀官方分部表後決定是否改寫正式結論。",
+      "filing_date": "2026-07-24",
+      "detected_at": "2026-11-03T13:46:09+00:00",
+      "source_keys": [
+        "de565697fcf0e93a99e9"
+      ],
+      "sources": [
+        {
+          "label": "官方分部表",
+          "url": "https://www.intc.com/filings-reports/quarterly-reports/content/0000050863-26-000157/0000050863-26-000157.pdf"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 0,
+        "accepted_count": 0,
+        "acceptance_rate": null,
+        "sample_status": "insufficient"
+      }
+    },
+    {
+      "id": "f54b2d63e1a88c46",
+      "ticker": "GOOG",
+      "type": "risk",
+      "type_label": "🔴 新增風險候選",
+      "status": "pending_ai_review",
+      "confidence": "high",
+      "rule_key": "segment_thesis_change",
+      "materiality": {
+        "segment_score": 0,
+        "segment_signal": "needs_review",
+        "period_end": "2026-06-30"
+      },
+      "display_priority": "normal",
+      "priority_reason": "目前規則樣本不足或採納率未達降級門檻，維持原顯示優先級。",
+      "headline": "分部趨勢與投資論點聯動更新：新一期待覆核",
+      "evidence": [
+        "新一期待覆核；先完成口徑／數字覆核，不改變既有論點。分部證據分數 +0/8，只調整 SEC 證據權重，不直接改寫投資論點總狀態。",
+        "新一期尚未通過安全勾稽：單期分部輸入尚未更新到新季度。",
+        "2026 Q2 已收錄分部合計 QoQ +8.7%、YoY +24.0%。",
+        "主要季增驅動更換：Google Cloud → Google Services。",
+        "搜尋、Cloud 與 AI 產品維持成長：支持；已收錄分部合計 QoQ +8.7%、YoY +24.0%；只代表本表已收錄且同口徑項目。",
+        "廣告與雲端組合維持高營業利益率：持續觀察；本期分部表未提供可比較的分部利益率；不能用分部營收替代利益率。"
+      ],
+      "why_candidate": "只有分部 linkage fingerprint 相較最近 AI 覆核改變才列入；需讀官方分部表後決定是否改寫正式結論。",
+      "filing_date": "2026-07-23",
+      "detected_at": "2026-11-03T13:46:09+00:00",
+      "source_keys": [
+        "46cfbfa304521a6bbd25"
+      ],
+      "sources": [
+        {
+          "label": "官方分部表",
+          "url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/goog-20260630.htm"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 0,
+        "accepted_count": 0,
+        "acceptance_rate": null,
+        "sample_status": "insufficient"
+      }
+    },
+    {
+      "id": "4c4915e21121e718",
+      "ticker": "TSLA",
+      "type": "risk",
+      "type_label": "🔴 新增風險候選",
+      "status": "pending_ai_review",
+      "confidence": "high",
+      "rule_key": "segment_thesis_change",
+      "materiality": {
+        "segment_score": 0,
+        "segment_signal": "needs_review",
+        "period_end": "2026-06-30"
+      },
+      "display_priority": "normal",
+      "priority_reason": "目前規則樣本不足或採納率未達降級門檻，維持原顯示優先級。",
+      "headline": "分部趨勢與投資論點聯動更新：新一期待覆核",
+      "evidence": [
+        "新一期待覆核；先完成口徑／數字覆核，不改變既有論點。分部證據分數 +0/8，只調整 SEC 證據權重，不直接改寫投資論點總狀態。",
+        "新一期尚未通過安全勾稽：單期分部輸入尚未更新到新季度。",
+        "2026 Q2 已收錄分部合計 QoQ +26.1%、YoY +25.5%。",
+        "主要季增驅動更換：Services and other → Total automotive revenues。",
+        "車輛、儲能與軟體維持成長：支持；已收錄分部合計 QoQ +26.1%、YoY +25.5%；只代表本表已收錄且同口徑項目。",
+        "降價與新產品週期後毛利率能回升：持續觀察；本期分部表未提供可比較的分部利益率；不能用分部營收替代利益率。"
+      ],
+      "why_candidate": "只有分部 linkage fingerprint 相較最近 AI 覆核改變才列入；需讀官方分部表後決定是否改寫正式結論。",
+      "filing_date": "2026-07-23",
+      "detected_at": "2026-11-03T13:46:09+00:00",
+      "source_keys": [
+        "beb22f050d3c353632f1"
+      ],
+      "sources": [
+        {
+          "label": "官方分部表",
+          "url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026049213/exhibit991.htm"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 0,
+        "accepted_count": 0,
+        "acceptance_rate": null,
+        "sample_status": "insufficient"
+      }
+    },
+    {
+      "id": "1b02dde5ce16760d",
+      "ticker": "INTC",
+      "type": "conclusion",
+      "type_label": "🟡 結論變化候選",
+      "status": "pending_ai_review",
+      "confidence": "high",
+      "rule_key": "quarterly_fingerprint",
+      "materiality": {},
+      "display_priority": "normal",
+      "priority_reason": "目前規則樣本不足或採納率未達降級門檻，維持原顯示優先級。",
+      "headline": "最新季度數字已變更，需要重算財務連續性與結論",
+      "evidence": [
+        "財報期末 2026-09-26；營收 YoY +20.9%。",
+        "毛利率 +43.0%；FCF 為正。",
+        "稀釋股數 YoY +17.1%。"
+      ],
+      "why_candidate": "季度指紋與上次 AI 覆核基準不同；規則只列候選，不自行改寫結論。",
+      "filing_date": "2026-10-30",
+      "detected_at": "2026-11-03T13:46:09+00:00",
+      "source_keys": [
+        "0000050863-26-000191"
+      ],
+      "sources": [
+        {
+          "label": "10-Q 原文",
+          "url": "https://www.sec.gov/Archives/edgar/data/50863/000005086326000191/0000050863-26-000191-index.html"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 0,
+        "accepted_count": 0,
+        "acceptance_rate": null,
+        "sample_status": "insufficient"
+      }
+    },
+    {
+      "id": "7336234452a664c5",
+      "ticker": "GOOG",
+      "type": "conclusion",
+      "type_label": "🟡 結論變化候選",
+      "status": "pending_ai_review",
+      "confidence": "high",
+      "rule_key": "quarterly_fingerprint",
+      "materiality": {},
+      "display_priority": "normal",
+      "priority_reason": "目前規則樣本不足或採納率未達降級門檻，維持原顯示優先級。",
+      "headline": "最新季度數字已變更，需要重算財務連續性與結論",
+      "evidence": [
+        "財報期末 2026-09-30；營收 YoY +24.7%。",
+        "毛利率 +59.7%；FCF 為負。",
+        "稀釋股數 YoY +1.4%。"
+      ],
+      "why_candidate": "季度指紋與上次 AI 覆核基準不同；規則只列候選，不自行改寫結論。",
+      "filing_date": "2026-10-29",
+      "detected_at": "2026-11-03T13:46:09+00:00",
+      "source_keys": [
+        "0001652044-26-000084"
+      ],
+      "sources": [
+        {
+          "label": "10-Q 原文",
+          "url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000084/0001652044-26-000084-index.html"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 0,
+        "accepted_count": 0,
+        "acceptance_rate": null,
+        "sample_status": "insufficient"
+      }
+    },
+    {
+      "id": "d43a5a6de5941603",
+      "ticker": "TSLA",
+      "type": "conclusion",
+      "type_label": "🟡 結論變化候選",
+      "status": "pending_ai_review",
+      "confidence": "high",
+      "rule_key": "quarterly_fingerprint",
+      "materiality": {},
+      "display_priority": "normal",
+      "priority_reason": "目前規則樣本不足或採納率未達降級門檻，維持原顯示優先級。",
+      "headline": "最新季度數字已變更，需要重算財務連續性與結論",
+      "evidence": [
+        "財報期末 2026-09-30；營收 YoY -0.2%。",
+        "毛利率 +19.6%；FCF 為正。",
+        "稀釋股數 YoY +0.4%。"
+      ],
+      "why_candidate": "季度指紋與上次 AI 覆核基準不同；規則只列候選，不自行改寫結論。",
+      "filing_date": "2026-10-22",
+      "detected_at": "2026-11-03T13:46:09+00:00",
+      "source_keys": [
+        "0001628280-26-066775"
+      ],
+      "sources": [
+        {
+          "label": "10-Q 原文",
+          "url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026066775/0001628280-26-066775-index.html"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 0,
+        "accepted_count": 0,
+        "acceptance_rate": null,
+        "sample_status": "insufficient"
       }
     },
     {
@@ -691,6 +928,323 @@
         "accepted_count": 3,
         "acceptance_rate": 0.5,
         "sample_status": "enough"
+      }
+    },
+    {
+      "id": "bd13b01b4cbcab9d",
+      "ticker": "AAPL",
+      "type": "risk",
+      "type_label": "🔴 新增風險候選",
+      "status": "pending_ai_review",
+      "confidence": "high",
+      "rule_key": "segment_thesis_change",
+      "materiality": {
+        "segment_score": 0,
+        "segment_signal": "needs_review",
+        "period_end": "2026-06-27"
+      },
+      "display_priority": "normal",
+      "priority_reason": "目前規則樣本不足或採納率未達降級門檻，維持原顯示優先級。",
+      "headline": "分部趨勢與投資論點聯動更新：新一期待覆核",
+      "evidence": [
+        "新一期待覆核；先完成口徑／數字覆核，不改變既有論點。分部證據分數 +0/8，只調整 SEC 證據權重，不直接改寫投資論點總狀態。",
+        "新一期尚未通過安全勾稽：單期分部輸入尚未更新到新季度。",
+        "FY2026 Q3 已收錄分部合計 QoQ -1.6%、YoY +16.4%。",
+        "主要季增驅動更換：服務 → Mac。",
+        "裝置生態與服務收入維持成長：形成壓力；已收錄分部合計 QoQ -1.6%、YoY +16.4%；只代表本表已收錄且同口徑項目。",
+        "高價品牌與服務組合維持毛利率：持續觀察；本期分部表未提供可比較的分部利益率；不能用分部營收替代利益率。"
+      ],
+      "why_candidate": "只有分部 linkage fingerprint 相較最近 AI 覆核改變才列入；需讀官方分部表後決定是否改寫正式結論。",
+      "filing_date": "2026-07-30",
+      "detected_at": "2026-11-03T13:46:09+00:00",
+      "source_keys": [
+        "3022c43c787c6c960f91"
+      ],
+      "sources": [
+        {
+          "label": "官方分部表",
+          "url": "https://www.apple.com/newsroom/pdfs/fy2026q3/FY26_Q3_Consolidated_Financial_Statements.pdf"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 0,
+        "accepted_count": 0,
+        "acceptance_rate": null,
+        "sample_status": "insufficient"
+      }
+    },
+    {
+      "id": "e3abc9784bbc9a8a",
+      "ticker": "AMZN",
+      "type": "risk",
+      "type_label": "🔴 新增風險候選",
+      "status": "pending_ai_review",
+      "confidence": "high",
+      "rule_key": "segment_thesis_change",
+      "materiality": {
+        "segment_score": 0,
+        "segment_signal": "needs_review",
+        "period_end": "2026-06-30"
+      },
+      "display_priority": "normal",
+      "priority_reason": "目前規則樣本不足或採納率未達降級門檻，維持原顯示優先級。",
+      "headline": "分部趨勢與投資論點聯動更新：新一期待覆核",
+      "evidence": [
+        "新一期待覆核；先完成口徑／數字覆核，不改變既有論點。分部證據分數 +0/8，只調整 SEC 證據權重，不直接改寫投資論點總狀態。",
+        "新一期尚未通過安全勾稽：單期分部輸入尚未更新到新季度。",
+        "2026 Q2 已收錄分部合計 QoQ +10.5%、YoY +19.6%。",
+        "主要季增驅動更換：AWS → North America。",
+        "AWS、廣告與零售共同推動雙位數成長：支持；已收錄分部合計 QoQ +10.5%、YoY +19.6%；只代表本表已收錄且同口徑項目。",
+        "規模經濟帶動營業利益率提升：持續觀察；分部利益率最大變化 +1.7pp、最小變化 +0.0pp。"
+      ],
+      "why_candidate": "只有分部 linkage fingerprint 相較最近 AI 覆核改變才列入；需讀官方分部表後決定是否改寫正式結論。",
+      "filing_date": "2026-07-30",
+      "detected_at": "2026-11-03T13:46:09+00:00",
+      "source_keys": [
+        "24eee0fba02590f8fb78"
+      ],
+      "sources": [
+        {
+          "label": "官方分部表",
+          "url": "https://ir.aboutamazon.com/news-release/news-release-details/2026/Amazon-com-Announces-Second-Quarter-Results/default.aspx"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 0,
+        "accepted_count": 0,
+        "acceptance_rate": null,
+        "sample_status": "insufficient"
+      }
+    },
+    {
+      "id": "897dcee8fbd5b641",
+      "ticker": "META",
+      "type": "risk",
+      "type_label": "🔴 新增風險候選",
+      "status": "pending_ai_review",
+      "confidence": "high",
+      "rule_key": "segment_thesis_change",
+      "materiality": {
+        "segment_score": 0,
+        "segment_signal": "needs_review",
+        "period_end": "2026-06-30"
+      },
+      "display_priority": "normal",
+      "priority_reason": "目前規則樣本不足或採納率未達降級門檻，維持原顯示優先級。",
+      "headline": "分部趨勢與投資論點聯動更新：新一期待覆核",
+      "evidence": [
+        "新一期待覆核；先完成口徑／數字覆核，不改變既有論點。分部證據分數 +0/8，只調整 SEC 證據權重，不直接改寫投資論點總狀態。",
+        "新一期尚未通過安全勾稽：單期分部輸入尚未更新到新季度。",
+        "2026 Q2 已收錄分部合計 QoQ +8.0%、YoY +28.0%。",
+        "分部利益率明顯下降：Family of Apps 利益率季減 -9.3pp 至 38.8%。",
+        "分部利益率明顯下降：Reality Labs 利益率季減 -69.7pp 至 -1071.7%。",
+        "AI 推薦與廣告效率推動營收成長：支持；已收錄分部合計 QoQ +8.0%、YoY +28.0%；只代表本表已收錄且同口徑項目。",
+        "核心廣告業務可負擔 AI 與 Reality Labs 投資：形成壓力；分部利益率最大變化 -9.3pp、最小變化 -69.7pp。"
+      ],
+      "why_candidate": "只有分部 linkage fingerprint 相較最近 AI 覆核改變才列入；需讀官方分部表後決定是否改寫正式結論。",
+      "filing_date": "2026-07-29",
+      "detected_at": "2026-11-03T13:46:09+00:00",
+      "source_keys": [
+        "13cf79032ad77af56d0d"
+      ],
+      "sources": [
+        {
+          "label": "官方分部表",
+          "url": "https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Second-Quarter-2026-Results/default.aspx"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 0,
+        "accepted_count": 0,
+        "acceptance_rate": null,
+        "sample_status": "insufficient"
+      }
+    },
+    {
+      "id": "e82146b83fe9085a",
+      "ticker": "MSFT",
+      "type": "risk",
+      "type_label": "🔴 新增風險候選",
+      "status": "pending_ai_review",
+      "confidence": "high",
+      "rule_key": "segment_thesis_change",
+      "materiality": {
+        "segment_score": 0,
+        "segment_signal": "needs_review",
+        "period_end": "2026-06-30"
+      },
+      "display_priority": "normal",
+      "priority_reason": "目前規則樣本不足或採納率未達降級門檻，維持原顯示優先級。",
+      "headline": "分部趨勢與投資論點聯動更新：新一期待覆核",
+      "evidence": [
+        "新一期待覆核；先完成口徑／數字覆核，不改變既有論點。分部證據分數 +0/8，只調整 SEC 證據權重，不直接改寫投資論點總狀態。",
+        "新一期尚未通過安全勾稽：單期分部輸入尚未更新到新季度。",
+        "FY2026 Q4 已收錄分部合計 QoQ +8.6%、YoY +17.7%。",
+        "分部利益率明顯下降：More Personal Computing 利益率季減 -6.4pp 至 21.4%。",
+        "雲端與 AI 商業化維持雙位數成長：支持；已收錄分部合計 QoQ +8.6%、YoY +17.7%；只代表本表已收錄且同口徑項目。",
+        "軟體規模經濟維持高營業利益率：形成壓力；分部利益率最大變化 +0.9pp、最小變化 -6.4pp。"
+      ],
+      "why_candidate": "只有分部 linkage fingerprint 相較最近 AI 覆核改變才列入；需讀官方分部表後決定是否改寫正式結論。",
+      "filing_date": "2026-07-29",
+      "detected_at": "2026-11-03T13:46:09+00:00",
+      "source_keys": [
+        "cbac7ccb51e004dd6d32"
+      ],
+      "sources": [
+        {
+          "label": "官方分部表",
+          "url": "https://www.microsoft.com/en-us/investor/earnings/fy-2026-q4/press-release-webcast"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 0,
+        "accepted_count": 0,
+        "acceptance_rate": null,
+        "sample_status": "insufficient"
+      }
+    },
+    {
+      "id": "128c8383662c429a",
+      "ticker": "AAPL",
+      "type": "conclusion",
+      "type_label": "🟡 結論變化候選",
+      "status": "pending_ai_review",
+      "confidence": "high",
+      "rule_key": "quarterly_fingerprint",
+      "materiality": {},
+      "display_priority": "normal",
+      "priority_reason": "目前規則樣本不足或採納率未達降級門檻，維持原顯示優先級。",
+      "headline": "最新季度數字已變更，需要重算財務連續性與結論",
+      "evidence": [
+        "財報期末 2026-09-26；營收 YoY +11.7%。",
+        "毛利率 +47.9%；FCF 為正。",
+        "稀釋股數 YoY —。"
+      ],
+      "why_candidate": "季度指紋與上次 AI 覆核基準不同；規則只列候選，不自行改寫結論。",
+      "filing_date": "2026-11-03",
+      "detected_at": "2026-11-03T13:46:09+00:00",
+      "source_keys": [
+        "0000320193-26-000026"
+      ],
+      "sources": [
+        {
+          "label": "10-K 原文",
+          "url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000026/0000320193-26-000026-index.html"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 0,
+        "accepted_count": 0,
+        "acceptance_rate": null,
+        "sample_status": "insufficient"
+      }
+    },
+    {
+      "id": "9b0b08bbc58e5e7f",
+      "ticker": "AMZN",
+      "type": "conclusion",
+      "type_label": "🟡 結論變化候選",
+      "status": "pending_ai_review",
+      "confidence": "high",
+      "rule_key": "quarterly_fingerprint",
+      "materiality": {},
+      "display_priority": "normal",
+      "priority_reason": "目前規則樣本不足或採納率未達降級門檻，維持原顯示優先級。",
+      "headline": "最新季度數字已變更，需要重算財務連續性與結論",
+      "evidence": [
+        "財報期末 2026-09-30；營收 YoY +12.1%。",
+        "毛利率 +53.2%；FCF 為負。",
+        "稀釋股數 YoY +0.8%。"
+      ],
+      "why_candidate": "季度指紋與上次 AI 覆核基準不同；規則只列候選，不自行改寫結論。",
+      "filing_date": "2026-10-30",
+      "detected_at": "2026-11-03T13:46:09+00:00",
+      "source_keys": [
+        "0001018724-26-000040"
+      ],
+      "sources": [
+        {
+          "label": "10-Q 原文",
+          "url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000040/0001018724-26-000040-index.html"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 0,
+        "accepted_count": 0,
+        "acceptance_rate": null,
+        "sample_status": "insufficient"
+      }
+    },
+    {
+      "id": "ecb660592a2f81dc",
+      "ticker": "MSFT",
+      "type": "conclusion",
+      "type_label": "🟡 結論變化候選",
+      "status": "pending_ai_review",
+      "confidence": "high",
+      "rule_key": "quarterly_fingerprint",
+      "materiality": {},
+      "display_priority": "normal",
+      "priority_reason": "目前規則樣本不足或採納率未達降級門檻，維持原顯示優先級。",
+      "headline": "最新季度數字已變更，需要重算財務連續性與結論",
+      "evidence": [
+        "財報期末 2026-09-30；營收 YoY +18.8%。",
+        "毛利率 +67.8%；FCF 為正。",
+        "稀釋股數 YoY -0.3%。"
+      ],
+      "why_candidate": "季度指紋與上次 AI 覆核基準不同；規則只列候選，不自行改寫結論。",
+      "filing_date": "2026-10-28",
+      "detected_at": "2026-11-03T13:46:09+00:00",
+      "source_keys": [
+        "0001193125-26-436133"
+      ],
+      "sources": [
+        {
+          "label": "10-Q 原文",
+          "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526436133/0001193125-26-436133-index.html"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 0,
+        "accepted_count": 0,
+        "acceptance_rate": null,
+        "sample_status": "insufficient"
+      }
+    },
+    {
+      "id": "15270c1a3aa531bc",
+      "ticker": "META",
+      "type": "conclusion",
+      "type_label": "🟡 結論變化候選",
+      "status": "pending_ai_review",
+      "confidence": "high",
+      "rule_key": "quarterly_fingerprint",
+      "materiality": {},
+      "display_priority": "normal",
+      "priority_reason": "目前規則樣本不足或採納率未達降級門檻，維持原顯示優先級。",
+      "headline": "最新季度數字已變更，需要重算財務連續性與結論",
+      "evidence": [
+        "財報期末 2026-09-30；營收 YoY +26.1%。",
+        "毛利率 +79.3%；FCF 為負。",
+        "稀釋股數 YoY +0.0%。"
+      ],
+      "why_candidate": "季度指紋與上次 AI 覆核基準不同；規則只列候選，不自行改寫結論。",
+      "filing_date": "2026-10-22",
+      "detected_at": "2026-11-03T13:46:09+00:00",
+      "source_keys": [
+        "0001628280-26-066773"
+      ],
+      "sources": [
+        {
+          "label": "10-Q 原文",
+          "url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026066773/0001628280-26-066773-index.html"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 0,
+        "accepted_count": 0,
+        "acceptance_rate": null,
+        "sample_status": "insufficient"
       }
     },
     {

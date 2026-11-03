@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-22",
+  "generated_at": "2026-11-03",
   "tracked_count": 14,
   "methodology": {
     "purpose": "把既有 SEC、財報、論點、事件與估值資料整理成可稽核的研究工作流，不新增無來源財務數字。",
@@ -15,12 +15,12 @@
     "rotation_rule": "輪動是價格、廣度與成交參與代理；基本面橋接只調整研究優先度，不產生買賣指令。"
   },
   "source_dates": {
-    "quarterly_financials": "2026-10-20T01:58:49+00:00",
-    "earnings_verification": "2026-10-22",
+    "quarterly_financials": "2026-11-03T13:46:09+00:00",
+    "earnings_verification": "2026-11-03",
     "thesis_status": "2026-10-08T11:08:05+00:00",
-    "event_calendar": "2026-10-22",
-    "valuation": "2026-10-22T01:37:48+00:00",
-    "market_rotation": "2026-10-21",
+    "event_calendar": "2026-11-03",
+    "valuation": "2026-11-03T13:46:09+00:00",
+    "market_rotation": "2026-11-02",
     "peer_groups": "2026-09-19"
   },
   "companies": {
@@ -128,7 +128,7 @@
           "quality_notes": [],
           "currency": "USD",
           "source_basis": "SEC Company Facts；金額為 USD。",
-          "days_since_filing": 57,
+          "days_since_filing": 69,
           "review_due": false
         },
         "metrics": [
@@ -272,7 +272,7 @@
           "source_url": "https://finance.yahoo.com/quote/NVDA/calendar/",
           "confidence": "estimated",
           "announced_at": null,
-          "days_until": 26,
+          "days_until": 14,
           "position": "holding",
           "company_name": "NVIDIA"
         }
@@ -290,7 +290,7 @@
             "source_url": "https://finance.yahoo.com/quote/NVDA/calendar/",
             "confidence": "estimated",
             "announced_at": null,
-            "days_until": 26,
+            "days_until": 14,
             "position": "holding",
             "company_name": "NVIDIA",
             "status": "upcoming"
@@ -366,8 +366,8 @@
             "unit": "%",
             "direction": "higher",
             "known_peer_count": 5,
-            "peer_median": 22.620003463530598,
-            "favorable_percentile": 25.0,
+            "peer_median": 22.240467257667245,
+            "favorable_percentile": 50.0,
             "status": "available"
           },
           {
@@ -384,16 +384,16 @@
           {
             "id": "pe_ratio",
             "label": "本益比",
-            "value": 45.3,
+            "value": 41.3,
             "unit": "x",
             "direction": "lower",
             "known_peer_count": 4,
-            "peer_median": 62.5,
+            "peer_median": 48.55,
             "favorable_percentile": 66.7,
             "status": "available"
           }
         ],
-        "composite_percentile": 77.8,
+        "composite_percentile": 82.0,
         "coverage": {
           "known": 6,
           "total": 6
@@ -504,7 +504,7 @@
           "quality_notes": [],
           "currency": "TWD",
           "source_basis": "TSMC 官方 TIFRS consolidated 季度管理報告；金額為新台幣。",
-          "days_since_filing": 98,
+          "days_since_filing": 110,
           "review_due": false
         },
         "metrics": [
@@ -640,12 +640,12 @@
         "next_validation": {
           "type": "earnings",
           "date": "2027-01-14",
-          "days_until": 84,
+          "days_until": 72,
           "confidence": "estimated",
           "source_label": "Yahoo Finance 行事曆",
           "source_url": "https://finance.yahoo.com/quote/TSM/calendar/",
           "source_status": "fresh",
-          "last_success_at": "2026-10-22"
+          "last_success_at": "2026-11-03"
         }
       },
       "catalyst_log": {
@@ -720,8 +720,8 @@
             "unit": "%",
             "direction": "higher",
             "known_peer_count": 5,
-            "peer_median": 22.620003463530598,
-            "favorable_percentile": 50.0,
+            "peer_median": 22.240467257667245,
+            "favorable_percentile": 75.0,
             "status": "available"
           },
           {
@@ -738,16 +738,16 @@
           {
             "id": "pe_ratio",
             "label": "本益比",
-            "value": 41.5,
+            "value": 38.3,
             "unit": "x",
             "direction": "lower",
             "known_peer_count": 4,
-            "peer_median": 62.5,
+            "peer_median": 48.55,
             "favorable_percentile": 100.0,
             "status": "available"
           }
         ],
-        "composite_percentile": 65.0,
+        "composite_percentile": 70.0,
         "coverage": {
           "known": 5,
           "total": 6
@@ -759,168 +759,168 @@
       "data_ticker": "MSFT",
       "evidence_ledger": {
         "status": "available",
-        "period_end": "2026-06-30",
-        "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/0001193125-26-323660-index.html",
-        "source_form": "10-K",
-        "source_accession": "0001193125-26-323660",
-        "source_date": "2026-07-29",
+        "period_end": "2026-09-30",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526436133/0001193125-26-436133-index.html",
+        "source_form": "10-Q",
+        "source_accession": "0001193125-26-436133",
+        "source_date": "2026-10-28",
         "quality_notes": [],
         "claims": [
           {
-            "claim_id": "0001193125-26-323660:revenue",
+            "claim_id": "0001193125-26-436133:revenue",
             "metric": "revenue",
             "label": "營收",
-            "value": 90007000000.0,
+            "value": 92279000000.0,
             "unit": "USD",
             "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
-            "derived": true,
-            "derivation": "年度報告全年值減同一會計年度前三季累計值",
+            "derived": false,
+            "derivation": null,
             "source_locator": "XBRL tag: RevenueFromContractWithCustomerExcludingAssessedTax",
-            "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/0001193125-26-323660-index.html",
-            "source_form": "10-K",
-            "source_accession": "0001193125-26-323660",
-            "source_date": "2026-07-29"
+            "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526436133/0001193125-26-436133-index.html",
+            "source_form": "10-Q",
+            "source_accession": "0001193125-26-436133",
+            "source_date": "2026-10-28"
           },
           {
-            "claim_id": "0001193125-26-323660:gross_margin",
+            "claim_id": "0001193125-26-436133:gross_margin",
             "metric": "gross_margin",
             "label": "毛利率",
-            "value": 0.671969957892164,
+            "value": 0.6779332242438691,
             "unit": "%",
             "tag": null,
             "derived": true,
             "derivation": "毛利 ÷ 營收",
             "source_locator": "毛利 ÷ 營收",
-            "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/0001193125-26-323660-index.html",
-            "source_form": "10-K",
-            "source_accession": "0001193125-26-323660",
-            "source_date": "2026-07-29"
+            "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526436133/0001193125-26-436133-index.html",
+            "source_form": "10-Q",
+            "source_accession": "0001193125-26-436133",
+            "source_date": "2026-10-28"
           },
           {
-            "claim_id": "0001193125-26-323660:operating_margin",
+            "claim_id": "0001193125-26-436133:operating_margin",
             "metric": "operating_margin",
             "label": "營業利益率",
-            "value": 0.4511093581610319,
+            "value": 0.4975671604590427,
             "unit": "%",
             "tag": null,
             "derived": true,
             "derivation": "營業利益 ÷ 營收",
             "source_locator": "營業利益 ÷ 營收",
-            "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/0001193125-26-323660-index.html",
-            "source_form": "10-K",
-            "source_accession": "0001193125-26-323660",
-            "source_date": "2026-07-29"
+            "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526436133/0001193125-26-436133-index.html",
+            "source_form": "10-Q",
+            "source_accession": "0001193125-26-436133",
+            "source_date": "2026-10-28"
           },
           {
-            "claim_id": "0001193125-26-323660:free_cash_flow",
+            "claim_id": "0001193125-26-436133:free_cash_flow",
             "metric": "free_cash_flow",
             "label": "自由現金流",
-            "value": 19639000000.0,
+            "value": 18633000000.0,
             "unit": "USD",
             "tag": null,
             "derived": true,
             "derivation": "營運現金流 − 資本支出",
             "source_locator": "營運現金流 − 資本支出",
-            "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/0001193125-26-323660-index.html",
-            "source_form": "10-K",
-            "source_accession": "0001193125-26-323660",
-            "source_date": "2026-07-29"
+            "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526436133/0001193125-26-436133-index.html",
+            "source_form": "10-Q",
+            "source_accession": "0001193125-26-436133",
+            "source_date": "2026-10-28"
           },
           {
-            "claim_id": "0001193125-26-323660:diluted_shares",
+            "claim_id": "0001193125-26-436133:diluted_shares",
             "metric": "diluted_shares",
             "label": "稀釋股數",
-            "value": null,
-            "unit": "USD",
-            "tag": null,
+            "value": 7446000000.0,
+            "unit": "shares",
+            "tag": "WeightedAverageNumberOfDilutedSharesOutstanding",
             "derived": false,
             "derivation": null,
-            "source_locator": "10-K已核對表格列：稀釋股數",
-            "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/0001193125-26-323660-index.html",
-            "source_form": "10-K",
-            "source_accession": "0001193125-26-323660",
-            "source_date": "2026-07-29"
+            "source_locator": "XBRL tag: WeightedAverageNumberOfDilutedSharesOutstanding",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526436133/0001193125-26-436133-index.html",
+            "source_form": "10-Q",
+            "source_accession": "0001193125-26-436133",
+            "source_date": "2026-10-28"
           }
         ],
         "coverage": {
-          "sourced": 4,
+          "sourced": 5,
           "total": 5
         }
       },
       "earnings_delta": {
         "status": "available",
         "latest_result": {
-          "period_end": "2026-06-30",
-          "filing_date": "2026-07-29",
-          "form": "10-K",
-          "accession": "0001193125-26-323660",
-          "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/0001193125-26-323660-index.html",
+          "period_end": "2026-09-30",
+          "filing_date": "2026-10-28",
+          "form": "10-Q",
+          "accession": "0001193125-26-436133",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526436133/0001193125-26-436133-index.html",
           "quality_notes": [],
           "currency": "USD",
           "source_basis": "SEC Company Facts；金額為 USD。",
-          "days_since_filing": 85,
-          "review_due": false
+          "days_since_filing": 6,
+          "review_due": true
         },
         "metrics": [
           {
             "metric": "revenue",
             "label": "營收",
             "display": "amount",
-            "value": 90007000000.0,
-            "qoq": 8.591318196076546,
-            "yoy": 17.74702057796209,
+            "value": 92279000000.0,
+            "qoq": 2.5242481140355766,
+            "yoy": 18.804475171552525,
             "state": "improved",
-            "interpretation": "營收 YoY +17.7%",
-            "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/0001193125-26-323660-index.html",
-            "source_period": "2026-06-30"
+            "interpretation": "營收 YoY +18.8%",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526436133/0001193125-26-436133-index.html",
+            "source_period": "2026-09-30"
           },
           {
             "metric": "gross_margin",
             "label": "毛利率",
             "display": "percent",
-            "value": 0.671969957892164,
-            "qoq": -0.4356562871294267,
-            "yoy": -1.387925915104582,
+            "value": 0.6779332242438691,
+            "qoq": 0.5963266351705188,
+            "yoy": -1.25254937147522,
             "state": "stable",
-            "interpretation": "毛利率 YoY -1.4pp",
-            "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/0001193125-26-323660-index.html",
-            "source_period": "2026-06-30"
+            "interpretation": "毛利率 YoY -1.3pp",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526436133/0001193125-26-436133-index.html",
+            "source_period": "2026-09-30"
           },
           {
             "metric": "operating_margin",
             "label": "營業利益率",
             "display": "percent",
-            "value": 0.4511093581610319,
-            "qoq": -1.2153436520820238,
-            "yoy": 0.2096393914096384,
+            "value": 0.4975671604590427,
+            "qoq": 4.645780229801078,
+            "yoy": 0.8838773503472563,
             "state": "stable",
-            "interpretation": "營業利益率 YoY +0.2pp",
-            "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/0001193125-26-323660-index.html",
-            "source_period": "2026-06-30"
+            "interpretation": "營業利益率 YoY +0.9pp",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526436133/0001193125-26-436133-index.html",
+            "source_period": "2026-09-30"
           },
           {
             "metric": "free_cash_flow",
             "label": "自由現金流",
             "display": "amount",
-            "value": 19639000000.0,
-            "qoq": 24.273872049610823,
-            "yoy": -23.18914267834794,
+            "value": 18633000000.0,
+            "qoq": -5.122460410407859,
+            "yoy": -27.39352375014612,
             "state": "improved",
             "interpretation": "自由現金流為正",
-            "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/0001193125-26-323660-index.html",
-            "source_period": "2026-06-30"
+            "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526436133/0001193125-26-436133-index.html",
+            "source_period": "2026-09-30"
           },
           {
             "metric": "diluted_shares",
             "label": "稀釋股數",
             "display": "shares",
-            "value": null,
+            "value": 7446000000.0,
             "qoq": null,
-            "yoy": null,
-            "state": "unknown",
-            "interpretation": "缺值，不能判斷",
-            "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/0001193125-26-323660-index.html",
-            "source_period": "2026-06-30"
+            "yoy": -0.2678810608090054,
+            "state": "stable",
+            "interpretation": "稀釋股數 YoY -0.3%",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526436133/0001193125-26-436133-index.html",
+            "source_period": "2026-09-30"
           }
         ],
         "official_guidance_comparison": {
@@ -992,39 +992,18 @@
           }
         ],
         "next_validation": {
-          "ticker": "MSFT",
-          "date": "2026-10-28",
           "type": "earnings",
-          "title": "預估財報公布日",
-          "detail": "第三方市場資料日期；公司尚未公告時可能變更。",
-          "meaning": "財報日可能調整；應優先核對營收、毛利率、自由現金流與管理層指引是否改變。",
+          "date": "2027-01-27",
+          "days_until": 85,
+          "confidence": "estimated",
           "source_label": "Yahoo Finance 行事曆",
           "source_url": "https://finance.yahoo.com/quote/MSFT/calendar/",
-          "confidence": "estimated",
-          "announced_at": null,
-          "days_until": 6,
-          "position": "watchlist",
-          "company_name": "Microsoft"
+          "source_status": "fresh",
+          "last_success_at": "2026-11-03"
         }
       },
       "catalyst_log": {
         "upcoming": [
-          {
-            "ticker": "MSFT",
-            "date": "2026-10-28",
-            "type": "earnings",
-            "title": "預估財報公布日",
-            "detail": "第三方市場資料日期；公司尚未公告時可能變更。",
-            "meaning": "財報日可能調整；應優先核對營收、毛利率、自由現金流與管理層指引是否改變。",
-            "source_label": "Yahoo Finance 行事曆",
-            "source_url": "https://finance.yahoo.com/quote/MSFT/calendar/",
-            "confidence": "estimated",
-            "announced_at": null,
-            "days_until": 6,
-            "position": "watchlist",
-            "company_name": "Microsoft",
-            "status": "upcoming"
-          },
           {
             "ticker": "MSFT",
             "date": "2026-11-19",
@@ -1036,7 +1015,7 @@
             "source_url": "https://finance.yahoo.com/quote/MSFT/calendar/",
             "confidence": "provider",
             "announced_at": null,
-            "days_until": 28,
+            "days_until": 16,
             "position": "watchlist",
             "company_name": "Microsoft",
             "status": "upcoming"
@@ -1075,73 +1054,73 @@
           {
             "id": "revenue_yoy",
             "label": "營收 YoY",
-            "value": 17.74702057796209,
+            "value": 18.804475171552525,
             "unit": "%",
             "direction": "higher",
             "known_peer_count": 5,
-            "peer_median": 19.620517346245126,
-            "favorable_percentile": 25.0,
+            "peer_median": 18.804475171552525,
+            "favorable_percentile": 50.0,
             "status": "available"
           },
           {
             "id": "gross_margin",
             "label": "毛利率",
-            "value": 67.1969957892164,
+            "value": 67.79332242438691,
             "unit": "%",
             "direction": "higher",
             "known_peer_count": 5,
-            "peer_median": 61.648969915523054,
+            "peer_median": 59.69571317714008,
             "favorable_percentile": 75.0,
             "status": "available"
           },
           {
             "id": "operating_margin",
             "label": "營業利益率",
-            "value": 45.11093581610319,
+            "value": 49.75671604590427,
             "unit": "%",
             "direction": "higher",
             "known_peer_count": 5,
-            "peer_median": 32.62290137729969,
+            "peer_median": 31.125029481904665,
             "favorable_percentile": 100.0,
             "status": "available"
           },
           {
             "id": "fcf_margin",
             "label": "FCF 利潤率",
-            "value": 21.819414045574234,
+            "value": 20.192026354858637,
             "unit": "%",
             "direction": "higher",
             "known_peer_count": 5,
-            "peer_median": 2.8716632950115955,
+            "peer_median": -1.7909939474621137,
             "favorable_percentile": 75.0,
             "status": "available"
           },
           {
             "id": "diluted_shares_yoy",
             "label": "稀釋股數 YoY",
-            "value": null,
+            "value": -0.2678810608090054,
             "unit": "%",
             "direction": "lower",
             "known_peer_count": 4,
-            "peer_median": 0.3710037153303647,
-            "favorable_percentile": null,
-            "status": "insufficient"
+            "peer_median": 0.4067153664638168,
+            "favorable_percentile": 100.0,
+            "status": "available"
           },
           {
             "id": "pe_ratio",
             "label": "本益比",
-            "value": 29.7,
+            "value": 28.3,
             "unit": "x",
             "direction": "lower",
             "known_peer_count": 5,
-            "peer_median": 30.6,
-            "favorable_percentile": 87.5,
+            "peer_median": 28.3,
+            "favorable_percentile": 50.0,
             "status": "available"
           }
         ],
-        "composite_percentile": 72.5,
+        "composite_percentile": 75.0,
         "coverage": {
-          "known": 5,
+          "known": 6,
           "total": 6
         }
       }
@@ -1151,87 +1130,87 @@
       "data_ticker": "META",
       "evidence_ledger": {
         "status": "available",
-        "period_end": "2026-06-30",
-        "source_url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026050705/0001628280-26-050705-index.html",
+        "period_end": "2026-09-30",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026066773/0001628280-26-066773-index.html",
         "source_form": "10-Q",
-        "source_accession": "0001628280-26-050705",
-        "source_date": "2026-07-30",
+        "source_accession": "0001628280-26-066773",
+        "source_date": "2026-10-22",
         "quality_notes": [],
         "claims": [
           {
-            "claim_id": "0001628280-26-050705:revenue",
+            "claim_id": "0001628280-26-066773:revenue",
             "metric": "revenue",
             "label": "營收",
-            "value": 60801000000.0,
+            "value": 64601000000.0,
             "unit": "USD",
             "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
             "derived": false,
             "derivation": null,
             "source_locator": "XBRL tag: RevenueFromContractWithCustomerExcludingAssessedTax",
-            "source_url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026050705/0001628280-26-050705-index.html",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026066773/0001628280-26-066773-index.html",
             "source_form": "10-Q",
-            "source_accession": "0001628280-26-050705",
-            "source_date": "2026-07-30"
+            "source_accession": "0001628280-26-066773",
+            "source_date": "2026-10-22"
           },
           {
-            "claim_id": "0001628280-26-050705:gross_margin",
+            "claim_id": "0001628280-26-066773:gross_margin",
             "metric": "gross_margin",
             "label": "毛利率",
-            "value": 0.8136543806845282,
+            "value": 0.7930527391216854,
             "unit": "%",
             "tag": null,
             "derived": true,
             "derivation": "毛利 ÷ 營收",
             "source_locator": "毛利 ÷ 營收",
-            "source_url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026050705/0001628280-26-050705-index.html",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026066773/0001628280-26-066773-index.html",
             "source_form": "10-Q",
-            "source_accession": "0001628280-26-050705",
-            "source_date": "2026-07-30"
+            "source_accession": "0001628280-26-066773",
+            "source_date": "2026-10-22"
           },
           {
-            "claim_id": "0001628280-26-050705:operating_margin",
+            "claim_id": "0001628280-26-066773:operating_margin",
             "metric": "operating_margin",
             "label": "營業利益率",
-            "value": 0.3087942632522491,
+            "value": 0.2010495193572855,
             "unit": "%",
             "tag": null,
             "derived": true,
             "derivation": "營業利益 ÷ 營收",
             "source_locator": "營業利益 ÷ 營收",
-            "source_url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026050705/0001628280-26-050705-index.html",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026066773/0001628280-26-066773-index.html",
             "source_form": "10-Q",
-            "source_accession": "0001628280-26-050705",
-            "source_date": "2026-07-30"
+            "source_accession": "0001628280-26-066773",
+            "source_date": "2026-10-22"
           },
           {
-            "claim_id": "0001628280-26-050705:free_cash_flow",
+            "claim_id": "0001628280-26-066773:free_cash_flow",
             "metric": "free_cash_flow",
             "label": "自由現金流",
-            "value": 1746000000.0,
+            "value": -1157000000.0,
             "unit": "USD",
             "tag": null,
             "derived": true,
             "derivation": "營運現金流 − 資本支出",
             "source_locator": "營運現金流 − 資本支出",
-            "source_url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026050705/0001628280-26-050705-index.html",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026066773/0001628280-26-066773-index.html",
             "source_form": "10-Q",
-            "source_accession": "0001628280-26-050705",
-            "source_date": "2026-07-30"
+            "source_accession": "0001628280-26-066773",
+            "source_date": "2026-10-22"
           },
           {
-            "claim_id": "0001628280-26-050705:diluted_shares",
+            "claim_id": "0001628280-26-066773:diluted_shares",
             "metric": "diluted_shares",
             "label": "稀釋股數",
-            "value": 2566000000.0,
+            "value": 2573000000.0,
             "unit": "shares",
             "tag": "WeightedAverageNumberOfDilutedSharesOutstanding",
             "derived": false,
             "derivation": null,
             "source_locator": "XBRL tag: WeightedAverageNumberOfDilutedSharesOutstanding",
-            "source_url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026050705/0001628280-26-050705-index.html",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026066773/0001628280-26-066773-index.html",
             "source_form": "10-Q",
-            "source_accession": "0001628280-26-050705",
-            "source_date": "2026-07-30"
+            "source_accession": "0001628280-26-066773",
+            "source_date": "2026-10-22"
           }
         ],
         "coverage": {
@@ -1242,77 +1221,77 @@
       "earnings_delta": {
         "status": "available",
         "latest_result": {
-          "period_end": "2026-06-30",
-          "filing_date": "2026-07-30",
+          "period_end": "2026-09-30",
+          "filing_date": "2026-10-22",
           "form": "10-Q",
-          "accession": "0001628280-26-050705",
-          "source_url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026050705/0001628280-26-050705-index.html",
+          "accession": "0001628280-26-066773",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026066773/0001628280-26-066773-index.html",
           "quality_notes": [],
           "currency": "USD",
           "source_basis": "SEC Company Facts；金額為 USD。",
-          "days_since_filing": 84,
-          "review_due": false
+          "days_since_filing": 12,
+          "review_due": true
         },
         "metrics": [
           {
             "metric": "revenue",
             "label": "營收",
             "display": "amount",
-            "value": 60801000000.0,
-            "qoq": 7.973575322761084,
-            "yoy": 27.959003283104632,
+            "value": 64601000000.0,
+            "qoq": 6.249897205638066,
+            "yoy": 26.07041099098395,
             "state": "improved",
-            "interpretation": "營收 YoY +28.0%",
-            "source_url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026050705/0001628280-26-050705-index.html",
-            "source_period": "2026-06-30"
+            "interpretation": "營收 YoY +26.1%",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026066773/0001628280-26-066773-index.html",
+            "source_period": "2026-09-30"
           },
           {
             "metric": "gross_margin",
             "label": "毛利率",
             "display": "percent",
-            "value": 0.8136543806845282,
-            "qoq": -0.48890655337949784,
-            "yoy": -0.7647917488718736,
-            "state": "stable",
-            "interpretation": "毛利率 YoY -0.8pp",
-            "source_url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026050705/0001628280-26-050705-index.html",
-            "source_period": "2026-06-30"
+            "value": 0.7930527391216854,
+            "qoq": -2.060164156284283,
+            "yoy": -2.7289948517360663,
+            "state": "risk",
+            "interpretation": "毛利率 YoY -2.7pp",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026066773/0001628280-26-066773-index.html",
+            "source_period": "2026-09-30"
           },
           {
             "metric": "operating_margin",
             "label": "營業利益率",
             "display": "percent",
-            "value": 0.3087942632522491,
-            "qoq": -9.737859817802203,
-            "yoy": -12.139767209584413,
+            "value": 0.2010495193572855,
+            "qoq": -10.774474389496364,
+            "yoy": -19.96959628643296,
             "state": "risk",
-            "interpretation": "營業利益率 YoY -12.1pp",
-            "source_url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026050705/0001628280-26-050705-index.html",
-            "source_period": "2026-06-30"
+            "interpretation": "營業利益率 YoY -20.0pp",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026066773/0001628280-26-066773-index.html",
+            "source_period": "2026-09-30"
           },
           {
             "metric": "free_cash_flow",
             "label": "自由現金流",
             "display": "amount",
-            "value": 1746000000.0,
-            "qoq": -86.80172348628015,
-            "yoy": -80.64945140197274,
-            "state": "improved",
-            "interpretation": "自由現金流為正",
-            "source_url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026050705/0001628280-26-050705-index.html",
-            "source_period": "2026-06-30"
+            "value": -1157000000.0,
+            "qoq": null,
+            "yoy": null,
+            "state": "risk",
+            "interpretation": "自由現金流為負",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026066773/0001628280-26-066773-index.html",
+            "source_period": "2026-09-30"
           },
           {
             "metric": "diluted_shares",
             "label": "稀釋股數",
             "display": "shares",
-            "value": 2566000000.0,
-            "qoq": 0.07800312012480326,
-            "yoy": -0.15564202334630295,
+            "value": 2573000000.0,
+            "qoq": 0.2727981293842552,
+            "yoy": 0.038880248833583764,
             "state": "stable",
-            "interpretation": "稀釋股數 YoY -0.2%",
-            "source_url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026050705/0001628280-26-050705-index.html",
-            "source_period": "2026-06-30"
+            "interpretation": "稀釋股數 YoY +0.0%",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026066773/0001628280-26-066773-index.html",
+            "source_period": "2026-09-30"
           }
         ],
         "official_guidance_comparison": {
@@ -1338,7 +1317,7 @@
           "status": "not_collected",
           "note": "目前沒有已授權且可稽核的機構共識來源，不以網路摘要補值。"
         },
-        "conclusion": "改善項目多於風險項目，但仍需逐項核對來源與口徑。"
+        "conclusion": "風險項目多於改善項目，先查原始申報與失效條件。"
       },
       "thesis_scorecard": {
         "status": "partial-invalidated",
@@ -1385,13 +1364,13 @@
         ],
         "next_validation": {
           "type": "earnings",
-          "date": "2026-10-21",
-          "days_until": -1,
+          "date": "2027-01-27",
+          "days_until": 85,
           "confidence": "estimated",
           "source_label": "Yahoo Finance 行事曆",
           "source_url": "https://finance.yahoo.com/quote/META/calendar/",
           "source_status": "fresh",
-          "last_success_at": "2026-10-22"
+          "last_success_at": "2026-11-03"
         }
       },
       "catalyst_log": {
@@ -1429,71 +1408,71 @@
           {
             "id": "revenue_yoy",
             "label": "營收 YoY",
-            "value": 27.959003283104632,
+            "value": 26.07041099098395,
             "unit": "%",
             "direction": "higher",
             "known_peer_count": 5,
-            "peer_median": 19.620517346245126,
+            "peer_median": 18.804475171552525,
             "favorable_percentile": 100.0,
             "status": "available"
           },
           {
             "id": "gross_margin",
             "label": "毛利率",
-            "value": 81.36543806845282,
+            "value": 79.30527391216854,
             "unit": "%",
             "direction": "higher",
             "known_peer_count": 5,
-            "peer_median": 61.648969915523054,
+            "peer_median": 59.69571317714008,
             "favorable_percentile": 100.0,
             "status": "available"
           },
           {
             "id": "operating_margin",
             "label": "營業利益率",
-            "value": 30.879426325224912,
+            "value": 20.10495193572855,
             "unit": "%",
             "direction": "higher",
             "known_peer_count": 5,
-            "peer_median": 32.62290137729969,
+            "peer_median": 31.125029481904665,
             "favorable_percentile": 25.0,
             "status": "available"
           },
           {
             "id": "fcf_margin",
             "label": "FCF 利潤率",
-            "value": 2.8716632950115955,
+            "value": -1.7909939474621137,
             "unit": "%",
             "direction": "higher",
             "known_peer_count": 5,
-            "peer_median": 2.8716632950115955,
+            "peer_median": -1.7909939474621137,
             "favorable_percentile": 50.0,
             "status": "available"
           },
           {
             "id": "diluted_shares_yoy",
             "label": "稀釋股數 YoY",
-            "value": -0.15564202334630295,
+            "value": 0.038880248833583764,
             "unit": "%",
             "direction": "lower",
             "known_peer_count": 4,
-            "peer_median": 0.3710037153303647,
+            "peer_median": 0.4067153664638168,
             "favorable_percentile": 66.7,
             "status": "available"
           },
           {
             "id": "pe_ratio",
             "label": "本益比",
-            "value": 29.7,
+            "value": 25.8,
             "unit": "x",
             "direction": "lower",
             "known_peer_count": 5,
-            "peer_median": 30.6,
-            "favorable_percentile": 87.5,
+            "peer_median": 28.3,
+            "favorable_percentile": 75.0,
             "status": "available"
           }
         ],
-        "composite_percentile": 71.5,
+        "composite_percentile": 69.5,
         "coverage": {
           "known": 6,
           "total": 6
@@ -1505,168 +1484,168 @@
       "data_ticker": "AAPL",
       "evidence_ledger": {
         "status": "available",
-        "period_end": "2026-06-27",
-        "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000020/0000320193-26-000020-index.html",
-        "source_form": "10-Q",
-        "source_accession": "0000320193-26-000020",
-        "source_date": "2026-07-31",
+        "period_end": "2026-09-26",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000026/0000320193-26-000026-index.html",
+        "source_form": "10-K",
+        "source_accession": "0000320193-26-000026",
+        "source_date": "2026-11-03",
         "quality_notes": [],
         "claims": [
           {
-            "claim_id": "0000320193-26-000020:revenue",
+            "claim_id": "0000320193-26-000026:revenue",
             "metric": "revenue",
             "label": "營收",
-            "value": 109417000000.0,
+            "value": 114477000000.0,
             "unit": "USD",
             "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
-            "derived": false,
-            "derivation": null,
+            "derived": true,
+            "derivation": "年度報告全年值減同一會計年度前三季累計值",
             "source_locator": "XBRL tag: RevenueFromContractWithCustomerExcludingAssessedTax",
-            "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000020/0000320193-26-000020-index.html",
-            "source_form": "10-Q",
-            "source_accession": "0000320193-26-000020",
-            "source_date": "2026-07-31"
+            "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000026/0000320193-26-000026-index.html",
+            "source_form": "10-K",
+            "source_accession": "0000320193-26-000026",
+            "source_date": "2026-11-03"
           },
           {
-            "claim_id": "0000320193-26-000020:gross_margin",
+            "claim_id": "0000320193-26-000026:gross_margin",
             "metric": "gross_margin",
             "label": "毛利率",
-            "value": 0.500562069879452,
+            "value": 0.4788734855036383,
             "unit": "%",
             "tag": null,
             "derived": true,
             "derivation": "毛利 ÷ 營收",
             "source_locator": "毛利 ÷ 營收",
-            "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000020/0000320193-26-000020-index.html",
-            "source_form": "10-Q",
-            "source_accession": "0000320193-26-000020",
-            "source_date": "2026-07-31"
+            "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000026/0000320193-26-000026-index.html",
+            "source_form": "10-K",
+            "source_accession": "0000320193-26-000026",
+            "source_date": "2026-11-03"
           },
           {
-            "claim_id": "0000320193-26-000020:operating_margin",
+            "claim_id": "0000320193-26-000026:operating_margin",
             "metric": "operating_margin",
             "label": "營業利益率",
-            "value": 0.3262290137729969,
+            "value": 0.31125029481904665,
             "unit": "%",
             "tag": null,
             "derived": true,
             "derivation": "營業利益 ÷ 營收",
             "source_locator": "營業利益 ÷ 營收",
-            "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000020/0000320193-26-000020-index.html",
-            "source_form": "10-Q",
-            "source_accession": "0000320193-26-000020",
-            "source_date": "2026-07-31"
+            "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000026/0000320193-26-000026-index.html",
+            "source_form": "10-K",
+            "source_accession": "0000320193-26-000026",
+            "source_date": "2026-11-03"
           },
           {
-            "claim_id": "0000320193-26-000020:free_cash_flow",
+            "claim_id": "0000320193-26-000026:free_cash_flow",
             "metric": "free_cash_flow",
             "label": "自由現金流",
-            "value": 31914000000.0,
+            "value": 25859000000.0,
             "unit": "USD",
             "tag": null,
             "derived": true,
             "derivation": "營運現金流 − 資本支出",
             "source_locator": "營運現金流 − 資本支出",
-            "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000020/0000320193-26-000020-index.html",
-            "source_form": "10-Q",
-            "source_accession": "0000320193-26-000020",
-            "source_date": "2026-07-31"
+            "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000026/0000320193-26-000026-index.html",
+            "source_form": "10-K",
+            "source_accession": "0000320193-26-000026",
+            "source_date": "2026-11-03"
           },
           {
-            "claim_id": "0000320193-26-000020:diluted_shares",
+            "claim_id": "0000320193-26-000026:diluted_shares",
             "metric": "diluted_shares",
             "label": "稀釋股數",
-            "value": 14714676000.0,
-            "unit": "shares",
-            "tag": "WeightedAverageNumberOfDilutedSharesOutstanding",
+            "value": null,
+            "unit": "USD",
+            "tag": null,
             "derived": false,
             "derivation": null,
-            "source_locator": "XBRL tag: WeightedAverageNumberOfDilutedSharesOutstanding",
-            "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000020/0000320193-26-000020-index.html",
-            "source_form": "10-Q",
-            "source_accession": "0000320193-26-000020",
-            "source_date": "2026-07-31"
+            "source_locator": "10-K已核對表格列：稀釋股數",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000026/0000320193-26-000026-index.html",
+            "source_form": "10-K",
+            "source_accession": "0000320193-26-000026",
+            "source_date": "2026-11-03"
           }
         ],
         "coverage": {
-          "sourced": 5,
+          "sourced": 4,
           "total": 5
         }
       },
       "earnings_delta": {
         "status": "available",
         "latest_result": {
-          "period_end": "2026-06-27",
-          "filing_date": "2026-07-31",
-          "form": "10-Q",
-          "accession": "0000320193-26-000020",
-          "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000020/0000320193-26-000020-index.html",
+          "period_end": "2026-09-26",
+          "filing_date": "2026-11-03",
+          "form": "10-K",
+          "accession": "0000320193-26-000026",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000026/0000320193-26-000026-index.html",
           "quality_notes": [],
           "currency": "USD",
           "source_basis": "SEC Company Facts；金額為 USD。",
-          "days_since_filing": 83,
-          "review_due": false
+          "days_since_filing": 0,
+          "review_due": true
         },
         "metrics": [
           {
             "metric": "revenue",
             "label": "營收",
             "display": "amount",
-            "value": 109417000000.0,
-            "qoq": -1.5892574471146892,
-            "yoy": 16.356501765281383,
+            "value": 114477000000.0,
+            "qoq": 4.624509902483154,
+            "yoy": 11.721937032771844,
             "state": "improved",
-            "interpretation": "營收 YoY +16.4%",
-            "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000020/0000320193-26-000020-index.html",
-            "source_period": "2026-06-27"
+            "interpretation": "營收 YoY +11.7%",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000026/0000320193-26-000026-index.html",
+            "source_period": "2026-09-26"
           },
           {
             "metric": "gross_margin",
             "label": "毛利率",
             "display": "percent",
-            "value": 0.500562069879452,
-            "qoq": 0.7856284874415254,
-            "yoy": 3.5655013007615644,
-            "state": "improved",
-            "interpretation": "毛利率 YoY +3.6pp",
-            "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000020/0000320193-26-000020-index.html",
-            "source_period": "2026-06-27"
+            "value": 0.4788734855036383,
+            "qoq": -2.168858437581367,
+            "yoy": 0.7097481756053736,
+            "state": "stable",
+            "interpretation": "毛利率 YoY +0.7pp",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000026/0000320193-26-000026-index.html",
+            "source_period": "2026-09-26"
           },
           {
             "metric": "operating_margin",
             "label": "營業利益率",
             "display": "percent",
-            "value": 0.3262290137729969,
-            "qoq": 0.34757399206440387,
-            "yoy": 2.6322594954671983,
-            "state": "improved",
-            "interpretation": "營業利益率 YoY +2.6pp",
-            "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000020/0000320193-26-000020-index.html",
-            "source_period": "2026-06-27"
+            "value": 0.31125029481904665,
+            "qoq": -1.4978718953950254,
+            "yoy": -0.5215654861823127,
+            "state": "stable",
+            "interpretation": "營業利益率 YoY -0.5pp",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000026/0000320193-26-000026-index.html",
+            "source_period": "2026-09-26"
           },
           {
             "metric": "free_cash_flow",
             "label": "自由現金流",
             "display": "amount",
-            "value": 31914000000.0,
-            "qoq": 19.38947289663686,
-            "yoy": 30.768285187461576,
+            "value": 25859000000.0,
+            "qoq": -18.972864573541393,
+            "yoy": -2.3672883787661414,
             "state": "improved",
             "interpretation": "自由現金流為正",
-            "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000020/0000320193-26-000020-index.html",
-            "source_period": "2026-06-27"
+            "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000026/0000320193-26-000026-index.html",
+            "source_period": "2026-09-26"
           },
           {
             "metric": "diluted_shares",
             "label": "稀釋股數",
             "display": "shares",
-            "value": 14714676000.0,
-            "qoq": -0.07603623907390666,
-            "yoy": -1.562083247732049,
-            "state": "stable",
-            "interpretation": "稀釋股數 YoY -1.6%",
-            "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000020/0000320193-26-000020-index.html",
-            "source_period": "2026-06-27"
+            "value": null,
+            "qoq": null,
+            "yoy": null,
+            "state": "unknown",
+            "interpretation": "缺值，不能判斷",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000026/0000320193-26-000026-index.html",
+            "source_period": "2026-09-26"
           }
         ],
         "official_guidance_comparison": null,
@@ -1724,40 +1703,18 @@
           }
         ],
         "next_validation": {
-          "ticker": "AAPL",
-          "date": "2026-11-02",
           "type": "earnings",
-          "title": "預估財報公布日",
-          "detail": "第三方市場資料日期；公司尚未公告時可能變更。",
-          "meaning": "財報日可能調整；應優先核對營收、毛利率、自由現金流與管理層指引是否改變。",
+          "date": "2027-01-28",
+          "days_until": 86,
+          "confidence": "estimated",
           "source_label": "Yahoo Finance 行事曆",
           "source_url": "https://finance.yahoo.com/quote/AAPL/calendar/",
-          "confidence": "estimated",
-          "announced_at": null,
-          "days_until": 11,
-          "position": "watchlist",
-          "company_name": "Apple"
+          "source_status": "fresh",
+          "last_success_at": "2026-11-03"
         }
       },
       "catalyst_log": {
-        "upcoming": [
-          {
-            "ticker": "AAPL",
-            "date": "2026-11-02",
-            "type": "earnings",
-            "title": "預估財報公布日",
-            "detail": "第三方市場資料日期；公司尚未公告時可能變更。",
-            "meaning": "財報日可能調整；應優先核對營收、毛利率、自由現金流與管理層指引是否改變。",
-            "source_label": "Yahoo Finance 行事曆",
-            "source_url": "https://finance.yahoo.com/quote/AAPL/calendar/",
-            "confidence": "estimated",
-            "announced_at": null,
-            "days_until": 11,
-            "position": "watchlist",
-            "company_name": "Apple",
-            "status": "upcoming"
-          }
-        ],
+        "upcoming": [],
         "completed": [],
         "note": "已完成事件目前只收錄可由官方指引與正式實績閉環驗證者；其他事件不猜測結果。"
       },
@@ -1778,73 +1735,73 @@
           {
             "id": "revenue_yoy",
             "label": "營收 YoY",
-            "value": 16.356501765281383,
+            "value": 11.721937032771844,
             "unit": "%",
             "direction": "higher",
             "known_peer_count": 5,
-            "peer_median": 19.620517346245126,
+            "peer_median": 18.804475171552525,
             "favorable_percentile": 0.0,
             "status": "available"
           },
           {
             "id": "gross_margin",
             "label": "毛利率",
-            "value": 50.056206987945195,
+            "value": 47.887348550363825,
             "unit": "%",
             "direction": "higher",
             "known_peer_count": 5,
-            "peer_median": 61.648969915523054,
+            "peer_median": 59.69571317714008,
             "favorable_percentile": 0.0,
             "status": "available"
           },
           {
             "id": "operating_margin",
             "label": "營業利益率",
-            "value": 32.62290137729969,
+            "value": 31.125029481904665,
             "unit": "%",
             "direction": "higher",
             "known_peer_count": 5,
-            "peer_median": 32.62290137729969,
+            "peer_median": 31.125029481904665,
             "favorable_percentile": 50.0,
             "status": "available"
           },
           {
             "id": "fcf_margin",
             "label": "FCF 利潤率",
-            "value": 29.167314037124033,
+            "value": 22.58881696760048,
             "unit": "%",
             "direction": "higher",
             "known_peer_count": 5,
-            "peer_median": 2.8716632950115955,
+            "peer_median": -1.7909939474621137,
             "favorable_percentile": 100.0,
             "status": "available"
           },
           {
             "id": "diluted_shares_yoy",
             "label": "稀釋股數 YoY",
-            "value": -1.562083247732049,
+            "value": null,
             "unit": "%",
             "direction": "lower",
             "known_peer_count": 4,
-            "peer_median": 0.3710037153303647,
-            "favorable_percentile": 100.0,
-            "status": "available"
+            "peer_median": 0.4067153664638168,
+            "favorable_percentile": null,
+            "status": "insufficient"
           },
           {
             "id": "pe_ratio",
             "label": "本益比",
-            "value": 46.1,
+            "value": 37.7,
             "unit": "x",
             "direction": "lower",
             "known_peer_count": 5,
-            "peer_median": 30.6,
+            "peer_median": 28.3,
             "favorable_percentile": 0.0,
             "status": "available"
           }
         ],
-        "composite_percentile": 41.7,
+        "composite_percentile": 30.0,
         "coverage": {
-          "known": 6,
+          "known": 5,
           "total": 6
         }
       }
@@ -1854,87 +1811,87 @@
       "data_ticker": "AMZN",
       "evidence_ledger": {
         "status": "available",
-        "period_end": "2026-06-30",
-        "source_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/0001018724-26-000026-index.html",
+        "period_end": "2026-09-30",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000040/0001018724-26-000040-index.html",
         "source_form": "10-Q",
-        "source_accession": "0001018724-26-000026",
-        "source_date": "2026-07-31",
+        "source_accession": "0001018724-26-000040",
+        "source_date": "2026-10-30",
         "quality_notes": [],
         "claims": [
           {
-            "claim_id": "0001018724-26-000026:revenue",
+            "claim_id": "0001018724-26-000040:revenue",
             "metric": "revenue",
             "label": "營收",
-            "value": 200606000000.0,
+            "value": 201944000000.0,
             "unit": "USD",
             "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
             "derived": false,
             "derivation": null,
             "source_locator": "XBRL tag: RevenueFromContractWithCustomerExcludingAssessedTax",
-            "source_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/0001018724-26-000026-index.html",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000040/0001018724-26-000040-index.html",
             "source_form": "10-Q",
-            "source_accession": "0001018724-26-000026",
-            "source_date": "2026-07-31"
+            "source_accession": "0001018724-26-000040",
+            "source_date": "2026-10-30"
           },
           {
-            "claim_id": "0001018724-26-000026:gross_margin",
+            "claim_id": "0001018724-26-000040:gross_margin",
             "metric": "gross_margin",
             "label": "毛利率",
-            "value": 0.5225566533403787,
+            "value": 0.5316870023372816,
             "unit": "%",
             "tag": null,
             "derived": true,
             "derivation": "毛利 ÷ 營收",
             "source_locator": "毛利 ÷ 營收",
-            "source_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/0001018724-26-000026-index.html",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000040/0001018724-26-000040-index.html",
             "source_form": "10-Q",
-            "source_accession": "0001018724-26-000026",
-            "source_date": "2026-07-31"
+            "source_accession": "0001018724-26-000040",
+            "source_date": "2026-10-30"
           },
           {
-            "claim_id": "0001018724-26-000026:operating_margin",
+            "claim_id": "0001018724-26-000040:operating_margin",
             "metric": "operating_margin",
             "label": "營業利益率",
-            "value": 0.1368902226254449,
+            "value": 0.1390286416036129,
             "unit": "%",
             "tag": null,
             "derived": true,
             "derivation": "營業利益 ÷ 營收",
             "source_locator": "營業利益 ÷ 營收",
-            "source_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/0001018724-26-000026-index.html",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000040/0001018724-26-000040-index.html",
             "source_form": "10-Q",
-            "source_accession": "0001018724-26-000026",
-            "source_date": "2026-07-31"
+            "source_accession": "0001018724-26-000040",
+            "source_date": "2026-10-30"
           },
           {
-            "claim_id": "0001018724-26-000026:free_cash_flow",
+            "claim_id": "0001018724-26-000040:free_cash_flow",
             "metric": "free_cash_flow",
             "label": "自由現金流",
-            "value": -8821000000.0,
+            "value": -34837000000.0,
             "unit": "USD",
             "tag": null,
             "derived": true,
             "derivation": "營運現金流 − 資本支出",
             "source_locator": "營運現金流 − 資本支出",
-            "source_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/0001018724-26-000026-index.html",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000040/0001018724-26-000040-index.html",
             "source_form": "10-Q",
-            "source_accession": "0001018724-26-000026",
-            "source_date": "2026-07-31"
+            "source_accession": "0001018724-26-000040",
+            "source_date": "2026-10-30"
           },
           {
-            "claim_id": "0001018724-26-000026:diluted_shares",
+            "claim_id": "0001018724-26-000040:diluted_shares",
             "metric": "diluted_shares",
             "label": "稀釋股數",
-            "value": 10903000000.0,
+            "value": 10929000000.0,
             "unit": "shares",
             "tag": "WeightedAverageNumberOfDilutedSharesOutstanding",
             "derived": false,
             "derivation": null,
             "source_locator": "XBRL tag: WeightedAverageNumberOfDilutedSharesOutstanding",
-            "source_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/0001018724-26-000026-index.html",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000040/0001018724-26-000040-index.html",
             "source_form": "10-Q",
-            "source_accession": "0001018724-26-000026",
-            "source_date": "2026-07-31"
+            "source_accession": "0001018724-26-000040",
+            "source_date": "2026-10-30"
           }
         ],
         "coverage": {
@@ -1945,77 +1902,77 @@
       "earnings_delta": {
         "status": "available",
         "latest_result": {
-          "period_end": "2026-06-30",
-          "filing_date": "2026-07-31",
+          "period_end": "2026-09-30",
+          "filing_date": "2026-10-30",
           "form": "10-Q",
-          "accession": "0001018724-26-000026",
-          "source_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/0001018724-26-000026-index.html",
+          "accession": "0001018724-26-000040",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000040/0001018724-26-000040-index.html",
           "quality_notes": [],
           "currency": "USD",
           "source_basis": "SEC Company Facts；金額為 USD。",
-          "days_since_filing": 83,
-          "review_due": false
+          "days_since_filing": 4,
+          "review_due": true
         },
         "metrics": [
           {
             "metric": "revenue",
             "label": "營收",
             "display": "amount",
-            "value": 200606000000.0,
-            "qoq": 10.515152683741103,
-            "yoy": 19.620517346245126,
+            "value": 201944000000.0,
+            "qoq": 0.6669790534679976,
+            "yoy": 12.085874928539319,
             "state": "improved",
-            "interpretation": "營收 YoY +19.6%",
-            "source_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/0001018724-26-000026-index.html",
-            "source_period": "2026-06-30"
+            "interpretation": "營收 YoY +12.1%",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000040/0001018724-26-000040-index.html",
+            "source_period": "2026-09-30"
           },
           {
             "metric": "gross_margin",
             "label": "毛利率",
             "display": "percent",
-            "value": 0.5225566533403787,
-            "qoq": 0.43960200182471265,
-            "yoy": 0.4417334787230831,
-            "state": "stable",
-            "interpretation": "毛利率 YoY +0.4pp",
-            "source_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/0001018724-26-000026-index.html",
-            "source_period": "2026-06-30"
+            "value": 0.5316870023372816,
+            "qoq": 0.9130348996902904,
+            "yoy": 2.383604018508012,
+            "state": "improved",
+            "interpretation": "毛利率 YoY +2.4pp",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000040/0001018724-26-000040-index.html",
+            "source_period": "2026-09-30"
           },
           {
             "metric": "operating_margin",
             "label": "營業利益率",
             "display": "percent",
-            "value": 0.1368902226254449,
-            "qoq": 0.5488000268556642,
-            "yoy": 2.2574352808746228,
+            "value": 0.1390286416036129,
+            "qoq": 0.2138418978167994,
+            "yoy": 4.233054148650062,
             "state": "improved",
-            "interpretation": "營業利益率 YoY +2.3pp",
-            "source_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/0001018724-26-000026-index.html",
-            "source_period": "2026-06-30"
+            "interpretation": "營業利益率 YoY +4.2pp",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000040/0001018724-26-000040-index.html",
+            "source_period": "2026-09-30"
           },
           {
             "metric": "free_cash_flow",
             "label": "自由現金流",
             "display": "amount",
-            "value": -8821000000.0,
+            "value": -34837000000.0,
             "qoq": null,
             "yoy": null,
             "state": "risk",
             "interpretation": "自由現金流為負",
-            "source_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/0001018724-26-000026-index.html",
-            "source_period": "2026-06-30"
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000040/0001018724-26-000040-index.html",
+            "source_period": "2026-09-30"
           },
           {
             "metric": "diluted_shares",
             "label": "稀釋股數",
             "display": "shares",
-            "value": 10903000000.0,
-            "qoq": 0.2666911899944724,
-            "yoy": 0.8976494540070323,
+            "value": 10929000000.0,
+            "qoq": 0.23846647711638358,
+            "yoy": 0.7745504840940498,
             "state": "stable",
-            "interpretation": "稀釋股數 YoY +0.9%",
-            "source_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/0001018724-26-000026-index.html",
-            "source_period": "2026-06-30"
+            "interpretation": "稀釋股數 YoY +0.8%",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000040/0001018724-26-000040-index.html",
+            "source_period": "2026-09-30"
           }
         ],
         "official_guidance_comparison": {
@@ -2087,40 +2044,18 @@
           }
         ],
         "next_validation": {
-          "ticker": "AMZN",
-          "date": "2026-10-29",
           "type": "earnings",
-          "title": "預估財報公布日",
-          "detail": "第三方市場資料日期；公司尚未公告時可能變更。",
-          "meaning": "財報日可能調整；應優先核對營收、毛利率、自由現金流與管理層指引是否改變。",
+          "date": "2026-10-29",
+          "days_until": -5,
+          "confidence": "estimated",
           "source_label": "Yahoo Finance 行事曆",
           "source_url": "https://finance.yahoo.com/quote/AMZN/calendar/",
-          "confidence": "estimated",
-          "announced_at": null,
-          "days_until": 7,
-          "position": "watchlist",
-          "company_name": "Amazon"
+          "source_status": "fresh",
+          "last_success_at": "2026-11-03"
         }
       },
       "catalyst_log": {
-        "upcoming": [
-          {
-            "ticker": "AMZN",
-            "date": "2026-10-29",
-            "type": "earnings",
-            "title": "預估財報公布日",
-            "detail": "第三方市場資料日期；公司尚未公告時可能變更。",
-            "meaning": "財報日可能調整；應優先核對營收、毛利率、自由現金流與管理層指引是否改變。",
-            "source_label": "Yahoo Finance 行事曆",
-            "source_url": "https://finance.yahoo.com/quote/AMZN/calendar/",
-            "confidence": "estimated",
-            "announced_at": null,
-            "days_until": 7,
-            "position": "watchlist",
-            "company_name": "Amazon",
-            "status": "upcoming"
-          }
-        ],
+        "upcoming": [],
         "completed": [
           {
             "status": "completed",
@@ -2154,71 +2089,71 @@
           {
             "id": "revenue_yoy",
             "label": "營收 YoY",
-            "value": 19.620517346245126,
+            "value": 12.085874928539319,
             "unit": "%",
             "direction": "higher",
             "known_peer_count": 5,
-            "peer_median": 19.620517346245126,
-            "favorable_percentile": 50.0,
+            "peer_median": 18.804475171552525,
+            "favorable_percentile": 25.0,
             "status": "available"
           },
           {
             "id": "gross_margin",
             "label": "毛利率",
-            "value": 52.25566533403787,
+            "value": 53.16870023372816,
             "unit": "%",
             "direction": "higher",
             "known_peer_count": 5,
-            "peer_median": 61.648969915523054,
+            "peer_median": 59.69571317714008,
             "favorable_percentile": 25.0,
             "status": "available"
           },
           {
             "id": "operating_margin",
             "label": "營業利益率",
-            "value": 13.689022262544489,
+            "value": 13.90286416036129,
             "unit": "%",
             "direction": "higher",
             "known_peer_count": 5,
-            "peer_median": 32.62290137729969,
+            "peer_median": 31.125029481904665,
             "favorable_percentile": 0.0,
             "status": "available"
           },
           {
             "id": "fcf_margin",
             "label": "FCF 利潤率",
-            "value": -4.397176555038234,
+            "value": -17.250822010062194,
             "unit": "%",
             "direction": "higher",
             "known_peer_count": 5,
-            "peer_median": 2.8716632950115955,
-            "favorable_percentile": 25.0,
+            "peer_median": -1.7909939474621137,
+            "favorable_percentile": 0.0,
             "status": "available"
           },
           {
             "id": "diluted_shares_yoy",
             "label": "稀釋股數 YoY",
-            "value": 0.8976494540070323,
+            "value": 0.7745504840940498,
             "unit": "%",
             "direction": "lower",
             "known_peer_count": 4,
-            "peer_median": 0.3710037153303647,
+            "peer_median": 0.4067153664638168,
             "favorable_percentile": 33.3,
             "status": "available"
           },
           {
             "id": "pe_ratio",
             "label": "本益比",
-            "value": 36.6,
+            "value": 34.2,
             "unit": "x",
             "direction": "lower",
             "known_peer_count": 5,
-            "peer_median": 30.6,
+            "peer_median": 28.3,
             "favorable_percentile": 25.0,
             "status": "available"
           }
         ],
-        "composite_percentile": 26.4,
+        "composite_percentile": 18.1,
         "coverage": {
           "known": 6,
           "total": 6
@@ -2329,7 +2264,7 @@
           "quality_notes": [],
           "currency": "USD",
           "source_basis": "SEC Company Facts；金額為 USD。",
-          "days_since_filing": 85,
+          "days_since_filing": 97,
           "review_due": false
         },
         "metrics": [
@@ -2473,7 +2408,7 @@
           "source_url": "https://finance.yahoo.com/quote/ARM/calendar/",
           "confidence": "estimated",
           "announced_at": null,
-          "days_until": 13,
+          "days_until": 1,
           "position": "holding",
           "company_name": "Arm"
         }
@@ -2491,7 +2426,7 @@
             "source_url": "https://finance.yahoo.com/quote/ARM/calendar/",
             "confidence": "estimated",
             "announced_at": null,
-            "days_until": 13,
+            "days_until": 1,
             "position": "holding",
             "company_name": "Arm",
             "status": "upcoming"
@@ -2535,7 +2470,7 @@
             "direction": "higher",
             "known_peer_count": 5,
             "peer_median": 36.045577699482756,
-            "favorable_percentile": 0.0,
+            "favorable_percentile": 25.0,
             "status": "available"
           },
           {
@@ -2567,7 +2502,7 @@
             "unit": "%",
             "direction": "higher",
             "known_peer_count": 5,
-            "peer_median": 22.620003463530598,
+            "peer_median": 22.240467257667245,
             "favorable_percentile": 100.0,
             "status": "available"
           },
@@ -2585,16 +2520,16 @@
           {
             "id": "pe_ratio",
             "label": "本益比",
-            "value": 267.7,
+            "value": 232.5,
             "unit": "x",
             "direction": "lower",
             "known_peer_count": 4,
-            "peer_median": 62.5,
+            "peer_median": 48.55,
             "favorable_percentile": 0.0,
             "status": "available"
           }
         ],
-        "composite_percentile": 44.4,
+        "composite_percentile": 48.6,
         "coverage": {
           "known": 6,
           "total": 6
@@ -2705,7 +2640,7 @@
           "quality_notes": [],
           "currency": "USD",
           "source_basis": "SEC Company Facts；金額為 USD。",
-          "days_since_filing": 70,
+          "days_since_filing": 82,
           "review_due": false
         },
         "metrics": [
@@ -2835,7 +2770,7 @@
           "source_url": "https://finance.yahoo.com/quote/ONDS/calendar/",
           "confidence": "estimated",
           "announced_at": null,
-          "days_until": 21,
+          "days_until": 9,
           "position": "watchlist",
           "company_name": "Ondas"
         }
@@ -2853,7 +2788,7 @@
             "source_url": "https://finance.yahoo.com/quote/ONDS/calendar/",
             "confidence": "estimated",
             "announced_at": null,
-            "days_until": 21,
+            "days_until": 9,
             "position": "watchlist",
             "company_name": "Ondas",
             "status": "upcoming"
@@ -2949,87 +2884,87 @@
       "data_ticker": "TSLA",
       "evidence_ledger": {
         "status": "available",
-        "period_end": "2026-06-30",
-        "source_url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026049270/0001628280-26-049270-index.html",
+        "period_end": "2026-09-30",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026066775/0001628280-26-066775-index.html",
         "source_form": "10-Q",
-        "source_accession": "0001628280-26-049270",
-        "source_date": "2026-07-23",
+        "source_accession": "0001628280-26-066775",
+        "source_date": "2026-10-22",
         "quality_notes": [],
         "claims": [
           {
-            "claim_id": "0001628280-26-049270:revenue",
+            "claim_id": "0001628280-26-066775:revenue",
             "metric": "revenue",
             "label": "營收",
-            "value": 28236000000.0,
+            "value": 28046000000.0,
             "unit": "USD",
             "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
             "derived": false,
             "derivation": null,
             "source_locator": "XBRL tag: RevenueFromContractWithCustomerExcludingAssessedTax",
-            "source_url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026049270/0001628280-26-049270-index.html",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026066775/0001628280-26-066775-index.html",
             "source_form": "10-Q",
-            "source_accession": "0001628280-26-049270",
-            "source_date": "2026-07-23"
+            "source_accession": "0001628280-26-066775",
+            "source_date": "2026-10-22"
           },
           {
-            "claim_id": "0001628280-26-049270:gross_margin",
+            "claim_id": "0001628280-26-066775:gross_margin",
             "metric": "gross_margin",
             "label": "毛利率",
-            "value": 0.16826037682391273,
+            "value": 0.19589246238322755,
             "unit": "%",
             "tag": null,
             "derived": true,
             "derivation": "毛利 ÷ 營收",
             "source_locator": "毛利 ÷ 營收",
-            "source_url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026049270/0001628280-26-049270-index.html",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026066775/0001628280-26-066775-index.html",
             "source_form": "10-Q",
-            "source_accession": "0001628280-26-049270",
-            "source_date": "2026-07-23"
+            "source_accession": "0001628280-26-066775",
+            "source_date": "2026-10-22"
           },
           {
-            "claim_id": "0001628280-26-049270:operating_margin",
+            "claim_id": "0001628280-26-066775:operating_margin",
             "metric": "operating_margin",
             "label": "營業利益率",
-            "value": 0.014095480946309675,
+            "value": 0.02560079868786993,
             "unit": "%",
             "tag": null,
             "derived": true,
             "derivation": "營業利益 ÷ 營收",
             "source_locator": "營業利益 ÷ 營收",
-            "source_url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026049270/0001628280-26-049270-index.html",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026066775/0001628280-26-066775-index.html",
             "source_form": "10-Q",
-            "source_accession": "0001628280-26-049270",
-            "source_date": "2026-07-23"
+            "source_accession": "0001628280-26-066775",
+            "source_date": "2026-10-22"
           },
           {
-            "claim_id": "0001628280-26-049270:free_cash_flow",
+            "claim_id": "0001628280-26-066775:free_cash_flow",
             "metric": "free_cash_flow",
             "label": "自由現金流",
-            "value": -1092000000.0,
+            "value": 1531000000.0,
             "unit": "USD",
             "tag": null,
             "derived": true,
             "derivation": "營運現金流 − 資本支出",
             "source_locator": "營運現金流 − 資本支出",
-            "source_url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026049270/0001628280-26-049270-index.html",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026066775/0001628280-26-066775-index.html",
             "source_form": "10-Q",
-            "source_accession": "0001628280-26-049270",
-            "source_date": "2026-07-23"
+            "source_accession": "0001628280-26-066775",
+            "source_date": "2026-10-22"
           },
           {
-            "claim_id": "0001628280-26-049270:diluted_shares",
+            "claim_id": "0001628280-26-066775:diluted_shares",
             "metric": "diluted_shares",
             "label": "稀釋股數",
-            "value": 3540000000.0,
+            "value": 3541000000.0,
             "unit": "shares",
             "tag": "WeightedAverageNumberOfDilutedSharesOutstanding",
             "derived": false,
             "derivation": null,
             "source_locator": "XBRL tag: WeightedAverageNumberOfDilutedSharesOutstanding",
-            "source_url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026049270/0001628280-26-049270-index.html",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026066775/0001628280-26-066775-index.html",
             "source_form": "10-Q",
-            "source_accession": "0001628280-26-049270",
-            "source_date": "2026-07-23"
+            "source_accession": "0001628280-26-066775",
+            "source_date": "2026-10-22"
           }
         ],
         "coverage": {
@@ -3040,77 +2975,77 @@
       "earnings_delta": {
         "status": "available",
         "latest_result": {
-          "period_end": "2026-06-30",
-          "filing_date": "2026-07-23",
+          "period_end": "2026-09-30",
+          "filing_date": "2026-10-22",
           "form": "10-Q",
-          "accession": "0001628280-26-049270",
-          "source_url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026049270/0001628280-26-049270-index.html",
+          "accession": "0001628280-26-066775",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026066775/0001628280-26-066775-index.html",
           "quality_notes": [],
           "currency": "USD",
           "source_basis": "SEC Company Facts；金額為 USD。",
-          "days_since_filing": 91,
-          "review_due": false
+          "days_since_filing": 12,
+          "review_due": true
         },
         "metrics": [
           {
             "metric": "revenue",
             "label": "營收",
             "display": "amount",
-            "value": 28236000000.0,
-            "qoq": 26.126770000446697,
-            "yoy": 25.51564722617354,
-            "state": "improved",
-            "interpretation": "營收 YoY +25.5%",
-            "source_url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026049270/0001628280-26-049270-index.html",
-            "source_period": "2026-06-30"
+            "value": 28046000000.0,
+            "qoq": -0.6728998441705603,
+            "yoy": -0.17440825769710067,
+            "state": "stable",
+            "interpretation": "營收 YoY -0.2%",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026066775/0001628280-26-066775-index.html",
+            "source_period": "2026-09-30"
           },
           {
             "metric": "gross_margin",
             "label": "毛利率",
             "display": "percent",
-            "value": 0.16826037682391273,
-            "qoq": -4.257626944401061,
-            "yoy": -0.4125825167552416,
+            "value": 0.19589246238322755,
+            "qoq": 2.763208555931482,
+            "yoy": 1.6002802301362444,
             "state": "stable",
-            "interpretation": "毛利率 YoY -0.4pp",
-            "source_url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026049270/0001628280-26-049270-index.html",
-            "source_period": "2026-06-30"
+            "interpretation": "毛利率 YoY +1.6pp",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026066775/0001628280-26-066775-index.html",
+            "source_period": "2026-09-30"
           },
           {
             "metric": "operating_margin",
             "label": "營業利益率",
             "display": "percent",
-            "value": 0.014095480946309675,
-            "qoq": -2.793784196430809,
-            "yoy": -2.693403541215405,
+            "value": 0.02560079868786993,
+            "qoq": 1.1505317741560253,
+            "yoy": -3.2203081006025784,
             "state": "risk",
-            "interpretation": "營業利益率 YoY -2.7pp",
-            "source_url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026049270/0001628280-26-049270-index.html",
-            "source_period": "2026-06-30"
+            "interpretation": "營業利益率 YoY -3.2pp",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026066775/0001628280-26-066775-index.html",
+            "source_period": "2026-09-30"
           },
           {
             "metric": "free_cash_flow",
             "label": "自由現金流",
             "display": "amount",
-            "value": -1092000000.0,
+            "value": 1531000000.0,
             "qoq": null,
-            "yoy": null,
-            "state": "risk",
-            "interpretation": "自由現金流為負",
-            "source_url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026049270/0001628280-26-049270-index.html",
-            "source_period": "2026-06-30"
+            "yoy": -61.62907268170426,
+            "state": "improved",
+            "interpretation": "自由現金流為正",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026066775/0001628280-26-066775-index.html",
+            "source_period": "2026-09-30"
           },
           {
             "metric": "diluted_shares",
             "label": "稀釋股數",
             "display": "shares",
-            "value": 3540000000.0,
-            "qoq": 0.056529112492942346,
-            "yoy": 0.5967604433077645,
+            "value": 3541000000.0,
+            "qoq": 0.028248587570622874,
+            "yoy": 0.42541123085648724,
             "state": "stable",
-            "interpretation": "稀釋股數 YoY +0.6%",
-            "source_url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026049270/0001628280-26-049270-index.html",
-            "source_period": "2026-06-30"
+            "interpretation": "稀釋股數 YoY +0.4%",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026066775/0001628280-26-066775-index.html",
+            "source_period": "2026-09-30"
           }
         ],
         "official_guidance_comparison": null,
@@ -3122,7 +3057,7 @@
           "status": "not_collected",
           "note": "目前沒有已授權且可稽核的機構共識來源，不以網路摘要補值。"
         },
-        "conclusion": "風險項目多於改善項目，先查原始申報與失效條件。"
+        "conclusion": "改善與風險訊號相近，維持中性驗證。"
       },
       "thesis_scorecard": {
         "status": "needs-validation",
@@ -3169,13 +3104,13 @@
         ],
         "next_validation": {
           "type": "earnings",
-          "date": "2026-10-21",
-          "days_until": -1,
+          "date": "2027-01-27",
+          "days_until": 85,
           "confidence": "estimated",
           "source_label": "Yahoo Finance 行事曆",
           "source_url": "https://finance.yahoo.com/quote/TSLA/calendar/",
           "source_status": "fresh",
-          "last_success_at": "2026-10-22"
+          "last_success_at": "2026-11-03"
         }
       },
       "catalyst_log": {
@@ -3194,7 +3129,7 @@
           {
             "id": "revenue_yoy",
             "label": "營收 YoY",
-            "value": 25.51564722617354,
+            "value": -0.17440825769710067,
             "unit": "%",
             "direction": "higher",
             "known_peer_count": 0,
@@ -3205,7 +3140,7 @@
           {
             "id": "gross_margin",
             "label": "毛利率",
-            "value": 16.826037682391274,
+            "value": 19.589246238322755,
             "unit": "%",
             "direction": "higher",
             "known_peer_count": 0,
@@ -3216,7 +3151,7 @@
           {
             "id": "operating_margin",
             "label": "營業利益率",
-            "value": 1.4095480946309675,
+            "value": 2.560079868786993,
             "unit": "%",
             "direction": "higher",
             "known_peer_count": 0,
@@ -3227,7 +3162,7 @@
           {
             "id": "fcf_margin",
             "label": "FCF 利潤率",
-            "value": -3.867403314917127,
+            "value": 5.458888968123796,
             "unit": "%",
             "direction": "higher",
             "known_peer_count": 0,
@@ -3238,7 +3173,7 @@
           {
             "id": "diluted_shares_yoy",
             "label": "稀釋股數 YoY",
-            "value": 0.5967604433077645,
+            "value": 0.42541123085648724,
             "unit": "%",
             "direction": "lower",
             "known_peer_count": 0,
@@ -3249,7 +3184,7 @@
           {
             "id": "pe_ratio",
             "label": "本益比",
-            "value": 353.7,
+            "value": 369.6,
             "unit": "x",
             "direction": "lower",
             "known_peer_count": 0,
@@ -3270,87 +3205,87 @@
       "data_ticker": "GOOGL",
       "evidence_ledger": {
         "status": "available",
-        "period_end": "2026-06-30",
-        "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/0001652044-26-000071-index.html",
+        "period_end": "2026-09-30",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000084/0001652044-26-000084-index.html",
         "source_form": "10-Q",
-        "source_accession": "0001652044-26-000071",
-        "source_date": "2026-07-23",
+        "source_accession": "0001652044-26-000084",
+        "source_date": "2026-10-29",
         "quality_notes": [],
         "claims": [
           {
-            "claim_id": "0001652044-26-000071:revenue",
+            "claim_id": "0001652044-26-000084:revenue",
             "metric": "revenue",
             "label": "營收",
-            "value": 119796000000.0,
+            "value": 127577000000.0,
             "unit": "USD",
             "tag": "Revenues",
             "derived": false,
             "derivation": null,
             "source_locator": "XBRL tag: Revenues",
-            "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/0001652044-26-000071-index.html",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000084/0001652044-26-000084-index.html",
             "source_form": "10-Q",
-            "source_accession": "0001652044-26-000071",
-            "source_date": "2026-07-23"
+            "source_accession": "0001652044-26-000084",
+            "source_date": "2026-10-29"
           },
           {
-            "claim_id": "0001652044-26-000071:gross_margin",
+            "claim_id": "0001652044-26-000084:gross_margin",
             "metric": "gross_margin",
             "label": "毛利率",
-            "value": 0.6164896991552306,
+            "value": 0.5969571317714008,
             "unit": "%",
             "tag": null,
             "derived": true,
             "derivation": "毛利 ÷ 營收",
             "source_locator": "毛利 ÷ 營收",
-            "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/0001652044-26-000071-index.html",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000084/0001652044-26-000084-index.html",
             "source_form": "10-Q",
-            "source_accession": "0001652044-26-000071",
-            "source_date": "2026-07-23"
+            "source_accession": "0001652044-26-000084",
+            "source_date": "2026-10-29"
           },
           {
-            "claim_id": "0001652044-26-000071:operating_margin",
+            "claim_id": "0001652044-26-000084:operating_margin",
             "metric": "operating_margin",
             "label": "營業利益率",
-            "value": 0.3403285585495342,
+            "value": 0.3180510593602295,
             "unit": "%",
             "tag": null,
             "derived": true,
             "derivation": "營業利益 ÷ 營收",
             "source_locator": "營業利益 ÷ 營收",
-            "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/0001652044-26-000071-index.html",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000084/0001652044-26-000084-index.html",
             "source_form": "10-Q",
-            "source_accession": "0001652044-26-000071",
-            "source_date": "2026-07-23"
+            "source_accession": "0001652044-26-000084",
+            "source_date": "2026-10-29"
           },
           {
-            "claim_id": "0001652044-26-000071:free_cash_flow",
+            "claim_id": "0001652044-26-000084:free_cash_flow",
             "metric": "free_cash_flow",
             "label": "自由現金流",
-            "value": -5855000000.0,
+            "value": -9065000000.0,
             "unit": "USD",
             "tag": null,
             "derived": true,
             "derivation": "營運現金流 − 資本支出",
             "source_locator": "營運現金流 − 資本支出",
-            "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/0001652044-26-000071-index.html",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000084/0001652044-26-000084-index.html",
             "source_form": "10-Q",
-            "source_accession": "0001652044-26-000071",
-            "source_date": "2026-07-23"
+            "source_accession": "0001652044-26-000084",
+            "source_date": "2026-10-29"
           },
           {
-            "claim_id": "0001652044-26-000071:diluted_shares",
+            "claim_id": "0001652044-26-000084:diluted_shares",
             "metric": "diluted_shares",
             "label": "稀釋股數",
-            "value": 12309000000.0,
+            "value": 12368000000.0,
             "unit": "shares",
             "tag": "WeightedAverageNumberOfDilutedSharesOutstanding",
             "derived": false,
             "derivation": null,
             "source_locator": "XBRL tag: WeightedAverageNumberOfDilutedSharesOutstanding",
-            "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/0001652044-26-000071-index.html",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000084/0001652044-26-000084-index.html",
             "source_form": "10-Q",
-            "source_accession": "0001652044-26-000071",
-            "source_date": "2026-07-23"
+            "source_accession": "0001652044-26-000084",
+            "source_date": "2026-10-29"
           }
         ],
         "coverage": {
@@ -3361,77 +3296,77 @@
       "earnings_delta": {
         "status": "available",
         "latest_result": {
-          "period_end": "2026-06-30",
-          "filing_date": "2026-07-23",
+          "period_end": "2026-09-30",
+          "filing_date": "2026-10-29",
           "form": "10-Q",
-          "accession": "0001652044-26-000071",
-          "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/0001652044-26-000071-index.html",
+          "accession": "0001652044-26-000084",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000084/0001652044-26-000084-index.html",
           "quality_notes": [],
           "currency": "USD",
           "source_basis": "SEC Company Facts；金額為 USD。",
-          "days_since_filing": 91,
-          "review_due": false
+          "days_since_filing": 5,
+          "review_due": true
         },
         "metrics": [
           {
             "metric": "revenue",
             "label": "營收",
             "display": "amount",
-            "value": 119796000000.0,
-            "qoq": 9.008517143481098,
-            "yoy": 24.23362508814868,
+            "value": 127577000000.0,
+            "qoq": 6.495208521152618,
+            "yoy": 24.652648857796102,
             "state": "improved",
-            "interpretation": "營收 YoY +24.2%",
-            "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/0001652044-26-000071-index.html",
-            "source_period": "2026-06-30"
+            "interpretation": "營收 YoY +24.7%",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000084/0001652044-26-000084-index.html",
+            "source_period": "2026-09-30"
           },
           {
             "metric": "gross_margin",
             "label": "毛利率",
             "display": "percent",
-            "value": 0.6164896991552306,
-            "qoq": -0.7964330108800932,
-            "yoy": 2.1340987162863145,
-            "state": "improved",
-            "interpretation": "毛利率 YoY +2.1pp",
-            "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/0001652044-26-000071-index.html",
-            "source_period": "2026-06-30"
+            "value": 0.5969571317714008,
+            "qoq": -1.9532567383829802,
+            "yoy": 0.1164428588081412,
+            "state": "stable",
+            "interpretation": "毛利率 YoY +0.1pp",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000084/0001652044-26-000084-index.html",
+            "source_period": "2026-09-30"
           },
           {
             "metric": "operating_margin",
             "label": "營業利益率",
             "display": "percent",
-            "value": 0.3403285585495342,
-            "qoq": -2.0885680367259853,
-            "yoy": 1.6034784956801773,
+            "value": 0.3180510593602295,
+            "qoq": -2.2277499189304715,
+            "yoy": 1.292921776407524,
             "state": "stable",
-            "interpretation": "營業利益率 YoY +1.6pp",
-            "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/0001652044-26-000071-index.html",
-            "source_period": "2026-06-30"
+            "interpretation": "營業利益率 YoY +1.3pp",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000084/0001652044-26-000084-index.html",
+            "source_period": "2026-09-30"
           },
           {
             "metric": "free_cash_flow",
             "label": "自由現金流",
             "display": "amount",
-            "value": -5855000000.0,
+            "value": -9065000000.0,
             "qoq": null,
             "yoy": null,
             "state": "risk",
             "interpretation": "自由現金流為負",
-            "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/0001652044-26-000071-index.html",
-            "source_period": "2026-06-30"
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000084/0001652044-26-000084-index.html",
+            "source_period": "2026-09-30"
           },
           {
             "metric": "diluted_shares",
             "label": "稀釋股數",
             "display": "shares",
-            "value": 12309000000.0,
-            "qoq": 0.5801601568883763,
-            "yoy": 0.9099852434825362,
+            "value": 12368000000.0,
+            "qoq": 0.47932407181736636,
+            "yoy": 1.3521265262640414,
             "state": "stable",
-            "interpretation": "稀釋股數 YoY +0.9%",
-            "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/0001652044-26-000071-index.html",
-            "source_period": "2026-06-30"
+            "interpretation": "稀釋股數 YoY +1.4%",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000084/0001652044-26-000084-index.html",
+            "source_period": "2026-09-30"
           }
         ],
         "official_guidance_comparison": null,
@@ -3443,7 +3378,7 @@
           "status": "not_collected",
           "note": "目前沒有已授權且可稽核的機構共識來源，不以網路摘要補值。"
         },
-        "conclusion": "改善項目多於風險項目，但仍需逐項核對來源與口徑。"
+        "conclusion": "改善與風險訊號相近，維持中性驗證。"
       },
       "thesis_scorecard": {
         "status": "maintained",
@@ -3489,40 +3424,18 @@
           }
         ],
         "next_validation": {
-          "ticker": "GOOG",
-          "date": "2026-10-28",
           "type": "earnings",
-          "title": "預估財報公布日",
-          "detail": "第三方市場資料日期；公司尚未公告時可能變更。",
-          "meaning": "財報日可能調整；應優先核對營收、毛利率、自由現金流與管理層指引是否改變。",
+          "date": "2026-10-28",
+          "days_until": -6,
+          "confidence": "estimated",
           "source_label": "Yahoo Finance 行事曆",
           "source_url": "https://finance.yahoo.com/quote/GOOG/calendar/",
-          "confidence": "estimated",
-          "announced_at": null,
-          "days_until": 6,
-          "position": "holding",
-          "company_name": "Alphabet"
+          "source_status": "fresh",
+          "last_success_at": "2026-11-03"
         }
       },
       "catalyst_log": {
-        "upcoming": [
-          {
-            "ticker": "GOOG",
-            "date": "2026-10-28",
-            "type": "earnings",
-            "title": "預估財報公布日",
-            "detail": "第三方市場資料日期；公司尚未公告時可能變更。",
-            "meaning": "財報日可能調整；應優先核對營收、毛利率、自由現金流與管理層指引是否改變。",
-            "source_label": "Yahoo Finance 行事曆",
-            "source_url": "https://finance.yahoo.com/quote/GOOG/calendar/",
-            "confidence": "estimated",
-            "announced_at": null,
-            "days_until": 6,
-            "position": "holding",
-            "company_name": "Alphabet",
-            "status": "upcoming"
-          }
-        ],
+        "upcoming": [],
         "completed": [],
         "note": "已完成事件目前只收錄可由官方指引與正式實績閉環驗證者；其他事件不猜測結果。"
       },
@@ -3543,71 +3456,71 @@
           {
             "id": "revenue_yoy",
             "label": "營收 YoY",
-            "value": 24.23362508814868,
+            "value": 24.652648857796102,
             "unit": "%",
             "direction": "higher",
             "known_peer_count": 5,
-            "peer_median": 19.620517346245126,
+            "peer_median": 18.804475171552525,
             "favorable_percentile": 75.0,
             "status": "available"
           },
           {
             "id": "gross_margin",
             "label": "毛利率",
-            "value": 61.648969915523054,
+            "value": 59.69571317714008,
             "unit": "%",
             "direction": "higher",
             "known_peer_count": 5,
-            "peer_median": 61.648969915523054,
+            "peer_median": 59.69571317714008,
             "favorable_percentile": 50.0,
             "status": "available"
           },
           {
             "id": "operating_margin",
             "label": "營業利益率",
-            "value": 34.03285585495342,
+            "value": 31.805105936022947,
             "unit": "%",
             "direction": "higher",
             "known_peer_count": 5,
-            "peer_median": 32.62290137729969,
+            "peer_median": 31.125029481904665,
             "favorable_percentile": 75.0,
             "status": "available"
           },
           {
             "id": "fcf_margin",
             "label": "FCF 利潤率",
-            "value": -4.8874753748038335,
+            "value": -7.105512749163251,
             "unit": "%",
             "direction": "higher",
             "known_peer_count": 5,
-            "peer_median": 2.8716632950115955,
-            "favorable_percentile": 0.0,
+            "peer_median": -1.7909939474621137,
+            "favorable_percentile": 25.0,
             "status": "available"
           },
           {
             "id": "diluted_shares_yoy",
             "label": "稀釋股數 YoY",
-            "value": 0.9099852434825362,
+            "value": 1.3521265262640414,
             "unit": "%",
             "direction": "lower",
             "known_peer_count": 4,
-            "peer_median": 0.3710037153303647,
+            "peer_median": 0.4067153664638168,
             "favorable_percentile": 0.0,
             "status": "available"
           },
           {
             "id": "pe_ratio",
             "label": "本益比",
-            "value": 30.6,
+            "value": 25.7,
             "unit": "x",
             "direction": "lower",
             "known_peer_count": 5,
-            "peer_median": 30.6,
-            "favorable_percentile": 50.0,
+            "peer_median": 28.3,
+            "favorable_percentile": 100.0,
             "status": "available"
           }
         ],
-        "composite_percentile": 41.7,
+        "composite_percentile": 54.2,
         "coverage": {
           "known": 6,
           "total": 6
@@ -3718,7 +3631,7 @@
           "quality_notes": [],
           "currency": "USD",
           "source_basis": "SEC Company Facts；金額為 USD。",
-          "days_since_filing": 69,
+          "days_since_filing": 81,
           "review_due": false
         },
         "metrics": [
@@ -3862,7 +3775,7 @@
           "source_url": "https://finance.yahoo.com/quote/COHR/calendar/",
           "confidence": "estimated",
           "announced_at": null,
-          "days_until": 13,
+          "days_until": 1,
           "position": "holding",
           "company_name": "Coherent"
         }
@@ -3880,7 +3793,7 @@
             "source_url": "https://finance.yahoo.com/quote/COHR/calendar/",
             "confidence": "estimated",
             "announced_at": null,
-            "days_until": 13,
+            "days_until": 1,
             "position": "holding",
             "company_name": "Coherent",
             "status": "upcoming"
@@ -3972,11 +3885,11 @@
           {
             "id": "pe_ratio",
             "label": "本益比",
-            "value": 59.0,
+            "value": 49.6,
             "unit": "x",
             "direction": "lower",
             "known_peer_count": 3,
-            "peer_median": 79.7,
+            "peer_median": 55.8,
             "favorable_percentile": 100.0,
             "status": "available"
           }
@@ -4092,7 +4005,7 @@
           "quality_notes": [],
           "currency": "USD",
           "source_basis": "SEC Company Facts；金額為 USD。",
-          "days_since_filing": 55,
+          "days_since_filing": 67,
           "review_due": false
         },
         "metrics": [
@@ -4226,30 +4139,35 @@
           }
         ],
         "next_validation": {
-          "type": "earnings",
+          "ticker": "MRVL",
           "date": "2026-12-01",
-          "days_until": 40,
-          "confidence": "estimated",
+          "type": "earnings",
+          "title": "預估財報公布日",
+          "detail": "第三方市場資料日期；公司尚未公告時可能變更。",
+          "meaning": "財報日可能調整；應優先核對營收、毛利率、自由現金流與管理層指引是否改變。",
           "source_label": "Yahoo Finance 行事曆",
           "source_url": "https://finance.yahoo.com/quote/MRVL/calendar/",
-          "source_status": "fresh",
-          "last_success_at": "2026-10-22"
+          "confidence": "estimated",
+          "announced_at": null,
+          "days_until": 28,
+          "position": "holding",
+          "company_name": "Marvell"
         }
       },
       "catalyst_log": {
         "upcoming": [
           {
             "ticker": "MRVL",
-            "date": "2026-10-29",
-            "type": "dividend_payment",
-            "title": "股利發放日",
+            "date": "2026-12-01",
+            "type": "earnings",
+            "title": "預估財報公布日",
             "detail": "第三方市場資料日期；公司尚未公告時可能變更。",
-            "meaning": "股息支付或入帳日期；不應重複視為一筆額外投資報酬。",
+            "meaning": "財報日可能調整；應優先核對營收、毛利率、自由現金流與管理層指引是否改變。",
             "source_label": "Yahoo Finance 行事曆",
             "source_url": "https://finance.yahoo.com/quote/MRVL/calendar/",
-            "confidence": "provider",
+            "confidence": "estimated",
             "announced_at": null,
-            "days_until": 7,
+            "days_until": 28,
             "position": "holding",
             "company_name": "Marvell",
             "status": "upcoming"
@@ -4325,8 +4243,8 @@
             "unit": "%",
             "direction": "higher",
             "known_peer_count": 5,
-            "peer_median": 22.620003463530598,
-            "favorable_percentile": 0.0,
+            "peer_median": 22.240467257667245,
+            "favorable_percentile": 25.0,
             "status": "available"
           },
           {
@@ -4343,16 +4261,16 @@
           {
             "id": "pe_ratio",
             "label": "本益比",
-            "value": 79.7,
+            "value": 55.8,
             "unit": "x",
             "direction": "lower",
             "known_peer_count": 4,
-            "peer_median": 62.5,
+            "peer_median": 48.55,
             "favorable_percentile": 33.3,
             "status": "available"
           }
         ],
-        "composite_percentile": 36.1,
+        "composite_percentile": 40.3,
         "coverage": {
           "known": 6,
           "total": 6
@@ -4364,87 +4282,87 @@
       "data_ticker": "INTC",
       "evidence_ledger": {
         "status": "available",
-        "period_end": "2026-06-27",
-        "source_url": "https://www.sec.gov/Archives/edgar/data/50863/000005086326000157/0000050863-26-000157-index.html",
+        "period_end": "2026-09-26",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/50863/000005086326000191/0000050863-26-000191-index.html",
         "source_form": "10-Q",
-        "source_accession": "0000050863-26-000157",
-        "source_date": "2026-07-24",
+        "source_accession": "0000050863-26-000191",
+        "source_date": "2026-10-30",
         "quality_notes": [],
         "claims": [
           {
-            "claim_id": "0000050863-26-000157:revenue",
+            "claim_id": "0000050863-26-000191:revenue",
             "metric": "revenue",
             "label": "營收",
-            "value": 16128000000.0,
+            "value": 16513000000.0,
             "unit": "USD",
             "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
             "derived": false,
             "derivation": null,
             "source_locator": "XBRL tag: RevenueFromContractWithCustomerExcludingAssessedTax",
-            "source_url": "https://www.sec.gov/Archives/edgar/data/50863/000005086326000157/0000050863-26-000157-index.html",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/50863/000005086326000191/0000050863-26-000191-index.html",
             "source_form": "10-Q",
-            "source_accession": "0000050863-26-000157",
-            "source_date": "2026-07-24"
+            "source_accession": "0000050863-26-000191",
+            "source_date": "2026-10-30"
           },
           {
-            "claim_id": "0000050863-26-000157:gross_margin",
+            "claim_id": "0000050863-26-000191:gross_margin",
             "metric": "gross_margin",
             "label": "毛利率",
-            "value": 0.40358382936507936,
+            "value": 0.42972203718282564,
             "unit": "%",
             "tag": null,
             "derived": true,
             "derivation": "毛利 ÷ 營收",
             "source_locator": "毛利 ÷ 營收",
-            "source_url": "https://www.sec.gov/Archives/edgar/data/50863/000005086326000157/0000050863-26-000157-index.html",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/50863/000005086326000191/0000050863-26-000191-index.html",
             "source_form": "10-Q",
-            "source_accession": "0000050863-26-000157",
-            "source_date": "2026-07-24"
+            "source_accession": "0000050863-26-000191",
+            "source_date": "2026-10-30"
           },
           {
-            "claim_id": "0000050863-26-000157:operating_margin",
+            "claim_id": "0000050863-26-000191:operating_margin",
             "metric": "operating_margin",
             "label": "營業利益率",
-            "value": 0.11135912698412699,
+            "value": 0.15272815357597044,
             "unit": "%",
             "tag": null,
             "derived": true,
             "derivation": "營業利益 ÷ 營收",
             "source_locator": "營業利益 ÷ 營收",
-            "source_url": "https://www.sec.gov/Archives/edgar/data/50863/000005086326000157/0000050863-26-000157-index.html",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/50863/000005086326000191/0000050863-26-000191-index.html",
             "source_form": "10-Q",
-            "source_accession": "0000050863-26-000157",
-            "source_date": "2026-07-24"
+            "source_accession": "0000050863-26-000191",
+            "source_date": "2026-10-30"
           },
           {
-            "claim_id": "0000050863-26-000157:free_cash_flow",
+            "claim_id": "0000050863-26-000191:free_cash_flow",
             "metric": "free_cash_flow",
             "label": "自由現金流",
-            "value": 4450000000.0,
+            "value": 1058000000.0,
             "unit": "USD",
             "tag": null,
             "derived": true,
             "derivation": "營運現金流 − 資本支出",
             "source_locator": "營運現金流 − 資本支出",
-            "source_url": "https://www.sec.gov/Archives/edgar/data/50863/000005086326000157/0000050863-26-000157-index.html",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/50863/000005086326000191/0000050863-26-000191-index.html",
             "source_form": "10-Q",
-            "source_accession": "0000050863-26-000157",
-            "source_date": "2026-07-24"
+            "source_accession": "0000050863-26-000191",
+            "source_date": "2026-10-30"
           },
           {
-            "claim_id": "0000050863-26-000157:diluted_shares",
+            "claim_id": "0000050863-26-000191:diluted_shares",
             "metric": "diluted_shares",
             "label": "稀釋股數",
-            "value": 5104000000.0,
+            "value": 5307000000.0,
             "unit": "shares",
             "tag": "WeightedAverageNumberOfDilutedSharesOutstanding",
             "derived": false,
             "derivation": null,
             "source_locator": "XBRL tag: WeightedAverageNumberOfDilutedSharesOutstanding",
-            "source_url": "https://www.sec.gov/Archives/edgar/data/50863/000005086326000157/0000050863-26-000157-index.html",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/50863/000005086326000191/0000050863-26-000191-index.html",
             "source_form": "10-Q",
-            "source_accession": "0000050863-26-000157",
-            "source_date": "2026-07-24"
+            "source_accession": "0000050863-26-000191",
+            "source_date": "2026-10-30"
           }
         ],
         "coverage": {
@@ -4455,77 +4373,77 @@
       "earnings_delta": {
         "status": "available",
         "latest_result": {
-          "period_end": "2026-06-27",
-          "filing_date": "2026-07-24",
+          "period_end": "2026-09-26",
+          "filing_date": "2026-10-30",
           "form": "10-Q",
-          "accession": "0000050863-26-000157",
-          "source_url": "https://www.sec.gov/Archives/edgar/data/50863/000005086326000157/0000050863-26-000157-index.html",
+          "accession": "0000050863-26-000191",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/50863/000005086326000191/0000050863-26-000191-index.html",
           "quality_notes": [],
           "currency": "USD",
           "source_basis": "SEC Company Facts；金額為 USD。",
-          "days_since_filing": 90,
-          "review_due": false
+          "days_since_filing": 4,
+          "review_due": true
         },
         "metrics": [
           {
             "metric": "revenue",
             "label": "營收",
             "display": "amount",
-            "value": 16128000000.0,
-            "qoq": 18.789128673491938,
-            "yoy": 25.421883505715837,
+            "value": 16513000000.0,
+            "qoq": 2.387152777777768,
+            "yoy": 20.94777704533801,
             "state": "improved",
-            "interpretation": "營收 YoY +25.4%",
-            "source_url": "https://www.sec.gov/Archives/edgar/data/50863/000005086326000157/0000050863-26-000157-index.html",
-            "source_period": "2026-06-27"
+            "interpretation": "營收 YoY +20.9%",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/50863/000005086326000191/0000050863-26-000191-index.html",
+            "source_period": "2026-09-26"
           },
           {
             "metric": "gross_margin",
             "label": "毛利率",
             "display": "percent",
-            "value": 0.40358382936507936,
-            "qoq": 0.975603235543071,
-            "yoy": 12.813472756867217,
+            "value": 0.42972203718282564,
+            "qoq": 2.6138207817746286,
+            "yoy": 4.753497206893126,
             "state": "improved",
-            "interpretation": "毛利率 YoY +12.8pp",
-            "source_url": "https://www.sec.gov/Archives/edgar/data/50863/000005086326000157/0000050863-26-000157-index.html",
-            "source_period": "2026-06-27"
+            "interpretation": "毛利率 YoY +4.8pp",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/50863/000005086326000191/0000050863-26-000191-index.html",
+            "source_period": "2026-09-26"
           },
           {
             "metric": "operating_margin",
             "label": "營業利益率",
             "display": "percent",
-            "value": 0.11135912698412699,
-            "qoq": 34.23379882936947,
-            "yoy": 35.8345673371871,
+            "value": 0.15272815357597044,
+            "qoq": 4.136902659184345,
+            "yoy": 10.27025181844814,
             "state": "improved",
-            "interpretation": "營業利益率 YoY +35.8pp",
-            "source_url": "https://www.sec.gov/Archives/edgar/data/50863/000005086326000157/0000050863-26-000157-index.html",
-            "source_period": "2026-06-27"
+            "interpretation": "營業利益率 YoY +10.3pp",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/50863/000005086326000191/0000050863-26-000191-index.html",
+            "source_period": "2026-09-26"
           },
           {
             "metric": "free_cash_flow",
             "label": "自由現金流",
             "display": "amount",
-            "value": 4450000000.0,
-            "qoq": null,
-            "yoy": null,
+            "value": 1058000000.0,
+            "qoq": -76.2247191011236,
+            "yoy": 774.3801652892563,
             "state": "improved",
             "interpretation": "自由現金流為正",
-            "source_url": "https://www.sec.gov/Archives/edgar/data/50863/000005086326000157/0000050863-26-000157-index.html",
-            "source_period": "2026-06-27"
+            "source_url": "https://www.sec.gov/Archives/edgar/data/50863/000005086326000191/0000050863-26-000191-index.html",
+            "source_period": "2026-09-26"
           },
           {
             "metric": "diluted_shares",
             "label": "稀釋股數",
             "display": "shares",
-            "value": 5104000000.0,
-            "qoq": 0.41314184536691556,
-            "yoy": 16.823071641107813,
+            "value": 5307000000.0,
+            "qoq": 3.9772727272727293,
+            "yoy": 17.126462149635845,
             "state": "risk",
-            "interpretation": "稀釋股數 YoY +16.8%",
-            "source_url": "https://www.sec.gov/Archives/edgar/data/50863/000005086326000157/0000050863-26-000157-index.html",
-            "source_period": "2026-06-27"
+            "interpretation": "稀釋股數 YoY +17.1%",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/50863/000005086326000191/0000050863-26-000191-index.html",
+            "source_period": "2026-09-26"
           }
         ],
         "official_guidance_comparison": {
@@ -4597,40 +4515,18 @@
           }
         ],
         "next_validation": {
-          "ticker": "INTC",
-          "date": "2026-10-29",
           "type": "earnings",
-          "title": "預估財報公布日",
-          "detail": "第三方市場資料日期；公司尚未公告時可能變更。",
-          "meaning": "財報日可能調整；應優先核對營收、毛利率、自由現金流與管理層指引是否改變。",
+          "date": "2027-01-28",
+          "days_until": 86,
+          "confidence": "estimated",
           "source_label": "Yahoo Finance 行事曆",
           "source_url": "https://finance.yahoo.com/quote/INTC/calendar/",
-          "confidence": "estimated",
-          "announced_at": null,
-          "days_until": 7,
-          "position": "holding",
-          "company_name": "Intel"
+          "source_status": "fresh",
+          "last_success_at": "2026-11-03"
         }
       },
       "catalyst_log": {
-        "upcoming": [
-          {
-            "ticker": "INTC",
-            "date": "2026-10-29",
-            "type": "earnings",
-            "title": "預估財報公布日",
-            "detail": "第三方市場資料日期；公司尚未公告時可能變更。",
-            "meaning": "財報日可能調整；應優先核對營收、毛利率、自由現金流與管理層指引是否改變。",
-            "source_label": "Yahoo Finance 行事曆",
-            "source_url": "https://finance.yahoo.com/quote/INTC/calendar/",
-            "confidence": "estimated",
-            "announced_at": null,
-            "days_until": 7,
-            "position": "holding",
-            "company_name": "Intel",
-            "status": "upcoming"
-          }
-        ],
+        "upcoming": [],
         "completed": [
           {
             "status": "completed",
@@ -4664,18 +4560,18 @@
           {
             "id": "revenue_yoy",
             "label": "營收 YoY",
-            "value": 25.421883505715837,
+            "value": 20.94777704533801,
             "unit": "%",
             "direction": "higher",
             "known_peer_count": 5,
             "peer_median": 36.045577699482756,
-            "favorable_percentile": 25.0,
+            "favorable_percentile": 0.0,
             "status": "available"
           },
           {
             "id": "gross_margin",
             "label": "毛利率",
-            "value": 40.35838293650794,
+            "value": 42.972203718282564,
             "unit": "%",
             "direction": "higher",
             "known_peer_count": 5,
@@ -4686,7 +4582,7 @@
           {
             "id": "operating_margin",
             "label": "營業利益率",
-            "value": 11.1359126984127,
+            "value": 15.272815357597045,
             "unit": "%",
             "direction": "higher",
             "known_peer_count": 5,
@@ -4697,18 +4593,18 @@
           {
             "id": "fcf_margin",
             "label": "FCF 利潤率",
-            "value": 27.591765873015873,
+            "value": 6.407073215042694,
             "unit": "%",
             "direction": "higher",
             "known_peer_count": 5,
-            "peer_median": 22.620003463530598,
-            "favorable_percentile": 75.0,
+            "peer_median": 22.240467257667245,
+            "favorable_percentile": 0.0,
             "status": "available"
           },
           {
             "id": "diluted_shares_yoy",
             "label": "稀釋股數 YoY",
-            "value": 16.823071641107813,
+            "value": 17.126462149635845,
             "unit": "%",
             "direction": "lower",
             "known_peer_count": 4,
@@ -4723,12 +4619,12 @@
             "unit": "x",
             "direction": "lower",
             "known_peer_count": 4,
-            "peer_median": 62.5,
+            "peer_median": 48.55,
             "favorable_percentile": null,
             "status": "insufficient"
           }
         ],
-        "composite_percentile": 25.0,
+        "composite_percentile": 5.0,
         "coverage": {
           "known": 5,
           "total": 6
@@ -4843,7 +4739,7 @@
           ],
           "currency": "EUR",
           "source_basis": "Nokia 官方 IFRS reported 季報；2025 與 2026 Q1 已採 2026-07-23 停業單位重編數字，金額為 EUR。",
-          "days_since_filing": 91,
+          "days_since_filing": 103,
           "review_due": false
         },
         "metrics": [
@@ -4963,35 +4859,30 @@
           }
         ],
         "next_validation": {
-          "ticker": "NOK",
-          "date": "2026-10-22",
           "type": "earnings",
-          "title": "預估財報公布日",
-          "detail": "第三方市場資料日期；公司尚未公告時可能變更。",
-          "meaning": "財報日可能調整；應優先核對營收、毛利率、自由現金流與管理層指引是否改變。",
+          "date": "2027-01-28",
+          "days_until": 86,
+          "confidence": "estimated",
           "source_label": "Yahoo Finance 行事曆",
           "source_url": "https://finance.yahoo.com/quote/NOK/calendar/",
-          "confidence": "estimated",
-          "announced_at": null,
-          "days_until": 0,
-          "position": "holding",
-          "company_name": "Nokia"
+          "source_status": "fresh",
+          "last_success_at": "2026-11-03"
         }
       },
       "catalyst_log": {
         "upcoming": [
           {
             "ticker": "NOK",
-            "date": "2026-10-22",
-            "type": "earnings",
-            "title": "預估財報公布日",
+            "date": "2026-11-10",
+            "type": "dividend_payment",
+            "title": "股利發放日",
             "detail": "第三方市場資料日期；公司尚未公告時可能變更。",
-            "meaning": "財報日可能調整；應優先核對營收、毛利率、自由現金流與管理層指引是否改變。",
+            "meaning": "股息支付或入帳日期；不應重複視為一筆額外投資報酬。",
             "source_label": "Yahoo Finance 行事曆",
             "source_url": "https://finance.yahoo.com/quote/NOK/calendar/",
-            "confidence": "estimated",
+            "confidence": "provider",
             "announced_at": null,
-            "days_until": 0,
+            "days_until": 7,
             "position": "holding",
             "company_name": "Nokia",
             "status": "upcoming"
@@ -5070,11 +4961,11 @@
           {
             "id": "pe_ratio",
             "label": "本益比",
-            "value": 80.5,
+            "value": 72.2,
             "unit": "x",
             "direction": "lower",
             "known_peer_count": 3,
-            "peer_median": 79.7,
+            "peer_median": 55.8,
             "favorable_percentile": 0.0,
             "status": "available"
           }
@@ -5088,37 +4979,74 @@
     }
   },
   "market_rotation_bridge": {
-    "as_of": "2026-10-21",
+    "as_of": "2026-11-02",
     "sectors": [
       {
-        "sector_key": "Health Care",
-        "sector_name": "醫療保健",
-        "quadrant": "weakening",
-        "quadrant_zh": "轉弱",
-        "rotation_score": 78.2,
-        "as_of": "2026-10-21",
-        "research_action": "仍相對領先但動能降溫；優先檢查估值、指引與論點是否開始轉弱。",
-        "tracked_companies": [],
-        "coverage_note": "只連結 sec_kb 追蹤且屬於 S&P 500／Nasdaq-100 的 0 家公司，不代表整個板塊基本面。"
-      },
-      {
-        "sector_key": "Energy",
-        "sector_name": "能源",
-        "quadrant": "weakening",
-        "quadrant_zh": "轉弱",
-        "rotation_score": 66.8,
-        "as_of": "2026-10-21",
-        "research_action": "仍相對領先但動能降溫；優先檢查估值、指引與論點是否開始轉弱。",
-        "tracked_companies": [],
-        "coverage_note": "只連結 sec_kb 追蹤且屬於 S&P 500／Nasdaq-100 的 0 家公司，不代表整個板塊基本面。"
+        "sector_key": "Consumer Discretionary",
+        "sector_name": "非必需消費",
+        "quadrant": "leading",
+        "quadrant_zh": "領先",
+        "rotation_score": 75.0,
+        "as_of": "2026-11-02",
+        "research_action": "價格層領先且仍加速；下一步核對基本面是否同步改善，不能只因位於右上角追價。",
+        "tracked_companies": [
+          {
+            "ticker": "AMZN",
+            "thesis_label": "論點維持",
+            "peer_group": "大型數位平台研究對照組",
+            "peer_percentile": 18.1,
+            "evidence_period": "2026-09-30"
+          },
+          {
+            "ticker": "TSLA",
+            "thesis_label": "需要驗證",
+            "peer_group": null,
+            "peer_percentile": null,
+            "evidence_period": "2026-09-30"
+          }
+        ],
+        "coverage_note": "只連結 sec_kb 追蹤且屬於 S&P 500／Nasdaq-100 的 2 家公司，不代表整個板塊基本面。"
       },
       {
         "sector_key": "Consumer Staples",
         "sector_name": "必需消費",
+        "quadrant": "leading",
+        "quadrant_zh": "領先",
+        "rotation_score": 74.5,
+        "as_of": "2026-11-02",
+        "research_action": "價格層領先且仍加速；下一步核對基本面是否同步改善，不能只因位於右上角追價。",
+        "tracked_companies": [],
+        "coverage_note": "只連結 sec_kb 追蹤且屬於 S&P 500／Nasdaq-100 的 0 家公司，不代表整個板塊基本面。"
+      },
+      {
+        "sector_key": "Materials",
+        "sector_name": "原物料",
+        "quadrant": "leading",
+        "quadrant_zh": "領先",
+        "rotation_score": 70.9,
+        "as_of": "2026-11-02",
+        "research_action": "價格層領先且仍加速；下一步核對基本面是否同步改善，不能只因位於右上角追價。",
+        "tracked_companies": [],
+        "coverage_note": "只連結 sec_kb 追蹤且屬於 S&P 500／Nasdaq-100 的 0 家公司，不代表整個板塊基本面。"
+      },
+      {
+        "sector_key": "Utilities",
+        "sector_name": "公用事業",
+        "quadrant": "leading",
+        "quadrant_zh": "領先",
+        "rotation_score": 65.5,
+        "as_of": "2026-11-02",
+        "research_action": "價格層領先且仍加速；下一步核對基本面是否同步改善，不能只因位於右上角追價。",
+        "tracked_companies": [],
+        "coverage_note": "只連結 sec_kb 追蹤且屬於 S&P 500／Nasdaq-100 的 0 家公司，不代表整個板塊基本面。"
+      },
+      {
+        "sector_key": "Real Estate",
+        "sector_name": "房地產",
         "quadrant": "weakening",
         "quadrant_zh": "轉弱",
-        "rotation_score": 63.6,
-        "as_of": "2026-10-21",
+        "rotation_score": 58.2,
+        "as_of": "2026-11-02",
         "research_action": "仍相對領先但動能降溫；優先檢查估值、指引與論點是否開始轉弱。",
         "tracked_companies": [],
         "coverage_note": "只連結 sec_kb 追蹤且屬於 S&P 500／Nasdaq-100 的 0 家公司，不代表整個板塊基本面。"
@@ -5128,57 +5056,42 @@
         "sector_name": "金融",
         "quadrant": "leading",
         "quadrant_zh": "領先",
-        "rotation_score": 63.2,
-        "as_of": "2026-10-21",
+        "rotation_score": 55.5,
+        "as_of": "2026-11-02",
         "research_action": "價格層領先且仍加速；下一步核對基本面是否同步改善，不能只因位於右上角追價。",
         "tracked_companies": [],
         "coverage_note": "只連結 sec_kb 追蹤且屬於 S&P 500／Nasdaq-100 的 0 家公司，不代表整個板塊基本面。"
       },
       {
-        "sector_key": "Utilities",
-        "sector_name": "公用事業",
+        "sector_key": "Industrials",
+        "sector_name": "工業",
+        "quadrant": "leading",
+        "quadrant_zh": "領先",
+        "rotation_score": 50.0,
+        "as_of": "2026-11-02",
+        "research_action": "價格層領先且仍加速；下一步核對基本面是否同步改善，不能只因位於右上角追價。",
+        "tracked_companies": [],
+        "coverage_note": "只連結 sec_kb 追蹤且屬於 S&P 500／Nasdaq-100 的 0 家公司，不代表整個板塊基本面。"
+      },
+      {
+        "sector_key": "Health Care",
+        "sector_name": "醫療保健",
         "quadrant": "weakening",
         "quadrant_zh": "轉弱",
-        "rotation_score": 61.4,
-        "as_of": "2026-10-21",
+        "rotation_score": 47.3,
+        "as_of": "2026-11-02",
         "research_action": "仍相對領先但動能降溫；優先檢查估值、指引與論點是否開始轉弱。",
         "tracked_companies": [],
         "coverage_note": "只連結 sec_kb 追蹤且屬於 S&P 500／Nasdaq-100 的 0 家公司，不代表整個板塊基本面。"
       },
       {
-        "sector_key": "Consumer Discretionary",
-        "sector_name": "非必需消費",
-        "quadrant": "leading",
-        "quadrant_zh": "領先",
-        "rotation_score": 55.9,
-        "as_of": "2026-10-21",
-        "research_action": "價格層領先且仍加速；下一步核對基本面是否同步改善，不能只因位於右上角追價。",
-        "tracked_companies": [
-          {
-            "ticker": "AMZN",
-            "thesis_label": "論點維持",
-            "peer_group": "大型數位平台研究對照組",
-            "peer_percentile": 26.4,
-            "evidence_period": "2026-06-30"
-          },
-          {
-            "ticker": "TSLA",
-            "thesis_label": "需要驗證",
-            "peer_group": null,
-            "peer_percentile": null,
-            "evidence_period": "2026-06-30"
-          }
-        ],
-        "coverage_note": "只連結 sec_kb 追蹤且屬於 S&P 500／Nasdaq-100 的 2 家公司，不代表整個板塊基本面。"
-      },
-      {
-        "sector_key": "Materials",
-        "sector_name": "原物料",
-        "quadrant": "improving",
-        "quadrant_zh": "改善",
-        "rotation_score": 55.9,
-        "as_of": "2026-10-21",
-        "research_action": "相對仍弱但動能回升；列入研究候選，等待財報與論點證據確認。",
+        "sector_key": "Energy",
+        "sector_name": "能源",
+        "quadrant": "weakening",
+        "quadrant_zh": "轉弱",
+        "rotation_score": 45.5,
+        "as_of": "2026-11-02",
+        "research_action": "仍相對領先但動能降溫；優先檢查估值、指引與論點是否開始轉弱。",
         "tracked_companies": [],
         "coverage_note": "只連結 sec_kb 追蹤且屬於 S&P 500／Nasdaq-100 的 0 家公司，不代表整個板塊基本面。"
       },
@@ -5187,70 +5100,48 @@
         "sector_name": "通訊服務",
         "quadrant": "improving",
         "quadrant_zh": "改善",
-        "rotation_score": 41.8,
-        "as_of": "2026-10-21",
+        "rotation_score": 37.7,
+        "as_of": "2026-11-02",
         "research_action": "相對仍弱但動能回升；列入研究候選，等待財報與論點證據確認。",
         "tracked_companies": [
           {
             "ticker": "GOOG",
             "thesis_label": "論點維持",
             "peer_group": "大型數位平台研究對照組",
-            "peer_percentile": 41.7,
-            "evidence_period": "2026-06-30"
+            "peer_percentile": 54.2,
+            "evidence_period": "2026-09-30"
           },
           {
             "ticker": "META",
             "thesis_label": "部分失效",
             "peer_group": "大型數位平台研究對照組",
-            "peer_percentile": 71.5,
-            "evidence_period": "2026-06-30"
+            "peer_percentile": 69.5,
+            "evidence_period": "2026-09-30"
           }
         ],
         "coverage_note": "只連結 sec_kb 追蹤且屬於 S&P 500／Nasdaq-100 的 2 家公司，不代表整個板塊基本面。"
       },
       {
-        "sector_key": "Industrials",
-        "sector_name": "工業",
-        "quadrant": "lagging",
-        "quadrant_zh": "落後",
-        "rotation_score": 41.4,
-        "as_of": "2026-10-21",
-        "research_action": "相對弱且動能惡化；區分市場冷卻與公司基本面失效，不由價格直接推論價值。",
-        "tracked_companies": [],
-        "coverage_note": "只連結 sec_kb 追蹤且屬於 S&P 500／Nasdaq-100 的 0 家公司，不代表整個板塊基本面。"
-      },
-      {
-        "sector_key": "Real Estate",
-        "sector_name": "房地產",
-        "quadrant": "lagging",
-        "quadrant_zh": "落後",
-        "rotation_score": 36.8,
-        "as_of": "2026-10-21",
-        "research_action": "相對弱且動能惡化；區分市場冷卻與公司基本面失效，不由價格直接推論價值。",
-        "tracked_companies": [],
-        "coverage_note": "只連結 sec_kb 追蹤且屬於 S&P 500／Nasdaq-100 的 0 家公司，不代表整個板塊基本面。"
-      },
-      {
         "sector_key": "Information Technology",
         "sector_name": "資訊科技",
-        "quadrant": "improving",
-        "quadrant_zh": "改善",
-        "rotation_score": 35.0,
-        "as_of": "2026-10-21",
-        "research_action": "相對仍弱但動能回升；列入研究候選，等待財報與論點證據確認。",
+        "quadrant": "lagging",
+        "quadrant_zh": "落後",
+        "rotation_score": 20.0,
+        "as_of": "2026-11-02",
+        "research_action": "相對弱且動能惡化；區分市場冷卻與公司基本面失效，不由價格直接推論價值。",
         "tracked_companies": [
           {
             "ticker": "AAPL",
             "thesis_label": "部分失效",
             "peer_group": "大型數位平台研究對照組",
-            "peer_percentile": 41.7,
-            "evidence_period": "2026-06-27"
+            "peer_percentile": 30.0,
+            "evidence_period": "2026-09-26"
           },
           {
             "ticker": "ARM",
             "thesis_label": "論點維持",
             "peer_group": "半導體平台研究對照組",
-            "peer_percentile": 44.4,
+            "peer_percentile": 48.6,
             "evidence_period": "2026-06-30"
           },
           {
@@ -5264,28 +5155,28 @@
             "ticker": "INTC",
             "thesis_label": "部分失效",
             "peer_group": "半導體平台研究對照組",
-            "peer_percentile": 25.0,
-            "evidence_period": "2026-06-27"
+            "peer_percentile": 5.0,
+            "evidence_period": "2026-09-26"
           },
           {
             "ticker": "MRVL",
             "thesis_label": "論點維持",
             "peer_group": "半導體平台研究對照組",
-            "peer_percentile": 36.1,
+            "peer_percentile": 40.3,
             "evidence_period": "2026-08-01"
           },
           {
             "ticker": "MSFT",
             "thesis_label": "部分失效",
             "peer_group": "大型數位平台研究對照組",
-            "peer_percentile": 72.5,
-            "evidence_period": "2026-06-30"
+            "peer_percentile": 75.0,
+            "evidence_period": "2026-09-30"
           },
           {
             "ticker": "NVDA",
             "thesis_label": "論點維持",
             "peer_group": "半導體平台研究對照組",
-            "peer_percentile": 77.8,
+            "peer_percentile": 82.0,
             "evidence_period": "2026-07-26"
           }
         ],

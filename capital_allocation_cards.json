@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-22T01:37:44+00:00",
+  "updated_at": "2026-11-03T13:46:05+00:00",
   "tracked_count": 14,
   "summary": {
     "support": 8,
@@ -495,7 +495,7 @@
     {
       "ticker": "MSFT",
       "data_ticker": "MSFT",
-      "name": "Microsoft Corporation",
+      "name": "MICROSOFT CORP",
       "position": "watchlist",
       "currency": "USD",
       "latest_period": "2026-06-30",
@@ -965,10 +965,10 @@
       "name": "Apple Inc.",
       "position": "watchlist",
       "currency": "USD",
-      "latest_period": "2025-09-27",
+      "latest_period": "2026-09-26",
       "status": "support",
       "label": "資本配置支持股東價值",
-      "score": 4,
+      "score": 6,
       "coverage": {
         "known": 5,
         "total": 5,
@@ -980,21 +980,21 @@
           "label": "現金創造",
           "state": "support",
           "score": 3,
-          "evidence": "FCF 為正，且保留營運現金流的 89%。"
+          "evidence": "FCF 為正，且保留營運現金流的 94%。"
         },
         {
           "id": "payout",
           "label": "股東回饋",
-          "state": "attention",
-          "score": -1,
-          "evidence": "回購加股利為 FCF 的 107%，超過當年 FCF。"
+          "state": "support",
+          "score": 1,
+          "evidence": "回購加股利使用 FCF 的 75%，目前由當年 FCF 覆蓋。"
         },
         {
           "id": "shares",
           "label": "回購實效",
           "state": "support",
           "score": 2,
-          "evidence": "稀釋加權平均股數年減 2.6%；回購／股份變動的淨效果有利。"
+          "evidence": "稀釋加權平均股數年減 1.9%；回購／股份變動的淨效果有利。"
         },
         {
           "id": "debt",
@@ -1008,47 +1008,84 @@
           "label": "再投資強度",
           "state": "context",
           "score": 0,
-          "evidence": "資本支出為營收的 3.1%；高低本身不代表投資成敗。"
+          "evidence": "資本支出為營收的 1.9%；高低本身不代表投資成敗。"
         }
       ],
       "latest": {
-        "fiscal_year_end": "2025-09-27",
+        "fiscal_year_end": "2026-09-26",
         "currency": "USD",
-        "revenue": 416161000000,
-        "operating_cash_flow": 111482000000,
-        "capex": 12715000000,
-        "free_cash_flow": 98767000000,
-        "fcf_margin": 0.23732882225869315,
-        "fcf_conversion": 0.8859457132093074,
-        "capex_intensity": 0.030553079216937677,
-        "buybacks": 90711000000,
-        "dividends_paid": 15421000000,
-        "shareholder_returns": 106132000000,
+        "revenue": 478834000000,
+        "operating_cash_flow": 145097000000,
+        "capex": 9041000000,
+        "free_cash_flow": 136056000000,
+        "fcf_margin": 0.28414022396070454,
+        "fcf_conversion": 0.9376899591307883,
+        "capex_intensity": 0.01888128244861476,
+        "buybacks": 86390000000,
+        "dividends_paid": 15721000000,
+        "shareholder_returns": 102111000000,
         "payout_complete": true,
-        "payout_to_fcf": 1.0745694412101208,
-        "diluted_shares": 15004697000,
-        "share_change": -0.026180913344576395,
+        "payout_to_fcf": 0.7505071441171283,
+        "diluted_shares": 14720306000,
+        "share_change": -0.0189534650383143,
         "share_comparable": true,
         "share_note": null,
-        "total_debt": 91908000000,
-        "debt_change": -0.05791426638512476,
+        "total_debt": 79570000000,
+        "debt_change": -0.13424293859076464,
         "debt_note": null,
         "debt_components": {
-          "長期借款": 78328000000,
-          "一年內到期借款": 12350000000,
-          "長期融資租賃": 692000000,
-          "一年內到期融資租賃": 538000000
+          "長期借款": 68208000000,
+          "一年內到期借款": 9906000000,
+          "長期融資租賃": 756000000,
+          "一年內到期融資租賃": 700000000
         },
-        "cash_and_short_investments": 54697000000,
-        "net_cash": -37211000000,
+        "cash_and_short_investments": 56722000000,
+        "net_cash": -22848000000,
         "source": {
           "form": "10-K",
-          "filed": "2025-10-31",
-          "accession": "0000320193-25-000079",
-          "url": "https://www.sec.gov/Archives/edgar/data/320193/000032019325000079/0000320193-25-000079-index.html"
+          "filed": "2026-11-03",
+          "accession": "0000320193-26-000026",
+          "url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000026/0000320193-26-000026-index.html"
         }
       },
       "years": [
+        {
+          "fiscal_year_end": "2026-09-26",
+          "currency": "USD",
+          "revenue": 478834000000,
+          "operating_cash_flow": 145097000000,
+          "capex": 9041000000,
+          "free_cash_flow": 136056000000,
+          "fcf_margin": 0.28414022396070454,
+          "fcf_conversion": 0.9376899591307883,
+          "capex_intensity": 0.01888128244861476,
+          "buybacks": 86390000000,
+          "dividends_paid": 15721000000,
+          "shareholder_returns": 102111000000,
+          "payout_complete": true,
+          "payout_to_fcf": 0.7505071441171283,
+          "diluted_shares": 14720306000,
+          "share_change": -0.0189534650383143,
+          "share_comparable": true,
+          "share_note": null,
+          "total_debt": 79570000000,
+          "debt_change": -0.13424293859076464,
+          "debt_note": null,
+          "debt_components": {
+            "長期借款": 68208000000,
+            "一年內到期借款": 9906000000,
+            "長期融資租賃": 756000000,
+            "一年內到期融資租賃": 700000000
+          },
+          "cash_and_short_investments": 56722000000,
+          "net_cash": -22848000000,
+          "source": {
+            "form": "10-K",
+            "filed": "2026-11-03",
+            "accession": "0000320193-26-000026",
+            "url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000026/0000320193-26-000026-index.html"
+          }
+        },
         {
           "fiscal_year_end": "2025-09-27",
           "currency": "USD",
@@ -1081,9 +1118,9 @@
           "net_cash": -37211000000,
           "source": {
             "form": "10-K",
-            "filed": "2025-10-31",
-            "accession": "0000320193-25-000079",
-            "url": "https://www.sec.gov/Archives/edgar/data/320193/000032019325000079/0000320193-25-000079-index.html"
+            "filed": "2026-11-03",
+            "accession": "0000320193-26-000026",
+            "url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000026/0000320193-26-000026-index.html"
           }
         },
         {
@@ -1118,9 +1155,9 @@
           "net_cash": -32387000000,
           "source": {
             "form": "10-K",
-            "filed": "2025-10-31",
-            "accession": "0000320193-25-000079",
-            "url": "https://www.sec.gov/Archives/edgar/data/320193/000032019325000079/0000320193-25-000079-index.html"
+            "filed": "2026-11-03",
+            "accession": "0000320193-26-000026",
+            "url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000026/0000320193-26-000026-index.html"
           }
         },
         {
@@ -1139,11 +1176,11 @@
           "payout_complete": true,
           "payout_to_fcf": 0.9296172075835476,
           "diluted_shares": 15812547000,
-          "share_change": -0.03143928032033183,
-          "share_comparable": true,
-          "share_note": null,
+          "share_change": null,
+          "share_comparable": false,
+          "share_note": "缺本期或前期稀釋加權平均股數，無法判斷淨稀釋。",
           "total_debt": 106127000000,
-          "debt_change": -0.044142018229635815,
+          "debt_change": null,
           "debt_note": null,
           "debt_components": {
             "長期借款": 95281000000,
@@ -1159,43 +1196,6 @@
             "accession": "0000320193-25-000079",
             "url": "https://www.sec.gov/Archives/edgar/data/320193/000032019325000079/0000320193-25-000079-index.html"
           }
-        },
-        {
-          "fiscal_year_end": "2022-09-24",
-          "currency": "USD",
-          "revenue": 394328000000,
-          "operating_cash_flow": 122151000000,
-          "capex": 10708000000,
-          "free_cash_flow": 111443000000,
-          "fcf_margin": 0.2826149804223895,
-          "fcf_conversion": 0.9123380078754983,
-          "capex_intensity": 0.02715505873283155,
-          "buybacks": 89402000000,
-          "dividends_paid": 14841000000,
-          "shareholder_returns": 104243000000,
-          "payout_complete": true,
-          "payout_to_fcf": 0.9353929811652594,
-          "diluted_shares": 16325819000,
-          "share_change": null,
-          "share_comparable": false,
-          "share_note": "缺本期或前期稀釋加權平均股數，無法判斷淨稀釋。",
-          "total_debt": 111028000000,
-          "debt_change": null,
-          "debt_note": null,
-          "debt_components": {
-            "長期借款": 98959000000,
-            "一年內到期借款": 11128000000,
-            "長期融資租賃": 812000000,
-            "一年內到期融資租賃": 129000000
-          },
-          "cash_and_short_investments": 48304000000,
-          "net_cash": -62724000000,
-          "source": {
-            "form": "10-K",
-            "filed": "2024-11-01",
-            "accession": "0000320193-24-000123",
-            "url": "https://www.sec.gov/Archives/edgar/data/320193/000032019324000123/0000320193-24-000123-index.html"
-          }
         }
       ],
       "conclusion": "資本配置支持股東價值；依 5/5 個可判讀構面，只評估已公布現金流、股東回饋、淨股份效果、負債與資本支出，不推測管理層動機。"
@@ -1203,7 +1203,7 @@
     {
       "ticker": "AMZN",
       "data_ticker": "AMZN",
-      "name": "AMAZON COM INC",
+      "name": "AMAZON.COM, INC.",
       "position": "watchlist",
       "currency": "USD",
       "latest_period": "2025-12-31",
@@ -1911,7 +1911,7 @@
     {
       "ticker": "TSLA",
       "data_ticker": "TSLA",
-      "name": "TESLA, INC.",
+      "name": "Tesla, Inc.",
       "position": "holding",
       "currency": "USD",
       "latest_period": "2025-12-31",
@@ -2854,7 +2854,7 @@
     {
       "ticker": "INTC",
       "data_ticker": "INTC",
-      "name": "INTEL CORP",
+      "name": "Intel Corporation",
       "position": "holding",
       "currency": "USD",
       "latest_period": "2025-12-27",

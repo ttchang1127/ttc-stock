@@ -1,6 +1,6 @@
 {
- "generated_at": "2026-10-22T01:37:48+00:00",
- "financials_generated_at": "2026-10-22T01:37:44+00:00",
+ "generated_at": "2026-11-03T13:46:09+00:00",
+ "financials_generated_at": "2026-11-03T13:46:05+00:00",
  "source": "Derived from SEC XBRL Company Facts; WACC from dcf_assumptions.json",
  "thresholds": {
   "current_ratio_min": 1.0,
@@ -14,103 +14,103 @@
   "AAPL": {
    "entity_name": "Apple Inc.",
    "taxonomy": "us-gaap",
-   "fiscal_year_end": "2025-09-27",
-   "prior_fiscal_year_end": "2024-09-28",
+   "fiscal_year_end": "2026-09-26",
+   "prior_fiscal_year_end": "2025-09-27",
    "currency": "USD",
    "source_form": "10-K",
-   "source_accession": "0000320193-25-000079",
-   "source_filed": "2025-10-31",
+   "source_accession": "0000320193-26-000026",
+   "source_filed": "2026-11-03",
    "liquidity": {
-    "current_ratio": 0.89,
+    "current_ratio": 1.02,
     "cash_ratio": 0.33,
-    "working_capital": -17674000000,
-    "working_capital_to_assets": -0.0492,
+    "working_capital": 3942000000,
+    "working_capital_to_assets": 0.0097,
     "quick_ratio": null,
     "quick_ratio_reason": "未擷取存貨科目 (InventoryNet)，速動比率無法計算"
    },
    "solvency": {
-    "total_debt": 91908000000,
+    "total_debt": 79570000000,
     "total_debt_note": null,
     "debt_components": {
-     "長期借款": 78328000000,
-     "一年內到期借款": 12350000000,
-     "長期融資租賃": 692000000,
-     "一年內到期融資租賃": 538000000
+     "長期借款": 68208000000,
+     "一年內到期借款": 9906000000,
+     "長期融資租賃": 756000000,
+     "一年內到期融資租賃": 700000000
     },
-    "total_liabilities": 285508000000,
+    "total_liabilities": 292455000000,
     "liabilities_basis": "tag",
     "liabilities_note": null,
-    "net_debt": 37211000000,
-    "debt_to_equity": 1.246,
-    "liabilities_to_assets": 0.7948,
-    "equity_to_assets": 0.2052,
+    "net_debt": 22848000000,
+    "debt_to_equity": 0.71,
+    "liabilities_to_assets": 0.7229,
+    "equity_to_assets": 0.2771,
     "interest_coverage": null,
-    "interest_coverage_note": "未取得利息費用標籤（有息負債 91,908,000,000，此比率本應適用）。無法由其他科目推導",
+    "interest_coverage_note": "未取得利息費用標籤（有息負債 79,570,000,000，此比率本應適用）。無法由其他科目推導",
     "interest_expense_tag": null,
-    "net_debt_to_ebit": 0.28,
+    "net_debt_to_ebit": 0.14,
     "net_debt_to_ebit_note": "以 EBIT 為分母（未擷取折舊攤銷，無法計算 EBITDA）"
    },
    "profitability": {
-    "gross_margin": 0.4691,
+    "gross_margin": 0.4879,
     "gross_margin_basis": "GrossProfit 標籤",
     "gross_margin_note": null,
-    "operating_margin": 0.3197,
-    "net_margin": 0.2692,
-    "roa": 0.3118,
-    "roe": 1.5191,
-    "effective_tax_rate": 0.1561,
+    "operating_margin": 0.3301,
+    "net_margin": 0.276,
+    "roa": 0.3267,
+    "roe": 1.1792,
+    "effective_tax_rate": 0.1699,
     "effective_tax_rate_note": null,
-    "nopat": 112280891893,
-    "invested_capital": 151263000000,
+    "nopat": 131200518881,
+    "invested_capital": 187817000000,
     "invested_capital_basis": "營運側：總資產 − 流動負債 + 一年內到期負債 − 現金與短期投資",
-    "invested_capital_financing_side": 110944000000,
-    "roic": 0.7423,
+    "invested_capital_financing_side": 134941000000,
+    "roic": 0.6986,
     "roic_note": null,
     "wacc": 0.0906,
     "wacc_source": "dcf_assumptions.json",
-    "roic_minus_wacc": 0.6517,
+    "roic_minus_wacc": 0.608,
     "value_creation": "創造價值"
    },
    "cash_flow_quality": {
-    "free_cash_flow": 98767000000,
-    "fcf_margin": 0.2373,
-    "ocf_to_net_income": 0.995,
+    "free_cash_flow": 136056000000,
+    "fcf_margin": 0.2841,
+    "ocf_to_net_income": 1.098,
     "ocf_to_net_income_note": null,
-    "accrual_ratio": 0.0015,
+    "accrual_ratio": -0.0338,
     "accrual_ratio_basis": "(淨利 − 營運現金流) ÷ 平均總資產，Sloan (1996)",
-    "capex_to_ocf": 0.114,
-    "capex_intensity": 0.0306
+    "capex_to_ocf": 0.062,
+    "capex_intensity": 0.0189
    },
    "altman_z2": {
-    "z2_score": 2.31,
-    "zone": "grey",
+    "z2_score": 3.2,
+    "zone": "safe",
     "formula": "6.56*X1 + 3.26*X2 + 6.72*X3 + 1.05*X4",
     "thresholds": {
      "safe": 2.6,
      "distress": 1.1
     },
     "components": {
-     "X1_working_capital_to_assets": -0.0492,
-     "X2_retained_earnings_to_assets": -0.0397,
-     "X3_ebit_to_assets": 0.3704,
-     "X4_book_equity_to_liabilities": 0.2583
+     "X1_working_capital_to_assets": 0.0097,
+     "X2_retained_earnings_to_assets": 0.0339,
+     "X3_ebit_to_assets": 0.3907,
+     "X4_book_equity_to_liabilities": 0.3833
     },
     "liabilities_basis": "tag",
     "liabilities_note": null
    },
    "beneish_m": {
-    "m_score": -2.229,
+    "m_score": -2.487,
     "threshold": -1.78,
     "flagged": false,
     "indices": {
-     "DSRI": 1.1187,
-     "GMI": 0.9851,
-     "AQI": 1.1367,
-     "SGI": 1.0643,
-     "DEPI": 1.1002,
-     "SGAI": 0.9938,
-     "LVGI": 0.9455,
-     "TATA": 0.0015
+     "DSRI": 0.9574,
+     "GMI": 0.9615,
+     "AQI": 1.0436,
+     "SGI": 1.1506,
+     "DEPI": 0.9664,
+     "SGAI": 0.9375,
+     "LVGI": 0.8668,
+     "TATA": -0.0319
     },
     "unavailable": [],
     "sources": {
@@ -122,39 +122,29 @@
     "interpretation": "低於 -1.78，未觸發模型門檻"
    },
    "piotroski": {
-    "score": 8,
+    "score": 9,
     "max_evaluated": 9,
     "unavailable": [],
-    "normalised_9": 8.0,
+    "normalised_9": 9.0,
     "comparable": true,
     "note": null
    },
    "freshness": {
-    "fiscal_year_end": "2025-09-27",
-    "as_of": "2026-10-22",
-    "months_old": 13,
+    "fiscal_year_end": "2026-09-26",
+    "as_of": "2026-11-03",
+    "months_old": 2,
     "stale": false,
     "threshold_months": 15,
     "note": null
    },
    "flags": [
     {
-     "dimension": "流動性",
-     "severity": "warn",
-     "detail": "流動比率 0.89 低於 1.0，流動負債大於流動資產"
-    },
-    {
      "dimension": "償債能力",
      "severity": "warn",
-     "detail": "負債佔資產 79%，高於 60%"
-    },
-    {
-     "dimension": "破產風險",
-     "severity": "warn",
-     "detail": "Altman Z'' 2.31 落在 1.1~2.6 灰色區"
+     "detail": "負債佔資產 72%，高於 60%"
     }
    ],
-   "flag_count": 3,
+   "flag_count": 1,
    "coverage": {
     "computed": 10,
     "total": 11,
@@ -166,7 +156,7 @@
    }
   },
   "AMZN": {
-   "entity_name": "AMAZON COM INC",
+   "entity_name": "AMAZON.COM, INC.",
    "taxonomy": "us-gaap",
    "fiscal_year_end": "2025-12-31",
    "prior_fiscal_year_end": "2024-12-31",
@@ -285,8 +275,8 @@
    },
    "freshness": {
     "fiscal_year_end": "2025-12-31",
-    "as_of": "2026-10-22",
-    "months_old": 10,
+    "as_of": "2026-11-03",
+    "months_old": 11,
     "stale": false,
     "threshold_months": 15,
     "note": null
@@ -421,8 +411,8 @@
    },
    "freshness": {
     "fiscal_year_end": "2026-03-31",
-    "as_of": "2026-10-22",
-    "months_old": 7,
+    "as_of": "2026-11-03",
+    "months_old": 8,
     "stale": false,
     "threshold_months": 15,
     "note": null
@@ -551,8 +541,8 @@
    },
    "freshness": {
     "fiscal_year_end": "2026-06-30",
-    "as_of": "2026-10-22",
-    "months_old": 4,
+    "as_of": "2026-11-03",
+    "months_old": 5,
     "stale": false,
     "threshold_months": 15,
     "note": null
@@ -698,8 +688,8 @@
    },
    "freshness": {
     "fiscal_year_end": "2025-12-31",
-    "as_of": "2026-10-22",
-    "months_old": 10,
+    "as_of": "2026-11-03",
+    "months_old": 11,
     "stale": false,
     "threshold_months": 15,
     "note": null
@@ -715,7 +705,7 @@
    }
   },
   "INTC": {
-   "entity_name": "INTEL CORP",
+   "entity_name": "Intel Corporation",
    "taxonomy": "us-gaap",
    "fiscal_year_end": "2025-12-27",
    "prior_fiscal_year_end": "2024-12-28",
@@ -832,8 +822,8 @@
    },
    "freshness": {
     "fiscal_year_end": "2025-12-27",
-    "as_of": "2026-10-22",
-    "months_old": 10,
+    "as_of": "2026-11-03",
+    "months_old": 11,
     "stale": false,
     "threshold_months": 15,
     "note": null
@@ -983,8 +973,8 @@
    },
    "freshness": {
     "fiscal_year_end": "2025-12-31",
-    "as_of": "2026-10-22",
-    "months_old": 10,
+    "as_of": "2026-11-03",
+    "months_old": 11,
     "stale": false,
     "threshold_months": 15,
     "note": null
@@ -1116,8 +1106,8 @@
    },
    "freshness": {
     "fiscal_year_end": "2026-01-31",
-    "as_of": "2026-10-22",
-    "months_old": 9,
+    "as_of": "2026-11-03",
+    "months_old": 10,
     "stale": false,
     "threshold_months": 15,
     "note": null
@@ -1144,7 +1134,7 @@
    }
   },
   "MSFT": {
-   "entity_name": "Microsoft Corporation",
+   "entity_name": "MICROSOFT CORP",
    "taxonomy": "us-gaap",
    "fiscal_year_end": "2026-06-30",
    "prior_fiscal_year_end": "2025-06-30",
@@ -1261,8 +1251,8 @@
    },
    "freshness": {
     "fiscal_year_end": "2026-06-30",
-    "as_of": "2026-10-22",
-    "months_old": 4,
+    "as_of": "2026-11-03",
+    "months_old": 5,
     "stale": false,
     "threshold_months": 15,
     "note": null
@@ -1399,8 +1389,8 @@
    },
    "freshness": {
     "fiscal_year_end": "2025-12-31",
-    "as_of": "2026-10-22",
-    "months_old": 10,
+    "as_of": "2026-11-03",
+    "months_old": 11,
     "stale": false,
     "threshold_months": 15,
     "note": null
@@ -1539,8 +1529,8 @@
    },
    "freshness": {
     "fiscal_year_end": "2026-01-25",
-    "as_of": "2026-10-22",
-    "months_old": 9,
+    "as_of": "2026-11-03",
+    "months_old": 10,
     "stale": false,
     "threshold_months": 15,
     "note": null
@@ -1687,8 +1677,8 @@
    },
    "freshness": {
     "fiscal_year_end": "2025-12-31",
-    "as_of": "2026-10-22",
-    "months_old": 10,
+    "as_of": "2026-11-03",
+    "months_old": 11,
     "stale": false,
     "threshold_months": 15,
     "note": null
@@ -1730,7 +1720,7 @@
    }
   },
   "TSLA": {
-   "entity_name": "TESLA, INC.",
+   "entity_name": "Tesla, Inc.",
    "taxonomy": "us-gaap",
    "fiscal_year_end": "2025-12-31",
    "prior_fiscal_year_end": "2024-12-31",
@@ -1849,8 +1839,8 @@
    },
    "freshness": {
     "fiscal_year_end": "2025-12-31",
-    "as_of": "2026-10-22",
-    "months_old": 10,
+    "as_of": "2026-11-03",
+    "months_old": 11,
     "stale": false,
     "threshold_months": 15,
     "note": null
@@ -1993,8 +1983,8 @@
    },
    "freshness": {
     "fiscal_year_end": "2025-12-31",
-    "as_of": "2026-10-22",
-    "months_old": 10,
+    "as_of": "2026-11-03",
+    "months_old": 11,
     "stale": false,
     "threshold_months": 15,
     "note": null

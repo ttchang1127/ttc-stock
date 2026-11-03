@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-20T01:58:49+00:00",
+  "updated_at": "2026-11-03T13:46:09+00:00",
   "tracked_count": 14,
-  "pending_count": 0,
+  "pending_count": 7,
   "auto_synced_count": 0,
   "methodology": {
     "detection": "監看 SEC／IR 季度資料與已解析 Exhibit 99.1；新期先建立候選。",
@@ -47,66 +47,110 @@
     {
       "ticker": "MSFT",
       "name": "Microsoft",
-      "status": "up_to_date",
-      "candidate_id": "MSFT:2026-06-30:up_to_date",
+      "status": "pending_review",
+      "candidate_id": "MSFT:2026-09-30:pending_review",
       "latest_history_period": "FY2026 Q4",
       "latest_history_period_end": "2026-06-30",
       "period_count": 4,
       "max_periods": 8,
       "current_input_period": "FY2026 Q4",
       "current_input_source_date": "2026-07-29",
-      "detected_source": null,
-      "reason_codes": [],
-      "reasons": [],
-      "next_action": "無需處理；等待下一份正式季度結果或 Exhibit 99.1。"
+      "detected_source": {
+        "kind": "quarterly_financials",
+        "form": "10-Q",
+        "filing_date": "2026-10-28",
+        "period_end": "2026-09-30",
+        "accession": "0001193125-26-436133",
+        "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526436133/0001193125-26-436133-index.html"
+      },
+      "reason_codes": [
+        "current_input_not_advanced"
+      ],
+      "reasons": [
+        "單期分部輸入尚未更新到新季度"
+      ],
+      "next_action": "核對官方分部表、期間與口徑後更新單期輸入；系統會在下次執行自動寫入。"
     },
     {
       "ticker": "META",
       "name": "Meta",
-      "status": "up_to_date",
-      "candidate_id": "META:2026-06-30:up_to_date",
+      "status": "pending_review",
+      "candidate_id": "META:2026-09-30:pending_review",
       "latest_history_period": "2026 Q2",
       "latest_history_period_end": "2026-06-30",
       "period_count": 4,
       "max_periods": 8,
       "current_input_period": "2026 Q2",
       "current_input_source_date": "2026-07-29",
-      "detected_source": null,
-      "reason_codes": [],
-      "reasons": [],
-      "next_action": "無需處理；等待下一份正式季度結果或 Exhibit 99.1。"
+      "detected_source": {
+        "kind": "quarterly_financials",
+        "form": "10-Q",
+        "filing_date": "2026-10-22",
+        "period_end": "2026-09-30",
+        "accession": "0001628280-26-066773",
+        "url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026066773/0001628280-26-066773-index.html"
+      },
+      "reason_codes": [
+        "current_input_not_advanced"
+      ],
+      "reasons": [
+        "單期分部輸入尚未更新到新季度"
+      ],
+      "next_action": "核對官方分部表、期間與口徑後更新單期輸入；系統會在下次執行自動寫入。"
     },
     {
       "ticker": "AAPL",
       "name": "Apple",
-      "status": "up_to_date",
-      "candidate_id": "AAPL:2026-06-27:up_to_date",
+      "status": "pending_review",
+      "candidate_id": "AAPL:2026-09-26:pending_review",
       "latest_history_period": "FY2026 Q3",
       "latest_history_period_end": "2026-06-27",
       "period_count": 4,
       "max_periods": 8,
       "current_input_period": "FY2026 Q3",
       "current_input_source_date": "2026-07-30",
-      "detected_source": null,
-      "reason_codes": [],
-      "reasons": [],
-      "next_action": "無需處理；等待下一份正式季度結果或 Exhibit 99.1。"
+      "detected_source": {
+        "kind": "quarterly_financials",
+        "form": "10-K",
+        "filing_date": "2026-11-03",
+        "period_end": "2026-09-26",
+        "accession": "0000320193-26-000026",
+        "url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000026/0000320193-26-000026-index.html"
+      },
+      "reason_codes": [
+        "current_input_not_advanced"
+      ],
+      "reasons": [
+        "單期分部輸入尚未更新到新季度"
+      ],
+      "next_action": "核對官方分部表、期間與口徑後更新單期輸入；系統會在下次執行自動寫入。"
     },
     {
       "ticker": "AMZN",
       "name": "Amazon",
-      "status": "up_to_date",
-      "candidate_id": "AMZN:2026-06-30:up_to_date",
+      "status": "pending_review",
+      "candidate_id": "AMZN:2026-09-30:pending_review",
       "latest_history_period": "2026 Q2",
       "latest_history_period_end": "2026-06-30",
       "period_count": 4,
       "max_periods": 8,
       "current_input_period": "2026 Q2",
       "current_input_source_date": "2026-07-30",
-      "detected_source": null,
-      "reason_codes": [],
-      "reasons": [],
-      "next_action": "無需處理；等待下一份正式季度結果或 Exhibit 99.1。"
+      "detected_source": {
+        "kind": "quarterly_financials",
+        "form": "10-Q",
+        "filing_date": "2026-10-30",
+        "period_end": "2026-09-30",
+        "accession": "0001018724-26-000040",
+        "url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000040/0001018724-26-000040-index.html"
+      },
+      "reason_codes": [
+        "current_input_not_advanced"
+      ],
+      "reasons": [
+        "單期分部輸入尚未更新到新季度"
+      ],
+      "next_action": "核對官方分部表、期間與口徑後更新單期輸入；系統會在下次執行自動寫入。"
     },
     {
       "ticker": "ARM",
@@ -143,34 +187,56 @@
     {
       "ticker": "TSLA",
       "name": "Tesla",
-      "status": "up_to_date",
-      "candidate_id": "TSLA:2026-06-30:up_to_date",
+      "status": "pending_review",
+      "candidate_id": "TSLA:2026-09-30:pending_review",
       "latest_history_period": "2026 Q2",
       "latest_history_period_end": "2026-06-30",
       "period_count": 4,
       "max_periods": 8,
       "current_input_period": "2026 Q2",
       "current_input_source_date": "2026-07-23",
-      "detected_source": null,
-      "reason_codes": [],
-      "reasons": [],
-      "next_action": "無需處理；等待下一份正式季度結果或 Exhibit 99.1。"
+      "detected_source": {
+        "kind": "quarterly_financials",
+        "form": "10-Q",
+        "filing_date": "2026-10-22",
+        "period_end": "2026-09-30",
+        "accession": "0001628280-26-066775",
+        "url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026066775/0001628280-26-066775-index.html"
+      },
+      "reason_codes": [
+        "current_input_not_advanced"
+      ],
+      "reasons": [
+        "單期分部輸入尚未更新到新季度"
+      ],
+      "next_action": "核對官方分部表、期間與口徑後更新單期輸入；系統會在下次執行自動寫入。"
     },
     {
       "ticker": "GOOG",
       "name": "Alphabet",
-      "status": "up_to_date",
-      "candidate_id": "GOOG:2026-06-30:up_to_date",
+      "status": "pending_review",
+      "candidate_id": "GOOG:2026-09-30:pending_review",
       "latest_history_period": "2026 Q2",
       "latest_history_period_end": "2026-06-30",
       "period_count": 4,
       "max_periods": 8,
       "current_input_period": "2026 Q2",
       "current_input_source_date": "2026-07-23",
-      "detected_source": null,
-      "reason_codes": [],
-      "reasons": [],
-      "next_action": "無需處理；等待下一份正式季度結果或 Exhibit 99.1。"
+      "detected_source": {
+        "kind": "quarterly_financials",
+        "form": "10-Q",
+        "filing_date": "2026-10-29",
+        "period_end": "2026-09-30",
+        "accession": "0001652044-26-000084",
+        "url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000084/0001652044-26-000084-index.html"
+      },
+      "reason_codes": [
+        "current_input_not_advanced"
+      ],
+      "reasons": [
+        "單期分部輸入尚未更新到新季度"
+      ],
+      "next_action": "核對官方分部表、期間與口徑後更新單期輸入；系統會在下次執行自動寫入。"
     },
     {
       "ticker": "COHR",
@@ -207,18 +273,29 @@
     {
       "ticker": "INTC",
       "name": "Intel",
-      "status": "up_to_date",
-      "candidate_id": "INTC:2026-06-27:up_to_date",
+      "status": "pending_review",
+      "candidate_id": "INTC:2026-09-26:pending_review",
       "latest_history_period": "2026 Q2",
       "latest_history_period_end": "2026-06-27",
       "period_count": 4,
       "max_periods": 8,
       "current_input_period": "2026 Q2",
       "current_input_source_date": "2026-07-24",
-      "detected_source": null,
-      "reason_codes": [],
-      "reasons": [],
-      "next_action": "無需處理；等待下一份正式季度結果或 Exhibit 99.1。"
+      "detected_source": {
+        "kind": "quarterly_financials",
+        "form": "10-Q",
+        "filing_date": "2026-10-30",
+        "period_end": "2026-09-26",
+        "accession": "0000050863-26-000191",
+        "url": "https://www.sec.gov/Archives/edgar/data/50863/000005086326000191/0000050863-26-000191-index.html"
+      },
+      "reason_codes": [
+        "current_input_not_advanced"
+      ],
+      "reasons": [
+        "單期分部輸入尚未更新到新季度"
+      ],
+      "next_action": "核對官方分部表、期間與口徑後更新單期輸入；系統會在下次執行自動寫入。"
     },
     {
       "ticker": "NOK",
