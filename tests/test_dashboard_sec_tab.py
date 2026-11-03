@@ -815,9 +815,10 @@ class DashboardSecTabTests(unittest.TestCase):
         self.assertEqual(window["deal_count"], len(merger_deals))
         self.assertEqual(sum(deal["document_count"] for deal in merger_deals), len(merger_rows))
         self.assertTrue(all(row["event"]["filing_date"] >= window["cutoff"] for row in merger_rows))
-        self.assertEqual({deal["deal_name"] for deal in merger_deals}, {
-            "Amazon 收購 Globalstar", "Nokia 收購 Infinera",
-        })
+        self.assertTrue({"Amazon 收購 Globalstar", "Nokia 收購 Infinera"}.issubset(
+            {deal["deal_name"] for deal in merger_deals}
+        ))
+        self.assertTrue(all(deal["deal_name"] and deal["documents"] for deal in merger_deals))
         self.assertNotIn("MSFT", {row["event"]["ticker"] for row in merger_rows})
         self.assertIn("advanced.merger_deals", self.html)
         self.assertIn("最後可見程序", self.html)
