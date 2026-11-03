@@ -1,6 +1,6 @@
 ---
 title: SEC 每日變更候選稿
-generated_at: 2026-11-03T13:54:02+00:00
+generated_at: 2026-11-03T14:05:40+00:00
 editorial_reviewed_at: 2026-09-12T18:31:51+08:00
 tags:
   - sec/daily

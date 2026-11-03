@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-03T13:54:02+00:00",
+  "updated_at": "2026-11-03T14:05:40+00:00",
   "source_updated_at": null,
   "source": "quarterly_financials.json + investment_thesis_tracking.json; status-change snapshots",
   "method": "每家公司以三項可量化代理條件追蹤核心投資論點；代理指標只能驗證財務結果是否一致，不能單獨證明產品、市占或競爭優勢。",
@@ -474,36 +474,12 @@
         "accession": "0000320193-26-000020",
         "fingerprint": "08c759a52fbe96a9380a"
       },
-      "overallStatusChanged": true,
-      "itemStatusChanged": true,
-      "statusChanged": true,
-      "latestChange": {
-        "ticker": "AAPL",
-        "detected_at": "2026-11-03T13:54:02+00:00",
-        "previous_period": "2026-06-27",
-        "period": "2026-09-26",
-        "before_status": "partial-invalidated",
-        "before_label": "部分失效",
-        "after_status": "maintained",
-        "after_label": "論點維持",
-        "overall_changed": true,
-        "item_changes": [
-          {
-            "id": "ecosystem_growth",
-            "title": "裝置生態與服務收入維持成長",
-            "before_status": "invalidated",
-            "before_label": "失效",
-            "after_status": "supported",
-            "after_label": "支持",
-            "evidence": "2026-09-26 營收 USD 114,477.0M，YoY +11.7%；連續 2 季上升。",
-            "invalidation": "營收 YoY ≤ -5%，或營收連續至少 3 季下降。"
-          }
-        ],
-        "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019326000026/0000320193-26-000026-index.html",
-        "fingerprint": "c9487632254f111c5e80"
-      },
-      "queueAlert": true,
-      "priority": 74,
+      "overallStatusChanged": false,
+      "itemStatusChanged": false,
+      "statusChanged": false,
+      "latestChange": null,
+      "queueAlert": false,
+      "priority": 0,
       "master_report": "30_Analysis/AAPL_Master_Investment_Thesis_2026.md",
       "config_updated_at": "2026-08-27"
     },
@@ -2410,34 +2386,10 @@
         "accession": "0001652044-26-000071",
         "fingerprint": "288d547412e650f58b0d"
       },
-      "overallStatusChanged": true,
-      "itemStatusChanged": true,
-      "statusChanged": true,
-      "latestChange": {
-        "ticker": "GOOGL",
-        "detected_at": "2026-11-03T13:54:02+00:00",
-        "previous_period": "2026-06-30",
-        "period": "2026-09-30",
-        "before_status": "maintained",
-        "before_label": "論點維持",
-        "after_status": "partial-invalidated",
-        "after_label": "部分失效",
-        "overall_changed": true,
-        "item_changes": [
-          {
-            "id": "advertising_moat",
-            "title": "廣告與雲端組合維持高營業利益率",
-            "before_status": "supported",
-            "before_label": "支持",
-            "after_status": "invalidated",
-            "after_label": "失效",
-            "evidence": "2026-09-30 營業利益率 31.8%，YoY +1.3pp；連續 3 季下降。",
-            "invalidation": "營業利益率低於 20%，或連續至少 3 季顯著下降。"
-          }
-        ],
-        "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000084/0001652044-26-000084-index.html",
-        "fingerprint": "0572bbdd5dc543e56c4e"
-      },
+      "overallStatusChanged": false,
+      "itemStatusChanged": false,
+      "statusChanged": false,
+      "latestChange": null,
       "queueAlert": true,
       "priority": 89,
       "master_report": "30_Analysis/GOOGL_Master_Investment_Thesis_2026.md",
@@ -3391,33 +3343,9 @@
         "fingerprint": "0fcb653ba3089e4a229c"
       },
       "overallStatusChanged": false,
-      "itemStatusChanged": true,
-      "statusChanged": true,
-      "latestChange": {
-        "ticker": "META",
-        "detected_at": "2026-11-03T13:54:02+00:00",
-        "previous_period": "2026-06-30",
-        "period": "2026-09-30",
-        "before_status": "partial-invalidated",
-        "before_label": "部分失效",
-        "after_status": "partial-invalidated",
-        "after_label": "部分失效",
-        "overall_changed": false,
-        "item_changes": [
-          {
-            "id": "cash_per_share",
-            "title": "高現金流能轉化為每股價值",
-            "before_status": "supported",
-            "before_label": "支持",
-            "after_status": "verify",
-            "after_label": "待驗證",
-            "evidence": "2026-09-30 FCF USD -1,157.0M（連續 1 季為負）；稀釋股數 YoY +0.0%。",
-            "invalidation": "FCF 連續至少 4 季為負，或稀釋股數 YoY ≥ 5%。"
-          }
-        ],
-        "source_url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026066773/0001628280-26-066773-index.html",
-        "fingerprint": "b6c95c97741daa2c5354"
-      },
+      "itemStatusChanged": false,
+      "statusChanged": false,
+      "latestChange": null,
       "queueAlert": true,
       "priority": 89,
       "master_report": "30_Analysis/META_Master_Investment_Thesis_2026.md",
@@ -4370,36 +4298,12 @@
         "accession": "0001193125-26-323660",
         "fingerprint": "72e7c249219c8c0a42b6"
       },
-      "overallStatusChanged": true,
-      "itemStatusChanged": true,
-      "statusChanged": true,
-      "latestChange": {
-        "ticker": "MSFT",
-        "detected_at": "2026-11-03T13:54:02+00:00",
-        "previous_period": "2026-06-30",
-        "period": "2026-09-30",
-        "before_status": "partial-invalidated",
-        "before_label": "部分失效",
-        "after_status": "maintained",
-        "after_label": "論點維持",
-        "overall_changed": true,
-        "item_changes": [
-          {
-            "id": "software_leverage",
-            "title": "軟體規模經濟維持高營業利益率",
-            "before_status": "invalidated",
-            "before_label": "失效",
-            "after_status": "supported",
-            "after_label": "支持",
-            "evidence": "2026-09-30 營業利益率 49.8%，YoY +0.9pp；連續 2 季上升。",
-            "invalidation": "營業利益率低於 30%，或連續至少 3 季顯著下降。"
-          }
-        ],
-        "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526436133/0001193125-26-436133-index.html",
-        "fingerprint": "5895c7cdd9bdcb5f5be3"
-      },
-      "queueAlert": true,
-      "priority": 74,
+      "overallStatusChanged": false,
+      "itemStatusChanged": false,
+      "statusChanged": false,
+      "latestChange": null,
+      "queueAlert": false,
+      "priority": 0,
       "master_report": "30_Analysis/MSFT_Master_Investment_Thesis_2026.md",
       "config_updated_at": "2026-08-27"
     },
@@ -6307,35 +6211,11 @@
         "fingerprint": "9632b906020e89a01cf5"
       },
       "overallStatusChanged": false,
-      "itemStatusChanged": true,
-      "statusChanged": true,
-      "latestChange": {
-        "ticker": "TSLA",
-        "detected_at": "2026-11-03T13:54:02+00:00",
-        "previous_period": "2026-06-30",
-        "period": "2026-09-30",
-        "before_status": "needs-validation",
-        "before_label": "需要驗證",
-        "after_status": "needs-validation",
-        "after_label": "需要驗證",
-        "overall_changed": false,
-        "item_changes": [
-          {
-            "id": "ev_energy_growth",
-            "title": "車輛、儲能與軟體維持成長",
-            "before_status": "supported",
-            "before_label": "支持",
-            "after_status": "verify",
-            "after_label": "待驗證",
-            "evidence": "2026-09-30 營收 USD 28,046.0M，YoY -0.2%；未形成連續方向。",
-            "invalidation": "營收 YoY ≤ -10%，或營收連續至少 3 季下降。"
-          }
-        ],
-        "source_url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026066775/0001628280-26-066775-index.html",
-        "fingerprint": "fd62c270b2f87317c28a"
-      },
-      "queueAlert": true,
-      "priority": 74,
+      "itemStatusChanged": false,
+      "statusChanged": false,
+      "latestChange": null,
+      "queueAlert": false,
+      "priority": 0,
       "master_report": "30_Analysis/TSLA_Master_Investment_Thesis_2026.md",
       "config_updated_at": "2026-08-27"
     },
@@ -6946,6 +6826,15 @@
     }
   ],
   "update_batches": [
+    {
+      "checked_at": "2026-11-03T14:05:40+00:00",
+      "previous_checked_at": "2026-11-03T13:54:02+00:00",
+      "baseline": false,
+      "changed_count": 0,
+      "critical_count": 0,
+      "changed_tickers": [],
+      "changes": []
+    },
     {
       "checked_at": "2026-11-03T13:54:02+00:00",
       "previous_checked_at": "2026-10-08T11:08:05+00:00",
