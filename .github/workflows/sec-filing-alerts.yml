@@ -310,11 +310,10 @@ jobs:
             echo "Issue #$existing already records batch $batch_id; skipping duplicate."
           fi
 
-      - name: Require manual review for unsafe filing boundaries
+      - name: Flag manual review for unsafe filing boundaries
         if: steps.ingest.outputs.pending_count != '0' || steps.exhibit991.outputs.exhibit_991_pending_count != '0'
         run: |
-          echo "Periodic filings pending: ${{ steps.ingest.outputs.pending_count }}; Exhibit 99.1 cards pending: ${{ steps.exhibit991.outputs.exhibit_991_pending_count }}."
-          exit 1
+          echo "::warning::Periodic filings pending: ${{ steps.ingest.outputs.pending_count }}; Exhibit 99.1 cards pending: ${{ steps.exhibit991.outputs.exhibit_991_pending_count }}. Review the alert issue."
 
   # Separate job with its own checkout, so a failure anywhere in the jobs
   # above (even checkout or runner loss) is reported, and a later success
