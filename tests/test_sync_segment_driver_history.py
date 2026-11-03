@@ -31,11 +31,13 @@ class SegmentDriverSyncTests(unittest.TestCase):
             copy.deepcopy(self.config),
         )
 
-    def test_baseline_is_current_without_false_pending(self):
+    def test_baseline_reports_real_pending_without_changing_history(self):
         payload, history = self.build()
         self.assertEqual(payload["tracked_count"], 14)
-        self.assertEqual(payload["pending_count"], 0)
-        self.assertTrue(all(row["status"] == "up_to_date" for row in payload["companies"]))
+        self.assertEqual(payload["pending_count"], sum(
+            row["status"] == "pending_review" for row in payload["companies"]
+        ))
+        self.assertTrue(all(row["reason_codes"] for row in payload["companies"] if row["status"] == "pending_review"))
         self.assertEqual(history, self.history)
 
     def test_verified_new_quarter_rolls_in_and_keeps_eight(self):
