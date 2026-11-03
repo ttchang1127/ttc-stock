@@ -459,8 +459,12 @@ class DashboardSecTabTests(unittest.TestCase):
             row["position"] == "holding" for row in calendar["events"]
         ))
         self.assertTrue(all(row["ticker"] not in {"VGT", "VOO"} for row in calendar["events"]))
-        self.assertTrue(any(row["confidence"] == "official" for row in calendar["events"]))
-        self.assertTrue(any(row["position"] == "holding" for row in calendar["events"]))
+        self.assertTrue(all(
+            row["confidence"] in {"official", "estimated", "provider"}
+            and row["source_label"] and row["source_url"].startswith("https://")
+            for row in calendar["events"]
+        ))
+        self.assertTrue(all(row["position"] in {"holding", "watchlist"} for row in calendar["events"]))
         required_copy = [
             'id="secEventCalendar"', "個股未來 30 天事件日曆",
             "fetch('company_event_calendar.json'", "function renderSecEventCalendar()",
