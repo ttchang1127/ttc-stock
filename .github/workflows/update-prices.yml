@@ -19,6 +19,11 @@ name: Refresh market and filing data
 # below is what stops this committing every weekday regardless.
 
 on:
+  # Workflow changes run the full pipeline once, so dependency-order fixes are
+  # checked against real refreshed data before the next scheduled market close.
+  push:
+    paths:
+      - .github/workflows/update-prices.yml
   schedule:
     # 23:17 UTC every day keeps the rolling 30-day company calendar moving on
     # weekends too. The non-zero minute also avoids GitHub's busiest cron slot.
