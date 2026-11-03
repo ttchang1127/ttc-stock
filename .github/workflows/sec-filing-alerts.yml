@@ -310,7 +310,7 @@ jobs:
             echo "Issue #$existing already records batch $batch_id; skipping duplicate."
           fi
 
-      - name: Flag manual review for unsafe filing boundaries
+      - name: Require manual review for unsafe filing boundaries
         if: steps.ingest.outputs.pending_count != '0' || steps.exhibit991.outputs.exhibit_991_pending_count != '0'
         run: |
           echo "::warning::Periodic filings pending: ${{ steps.ingest.outputs.pending_count }}; Exhibit 99.1 cards pending: ${{ steps.exhibit991.outputs.exhibit_991_pending_count }}. Review the alert issue."
