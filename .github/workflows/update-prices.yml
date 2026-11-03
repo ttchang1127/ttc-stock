@@ -212,28 +212,6 @@ jobs:
           python3 scripts/update_thesis_financials.py
           python3 scripts/build_reports.py
 
-      - name: Refresh daily AI-review change candidates
-        if: steps.source_gate.outputs.market_changed == 'true'
-        run: |
-          python3 scripts/build_sec_candidate_rule_calibration.py
-          python3 scripts/generate_sec_daily_change_candidates.py
-
-      - name: Pre-screen refreshed candidates with TypeSafe Jev
-        if: steps.source_gate.outputs.market_changed == 'true'
-        env:
-          TYPESAFE_API_KEY: ${{ secrets.TYPESAFE_API_KEY }}
-          TYPESAFE_DEFAULT_MODEL: jev-1.13.0
-        run: python3 scripts/review_sec_candidates_with_jev.py
-
-      - name: Compare portfolio impact with the previous snapshot
-        if: steps.source_gate.outputs.market_changed == 'true'
-        id: position_impact
-        run: |
-          python3 scripts/build_sec_position_impact_history.py \
-            --alert-markdown "$RUNNER_TEMP/position-impact-alert.md" \
-            --summary "$GITHUB_STEP_SUMMARY" \
-            --github-output "$GITHUB_OUTPUT"
-
       - name: Refresh rolling 30-day stock event calendar
         run: python3 scripts/build_company_event_calendar.py
 
@@ -265,6 +243,28 @@ jobs:
           python3 scripts/track_segment_outlook_history.py \
             --checked-at "$(TZ=Asia/Taipei date -Iseconds)" \
             --alert-markdown "$RUNNER_TEMP/segment-alert.md" \
+            --summary "$GITHUB_STEP_SUMMARY" \
+            --github-output "$GITHUB_OUTPUT"
+
+      - name: Refresh daily AI-review change candidates
+        if: steps.source_gate.outputs.market_changed == 'true'
+        run: |
+          python3 scripts/build_sec_candidate_rule_calibration.py
+          python3 scripts/generate_sec_daily_change_candidates.py
+
+      - name: Pre-screen refreshed candidates with TypeSafe Jev
+        if: steps.source_gate.outputs.market_changed == 'true'
+        env:
+          TYPESAFE_API_KEY: ${{ secrets.TYPESAFE_API_KEY }}
+          TYPESAFE_DEFAULT_MODEL: jev-1.13.0
+        run: python3 scripts/review_sec_candidates_with_jev.py
+
+      - name: Compare portfolio impact with the previous snapshot
+        if: steps.source_gate.outputs.market_changed == 'true'
+        id: position_impact
+        run: |
+          python3 scripts/build_sec_position_impact_history.py \
+            --alert-markdown "$RUNNER_TEMP/position-impact-alert.md" \
             --summary "$GITHUB_STEP_SUMMARY" \
             --github-output "$GITHUB_OUTPUT"
 
