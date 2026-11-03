@@ -327,6 +327,16 @@ jobs:
         if: steps.gate.outputs.changed == 'true'
         run: python3 scripts/data_manifest.py check-changed --workflow update-prices
 
+      # Publish validated data before non-critical GitHub issue notifications.
+      - name: Commit
+        if: steps.gate.outputs.changed == 'true'
+        run: |
+          git config user.name  'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git commit -m "chore: refresh market and filing data ($(date -u +%Y-%m-%d))"
+          git push
+
       - name: Notify confirmed market-rotation changes
         if: steps.rotation_digest.outputs.notify_count != '' && steps.rotation_digest.outputs.notify_count != '0'
         env:
@@ -437,14 +447,6 @@ jobs:
             echo "Issue #$existing already records batch $batch_id; skipping duplicate."
           fi
 
-      - name: Commit
-        if: steps.gate.outputs.changed == 'true'
-        run: |
-          git config user.name  'github-actions[bot]'
-          git config user.email 'github-actions[bot]@users.noreply.github.com'
-          git add -A
-          git commit -m "chore: refresh market and filing data ($(date -u +%Y-%m-%d))"
-          git push
 
   # Separate job with its own checkout, so a failure anywhere in the jobs
   # above (even checkout or runner loss) is reported, and a later success
