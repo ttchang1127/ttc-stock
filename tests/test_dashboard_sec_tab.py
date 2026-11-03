@@ -298,8 +298,8 @@ class DashboardSecTabTests(unittest.TestCase):
         self.assertEqual(cards["schema_version"], 1)
         self.assertEqual(cards["tracked_count"], 14)
         self.assertEqual(len(history["current"]["companies"]), 14)
-        self.assertEqual(history["notify_count"], 0)
-        self.assertIsNone(history["previous_snapshot_id"])
+        self.assertEqual(history["notify_count"], len(history["notifications"]))
+        self.assertEqual(history["critical_count"], sum(row.get("severity") == "critical" for row in history["notifications"]))
         nvda = next(row for row in cards["companies"] if row["ticker"] == "NVDA")
         self.assertEqual(nvda["position"], "holding")
         self.assertEqual(nvda["latest"]["free_cash_flow"], nvda["latest"]["operating_cash_flow"] - nvda["latest"]["capex"])
@@ -556,7 +556,10 @@ class DashboardSecTabTests(unittest.TestCase):
         payload = self.segment_driver_updates
         self.assertEqual(payload["schema_version"], 1)
         self.assertEqual(payload["tracked_count"], 14)
-        self.assertEqual(payload["pending_count"], 0)
+        self.assertEqual(payload["pending_count"], sum(
+            row["status"] == "pending_review" for row in payload["companies"]
+        ))
+        self.assertTrue(all(row["reason_codes"] for row in payload["companies"] if row["status"] == "pending_review"))
         required_copy = [
             "fetch('segment_driver_update_candidates.json'", "segmentDriverUpdates",
             "滾動 8 季分部趨勢", "新一期待覆核", "不會猜值或跨口徑接續",
