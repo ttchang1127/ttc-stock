@@ -27,6 +27,21 @@ class MarketWorkflowDependencyOrderTests(unittest.TestCase):
             positions.append(workflow.index(command))
         self.assertEqual(positions, sorted(positions))
 
+    def test_validated_data_publishes_before_issue_notifications(self):
+        workflow = WORKFLOW.read_text(encoding="utf-8")
+        self.assertLess(
+            workflow.index("      - name: Verify data integrity"),
+            workflow.index("      - name: Commit"),
+        )
+        self.assertLess(
+            workflow.index("      - name: Fail if anything unexpected changed"),
+            workflow.index("      - name: Commit"),
+        )
+        self.assertLess(
+            workflow.index("      - name: Commit"),
+            workflow.index("      - name: Notify confirmed market-rotation changes"),
+        )
+
 
 if __name__ == "__main__":
     unittest.main()
