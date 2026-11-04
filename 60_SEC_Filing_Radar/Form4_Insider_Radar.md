@@ -1,6 +1,6 @@
 ---
 title: Form 4 內部人交易雷達
-updated_at: 2026-11-03T13:54:02+00:00
+updated_at: 2026-11-04T11:50:37+00:00
 tags:
   - sec/form-4
   - insiders
@@ -13,6 +13,7 @@ tags:
 
 | 申報日 | 公司 | 申報人／身分 | 代碼與意義 | 股數 | 單價 | 交易金額 | 取得／處分 | 10b5-1 | SEC |
 |---|---|---|---|---:|---:|---:|---|---|---|
+| 2026-11-03 | **MRVL** | Koopmans Chris／高階主管（President and COO） | `S` 公開市場或私下賣出 | 10,000 | 186.97 | 1,869,700 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1835632/000162828026069600/xslF345X06/wk-form4_1793741924.xml) |
 | 2026-11-03 | **TSM** | Yuan Lipen／高階主管（VP） | `P` 公開市場或私下買入 | 1,000 | 71.49 | 71,490 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1046179/000104617926000732/xslF345X06/wk-form4_1793707033.xml) |
 | 2026-11-02 | **INTC** | Chandrasekaran Nagasubramaniyan／高階主管（EVP, CT & Ops Off, GM Foundry） | `M` 衍生證券行使／轉換 | 33,008 | — | — | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/50863/000005086326000194/xslF345X06/form4.xml) |
 | 2026-11-02 | **INTC** | Chandrasekaran Nagasubramaniyan／高階主管（EVP, CT & Ops Off, GM Foundry） | `F` 以證券支付稅款或履約價 | 14,739 | 65.99 | 972,627 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/50863/000005086326000194/xslF345X06/form4.xml) |
@@ -212,7 +213,6 @@ tags:
 | 2026-09-24 | **ONDS** | LAIRD NEIL J／高階主管（CFO and Treasurer） | `M` 衍生證券行使／轉換 | 12,500 | 0.00 | 0 | 取得 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1646188/000121390026103173/xslF345X06/ownership.xml) |
 | 2026-09-24 | **ONDS** | LAIRD NEIL J／高階主管（CFO and Treasurer） | `S` 公開市場或私下賣出 | 4,952 | 7.74 | 38,328 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1646188/000121390026103173/xslF345X06/ownership.xml) |
 | 2026-09-24 | **ONDS** | LAIRD NEIL J／高階主管（CFO and Treasurer） | `M` 衍生證券行使／轉換 | 12,500 | 0.00 | 0 | 處分 | 否／未註明 | [原文](https://www.sec.gov/Archives/edgar/data/1646188/000121390026103173/xslF345X06/ownership.xml) |
-| 2026-09-23 | **ARM** | Child Jason／高階主管（Chief Financial Officer） | `S` 公開市場或私下賣出 | 10,400 | 300.00 | 3,120,000 | 處分 | 是 | [原文](https://www.sec.gov/Archives/edgar/data/1973239/000197323926000136/xslF345X06/wk-form4_1790197563.xml) |
 
 ## 交易代碼速查
 
@@ -227,5 +227,5 @@ tags:
 
 > 金額只在股數與單價都由 SEC 文件提供時才計算；缺值保留為「—」，不以 0 代替。
 
-> 最後檢查：`2026-11-03T13:54:02+00:00`
+> 最後檢查：`2026-11-04T11:50:37+00:00`
 

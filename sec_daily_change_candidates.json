@@ -1,18 +1,18 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-03T14:05:40+00:00",
+  "generated_at": "2026-11-04T11:50:37+00:00",
   "editorial_reviewed_at": "2026-09-12T18:31:51+08:00",
   "editorial_window_end": "2026-09-12",
   "status": "pending_ai_review",
-  "candidate_count": 112,
+  "candidate_count": 114,
   "company_count": 14,
   "counts": {
-    "risk": 64,
+    "risk": 66,
     "improvement": 11,
     "conclusion": 37
   },
   "calibration_updated_at": "2026-09-12T18:31:51+08:00",
-  "lower_priority_count": 52,
+  "lower_priority_count": 53,
   "method": "規則只建立候選：新風險、改善或可能改變結論；不得自動寫入正式 AI 判讀。",
   "candidates": [
     {
@@ -33,7 +33,7 @@
       ],
       "why_candidate": "持股比例也可能受流通股數變化影響，需讀取原表與前次申報。",
       "filing_date": "2026-10-27",
-      "detected_at": "2026-11-03T14:05:40+00:00",
+      "detected_at": "2026-11-04T11:50:37+00:00",
       "source_keys": [
         "0002012383-26-003852"
       ],
@@ -234,7 +234,7 @@
       ],
       "why_candidate": "只有分部 linkage fingerprint 相較最近 AI 覆核改變才列入；需讀官方分部表後決定是否改寫正式結論。",
       "filing_date": "2026-08-27",
-      "detected_at": "2026-11-03T14:05:40+00:00",
+      "detected_at": "2026-11-04T11:50:37+00:00",
       "source_keys": [
         "47ef4059aafdd34daf7d"
       ],
@@ -277,7 +277,7 @@
       ],
       "why_candidate": "只有分部 linkage fingerprint 相較最近 AI 覆核改變才列入；需讀官方分部表後決定是否改寫正式結論。",
       "filing_date": "2026-07-24",
-      "detected_at": "2026-11-03T14:05:40+00:00",
+      "detected_at": "2026-11-04T11:50:37+00:00",
       "source_keys": [
         "de565697fcf0e93a99e9"
       ],
@@ -320,7 +320,7 @@
       ],
       "why_candidate": "只有分部 linkage fingerprint 相較最近 AI 覆核改變才列入；需讀官方分部表後決定是否改寫正式結論。",
       "filing_date": "2026-07-23",
-      "detected_at": "2026-11-03T14:05:40+00:00",
+      "detected_at": "2026-11-04T11:50:37+00:00",
       "source_keys": [
         "46cfbfa304521a6bbd25"
       ],
@@ -363,7 +363,7 @@
       ],
       "why_candidate": "只有分部 linkage fingerprint 相較最近 AI 覆核改變才列入；需讀官方分部表後決定是否改寫正式結論。",
       "filing_date": "2026-07-23",
-      "detected_at": "2026-11-03T14:05:40+00:00",
+      "detected_at": "2026-11-04T11:50:37+00:00",
       "source_keys": [
         "beb22f050d3c353632f1"
       ],
@@ -874,7 +874,7 @@
       ],
       "why_candidate": "需由 AI 讀取最新季度證據後，決定是否改寫正式綜合結論。",
       "filing_date": "2026-09-26",
-      "detected_at": "2026-11-03T14:05:40+00:00",
+      "detected_at": "2026-11-04T11:50:37+00:00",
       "source_keys": [
         "2f7fcb22e66da5e65511"
       ],
@@ -956,6 +956,47 @@
         "reviewed_count": 9,
         "accepted_count": 5,
         "acceptance_rate": 0.5556,
+        "sample_status": "enough"
+      }
+    },
+    {
+      "id": "2ecc064bbb1d2920",
+      "ticker": "MRVL",
+      "type": "risk",
+      "type_label": "🔴 新增風險候選",
+      "status": "pending_ai_review",
+      "confidence": "low",
+      "rule_key": "form4_sell_10b5_1",
+      "materiality": {
+        "transaction_value_usd": 1869700.0,
+        "max_transaction_holding_percent": 4.6992481203007515,
+        "planned_transaction_count": 1,
+        "transaction_count": 1
+      },
+      "display_priority": "low",
+      "priority_reason": "已覆核 14 個樣本，採納率 0% ≤ 20%，只降低顯示優先級、不刪除事件。",
+      "headline": "Form 4 出現 1 列賣出，列為風險候選",
+      "evidence": [
+        "已知賣出金額合計 $1.9M；其中 1/1 列標示 10b5-1。",
+        "單筆最高約占交易前直接持股 4.70%。",
+        "10b5-1 是預先安排交易，訊號強度低於臨時主動賣出。"
+      ],
+      "why_candidate": "內部人賣出需看計畫屬性、持股比例與交易規模，不直接等於看空。",
+      "filing_date": "2026-11-03",
+      "detected_at": "2026-11-04T11:50:37+00:00",
+      "source_keys": [
+        "0001628280-26-069600"
+      ],
+      "sources": [
+        {
+          "label": "SEC 4",
+          "url": "https://www.sec.gov/Archives/edgar/data/1835632/000162828026069600/xslF345X06/wk-form4_1793741924.xml"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 14,
+        "accepted_count": 0,
+        "acceptance_rate": 0.0,
         "sample_status": "enough"
       }
     },
@@ -1522,6 +1563,41 @@
       }
     },
     {
+      "id": "1408cca059c9de0e",
+      "ticker": "META",
+      "type": "risk",
+      "type_label": "🔴 新增風險候選",
+      "status": "pending_ai_review",
+      "confidence": "high",
+      "rule_key": "dilution_filing",
+      "materiality": {},
+      "display_priority": "normal",
+      "priority_reason": "目前規則樣本不足或採納率未達降級門檻，維持原顯示優先級。",
+      "headline": "424B5 被分類為「可轉債募資」",
+      "evidence": [
+        "潛在股權稀釋",
+        "若轉換為股票，可能增加流通股數並稀釋每股價值"
+      ],
+      "why_candidate": "這是潛在稀釋文件；是否真正稀釋仍取決於發行、轉股或交易完成條件。",
+      "filing_date": "2026-11-04",
+      "detected_at": "2026-11-04T11:50:37+00:00",
+      "source_keys": [
+        "0001193125-26-446110"
+      ],
+      "sources": [
+        {
+          "label": "SEC 424B5",
+          "url": "https://www.sec.gov/Archives/edgar/data/1326801/000119312526446110/d44678d424b5.htm"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 0,
+        "accepted_count": 0,
+        "acceptance_rate": null,
+        "sample_status": "insufficient"
+      }
+    },
+    {
       "id": "20f59b56e5d81a8e",
       "ticker": "META",
       "type": "risk",
@@ -1574,7 +1650,7 @@
       ],
       "why_candidate": "持股比例也可能受流通股數變化影響，需讀取原表與前次申報。",
       "filing_date": "2026-10-30",
-      "detected_at": "2026-11-03T14:05:40+00:00",
+      "detected_at": "2026-11-04T11:50:37+00:00",
       "source_keys": [
         "0002100119-26-001654"
       ],
@@ -1833,7 +1909,7 @@
       ],
       "why_candidate": "只有分部 linkage fingerprint 相較最近 AI 覆核改變才列入；需讀官方分部表後決定是否改寫正式結論。",
       "filing_date": "2026-07-30",
-      "detected_at": "2026-11-03T14:05:40+00:00",
+      "detected_at": "2026-11-04T11:50:37+00:00",
       "source_keys": [
         "3022c43c787c6c960f91"
       ],
@@ -1876,7 +1952,7 @@
       ],
       "why_candidate": "只有分部 linkage fingerprint 相較最近 AI 覆核改變才列入；需讀官方分部表後決定是否改寫正式結論。",
       "filing_date": "2026-07-30",
-      "detected_at": "2026-11-03T14:05:40+00:00",
+      "detected_at": "2026-11-04T11:50:37+00:00",
       "source_keys": [
         "24eee0fba02590f8fb78"
       ],
@@ -1920,7 +1996,7 @@
       ],
       "why_candidate": "只有分部 linkage fingerprint 相較最近 AI 覆核改變才列入；需讀官方分部表後決定是否改寫正式結論。",
       "filing_date": "2026-07-29",
-      "detected_at": "2026-11-03T14:05:40+00:00",
+      "detected_at": "2026-11-04T11:50:37+00:00",
       "source_keys": [
         "13cf79032ad77af56d0d"
       ],
@@ -1963,7 +2039,7 @@
       ],
       "why_candidate": "只有分部 linkage fingerprint 相較最近 AI 覆核改變才列入；需讀官方分部表後決定是否改寫正式結論。",
       "filing_date": "2026-07-29",
-      "detected_at": "2026-11-03T14:05:40+00:00",
+      "detected_at": "2026-11-04T11:50:37+00:00",
       "source_keys": [
         "cbac7ccb51e004dd6d32"
       ],
@@ -2473,7 +2549,7 @@
       ],
       "why_candidate": "需由 AI 讀取最新季度證據後，決定是否改寫正式綜合結論。",
       "filing_date": "2026-09-30",
-      "detected_at": "2026-11-03T14:05:40+00:00",
+      "detected_at": "2026-11-04T11:50:37+00:00",
       "source_keys": [
         "d88d5876b47cd1d40715"
       ],

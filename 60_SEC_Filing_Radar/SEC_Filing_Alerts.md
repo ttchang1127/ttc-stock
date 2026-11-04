@@ -1,6 +1,6 @@
 ---
 title: SEC 每日申報雷達
-updated_at: 2026-11-03T14:05:40+00:00
+updated_at: 2026-11-04T11:50:37+00:00
 tags:
   - sec/alerts
   - filings/daily
@@ -15,6 +15,8 @@ GitHub Actions 於台北時間週二至週六中午 12:00 檢查；重大／重�
 
 | 重要性 | 公司 | 申報 | 日期 | 事件／Item | SEC 原文 |
 |---|---|---|---|---|---|
+| 🔴 重大 | **META** | 424B5 | 2026-11-04 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000119312526446110/d44678d424b5.htm) |
+| 🔵 留意 | **MRVL** | 4 | 2026-11-03 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1835632/000162828026069600/xslF345X06/wk-form4_1793741924.xml) |
 | 🔴 重大 | **META** | 424B5 | 2026-11-03 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000119312526444440/d135326d424b5.htm) |
 | 🔵 留意 | **TSM** | 4 | 2026-11-03 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1046179/000104617926000732/xslF345X06/wk-form4_1793707033.xml) |
 | 🔴 重大 | **AAPL** | 10-K | 2026-11-03 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/320193/000032019326000026/aapl-20260926.htm) |
@@ -213,8 +215,6 @@ GitHub Actions 於台北時間週二至週六中午 12:00 檢查；重大／重�
 | 🔵 留意 | **META** | 4 | 2026-09-17 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/1326801/000095010326014140/xslF345X06/ownership.xml) |
 | 🔵 留意 | **MSFT** | 4 | 2026-09-17 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/789019/000078901926000224/xslF345X06/form4.xml) |
 | 🔵 留意 | **MSFT** | 4 | 2026-09-17 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/789019/000078901926000223/xslF345X06/form4.xml) |
-| 🔵 留意 | **MSFT** | 4 | 2026-09-17 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/789019/000078901926000222/xslF345X06/form4.xml) |
-| 🔵 留意 | **MSFT** | 4 | 2026-09-17 | 未提供 Item 分類 | [原文](https://www.sec.gov/Archives/edgar/data/789019/000078901926000221/xslF345X06/form4.xml) |
 
 ## 監控範圍
 
