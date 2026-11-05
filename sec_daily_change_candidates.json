@@ -1,15 +1,15 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-04T11:50:37+00:00",
+  "generated_at": "2026-11-05T03:38:29+00:00",
   "editorial_reviewed_at": "2026-09-12T18:31:51+08:00",
   "editorial_window_end": "2026-09-12",
   "status": "pending_ai_review",
-  "candidate_count": 114,
+  "candidate_count": 118,
   "company_count": 14,
   "counts": {
-    "risk": 66,
+    "risk": 68,
     "improvement": 11,
-    "conclusion": 37
+    "conclusion": 39
   },
   "calibration_updated_at": "2026-09-12T18:31:51+08:00",
   "lower_priority_count": 53,
@@ -234,7 +234,7 @@
       ],
       "why_candidate": "只有分部 linkage fingerprint 相較最近 AI 覆核改變才列入；需讀官方分部表後決定是否改寫正式結論。",
       "filing_date": "2026-08-27",
-      "detected_at": "2026-11-04T11:50:37+00:00",
+      "detected_at": "2026-11-05T03:38:29+00:00",
       "source_keys": [
         "47ef4059aafdd34daf7d"
       ],
@@ -242,6 +242,94 @@
         {
           "label": "官方分部表",
           "url": "https://investor.marvell.com/news-events/press-releases/detail/1031/marvell-technology-inc-reports-second-quarter-of-fiscal-year-2027-financial-results"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 0,
+        "accepted_count": 0,
+        "acceptance_rate": null,
+        "sample_status": "insufficient"
+      }
+    },
+    {
+      "id": "c9d4b5c4949f09e2",
+      "ticker": "COHR",
+      "type": "risk",
+      "type_label": "🔴 新增風險候選",
+      "status": "pending_ai_review",
+      "confidence": "high",
+      "rule_key": "segment_thesis_change",
+      "materiality": {
+        "segment_score": 0,
+        "segment_signal": "needs_review",
+        "period_end": "2026-06-30"
+      },
+      "display_priority": "normal",
+      "priority_reason": "目前規則樣本不足或採納率未達降級門檻，維持原顯示優先級。",
+      "headline": "分部趨勢與投資論點聯動更新：新一期待覆核",
+      "evidence": [
+        "新一期待覆核；先完成口徑／數字覆核，不改變既有論點。分部證據分數 +0/8，只調整 SEC 證據權重，不直接改寫投資論點總狀態。",
+        "新一期尚未通過安全勾稽：單期分部輸入尚未更新到新季度。",
+        "FY2026 Q4 已收錄分部合計 QoQ +13.3%、YoY —。",
+        "其他項目抵銷主要成長：Datacenter & Communications 占合計季增 105.6%；高於 100% 代表其他項目合計衰退。",
+        "AI 光通訊需求推動營收成長：支持；已收錄分部合計 QoQ +13.3%、YoY —；只代表本表已收錄且同口徑項目。",
+        "產品組合與整併綜效帶動毛利率改善：持續觀察；本期分部表未提供可比較的分部利益率；不能用分部營收替代利益率。"
+      ],
+      "why_candidate": "只有分部 linkage fingerprint 相較最近 AI 覆核改變才列入；需讀官方分部表後決定是否改寫正式結論。",
+      "filing_date": "2026-08-12",
+      "detected_at": "2026-11-05T03:38:29+00:00",
+      "source_keys": [
+        "5b2232f5e39f02142789"
+      ],
+      "sources": [
+        {
+          "label": "官方分部表",
+          "url": "https://www.sec.gov/Archives/edgar/data/820318/000119312526346860/d128030dex991.htm"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 0,
+        "accepted_count": 0,
+        "acceptance_rate": null,
+        "sample_status": "insufficient"
+      }
+    },
+    {
+      "id": "b7da9a506c074f79",
+      "ticker": "ARM",
+      "type": "risk",
+      "type_label": "🔴 新增風險候選",
+      "status": "pending_ai_review",
+      "confidence": "high",
+      "rule_key": "segment_thesis_change",
+      "materiality": {
+        "segment_score": 0,
+        "segment_signal": "needs_review",
+        "period_end": "2026-06-30"
+      },
+      "display_priority": "normal",
+      "priority_reason": "目前規則樣本不足或採納率未達降級門檻，維持原顯示優先級。",
+      "headline": "分部趨勢與投資論點聯動更新：新一期待覆核",
+      "evidence": [
+        "新一期待覆核；先完成口徑／數字覆核，不改變既有論點。分部證據分數 +0/8，只調整 SEC 證據權重，不直接改寫投資論點總狀態。",
+        "新一期尚未通過安全勾稽：單期分部輸入尚未更新到新季度。",
+        "FY2027 Q1 已收錄分部合計 QoQ -13.5%、YoY +22.4%。",
+        "主要季增驅動更換：License and other revenue → Royalty revenue。",
+        "合計營收由季增轉季減：QoQ +20.0% → -13.5%。",
+        "單一項目占比明顯上升：Royalty revenue 占比季增 +10.5pp 至 55.5%。",
+        "授權與版稅模式維持高成長：形成壓力；已收錄分部合計 QoQ -13.5%、YoY +22.4%；只代表本表已收錄且同口徑項目。",
+        "資產輕量 IP 模式維持極高毛利率：持續觀察；本期分部表未提供可比較的分部利益率；不能用分部營收替代利益率。"
+      ],
+      "why_candidate": "只有分部 linkage fingerprint 相較最近 AI 覆核改變才列入；需讀官方分部表後決定是否改寫正式結論。",
+      "filing_date": "2026-07-29",
+      "detected_at": "2026-11-05T03:38:29+00:00",
+      "source_keys": [
+        "338b45c834c3fcad88e5"
+      ],
+      "sources": [
+        {
+          "label": "官方分部表",
+          "url": "https://investors.arm.com/node/8356/html"
         }
       ],
       "rule_quality": {
@@ -277,7 +365,7 @@
       ],
       "why_candidate": "只有分部 linkage fingerprint 相較最近 AI 覆核改變才列入；需讀官方分部表後決定是否改寫正式結論。",
       "filing_date": "2026-07-24",
-      "detected_at": "2026-11-04T11:50:37+00:00",
+      "detected_at": "2026-11-05T03:38:29+00:00",
       "source_keys": [
         "de565697fcf0e93a99e9"
       ],
@@ -320,7 +408,7 @@
       ],
       "why_candidate": "只有分部 linkage fingerprint 相較最近 AI 覆核改變才列入；需讀官方分部表後決定是否改寫正式結論。",
       "filing_date": "2026-07-23",
-      "detected_at": "2026-11-04T11:50:37+00:00",
+      "detected_at": "2026-11-05T03:38:29+00:00",
       "source_keys": [
         "46cfbfa304521a6bbd25"
       ],
@@ -363,7 +451,7 @@
       ],
       "why_candidate": "只有分部 linkage fingerprint 相較最近 AI 覆核改變才列入；需讀官方分部表後決定是否改寫正式結論。",
       "filing_date": "2026-07-23",
-      "detected_at": "2026-11-04T11:50:37+00:00",
+      "detected_at": "2026-11-05T03:38:29+00:00",
       "source_keys": [
         "beb22f050d3c353632f1"
       ],
@@ -371,6 +459,78 @@
         {
           "label": "官方分部表",
           "url": "https://www.sec.gov/Archives/edgar/data/1318605/000162828026049213/exhibit991.htm"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 0,
+        "accepted_count": 0,
+        "acceptance_rate": null,
+        "sample_status": "insufficient"
+      }
+    },
+    {
+      "id": "1aef3edd3dcdb48b",
+      "ticker": "ARM",
+      "type": "conclusion",
+      "type_label": "🟡 結論變化候選",
+      "status": "pending_ai_review",
+      "confidence": "high",
+      "rule_key": "quarterly_fingerprint",
+      "materiality": {},
+      "display_priority": "normal",
+      "priority_reason": "目前規則樣本不足或採納率未達降級門檻，維持原顯示優先級。",
+      "headline": "最新季度數字已變更，需要重算財務連續性與結論",
+      "evidence": [
+        "財報期末 2026-09-30；營收 YoY +27.1%。",
+        "毛利率 +97.1%；FCF 為正。",
+        "稀釋股數 YoY +0.9%。"
+      ],
+      "why_candidate": "季度指紋與上次 AI 覆核基準不同；規則只列候選，不自行改寫結論。",
+      "filing_date": "2026-11-04",
+      "detected_at": "2026-11-05T03:38:29+00:00",
+      "source_keys": [
+        "0001973239-26-000142"
+      ],
+      "sources": [
+        {
+          "label": "6-K 原文",
+          "url": "https://www.sec.gov/Archives/edgar/data/1973239/000197323926000142/0001973239-26-000142-index.html"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 0,
+        "accepted_count": 0,
+        "acceptance_rate": null,
+        "sample_status": "insufficient"
+      }
+    },
+    {
+      "id": "9c5c0d2ff6307874",
+      "ticker": "COHR",
+      "type": "conclusion",
+      "type_label": "🟡 結論變化候選",
+      "status": "pending_ai_review",
+      "confidence": "high",
+      "rule_key": "quarterly_fingerprint",
+      "materiality": {},
+      "display_priority": "normal",
+      "priority_reason": "目前規則樣本不足或採納率未達降級門檻，維持原顯示優先級。",
+      "headline": "最新季度數字已變更，需要重算財務連續性與結論",
+      "evidence": [
+        "財報期末 2026-09-30；營收 YoY +49.9%。",
+        "毛利率 +39.1%；FCF 為負。",
+        "稀釋股數 YoY +5.9%。"
+      ],
+      "why_candidate": "季度指紋與上次 AI 覆核基準不同；規則只列候選，不自行改寫結論。",
+      "filing_date": "2026-11-04",
+      "detected_at": "2026-11-05T03:38:29+00:00",
+      "source_keys": [
+        "0000820318-26-000023"
+      ],
+      "sources": [
+        {
+          "label": "10-Q 原文",
+          "url": "https://www.sec.gov/Archives/edgar/data/820318/000082031826000023/0000820318-26-000023-index.html"
         }
       ],
       "rule_quality": {
@@ -1909,7 +2069,7 @@
       ],
       "why_candidate": "只有分部 linkage fingerprint 相較最近 AI 覆核改變才列入；需讀官方分部表後決定是否改寫正式結論。",
       "filing_date": "2026-07-30",
-      "detected_at": "2026-11-04T11:50:37+00:00",
+      "detected_at": "2026-11-05T03:38:29+00:00",
       "source_keys": [
         "3022c43c787c6c960f91"
       ],
@@ -1952,7 +2112,7 @@
       ],
       "why_candidate": "只有分部 linkage fingerprint 相較最近 AI 覆核改變才列入；需讀官方分部表後決定是否改寫正式結論。",
       "filing_date": "2026-07-30",
-      "detected_at": "2026-11-04T11:50:37+00:00",
+      "detected_at": "2026-11-05T03:38:29+00:00",
       "source_keys": [
         "24eee0fba02590f8fb78"
       ],
@@ -1996,7 +2156,7 @@
       ],
       "why_candidate": "只有分部 linkage fingerprint 相較最近 AI 覆核改變才列入；需讀官方分部表後決定是否改寫正式結論。",
       "filing_date": "2026-07-29",
-      "detected_at": "2026-11-04T11:50:37+00:00",
+      "detected_at": "2026-11-05T03:38:29+00:00",
       "source_keys": [
         "13cf79032ad77af56d0d"
       ],
@@ -2039,7 +2199,7 @@
       ],
       "why_candidate": "只有分部 linkage fingerprint 相較最近 AI 覆核改變才列入；需讀官方分部表後決定是否改寫正式結論。",
       "filing_date": "2026-07-29",
-      "detected_at": "2026-11-04T11:50:37+00:00",
+      "detected_at": "2026-11-05T03:38:29+00:00",
       "source_keys": [
         "cbac7ccb51e004dd6d32"
       ],

@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-03T13:46:09+00:00",
+  "updated_at": "2026-11-05T03:38:29+00:00",
   "tracked_count": 14,
-  "pending_count": 8,
+  "pending_count": 10,
   "auto_synced_count": 0,
   "methodology": {
     "detection": "監看 SEC／IR 季度資料與已解析 Exhibit 99.1；新期先建立候選。",
@@ -155,18 +155,29 @@
     {
       "ticker": "ARM",
       "name": "Arm",
-      "status": "up_to_date",
-      "candidate_id": "ARM:2026-06-30:up_to_date",
+      "status": "pending_review",
+      "candidate_id": "ARM:2026-09-30:pending_review",
       "latest_history_period": "FY2027 Q1",
       "latest_history_period_end": "2026-06-30",
       "period_count": 4,
       "max_periods": 8,
       "current_input_period": "FY2027 Q1",
       "current_input_source_date": "2026-07-29",
-      "detected_source": null,
-      "reason_codes": [],
-      "reasons": [],
-      "next_action": "無需處理；等待下一份正式季度結果或 Exhibit 99.1。"
+      "detected_source": {
+        "kind": "quarterly_financials",
+        "form": "6-K",
+        "filing_date": "2026-11-04",
+        "period_end": "2026-09-30",
+        "accession": "0001973239-26-000142",
+        "url": "https://www.sec.gov/Archives/edgar/data/1973239/000197323926000142/0001973239-26-000142-index.html"
+      },
+      "reason_codes": [
+        "current_input_not_advanced"
+      ],
+      "reasons": [
+        "單期分部輸入尚未更新到新季度"
+      ],
+      "next_action": "核對官方分部表、期間與口徑後更新單期輸入；系統會在下次執行自動寫入。"
     },
     {
       "ticker": "ONDS",
@@ -241,18 +252,29 @@
     {
       "ticker": "COHR",
       "name": "Coherent",
-      "status": "up_to_date",
-      "candidate_id": "COHR:2026-06-30:up_to_date",
+      "status": "pending_review",
+      "candidate_id": "COHR:2026-09-30:pending_review",
       "latest_history_period": "FY2026 Q4",
       "latest_history_period_end": "2026-06-30",
       "period_count": 4,
       "max_periods": 8,
       "current_input_period": "FY2026",
       "current_input_source_date": "2026-08-12",
-      "detected_source": null,
-      "reason_codes": [],
-      "reasons": [],
-      "next_action": "無需處理；等待下一份正式季度結果或 Exhibit 99.1。"
+      "detected_source": {
+        "kind": "quarterly_financials",
+        "form": "10-Q",
+        "filing_date": "2026-11-04",
+        "period_end": "2026-09-30",
+        "accession": "0000820318-26-000023",
+        "url": "https://www.sec.gov/Archives/edgar/data/820318/000082031826000023/0000820318-26-000023-index.html"
+      },
+      "reason_codes": [
+        "current_input_not_advanced"
+      ],
+      "reasons": [
+        "單期分部輸入尚未更新到新季度"
+      ],
+      "next_action": "核對官方分部表、期間與口徑後更新單期輸入；系統會在下次執行自動寫入。"
     },
     {
       "ticker": "MRVL",

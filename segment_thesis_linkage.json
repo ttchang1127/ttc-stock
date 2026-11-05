@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-04T11:50:37+00:00",
+  "updated_at": "2026-11-05T03:38:29+00:00",
   "tracked_count": 14,
   "counts": {
     "support": 3,
-    "pressure": 1,
-    "mixed": 2,
-    "needs_review": 8
+    "pressure": 0,
+    "mixed": 1,
+    "needs_review": 10
   },
   "methodology": {
     "scope": "14 家個股；ETF 不納入。只連結同公司、同一期已核對的分部資料與現有三項投資論點。",
@@ -486,13 +486,13 @@
       "basis": "營收來源（非可報導分部）",
       "source_date": "2026-07-29",
       "source_url": "https://investors.arm.com/node/8356/html",
-      "signal": "pressure",
-      "label": "分部趨勢形成壓力",
-      "score": -5,
-      "alignment": "對既有論點形成壓力",
-      "conclusion": "分部趨勢形成壓力；對既有論點形成壓力。分部證據分數 -5/8，只調整 SEC 證據權重，不直接改寫投資論點總狀態。",
+      "signal": "needs_review",
+      "label": "新一期待覆核",
+      "score": 0,
+      "alignment": "先完成口徑／數字覆核，不改變既有論點",
+      "conclusion": "新一期待覆核；先完成口徑／數字覆核，不改變既有論點。分部證據分數 +0/8，只調整 SEC 證據權重，不直接改寫投資論點總狀態。",
       "comparable": true,
-      "pending_review": false,
+      "pending_review": true,
       "latest_change_summary": "License and other revenue → Royalty revenue；QoQ +20.0% → -13.5%；Royalty revenue 占比季增 +10.5pp 至 55.5%。",
       "events": [
         {
@@ -536,6 +536,7 @@
         }
       ],
       "evidence": [
+        "新一期尚未通過安全勾稽：單期分部輸入尚未更新到新季度。",
         "FY2027 Q1 已收錄分部合計 QoQ -13.5%、YoY +22.4%。",
         "主要季增驅動更換：License and other revenue → Royalty revenue。",
         "合計營收由季增轉季減：QoQ +20.0% → -13.5%。",
@@ -577,7 +578,7 @@
         "下一季先確認分部名稱與 basis_id 是否相同；不同即切斷趨勢。",
         "核對主要成長驅動、分部占比與利益率是否連續兩期同向；單季變化不直接升降投資評等。"
       ],
-      "fingerprint": "3507923548ce2ba5e871"
+      "fingerprint": "338b45c834c3fcad88e5"
     },
     {
       "ticker": "ONDS",
@@ -840,13 +841,13 @@
       "basis": "可報導分部（新口徑）",
       "source_date": "2026-08-12",
       "source_url": "https://www.sec.gov/Archives/edgar/data/820318/000119312526346860/d128030dex991.htm",
-      "signal": "mixed",
-      "label": "分部訊號混合／未達門檻",
-      "score": 2,
-      "alignment": "支持既有論點",
-      "conclusion": "分部訊號混合／未達門檻；支持既有論點。分部證據分數 +2/8，只調整 SEC 證據權重，不直接改寫投資論點總狀態。",
+      "signal": "needs_review",
+      "label": "新一期待覆核",
+      "score": 0,
+      "alignment": "先完成口徑／數字覆核，不改變既有論點",
+      "conclusion": "新一期待覆核；先完成口徑／數字覆核，不改變既有論點。分部證據分數 +0/8，只調整 SEC 證據權重，不直接改寫投資論點總狀態。",
       "comparable": true,
-      "pending_review": false,
+      "pending_review": true,
       "latest_change_summary": "Datacenter & Communications 占合計季增 105.6%；高於 100% 代表其他項目合計衰退。",
       "events": [
         {
@@ -864,6 +865,7 @@
         }
       ],
       "evidence": [
+        "新一期尚未通過安全勾稽：單期分部輸入尚未更新到新季度。",
         "FY2026 Q4 已收錄分部合計 QoQ +13.3%、YoY —。",
         "其他項目抵銷主要成長：Datacenter & Communications 占合計季增 105.6%；高於 100% 代表其他項目合計衰退。"
       ],
@@ -903,7 +905,7 @@
         "下一季先確認分部名稱與 basis_id 是否相同；不同即切斷趨勢。",
         "核對主要成長驅動、分部占比與利益率是否連續兩期同向；單季變化不直接升降投資評等。"
       ],
-      "fingerprint": "db344b2dc8f4b6e0db46"
+      "fingerprint": "5b2232f5e39f02142789"
     },
     {
       "ticker": "MRVL",
