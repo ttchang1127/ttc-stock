@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "protocol_version": "rotation-forward-2026-10-11-v1",
-  "history_as_of": "2026-11-04",
-  "a_snapshot_count": 22,
+  "history_as_of": "2026-11-05",
+  "a_snapshot_count": 23,
   "baseline_as_of": "2026-10-09",
   "events": [
     {
@@ -590,7 +590,10 @@
       "dataset_id": "sha256:aa05f870ec0c06f7902a5c64e8d7385676b2ce186cf20faf7dad41a0b526343e",
       "first_seen_at_utc": "2026-11-04T19:46:26Z",
       "entry": {
-        "status": "pending"
+        "status": "fixed",
+        "date": "2026-11-05",
+        "etf_adj_close": 104.50499725341797,
+        "spy_adj_close": 739.5800170898438
       },
       "outcomes": {
         "20d": {
@@ -612,7 +615,10 @@
       "dataset_id": "sha256:aa05f870ec0c06f7902a5c64e8d7385676b2ce186cf20faf7dad41a0b526343e",
       "first_seen_at_utc": "2026-11-04T19:46:26Z",
       "entry": {
-        "status": "pending"
+        "status": "fixed",
+        "date": "2026-11-05",
+        "etf_adj_close": 186.17999267578125,
+        "spy_adj_close": 739.5800170898438
       },
       "outcomes": {
         "20d": {
@@ -634,7 +640,10 @@
       "dataset_id": "sha256:aa05f870ec0c06f7902a5c64e8d7385676b2ce186cf20faf7dad41a0b526343e",
       "first_seen_at_utc": "2026-11-04T19:46:26Z",
       "entry": {
-        "status": "pending"
+        "status": "fixed",
+        "date": "2026-11-05",
+        "etf_adj_close": 43.28499984741211,
+        "spy_adj_close": 739.5800170898438
       },
       "outcomes": {
         "20d": {
@@ -645,9 +654,93 @@
         }
       },
       "eligibility_confirmed_at_utc": "2026-11-05T03:32:31Z"
+    },
+    {
+      "id": "2026-11-05:sector:consumer-discretionary:confirmed_leading",
+      "signal_as_of": "2026-11-05",
+      "sector": "sector:consumer-discretionary",
+      "from_state": "neutral_mixed",
+      "state": "confirmed_leading",
+      "etf": "XLY",
+      "dataset_id": "sha256:c1f59c0af17b004717746e8dc53eeab4e33a39445ea1f0732d7d6b8539322912",
+      "first_seen_at_utc": "2026-11-05T19:58:30Z",
+      "entry": {
+        "status": "pending"
+      },
+      "outcomes": {
+        "20d": {
+          "status": "pending"
+        },
+        "60d": {
+          "status": "pending"
+        }
+      }
+    },
+    {
+      "id": "2026-11-05:sector:financials:confirmed_leading",
+      "signal_as_of": "2026-11-05",
+      "sector": "sector:financials",
+      "from_state": "neutral_mixed",
+      "state": "confirmed_leading",
+      "etf": "XLF",
+      "dataset_id": "sha256:c1f59c0af17b004717746e8dc53eeab4e33a39445ea1f0732d7d6b8539322912",
+      "first_seen_at_utc": "2026-11-05T19:58:30Z",
+      "entry": {
+        "status": "pending"
+      },
+      "outcomes": {
+        "20d": {
+          "status": "pending"
+        },
+        "60d": {
+          "status": "pending"
+        }
+      }
+    },
+    {
+      "id": "2026-11-05:sector:real-estate:confirmed_leading",
+      "signal_as_of": "2026-11-05",
+      "sector": "sector:real-estate",
+      "from_state": "neutral_mixed",
+      "state": "confirmed_leading",
+      "etf": "XLRE",
+      "dataset_id": "sha256:c1f59c0af17b004717746e8dc53eeab4e33a39445ea1f0732d7d6b8539322912",
+      "first_seen_at_utc": "2026-11-05T19:58:30Z",
+      "entry": {
+        "status": "pending"
+      },
+      "outcomes": {
+        "20d": {
+          "status": "pending"
+        },
+        "60d": {
+          "status": "pending"
+        }
+      }
+    },
+    {
+      "id": "2026-11-05:sector:utilities:confirmed_leading",
+      "signal_as_of": "2026-11-05",
+      "sector": "sector:utilities",
+      "from_state": "cooling",
+      "state": "confirmed_leading",
+      "etf": "XLU",
+      "dataset_id": "sha256:c1f59c0af17b004717746e8dc53eeab4e33a39445ea1f0732d7d6b8539322912",
+      "first_seen_at_utc": "2026-11-05T19:58:30Z",
+      "entry": {
+        "status": "pending"
+      },
+      "outcomes": {
+        "20d": {
+          "status": "pending"
+        },
+        "60d": {
+          "status": "pending"
+        }
+      }
     }
   ],
-  "event_count": 26,
+  "event_count": 30,
   "matured_20d": 0,
   "matured_60d": 0,
   "status": "pending_outcomes",
