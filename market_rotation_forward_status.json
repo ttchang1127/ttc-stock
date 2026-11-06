@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "protocol_version": "rotation-forward-2026-10-11-v1",
-  "history_as_of": "2026-11-05",
-  "a_snapshot_count": 23,
+  "history_as_of": "2026-11-06",
+  "a_snapshot_count": 24,
   "baseline_as_of": "2026-10-09",
   "events": [
     {
@@ -665,7 +665,10 @@
       "dataset_id": "sha256:c1f59c0af17b004717746e8dc53eeab4e33a39445ea1f0732d7d6b8539322912",
       "first_seen_at_utc": "2026-11-05T19:58:30Z",
       "entry": {
-        "status": "pending"
+        "status": "fixed",
+        "date": "2026-11-06",
+        "etf_adj_close": 118.2750015258789,
+        "spy_adj_close": 738.1300048828125
       },
       "outcomes": {
         "20d": {
@@ -687,7 +690,10 @@
       "dataset_id": "sha256:c1f59c0af17b004717746e8dc53eeab4e33a39445ea1f0732d7d6b8539322912",
       "first_seen_at_utc": "2026-11-05T19:58:30Z",
       "entry": {
-        "status": "pending"
+        "status": "fixed",
+        "date": "2026-11-06",
+        "etf_adj_close": 57.415000915527344,
+        "spy_adj_close": 738.1300048828125
       },
       "outcomes": {
         "20d": {
@@ -709,7 +715,10 @@
       "dataset_id": "sha256:c1f59c0af17b004717746e8dc53eeab4e33a39445ea1f0732d7d6b8539322912",
       "first_seen_at_utc": "2026-11-05T19:58:30Z",
       "entry": {
-        "status": "pending"
+        "status": "fixed",
+        "date": "2026-11-06",
+        "etf_adj_close": 44.07500076293945,
+        "spy_adj_close": 738.1300048828125
       },
       "outcomes": {
         "20d": {
@@ -731,7 +740,10 @@
       "dataset_id": "sha256:c1f59c0af17b004717746e8dc53eeab4e33a39445ea1f0732d7d6b8539322912",
       "first_seen_at_utc": "2026-11-05T19:58:30Z",
       "entry": {
-        "status": "pending"
+        "status": "fixed",
+        "date": "2026-11-06",
+        "etf_adj_close": 43.28450012207031,
+        "spy_adj_close": 738.1300048828125
       },
       "outcomes": {
         "20d": {
@@ -742,9 +754,51 @@
         }
       },
       "eligibility_confirmed_at_utc": "2026-11-06T03:29:34Z"
+    },
+    {
+      "id": "2026-11-06:sector:energy:clear_lagging",
+      "signal_as_of": "2026-11-06",
+      "sector": "sector:energy",
+      "from_state": "cooling",
+      "state": "clear_lagging",
+      "etf": "XLE",
+      "dataset_id": "sha256:e7c69055ebafcf389e3ef521cc5aa181dbe8ec5a3690f49befdf856948579460",
+      "first_seen_at_utc": "2026-11-06T19:25:57Z",
+      "entry": {
+        "status": "pending"
+      },
+      "outcomes": {
+        "20d": {
+          "status": "pending"
+        },
+        "60d": {
+          "status": "pending"
+        }
+      }
+    },
+    {
+      "id": "2026-11-06:sector:materials:confirmed_leading",
+      "signal_as_of": "2026-11-06",
+      "sector": "sector:materials",
+      "from_state": "neutral_mixed",
+      "state": "confirmed_leading",
+      "etf": "XLB",
+      "dataset_id": "sha256:e7c69055ebafcf389e3ef521cc5aa181dbe8ec5a3690f49befdf856948579460",
+      "first_seen_at_utc": "2026-11-06T19:25:57Z",
+      "entry": {
+        "status": "pending"
+      },
+      "outcomes": {
+        "20d": {
+          "status": "pending"
+        },
+        "60d": {
+          "status": "pending"
+        }
+      }
     }
   ],
-  "event_count": 30,
+  "event_count": 32,
   "matured_20d": 0,
   "matured_60d": 0,
   "status": "pending_outcomes",
