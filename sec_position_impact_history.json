@@ -1,87 +1,19 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-05T19:57:30Z",
-  "current_snapshot_id": "74a0c920859d8474",
-  "previous_snapshot_id": "d2d12cfde5992890",
-  "batch_id": "64828cee199d",
-  "notify_count": 5,
-  "critical_count": 2,
+  "updated_at": "2026-11-06T03:28:47Z",
+  "current_snapshot_id": "317b6c4e40d760fa",
+  "previous_snapshot_id": "74a0c920859d8474",
+  "batch_id": "8090d6a3ea87",
+  "notify_count": 0,
+  "critical_count": 0,
   "notification_policy": "只通知等級改變、SEC 訊號分數改變、總分至少變動 10 分，或持股比重／回撤跨越明確門檻；小幅價格波動不通知。",
-  "notifications": [
-    {
-      "ticker": "NOK",
-      "label": "影響升高",
-      "previous_score": 72,
-      "current_score": 77,
-      "score_delta": 5,
-      "previous_level": "high",
-      "current_level": "high",
-      "reasons": [
-        "未實現損益跨越 -30%（-29.3% → -35.2%）"
-      ],
-      "event_reason": "目前綜合判讀：高風險｜部分失效"
-    },
-    {
-      "ticker": "ARM",
-      "label": "影響升高",
-      "previous_score": 64,
-      "current_score": 72,
-      "score_delta": 8,
-      "previous_level": "medium",
-      "current_level": "high",
-      "reasons": [
-        "影響等級 中影響 → 高影響",
-        "未實現損益跨越 -20%（-17.0% → -26.3%）"
-      ],
-      "event_reason": "待 AI 覆核：分部趨勢與投資論點聯動更新：新一期待覆核"
-    },
-    {
-      "ticker": "INTC",
-      "label": "影響升高",
-      "previous_score": 58,
-      "current_score": 66,
-      "score_delta": 8,
-      "previous_level": "medium",
-      "current_level": "medium",
-      "reasons": [
-        "未實現損益跨越 -20%（-17.0% → -22.2%）"
-      ],
-      "event_reason": "待 AI 覆核：分部趨勢與投資論點聯動更新：新一期待覆核"
-    },
-    {
-      "ticker": "MRVL",
-      "label": "影響升高",
-      "previous_score": 52,
-      "current_score": 64,
-      "score_delta": 12,
-      "previous_level": "medium",
-      "current_level": "medium",
-      "reasons": [
-        "未實現損益跨越 -10%（+1.5% → -10.8%）",
-        "總分變動 +12 分"
-      ],
-      "event_reason": "待 AI 覆核：分部趨勢與投資論點聯動更新：新一期待覆核"
-    },
-    {
-      "ticker": "NVDA",
-      "label": "影響升高",
-      "previous_score": 58,
-      "current_score": 64,
-      "score_delta": 6,
-      "previous_level": "medium",
-      "current_level": "medium",
-      "reasons": [
-        "未實現損益跨越 -10%（-6.0% → -13.5%）"
-      ],
-      "event_reason": "已覆核：董事 Mark Stevens 的信託延續非 10b5-1 大額實際減持，治理監測強度提高；相對公司總股數仍小，未改變基本面結論。"
-    }
-  ],
+  "notifications": [],
   "current": {
-    "snapshot_id": "74a0c920859d8474",
-    "captured_at": "2026-11-05T19:57:30Z",
+    "snapshot_id": "317b6c4e40d760fa",
+    "captured_at": "2026-11-06T03:28:47Z",
     "as_of": "2026-11-05",
     "price_date": "2026-11-05",
-    "portfolio_market_value": 84684.19,
+    "portfolio_market_value": 83491.45,
     "missing_prices": [],
     "rows": [
       {
@@ -91,10 +23,10 @@
         "position_score": 12,
         "drawdown_score": 25,
         "level": "high",
-        "weight_pct": 2.0625,
-        "pnl_pct": -48.0281,
-        "market_value": 1746.6,
-        "current_price": 174.66,
+        "weight_pct": 2.0333,
+        "pnl_pct": -49.4861,
+        "market_value": 1697.6,
+        "current_price": 169.76,
         "price_date": "2026-11-05",
         "event_kind": "candidate",
         "event_reason": "待 AI 覆核：分部趨勢與投資論點聯動更新：新一期待覆核",
@@ -116,24 +48,22 @@
         "position_score": 20,
         "drawdown_score": 25,
         "level": "high",
-        "weight_pct": 5.367,
-        "pnl_pct": -35.1952,
-        "market_value": 4545.0,
-        "current_price": 7.575,
+        "weight_pct": 5.361,
+        "pnl_pct": -36.179,
+        "market_value": 4476.0,
+        "current_price": 7.46,
         "price_date": "2026-11-05",
         "event_kind": "editorial",
         "event_reason": "目前綜合判讀：高風險｜部分失效",
         "event_fingerprint": "5cc64794359b1607",
         "comparison": {
-          "status": "changed",
-          "notify": true,
-          "score_delta": 5,
-          "previous_score": 72,
+          "status": "unchanged",
+          "notify": false,
+          "score_delta": 0,
+          "previous_score": 77,
           "previous_level": "high",
-          "label": "影響升高",
-          "reasons": [
-            "未實現損益跨越 -30%（-29.3% → -35.2%）"
-          ]
+          "label": "無實質變化",
+          "reasons": []
         }
       },
       {
@@ -143,25 +73,22 @@
         "position_score": 12,
         "drawdown_score": 20,
         "level": "high",
-        "weight_pct": 3.0161,
-        "pnl_pct": -26.2986,
-        "market_value": 2554.17,
-        "current_price": 170.2782,
+        "weight_pct": 2.9953,
+        "pnl_pct": -27.8387,
+        "market_value": 2500.8,
+        "current_price": 166.72,
         "price_date": "2026-11-05",
         "event_kind": "candidate",
         "event_reason": "待 AI 覆核：分部趨勢與投資論點聯動更新：新一期待覆核",
         "event_fingerprint": "c00f13b4d4786896",
         "comparison": {
-          "status": "changed",
-          "notify": true,
-          "score_delta": 8,
-          "previous_score": 64,
-          "previous_level": "medium",
-          "label": "影響升高",
-          "reasons": [
-            "影響等級 中影響 → 高影響",
-            "未實現損益跨越 -20%（-17.0% → -26.3%）"
-          ]
+          "status": "unchanged",
+          "notify": false,
+          "score_delta": 0,
+          "previous_score": 72,
+          "previous_level": "high",
+          "label": "無實質變化",
+          "reasons": []
         }
       },
       {
@@ -171,24 +98,22 @@
         "position_score": 6,
         "drawdown_score": 20,
         "level": "medium",
-        "weight_pct": 1.6107,
-        "pnl_pct": -22.2393,
-        "market_value": 1364.0,
-        "current_price": 54.56,
+        "weight_pct": 1.5645,
+        "pnl_pct": -25.5316,
+        "market_value": 1306.25,
+        "current_price": 52.25,
         "price_date": "2026-11-05",
         "event_kind": "candidate",
         "event_reason": "待 AI 覆核：分部趨勢與投資論點聯動更新：新一期待覆核",
         "event_fingerprint": "da6bcd786c005e0a",
         "comparison": {
-          "status": "changed",
-          "notify": true,
-          "score_delta": 8,
-          "previous_score": 58,
+          "status": "unchanged",
+          "notify": false,
+          "score_delta": 0,
+          "previous_score": 66,
           "previous_level": "medium",
-          "label": "影響升高",
-          "reasons": [
-            "未實現損益跨越 -20%（-17.0% → -22.2%）"
-          ]
+          "label": "無實質變化",
+          "reasons": []
         }
       },
       {
@@ -198,25 +123,22 @@
         "position_score": 12,
         "drawdown_score": 12,
         "level": "medium",
-        "weight_pct": 4.1427,
-        "pnl_pct": -10.8404,
-        "market_value": 3508.25,
-        "current_price": 140.33,
+        "weight_pct": 3.9989,
+        "pnl_pct": -15.1482,
+        "market_value": 3338.75,
+        "current_price": 133.55,
         "price_date": "2026-11-05",
         "event_kind": "candidate",
         "event_reason": "待 AI 覆核：分部趨勢與投資論點聯動更新：新一期待覆核",
         "event_fingerprint": "712e8f9074ece10d",
         "comparison": {
-          "status": "changed",
-          "notify": true,
-          "score_delta": 12,
-          "previous_score": 52,
+          "status": "unchanged",
+          "notify": false,
+          "score_delta": 0,
+          "previous_score": 64,
           "previous_level": "medium",
-          "label": "影響升高",
-          "reasons": [
-            "未實現損益跨越 -10%（+1.5% → -10.8%）",
-            "總分變動 +12 分"
-          ]
+          "label": "無實質變化",
+          "reasons": []
         }
       },
       {
@@ -226,24 +148,22 @@
         "position_score": 12,
         "drawdown_score": 12,
         "level": "medium",
-        "weight_pct": 3.2638,
-        "pnl_pct": -13.4911,
-        "market_value": 2763.9,
-        "current_price": 184.26,
+        "weight_pct": 3.2626,
+        "pnl_pct": -14.7399,
+        "market_value": 2724.0,
+        "current_price": 181.6,
         "price_date": "2026-11-05",
         "event_kind": "reviewed",
         "event_reason": "已覆核：董事 Mark Stevens 的信託延續非 10b5-1 大額實際減持，治理監測強度提高；相對公司總股數仍小，未改變基本面結論。",
         "event_fingerprint": "57be1dde713bace7",
         "comparison": {
-          "status": "changed",
-          "notify": true,
-          "score_delta": 6,
-          "previous_score": 58,
+          "status": "unchanged",
+          "notify": false,
+          "score_delta": 0,
+          "previous_score": 64,
           "previous_level": "medium",
-          "label": "影響升高",
-          "reasons": [
-            "未實現損益跨越 -10%（-6.0% → -13.5%）"
-          ]
+          "label": "無實質變化",
+          "reasons": []
         }
       },
       {
@@ -253,10 +173,10 @@
         "position_score": 20,
         "drawdown_score": 0,
         "level": "medium",
-        "weight_pct": 6.7192,
-        "pnl_pct": 6.7593,
-        "market_value": 5690.1,
-        "current_price": 284.505,
+        "weight_pct": 6.749,
+        "pnl_pct": 5.7217,
+        "market_value": 5634.8,
+        "current_price": 281.74,
         "price_date": "2026-11-05",
         "event_kind": "candidate",
         "event_reason": "待 AI 覆核：投資論點狀態或量化證據指紋已改變",
@@ -278,10 +198,10 @@
         "position_score": 12,
         "drawdown_score": 0,
         "level": "medium",
-        "weight_pct": 2.9689,
-        "pnl_pct": 52.555,
-        "market_value": 2514.21,
-        "current_price": 344.5,
+        "weight_pct": 3.0043,
+        "pnl_pct": 52.1963,
+        "market_value": 2508.3,
+        "current_price": 343.69,
         "price_date": "2026-11-05",
         "event_kind": "candidate",
         "event_reason": "待 AI 覆核：分部趨勢與投資論點聯動更新：新一期待覆核",
@@ -299,6 +219,216 @@
     ]
   },
   "history": [
+    {
+      "snapshot_id": "317b6c4e40d760fa",
+      "captured_at": "2026-11-06T03:28:47Z",
+      "as_of": "2026-11-05",
+      "price_date": "2026-11-05",
+      "portfolio_market_value": 83491.45,
+      "missing_prices": [],
+      "rows": [
+        {
+          "ticker": "COHR",
+          "total_score": 77,
+          "event_score": 40,
+          "position_score": 12,
+          "drawdown_score": 25,
+          "level": "high",
+          "weight_pct": 2.0333,
+          "pnl_pct": -49.4861,
+          "market_value": 1697.6,
+          "current_price": 169.76,
+          "price_date": "2026-11-05",
+          "event_kind": "candidate",
+          "event_reason": "待 AI 覆核：分部趨勢與投資論點聯動更新：新一期待覆核",
+          "event_fingerprint": "2b1b1bacb8a46943",
+          "comparison": {
+            "status": "unchanged",
+            "notify": false,
+            "score_delta": 0,
+            "previous_score": 77,
+            "previous_level": "high",
+            "label": "無實質變化",
+            "reasons": []
+          }
+        },
+        {
+          "ticker": "NOK",
+          "total_score": 77,
+          "event_score": 32,
+          "position_score": 20,
+          "drawdown_score": 25,
+          "level": "high",
+          "weight_pct": 5.361,
+          "pnl_pct": -36.179,
+          "market_value": 4476.0,
+          "current_price": 7.46,
+          "price_date": "2026-11-05",
+          "event_kind": "editorial",
+          "event_reason": "目前綜合判讀：高風險｜部分失效",
+          "event_fingerprint": "5cc64794359b1607",
+          "comparison": {
+            "status": "unchanged",
+            "notify": false,
+            "score_delta": 0,
+            "previous_score": 77,
+            "previous_level": "high",
+            "label": "無實質變化",
+            "reasons": []
+          }
+        },
+        {
+          "ticker": "ARM",
+          "total_score": 72,
+          "event_score": 40,
+          "position_score": 12,
+          "drawdown_score": 20,
+          "level": "high",
+          "weight_pct": 2.9953,
+          "pnl_pct": -27.8387,
+          "market_value": 2500.8,
+          "current_price": 166.72,
+          "price_date": "2026-11-05",
+          "event_kind": "candidate",
+          "event_reason": "待 AI 覆核：分部趨勢與投資論點聯動更新：新一期待覆核",
+          "event_fingerprint": "c00f13b4d4786896",
+          "comparison": {
+            "status": "unchanged",
+            "notify": false,
+            "score_delta": 0,
+            "previous_score": 72,
+            "previous_level": "high",
+            "label": "無實質變化",
+            "reasons": []
+          }
+        },
+        {
+          "ticker": "INTC",
+          "total_score": 66,
+          "event_score": 40,
+          "position_score": 6,
+          "drawdown_score": 20,
+          "level": "medium",
+          "weight_pct": 1.5645,
+          "pnl_pct": -25.5316,
+          "market_value": 1306.25,
+          "current_price": 52.25,
+          "price_date": "2026-11-05",
+          "event_kind": "candidate",
+          "event_reason": "待 AI 覆核：分部趨勢與投資論點聯動更新：新一期待覆核",
+          "event_fingerprint": "da6bcd786c005e0a",
+          "comparison": {
+            "status": "unchanged",
+            "notify": false,
+            "score_delta": 0,
+            "previous_score": 66,
+            "previous_level": "medium",
+            "label": "無實質變化",
+            "reasons": []
+          }
+        },
+        {
+          "ticker": "MRVL",
+          "total_score": 64,
+          "event_score": 40,
+          "position_score": 12,
+          "drawdown_score": 12,
+          "level": "medium",
+          "weight_pct": 3.9989,
+          "pnl_pct": -15.1482,
+          "market_value": 3338.75,
+          "current_price": 133.55,
+          "price_date": "2026-11-05",
+          "event_kind": "candidate",
+          "event_reason": "待 AI 覆核：分部趨勢與投資論點聯動更新：新一期待覆核",
+          "event_fingerprint": "712e8f9074ece10d",
+          "comparison": {
+            "status": "unchanged",
+            "notify": false,
+            "score_delta": 0,
+            "previous_score": 64,
+            "previous_level": "medium",
+            "label": "無實質變化",
+            "reasons": []
+          }
+        },
+        {
+          "ticker": "NVDA",
+          "total_score": 64,
+          "event_score": 40,
+          "position_score": 12,
+          "drawdown_score": 12,
+          "level": "medium",
+          "weight_pct": 3.2626,
+          "pnl_pct": -14.7399,
+          "market_value": 2724.0,
+          "current_price": 181.6,
+          "price_date": "2026-11-05",
+          "event_kind": "reviewed",
+          "event_reason": "已覆核：董事 Mark Stevens 的信託延續非 10b5-1 大額實際減持，治理監測強度提高；相對公司總股數仍小，未改變基本面結論。",
+          "event_fingerprint": "57be1dde713bace7",
+          "comparison": {
+            "status": "unchanged",
+            "notify": false,
+            "score_delta": 0,
+            "previous_score": 64,
+            "previous_level": "medium",
+            "label": "無實質變化",
+            "reasons": []
+          }
+        },
+        {
+          "ticker": "GOOG",
+          "total_score": 60,
+          "event_score": 40,
+          "position_score": 20,
+          "drawdown_score": 0,
+          "level": "medium",
+          "weight_pct": 6.749,
+          "pnl_pct": 5.7217,
+          "market_value": 5634.8,
+          "current_price": 281.74,
+          "price_date": "2026-11-05",
+          "event_kind": "candidate",
+          "event_reason": "待 AI 覆核：投資論點狀態或量化證據指紋已改變",
+          "event_fingerprint": "aa3a87e32e2e2ee2",
+          "comparison": {
+            "status": "unchanged",
+            "notify": false,
+            "score_delta": 0,
+            "previous_score": 60,
+            "previous_level": "medium",
+            "label": "無實質變化",
+            "reasons": []
+          }
+        },
+        {
+          "ticker": "TSLA",
+          "total_score": 52,
+          "event_score": 40,
+          "position_score": 12,
+          "drawdown_score": 0,
+          "level": "medium",
+          "weight_pct": 3.0043,
+          "pnl_pct": 52.1963,
+          "market_value": 2508.3,
+          "current_price": 343.69,
+          "price_date": "2026-11-05",
+          "event_kind": "candidate",
+          "event_reason": "待 AI 覆核：分部趨勢與投資論點聯動更新：新一期待覆核",
+          "event_fingerprint": "345487e90950325a",
+          "comparison": {
+            "status": "unchanged",
+            "notify": false,
+            "score_delta": 0,
+            "previous_score": 52,
+            "previous_level": "medium",
+            "label": "無實質變化",
+            "reasons": []
+          }
+        }
+      ]
+    },
     {
       "snapshot_id": "74a0c920859d8474",
       "captured_at": "2026-11-05T19:57:30Z",
@@ -12771,223 +12901,6 @@
           "market_value": 2545.0,
           "current_price": 101.8,
           "price_date": "2026-09-16",
-          "event_kind": "financial",
-          "event_reason": "八季財務警報 1 項",
-          "event_fingerprint": "daacdd190880ff30",
-          "comparison": {
-            "status": "unchanged",
-            "notify": false,
-            "score_delta": 0,
-            "previous_score": 40,
-            "previous_level": "low",
-            "label": "無實質變化",
-            "reasons": []
-          }
-        }
-      ]
-    },
-    {
-      "snapshot_id": "d1976953b30a116b",
-      "captured_at": "2026-09-12T10:31:51Z",
-      "as_of": "2026-09-11",
-      "price_date": "2026-09-11",
-      "portfolio_market_value": 97008.99,
-      "missing_prices": [],
-      "rows": [
-        {
-          "ticker": "NOK",
-          "total_score": 58,
-          "event_score": 32,
-          "position_score": 20,
-          "drawdown_score": 6,
-          "level": "medium",
-          "weight_pct": 6.8839,
-          "pnl_pct": -4.7819,
-          "market_value": 6678.0,
-          "current_price": 11.13,
-          "price_date": "2026-09-11",
-          "event_kind": "editorial",
-          "event_reason": "目前綜合判讀：高風險｜部分失效",
-          "event_fingerprint": "1d639ed369d11d31",
-          "comparison": {
-            "status": "unchanged",
-            "notify": false,
-            "score_delta": 0,
-            "previous_score": 58,
-            "previous_level": "medium",
-            "label": "無實質變化",
-            "reasons": []
-          }
-        },
-        {
-          "ticker": "NVDA",
-          "total_score": 52,
-          "event_score": 40,
-          "position_score": 12,
-          "drawdown_score": 0,
-          "level": "medium",
-          "weight_pct": 3.3753,
-          "pnl_pct": 2.4858,
-          "market_value": 3274.35,
-          "current_price": 218.29,
-          "price_date": "2026-09-11",
-          "event_kind": "reviewed",
-          "event_reason": "已覆核：董事 Mark Stevens 的信託延續非 10b5-1 大額實際減持，治理監測強度提高；相對公司總股數仍小，未改變基本面結論。",
-          "event_fingerprint": "4fd75f0f7f98540b",
-          "comparison": {
-            "status": "unchanged",
-            "notify": false,
-            "score_delta": 0,
-            "previous_score": 52,
-            "previous_level": "medium",
-            "label": "無實質變化",
-            "reasons": []
-          }
-        },
-        {
-          "ticker": "COHR",
-          "total_score": 50,
-          "event_score": 32,
-          "position_score": 12,
-          "drawdown_score": 6,
-          "level": "medium",
-          "weight_pct": 3.1479,
-          "pnl_pct": -9.1339,
-          "market_value": 3053.7,
-          "current_price": 305.37,
-          "price_date": "2026-09-11",
-          "event_kind": "editorial",
-          "event_reason": "目前綜合判讀：風險偏高｜部分失效",
-          "event_fingerprint": "df5f1a29be1dc89b",
-          "comparison": {
-            "status": "changed",
-            "notify": true,
-            "score_delta": -8,
-            "previous_score": 58,
-            "previous_level": "medium",
-            "label": "影響下降",
-            "reasons": [
-              "SEC 訊號 40 → 32"
-            ]
-          }
-        },
-        {
-          "ticker": "GOOG",
-          "total_score": 48,
-          "event_score": 28,
-          "position_score": 20,
-          "drawdown_score": 0,
-          "level": "medium",
-          "weight_pct": 6.9159,
-          "pnl_pct": 25.8762,
-          "market_value": 6709.0,
-          "current_price": 335.45,
-          "price_date": "2026-09-11",
-          "event_kind": "financial",
-          "event_reason": "八季財務警報 1 項",
-          "event_fingerprint": "3f5b7af3b720bfa6",
-          "comparison": {
-            "status": "unchanged",
-            "notify": false,
-            "score_delta": 0,
-            "previous_score": 48,
-            "previous_level": "medium",
-            "label": "無實質變化",
-            "reasons": []
-          }
-        },
-        {
-          "ticker": "MRVL",
-          "total_score": 48,
-          "event_score": 28,
-          "position_score": 20,
-          "drawdown_score": 0,
-          "level": "medium",
-          "weight_pct": 6.0845,
-          "pnl_pct": 50.0076,
-          "market_value": 5902.5,
-          "current_price": 236.1,
-          "price_date": "2026-09-11",
-          "event_kind": "ownership",
-          "event_reason": "90 日內重大 13D／13G 1 項",
-          "event_fingerprint": "42b2bd0e21012044",
-          "comparison": {
-            "status": "unchanged",
-            "notify": false,
-            "score_delta": 0,
-            "previous_score": 48,
-            "previous_level": "medium",
-            "label": "無實質變化",
-            "reasons": []
-          }
-        },
-        {
-          "ticker": "TSLA",
-          "total_score": 44,
-          "event_score": 32,
-          "position_score": 12,
-          "drawdown_score": 0,
-          "level": "low",
-          "weight_pct": 2.7493,
-          "pnl_pct": 61.8278,
-          "market_value": 2667.04,
-          "current_price": 365.44,
-          "price_date": "2026-09-11",
-          "event_kind": "editorial",
-          "event_reason": "目前綜合判讀：風險偏高｜需要驗證",
-          "event_fingerprint": "6e0f5b3070a77099",
-          "comparison": {
-            "status": "changed",
-            "notify": true,
-            "score_delta": -2,
-            "previous_score": 46,
-            "previous_level": "medium",
-            "label": "影響下降",
-            "reasons": [
-              "影響等級 中影響 → 低影響",
-              "SEC 訊號 34 → 32"
-            ]
-          }
-        },
-        {
-          "ticker": "ARM",
-          "total_score": 40,
-          "event_score": 28,
-          "position_score": 12,
-          "drawdown_score": 0,
-          "level": "low",
-          "weight_pct": 4.0943,
-          "pnl_pct": 14.6089,
-          "market_value": 3971.85,
-          "current_price": 264.79,
-          "price_date": "2026-09-11",
-          "event_kind": "important",
-          "event_reason": "重大／重要申報 1 份",
-          "event_fingerprint": "49496a2a96ec25bb",
-          "comparison": {
-            "status": "changed",
-            "notify": true,
-            "score_delta": -2,
-            "previous_score": 42,
-            "previous_level": "low",
-            "label": "影響下降",
-            "reasons": [
-              "SEC 訊號 30 → 28"
-            ]
-          }
-        },
-        {
-          "ticker": "INTC",
-          "total_score": 40,
-          "event_score": 28,
-          "position_score": 12,
-          "drawdown_score": 0,
-          "level": "low",
-          "weight_pct": 2.6528,
-          "pnl_pct": 46.7134,
-          "market_value": 2573.5,
-          "current_price": 102.94,
-          "price_date": "2026-09-11",
           "event_kind": "financial",
           "event_reason": "八季財務警報 1 項",
           "event_fingerprint": "daacdd190880ff30",
