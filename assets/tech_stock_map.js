@@ -318,12 +318,36 @@
     }
     render();
   }
+  function marketCloseTimeLabel(sessionDate) {
+    const [year, month, day] = sessionDate.split('-').map(Number);
+    const utcNoon = new Date(Date.UTC(year, month - 1, day, 12));
+    const nyParts = new Intl.DateTimeFormat('en-US', {
+      timeZone: 'America/New_York', year: 'numeric', month: '2-digit', day: '2-digit',
+      hour: '2-digit', minute: '2-digit', hourCycle: 'h23'
+    }).formatToParts(utcNoon).reduce((parts, part) => ({ ...parts, [part.type]: part.value }), {});
+    const nyAsUtc = Date.UTC(Number(nyParts.year), Number(nyParts.month) - 1,
+      Number(nyParts.day), Number(nyParts.hour), Number(nyParts.minute));
+    const offsetMinutes = (nyAsUtc - utcNoon.getTime()) / 60000;
+    const closeUtc = new Date(Date.UTC(year, month - 1, day, 16) - offsetMinutes * 60000);
+    const closeParts = new Intl.DateTimeFormat('en-US', {
+      timeZone: 'America/New_York', timeZoneName: 'short'
+    }).formatToParts(closeUtc).reduce((parts, part) => ({ ...parts, [part.type]: part.value }), {});
+    const taiwanParts = new Intl.DateTimeFormat('zh-TW', {
+      timeZone: 'Asia/Taipei', month: '2-digit', day: '2-digit', hour: '2-digit',
+      minute: '2-digit', hourCycle: 'h23'
+    }).formatToParts(closeUtc).reduce((parts, part) => ({ ...parts, [part.type]: part.value }), {});
+    const sign = offsetMinutes < 0 ? '−' : '+';
+    const absoluteOffset = Math.abs(offsetMinutes);
+    const offset = `UTC${sign}${String(Math.floor(absoluteOffset / 60)).padStart(2, '0')}:${String(absoluteOffset % 60).padStart(2, '0')}`;
+    return `美東 16:00 ${closeParts.timeZoneName}（${offset}）｜台灣 ${taiwanParts.month}/${taiwanParts.day} ${taiwanParts.hour}:${taiwanParts.minute}`;
+  }
   async function init() {
     try {
       const response = await fetch('tech_stock_map.json', {cache:'no-cache'});
       if (!response.ok) throw Error(`HTTP ${response.status}`);
       data = await response.json();
       $('techAsOf').textContent = data.as_of;
+      $('techAsOfTime').textContent = marketCloseTimeLabel(data.as_of);
       $('techHighlights').innerHTML = `<span><strong>${data.coverage.visible}</strong> 家公司</span>` +
         `<span><strong>${data.coverage.priced}</strong> 家有近期股價</span>` +
         `<span>VGT 持股日 <strong>${escapeHtml(data.sources.vgt_report_date)}</strong></span>`;
