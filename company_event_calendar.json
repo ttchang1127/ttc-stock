@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-08",
+  "generated_at": "2026-11-09",
   "window": {
-    "start": "2026-11-08",
-    "end": "2026-12-08",
+    "start": "2026-11-09",
+    "end": "2026-12-09",
     "days": 30,
     "inclusive": true
   },
@@ -15,7 +15,7 @@
   },
   "tracked_count": 14,
   "owned_stock_count": 8,
-  "event_count": 6,
+  "event_count": 7,
   "holding_event_count": 3,
   "provider_failures": {},
   "events": [
@@ -30,7 +30,7 @@
       "source_url": "https://finance.yahoo.com/quote/NOK/calendar/",
       "confidence": "provider",
       "announced_at": null,
-      "days_until": 2,
+      "days_until": 1,
       "position": "holding",
       "company_name": "Nokia"
     },
@@ -45,7 +45,7 @@
       "source_url": "https://finance.yahoo.com/quote/AAPL/calendar/",
       "confidence": "provider",
       "announced_at": null,
-      "days_until": 4,
+      "days_until": 3,
       "position": "watchlist",
       "company_name": "Apple"
     },
@@ -60,9 +60,24 @@
       "source_url": "https://finance.yahoo.com/quote/ONDS/calendar/",
       "confidence": "estimated",
       "announced_at": null,
-      "days_until": 4,
+      "days_until": 3,
       "position": "watchlist",
       "company_name": "Ondas"
+    },
+    {
+      "ticker": "AAPL",
+      "date": "2026-11-16",
+      "type": "dividend_payment",
+      "title": "股利發放日",
+      "detail": "第三方市場資料日期；公司尚未公告時可能變更。",
+      "meaning": "股息支付或入帳日期；不應重複視為一筆額外投資報酬。",
+      "source_label": "Yahoo Finance 行事曆",
+      "source_url": "https://finance.yahoo.com/quote/AAPL/calendar/",
+      "confidence": "provider",
+      "announced_at": null,
+      "days_until": 7,
+      "position": "watchlist",
+      "company_name": "Apple"
     },
     {
       "ticker": "NVDA",
@@ -75,7 +90,7 @@
       "source_url": "https://finance.yahoo.com/quote/NVDA/calendar/",
       "confidence": "estimated",
       "announced_at": null,
-      "days_until": 9,
+      "days_until": 8,
       "position": "holding",
       "company_name": "NVIDIA"
     },
@@ -90,7 +105,7 @@
       "source_url": "https://finance.yahoo.com/quote/MSFT/calendar/",
       "confidence": "provider",
       "announced_at": null,
-      "days_until": 11,
+      "days_until": 10,
       "position": "watchlist",
       "company_name": "Microsoft"
     },
@@ -105,7 +120,7 @@
       "source_url": "https://finance.yahoo.com/quote/MRVL/calendar/",
       "confidence": "estimated",
       "announced_at": null,
-      "days_until": 23,
+      "days_until": 22,
       "position": "holding",
       "company_name": "Marvell"
     }
@@ -115,7 +130,7 @@
       "name": "NVIDIA",
       "position": "holding",
       "source_status": "fresh",
-      "last_success_at": "2026-11-08",
+      "last_success_at": "2026-11-09",
       "source_error": null,
       "next_earnings_date": "2026-11-17",
       "provider_events": [
@@ -168,7 +183,7 @@
           "source_url": "https://finance.yahoo.com/quote/NVDA/calendar/",
           "confidence": "estimated",
           "announced_at": null,
-          "days_until": 9,
+          "days_until": 8,
           "position": "holding",
           "company_name": "NVIDIA"
         }
@@ -178,7 +193,7 @@
       "name": "台積電",
       "position": "watchlist",
       "source_status": "fresh",
-      "last_success_at": "2026-11-08",
+      "last_success_at": "2026-11-09",
       "source_error": null,
       "next_earnings_date": "2027-01-14",
       "provider_events": [
@@ -225,7 +240,7 @@
       "name": "Microsoft",
       "position": "watchlist",
       "source_status": "fresh",
-      "last_success_at": "2026-11-08",
+      "last_success_at": "2026-11-09",
       "source_error": null,
       "next_earnings_date": "2027-01-27",
       "provider_events": [
@@ -278,7 +293,7 @@
           "source_url": "https://finance.yahoo.com/quote/MSFT/calendar/",
           "confidence": "provider",
           "announced_at": null,
-          "days_until": 11,
+          "days_until": 10,
           "position": "watchlist",
           "company_name": "Microsoft"
         }
@@ -288,7 +303,7 @@
       "name": "Meta",
       "position": "watchlist",
       "source_status": "fresh",
-      "last_success_at": "2026-11-08",
+      "last_success_at": "2026-11-09",
       "source_error": null,
       "next_earnings_date": "2027-01-27",
       "provider_events": [
@@ -335,7 +350,7 @@
       "name": "Apple",
       "position": "watchlist",
       "source_status": "fresh",
-      "last_success_at": "2026-11-08",
+      "last_success_at": "2026-11-09",
       "source_error": null,
       "next_earnings_date": "2027-01-28",
       "provider_events": [
@@ -365,7 +380,7 @@
         },
         {
           "ticker": "AAPL",
-          "date": "2026-08-13",
+          "date": "2026-11-16",
           "type": "dividend_payment",
           "title": "股利發放日",
           "detail": "第三方市場資料日期；公司尚未公告時可能變更。",
@@ -388,7 +403,22 @@
           "source_url": "https://finance.yahoo.com/quote/AAPL/calendar/",
           "confidence": "provider",
           "announced_at": null,
-          "days_until": 4,
+          "days_until": 3,
+          "position": "watchlist",
+          "company_name": "Apple"
+        },
+        {
+          "ticker": "AAPL",
+          "date": "2026-11-16",
+          "type": "dividend_payment",
+          "title": "股利發放日",
+          "detail": "第三方市場資料日期；公司尚未公告時可能變更。",
+          "meaning": "股息支付或入帳日期；不應重複視為一筆額外投資報酬。",
+          "source_label": "Yahoo Finance 行事曆",
+          "source_url": "https://finance.yahoo.com/quote/AAPL/calendar/",
+          "confidence": "provider",
+          "announced_at": null,
+          "days_until": 7,
           "position": "watchlist",
           "company_name": "Apple"
         }
@@ -398,7 +428,7 @@
       "name": "Amazon",
       "position": "watchlist",
       "source_status": "fresh",
-      "last_success_at": "2026-11-08",
+      "last_success_at": "2026-11-09",
       "source_error": null,
       "next_earnings_date": "2026-10-29",
       "provider_events": [
@@ -421,7 +451,7 @@
       "name": "Arm",
       "position": "holding",
       "source_status": "fresh",
-      "last_success_at": "2026-11-08",
+      "last_success_at": "2026-11-09",
       "source_error": null,
       "next_earnings_date": "2027-02-03",
       "provider_events": [
@@ -444,7 +474,7 @@
       "name": "Ondas",
       "position": "watchlist",
       "source_status": "fresh",
-      "last_success_at": "2026-11-08",
+      "last_success_at": "2026-11-09",
       "source_error": null,
       "next_earnings_date": "2026-11-12",
       "provider_events": [
@@ -485,7 +515,7 @@
           "source_url": "https://finance.yahoo.com/quote/ONDS/calendar/",
           "confidence": "estimated",
           "announced_at": null,
-          "days_until": 4,
+          "days_until": 3,
           "position": "watchlist",
           "company_name": "Ondas"
         }
@@ -495,7 +525,7 @@
       "name": "Tesla",
       "position": "holding",
       "source_status": "fresh",
-      "last_success_at": "2026-11-08",
+      "last_success_at": "2026-11-09",
       "source_error": null,
       "next_earnings_date": "2027-01-27",
       "provider_events": [
@@ -518,7 +548,7 @@
       "name": "Alphabet",
       "position": "holding",
       "source_status": "fresh",
-      "last_success_at": "2026-11-08",
+      "last_success_at": "2026-11-09",
       "source_error": null,
       "next_earnings_date": "2026-10-28",
       "provider_events": [
@@ -565,7 +595,7 @@
       "name": "Coherent",
       "position": "holding",
       "source_status": "fresh",
-      "last_success_at": "2026-11-08",
+      "last_success_at": "2026-11-09",
       "source_error": null,
       "next_earnings_date": "2027-02-03",
       "provider_events": [
@@ -588,7 +618,7 @@
       "name": "Marvell",
       "position": "holding",
       "source_status": "fresh",
-      "last_success_at": "2026-11-08",
+      "last_success_at": "2026-11-09",
       "source_error": null,
       "next_earnings_date": "2026-12-01",
       "provider_events": [
@@ -641,7 +671,7 @@
           "source_url": "https://finance.yahoo.com/quote/MRVL/calendar/",
           "confidence": "estimated",
           "announced_at": null,
-          "days_until": 23,
+          "days_until": 22,
           "position": "holding",
           "company_name": "Marvell"
         }
@@ -651,7 +681,7 @@
       "name": "Intel",
       "position": "holding",
       "source_status": "fresh",
-      "last_success_at": "2026-11-08",
+      "last_success_at": "2026-11-09",
       "source_error": null,
       "next_earnings_date": "2027-01-28",
       "provider_events": [
@@ -698,7 +728,7 @@
       "name": "Nokia",
       "position": "holding",
       "source_status": "fresh",
-      "last_success_at": "2026-11-08",
+      "last_success_at": "2026-11-09",
       "source_error": null,
       "next_earnings_date": "2027-01-28",
       "provider_events": [
@@ -751,7 +781,7 @@
           "source_url": "https://finance.yahoo.com/quote/NOK/calendar/",
           "confidence": "provider",
           "announced_at": null,
-          "days_until": 2,
+          "days_until": 1,
           "position": "holding",
           "company_name": "Nokia"
         }
