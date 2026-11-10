@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "protocol_version": "rotation-forward-2026-10-11-v1",
-  "history_as_of": "2026-11-06",
-  "a_snapshot_count": 24,
+  "history_as_of": "2026-11-09",
+  "a_snapshot_count": 25,
   "baseline_as_of": "2026-10-09",
   "events": [
     {
@@ -765,7 +765,10 @@
       "dataset_id": "sha256:e7c69055ebafcf389e3ef521cc5aa181dbe8ec5a3690f49befdf856948579460",
       "first_seen_at_utc": "2026-11-06T19:25:57Z",
       "entry": {
-        "status": "pending"
+        "status": "fixed",
+        "date": "2026-11-09",
+        "etf_adj_close": 61.939998626708984,
+        "spy_adj_close": 752.6900024414062
       },
       "outcomes": {
         "20d": {
@@ -787,7 +790,10 @@
       "dataset_id": "sha256:e7c69055ebafcf389e3ef521cc5aa181dbe8ec5a3690f49befdf856948579460",
       "first_seen_at_utc": "2026-11-06T19:25:57Z",
       "entry": {
-        "status": "pending"
+        "status": "fixed",
+        "date": "2026-11-09",
+        "etf_adj_close": 52.939998626708984,
+        "spy_adj_close": 752.6900024414062
       },
       "outcomes": {
         "20d": {
@@ -798,9 +804,30 @@
         }
       },
       "eligibility_confirmed_at_utc": "2026-11-07T02:53:12Z"
+    },
+    {
+      "id": "2026-11-09:sector:utilities:cooling",
+      "signal_as_of": "2026-11-09",
+      "sector": "sector:utilities",
+      "from_state": "confirmed_leading",
+      "state": "cooling",
+      "etf": "XLU",
+      "dataset_id": "sha256:c747ab698e3b449e532051fd7b0c1952d7945d6791eca2f81ee8541fdbdf3e7d",
+      "first_seen_at_utc": "2026-11-10T04:40:40Z",
+      "entry": {
+        "status": "pending"
+      },
+      "outcomes": {
+        "20d": {
+          "status": "pending"
+        },
+        "60d": {
+          "status": "pending"
+        }
+      }
     }
   ],
-  "event_count": 32,
+  "event_count": 33,
   "matured_20d": 0,
   "matured_60d": 0,
   "status": "pending_outcomes",
