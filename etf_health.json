@@ -1,12 +1,12 @@
 {
  "schema_version": 1,
  "label": "research",
- "generated_at": "2026-11-10T04:42:49+00:00",
- "as_of": "2026-11-09",
+ "generated_at": "2026-11-10T19:47:52+00:00",
+ "as_of": "2026-11-10",
  "rule_version": "etf-health-2",
  "etf_list_version": "theme-etf-2",
  "benchmark": "SPY",
- "benchmark_r20_pct": -3.27,
+ "benchmark_r20_pct": -3.72,
  "thresholds": {
   "direction_r20": 0.02,
   "broad_breadth_up": 0.6,
@@ -37,75 +37,6 @@
  "note": "描述性研究標籤，門檻尚未經回測驗證；成分權重取自各 ETF 最近一次 SEC N-PORT 申報，申報後的調倉不反映。外國掛牌、無美國報價的成分計入未涵蓋比例。資金流：N-PORT 為實際申購減贖回（落後 2～5 個月）；每日估計來自 Yahoo 流通股數或資產規模，Yahoo 不一定每天更新。",
  "etfs": [
   {
-   "ticker": "XHB",
-   "theme": "房屋建商",
-   "fund_name": "State Street(R) SPDR(R) S&P(R) Homebuilders ETF",
-   "holdings_report_date": "2026-06-30",
-   "holdings_accession": "0001410368-26-089580",
-   "state": "broad_advance",
-   "direction": "up",
-   "etf": {
-    "r5_pct": 1.32,
-    "r20_pct": 12.66,
-    "r60_pct": -2.26,
-    "rs20_pct": 15.93,
-    "above_ma50": true
-   },
-   "constituents": {
-    "holdings": 39,
-    "common_stock": 35,
-    "mapped": 32,
-    "priced": 31,
-    "coverage_pct": 90.4
-   },
-   "breadth": {
-    "above_ma20_weighted_pct": 78.9,
-    "above_ma50_weighted_pct": 75.4,
-    "above_ma50_equal_pct": 71.0
-   },
-   "returns": {
-    "cap_weighted_r20_pct": 11.49,
-    "equal_weighted_r20_pct": 11.43,
-    "equal_minus_cap_pp": -0.06,
-    "tracking_gap_pp": 1.18
-   },
-   "concentration": {
-    "top3_share_pct": 26.3,
-    "top_contributors": [
-     {
-      "ticker": "BLDR",
-      "weight_pct": 3.56,
-      "r20_pct": 26.52,
-      "contribution_pp": 1.04
-     },
-     {
-      "ticker": "CVCO",
-      "weight_pct": 3.23,
-      "r20_pct": 27.73,
-      "contribution_pp": 0.99
-     },
-     {
-      "ticker": "KBH",
-      "weight_pct": 3.56,
-      "r20_pct": 24.93,
-      "contribution_pp": 0.98
-     }
-    ]
-   },
-   "flows": {
-    "nport": {
-     "net_3m_pct": -3.58,
-     "months": "2026-04～2026-06"
-    },
-    "estimated": {
-     "sessions_recorded": 25,
-     "flow_5d_pct": 10.72,
-     "flow_20d_pct": 9.22
-    }
-   },
-   "flags": []
-  },
-  {
    "ticker": "JETS",
    "theme": "航空",
    "fund_name": "U.S. Global Jets ETF",
@@ -114,50 +45,50 @@
    "state": "broad_advance",
    "direction": "up",
    "etf": {
-    "r5_pct": 7.66,
-    "r20_pct": 11.77,
-    "r60_pct": -4.31,
-    "rs20_pct": 15.03,
+    "r5_pct": 8.64,
+    "r20_pct": 11.92,
+    "r60_pct": -2.77,
+    "rs20_pct": 15.64,
     "above_ma50": true
    },
    "constituents": {
     "holdings": 50,
     "common_stock": 48,
     "mapped": 42,
-    "priced": 30,
-    "coverage_pct": 85.2
+    "priced": 29,
+    "coverage_pct": 84.7
    },
    "breadth": {
-    "above_ma20_weighted_pct": 87.1,
-    "above_ma50_weighted_pct": 82.4,
-    "above_ma50_equal_pct": 70.0
+    "above_ma20_weighted_pct": 87.6,
+    "above_ma50_weighted_pct": 81.6,
+    "above_ma50_equal_pct": 69.0
    },
    "returns": {
-    "cap_weighted_r20_pct": 11.75,
-    "equal_weighted_r20_pct": 7.71,
-    "equal_minus_cap_pp": -4.04,
-    "tracking_gap_pp": 0.02
+    "cap_weighted_r20_pct": 12.1,
+    "equal_weighted_r20_pct": 8.82,
+    "equal_minus_cap_pp": -3.28,
+    "tracking_gap_pp": 0.17
    },
    "concentration": {
-    "top3_share_pct": 51.8,
+    "top3_share_pct": 49.6,
     "top_contributors": [
-     {
-      "ticker": "ULCC",
-      "weight_pct": 4.05,
-      "r20_pct": 47.01,
-      "contribution_pp": 2.25
-     },
      {
       "ticker": "UAL",
       "weight_pct": 11.07,
-      "r20_pct": 15.26,
-      "contribution_pp": 1.99
+      "r20_pct": 15.68,
+      "contribution_pp": 2.06
+     },
+     {
+      "ticker": "ULCC",
+      "weight_pct": 4.05,
+      "r20_pct": 41.13,
+      "contribution_pp": 1.98
      },
      {
       "ticker": "DAL",
       "weight_pct": 10.5,
-      "r20_pct": 14.91,
-      "contribution_pp": 1.85
+      "r20_pct": 15.78,
+      "contribution_pp": 1.96
      }
     ]
    },
@@ -167,9 +98,9 @@
      "months": "2026-04～2026-06"
     },
     "estimated": {
-     "sessions_recorded": 25,
-     "flow_5d_pct": -6.67,
-     "flow_20d_pct": 1.52
+     "sessions_recorded": 26,
+     "flow_5d_pct": -7.13,
+     "flow_20d_pct": 2.55
     }
    },
    "flags": []
@@ -183,10 +114,10 @@
    "state": "broad_advance",
    "direction": "up",
    "etf": {
-    "r5_pct": 3.65,
-    "r20_pct": 10.95,
-    "r60_pct": 5.2,
-    "rs20_pct": 14.21,
+    "r5_pct": 2.77,
+    "r20_pct": 10.07,
+    "r60_pct": 5.46,
+    "rs20_pct": 13.79,
     "above_ma50": true
    },
    "constituents": {
@@ -197,36 +128,36 @@
     "coverage_pct": 92.1
    },
    "breadth": {
-    "above_ma20_weighted_pct": 82.0,
-    "above_ma50_weighted_pct": 87.2,
-    "above_ma50_equal_pct": 64.3
+    "above_ma20_weighted_pct": 82.7,
+    "above_ma50_weighted_pct": 91.5,
+    "above_ma50_equal_pct": 66.7
    },
    "returns": {
-    "cap_weighted_r20_pct": 11.24,
-    "equal_weighted_r20_pct": 7.64,
-    "equal_minus_cap_pp": -3.6,
-    "tracking_gap_pp": 0.29
+    "cap_weighted_r20_pct": 10.45,
+    "equal_weighted_r20_pct": 6.72,
+    "equal_minus_cap_pp": -3.72,
+    "tracking_gap_pp": 0.38
    },
    "concentration": {
-    "top3_share_pct": 46.7,
+    "top3_share_pct": 46.1,
     "top_contributors": [
      {
       "ticker": "SYK",
       "weight_pct": 11.64,
-      "r20_pct": 15.26,
-      "contribution_pp": 1.93
-     },
-     {
-      "ticker": "ABT",
-      "weight_pct": 16.93,
-      "r20_pct": 9.2,
-      "contribution_pp": 1.69
+      "r20_pct": 13.96,
+      "contribution_pp": 1.77
      },
      {
       "ticker": "IDXX",
       "weight_pct": 4.27,
-      "r20_pct": 34.87,
-      "contribution_pp": 1.62
+      "r20_pct": 34.12,
+      "contribution_pp": 1.58
+     },
+     {
+      "ticker": "ABT",
+      "weight_pct": 16.93,
+      "r20_pct": 7.94,
+      "contribution_pp": 1.46
      }
     ]
    },
@@ -236,9 +167,9 @@
      "months": "2026-04～2026-06"
     },
     "estimated": {
-     "sessions_recorded": 25,
-     "flow_5d_pct": 2.2,
-     "flow_20d_pct": -9.04
+     "sessions_recorded": 26,
+     "flow_5d_pct": 3.24,
+     "flow_20d_pct": -8.39
     }
    },
    "flags": []
@@ -252,10 +183,10 @@
    "state": "broad_advance",
    "direction": "up",
    "etf": {
-    "r5_pct": 2.47,
-    "r20_pct": 10.26,
-    "r60_pct": 4.53,
-    "rs20_pct": 13.52,
+    "r5_pct": 4.01,
+    "r20_pct": 9.52,
+    "r60_pct": 5.73,
+    "rs20_pct": 13.24,
     "above_ma50": true
    },
    "constituents": {
@@ -266,36 +197,36 @@
     "coverage_pct": 95.6
    },
    "breadth": {
-    "above_ma20_weighted_pct": 78.7,
-    "above_ma50_weighted_pct": 79.9,
-    "above_ma50_equal_pct": 80.6
+    "above_ma20_weighted_pct": 75.4,
+    "above_ma50_weighted_pct": 79.1,
+    "above_ma50_equal_pct": 79.2
    },
    "returns": {
-    "cap_weighted_r20_pct": 9.52,
-    "equal_weighted_r20_pct": 9.81,
-    "equal_minus_cap_pp": 0.29,
-    "tracking_gap_pp": 0.73
+    "cap_weighted_r20_pct": 8.59,
+    "equal_weighted_r20_pct": 8.97,
+    "equal_minus_cap_pp": 0.38,
+    "tracking_gap_pp": 0.93
    },
    "concentration": {
-    "top3_share_pct": 20.2,
+    "top3_share_pct": 22.3,
     "top_contributors": [
      {
       "ticker": "UPBD",
       "weight_pct": 1.58,
-      "r20_pct": 60.26,
-      "contribution_pp": 1.0
+      "r20_pct": 59.7,
+      "contribution_pp": 0.99
+     },
+     {
+      "ticker": "SBH",
+      "weight_pct": 1.46,
+      "r20_pct": 32.2,
+      "contribution_pp": 0.49
      },
      {
       "ticker": "EVGO",
       "weight_pct": 0.69,
-      "r20_pct": 65.77,
-      "contribution_pp": 0.47
-     },
-     {
-      "ticker": "BBWI",
-      "weight_pct": 1.72,
-      "r20_pct": 24.99,
-      "contribution_pp": 0.45
+      "r20_pct": 59.73,
+      "contribution_pp": 0.43
      }
     ]
    },
@@ -305,147 +236,78 @@
      "months": "2026-04～2026-06"
     },
     "estimated": {
-     "sessions_recorded": 25,
-     "flow_5d_pct": 0.26,
-     "flow_20d_pct": 7.93
+     "sessions_recorded": 26,
+     "flow_5d_pct": -0.59,
+     "flow_20d_pct": 8.14
     }
    },
    "flags": []
   },
   {
-   "ticker": "KIE",
-   "theme": "保險",
-   "fund_name": "State Street(R) SPDR(R) S&P(R) Insurance ETF",
+   "ticker": "XHB",
+   "theme": "房屋建商",
+   "fund_name": "State Street(R) SPDR(R) S&P(R) Homebuilders ETF",
    "holdings_report_date": "2026-06-30",
-   "holdings_accession": "0001410368-26-089321",
-   "state": "broad_advance",
+   "holdings_accession": "0001410368-26-089580",
+   "state": "mixed",
    "direction": "up",
    "etf": {
-    "r5_pct": -0.02,
-    "r20_pct": 7.1,
-    "r60_pct": 1.23,
-    "rs20_pct": 10.37,
+    "r5_pct": 1.33,
+    "r20_pct": 9.2,
+    "r60_pct": -3.95,
+    "rs20_pct": 12.92,
     "above_ma50": true
    },
    "constituents": {
-    "holdings": 57,
-    "common_stock": 53,
-    "mapped": 53,
-    "priced": 53,
-    "coverage_pct": 100.0
+    "holdings": 39,
+    "common_stock": 35,
+    "mapped": 32,
+    "priced": 31,
+    "coverage_pct": 90.4
    },
    "breadth": {
-    "above_ma20_weighted_pct": 79.3,
-    "above_ma50_weighted_pct": 86.9,
-    "above_ma50_equal_pct": 86.8
+    "above_ma20_weighted_pct": 72.4,
+    "above_ma50_weighted_pct": 60.6,
+    "above_ma50_equal_pct": 54.8
    },
    "returns": {
-    "cap_weighted_r20_pct": 7.05,
-    "equal_weighted_r20_pct": 7.05,
-    "equal_minus_cap_pp": 0.0,
-    "tracking_gap_pp": 0.05
+    "cap_weighted_r20_pct": 8.64,
+    "equal_weighted_r20_pct": 7.97,
+    "equal_minus_cap_pp": -0.67,
+    "tracking_gap_pp": 0.57
    },
    "concentration": {
-    "top3_share_pct": 18.6,
+    "top3_share_pct": 30.4,
     "top_contributors": [
      {
-      "ticker": "RYAN",
-      "weight_pct": 1.95,
-      "r20_pct": 26.47,
-      "contribution_pp": 0.52
+      "ticker": "BLDR",
+      "weight_pct": 3.56,
+      "r20_pct": 22.56,
+      "contribution_pp": 0.89
      },
      {
-      "ticker": "AON",
-      "weight_pct": 1.76,
-      "r20_pct": 22.51,
-      "contribution_pp": 0.4
+      "ticker": "CVCO",
+      "weight_pct": 3.23,
+      "r20_pct": 24.82,
+      "contribution_pp": 0.89
      },
      {
-      "ticker": "RLI",
-      "weight_pct": 1.96,
-      "r20_pct": 19.99,
-      "contribution_pp": 0.39
+      "ticker": "ALLE",
+      "weight_pct": 3.22,
+      "r20_pct": 23.92,
+      "contribution_pp": 0.85
      }
     ]
    },
    "flows": {
     "nport": {
-     "net_3m_pct": -1.45,
+     "net_3m_pct": -3.58,
      "months": "2026-04～2026-06"
     },
     "estimated": {
-     "sessions_recorded": 25,
-     "flow_5d_pct": -0.86,
-     "flow_20d_pct": -24.72
-    }
-   },
-   "flags": []
-  },
-  {
-   "ticker": "KRE",
-   "theme": "區域銀行",
-   "fund_name": "State Street(R) SPDR(R) S&P(R) Regional Banking ETF",
-   "holdings_report_date": "2026-06-30",
-   "holdings_accession": "0001410368-26-089196",
-   "state": "broad_advance",
-   "direction": "up",
-   "etf": {
-    "r5_pct": -0.38,
-    "r20_pct": 5.59,
-    "r60_pct": -5.21,
-    "rs20_pct": 8.86,
-    "above_ma50": true
-   },
-   "constituents": {
-    "holdings": 165,
-    "common_stock": 161,
-    "mapped": 145,
-    "priced": 144,
-    "coverage_pct": 88.6
-   },
-   "breadth": {
-    "above_ma20_weighted_pct": 91.7,
-    "above_ma50_weighted_pct": 75.8,
-    "above_ma50_equal_pct": 73.6
-   },
-   "returns": {
-    "cap_weighted_r20_pct": 5.78,
-    "equal_weighted_r20_pct": 5.17,
-    "equal_minus_cap_pp": -0.62,
-    "tracking_gap_pp": 0.19
-   },
-   "concentration": {
-    "top3_share_pct": 10.7,
-    "top_contributors": [
-     {
-      "ticker": "GBCI",
-      "weight_pct": 1.36,
-      "r20_pct": 14.11,
-      "contribution_pp": 0.22
-     },
-     {
-      "ticker": "OZK",
-      "weight_pct": 1.29,
-      "r20_pct": 14.16,
-      "contribution_pp": 0.21
-     },
-     {
-      "ticker": "VLY",
-      "weight_pct": 1.31,
-      "r20_pct": 13.13,
-      "contribution_pp": 0.19
-     }
-    ]
-   },
-   "flows": {
-    "nport": {
-     "net_3m_pct": 10.29,
-     "months": "2026-04～2026-06"
-    },
-    "estimated": {
-     "sessions_recorded": 25,
-     "flow_5d_pct": 7.14,
-     "flow_20d_pct": -5.77
+     "sessions_recorded": 26,
+     "flow_5d_pct": 11.28,
+     "flow_20d_pct": 12.08
     }
    },
    "flags": []
@@ -459,10 +321,10 @@
    "state": "mixed",
    "direction": "up",
    "etf": {
-    "r5_pct": 5.91,
-    "r20_pct": 5.25,
-    "r60_pct": -5.03,
-    "rs20_pct": 8.51,
+    "r5_pct": 5.11,
+    "r20_pct": 8.83,
+    "r60_pct": -3.97,
+    "rs20_pct": 12.55,
     "above_ma50": true
    },
    "constituents": {
@@ -473,36 +335,36 @@
     "coverage_pct": 92.1
    },
    "breadth": {
-    "above_ma20_weighted_pct": 72.7,
-    "above_ma50_weighted_pct": 53.1,
-    "above_ma50_equal_pct": 53.3
+    "above_ma20_weighted_pct": 67.3,
+    "above_ma50_weighted_pct": 58.1,
+    "above_ma50_equal_pct": 56.7
    },
    "returns": {
-    "cap_weighted_r20_pct": 3.56,
-    "equal_weighted_r20_pct": 3.27,
-    "equal_minus_cap_pp": -0.3,
-    "tracking_gap_pp": 1.68
+    "cap_weighted_r20_pct": 7.41,
+    "equal_weighted_r20_pct": 7.03,
+    "equal_minus_cap_pp": -0.39,
+    "tracking_gap_pp": 1.42
    },
    "concentration": {
-    "top3_share_pct": 80.2,
+    "top3_share_pct": 43.4,
     "top_contributors": [
      {
       "ticker": "LQDA",
       "weight_pct": 1.86,
-      "r20_pct": 73.0,
-      "contribution_pp": 1.48
+      "r20_pct": 87.8,
+      "contribution_pp": 1.78
      },
      {
       "ticker": "XERS",
       "weight_pct": 1.39,
-      "r20_pct": 51.63,
-      "contribution_pp": 0.78
+      "r20_pct": 51.91,
+      "contribution_pp": 0.79
      },
      {
       "ticker": "ELVN",
       "weight_pct": 2.09,
-      "r20_pct": 26.22,
-      "contribution_pp": 0.6
+      "r20_pct": 28.67,
+      "contribution_pp": 0.65
      }
     ]
    },
@@ -512,78 +374,78 @@
      "months": "2026-04～2026-06"
     },
     "estimated": {
-     "sessions_recorded": 25,
-     "flow_5d_pct": -23.77,
-     "flow_20d_pct": -39.2
+     "sessions_recorded": 26,
+     "flow_5d_pct": -17.85,
+     "flow_20d_pct": -33.22
     }
    },
    "flags": []
   },
   {
-   "ticker": "IYT",
-   "theme": "運輸",
-   "fund_name": "iShares U.S. Transportation ETF",
-   "holdings_report_date": "2026-07-31",
-   "holdings_accession": "0001004726-26-008794",
+   "ticker": "KIE",
+   "theme": "保險",
+   "fund_name": "State Street(R) SPDR(R) S&P(R) Insurance ETF",
+   "holdings_report_date": "2026-06-30",
+   "holdings_accession": "0001410368-26-089321",
    "state": "broad_advance",
    "direction": "up",
    "etf": {
-    "r5_pct": 0.76,
-    "r20_pct": 4.64,
-    "r60_pct": -4.05,
-    "rs20_pct": 7.9,
+    "r5_pct": 2.44,
+    "r20_pct": 8.51,
+    "r60_pct": 4.61,
+    "rs20_pct": 12.22,
     "above_ma50": true
    },
    "constituents": {
-    "holdings": 46,
-    "common_stock": 43,
-    "mapped": 41,
-    "priced": 41,
-    "coverage_pct": 97.3
+    "holdings": 57,
+    "common_stock": 53,
+    "mapped": 53,
+    "priced": 53,
+    "coverage_pct": 100.0
    },
    "breadth": {
-    "above_ma20_weighted_pct": 78.2,
-    "above_ma50_weighted_pct": 84.3,
-    "above_ma50_equal_pct": 63.4
+    "above_ma20_weighted_pct": 88.9,
+    "above_ma50_weighted_pct": 86.9,
+    "above_ma50_equal_pct": 86.8
    },
    "returns": {
-    "cap_weighted_r20_pct": 5.35,
-    "equal_weighted_r20_pct": 5.5,
-    "equal_minus_cap_pp": 0.15,
-    "tracking_gap_pp": 0.71
+    "cap_weighted_r20_pct": 8.45,
+    "equal_weighted_r20_pct": 8.44,
+    "equal_minus_cap_pp": -0.01,
+    "tracking_gap_pp": 0.06
    },
    "concentration": {
-    "top3_share_pct": 50.8,
+    "top3_share_pct": 15.4,
     "top_contributors": [
      {
-      "ticker": "UNP",
-      "weight_pct": 17.38,
-      "r20_pct": 5.48,
-      "contribution_pp": 0.98
+      "ticker": "RYAN",
+      "weight_pct": 1.95,
+      "r20_pct": 24.62,
+      "contribution_pp": 0.48
      },
      {
-      "ticker": "UPS",
-      "weight_pct": 5.63,
-      "r20_pct": 16.38,
-      "contribution_pp": 0.95
+      "ticker": "PLMR",
+      "weight_pct": 2.0,
+      "r20_pct": 20.5,
+      "contribution_pp": 0.41
      },
      {
-      "ticker": "UAL",
-      "weight_pct": 5.03,
-      "r20_pct": 15.26,
-      "contribution_pp": 0.79
+      "ticker": "AON",
+      "weight_pct": 1.76,
+      "r20_pct": 23.17,
+      "contribution_pp": 0.41
      }
     ]
    },
    "flows": {
     "nport": {
-     "net_3m_pct": 4.61,
-     "months": "2026-05～2026-07"
+     "net_3m_pct": -1.45,
+     "months": "2026-04～2026-06"
     },
     "estimated": {
-     "sessions_recorded": 25,
-     "flow_5d_pct": 5.05,
-     "flow_20d_pct": -16.31
+     "sessions_recorded": 26,
+     "flow_5d_pct": -2.85,
+     "flow_20d_pct": -25.97
     }
    },
    "flags": []
@@ -598,9 +460,9 @@
    "direction": "up",
    "etf": {
     "r5_pct": 0.15,
-    "r20_pct": 4.36,
-    "r60_pct": -14.99,
-    "rs20_pct": 7.62,
+    "r20_pct": 6.12,
+    "r60_pct": -13.72,
+    "rs20_pct": 9.84,
     "above_ma50": true
    },
    "constituents": {
@@ -611,36 +473,36 @@
     "coverage_pct": 100.0
    },
    "breadth": {
-    "above_ma20_weighted_pct": 79.9,
-    "above_ma50_weighted_pct": 68.6,
+    "above_ma20_weighted_pct": 80.1,
+    "above_ma50_weighted_pct": 69.0,
     "above_ma50_equal_pct": 53.2
    },
    "returns": {
-    "cap_weighted_r20_pct": 3.68,
-    "equal_weighted_r20_pct": 5.93,
-    "equal_minus_cap_pp": 2.25,
-    "tracking_gap_pp": 0.68
+    "cap_weighted_r20_pct": 5.41,
+    "equal_weighted_r20_pct": 6.95,
+    "equal_minus_cap_pp": 1.53,
+    "tracking_gap_pp": 0.71
    },
    "concentration": {
-    "top3_share_pct": 90.8,
+    "top3_share_pct": 80.0,
     "top_contributors": [
      {
       "ticker": "GE",
       "weight_pct": 22.61,
-      "r20_pct": 8.72,
-      "contribution_pp": 1.97
+      "r20_pct": 9.44,
+      "contribution_pp": 2.14
      },
      {
       "ticker": "RTX",
       "weight_pct": 14.82,
-      "r20_pct": 5.17,
-      "contribution_pp": 0.77
+      "r20_pct": 9.48,
+      "contribution_pp": 1.41
      },
      {
       "ticker": "LMT",
       "weight_pct": 4.05,
-      "r20_pct": 14.91,
-      "contribution_pp": 0.6
+      "r20_pct": 19.5,
+      "contribution_pp": 0.79
      }
     ]
    },
@@ -650,84 +512,81 @@
      "months": "2026-04～2026-06"
     },
     "estimated": {
-     "sessions_recorded": 25,
-     "flow_5d_pct": 64.31,
-     "flow_20d_pct": 48.6
+     "sessions_recorded": 26,
+     "flow_5d_pct": 64.7,
+     "flow_20d_pct": 48.38
     }
    },
    "flags": []
   },
   {
-   "ticker": "TAN",
-   "theme": "太陽能",
-   "fund_name": "Invesco Solar ETF",
-   "holdings_report_date": "2026-08-31",
-   "holdings_accession": "0001378872-26-001878",
-   "state": "data_limited",
+   "ticker": "KRE",
+   "theme": "區域銀行",
+   "fund_name": "State Street(R) SPDR(R) S&P(R) Regional Banking ETF",
+   "holdings_report_date": "2026-06-30",
+   "holdings_accession": "0001410368-26-089196",
+   "state": "broad_advance",
    "direction": "up",
    "etf": {
-    "r5_pct": 7.39,
-    "r20_pct": 3.91,
-    "r60_pct": -13.07,
-    "rs20_pct": 7.18,
+    "r5_pct": 0.56,
+    "r20_pct": 6.12,
+    "r60_pct": -4.76,
+    "rs20_pct": 9.84,
     "above_ma50": true
    },
    "constituents": {
-    "holdings": 37,
-    "common_stock": 35,
-    "mapped": 14,
-    "priced": 14,
-    "coverage_pct": 58.8
+    "holdings": 165,
+    "common_stock": 161,
+    "mapped": 145,
+    "priced": 144,
+    "coverage_pct": 88.6
    },
    "breadth": {
-    "above_ma20_weighted_pct": 79.4,
-    "above_ma50_weighted_pct": 64.6,
-    "above_ma50_equal_pct": 64.3
+    "above_ma20_weighted_pct": 91.1,
+    "above_ma50_weighted_pct": 80.9,
+    "above_ma50_equal_pct": 75.7
    },
    "returns": {
-    "cap_weighted_r20_pct": 7.09,
-    "equal_weighted_r20_pct": 6.32,
-    "equal_minus_cap_pp": -0.77,
-    "tracking_gap_pp": 3.18
+    "cap_weighted_r20_pct": 6.31,
+    "equal_weighted_r20_pct": 5.62,
+    "equal_minus_cap_pp": -0.69,
+    "tracking_gap_pp": 0.19
    },
    "concentration": {
-    "top3_share_pct": 92.8,
+    "top3_share_pct": 9.9,
     "top_contributors": [
      {
-      "ticker": "NXT",
-      "weight_pct": 8.78,
-      "r20_pct": 23.6,
-      "contribution_pp": 3.52
+      "ticker": "VLY",
+      "weight_pct": 1.31,
+      "r20_pct": 14.64,
+      "contribution_pp": 0.22
      },
      {
-      "ticker": "RUN",
-      "weight_pct": 3.78,
-      "r20_pct": 28.33,
-      "contribution_pp": 1.82
+      "ticker": "GBCI",
+      "weight_pct": 1.36,
+      "r20_pct": 14.01,
+      "contribution_pp": 0.22
      },
      {
-      "ticker": "ARRY",
-      "weight_pct": 1.64,
-      "r20_pct": 44.17,
-      "contribution_pp": 1.23
+      "ticker": "OZK",
+      "weight_pct": 1.29,
+      "r20_pct": 13.18,
+      "contribution_pp": 0.19
      }
     ]
    },
    "flows": {
     "nport": {
-     "net_3m_pct": -44.77,
-     "months": "2026-06～2026-08"
+     "net_3m_pct": 10.29,
+     "months": "2026-04～2026-06"
     },
     "estimated": {
-     "sessions_recorded": 25,
-     "flow_5d_pct": -10.79,
-     "flow_20d_pct": -25.97
+     "sessions_recorded": 26,
+     "flow_5d_pct": 6.72,
+     "flow_20d_pct": -4.06
     }
    },
-   "flags": [
-    "low_coverage",
-    "stale_weights"
-   ]
+   "flags": []
   },
   {
    "ticker": "XBI",
@@ -738,50 +597,50 @@
    "state": "narrow_advance",
    "direction": "up",
    "etf": {
-    "r5_pct": 3.19,
-    "r20_pct": 3.63,
-    "r60_pct": -0.32,
-    "rs20_pct": 6.9,
-    "above_ma50": true
+    "r5_pct": -0.41,
+    "r20_pct": 5.14,
+    "r60_pct": -3.25,
+    "rs20_pct": 8.85,
+    "above_ma50": false
    },
    "constituents": {
     "holdings": 161,
     "common_stock": 150,
     "mapped": 145,
-    "priced": 145,
+    "priced": 144,
     "coverage_pct": 95.5
    },
    "breadth": {
-    "above_ma20_weighted_pct": 67.1,
-    "above_ma50_weighted_pct": 56.2,
-    "above_ma50_equal_pct": 47.6
+    "above_ma20_weighted_pct": 62.6,
+    "above_ma50_weighted_pct": 48.4,
+    "above_ma50_equal_pct": 41.0
    },
    "returns": {
-    "cap_weighted_r20_pct": 3.47,
-    "equal_weighted_r20_pct": 1.53,
-    "equal_minus_cap_pp": -1.95,
-    "tracking_gap_pp": 0.16
+    "cap_weighted_r20_pct": 5.47,
+    "equal_weighted_r20_pct": 4.3,
+    "equal_minus_cap_pp": -1.17,
+    "tracking_gap_pp": 0.34
    },
    "concentration": {
-    "top3_share_pct": 38.3,
+    "top3_share_pct": 28.5,
     "top_contributors": [
      {
-      "ticker": "VRDN",
-      "weight_pct": 0.67,
-      "r20_pct": 64.97,
-      "contribution_pp": 0.46
+      "ticker": "ORKA",
+      "weight_pct": 1.38,
+      "r20_pct": 40.31,
+      "contribution_pp": 0.58
      },
      {
       "ticker": "PRAX",
       "weight_pct": 1.29,
-      "r20_pct": 32.46,
-      "contribution_pp": 0.44
+      "r20_pct": 37.34,
+      "contribution_pp": 0.51
      },
      {
-      "ticker": "ORKA",
-      "weight_pct": 1.38,
-      "r20_pct": 30.13,
-      "contribution_pp": 0.44
+      "ticker": "VRDN",
+      "weight_pct": 0.67,
+      "r20_pct": 66.68,
+      "contribution_pp": 0.47
      }
     ]
    },
@@ -791,9 +650,78 @@
      "months": "2026-04～2026-06"
     },
     "estimated": {
-     "sessions_recorded": 25,
-     "flow_5d_pct": 1.75,
-     "flow_20d_pct": -5.33
+     "sessions_recorded": 26,
+     "flow_5d_pct": 5.37,
+     "flow_20d_pct": -5.38
+    }
+   },
+   "flags": []
+  },
+  {
+   "ticker": "IYT",
+   "theme": "運輸",
+   "fund_name": "iShares U.S. Transportation ETF",
+   "holdings_report_date": "2026-07-31",
+   "holdings_accession": "0001004726-26-008794",
+   "state": "mixed",
+   "direction": "up",
+   "etf": {
+    "r5_pct": 1.14,
+    "r20_pct": 4.71,
+    "r60_pct": -4.02,
+    "rs20_pct": 8.43,
+    "above_ma50": true
+   },
+   "constituents": {
+    "holdings": 46,
+    "common_stock": 43,
+    "mapped": 41,
+    "priced": 41,
+    "coverage_pct": 97.3
+   },
+   "breadth": {
+    "above_ma20_weighted_pct": 76.9,
+    "above_ma50_weighted_pct": 68.3,
+    "above_ma50_equal_pct": 58.5
+   },
+   "returns": {
+    "cap_weighted_r20_pct": 5.45,
+    "equal_weighted_r20_pct": 5.62,
+    "equal_minus_cap_pp": 0.17,
+    "tracking_gap_pp": 0.74
+   },
+   "concentration": {
+    "top3_share_pct": 54.8,
+    "top_contributors": [
+     {
+      "ticker": "UNP",
+      "weight_pct": 17.38,
+      "r20_pct": 6.57,
+      "contribution_pp": 1.17
+     },
+     {
+      "ticker": "UPS",
+      "weight_pct": 5.63,
+      "r20_pct": 17.19,
+      "contribution_pp": 1.0
+     },
+     {
+      "ticker": "DAL",
+      "weight_pct": 5.04,
+      "r20_pct": 15.78,
+      "contribution_pp": 0.82
+     }
+    ]
+   },
+   "flows": {
+    "nport": {
+     "net_3m_pct": 4.61,
+     "months": "2026-05～2026-07"
+    },
+    "estimated": {
+     "sessions_recorded": 26,
+     "flow_5d_pct": 4.97,
+     "flow_20d_pct": -14.08
     }
    },
    "flags": []
@@ -804,53 +732,53 @@
    "fund_name": "VanEck Gold Miners ETF",
    "holdings_report_date": "2026-06-30",
    "holdings_accession": "0001410368-26-086986",
-   "state": "narrow_advance",
-   "direction": "up",
+   "state": "mixed",
+   "direction": "flat",
    "etf": {
-    "r5_pct": 15.55,
-    "r20_pct": 3.31,
-    "r60_pct": 1.66,
-    "rs20_pct": 6.58,
-    "above_ma50": true
+    "r5_pct": 12.13,
+    "r20_pct": -0.26,
+    "r60_pct": -5.31,
+    "rs20_pct": 3.45,
+    "above_ma50": false
    },
    "constituents": {
     "holdings": 62,
     "common_stock": 61,
     "mapped": 33,
-    "priced": 33,
-    "coverage_pct": 78.9
+    "priced": 32,
+    "coverage_pct": 78.6
    },
    "breadth": {
-    "above_ma20_weighted_pct": 100.0,
-    "above_ma50_weighted_pct": 74.3,
-    "above_ma50_equal_pct": 54.5
+    "above_ma20_weighted_pct": 84.8,
+    "above_ma50_weighted_pct": 41.5,
+    "above_ma50_equal_pct": 31.2
    },
    "returns": {
-    "cap_weighted_r20_pct": 3.91,
-    "equal_weighted_r20_pct": 1.46,
-    "equal_minus_cap_pp": -2.45,
-    "tracking_gap_pp": 0.6
+    "cap_weighted_r20_pct": 0.36,
+    "equal_weighted_r20_pct": -1.66,
+    "equal_minus_cap_pp": -2.01,
+    "tracking_gap_pp": 0.62
    },
    "concentration": {
-    "top3_share_pct": 61.6,
+    "top3_share_pct": null,
     "top_contributors": [
-     {
-      "ticker": "AEM",
-      "weight_pct": 10.67,
-      "r20_pct": 6.71,
-      "contribution_pp": 0.91
-     },
      {
       "ticker": "NEM",
       "weight_pct": 10.41,
-      "r20_pct": 6.84,
-      "contribution_pp": 0.9
+      "r20_pct": 3.71,
+      "contribution_pp": 0.49
      },
      {
-      "ticker": "GFI",
-      "weight_pct": 4.07,
-      "r20_pct": 11.64,
-      "contribution_pp": 0.6
+      "ticker": "AEM",
+      "weight_pct": 10.67,
+      "r20_pct": 3.35,
+      "contribution_pp": 0.46
+     },
+     {
+      "ticker": "RGLD",
+      "weight_pct": 1.95,
+      "r20_pct": 17.74,
+      "contribution_pp": 0.44
      }
     ]
    },
@@ -860,9 +788,9 @@
      "months": "2026-04～2026-06"
     },
     "estimated": {
-     "sessions_recorded": 25,
-     "flow_5d_pct": -26.07,
-     "flow_20d_pct": -34.15
+     "sessions_recorded": 26,
+     "flow_5d_pct": -23.24,
+     "flow_20d_pct": -29.63
     }
    },
    "flags": []
@@ -876,10 +804,10 @@
    "state": "mixed",
    "direction": "flat",
    "etf": {
-    "r5_pct": -2.06,
-    "r20_pct": -0.07,
-    "r60_pct": -8.98,
-    "rs20_pct": 3.19,
+    "r5_pct": -2.95,
+    "r20_pct": -0.61,
+    "r60_pct": -9.39,
+    "rs20_pct": 3.11,
     "above_ma50": false
    },
    "constituents": {
@@ -890,36 +818,36 @@
     "coverage_pct": 89.0
    },
    "breadth": {
-    "above_ma20_weighted_pct": 58.6,
-    "above_ma50_weighted_pct": 54.2,
-    "above_ma50_equal_pct": 48.4
+    "above_ma20_weighted_pct": 56.8,
+    "above_ma50_weighted_pct": 57.6,
+    "above_ma50_equal_pct": 49.5
    },
    "returns": {
-    "cap_weighted_r20_pct": 0.47,
-    "equal_weighted_r20_pct": 0.23,
-    "equal_minus_cap_pp": -0.24,
-    "tracking_gap_pp": 0.55
+    "cap_weighted_r20_pct": -0.05,
+    "equal_weighted_r20_pct": -0.73,
+    "equal_minus_cap_pp": -0.68,
+    "tracking_gap_pp": 0.56
    },
    "concentration": {
     "top3_share_pct": null,
     "top_contributors": [
      {
-      "ticker": "VMC",
-      "weight_pct": 2.06,
-      "r20_pct": 18.28,
-      "contribution_pp": 0.42
+      "ticker": "PWR",
+      "weight_pct": 2.93,
+      "r20_pct": -15.79,
+      "contribution_pp": -0.52
      },
      {
-      "ticker": "DE",
-      "weight_pct": 3.38,
-      "r20_pct": 9.27,
-      "contribution_pp": 0.35
+      "ticker": "STRL",
+      "weight_pct": 0.85,
+      "r20_pct": -41.79,
+      "contribution_pp": -0.4
      },
      {
-      "ticker": "AMRZ",
-      "weight_pct": 1.42,
-      "r20_pct": 18.65,
-      "contribution_pp": 0.3
+      "ticker": "EME",
+      "weight_pct": 1.93,
+      "r20_pct": -17.08,
+      "contribution_pp": -0.37
      }
     ]
    },
@@ -929,12 +857,83 @@
      "months": "2026-06～2026-08"
     },
     "estimated": {
-     "sessions_recorded": 25,
-     "flow_5d_pct": 5.32,
-     "flow_20d_pct": 1.19
+     "sessions_recorded": 26,
+     "flow_5d_pct": 6.5,
+     "flow_20d_pct": 3.31
     }
    },
    "flags": []
+  },
+  {
+   "ticker": "TAN",
+   "theme": "太陽能",
+   "fund_name": "Invesco Solar ETF",
+   "holdings_report_date": "2026-08-31",
+   "holdings_accession": "0001378872-26-001878",
+   "state": "data_limited",
+   "direction": "down",
+   "etf": {
+    "r5_pct": -0.16,
+    "r20_pct": -2.5,
+    "r60_pct": -15.02,
+    "rs20_pct": 1.22,
+    "above_ma50": false
+   },
+   "constituents": {
+    "holdings": 37,
+    "common_stock": 35,
+    "mapped": 14,
+    "priced": 14,
+    "coverage_pct": 58.8
+   },
+   "breadth": {
+    "above_ma20_weighted_pct": 79.4,
+    "above_ma50_weighted_pct": 47.8,
+    "above_ma50_equal_pct": 57.1
+   },
+   "returns": {
+    "cap_weighted_r20_pct": -0.63,
+    "equal_weighted_r20_pct": -0.78,
+    "equal_minus_cap_pp": -0.15,
+    "tracking_gap_pp": 1.87
+   },
+   "concentration": {
+    "top3_share_pct": null,
+    "top_contributors": [
+     {
+      "ticker": "ENPH",
+      "weight_pct": 6.53,
+      "r20_pct": -14.36,
+      "contribution_pp": -1.59
+     },
+     {
+      "ticker": "TE",
+      "weight_pct": 2.08,
+      "r20_pct": -36.08,
+      "contribution_pp": -1.28
+     },
+     {
+      "ticker": "SEDG",
+      "weight_pct": 3.49,
+      "r20_pct": -19.89,
+      "contribution_pp": -1.18
+     }
+    ]
+   },
+   "flows": {
+    "nport": {
+     "net_3m_pct": -44.77,
+     "months": "2026-06～2026-08"
+    },
+    "estimated": {
+     "sessions_recorded": 26,
+     "flow_5d_pct": -3.26,
+     "flow_20d_pct": -20.11
+    }
+   },
+   "flags": [
+    "low_coverage"
+   ]
   },
   {
    "ticker": "XME",
@@ -945,10 +944,10 @@
    "state": "broad_decline",
    "direction": "down",
    "etf": {
-    "r5_pct": 0.94,
-    "r20_pct": -5.98,
-    "r60_pct": -15.79,
-    "rs20_pct": -2.71,
+    "r5_pct": -0.25,
+    "r20_pct": -6.98,
+    "r60_pct": -18.22,
+    "rs20_pct": -3.26,
     "above_ma50": false
    },
    "constituents": {
@@ -959,36 +958,36 @@
     "coverage_pct": 100.0
    },
    "breadth": {
-    "above_ma20_weighted_pct": 47.3,
-    "above_ma50_weighted_pct": 18.8,
+    "above_ma20_weighted_pct": 39.7,
+    "above_ma50_weighted_pct": 21.9,
     "above_ma50_equal_pct": 23.1
    },
    "returns": {
-    "cap_weighted_r20_pct": -6.91,
-    "equal_weighted_r20_pct": -6.18,
-    "equal_minus_cap_pp": 0.73,
-    "tracking_gap_pp": 0.93
+    "cap_weighted_r20_pct": -8.68,
+    "equal_weighted_r20_pct": -8.54,
+    "equal_minus_cap_pp": 0.14,
+    "tracking_gap_pp": 1.7
    },
    "concentration": {
-    "top3_share_pct": 47.8,
+    "top3_share_pct": 41.9,
     "top_contributors": [
      {
       "ticker": "USAR",
       "weight_pct": 4.47,
-      "r20_pct": -25.89,
-      "contribution_pp": -1.16
+      "r20_pct": -30.98,
+      "contribution_pp": -1.38
      },
      {
       "ticker": "BTU",
       "weight_pct": 3.37,
-      "r20_pct": -32.1,
-      "contribution_pp": -1.08
+      "r20_pct": -33.99,
+      "contribution_pp": -1.15
      },
      {
       "ticker": "MTRN",
       "weight_pct": 4.22,
-      "r20_pct": -25.17,
-      "contribution_pp": -1.06
+      "r20_pct": -26.28,
+      "contribution_pp": -1.11
      }
     ]
    },
@@ -998,9 +997,9 @@
      "months": "2026-04～2026-06"
     },
     "estimated": {
-     "sessions_recorded": 25,
-     "flow_5d_pct": -11.42,
-     "flow_20d_pct": -26.96
+     "sessions_recorded": 26,
+     "flow_5d_pct": -10.2,
+     "flow_20d_pct": -22.74
     }
    },
    "flags": []
@@ -1014,50 +1013,50 @@
    "state": "data_limited",
    "direction": "down",
    "etf": {
-    "r5_pct": -1.21,
-    "r20_pct": -8.65,
-    "r60_pct": -15.53,
-    "rs20_pct": -5.39,
+    "r5_pct": -2.48,
+    "r20_pct": -9.84,
+    "r60_pct": -16.66,
+    "rs20_pct": -6.12,
     "above_ma50": false
    },
    "constituents": {
     "holdings": 68,
     "common_stock": 60,
     "mapped": 28,
-    "priced": 27,
-    "coverage_pct": 58.4
+    "priced": 25,
+    "coverage_pct": 41.5
    },
    "breadth": {
-    "above_ma20_weighted_pct": 27.8,
-    "above_ma50_weighted_pct": 23.6,
-    "above_ma50_equal_pct": 37.0
+    "above_ma20_weighted_pct": 33.1,
+    "above_ma50_weighted_pct": 33.2,
+    "above_ma50_equal_pct": 40.0
    },
    "returns": {
-    "cap_weighted_r20_pct": -8.02,
-    "equal_weighted_r20_pct": -3.78,
-    "equal_minus_cap_pp": 4.24,
-    "tracking_gap_pp": 0.63
+    "cap_weighted_r20_pct": -8.21,
+    "equal_weighted_r20_pct": -3.66,
+    "equal_minus_cap_pp": 4.55,
+    "tracking_gap_pp": 1.63
    },
    "concentration": {
-    "top3_share_pct": 84.7,
+    "top3_share_pct": 102.6,
     "top_contributors": [
      {
       "ticker": "NVDA",
       "weight_pct": 9.64,
-      "r20_pct": -21.05,
-      "contribution_pp": -3.48
+      "r20_pct": -26.76,
+      "contribution_pp": -6.22
      },
      {
-      "ticker": "ABLZF",
-      "weight_pct": 9.19,
-      "r20_pct": -12.36,
-      "contribution_pp": -1.95
+      "ticker": "DFKUY",
+      "weight_pct": 3.1,
+      "r20_pct": -16.06,
+      "contribution_pp": -1.2
      },
      {
-      "ticker": "FANUF",
-      "weight_pct": 7.65,
-      "r20_pct": -10.41,
-      "contribution_pp": -1.37
+      "ticker": "GOOG",
+      "weight_pct": 2.26,
+      "r20_pct": -18.47,
+      "contribution_pp": -1.01
      }
     ]
    },
@@ -1067,9 +1066,9 @@
      "months": "2026-06～2026-08"
     },
     "estimated": {
-     "sessions_recorded": 25,
-     "flow_5d_pct": -8.45,
-     "flow_20d_pct": -2.18
+     "sessions_recorded": 26,
+     "flow_5d_pct": -7.07,
+     "flow_20d_pct": 0.92
     }
    },
    "flags": [
@@ -1082,13 +1081,13 @@
    "fund_name": "iShares Expanded Tech-Software Sector ETF",
    "holdings_report_date": "2026-06-30",
    "holdings_accession": "0002071691-26-019778",
-   "state": "narrow_decline",
+   "state": "mixed",
    "direction": "down",
    "etf": {
-    "r5_pct": -0.43,
-    "r20_pct": -8.82,
-    "r60_pct": -2.52,
-    "rs20_pct": -5.56,
+    "r5_pct": -2.98,
+    "r20_pct": -10.25,
+    "r60_pct": -2.34,
+    "rs20_pct": -6.53,
     "above_ma50": false
    },
    "constituents": {
@@ -1099,36 +1098,36 @@
     "coverage_pct": 98.0
    },
    "breadth": {
-    "above_ma20_weighted_pct": 35.3,
-    "above_ma50_weighted_pct": 35.6,
-    "above_ma50_equal_pct": 52.9
+    "above_ma20_weighted_pct": 28.4,
+    "above_ma50_weighted_pct": 35.1,
+    "above_ma50_equal_pct": 48.1
    },
    "returns": {
-    "cap_weighted_r20_pct": -6.95,
-    "equal_weighted_r20_pct": -0.07,
-    "equal_minus_cap_pp": 6.88,
-    "tracking_gap_pp": 1.88
+    "cap_weighted_r20_pct": -8.27,
+    "equal_weighted_r20_pct": -1.22,
+    "equal_minus_cap_pp": 7.05,
+    "tracking_gap_pp": 1.98
    },
    "concentration": {
-    "top3_share_pct": 68.5,
+    "top3_share_pct": 58.6,
     "top_contributors": [
      {
       "ticker": "PANW",
       "weight_pct": 10.37,
-      "r20_pct": -18.06,
-      "contribution_pp": -1.91
+      "r20_pct": -18.31,
+      "contribution_pp": -1.94
      },
      {
       "ticker": "PLTR",
       "weight_pct": 7.7,
-      "r20_pct": -19.04,
-      "contribution_pp": -1.5
+      "r20_pct": -20.29,
+      "contribution_pp": -1.6
      },
      {
       "ticker": "FTNT",
       "weight_pct": 3.62,
-      "r20_pct": -36.52,
-      "contribution_pp": -1.35
+      "r20_pct": -35.51,
+      "contribution_pp": -1.31
      }
     ]
    },
@@ -1138,9 +1137,150 @@
      "months": "2026-04～2026-06"
     },
     "estimated": {
-     "sessions_recorded": 25,
-     "flow_5d_pct": -3.0,
-     "flow_20d_pct": -11.36
+     "sessions_recorded": 26,
+     "flow_5d_pct": -0.6,
+     "flow_20d_pct": -9.35
+    }
+   },
+   "flags": []
+  },
+  {
+   "ticker": "LIT",
+   "theme": "鋰電池",
+   "fund_name": "Global X Lithium and Battery Tech ETF",
+   "holdings_report_date": "2026-07-31",
+   "holdings_accession": "0002048251-26-008611",
+   "state": "data_limited",
+   "direction": "down",
+   "etf": {
+    "r5_pct": -0.38,
+    "r20_pct": -11.5,
+    "r60_pct": -21.47,
+    "rs20_pct": -7.78,
+    "above_ma50": false
+   },
+   "constituents": {
+    "holdings": 48,
+    "common_stock": 41,
+    "mapped": 12,
+    "priced": 9,
+    "coverage_pct": 11.9
+   },
+   "breadth": {
+    "above_ma20_weighted_pct": 4.9,
+    "above_ma50_weighted_pct": 35.3,
+    "above_ma50_equal_pct": 22.2
+   },
+   "returns": {
+    "cap_weighted_r20_pct": -4.35,
+    "equal_weighted_r20_pct": -8.49,
+    "equal_minus_cap_pp": -4.14,
+    "tracking_gap_pp": 7.15
+   },
+   "concentration": {
+    "top3_share_pct": 103.9,
+    "top_contributors": [
+     {
+      "ticker": "ENS",
+      "weight_pct": 2.22,
+      "r20_pct": -15.17,
+      "contribution_pp": -2.82
+     },
+     {
+      "ticker": "ALB",
+      "weight_pct": 4.53,
+      "r20_pct": -2.92,
+      "contribution_pp": -1.11
+     },
+     {
+      "ticker": "SGML",
+      "weight_pct": 0.18,
+      "r20_pct": -39.46,
+      "contribution_pp": -0.59
+     }
+    ]
+   },
+   "flows": {
+    "nport": {
+     "net_3m_pct": -12.85,
+     "months": "2026-05～2026-07"
+    },
+    "estimated": {
+     "sessions_recorded": 26,
+     "flow_5d_pct": -27.96,
+     "flow_20d_pct": -29.98
+    }
+   },
+   "flags": [
+    "low_coverage",
+    "stale_weights"
+   ]
+  },
+  {
+   "ticker": "XES",
+   "theme": "油氣設備服務",
+   "fund_name": "State Street(R) SPDR(R) S&P(R) Oil & Gas Equipment & Services ETF",
+   "holdings_report_date": "2026-06-30",
+   "holdings_accession": "0001410368-26-089384",
+   "state": "broad_decline",
+   "direction": "down",
+   "etf": {
+    "r5_pct": -7.46,
+    "r20_pct": -11.63,
+    "r60_pct": -21.9,
+    "rs20_pct": -7.91,
+    "above_ma50": false
+   },
+   "constituents": {
+    "holdings": 37,
+    "common_stock": 34,
+    "mapped": 32,
+    "priced": 32,
+    "coverage_pct": 94.1
+   },
+   "breadth": {
+    "above_ma20_weighted_pct": 9.3,
+    "above_ma50_weighted_pct": 7.9,
+    "above_ma50_equal_pct": 9.4
+   },
+   "returns": {
+    "cap_weighted_r20_pct": -12.81,
+    "equal_weighted_r20_pct": -11.62,
+    "equal_minus_cap_pp": 1.19,
+    "tracking_gap_pp": 1.18
+   },
+   "concentration": {
+    "top3_share_pct": 33.7,
+    "top_contributors": [
+     {
+      "ticker": "AESI",
+      "weight_pct": 3.08,
+      "r20_pct": -56.24,
+      "contribution_pp": -1.84
+     },
+     {
+      "ticker": "LBRT",
+      "weight_pct": 3.7,
+      "r20_pct": -33.39,
+      "contribution_pp": -1.32
+     },
+     {
+      "ticker": "SEI",
+      "weight_pct": 4.71,
+      "r20_pct": -23.29,
+      "contribution_pp": -1.17
+     }
+    ]
+   },
+   "flows": {
+    "nport": {
+     "net_3m_pct": 8.91,
+     "months": "2026-04～2026-06"
+    },
+    "estimated": {
+     "sessions_recorded": 26,
+     "flow_5d_pct": 11.91,
+     "flow_20d_pct": 1.92
     }
    },
    "flags": []
@@ -1154,50 +1294,50 @@
    "state": "data_limited",
    "direction": "down",
    "etf": {
-    "r5_pct": 4.28,
-    "r20_pct": -8.96,
-    "r60_pct": -23.57,
-    "rs20_pct": -5.7,
+    "r5_pct": -0.17,
+    "r20_pct": -11.73,
+    "r60_pct": -27.08,
+    "rs20_pct": -8.01,
     "above_ma50": false
    },
    "constituents": {
     "holdings": 87,
     "common_stock": 57,
     "mapped": 26,
-    "priced": 26,
-    "coverage_pct": 62.2
+    "priced": 24,
+    "coverage_pct": 60.0
    },
    "breadth": {
-    "above_ma20_weighted_pct": 43.7,
-    "above_ma50_weighted_pct": 6.1,
-    "above_ma50_equal_pct": 7.7
+    "above_ma20_weighted_pct": 8.5,
+    "above_ma50_weighted_pct": 2.7,
+    "above_ma50_equal_pct": 4.2
    },
    "returns": {
-    "cap_weighted_r20_pct": -10.79,
-    "equal_weighted_r20_pct": -10.82,
-    "equal_minus_cap_pp": -0.04,
-    "tracking_gap_pp": 1.83
+    "cap_weighted_r20_pct": -14.83,
+    "equal_weighted_r20_pct": -15.76,
+    "equal_minus_cap_pp": -0.94,
+    "tracking_gap_pp": 3.1
    },
    "concentration": {
-    "top3_share_pct": 67.8,
+    "top3_share_pct": 63.4,
     "top_contributors": [
      {
       "ticker": "CCJ",
       "weight_pct": 22.18,
-      "r20_pct": -12.48,
-      "contribution_pp": -4.48
+      "r20_pct": -15.62,
+      "contribution_pp": -5.81
      },
      {
       "ticker": "OKLO",
       "weight_pct": 6.09,
-      "r20_pct": -16.67,
-      "contribution_pp": -1.64
+      "r20_pct": -21.49,
+      "contribution_pp": -2.2
      },
      {
       "ticker": "UUUU",
       "weight_pct": 3.03,
-      "r20_pct": -24.33,
-      "contribution_pp": -1.19
+      "r20_pct": -27.4,
+      "contribution_pp": -1.39
      }
     ]
    },
@@ -1207,80 +1347,9 @@
      "months": "2026-05～2026-07"
     },
     "estimated": {
-     "sessions_recorded": 25,
-     "flow_5d_pct": -21.78,
-     "flow_20d_pct": -19.5
-    }
-   },
-   "flags": [
-    "low_coverage"
-   ]
-  },
-  {
-   "ticker": "LIT",
-   "theme": "鋰電池",
-   "fund_name": "Global X Lithium and Battery Tech ETF",
-   "holdings_report_date": "2026-07-31",
-   "holdings_accession": "0002048251-26-008611",
-   "state": "data_limited",
-   "direction": "down",
-   "etf": {
-    "r5_pct": 2.16,
-    "r20_pct": -10.27,
-    "r60_pct": -18.45,
-    "rs20_pct": -7.0,
-    "above_ma50": false
-   },
-   "constituents": {
-    "holdings": 48,
-    "common_stock": 41,
-    "mapped": 12,
-    "priced": 10,
-    "coverage_pct": 34.8
-   },
-   "breadth": {
-    "above_ma20_weighted_pct": 15.7,
-    "above_ma50_weighted_pct": 10.8,
-    "above_ma50_equal_pct": 10.0
-   },
-   "returns": {
-    "cap_weighted_r20_pct": -6.97,
-    "equal_weighted_r20_pct": -6.65,
-    "equal_minus_cap_pp": 0.32,
-    "tracking_gap_pp": 3.3
-   },
-   "concentration": {
-    "top3_share_pct": 100.0,
-    "top_contributors": [
-     {
-      "ticker": "RTNTF",
-      "weight_pct": 22.89,
-      "r20_pct": -8.9,
-      "contribution_pp": -5.85
-     },
-     {
-      "ticker": "ENS",
-      "weight_pct": 2.22,
-      "r20_pct": -14.93,
-      "contribution_pp": -0.95
-     },
-     {
-      "ticker": "SGML",
-      "weight_pct": 0.18,
-      "r20_pct": -32.46,
-      "contribution_pp": -0.17
-     }
-    ]
-   },
-   "flows": {
-    "nport": {
-     "net_3m_pct": -12.85,
-     "months": "2026-05～2026-07"
-    },
-    "estimated": {
-     "sessions_recorded": 25,
-     "flow_5d_pct": -30.47,
-     "flow_20d_pct": -34.54
+     "sessions_recorded": 26,
+     "flow_5d_pct": -17.85,
+     "flow_20d_pct": -13.84
     }
    },
    "flags": [
@@ -1297,10 +1366,10 @@
    "state": "broad_decline",
    "direction": "down",
    "etf": {
-    "r5_pct": -10.03,
-    "r20_pct": -10.37,
-    "r60_pct": -3.13,
-    "rs20_pct": -7.1,
+    "r5_pct": -8.18,
+    "r20_pct": -12.0,
+    "r60_pct": -3.71,
+    "rs20_pct": -8.28,
     "above_ma50": false
    },
    "constituents": {
@@ -1311,36 +1380,36 @@
     "coverage_pct": 97.5
    },
    "breadth": {
-    "above_ma20_weighted_pct": 3.8,
-    "above_ma50_weighted_pct": 6.1,
-    "above_ma50_equal_pct": 8.0
+    "above_ma20_weighted_pct": 7.3,
+    "above_ma50_weighted_pct": 12.6,
+    "above_ma50_equal_pct": 14.0
    },
    "returns": {
-    "cap_weighted_r20_pct": -10.46,
-    "equal_weighted_r20_pct": -11.16,
-    "equal_minus_cap_pp": -0.69,
-    "tracking_gap_pp": 0.1
+    "cap_weighted_r20_pct": -12.14,
+    "equal_weighted_r20_pct": -13.17,
+    "equal_minus_cap_pp": -1.02,
+    "tracking_gap_pp": 0.15
    },
    "concentration": {
-    "top3_share_pct": 20.7,
+    "top3_share_pct": 21.1,
     "top_contributors": [
      {
       "ticker": "CLMT",
       "weight_pct": 2.24,
-      "r20_pct": -36.92,
-      "contribution_pp": -0.85
-     },
-     {
-      "ticker": "TPL",
-      "weight_pct": 3.17,
-      "r20_pct": -23.83,
-      "contribution_pp": -0.78
+      "r20_pct": -40.57,
+      "contribution_pp": -0.93
      },
      {
       "ticker": "PBF",
       "weight_pct": 2.91,
-      "r20_pct": -18.2,
-      "contribution_pp": -0.54
+      "r20_pct": -27.57,
+      "contribution_pp": -0.82
+     },
+     {
+      "ticker": "TPL",
+      "weight_pct": 3.17,
+      "r20_pct": -24.86,
+      "contribution_pp": -0.81
      }
     ]
    },
@@ -1350,152 +1419,12 @@
      "months": "2026-04～2026-06"
     },
     "estimated": {
-     "sessions_recorded": 25,
-     "flow_5d_pct": 30.1,
-     "flow_20d_pct": 18.09
+     "sessions_recorded": 26,
+     "flow_5d_pct": 28.86,
+     "flow_20d_pct": 17.63
     }
    },
    "flags": []
-  },
-  {
-   "ticker": "XES",
-   "theme": "油氣設備服務",
-   "fund_name": "State Street(R) SPDR(R) S&P(R) Oil & Gas Equipment & Services ETF",
-   "holdings_report_date": "2026-06-30",
-   "holdings_accession": "0001410368-26-089384",
-   "state": "broad_decline",
-   "direction": "down",
-   "etf": {
-    "r5_pct": -8.52,
-    "r20_pct": -11.22,
-    "r60_pct": -20.96,
-    "rs20_pct": -7.96,
-    "above_ma50": false
-   },
-   "constituents": {
-    "holdings": 37,
-    "common_stock": 34,
-    "mapped": 32,
-    "priced": 32,
-    "coverage_pct": 94.1
-   },
-   "breadth": {
-    "above_ma20_weighted_pct": 7.9,
-    "above_ma50_weighted_pct": 9.1,
-    "above_ma50_equal_pct": 12.5
-   },
-   "returns": {
-    "cap_weighted_r20_pct": -12.24,
-    "equal_weighted_r20_pct": -11.19,
-    "equal_minus_cap_pp": 1.05,
-    "tracking_gap_pp": 1.02
-   },
-   "concentration": {
-    "top3_share_pct": 33.2,
-    "top_contributors": [
-     {
-      "ticker": "AESI",
-      "weight_pct": 3.08,
-      "r20_pct": -53.68,
-      "contribution_pp": -1.76
-     },
-     {
-      "ticker": "LBRT",
-      "weight_pct": 3.7,
-      "r20_pct": -31.88,
-      "contribution_pp": -1.26
-     },
-     {
-      "ticker": "SEI",
-      "weight_pct": 4.71,
-      "r20_pct": -21.03,
-      "contribution_pp": -1.05
-     }
-    ]
-   },
-   "flows": {
-    "nport": {
-     "net_3m_pct": 8.91,
-     "months": "2026-04～2026-06"
-    },
-    "estimated": {
-     "sessions_recorded": 25,
-     "flow_5d_pct": 12.61,
-     "flow_20d_pct": 0.64
-    }
-   },
-   "flags": []
-  },
-  {
-   "ticker": "COPX",
-   "theme": "銅礦",
-   "fund_name": "Global X Copper Miners ETF",
-   "holdings_report_date": "2026-07-31",
-   "holdings_accession": "0002048251-26-008644",
-   "state": "data_limited",
-   "direction": "down",
-   "etf": {
-    "r5_pct": 3.31,
-    "r20_pct": -11.83,
-    "r60_pct": -12.19,
-    "rs20_pct": -8.57,
-    "above_ma50": false
-   },
-   "constituents": {
-    "holdings": 63,
-    "common_stock": 40,
-    "mapped": 13,
-    "priced": 12,
-    "coverage_pct": 27.3
-   },
-   "breadth": {
-    "above_ma20_weighted_pct": 10.3,
-    "above_ma50_weighted_pct": 2.7,
-    "above_ma50_equal_pct": 16.7
-   },
-   "returns": {
-    "cap_weighted_r20_pct": -12.58,
-    "equal_weighted_r20_pct": -10.18,
-    "equal_minus_cap_pp": 2.4,
-    "tracking_gap_pp": 0.74
-   },
-   "concentration": {
-    "top3_share_pct": 60.2,
-    "top_contributors": [
-     {
-      "ticker": "SCCO",
-      "weight_pct": 5.08,
-      "r20_pct": -14.81,
-      "contribution_pp": -2.77
-     },
-     {
-      "ticker": "FCX",
-      "weight_pct": 4.76,
-      "r20_pct": -14.77,
-      "contribution_pp": -2.58
-     },
-     {
-      "ticker": "HBM",
-      "weight_pct": 5.26,
-      "r20_pct": -11.53,
-      "contribution_pp": -2.23
-     }
-    ]
-   },
-   "flows": {
-    "nport": {
-     "net_3m_pct": 1.72,
-     "months": "2026-05～2026-07"
-    },
-    "estimated": {
-     "sessions_recorded": 25,
-     "flow_5d_pct": -17.88,
-     "flow_20d_pct": -22.86
-    }
-   },
-   "flags": [
-    "low_coverage"
-   ]
   },
   {
    "ticker": "CIBR",
@@ -1506,10 +1435,10 @@
    "state": "mixed",
    "direction": "down",
    "etf": {
-    "r5_pct": -2.14,
-    "r20_pct": -12.17,
-    "r60_pct": -4.94,
-    "rs20_pct": -8.91,
+    "r5_pct": -3.07,
+    "r20_pct": -12.31,
+    "r60_pct": -3.63,
+    "rs20_pct": -8.59,
     "above_ma50": false
    },
    "constituents": {
@@ -1520,36 +1449,36 @@
     "coverage_pct": 97.2
    },
    "breadth": {
-    "above_ma20_weighted_pct": 20.5,
-    "above_ma50_weighted_pct": 24.8,
-    "above_ma50_equal_pct": 50.0
+    "above_ma20_weighted_pct": 31.5,
+    "above_ma50_weighted_pct": 23.9,
+    "above_ma50_equal_pct": 47.5
    },
    "returns": {
-    "cap_weighted_r20_pct": -12.45,
-    "equal_weighted_r20_pct": -6.01,
-    "equal_minus_cap_pp": 6.43,
-    "tracking_gap_pp": 0.28
+    "cap_weighted_r20_pct": -12.61,
+    "equal_weighted_r20_pct": -6.79,
+    "equal_minus_cap_pp": 5.83,
+    "tracking_gap_pp": 0.3
    },
    "concentration": {
-    "top3_share_pct": 50.5,
+    "top3_share_pct": 49.7,
     "top_contributors": [
      {
       "ticker": "FTNT",
       "weight_pct": 8.85,
-      "r20_pct": -36.52,
-      "contribution_pp": -3.34
+      "r20_pct": -35.51,
+      "contribution_pp": -3.24
      },
      {
       "ticker": "PANW",
       "weight_pct": 9.62,
-      "r20_pct": -18.06,
-      "contribution_pp": -1.79
+      "r20_pct": -18.31,
+      "contribution_pp": -1.82
      },
      {
-      "ticker": "CSCO",
-      "weight_pct": 7.75,
-      "r20_pct": -14.47,
-      "contribution_pp": -1.16
+      "ticker": "CRWD",
+      "weight_pct": 8.29,
+      "r20_pct": -14.05,
+      "contribution_pp": -1.2
      }
     ]
    },
@@ -1559,9 +1488,9 @@
      "months": "2026-04～2026-06"
     },
     "estimated": {
-     "sessions_recorded": 25,
-     "flow_5d_pct": 3.08,
-     "flow_20d_pct": 16.57
+     "sessions_recorded": 26,
+     "flow_5d_pct": 3.8,
+     "flow_20d_pct": 17.98
     }
    },
    "flags": []
@@ -1575,10 +1504,10 @@
    "state": "broad_decline",
    "direction": "down",
    "etf": {
-    "r5_pct": -2.48,
-    "r20_pct": -12.64,
-    "r60_pct": -8.85,
-    "rs20_pct": -9.37,
+    "r5_pct": -4.46,
+    "r20_pct": -13.12,
+    "r60_pct": -8.15,
+    "rs20_pct": -9.4,
     "above_ma50": false
    },
    "constituents": {
@@ -1589,36 +1518,36 @@
     "coverage_pct": 100.0
    },
    "breadth": {
-    "above_ma20_weighted_pct": 22.6,
-    "above_ma50_weighted_pct": 25.9,
-    "above_ma50_equal_pct": 34.9
+    "above_ma20_weighted_pct": 26.2,
+    "above_ma50_weighted_pct": 24.6,
+    "above_ma50_equal_pct": 31.7
    },
    "returns": {
-    "cap_weighted_r20_pct": -11.65,
-    "equal_weighted_r20_pct": -6.35,
-    "equal_minus_cap_pp": 5.3,
-    "tracking_gap_pp": 0.99
+    "cap_weighted_r20_pct": -12.27,
+    "equal_weighted_r20_pct": -7.61,
+    "equal_minus_cap_pp": 4.66,
+    "tracking_gap_pp": 0.84
    },
    "concentration": {
-    "top3_share_pct": 34.9,
+    "top3_share_pct": 32.9,
     "top_contributors": [
      {
       "ticker": "DOCN",
       "weight_pct": 3.95,
-      "r20_pct": -40.42,
-      "contribution_pp": -1.6
+      "r20_pct": -37.7,
+      "contribution_pp": -1.49
      },
      {
       "ticker": "P",
       "weight_pct": 3.89,
-      "r20_pct": -33.78,
-      "contribution_pp": -1.31
+      "r20_pct": -35.92,
+      "contribution_pp": -1.4
      },
      {
       "ticker": "CRWV",
       "weight_pct": 2.97,
-      "r20_pct": -38.97,
-      "contribution_pp": -1.16
+      "r20_pct": -38.8,
+      "contribution_pp": -1.15
      }
     ]
    },
@@ -1628,12 +1557,83 @@
      "months": "2026-04～2026-06"
     },
     "estimated": {
-     "sessions_recorded": 25,
-     "flow_5d_pct": 1.83,
-     "flow_20d_pct": 7.2
+     "sessions_recorded": 26,
+     "flow_5d_pct": 3.89,
+     "flow_20d_pct": 9.28
     }
    },
    "flags": []
+  },
+  {
+   "ticker": "COPX",
+   "theme": "銅礦",
+   "fund_name": "Global X Copper Miners ETF",
+   "holdings_report_date": "2026-07-31",
+   "holdings_accession": "0002048251-26-008644",
+   "state": "data_limited",
+   "direction": "down",
+   "etf": {
+    "r5_pct": 1.39,
+    "r20_pct": -13.86,
+    "r60_pct": -16.76,
+    "rs20_pct": -10.14,
+    "above_ma50": false
+   },
+   "constituents": {
+    "holdings": 63,
+    "common_stock": 40,
+    "mapped": 13,
+    "priced": 9,
+    "coverage_pct": 19.9
+   },
+   "breadth": {
+    "above_ma20_weighted_pct": 10.9,
+    "above_ma50_weighted_pct": 1.7,
+    "above_ma50_equal_pct": 11.1
+   },
+   "returns": {
+    "cap_weighted_r20_pct": -14.53,
+    "equal_weighted_r20_pct": -9.81,
+    "equal_minus_cap_pp": 4.72,
+    "tracking_gap_pp": 0.67
+   },
+   "concentration": {
+    "top3_share_pct": 84.8,
+    "top_contributors": [
+     {
+      "ticker": "SCCO",
+      "weight_pct": 5.08,
+      "r20_pct": -17.38,
+      "contribution_pp": -4.45
+     },
+     {
+      "ticker": "FCX",
+      "weight_pct": 4.76,
+      "r20_pct": -16.9,
+      "contribution_pp": -4.05
+     },
+     {
+      "ticker": "HBM",
+      "weight_pct": 5.26,
+      "r20_pct": -14.41,
+      "contribution_pp": -3.82
+     }
+    ]
+   },
+   "flows": {
+    "nport": {
+     "net_3m_pct": 1.72,
+     "months": "2026-05～2026-07"
+    },
+    "estimated": {
+     "sessions_recorded": 26,
+     "flow_5d_pct": -16.28,
+     "flow_20d_pct": -15.77
+    }
+   },
+   "flags": [
+    "low_coverage"
+   ]
   },
   {
    "ticker": "SMH",
@@ -1644,10 +1644,10 @@
    "state": "broad_decline",
    "direction": "down",
    "etf": {
-    "r5_pct": -4.11,
-    "r20_pct": -17.53,
-    "r60_pct": -17.08,
-    "rs20_pct": -14.26,
+    "r5_pct": -7.2,
+    "r20_pct": -18.18,
+    "r60_pct": -19.0,
+    "rs20_pct": -14.47,
     "above_ma50": false
    },
    "constituents": {
@@ -1658,36 +1658,36 @@
     "coverage_pct": 98.7
    },
    "breadth": {
-    "above_ma20_weighted_pct": 10.8,
-    "above_ma50_weighted_pct": 14.8,
-    "above_ma50_equal_pct": 29.2
+    "above_ma20_weighted_pct": 14.2,
+    "above_ma50_weighted_pct": 10.6,
+    "above_ma50_equal_pct": 20.8
    },
    "returns": {
-    "cap_weighted_r20_pct": -18.16,
-    "equal_weighted_r20_pct": -14.85,
-    "equal_minus_cap_pp": 3.32,
-    "tracking_gap_pp": 0.64
+    "cap_weighted_r20_pct": -18.74,
+    "equal_weighted_r20_pct": -15.25,
+    "equal_minus_cap_pp": 3.49,
+    "tracking_gap_pp": 0.56
    },
    "concentration": {
-    "top3_share_pct": 43.4,
+    "top3_share_pct": 48.5,
     "top_contributors": [
      {
       "ticker": "NVDA",
       "weight_pct": 17.55,
-      "r20_pct": -21.05,
-      "contribution_pp": -3.74
+      "r20_pct": -26.76,
+      "contribution_pp": -4.76
      },
      {
       "ticker": "INTC",
       "weight_pct": 5.15,
-      "r20_pct": -41.42,
-      "contribution_pp": -2.16
+      "r20_pct": -44.03,
+      "contribution_pp": -2.3
      },
      {
       "ticker": "MRVL",
       "weight_pct": 4.66,
-      "r20_pct": -41.85,
-      "contribution_pp": -1.98
+      "r20_pct": -43.23,
+      "contribution_pp": -2.04
      }
     ]
    },
@@ -1697,9 +1697,9 @@
      "months": "2026-04～2026-06"
     },
     "estimated": {
-     "sessions_recorded": 25,
-     "flow_5d_pct": -7.85,
-     "flow_20d_pct": 24.34
+     "sessions_recorded": 26,
+     "flow_5d_pct": -4.4,
+     "flow_20d_pct": 27.93
     }
    },
    "flags": []
@@ -1713,10 +1713,10 @@
    "state": "broad_decline",
    "direction": "down",
    "etf": {
-    "r5_pct": -2.95,
-    "r20_pct": -19.19,
-    "r60_pct": -19.96,
-    "rs20_pct": -15.93,
+    "r5_pct": -6.02,
+    "r20_pct": -19.65,
+    "r60_pct": -21.79,
+    "rs20_pct": -15.94,
     "above_ma50": false
    },
    "constituents": {
@@ -1727,36 +1727,36 @@
     "coverage_pct": 99.2
    },
    "breadth": {
-    "above_ma20_weighted_pct": 10.9,
-    "above_ma50_weighted_pct": 13.6,
-    "above_ma50_equal_pct": 17.2
+    "above_ma20_weighted_pct": 16.6,
+    "above_ma50_weighted_pct": 9.7,
+    "above_ma50_equal_pct": 10.3
    },
    "returns": {
-    "cap_weighted_r20_pct": -19.45,
-    "equal_weighted_r20_pct": -17.27,
-    "equal_minus_cap_pp": 2.18,
-    "tracking_gap_pp": 0.26
+    "cap_weighted_r20_pct": -19.68,
+    "equal_weighted_r20_pct": -17.86,
+    "equal_minus_cap_pp": 1.83,
+    "tracking_gap_pp": 0.03
    },
    "concentration": {
-    "top3_share_pct": 36.4,
+    "top3_share_pct": 36.9,
     "top_contributors": [
      {
       "ticker": "INTC",
       "weight_pct": 6.33,
-      "r20_pct": -41.42,
-      "contribution_pp": -2.65
-     },
-     {
-      "ticker": "MU",
-      "weight_pct": 8.54,
-      "r20_pct": -25.86,
-      "contribution_pp": -2.23
+      "r20_pct": -44.03,
+      "contribution_pp": -2.81
      },
      {
       "ticker": "MRVL",
       "weight_pct": 5.22,
-      "r20_pct": -41.85,
-      "contribution_pp": -2.2
+      "r20_pct": -43.23,
+      "contribution_pp": -2.28
+     },
+     {
+      "ticker": "MU",
+      "weight_pct": 8.54,
+      "r20_pct": -25.23,
+      "contribution_pp": -2.17
      }
     ]
    },
@@ -1766,9 +1766,9 @@
      "months": "2026-04～2026-06"
     },
     "estimated": {
-     "sessions_recorded": 25,
-     "flow_5d_pct": 59.78,
-     "flow_20d_pct": 100.78
+     "sessions_recorded": 26,
+     "flow_5d_pct": 63.1,
+     "flow_20d_pct": 103.85
     }
    },
    "flags": []
