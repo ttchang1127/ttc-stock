@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "protocol_version": "rotation-forward-2026-10-11-v1",
-  "history_as_of": "2026-11-10",
-  "a_snapshot_count": 26,
+  "history_as_of": "2026-11-11",
+  "a_snapshot_count": 27,
   "baseline_as_of": "2026-10-09",
   "events": [
     {
@@ -22,7 +22,12 @@
       },
       "outcomes": {
         "20d": {
-          "status": "pending"
+          "status": "mature",
+          "target_date": "2026-11-11",
+          "etf_return_pct": 9.0901,
+          "spy_return_pct": -1.1269,
+          "excess_pp": 10.217,
+          "max_adverse_excess_pp": 0.0
         },
         "60d": {
           "status": "pending"
@@ -47,7 +52,12 @@
       },
       "outcomes": {
         "20d": {
-          "status": "pending"
+          "status": "mature",
+          "target_date": "2026-11-11",
+          "etf_return_pct": -1.682,
+          "spy_return_pct": -1.1269,
+          "excess_pp": -0.5551,
+          "max_adverse_excess_pp": -8.4735
         },
         "60d": {
           "status": "pending"
@@ -72,7 +82,12 @@
       },
       "outcomes": {
         "20d": {
-          "status": "pending"
+          "status": "mature",
+          "target_date": "2026-11-11",
+          "etf_return_pct": -6.7417,
+          "spy_return_pct": -1.1269,
+          "excess_pp": -5.6148,
+          "max_adverse_excess_pp": -6.1586
         },
         "60d": {
           "status": "pending"
@@ -97,7 +112,12 @@
       },
       "outcomes": {
         "20d": {
-          "status": "pending"
+          "status": "mature",
+          "target_date": "2026-11-11",
+          "etf_return_pct": 8.8485,
+          "spy_return_pct": -1.1269,
+          "excess_pp": 9.9754,
+          "max_adverse_excess_pp": 0.0
         },
         "60d": {
           "status": "pending"
@@ -122,7 +142,12 @@
       },
       "outcomes": {
         "20d": {
-          "status": "pending"
+          "status": "mature",
+          "target_date": "2026-11-11",
+          "etf_return_pct": -8.3601,
+          "spy_return_pct": -1.1269,
+          "excess_pp": -7.2332,
+          "max_adverse_excess_pp": -10.3761
         },
         "60d": {
           "status": "pending"
@@ -147,7 +172,12 @@
       },
       "outcomes": {
         "20d": {
-          "status": "pending"
+          "status": "mature",
+          "target_date": "2026-11-11",
+          "etf_return_pct": 5.063,
+          "spy_return_pct": -1.1269,
+          "excess_pp": 6.1899,
+          "max_adverse_excess_pp": -0.3815
         },
         "60d": {
           "status": "pending"
@@ -815,7 +845,10 @@
       "dataset_id": "sha256:c747ab698e3b449e532051fd7b0c1952d7945d6791eca2f81ee8541fdbdf3e7d",
       "first_seen_at_utc": "2026-11-10T04:40:40Z",
       "entry": {
-        "status": "pending"
+        "status": "fixed",
+        "date": "2026-11-11",
+        "etf_adj_close": 43.78499984741211,
+        "spy_adj_close": 760.6900024414062
       },
       "outcomes": {
         "20d": {
@@ -826,11 +859,95 @@
         }
       },
       "eligibility_confirmed_at_utc": "2026-11-10T19:45:58Z"
+    },
+    {
+      "id": "2026-11-11:sector:information-technology:early_improvement",
+      "signal_as_of": "2026-11-11",
+      "sector": "sector:information-technology",
+      "from_state": "clear_lagging",
+      "state": "early_improvement",
+      "etf": "XLK",
+      "dataset_id": "sha256:2693e22a9c8625fcb5c4b130855891ad74f239a6940f3f3d117d26e4735a42a3",
+      "first_seen_at_utc": "2026-11-11T19:37:35Z",
+      "entry": {
+        "status": "pending"
+      },
+      "outcomes": {
+        "20d": {
+          "status": "pending"
+        },
+        "60d": {
+          "status": "pending"
+        }
+      }
+    },
+    {
+      "id": "2026-11-11:sector:materials:neutral_mixed",
+      "signal_as_of": "2026-11-11",
+      "sector": "sector:materials",
+      "from_state": "confirmed_leading",
+      "state": "neutral_mixed",
+      "etf": "XLB",
+      "dataset_id": "sha256:2693e22a9c8625fcb5c4b130855891ad74f239a6940f3f3d117d26e4735a42a3",
+      "first_seen_at_utc": "2026-11-11T19:37:35Z",
+      "entry": {
+        "status": "pending"
+      },
+      "outcomes": {
+        "20d": {
+          "status": "pending"
+        },
+        "60d": {
+          "status": "pending"
+        }
+      }
+    },
+    {
+      "id": "2026-11-11:sector:real-estate:neutral_mixed",
+      "signal_as_of": "2026-11-11",
+      "sector": "sector:real-estate",
+      "from_state": "confirmed_leading",
+      "state": "neutral_mixed",
+      "etf": "XLRE",
+      "dataset_id": "sha256:2693e22a9c8625fcb5c4b130855891ad74f239a6940f3f3d117d26e4735a42a3",
+      "first_seen_at_utc": "2026-11-11T19:37:35Z",
+      "entry": {
+        "status": "pending"
+      },
+      "outcomes": {
+        "20d": {
+          "status": "pending"
+        },
+        "60d": {
+          "status": "pending"
+        }
+      }
+    },
+    {
+      "id": "2026-11-11:sector:utilities:neutral_mixed",
+      "signal_as_of": "2026-11-11",
+      "sector": "sector:utilities",
+      "from_state": "cooling",
+      "state": "neutral_mixed",
+      "etf": "XLU",
+      "dataset_id": "sha256:2693e22a9c8625fcb5c4b130855891ad74f239a6940f3f3d117d26e4735a42a3",
+      "first_seen_at_utc": "2026-11-11T19:37:35Z",
+      "entry": {
+        "status": "pending"
+      },
+      "outcomes": {
+        "20d": {
+          "status": "pending"
+        },
+        "60d": {
+          "status": "pending"
+        }
+      }
     }
   ],
-  "event_count": 33,
-  "matured_20d": 0,
+  "event_count": 37,
+  "matured_20d": 6,
   "matured_60d": 0,
-  "status": "pending_outcomes",
+  "status": "results_available",
   "price_source_status": "available"
 }
