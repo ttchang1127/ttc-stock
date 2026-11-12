@@ -1,18 +1,188 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-12T03:46:10+08:00",
-  "current_snapshot_id": "e199b35c268f6057",
-  "previous_snapshot_id": "2cb12e9bcca731bd",
-  "batch_id": "b2692e8ac3b3",
+  "updated_at": "2026-11-13T03:57:26+08:00",
+  "current_snapshot_id": "69b5d234f388c3e2",
+  "previous_snapshot_id": "e199b35c268f6057",
+  "batch_id": "1457da9cabe8",
   "notify_count": 0,
   "critical_count": 0,
   "notification_policy": "首次建立比較基準，不發通知，也不回填不存在的財報前判斷；之後只通知財報前／後階段、新季度、官方指引、KPI 風險／改善、指引驗證與論點結論變化。每日倒數與未跨狀態的數值波動不通知。",
   "notifications": [],
   "current": {
-    "snapshot_id": "e199b35c268f6057",
-    "captured_at": "2026-11-12T03:46:10+08:00",
-    "source_date": "2026-11-12",
+    "snapshot_id": "69b5d234f388c3e2",
+    "captured_at": "2026-11-13T03:57:26+08:00",
+    "source_date": "2026-11-13",
     "companies": {
+      "NVDA": {
+        "ticker": "NVDA",
+        "position": "holding",
+        "phase": "preparation_due",
+        "phase_label": "財報前 7 天準備期",
+        "next_earnings": {
+          "date": "2026-11-17",
+          "confidence": "estimated",
+          "source_label": "Yahoo Finance 行事曆",
+          "source_url": "https://finance.yahoo.com/quote/NVDA/calendar/",
+          "source_status": "fresh"
+        },
+        "guidance": {
+          "status": "available",
+          "note": null,
+          "rows": [
+            {
+              "period": "FY2027 Q2",
+              "metric": "營收",
+              "low": 89.18,
+              "high": 92.82,
+              "unit": "USD bn",
+              "source_date": "2026-05-20",
+              "source_url": "https://nvidianews.nvidia.com/news/nvidia-announces-financial-results-for-first-quarter-fiscal-2027"
+            },
+            {
+              "period": "FY2027 Q2",
+              "metric": "GAAP 毛利率",
+              "low": 74.4,
+              "high": 75.4,
+              "unit": "%",
+              "source_date": "2026-05-20",
+              "source_url": "https://nvidianews.nvidia.com/news/nvidia-announces-financial-results-for-first-quarter-fiscal-2027"
+            }
+          ]
+        },
+        "checkpoints": [
+          {
+            "topic": "管理層指引",
+            "question": "實際結果是否落在 FY2027 Q2 的官方指引區間？",
+            "why": "指引只能與相同期間、相同口徑的實績比較。"
+          },
+          {
+            "topic": "營運連續性",
+            "question": "營收、毛利率與營業利益率是否延續八季方向？",
+            "why": "單季驚喜可能只是季節性，需同時比較 QoQ 與 YoY。"
+          },
+          {
+            "topic": "現金與每股品質",
+            "question": "自由現金流是否改善，稀釋股數是否跨越 10% 風險門檻？",
+            "why": "成長若沒有轉成現金或被稀釋，股東實際受益可能下降。"
+          },
+          {
+            "topic": "論點：AI 加速運算需求維持高成長",
+            "question": "本季證據是否仍命中／接近失效條件：營收 YoY ≤ -5%，或營收連續至少 3 季下降。",
+            "why": "2026-07-26 營收 USD 96,221.0M，YoY +105.9%；連續 8 季上升。"
+          }
+        ],
+        "latest_result": {
+          "period_end": "2026-07-26",
+          "filing_date": "2026-08-26",
+          "form": "10-Q",
+          "accession": "0001045810-26-000075",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/0001045810-26-000075-index.html",
+          "currency": "USD"
+        },
+        "kpis": [
+          {
+            "metric": "revenue",
+            "label": "營收",
+            "display": "amount",
+            "value": 96221000000.0,
+            "qoq": 17.896220057587463,
+            "yoy": 105.85114348672526,
+            "state": "improved",
+            "interpretation": "營收 YoY +105.9%"
+          },
+          {
+            "metric": "gross_margin",
+            "label": "毛利率",
+            "display": "percent",
+            "value": 0.7497531723844068,
+            "qoq": 0.04178786271317181,
+            "yoy": 2.5516388266998757,
+            "state": "improved",
+            "interpretation": "毛利率 YoY +2.6pp"
+          },
+          {
+            "metric": "operating_margin",
+            "label": "營業利益率",
+            "display": "percent",
+            "value": 0.6623710000935347,
+            "qoq": 0.6413149208280733,
+            "yoy": 5.3937651784697005,
+            "state": "improved",
+            "interpretation": "營業利益率 YoY +5.4pp"
+          },
+          {
+            "metric": "free_cash_flow",
+            "label": "自由現金流",
+            "display": "amount",
+            "value": 21400000000.0,
+            "qoq": -55.95529668429826,
+            "yoy": 58.871566443949504,
+            "state": "improved",
+            "interpretation": "自由現金流為正"
+          },
+          {
+            "metric": "diluted_shares",
+            "label": "稀釋股數",
+            "display": "shares",
+            "value": 24285000000.0,
+            "qoq": -0.4345865278176375,
+            "yoy": -1.0068481982716482,
+            "state": "stable",
+            "interpretation": "稀釋股數 YoY -1.0%"
+          }
+        ],
+        "completed_guidance": {
+          "period": "FY2027 Q1",
+          "period_end": "2026-04-26",
+          "low": 76.44,
+          "high": 79.56,
+          "actual": 81.615,
+          "guidance_date": "2026-02-25",
+          "guidance_source_url": "https://nvidianews.nvidia.com/news/nvidia-announces-financial-results-for-fourth-quarter-and-fiscal-2026",
+          "metric": "營收",
+          "unit": "USD bn",
+          "comparison_basis": "公司發布的下一季營收中點 ±2%；表內已換算成上下限。",
+          "outcome": "above",
+          "outcome_label": "高於指引",
+          "vs_midpoint_pct": 4.6346153846153815
+        },
+        "thesis": {
+          "status": "maintained",
+          "label": "論點維持",
+          "items": [
+            {
+              "id": "ai_growth",
+              "title": "AI 加速運算需求維持高成長",
+              "status": "supported",
+              "label": "支持",
+              "evidence": "2026-07-26 營收 USD 96,221.0M，YoY +105.9%；連續 8 季上升。",
+              "invalidation": "營收 YoY ≤ -5%，或營收連續至少 3 季下降。"
+            },
+            {
+              "id": "pricing_moat",
+              "title": "平台與軟體生態維持定價能力",
+              "status": "supported",
+              "label": "支持",
+              "evidence": "2026-07-26 毛利率 75.0%，YoY +2.6pp；未形成連續方向。",
+              "invalidation": "毛利率低於 55%，或連續至少 3 季顯著下降。"
+            },
+            {
+              "id": "cash_per_share",
+              "title": "成長能轉化為每股現金流",
+              "status": "supported",
+              "label": "支持",
+              "evidence": "2026-07-26 FCF USD 21,400.0M（連續 8 季為正）；稀釋股數 YoY -1.0%。",
+              "invalidation": "FCF 連續至少 4 季為負，或稀釋股數 YoY ≥ 10%。"
+            }
+          ]
+        },
+        "comparison": {
+          "status": "unchanged",
+          "notify": false,
+          "label": "沒有需通知的實質變化",
+          "reasons": []
+        }
+      },
       "COHR": {
         "ticker": "COHR",
         "position": "holding",
@@ -192,176 +362,6 @@
           "reasons": []
         }
       },
-      "NVDA": {
-        "ticker": "NVDA",
-        "position": "holding",
-        "phase": "preparation_due",
-        "phase_label": "財報前 7 天準備期",
-        "next_earnings": {
-          "date": "2026-11-17",
-          "confidence": "estimated",
-          "source_label": "Yahoo Finance 行事曆",
-          "source_url": "https://finance.yahoo.com/quote/NVDA/calendar/",
-          "source_status": "fresh"
-        },
-        "guidance": {
-          "status": "available",
-          "note": null,
-          "rows": [
-            {
-              "period": "FY2027 Q2",
-              "metric": "營收",
-              "low": 89.18,
-              "high": 92.82,
-              "unit": "USD bn",
-              "source_date": "2026-05-20",
-              "source_url": "https://nvidianews.nvidia.com/news/nvidia-announces-financial-results-for-first-quarter-fiscal-2027"
-            },
-            {
-              "period": "FY2027 Q2",
-              "metric": "GAAP 毛利率",
-              "low": 74.4,
-              "high": 75.4,
-              "unit": "%",
-              "source_date": "2026-05-20",
-              "source_url": "https://nvidianews.nvidia.com/news/nvidia-announces-financial-results-for-first-quarter-fiscal-2027"
-            }
-          ]
-        },
-        "checkpoints": [
-          {
-            "topic": "管理層指引",
-            "question": "實際結果是否落在 FY2027 Q2 的官方指引區間？",
-            "why": "指引只能與相同期間、相同口徑的實績比較。"
-          },
-          {
-            "topic": "營運連續性",
-            "question": "營收、毛利率與營業利益率是否延續八季方向？",
-            "why": "單季驚喜可能只是季節性，需同時比較 QoQ 與 YoY。"
-          },
-          {
-            "topic": "現金與每股品質",
-            "question": "自由現金流是否改善，稀釋股數是否跨越 10% 風險門檻？",
-            "why": "成長若沒有轉成現金或被稀釋，股東實際受益可能下降。"
-          },
-          {
-            "topic": "論點：AI 加速運算需求維持高成長",
-            "question": "本季證據是否仍命中／接近失效條件：營收 YoY ≤ -5%，或營收連續至少 3 季下降。",
-            "why": "2026-07-26 營收 USD 96,221.0M，YoY +105.9%；連續 8 季上升。"
-          }
-        ],
-        "latest_result": {
-          "period_end": "2026-07-26",
-          "filing_date": "2026-08-26",
-          "form": "10-Q",
-          "accession": "0001045810-26-000075",
-          "source_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/0001045810-26-000075-index.html",
-          "currency": "USD"
-        },
-        "kpis": [
-          {
-            "metric": "revenue",
-            "label": "營收",
-            "display": "amount",
-            "value": 96221000000.0,
-            "qoq": 17.896220057587463,
-            "yoy": 105.85114348672526,
-            "state": "improved",
-            "interpretation": "營收 YoY +105.9%"
-          },
-          {
-            "metric": "gross_margin",
-            "label": "毛利率",
-            "display": "percent",
-            "value": 0.7497531723844068,
-            "qoq": 0.04178786271317181,
-            "yoy": 2.5516388266998757,
-            "state": "improved",
-            "interpretation": "毛利率 YoY +2.6pp"
-          },
-          {
-            "metric": "operating_margin",
-            "label": "營業利益率",
-            "display": "percent",
-            "value": 0.6623710000935347,
-            "qoq": 0.6413149208280733,
-            "yoy": 5.3937651784697005,
-            "state": "improved",
-            "interpretation": "營業利益率 YoY +5.4pp"
-          },
-          {
-            "metric": "free_cash_flow",
-            "label": "自由現金流",
-            "display": "amount",
-            "value": 21400000000.0,
-            "qoq": -55.95529668429826,
-            "yoy": 58.871566443949504,
-            "state": "improved",
-            "interpretation": "自由現金流為正"
-          },
-          {
-            "metric": "diluted_shares",
-            "label": "稀釋股數",
-            "display": "shares",
-            "value": 24285000000.0,
-            "qoq": -0.4345865278176375,
-            "yoy": -1.0068481982716482,
-            "state": "stable",
-            "interpretation": "稀釋股數 YoY -1.0%"
-          }
-        ],
-        "completed_guidance": {
-          "period": "FY2027 Q1",
-          "period_end": "2026-04-26",
-          "low": 76.44,
-          "high": 79.56,
-          "actual": 81.615,
-          "guidance_date": "2026-02-25",
-          "guidance_source_url": "https://nvidianews.nvidia.com/news/nvidia-announces-financial-results-for-fourth-quarter-and-fiscal-2026",
-          "metric": "營收",
-          "unit": "USD bn",
-          "comparison_basis": "公司發布的下一季營收中點 ±2%；表內已換算成上下限。",
-          "outcome": "above",
-          "outcome_label": "高於指引",
-          "vs_midpoint_pct": 4.6346153846153815
-        },
-        "thesis": {
-          "status": "maintained",
-          "label": "論點維持",
-          "items": [
-            {
-              "id": "ai_growth",
-              "title": "AI 加速運算需求維持高成長",
-              "status": "supported",
-              "label": "支持",
-              "evidence": "2026-07-26 營收 USD 96,221.0M，YoY +105.9%；連續 8 季上升。",
-              "invalidation": "營收 YoY ≤ -5%，或營收連續至少 3 季下降。"
-            },
-            {
-              "id": "pricing_moat",
-              "title": "平台與軟體生態維持定價能力",
-              "status": "supported",
-              "label": "支持",
-              "evidence": "2026-07-26 毛利率 75.0%，YoY +2.6pp；未形成連續方向。",
-              "invalidation": "毛利率低於 55%，或連續至少 3 季顯著下降。"
-            },
-            {
-              "id": "cash_per_share",
-              "title": "成長能轉化為每股現金流",
-              "status": "supported",
-              "label": "支持",
-              "evidence": "2026-07-26 FCF USD 21,400.0M（連續 8 季為正）；稀釋股數 YoY -1.0%。",
-              "invalidation": "FCF 連續至少 4 季為負，或稀釋股數 YoY ≥ 10%。"
-            }
-          ]
-        },
-        "comparison": {
-          "status": "unchanged",
-          "notify": false,
-          "label": "沒有需通知的實質變化",
-          "reasons": []
-        }
-      },
       "INTC": {
         "ticker": "INTC",
         "position": "holding",
@@ -513,143 +513,6 @@
               "label": "失效",
               "evidence": "2026-09-26 FCF USD 1,058.0M（連續 2 季為正）；稀釋股數 YoY +17.1%。",
               "invalidation": "FCF 連續至少 4 季為負，或稀釋股數 YoY ≥ 8%。"
-            }
-          ]
-        },
-        "comparison": {
-          "status": "unchanged",
-          "notify": false,
-          "label": "沒有需通知的實質變化",
-          "reasons": []
-        }
-      },
-      "GOOG": {
-        "ticker": "GOOG",
-        "position": "holding",
-        "phase": "post_review_due",
-        "phase_label": "財報後 14 天核對期",
-        "next_earnings": {
-          "date": "2026-10-28",
-          "confidence": "estimated",
-          "source_label": "Yahoo Finance 行事曆",
-          "source_url": "https://finance.yahoo.com/quote/GOOG/calendar/",
-          "source_status": "fresh"
-        },
-        "guidance": {
-          "status": "no_comparable_numeric_guidance",
-          "note": "Alphabet 的季度展望以趨勢與投資評論為主，未提供下一季營收／EPS 區間；不以市場共識替代。",
-          "rows": []
-        },
-        "checkpoints": [
-          {
-            "topic": "管理層指引",
-            "question": "公司是否首次提供可比較的量化指引，或更新原有全年目標？",
-            "why": "沒有量化區間時不計命中率，也不以市場共識補值。"
-          },
-          {
-            "topic": "營運連續性",
-            "question": "營收、毛利率與營業利益率是否延續八季方向？",
-            "why": "單季驚喜可能只是季節性，需同時比較 QoQ 與 YoY。"
-          },
-          {
-            "topic": "現金與每股品質",
-            "question": "自由現金流是否改善，稀釋股數是否跨越 10% 風險門檻？",
-            "why": "成長若沒有轉成現金或被稀釋，股東實際受益可能下降。"
-          },
-          {
-            "topic": "論點：廣告與雲端組合維持高營業利益率",
-            "question": "本季證據是否仍命中／接近失效條件：營業利益率低於 20%，或連續至少 3 季顯著下降。",
-            "why": "2026-09-30 營業利益率 31.8%，YoY +1.3pp；連續 3 季下降。"
-          }
-        ],
-        "latest_result": {
-          "period_end": "2026-09-30",
-          "filing_date": "2026-10-29",
-          "form": "10-Q",
-          "accession": "0001652044-26-000084",
-          "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000084/0001652044-26-000084-index.html",
-          "currency": "USD"
-        },
-        "kpis": [
-          {
-            "metric": "revenue",
-            "label": "營收",
-            "display": "amount",
-            "value": 127577000000.0,
-            "qoq": 6.495208521152618,
-            "yoy": 24.652648857796102,
-            "state": "improved",
-            "interpretation": "營收 YoY +24.7%"
-          },
-          {
-            "metric": "gross_margin",
-            "label": "毛利率",
-            "display": "percent",
-            "value": 0.5969571317714008,
-            "qoq": -1.9532567383829802,
-            "yoy": 0.1164428588081412,
-            "state": "stable",
-            "interpretation": "毛利率 YoY +0.1pp"
-          },
-          {
-            "metric": "operating_margin",
-            "label": "營業利益率",
-            "display": "percent",
-            "value": 0.3180510593602295,
-            "qoq": -2.2277499189304715,
-            "yoy": 1.292921776407524,
-            "state": "stable",
-            "interpretation": "營業利益率 YoY +1.3pp"
-          },
-          {
-            "metric": "free_cash_flow",
-            "label": "自由現金流",
-            "display": "amount",
-            "value": -9065000000.0,
-            "qoq": null,
-            "yoy": null,
-            "state": "risk",
-            "interpretation": "自由現金流為負"
-          },
-          {
-            "metric": "diluted_shares",
-            "label": "稀釋股數",
-            "display": "shares",
-            "value": 12368000000.0,
-            "qoq": 0.47932407181736636,
-            "yoy": 1.3521265262640414,
-            "state": "stable",
-            "interpretation": "稀釋股數 YoY +1.4%"
-          }
-        ],
-        "completed_guidance": null,
-        "thesis": {
-          "status": "partial-invalidated",
-          "label": "部分失效",
-          "items": [
-            {
-              "id": "search_cloud_ai",
-              "title": "搜尋、Cloud 與 AI 產品維持成長",
-              "status": "supported",
-              "label": "支持",
-              "evidence": "2026-09-30 營收 USD 127,577.0M，YoY +24.7%；連續 3 季上升。",
-              "invalidation": "營收 YoY ≤ 0%，或營收連續至少 3 季下降。"
-            },
-            {
-              "id": "advertising_moat",
-              "title": "廣告與雲端組合維持高營業利益率",
-              "status": "invalidated",
-              "label": "失效",
-              "evidence": "2026-09-30 營業利益率 31.8%，YoY +1.3pp；連續 3 季下降。",
-              "invalidation": "營業利益率低於 20%，或連續至少 3 季顯著下降。"
-            },
-            {
-              "id": "cash_per_share",
-              "title": "高 FCF 與回購持續累積每股價值",
-              "status": "verify",
-              "label": "待驗證",
-              "evidence": "2026-09-30 FCF USD -9,065.0M（連續 2 季為負）；稀釋股數 YoY +1.4%。",
-              "invalidation": "FCF 連續至少 4 季為負，或稀釋股數 YoY ≥ 5%。"
             }
           ]
         },
@@ -830,38 +693,28 @@
           "reasons": []
         }
       },
-      "ONDS": {
-        "ticker": "ONDS",
-        "position": "watchlist",
-        "phase": "preparation_due",
-        "phase_label": "財報前 7 天準備期",
+      "GOOG": {
+        "ticker": "GOOG",
+        "position": "holding",
+        "phase": "scheduled_later",
+        "phase_label": "已知日期，尚未進入 30 天",
         "next_earnings": {
-          "date": "2026-11-12",
+          "date": "2026-10-28",
           "confidence": "estimated",
           "source_label": "Yahoo Finance 行事曆",
-          "source_url": "https://finance.yahoo.com/quote/ONDS/calendar/",
+          "source_url": "https://finance.yahoo.com/quote/GOOG/calendar/",
           "source_status": "fresh"
         },
         "guidance": {
-          "status": "available",
-          "note": null,
-          "rows": [
-            {
-              "period": "FY2026",
-              "metric": "營收（至少）",
-              "low": 390.0,
-              "high": null,
-              "unit": "USD m",
-              "source_date": "2026-05-14",
-              "source_url": "https://ir.ondas.com/press-releases/detail/306/ondas-reports-record-first-quarter-2026-financial-results"
-            }
-          ]
+          "status": "no_comparable_numeric_guidance",
+          "note": "Alphabet 的季度展望以趨勢與投資評論為主，未提供下一季營收／EPS 區間；不以市場共識替代。",
+          "rows": []
         },
         "checkpoints": [
           {
             "topic": "管理層指引",
-            "question": "實際結果是否落在 FY2026 的官方指引區間？",
-            "why": "指引只能與相同期間、相同口徑的實績比較。"
+            "question": "公司是否首次提供可比較的量化指引，或更新原有全年目標？",
+            "why": "沒有量化區間時不計命中率，也不以市場共識補值。"
           },
           {
             "topic": "營運連續性",
@@ -874,17 +727,17 @@
             "why": "成長若沒有轉成現金或被稀釋，股東實際受益可能下降。"
           },
           {
-            "topic": "論點：商業化最終能轉化為營業獲利",
-            "question": "本季證據是否仍命中／接近失效條件：營業利益率低於 -50%，或連續至少 4 季為負。",
-            "why": "2026-06-30 營業利益率 -194.5%，YoY -47.1pp；連續 3 季下降。"
+            "topic": "論點：廣告與雲端組合維持高營業利益率",
+            "question": "本季證據是否仍命中／接近失效條件：營業利益率低於 20%，或連續至少 3 季顯著下降。",
+            "why": "2026-09-30 營業利益率 31.8%，YoY +1.3pp；連續 3 季下降。"
           }
         ],
         "latest_result": {
-          "period_end": "2026-06-30",
-          "filing_date": "2026-08-13",
+          "period_end": "2026-09-30",
+          "filing_date": "2026-10-29",
           "form": "10-Q",
-          "accession": "0001193125-26-349288",
-          "source_url": "https://www.sec.gov/Archives/edgar/data/1646188/000119312526349288/0001193125-26-349288-index.html",
+          "accession": "0001652044-26-000084",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000084/0001652044-26-000084-index.html",
           "currency": "USD"
         },
         "kpis": [
@@ -892,37 +745,37 @@
             "metric": "revenue",
             "label": "營收",
             "display": "amount",
-            "value": 83772000.0,
-            "qoq": 67.1361877020071,
-            "yoy": 1235.4375896700142,
+            "value": 127577000000.0,
+            "qoq": 6.495208521152618,
+            "yoy": 24.652648857796102,
             "state": "improved",
-            "interpretation": "營收 YoY +1235.4%"
+            "interpretation": "營收 YoY +24.7%"
           },
           {
             "metric": "gross_margin",
             "label": "毛利率",
             "display": "percent",
-            "value": 0.43130162822900253,
-            "qoq": -6.065799030178237,
-            "yoy": -9.9863683424114,
-            "state": "risk",
-            "interpretation": "毛利率 YoY -10.0pp"
+            "value": 0.5969571317714008,
+            "qoq": -1.9532567383829802,
+            "yoy": 0.1164428588081412,
+            "state": "stable",
+            "interpretation": "毛利率 YoY +0.1pp"
           },
           {
             "metric": "operating_margin",
             "label": "營業利益率",
             "display": "percent",
-            "value": -1.945112925559853,
-            "qoq": -109.37702018058127,
-            "yoy": -47.05393562947484,
-            "state": "risk",
-            "interpretation": "營業利益率 YoY -47.1pp"
+            "value": 0.3180510593602295,
+            "qoq": -2.2277499189304715,
+            "yoy": 1.292921776407524,
+            "state": "stable",
+            "interpretation": "營業利益率 YoY +1.3pp"
           },
           {
             "metric": "free_cash_flow",
             "label": "自由現金流",
             "display": "amount",
-            "value": -93842000.0,
+            "value": -9065000000.0,
             "qoq": null,
             "yoy": null,
             "state": "risk",
@@ -932,41 +785,41 @@
             "metric": "diluted_shares",
             "label": "稀釋股數",
             "display": "shares",
-            "value": 503593000.0,
-            "qoq": null,
-            "yoy": 234.27346285835662,
-            "state": "risk",
-            "interpretation": "稀釋股數 YoY +234.3%"
+            "value": 12368000000.0,
+            "qoq": 0.47932407181736636,
+            "yoy": 1.3521265262640414,
+            "state": "stable",
+            "interpretation": "稀釋股數 YoY +1.4%"
           }
         ],
         "completed_guidance": null,
         "thesis": {
-          "status": "major-invalidated",
-          "label": "重大失效",
+          "status": "partial-invalidated",
+          "label": "部分失效",
           "items": [
             {
-              "id": "autonomous_growth",
-              "title": "自主無人機與反無人機業務進入規模成長",
+              "id": "search_cloud_ai",
+              "title": "搜尋、Cloud 與 AI 產品維持成長",
               "status": "supported",
               "label": "支持",
-              "evidence": "2026-06-30 營收 USD 83.8M，YoY +1,235.4%；連續 8 季上升。",
+              "evidence": "2026-09-30 營收 USD 127,577.0M，YoY +24.7%；連續 3 季上升。",
               "invalidation": "營收 YoY ≤ 0%，或營收連續至少 3 季下降。"
             },
             {
-              "id": "commercial_profitability",
-              "title": "商業化最終能轉化為營業獲利",
+              "id": "advertising_moat",
+              "title": "廣告與雲端組合維持高營業利益率",
               "status": "invalidated",
               "label": "失效",
-              "evidence": "2026-06-30 營業利益率 -194.5%，YoY -47.1pp；連續 3 季下降。",
-              "invalidation": "營業利益率低於 -50%，或連續至少 4 季為負。"
+              "evidence": "2026-09-30 營業利益率 31.8%，YoY +1.3pp；連續 3 季下降。",
+              "invalidation": "營業利益率低於 20%，或連續至少 3 季顯著下降。"
             },
             {
-              "id": "funding_per_share",
-              "title": "成長資金需求不會持續傷害每股價值",
-              "status": "invalidated",
-              "label": "失效",
-              "evidence": "2026-06-30 FCF USD -93.8M（連續 8 季為負）；稀釋股數 YoY +234.3%。",
-              "invalidation": "FCF 連續至少 4 季為負，或稀釋股數 YoY ≥ 20%。"
+              "id": "cash_per_share",
+              "title": "高 FCF 與回購持續累積每股價值",
+              "status": "verify",
+              "label": "待驗證",
+              "evidence": "2026-09-30 FCF USD -9,065.0M（連續 2 季為負）；稀釋股數 YoY +1.4%。",
+              "invalidation": "FCF 連續至少 4 季為負，或稀釋股數 YoY ≥ 5%。"
             }
           ]
         },
@@ -1765,6 +1618,153 @@
           "reasons": []
         }
       },
+      "ONDS": {
+        "ticker": "ONDS",
+        "position": "watchlist",
+        "phase": "scheduled_later",
+        "phase_label": "已知日期，尚未進入 30 天",
+        "next_earnings": {
+          "date": "2026-11-12",
+          "confidence": "estimated",
+          "source_label": "Yahoo Finance 行事曆",
+          "source_url": "https://finance.yahoo.com/quote/ONDS/calendar/",
+          "source_status": "fresh"
+        },
+        "guidance": {
+          "status": "available",
+          "note": null,
+          "rows": [
+            {
+              "period": "FY2026",
+              "metric": "營收（至少）",
+              "low": 390.0,
+              "high": null,
+              "unit": "USD m",
+              "source_date": "2026-05-14",
+              "source_url": "https://ir.ondas.com/press-releases/detail/306/ondas-reports-record-first-quarter-2026-financial-results"
+            }
+          ]
+        },
+        "checkpoints": [
+          {
+            "topic": "管理層指引",
+            "question": "實際結果是否落在 FY2026 的官方指引區間？",
+            "why": "指引只能與相同期間、相同口徑的實績比較。"
+          },
+          {
+            "topic": "營運連續性",
+            "question": "營收、毛利率與營業利益率是否延續八季方向？",
+            "why": "單季驚喜可能只是季節性，需同時比較 QoQ 與 YoY。"
+          },
+          {
+            "topic": "現金與每股品質",
+            "question": "自由現金流是否改善，稀釋股數是否跨越 10% 風險門檻？",
+            "why": "成長若沒有轉成現金或被稀釋，股東實際受益可能下降。"
+          },
+          {
+            "topic": "論點：商業化最終能轉化為營業獲利",
+            "question": "本季證據是否仍命中／接近失效條件：營業利益率低於 -50%，或連續至少 4 季為負。",
+            "why": "2026-06-30 營業利益率 -194.5%，YoY -47.1pp；連續 3 季下降。"
+          }
+        ],
+        "latest_result": {
+          "period_end": "2026-06-30",
+          "filing_date": "2026-08-13",
+          "form": "10-Q",
+          "accession": "0001193125-26-349288",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1646188/000119312526349288/0001193125-26-349288-index.html",
+          "currency": "USD"
+        },
+        "kpis": [
+          {
+            "metric": "revenue",
+            "label": "營收",
+            "display": "amount",
+            "value": 83772000.0,
+            "qoq": 67.1361877020071,
+            "yoy": 1235.4375896700142,
+            "state": "improved",
+            "interpretation": "營收 YoY +1235.4%"
+          },
+          {
+            "metric": "gross_margin",
+            "label": "毛利率",
+            "display": "percent",
+            "value": 0.43130162822900253,
+            "qoq": -6.065799030178237,
+            "yoy": -9.9863683424114,
+            "state": "risk",
+            "interpretation": "毛利率 YoY -10.0pp"
+          },
+          {
+            "metric": "operating_margin",
+            "label": "營業利益率",
+            "display": "percent",
+            "value": -1.945112925559853,
+            "qoq": -109.37702018058127,
+            "yoy": -47.05393562947484,
+            "state": "risk",
+            "interpretation": "營業利益率 YoY -47.1pp"
+          },
+          {
+            "metric": "free_cash_flow",
+            "label": "自由現金流",
+            "display": "amount",
+            "value": -93842000.0,
+            "qoq": null,
+            "yoy": null,
+            "state": "risk",
+            "interpretation": "自由現金流為負"
+          },
+          {
+            "metric": "diluted_shares",
+            "label": "稀釋股數",
+            "display": "shares",
+            "value": 503593000.0,
+            "qoq": null,
+            "yoy": 234.27346285835662,
+            "state": "risk",
+            "interpretation": "稀釋股數 YoY +234.3%"
+          }
+        ],
+        "completed_guidance": null,
+        "thesis": {
+          "status": "major-invalidated",
+          "label": "重大失效",
+          "items": [
+            {
+              "id": "autonomous_growth",
+              "title": "自主無人機與反無人機業務進入規模成長",
+              "status": "supported",
+              "label": "支持",
+              "evidence": "2026-06-30 營收 USD 83.8M，YoY +1,235.4%；連續 8 季上升。",
+              "invalidation": "營收 YoY ≤ 0%，或營收連續至少 3 季下降。"
+            },
+            {
+              "id": "commercial_profitability",
+              "title": "商業化最終能轉化為營業獲利",
+              "status": "invalidated",
+              "label": "失效",
+              "evidence": "2026-06-30 營業利益率 -194.5%，YoY -47.1pp；連續 3 季下降。",
+              "invalidation": "營業利益率低於 -50%，或連續至少 4 季為負。"
+            },
+            {
+              "id": "funding_per_share",
+              "title": "成長資金需求不會持續傷害每股價值",
+              "status": "invalidated",
+              "label": "失效",
+              "evidence": "2026-06-30 FCF USD -93.8M（連續 8 季為負）；稀釋股數 YoY +234.3%。",
+              "invalidation": "FCF 連續至少 4 季為負，或稀釋股數 YoY ≥ 20%。"
+            }
+          ]
+        },
+        "comparison": {
+          "status": "unchanged",
+          "notify": false,
+          "label": "沒有需通知的實質變化",
+          "reasons": []
+        }
+      },
       "META": {
         "ticker": "META",
         "position": "watchlist",
@@ -2287,6 +2287,13 @@
     }
   },
   "history": [
+    {
+      "snapshot_id": "69b5d234f388c3e2",
+      "captured_at": "2026-11-13T03:57:26+08:00",
+      "source_date": "2026-11-13",
+      "notify_count": 0,
+      "notifications": []
+    },
     {
       "snapshot_id": "e199b35c268f6057",
       "captured_at": "2026-11-12T03:46:10+08:00",

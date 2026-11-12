@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-12",
+  "generated_at": "2026-11-13",
   "source_dates": {
-    "event_calendar": "2026-11-12",
+    "event_calendar": "2026-11-13",
     "quarterly_financials": "2026-11-05T03:38:29+00:00",
     "forward_guidance": "2026-08-16",
     "guidance_history": "2026-08-16",
@@ -17,291 +17,27 @@
   },
   "tracked_count": 14,
   "holding_count": 8,
-  "preparation_due_count": 2,
-  "post_review_due_count": 6,
+  "preparation_due_count": 1,
+  "post_review_due_count": 5,
   "pending_guidance_company_count": 11,
-  "default_ticker": "COHR",
+  "default_ticker": "NVDA",
   "companies": [
-    {
-      "ticker": "COHR",
-      "data_ticker": "COHR",
-      "name": "Coherent",
-      "position": "holding",
-      "attention_score": 216,
-      "phase": "post_review_due",
-      "phase_label": "財報後 14 天核對期",
-      "next_earnings": {
-        "date": "2027-02-03",
-        "days_until": 83,
-        "confidence": "estimated",
-        "source_label": "Yahoo Finance 行事曆",
-        "source_url": "https://finance.yahoo.com/quote/COHR/calendar/",
-        "source_status": "fresh",
-        "last_success_at": "2026-11-12"
-      },
-      "pre_event": {
-        "preparation_due": false,
-        "guidance": {
-          "status": "available",
-          "rows": [
-            {
-              "period": "FY2027 Q1",
-              "metric": "營收",
-              "low": 2.2,
-              "high": 2.4,
-              "unit": "USD bn",
-              "actual": null,
-              "source_date": "2026-08-12",
-              "source_url": "https://www.sec.gov/Archives/edgar/data/820318/000119312526346860/d128030dex991.htm"
-            },
-            {
-              "period": "FY2027 Q1",
-              "metric": "Non-GAAP 毛利率",
-              "low": 39.5,
-              "high": 41.5,
-              "unit": "%",
-              "actual": null,
-              "source_date": "2026-08-12",
-              "source_url": "https://www.sec.gov/Archives/edgar/data/820318/000119312526346860/d128030dex991.htm"
-            },
-            {
-              "period": "FY2027 Q1",
-              "metric": "Non-GAAP 稀釋 EPS",
-              "low": 1.85,
-              "high": 2.05,
-              "unit": "USD/share",
-              "actual": null,
-              "source_date": "2026-08-12",
-              "source_url": "https://www.sec.gov/Archives/edgar/data/820318/000119312526346860/d128030dex991.htm"
-            }
-          ],
-          "note": null,
-          "source_date": null,
-          "source_url": null
-        },
-        "checkpoints": [
-          {
-            "topic": "管理層指引",
-            "question": "實際結果是否落在 FY2027 Q1 的官方指引區間？",
-            "why": "指引只能與相同期間、相同口徑的實績比較。"
-          },
-          {
-            "topic": "營運連續性",
-            "question": "營收、毛利率與營業利益率是否延續八季方向？",
-            "why": "單季驚喜可能只是季節性，需同時比較 QoQ 與 YoY。"
-          },
-          {
-            "topic": "現金與每股品質",
-            "question": "自由現金流是否改善，稀釋股數是否跨越 10% 風險門檻？",
-            "why": "成長若沒有轉成現金或被稀釋，股東實際受益可能下降。"
-          },
-          {
-            "topic": "論點：獲利改善能轉化為 FCF 與每股價值",
-            "question": "本季證據是否仍命中／接近失效條件：FCF 連續至少 4 季為負，或稀釋股數 YoY ≥ 10%。",
-            "why": "2026-06-30 FCF USD -486.2M（連續 5 季為負）；稀釋股數缺值。"
-          }
-        ],
-        "thesis": {
-          "status": "partial-invalidated",
-          "label": "部分失效",
-          "previous_status": "partial-invalidated",
-          "previous_label": "部分失效",
-          "changed_from_previous_quarter": false,
-          "counts": {
-            "supported": 2,
-            "verify": 0,
-            "invalidated": 1
-          },
-          "items": [
-            {
-              "id": "ai_optics_growth",
-              "title": "AI 光通訊需求推動營收成長",
-              "status": "supported",
-              "label": "支持",
-              "previous_status": "supported",
-              "previous_label": "支持",
-              "changed_from_previous_quarter": false,
-              "evidence": "2026-06-30 營收 USD 2,045.5M，YoY +33.7%；連續 8 季上升。",
-              "invalidation": "營收 YoY ≤ 0%，或營收連續至少 3 季下降。"
-            },
-            {
-              "id": "margin_recovery",
-              "title": "產品組合與整併綜效帶動毛利率改善",
-              "status": "supported",
-              "label": "支持",
-              "previous_status": "supported",
-              "previous_label": "支持",
-              "changed_from_previous_quarter": false,
-              "evidence": "2026-06-30 毛利率 38.5%，YoY +2.8pp；連續 3 季上升。",
-              "invalidation": "毛利率低於 30%，或連續至少 3 季顯著下降。"
-            },
-            {
-              "id": "cash_deleveraging",
-              "title": "獲利改善能轉化為 FCF 與每股價值",
-              "status": "invalidated",
-              "label": "失效",
-              "previous_status": "invalidated",
-              "previous_label": "失效",
-              "changed_from_previous_quarter": false,
-              "evidence": "2026-06-30 FCF USD -486.2M（連續 5 季為負）；稀釋股數缺值。",
-              "invalidation": "FCF 連續至少 4 季為負，或稀釋股數 YoY ≥ 10%。"
-            }
-          ],
-          "master_report": "30_Analysis/COHR_Master_Investment_Thesis_2026.md"
-        }
-      },
-      "post_event": {
-        "review_due": true,
-        "latest_result": {
-          "period_end": "2026-09-30",
-          "filing_date": "2026-11-04",
-          "form": "10-Q",
-          "accession": "0000820318-26-000023",
-          "source_url": "https://www.sec.gov/Archives/edgar/data/820318/000082031826000023/0000820318-26-000023-index.html",
-          "quality_notes": [],
-          "currency": "USD",
-          "source_basis": "SEC Company Facts；金額為 USD。",
-          "days_since_filing": 8,
-          "review_due": true
-        },
-        "kpis": [
-          {
-            "metric": "revenue",
-            "label": "營收",
-            "display": "amount",
-            "value": 2370324000.0,
-            "qoq": 15.878062099218159,
-            "yoy": 49.88977967317112,
-            "state": "improved",
-            "interpretation": "營收 YoY +49.9%"
-          },
-          {
-            "metric": "gross_margin",
-            "label": "毛利率",
-            "display": "percent",
-            "value": 0.3914085163041002,
-            "qoq": 0.6631052435269902,
-            "yoy": 2.514567465586681,
-            "state": "improved",
-            "interpretation": "毛利率 YoY +2.5pp"
-          },
-          {
-            "metric": "operating_margin",
-            "label": "營業利益率",
-            "display": "percent",
-            "value": null,
-            "qoq": null,
-            "yoy": null,
-            "state": "unknown",
-            "interpretation": "缺值，不能判斷"
-          },
-          {
-            "metric": "free_cash_flow",
-            "label": "自由現金流",
-            "display": "amount",
-            "value": -868228000.0,
-            "qoq": null,
-            "yoy": null,
-            "state": "risk",
-            "interpretation": "自由現金流為負"
-          },
-          {
-            "metric": "diluted_shares",
-            "label": "稀釋股數",
-            "display": "shares",
-            "value": 202026000.0,
-            "qoq": null,
-            "yoy": 5.948060665813593,
-            "state": "stable",
-            "interpretation": "稀釋股數 YoY +5.9%"
-          }
-        ],
-        "completed_guidance": {
-          "status": "available",
-          "note": null,
-          "review_url": null,
-          "record": {
-            "period": "FY2026 Q4",
-            "period_end": "2026-06-30",
-            "low": 1.91,
-            "high": 2.05,
-            "actual": 2.045533,
-            "guidance_date": "2026-05-06",
-            "guidance_source_url": "https://www.coherent.com/content/dam/coherent/site/en/documents/investors/investor-presentations/2026/may-6/investor-presentation-20260506.pdf",
-            "metric": "營收",
-            "unit": "USD bn",
-            "comparison_basis": "季度開始前公司正式發布的原始營收區間；後續修正不覆蓋原值。",
-            "outcome": "within",
-            "outcome_label": "落在區間",
-            "vs_midpoint_pct": 3.30974747474746
-          }
-        },
-        "thesis": {
-          "status": "partial-invalidated",
-          "label": "部分失效",
-          "previous_status": "partial-invalidated",
-          "previous_label": "部分失效",
-          "changed_from_previous_quarter": false,
-          "counts": {
-            "supported": 2,
-            "verify": 0,
-            "invalidated": 1
-          },
-          "items": [
-            {
-              "id": "ai_optics_growth",
-              "title": "AI 光通訊需求推動營收成長",
-              "status": "supported",
-              "label": "支持",
-              "previous_status": "supported",
-              "previous_label": "支持",
-              "changed_from_previous_quarter": false,
-              "evidence": "2026-06-30 營收 USD 2,045.5M，YoY +33.7%；連續 8 季上升。",
-              "invalidation": "營收 YoY ≤ 0%，或營收連續至少 3 季下降。"
-            },
-            {
-              "id": "margin_recovery",
-              "title": "產品組合與整併綜效帶動毛利率改善",
-              "status": "supported",
-              "label": "支持",
-              "previous_status": "supported",
-              "previous_label": "支持",
-              "changed_from_previous_quarter": false,
-              "evidence": "2026-06-30 毛利率 38.5%，YoY +2.8pp；連續 3 季上升。",
-              "invalidation": "毛利率低於 30%，或連續至少 3 季顯著下降。"
-            },
-            {
-              "id": "cash_deleveraging",
-              "title": "獲利改善能轉化為 FCF 與每股價值",
-              "status": "invalidated",
-              "label": "失效",
-              "previous_status": "invalidated",
-              "previous_label": "失效",
-              "changed_from_previous_quarter": false,
-              "evidence": "2026-06-30 FCF USD -486.2M（連續 5 季為負）；稀釋股數缺值。",
-              "invalidation": "FCF 連續至少 4 季為負，或稀釋股數 YoY ≥ 10%。"
-            }
-          ],
-          "master_report": "30_Analysis/COHR_Master_Investment_Thesis_2026.md"
-        }
-      }
-    },
     {
       "ticker": "NVDA",
       "data_ticker": "NVDA",
       "name": "NVIDIA",
       "position": "holding",
-      "attention_score": 215,
+      "attention_score": 216,
       "phase": "preparation_due",
       "phase_label": "財報前 7 天準備期",
       "next_earnings": {
         "date": "2026-11-17",
-        "days_until": 5,
+        "days_until": 4,
         "confidence": "estimated",
         "source_label": "Yahoo Finance 行事曆",
         "source_url": "https://finance.yahoo.com/quote/NVDA/calendar/",
         "source_status": "fresh",
-        "last_success_at": "2026-11-12"
+        "last_success_at": "2026-11-13"
       },
       "pre_event": {
         "preparation_due": true,
@@ -415,7 +151,7 @@
           "quality_notes": [],
           "currency": "USD",
           "source_basis": "SEC Company Facts；金額為 USD。",
-          "days_since_filing": 78,
+          "days_since_filing": 79,
           "review_due": false
         },
         "kpis": [
@@ -541,21 +277,285 @@
       }
     },
     {
+      "ticker": "COHR",
+      "data_ticker": "COHR",
+      "name": "Coherent",
+      "position": "holding",
+      "attention_score": 215,
+      "phase": "post_review_due",
+      "phase_label": "財報後 14 天核對期",
+      "next_earnings": {
+        "date": "2027-02-03",
+        "days_until": 82,
+        "confidence": "estimated",
+        "source_label": "Yahoo Finance 行事曆",
+        "source_url": "https://finance.yahoo.com/quote/COHR/calendar/",
+        "source_status": "fresh",
+        "last_success_at": "2026-11-13"
+      },
+      "pre_event": {
+        "preparation_due": false,
+        "guidance": {
+          "status": "available",
+          "rows": [
+            {
+              "period": "FY2027 Q1",
+              "metric": "營收",
+              "low": 2.2,
+              "high": 2.4,
+              "unit": "USD bn",
+              "actual": null,
+              "source_date": "2026-08-12",
+              "source_url": "https://www.sec.gov/Archives/edgar/data/820318/000119312526346860/d128030dex991.htm"
+            },
+            {
+              "period": "FY2027 Q1",
+              "metric": "Non-GAAP 毛利率",
+              "low": 39.5,
+              "high": 41.5,
+              "unit": "%",
+              "actual": null,
+              "source_date": "2026-08-12",
+              "source_url": "https://www.sec.gov/Archives/edgar/data/820318/000119312526346860/d128030dex991.htm"
+            },
+            {
+              "period": "FY2027 Q1",
+              "metric": "Non-GAAP 稀釋 EPS",
+              "low": 1.85,
+              "high": 2.05,
+              "unit": "USD/share",
+              "actual": null,
+              "source_date": "2026-08-12",
+              "source_url": "https://www.sec.gov/Archives/edgar/data/820318/000119312526346860/d128030dex991.htm"
+            }
+          ],
+          "note": null,
+          "source_date": null,
+          "source_url": null
+        },
+        "checkpoints": [
+          {
+            "topic": "管理層指引",
+            "question": "實際結果是否落在 FY2027 Q1 的官方指引區間？",
+            "why": "指引只能與相同期間、相同口徑的實績比較。"
+          },
+          {
+            "topic": "營運連續性",
+            "question": "營收、毛利率與營業利益率是否延續八季方向？",
+            "why": "單季驚喜可能只是季節性，需同時比較 QoQ 與 YoY。"
+          },
+          {
+            "topic": "現金與每股品質",
+            "question": "自由現金流是否改善，稀釋股數是否跨越 10% 風險門檻？",
+            "why": "成長若沒有轉成現金或被稀釋，股東實際受益可能下降。"
+          },
+          {
+            "topic": "論點：獲利改善能轉化為 FCF 與每股價值",
+            "question": "本季證據是否仍命中／接近失效條件：FCF 連續至少 4 季為負，或稀釋股數 YoY ≥ 10%。",
+            "why": "2026-06-30 FCF USD -486.2M（連續 5 季為負）；稀釋股數缺值。"
+          }
+        ],
+        "thesis": {
+          "status": "partial-invalidated",
+          "label": "部分失效",
+          "previous_status": "partial-invalidated",
+          "previous_label": "部分失效",
+          "changed_from_previous_quarter": false,
+          "counts": {
+            "supported": 2,
+            "verify": 0,
+            "invalidated": 1
+          },
+          "items": [
+            {
+              "id": "ai_optics_growth",
+              "title": "AI 光通訊需求推動營收成長",
+              "status": "supported",
+              "label": "支持",
+              "previous_status": "supported",
+              "previous_label": "支持",
+              "changed_from_previous_quarter": false,
+              "evidence": "2026-06-30 營收 USD 2,045.5M，YoY +33.7%；連續 8 季上升。",
+              "invalidation": "營收 YoY ≤ 0%，或營收連續至少 3 季下降。"
+            },
+            {
+              "id": "margin_recovery",
+              "title": "產品組合與整併綜效帶動毛利率改善",
+              "status": "supported",
+              "label": "支持",
+              "previous_status": "supported",
+              "previous_label": "支持",
+              "changed_from_previous_quarter": false,
+              "evidence": "2026-06-30 毛利率 38.5%，YoY +2.8pp；連續 3 季上升。",
+              "invalidation": "毛利率低於 30%，或連續至少 3 季顯著下降。"
+            },
+            {
+              "id": "cash_deleveraging",
+              "title": "獲利改善能轉化為 FCF 與每股價值",
+              "status": "invalidated",
+              "label": "失效",
+              "previous_status": "invalidated",
+              "previous_label": "失效",
+              "changed_from_previous_quarter": false,
+              "evidence": "2026-06-30 FCF USD -486.2M（連續 5 季為負）；稀釋股數缺值。",
+              "invalidation": "FCF 連續至少 4 季為負，或稀釋股數 YoY ≥ 10%。"
+            }
+          ],
+          "master_report": "30_Analysis/COHR_Master_Investment_Thesis_2026.md"
+        }
+      },
+      "post_event": {
+        "review_due": true,
+        "latest_result": {
+          "period_end": "2026-09-30",
+          "filing_date": "2026-11-04",
+          "form": "10-Q",
+          "accession": "0000820318-26-000023",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/820318/000082031826000023/0000820318-26-000023-index.html",
+          "quality_notes": [],
+          "currency": "USD",
+          "source_basis": "SEC Company Facts；金額為 USD。",
+          "days_since_filing": 9,
+          "review_due": true
+        },
+        "kpis": [
+          {
+            "metric": "revenue",
+            "label": "營收",
+            "display": "amount",
+            "value": 2370324000.0,
+            "qoq": 15.878062099218159,
+            "yoy": 49.88977967317112,
+            "state": "improved",
+            "interpretation": "營收 YoY +49.9%"
+          },
+          {
+            "metric": "gross_margin",
+            "label": "毛利率",
+            "display": "percent",
+            "value": 0.3914085163041002,
+            "qoq": 0.6631052435269902,
+            "yoy": 2.514567465586681,
+            "state": "improved",
+            "interpretation": "毛利率 YoY +2.5pp"
+          },
+          {
+            "metric": "operating_margin",
+            "label": "營業利益率",
+            "display": "percent",
+            "value": null,
+            "qoq": null,
+            "yoy": null,
+            "state": "unknown",
+            "interpretation": "缺值，不能判斷"
+          },
+          {
+            "metric": "free_cash_flow",
+            "label": "自由現金流",
+            "display": "amount",
+            "value": -868228000.0,
+            "qoq": null,
+            "yoy": null,
+            "state": "risk",
+            "interpretation": "自由現金流為負"
+          },
+          {
+            "metric": "diluted_shares",
+            "label": "稀釋股數",
+            "display": "shares",
+            "value": 202026000.0,
+            "qoq": null,
+            "yoy": 5.948060665813593,
+            "state": "stable",
+            "interpretation": "稀釋股數 YoY +5.9%"
+          }
+        ],
+        "completed_guidance": {
+          "status": "available",
+          "note": null,
+          "review_url": null,
+          "record": {
+            "period": "FY2026 Q4",
+            "period_end": "2026-06-30",
+            "low": 1.91,
+            "high": 2.05,
+            "actual": 2.045533,
+            "guidance_date": "2026-05-06",
+            "guidance_source_url": "https://www.coherent.com/content/dam/coherent/site/en/documents/investors/investor-presentations/2026/may-6/investor-presentation-20260506.pdf",
+            "metric": "營收",
+            "unit": "USD bn",
+            "comparison_basis": "季度開始前公司正式發布的原始營收區間；後續修正不覆蓋原值。",
+            "outcome": "within",
+            "outcome_label": "落在區間",
+            "vs_midpoint_pct": 3.30974747474746
+          }
+        },
+        "thesis": {
+          "status": "partial-invalidated",
+          "label": "部分失效",
+          "previous_status": "partial-invalidated",
+          "previous_label": "部分失效",
+          "changed_from_previous_quarter": false,
+          "counts": {
+            "supported": 2,
+            "verify": 0,
+            "invalidated": 1
+          },
+          "items": [
+            {
+              "id": "ai_optics_growth",
+              "title": "AI 光通訊需求推動營收成長",
+              "status": "supported",
+              "label": "支持",
+              "previous_status": "supported",
+              "previous_label": "支持",
+              "changed_from_previous_quarter": false,
+              "evidence": "2026-06-30 營收 USD 2,045.5M，YoY +33.7%；連續 8 季上升。",
+              "invalidation": "營收 YoY ≤ 0%，或營收連續至少 3 季下降。"
+            },
+            {
+              "id": "margin_recovery",
+              "title": "產品組合與整併綜效帶動毛利率改善",
+              "status": "supported",
+              "label": "支持",
+              "previous_status": "supported",
+              "previous_label": "支持",
+              "changed_from_previous_quarter": false,
+              "evidence": "2026-06-30 毛利率 38.5%，YoY +2.8pp；連續 3 季上升。",
+              "invalidation": "毛利率低於 30%，或連續至少 3 季顯著下降。"
+            },
+            {
+              "id": "cash_deleveraging",
+              "title": "獲利改善能轉化為 FCF 與每股價值",
+              "status": "invalidated",
+              "label": "失效",
+              "previous_status": "invalidated",
+              "previous_label": "失效",
+              "changed_from_previous_quarter": false,
+              "evidence": "2026-06-30 FCF USD -486.2M（連續 5 季為負）；稀釋股數缺值。",
+              "invalidation": "FCF 連續至少 4 季為負，或稀釋股數 YoY ≥ 10%。"
+            }
+          ],
+          "master_report": "30_Analysis/COHR_Master_Investment_Thesis_2026.md"
+        }
+      }
+    },
+    {
       "ticker": "INTC",
       "data_ticker": "INTC",
       "name": "Intel",
       "position": "holding",
-      "attention_score": 211,
+      "attention_score": 210,
       "phase": "post_review_due",
       "phase_label": "財報後 14 天核對期",
       "next_earnings": {
         "date": "2027-01-28",
-        "days_until": 77,
+        "days_until": 76,
         "confidence": "estimated",
         "source_label": "Yahoo Finance 行事曆",
         "source_url": "https://finance.yahoo.com/quote/INTC/calendar/",
         "source_status": "fresh",
-        "last_success_at": "2026-11-12"
+        "last_success_at": "2026-11-13"
       },
       "pre_event": {
         "preparation_due": false,
@@ -659,7 +659,7 @@
           "quality_notes": [],
           "currency": "USD",
           "source_basis": "SEC Company Facts；金額為 USD。",
-          "days_since_filing": 13,
+          "days_since_filing": 14,
           "review_due": true
         },
         "kpis": [
@@ -785,240 +785,21 @@
       }
     },
     {
-      "ticker": "GOOG",
-      "data_ticker": "GOOGL",
-      "name": "Alphabet",
-      "position": "holding",
-      "attention_score": 210,
-      "phase": "post_review_due",
-      "phase_label": "財報後 14 天核對期",
-      "next_earnings": {
-        "date": "2026-10-28",
-        "days_until": -15,
-        "confidence": "estimated",
-        "source_label": "Yahoo Finance 行事曆",
-        "source_url": "https://finance.yahoo.com/quote/GOOG/calendar/",
-        "source_status": "fresh",
-        "last_success_at": "2026-11-12"
-      },
-      "pre_event": {
-        "preparation_due": false,
-        "guidance": {
-          "status": "no_comparable_numeric_guidance",
-          "rows": [],
-          "note": "Alphabet 的季度展望以趨勢與投資評論為主，未提供下一季營收／EPS 區間；不以市場共識替代。",
-          "source_date": "2026-07-22",
-          "source_url": "https://abc.xyz/investor/"
-        },
-        "checkpoints": [
-          {
-            "topic": "管理層指引",
-            "question": "公司是否首次提供可比較的量化指引，或更新原有全年目標？",
-            "why": "沒有量化區間時不計命中率，也不以市場共識補值。"
-          },
-          {
-            "topic": "營運連續性",
-            "question": "營收、毛利率與營業利益率是否延續八季方向？",
-            "why": "單季驚喜可能只是季節性，需同時比較 QoQ 與 YoY。"
-          },
-          {
-            "topic": "現金與每股品質",
-            "question": "自由現金流是否改善，稀釋股數是否跨越 10% 風險門檻？",
-            "why": "成長若沒有轉成現金或被稀釋，股東實際受益可能下降。"
-          },
-          {
-            "topic": "論點：廣告與雲端組合維持高營業利益率",
-            "question": "本季證據是否仍命中／接近失效條件：營業利益率低於 20%，或連續至少 3 季顯著下降。",
-            "why": "2026-09-30 營業利益率 31.8%，YoY +1.3pp；連續 3 季下降。"
-          }
-        ],
-        "thesis": {
-          "status": "partial-invalidated",
-          "label": "部分失效",
-          "previous_status": "maintained",
-          "previous_label": "論點維持",
-          "changed_from_previous_quarter": true,
-          "counts": {
-            "supported": 1,
-            "verify": 1,
-            "invalidated": 1
-          },
-          "items": [
-            {
-              "id": "search_cloud_ai",
-              "title": "搜尋、Cloud 與 AI 產品維持成長",
-              "status": "supported",
-              "label": "支持",
-              "previous_status": "supported",
-              "previous_label": "支持",
-              "changed_from_previous_quarter": false,
-              "evidence": "2026-09-30 營收 USD 127,577.0M，YoY +24.7%；連續 3 季上升。",
-              "invalidation": "營收 YoY ≤ 0%，或營收連續至少 3 季下降。"
-            },
-            {
-              "id": "advertising_moat",
-              "title": "廣告與雲端組合維持高營業利益率",
-              "status": "invalidated",
-              "label": "失效",
-              "previous_status": "supported",
-              "previous_label": "支持",
-              "changed_from_previous_quarter": true,
-              "evidence": "2026-09-30 營業利益率 31.8%，YoY +1.3pp；連續 3 季下降。",
-              "invalidation": "營業利益率低於 20%，或連續至少 3 季顯著下降。"
-            },
-            {
-              "id": "cash_per_share",
-              "title": "高 FCF 與回購持續累積每股價值",
-              "status": "verify",
-              "label": "待驗證",
-              "previous_status": "verify",
-              "previous_label": "待驗證",
-              "changed_from_previous_quarter": false,
-              "evidence": "2026-09-30 FCF USD -9,065.0M（連續 2 季為負）；稀釋股數 YoY +1.4%。",
-              "invalidation": "FCF 連續至少 4 季為負，或稀釋股數 YoY ≥ 5%。"
-            }
-          ],
-          "master_report": "30_Analysis/GOOGL_Master_Investment_Thesis_2026.md"
-        }
-      },
-      "post_event": {
-        "review_due": true,
-        "latest_result": {
-          "period_end": "2026-09-30",
-          "filing_date": "2026-10-29",
-          "form": "10-Q",
-          "accession": "0001652044-26-000084",
-          "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000084/0001652044-26-000084-index.html",
-          "quality_notes": [],
-          "currency": "USD",
-          "source_basis": "SEC Company Facts；金額為 USD。",
-          "days_since_filing": 14,
-          "review_due": true
-        },
-        "kpis": [
-          {
-            "metric": "revenue",
-            "label": "營收",
-            "display": "amount",
-            "value": 127577000000.0,
-            "qoq": 6.495208521152618,
-            "yoy": 24.652648857796102,
-            "state": "improved",
-            "interpretation": "營收 YoY +24.7%"
-          },
-          {
-            "metric": "gross_margin",
-            "label": "毛利率",
-            "display": "percent",
-            "value": 0.5969571317714008,
-            "qoq": -1.9532567383829802,
-            "yoy": 0.1164428588081412,
-            "state": "stable",
-            "interpretation": "毛利率 YoY +0.1pp"
-          },
-          {
-            "metric": "operating_margin",
-            "label": "營業利益率",
-            "display": "percent",
-            "value": 0.3180510593602295,
-            "qoq": -2.2277499189304715,
-            "yoy": 1.292921776407524,
-            "state": "stable",
-            "interpretation": "營業利益率 YoY +1.3pp"
-          },
-          {
-            "metric": "free_cash_flow",
-            "label": "自由現金流",
-            "display": "amount",
-            "value": -9065000000.0,
-            "qoq": null,
-            "yoy": null,
-            "state": "risk",
-            "interpretation": "自由現金流為負"
-          },
-          {
-            "metric": "diluted_shares",
-            "label": "稀釋股數",
-            "display": "shares",
-            "value": 12368000000.0,
-            "qoq": 0.47932407181736636,
-            "yoy": 1.3521265262640414,
-            "state": "stable",
-            "interpretation": "稀釋股數 YoY +1.4%"
-          }
-        ],
-        "completed_guidance": {
-          "status": "no_consistent_numeric_guidance",
-          "note": "Alphabet 最近三年的季度展望以趨勢、投資與費用評論為主，未持續提供下一季總營收／EPS 區間。",
-          "review_url": "https://abc.xyz/investor/",
-          "record": null
-        },
-        "thesis": {
-          "status": "partial-invalidated",
-          "label": "部分失效",
-          "previous_status": "maintained",
-          "previous_label": "論點維持",
-          "changed_from_previous_quarter": true,
-          "counts": {
-            "supported": 1,
-            "verify": 1,
-            "invalidated": 1
-          },
-          "items": [
-            {
-              "id": "search_cloud_ai",
-              "title": "搜尋、Cloud 與 AI 產品維持成長",
-              "status": "supported",
-              "label": "支持",
-              "previous_status": "supported",
-              "previous_label": "支持",
-              "changed_from_previous_quarter": false,
-              "evidence": "2026-09-30 營收 USD 127,577.0M，YoY +24.7%；連續 3 季上升。",
-              "invalidation": "營收 YoY ≤ 0%，或營收連續至少 3 季下降。"
-            },
-            {
-              "id": "advertising_moat",
-              "title": "廣告與雲端組合維持高營業利益率",
-              "status": "invalidated",
-              "label": "失效",
-              "previous_status": "supported",
-              "previous_label": "支持",
-              "changed_from_previous_quarter": true,
-              "evidence": "2026-09-30 營業利益率 31.8%，YoY +1.3pp；連續 3 季下降。",
-              "invalidation": "營業利益率低於 20%，或連續至少 3 季顯著下降。"
-            },
-            {
-              "id": "cash_per_share",
-              "title": "高 FCF 與回購持續累積每股價值",
-              "status": "verify",
-              "label": "待驗證",
-              "previous_status": "verify",
-              "previous_label": "待驗證",
-              "changed_from_previous_quarter": false,
-              "evidence": "2026-09-30 FCF USD -9,065.0M（連續 2 季為負）；稀釋股數 YoY +1.4%。",
-              "invalidation": "FCF 連續至少 4 季為負，或稀釋股數 YoY ≥ 5%。"
-            }
-          ],
-          "master_report": "30_Analysis/GOOGL_Master_Investment_Thesis_2026.md"
-        }
-      }
-    },
-    {
       "ticker": "ARM",
       "data_ticker": "ARM",
       "name": "Arm",
       "position": "holding",
-      "attention_score": 186,
+      "attention_score": 185,
       "phase": "post_review_due",
       "phase_label": "財報後 14 天核對期",
       "next_earnings": {
         "date": "2027-02-03",
-        "days_until": 83,
+        "days_until": 82,
         "confidence": "estimated",
         "source_label": "Yahoo Finance 行事曆",
         "source_url": "https://finance.yahoo.com/quote/ARM/calendar/",
         "source_status": "fresh",
-        "last_success_at": "2026-11-12"
+        "last_success_at": "2026-11-13"
       },
       "pre_event": {
         "preparation_due": false,
@@ -1132,7 +913,7 @@
           "quality_notes": [],
           "currency": "USD",
           "source_basis": "SEC Company Facts；金額為 USD。",
-          "days_since_filing": 8,
+          "days_since_filing": 9,
           "review_due": true
         },
         "kpis": [
@@ -1258,47 +1039,36 @@
       }
     },
     {
-      "ticker": "ONDS",
-      "data_ticker": "ONDS",
-      "name": "Ondas",
-      "position": "watchlist",
-      "attention_score": 170,
-      "phase": "preparation_due",
-      "phase_label": "財報前 7 天準備期",
+      "ticker": "GOOG",
+      "data_ticker": "GOOGL",
+      "name": "Alphabet",
+      "position": "holding",
+      "attention_score": 130,
+      "phase": "scheduled_later",
+      "phase_label": "已知日期，尚未進入 30 天",
       "next_earnings": {
-        "date": "2026-11-12",
-        "days_until": 0,
+        "date": "2026-10-28",
+        "days_until": -16,
         "confidence": "estimated",
         "source_label": "Yahoo Finance 行事曆",
-        "source_url": "https://finance.yahoo.com/quote/ONDS/calendar/",
+        "source_url": "https://finance.yahoo.com/quote/GOOG/calendar/",
         "source_status": "fresh",
-        "last_success_at": "2026-11-12"
+        "last_success_at": "2026-11-13"
       },
       "pre_event": {
-        "preparation_due": true,
+        "preparation_due": false,
         "guidance": {
-          "status": "available",
-          "rows": [
-            {
-              "period": "FY2026",
-              "metric": "營收（至少）",
-              "low": 390.0,
-              "high": null,
-              "unit": "USD m",
-              "actual": null,
-              "source_date": "2026-05-14",
-              "source_url": "https://ir.ondas.com/press-releases/detail/306/ondas-reports-record-first-quarter-2026-financial-results"
-            }
-          ],
-          "note": null,
-          "source_date": null,
-          "source_url": null
+          "status": "no_comparable_numeric_guidance",
+          "rows": [],
+          "note": "Alphabet 的季度展望以趨勢與投資評論為主，未提供下一季營收／EPS 區間；不以市場共識替代。",
+          "source_date": "2026-07-22",
+          "source_url": "https://abc.xyz/investor/"
         },
         "checkpoints": [
           {
             "topic": "管理層指引",
-            "question": "實際結果是否落在 FY2026 的官方指引區間？",
-            "why": "指引只能與相同期間、相同口徑的實績比較。"
+            "question": "公司是否首次提供可比較的量化指引，或更新原有全年目標？",
+            "why": "沒有量化區間時不計命中率，也不以市場共識補值。"
           },
           {
             "topic": "營運連續性",
@@ -1311,72 +1081,72 @@
             "why": "成長若沒有轉成現金或被稀釋，股東實際受益可能下降。"
           },
           {
-            "topic": "論點：商業化最終能轉化為營業獲利",
-            "question": "本季證據是否仍命中／接近失效條件：營業利益率低於 -50%，或連續至少 4 季為負。",
-            "why": "2026-06-30 營業利益率 -194.5%，YoY -47.1pp；連續 3 季下降。"
+            "topic": "論點：廣告與雲端組合維持高營業利益率",
+            "question": "本季證據是否仍命中／接近失效條件：營業利益率低於 20%，或連續至少 3 季顯著下降。",
+            "why": "2026-09-30 營業利益率 31.8%，YoY +1.3pp；連續 3 季下降。"
           }
         ],
         "thesis": {
-          "status": "major-invalidated",
-          "label": "重大失效",
-          "previous_status": "major-invalidated",
-          "previous_label": "重大失效",
-          "changed_from_previous_quarter": false,
+          "status": "partial-invalidated",
+          "label": "部分失效",
+          "previous_status": "maintained",
+          "previous_label": "論點維持",
+          "changed_from_previous_quarter": true,
           "counts": {
             "supported": 1,
-            "verify": 0,
-            "invalidated": 2
+            "verify": 1,
+            "invalidated": 1
           },
           "items": [
             {
-              "id": "autonomous_growth",
-              "title": "自主無人機與反無人機業務進入規模成長",
+              "id": "search_cloud_ai",
+              "title": "搜尋、Cloud 與 AI 產品維持成長",
               "status": "supported",
               "label": "支持",
               "previous_status": "supported",
               "previous_label": "支持",
               "changed_from_previous_quarter": false,
-              "evidence": "2026-06-30 營收 USD 83.8M，YoY +1,235.4%；連續 8 季上升。",
+              "evidence": "2026-09-30 營收 USD 127,577.0M，YoY +24.7%；連續 3 季上升。",
               "invalidation": "營收 YoY ≤ 0%，或營收連續至少 3 季下降。"
             },
             {
-              "id": "commercial_profitability",
-              "title": "商業化最終能轉化為營業獲利",
+              "id": "advertising_moat",
+              "title": "廣告與雲端組合維持高營業利益率",
               "status": "invalidated",
               "label": "失效",
-              "previous_status": "invalidated",
-              "previous_label": "失效",
-              "changed_from_previous_quarter": false,
-              "evidence": "2026-06-30 營業利益率 -194.5%，YoY -47.1pp；連續 3 季下降。",
-              "invalidation": "營業利益率低於 -50%，或連續至少 4 季為負。"
+              "previous_status": "supported",
+              "previous_label": "支持",
+              "changed_from_previous_quarter": true,
+              "evidence": "2026-09-30 營業利益率 31.8%，YoY +1.3pp；連續 3 季下降。",
+              "invalidation": "營業利益率低於 20%，或連續至少 3 季顯著下降。"
             },
             {
-              "id": "funding_per_share",
-              "title": "成長資金需求不會持續傷害每股價值",
-              "status": "invalidated",
-              "label": "失效",
-              "previous_status": "invalidated",
-              "previous_label": "失效",
+              "id": "cash_per_share",
+              "title": "高 FCF 與回購持續累積每股價值",
+              "status": "verify",
+              "label": "待驗證",
+              "previous_status": "verify",
+              "previous_label": "待驗證",
               "changed_from_previous_quarter": false,
-              "evidence": "2026-06-30 FCF USD -93.8M（連續 8 季為負）；稀釋股數 YoY +234.3%。",
-              "invalidation": "FCF 連續至少 4 季為負，或稀釋股數 YoY ≥ 20%。"
+              "evidence": "2026-09-30 FCF USD -9,065.0M（連續 2 季為負）；稀釋股數 YoY +1.4%。",
+              "invalidation": "FCF 連續至少 4 季為負，或稀釋股數 YoY ≥ 5%。"
             }
           ],
-          "master_report": "30_Analysis/ONDS_Master_Investment_Thesis_2026.md"
+          "master_report": "30_Analysis/GOOGL_Master_Investment_Thesis_2026.md"
         }
       },
       "post_event": {
         "review_due": false,
         "latest_result": {
-          "period_end": "2026-06-30",
-          "filing_date": "2026-08-13",
+          "period_end": "2026-09-30",
+          "filing_date": "2026-10-29",
           "form": "10-Q",
-          "accession": "0001193125-26-349288",
-          "source_url": "https://www.sec.gov/Archives/edgar/data/1646188/000119312526349288/0001193125-26-349288-index.html",
+          "accession": "0001652044-26-000084",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000084/0001652044-26-000084-index.html",
           "quality_notes": [],
           "currency": "USD",
           "source_basis": "SEC Company Facts；金額為 USD。",
-          "days_since_filing": 91,
+          "days_since_filing": 15,
           "review_due": false
         },
         "kpis": [
@@ -1384,37 +1154,37 @@
             "metric": "revenue",
             "label": "營收",
             "display": "amount",
-            "value": 83772000.0,
-            "qoq": 67.1361877020071,
-            "yoy": 1235.4375896700142,
+            "value": 127577000000.0,
+            "qoq": 6.495208521152618,
+            "yoy": 24.652648857796102,
             "state": "improved",
-            "interpretation": "營收 YoY +1235.4%"
+            "interpretation": "營收 YoY +24.7%"
           },
           {
             "metric": "gross_margin",
             "label": "毛利率",
             "display": "percent",
-            "value": 0.43130162822900253,
-            "qoq": -6.065799030178237,
-            "yoy": -9.9863683424114,
-            "state": "risk",
-            "interpretation": "毛利率 YoY -10.0pp"
+            "value": 0.5969571317714008,
+            "qoq": -1.9532567383829802,
+            "yoy": 0.1164428588081412,
+            "state": "stable",
+            "interpretation": "毛利率 YoY +0.1pp"
           },
           {
             "metric": "operating_margin",
             "label": "營業利益率",
             "display": "percent",
-            "value": -1.945112925559853,
-            "qoq": -109.37702018058127,
-            "yoy": -47.05393562947484,
-            "state": "risk",
-            "interpretation": "營業利益率 YoY -47.1pp"
+            "value": 0.3180510593602295,
+            "qoq": -2.2277499189304715,
+            "yoy": 1.292921776407524,
+            "state": "stable",
+            "interpretation": "營業利益率 YoY +1.3pp"
           },
           {
             "metric": "free_cash_flow",
             "label": "自由現金流",
             "display": "amount",
-            "value": -93842000.0,
+            "value": -9065000000.0,
             "qoq": null,
             "yoy": null,
             "state": "risk",
@@ -1424,66 +1194,66 @@
             "metric": "diluted_shares",
             "label": "稀釋股數",
             "display": "shares",
-            "value": 503593000.0,
-            "qoq": null,
-            "yoy": 234.27346285835662,
-            "state": "risk",
-            "interpretation": "稀釋股數 YoY +234.3%"
+            "value": 12368000000.0,
+            "qoq": 0.47932407181736636,
+            "yoy": 1.3521265262640414,
+            "state": "stable",
+            "interpretation": "稀釋股數 YoY +1.4%"
           }
         ],
         "completed_guidance": {
-          "status": "different_cadence",
-          "note": "Ondas 的數字展望主要是年度最低營收目標，且近年併購使基準快速改變；未形成 3 年一致季度樣本前不計命中率。",
-          "review_url": "https://ir.ondas.com/press-releases",
+          "status": "no_consistent_numeric_guidance",
+          "note": "Alphabet 最近三年的季度展望以趨勢、投資與費用評論為主，未持續提供下一季總營收／EPS 區間。",
+          "review_url": "https://abc.xyz/investor/",
           "record": null
         },
         "thesis": {
-          "status": "major-invalidated",
-          "label": "重大失效",
-          "previous_status": "major-invalidated",
-          "previous_label": "重大失效",
-          "changed_from_previous_quarter": false,
+          "status": "partial-invalidated",
+          "label": "部分失效",
+          "previous_status": "maintained",
+          "previous_label": "論點維持",
+          "changed_from_previous_quarter": true,
           "counts": {
             "supported": 1,
-            "verify": 0,
-            "invalidated": 2
+            "verify": 1,
+            "invalidated": 1
           },
           "items": [
             {
-              "id": "autonomous_growth",
-              "title": "自主無人機與反無人機業務進入規模成長",
+              "id": "search_cloud_ai",
+              "title": "搜尋、Cloud 與 AI 產品維持成長",
               "status": "supported",
               "label": "支持",
               "previous_status": "supported",
               "previous_label": "支持",
               "changed_from_previous_quarter": false,
-              "evidence": "2026-06-30 營收 USD 83.8M，YoY +1,235.4%；連續 8 季上升。",
+              "evidence": "2026-09-30 營收 USD 127,577.0M，YoY +24.7%；連續 3 季上升。",
               "invalidation": "營收 YoY ≤ 0%，或營收連續至少 3 季下降。"
             },
             {
-              "id": "commercial_profitability",
-              "title": "商業化最終能轉化為營業獲利",
+              "id": "advertising_moat",
+              "title": "廣告與雲端組合維持高營業利益率",
               "status": "invalidated",
               "label": "失效",
-              "previous_status": "invalidated",
-              "previous_label": "失效",
-              "changed_from_previous_quarter": false,
-              "evidence": "2026-06-30 營業利益率 -194.5%，YoY -47.1pp；連續 3 季下降。",
-              "invalidation": "營業利益率低於 -50%，或連續至少 4 季為負。"
+              "previous_status": "supported",
+              "previous_label": "支持",
+              "changed_from_previous_quarter": true,
+              "evidence": "2026-09-30 營業利益率 31.8%，YoY +1.3pp；連續 3 季下降。",
+              "invalidation": "營業利益率低於 20%，或連續至少 3 季顯著下降。"
             },
             {
-              "id": "funding_per_share",
-              "title": "成長資金需求不會持續傷害每股價值",
-              "status": "invalidated",
-              "label": "失效",
-              "previous_status": "invalidated",
-              "previous_label": "失效",
+              "id": "cash_per_share",
+              "title": "高 FCF 與回購持續累積每股價值",
+              "status": "verify",
+              "label": "待驗證",
+              "previous_status": "verify",
+              "previous_label": "待驗證",
               "changed_from_previous_quarter": false,
-              "evidence": "2026-06-30 FCF USD -93.8M（連續 8 季為負）；稀釋股數 YoY +234.3%。",
-              "invalidation": "FCF 連續至少 4 季為負，或稀釋股數 YoY ≥ 20%。"
+              "evidence": "2026-09-30 FCF USD -9,065.0M（連續 2 季為負）；稀釋股數 YoY +1.4%。",
+              "invalidation": "FCF 連續至少 4 季為負，或稀釋股數 YoY ≥ 5%。"
             }
           ],
-          "master_report": "30_Analysis/ONDS_Master_Investment_Thesis_2026.md"
+          "master_report": "30_Analysis/GOOGL_Master_Investment_Thesis_2026.md"
         }
       }
     },
@@ -1497,12 +1267,12 @@
       "phase_label": "已知日期，尚未進入 30 天",
       "next_earnings": {
         "date": "2027-01-28",
-        "days_until": 77,
+        "days_until": 76,
         "confidence": "estimated",
         "source_label": "Yahoo Finance 行事曆",
         "source_url": "https://finance.yahoo.com/quote/NOK/calendar/",
         "source_status": "fresh",
-        "last_success_at": "2026-11-12"
+        "last_success_at": "2026-11-13"
       },
       "pre_event": {
         "preparation_due": false,
@@ -1628,7 +1398,7 @@
           ],
           "currency": "EUR",
           "source_basis": "Nokia 官方 IFRS reported 季報；2025 與 2026 Q1 已採 2026-07-23 停業單位重編數字，金額為 EUR。",
-          "days_since_filing": 112,
+          "days_since_filing": 113,
           "review_due": false
         },
         "kpis": [
@@ -1744,17 +1514,17 @@
       "data_ticker": "MRVL",
       "name": "Marvell",
       "position": "holding",
-      "attention_score": 111,
+      "attention_score": 112,
       "phase": "upcoming",
       "phase_label": "30 天內將公布",
       "next_earnings": {
         "date": "2026-12-01",
-        "days_until": 19,
+        "days_until": 18,
         "confidence": "estimated",
         "source_label": "Yahoo Finance 行事曆",
         "source_url": "https://finance.yahoo.com/quote/MRVL/calendar/",
         "source_status": "fresh",
-        "last_success_at": "2026-11-12"
+        "last_success_at": "2026-11-13"
       },
       "pre_event": {
         "preparation_due": false,
@@ -1878,7 +1648,7 @@
           "quality_notes": [],
           "currency": "USD",
           "source_basis": "SEC Company Facts；金額為 USD。",
-          "days_since_filing": 76,
+          "days_since_filing": 77,
           "review_due": false
         },
         "kpis": [
@@ -2013,12 +1783,12 @@
       "phase_label": "已知日期，尚未進入 30 天",
       "next_earnings": {
         "date": "2027-01-27",
-        "days_until": 76,
+        "days_until": 75,
         "confidence": "estimated",
         "source_label": "Yahoo Finance 行事曆",
         "source_url": "https://finance.yahoo.com/quote/TSLA/calendar/",
         "source_status": "fresh",
-        "last_success_at": "2026-11-12"
+        "last_success_at": "2026-11-13"
       },
       "pre_event": {
         "preparation_due": false,
@@ -2111,7 +1881,7 @@
           "quality_notes": [],
           "currency": "USD",
           "source_basis": "SEC Company Facts；金額為 USD。",
-          "days_since_filing": 21,
+          "days_since_filing": 22,
           "review_due": false
         },
         "kpis": [
@@ -2227,17 +1997,17 @@
       "data_ticker": "AAPL",
       "name": "Apple",
       "position": "watchlist",
-      "attention_score": 85,
+      "attention_score": 84,
       "phase": "post_review_due",
       "phase_label": "財報後 14 天核對期",
       "next_earnings": {
         "date": "2027-01-28",
-        "days_until": 77,
+        "days_until": 76,
         "confidence": "estimated",
         "source_label": "Yahoo Finance 行事曆",
         "source_url": "https://finance.yahoo.com/quote/AAPL/calendar/",
         "source_status": "fresh",
-        "last_success_at": "2026-11-12"
+        "last_success_at": "2026-11-13"
       },
       "pre_event": {
         "preparation_due": false,
@@ -2330,7 +2100,7 @@
           "quality_notes": [],
           "currency": "USD",
           "source_basis": "SEC Company Facts；金額為 USD。",
-          "days_since_filing": 9,
+          "days_since_filing": 10,
           "review_due": true
         },
         "kpis": [
@@ -2446,17 +2216,17 @@
       "data_ticker": "AMZN",
       "name": "Amazon",
       "position": "watchlist",
-      "attention_score": 81,
+      "attention_score": 80,
       "phase": "post_review_due",
       "phase_label": "財報後 14 天核對期",
       "next_earnings": {
         "date": "2026-10-29",
-        "days_until": -14,
+        "days_until": -15,
         "confidence": "estimated",
         "source_label": "Yahoo Finance 行事曆",
         "source_url": "https://finance.yahoo.com/quote/AMZN/calendar/",
         "source_status": "fresh",
-        "last_success_at": "2026-11-12"
+        "last_success_at": "2026-11-13"
       },
       "pre_event": {
         "preparation_due": false,
@@ -2570,7 +2340,7 @@
           "quality_notes": [],
           "currency": "USD",
           "source_basis": "SEC Company Facts；金額為 USD。",
-          "days_since_filing": 13,
+          "days_since_filing": 14,
           "review_due": true
         },
         "kpis": [
@@ -2696,6 +2466,236 @@
       }
     },
     {
+      "ticker": "ONDS",
+      "data_ticker": "ONDS",
+      "name": "Ondas",
+      "position": "watchlist",
+      "attention_score": 50,
+      "phase": "scheduled_later",
+      "phase_label": "已知日期，尚未進入 30 天",
+      "next_earnings": {
+        "date": "2026-11-12",
+        "days_until": -1,
+        "confidence": "estimated",
+        "source_label": "Yahoo Finance 行事曆",
+        "source_url": "https://finance.yahoo.com/quote/ONDS/calendar/",
+        "source_status": "fresh",
+        "last_success_at": "2026-11-13"
+      },
+      "pre_event": {
+        "preparation_due": false,
+        "guidance": {
+          "status": "available",
+          "rows": [
+            {
+              "period": "FY2026",
+              "metric": "營收（至少）",
+              "low": 390.0,
+              "high": null,
+              "unit": "USD m",
+              "actual": null,
+              "source_date": "2026-05-14",
+              "source_url": "https://ir.ondas.com/press-releases/detail/306/ondas-reports-record-first-quarter-2026-financial-results"
+            }
+          ],
+          "note": null,
+          "source_date": null,
+          "source_url": null
+        },
+        "checkpoints": [
+          {
+            "topic": "管理層指引",
+            "question": "實際結果是否落在 FY2026 的官方指引區間？",
+            "why": "指引只能與相同期間、相同口徑的實績比較。"
+          },
+          {
+            "topic": "營運連續性",
+            "question": "營收、毛利率與營業利益率是否延續八季方向？",
+            "why": "單季驚喜可能只是季節性，需同時比較 QoQ 與 YoY。"
+          },
+          {
+            "topic": "現金與每股品質",
+            "question": "自由現金流是否改善，稀釋股數是否跨越 10% 風險門檻？",
+            "why": "成長若沒有轉成現金或被稀釋，股東實際受益可能下降。"
+          },
+          {
+            "topic": "論點：商業化最終能轉化為營業獲利",
+            "question": "本季證據是否仍命中／接近失效條件：營業利益率低於 -50%，或連續至少 4 季為負。",
+            "why": "2026-06-30 營業利益率 -194.5%，YoY -47.1pp；連續 3 季下降。"
+          }
+        ],
+        "thesis": {
+          "status": "major-invalidated",
+          "label": "重大失效",
+          "previous_status": "major-invalidated",
+          "previous_label": "重大失效",
+          "changed_from_previous_quarter": false,
+          "counts": {
+            "supported": 1,
+            "verify": 0,
+            "invalidated": 2
+          },
+          "items": [
+            {
+              "id": "autonomous_growth",
+              "title": "自主無人機與反無人機業務進入規模成長",
+              "status": "supported",
+              "label": "支持",
+              "previous_status": "supported",
+              "previous_label": "支持",
+              "changed_from_previous_quarter": false,
+              "evidence": "2026-06-30 營收 USD 83.8M，YoY +1,235.4%；連續 8 季上升。",
+              "invalidation": "營收 YoY ≤ 0%，或營收連續至少 3 季下降。"
+            },
+            {
+              "id": "commercial_profitability",
+              "title": "商業化最終能轉化為營業獲利",
+              "status": "invalidated",
+              "label": "失效",
+              "previous_status": "invalidated",
+              "previous_label": "失效",
+              "changed_from_previous_quarter": false,
+              "evidence": "2026-06-30 營業利益率 -194.5%，YoY -47.1pp；連續 3 季下降。",
+              "invalidation": "營業利益率低於 -50%，或連續至少 4 季為負。"
+            },
+            {
+              "id": "funding_per_share",
+              "title": "成長資金需求不會持續傷害每股價值",
+              "status": "invalidated",
+              "label": "失效",
+              "previous_status": "invalidated",
+              "previous_label": "失效",
+              "changed_from_previous_quarter": false,
+              "evidence": "2026-06-30 FCF USD -93.8M（連續 8 季為負）；稀釋股數 YoY +234.3%。",
+              "invalidation": "FCF 連續至少 4 季為負，或稀釋股數 YoY ≥ 20%。"
+            }
+          ],
+          "master_report": "30_Analysis/ONDS_Master_Investment_Thesis_2026.md"
+        }
+      },
+      "post_event": {
+        "review_due": false,
+        "latest_result": {
+          "period_end": "2026-06-30",
+          "filing_date": "2026-08-13",
+          "form": "10-Q",
+          "accession": "0001193125-26-349288",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1646188/000119312526349288/0001193125-26-349288-index.html",
+          "quality_notes": [],
+          "currency": "USD",
+          "source_basis": "SEC Company Facts；金額為 USD。",
+          "days_since_filing": 92,
+          "review_due": false
+        },
+        "kpis": [
+          {
+            "metric": "revenue",
+            "label": "營收",
+            "display": "amount",
+            "value": 83772000.0,
+            "qoq": 67.1361877020071,
+            "yoy": 1235.4375896700142,
+            "state": "improved",
+            "interpretation": "營收 YoY +1235.4%"
+          },
+          {
+            "metric": "gross_margin",
+            "label": "毛利率",
+            "display": "percent",
+            "value": 0.43130162822900253,
+            "qoq": -6.065799030178237,
+            "yoy": -9.9863683424114,
+            "state": "risk",
+            "interpretation": "毛利率 YoY -10.0pp"
+          },
+          {
+            "metric": "operating_margin",
+            "label": "營業利益率",
+            "display": "percent",
+            "value": -1.945112925559853,
+            "qoq": -109.37702018058127,
+            "yoy": -47.05393562947484,
+            "state": "risk",
+            "interpretation": "營業利益率 YoY -47.1pp"
+          },
+          {
+            "metric": "free_cash_flow",
+            "label": "自由現金流",
+            "display": "amount",
+            "value": -93842000.0,
+            "qoq": null,
+            "yoy": null,
+            "state": "risk",
+            "interpretation": "自由現金流為負"
+          },
+          {
+            "metric": "diluted_shares",
+            "label": "稀釋股數",
+            "display": "shares",
+            "value": 503593000.0,
+            "qoq": null,
+            "yoy": 234.27346285835662,
+            "state": "risk",
+            "interpretation": "稀釋股數 YoY +234.3%"
+          }
+        ],
+        "completed_guidance": {
+          "status": "different_cadence",
+          "note": "Ondas 的數字展望主要是年度最低營收目標，且近年併購使基準快速改變；未形成 3 年一致季度樣本前不計命中率。",
+          "review_url": "https://ir.ondas.com/press-releases",
+          "record": null
+        },
+        "thesis": {
+          "status": "major-invalidated",
+          "label": "重大失效",
+          "previous_status": "major-invalidated",
+          "previous_label": "重大失效",
+          "changed_from_previous_quarter": false,
+          "counts": {
+            "supported": 1,
+            "verify": 0,
+            "invalidated": 2
+          },
+          "items": [
+            {
+              "id": "autonomous_growth",
+              "title": "自主無人機與反無人機業務進入規模成長",
+              "status": "supported",
+              "label": "支持",
+              "previous_status": "supported",
+              "previous_label": "支持",
+              "changed_from_previous_quarter": false,
+              "evidence": "2026-06-30 營收 USD 83.8M，YoY +1,235.4%；連續 8 季上升。",
+              "invalidation": "營收 YoY ≤ 0%，或營收連續至少 3 季下降。"
+            },
+            {
+              "id": "commercial_profitability",
+              "title": "商業化最終能轉化為營業獲利",
+              "status": "invalidated",
+              "label": "失效",
+              "previous_status": "invalidated",
+              "previous_label": "失效",
+              "changed_from_previous_quarter": false,
+              "evidence": "2026-06-30 營業利益率 -194.5%，YoY -47.1pp；連續 3 季下降。",
+              "invalidation": "營業利益率低於 -50%，或連續至少 4 季為負。"
+            },
+            {
+              "id": "funding_per_share",
+              "title": "成長資金需求不會持續傷害每股價值",
+              "status": "invalidated",
+              "label": "失效",
+              "previous_status": "invalidated",
+              "previous_label": "失效",
+              "changed_from_previous_quarter": false,
+              "evidence": "2026-06-30 FCF USD -93.8M（連續 8 季為負）；稀釋股數 YoY +234.3%。",
+              "invalidation": "FCF 連續至少 4 季為負，或稀釋股數 YoY ≥ 20%。"
+            }
+          ],
+          "master_report": "30_Analysis/ONDS_Master_Investment_Thesis_2026.md"
+        }
+      }
+    },
+    {
       "ticker": "META",
       "data_ticker": "META",
       "name": "Meta",
@@ -2705,12 +2705,12 @@
       "phase_label": "已知日期，尚未進入 30 天",
       "next_earnings": {
         "date": "2027-01-27",
-        "days_until": 76,
+        "days_until": 75,
         "confidence": "estimated",
         "source_label": "Yahoo Finance 行事曆",
         "source_url": "https://finance.yahoo.com/quote/META/calendar/",
         "source_status": "fresh",
-        "last_success_at": "2026-11-12"
+        "last_success_at": "2026-11-13"
       },
       "pre_event": {
         "preparation_due": false,
@@ -2834,7 +2834,7 @@
           "quality_notes": [],
           "currency": "USD",
           "source_basis": "SEC Company Facts；金額為 USD。",
-          "days_since_filing": 21,
+          "days_since_filing": 22,
           "review_due": false
         },
         "kpis": [
@@ -2969,12 +2969,12 @@
       "phase_label": "已知日期，尚未進入 30 天",
       "next_earnings": {
         "date": "2027-01-14",
-        "days_until": 63,
+        "days_until": 62,
         "confidence": "estimated",
         "source_label": "Yahoo Finance 行事曆",
         "source_url": "https://finance.yahoo.com/quote/TSM/calendar/",
         "source_status": "fresh",
-        "last_success_at": "2026-11-12"
+        "last_success_at": "2026-11-13"
       },
       "pre_event": {
         "preparation_due": false,
@@ -3098,7 +3098,7 @@
           "quality_notes": [],
           "currency": "TWD",
           "source_basis": "TSMC 官方 TIFRS consolidated 季度管理報告；金額為新台幣。",
-          "days_since_filing": 119,
+          "days_since_filing": 120,
           "review_due": false
         },
         "kpis": [
@@ -3233,12 +3233,12 @@
       "phase_label": "已知日期，尚未進入 30 天",
       "next_earnings": {
         "date": "2027-01-27",
-        "days_until": 76,
+        "days_until": 75,
         "confidence": "estimated",
         "source_label": "Yahoo Finance 行事曆",
         "source_url": "https://finance.yahoo.com/quote/MSFT/calendar/",
         "source_status": "fresh",
-        "last_success_at": "2026-11-12"
+        "last_success_at": "2026-11-13"
       },
       "pre_event": {
         "preparation_due": false,
@@ -3342,7 +3342,7 @@
           "quality_notes": [],
           "currency": "USD",
           "source_basis": "SEC Company Facts；金額為 USD。",
-          "days_since_filing": 15,
+          "days_since_filing": 16,
           "review_due": false
         },
         "kpis": [
