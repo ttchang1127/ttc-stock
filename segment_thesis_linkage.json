@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-05T03:38:29+00:00",
+  "updated_at": "2026-11-13T03:31:11+00:00",
   "tracked_count": 14,
   "counts": {
-    "support": 3,
+    "support": 2,
     "pressure": 0,
     "mixed": 1,
-    "needs_review": 10
+    "needs_review": 11
   },
   "methodology": {
     "scope": "14 家個股；ETF 不納入。只連結同公司、同一期已核對的分部資料與現有三項投資論點。",
@@ -589,13 +589,13 @@
       "basis": "營收類型（非可報導分部）",
       "source_date": "2026-08-13",
       "source_url": "https://ir.ondas.com/all-sec-filings/content/0001193125-26-349288/onds-20260630.htm",
-      "signal": "support",
-      "label": "分部趨勢提供支持",
-      "score": 3,
-      "alignment": "支持既有論點",
-      "conclusion": "分部趨勢提供支持；支持既有論點。分部證據分數 +3/8，只調整 SEC 證據權重，不直接改寫投資論點總狀態。",
+      "signal": "needs_review",
+      "label": "新一期待覆核",
+      "score": 0,
+      "alignment": "先完成口徑／數字覆核，不改變既有論點",
+      "conclusion": "新一期待覆核；先完成口徑／數字覆核，不改變既有論點。分部證據分數 +0/8，只調整 SEC 證據權重，不直接改寫投資論點總狀態。",
       "comparable": true,
-      "pending_review": false,
+      "pending_review": true,
       "latest_change_summary": "Product revenue → Development revenue；Development revenue 占比季增 +15.1pp 至 20.0%；Service revenue 占比季增 +9.6pp 至 28.2%。",
       "events": [
         {
@@ -639,6 +639,7 @@
         }
       ],
       "evidence": [
+        "新一期尚未通過安全勾稽：單期分部輸入尚未更新到新季度。",
         "2026 Q2 已收錄分部合計 QoQ +67.1%、YoY +1,235.4%。",
         "主要季增驅動更換：Product revenue → Development revenue。",
         "單一項目占比明顯上升：Development revenue 占比季增 +15.1pp 至 20.0%。",
@@ -680,7 +681,7 @@
         "下一季先確認分部名稱與 basis_id 是否相同；不同即切斷趨勢。",
         "核對主要成長驅動、分部占比與利益率是否連續兩期同向；單季變化不直接升降投資評等。"
       ],
-      "fingerprint": "4c68b424d404d051fccc"
+      "fingerprint": "3c8e6ed9d2bb390f9967"
     },
     {
       "ticker": "TSLA",

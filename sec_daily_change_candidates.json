@@ -1,15 +1,15 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-05T03:38:29+00:00",
+  "generated_at": "2026-11-13T03:31:11+00:00",
   "editorial_reviewed_at": "2026-09-12T18:31:51+08:00",
   "editorial_window_end": "2026-09-12",
   "status": "pending_ai_review",
-  "candidate_count": 118,
+  "candidate_count": 120,
   "company_count": 14,
   "counts": {
-    "risk": 68,
+    "risk": 69,
     "improvement": 11,
-    "conclusion": 39
+    "conclusion": 40
   },
   "calibration_updated_at": "2026-09-12T18:31:51+08:00",
   "lower_priority_count": 53,
@@ -234,7 +234,7 @@
       ],
       "why_candidate": "只有分部 linkage fingerprint 相較最近 AI 覆核改變才列入；需讀官方分部表後決定是否改寫正式結論。",
       "filing_date": "2026-08-27",
-      "detected_at": "2026-11-05T03:38:29+00:00",
+      "detected_at": "2026-11-13T03:31:11+00:00",
       "source_keys": [
         "47ef4059aafdd34daf7d"
       ],
@@ -277,7 +277,7 @@
       ],
       "why_candidate": "只有分部 linkage fingerprint 相較最近 AI 覆核改變才列入；需讀官方分部表後決定是否改寫正式結論。",
       "filing_date": "2026-08-12",
-      "detected_at": "2026-11-05T03:38:29+00:00",
+      "detected_at": "2026-11-13T03:31:11+00:00",
       "source_keys": [
         "5b2232f5e39f02142789"
       ],
@@ -322,7 +322,7 @@
       ],
       "why_candidate": "只有分部 linkage fingerprint 相較最近 AI 覆核改變才列入；需讀官方分部表後決定是否改寫正式結論。",
       "filing_date": "2026-07-29",
-      "detected_at": "2026-11-05T03:38:29+00:00",
+      "detected_at": "2026-11-13T03:31:11+00:00",
       "source_keys": [
         "338b45c834c3fcad88e5"
       ],
@@ -365,7 +365,7 @@
       ],
       "why_candidate": "只有分部 linkage fingerprint 相較最近 AI 覆核改變才列入；需讀官方分部表後決定是否改寫正式結論。",
       "filing_date": "2026-07-24",
-      "detected_at": "2026-11-05T03:38:29+00:00",
+      "detected_at": "2026-11-13T03:31:11+00:00",
       "source_keys": [
         "de565697fcf0e93a99e9"
       ],
@@ -408,7 +408,7 @@
       ],
       "why_candidate": "只有分部 linkage fingerprint 相較最近 AI 覆核改變才列入；需讀官方分部表後決定是否改寫正式結論。",
       "filing_date": "2026-07-23",
-      "detected_at": "2026-11-05T03:38:29+00:00",
+      "detected_at": "2026-11-13T03:31:11+00:00",
       "source_keys": [
         "46cfbfa304521a6bbd25"
       ],
@@ -451,7 +451,7 @@
       ],
       "why_candidate": "只有分部 linkage fingerprint 相較最近 AI 覆核改變才列入；需讀官方分部表後決定是否改寫正式結論。",
       "filing_date": "2026-07-23",
-      "detected_at": "2026-11-05T03:38:29+00:00",
+      "detected_at": "2026-11-13T03:31:11+00:00",
       "source_keys": [
         "beb22f050d3c353632f1"
       ],
@@ -487,7 +487,7 @@
       ],
       "why_candidate": "季度指紋與上次 AI 覆核基準不同；規則只列候選，不自行改寫結論。",
       "filing_date": "2026-11-04",
-      "detected_at": "2026-11-05T03:38:29+00:00",
+      "detected_at": "2026-11-13T03:31:11+00:00",
       "source_keys": [
         "0001973239-26-000142"
       ],
@@ -523,7 +523,7 @@
       ],
       "why_candidate": "季度指紋與上次 AI 覆核基準不同；規則只列候選，不自行改寫結論。",
       "filing_date": "2026-11-04",
-      "detected_at": "2026-11-05T03:38:29+00:00",
+      "detected_at": "2026-11-13T03:31:11+00:00",
       "source_keys": [
         "0000820318-26-000023"
       ],
@@ -2044,6 +2044,51 @@
       }
     },
     {
+      "id": "8358bab9e17f99ac",
+      "ticker": "ONDS",
+      "type": "risk",
+      "type_label": "🔴 新增風險候選",
+      "status": "pending_ai_review",
+      "confidence": "high",
+      "rule_key": "segment_thesis_change",
+      "materiality": {
+        "segment_score": 0,
+        "segment_signal": "needs_review",
+        "period_end": "2026-06-30"
+      },
+      "display_priority": "normal",
+      "priority_reason": "目前規則樣本不足或採納率未達降級門檻，維持原顯示優先級。",
+      "headline": "分部趨勢與投資論點聯動更新：新一期待覆核",
+      "evidence": [
+        "新一期待覆核；先完成口徑／數字覆核，不改變既有論點。分部證據分數 +0/8，只調整 SEC 證據權重，不直接改寫投資論點總狀態。",
+        "新一期尚未通過安全勾稽：單期分部輸入尚未更新到新季度。",
+        "2026 Q2 已收錄分部合計 QoQ +67.1%、YoY +1,235.4%。",
+        "主要季增驅動更換：Product revenue → Development revenue。",
+        "單一項目占比明顯上升：Development revenue 占比季增 +15.1pp 至 20.0%。",
+        "單一項目占比明顯上升：Service revenue 占比季增 +9.6pp 至 28.2%。",
+        "自主無人機與反無人機業務進入規模成長：支持；已收錄分部合計 QoQ +67.1%、YoY +1,235.4%；只代表本表已收錄且同口徑項目。",
+        "商業化最終能轉化為營業獲利：持續觀察；本期分部表未提供可比較的分部利益率；不能用分部營收替代利益率。"
+      ],
+      "why_candidate": "只有分部 linkage fingerprint 相較最近 AI 覆核改變才列入；需讀官方分部表後決定是否改寫正式結論。",
+      "filing_date": "2026-08-13",
+      "detected_at": "2026-11-13T03:31:11+00:00",
+      "source_keys": [
+        "3c8e6ed9d2bb390f9967"
+      ],
+      "sources": [
+        {
+          "label": "官方分部表",
+          "url": "https://ir.ondas.com/all-sec-filings/content/0001193125-26-349288/onds-20260630.htm"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 0,
+        "accepted_count": 0,
+        "acceptance_rate": null,
+        "sample_status": "insufficient"
+      }
+    },
+    {
       "id": "bd13b01b4cbcab9d",
       "ticker": "AAPL",
       "type": "risk",
@@ -2069,7 +2114,7 @@
       ],
       "why_candidate": "只有分部 linkage fingerprint 相較最近 AI 覆核改變才列入；需讀官方分部表後決定是否改寫正式結論。",
       "filing_date": "2026-07-30",
-      "detected_at": "2026-11-05T03:38:29+00:00",
+      "detected_at": "2026-11-13T03:31:11+00:00",
       "source_keys": [
         "3022c43c787c6c960f91"
       ],
@@ -2112,7 +2157,7 @@
       ],
       "why_candidate": "只有分部 linkage fingerprint 相較最近 AI 覆核改變才列入；需讀官方分部表後決定是否改寫正式結論。",
       "filing_date": "2026-07-30",
-      "detected_at": "2026-11-05T03:38:29+00:00",
+      "detected_at": "2026-11-13T03:31:11+00:00",
       "source_keys": [
         "24eee0fba02590f8fb78"
       ],
@@ -2156,7 +2201,7 @@
       ],
       "why_candidate": "只有分部 linkage fingerprint 相較最近 AI 覆核改變才列入；需讀官方分部表後決定是否改寫正式結論。",
       "filing_date": "2026-07-29",
-      "detected_at": "2026-11-05T03:38:29+00:00",
+      "detected_at": "2026-11-13T03:31:11+00:00",
       "source_keys": [
         "13cf79032ad77af56d0d"
       ],
@@ -2199,7 +2244,7 @@
       ],
       "why_candidate": "只有分部 linkage fingerprint 相較最近 AI 覆核改變才列入；需讀官方分部表後決定是否改寫正式結論。",
       "filing_date": "2026-07-29",
-      "detected_at": "2026-11-05T03:38:29+00:00",
+      "detected_at": "2026-11-13T03:31:11+00:00",
       "source_keys": [
         "cbac7ccb51e004dd6d32"
       ],
@@ -2207,6 +2252,42 @@
         {
           "label": "官方分部表",
           "url": "https://www.microsoft.com/en-us/investor/earnings/fy-2026-q4/press-release-webcast"
+        }
+      ],
+      "rule_quality": {
+        "reviewed_count": 0,
+        "accepted_count": 0,
+        "acceptance_rate": null,
+        "sample_status": "insufficient"
+      }
+    },
+    {
+      "id": "67da12e94fb3de87",
+      "ticker": "ONDS",
+      "type": "conclusion",
+      "type_label": "🟡 結論變化候選",
+      "status": "pending_ai_review",
+      "confidence": "high",
+      "rule_key": "quarterly_fingerprint",
+      "materiality": {},
+      "display_priority": "normal",
+      "priority_reason": "目前規則樣本不足或採納率未達降級門檻，維持原顯示優先級。",
+      "headline": "最新季度數字已變更，需要重算財務連續性與結論",
+      "evidence": [
+        "財報期末 2026-09-30；營收 YoY +1,558.6%。",
+        "毛利率 +21.8%；FCF 為負。",
+        "稀釋股數 YoY +137.8%。"
+      ],
+      "why_candidate": "季度指紋與上次 AI 覆核基準不同；規則只列候選，不自行改寫結論。",
+      "filing_date": "2026-11-12",
+      "detected_at": "2026-11-13T03:31:11+00:00",
+      "source_keys": [
+        "0001193125-26-458517"
+      ],
+      "sources": [
+        {
+          "label": "10-Q 原文",
+          "url": "https://www.sec.gov/Archives/edgar/data/1646188/000119312526458517/0001193125-26-458517-index.html"
         }
       ],
       "rule_quality": {
