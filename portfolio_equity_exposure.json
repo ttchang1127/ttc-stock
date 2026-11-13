@@ -7,8 +7,8 @@
  ],
  "currency": "USD",
  "holdings_updated_at": "2026-09-27",
- "price_as_of": "2026-11-12",
- "research_as_of": "2026-11-12",
+ "price_as_of": "2026-11-13",
+ "research_as_of": "2026-11-13",
  "coverage": {
   "total_positions": 8,
   "priced_positions": 8,
@@ -19,13 +19,13 @@
  "issuer_concentration": {
   "top1": {
    "ticker": "GOOG",
-   "weight": 21.7
+   "weight": 22.13
   },
-  "top3_weight": 55.04,
-  "effective_positions": 6.88
+  "top3_weight": 55.24,
+  "effective_positions": 6.84
  },
  "sector_concentration": {
-  "effective_sectors": 1.94,
+  "effective_sectors": 1.96,
   "sectors": [
    {
     "name": "Information Technology",
@@ -43,16 +43,16 @@
      "state": "early_improvement",
      "state_label": "早期改善",
      "confirmed": true,
-     "days_in_state": 3,
+     "days_in_state": 4,
      "pending": null,
      "pending_label": null,
      "risk_tags": [],
-     "relative_20d": -10.05,
-     "own_return_20d": -7.76,
+     "relative_20d": -8.83,
+     "own_return_20d": -6.11,
      "top_contributor": null,
      "single_issuer_dominance": false
     },
-    "weight": 67.65
+    "weight": 67.04
    },
    {
     "name": "Communication Services",
@@ -65,16 +65,19 @@
      "state": "neutral_mixed",
      "state_label": "中性混合",
      "confirmed": true,
-     "days_in_state": 1,
+     "days_in_state": 2,
      "pending": null,
      "pending_label": null,
-     "risk_tags": [],
-     "relative_20d": -1.5,
-     "own_return_20d": 0.78,
-     "top_contributor": null,
-     "single_issuer_dominance": false
+     "risk_tags": [
+      "single_issuer_dominance",
+      "volume_unconfirmed"
+     ],
+     "relative_20d": 0.55,
+     "own_return_20d": 3.27,
+     "top_contributor": "APP",
+     "single_issuer_dominance": true
     },
-    "weight": 21.7
+    "weight": 22.13
    },
    {
     "name": "Consumer Discretionary",
@@ -87,20 +90,19 @@
      "state": "confirmed_leading",
      "state_label": "已確認領先",
      "confirmed": true,
-     "days_in_state": 6,
-     "pending": "neutral_mixed",
-     "pending_label": "中性混合",
+     "days_in_state": 7,
+     "pending": "cooling",
+     "pending_label": "強勢降溫",
      "risk_tags": [
-      "single_issuer_dominance",
       "volume_unconfirmed",
       "pending_change"
      ],
-     "relative_20d": 2.65,
-     "own_return_20d": 4.93,
+     "relative_20d": 3.09,
+     "own_return_20d": 5.82,
      "top_contributor": "HAS",
-     "single_issuer_dominance": true
+     "single_issuer_dominance": false
     },
-    "weight": 10.65
+    "weight": 10.83
    }
   ]
  },
@@ -119,16 +121,16 @@
     "state": "early_improvement",
     "state_label": "早期改善",
     "confirmed": true,
-    "days_in_state": 1,
+    "days_in_state": 2,
     "pending": null,
     "pending_label": null,
     "risk_tags": [],
-    "relative_20d": -8.16,
-    "own_return_20d": -5.88,
+    "relative_20d": -8.66,
+    "own_return_20d": -5.94,
     "top_contributor": null,
     "single_issuer_dominance": false
    },
-   "weight": 40.88
+   "weight": 40.49
   },
   {
    "name": "Interactive Media & Services",
@@ -141,18 +143,18 @@
     "state": "small_sample_clue",
     "state_label": "小樣本線索",
     "confirmed": true,
-    "days_in_state": 161,
+    "days_in_state": 162,
     "pending": null,
     "pending_label": null,
     "risk_tags": [
      "small_sample"
     ],
-    "relative_20d": -22.71,
-    "own_return_20d": -20.43,
+    "relative_20d": -20.91,
+    "own_return_20d": -18.18,
     "top_contributor": null,
     "single_issuer_dominance": false
    },
-   "weight": 21.7
+   "weight": 22.13
   },
   {
    "name": "Communications Equipment",
@@ -165,16 +167,16 @@
     "state": "early_improvement",
     "state_label": "早期改善",
     "confirmed": true,
-    "days_in_state": 3,
+    "days_in_state": 4,
     "pending": null,
     "pending_label": null,
     "risk_tags": [],
-    "relative_20d": -11.57,
-    "own_return_20d": -9.29,
+    "relative_20d": -12.67,
+    "own_return_20d": -9.95,
     "top_contributor": null,
     "single_issuer_dominance": false
    },
-   "weight": 18.25
+   "weight": 18.26
   },
   {
    "name": "Automobile Manufacturers",
@@ -187,7 +189,7 @@
     "state": "small_sample_clue",
     "state_label": "小樣本線索",
     "confirmed": true,
-    "days_in_state": 161,
+    "days_in_state": 162,
     "pending": null,
     "pending_label": null,
     "risk_tags": [
@@ -196,12 +198,12 @@
      "volume_unconfirmed",
      "small_sample"
     ],
-    "relative_20d": 1.25,
-    "own_return_20d": 3.53,
+    "relative_20d": 0.72,
+    "own_return_20d": 3.45,
     "top_contributor": "TSLA",
     "single_issuer_dominance": true
    },
-   "weight": 10.65
+   "weight": 10.83
   },
   {
    "name": "Electronic Components",
@@ -214,28 +216,28 @@
     "state": "small_sample_clue",
     "state_label": "小樣本線索",
     "confirmed": true,
-    "days_in_state": 161,
+    "days_in_state": 162,
     "pending": null,
     "pending_label": null,
     "risk_tags": [
      "small_sample"
     ],
-    "relative_20d": -10.07,
-    "own_return_20d": -7.79,
+    "relative_20d": -9.88,
+    "own_return_20d": -7.15,
     "top_contributor": null,
     "single_issuer_dominance": false
    },
-   "weight": 8.52
+   "weight": 8.29
   }
  ],
  "positions": [
   {
    "ticker": "GOOG",
    "shares": 20,
-   "price": 295.35,
-   "price_date": "2026-11-12",
+   "price": 291.9306,
+   "price_date": "2026-11-13",
    "price_status": "ok",
-   "market_value": 5907.0,
+   "market_value": 5838.61,
    "sector": "Communication Services",
    "sector_zh": "通訊服務",
    "sector_id": "sector:communication-services",
@@ -246,31 +248,34 @@
     "state": "neutral_mixed",
     "state_label": "中性混合",
     "confirmed": true,
-    "days_in_state": 1,
+    "days_in_state": 2,
     "pending": null,
     "pending_label": null,
-    "risk_tags": [],
-    "relative_20d": -1.5,
-    "own_return_20d": 0.78,
-    "top_contributor": null,
-    "single_issuer_dominance": false
+    "risk_tags": [
+     "single_issuer_dominance",
+     "volume_unconfirmed"
+    ],
+    "relative_20d": 0.55,
+    "own_return_20d": 3.27,
+    "top_contributor": "APP",
+    "single_issuer_dominance": true
    },
    "industry_rotation": {
     "state": "small_sample_clue",
     "state_label": "小樣本線索",
     "confirmed": true,
-    "days_in_state": 161,
+    "days_in_state": 162,
     "pending": null,
     "pending_label": null,
     "risk_tags": [
      "small_sample"
     ],
-    "relative_20d": -22.71,
-    "own_return_20d": -20.43,
+    "relative_20d": -20.91,
+    "own_return_20d": -18.18,
     "top_contributor": null,
     "single_issuer_dominance": false
    },
-   "weight": 21.7,
+   "weight": 22.13,
    "research_priority": "monitor",
    "reasons": [
     "所屬板塊目前「中性混合」，沒有需要立即覆核的變化"
@@ -280,10 +285,10 @@
   {
    "ticker": "NOK",
    "shares": 600,
-   "price": 8.28,
-   "price_date": "2026-11-12",
+   "price": 8.0301,
+   "price_date": "2026-11-13",
    "price_status": "ok",
-   "market_value": 4968.0,
+   "market_value": 4818.06,
    "sector": "Information Technology",
    "sector_zh": "資訊科技",
    "sector_id": "sector:information-technology",
@@ -294,12 +299,12 @@
     "state": "early_improvement",
     "state_label": "早期改善",
     "confirmed": true,
-    "days_in_state": 3,
+    "days_in_state": 4,
     "pending": null,
     "pending_label": null,
     "risk_tags": [],
-    "relative_20d": -10.05,
-    "own_return_20d": -7.76,
+    "relative_20d": -8.83,
+    "own_return_20d": -6.11,
     "top_contributor": null,
     "single_issuer_dominance": false
    },
@@ -307,16 +312,16 @@
     "state": "early_improvement",
     "state_label": "早期改善",
     "confirmed": true,
-    "days_in_state": 3,
+    "days_in_state": 4,
     "pending": null,
     "pending_label": null,
     "risk_tags": [],
-    "relative_20d": -11.57,
-    "own_return_20d": -9.29,
+    "relative_20d": -12.67,
+    "own_return_20d": -9.95,
     "top_contributor": null,
     "single_issuer_dominance": false
    },
-   "weight": 18.25,
+   "weight": 18.26,
    "research_priority": "monitor",
    "reasons": [
     "所屬板塊目前「早期改善」，沒有需要立即覆核的變化"
@@ -326,10 +331,10 @@
   {
    "ticker": "MRVL",
    "shares": 25,
-   "price": 164.45,
-   "price_date": "2026-11-12",
+   "price": 156.73,
+   "price_date": "2026-11-13",
    "price_status": "ok",
-   "market_value": 4111.25,
+   "market_value": 3918.25,
    "sector": "Information Technology",
    "sector_zh": "資訊科技",
    "sector_id": "sector:information-technology",
@@ -340,12 +345,12 @@
     "state": "early_improvement",
     "state_label": "早期改善",
     "confirmed": true,
-    "days_in_state": 3,
+    "days_in_state": 4,
     "pending": null,
     "pending_label": null,
     "risk_tags": [],
-    "relative_20d": -10.05,
-    "own_return_20d": -7.76,
+    "relative_20d": -8.83,
+    "own_return_20d": -6.11,
     "top_contributor": null,
     "single_issuer_dominance": false
    },
@@ -353,62 +358,16 @@
     "state": "early_improvement",
     "state_label": "早期改善",
     "confirmed": true,
-    "days_in_state": 1,
+    "days_in_state": 2,
     "pending": null,
     "pending_label": null,
     "risk_tags": [],
-    "relative_20d": -8.16,
-    "own_return_20d": -5.88,
+    "relative_20d": -8.66,
+    "own_return_20d": -5.94,
     "top_contributor": null,
     "single_issuer_dominance": false
    },
-   "weight": 15.1,
-   "research_priority": "monitor",
-   "reasons": [
-    "所屬板塊目前「早期改善」，沒有需要立即覆核的變化"
-   ],
-   "not_an_action": "研究優先度，不是買進、賣出或調整部位的指令"
-  },
-  {
-   "ticker": "ARM",
-   "shares": 15,
-   "price": 199.78,
-   "price_date": "2026-11-12",
-   "price_status": "ok",
-   "market_value": 2996.7,
-   "sector": "Information Technology",
-   "sector_zh": "資訊科技",
-   "sector_id": "sector:information-technology",
-   "industry": "Semiconductors",
-   "industry_id": "industry:semiconductors",
-   "classification_source": "ICB mapped to GICS sector（Nasdaq-100 成分）",
-   "sector_rotation": {
-    "state": "early_improvement",
-    "state_label": "早期改善",
-    "confirmed": true,
-    "days_in_state": 3,
-    "pending": null,
-    "pending_label": null,
-    "risk_tags": [],
-    "relative_20d": -10.05,
-    "own_return_20d": -7.76,
-    "top_contributor": null,
-    "single_issuer_dominance": false
-   },
-   "industry_rotation": {
-    "state": "early_improvement",
-    "state_label": "早期改善",
-    "confirmed": true,
-    "days_in_state": 1,
-    "pending": null,
-    "pending_label": null,
-    "risk_tags": [],
-    "relative_20d": -8.16,
-    "own_return_20d": -5.88,
-    "top_contributor": null,
-    "single_issuer_dominance": false
-   },
-   "weight": 11.01,
+   "weight": 14.85,
    "research_priority": "monitor",
    "reasons": [
     "所屬板塊目前「早期改善」，沒有需要立即覆核的變化"
@@ -418,10 +377,10 @@
   {
    "ticker": "TSLA",
    "shares": 7.29815,
-   "price": 397.45,
-   "price_date": "2026-11-12",
+   "price": 391.68,
+   "price_date": "2026-11-13",
    "price_status": "ok",
-   "market_value": 2900.65,
+   "market_value": 2858.54,
    "sector": "Consumer Discretionary",
    "sector_zh": "非必需消費",
    "sector_id": "sector:consumer-discretionary",
@@ -432,24 +391,23 @@
     "state": "confirmed_leading",
     "state_label": "已確認領先",
     "confirmed": true,
-    "days_in_state": 6,
-    "pending": "neutral_mixed",
-    "pending_label": "中性混合",
+    "days_in_state": 7,
+    "pending": "cooling",
+    "pending_label": "強勢降溫",
     "risk_tags": [
-     "single_issuer_dominance",
      "volume_unconfirmed",
      "pending_change"
     ],
-    "relative_20d": 2.65,
-    "own_return_20d": 4.93,
+    "relative_20d": 3.09,
+    "own_return_20d": 5.82,
     "top_contributor": "HAS",
-    "single_issuer_dominance": true
+    "single_issuer_dominance": false
    },
    "industry_rotation": {
     "state": "small_sample_clue",
     "state_label": "小樣本線索",
     "confirmed": true,
-    "days_in_state": 161,
+    "days_in_state": 162,
     "pending": null,
     "pending_label": null,
     "risk_tags": [
@@ -458,27 +416,73 @@
      "volume_unconfirmed",
      "small_sample"
     ],
-    "relative_20d": 1.25,
-    "own_return_20d": 3.53,
+    "relative_20d": 0.72,
+    "own_return_20d": 3.45,
     "top_contributor": "TSLA",
     "single_issuer_dominance": true
    },
-   "weight": 10.65,
+   "weight": 10.83,
    "research_priority": "monitor",
    "reasons": [
-    "所屬板塊可能轉為「中性混合」，待確認",
+    "所屬板塊可能轉為「強勢降溫」，待確認",
     "本身是所屬次產業強勢的最大貢獻者：板塊強勢主要靠它，不代表同業普遍走強",
     "所屬板塊已確認領先：留意估值與追價風險，強勢不代表風險消失"
    ],
    "not_an_action": "研究優先度，不是買進、賣出或調整部位的指令"
   },
   {
+   "ticker": "ARM",
+   "shares": 15,
+   "price": 189.62,
+   "price_date": "2026-11-13",
+   "price_status": "ok",
+   "market_value": 2844.3,
+   "sector": "Information Technology",
+   "sector_zh": "資訊科技",
+   "sector_id": "sector:information-technology",
+   "industry": "Semiconductors",
+   "industry_id": "industry:semiconductors",
+   "classification_source": "ICB mapped to GICS sector（Nasdaq-100 成分）",
+   "sector_rotation": {
+    "state": "early_improvement",
+    "state_label": "早期改善",
+    "confirmed": true,
+    "days_in_state": 4,
+    "pending": null,
+    "pending_label": null,
+    "risk_tags": [],
+    "relative_20d": -8.83,
+    "own_return_20d": -6.11,
+    "top_contributor": null,
+    "single_issuer_dominance": false
+   },
+   "industry_rotation": {
+    "state": "early_improvement",
+    "state_label": "早期改善",
+    "confirmed": true,
+    "days_in_state": 2,
+    "pending": null,
+    "pending_label": null,
+    "risk_tags": [],
+    "relative_20d": -8.66,
+    "own_return_20d": -5.94,
+    "top_contributor": null,
+    "single_issuer_dominance": false
+   },
+   "weight": 10.78,
+   "research_priority": "monitor",
+   "reasons": [
+    "所屬板塊目前「早期改善」，沒有需要立即覆核的變化"
+   ],
+   "not_an_action": "研究優先度，不是買進、賣出或調整部位的指令"
+  },
+  {
    "ticker": "NVDA",
    "shares": 15,
-   "price": 166.19,
-   "price_date": "2026-11-12",
+   "price": 162.485,
+   "price_date": "2026-11-13",
    "price_status": "ok",
-   "market_value": 2492.85,
+   "market_value": 2437.28,
    "sector": "Information Technology",
    "sector_zh": "資訊科技",
    "sector_id": "sector:information-technology",
@@ -489,12 +493,12 @@
     "state": "early_improvement",
     "state_label": "早期改善",
     "confirmed": true,
-    "days_in_state": 3,
+    "days_in_state": 4,
     "pending": null,
     "pending_label": null,
     "risk_tags": [],
-    "relative_20d": -10.05,
-    "own_return_20d": -7.76,
+    "relative_20d": -8.83,
+    "own_return_20d": -6.11,
     "top_contributor": null,
     "single_issuer_dominance": false
    },
@@ -502,16 +506,16 @@
     "state": "early_improvement",
     "state_label": "早期改善",
     "confirmed": true,
-    "days_in_state": 1,
+    "days_in_state": 2,
     "pending": null,
     "pending_label": null,
     "risk_tags": [],
-    "relative_20d": -8.16,
-    "own_return_20d": -5.88,
+    "relative_20d": -8.66,
+    "own_return_20d": -5.94,
     "top_contributor": null,
     "single_issuer_dominance": false
    },
-   "weight": 9.16,
+   "weight": 9.24,
    "research_priority": "monitor",
    "reasons": [
     "所屬板塊目前「早期改善」，沒有需要立即覆核的變化"
@@ -521,10 +525,10 @@
   {
    "ticker": "COHR",
    "shares": 10,
-   "price": 232.08,
-   "price_date": "2026-11-12",
+   "price": 218.72,
+   "price_date": "2026-11-13",
    "price_status": "ok",
-   "market_value": 2320.8,
+   "market_value": 2187.2,
    "sector": "Information Technology",
    "sector_zh": "資訊科技",
    "sector_id": "sector:information-technology",
@@ -535,12 +539,12 @@
     "state": "early_improvement",
     "state_label": "早期改善",
     "confirmed": true,
-    "days_in_state": 3,
+    "days_in_state": 4,
     "pending": null,
     "pending_label": null,
     "risk_tags": [],
-    "relative_20d": -10.05,
-    "own_return_20d": -7.76,
+    "relative_20d": -8.83,
+    "own_return_20d": -6.11,
     "top_contributor": null,
     "single_issuer_dominance": false
    },
@@ -548,18 +552,18 @@
     "state": "small_sample_clue",
     "state_label": "小樣本線索",
     "confirmed": true,
-    "days_in_state": 161,
+    "days_in_state": 162,
     "pending": null,
     "pending_label": null,
     "risk_tags": [
      "small_sample"
     ],
-    "relative_20d": -10.07,
-    "own_return_20d": -7.79,
+    "relative_20d": -9.88,
+    "own_return_20d": -7.15,
     "top_contributor": null,
     "single_issuer_dominance": false
    },
-   "weight": 8.52,
+   "weight": 8.29,
    "research_priority": "monitor",
    "reasons": [
     "所屬板塊目前「早期改善」，沒有需要立即覆核的變化"
@@ -569,10 +573,10 @@
   {
    "ticker": "INTC",
    "shares": 25,
-   "price": 61.2,
-   "price_date": "2026-11-12",
+   "price": 59.27,
+   "price_date": "2026-11-13",
    "price_status": "ok",
-   "market_value": 1530.0,
+   "market_value": 1481.75,
    "sector": "Information Technology",
    "sector_zh": "資訊科技",
    "sector_id": "sector:information-technology",
@@ -583,12 +587,12 @@
     "state": "early_improvement",
     "state_label": "早期改善",
     "confirmed": true,
-    "days_in_state": 3,
+    "days_in_state": 4,
     "pending": null,
     "pending_label": null,
     "risk_tags": [],
-    "relative_20d": -10.05,
-    "own_return_20d": -7.76,
+    "relative_20d": -8.83,
+    "own_return_20d": -6.11,
     "top_contributor": null,
     "single_issuer_dominance": false
    },
@@ -596,12 +600,12 @@
     "state": "early_improvement",
     "state_label": "早期改善",
     "confirmed": true,
-    "days_in_state": 1,
+    "days_in_state": 2,
     "pending": null,
     "pending_label": null,
     "risk_tags": [],
-    "relative_20d": -8.16,
-    "own_return_20d": -5.88,
+    "relative_20d": -8.66,
+    "own_return_20d": -5.94,
     "top_contributor": null,
     "single_issuer_dominance": false
    },
@@ -614,17 +618,17 @@
   }
  ],
  "needs_review": [
-  "資訊科技 占直接個股 67.7%，超過一半：同一個板塊的輪動變化會同時影響多數持股"
+  "資訊科技 占直接個股 67.0%，超過一半：同一個板塊的輪動變化會同時影響多數持股"
  ],
  "changes": [],
  "look_through": {
   "available": true,
-  "total_value": 89175.18,
-  "direct_share_pct": 30.53,
+  "total_value": 87660.81,
+  "direct_share_pct": 30.1,
   "funds": [
    {
     "ticker": "VGT",
-    "value": 28046.32,
+    "value": 27554.04,
     "report_date": "2026-08-31",
     "accession": "0000052848-26-001199",
     "source_url": "https://www.sec.gov/Archives/edgar/data/52848/000005284826001199/primary_doc.xml",
@@ -633,7 +637,7 @@
    },
    {
     "ticker": "VOO",
-    "value": 33824.7,
+    "value": 33646.82,
     "report_date": "2026-06-30",
     "accession": "0000036405-26-000473",
     "source_url": "https://www.sec.gov/Archives/edgar/data/36405/000003640526000473/primary_doc.xml",
@@ -646,47 +650,47 @@
    {
     "name": "Information Technology",
     "name_zh": "資訊科技",
-    "weight": 63.11
+    "weight": 62.79
    },
    {
     "name": "Communication Services",
     "name_zh": "通訊服務",
-    "weight": 10.3
+    "weight": 10.38
    },
    {
     "name": "Consumer Discretionary",
     "name_zh": "非必需消費",
-    "weight": 6.75
+    "weight": 6.8
    },
    {
     "name": "Unclassified",
     "name_zh": "未分類",
-    "weight": 4.31
+    "weight": 4.32
    },
    {
     "name": "Financials",
     "name_zh": "金融",
-    "weight": 4.23
+    "weight": 4.28
    },
    {
     "name": "Health Care",
     "name_zh": "醫療保健",
-    "weight": 3.37
+    "weight": 3.41
    },
    {
     "name": "Industrials",
     "name_zh": "工業",
-    "weight": 3.33
+    "weight": 3.37
    },
    {
     "name": "Consumer Staples",
     "name_zh": "必需消費",
-    "weight": 1.71
+    "weight": 1.73
    },
    {
     "name": "Utilities",
     "name_zh": "公用事業",
-    "weight": 0.83
+    "weight": 0.84
    },
    {
     "name": "Energy",
@@ -696,75 +700,75 @@
    {
     "name": "Real Estate",
     "name_zh": "房地產",
-    "weight": 0.66
+    "weight": 0.67
    },
    {
     "name": "Materials",
     "name_zh": "原物料",
-    "weight": 0.64
+    "weight": 0.65
    }
   ],
   "top_positions": [
    {
     "ticker": "NVDA",
-    "weight": 11.24,
-    "direct_weight": 2.8,
+    "weight": 11.25,
+    "direct_weight": 2.78,
     "via_weight": {
      "VGT": 5.59,
-     "VOO": 2.85
+     "VOO": 2.88
     },
     "overlap": true
    },
    {
     "ticker": "GOOG",
-    "weight": 8.84,
-    "direct_weight": 6.62,
+    "weight": 8.9,
+    "direct_weight": 6.66,
     "via_weight": {
-     "VOO": 2.21
+     "VOO": 2.24
     },
     "overlap": true
    },
    {
     "ticker": "AAPL",
-    "weight": 7.48,
+    "weight": 7.5,
     "direct_weight": 0.0,
     "via_weight": {
      "VGT": 4.98,
-     "VOO": 2.5
+     "VOO": 2.53
     },
     "overlap": false
    },
    {
     "ticker": "NOK",
-    "weight": 5.57,
-    "direct_weight": 5.57,
+    "weight": 5.5,
+    "direct_weight": 5.5,
     "via_weight": {},
     "overlap": false
    },
    {
     "ticker": "MSFT",
-    "weight": 5.19,
+    "weight": 5.21,
     "direct_weight": 0.0,
     "via_weight": {
      "VGT": 3.56,
-     "VOO": 1.63
+     "VOO": 1.65
     },
     "overlap": false
    },
    {
     "ticker": "MRVL",
-    "weight": 5.0,
-    "direct_weight": 4.61,
+    "weight": 4.86,
+    "direct_weight": 4.47,
     "via_weight": {
      "VGT": 0.23,
-     "VOO": 0.15
+     "VOO": 0.16
     },
     "overlap": true
    },
    {
     "ticker": "TSLA",
-    "weight": 3.95,
-    "direct_weight": 3.25,
+    "weight": 3.97,
+    "direct_weight": 3.26,
     "via_weight": {
      "VOO": 0.7
     },
@@ -772,15 +776,15 @@
    },
    {
     "ticker": "ARM",
-    "weight": 3.36,
-    "direct_weight": 3.36,
+    "weight": 3.24,
+    "direct_weight": 3.24,
     "via_weight": {},
     "overlap": false
    },
    {
     "ticker": "COHR",
-    "weight": 2.71,
-    "direct_weight": 2.6,
+    "weight": 2.61,
+    "direct_weight": 2.5,
     "via_weight": {
      "VGT": 0.07,
      "VOO": 0.05
@@ -789,8 +793,8 @@
    },
    {
     "ticker": "INTC",
-    "weight": 2.59,
-    "direct_weight": 1.72,
+    "weight": 2.57,
+    "direct_weight": 1.69,
     "via_weight": {
      "VGT": 0.49,
      "VOO": 0.39
@@ -799,17 +803,17 @@
    },
    {
     "ticker": "AVGO",
-    "weight": 2.33,
+    "weight": 2.34,
     "direct_weight": 0.0,
     "via_weight": {
      "VGT": 1.27,
-     "VOO": 1.05
+     "VOO": 1.06
     },
     "overlap": false
    },
    {
     "ticker": "MU",
-    "weight": 2.08,
+    "weight": 2.09,
     "direct_weight": 0.0,
     "via_weight": {
      "VGT": 1.32,
@@ -829,25 +833,25 @@
    },
    {
     "ticker": "AMZN",
-    "weight": 1.37,
+    "weight": 1.39,
     "direct_weight": 0.0,
     "via_weight": {
-     "VOO": 1.37
+     "VOO": 1.39
     },
     "overlap": false
    },
    {
     "ticker": "CSCO",
-    "weight": 0.81,
+    "weight": 0.82,
     "direct_weight": 0.0,
     "via_weight": {
      "VGT": 0.54,
-     "VOO": 0.27
+     "VOO": 0.28
     },
     "overlap": false
    }
   ],
-  "unmapped_weight_pct": 1.05,
+  "unmapped_weight_pct": 1.06,
   "note": "基金成分權重取自 SEC N-PORT 申報日，之後的價格變動與調倉不反映；未對應代號的成分依基金預設板塊歸類"
  },
  "not_an_action": "研究優先度，不是買進、賣出或調整部位的指令"
