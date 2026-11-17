@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "protocol_version": "rotation-forward-2026-10-11-v1",
-  "history_as_of": "2026-11-16",
-  "a_snapshot_count": 30,
+  "history_as_of": "2026-11-17",
+  "a_snapshot_count": 31,
   "baseline_as_of": "2026-10-09",
   "events": [
     {
@@ -1094,10 +1094,53 @@
         "60d": {
           "status": "pending"
         }
+      },
+      "eligibility_confirmed_at_utc": "2026-11-17T20:57:17Z"
+    },
+    {
+      "id": "2026-11-17:sector:information-technology:unconfirmed_rebound",
+      "signal_as_of": "2026-11-17",
+      "sector": "sector:information-technology",
+      "from_state": "early_improvement",
+      "state": "unconfirmed_rebound",
+      "etf": "XLK",
+      "dataset_id": "sha256:43687a7cfa2b6f0d1e391590984496840d7ab29592f0ebcf4d38de6205ddb6e0",
+      "first_seen_at_utc": "2026-11-17T20:57:17Z",
+      "entry": {
+        "status": "pending"
+      },
+      "outcomes": {
+        "20d": {
+          "status": "pending"
+        },
+        "60d": {
+          "status": "pending"
+        }
+      }
+    },
+    {
+      "id": "2026-11-17:sector:utilities:confirmed_leading",
+      "signal_as_of": "2026-11-17",
+      "sector": "sector:utilities",
+      "from_state": "neutral_mixed",
+      "state": "confirmed_leading",
+      "etf": "XLU",
+      "dataset_id": "sha256:43687a7cfa2b6f0d1e391590984496840d7ab29592f0ebcf4d38de6205ddb6e0",
+      "first_seen_at_utc": "2026-11-17T20:57:17Z",
+      "entry": {
+        "status": "pending"
+      },
+      "outcomes": {
+        "20d": {
+          "status": "pending"
+        },
+        "60d": {
+          "status": "pending"
+        }
       }
     }
   ],
-  "event_count": 42,
+  "event_count": 44,
   "matured_20d": 9,
   "matured_60d": 0,
   "status": "results_available",
