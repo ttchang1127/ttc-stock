@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "protocol_version": "rotation-forward-2026-10-11-v1",
-  "history_as_of": "2026-11-13",
-  "a_snapshot_count": 29,
+  "history_as_of": "2026-11-16",
+  "a_snapshot_count": 30,
   "baseline_as_of": "2026-10-09",
   "events": [
     {
@@ -202,7 +202,12 @@
       },
       "outcomes": {
         "20d": {
-          "status": "pending"
+          "status": "mature",
+          "target_date": "2026-11-16",
+          "etf_return_pct": 6.1805,
+          "spy_return_pct": -3.4613,
+          "excess_pp": 9.6418,
+          "max_adverse_excess_pp": -1.1849
         },
         "60d": {
           "status": "pending"
@@ -227,7 +232,12 @@
       },
       "outcomes": {
         "20d": {
-          "status": "pending"
+          "status": "mature",
+          "target_date": "2026-11-16",
+          "etf_return_pct": -0.6119,
+          "spy_return_pct": -3.4613,
+          "excess_pp": 2.8493,
+          "max_adverse_excess_pp": -0.3866
         },
         "60d": {
           "status": "pending"
@@ -252,7 +262,12 @@
       },
       "outcomes": {
         "20d": {
-          "status": "pending"
+          "status": "mature",
+          "target_date": "2026-11-16",
+          "etf_return_pct": 3.2238,
+          "spy_return_pct": -3.4613,
+          "excess_pp": 6.6851,
+          "max_adverse_excess_pp": -0.3389
         },
         "60d": {
           "status": "pending"
@@ -1020,7 +1035,10 @@
       "dataset_id": "sha256:6b0115afcfc9d33b75a20d435f3081059b67755f7c2729a3e0b90add2bc7ede4",
       "first_seen_at_utc": "2026-11-13T19:43:48Z",
       "entry": {
-        "status": "pending"
+        "status": "fixed",
+        "date": "2026-11-16",
+        "etf_adj_close": 63.689998626708984,
+        "spy_adj_close": 739.9500122070312
       },
       "outcomes": {
         "20d": {
@@ -1042,7 +1060,10 @@
       "dataset_id": "sha256:6b0115afcfc9d33b75a20d435f3081059b67755f7c2729a3e0b90add2bc7ede4",
       "first_seen_at_utc": "2026-11-13T19:43:48Z",
       "entry": {
-        "status": "pending"
+        "status": "fixed",
+        "date": "2026-11-16",
+        "etf_adj_close": 58.18000030517578,
+        "spy_adj_close": 739.9500122070312
       },
       "outcomes": {
         "20d": {
@@ -1053,10 +1074,31 @@
         }
       },
       "eligibility_confirmed_at_utc": "2026-11-14T03:22:37Z"
+    },
+    {
+      "id": "2026-11-16:sector:consumer-discretionary:cooling",
+      "signal_as_of": "2026-11-16",
+      "sector": "sector:consumer-discretionary",
+      "from_state": "confirmed_leading",
+      "state": "cooling",
+      "etf": "XLY",
+      "dataset_id": "sha256:2eef68dffb98ecda770f9193c982968665a8b18be275105fa890f365d3edfb90",
+      "first_seen_at_utc": "2026-11-17T05:07:44Z",
+      "entry": {
+        "status": "pending"
+      },
+      "outcomes": {
+        "20d": {
+          "status": "pending"
+        },
+        "60d": {
+          "status": "pending"
+        }
+      }
     }
   ],
-  "event_count": 41,
-  "matured_20d": 6,
+  "event_count": 42,
+  "matured_20d": 9,
   "matured_60d": 0,
   "status": "results_available",
   "price_source_status": "available"
