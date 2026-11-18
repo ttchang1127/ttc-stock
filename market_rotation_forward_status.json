@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "protocol_version": "rotation-forward-2026-10-11-v1",
-  "history_as_of": "2026-11-17",
-  "a_snapshot_count": 31,
+  "history_as_of": "2026-11-18",
+  "a_snapshot_count": 32,
   "baseline_as_of": "2026-10-09",
   "events": [
     {
@@ -292,7 +292,12 @@
       },
       "outcomes": {
         "20d": {
-          "status": "pending"
+          "status": "mature",
+          "target_date": "2026-11-18",
+          "etf_return_pct": -3.4101,
+          "spy_return_pct": -5.674,
+          "excess_pp": 2.2639,
+          "max_adverse_excess_pp": -6.8853
         },
         "60d": {
           "status": "pending"
@@ -317,7 +322,12 @@
       },
       "outcomes": {
         "20d": {
-          "status": "pending"
+          "status": "mature",
+          "target_date": "2026-11-18",
+          "etf_return_pct": 4.7586,
+          "spy_return_pct": -5.674,
+          "excess_pp": 10.4326,
+          "max_adverse_excess_pp": -0.2214
         },
         "60d": {
           "status": "pending"
@@ -342,7 +352,12 @@
       },
       "outcomes": {
         "20d": {
-          "status": "pending"
+          "status": "mature",
+          "target_date": "2026-11-18",
+          "etf_return_pct": -13.611,
+          "spy_return_pct": -5.674,
+          "excess_pp": -7.937,
+          "max_adverse_excess_pp": -8.7362
         },
         "60d": {
           "status": "pending"
@@ -367,7 +382,12 @@
       },
       "outcomes": {
         "20d": {
-          "status": "pending"
+          "status": "mature",
+          "target_date": "2026-11-18",
+          "etf_return_pct": 0.7997,
+          "spy_return_pct": -5.674,
+          "excess_pp": 6.4737,
+          "max_adverse_excess_pp": 0.0
         },
         "60d": {
           "status": "pending"
@@ -392,7 +412,12 @@
       },
       "outcomes": {
         "20d": {
-          "status": "pending"
+          "status": "mature",
+          "target_date": "2026-11-18",
+          "etf_return_pct": 3.676,
+          "spy_return_pct": -5.674,
+          "excess_pp": 9.35,
+          "max_adverse_excess_pp": 0.0
         },
         "60d": {
           "status": "pending"
@@ -1085,7 +1110,10 @@
       "dataset_id": "sha256:2eef68dffb98ecda770f9193c982968665a8b18be275105fa890f365d3edfb90",
       "first_seen_at_utc": "2026-11-17T05:07:44Z",
       "entry": {
-        "status": "pending"
+        "status": "fixed",
+        "date": "2026-11-18",
+        "etf_adj_close": 119.11499786376953,
+        "spy_adj_close": 729.969970703125
       },
       "outcomes": {
         "20d": {
@@ -1107,7 +1135,10 @@
       "dataset_id": "sha256:43687a7cfa2b6f0d1e391590984496840d7ab29592f0ebcf4d38de6205ddb6e0",
       "first_seen_at_utc": "2026-11-17T20:57:17Z",
       "entry": {
-        "status": "pending"
+        "status": "fixed",
+        "date": "2026-11-18",
+        "etf_adj_close": 163.14999389648438,
+        "spy_adj_close": 729.969970703125
       },
       "outcomes": {
         "20d": {
@@ -1129,7 +1160,10 @@
       "dataset_id": "sha256:43687a7cfa2b6f0d1e391590984496840d7ab29592f0ebcf4d38de6205ddb6e0",
       "first_seen_at_utc": "2026-11-17T20:57:17Z",
       "entry": {
-        "status": "pending"
+        "status": "fixed",
+        "date": "2026-11-18",
+        "etf_adj_close": 43.6150016784668,
+        "spy_adj_close": 729.969970703125
       },
       "outcomes": {
         "20d": {
@@ -1143,7 +1177,7 @@
     }
   ],
   "event_count": 44,
-  "matured_20d": 9,
+  "matured_20d": 14,
   "matured_60d": 0,
   "status": "results_available",
   "price_source_status": "available"
