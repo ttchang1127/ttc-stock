@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "protocol_version": "rotation-forward-2026-10-11-v1",
-  "history_as_of": "2026-11-18",
-  "a_snapshot_count": 32,
+  "history_as_of": "2026-11-19",
+  "a_snapshot_count": 33,
   "baseline_as_of": "2026-10-09",
   "events": [
     {
@@ -1174,9 +1174,93 @@
         }
       },
       "eligibility_confirmed_at_utc": "2026-11-18T04:30:23Z"
+    },
+    {
+      "id": "2026-11-19:sector:energy:clear_lagging",
+      "signal_as_of": "2026-11-19",
+      "sector": "sector:energy",
+      "from_state": "early_improvement",
+      "state": "clear_lagging",
+      "etf": "XLE",
+      "dataset_id": "sha256:8a2ab752eb5e8dc850c863a55f584165acee936377a3054562ea1f4a8cc5b4df",
+      "first_seen_at_utc": "2026-11-19T20:38:52Z",
+      "entry": {
+        "status": "pending"
+      },
+      "outcomes": {
+        "20d": {
+          "status": "pending"
+        },
+        "60d": {
+          "status": "pending"
+        }
+      }
+    },
+    {
+      "id": "2026-11-19:sector:financials:neutral_mixed",
+      "signal_as_of": "2026-11-19",
+      "sector": "sector:financials",
+      "from_state": "cooling",
+      "state": "neutral_mixed",
+      "etf": "XLF",
+      "dataset_id": "sha256:8a2ab752eb5e8dc850c863a55f584165acee936377a3054562ea1f4a8cc5b4df",
+      "first_seen_at_utc": "2026-11-19T20:38:52Z",
+      "entry": {
+        "status": "pending"
+      },
+      "outcomes": {
+        "20d": {
+          "status": "pending"
+        },
+        "60d": {
+          "status": "pending"
+        }
+      }
+    },
+    {
+      "id": "2026-11-19:sector:health-care:neutral_mixed",
+      "signal_as_of": "2026-11-19",
+      "sector": "sector:health-care",
+      "from_state": "cooling",
+      "state": "neutral_mixed",
+      "etf": "XLV",
+      "dataset_id": "sha256:8a2ab752eb5e8dc850c863a55f584165acee936377a3054562ea1f4a8cc5b4df",
+      "first_seen_at_utc": "2026-11-19T20:38:52Z",
+      "entry": {
+        "status": "pending"
+      },
+      "outcomes": {
+        "20d": {
+          "status": "pending"
+        },
+        "60d": {
+          "status": "pending"
+        }
+      }
+    },
+    {
+      "id": "2026-11-19:sector:information-technology:clear_lagging",
+      "signal_as_of": "2026-11-19",
+      "sector": "sector:information-technology",
+      "from_state": "unconfirmed_rebound",
+      "state": "clear_lagging",
+      "etf": "XLK",
+      "dataset_id": "sha256:8a2ab752eb5e8dc850c863a55f584165acee936377a3054562ea1f4a8cc5b4df",
+      "first_seen_at_utc": "2026-11-19T20:38:52Z",
+      "entry": {
+        "status": "pending"
+      },
+      "outcomes": {
+        "20d": {
+          "status": "pending"
+        },
+        "60d": {
+          "status": "pending"
+        }
+      }
     }
   ],
-  "event_count": 44,
+  "event_count": 48,
   "matured_20d": 14,
   "matured_60d": 0,
   "status": "results_available",
