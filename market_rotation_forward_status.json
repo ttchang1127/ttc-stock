@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "protocol_version": "rotation-forward-2026-10-11-v1",
-  "history_as_of": "2026-11-19",
-  "a_snapshot_count": 33,
+  "history_as_of": "2026-11-20",
+  "a_snapshot_count": 34,
   "baseline_as_of": "2026-10-09",
   "events": [
     {
@@ -1194,7 +1194,8 @@
         "60d": {
           "status": "pending"
         }
-      }
+      },
+      "eligibility_confirmed_at_utc": "2026-11-20T20:22:09Z"
     },
     {
       "id": "2026-11-19:sector:financials:neutral_mixed",
@@ -1215,7 +1216,8 @@
         "60d": {
           "status": "pending"
         }
-      }
+      },
+      "eligibility_confirmed_at_utc": "2026-11-20T20:22:09Z"
     },
     {
       "id": "2026-11-19:sector:health-care:neutral_mixed",
@@ -1236,7 +1238,8 @@
         "60d": {
           "status": "pending"
         }
-      }
+      },
+      "eligibility_confirmed_at_utc": "2026-11-20T20:22:09Z"
     },
     {
       "id": "2026-11-19:sector:information-technology:clear_lagging",
@@ -1257,10 +1260,53 @@
         "60d": {
           "status": "pending"
         }
+      },
+      "eligibility_confirmed_at_utc": "2026-11-20T20:22:09Z"
+    },
+    {
+      "id": "2026-11-20:sector:consumer-discretionary:neutral_mixed",
+      "signal_as_of": "2026-11-20",
+      "sector": "sector:consumer-discretionary",
+      "from_state": "cooling",
+      "state": "neutral_mixed",
+      "etf": "XLY",
+      "dataset_id": "sha256:c4ab8f7a5d7f8b339d29f19ac33a6d4d953dec5430f6b2b68d440436ae6fbbaf",
+      "first_seen_at_utc": "2026-11-20T20:22:09Z",
+      "entry": {
+        "status": "pending"
+      },
+      "outcomes": {
+        "20d": {
+          "status": "pending"
+        },
+        "60d": {
+          "status": "pending"
+        }
+      }
+    },
+    {
+      "id": "2026-11-20:sector:materials:unconfirmed_rebound",
+      "signal_as_of": "2026-11-20",
+      "sector": "sector:materials",
+      "from_state": "neutral_mixed",
+      "state": "unconfirmed_rebound",
+      "etf": "XLB",
+      "dataset_id": "sha256:c4ab8f7a5d7f8b339d29f19ac33a6d4d953dec5430f6b2b68d440436ae6fbbaf",
+      "first_seen_at_utc": "2026-11-20T20:22:09Z",
+      "entry": {
+        "status": "pending"
+      },
+      "outcomes": {
+        "20d": {
+          "status": "pending"
+        },
+        "60d": {
+          "status": "pending"
+        }
       }
     }
   ],
-  "event_count": 48,
+  "event_count": 50,
   "matured_20d": 14,
   "matured_60d": 0,
   "status": "results_available",
