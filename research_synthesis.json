@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-22",
+  "generated_at": "2026-11-23",
   "tracked_count": 14,
   "methodology": {
     "purpose": "把既有 SEC、財報、論點、事件與估值資料整理成可稽核的研究工作流，不新增無來源財務數字。",
@@ -16,10 +16,10 @@
   },
   "source_dates": {
     "quarterly_financials": "2026-11-13T03:31:11+00:00",
-    "earnings_verification": "2026-11-22",
+    "earnings_verification": "2026-11-23",
     "thesis_status": "2026-11-04T11:50:37+00:00",
-    "event_calendar": "2026-11-22",
-    "valuation": "2026-11-22T03:18:16+00:00",
+    "event_calendar": "2026-11-23",
+    "valuation": "2026-11-23T03:47:54+00:00",
     "market_rotation": "2026-11-20",
     "peer_groups": "2026-09-19"
   },
@@ -128,7 +128,7 @@
           "quality_notes": [],
           "currency": "USD",
           "source_basis": "SEC Company Facts；金額為 USD。",
-          "days_since_filing": 88,
+          "days_since_filing": 89,
           "review_due": false
         },
         "metrics": [
@@ -264,12 +264,12 @@
         "next_validation": {
           "type": "earnings",
           "date": "2026-11-17",
-          "days_until": -5,
+          "days_until": -6,
           "confidence": "estimated",
           "source_label": "Yahoo Finance 行事曆",
           "source_url": "https://finance.yahoo.com/quote/NVDA/calendar/",
           "source_status": "fresh",
-          "last_success_at": "2026-11-22"
+          "last_success_at": "2026-11-23"
         }
       },
       "catalyst_log": {
@@ -285,7 +285,23 @@
             "source_url": "https://finance.yahoo.com/quote/NVDA/calendar/",
             "confidence": "provider",
             "announced_at": null,
-            "days_until": 10,
+            "days_until": 9,
+            "position": "holding",
+            "company_name": "NVIDIA",
+            "status": "upcoming"
+          },
+          {
+            "ticker": "NVDA",
+            "date": "2026-12-23",
+            "type": "dividend_payment",
+            "title": "股利發放日",
+            "detail": "第三方市場資料日期；公司尚未公告時可能變更。",
+            "meaning": "股息支付或入帳日期；不應重複視為一筆額外投資報酬。",
+            "source_label": "Yahoo Finance 行事曆",
+            "source_url": "https://finance.yahoo.com/quote/NVDA/calendar/",
+            "confidence": "provider",
+            "announced_at": null,
+            "days_until": 30,
             "position": "holding",
             "company_name": "NVIDIA",
             "status": "upcoming"
@@ -499,7 +515,7 @@
           "quality_notes": [],
           "currency": "TWD",
           "source_basis": "TSMC 官方 TIFRS consolidated 季度管理報告；金額為新台幣。",
-          "days_since_filing": 129,
+          "days_since_filing": 130,
           "review_due": false
         },
         "metrics": [
@@ -635,12 +651,12 @@
         "next_validation": {
           "type": "earnings",
           "date": "2027-01-14",
-          "days_until": 53,
+          "days_until": 52,
           "confidence": "estimated",
           "source_label": "Yahoo Finance 行事曆",
           "source_url": "https://finance.yahoo.com/quote/TSM/calendar/",
           "source_status": "fresh",
-          "last_success_at": "2026-11-22"
+          "last_success_at": "2026-11-23"
         }
       },
       "catalyst_log": {
@@ -656,7 +672,7 @@
             "source_url": "https://finance.yahoo.com/quote/TSM/calendar/",
             "confidence": "provider",
             "announced_at": null,
-            "days_until": 18,
+            "days_until": 17,
             "position": "watchlist",
             "company_name": "台積電",
             "status": "upcoming"
@@ -870,7 +886,7 @@
           "quality_notes": [],
           "currency": "USD",
           "source_basis": "SEC Company Facts；金額為 USD。",
-          "days_since_filing": 25,
+          "days_since_filing": 26,
           "review_due": false
         },
         "metrics": [
@@ -1006,12 +1022,12 @@
         "next_validation": {
           "type": "earnings",
           "date": "2027-01-27",
-          "days_until": 66,
+          "days_until": 65,
           "confidence": "estimated",
           "source_label": "Yahoo Finance 行事曆",
           "source_url": "https://finance.yahoo.com/quote/MSFT/calendar/",
           "source_status": "fresh",
-          "last_success_at": "2026-11-22"
+          "last_success_at": "2026-11-23"
         }
       },
       "catalyst_log": {
@@ -1027,7 +1043,7 @@
             "source_url": "https://finance.yahoo.com/quote/MSFT/calendar/",
             "confidence": "provider",
             "announced_at": null,
-            "days_until": 18,
+            "days_until": 17,
             "position": "watchlist",
             "company_name": "Microsoft",
             "status": "upcoming"
@@ -1241,7 +1257,7 @@
           "quality_notes": [],
           "currency": "USD",
           "source_basis": "SEC Company Facts；金額為 USD。",
-          "days_since_filing": 31,
+          "days_since_filing": 32,
           "review_due": false
         },
         "metrics": [
@@ -1377,12 +1393,12 @@
         "next_validation": {
           "type": "earnings",
           "date": "2027-01-27",
-          "days_until": 66,
+          "days_until": 65,
           "confidence": "estimated",
           "source_label": "Yahoo Finance 行事曆",
           "source_url": "https://finance.yahoo.com/quote/META/calendar/",
           "source_status": "fresh",
-          "last_success_at": "2026-11-22"
+          "last_success_at": "2026-11-23"
         }
       },
       "catalyst_log": {
@@ -1595,7 +1611,7 @@
           "quality_notes": [],
           "currency": "USD",
           "source_basis": "SEC Company Facts；金額為 USD。",
-          "days_since_filing": 19,
+          "days_since_filing": 20,
           "review_due": false
         },
         "metrics": [
@@ -1717,12 +1733,12 @@
         "next_validation": {
           "type": "earnings",
           "date": "2027-01-28",
-          "days_until": 67,
+          "days_until": 66,
           "confidence": "estimated",
           "source_label": "Yahoo Finance 行事曆",
           "source_url": "https://finance.yahoo.com/quote/AAPL/calendar/",
           "source_status": "fresh",
-          "last_success_at": "2026-11-22"
+          "last_success_at": "2026-11-23"
         }
       },
       "catalyst_log": {
@@ -1922,7 +1938,7 @@
           "quality_notes": [],
           "currency": "USD",
           "source_basis": "SEC Company Facts；金額為 USD。",
-          "days_since_filing": 23,
+          "days_since_filing": 24,
           "review_due": false
         },
         "metrics": [
@@ -2058,12 +2074,12 @@
         "next_validation": {
           "type": "earnings",
           "date": "2026-10-29",
-          "days_until": -24,
+          "days_until": -25,
           "confidence": "estimated",
           "source_label": "Yahoo Finance 行事曆",
           "source_url": "https://finance.yahoo.com/quote/AMZN/calendar/",
           "source_status": "fresh",
-          "last_success_at": "2026-11-22"
+          "last_success_at": "2026-11-23"
         }
       },
       "catalyst_log": {
@@ -2276,7 +2292,7 @@
           "quality_notes": [],
           "currency": "USD",
           "source_basis": "SEC Company Facts；金額為 USD。",
-          "days_since_filing": 18,
+          "days_since_filing": 19,
           "review_due": false
         },
         "metrics": [
@@ -2412,12 +2428,12 @@
         "next_validation": {
           "type": "earnings",
           "date": "2027-02-03",
-          "days_until": 73,
+          "days_until": 72,
           "confidence": "estimated",
           "source_label": "Yahoo Finance 行事曆",
           "source_url": "https://finance.yahoo.com/quote/ARM/calendar/",
           "source_status": "fresh",
-          "last_success_at": "2026-11-22"
+          "last_success_at": "2026-11-23"
         }
       },
       "catalyst_log": {
@@ -2630,7 +2646,7 @@
           "quality_notes": [],
           "currency": "USD",
           "source_basis": "SEC Company Facts；金額為 USD。",
-          "days_since_filing": 10,
+          "days_since_filing": 11,
           "review_due": true
         },
         "metrics": [
@@ -2752,12 +2768,12 @@
         "next_validation": {
           "type": "earnings",
           "date": "2026-11-12",
-          "days_until": -10,
+          "days_until": -11,
           "confidence": "estimated",
           "source_label": "Yahoo Finance 行事曆",
           "source_url": "https://finance.yahoo.com/quote/ONDS/calendar/",
           "source_status": "fresh",
-          "last_success_at": "2026-11-22"
+          "last_success_at": "2026-11-23"
         }
       },
       "catalyst_log": {
@@ -2951,7 +2967,7 @@
           "quality_notes": [],
           "currency": "USD",
           "source_basis": "SEC Company Facts；金額為 USD。",
-          "days_since_filing": 31,
+          "days_since_filing": 32,
           "review_due": false
         },
         "metrics": [
@@ -3073,12 +3089,12 @@
         "next_validation": {
           "type": "earnings",
           "date": "2027-01-27",
-          "days_until": 66,
+          "days_until": 65,
           "confidence": "estimated",
           "source_label": "Yahoo Finance 行事曆",
           "source_url": "https://finance.yahoo.com/quote/TSLA/calendar/",
           "source_status": "fresh",
-          "last_success_at": "2026-11-22"
+          "last_success_at": "2026-11-23"
         }
       },
       "catalyst_log": {
@@ -3272,7 +3288,7 @@
           "quality_notes": [],
           "currency": "USD",
           "source_basis": "SEC Company Facts；金額為 USD。",
-          "days_since_filing": 24,
+          "days_since_filing": 25,
           "review_due": false
         },
         "metrics": [
@@ -3394,12 +3410,12 @@
         "next_validation": {
           "type": "earnings",
           "date": "2026-10-28",
-          "days_until": -25,
+          "days_until": -26,
           "confidence": "estimated",
           "source_label": "Yahoo Finance 行事曆",
           "source_url": "https://finance.yahoo.com/quote/GOOG/calendar/",
           "source_status": "fresh",
-          "last_success_at": "2026-11-22"
+          "last_success_at": "2026-11-23"
         }
       },
       "catalyst_log": {
@@ -3415,7 +3431,7 @@
             "source_url": "https://finance.yahoo.com/quote/GOOG/calendar/",
             "confidence": "provider",
             "announced_at": null,
-            "days_until": 15,
+            "days_until": 14,
             "position": "holding",
             "company_name": "Alphabet",
             "status": "upcoming"
@@ -3431,7 +3447,7 @@
             "source_url": "https://finance.yahoo.com/quote/GOOG/calendar/",
             "confidence": "provider",
             "announced_at": null,
-            "days_until": 22,
+            "days_until": 21,
             "position": "holding",
             "company_name": "Alphabet",
             "status": "upcoming"
@@ -3632,7 +3648,7 @@
           "quality_notes": [],
           "currency": "USD",
           "source_basis": "SEC Company Facts；金額為 USD。",
-          "days_since_filing": 18,
+          "days_since_filing": 19,
           "review_due": false
         },
         "metrics": [
@@ -3768,12 +3784,12 @@
         "next_validation": {
           "type": "earnings",
           "date": "2027-02-03",
-          "days_until": 73,
+          "days_until": 72,
           "confidence": "estimated",
           "source_label": "Yahoo Finance 行事曆",
           "source_url": "https://finance.yahoo.com/quote/COHR/calendar/",
           "source_status": "fresh",
-          "last_success_at": "2026-11-22"
+          "last_success_at": "2026-11-23"
         }
       },
       "catalyst_log": {
@@ -3984,7 +4000,7 @@
           "quality_notes": [],
           "currency": "USD",
           "source_basis": "SEC Company Facts；金額為 USD。",
-          "days_since_filing": 86,
+          "days_since_filing": 87,
           "review_due": false
         },
         "metrics": [
@@ -4128,7 +4144,7 @@
           "source_url": "https://finance.yahoo.com/quote/MRVL/calendar/",
           "confidence": "estimated",
           "announced_at": null,
-          "days_until": 9,
+          "days_until": 8,
           "position": "holding",
           "company_name": "Marvell"
         }
@@ -4146,7 +4162,7 @@
             "source_url": "https://finance.yahoo.com/quote/MRVL/calendar/",
             "confidence": "estimated",
             "announced_at": null,
-            "days_until": 9,
+            "days_until": 8,
             "position": "holding",
             "company_name": "Marvell",
             "status": "upcoming"
@@ -4360,7 +4376,7 @@
           "quality_notes": [],
           "currency": "USD",
           "source_basis": "SEC Company Facts；金額為 USD。",
-          "days_since_filing": 23,
+          "days_since_filing": 24,
           "review_due": false
         },
         "metrics": [
@@ -4496,12 +4512,12 @@
         "next_validation": {
           "type": "earnings",
           "date": "2027-01-28",
-          "days_until": 67,
+          "days_until": 66,
           "confidence": "estimated",
           "source_label": "Yahoo Finance 行事曆",
           "source_url": "https://finance.yahoo.com/quote/INTC/calendar/",
           "source_status": "fresh",
-          "last_success_at": "2026-11-22"
+          "last_success_at": "2026-11-23"
         }
       },
       "catalyst_log": {
@@ -4718,7 +4734,7 @@
           ],
           "currency": "EUR",
           "source_basis": "Nokia 官方 IFRS reported 季報；2025 與 2026 Q1 已採 2026-07-23 停業單位重編數字，金額為 EUR。",
-          "days_since_filing": 122,
+          "days_since_filing": 123,
           "review_due": false
         },
         "metrics": [
@@ -4840,12 +4856,12 @@
         "next_validation": {
           "type": "earnings",
           "date": "2027-01-28",
-          "days_until": 67,
+          "days_until": 66,
           "confidence": "estimated",
           "source_label": "Yahoo Finance 行事曆",
           "source_url": "https://finance.yahoo.com/quote/NOK/calendar/",
           "source_status": "fresh",
-          "last_success_at": "2026-11-22"
+          "last_success_at": "2026-11-23"
         }
       },
       "catalyst_log": {
