@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "protocol_version": "rotation-forward-2026-10-11-v1",
-  "history_as_of": "2026-11-24",
-  "a_snapshot_count": 36,
+  "history_as_of": "2026-11-25",
+  "a_snapshot_count": 37,
   "baseline_as_of": "2026-10-09",
   "events": [
     {
@@ -1324,9 +1324,51 @@
         }
       },
       "eligibility_confirmed_at_utc": "2026-11-21T19:17:09Z"
+    },
+    {
+      "id": "2026-11-25:sector:materials:early_improvement",
+      "signal_as_of": "2026-11-25",
+      "sector": "sector:materials",
+      "from_state": "unconfirmed_rebound",
+      "state": "early_improvement",
+      "etf": "XLB",
+      "dataset_id": "sha256:3ab0cc39e8cae7f8a9635e228ba2126134b05230be65ad94b91cbc8b2a138889",
+      "first_seen_at_utc": "2026-11-25T21:43:33Z",
+      "entry": {
+        "status": "pending"
+      },
+      "outcomes": {
+        "20d": {
+          "status": "pending"
+        },
+        "60d": {
+          "status": "pending"
+        }
+      }
+    },
+    {
+      "id": "2026-11-25:sector:real-estate:confirmed_leading",
+      "signal_as_of": "2026-11-25",
+      "sector": "sector:real-estate",
+      "from_state": "neutral_mixed",
+      "state": "confirmed_leading",
+      "etf": "XLRE",
+      "dataset_id": "sha256:3ab0cc39e8cae7f8a9635e228ba2126134b05230be65ad94b91cbc8b2a138889",
+      "first_seen_at_utc": "2026-11-25T21:43:33Z",
+      "entry": {
+        "status": "pending"
+      },
+      "outcomes": {
+        "20d": {
+          "status": "pending"
+        },
+        "60d": {
+          "status": "pending"
+        }
+      }
     }
   ],
-  "event_count": 50,
+  "event_count": 52,
   "matured_20d": 14,
   "matured_60d": 0,
   "status": "results_available",
