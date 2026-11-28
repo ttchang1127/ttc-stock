@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "protocol_version": "rotation-forward-2026-10-11-v1",
-  "history_as_of": "2026-11-25",
-  "a_snapshot_count": 37,
+  "history_as_of": "2026-11-27",
+  "a_snapshot_count": 38,
   "baseline_as_of": "2026-10-09",
   "events": [
     {
@@ -1335,7 +1335,10 @@
       "dataset_id": "sha256:3ab0cc39e8cae7f8a9635e228ba2126134b05230be65ad94b91cbc8b2a138889",
       "first_seen_at_utc": "2026-11-25T21:43:33Z",
       "entry": {
-        "status": "pending"
+        "status": "fixed",
+        "date": "2026-11-27",
+        "etf_adj_close": 52.150001525878906,
+        "spy_adj_close": 728.3200073242188
       },
       "outcomes": {
         "20d": {
@@ -1357,7 +1360,10 @@
       "dataset_id": "sha256:3ab0cc39e8cae7f8a9635e228ba2126134b05230be65ad94b91cbc8b2a138889",
       "first_seen_at_utc": "2026-11-25T21:43:33Z",
       "entry": {
-        "status": "pending"
+        "status": "fixed",
+        "date": "2026-11-27",
+        "etf_adj_close": 44.13999938964844,
+        "spy_adj_close": 728.3200073242188
       },
       "outcomes": {
         "20d": {
@@ -1368,9 +1374,72 @@
         }
       },
       "eligibility_confirmed_at_utc": "2026-11-26T05:09:21Z"
+    },
+    {
+      "id": "2026-11-27:sector:financials:confirmed_leading",
+      "signal_as_of": "2026-11-27",
+      "sector": "sector:financials",
+      "from_state": "neutral_mixed",
+      "state": "confirmed_leading",
+      "etf": "XLF",
+      "dataset_id": "sha256:c2dfda2e9669adde05dc9adeb92a71c1c6f65ae10018a6ea11e2fd3a6bd234ca",
+      "first_seen_at_utc": "2026-11-28T04:46:21Z",
+      "entry": {
+        "status": "pending"
+      },
+      "outcomes": {
+        "20d": {
+          "status": "pending"
+        },
+        "60d": {
+          "status": "pending"
+        }
+      }
+    },
+    {
+      "id": "2026-11-27:sector:industrials:cooling",
+      "signal_as_of": "2026-11-27",
+      "sector": "sector:industrials",
+      "from_state": "neutral_mixed",
+      "state": "cooling",
+      "etf": "XLI",
+      "dataset_id": "sha256:c2dfda2e9669adde05dc9adeb92a71c1c6f65ae10018a6ea11e2fd3a6bd234ca",
+      "first_seen_at_utc": "2026-11-28T04:46:21Z",
+      "entry": {
+        "status": "pending"
+      },
+      "outcomes": {
+        "20d": {
+          "status": "pending"
+        },
+        "60d": {
+          "status": "pending"
+        }
+      }
+    },
+    {
+      "id": "2026-11-27:sector:information-technology:early_improvement",
+      "signal_as_of": "2026-11-27",
+      "sector": "sector:information-technology",
+      "from_state": "clear_lagging",
+      "state": "early_improvement",
+      "etf": "XLK",
+      "dataset_id": "sha256:c2dfda2e9669adde05dc9adeb92a71c1c6f65ae10018a6ea11e2fd3a6bd234ca",
+      "first_seen_at_utc": "2026-11-28T04:46:21Z",
+      "entry": {
+        "status": "pending"
+      },
+      "outcomes": {
+        "20d": {
+          "status": "pending"
+        },
+        "60d": {
+          "status": "pending"
+        }
+      }
     }
   ],
-  "event_count": 52,
+  "event_count": 55,
   "matured_20d": 14,
   "matured_60d": 0,
   "status": "results_available",
